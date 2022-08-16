@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
+/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -47,7 +47,7 @@ const SuggestedMatches = ({ routeParams }) => (
               icon={<NewReleasesIcon />}
               teamSlug={routeParams.team}
               query={query}
-              hideFields={['suggestions_count', 'country', 'cluster_teams', 'cluster_published_reports']}
+              hideFields={['suggestions_count', 'cluster_teams', 'cluster_published_reports']}
               page="suggested-matches"
             />
           );

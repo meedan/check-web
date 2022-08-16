@@ -1,0 +1,12 @@
+[
+  {
+    "id": "feed.shared",
+    "description": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others.",
+    "defaultMessage": "Shared"
+  },
+  {
+    "id": "feed.feed",
+    "description": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them.",
+    "defaultMessage": "Feed"
+  }
+]

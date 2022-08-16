@@ -40,6 +40,7 @@ const ProjectsListItem = ({
   project,
   icon,
   routePrefix,
+  routeSuffix,
   intl,
 }) => {
   const classes = useStyles();
@@ -53,7 +54,7 @@ const ProjectsListItem = ({
   const defaultClassName = ['project-list__link', className].join(' ');
 
   const Item = listItemProps => (
-    <Link className="link__internal" to={`/${teamSlug}/${routePrefix}/${project.dbid}`}>
+    <Link className="link__internal" to={`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`}>
       <ListItem
         button
         onClick={handleClick}
@@ -67,7 +68,7 @@ const ProjectsListItem = ({
         </ListItemIcon>
         <ListItemText classes={{ primary: classes.projectsListItemLabel }}>
           <span className={isActive ? classes.projectsListItemActiveText : ''}>
-            {project.title}
+            {project.title || project.name}
           </span>
         </ListItemText>
         <ListItemSecondaryAction title={project.medias_count}>
@@ -131,12 +132,14 @@ ProjectsListItem.defaultProps = {
   className: '',
   isDroppable: false,
   isDraggable: false,
+  routeSuffix: '',
 };
 
 ProjectsListItem.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
   routePrefix: PropTypes.string.isRequired,
+  routeSuffix: PropTypes.string,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,

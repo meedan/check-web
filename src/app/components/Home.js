@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
@@ -22,7 +21,6 @@ import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';
 import { stringHelper } from '../customHelpers';
 import { bemClass } from '../helpers';
-import { FormattedGlobalMessage } from './MappedMessage';
 import MeRoute from '../relay/MeRoute';
 
 const Wrapper = styled.div`
@@ -54,6 +52,7 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
           id="home.somethingWrong"
           defaultMessage="Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists."
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+          description="Generic error displayed when some error happens."
         />
       );
     }
@@ -63,15 +62,11 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
     if (queryString.invitation_response === 'success') {
       if (queryString.msg === 'yes') {
         message = (
-          <FormattedGlobalMessage messageKey="appNameHuman">
-            {appName => (
-              <FormattedMessage
-                id="home.successInvitation"
-                defaultMessage="Welcome to {appName}. Please login with the password that you received in the welcome email."
-                values={{ appName }}
-              />
-            )}
-          </FormattedGlobalMessage>
+          <FormattedMessage
+            id="home.successInvitation"
+            defaultMessage="Welcome to Check. Please login with the password that you received in the welcome email."
+            description="Message that appears after accepting an invitation to join the app."
+          />
         );
       }
     } else {
@@ -82,6 +77,7 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
           id="home.invalidTeamInvitation"
           defaultMessage="Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error."
           values={values}
+          description="Error message displayed when an invitation to join the app doesn't work."
         />
       );
       case 'invalidNoInvitation': return (
@@ -89,6 +85,7 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
           id="home.invalidNoInvitation"
           defaultMessage="Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error."
           values={values}
+          description="Error message displayed when an invitation to join the app doesn't work."
         />
       );
       case 'invalidExpiredInvitation': return (
@@ -96,6 +93,7 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
           id="home.invalidExpiredInvitation"
           defaultMessage="Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
           values={values}
+          description="Error message displayed when an invitation to join the app doesn't work."
         />
       );
       default: return (
@@ -103,6 +101,7 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
           id="home.invalidInvitation"
           defaultMessage="Sorry, an error occurred while processing your invitation. Please contact {supportEmail}."
           values={values}
+          description="Error message displayed when an invitation to join the app doesn't work."
         />
       );
       }
@@ -116,8 +115,8 @@ class HomeComponent extends Component {
     if (!(children && children.props.route)) {
       return null;
     }
-    if (/\/trends\/cluster\/:clusterId/.test(children.props.route.path)) {
-      return 'trend-item';
+    if (/\/feed\/:feedId\/cluster\/:clusterId/.test(children.props.route.path)) {
+      return 'feed-item';
     }
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media';
@@ -262,7 +261,7 @@ class HomeComponent extends Component {
     }
 
     const isMediaPage = /\/media\/[0-9]+/.test(window.location.pathname);
-    const isTrendsPage = /\/trends\/cluster\/[0-9]+/.test(window.location.pathname);
+    const isFeedPage = /\/feed\/[0-9]+\/cluster\/[0-9]+/.test(window.location.pathname);
 
     let userTiplines = '';
     if (user && user.current_team && user.current_team.team_bot_installation && user.current_team.team_bot_installation.smooch_enabled_integrations) {
@@ -287,7 +286,7 @@ class HomeComponent extends Component {
           <BrowserSupport />
           <UserTos user={user} />
           <Wrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-            {!isMediaPage && !isTrendsPage && loggedIn ? (
+            {!isMediaPage && !isFeedPage && loggedIn ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}

@@ -21,8 +21,8 @@ import ImportedReports from './team/ImportedReports';
 import SuggestedMatches from './team/SuggestedMatches';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
-import Trends from './trends/Trends';
-import TrendsItem from './trends/TrendsItem';
+import Feed from './feed/Feed';
+import FeedItem from './feed/FeedItem';
 import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
@@ -73,7 +73,7 @@ class Root extends Component {
                   <Route path="check/me/edit" isEditing component={Me} />
                   <Route path="check/me(/:tab)" component={Me} />
                   <Route path="check/teams" component={Teams} />
-                  <Route path="check/trends/cluster/:clusterId" component={TrendsItem} />
+                  <Route path="check/feed/:feedId/cluster/:clusterId" component={FeedItem} />
                   <Route path=":team/media/:mediaId" component={MediaPage} />
                   <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} />
                   <Route path=":team/list/:listId/media/:mediaId" component={MediaPage} />
@@ -99,7 +99,7 @@ class Root extends Component {
                   <Route path=":team/tipline-inbox(/:query)" component={TiplineInbox} />
                   <Route path=":team/imported-reports(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
-                  <Route path=":team/trends(/:query)" component={Trends} />
+                  <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
                   <Route path=":team/settings(/:tab)" action="settings" component={Team} />

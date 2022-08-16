@@ -202,6 +202,10 @@
 		"string": "Adicionar filtro",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
+	"addFilterMenu.annotatedBy": {
+		"string": "Anotado por",
+		"developer_comment": "Menu option to enable searching items by annotated by"
+	},
 	"addFilterMenu.annotation": {
 		"string": "Anotação",
 		"developer_comment": "Menu option to enable searching items by annotation fields"
@@ -221,10 +225,6 @@
 	"addFilterMenu.collection": {
 		"string": "Coleção",
 		"developer_comment": "Menu option to enable searching items by collection"
-	},
-	"addFilterMenu.country": {
-		"string": "País",
-		"developer_comment": "Menu option to enable searching items by country"
 	},
 	"addFilterMenu.createdBy": {
 		"string": "Criado por",
@@ -306,10 +306,12 @@
 		"string": "Escolha um novo idioma"
 	},
 	"annotation.addLanguage": {
-		"string": "Idioma {value} adicionado por {author}"
+		"string": "Idioma {value} adicionado por {author}",
+		"developer_comment": "Log entry indicating an item language has been set. {value} receives language name"
 	},
 	"annotation.addSource": {
-		"string": "Fonte {name} adicionada por {author}"
+		"string": "Fonte {name} adicionada por {author}",
+		"developer_comment": "Log entry indicating a source has been added"
 	},
 	"annotation.addedComment": {
 		"string": "Nota da tarefa inserida por {author}: {title}{note}"
@@ -327,19 +329,24 @@
 		"string": "O JSON Schema da tarefa {title} foi modificado por {author}"
 	},
 	"annotation.createClaimContext": {
-		"string": "Conteúdo adicional adicionado por {author}: {value}"
+		"string": "Conteúdo adicional adicionado por {author}: {value}",
+		"developer_comment": "Log entry indicating additional content has been added"
 	},
 	"annotation.createClaimDescription": {
-		"string": "Afirmação adicionada por {author}: {value}"
+		"string": "Afirmação adicionada por {author}: {value}",
+		"developer_comment": "Log entry indicating a claim has been added"
 	},
 	"annotation.createFactCheck": {
-		"string": "Título da verificação de fatos adicionado por {author}: {value}"
+		"string": "Título da verificação de fatos adicionado por {author}: {value}",
+		"developer_comment": "Log entry indicating fact-check title has been added"
 	},
 	"annotation.createProjectMedia": {
-		"string": "Item criado por {author}"
+		"string": "Item criado por {author}",
+		"developer_comment": "Log entry indicating an item has been created"
 	},
 	"annotation.deleteButton": {
-		"string": "Excluir"
+		"string": "Excluir",
+		"developer_comment": "Menu item for deleting an annotation"
 	},
 	"annotation.editButton": {
 		"string": "Editar"
@@ -364,25 +371,32 @@
 		"string": "Descrição do item editada por {author}: {description}"
 	},
 	"annotation.mediaAssigned": {
-		"string": "Item atribuído a {name} por {author}"
+		"string": "Item atribuído a {name} por {author}",
+		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentCreated": {
-		"string": "Item atribuído a {name} por {author}"
+		"string": "Item atribuído a {name} por {author}",
+		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentDeleted": {
-		"string": "Atribuição do item removida de {name} por {author}"
+		"string": "Atribuição do item removida de {name} por {author}",
+		"developer_comment": "Log entry indicating an item has been unassigned"
 	},
 	"annotation.mediaUnassigned": {
-		"string": "Atribuição do item removida de {name} por {author}"
+		"string": "Atribuição do item removida de {name} por {author}",
+		"developer_comment": "Log entry indicating an item has been unassigned"
 	},
 	"annotation.menuTooltip": {
-		"string": "Ações das anotações"
+		"string": "Ações das anotações",
+		"developer_comment": "Tooltip for the annotation actions menu icon button"
 	},
 	"annotation.metadataCreated": {
-		"string": "Campo de anotação criado por {author}: {fieldLabel}"
+		"string": "Campo de anotação criado por {author}: {fieldLabel}",
+		"developer_comment": "Log entry indicating an annotation field was created"
 	},
 	"annotation.metadataResponse": {
-		"string": "Anotação \"{fieldLabel}\" editada por {author}: {response}"
+		"string": "Anotação \"{fieldLabel}\" editada por {author}: {response}",
+		"developer_comment": "Log entry indicating an annotation response has been changed"
 	},
 	"annotation.newReport": {
 		"string": "Item inserido por {author}"
@@ -398,7 +412,8 @@
 		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
-		"string": "Permalink"
+		"string": "Permalink",
+		"developer_comment": "Menu item for getting a permanent url for an annotaion"
 	},
 	"annotation.publishedBy": {
 		"string": "publicado por",
@@ -408,7 +423,8 @@
 		"string": "Nota da tarefa excluída por {author}: {title}{note}"
 	},
 	"annotation.reportDesignState": {
-		"string": "Relatório da verificação de fatos {state} {author}"
+		"string": "Relatório da verificação de fatos {state} {author}",
+		"developer_comment": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
 	},
 	"annotation.reportReceived": {
 		"string": "Relatório enviado em {date}"
@@ -417,7 +433,8 @@
 		"string": "Atualização de relatório enviado em {date}"
 	},
 	"annotation.similarCreated": {
-		"string": "Correspondência confirmada por {author}: {title}"
+		"string": "Correspondência confirmada por {author}: {title}",
+		"developer_comment": "Log entry indicating a similarity match was confirmed"
 	},
 	"annotation.similarDestroyed": {
 		"string": "Correspondência excluída por {author}: {title}",
@@ -427,28 +444,36 @@
 		"string": "Nenhuma mensagen foi enviada com a solicitação"
 	},
 	"annotation.statusLocked": {
-		"string": "Status do item bloqueado por {author}"
+		"string": "Status do item bloqueado por {author}",
+		"developer_comment": "Log entry indicating an item status has been locked"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Status modificado para {status} por {author}"
+		"string": "Status modificado para {status} por {author}",
+		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotation.statusUnlocked": {
-		"string": "Status do item desbloqueado por {author}"
+		"string": "Status do item desbloqueado por {author}",
+		"developer_comment": "Log entry indicating an item status has been unlocked"
 	},
 	"annotation.suggestionCreated": {
-		"string": "Correspondência sugerida por {author}: {title}"
+		"string": "Correspondência sugerida por {author}: {title}",
+		"developer_comment": "Log entry indicating a similarity match was suggested"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Correspondência rejeitada por {author}: {title}"
+		"string": "Correspondência rejeitada por {author}: {title}",
+		"developer_comment": "Log entry indicating a similarity match was rejected"
 	},
 	"annotation.taggedHeader": {
-		"string": "Tag #{tag} adicionada por {author}"
+		"string": "Tag #{tag} adicionada por {author}",
+		"developer_comment": "Log entry indicating a tag was added"
 	},
 	"annotation.taskAssignmentCreated": {
-		"string": "Tarefa atribuída a {name} por {author}: {title}"
+		"string": "Tarefa atribuída a {name} por {author}: {title}",
+		"developer_comment": "Log entry indicating a task has been assigned"
 	},
 	"annotation.taskAssignmentDeleted": {
-		"string": "Atribuição da tarefa removida de {name} por {author}: {title}"
+		"string": "Atribuição da tarefa removida de {name} por {author}: {title}",
+		"developer_comment": "Log entry indicating a task has been unassigned"
 	},
 	"annotation.taskLabelUpdated": {
 		"string": "Tarefa editada por {author}: {title}"
@@ -467,13 +492,20 @@
 		"developer_comment": "Show label for undefined language"
 	},
 	"annotation.updateClaimContext": {
-		"string": "Conteúdo adicional editado por {author}: {value}"
+		"string": "Conteúdo adicional editado por {author}: {value}",
+		"developer_comment": "Log entry indicating the additional content has been edited"
 	},
 	"annotation.updateClaimDescription": {
-		"string": "Afirmação editada por {author}: {value}"
+		"string": "Afirmação editada por {author}: {value}",
+		"developer_comment": "Log entry indicating a claim has been edited"
+	},
+	"annotation.updateLanguage": {
+		"string": "Idioma {value} atualizado por {author}",
+		"developer_comment": "Log entry indicating an item language has been updated. {value} receives language name"
 	},
 	"annotation.updateSource": {
-		"string": "Fonte {name} atualizada por {author}"
+		"string": "Fonte {name} atualizada por {author}",
+		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotations.loadMore": {
 		"string": "Carregar mais"
@@ -532,6 +564,10 @@
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Itens movidos para a Lixeira."
+	},
+	"bulkActions.movedFromSpamSuccessfully": {
+		"string": "Itens movidos do Spam para '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
 		"string": "Itens movidos da Lixeira para '{toProject}'",
@@ -734,7 +770,7 @@
 	},
 	"checkedByTeamsCell.noFactCheck": {
 		"string": "Sem verificação de fatos",
-		"developer_comment": "Table cell displayed on Trends page when claim is not fact-checked yet"
+		"developer_comment": "Table cell displayed on feed page when claim is not fact-checked yet"
 	},
 	"confirmProceedDialog.confirmationText": {
 		"string": "Digite \"{text}\" para confirmar."
@@ -913,19 +949,32 @@
 		"string": "Ver este fuso horário em time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {Há um item atualmente publicado com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} many {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} other {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.}}"
+		"string": "{publishedCount, plural, one {Há um item atualmente publicado com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} many {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} other {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.}}",
+		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.moveItemsTo": {
-		"string": "Mover itens para"
+		"string": "Mover itens para",
+		"developer_comment": "This is a field label. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field."
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {Há um item com o status {statusLabel} que deve ser modificado para um outro para que você possa excluir este status.} many {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.} other {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.}}"
+		"string": "{itemsCount, plural, one {Há um item com o status {statusLabel} que deve ser modificado para um outro para que você possa excluir este status.} many {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.} other {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.}}",
+		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {Você deve modificar o status de um item para excluir este status.} many {Você deve modificar o status de # itens para excluir este status.} other {Você deve modificar o status de # itens para excluir este status.}}"
+		"string": "{itemsCount, plural, one {Você deve modificar o status de um item para excluir este status.} many {Você deve modificar o status de # itens para excluir este status.} other {Você deve modificar o status de # itens para excluir este status.}}",
+		"developer_comment": "Title of a modal that is displayed when a status in use is being deleted."
+	},
+	"deleteStatusDialog.statusNotInUseMessage": {
+		"string": "Você tem certeza que deseja excluir este status?",
+		"developer_comment": "Confirmation message displayed on a modal when a status is deleted from statuses settings page."
+	},
+	"deleteStatusDialog.statusNotInUseTitle": {
+		"string": "Confirmar exclusão do status",
+		"developer_comment": "Title displayed on a confirmation modal when a status being deleted is not in used by any item."
 	},
 	"destinationProjects.choose": {
-		"string": "Escolha uma pasta"
+		"string": "Escolha uma pasta",
+		"developer_comment": "Choose a folder input label"
 	},
 	"destinationProjects.empty": {
 		"string": "Não há pastas nesta coleção"
@@ -979,6 +1028,171 @@
 	"errorBoundary.message": {
 		"string": "Olá, estou tendo problemas com o Check. A interface web acaba de falhar e está me impedindo de trabalhar!",
 		"developer_comment": "Prefilled support request message when Check UI crashes"
+	},
+	"feed.feed": {
+		"string": "Feed",
+		"developer_comment": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
+	},
+	"feed.shared": {
+		"string": "Shared",
+		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
+	},
+	"feedItem.aboutThisClaim": {
+		"string": "Sobre esta afirmação"
+	},
+	"feedItem.claimDescription": {
+		"string": "Afirmações"
+	},
+	"feedItem.completedAnnotations": {
+		"string": "Anotações completadas"
+	},
+	"feedItem.couldNotImport": {
+		"string": "Não foi possível importar a afirmação porque as mídias associadass a ela já existem neste espaço de trabalho."
+	},
+	"feedItem.factCheck": {
+		"string": "Verificação de fatos",
+		"developer_comment": "Middle column title on feed item page"
+	},
+	"feedItem.factCheckSummary": {
+		"string": "Resumo",
+		"developer_comment": "Fact-check summary"
+	},
+	"feedItem.factCheckTitle": {
+		"string": "Título",
+		"developer_comment": "Fact-check title"
+	},
+	"feedItem.factCheckUrl": {
+		"string": "URL do artigo publicado",
+		"developer_comment": "Fact-check article URL"
+	},
+	"feedItem.import": {
+		"string": "Importar"
+	},
+	"feedItem.importDescription": {
+		"string": "Uma nova afirmação com esta mídia será criada no seu espaço de trabalho.",
+		"developer_comment": "Dialog description when importing a claim from feed page."
+	},
+	"feedItem.importSelectLabel": {
+		"string": "Importar para o espaço de trabalho",
+		"developer_comment": "Select field label used in import claim dialog from feed page."
+	},
+	"feedItem.importTextLabel": {
+		"string": "Descrição da afirmação",
+		"developer_comment": "Text field label used in import claim dialog from feed page."
+	},
+	"feedItem.importTitle": {
+		"string": "Importar dados para o espaço de trabalho",
+		"developer_comment": "Dialog title when importing a claim from feed page."
+	},
+	"feedItem.importedSuccessfully": {
+		"string": "A afirmação foi importada para o espaço de trabalho {workspaceName} com sucesso."
+	},
+	"feedItem.importingQuestion": {
+		"string": "Que conteúdo você deseja importar?",
+		"developer_comment": "Question in feed page importing modal"
+	},
+	"feedItem.lastSubmitted": {
+		"string": "Último envio",
+		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
+	},
+	"feedItem.mediaRequests": {
+		"string": "{number} solicitações da Tipline em todas as mídias"
+	},
+	"feedItem.mediasColumnTitleAll": {
+		"string": "{number} mídias em todas as organizações"
+	},
+	"feedItem.mediasColumnTitleSingle": {
+		"string": "{number} mídias da organização {organizationName}"
+	},
+	"feedItem.noClaim": {
+		"string": "Nenhuma afirmação adicionada ainda"
+	},
+	"feedItem.noImportingClaim": {
+		"string": "Selecione uma organização para exibir verificações de fatos e anotações disponíveis.",
+		"developer_comment": "Message displayed on feed item page when no claim was selected."
+	},
+	"feedItem.noTags": {
+		"string": "Nenhuma tag.",
+		"developer_comment": "Displayed on feed item page when item has no tags."
+	},
+	"feedItem.noTasks": {
+		"string": "Nenhuma anotação completada.",
+		"developer_comment": "Displayed on feed item page when item has no completed annotations."
+	},
+	"feedItem.notPublished": {
+		"string": "Ainda não publicado"
+	},
+	"feedItem.proceedImport": {
+		"string": "Importar",
+		"developer_comment": "Button label to confirm importing claim from feed page"
+	},
+	"feedItem.publishedAt": {
+		"string": "Relatório publicado em: {date}"
+	},
+	"feedItem.rating": {
+		"string": "Avaliação: {rating}"
+	},
+	"feedItem.request": {
+		"string": "Solicitação",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
+	},
+	"feedItem.requests": {
+		"string": "Solicitações",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
+	},
+	"feedItem.sortBy": {
+		"string": "Classificar por"
+	},
+	"feedItem.tags": {
+		"string": "Tags"
+	},
+	"feedSharingSwitch.cancel": {
+		"string": "Cancelar",
+		"developer_comment": "Button label displayed on 'Enable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.confirmDisableSharingContent": {
+		"string": "Are you sure? {numberOfWorkspaces} other workspaces will immediately loose access to this content.",
+		"developer_comment": "Content of 'Disable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.confirmDisableSharingTitle": {
+		"string": "Disable Shared Feed",
+		"developer_comment": "Title of 'Disable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.confirmEnableSharingContent": {
+		"string": "Are you sure? Any current and future content matching this filter will immediately be shared with {numberOfWorkspaces} other workspaces.",
+		"developer_comment": "Content of 'Enable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.confirmEnableSharingTitle": {
+		"string": "Enable Shared Feed",
+		"developer_comment": "Title of 'Enable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.defaultErrorMessage": {
+		"string": "Could not update your sharing settings for this feed, please try again",
+		"developer_comment": "Error message displayed when it's not possible to change sharing setting for a feed."
+	},
+	"feedSharingSwitch.description": {
+		"string": "Select the content to share in this feed using the filter.",
+		"developer_comment": "Description for a toggle/switcher displayed on feed page, under the Shared tab."
+	},
+	"feedSharingSwitch.disableSharing": {
+		"string": "Disable sharing",
+		"developer_comment": "Button label displayed on 'Disable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.enableSharing": {
+		"string": "Enable sharing",
+		"developer_comment": "Button label displayed on 'Enable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.label": {
+		"string": "Enable sharing",
+		"developer_comment": "Label for a toggle/switcher displayed on feed page, under the Shared tab."
+	},
+	"feedSharingSwitch.savedSuccessfully": {
+		"string": "Content shared to {feedName}",
+		"developer_comment": "Success message displayed when data sharing is changed for a feed."
+	},
+	"feedSharingSwitch.tooltip": {
+		"string": "Apply and save the filter to share",
+		"developer_comment": "Tooltip displayed on feed 'Enable sharing' switcher"
 	},
 	"fetchBot.contactUs": {
 		"string": "Entre em contato conosco para configurar este serviço "
@@ -1062,7 +1276,8 @@
 		"string": "Tags"
 	},
 	"global.unknownError": {
-		"string": "Desculpe, ocorreu um erro. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+		"string": "Desculpe, ocorreu um erro. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
+		"developer_comment": "Message displayed in error notification when an operation fails unexpectedly"
 	},
 	"global.update": {
 		"string": "Atualizar"
@@ -1071,22 +1286,28 @@
 		"string": "Iniciar sessão"
 	},
 	"home.invalidExpiredInvitation": {
-		"string": "Desculpe, o convite que você recebeu expirou. Por favor, entre em contato com {supportEmail} se achar que isso é um erro."
+		"string": "Desculpe, o convite que você recebeu expirou. Por favor, entre em contato com {supportEmail} se achar que isso é um erro.",
+		"developer_comment": "Error message displayed when an invitation to join the app doesn't work."
 	},
 	"home.invalidInvitation": {
-		"string": "Desculpe, ocorreu um erro ao processar o seu convite. Por favor, entre em contato com {supportEmail}."
+		"string": "Desculpe, ocorreu um erro ao processar o seu convite. Por favor, entre em contato com {supportEmail}.",
+		"developer_comment": "Error message displayed when an invitation to join the app doesn't work."
 	},
 	"home.invalidNoInvitation": {
-		"string": "Desculpe, o convite que você recebeu não foi encontrado. Por favor, entre em contato com {supportEmail} se achar que isso é um erro."
+		"string": "Desculpe, o convite que você recebeu não foi encontrado. Por favor, entre em contato com {supportEmail} se achar que isso é um erro.",
+		"developer_comment": "Error message displayed when an invitation to join the app doesn't work."
 	},
 	"home.invalidTeamInvitation": {
-		"string": "Desculpe, o espaço de trabalho para a qual você recebeu um convite não foi encontrada. Por favor, entre em contato com {supportEmail} se achar que isso é um erro."
+		"string": "Desculpe, o espaço de trabalho para a qual você recebeu um convite não foi encontrada. Por favor, entre em contato com {supportEmail} se achar que isso é um erro.",
+		"developer_comment": "Error message displayed when an invitation to join the app doesn't work."
 	},
 	"home.somethingWrong": {
-		"string": "Desculpe, ocorreu um erro. Por favor, atualize seu navegador e entre em contato com {supportEmail} se o problema persistir."
+		"string": "Desculpe, ocorreu um erro. Por favor, atualize seu navegador e entre em contato com {supportEmail} se o problema persistir.",
+		"developer_comment": "Generic error displayed when some error happens."
 	},
 	"home.successInvitation": {
-		"string": "Bem-vindo(a) ao {appName}. Por favor, faça o login com a senha que você recebeu no e-mail de boas-vindas."
+		"string": "Welcome to Check. Please login with the password that you received in the welcome email.",
+		"developer_comment": "Message that appears after accepting an invitation to join the app."
 	},
 	"inviteDialog.invitationSent": {
 		"string": "Convites enviados!",
@@ -1221,6 +1442,9 @@
 		"string": "Criado por",
 		"developer_comment": "Table header for column that shows the creator name"
 	},
+	"list.factCheck": {
+		"string": "Verificação de fatos"
+	},
 	"list.folder": {
 		"string": "Pasta",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
@@ -1246,6 +1470,10 @@
 	},
 	"list.tags": {
 		"string": "Tags"
+	},
+	"list.teamName": {
+		"string": "Fact-check by",
+		"developer_comment": "Table header for column that shows the team name"
 	},
 	"list.updated": {
 		"string": "Atualizado"
@@ -1559,7 +1787,8 @@
 		"developer_comment": "Label when transcription is in progress"
 	},
 	"mediaExpandedArchives.archives": {
-		"string": "Arquivos:"
+		"string": "Arquivos:",
+		"developer_comment": "This is a header that tells the user that what follows is a list of archival services on the internet that they can use to permanently save the content at a URL."
 	},
 	"mediaExpandedMetadata.comments": {
 		"string": "Comentários do Facebook"
@@ -1662,7 +1891,8 @@
 		"string": "{count, plural, one {# mídia semelhante} many {# mídias semelhantes} other {# mídias semelhantes}}"
 	},
 	"mediaLanguageChip.error": {
-		"string": "Desculpe, ocorreu um erro ao atualizar o idioma. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+		"string": "Desculpe, ocorreu um erro ao atualizar o idioma. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
+		"developer_comment": "This message appears when a user tries to update the language on a media item and an error occurs."
 	},
 	"mediaMetadata.ImageSearch": {
 		"string": "Busca reversa de imagem",
@@ -2114,13 +2344,18 @@
 		"string": "Não há itens aqui."
 	},
 	"projectGroup.deleteMessage": {
-		"string": "Se você excluir esta coleção, todas as pastas continuarão acessíveis fora da coleção. "
+		"string": "Se você excluir esta coleção, todas as pastas continuarão acessíveis fora da coleção. ",
+		"developer_comment": "A message that appears when a user attempts to delete a collection to warn them that any folders inside will NOT be deleted, and will still be accessible."
 	},
 	"projectGroup.name": {
-		"string": "coleção"
+		"string": "coleção",
+		"developer_comment": "A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case."
 	},
 	"projectHeader.allItems": {
 		"string": "Todos os itens"
+	},
+	"projectHeader.feed": {
+		"string": "Shared feed"
 	},
 	"projectHeader.importedReports": {
 		"string": "Relatórios importados"
@@ -2133,9 +2368,6 @@
 	},
 	"projectHeader.trash": {
 		"string": "Lixeira"
-	},
-	"projectHeader.trends": {
-		"string": "Banco de dados compartilhado"
 	},
 	"projectMoveDialogComponent.choose": {
 		"string": "Escolha uma coleção"
@@ -2183,7 +2415,8 @@
 		"string": "Lixeira"
 	},
 	"projectsComponent.allItems": {
-		"string": "Todos os itens"
+		"string": "Todos os itens",
+		"developer_comment": "Label for the 'All items' list displayed on the left sidebar"
 	},
 	"projectsComponent.couldNotMove": {
 		"string": "Não foi possível mover a pasta para a coleção.",
@@ -2198,7 +2431,8 @@
 		"developer_comment": "Button label for creating new folder"
 	},
 	"projectsComponent.createList": {
-		"string": "Criar lista"
+		"string": "Criar lista",
+		"developer_comment": "Label for a button to create a new list displayed on the left sidebar."
 	},
 	"projectsComponent.deleteType": {
 		"string": "Excluir {type}",
@@ -2208,10 +2442,12 @@
 		"string": "Descrição"
 	},
 	"projectsComponent.folders": {
-		"string": "Pastas"
+		"string": "Pastas",
+		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Relatórios importados"
+		"string": "Relatórios importados",
+		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.invalidMove": {
 		"string": "Pastas só podem ser movidas para coleções.",
@@ -2258,7 +2494,8 @@
 		"developer_comment": "Success message when new folder is created"
 	},
 	"projectsComponent.newList": {
-		"string": "Nova lista"
+		"string": "Nova lista",
+		"developer_comment": "Title for a dialog to create a new list displayed on the left sidebar."
 	},
 	"projectsComponent.newListErrorMessage": {
 		"string": "Não foi possível criar a lista. Por favor, tente novamente.",
@@ -2292,18 +2529,20 @@
 		"string": "Renomear {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
+	"projectsComponent.sharedFeeds": {
+		"string": "Shared feeds",
+		"developer_comment": "Feeds of content shared across workspaces"
+	},
 	"projectsComponent.suggestedMatches": {
-		"string": "Correspondências sugeridas"
+		"string": "Correspondências sugeridas",
+		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.tiplineInbox": {
-		"string": "Caixa de entrada Tipline"
+		"string": "Caixa de entrada Tipline",
+		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.title": {
 		"string": "Título"
-	},
-	"projectsComponent.trends": {
-		"string": "Banco de dados compartilhado (beta)",
-		"developer_comment": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction."
 	},
 	"reportDesigner.addIntro": {
 		"string": "Adicionar conteúdo à introdução"
@@ -2602,18 +2841,22 @@
 		"developer_comment": "'Create' here is an infinitive verb"
 	},
 	"saveList.defaultErrorMessage": {
-		"string": "Não foi possível salvar a lista. Por favor, tente novamente.",
+		"string": "Could not save filters, please try again",
 		"developer_comment": "Error message displayed when it's not possible to save a list"
 	},
 	"saveList.newList": {
 		"string": "Salvar lista"
 	},
+	"saveList.saveFeed": {
+		"string": "Save and share",
+		"developer_comment": "'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters."
+	},
 	"saveList.saveList": {
-		"string": "Salvar lista",
-		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
+		"string": "Salvar",
+		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
 	},
 	"saveList.savedSuccessfully": {
-		"string": "A lista foi salva com sucesso.",
+		"string": "Filters saved successfully",
 		"developer_comment": "Success message displayed when a list is saved"
 	},
 	"saveList.title": {
@@ -2670,6 +2913,10 @@
 	"search.and": {
 		"string": "e",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+	},
+	"search.annotatedBy": {
+		"string": "Anotado por",
+		"developer_comment": "Prefix label for field to filter by annotated by"
 	},
 	"search.anyDate": {
 		"string": "qualquer data",
@@ -4129,25 +4376,36 @@
 		"string": "Você precisa traduzir todos os status para {language}"
 	},
 	"statusesComponent.blurbSecondary": {
-		"string": "Traduza os status em idiomas secundários para exibi-los nos idiomas locais nos seus relatórios de verificação de fatos."
+		"string": "Traduza os status em idiomas secundários para exibi-los nos idiomas locais nos seus relatórios de verificação de fatos.",
+		"developer_comment": "Message displayed on status translation page."
 	},
 	"statusesComponent.created": {
-		"string": "O status foi criado com sucesso."
+		"string": "O status foi criado com sucesso.",
+		"developer_comment": "Success message displayed when status is created."
+	},
+	"statusesComponent.deleteButton": {
+		"string": "Excluir status",
+		"developer_comment": "Button label to delete status"
 	},
 	"statusesComponent.deleted": {
-		"string": "O status foi excluído com sucesso."
+		"string": "O status foi excluído com sucesso.",
+		"developer_comment": "Success message displayed when status is deleted."
 	},
 	"statusesComponent.error": {
-		"string": "Desculpe, ocorreu um erro ao atualizar os status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+		"string": "Desculpe, ocorreu um erro ao atualizar os status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
+		"developer_comment": "Error message displayed when status can't be changed."
 	},
 	"statusesComponent.moveItemsAndDelete": {
-		"string": "Mover itens e excluir status"
+		"string": "Mover itens e excluir status",
+		"developer_comment": "Label of a button that is displayed when a status in use is being deleted."
 	},
 	"statusesComponent.newStatus": {
-		"string": "Novo status"
+		"string": "Novo status",
+		"developer_comment": "Button label to create a new status."
 	},
 	"statusesComponent.saved": {
-		"string": "Os status foram salvos com sucesso."
+		"string": "Os status foram salvos com sucesso.",
+		"developer_comment": "Success message displayed when status is saved."
 	},
 	"statusesComponent.title": {
 		"string": "{languageName} status",
@@ -4418,7 +4676,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.claimsAnsweredWithAReport": {
-		"string": "Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, conta somente como um.",
+		"string": "Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, conta-se somente um.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
@@ -4453,7 +4711,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
-		"string": "Relatórios enviados em resposta a solicitações. Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, conta como dois.",
+		"string": "Relatórios enviados em resposta a solicitações. Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, contam-se como dois.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.responseTime": {
@@ -4475,7 +4733,7 @@
 		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.uniqueNewslettersSent": {
-		"string": "Envio de boletins informativos distintos para todas as plataformas. Estas informações começaram a ser coletadas em 1º de junho de 2022.",
+		"string": "Envio de boletins informativos distintos, para todas as plataformas. Estas informações começaram a ser coletadas em 1º de junho de 2022.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsers": {
@@ -4483,7 +4741,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsersWhoReceivedReport": {
-		"string": "Usuários(as) distintos(as) que receberam um relatório. Por exemplo, se um(a) usuário(a) recebeu três relatórios, conta somente como um.",
+		"string": "Usuários(as) distintos(as) que receberam um relatório. Por exemplo, se um(a) usuário(a) recebeu três relatórios, conta-se somente um.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.validNewRequests": {
@@ -5129,6 +5387,9 @@
 	},
 	"uploadFile.changeFile": {
 		"string": "{filename} (clique ou deposite para modificar)"
+	},
+	"uploadFile.fileMessage": {
+		"string": "Deposite um arquivo aqui, ou clique para carregar um arquivo (tamanho máximo: {file_max_size}, extensões permitidas: {file_extensions})"
 	},
 	"uploadFile.fileTooLarge": {
 		"string": "O tamanho do arquivo deve ser inferior a {size}. Por favor, tente com um arquivo menor."

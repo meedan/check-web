@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
+/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -87,7 +87,7 @@ const SavedSearch = ({ routeParams }) => (
                 teamSlug={routeParams.team}
                 query={query}
                 savedSearch={props.saved_search}
-                hideFields={['country', 'cluster_teams', 'cluster_published_reports']}
+                hideFields={['cluster_teams', 'cluster_published_reports']}
                 page="list"
               />
             </div>

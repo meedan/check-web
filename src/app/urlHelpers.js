@@ -39,16 +39,16 @@ function getPathnameAndSearch(url) {
 function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   const objectType = routeParams.objectType || 'media';
   let { listPath } = locationQuery;
-  if (objectType === 'trends') {
-    listPath = `/${routeParams.team}/trends`;
+  if (objectType === 'feed') {
+    listPath = `/${routeParams.team}/feed`;
   }
   if (!listPath) {
     if (routeParams.projectId) {
       listPath = `/${routeParams.team}/project/${routeParams.projectId}`;
     } else if (routeParams.listId) {
       listPath = `/${routeParams.team}/list/${routeParams.listId}`;
-    } else if (/\/trends\/cluster\/[0-9]+/.test(locationPathname)) {
-      listPath = `/${routeParams.team}/trends`;
+    } else if (/\/feed\/[0-9]+\/cluster\/[0-9]+/.test(locationPathname)) {
+      listPath = `/${routeParams.team}/feed`;
     } else {
       listPath = `/${routeParams.team}/all-items`;
     }
@@ -93,10 +93,10 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   //
   // * /my-team/media/${projectMediaId} (for all-items or trash)
   // * /my-team/project/3/media/${projectMediaId} (for project)
-  // * /check/trends/cluster/${clusterId} (for trends)
+  // * /check/feed/${feedId}/cluster/${clusterId} (for feeds)
   let siblingUrlPrefix = '';
-  if (objectType === 'trends') {
-    siblingUrlPrefix = '/check/trends/cluster';
+  if (objectType === 'feed') {
+    siblingUrlPrefix = `/check/feed/${routeParams.feedId}/cluster`;
   } else {
     siblingUrlPrefix = routeParams.projectId ? `${listPath}/media` : `/${routeParams.team}/media`;
   }

@@ -4,6 +4,10 @@
     "defaultMessage": "Claim"
   },
   {
+    "id": "list.factCheck",
+    "defaultMessage": "Fact-check"
+  },
+  {
     "id": "list.Demand",
     "defaultMessage": "Requests"
   },
@@ -34,6 +38,11 @@
   {
     "id": "list.reportStatus",
     "defaultMessage": "Report status"
+  },
+  {
+    "id": "list.teamName",
+    "description": "Table header for column that shows the team name",
+    "defaultMessage": "Fact-check by"
   },
   {
     "id": "list.tags",

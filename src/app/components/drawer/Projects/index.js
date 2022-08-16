@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -11,6 +12,7 @@ const renderQuery = ({ error, props }) => {
         projects={props.team.projects.edges.map(p => p.node)}
         projectGroups={props.team.project_groups.edges.map(pg => pg.node)}
         savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
+        feeds={props.team.feeds.edges.map(f => f.node)}
       />
     );
   }
@@ -20,10 +22,11 @@ const renderQuery = ({ error, props }) => {
 };
 
 const Projects = () => {
-  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
 
   // Not in a team context
-  if (teamSlug === 'check') {
+  if (teamSlug === 'check' || !teamSlug) {
     return null;
   }
 
@@ -37,7 +40,6 @@ const Projects = () => {
             slug
             medias_count
             permissions
-            get_trends_enabled
             smooch_bot: team_bot_installation(bot_identifier: "smooch") {
               id
             }
@@ -76,6 +78,15 @@ const Projects = () => {
                   dbid
                   title
                   filters
+                }
+              }
+            }
+            feeds(first: 10000) {
+              edges {
+                node {
+                  id
+                  dbid
+                  name
                 }
               }
             }

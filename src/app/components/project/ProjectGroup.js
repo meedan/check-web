@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -51,7 +51,7 @@ const ProjectGroup = ({ routeParams }) => (
                   <ProjectActions
                     object={props.project_group}
                     objectType="ProjectGroup"
-                    name={<FormattedMessage id="projectGroup.name" defaultMessage="collection" />}
+                    name={<FormattedMessage id="projectGroup.name" defaultMessage="collection" description="A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case." />}
                     updateMutation={graphql`
                       mutation ProjectGroupUpdateProjectGroupMutation($input: UpdateProjectGroupInput!) {
                         updateProjectGroup(input: $input) {
@@ -67,6 +67,7 @@ const ProjectGroup = ({ routeParams }) => (
                       <FormattedMessage
                         id="projectGroup.deleteMessage"
                         defaultMessage="If you delete this collection, all folders will still be accessible outside of the collection."
+                        description="A message that appears when a user attempts to delete a collection to warn them that any folders inside will NOT be deleted, and will still be accessible."
                       />
                     }
                     deleteMutation={graphql`
@@ -95,7 +96,7 @@ const ProjectGroup = ({ routeParams }) => (
                 teamSlug={routeParams.team}
                 projectGroup={props.project_group}
                 query={query}
-                hideFields={['project_group_id', 'country', 'cluster_teams', 'cluster_published_reports']}
+                hideFields={['project_group_id', 'cluster_teams', 'cluster_published_reports']}
                 page="collection"
               />
             </div>

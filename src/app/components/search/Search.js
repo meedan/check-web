@@ -70,6 +70,7 @@ function noFilters(query_, project, projectGroup) {
 
 export default function Search({
   hideFields,
+  readOnlyFields,
   listActions,
   listDescription,
   mediaUrlPrefix,
@@ -77,6 +78,7 @@ export default function Search({
   teamSlug,
   project,
   projectGroup,
+  feedTeam,
   savedSearch,
   query,
   searchUrlPrefix,
@@ -84,6 +86,7 @@ export default function Search({
   icon,
   showExpand,
   resultType,
+  extra,
 }) {
   let timestampedQuery = query;
   if (!noFilters(query, project, projectGroup)) {
@@ -97,30 +100,36 @@ export default function Search({
       teamSlug={teamSlug}
       project={project}
       projectGroup={projectGroup}
+      feedTeam={feedTeam}
       savedSearch={savedSearch}
       listActions={listActions}
       listDescription={listDescription}
       page={page}
       hideFields={hideFields}
+      readOnlyFields={readOnlyFields}
       title={title}
       icon={icon}
       query={timestampedQuery}
       showExpand={showExpand}
       resultType={resultType}
+      extra={extra}
     />
   );
 }
 Search.defaultProps = {
   project: null,
   projectGroup: null,
+  feedTeam: null,
   savedSearch: null,
   page: undefined, // FIXME find a cleaner way to render Trash differently
   hideFields: [],
+  readOnlyFields: [],
   listDescription: undefined,
   listActions: undefined,
   showExpand: false,
   resultType: 'default',
   icon: null,
+  extra: null,
 };
 Search.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
@@ -129,13 +138,16 @@ Search.propTypes = {
   listActions: PropTypes.node, // or undefined
   project: PropTypes.object, // or null
   projectGroup: PropTypes.object, // or null
+  feedTeam: PropTypes.object, // or null
   savedSearch: PropTypes.object, // or null
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,
   icon: PropTypes.node,
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'suggested-matches']), // FIXME find a cleaner way to render Trash differently
+  readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
+  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'suggested-matches', 'feed']), // FIXME find a cleaner way to render Trash differently
   query: PropTypes.object.isRequired, // may be empty
   showExpand: PropTypes.bool,
-  resultType: PropTypes.string, // 'default' or 'trends', for now
+  resultType: PropTypes.string, // 'default' or 'feed', for now
+  extra: PropTypes.node, // or null
 };

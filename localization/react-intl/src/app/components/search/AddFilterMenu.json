@@ -50,6 +50,11 @@
     "defaultMessage": "Published by"
   },
   {
+    "id": "addFilterMenu.annotatedBy",
+    "description": "Menu option to enable searching items by annotated by",
+    "defaultMessage": "Annotated by"
+  },
+  {
     "id": "addFilterMenu.createdBy",
     "description": "Menu option to enable searching items by author",
     "defaultMessage": "Created by"
@@ -103,11 +108,6 @@
     "id": "addFilterMenu.Workspace",
     "description": "Menu option to enable searching items by workspace",
     "defaultMessage": "Organization"
-  },
-  {
-    "id": "addFilterMenu.country",
-    "description": "Menu option to enable searching items by country",
-    "defaultMessage": "Country"
   },
   {
     "id": "addFilterMenu.addFilter",

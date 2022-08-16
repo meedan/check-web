@@ -715,7 +715,7 @@ class Annotation extends Component {
         );
       }
 
-      if (object.field_name === 'language' && activityType === 'create_dynamicannotationfield') {
+      if (object.field_name === 'language') {
         const languageName = object.value !== 'und' ? languageLabel(object.value) : (
           <FormattedMessage
             id="annotation.unknownLanguage"
@@ -723,7 +723,7 @@ class Annotation extends Component {
             description="Show label for undefined language"
           />
         );
-        contentTemplate = (
+        contentTemplate = activityType === 'create_dynamicannotationfield' ? (
           <span>
             <FormattedMessage
               id="annotation.addLanguage"
@@ -732,6 +732,18 @@ class Annotation extends Component {
               values={{
                 value: languageName,
                 author: 'Check',
+              }}
+            />
+          </span>
+        ) : (
+          <span>
+            <FormattedMessage
+              id="annotation.updateLanguage"
+              defaultMessage="Language {value} updated by {author}"
+              description="Log entry indicating an item language has been updated. {value} receives language name"
+              values={{
+                value: languageName,
+                author: authorName,
               }}
             />
           </span>

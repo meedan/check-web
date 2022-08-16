@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
@@ -34,7 +35,6 @@ import SearchFieldSource from './SearchFieldSource';
 import SearchFieldChannel from './SearchFieldChannel';
 import CheckChannels from '../../../CheckChannels';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
-import SearchFieldCountry from './SearchFieldCountry';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 /**
@@ -223,6 +223,12 @@ class SearchFields extends React.Component {
     );
   }
 
+  handleAnnotatedByClick = (userIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'annotated_by', userIds),
+    );
+  }
+
   handleProjectGroupClick = (projectGroupDbids) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'project_group_id', projectGroupDbids),
@@ -253,12 +259,6 @@ class SearchFields extends React.Component {
     );
   }
 
-  handleCountryClick = (country) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'country', country),
-    );
-  }
-
   handleTagsOperator = () => {
     const operator = this.tagsOperatorIs('or') ? 'and' : 'or';
     this.props.setQuery(
@@ -266,10 +266,17 @@ class SearchFields extends React.Component {
     );
   }
 
-  tagsOperatorIs(operator) {
+  handleSwitchOperator = (key) => {
+    const operator = this.switchOperatorIs('or', key) ? 'and' : 'or';
+    const query = { ...this.props.query };
+    query[key] = operator;
+    this.props.setQuery(query);
+  }
+
+  switchOperatorIs(operator, key) {
     let currentOperator = 'or'; // "or" is the default
-    if (this.props.query && this.props.query.tags_operator) {
-      currentOperator = this.props.query.tags_operator;
+    if (this.props.query && this.props.query[key]) {
+      currentOperator = this.props.query[key];
     }
     return currentOperator === operator;
   }
@@ -280,17 +287,10 @@ class SearchFields extends React.Component {
     );
   }
 
-  handleDynamicClick = (field, newValue) => {
-    const { query } = this.props;
-    const oldDynamic = query.dynamic ? query.dynamic : {};
-    const newDynamic = updateStateQueryArrayValue(oldDynamic, field, newValue);
-    if (Object.keys(newDynamic).length === 0) {
-      const newQuery = { ...query };
-      delete newQuery.dynamic;
-      this.props.setQuery(newQuery);
-    } else {
-      this.props.setQuery({ ...query, dynamic: newDynamic });
-    }
+  handleLanguageClick = (language) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'language', language),
+    );
   }
 
   handleClickClear = () => {
@@ -308,7 +308,13 @@ class SearchFields extends React.Component {
   }
 
   render() {
-    const { team, project, projectGroup } = this.props;
+    const {
+      team,
+      project,
+      projectGroup,
+      feedTeam,
+      readOnlyFields,
+    } = this.props;
     const { statuses } = team.verification_statuses;
 
     // Folder options are grouped by collection
@@ -393,20 +399,26 @@ class SearchFields extends React.Component {
       { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
       { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
     ];
-    if (!/trends/.test(window.location.pathname)) {
+    if (!/feed/.test(window.location.pathname)) {
       reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
     }
 
     const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
-    const OperatorToggle = () => (
-      <Button style={{ minWidth: 0, color: checkBlue }} onClick={this.handleOperatorClick}>
-        { this.props.query.operator === 'OR' ?
-          <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
-          <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
-        }
-      </Button>
-    );
+    const OperatorToggle = () => {
+      let operatorProps = { style: { minWidth: 0, color: checkBlue }, onClick: this.handleOperatorClick };
+      if (this.props.page === 'feed') {
+        operatorProps = { style: { minWidth: 0, color: 'black' }, disabled: true };
+      }
+      return (
+        <Button {...operatorProps}>
+          { this.props.query.operator === 'OR' ?
+            <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
+            <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+          }
+        </Button>
+      );
+    };
 
     const fieldComponents = {
       projects: (
@@ -418,7 +430,7 @@ class SearchFields extends React.Component {
               selected={project ? [`${project.dbid}`] : selectedProjects}
               options={projectOptions}
               onChange={this.handleProjectClick}
-              readOnly={Boolean(project)}
+              readOnly={Boolean(project) || readOnlyFields.includes('projects')}
               onRemove={() => this.handleRemoveField('projects')}
             />
           )}
@@ -433,6 +445,7 @@ class SearchFields extends React.Component {
               allowSearch={false}
               selected={this.props.query.has_claim}
               options={hasClaimOptions}
+              readOnly={readOnlyFields.includes('has_claim')}
               onChange={this.handleHasClaimClick}
               onRemove={() => this.handleRemoveField('has_claim')}
             />
@@ -448,7 +461,7 @@ class SearchFields extends React.Component {
               selected={projectGroup ? [`${projectGroup.dbid}`] : selectedProjectGroups}
               options={projectGroupOptions}
               onChange={this.handleProjectGroupClick}
-              readOnly={Boolean(projectGroup)}
+              readOnly={Boolean(projectGroup) || readOnlyFields.includes('projects')}
               onRemove={() => this.handleRemoveField('project_group_id')}
             />
           )}
@@ -459,6 +472,7 @@ class SearchFields extends React.Component {
           <DateRangeFilter
             onChange={this.handleDateChange}
             value={this.props.query.range}
+            readOnly={readOnlyFields.includes('range')}
             onRemove={() => this.handleRemoveField('range')}
           />
         </Box>
@@ -474,8 +488,9 @@ class SearchFields extends React.Component {
               onChange={(newValue) => {
                 this.handleTagClick(newValue);
               }}
-              onToggleOperator={this.handleTagsOperator}
+              onToggleOperator={() => this.handleSwitchOperator('tags_operator')}
               operator={this.props.query.tags_operator}
+              readOnly={readOnlyFields.includes('tags')}
               onRemove={() => this.handleRemoveField('tags')}
             />
           )}
@@ -490,6 +505,7 @@ class SearchFields extends React.Component {
               icon={<DescriptionIcon />}
               selected={this.props.query.show}
               options={types}
+              readOnly={readOnlyFields.includes('show')}
               onChange={this.handleShowClick}
               onRemove={() => this.handleRemoveField('show')}
             />
@@ -505,6 +521,7 @@ class SearchFields extends React.Component {
               icon={<MarkunreadIcon />}
               selected={this.props.query.read}
               options={readValues}
+              readOnly={readOnlyFields.includes('read')}
               onChange={this.handleReadClick}
               onRemove={() => this.handleRemoveField('read')}
             />
@@ -519,6 +536,7 @@ class SearchFields extends React.Component {
               icon={<LabelIcon />}
               selected={this.props.query.verification_status}
               options={statuses.map(s => ({ label: s.label, value: s.id }))}
+              readOnly={readOnlyFields.includes('verification_status')}
               onChange={this.handleStatusClick}
               onRemove={() => this.handleRemoveField('verification_status')}
             />
@@ -533,6 +551,7 @@ class SearchFields extends React.Component {
               icon={<PersonIcon />}
               selected={this.props.query.users}
               options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              readOnly={readOnlyFields.includes('users')}
               onChange={this.handleUserClick}
               onRemove={() => this.handleRemoveField('users')}
             />
@@ -544,7 +563,7 @@ class SearchFields extends React.Component {
           selected={this.props.query.channels || selectedChannels}
           onChange={this.handleChannelClick}
           onRemove={() => this.handleRemoveField('channels')}
-          readOnly={isSpecialPage}
+          readOnly={isSpecialPage || readOnlyFields.includes('channels')}
         />
       ),
       archived: (
@@ -556,6 +575,7 @@ class SearchFields extends React.Component {
               icon={<ErrorIcon />}
               selected={this.props.query.archived}
               options={confirmedValues}
+              readOnly={readOnlyFields.includes('archived')}
               onChange={this.handleTiplineRequestClick}
               onRemove={() => this.handleRemoveField('archived')}
               single
@@ -569,6 +589,7 @@ class SearchFields extends React.Component {
             filterKey="linked_items_count"
             onChange={this.handleNumericRange}
             value={this.props.query.linked_items_count}
+            readOnly={readOnlyFields.includes('linked_items_count')}
             onRemove={() => this.handleRemoveField('linked_items_count')}
           />
         </Box>
@@ -580,7 +601,7 @@ class SearchFields extends React.Component {
             onChange={this.handleNumericRange}
             value={this.props.query.suggestions_count}
             onRemove={() => this.handleRemoveField('suggestions_count')}
-            readOnly={isSpecialPage}
+            readOnly={isSpecialPage || readOnlyFields.includes('suggestions_count')}
           />
         </Box>
       ),
@@ -589,6 +610,7 @@ class SearchFields extends React.Component {
           <NumericRangeFilter
             filterKey="demand"
             onChange={this.handleNumericRange}
+            readOnly={readOnlyFields.includes('demand')}
             value={this.props.query.demand}
             onRemove={() => this.handleRemoveField('demand')}
           />
@@ -603,6 +625,7 @@ class SearchFields extends React.Component {
               icon={<ReportIcon />}
               selected={this.props.query.report_status}
               options={reportStatusOptions}
+              readOnly={readOnlyFields.includes('report_status')}
               onChange={this.handleReportStatusClick}
               onRemove={() => this.handleRemoveField('report_status')}
             />
@@ -617,22 +640,41 @@ class SearchFields extends React.Component {
               icon={<HowToRegIcon />}
               selected={this.props.query.published_by}
               options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              readOnly={readOnlyFields.includes('published_by')}
               onChange={this.handlePublishedByClick}
               onRemove={() => this.handleRemoveField('published_by')}
             />
           )}
         </FormattedMessage>
       ),
-      dynamic: (
+      annotated_by: (
+        <FormattedMessage id="search.annotatedBy" defaultMessage="Annotated by" description="Prefix label for field to filter by annotated by">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<PersonIcon />}
+              selected={this.props.query.annotated_by}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              readOnly={readOnlyFields.includes('annotated_by')}
+              onChange={this.handleAnnotatedByClick}
+              onRemove={() => this.handleRemoveField('annotated_by')}
+              onToggleOperator={() => this.handleSwitchOperator('annotated_by_operator')}
+              operator={this.props.query.annotated_by_operator}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      language: (
         <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<LanguageIcon />}
-              selected={this.props.query.dynamic && this.props.query.dynamic.language}
+              selected={this.props.query.language}
               options={languages}
-              onChange={newValue => this.handleDynamicClick('language', newValue)}
-              onRemove={() => this.handleRemoveField('dynamic')}
+              readOnly={readOnlyFields.includes('language')}
+              onChange={(newValue) => { this.handleLanguageClick(newValue); }}
+              onRemove={() => this.handleRemoveField('language')}
             />
           )}
         </FormattedMessage>
@@ -645,6 +687,7 @@ class SearchFields extends React.Component {
               icon={<PersonIcon />}
               selected={this.props.query.assigned_to}
               options={assignedToOptions.concat(users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` })))}
+              readOnly={readOnlyFields.includes('assigned_to')}
               onChange={this.handleAssignedUserClick}
               onRemove={() => this.handleRemoveField('assigned_to')}
             />
@@ -663,6 +706,7 @@ class SearchFields extends React.Component {
         <SearchFieldSource
           teamSlug={team.slug}
           selected={this.props.query.sources}
+          readOnly={readOnlyFields.includes('sources')}
           onChange={(newValue) => { this.handleSourceClick(newValue); }}
           onRemove={() => this.handleRemoveField('sources')}
         />
@@ -675,6 +719,7 @@ class SearchFields extends React.Component {
               icon={<CorporateFareIcon />}
               teamSlug={team.slug}
               selected={this.props.query.cluster_teams}
+              readOnly={readOnlyFields.includes('cluster_teams')}
               onChange={(newValue) => { this.handleClusterTeamsClick(newValue); }}
               onRemove={() => this.handleRemoveField('cluster_teams')}
             />
@@ -689,19 +734,12 @@ class SearchFields extends React.Component {
               icon={<HowToRegIcon />}
               teamSlug={team.slug}
               selected={this.props.query.cluster_published_reports}
+              readOnly={readOnlyFields.includes('cluster_published_reports')}
               onChange={(newValue) => { this.handleClusterPublishedReportsClick(newValue); }}
               onRemove={() => this.handleRemoveField('cluster_published_reports')}
             />
           )}
         </FormattedMessage>
-      ),
-      country: (
-        <SearchFieldCountry
-          selected={team?.country || this.props.query.country}
-          onChange={(newValue) => { this.handleCountryClick(newValue); }}
-          onRemove={() => this.handleRemoveField('country')}
-          readOnly
-        />
       ),
     };
 
@@ -753,7 +791,7 @@ class SearchFields extends React.Component {
             </Tooltip>
           ) : null }
           { can(team.permissions, 'update Team') ?
-            <SaveList team={team} query={this.props.query} project={project} projectGroup={projectGroup} savedSearch={this.props.savedSearch} />
+            <SaveList team={team} query={this.props.query} project={project} projectGroup={projectGroup} savedSearch={this.props.savedSearch} feedTeam={feedTeam} />
             : null }
         </Row>
       </div>
@@ -765,6 +803,8 @@ SearchFields.defaultProps = {
   project: null,
   projectGroup: null,
   savedSearch: null,
+  feedTeam: null,
+  readOnlyFields: [],
 };
 
 SearchFields.propTypes = {
@@ -773,6 +813,11 @@ SearchFields.propTypes = {
   }),
   projectGroup: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
+  }),
+  feedTeam: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    filters: PropTypes.object,
+    feedFilters: PropTypes.object,
   }),
   savedSearch: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -794,6 +839,8 @@ SearchFields.propTypes = {
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  readOnlyFields: PropTypes.arrayOf(PropTypes.string),
+  page: PropTypes.string.isRequired,
 };
 
 SearchFields.contextTypes = {
@@ -809,8 +856,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     verification_statuses
     get_languages
     get_tipline_inbox_filters
-    get_trends_filters
-    country
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {
       id
     }

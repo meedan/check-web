@@ -1,18 +1,20 @@
+/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import TrendsItemComponent from './TrendsItemComponent';
+import FeedItemComponent from './FeedItemComponent';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { getListUrlQueryAndIndex } from '../../urlHelpers';
 
-const TrendsItem = ({ routeParams, location }) => {
+const FeedItem = ({ routeParams, location }) => {
   const renderQuery = ({ error, props }) => {
     if (!error && props) {
-      const newRouteParams = Object.assign({ team: props.root.current_team.slug, objectType: 'trends' }, routeParams);
+      const newRouteParams = Object.assign({ team: props.root.current_team.slug, objectType: 'feed' }, routeParams);
       const { listIndex, buildSiblingUrl } = getListUrlQueryAndIndex(newRouteParams, location.query);
       return (
-        <TrendsItemComponent
+        <FeedItemComponent
+          feedId={routeParams.feedId}
           cluster={props.cluster}
           teams={props.root.current_user.team_users.edges.map(e => e.node.team)}
           listIndex={listIndex}
@@ -24,11 +26,11 @@ const TrendsItem = ({ routeParams, location }) => {
   };
 
   return (
-    <ErrorBoundary component="TrendsItem">
+    <ErrorBoundary component="FeedItem">
       <QueryRenderer
         environment={Relay.Store}
         query={graphql`
-          query TrendsItemQuery($clusterId: ID!) {
+          query FeedItemQuery($feedId: Int!, $clusterId: ID!) {
             root {
               current_team {
                 slug
@@ -40,7 +42,6 @@ const TrendsItem = ({ routeParams, location }) => {
                       team {
                         name
                         dbid
-                        country
                       }
                     }
                   }
@@ -48,11 +49,8 @@ const TrendsItem = ({ routeParams, location }) => {
               }
             }
             cluster(id: $clusterId) {
-              size
-              first_item_at
-              last_item_at
               requests_count
-              claim_descriptions(first: 1000) {
+              claim_descriptions(first: 1000, feed_id: $feedId) {
                 edges {
                   node {
                     id
@@ -70,9 +68,6 @@ const TrendsItem = ({ routeParams, location }) => {
                         data
                       }
                       last_status
-                      last_status_obj {
-                        data
-                      }
                       tags(first: 10000) {
                         edges {
                           node {
@@ -86,7 +81,6 @@ const TrendsItem = ({ routeParams, location }) => {
                           node {
                             slug
                             label
-                            options
                             first_response_value
                           }
                         }
@@ -101,7 +95,7 @@ const TrendsItem = ({ routeParams, location }) => {
                   }
                 }
               }
-              items(first: 1000) {
+              items(first: 1000, feed_id: $feedId) {
                 edges {
                   node {
                     id
@@ -113,41 +107,24 @@ const TrendsItem = ({ routeParams, location }) => {
                     requests_count
                     updated_at
                     last_seen
-                    created_at
                     picture
-                    language_code
-                    pusher_channel
                     dbid
-                    project_id
-                    full_url
-                    domain
                     team {
                       id
                       dbid
                       slug
                       name
                       avatar
-                      get_language
-                      get_report
                       verification_statuses
-                      team_bots(first: 10000) {
-                        edges {
-                          node {
-                            login
-                          }
-                        }
-                      }
                     }
                     media {
                       dbid
                       url
                       quote
-                      embed_path
                       metadata
                       type
                       picture
                       file_path
-                      thumbnail_path
                     }
                   }
                 }
@@ -156,6 +133,7 @@ const TrendsItem = ({ routeParams, location }) => {
           }
         `}
         variables={{
+          feedId: parseInt(routeParams.feedId, 10),
           clusterId: `${routeParams.clusterId}`,
         }}
         render={renderQuery}
@@ -164,10 +142,11 @@ const TrendsItem = ({ routeParams, location }) => {
   );
 };
 
-TrendsItem.propTypes = {
+FeedItem.propTypes = {
   routeParams: PropTypes.shape({
+    feedId: PropTypes.string.isRequired,
     clusterId: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default TrendsItem;
+export default FeedItem;

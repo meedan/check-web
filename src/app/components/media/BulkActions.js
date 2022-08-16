@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
+/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -133,18 +133,28 @@ class BulkActions extends React.Component {
         title: projectTitle,
         dbid: projectId,
       } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
-      const message = (
+      const toProject = (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+        <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
+          {projectTitle}
+        </a>
+      );
+      const message = this.props.page === 'trash' ? (
         <FormattedMessage
           id="bulkActions.movedRestoreSuccessfully"
           defaultMessage="Items moved from Trash to '{toProject}'"
           description="Banner displayed after items are moved successfully"
           values={{
-            toProject: (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-              <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
-                {projectTitle}
-              </a>
-            ),
+            toProject,
+          }}
+        />
+      ) : (
+        <FormattedMessage
+          id="bulkActions.movedFromSpamSuccessfully"
+          defaultMessage="Items moved from Spam to '{toProject}'"
+          description="Banner displayed after items are moved successfully"
+          values={{
+            toProject,
           }}
         />
       );
