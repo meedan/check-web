@@ -9,9 +9,12 @@ import Typography from '@material-ui/core/Typography';
 import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
 import styled from 'styled-components';
 import moment from 'moment';
-import NavigateAwayDialog from '../NavigateAwayDialog';
 import Can, { can } from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import NavigateAwayDialog from '../NavigateAwayDialog';
 import ParsedText from '../ParsedText';
+import { getErrorMessage } from '../../helpers';
 import ProfileLink from '../layout/ProfileLink';
 import CheckContext from '../../CheckContext';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
@@ -197,7 +200,12 @@ class Task extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
-  fail = () => {
+  fail = (transaction) => {
+    const message = getErrorMessage(
+      transaction,
+      <GenericUnknownErrorMessage />,
+    );
+    this.props.setFlashMessage(message, 'error');
     this.setState({ isSaving: false });
   };
 
@@ -907,7 +915,7 @@ Task.contextTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { Task as TaskComponentTest };
 
-export default Relay.createContainer(Task, {
+export default Relay.createContainer(withSetFlashMessage(Task), {
   initialVariables: {
     teamSlug: null,
   },
