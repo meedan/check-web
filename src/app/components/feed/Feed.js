@@ -12,8 +12,6 @@ import FeedSharingSwitch from './FeedSharingSwitch';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
-// Used in unit test
-// eslint-disable-next-line import/no-unused-modules
 export const FeedComponent = ({ routeParams, ...props }) => {
   const { team } = props;
   const { feed } = team;
