@@ -1,27 +1,16 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
-import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
-import { Store } from 'react-relay/classic';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Menu from '@material-ui/core/Menu';
-import IconButton from '@material-ui/core/IconButton';
-import IconMoreVert from '@material-ui/icons/MoreVert';
 import LayersIcon from '@material-ui/icons/Layers';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import SelectProjectDialog from '../SelectProjectDialog';
 import TimeBefore from '../../TimeBefore';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
-import globalStrings from '../../../globalStrings';
 import { parseStringUnixTimestamp, truncateLength } from '../../../helpers';
-import { withSetFlashMessage } from '../../FlashMessage';
 import { brandSecondary, checkBlue, inProgressYellow, black32 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -106,10 +95,6 @@ const useStyles = makeStyles(theme => ({
 const MediaItem = ({
   projectMedia,
   mainProjectMedia,
-  relationship,
-  canDelete,
-  canSwitch,
-  setFlashMessage,
   isSelected,
   showReportStatus,
   onSelect,
@@ -123,169 +108,6 @@ const MediaItem = ({
   const mediaUrl = `/${teamSlug}/media/${projectMedia.dbid}`;
   const defaultImage = '/images/image_placeholder.svg';
   const classes = useStyles();
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
-  const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
-
-  const swallowClick = (event, callback) => {
-    event.stopPropagation();
-    callback();
-  };
-
-  const handleOpenMenu = (event) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleCloseMenu = (event) => {
-    event.stopPropagation();
-    setAnchorEl(null);
-  };
-
-  const handleError = () => {
-    // FIXME: Replace with `<GenericUnknownErrorMessage />`;
-    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" />, 'error');
-  };
-
-  const handleDelete = (project) => {
-    setIsDialogOpen(false);
-    const mutation = graphql`
-      mutation MediaItemDestroyRelationshipMutation($input: DestroyRelationshipInput!) {
-        destroyRelationship(input: $input) {
-          deletedId
-          source_project_media {
-            id
-            demand
-            hasMain: is_confirmed_similar_to_another_item
-            confirmedSimilarCount: confirmed_similar_items_count
-            default_relationships_count
-          }
-          target_project_media {
-            id
-            demand
-            hasMain: is_confirmed_similar_to_another_item
-            confirmedSimilarCount: confirmed_similar_items_count
-            default_relationships_count
-          }
-        }
-      }
-    `;
-
-    const optimisticResponse = {
-      destroyRelationship: {
-        deletedId: relationship.id,
-        source_project_media: {
-          id: mainProjectMedia.id,
-          demand: mainProjectMedia.demand - 1,
-          confirmed_similar_items_count: mainProjectMedia.confirmedSimilarCount - 1,
-        },
-      },
-    };
-
-    commitMutation(Store, {
-      mutation,
-      optimisticResponse,
-      variables: {
-        input: {
-          id: relationship.id,
-          add_to_project_id: project.dbid,
-        },
-      },
-      configs: [
-        {
-          type: 'NODE_DELETE',
-          deletedIDFieldName: 'deletedId',
-        },
-        {
-          type: 'RANGE_DELETE',
-          parentID: mainProjectMedia.id,
-          pathToConnection: ['source_project_media', 'confirmed_similar_relationships'],
-          deletedIDFieldName: 'deletedId',
-        },
-        {
-          type: 'RANGE_DELETE',
-          parentID: mainProjectMedia.id,
-          pathToConnection: ['source_project_media', 'default_relationships'],
-          deletedIDFieldName: 'deletedId',
-        },
-        {
-          type: 'RANGE_DELETE',
-          parentID: mainProjectMedia.id,
-          pathToConnection: ['target_project_media', 'default_relationships'],
-          deletedIDFieldName: 'deletedId',
-        },
-      ],
-      onCompleted: (response, error) => {
-        if (error) {
-          handleError();
-        } else {
-          const { title: projectTitle, dbid: projectId } = project;
-          const message = (
-            <FormattedMessage
-              id="mediaItem.detachedSuccessfully"
-              defaultMessage="Item detached to '{toProject}'"
-              description="Banner displayed after items are detached successfully"
-              values={{
-                toProject: (
-                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-                  <a onClick={() => browserHistory.push(`/${teamSlug}/project/${projectId}`)}>
-                    {projectTitle}
-                  </a>
-                ),
-              }}
-            />
-          );
-          setFlashMessage(message, 'success');
-        }
-      },
-      onError: () => {
-        handleError();
-      },
-    });
-  };
-
-  const handleSwitch = () => {
-    setFlashMessage(<FormattedMessage id="mediaItem.pinning" defaultMessage="Pinning…" />, 'info');
-
-    const mutation = graphql`
-      mutation MediaItemUpdateRelationshipMutation($input: UpdateRelationshipInput!) {
-        updateRelationship(input: $input) {
-          relationship {
-            id
-          }
-        }
-      }
-    `;
-
-    commitMutation(Store, {
-      mutation,
-      variables: {
-        input: {
-          id: relationship.id,
-          source_id: relationship.target_id,
-          target_id: relationship.source_id,
-        },
-      },
-      onCompleted: (response, error) => {
-        if (error) {
-          handleError();
-        } else {
-          setFlashMessage((
-            <FormattedMessage
-              id="mediaItem.doneRedirecting"
-              defaultMessage="Done, redirecting to new main item…"
-            />
-          ), 'success');
-          window.location.assign(`/${teamSlug}/media/${relationship.target_id}/similar-media`);
-        }
-      },
-      onError: () => {
-        handleError();
-      },
-    });
-  };
 
   return (
     <Box
@@ -409,75 +231,12 @@ const MediaItem = ({
             /> : null
         }
       />
-      { canDelete && canSwitch ?
-        <Box>
-          <IconButton
-            onClick={handleOpenMenu}
-            className="media-similarity__menu-icon"
-          >
-            <IconMoreVert />
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleCloseMenu}
-          >
-            <MenuItem onClick={event => swallowClick(event, handleSwitch)}>
-              <ListItemText
-                className="similarity-media-item__pin-relationship"
-                primary={
-                  <FormattedMessage id="mediaItem.pinAsMain" defaultMessage="Pin as main" />
-                }
-              />
-            </MenuItem>
-            <MenuItem onClick={event => swallowClick(event, openDialog)}>
-              <ListItemText
-                className="similarity-media-item__delete-relationship"
-                primary={
-                  <FormattedMessage id="mediaItem.detach" defaultMessage="Detach" />
-                }
-              />
-            </MenuItem>
-          </Menu>
-        </Box> : null }
-      { canDelete && !canSwitch ?
-        <Box>
-          <IconButton onClick={event => swallowClick(event, openDialog)}>
-            <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
-          </IconButton>
-        </Box> : null }
-      <SelectProjectDialog
-        open={isDialogOpen}
-        excludeProjectDbids={[]}
-        title={
-          <FormattedMessage
-            id="detachDialog.dialogdetachedToListTitle"
-            defaultMessage="Move detached item to…"
-            description="Dialog title prompting user to select a destination folder for the item"
-          />
-        }
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-        submitLabel={
-          <FormattedMessage
-            id="detachDialog.detached"
-            defaultMessage="Move to folder"
-            description="Button to commit the action of moving item"
-          />
-        }
-        submitButtonClassName="media-item__add-button"
-        onCancel={closeDialog}
-        onSubmit={handleDelete}
-      />
     </Box>
   );
 };
 
 MediaItem.defaultProps = {
   mainProjectMedia: { id: '' },
-  relationship: null,
-  canSwitch: false,
-  canDelete: false,
   isSelected: false,
   showReportStatus: true,
   onSelect: () => {},
@@ -504,20 +263,13 @@ MediaItem.propTypes = {
     added_as_similar_by_name: PropTypes.string.isRequired,
     confirmed_as_similar_by_name: PropTypes.string.isRequired,
   }).isRequired,
-  relationship: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    source_id: PropTypes.number, // Mandatory if canSwitch is true
-    target_id: PropTypes.number, // Mandatory if canSwitch is true
-  }),
-  canSwitch: PropTypes.bool,
-  canDelete: PropTypes.bool,
   isSelected: PropTypes.bool,
   showReportStatus: PropTypes.bool,
   onSelect: PropTypes.func,
   modalOnly: PropTypes.bool,
 };
 
-export default createFragmentContainer(withSetFlashMessage(MediaItem), {
+export default createFragmentContainer(MediaItem, {
   projectMedia: graphql`
     fragment MediaItem_projectMedia on ProjectMedia {
       id

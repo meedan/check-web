@@ -1,0 +1,37 @@
+[
+  {
+    "id": "mediaItem.error",
+    "defaultMessage": "Error, please try again"
+  },
+  {
+    "id": "mediaItem.pinning",
+    "defaultMessage": "Pinning…"
+  },
+  {
+    "id": "mediaItem.doneRedirecting",
+    "defaultMessage": "Done, redirecting to new main item…"
+  },
+  {
+    "id": "mediaItem.detachedSuccessfully",
+    "description": "Banner displayed after items are detached successfully",
+    "defaultMessage": "Item detached to '{toProject}'"
+  },
+  {
+    "id": "mediaItem.pinAsMain",
+    "defaultMessage": "Pin as main"
+  },
+  {
+    "id": "mediaItem.detach",
+    "defaultMessage": "Detach"
+  },
+  {
+    "id": "detachDialog.dialogdetachedToListTitle",
+    "description": "Dialog title prompting user to select a destination folder for the item",
+    "defaultMessage": "Move detached item to…"
+  },
+  {
+    "id": "detachDialog.detached",
+    "description": "Button to commit the action of moving item",
+    "defaultMessage": "Move to folder"
+  }
+]
