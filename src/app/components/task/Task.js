@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -9,9 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
 import styled from 'styled-components';
 import moment from 'moment';
-import NavigateAwayDialog from '../NavigateAwayDialog';
 import Can, { can } from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import NavigateAwayDialog from '../NavigateAwayDialog';
 import ParsedText from '../ParsedText';
+import { getErrorMessage } from '../../helpers';
 import ProfileLink from '../layout/ProfileLink';
 import CheckContext from '../../CheckContext';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
@@ -197,7 +199,12 @@ class Task extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
-  fail = () => {
+  fail = (transaction) => {
+    const message = getErrorMessage(
+      transaction,
+      <GenericUnknownErrorMessage />,
+    );
+    this.props.setFlashMessage(message, 'error');
     this.setState({ isSaving: false });
   };
 
@@ -356,7 +363,7 @@ class Task extends Component {
         coordinatesHelper: (
           <FormattedMessage
             id="metadata.location.coordinates.helper"
-            defaultMessage={'Should be a comma-separated pair of latitude and longitude coordinates like "-12.9, -38.15". Drag the map pin if you are having difficulty.'}
+            defaultMessage={'Should be a comma-separated pair of latitude and longitude coordinates like "-12.9, -38.15". Drag the map pin if you are having difficulty.'} // eslint-disable-line @calm/react-intl/missing-attribute
             description="This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
           />
         ),
@@ -907,7 +914,7 @@ Task.contextTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { Task as TaskComponentTest };
 
-export default Relay.createContainer(Task, {
+export default Relay.createContainer(withSetFlashMessage(Task), {
   initialVariables: {
     teamSlug: null,
   },
