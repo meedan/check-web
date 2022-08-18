@@ -74,7 +74,7 @@ const EditTaskOptions = ({
   };
 
   const handleRemoveOption = (index) => {
-    const { oldLabel } = options[index];
+    const { oldLabel, other } = options[index];
     const newDiff = Object.assign({}, diff);
     const newOptions = JSON.parse(JSON.stringify(options));
     const newHasOther = hasOther && (index !== options.length - 1);
@@ -82,6 +82,9 @@ const EditTaskOptions = ({
     if (oldLabel) {
       newDiff.deleted.push(oldLabel);
       delete newDiff.changed[oldLabel];
+      if (other) {
+        newDiff.delete_other = true;
+      }
     }
 
     newOptions.splice(index, 1);
@@ -141,7 +144,7 @@ const EditTaskOptions = ({
                   disabled={item.other}
                   variant="outlined"
                   margin="dense"
-                  error={options.filter(o => o.label === item.label).length > 1}
+                  error={item.label && options.filter(o => o.label === item.label).length > 1}
                 />
               </Box>
               { canRemove ?
