@@ -863,7 +863,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
       id
       alegre_settings
     }
-    tag_texts(first: 10000) {
+    tag_texts(first: 50) {
       edges {
         node {
           text
