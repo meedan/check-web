@@ -12,7 +12,6 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
@@ -32,6 +31,7 @@ import { can } from '../../Can';
 import { languageLabel } from '../../../LanguageRegistry';
 import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
+import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
 import CheckChannels from '../../../CheckChannels';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
@@ -351,9 +351,6 @@ class SearchFields extends React.Component {
         .filter(u => !u.node.is_bot)
         .sort((a, b) => a.node.name.localeCompare(b.node.name)) : [];
 
-    const plainTagsTexts = team.tag_texts ?
-      team.tag_texts.edges.map(t => t.node.text) : [];
-
     const types = [
       { value: 'claims', label: this.props.intl.formatMessage(messages.claim) },
       { value: 'links', label: this.props.intl.formatMessage(messages.link) },
@@ -478,23 +475,17 @@ class SearchFields extends React.Component {
         </Box>
       ),
       tags: (
-        <FormattedMessage id="search.categoriesHeading" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<LocalOfferIcon />}
-              selected={this.props.query.tags}
-              options={plainTagsTexts.map(t => ({ label: t, value: t }))}
-              onChange={(newValue) => {
-                this.handleTagClick(newValue);
-              }}
-              onToggleOperator={() => this.handleSwitchOperator('tags_operator')}
-              operator={this.props.query.tags_operator}
-              readOnly={readOnlyFields.includes('tags')}
-              onRemove={() => this.handleRemoveField('tags')}
-            />
-          )}
-        </FormattedMessage>
+        <SearchFieldTag
+          teamSlug={team.slug}
+          selected={this.props.query.tags}
+          onChange={(newValue) => {
+            this.handleTagClick(newValue);
+          }}
+          onToggleOperator={() => this.handleSwitchOperator('tags_operator')}
+          operator={this.props.query.tags_operator}
+          readOnly={readOnlyFields.includes('tags')}
+          onRemove={() => this.handleRemoveField('tags')}
+        />
       ),
       show: (
         <FormattedMessage id="search.show" defaultMessage="Type is" description="Prefix label for field to filter by media type">
@@ -835,7 +826,6 @@ SearchFields.propTypes = {
     verification_statuses: PropTypes.object.isRequired,
     projects: PropTypes.object.isRequired,
     users: PropTypes.object.isRequired,
-    tag_texts: PropTypes.object.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
@@ -862,13 +852,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     alegre_bot: team_bot_installation(bot_identifier: "alegre") {
       id
       alegre_settings
-    }
-    tag_texts(first: 50) {
-      edges {
-        node {
-          text
-        }
-      }
     }
     projects(first: 10000) {
       edges {

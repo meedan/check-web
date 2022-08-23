@@ -110,11 +110,6 @@
     "defaultMessage": "Collection is"
   },
   {
-    "id": "search.categoriesHeading",
-    "description": "Prefix label for field to filter by tags",
-    "defaultMessage": "Tag is"
-  },
-  {
     "id": "search.show",
     "description": "Prefix label for field to filter by media type",
     "defaultMessage": "Type is"
