@@ -33,6 +33,7 @@ import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
 import SearchFieldProject from './SearchFieldProject';
+import SearchFieldUser from './SearchFieldUser';
 import CheckChannels from '../../../CheckChannels';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
@@ -320,10 +321,6 @@ class SearchFields extends React.Component {
     team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
       projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
     });
-    const users = team.users ?
-      team.users.edges.slice()
-        .filter(u => !u.node.is_bot)
-        .sort((a, b) => a.node.name.localeCompare(b.node.name)) : [];
 
     const types = [
       { value: 'claims', label: this.props.intl.formatMessage(messages.claim) },
@@ -505,13 +502,13 @@ class SearchFields extends React.Component {
       users: (
         <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
           { label => (
-            <MultiSelectFilter
+            <SearchFieldUser
+              teamSlug={team.slug}
               label={label}
               icon={<PersonIcon />}
               selected={this.props.query.users}
-              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
-              readOnly={readOnlyFields.includes('users')}
               onChange={this.handleUserClick}
+              readOnly={readOnlyFields.includes('users')}
               onRemove={() => this.handleRemoveField('users')}
             />
           )}
@@ -594,13 +591,13 @@ class SearchFields extends React.Component {
       published_by: (
         <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
           { label => (
-            <MultiSelectFilter
+            <SearchFieldUser
+              teamSlug={team.slug}
               label={label}
               icon={<HowToRegIcon />}
               selected={this.props.query.published_by}
-              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
-              readOnly={readOnlyFields.includes('published_by')}
               onChange={this.handlePublishedByClick}
+              readOnly={readOnlyFields.includes('published_by')}
               onRemove={() => this.handleRemoveField('published_by')}
             />
           )}
@@ -609,13 +606,13 @@ class SearchFields extends React.Component {
       annotated_by: (
         <FormattedMessage id="search.annotatedBy" defaultMessage="Annotated by" description="Prefix label for field to filter by annotated by">
           { label => (
-            <MultiSelectFilter
+            <SearchFieldUser
+              teamSlug={team.slug}
               label={label}
               icon={<PersonIcon />}
               selected={this.props.query.annotated_by}
-              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
-              readOnly={readOnlyFields.includes('annotated_by')}
               onChange={this.handleAnnotatedByClick}
+              readOnly={readOnlyFields.includes('annotated_by')}
               onRemove={() => this.handleRemoveField('annotated_by')}
               onToggleOperator={() => this.handleSwitchOperator('annotated_by_operator')}
               operator={this.props.query.annotated_by_operator}
@@ -641,14 +638,15 @@ class SearchFields extends React.Component {
       assigned_to: (
         <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
           { label => (
-            <MultiSelectFilter
+            <SearchFieldUser
+              teamSlug={team.slug}
               label={label}
               icon={<PersonIcon />}
               selected={this.props.query.assigned_to}
-              options={assignedToOptions.concat(users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` })))}
-              readOnly={readOnlyFields.includes('assigned_to')}
               onChange={this.handleAssignedUserClick}
+              readOnly={readOnlyFields.includes('assigned_to')}
               onRemove={() => this.handleRemoveField('assigned_to')}
+              extraOptions={assignedToOptions}
             />
           )}
         </FormattedMessage>
@@ -826,16 +824,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
         node {
           title
           dbid
-        }
-      }
-    }
-    users(first: 10000) {
-      edges {
-        node {
-          id
-          dbid
-          name
-          is_bot
         }
       }
     }
