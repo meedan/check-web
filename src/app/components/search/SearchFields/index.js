@@ -882,6 +882,5 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
         }
       }
     }
-    ...CustomFiltersManager_team
   }
 `);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -12,6 +13,7 @@ import IconFileUpload from '@material-ui/icons/CloudUpload';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
@@ -45,14 +47,15 @@ const messages = defineMessages({
   },
 });
 
-const CustomFiltersManager = ({
-  hide,
-  intl,
-  team,
-  operatorToggle,
-  onFilterChange,
-  query,
-}) => {
+const CustomFiltersManagerComponent = ({ data }) => {
+  const {
+    hide,
+    intl,
+    team,
+    operatorToggle,
+    onFilterChange,
+    query,
+  } = data;
   if (hide) { return null; }
   const [errorMessage, setErrorMessage] = React.useState('');
 
@@ -220,6 +223,60 @@ const CustomFiltersManager = ({
   );
 };
 
+const CustomFiltersManager = ({
+  hide,
+  intl,
+  team,
+  operatorToggle,
+  onFilterChange,
+  query,
+}) => {
+  const teamSlug = team.slug;
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query CustomFiltersManagerQuery($teamSlug: String!) {
+          team(slug: $teamSlug) {
+            id
+            team_tasks(first: 10000) {
+              edges {
+                node {
+                  id
+                  dbid
+                  label
+                  options
+                  type
+                }
+              }
+            }
+          }
+        }
+      `}
+      variables={{
+        teamSlug,
+      }}
+      render={({ error, props }) => {
+        if (!error && props) {
+          const data = {
+            hide,
+            intl,
+            operatorToggle,
+            onFilterChange,
+            query,
+          };
+          data.team = props.team;
+          return (
+            <CustomFiltersManagerComponent data={data} />
+          );
+        }
+        // TODO: We need a better error handling in the future, standardized with other components
+        return <CircularProgress size={36} />;
+      }}
+    />
+  );
+};
+
 CustomFiltersManager.defaultProps = {
   hide: false,
 };
@@ -241,20 +298,4 @@ CustomFiltersManager.propTypes = {
 };
 
 // eslint-disable-next-line import/no-unused-modules
-export { CustomFiltersManager as CustomFiltersManagerTest };
-
-export default createFragmentContainer(injectIntl(CustomFiltersManager), graphql`
-  fragment CustomFiltersManager_team on Team {
-    team_tasks(first: 10000) {
-      edges {
-        node {
-          id
-          dbid
-          label
-          options
-          type
-        }
-      }
-    }
-  }
-`);
+export default injectIntl(CustomFiltersManager);
