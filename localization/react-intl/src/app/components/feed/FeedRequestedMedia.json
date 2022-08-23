@@ -1,0 +1,12 @@
+[
+  {
+    "id": "feedRequestedMedia.numberOfMedias",
+    "description": "Header of medias list. Example: 3 medias",
+    "defaultMessage": "{mediasCount, plural, one {# media} other {# medias}}"
+  },
+  {
+    "id": "feedRequestedMedia.import",
+    "description": "Button label for importing media into workspace action",
+    "defaultMessage": "Import"
+  }
+]

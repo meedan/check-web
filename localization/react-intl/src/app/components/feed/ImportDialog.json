@@ -1,0 +1,27 @@
+[
+  {
+    "id": "importDialog.importTitle",
+    "description": "Dialog title when importing a claim from feed page.",
+    "defaultMessage": "Import data to workspace"
+  },
+  {
+    "id": "importDialog.importDescription",
+    "description": "Dialog description when importing a claim from feed page.",
+    "defaultMessage": "A new claim will be created in your workspace with all selected media."
+  },
+  {
+    "id": "feedItem.importSelectLabel",
+    "description": "Select field label used in import claim dialog from feed page.",
+    "defaultMessage": "Select workspace"
+  },
+  {
+    "id": "feedItem.importTextLabel",
+    "description": "Text field that prompts user to add a claim for related media.",
+    "defaultMessage": "Claim"
+  },
+  {
+    "id": "feedItem.proceedImport",
+    "description": "Button label to confirm importing claim from feed page",
+    "defaultMessage": "Import"
+  }
+]

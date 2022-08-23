@@ -8,5 +8,10 @@
     "id": "feed.feed",
     "description": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them.",
     "defaultMessage": "Feed"
+  },
+  {
+    "id": "feed.requests",
+    "description": "Tab with label 'Requests' displayed on a feed page. It references all requests submitted to that feed.",
+    "defaultMessage": "Requests"
   }
 ]

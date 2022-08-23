@@ -1,0 +1,7 @@
+[
+  {
+    "id": "feedRequestedMedia.numberOfMedias",
+    "description": "Header of requests list. Example: 26 requests across all medias",
+    "defaultMessage": "{requestsCount, plural, one {# request across all medias} other {# requests across all medias}}"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "feedRequestedMediaDialog.title",
+    "description": "Dialog title for importing medias and requests",
+    "defaultMessage": "Import medias and requests"
+  },
+  {
+    "id": "feedRequestedMedia.import",
+    "description": "Button label for importing media into workspace action",
+    "defaultMessage": "Import"
+  }
+]
