@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import ClearIcon from '@material-ui/icons/Clear';
 import DescriptionIcon from '@material-ui/icons/Description';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import PersonIcon from '@material-ui/icons/Person';
@@ -33,6 +32,7 @@ import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
+import SearchFieldProject from './SearchFieldProject';
 import CheckChannels from '../../../CheckChannels';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
@@ -316,36 +316,10 @@ class SearchFields extends React.Component {
       readOnlyFields,
     } = this.props;
     const { statuses } = team.verification_statuses;
-
-    // Folder options are grouped by collection
-    // FIXME: Simplify the code below and improve its performance
-    const projects = team.projects.edges.slice().map(p => p.node).sort((a, b) => a.title.localeCompare(b.title));
-    let projectOptions = [];
     const projectGroupOptions = [];
     team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
-      const subProjects = [];
       projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
-      projects.filter(p => p.project_group_id === pg.dbid).forEach((p) => {
-        subProjects.push({ label: p.title, value: `${p.dbid}` });
-      });
-      if (subProjects.length > 0) {
-        projectOptions.push({ label: pg.title, value: '', projectsTitles: subProjects.map(sp => sp.label).join(',') });
-        projectOptions = projectOptions.concat(subProjects);
-      }
     });
-    const orphanProjects = [];
-    projects.filter(p => !p.project_group_id).forEach((p) => {
-      orphanProjects.push({ label: p.title, value: `${p.dbid}` });
-    });
-    if (orphanProjects.length > 0) {
-      projectOptions.push({
-        label: <FormattedMessage id="search.notInAny" defaultMessage="Not in any collection" description="Label displayed before listing all folders that are not part of any collection" />,
-        value: '',
-        orphanProjects: orphanProjects.map(op => op.label).join(','),
-      });
-      projectOptions = projectOptions.concat(orphanProjects);
-    }
-
     const users = team.users ?
       team.users.edges.slice()
         .filter(u => !u.node.is_bot)
@@ -419,19 +393,13 @@ class SearchFields extends React.Component {
 
     const fieldComponents = {
       projects: (
-        <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<FolderOpenIcon />}
-              selected={project ? [`${project.dbid}`] : selectedProjects}
-              options={projectOptions}
-              onChange={this.handleProjectClick}
-              readOnly={Boolean(project) || readOnlyFields.includes('projects')}
-              onRemove={() => this.handleRemoveField('projects')}
-            />
-          )}
-        </FormattedMessage>
+        <SearchFieldProject
+          teamSlug={team.slug}
+          selected={project ? [`${project.dbid}`] : selectedProjects}
+          onChange={this.handleProjectClick}
+          readOnly={Boolean(project) || readOnlyFields.includes('projects')}
+          onRemove={() => this.handleRemoveField('projects')}
+        />
       ),
       has_claim: (
         <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
@@ -852,17 +820,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     alegre_bot: team_bot_installation(bot_identifier: "alegre") {
       id
       alegre_settings
-    }
-    projects(first: 10000) {
-      edges {
-        node {
-          title
-          dbid
-          id
-          description
-          project_group_id
-        }
-      }
     }
     project_groups(first: 10000) {
       edges {
