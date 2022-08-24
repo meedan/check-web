@@ -1,0 +1,7 @@
+[
+  {
+    "id": "SearchFieldProjectGroup.collection",
+    "description": "Prefix label for field to filter by collection",
+    "defaultMessage": "Collection is"
+  }
+]

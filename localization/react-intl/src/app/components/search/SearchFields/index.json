@@ -65,11 +65,6 @@
     "defaultMessage": "Unconfirmed"
   },
   {
-    "id": "search.notInAny",
-    "description": "Label displayed before listing all folders that are not part of any collection",
-    "defaultMessage": "Not in any collection"
-  },
-  {
     "id": "search.reportStatusUnpublished",
     "description": "Refers to a report status",
     "defaultMessage": "Unpublished"
@@ -95,24 +90,9 @@
     "defaultMessage": "and"
   },
   {
-    "id": "search.folderHeading",
-    "description": "Prefix label for field to filter by folder to which items belong",
-    "defaultMessage": "Folder is"
-  },
-  {
     "id": "search.claim",
     "description": "Prefix label for field to filter by claim",
     "defaultMessage": "Claim field is"
-  },
-  {
-    "id": "search.collection",
-    "description": "Prefix label for field to filter by collection",
-    "defaultMessage": "Collection is"
-  },
-  {
-    "id": "search.categoriesHeading",
-    "description": "Prefix label for field to filter by tags",
-    "defaultMessage": "Tag is"
   },
   {
     "id": "search.show",
