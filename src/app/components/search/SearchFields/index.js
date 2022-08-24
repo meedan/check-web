@@ -38,21 +38,6 @@ import CheckChannels from '../../../CheckChannels';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
-/**
- * Return `query`, with property `key` changed to the `newArray`.
- *
- * `undefined` is understood to be the empty array. This function will remove
- * the `key` filter rather than return an empty array.
- */
-function updateStateQueryArrayValue(query, key, newArray) {
-  if (newArray === undefined) {
-    const newQuery = { ...query };
-    delete newQuery[key];
-    return newQuery;
-  }
-  return { ...query, [key]: newArray };
-}
-
 const messages = defineMessages({
   claim: {
     id: 'search.showClaims',
@@ -121,536 +106,547 @@ const messages = defineMessages({
   },
 });
 
-class SearchFields extends React.Component {
-  handleAddField = (field) => {
-    const newQuery = { ...this.props.query };
+const SearchFields = ({
+  intl,
+  team,
+  query,
+  project,
+  projectGroup,
+  feedTeam,
+  readOnlyFields,
+  setQuery,
+  onChange,
+  page,
+  handleSubmit,
+  savedSearch,
+  hideFields,
+}) => {
+  /**
+  * Return `query`, with property `key` changed to the `newArray`.
+  *
+  * `undefined` is understood to be the empty array. This function will remove
+  * the `key` filter rather than return an empty array.
+  */
+  const updateStateQueryArrayValue = (key, newArray) => {
+    if (newArray === undefined) {
+      const newQuery = { ...query };
+      delete newQuery[key];
+      return newQuery;
+    }
+    return { ...query, [key]: newArray };
+  };
+
+  const handleAddField = (field) => {
+    const newQuery = { ...query };
 
     if (field === 'team_tasks') {
-      newQuery.team_tasks = this.props.query.team_tasks ?
-        [...this.props.query.team_tasks, {}] : [{}];
+      newQuery.team_tasks = query.team_tasks ?
+        [...query.team_tasks, {}] : [{}];
     } else if (field === 'range') {
       newQuery.range = { created_at: {} };
     } else {
       newQuery[field] = [];
     }
 
-    this.props.setQuery(newQuery);
+    setQuery(newQuery);
   };
 
-  handleRemoveField = (field) => {
-    const newQuery = { ...this.props.query };
+  const handleRemoveField = (field) => {
+    const newQuery = { ...query };
     delete newQuery[field];
-    this.props.setQuery(newQuery);
+    setQuery(newQuery);
   };
 
-  filterIsActive = () => Object.keys(this.props.query).filter(k => k !== 'keyword').length > 0;
+  const filterIsActive = () => Object.keys(query).filter(k => k !== 'keyword').length > 0;
 
-  handleDateChange = (value) => {
-    const newQuery = { ...this.props.query, range: value };
-    this.props.setQuery(newQuery);
-  }
+  const handleDateChange = (value) => {
+    const newQuery = { ...query, range: value };
+    setQuery(newQuery);
+  };
 
-  handleNumericRange = (filterKey, value) => {
-    const newQuery = { ...this.props.query };
+  const handleNumericRange = (filterKey, value) => {
+    const newQuery = { ...query };
     newQuery[filterKey] = value;
-    this.props.setQuery(newQuery);
-  }
+    setQuery(newQuery);
+  };
 
-  handleCustomFilterChange = (value) => {
-    const newQuery = { ...this.props.query, ...value };
+  const handleCustomFilterChange = (value) => {
+    const newQuery = { ...query, ...value };
     if (JSON.stringify(value) === '{}') {
       delete newQuery.team_tasks;
     }
-    this.props.setQuery(newQuery);
-  }
-
-  handleFilterClick = (values, filterName) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, filterName, values),
-    );
-  }
-
-  handleTagsOperator = () => {
-    const operator = this.tagsOperatorIs('or') ? 'and' : 'or';
-    this.props.setQuery(
-      { ...this.props.query, tags_operator: operator },
-    );
-  }
-
-  handleSwitchOperator = (key) => {
-    const operator = this.switchOperatorIs('or', key) ? 'and' : 'or';
-    const query = { ...this.props.query };
-    query[key] = operator;
-    this.props.setQuery(query);
-  }
-
-  switchOperatorIs(operator, key) {
-    let currentOperator = 'or'; // "or" is the default
-    if (this.props.query && this.props.query[key]) {
-      currentOperator = this.props.query[key];
-    }
-    return currentOperator === operator;
-  }
-
-  handleClickClear = () => {
-    const { keyword } = this.props.query;
-    const newQuery = { keyword };
-    this.props.setQuery(newQuery);
-    this.props.onChange(newQuery);
+    setQuery(newQuery);
   };
 
-  handleOperatorClick = () => {
-    const operator = this.props.query.operator === 'OR' ? 'AND' : 'OR';
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'operator', operator),
+  const handleFilterClick = (values, filterName) => {
+    setQuery(
+      updateStateQueryArrayValue(filterName, values),
     );
+  };
+
+  const switchOperatorIs = (operator, key) => {
+    let currentOperator = 'or'; // "or" is the default
+    if (query && query[key]) {
+      currentOperator = query[key];
+    }
+    return currentOperator === operator;
+  };
+
+  const handleSwitchOperator = (key) => {
+    const operator = switchOperatorIs('or', key) ? 'and' : 'or';
+    const newQuery = { ...query };
+    newQuery[key] = operator;
+    setQuery(newQuery);
+  };
+
+  const handleClickClear = () => {
+    const { keyword } = query;
+    const newQuery = { keyword };
+    setQuery(newQuery);
+    onChange(newQuery);
+  };
+
+  const handleOperatorClick = () => {
+    const operator = query.operator === 'OR' ? 'AND' : 'OR';
+    setQuery(
+      updateStateQueryArrayValue('operator', operator),
+    );
+  };
+
+  const { statuses } = team.verification_statuses;
+  const projectGroupOptions = [];
+  team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
+    projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
+  });
+
+  const types = [
+    { value: 'claims', label: intl.formatMessage(messages.claim) },
+    { value: 'links', label: intl.formatMessage(messages.link) },
+    { value: 'images', label: intl.formatMessage(messages.image) },
+    { value: 'videos', label: intl.formatMessage(messages.video) },
+    { value: 'audios', label: intl.formatMessage(messages.audio) },
+  ];
+
+  const readValues = [
+    { value: '0', label: intl.formatMessage(messages.unread) },
+    { value: '1', label: intl.formatMessage(messages.read) },
+  ];
+
+  const confirmedValues = [
+    { value: CheckArchivedFlags.NONE.toString(), label: intl.formatMessage(messages.confirmed) },
+    { value: CheckArchivedFlags.UNCONFIRMED.toString(), label: intl.formatMessage(messages.unconfirmed) },
+  ];
+
+  const hasClaimOptions = [
+    { label: intl.formatMessage(messages.notEmpty), value: 'ANY_VALUE', exclusive: true },
+    { label: intl.formatMessage(messages.empty), value: 'NO_VALUE', exclusive: true },
+  ];
+
+  const assignedToOptions = [
+    { label: intl.formatMessage(messages.notEmptyAssign), value: 'ANY_VALUE', exclusive: true },
+    { label: intl.formatMessage(messages.emptyAssign), value: 'NO_VALUE', exclusive: true },
+    { label: '', value: '' },
+  ];
+
+  const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
+
+  const selectedProjects = query.projects ? query.projects.map(p => `${p}`) : [];
+  const selectedProjectGroups = query.project_group_id ? query.project_group_id.map(p => `${p}`) : [];
+  let selectedChannels = [];
+  if (/tipline-inbox/.test(window.location.pathname)) {
+    selectedChannels = [CheckChannels.ANYTIPLINE];
+  }
+  if (/imported-reports/.test(window.location.pathname)) {
+    selectedChannels = [CheckChannels.FETCH];
   }
 
-  render() {
-    const {
-      team,
-      project,
-      projectGroup,
-      feedTeam,
-      readOnlyFields,
-    } = this.props;
-    const { statuses } = team.verification_statuses;
-    const projectGroupOptions = [];
-    team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
-      projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
-    });
+  const reportStatusOptions = [
+    { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
+    { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
+  ];
+  if (!/feed/.test(window.location.pathname)) {
+    reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
+  }
 
-    const types = [
-      { value: 'claims', label: this.props.intl.formatMessage(messages.claim) },
-      { value: 'links', label: this.props.intl.formatMessage(messages.link) },
-      { value: 'images', label: this.props.intl.formatMessage(messages.image) },
-      { value: 'videos', label: this.props.intl.formatMessage(messages.video) },
-      { value: 'audios', label: this.props.intl.formatMessage(messages.audio) },
-    ];
+  const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
-    const readValues = [
-      { value: '0', label: this.props.intl.formatMessage(messages.unread) },
-      { value: '1', label: this.props.intl.formatMessage(messages.read) },
-    ];
-
-    const confirmedValues = [
-      { value: CheckArchivedFlags.NONE.toString(), label: this.props.intl.formatMessage(messages.confirmed) },
-      { value: CheckArchivedFlags.UNCONFIRMED.toString(), label: this.props.intl.formatMessage(messages.unconfirmed) },
-    ];
-
-    const hasClaimOptions = [
-      { label: this.props.intl.formatMessage(messages.notEmpty), value: 'ANY_VALUE', exclusive: true },
-      { label: this.props.intl.formatMessage(messages.empty), value: 'NO_VALUE', exclusive: true },
-    ];
-
-    const assignedToOptions = [
-      { label: this.props.intl.formatMessage(messages.notEmptyAssign), value: 'ANY_VALUE', exclusive: true },
-      { label: this.props.intl.formatMessage(messages.emptyAssign), value: 'NO_VALUE', exclusive: true },
-      { label: '', value: '' },
-    ];
-
-    const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
-
-    const selectedProjects = this.props.query.projects ? this.props.query.projects.map(p => `${p}`) : [];
-    const selectedProjectGroups = this.props.query.project_group_id ? this.props.query.project_group_id.map(p => `${p}`) : [];
-    let selectedChannels = [];
-    if (/tipline-inbox/.test(window.location.pathname)) {
-      selectedChannels = [CheckChannels.ANYTIPLINE];
+  const OperatorToggle = () => {
+    let operatorProps = { style: { minWidth: 0, color: checkBlue }, onClick: handleOperatorClick };
+    if (page === 'feed') {
+      operatorProps = { style: { minWidth: 0, color: 'black' }, disabled: true };
     }
-    if (/imported-reports/.test(window.location.pathname)) {
-      selectedChannels = [CheckChannels.FETCH];
-    }
-
-    const reportStatusOptions = [
-      { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
-      { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
-    ];
-    if (!/feed/.test(window.location.pathname)) {
-      reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
-    }
-
-    const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
-
-    const OperatorToggle = () => {
-      let operatorProps = { style: { minWidth: 0, color: checkBlue }, onClick: this.handleOperatorClick };
-      if (this.props.page === 'feed') {
-        operatorProps = { style: { minWidth: 0, color: 'black' }, disabled: true };
-      }
-      return (
-        <Button {...operatorProps}>
-          { this.props.query.operator === 'OR' ?
-            <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
-            <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
-          }
-        </Button>
-      );
-    };
-
-    const fieldComponents = {
-      projects: (
-        <SearchFieldProject
-          teamSlug={team.slug}
-          selected={project ? [`${project.dbid}`] : selectedProjects}
-          onChange={(newValue) => { this.handleFilterClick(newValue, 'projects'); }}
-          readOnly={Boolean(project) || readOnlyFields.includes('projects')}
-          onRemove={() => this.handleRemoveField('projects')}
-        />
-      ),
-      has_claim: (
-        <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<RuleIcon />}
-              allowSearch={false}
-              selected={this.props.query.has_claim}
-              options={hasClaimOptions}
-              readOnly={readOnlyFields.includes('has_claim')}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'has_claim'); }}
-              onRemove={() => this.handleRemoveField('has_claim')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      project_group_id: (
-        <FormattedMessage id="search.collection" defaultMessage="Collection is" description="Prefix label for field to filter by collection">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<FolderSpecialIcon />}
-              selected={projectGroup ? [`${projectGroup.dbid}`] : selectedProjectGroups}
-              options={projectGroupOptions}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'project_group_id'); }}
-              readOnly={Boolean(projectGroup) || readOnlyFields.includes('projects')}
-              onRemove={() => this.handleRemoveField('project_group_id')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      range: (
-        <Box maxWidth="900px">
-          <DateRangeFilter
-            onChange={this.handleDateChange}
-            value={this.props.query.range}
-            readOnly={readOnlyFields.includes('range')}
-            onRemove={() => this.handleRemoveField('range')}
-          />
-        </Box>
-      ),
-      tags: (
-        <SearchFieldTag
-          teamSlug={team.slug}
-          selected={this.props.query.tags}
-          onChange={(newValue) => { this.handleFilterClick(newValue, 'tags'); }}
-          onToggleOperator={() => this.handleSwitchOperator('tags_operator')}
-          operator={this.props.query.tags_operator}
-          readOnly={readOnlyFields.includes('tags')}
-          onRemove={() => this.handleRemoveField('tags')}
-        />
-      ),
-      show: (
-        <FormattedMessage id="search.show" defaultMessage="Type is" description="Prefix label for field to filter by media type">
-          { label => (
-            <MultiSelectFilter
-              allowSearch={false}
-              label={label}
-              icon={<DescriptionIcon />}
-              selected={this.props.query.show}
-              options={types}
-              readOnly={readOnlyFields.includes('show')}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'show'); }}
-              onRemove={() => this.handleRemoveField('show')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      read: (
-        <FormattedMessage id="search.read" defaultMessage="Item is" description="Prefix label for field to filter by media read">
-          { label => (
-            <MultiSelectFilter
-              allowSearch={false}
-              label={label}
-              icon={<MarkunreadIcon />}
-              selected={this.props.query.read}
-              options={readValues}
-              readOnly={readOnlyFields.includes('read')}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'read'); }}
-              onRemove={() => this.handleRemoveField('read')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      verification_status: (
-        <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<LabelIcon />}
-              selected={this.props.query.verification_status}
-              options={statuses.map(s => ({ label: s.label, value: s.id }))}
-              readOnly={readOnlyFields.includes('verification_status')}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'verification_status'); }}
-              onRemove={() => this.handleRemoveField('verification_status')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      users: (
-        <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
-          { label => (
-            <SearchFieldUser
-              teamSlug={team.slug}
-              label={label}
-              icon={<PersonIcon />}
-              selected={this.props.query.users}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'users'); }}
-              readOnly={readOnlyFields.includes('users')}
-              onRemove={() => this.handleRemoveField('users')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      channels: (
-        <SearchFieldChannel
-          selected={this.props.query.channels || selectedChannels}
-          onChange={(newValue) => { this.handleFilterClick(newValue, 'channels'); }}
-          onRemove={() => this.handleRemoveField('channels')}
-          readOnly={isSpecialPage || readOnlyFields.includes('channels')}
-        />
-      ),
-      archived: (
-        <FormattedMessage id="search.archived" defaultMessage="Tipline request is" description="Prefix label for field to filter by Tipline request">
-          { label => (
-            <MultiSelectFilter
-              allowSearch={false}
-              label={label}
-              icon={<ErrorIcon />}
-              selected={this.props.query.archived}
-              options={confirmedValues}
-              readOnly={readOnlyFields.includes('archived')}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'archived'); }}
-              onRemove={() => this.handleRemoveField('archived')}
-              single
-            />
-          )}
-        </FormattedMessage>
-      ),
-      linked_items_count: (
-        <Box maxWidth="700px">
-          <NumericRangeFilter
-            filterKey="linked_items_count"
-            onChange={this.handleNumericRange}
-            value={this.props.query.linked_items_count}
-            readOnly={readOnlyFields.includes('linked_items_count')}
-            onRemove={() => this.handleRemoveField('linked_items_count')}
-          />
-        </Box>
-      ),
-      suggestions_count: (
-        <Box maxWidth="700px">
-          <NumericRangeFilter
-            filterKey="suggestions_count"
-            onChange={this.handleNumericRange}
-            value={this.props.query.suggestions_count}
-            onRemove={() => this.handleRemoveField('suggestions_count')}
-            readOnly={isSpecialPage || readOnlyFields.includes('suggestions_count')}
-          />
-        </Box>
-      ),
-      demand: (
-        <Box maxWidth="700px">
-          <NumericRangeFilter
-            filterKey="demand"
-            onChange={this.handleNumericRange}
-            readOnly={readOnlyFields.includes('demand')}
-            value={this.props.query.demand}
-            onRemove={() => this.handleRemoveField('demand')}
-          />
-        </Box>
-      ),
-      report_status: (
-        <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">
-          { label => (
-            <MultiSelectFilter
-              allowSearch={false}
-              label={label}
-              icon={<ReportIcon />}
-              selected={this.props.query.report_status}
-              options={reportStatusOptions}
-              readOnly={readOnlyFields.includes('report_status')}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'report_status'); }}
-              onRemove={() => this.handleRemoveField('report_status')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      published_by: (
-        <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
-          { label => (
-            <SearchFieldUser
-              teamSlug={team.slug}
-              label={label}
-              icon={<HowToRegIcon />}
-              selected={this.props.query.published_by}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'published_by'); }}
-              readOnly={readOnlyFields.includes('published_by')}
-              onRemove={() => this.handleRemoveField('published_by')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      annotated_by: (
-        <FormattedMessage id="search.annotatedBy" defaultMessage="Annotated by" description="Prefix label for field to filter by annotated by">
-          { label => (
-            <SearchFieldUser
-              teamSlug={team.slug}
-              label={label}
-              icon={<PersonIcon />}
-              selected={this.props.query.annotated_by}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'annotated_by'); }}
-              readOnly={readOnlyFields.includes('annotated_by')}
-              onRemove={() => this.handleRemoveField('annotated_by')}
-              onToggleOperator={() => this.handleSwitchOperator('annotated_by_operator')}
-              operator={this.props.query.annotated_by_operator}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      language: (
-        <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<LanguageIcon />}
-              selected={this.props.query.language}
-              options={languages}
-              readOnly={readOnlyFields.includes('language')}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'language'); }}
-              onRemove={() => this.handleRemoveField('language')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      assigned_to: (
-        <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
-          { label => (
-            <SearchFieldUser
-              teamSlug={team.slug}
-              label={label}
-              icon={<PersonIcon />}
-              selected={this.props.query.assigned_to}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'assigned_to'); }}
-              readOnly={readOnlyFields.includes('assigned_to')}
-              onRemove={() => this.handleRemoveField('assigned_to')}
-              extraOptions={assignedToOptions}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      team_tasks: (
-        <CustomFiltersManager
-          onFilterChange={this.handleCustomFilterChange}
-          team={team}
-          query={this.props.query}
-          operatorToggle={<OperatorToggle />}
-        />
-      ),
-      sources: (
-        <SearchFieldSource
-          teamSlug={team.slug}
-          selected={this.props.query.sources}
-          readOnly={readOnlyFields.includes('sources')}
-          onChange={(newValue) => { this.handleFilterClick(newValue, 'sources'); }}
-          onRemove={() => this.handleRemoveField('sources')}
-        />
-      ),
-      cluster_teams: (
-        <FormattedMessage id="search.clusterTeams" defaultMessage="Organization is" description="Prefix label for field to filter by workspace">
-          { label => (
-            <SearchFieldClusterTeams
-              label={label}
-              icon={<CorporateFareIcon />}
-              teamSlug={team.slug}
-              selected={this.props.query.cluster_teams}
-              readOnly={readOnlyFields.includes('cluster_teams')}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'cluster_teams'); }}
-              onRemove={() => this.handleRemoveField('cluster_teams')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-      cluster_published_reports: (
-        <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
-          { label => (
-            <SearchFieldClusterTeams
-              label={label}
-              icon={<HowToRegIcon />}
-              teamSlug={team.slug}
-              selected={this.props.query.cluster_published_reports}
-              readOnly={readOnlyFields.includes('cluster_published_reports')}
-              onChange={(newValue) => { this.handleFilterClick(newValue, 'cluster_published_reports'); }}
-              onRemove={() => this.handleRemoveField('cluster_published_reports')}
-            />
-          )}
-        </FormattedMessage>
-      ),
-    };
-
-    let fieldKeys = [];
-    if (this.props.project) fieldKeys.push('projects');
-    if (this.props.projectGroup) fieldKeys.push('project_group_id');
-    if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
-
-    const { hideFields } = this.props;
-
-    fieldKeys = fieldKeys.concat(Object.keys(this.props.query).filter(k => k !== 'keyword' && hideFields.indexOf(k) === -1 && fieldComponents[k]));
-    const addedFields = fieldKeys.filter(i => i !== 'team_tasks');
-
     return (
-      <div>
-        <Row flexWrap style={{ gap: '8px' }}>
-          { fieldKeys.map((key, index) => {
-            if (index > 0) {
-              return (
-                <React.Fragment key={key}>
-                  <OperatorToggle />
-                  { fieldComponents[key] }
-                </React.Fragment>
-              );
-            }
+      <Button {...operatorProps}>
+        { query.operator === 'OR' ?
+          <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
+          <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+        }
+      </Button>
+    );
+  };
 
-            return (
-              <span key={key}>
-                { fieldComponents[key] }
-              </span>
-            );
-          })}
-          <AddFilterMenu
-            team={team}
-            hideOptions={hideFields}
-            addedFields={addedFields}
-            onSelect={this.handleAddField}
+  const fieldComponents = {
+    projects: (
+      <SearchFieldProject
+        teamSlug={team.slug}
+        selected={project ? [`${project.dbid}`] : selectedProjects}
+        onChange={(newValue) => { handleFilterClick(newValue, 'projects'); }}
+        readOnly={Boolean(project) || readOnlyFields.includes('projects')}
+        onRemove={() => handleRemoveField('projects')}
+      />
+    ),
+    has_claim: (
+      <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
+        { label => (
+          <MultiSelectFilter
+            label={label}
+            icon={<RuleIcon />}
+            allowSearch={false}
+            selected={query.has_claim}
+            options={hasClaimOptions}
+            readOnly={readOnlyFields.includes('has_claim')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'has_claim'); }}
+            onRemove={() => handleRemoveField('has_claim')}
           />
-          <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
-            <IconButton id="search-fields__submit-button" onClick={this.props.handleSubmit} size="small">
-              <PlayArrowIcon color="primary" />
+        )}
+      </FormattedMessage>
+    ),
+    project_group_id: (
+      <FormattedMessage id="search.collection" defaultMessage="Collection is" description="Prefix label for field to filter by collection">
+        { label => (
+          <MultiSelectFilter
+            label={label}
+            icon={<FolderSpecialIcon />}
+            selected={projectGroup ? [`${projectGroup.dbid}`] : selectedProjectGroups}
+            options={projectGroupOptions}
+            onChange={(newValue) => { handleFilterClick(newValue, 'project_group_id'); }}
+            readOnly={Boolean(projectGroup) || readOnlyFields.includes('projects')}
+            onRemove={() => handleRemoveField('project_group_id')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    range: (
+      <Box maxWidth="900px">
+        <DateRangeFilter
+          onChange={handleDateChange}
+          value={query.range}
+          readOnly={readOnlyFields.includes('range')}
+          onRemove={() => handleRemoveField('range')}
+        />
+      </Box>
+    ),
+    tags: (
+      <SearchFieldTag
+        teamSlug={team.slug}
+        selected={query.tags}
+        onChange={(newValue) => { handleFilterClick(newValue, 'tags'); }}
+        onToggleOperator={() => handleSwitchOperator('tags_operator')}
+        operator={query.tags_operator}
+        readOnly={readOnlyFields.includes('tags')}
+        onRemove={() => handleRemoveField('tags')}
+      />
+    ),
+    show: (
+      <FormattedMessage id="search.show" defaultMessage="Type is" description="Prefix label for field to filter by media type">
+        { label => (
+          <MultiSelectFilter
+            allowSearch={false}
+            label={label}
+            icon={<DescriptionIcon />}
+            selected={query.show}
+            options={types}
+            readOnly={readOnlyFields.includes('show')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'show'); }}
+            onRemove={() => handleRemoveField('show')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    read: (
+      <FormattedMessage id="search.read" defaultMessage="Item is" description="Prefix label for field to filter by media read">
+        { label => (
+          <MultiSelectFilter
+            allowSearch={false}
+            label={label}
+            icon={<MarkunreadIcon />}
+            selected={query.read}
+            options={readValues}
+            readOnly={readOnlyFields.includes('read')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'read'); }}
+            onRemove={() => handleRemoveField('read')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    verification_status: (
+      <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
+        { label => (
+          <MultiSelectFilter
+            label={label}
+            icon={<LabelIcon />}
+            selected={query.verification_status}
+            options={statuses.map(s => ({ label: s.label, value: s.id }))}
+            readOnly={readOnlyFields.includes('verification_status')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'verification_status'); }}
+            onRemove={() => handleRemoveField('verification_status')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    users: (
+      <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
+        { label => (
+          <SearchFieldUser
+            teamSlug={team.slug}
+            label={label}
+            icon={<PersonIcon />}
+            selected={query.users}
+            onChange={(newValue) => { handleFilterClick(newValue, 'users'); }}
+            readOnly={readOnlyFields.includes('users')}
+            onRemove={() => handleRemoveField('users')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    channels: (
+      <SearchFieldChannel
+        selected={query.channels || selectedChannels}
+        onChange={(newValue) => { handleFilterClick(newValue, 'channels'); }}
+        onRemove={() => handleRemoveField('channels')}
+        readOnly={isSpecialPage || readOnlyFields.includes('channels')}
+      />
+    ),
+    archived: (
+      <FormattedMessage id="search.archived" defaultMessage="Tipline request is" description="Prefix label for field to filter by Tipline request">
+        { label => (
+          <MultiSelectFilter
+            allowSearch={false}
+            label={label}
+            icon={<ErrorIcon />}
+            selected={query.archived}
+            options={confirmedValues}
+            readOnly={readOnlyFields.includes('archived')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'archived'); }}
+            onRemove={() => handleRemoveField('archived')}
+            single
+          />
+        )}
+      </FormattedMessage>
+    ),
+    linked_items_count: (
+      <Box maxWidth="700px">
+        <NumericRangeFilter
+          filterKey="linked_items_count"
+          onChange={handleNumericRange}
+          value={query.linked_items_count}
+          readOnly={readOnlyFields.includes('linked_items_count')}
+          onRemove={() => handleRemoveField('linked_items_count')}
+        />
+      </Box>
+    ),
+    suggestions_count: (
+      <Box maxWidth="700px">
+        <NumericRangeFilter
+          filterKey="suggestions_count"
+          onChange={handleNumericRange}
+          value={query.suggestions_count}
+          onRemove={() => handleRemoveField('suggestions_count')}
+          readOnly={isSpecialPage || readOnlyFields.includes('suggestions_count')}
+        />
+      </Box>
+    ),
+    demand: (
+      <Box maxWidth="700px">
+        <NumericRangeFilter
+          filterKey="demand"
+          onChange={handleNumericRange}
+          readOnly={readOnlyFields.includes('demand')}
+          value={query.demand}
+          onRemove={() => handleRemoveField('demand')}
+        />
+      </Box>
+    ),
+    report_status: (
+      <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">
+        { label => (
+          <MultiSelectFilter
+            allowSearch={false}
+            label={label}
+            icon={<ReportIcon />}
+            selected={query.report_status}
+            options={reportStatusOptions}
+            readOnly={readOnlyFields.includes('report_status')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'report_status'); }}
+            onRemove={() => handleRemoveField('report_status')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    published_by: (
+      <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+        { label => (
+          <SearchFieldUser
+            teamSlug={team.slug}
+            label={label}
+            icon={<HowToRegIcon />}
+            selected={query.published_by}
+            onChange={(newValue) => { handleFilterClick(newValue, 'published_by'); }}
+            readOnly={readOnlyFields.includes('published_by')}
+            onRemove={() => handleRemoveField('published_by')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    annotated_by: (
+      <FormattedMessage id="search.annotatedBy" defaultMessage="Annotated by" description="Prefix label for field to filter by annotated by">
+        { label => (
+          <SearchFieldUser
+            teamSlug={team.slug}
+            label={label}
+            icon={<PersonIcon />}
+            selected={query.annotated_by}
+            onChange={(newValue) => { handleFilterClick(newValue, 'annotated_by'); }}
+            readOnly={readOnlyFields.includes('annotated_by')}
+            onRemove={() => handleRemoveField('annotated_by')}
+            onToggleOperator={() => handleSwitchOperator('annotated_by_operator')}
+            operator={query.annotated_by_operator}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    language: (
+      <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
+        { label => (
+          <MultiSelectFilter
+            label={label}
+            icon={<LanguageIcon />}
+            selected={query.language}
+            options={languages}
+            readOnly={readOnlyFields.includes('language')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'language'); }}
+            onRemove={() => handleRemoveField('language')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    assigned_to: (
+      <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
+        { label => (
+          <SearchFieldUser
+            teamSlug={team.slug}
+            label={label}
+            icon={<PersonIcon />}
+            selected={query.assigned_to}
+            onChange={(newValue) => { handleFilterClick(newValue, 'assigned_to'); }}
+            readOnly={readOnlyFields.includes('assigned_to')}
+            onRemove={() => handleRemoveField('assigned_to')}
+            extraOptions={assignedToOptions}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    team_tasks: (
+      <CustomFiltersManager
+        onFilterChange={handleCustomFilterChange}
+        team={team}
+        query={query}
+        operatorToggle={<OperatorToggle />}
+      />
+    ),
+    sources: (
+      <SearchFieldSource
+        teamSlug={team.slug}
+        selected={query.sources}
+        readOnly={readOnlyFields.includes('sources')}
+        onChange={(newValue) => { handleFilterClick(newValue, 'sources'); }}
+        onRemove={() => handleRemoveField('sources')}
+      />
+    ),
+    cluster_teams: (
+      <FormattedMessage id="search.clusterTeams" defaultMessage="Organization is" description="Prefix label for field to filter by workspace">
+        { label => (
+          <SearchFieldClusterTeams
+            label={label}
+            icon={<CorporateFareIcon />}
+            teamSlug={team.slug}
+            selected={query.cluster_teams}
+            readOnly={readOnlyFields.includes('cluster_teams')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'cluster_teams'); }}
+            onRemove={() => handleRemoveField('cluster_teams')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    cluster_published_reports: (
+      <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+        { label => (
+          <SearchFieldClusterTeams
+            label={label}
+            icon={<HowToRegIcon />}
+            teamSlug={team.slug}
+            selected={query.cluster_published_reports}
+            readOnly={readOnlyFields.includes('cluster_published_reports')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'cluster_published_reports'); }}
+            onRemove={() => handleRemoveField('cluster_published_reports')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+  };
+
+  let fieldKeys = [];
+  if (project) fieldKeys.push('projects');
+  if (projectGroup) fieldKeys.push('project_group_id');
+  if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
+
+  fieldKeys = fieldKeys.concat(Object.keys(query).filter(k => k !== 'keyword' && hideFields.indexOf(k) === -1 && fieldComponents[k]));
+  const addedFields = fieldKeys.filter(i => i !== 'team_tasks');
+
+  return (
+    <div>
+      <Row flexWrap style={{ gap: '8px' }}>
+        { fieldKeys.map((key, index) => {
+          if (index > 0) {
+            return (
+              <React.Fragment key={key}>
+                <OperatorToggle />
+                { fieldComponents[key] }
+              </React.Fragment>
+            );
+          }
+
+          return (
+            <span key={key}>
+              { fieldComponents[key] }
+            </span>
+          );
+        })}
+        <AddFilterMenu
+          team={team}
+          hideOptions={hideFields}
+          addedFields={addedFields}
+          onSelect={handleAddField}
+        />
+        <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
+          <IconButton id="search-fields__submit-button" onClick={handleSubmit} size="small">
+            <PlayArrowIcon color="primary" />
+          </IconButton>
+        </Tooltip>
+        { filterIsActive() ? (
+          <Tooltip title={<FormattedMessage id="searchFields.clear" defaultMessage="Clear filters" description="Tooltip for button to remove any applied filters" />}>
+            <IconButton id="search-fields__clear-button" onClick={handleClickClear} size="small">
+              <ClearIcon color="primary" />
             </IconButton>
           </Tooltip>
-          { this.filterIsActive() ? (
-            <Tooltip title={<FormattedMessage id="searchFields.clear" defaultMessage="Clear filters" description="Tooltip for button to remove any applied filters" />}>
-              <IconButton id="search-fields__clear-button" onClick={this.handleClickClear} size="small">
-                <ClearIcon color="primary" />
-              </IconButton>
-            </Tooltip>
-          ) : null }
-          { can(team.permissions, 'update Team') ?
-            <SaveList team={team} query={this.props.query} project={project} projectGroup={projectGroup} savedSearch={this.props.savedSearch} feedTeam={feedTeam} />
-            : null }
-        </Row>
-      </div>
-    );
-  }
-}
+        ) : null }
+        { can(team.permissions, 'update Team') ?
+          <SaveList team={team} query={query} project={project} projectGroup={projectGroup} savedSearch={savedSearch} feedTeam={feedTeam} />
+          : null }
+      </Row>
+    </div>
+  );
+};
 
 SearchFields.defaultProps = {
   project: null,
