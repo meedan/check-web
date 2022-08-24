@@ -297,6 +297,6 @@ CustomFiltersManager.propTypes = {
 };
 
 // eslint-disable-next-line import/no-unused-modules
-export { CustomFiltersManager as CustomFiltersManagerTest };
+export { CustomFiltersManagerComponent as CustomFiltersManagerTest };
 
 export default injectIntl(CustomFiltersManager);
