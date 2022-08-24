@@ -164,99 +164,9 @@ class SearchFields extends React.Component {
     this.props.setQuery(newQuery);
   }
 
-  handleReadClick = (readValue) => {
+  handleFilterClick = (values, filterName) => {
     this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'read', readValue),
-    );
-  }
-
-  handleStatusClick = (statusCodes) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'verification_status', statusCodes),
-    );
-  }
-
-  handleProjectClick = (projectIds) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'projects', projectIds),
-    );
-  }
-
-  handleHasClaimClick = (claimValue) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'has_claim', claimValue),
-    );
-  }
-
-  handleUserClick = (userIds) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'users', userIds),
-    );
-  }
-
-  handleChannelClick = (channelIds) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'channels', channelIds),
-    );
-  }
-
-  handleTiplineRequestClick = (confirmedValue) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'archived', confirmedValue),
-    );
-  }
-
-  handleAssignedUserClick = (userIds) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'assigned_to', userIds),
-    );
-  }
-
-  handleReportStatusClick = (statuses) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'report_status', statuses),
-    );
-  }
-
-  handlePublishedByClick = (userIds) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'published_by', userIds),
-    );
-  }
-
-  handleAnnotatedByClick = (userIds) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'annotated_by', userIds),
-    );
-  }
-
-  handleProjectGroupClick = (projectGroupDbids) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'project_group_id', projectGroupDbids),
-    );
-  }
-
-  handleTagClick = (tags) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'tags', tags),
-    );
-  }
-
-  handleSourceClick = (sources) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'sources', sources),
-    );
-  }
-
-  handleClusterTeamsClick = (teamIds) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'cluster_teams', teamIds),
-    );
-  }
-
-  handleClusterPublishedReportsClick = (teamIds) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'cluster_published_reports', teamIds),
+      updateStateQueryArrayValue(this.props.query, filterName, values),
     );
   }
 
@@ -280,18 +190,6 @@ class SearchFields extends React.Component {
       currentOperator = this.props.query[key];
     }
     return currentOperator === operator;
-  }
-
-  handleShowClick = (type) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'show', type),
-    );
-  }
-
-  handleLanguageClick = (language) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'language', language),
-    );
   }
 
   handleClickClear = () => {
@@ -393,7 +291,7 @@ class SearchFields extends React.Component {
         <SearchFieldProject
           teamSlug={team.slug}
           selected={project ? [`${project.dbid}`] : selectedProjects}
-          onChange={this.handleProjectClick}
+          onChange={(newValue) => { this.handleFilterClick(newValue, 'projects'); }}
           readOnly={Boolean(project) || readOnlyFields.includes('projects')}
           onRemove={() => this.handleRemoveField('projects')}
         />
@@ -408,7 +306,7 @@ class SearchFields extends React.Component {
               selected={this.props.query.has_claim}
               options={hasClaimOptions}
               readOnly={readOnlyFields.includes('has_claim')}
-              onChange={this.handleHasClaimClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'has_claim'); }}
               onRemove={() => this.handleRemoveField('has_claim')}
             />
           )}
@@ -422,7 +320,7 @@ class SearchFields extends React.Component {
               icon={<FolderSpecialIcon />}
               selected={projectGroup ? [`${projectGroup.dbid}`] : selectedProjectGroups}
               options={projectGroupOptions}
-              onChange={this.handleProjectGroupClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'project_group_id'); }}
               readOnly={Boolean(projectGroup) || readOnlyFields.includes('projects')}
               onRemove={() => this.handleRemoveField('project_group_id')}
             />
@@ -443,9 +341,7 @@ class SearchFields extends React.Component {
         <SearchFieldTag
           teamSlug={team.slug}
           selected={this.props.query.tags}
-          onChange={(newValue) => {
-            this.handleTagClick(newValue);
-          }}
+          onChange={(newValue) => { this.handleFilterClick(newValue, 'tags'); }}
           onToggleOperator={() => this.handleSwitchOperator('tags_operator')}
           operator={this.props.query.tags_operator}
           readOnly={readOnlyFields.includes('tags')}
@@ -462,7 +358,7 @@ class SearchFields extends React.Component {
               selected={this.props.query.show}
               options={types}
               readOnly={readOnlyFields.includes('show')}
-              onChange={this.handleShowClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'show'); }}
               onRemove={() => this.handleRemoveField('show')}
             />
           )}
@@ -478,7 +374,7 @@ class SearchFields extends React.Component {
               selected={this.props.query.read}
               options={readValues}
               readOnly={readOnlyFields.includes('read')}
-              onChange={this.handleReadClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'read'); }}
               onRemove={() => this.handleRemoveField('read')}
             />
           )}
@@ -493,7 +389,7 @@ class SearchFields extends React.Component {
               selected={this.props.query.verification_status}
               options={statuses.map(s => ({ label: s.label, value: s.id }))}
               readOnly={readOnlyFields.includes('verification_status')}
-              onChange={this.handleStatusClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'verification_status'); }}
               onRemove={() => this.handleRemoveField('verification_status')}
             />
           )}
@@ -507,7 +403,7 @@ class SearchFields extends React.Component {
               label={label}
               icon={<PersonIcon />}
               selected={this.props.query.users}
-              onChange={this.handleUserClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'users'); }}
               readOnly={readOnlyFields.includes('users')}
               onRemove={() => this.handleRemoveField('users')}
             />
@@ -517,7 +413,7 @@ class SearchFields extends React.Component {
       channels: (
         <SearchFieldChannel
           selected={this.props.query.channels || selectedChannels}
-          onChange={this.handleChannelClick}
+          onChange={(newValue) => { this.handleFilterClick(newValue, 'channels'); }}
           onRemove={() => this.handleRemoveField('channels')}
           readOnly={isSpecialPage || readOnlyFields.includes('channels')}
         />
@@ -532,7 +428,7 @@ class SearchFields extends React.Component {
               selected={this.props.query.archived}
               options={confirmedValues}
               readOnly={readOnlyFields.includes('archived')}
-              onChange={this.handleTiplineRequestClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'archived'); }}
               onRemove={() => this.handleRemoveField('archived')}
               single
             />
@@ -582,7 +478,7 @@ class SearchFields extends React.Component {
               selected={this.props.query.report_status}
               options={reportStatusOptions}
               readOnly={readOnlyFields.includes('report_status')}
-              onChange={this.handleReportStatusClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'report_status'); }}
               onRemove={() => this.handleRemoveField('report_status')}
             />
           )}
@@ -596,7 +492,7 @@ class SearchFields extends React.Component {
               label={label}
               icon={<HowToRegIcon />}
               selected={this.props.query.published_by}
-              onChange={this.handlePublishedByClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'published_by'); }}
               readOnly={readOnlyFields.includes('published_by')}
               onRemove={() => this.handleRemoveField('published_by')}
             />
@@ -611,7 +507,7 @@ class SearchFields extends React.Component {
               label={label}
               icon={<PersonIcon />}
               selected={this.props.query.annotated_by}
-              onChange={this.handleAnnotatedByClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'annotated_by'); }}
               readOnly={readOnlyFields.includes('annotated_by')}
               onRemove={() => this.handleRemoveField('annotated_by')}
               onToggleOperator={() => this.handleSwitchOperator('annotated_by_operator')}
@@ -629,7 +525,7 @@ class SearchFields extends React.Component {
               selected={this.props.query.language}
               options={languages}
               readOnly={readOnlyFields.includes('language')}
-              onChange={(newValue) => { this.handleLanguageClick(newValue); }}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'language'); }}
               onRemove={() => this.handleRemoveField('language')}
             />
           )}
@@ -643,7 +539,7 @@ class SearchFields extends React.Component {
               label={label}
               icon={<PersonIcon />}
               selected={this.props.query.assigned_to}
-              onChange={this.handleAssignedUserClick}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'assigned_to'); }}
               readOnly={readOnlyFields.includes('assigned_to')}
               onRemove={() => this.handleRemoveField('assigned_to')}
               extraOptions={assignedToOptions}
@@ -664,7 +560,7 @@ class SearchFields extends React.Component {
           teamSlug={team.slug}
           selected={this.props.query.sources}
           readOnly={readOnlyFields.includes('sources')}
-          onChange={(newValue) => { this.handleSourceClick(newValue); }}
+          onChange={(newValue) => { this.handleFilterClick(newValue, 'sources'); }}
           onRemove={() => this.handleRemoveField('sources')}
         />
       ),
@@ -677,7 +573,7 @@ class SearchFields extends React.Component {
               teamSlug={team.slug}
               selected={this.props.query.cluster_teams}
               readOnly={readOnlyFields.includes('cluster_teams')}
-              onChange={(newValue) => { this.handleClusterTeamsClick(newValue); }}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'cluster_teams'); }}
               onRemove={() => this.handleRemoveField('cluster_teams')}
             />
           )}
@@ -692,7 +588,7 @@ class SearchFields extends React.Component {
               teamSlug={team.slug}
               selected={this.props.query.cluster_published_reports}
               readOnly={readOnlyFields.includes('cluster_published_reports')}
-              onChange={(newValue) => { this.handleClusterPublishedReportsClick(newValue); }}
+              onChange={(newValue) => { this.handleFilterClick(newValue, 'cluster_published_reports'); }}
               onRemove={() => this.handleRemoveField('cluster_published_reports')}
             />
           )}
@@ -790,8 +686,6 @@ SearchFields.propTypes = {
     slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
     verification_statuses: PropTypes.object.isRequired,
-    projects: PropTypes.object.isRequired,
-    users: PropTypes.object.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,

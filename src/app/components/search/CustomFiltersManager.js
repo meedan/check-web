@@ -285,6 +285,7 @@ CustomFiltersManager.propTypes = {
   hide: PropTypes.bool,
   team: PropTypes.object.isRequired,
   onFilterChange: PropTypes.func.isRequired,
+  operatorToggle: PropTypes.func.isRequired,
   query: PropTypes.shape({
     team_tasks: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
@@ -298,4 +299,6 @@ CustomFiltersManager.propTypes = {
 };
 
 // eslint-disable-next-line import/no-unused-modules
+export { CustomFiltersManager as CustomFiltersManagerTest };
+
 export default injectIntl(CustomFiltersManager);
