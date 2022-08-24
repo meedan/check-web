@@ -47,15 +47,14 @@ const messages = defineMessages({
   },
 });
 
-const CustomFiltersManagerComponent = ({ data }) => {
-  const {
-    hide,
-    intl,
-    team,
-    operatorToggle,
-    onFilterChange,
-    query,
-  } = data;
+const CustomFiltersManagerComponent = ({
+  hide,
+  intl,
+  team,
+  operatorToggle,
+  onFilterChange,
+  query,
+}) => {
   if (hide) { return null; }
   const [errorMessage, setErrorMessage] = React.useState('');
 
@@ -258,16 +257,15 @@ const CustomFiltersManager = ({
       }}
       render={({ error, props }) => {
         if (!error && props) {
-          const data = {
-            hide,
-            intl,
-            operatorToggle,
-            onFilterChange,
-            query,
-          };
-          data.team = props.team;
           return (
-            <CustomFiltersManagerComponent data={data} />
+            <CustomFiltersManagerComponent
+              hide={hide}
+              intl={intl}
+              operatorToggle={operatorToggle}
+              onFilterChange={onFilterChange}
+              query={query}
+              team={props.team}
+            />
           );
         }
         // TODO: We need a better error handling in the future, standardized with other components
