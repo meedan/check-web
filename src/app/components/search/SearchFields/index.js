@@ -320,6 +320,7 @@ const SearchFields = ({
     tags: (
       <SearchFieldTag
         teamSlug={team.slug}
+        query={query}
         onChange={(newValue) => { handleFilterClick(newValue, 'tags'); }}
         onToggleOperator={() => handleSwitchOperator('tags_operator')}
         operator={query.tags_operator}
