@@ -10,7 +10,8 @@ import MultiSelectFilter from '../MultiSelectFilter';
 
 const SearchFieldProject = ({
   teamSlug,
-  selected,
+  project,
+  query,
   onChange,
   onRemove,
   readOnly,
@@ -75,6 +76,9 @@ const SearchFieldProject = ({
           projectOptions = projectOptions.concat(orphanProjects);
         }
 
+        const selectedProjects = query.projects ? query.projects.map(p => `${p}`) : [];
+        const selected = project ? [project.dbid] : selectedProjects;
+
         return (
           <FormattedMessage id="SearchFieldProject.label" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
             { label => (
@@ -99,12 +103,15 @@ const SearchFieldProject = ({
 );
 
 SearchFieldProject.defaultProps = {
-  selected: [],
+  project: null,
 };
 
 SearchFieldProject.propTypes = {
   teamSlug: PropTypes.string.isRequired,
-  selected: PropTypes.array,
+  project: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }),
+  query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   readOnly: PropTypes.bool.isRequired,

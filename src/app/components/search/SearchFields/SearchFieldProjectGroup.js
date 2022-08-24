@@ -5,28 +5,28 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import MultiSelectFilter from '../MultiSelectFilter';
 
-const SearchFieldTag = ({
+const SearchFieldProjectGroup = ({
   teamSlug,
+  projectGroup,
   query,
   onChange,
   onRemove,
-  onToggleOperator,
-  operator,
   readOnly,
 }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query SearchFieldTagQuery($teamSlug: String!) {
+      query SearchFieldProjectGroupQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           id
-          tag_texts(first: 10000) {
+          project_groups(first: 10000) {
             edges {
               node {
-                text
+                title
+                dbid
               }
             }
           }
@@ -38,19 +38,22 @@ const SearchFieldTag = ({
     }}
     render={({ error, props }) => {
       if (!error && props) {
-        const plainTagsTexts = props.team.tag_texts ?
-          props.team.tag_texts.edges.map(t => t.node.text) : [];
+        const selectedProjectGroups = query.project_group_id ? query.project_group_id.map(p => `${p}`) : [];
+        const selected = projectGroup ? [projectGroup.dbid] : selectedProjectGroups;
+        const projectGroupOptions = [];
+        props.team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
+          projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
+        });
+
         return (
-          <FormattedMessage id="SearchFieldTag.label" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
+          <FormattedMessage id="SearchFieldProjectGroup.collection" defaultMessage="Collection is" description="Prefix label for field to filter by collection">
             { label => (
               <MultiSelectFilter
                 label={label}
-                icon={<LocalOfferIcon />}
-                selected={query.tags}
-                options={plainTagsTexts.map(t => ({ label: t, value: t }))}
+                icon={<FolderSpecialIcon />}
+                options={projectGroupOptions}
+                selected={selected}
                 onChange={onChange}
-                onToggleOperator={onToggleOperator}
-                operator={operator}
                 readOnly={readOnly}
                 onRemove={onRemove}
               />
@@ -65,13 +68,19 @@ const SearchFieldTag = ({
   />
 );
 
-SearchFieldTag.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
-  query: PropTypes.object.isRequired,
-  onRemove: PropTypes.func.isRequired,
-  onToggleOperator: PropTypes.func.isRequired,
-  operator: PropTypes.string.isRequired,
-  readOnly: PropTypes.bool.isRequired,
+SearchFieldProjectGroup.defaultProps = {
+  projectGroup: null,
 };
 
-export default SearchFieldTag;
+SearchFieldProjectGroup.propTypes = {
+  teamSlug: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+  query: PropTypes.object.isRequired,
+  projectGroup: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }),
+};
+
+export default SearchFieldProjectGroup;

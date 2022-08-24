@@ -95,11 +95,6 @@
     "defaultMessage": "Claim field is"
   },
   {
-    "id": "search.collection",
-    "description": "Prefix label for field to filter by collection",
-    "defaultMessage": "Collection is"
-  },
-  {
     "id": "search.show",
     "description": "Prefix label for field to filter by media type",
     "defaultMessage": "Type is"

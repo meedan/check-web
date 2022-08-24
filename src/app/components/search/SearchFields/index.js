@@ -15,7 +15,6 @@ import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import RuleIcon from '@material-ui/icons//Rule';
-import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import ErrorIcon from '@material-ui/icons/Error';
@@ -33,8 +32,8 @@ import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
 import SearchFieldProject from './SearchFieldProject';
+import SearchFieldProjectGroup from './SearchFieldProjectGroup';
 import SearchFieldUser from './SearchFieldUser';
-import CheckChannels from '../../../CheckChannels';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
@@ -214,10 +213,6 @@ const SearchFields = ({
   };
 
   const { statuses } = team.verification_statuses;
-  const projectGroupOptions = [];
-  team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
-    projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
-  });
 
   const types = [
     { value: 'claims', label: intl.formatMessage(messages.claim) },
@@ -250,16 +245,6 @@ const SearchFields = ({
 
   const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
 
-  const selectedProjects = query.projects ? query.projects.map(p => `${p}`) : [];
-  const selectedProjectGroups = query.project_group_id ? query.project_group_id.map(p => `${p}`) : [];
-  let selectedChannels = [];
-  if (/tipline-inbox/.test(window.location.pathname)) {
-    selectedChannels = [CheckChannels.ANYTIPLINE];
-  }
-  if (/imported-reports/.test(window.location.pathname)) {
-    selectedChannels = [CheckChannels.FETCH];
-  }
-
   const reportStatusOptions = [
     { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
     { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
@@ -289,7 +274,8 @@ const SearchFields = ({
     projects: (
       <SearchFieldProject
         teamSlug={team.slug}
-        selected={project ? [`${project.dbid}`] : selectedProjects}
+        query={query}
+        project={project}
         onChange={(newValue) => { handleFilterClick(newValue, 'projects'); }}
         readOnly={Boolean(project) || readOnlyFields.includes('projects')}
         onRemove={() => handleRemoveField('projects')}
@@ -312,19 +298,14 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     project_group_id: (
-      <FormattedMessage id="search.collection" defaultMessage="Collection is" description="Prefix label for field to filter by collection">
-        { label => (
-          <MultiSelectFilter
-            label={label}
-            icon={<FolderSpecialIcon />}
-            selected={projectGroup ? [`${projectGroup.dbid}`] : selectedProjectGroups}
-            options={projectGroupOptions}
-            onChange={(newValue) => { handleFilterClick(newValue, 'project_group_id'); }}
-            readOnly={Boolean(projectGroup) || readOnlyFields.includes('projects')}
-            onRemove={() => handleRemoveField('project_group_id')}
-          />
-        )}
-      </FormattedMessage>
+      <SearchFieldProjectGroup
+        teamSlug={team.slug}
+        projectGroup={projectGroup}
+        query={query}
+        onChange={(newValue) => { handleFilterClick(newValue, 'project_group_id'); }}
+        readOnly={Boolean(projectGroup) || readOnlyFields.includes('project_group_id')}
+        onRemove={() => handleRemoveField('project_group_id')}
+      />
     ),
     range: (
       <Box maxWidth="900px">
@@ -339,7 +320,6 @@ const SearchFields = ({
     tags: (
       <SearchFieldTag
         teamSlug={team.slug}
-        selected={query.tags}
         onChange={(newValue) => { handleFilterClick(newValue, 'tags'); }}
         onToggleOperator={() => handleSwitchOperator('tags_operator')}
         operator={query.tags_operator}
@@ -411,7 +391,7 @@ const SearchFields = ({
     ),
     channels: (
       <SearchFieldChannel
-        selected={query.channels || selectedChannels}
+        query={query}
         onChange={(newValue) => { handleFilterClick(newValue, 'channels'); }}
         onRemove={() => handleRemoveField('channels')}
         readOnly={isSpecialPage || readOnlyFields.includes('channels')}
@@ -708,14 +688,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     alegre_bot: team_bot_installation(bot_identifier: "alegre") {
       id
       alegre_settings
-    }
-    project_groups(first: 10000) {
-      edges {
-        node {
-          title
-          dbid
-        }
-      }
     }
   }
 `);
