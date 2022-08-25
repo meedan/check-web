@@ -33,7 +33,7 @@ const rows = [
   },
 ];
 
-const FeedRequests = ({ tabs }) => (
+const FeedRequestsTable = ({ tabs }) => (
   <React.Fragment>
     { tabs({}) }
     <TableContainer component={Paper}>
@@ -66,4 +66,4 @@ const FeedRequests = ({ tabs }) => (
   </React.Fragment>
 );
 
-export default FeedRequests;
+export default FeedRequestsTable;

@@ -1,5 +1,10 @@
 [
   {
+    "id": "feedRequestedMedia.import",
+    "description": "Button label for importing media into workspace action",
+    "defaultMessage": "Import"
+  },
+  {
     "id": "importDialog.importTitle",
     "description": "Dialog title when importing a claim from feed page.",
     "defaultMessage": "Import data to workspace"

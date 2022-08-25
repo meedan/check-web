@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     border: `1px solid ${brandSecondary}`,
     marginRight: theme.spacing(1),
   },
-  line: {
+  url: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
@@ -84,7 +84,7 @@ const MediaCardCondensed = ({
         <div>
           <div className={classes.title}>{ title }</div>
           <div className={classes.details}>{ subtitleDetails }</div>
-          <div className={classes.line}><ExternalLink url={url} /></div>
+          <div className={classes.url}><ExternalLink url={url} /></div>
           <div className={classes.description}>{ description }</div>
         </div>
       </Box>

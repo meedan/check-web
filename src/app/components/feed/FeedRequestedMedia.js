@@ -2,10 +2,8 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
   Box,
-  Button,
   Checkbox,
 } from '@material-ui/core';
-import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
 import ImportDialog from './ImportDialog';
 import MediaCardCondensed from './MediaCardCondensed';
 
@@ -31,18 +29,7 @@ const FeedRequestedMedia = () => (
             />
           </strong>
         </Box>
-        <Button
-          color="primary"
-          variant="contained"
-          size="small"
-          startIcon={<SystemUpdateAltOutlinedIcon />}
-        >
-          <FormattedMessage
-            id="feedRequestedMedia.import"
-            defaultMessage="Import"
-            description="Button label for importing media into workspace action"
-          />
-        </Button>
+        <ImportDialog teams={[]} />
       </Box>
       { medias.map(m => (
         <Box display="flex">
@@ -61,7 +48,6 @@ const FeedRequestedMedia = () => (
         </Box>
       )) }
     </div>
-    <ImportDialog teams={[]} />
   </React.Fragment>
 );
 

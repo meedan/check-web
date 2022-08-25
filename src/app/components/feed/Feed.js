@@ -8,7 +8,7 @@ import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ErrorBoundary from '../error/ErrorBoundary';
-import FeedRequests from './FeedRequests';
+import FeedRequestsTable from './FeedRequestsTable';
 import FeedSharingSwitch from './FeedSharingSwitch';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
@@ -202,7 +202,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
       { tab === 'requests' ?
         <div id="feed__requests">
-          <FeedRequests tabs={topBar} />
+          <FeedRequestsTable tabs={topBar} />
         </div>
         : null
       }

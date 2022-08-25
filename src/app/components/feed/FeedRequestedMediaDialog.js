@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
   Box,
-  Button,
   Dialog,
   DialogContent,
   DialogTitle,
 } from '@material-ui/core';
-import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
+import ImportDialog from './ImportDialog';
 import MediaCard from './MediaCard';
 import RequestCards from './RequestCards';
 
@@ -32,18 +31,7 @@ const FeedRequestedMediaDialog = ({
     <DialogContent>
       <Box display="flex" justifyContent="space-between">
         <div>
-          <Button
-            color="primary"
-            variant="contained"
-            size="small"
-            startIcon={<SystemUpdateAltOutlinedIcon />}
-          >
-            <FormattedMessage
-              id="feedRequestedMedia.import"
-              defaultMessage="Import"
-              description="Button label for importing media into workspace action"
-            />
-          </Button>
+          <ImportDialog teams={[]} />
           <MediaCard
             title="Hello hello I dont know why you say goodbye"
             description={`You say, "Goodbye" and I say, "Hello, hello, hello"
