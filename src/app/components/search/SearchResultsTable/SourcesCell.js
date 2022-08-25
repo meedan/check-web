@@ -19,13 +19,13 @@ const useStyles = makeStyles({
 export default function SourcesCell({ projectMedia }) {
   const classes = useStyles();
 
-  const searchBySource = (e) => {
+  const searchBySource = () => {
     const { source_id: sourceId, team } = projectMedia;
-    const sourceMediasLink = urlFromSearchQuery({ sources: [`${sourceId}`] }, `/${team.slug}/all-items`);
-    const newWindow = window.open(sourceMediasLink, '_blank', 'noopener,noreferrer');
-    if (newWindow) newWindow.opener = null;
-    e.stopPropagation();
-    e.preventDefault();
+    if (sourceId) {
+      const sourceMediasLink = urlFromSearchQuery({ sources: [`${sourceId}`] }, `/${team.slug}/all-items`);
+      const newWindow = window.open(sourceMediasLink, '_blank', 'noopener,noreferrer');
+      if (newWindow) newWindow.opener = null;
+    }
   };
 
   const sources = safelyParseJSON(projectMedia.list_columns_values.sources_as_sentence) || {};
