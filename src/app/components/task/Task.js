@@ -493,7 +493,7 @@ class Task extends Component {
             data-urlerror={anyInvalidUrls}
             onClick={() => {
               let tempTextValue;
-              const isEmptyUrlArray = () => task.type === 'url' && this.state.textValue?.filter(item => item.url !== '' || item.title !== '').length === 0;
+              const isEmptyUrlArray = () => task.type === 'url' && Array.isArray(this.state.textValue) && this.state.textValue?.filter(item => item.url !== '' || item.title !== '').length === 0;
               // if multiple choice, textValue is an object, we transform it to a string separated by ', '
               if (task.type === 'multiple_choice') {
                 tempTextValue = this.state.textValue.selected?.join(', ');
