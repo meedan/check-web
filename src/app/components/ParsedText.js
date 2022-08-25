@@ -56,8 +56,8 @@ const ParsedText = (props) => {
 
   // Convert unicode.
   // if task type is URL we have an array of object
-  const task_answer = props.text[0]?.url ? props.text[0].url : props.text;
-  const text = task_answer.replace(/\\u(\w\w\w\w)/g, (a, b) => {
+  const taskAnswer = props.text[0]?.url ? props.text[0].url : props.text;
+  const text = taskAnswer.replace(/\\u(\w\w\w\w)/g, (a, b) => {
     const charCode = parseInt(b, 16);
     return String.fromCharCode(charCode);
   });
