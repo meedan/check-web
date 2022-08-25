@@ -17,7 +17,6 @@ describe('<ParsedText />', () => {
 
   it('should parse URL when props is an array', () => {
     const wrapper = mount(<ParsedText text={[{ url: 'http://meedan.com' }]} />);
-    console.log(wrapper.debug());
     expect(wrapper.html()).toMatch('<a href');
   });
 
