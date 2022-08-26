@@ -14,7 +14,7 @@ import {
 import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 
-const handleImport = (input, onCompleted, onError) => {
+const submitImport = (input, onCompleted, onError) => {
   commitMutation(Relay.Store, {
     mutation: graphql`
       mutation ImportDialogCreateProjectMediaMutation($input: CreateProjectMediaInput!) {
@@ -35,8 +35,31 @@ const handleImport = (input, onCompleted, onError) => {
 
 const ImportDialog = ({ teams }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [selectedImportingTeam, setSelectedImportingTeam] = React.useState(null);
-  const [importingClaim, setImportingClaim] = React.useState(null);
+  const [selectedTeamDbid, setSelectedTeamDbid] = React.useState(null);
+  const [claimDescription, setClaimDescription] = React.useState(null);
+
+  const handleImport = () => {
+    const onCompleted = () => {
+      console.log('OH YAY'); // eslint-disable-line
+    };
+    const onError = () => {
+      console.log('OH NO'); // eslint-disable-line
+    };
+    const input = {
+      channel: JSON.stringify({ main: 12 }), // Shared Database
+      media_id: 209,
+      team_id: selectedTeamDbid,
+      set_claim_description: claimDescription,
+    };
+
+    submitImport(input, onCompleted, onError);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+    setSelectedTeamDbid(null);
+    setClaimDescription(null);
+  };
 
   return (
     <React.Fragment>
@@ -75,8 +98,8 @@ const ImportDialog = ({ teams }) => {
               <FormControl variant="outlined" fullWidth>
                 <Select
                   labelId="import-to-workspace-label"
-                  value={selectedImportingTeam}
-                  onChange={(e) => { setSelectedImportingTeam(e.target.value); }}
+                  value={selectedTeamDbid}
+                  onChange={(e) => { setSelectedTeamDbid(e.target.value); }}
                   label={
                     <FormattedMessage
                       id="feedItem.importSelectLabel"
@@ -104,8 +127,8 @@ const ImportDialog = ({ teams }) => {
                   />
                 }
                 variant="outlined"
-                onBlur={(e) => { setImportingClaim(e.target.value); }}
-                defaultValue={importingClaim}
+                onChange={(e) => { setClaimDescription(e.target.value); }}
+                defaultValue={claimDescription}
                 multiline
                 rows={3}
                 rowsMax={Infinity}
@@ -114,10 +137,10 @@ const ImportDialog = ({ teams }) => {
             </Box>
           </React.Fragment>
         )}
-        proceedDisabled={!selectedImportingTeam || !importingClaim}
+        proceedDisabled={!selectedTeamDbid || !claimDescription}
         proceedLabel={<FormattedMessage id="feedItem.proceedImport" defaultMessage="Import" description="Button label to confirm importing claim from feed page" />}
         onProceed={handleImport}
-        onCancel={() => setDialogOpen(false)}
+        onCancel={handleCloseDialog}
       />
     </React.Fragment>
   );
