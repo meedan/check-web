@@ -20,8 +20,8 @@ const SearchFieldTag = ({
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query SearchFieldTagQuery($teamSlug: String!) {
-        team(slug: $teamSlug) {
+      query SearchFieldTagQuery($teamSlug: String!, $random: String!) {
+        team(slug: $teamSlug, random: $random) {
           id
           tag_texts(first: 10000) {
             edges {
@@ -35,6 +35,7 @@ const SearchFieldTag = ({
     `}
     variables={{
       teamSlug,
+      random: String(Math.random()),
     }}
     render={({ error, props }) => {
       if (!error && props) {

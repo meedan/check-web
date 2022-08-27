@@ -21,8 +21,8 @@ const SearchFieldUser = ({
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query SearchFieldUserQuery($teamSlug: String!) {
-        team(slug: $teamSlug) {
+      query SearchFieldUserQuery($teamSlug: String!, $random: String!) {
+        team(slug: $teamSlug, random: $random) {
           id
           users(first: 10000) {
             edges {
@@ -39,6 +39,7 @@ const SearchFieldUser = ({
     `}
     variables={{
       teamSlug,
+      random: String(Math.random()),
     }}
     render={({ error, props }) => {
       if (!error && props) {
