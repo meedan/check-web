@@ -34,8 +34,8 @@ const SearchFieldSource = ({
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query SearchFieldSourceQuery($teamSlug: String!, $keyword: String, $max: Int) {
-          team(slug: $teamSlug) {
+        query SearchFieldSourceQuery($teamSlug: String!, $keyword: String, $max: Int, $random: String!) {
+          team(slug: $teamSlug, random: $random) {
             id
             sources_count(keyword: $keyword)
             sources(first: $max, keyword: $keyword) {
@@ -54,6 +54,7 @@ const SearchFieldSource = ({
         teamSlug,
         keyword,
         max,
+        random: String(Math.random()),
       }}
       render={({ error, props }) => {
         if (!error && props) {
