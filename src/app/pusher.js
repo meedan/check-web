@@ -168,7 +168,11 @@ function createPusher({
               pusherLog('Removing from the queue because it was applicable for the callback');
             });
             Object.values(updates).forEach((update) => {
-              update();
+              if (typeof update === 'function') {
+                update();
+              } else {
+                pusherLog(`update is not a function: ${update}`);
+              }
             });
           }
           if (!checkPusher.currentChannels[channel][eventName]) {
