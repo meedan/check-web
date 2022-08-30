@@ -179,7 +179,31 @@ TagMenuComponent.contextTypes = {
 };
 
 TagMenuComponent.propTypes = {
-  media: PropTypes.object.isRequired,
+  media: PropTypes.shape({
+    id: PropTypes.string,
+    dbid: PropTypes.number,
+    archived: PropTypes.bool,
+    permissions: PropTypes.string.isRequired,
+    tags: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          tag_text: PropTypes.string.isRequired,
+          tag: PropTypes.string.isRequired,
+        }),
+      }).isRequired).isRequired,
+    }).isRequired,
+    team: PropTypes.shape({
+      id: PropTypes.string,
+      tag_texts: PropTypes.shape({
+        edges: PropTypes.arrayOf(PropTypes.shape({
+          node: PropTypes.shape({
+            text: PropTypes.string.isRequired,
+          }),
+        }).isRequired).isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
   relay: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
@@ -216,6 +240,9 @@ const TagMenuContainer = Relay.createContainer(withSetFlashMessage(TagMenuCompon
   },
 });
 
+// eslint-disable-next-line import/no-unused-modules
+export { TagMenuComponent as TagMenuTest };
+
 // eslint-disable-next-line react/no-multi-comp
 class TagMenu extends React.PureComponent {
   render() {
@@ -231,5 +258,9 @@ class TagMenu extends React.PureComponent {
     );
   }
 }
+
+TagMenu.propTypes = {
+  mediaId: PropTypes.number.isRequired, // dbid of media item
+};
 
 export default injectIntl(TagMenu);

@@ -136,10 +136,18 @@ class MediaTags extends React.Component {
 
 MediaTags.propTypes = {
   projectMedia: PropTypes.shape({
+    id: PropTypes.string,
+    dbid: PropTypes.number,
+    team: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }).isRequired,
+    suggested_main_item: PropTypes.shape({
+      dbid: PropTypes.number,
+    }),
+    is_secondary: PropTypes.bool,
     tags: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
-          tag: PropTypes.string.isRequired,
           id: PropTypes.string.isRequired,
           tag_text: PropTypes.string.isRequired,
         }),
