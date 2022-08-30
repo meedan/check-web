@@ -20,6 +20,27 @@ function createRequestError(request, responseStatus, payload) {
   return error;
 }
 
+function generateRandomQueryId() {
+  return `q${parseInt(Math.random() * 1000000, 10)}`;
+}
+
+function parseQueryPayload(request, payload) {
+  if (Object.prototype.hasOwnProperty.call(payload, 'errors')) {
+    if (payload.errors.filter(error => error.code === 3).length
+      && window.location.pathname !== '/check/not-found') {
+      browserHistory.push('/check/not-found');
+    } else {
+      const error = createRequestError(request, '200', payload);
+      request.reject(error);
+    }
+  } else if (!Object.prototype.hasOwnProperty.call(payload, 'data')) {
+    request.reject(new Error('Server response was missing for query ' +
+          `\`${request.getDebugName()}\`.`));
+  } else {
+    request.resolve({ response: payload.data });
+  }
+}
+
 function throwOnServerError(request, response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -49,6 +70,38 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         browserHistory.push('/check/not-found');
       }
     }
+  }
+
+  sendQueries(requests) {
+    if (requests.length > 1) {
+      requests.map((request) => {
+        request.randomId = generateRandomQueryId();
+        return request;
+      });
+      return this._sendBatchQuery(requests).then((result) => {
+        this._parseQueryResult(result);
+        return result.json();
+      }).then((response) => {
+        response.forEach((payload) => {
+          const request = requests.find(r => r.randomId === payload.id);
+          if (request) {
+            parseQueryPayload(request, payload.payload);
+          }
+        });
+      }).catch((error) => {
+        requests.forEach(r => r.reject(error));
+      });
+    }
+    return Promise.all(requests.map(request => (
+      this._sendQuery(request).then((result) => {
+        this._parseQueryResult(result);
+        return result.json();
+      }).then((payload) => {
+        parseQueryPayload(request, payload);
+      }).catch((error) => {
+        request.reject(error);
+      })
+    )));
   }
 
   _queryHeaders() {
