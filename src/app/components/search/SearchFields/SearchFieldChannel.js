@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ForwardIcon from '@material-ui/icons/Forward';
 import MultiSelectFilter from '../MultiSelectFilter';
+import CheckChannels from '../../../CheckChannels';
 
 const messages = defineMessages({
   manual: {
@@ -41,7 +42,7 @@ const messages = defineMessages({
 });
 
 const SearchFieldChannelComponent = ({
-  selected,
+  query,
   onChange,
   onRemove,
   about,
@@ -84,13 +85,21 @@ const SearchFieldChannelComponent = ({
     onChange(channelIdsWithoutChildren);
   };
 
+  let selectedChannels = [];
+  if (/tipline-inbox/.test(window.location.pathname)) {
+    selectedChannels = [CheckChannels.ANYTIPLINE];
+  }
+  if (/imported-reports/.test(window.location.pathname)) {
+    selectedChannels = [CheckChannels.FETCH];
+  }
+
   return (
     <FormattedMessage id="SearchFieldChannel.label" defaultMessage="Channel is" description="Prefix label for field to filter by item channel">
       { label => (
         <MultiSelectFilter
           label={label}
           icon={<ForwardIcon />}
-          selected={selected}
+          selected={query.channels || selectedChannels}
           options={options}
           onChange={handleChange}
           onRemove={onRemove}
@@ -122,12 +131,8 @@ const SearchFieldChannel = parentProps => (
   />
 );
 
-SearchFieldChannel.defaultProps = {
-  selected: [],
-};
-
 SearchFieldChannel.propTypes = {
-  selected: PropTypes.array,
+  query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };

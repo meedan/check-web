@@ -192,7 +192,7 @@ const TagMenuContainer = Relay.createContainer(withSetFlashMessage(TagMenuCompon
         dbid
         archived
         permissions
-        tags(first: 10000) {
+        tags(last: 100) {
           edges {
             node {
               tag,
@@ -203,7 +203,7 @@ const TagMenuContainer = Relay.createContainer(withSetFlashMessage(TagMenuCompon
         }
         team {
           id,
-          tag_texts(first: 10000) {
+          tag_texts(last: 100) {
             edges {
               node {
                 text
