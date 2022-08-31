@@ -54,7 +54,7 @@ const FeedClusterPageQuery = ({ routeParams }) => (
       `}
       variables={{
         feedId: parseInt(routeParams.feedId, 10),
-        // requestId: parseInt(routeParams.requestId, 10),
+        requestId: parseInt(routeParams.requestId, 10),
       }}
       render={({ props, error }) => {
         if (props && !error) {

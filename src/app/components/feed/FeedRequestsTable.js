@@ -1,6 +1,7 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import {
   Table,
   TableBody,
@@ -32,6 +33,7 @@ const FeedRequestsTable = ({ tabs, feed }) => (
               <TableRow
                 key={r.node.dbid}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                onClick={() => browserHistory.push(`/check/feed/${feed.dbid}/request/${r.node.dbid}`)}
               >
                 <TableCell component="th" scope="row">
                   {r.node.content}
