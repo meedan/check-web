@@ -1,54 +1,90 @@
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import {
   Box,
   Checkbox,
 } from '@material-ui/core';
 import ImportDialog from './ImportDialog';
+import FeedRequestedMediaDialog from './FeedRequestedMediaDialog'; // eslint-disable-line no-unused-vars
 import MediaCardCondensed from './MediaCardCondensed';
 
-const medias = [
-  { title: 'bla' },
-  { title: 'ble' },
-  { title: 'bli' },
-  { title: 'blo' },
-];
+const FeedRequestedMedia = ({ request }) => {
+  const [selectedMediaIds, setSelectedMediaIds] = React.useState([]);
 
-const FeedRequestedMedia = () => (
-  <React.Fragment>
-    <div id="feed-requested-media">
-      <Box display="flex" justifyContent="space-between">
-        <Box display="flex" alignItems="center">
-          <Checkbox />
-          <strong>
-            <FormattedMessage
-              id="feedRequestedMedia.numberOfMedias"
-              defaultMessage="{mediasCount, plural, one {# media} other {# medias}}"
-              description="Header of medias list. Example: 3 medias"
-              values={{ mediasCount: medias.length }}
+  const handleSelectAllCheckbox = () => {
+    if (selectedMediaIds.length) {
+      setSelectedMediaIds([]);
+    } else {
+      setSelectedMediaIds([request.media.dbid]);
+    }
+  };
+
+  const handleMediaCheckbox = (e) => {
+    const newSelectedMediaIds = [...selectedMediaIds];
+    if (e.target.checked) {
+      newSelectedMediaIds.push(request.media.dbid);
+    } else {
+      newSelectedMediaIds.splice(0, 1); // FIXME splice at the right index when multiple media listed
+    }
+    setSelectedMediaIds(newSelectedMediaIds);
+  };
+
+  return (
+    <React.Fragment>
+      <div id="feed-requested-media">
+        <Box display="flex" justifyContent="space-between">
+          <Box display="flex" alignItems="center">
+            <Checkbox
+              checked={selectedMediaIds.includes(request.media.dbid)}
+              onChange={handleSelectAllCheckbox}
             />
-          </strong>
+            <strong>
+              <FormattedMessage
+                id="feedRequestedMedia.numberOfMedias"
+                defaultMessage="{mediasCount, plural, one {# media} other {# medias}}"
+                description="Header of medias list. Example: 3 medias"
+                values={{ mediasCount: 1 }}
+              />
+            </strong>
+          </Box>
+          <ImportDialog mediaIds={selectedMediaIds} />
         </Box>
-        <ImportDialog teams={[]} />
-      </Box>
-      { medias.map(m => (
-        <Box display="flex">
-          <Checkbox />
+        <Box key={request.media.dbid} display="flex">
+          <Checkbox
+            checked={selectedMediaIds.includes(request.media.dbid)}
+            onChange={handleMediaCheckbox}
+          />
           <MediaCardCondensed
-            title={`Video foi manipulado para sugerir que ${m.title}`}
+            title={request.media.quote}
             details={[
-              'Text',
-              'Last submitted Jan 22, 2022',
-              '25 requests',
+              request.media.type,
+              request.last_submitted_at,
+              request.requests_count,
             ]}
-            picture="https://i.imgur.com/0ndhEaM.png"
-            url="https://i.imgur.com/0ndhEaM.png"
-            description="Highly effective yes they are. Science is good."
+            picture={request.media.picture}
+            url={request.media.url}
+            description={request.media.quote}
+            request={request}
           />
         </Box>
-      )) }
-    </div>
-  </React.Fragment>
-);
+      </div>
+    </React.Fragment>
+  );
+};
 
-export default FeedRequestedMedia;
+
+export default createFragmentContainer(FeedRequestedMedia, graphql`
+  fragment FeedRequestedMedia_request on Request {
+    media {
+      dbid
+      quote
+      picture
+      url
+      type
+    }
+    last_submitted_at
+    requests_count
+    ...FeedRequestedMediaDialog_request
+  }
+`);

@@ -75,7 +75,7 @@ class Root extends Component {
                   <Route path="check/me(/:tab)" component={Me} />
                   <Route path="check/teams" component={Teams} />
                   <Route path="check/feed/:feedId/cluster/:clusterId" component={FeedItem} />
-                  <Route path="check/feed/:feedId/request/:clusterId" component={FeedClusterPage} />
+                  <Route path="check/feed/:feedId/request/:requestId" component={FeedClusterPage} />
                   <Route path=":team/media/:mediaId" component={MediaPage} />
                   <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} />
                   <Route path=":team/list/:listId/media/:mediaId" component={MediaPage} />

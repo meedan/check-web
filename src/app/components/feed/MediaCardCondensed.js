@@ -55,12 +55,13 @@ const MediaCardCondensed = ({
   description,
   picture,
   url,
+  request,
 }) => {
-  const [openDialog, setOpenDialog] = React.useState(true);
+  const [openDialog, setOpenDialog] = React.useState(false);
   const classes = useStyles();
   const defaultImage = '/images/image_placeholder.svg';
   const subtitleDetails = details.map((d, index) => (
-    <span>
+    <span key={d}>
       { index > 0 ? ' • ' : null }
       {d}
     </span>
@@ -84,11 +85,12 @@ const MediaCardCondensed = ({
         <div>
           <div className={classes.title}>{ title }</div>
           <div className={classes.details}>{ subtitleDetails }</div>
-          <div className={classes.url}><ExternalLink url={url} /></div>
+          { url ? <div className={classes.url}><ExternalLink url={url} /></div> : null }
           <div className={classes.description}>{ description }</div>
         </div>
       </Box>
       <FeedRequestedMediaDialog
+        request={request}
         open={openDialog}
         onClose={() => setOpenDialog(false)}
       />

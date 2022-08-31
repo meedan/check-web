@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import {
   Box,
@@ -12,6 +13,7 @@ import MediaCard from './MediaCard';
 import RequestCards from './RequestCards';
 
 const FeedRequestedMediaDialog = ({
+  request,
   open,
   onClose,
 }) => (
@@ -31,23 +33,19 @@ const FeedRequestedMediaDialog = ({
     <DialogContent>
       <Box display="flex" justifyContent="space-between">
         <div>
-          <ImportDialog teams={[]} />
+          <ImportDialog mediaIds={[request.media.dbid]} />
           <MediaCard
-            title="Hello hello I dont know why you say goodbye"
-            description={`You say, "Goodbye" and I say, "Hello, hello, hello"
-              I don't know why you say, "Goodbye", I say, "Hello, hello, hello"
-              I don't know why you say, "Goodbye", I say, "Hello"
-              I say, "High", you say, "Low"
-            `}
-            url="http://www.applemusic.com"
+            title={request.media.quote}
+            description={request.media.quote}
+            url={request.media.url}
+            pictire={request.media.picture}
             details={[
-              'Song',
-              'The Beatles',
-              'Released 1967',
+              request.media.type,
+              request.last_submitted_at,
             ]}
           />
         </div>
-        <RequestCards />
+        <RequestCards request={request} />
       </Box>
     </DialogContent>
   </Dialog>
@@ -58,4 +56,16 @@ FeedRequestedMediaDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default FeedRequestedMediaDialog;
+export default createFragmentContainer(FeedRequestedMediaDialog, graphql`
+  fragment FeedRequestedMediaDialog_request on Request {
+    media {
+      dbid
+      quote
+      picture
+      url
+      type
+    }
+    last_submitted_at
+    ...RequestCards_request
+  }
+`);

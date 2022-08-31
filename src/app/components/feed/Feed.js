@@ -202,7 +202,11 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
       { tab === 'requests' ?
         <div id="feed__requests">
-          <FeedRequestsTable tabs={topBar} />
+          <FeedRequestsTable
+            tabs={topBar}
+            teamSlug={routeParams.team}
+            feedId={parseInt(routeParams.feedId, 10)}
+          />
         </div>
         : null
       }
@@ -273,7 +277,7 @@ Feed.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
     feedId: PropTypes.string.isRequired,
-    tab: PropTypes.oneOf(['shared', 'feed']),
+    tab: PropTypes.oneOf(['shared', 'feed', 'requests']),
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
 };

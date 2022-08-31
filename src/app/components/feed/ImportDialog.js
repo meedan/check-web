@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
+import { withSetFlashMessage } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 
 const submitImport = (input, onCompleted, onError) => {
@@ -33,26 +34,35 @@ const submitImport = (input, onCompleted, onError) => {
   });
 };
 
-const ImportDialog = ({ teams }) => {
+const ImportDialog = ({
+  teams,
+  mediaIds,
+  setFlashMessage,
+}) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [selectedTeamDbid, setSelectedTeamDbid] = React.useState(null);
   const [claimDescription, setClaimDescription] = React.useState(null);
 
   const handleImport = () => {
     const onCompleted = () => {
-      console.log('OH YAY'); // eslint-disable-line
+      setFlashMessage('OH YAY', 'success');
+      setDialogOpen(false);
     };
     const onError = () => {
-      console.log('OH NO'); // eslint-disable-line
-    };
-    const input = {
-      channel: JSON.stringify({ main: 12 }), // Shared Database
-      media_id: 209,
-      team_id: selectedTeamDbid,
-      set_claim_description: claimDescription,
+      setFlashMessage('OH NO', 'error');
+      setDialogOpen(false);
     };
 
-    submitImport(input, onCompleted, onError);
+    mediaIds.forEach((mediaDbid) => {
+      const input = {
+        channel: JSON.stringify({ main: 12 }), // Shared Database
+        media_id: mediaDbid,
+        team_id: selectedTeamDbid,
+        set_claim_description: claimDescription,
+      };
+
+      submitImport(input, onCompleted, onError);
+    });
   };
 
   const handleCloseDialog = () => {
@@ -69,6 +79,7 @@ const ImportDialog = ({ teams }) => {
         size="small"
         startIcon={<SystemUpdateAltOutlinedIcon />}
         onClick={() => setDialogOpen(true)}
+        disabled={mediaIds.length < 1}
       >
         <FormattedMessage
           id="feedRequestedMedia.import"
@@ -146,7 +157,9 @@ const ImportDialog = ({ teams }) => {
   );
 };
 
-const ImportDialogQuery = () => (
+const ImportDialogWithFlashMessage = withSetFlashMessage(ImportDialog);
+
+const ImportDialogQuery = ({ mediaIds }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
@@ -165,7 +178,7 @@ const ImportDialogQuery = () => (
     `}
     render={({ error, props }) => {
       if (!error && props) {
-        return (<ImportDialog teams={props.me.teams} />);
+        return (<ImportDialogWithFlashMessage teams={props.me.teams} mediaIds={mediaIds} />);
       }
       // TODO: We need a better error handling in the future, standardized with other components
       return null;

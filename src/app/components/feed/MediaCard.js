@@ -42,7 +42,7 @@ const MediaCard = ({
 }) => {
   const classes = useStyles();
   const subtitleDetails = details.map((d, index) => (
-    <span>
+    <span key={d}>
       { index > 0 ? ' • ' : null }
       {d}
     </span>
@@ -56,9 +56,12 @@ const MediaCard = ({
       <div className={classes.description}>
         <ParsedText text={description} />
       </div>
-      <div className={classes.url}>
-        <ExternalLink url={url} />
-      </div>
+      { url ?
+        <div className={classes.url}>
+          <ExternalLink url={url} />
+        </div>
+        : null
+      }
     </div>
   );
 };

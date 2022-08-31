@@ -1,4 +1,6 @@
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import {
   Table,
   TableBody,
@@ -8,33 +10,10 @@ import {
   TableContainer,
   Paper,
 } from '@material-ui/core';
+import ErrorBoundary from '../error/ErrorBoundary';
 
-const rows = [
-  {
-    thumbnail: '',
-    title: '',
-    last_submitted: new Date().toISOString(),
-    requests_count: 10,
-    matched_media_count: 10,
-  },
-  {
-    thumbnail: '',
-    title: '',
-    last_submitted: new Date().toISOString(),
-    requests_count: 10,
-    matched_media_count: 10,
-  },
-  {
-    thumbnail: '',
-    title: '',
-    last_submitted: new Date().toISOString(),
-    requests_count: 10,
-    matched_media_count: 10,
-  },
-];
-
-const FeedRequestsTable = ({ tabs }) => (
-  <React.Fragment>
+const FeedRequestsTable = ({ tabs, feed }) => (
+  <React.Fragment blo={feed.created_at}>
     { tabs({}) }
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
@@ -47,23 +26,65 @@ const FeedRequestsTable = ({ tabs }) => (
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.title}
-              </TableCell>
-              <TableCell align="right">{row.last_submitted}</TableCell>
-              <TableCell align="right">{row.requests_count}</TableCell>
-              <TableCell align="right">{row.matched_media_count}</TableCell>
-            </TableRow>
-          ))}
+          { feed?.requests?.edges.map((r) => {
+            console.log('r', r); // eslint-disable-line
+            return (
+              <TableRow
+                key={r.node.dbid}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {r.node.content}
+                </TableCell>
+                <TableCell align="right">{r.node.last_submitted_at}</TableCell>
+                <TableCell align="right">{r.node.requests_count}</TableCell>
+                <TableCell align="right">{r.node.medias_count}</TableCell>
+              </TableRow>
+            );
+          }) }
         </TableBody>
       </Table>
     </TableContainer>
   </React.Fragment>
 );
 
-export default FeedRequestsTable;
+const FeedRequestsTableQuery = ({ teamSlug, feedId, tabs }) => (
+  <ErrorBoundary component="FeedRequestsTable">
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!) {
+          team(slug: $teamSlug) {
+            feed(dbid: $feedId) {
+              dbid
+              created_at
+              requests(first: 50) {
+                edges {
+                  node {
+                    dbid
+                    content
+                    last_submitted_at
+                    requests_count
+                    medias_count
+                  }
+                }
+              }
+            }
+          }
+        }
+      `}
+      variables={{
+        teamSlug,
+        feedId,
+      }}
+      render={({ props, error }) => {
+        if (props && !error) {
+          return (<FeedRequestsTable tabs={tabs} feed={props.team?.feed} />);
+        }
+        return null;
+      }}
+    />
+  </ErrorBoundary>
+);
+
+export default FeedRequestsTableQuery;
