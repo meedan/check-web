@@ -39,8 +39,8 @@ const SearchFieldProjectGroup = ({
     }}
     render={({ error, props }) => {
       if (!error && props) {
-        const selectedProjectGroups = query.project_group_id ? query.project_group_id.map(p => String(p)) : [];
-        const selected = projectGroup ? [String(projectGroup.dbid)] : selectedProjectGroups;
+        const selectedProjectGroups = query.project_group_id ? query.project_group_id.map(p => `${p}`) : [];
+        const selected = projectGroup ? [projectGroup.dbid] : selectedProjectGroups;
         const projectGroupOptions = [];
         props.team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
           projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });

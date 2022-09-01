@@ -77,8 +77,8 @@ const SearchFieldProject = ({
           projectOptions = projectOptions.concat(orphanProjects);
         }
 
-        const selectedProjects = query.projects ? query.projects.map(p => String(p)) : [];
-        const selected = project ? [String(project.dbid)] : selectedProjects;
+        const selectedProjects = query.projects ? query.projects.map(p => `${p}`) : [];
+        const selected = project ? [project.dbid] : selectedProjects;
 
         return (
           <FormattedMessage id="SearchFieldProject.label" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
