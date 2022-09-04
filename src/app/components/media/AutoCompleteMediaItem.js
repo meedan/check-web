@@ -114,7 +114,7 @@ const AutoCompleteMediaItem = (props, context) => {
     keyword: searchText,
     show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
     eslimit: 50,
-    archived: CheckArchivedFlags.NONE,
+    archived: [CheckArchivedFlags.NONE, CheckArchivedFlags.UNCONFIRMED],
     show_similar: Boolean(props.customFilter),
   };
   if (keywordFields) {
