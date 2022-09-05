@@ -16,16 +16,16 @@ const FeedRequestedMedia = ({ request }) => {
     if (selectedMediaIds.length) {
       setSelectedMediaIds([]);
     } else {
-      setSelectedMediaIds([request.media.dbid]);
+      setSelectedMediaIds(request.medias.edges.map(m => m.node.dbid));
     }
   };
 
-  const handleMediaCheckbox = (e) => {
+  const handleMediaCheckbox = (e, mediaDbid, index) => {
     const newSelectedMediaIds = [...selectedMediaIds];
     if (e.target.checked) {
-      newSelectedMediaIds.push(request.media.dbid);
+      newSelectedMediaIds.push(mediaDbid);
     } else {
-      newSelectedMediaIds.splice(0, 1); // FIXME splice at the right index when multiple media listed
+      newSelectedMediaIds.splice(index, 1);
     }
     setSelectedMediaIds(newSelectedMediaIds);
   };
@@ -36,7 +36,7 @@ const FeedRequestedMedia = ({ request }) => {
         <Box display="flex" justifyContent="space-between">
           <Box display="flex" alignItems="center">
             <Checkbox
-              checked={selectedMediaIds.includes(request.media.dbid)}
+              checked={selectedMediaIds.length === request.medias.edges.length}
               onChange={handleSelectAllCheckbox}
             />
             <strong>
@@ -50,24 +50,27 @@ const FeedRequestedMedia = ({ request }) => {
           </Box>
           <ImportDialog mediaIds={selectedMediaIds} />
         </Box>
-        <Box key={request.media.dbid} display="flex">
-          <Checkbox
-            checked={selectedMediaIds.includes(request.media.dbid)}
-            onChange={handleMediaCheckbox}
-          />
-          <MediaCardCondensed
-            title={request.media.quote}
-            details={[
-              request.media.type,
-              request.last_submitted_at,
-              request.requests_count,
-            ]}
-            picture={request.media.picture}
-            url={request.media.url}
-            description={request.media.quote}
-            request={request}
-          />
-        </Box>
+        { request.medias?.edges.map((m, index) => (
+          <Box key={m.node.dbid} display="flex">
+            <Checkbox
+              checked={selectedMediaIds.includes(m.node.dbid)}
+              onChange={e => handleMediaCheckbox(e, m.node.dbid, index)}
+            />
+            <MediaCardCondensed
+              title={m.node.quote}
+              details={[
+                m.node.type,
+                request.last_submitted_at,
+                request.requests_count,
+              ]}
+              picture={m.node.picture}
+              url={m.node.url}
+              description={m.node.quote}
+              requestDbid={request.dbid}
+              mediaDbid={m.node.dbid}
+            />
+          </Box>
+        )) }
       </div>
     </React.Fragment>
   );
@@ -76,15 +79,19 @@ const FeedRequestedMedia = ({ request }) => {
 
 export default createFragmentContainer(FeedRequestedMedia, graphql`
   fragment FeedRequestedMedia_request on Request {
-    media {
-      dbid
-      quote
-      picture
-      url
-      type
+    dbid
+    medias(first: 50) {
+      edges {
+        node {
+          dbid
+          quote
+          picture
+          url
+          type
+        }
+      }
     }
     last_submitted_at
     requests_count
-    ...FeedRequestedMediaDialog_request
   }
 `);

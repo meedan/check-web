@@ -21,14 +21,14 @@ const StyledTwoColumnLayout = styled.div`
   }
 `;
 
-const FeedClusterPage = ({ feed }) => (
+const FeedClusterPage = ({ request }) => (
   <div id="feed-cluster-page">
     <StyledTwoColumnLayout>
       <Column className="media__column">
-        <FeedRequestedMedia request={feed.requests?.edges[0].node} />
+        <FeedRequestedMedia request={request} />
       </Column>
       <Column className="requests__column">
-        <RequestCards request={feed.requests?.edges[0].node} />
+        <RequestCards requestDbid={request.dbid} />
       </Column>
     </StyledTwoColumnLayout>
   </div>
@@ -39,26 +39,19 @@ const FeedClusterPageQuery = ({ routeParams }) => (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query FeedClusterPageQuery($feedId: ID!, $requestId: Int!) {
-          feed(id: $feedId) {
-            requests(first: 1, request_id: $requestId) {
-              edges {
-                node {
-                  ...FeedRequestedMedia_request
-                  ...RequestCards_request
-                }
-              }
-            }
+        query FeedClusterPageQuery($requestId: ID!) {
+          request(id: $requestId) {
+            ...FeedRequestedMedia_request
+            dbid
           }
         }
       `}
       variables={{
-        feedId: parseInt(routeParams.feedId, 10),
         requestId: parseInt(routeParams.requestId, 10),
       }}
       render={({ props, error }) => {
         if (props && !error) {
-          return (<FeedClusterPage feed={props.feed} />);
+          return (<FeedClusterPage request={props.request} />);
         }
         return null;
       }}

@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import {
   Table,
   TableBody,
@@ -9,48 +11,113 @@ import {
   TableHead,
   TableRow,
   TableContainer,
-  Paper,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
+import MediasLoading from '../media/MediasLoading';
+import { opaqueBlack03 } from '../../styles/js/shared';
 
-const FeedRequestsTable = ({ tabs, feed }) => (
-  <React.Fragment blo={feed.created_at}>
-    { tabs({}) }
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Media</TableCell>
-            <TableCell align="right">Last submitted</TableCell>
-            <TableCell align="right">Requests</TableCell>
-            <TableCell align="right">Matched media</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          { feed?.requests?.edges.map((r) => {
-            console.log('r', r); // eslint-disable-line
-            return (
+const useStyles = makeStyles({
+  root: {
+    cursor: 'pointer',
+    background: opaqueBlack03,
+    textDecoration: 'none',
+    height: '96px',
+    '&:hover': {
+      boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
+      background: opaqueBlack03,
+      transform: 'scale(1)',
+    },
+  },
+});
+
+const FeedRequestsTable = ({
+  tabs,
+  feed,
+  searchUrlPrefix,
+}) => {
+  const buildItemUrl = (requestDbid) => {
+    const urlParams = new URLSearchParams();
+    urlParams.set('listPath', searchUrlPrefix);
+    return `/check/feed/${feed.dbid}/request/${requestDbid}?${urlParams.toString()}`;
+  };
+
+  const classes = useStyles();
+
+  return (
+    <React.Fragment>
+      { tabs({}) }
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <FormattedMessage
+                  id="feedRequestsTable.media"
+                  defaultMessage="Media"
+                  description="Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
+                />
+              </TableCell>
+              <TableCell align="right">
+                <FormattedMessage
+                  id="feedRequestsTable.lastSubmitted"
+                  defaultMessage="Last submitted"
+                  description="Header label for date column, in which are shown timestamps of last time a media was sent"
+                />
+              </TableCell>
+              <TableCell align="right">
+                <FormattedMessage
+                  id="feedRequestsTable.requests"
+                  defaultMessage="Requests"
+                  description="Header label for number of requests column"
+                />
+              </TableCell>
+              <TableCell align="right">
+                <FormattedMessage
+                  id="feedRequestsTable.matchedMedia"
+                  defaultMessage="Matched media"
+                  description="Header label for number of medias found to be matched to the current one"
+                />
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            { feed?.requests?.edges.map(r => (
               <TableRow
                 key={r.node.dbid}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                onClick={() => browserHistory.push(`/check/feed/${feed.dbid}/request/${r.node.dbid}`)}
+                classes={classes}
+                onClick={() => browserHistory.push(buildItemUrl(r.node.dbid))}
               >
-                <TableCell component="th" scope="row">
-                  {r.node.content}
-                </TableCell>
+                <TitleCell
+                  projectMedia={{
+                    title: r.node.content,
+                    description: r.node.content,
+                    picture: r.node.media?.picture,
+                  }}
+                />
                 <TableCell align="right">{r.node.last_submitted_at}</TableCell>
                 <TableCell align="right">{r.node.requests_count}</TableCell>
                 <TableCell align="right">{r.node.medias_count}</TableCell>
               </TableRow>
-            );
-          }) }
-        </TableBody>
-      </Table>
-    </TableContainer>
-  </React.Fragment>
-);
+            )) }
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </React.Fragment>
+  );
+};
 
-const FeedRequestsTableQuery = ({ teamSlug, feedId, tabs }) => (
+FeedRequestsTable.propTypes = {
+
+};
+
+const FeedRequestsTableQuery = ({
+  teamSlug,
+  feedId,
+  tabs,
+  searchUrlPrefix,
+}) => (
   <ErrorBoundary component="FeedRequestsTable">
     <QueryRenderer
       environment={Relay.Store}
@@ -59,7 +126,6 @@ const FeedRequestsTableQuery = ({ teamSlug, feedId, tabs }) => (
           team(slug: $teamSlug) {
             feed(dbid: $feedId) {
               dbid
-              created_at
               requests(first: 50) {
                 edges {
                   node {
@@ -68,6 +134,9 @@ const FeedRequestsTableQuery = ({ teamSlug, feedId, tabs }) => (
                     last_submitted_at
                     requests_count
                     medias_count
+                    media {
+                      picture
+                    }
                   }
                 }
               }
@@ -80,13 +149,29 @@ const FeedRequestsTableQuery = ({ teamSlug, feedId, tabs }) => (
         feedId,
       }}
       render={({ props, error }) => {
+        if (!error && !props) {
+          return <MediasLoading />;
+        }
+
         if (props && !error) {
-          return (<FeedRequestsTable tabs={tabs} feed={props.team?.feed} />);
+          return (
+            <FeedRequestsTable
+              tabs={tabs}
+              feed={props.team?.feed}
+              searchUrlPrefix={searchUrlPrefix}
+            />);
         }
         return null;
       }}
     />
   </ErrorBoundary>
 );
+
+FeedRequestsTableQuery.propTypes = {
+  teamSlug: PropTypes.string.isRequired,
+  feedId: PropTypes.number.isRequired,
+  tabs: PropTypes.func.isRequired,
+  searchUrlPrefix: PropTypes.string.isRequired,
+};
 
 export default FeedRequestsTableQuery;

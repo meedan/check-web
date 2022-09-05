@@ -1,6 +1,8 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import {
   Box,
@@ -11,6 +13,7 @@ import {
 import ImportDialog from './ImportDialog';
 import MediaCard from './MediaCard';
 import RequestCards from './RequestCards';
+import ErrorBoundary from '../error/ErrorBoundary';
 
 const FeedRequestedMediaDialog = ({
   request,
@@ -32,20 +35,21 @@ const FeedRequestedMediaDialog = ({
     </DialogTitle>
     <DialogContent>
       <Box display="flex" justifyContent="space-between">
-        <div>
+        <div className="feed-requested-media-dialog__media-column">
           <ImportDialog mediaIds={[request.media.dbid]} />
           <MediaCard
             title={request.media.quote}
             description={request.media.quote}
             url={request.media.url}
-            pictire={request.media.picture}
+            picture={request.media.picture}
             details={[
               request.media.type,
               request.last_submitted_at,
             ]}
+            media={request.media}
           />
         </div>
-        <RequestCards request={request} />
+        <RequestCards requestDbid={request.dbid} mediaDbid={request.media.dbid} />
       </Box>
     </DialogContent>
   </Dialog>
@@ -56,16 +60,47 @@ FeedRequestedMediaDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default createFragmentContainer(FeedRequestedMediaDialog, graphql`
-  fragment FeedRequestedMediaDialog_request on Request {
-    media {
-      dbid
-      quote
-      picture
-      url
-      type
-    }
-    last_submitted_at
-    ...RequestCards_request
-  }
-`);
+const FeedRequestedMediaDialogQuery = ({ requestDbid, mediaDbid, ...parentProps }) => (
+  <ErrorBoundary component="FeedRequestedMediaDialog">
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query FeedRequestedMediaDialogQuery($requestId: ID!, $mediaId: Int!) {
+          request(id: $requestId) {
+            dbid
+            media {
+              dbid
+              quote
+              picture
+              url
+              type
+              ...MediaCard_media
+            }
+            last_submitted_at
+            similar_requests(first: 50, media_id: $mediaId) {
+              edges {
+                node {
+                  dbid
+                  content
+                  last_submitted_at
+                }
+              }
+            }
+          }
+        }
+      `}
+      variables={{
+        requestId: requestDbid,
+        mediaId: mediaDbid,
+      }}
+      render={({ props, error }) => {
+        if (props && !error) {
+          return (<FeedRequestedMediaDialog request={props.request} {...parentProps} />);
+        }
+        return null;
+      }}
+    />
+  </ErrorBoundary>
+);
+
+export default FeedRequestedMediaDialogQuery;

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
+import MediaPreview from './MediaPreview';
 import ExternalLink from '../ExternalLink';
 import ParsedText from '../ParsedText';
 import { brandSecondary, black54 } from '../../styles/js/shared';
@@ -39,6 +41,7 @@ const MediaCard = ({
   details,
   description,
   url,
+  media,
 }) => {
   const classes = useStyles();
   const subtitleDetails = details.map((d, index) => (
@@ -47,14 +50,17 @@ const MediaCard = ({
       {d}
     </span>
   ));
+
+  console.log('media', media); // eslint-disable-line
+
   return (
     <div className={classes.root}>
       <div className={classes.title}>
-        <ParsedText text={title} />
+        <ParsedText text={title || media.quote} />
       </div>
       <div className={classes.details}>{subtitleDetails}</div>
       <div className={classes.description}>
-        <ParsedText text={description} />
+        <ParsedText text={description || media.metadata?.description} />
       </div>
       { url ?
         <div className={classes.url}>
@@ -62,6 +68,7 @@ const MediaCard = ({
         </div>
         : null
       }
+      <MediaPreview media={media} />
     </div>
   );
 };
@@ -77,4 +84,10 @@ MediaCard.defaultProps = {
   url: null,
 };
 
-export default MediaCard;
+export default createFragmentContainer(MediaCard, graphql`
+  fragment MediaCard_media on Media {
+    quote
+    url
+    metadata
+  }
+`);

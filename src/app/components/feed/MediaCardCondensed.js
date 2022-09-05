@@ -55,7 +55,8 @@ const MediaCardCondensed = ({
   description,
   picture,
   url,
-  request,
+  requestDbid,
+  mediaDbid,
 }) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const classes = useStyles();
@@ -89,11 +90,15 @@ const MediaCardCondensed = ({
           <div className={classes.description}>{ description }</div>
         </div>
       </Box>
-      <FeedRequestedMediaDialog
-        request={request}
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
-      />
+      { openDialog ?
+        <FeedRequestedMediaDialog
+          open
+          requestDbid={requestDbid}
+          mediaDbid={mediaDbid}
+          onClose={() => setOpenDialog(false)}
+        />
+        : null
+      }
     </Box>
   );
 };
