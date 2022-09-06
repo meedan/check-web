@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import {
   Table,
   TableBody,
@@ -59,21 +59,21 @@ const FeedRequestsTable = ({
                   description="Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
                 />
               </TableCell>
-              <TableCell align="right">
+              <TableCell>
                 <FormattedMessage
                   id="feedRequestsTable.lastSubmitted"
                   defaultMessage="Last submitted"
                   description="Header label for date column, in which are shown timestamps of last time a media was sent"
                 />
               </TableCell>
-              <TableCell align="right">
+              <TableCell>
                 <FormattedMessage
                   id="feedRequestsTable.requests"
                   defaultMessage="Requests"
                   description="Header label for number of requests column"
                 />
               </TableCell>
-              <TableCell align="right">
+              <TableCell>
                 <FormattedMessage
                   id="feedRequestsTable.matchedMedia"
                   defaultMessage="Matched media"
@@ -91,14 +91,21 @@ const FeedRequestsTable = ({
               >
                 <TitleCell
                   projectMedia={{
-                    title: r.node.content,
+                    title: r.node.media.quote || r.node.media.metadata?.title || r.node.content,
                     description: r.node.content,
-                    picture: r.node.media?.picture,
+                    picture: r.node.media.picture,
                   }}
                 />
-                <TableCell align="right">{r.node.last_submitted_at}</TableCell>
-                <TableCell align="right">{r.node.requests_count}</TableCell>
-                <TableCell align="right">{r.node.medias_count}</TableCell>
+                <TableCell>
+                  <FormattedDate
+                    value={r.node.last_submitted_at}
+                    year="numeric"
+                    month="short"
+                    day="2-digit"
+                  />
+                </TableCell>
+                <TableCell>{r.node.requests_count}</TableCell>
+                <TableCell>{r.node.medias_count}</TableCell>
               </TableRow>
             )) }
           </TableBody>
@@ -135,6 +142,8 @@ const FeedRequestsTableQuery = ({
                     requests_count
                     medias_count
                     media {
+                      quote
+                      metadata
                       picture
                     }
                   }

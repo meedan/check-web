@@ -20,8 +20,6 @@ class ProjectHeaderComponent extends React.PureComponent {
     } = this.props;
     const { listUrl } = getListUrlQueryAndIndex(params, location.query, location.pathname);
     const isFeedPage = /\/feed(\/|$)/.test(listUrl);
-    console.log('this.props', this.props); // eslint-disable-line
-    console.log('listUrl', listUrl); // eslint-disable-line
 
     let pageTitle;
     if (/\/trash(\/|$)/.test(listUrl)) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -55,8 +56,8 @@ const MediaCardCondensed = ({
   description,
   picture,
   url,
-  requestDbid,
-  mediaDbid,
+  media,
+  request,
 }) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const classes = useStyles();
@@ -80,21 +81,21 @@ const MediaCardCondensed = ({
               alt=""
               className={classes.image}
               onError={(e) => { e.target.onerror = null; e.target.src = defaultImage; }}
-              src={picture}
+              src={media?.picture || picture}
             /> : null
         }
         <div>
-          <div className={classes.title}>{ title }</div>
+          <div className={classes.title}>{ title || media?.quote || media.metadata.title}</div>
           <div className={classes.details}>{ subtitleDetails }</div>
-          { url ? <div className={classes.url}><ExternalLink url={url} /></div> : null }
-          <div className={classes.description}>{ description }</div>
+          { url ? <div className={classes.url}><ExternalLink url={media?.url || url} /></div> : null }
+          <div className={classes.description}>{ media?.quote || description }</div>
         </div>
       </Box>
       { openDialog ?
         <FeedRequestedMediaDialog
           open
-          requestDbid={requestDbid}
-          mediaDbid={mediaDbid}
+          media={media}
+          request={request}
           onClose={() => setOpenDialog(false)}
         />
         : null
@@ -104,16 +105,27 @@ const MediaCardCondensed = ({
 };
 
 MediaCardCondensed.propTypes = {
-  title: PropTypes.string.isRequired,
-  details: PropTypes.array.isRequired,
-  description: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  details: PropTypes.array,
+  description: PropTypes.string,
   picture: PropTypes.string,
   url: PropTypes.string,
 };
 
 MediaCardCondensed.defaultProps = {
+  title: null,
+  details: null,
+  description: null,
   picture: null,
   url: null,
 };
 
-export default MediaCardCondensed;
+export default createFragmentContainer(MediaCardCondensed, graphql`
+  fragment MediaCardCondensed_media on Media {
+    quote
+    picture
+    url
+    metadata
+    ...FeedRequestedMediaDialog_media
+  }
+`);

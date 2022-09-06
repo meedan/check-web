@@ -13,7 +13,9 @@ import {
 } from '@material-ui/core';
 import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
 import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const submitImport = (input, onCompleted, onError) => {
   commitMutation(Relay.Store, {
@@ -45,11 +47,19 @@ const ImportDialog = ({
 
   const handleImport = () => {
     const onCompleted = () => {
-      setFlashMessage('OH YAY', 'success');
+      setFlashMessage(
+        <FormattedMessage
+          id="importDialog.success"
+          defaultMessage="Media imported successfully"
+          description="Banner displayed after items are imported successfully"
+        />,
+        'success');
       setDialogOpen(false);
     };
-    const onError = () => {
-      setFlashMessage('OH NO', 'error');
+
+    const onError = (error) => {
+      const errorMessage = getErrorMessageForRelayModernProblem(error) || <GenericUnknownErrorMessage />;
+      setFlashMessage(errorMessage, 'error');
       setDialogOpen(false);
     };
 

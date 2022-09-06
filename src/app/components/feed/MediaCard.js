@@ -56,15 +56,15 @@ const MediaCard = ({
   return (
     <div className={classes.root}>
       <div className={classes.title}>
-        <ParsedText text={title || media.quote} />
+        <ParsedText text={title || media.quote || media.metadata?.title} />
       </div>
       <div className={classes.details}>{subtitleDetails}</div>
       <div className={classes.description}>
-        <ParsedText text={description || media.metadata?.description} />
+        <ParsedText text={description || media.metadata?.description || media.quote} />
       </div>
-      { url ?
+      { url || media.url ?
         <div className={classes.url}>
-          <ExternalLink url={url} />
+          <ExternalLink url={url || media.url} />
         </div>
         : null
       }
@@ -74,13 +74,15 @@ const MediaCard = ({
 };
 
 MediaCard.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   details: PropTypes.array.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   url: PropTypes.string,
 };
 
 MediaCard.defaultProps = {
+  title: null,
+  description: null,
   url: null,
 };
 
@@ -89,5 +91,6 @@ export default createFragmentContainer(MediaCard, graphql`
     quote
     url
     metadata
+    ...MediaPreview_media
   }
 `);

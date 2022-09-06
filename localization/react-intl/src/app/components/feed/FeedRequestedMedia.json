@@ -3,5 +3,15 @@
     "id": "feedRequestedMedia.numberOfMedias",
     "description": "Header of medias list. Example: 3 medias",
     "defaultMessage": "{mediasCount, plural, one {# media} other {# medias}}"
+  },
+  {
+    "id": "feedRequestedMedia.lastSubmitted",
+    "description": "Header of medias list. Example: 3 medias",
+    "defaultMessage": "Last submitted {date}"
+  },
+  {
+    "id": "feedRequestedMedia.requestCount",
+    "description": "Header of verification requests for this media. Example: 3 requests",
+    "defaultMessage": "{requestCount, plural, one {# request} other {# requests}}"
   }
 ]

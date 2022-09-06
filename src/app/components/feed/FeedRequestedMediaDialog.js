@@ -1,106 +1,81 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { QueryRenderer, graphql } from 'react-relay/compat';
-import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import {
   Box,
   Dialog,
   DialogContent,
   DialogTitle,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import ImportDialog from './ImportDialog';
 import MediaCard from './MediaCard';
 import RequestCards from './RequestCards';
-import ErrorBoundary from '../error/ErrorBoundary';
+
+const useStyles = makeStyles({
+  column: {
+    width: '50%',
+  },
+  separator: {
+    width: '16px',
+  },
+});
 
 const FeedRequestedMediaDialog = ({
-  request,
+  intl,
   open,
+  media,
+  request,
   onClose,
-}) => (
-  <Dialog
-    open={open}
-    onClose={onClose}
-    maxWidth="md"
-    fullWidth
-  >
-    <DialogTitle>
-      <FormattedMessage
-        id="feedRequestedMediaDialog.title"
-        defaultMessage="Import medias and requests"
-        description="Dialog title for importing medias and requests"
-      />
-    </DialogTitle>
-    <DialogContent>
-      <Box display="flex" justifyContent="space-between">
-        <div className="feed-requested-media-dialog__media-column">
-          <ImportDialog mediaIds={[request.media.dbid]} />
-          <MediaCard
-            title={request.media.quote}
-            description={request.media.quote}
-            url={request.media.url}
-            picture={request.media.picture}
-            details={[
-              request.media.type,
-              request.last_submitted_at,
-            ]}
-            media={request.media}
-          />
-        </div>
-        <RequestCards requestDbid={request.dbid} mediaDbid={request.media.dbid} />
-      </Box>
-    </DialogContent>
-  </Dialog>
-);
+}) => {
+  const classes = useStyles();
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="md"
+      fullWidth
+    >
+      <DialogTitle>
+        <FormattedMessage
+          id="feedRequestedMediaDialog.title"
+          defaultMessage="Import medias and requests"
+          description="Dialog title for importing medias and requests"
+        />
+      </DialogTitle>
+      <DialogContent>
+        <Box display="flex" justifyContent="space-between">
+          <div className={classes.column}>
+            <ImportDialog mediaIds={[media.dbid]} />
+            <MediaCard
+              details={[
+                media.type,
+                intl.formatDate(request.last_submitted_at, { year: 'numeric', month: 'short', day: '2-digit' }),
+              ]}
+              media={media}
+            />
+          </div>
+          <div className={classes.separator} />
+          <div className={classes.column}>
+            <RequestCards requestDbid={request.dbid} mediaDbid={media.dbid} />
+          </div>
+        </Box>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
 FeedRequestedMediaDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-const FeedRequestedMediaDialogQuery = ({ requestDbid, mediaDbid, ...parentProps }) => (
-  <ErrorBoundary component="FeedRequestedMediaDialog">
-    <QueryRenderer
-      environment={Relay.Store}
-      query={graphql`
-        query FeedRequestedMediaDialogQuery($requestId: ID!, $mediaId: Int!) {
-          request(id: $requestId) {
-            dbid
-            media {
-              dbid
-              quote
-              picture
-              url
-              type
-              ...MediaCard_media
-            }
-            last_submitted_at
-            similar_requests(first: 50, media_id: $mediaId) {
-              edges {
-                node {
-                  dbid
-                  content
-                  last_submitted_at
-                }
-              }
-            }
-          }
-        }
-      `}
-      variables={{
-        requestId: requestDbid,
-        mediaId: mediaDbid,
-      }}
-      render={({ props, error }) => {
-        if (props && !error) {
-          return (<FeedRequestedMediaDialog request={props.request} {...parentProps} />);
-        }
-        return null;
-      }}
-    />
-  </ErrorBoundary>
-);
-
-export default FeedRequestedMediaDialogQuery;
+export default createFragmentContainer(injectIntl(FeedRequestedMediaDialog), graphql`
+  fragment FeedRequestedMediaDialog_media on Media {
+    dbid
+    type
+    ...MediaCard_media
+  }
+`);

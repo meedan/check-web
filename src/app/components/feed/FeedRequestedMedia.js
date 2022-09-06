@@ -1,6 +1,6 @@
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import {
   Box,
   Checkbox,
@@ -44,7 +44,7 @@ const FeedRequestedMedia = ({ request }) => {
                 id="feedRequestedMedia.numberOfMedias"
                 defaultMessage="{mediasCount, plural, one {# media} other {# medias}}"
                 description="Header of medias list. Example: 3 medias"
-                values={{ mediasCount: 1 }}
+                values={{ mediasCount: request.medias?.edges.length }}
               />
             </strong>
           </Box>
@@ -56,18 +56,38 @@ const FeedRequestedMedia = ({ request }) => {
               checked={selectedMediaIds.includes(m.node.dbid)}
               onChange={e => handleMediaCheckbox(e, m.node.dbid, index)}
             />
+            { /* FIXME: Find the optimal way of passing props to MediaCardCondensed for the sake of reusability  */ }
             <MediaCardCondensed
               title={m.node.quote}
               details={[
                 m.node.type,
-                request.last_submitted_at,
-                request.requests_count,
+                (<FormattedMessage
+                  id="feedRequestedMedia.lastSubmitted"
+                  defaultMessage="Last submitted {date}"
+                  description="Header of medias list. Example: 3 medias"
+                  values={{
+                    date: (
+                      <FormattedDate
+                        value={request.last_submitted_at}
+                        year="numeric"
+                        month="short"
+                        day="2-digit"
+                      />
+                    ),
+                  }}
+                />),
+                (<FormattedMessage
+                  id="feedRequestedMedia.requestCount"
+                  defaultMessage="{requestCount, plural, one {# request} other {# requests}}"
+                  description="Header of verification requests for this media. Example: 3 requests"
+                  values={{ requestCount: request.requests_count }}
+                />),
               ]}
               picture={m.node.picture}
               url={m.node.url}
               description={m.node.quote}
-              requestDbid={request.dbid}
-              mediaDbid={m.node.dbid}
+              media={m.node}
+              request={request}
             />
           </Box>
         )) }
@@ -88,6 +108,7 @@ export default createFragmentContainer(FeedRequestedMedia, graphql`
           picture
           url
           type
+          ...MediaCardCondensed_media
         }
       }
     }

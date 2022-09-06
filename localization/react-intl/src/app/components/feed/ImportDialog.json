@@ -1,5 +1,10 @@
 [
   {
+    "id": "importDialog.success",
+    "description": "Banner displayed after items are imported successfully",
+    "defaultMessage": "Media imported successfully"
+  },
+  {
     "id": "feedRequestedMedia.import",
     "description": "Button label for importing media into workspace action",
     "defaultMessage": "Import"
