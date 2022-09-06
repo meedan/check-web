@@ -20,6 +20,11 @@
     "defaultMessage": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
   },
   {
+    "id": "contentScreen.warningByAutomationRule",
+    "description": "Content warning displayed over sensitive content",
+    "defaultMessage": "An automation rule has detected this content as sensitive"
+  },
+  {
     "id": "contentScreen.viewContentButton",
     "description": "Button to enable view of sensitive content",
     "defaultMessage": "Temporarily view content"
