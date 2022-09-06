@@ -43,7 +43,7 @@ const heapAnalytics = (config) => {
 
 const uptimeMonitoring = (config) => {
   return config.uptimeId ?
-    `<script>(function(w,d,s){w._uptime_rum={};w._uptime_rum.uuid='${config.uptimeId}';w._uptime_rum.url='https://rum.uptime.com/rum/record-data';s=document.createElement('script');s.async=1;s.src='https://rum.uptime.com/static/rum/compiled/rum.js';d.getElementsByTagName('head')[0].appendChild(s);})(window,document);</script>`
+  `<script>(function(w,d,s){w._uptime_rum2={};w._uptime_rum2.errors=[];w._uptime_rum2.uuid='${config.uptimeId}';w._uptime_rum2.url='https://rumcollector.uptime.com';s=document.createElement('script');s.async=1;s.src='https://rum.uptime.com/static/rum/compiled/v2/rum.js';d.getElementsByTagName('head')[0].appendChild(s);w.addEventListener('error',function(e){w._uptime_rum2.errors.push({t:new Date(),err:e})});})(window,document);</script>`
     : '';
 };
 
