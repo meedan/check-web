@@ -129,18 +129,27 @@ const AspectRatioComponent = ({
               <VisibilityOffIcon className={classes.icon} />
               <div style={{ visibility: contentWarning && maskContent ? 'visible' : 'hidden' }}>
                 <Typography variant="body1">
-                  <FormattedHTMLMessage
-                    id="contentScreen.warning"
-                    defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
-                    description="Content warning displayed over sensitive content"
-                    values={{
-                      user_name: warningCreator,
-                      warning_category: (
-                        (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
+                  { warningCreator !== 'Alegre' ? (
+                    <FormattedHTMLMessage
+                      id="contentScreen.warning"
+                      defaultMessage={'<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>'}
+                      description="Content warning displayed over sensitive content"
+                      values={{
+                        user_name: warningCreator,
+                        warning_category: (
+                          (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
                         warningCategory
-                      ),
-                    }}
-                  />
+                        ),
+                      }}
+                    />
+                  ) : (
+                    <FormattedHTMLMessage
+                      id="contentScreen.warningByAutomationRule"
+                      defaultMessage="An automation rule has detected this content as sensitive"
+                      description="Content warning displayed over sensitive content"
+                    />
+                  )
+                  }
                 </Typography>
               </div>
               { contentWarning ? (
