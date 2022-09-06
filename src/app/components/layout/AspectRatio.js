@@ -95,9 +95,6 @@ const AspectRatioComponent = ({
 }) => {
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const classes = useStyles({ contentWarning: contentWarning && maskContent });
-  // const pastel = 'pastel';
-  // eslint-disable-next-line
-  console.log('warningCreator:', warningCreator);
   return (
     <div className={classes.container}>
       <div className={classes.innerWrapper}>
