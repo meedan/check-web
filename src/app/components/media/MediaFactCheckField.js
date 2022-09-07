@@ -27,7 +27,7 @@ const MediaFactCheckField = ({
   let defaultValue = intl.formatMessage(messages.placeholder);
 
   if (hasClaimDescription) {
-    defaultValue = value || '';
+    defaultValue = value || undefined;
   }
 
   return (

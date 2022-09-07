@@ -6,24 +6,30 @@ import MediaClaim from './MediaClaim';
 import MediaTags from './MediaTags';
 import MediaFactCheck from './MediaFactCheck';
 import MediaAnalysis from './MediaAnalysis';
+import MediaSuggestionReview from './Similarity/MediaSuggestionReview';
 
-const MediaSidebar = ({ projectMedia }) => (
-  <Box id="media__sidebar">
-    <Box my={2}>
-      <MediaCreatedBy projectMedia={projectMedia} />
-    </Box>
-    <Box>
-      <Box mt={2}>
-        <MediaClaim projectMedia={projectMedia} />
-      </Box>
-      <MediaTags projectMedia={projectMedia} />
+const MediaSidebar = ({ projectMedia }) => {
+  const [value, setValue] = React.useState(0);
+
+  return (
+    <Box id="media__sidebar">
       <Box my={2}>
-        <MediaFactCheck projectMedia={projectMedia} />
+        { projectMedia.suggested_main_item || projectMedia.confirmed_main_item || projectMedia.is_confirmed_similar_to_another_item ? <MediaSuggestionReview projectMedia={projectMedia} updateParent={setValue} vale={value} /> : null }
+        <MediaCreatedBy projectMedia={projectMedia} />
       </Box>
-      <MediaAnalysis projectMedia={projectMedia} />
+      <Box>
+        <Box mt={2}>
+          <MediaClaim projectMedia={projectMedia} />
+        </Box>
+        <MediaTags projectMedia={projectMedia} />
+        <Box my={2}>
+          <MediaFactCheck projectMedia={projectMedia} />
+        </Box>
+        <MediaAnalysis projectMedia={projectMedia} />
+      </Box>
     </Box>
-  </Box>
-);
+  );
+};
 
 MediaSidebar.propTypes = {
   projectMedia: PropTypes.object.isRequired, // FIXME: Detail which fields are expected

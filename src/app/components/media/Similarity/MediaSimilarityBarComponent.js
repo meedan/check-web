@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import {
   opaqueBlack54,
   checkBlue,
@@ -66,7 +65,6 @@ const MediaSimilarityBarComponent = ({
   confirmedSimilarCount,
   hasMain,
   confirmedMainItem,
-  suggestedMainItem,
   canAdd,
   isBlank,
   isPublished,
@@ -77,46 +75,6 @@ const MediaSimilarityBarComponent = ({
   // This component should be used only on an item page
   if (!linkPrefix) {
     return null;
-  }
-
-  if (hasMain) {
-    const mainItemLink = `/${confirmedMainItem.team.slug}/media/${confirmedMainItem.dbid}/similar-media`;
-    return (
-      <Box className={[classes.root, classes.spacing, classes.similarityMessage].join(' ')}>
-        <FormattedMessage
-          id="mediaSimilarityBarComponent.hasMain"
-          defaultMessage="This media has been associated with an existing claim."
-        />
-        {' '}
-        <Button onClick={() => browserHistory.push(mainItemLink)} variant="contained" color="primary" size="small">
-          <FormattedMessage
-            id="mediaSimilarityBarComponent.openClaim"
-            defaultMessage="Open claim"
-          />
-        </Button>
-      </Box>
-    );
-  }
-
-  if (suggestedMainItem) {
-    const mainItemLink = `/${suggestedMainItem.team.slug}/media/${suggestedMainItem.dbid}/similar-media?reviewId=${projectMediaDbid}`;
-    return (
-      <Box className={[classes.root, classes.spacing, classes.similarityMessage].join(' ')}>
-        <FormattedMessage
-          id="mediaSimilarityBarComponent.hasSuggestedMain"
-          defaultMessage="This media has been suggested as similar to an existing claim."
-          description="Caption to inform user that there is a suggested similarity"
-        />
-        {' '}
-        <Button onClick={() => browserHistory.push(mainItemLink)} variant="contained" color="primary" size="small">
-          <FormattedMessage
-            id="mediaSimilarityBarComponent.reviewSuggestion"
-            defaultMessage="Review suggestion"
-            description="Button label for reviewing similarity suggestions"
-          />
-        </Button>
-      </Box>
-    );
   }
 
   return (
@@ -169,13 +127,6 @@ MediaSimilarityBarComponent.propTypes = {
   confirmedSimilarCount: PropTypes.number.isRequired,
   hasMain: PropTypes.bool.isRequired,
   confirmedMainItem: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
-    team: PropTypes.shape({
-      slug: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-  suggestedMainItem: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     team: PropTypes.shape({

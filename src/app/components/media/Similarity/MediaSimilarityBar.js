@@ -52,7 +52,6 @@ const MediaSimilarityBar = ({ projectMedia }) => {
               confirmedSimilarCount={props.project_media.confirmedSimilarCount}
               hasMain={props.project_media.hasMain}
               confirmedMainItem={props.project_media.confirmedMainItem}
-              suggestedMainItem={props.project_media.suggestedMainItem}
               canAdd={can(props.project_media.permissions, 'update ProjectMedia')}
               isBlank={props.project_media.type === 'Blank'}
               isPublished={props.project_media.report_status === 'published'}

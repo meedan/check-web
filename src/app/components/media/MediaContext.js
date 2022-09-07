@@ -14,9 +14,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaContext = ({ projectMedia, setError, setSaving }) => {
+const MediaContext = ({
+  projectMedia,
+  claimDescription,
+  setError,
+  setSaving,
+}) => {
   const classes = useStyles();
-  const claimDescription = projectMedia.claim_description;
+
+  // override to compensate for fast onBlur stateless component
+  const textElement = document.querySelector('#media-claim__context');
+  if (textElement && textElement.value !== claimDescription.context) {
+    textElement.value = claimDescription.context;
+  }
 
   const hasPermission = can(projectMedia.permissions, 'create ClaimDescription');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
