@@ -104,8 +104,8 @@ const FeedRequestsTable = ({
                     day="2-digit"
                   />
                 </TableCell>
-                <TableCell>{r.node.requests_count}</TableCell>
-                <TableCell>{r.node.medias_count}</TableCell>
+                <TableCell align="right">{r.node.requests_count}</TableCell>
+                <TableCell align="right">{r.node.medias_count}</TableCell>
               </TableRow>
             )) }
           </TableBody>
