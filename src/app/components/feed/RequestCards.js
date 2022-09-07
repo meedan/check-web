@@ -12,9 +12,8 @@ const RequestCards = ({ request, mediaDbid }) => {
   const isAllMedias = !mediaDbid;
   const isParentRequest = request.media.dbid === mediaDbid;
 
-  // FIXME: parent requests always displays total requests as number of requests?
-  let requestsCount = isParentRequest ? request.requests_count : request.similar_requests?.edges.length;
-  if (isAllMedias) { requestsCount += 1; }
+  let requestsCount = request.similar_requests?.edges.length;
+  if (isAllMedias || isParentRequest) { requestsCount += 1; }
 
   return (
     <div className="request-cards">
@@ -89,7 +88,6 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
               name
             }
             last_submitted_at
-            requests_count
             media {
               dbid
             }

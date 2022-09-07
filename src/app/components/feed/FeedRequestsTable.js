@@ -5,6 +5,7 @@ import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
@@ -12,7 +13,9 @@ import {
   TableRow,
   TableContainer,
 } from '@material-ui/core';
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import { makeStyles } from '@material-ui/core/styles';
+import ListHeader from '../layout/ListHeader';
 import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
@@ -47,9 +50,12 @@ const FeedRequestsTable = ({
 
   return (
     <React.Fragment>
-      { tabs({}) }
+      <Box mb={2}>
+        <ListHeader listName={feed.name} icon={<DynamicFeedIcon />} />
+        { tabs({}) }
+      </Box>
       <TableContainer>
-        <Table>
+        <Table stickyHeader size="small">
           <TableHead>
             <TableRow>
               <TableCell>
@@ -133,6 +139,7 @@ const FeedRequestsTableQuery = ({
           team(slug: $teamSlug) {
             feed(dbid: $feedId) {
               dbid
+              name
               requests(first: 50) {
                 edges {
                   node {
