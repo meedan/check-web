@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-const colorTextSecondary = '#656565';
+import { textSecondary } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   bold: {
     fontWeight: 500,
+    color: textSecondary,
   },
 });
 
@@ -16,8 +16,7 @@ const ListHeader = ({ listName, icon }) => {
     <Box p={2} height="102px">
       <Box
         className="list-header__top-header"
-        color={colorTextSecondary}
-        fontWeight={500}
+        color={textSecondary}
         display="flex"
         alignItems="center"
       >

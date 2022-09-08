@@ -14,6 +14,7 @@ import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import { ImportButton } from './ImportDialog';
 import MediaCard from './MediaCard';
 import RequestCards from './RequestCards';
+import { separationGray, textPrimary } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   column: {
@@ -26,10 +27,13 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500],
+    color: textPrimary,
   },
   dialog: {
     minHeight: '500px',
+  },
+  dialogTitle: {
+    borderBottom: `1px solid ${separationGray}`,
   },
 }));
 
@@ -51,7 +55,7 @@ const FeedRequestedMediaDialog = ({
       maxWidth="md"
       fullWidth
     >
-      <DialogTitle>
+      <DialogTitle classes={{ root: classes.dialogTitle }}>
         <FormattedMessage
           id="feedRequestedMediaDialog.title"
           defaultMessage="Import medias and requests"

@@ -13,7 +13,6 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     border: `1px solid ${brandSecondary}`,
     borderRadius: 8,
-    color: 'black',
     backgroundColor: 'white',
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),

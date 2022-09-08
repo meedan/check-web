@@ -6,6 +6,7 @@ import {
   black87,
   title1,
   subheading1,
+  textPrimary,
 } from './shared';
 
 export const layout = `
@@ -28,7 +29,7 @@ export const layout = `
 
 export const typography = `
   body {
-    color: ${black};
+    color: ${textPrimary};
     font: ${body1};
   }
 

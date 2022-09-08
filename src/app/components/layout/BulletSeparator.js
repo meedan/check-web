@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import {
-  black54,
-} from '../../styles/js/shared';
+import { textSecondary } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   dot: {
@@ -17,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   details: {
     display: 'flex',
     alignItems: 'center',
-    color: black54,
+    color: textSecondary,
   },
   icon: {
     marginRight: theme.spacing(1),

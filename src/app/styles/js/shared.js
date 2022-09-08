@@ -16,6 +16,9 @@ export const completedGreen = '#5cae73';
 export const separationGray = '#E5E5E5';
 export const brandSecondary = '#DFE4F4';
 export const backgroundMain = '#F7F8FD';
+// Check Design System Colors
+export const textPrimary = '#1F1F1F';
+export const textSecondary = '#656565';
 
 // Material blacks
 // TODO make these opaque!
@@ -129,7 +132,7 @@ export const MuiTheme = {
     types: {
       light: {
         text: {
-          primary: black87,
+          primary: textPrimary,
         },
       },
     },
