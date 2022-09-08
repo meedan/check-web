@@ -90,8 +90,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     page: 'feed',
   };
 
-  console.log('commonSearchProps', commonSearchProps); // eslint-disable-line
-
   let routeQuery = safelyParseJSON(routeParams.query, {});
   if (Object.keys(routeQuery).length === 0) {
     routeQuery = feedTeam.filters;

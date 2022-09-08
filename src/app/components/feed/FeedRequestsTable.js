@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import {
   Box,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -16,12 +17,15 @@ import {
 } from '@material-ui/core';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import { makeStyles } from '@material-ui/core/styles';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import NextIcon from '@material-ui/icons/KeyboardArrowRight';
+import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import ListHeader from '../layout/ListHeader';
 import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
-import { opaqueBlack03, checkBlue } from '../../styles/js/shared';
+import { opaqueBlack03, opaqueBlack87 } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   root: {
@@ -35,8 +39,11 @@ const useStyles = makeStyles({
       transform: 'scale(1)',
     },
   },
-  highlight: {
-    color: checkBlue,
+  pager: {
+    color: opaqueBlack87,
+    fontSize: 'larger',
+    fontWeight: 'bolder',
+    textAlign: 'center',
   },
 });
 
@@ -44,6 +51,16 @@ const FeedRequestsTable = ({
   tabs,
   feed,
   searchUrlPrefix,
+  sort,
+  sortType,
+  onChangeSort,
+  onChangeSortType,
+  onGoToTheNextPage,
+  onGoToThePreviousPage,
+  rangeStart,
+  rangeEnd,
+  hasNextPage,
+  hasPreviousPage,
 }) => {
   const buildItemUrl = (requestDbid) => {
     const urlParams = new URLSearchParams();
@@ -53,11 +70,41 @@ const FeedRequestsTable = ({
 
   const classes = useStyles();
 
+  const toggleSortType = () => {
+    onChangeSortType(sortType === 'desc' ? 'asc' : 'desc');
+  };
+
+  const TableSort = ({ children, field }) => (
+    <TableSortLabel
+      key={`${field}-${sortType}`}
+      active={sort === field}
+      IconComponent={(sortType === 'desc' ? KeyboardArrowUpIcon : KeyboardArrowDownIcon)}
+      onClick={() => {
+        if (sort === field) {
+          toggleSortType();
+        } else {
+          onChangeSort(field);
+        }
+      }}
+    >
+      {children}
+    </TableSortLabel>
+  );
+
   return (
     <React.Fragment>
       <Box mb={2}>
         <ListHeader listName={feed.name} icon={<DynamicFeedIcon />} />
         { tabs({}) }
+      </Box>
+      <Box display="flex" alignItems="center">
+        <IconButton onClick={onGoToThePreviousPage} disabled={!hasPreviousPage}>
+          <PrevIcon />
+        </IconButton>
+        <Box className={classes.pager}>{rangeStart} - {rangeEnd} / {feed.requests_count}</Box>
+        <IconButton onClick={onGoToTheNextPage} disabled={!hasNextPage}>
+          <NextIcon />
+        </IconButton>
       </Box>
       <TableContainer>
         <Table stickyHeader size="small">
@@ -70,61 +117,70 @@ const FeedRequestsTable = ({
                   description="Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
                 />
               </TableCell>
-              <TableCell classes={{ root: classes.highlight }}>
-                <TableSortLabel
-                  active
-                  direction="desc"
-                  IconComponent={KeyboardArrowDownIcon}
-                >
+              <TableCell>
+                <TableSort field="last_submitted">
                   <FormattedMessage
                     id="feedRequestsTable.lastSubmitted"
                     defaultMessage="Last submitted"
                     description="Header label for date column, in which are shown timestamps of last time a media was sent"
                   />
-                </TableSortLabel>
+                </TableSort>
               </TableCell>
               <TableCell>
-                <FormattedMessage
-                  id="feedRequestsTable.requests"
-                  defaultMessage="Requests"
-                  description="Header label for number of requests column"
-                />
+                <TableSort field="requests">
+                  <FormattedMessage
+                    id="feedRequestsTable.requests"
+                    defaultMessage="Requests"
+                    description="Header label for number of requests column"
+                  />
+                </TableSort>
               </TableCell>
               <TableCell>
-                <FormattedMessage
-                  id="feedRequestsTable.matchedMedia"
-                  defaultMessage="Matched media"
-                  description="Header label for number of medias found to be matched to the current one"
-                />
+                <TableSort field="medias">
+                  <FormattedMessage
+                    id="feedRequestsTable.matchedMedia"
+                    defaultMessage="Matched media"
+                    description="Header label for number of medias found to be matched to the current one"
+                  />
+                </TableSort>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            { feed?.requests?.edges.map(r => (
-              <TableRow
-                key={r.node.dbid}
-                classes={classes}
-                onClick={() => browserHistory.push(buildItemUrl(r.node.dbid))}
-              >
-                <TitleCell
-                  projectMedia={{
-                    title: r.node.media?.quote || r.node.media?.metadata?.title || r.node.content,
-                    description: r.node.content,
-                    picture: r.node.media?.picture,
-                  }}
-                />
-                <TableCell>
-                  <FormattedDate
-                    value={r.node.last_submitted_at}
-                    year="numeric"
-                    month="short"
-                    day="2-digit"
+            { feed?.requests?.edges.map((r) => {
+              const title = r.node.media?.quote || r.node.media?.metadata?.title || r.node.content || '';
+
+              // This means a request for the latest fact-checks
+              if (title === '.') {
+                return null;
+              }
+
+              return (
+                <TableRow
+                  key={r.node.id}
+                  classes={{ root: classes.root }}
+                  onClick={() => browserHistory.push(buildItemUrl(r.node.dbid))}
+                >
+                  <TitleCell
+                    projectMedia={{
+                      title: title.toString(),
+                      description: r.node.content.trim() === title.trim() ? '' : r.node.content,
+                      picture: r.node.media?.picture,
+                    }}
                   />
-                </TableCell>
-                <TableCell align="right">{r.node.requests_count}</TableCell>
-                <TableCell align="right">{r.node.medias_count}</TableCell>
-              </TableRow>
-            )) }
+                  <TableCell>
+                    <FormattedDate
+                      value={r.node.last_submitted_at || '-'}
+                      year="numeric"
+                      month="short"
+                      day="2-digit"
+                    />
+                  </TableCell>
+                  <TableCell align="right">{r.node.requests_count}</TableCell>
+                  <TableCell align="right">{r.node.medias_count}</TableCell>
+                </TableRow>
+              );
+            }) }
           </TableBody>
         </Table>
       </TableContainer>
@@ -132,67 +188,91 @@ const FeedRequestsTable = ({
   );
 };
 
-FeedRequestsTable.propTypes = {
-
-};
+FeedRequestsTable.propTypes = {};
 
 const FeedRequestsTableQuery = ({
   teamSlug,
   feedId,
   tabs,
   searchUrlPrefix,
-}) => (
-  <ErrorBoundary component="FeedRequestsTable">
-    <QueryRenderer
-      environment={Relay.Store}
-      query={graphql`
-        query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!) {
-          team(slug: $teamSlug) {
-            feed(dbid: $feedId) {
-              dbid
-              name
-              requests(first: 50) {
-                edges {
-                  node {
-                    dbid
-                    content
-                    last_submitted_at
-                    requests_count
-                    medias_count
-                    media {
-                      quote
-                      metadata
-                      picture
+}) => {
+  const pageSize = 50;
+  const [sort, setSort] = React.useState('last_submitted');
+  const [sortType, setSortType] = React.useState('desc');
+
+  // FIXME: Implement a better pagination method (e.g., properly Relay). I tried to implement using pageInfo and cursors but it was not working correctly.
+  const [page, setPage] = React.useState(1);
+
+  return (
+    <ErrorBoundary component="FeedRequestsTable">
+      <QueryRenderer
+        environment={Relay.Store}
+        query={graphql`
+          query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!, $offset: Int!, $pageSize: Int!, $sort: String, $sortType: String) {
+            team(slug: $teamSlug) {
+              feed(dbid: $feedId) {
+                dbid
+                name
+                requests_count
+                requests(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType) {
+                  edges {
+                    node {
+                      id
+                      dbid
+                      content
+                      last_submitted_at
+                      requests_count
+                      medias_count
+                      media {
+                        quote
+                        metadata
+                        picture
+                      }
                     }
                   }
                 }
               }
             }
           }
-        }
-      `}
-      variables={{
-        teamSlug,
-        feedId,
-      }}
-      render={({ props, error }) => {
-        if (!error && !props) {
-          return <MediasLoading />;
-        }
+        `}
+        variables={{
+          teamSlug,
+          feedId,
+          offset: (page - 1) * pageSize,
+          pageSize,
+          sort,
+          sortType,
+        }}
+        render={({ props, error }) => {
+          if (!error && !props) {
+            return <MediasLoading />;
+          }
 
-        if (props && !error) {
-          return (
-            <FeedRequestsTable
-              tabs={tabs}
-              feed={props.team?.feed}
-              searchUrlPrefix={searchUrlPrefix}
-            />);
-        }
-        return null;
-      }}
-    />
-  </ErrorBoundary>
-);
+          if (props && !error) {
+            return (
+              <FeedRequestsTable
+                key={page}
+                tabs={tabs}
+                feed={props.team?.feed}
+                searchUrlPrefix={searchUrlPrefix}
+                sort={sort}
+                sortType={sortType}
+                onChangeSort={(value) => { setSort(value); }}
+                onChangeSortType={(value) => { setSortType(value); }}
+                onGoToTheNextPage={() => { setPage(page + 1); }}
+                onGoToThePreviousPage={() => { setPage(page - 1); }}
+                rangeStart={((page - 1) * pageSize) + 1}
+                rangeEnd={((page - 1) * pageSize) + pageSize}
+                hasNextPage={(page * pageSize) < props.team?.feed?.requests_count}
+                hasPreviousPage={page > 1}
+              />);
+          }
+          return null;
+        }}
+      />
+    </ErrorBoundary>
+  );
+};
 
 FeedRequestsTableQuery.propTypes = {
   teamSlug: PropTypes.string.isRequired,
