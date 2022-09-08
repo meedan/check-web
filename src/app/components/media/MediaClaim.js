@@ -25,7 +25,7 @@ const MediaClaim = ({ projectMedia }) => {
 
   // override to compensate for fast onBlur stateless component
   const textElement = document.querySelector('#media-claim__description');
-  if (textElement && textElement.value !== claimDescription.description) {
+  if (textElement && claimDescription && textElement.value !== claimDescription.description) {
     textElement.value = claimDescription.description;
   }
 

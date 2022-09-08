@@ -24,7 +24,7 @@ const MediaContext = ({
 
   // override to compensate for fast onBlur stateless component
   const textElement = document.querySelector('#media-claim__context');
-  if (textElement && textElement.value !== claimDescription.context) {
+  if (textElement && claimDescription && textElement.value !== claimDescription.context) {
     textElement.value = claimDescription.context;
   }
 

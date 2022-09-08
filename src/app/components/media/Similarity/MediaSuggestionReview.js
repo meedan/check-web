@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaSuggestionReview = ({ projectMedia, setFlashMessage, updateParent }) => {
+const MediaSuggestionReview = ({ projectMedia, setFlashMessage }) => {
   const classes = useStyles();
   const [isMutationPending, setIsMutationPending] = React.useState(false);
   const disableAcceptRejectButtons = !can(projectMedia.team.permissions, 'update Relationship') || isMutationPending;
@@ -118,7 +118,6 @@ const MediaSuggestionReview = ({ projectMedia, setFlashMessage, updateParent }) 
 
   const handleCompleted = () => {
     setIsMutationPending(false);
-    updateParent(3);
   };
 
   const onFailure = (errors) => {
@@ -311,6 +310,10 @@ const MediaSuggestionReview = ({ projectMedia, setFlashMessage, updateParent }) 
       </CardContent>
     </Card>
   );
+};
+
+MediaSuggestionReview.propTypes = {
+  projectMedia: PropTypes.object.isRequired, // FIXME: Detail which fields are expected
 };
 
 export default withSetFlashMessage(MediaSuggestionReview);
