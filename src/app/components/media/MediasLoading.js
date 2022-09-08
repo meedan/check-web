@@ -58,7 +58,7 @@ const StyledShimmer = styled(Shimmer)`
 
 const MediasLoading = props => (
   <StyledLoadingOuter className="medias-loading">
-    <StyledLoadingInner>
+    <StyledLoadingInner center={props.center}>
       {Array.from(Array(props.count || 3).keys()).map(i => (
         <StyledLoadingCard key={i}>
           <StyledShimmer />

@@ -44,6 +44,8 @@ const ProjectsListItem = ({
   intl,
 }) => {
   const classes = useStyles();
+  console.log('project', project); // eslint-disable-line
+  console.log('project.title', project.title); // eslint-disable-line
 
   const handleClick = () => {
     if (onClick) {

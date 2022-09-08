@@ -8,6 +8,7 @@ import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ErrorBoundary from '../error/ErrorBoundary';
+import FeedRequestsTable from './FeedRequestsTable';
 import FeedSharingSwitch from './FeedSharingSwitch';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
@@ -62,6 +63,16 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               }
               value="feed"
             /> : null }
+          <Tab
+            label={
+              <FormattedMessage
+                id="feed.requests"
+                defaultMessage="Requests"
+                description="Tab with label 'Requests' displayed on a feed page. It references all requests submitted to that feed."
+              />
+            }
+            value="requests"
+          />
         </Tabs>
         { tab === 'shared' ? <FeedSharingSwitch enabled={feedTeam.shared} feedTeamId={feedTeam.id} readOnly={readOnlySwitcher} numberOfWorkspaces={feed.teams_count} feedName={feed.name} /> : null }
       </React.Fragment>
@@ -78,6 +89,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     showExpand: true,
     page: 'feed',
   };
+
+  console.log('commonSearchProps', commonSearchProps); // eslint-disable-line
 
   let routeQuery = safelyParseJSON(routeParams.query, {});
   if (Object.keys(routeQuery).length === 0) {
@@ -188,6 +201,18 @@ export const FeedComponent = ({ routeParams, ...props }) => {
         </div>
         : null
       }
+
+      { tab === 'requests' ?
+        <div id="feed__requests">
+          <FeedRequestsTable
+            tabs={topBar}
+            teamSlug={routeParams.team}
+            feedId={parseInt(routeParams.feedId, 10)}
+            searchUrlPrefix={commonSearchProps.searchUrlPrefix}
+          />
+        </div>
+        : null
+      }
     </React.Fragment>
   );
 };
@@ -196,7 +221,7 @@ FeedComponent.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
     feedId: PropTypes.string.isRequired,
-    tab: PropTypes.oneOf(['shared', 'feed']),
+    tab: PropTypes.oneOf(['shared', 'feed', 'requests']),
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
   team: PropTypes.shape({
@@ -255,7 +280,7 @@ Feed.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
     feedId: PropTypes.string.isRequired,
-    tab: PropTypes.oneOf(['shared', 'feed']),
+    tab: PropTypes.oneOf(['shared', 'feed', 'requests']),
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
 };

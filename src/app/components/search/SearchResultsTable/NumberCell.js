@@ -9,7 +9,7 @@ import { opaqueBlack10 } from '../../../styles/js/shared';
 const useStyles = makeStyles({
   link: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'right',
     justifyContent: 'center',
     margin: 'auto',
     maxWidth: '40px',
@@ -30,7 +30,7 @@ export default function NumberCell({ value, linkTo }) {
   const classes = useStyles();
   const formattedValue = value === null ? null : <FormattedNumber value={value} />;
   return (
-    <TableCell align="center">
+    <TableCell align="right">
       {linkTo ?
         <Link onClick={swallowClick} to={linkTo}>
           <div className={classes.link}>

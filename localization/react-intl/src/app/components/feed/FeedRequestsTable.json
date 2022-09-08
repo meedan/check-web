@@ -1,0 +1,22 @@
+[
+  {
+    "id": "feedRequestsTable.media",
+    "description": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "feedRequestsTable.lastSubmitted",
+    "description": "Header label for date column, in which are shown timestamps of last time a media was sent",
+    "defaultMessage": "Last submitted"
+  },
+  {
+    "id": "feedRequestsTable.requests",
+    "description": "Header label for number of requests column",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "feedRequestsTable.matchedMedia",
+    "description": "Header label for number of medias found to be matched to the current one",
+    "defaultMessage": "Matched media"
+  }
+]
