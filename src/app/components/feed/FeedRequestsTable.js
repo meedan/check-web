@@ -108,9 +108,9 @@ const FeedRequestsTable = ({
               >
                 <TitleCell
                   projectMedia={{
-                    title: r.node.media.quote || r.node.media.metadata?.title || r.node.content,
+                    title: r.node.media?.quote || r.node.media?.metadata?.title || r.node.content,
                     description: r.node.content,
-                    picture: r.node.media.picture,
+                    picture: r.node.media?.picture,
                   }}
                 />
                 <TableCell>
