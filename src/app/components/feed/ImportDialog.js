@@ -36,6 +36,24 @@ const submitImport = (input, onCompleted, onError) => {
   });
 };
 
+const ImportButton = ({ onClick, disabled }) => (
+  <Button
+    className="import-dialog__button"
+    color="primary"
+    variant="contained"
+    size="small"
+    startIcon={<SystemUpdateAltOutlinedIcon />}
+    onClick={onClick}
+    disabled={disabled}
+  >
+    <FormattedMessage
+      id="feedRequestedMedia.import"
+      defaultMessage="Import"
+      description="Button label for importing media into workspace action"
+    />
+  </Button>
+);
+
 const ImportDialog = ({
   teams,
   mediaIds,
@@ -83,20 +101,10 @@ const ImportDialog = ({
 
   return (
     <React.Fragment>
-      <Button
-        color="primary"
-        variant="contained"
-        size="small"
-        startIcon={<SystemUpdateAltOutlinedIcon />}
+      <ImportButton
         onClick={() => setDialogOpen(true)}
         disabled={mediaIds.length < 1}
-      >
-        <FormattedMessage
-          id="feedRequestedMedia.import"
-          defaultMessage="Import"
-          description="Button label for importing media into workspace action"
-        />
-      </Button>
+      />
       <ConfirmProceedDialog
         open={dialogOpen}
         title={
@@ -196,4 +204,5 @@ const ImportDialogQuery = ({ mediaIds }) => (
   />
 );
 
+export { ImportButton };
 export default ImportDialogQuery;

@@ -1,21 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { truncateLength } from '../helpers';
 
-const ExternalLink = props => (
-  <a href={props.url} style={props.style} target="_blank" rel="noopener noreferrer">
-    {props.children || props.url}
-  </a>
-);
+const ExternalLink = ({
+  children,
+  url,
+  maxUrlLength,
+  style,
+}) => {
+  const displayUrl = maxUrlLength ? truncateLength(url, maxUrlLength) : url;
+
+  return (
+    <a href={url} style={style} target="_blank" rel="noopener noreferrer">
+      {children || displayUrl}
+    </a>
+  );
+};
 
 ExternalLink.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object,
   url: PropTypes.string.isRequired,
+  maxUrlLength: PropTypes.number,
+  style: PropTypes.object,
 };
 
 ExternalLink.defaultProps = {
   style: {},
   children: null,
+  maxUrlLength: null,
 };
 
 export default ExternalLink;

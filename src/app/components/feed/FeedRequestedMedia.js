@@ -11,6 +11,15 @@ import MediaCardCondensed from './MediaCardCondensed';
 
 const FeedRequestedMedia = ({ request }) => {
   const [selectedMediaIds, setSelectedMediaIds] = React.useState([]);
+  const [importMediaId, setImportMediaId] = React.useState(null);
+
+  React.useEffect(() => {
+    console.log('importMediaId', importMediaId); // eslint-disable-line
+    if (importMediaId) {
+      const importButton = document.querySelector('.import-dialog__button');
+      importButton?.click();
+    }
+  });
 
   const handleSelectAllCheckbox = () => {
     if (selectedMediaIds.length) {
@@ -30,11 +39,16 @@ const FeedRequestedMedia = ({ request }) => {
     setSelectedMediaIds(newSelectedMediaIds);
   };
 
+  const handleImportClickFromChild = (mediaId) => {
+    setImportMediaId(mediaId);
+    setSelectedMediaIds([mediaId]);
+  };
+
   return (
     <React.Fragment>
       <div id="feed-requested-media">
-        <Box display="flex" justifyContent="space-between">
-          <Box display="flex" alignItems="center">
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box display="flex" alignItems="center" height="48px">
             <Checkbox
               checked={selectedMediaIds.length === request.medias.edges.length}
               onChange={handleSelectAllCheckbox}
@@ -51,14 +65,14 @@ const FeedRequestedMedia = ({ request }) => {
           <ImportDialog mediaIds={selectedMediaIds} />
         </Box>
         { request.medias?.edges.map((m, index) => (
-          <Box key={m.node.dbid} display="flex">
+          <Box key={m.node.dbid} display="flex" alignItems="center">
             <Checkbox
+              id={`feed-requested-media-${m.node.dbid}`}
               checked={selectedMediaIds.includes(m.node.dbid)}
               onChange={e => handleMediaCheckbox(e, m.node.dbid, index)}
             />
             { /* FIXME: Find the optimal way of passing props to MediaCardCondensed for the sake of reusability  */ }
             <MediaCardCondensed
-              title={m.node.quote}
               details={[
                 m.node.type,
                 (<FormattedMessage
@@ -83,11 +97,9 @@ const FeedRequestedMedia = ({ request }) => {
                   values={{ requestCount: request.requests_count }}
                 />),
               ]}
-              picture={m.node.picture}
-              url={m.node.url}
-              description={m.node.quote}
               media={m.node}
               request={request}
+              onImport={handleImportClickFromChild}
             />
           </Box>
         )) }
@@ -104,9 +116,6 @@ export default createFragmentContainer(FeedRequestedMedia, graphql`
       edges {
         node {
           dbid
-          quote
-          picture
-          url
           type
           ...MediaCardCondensed_media
         }

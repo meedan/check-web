@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import MediaPreview from './MediaPreview';
 import ExternalLink from '../ExternalLink';
 import ParsedText from '../ParsedText';
-import { brandSecondary, black54 } from '../../styles/js/shared';
+import BulletSeparator from '../layout/BulletSeparator';
+import { brandSecondary } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,14 +23,12 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontWeight: 500,
-    marginBottom: theme.spacing(2),
-  },
-  details: {
-    color: black54,
-    marginBottom: theme.spacing(2),
+    fontSize: '16px',
+    lineHeight: '24px',
   },
   description: {
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   url: {
     marginBottom: theme.spacing(2),
@@ -44,21 +43,13 @@ const MediaCard = ({
   media,
 }) => {
   const classes = useStyles();
-  const subtitleDetails = details.map((d, index) => (
-    <span key={d}>
-      { index > 0 ? ' • ' : null }
-      {d}
-    </span>
-  ));
-
-  console.log('media', media); // eslint-disable-line
 
   return (
     <div className={classes.root}>
       <div className={classes.title}>
         <ParsedText text={title || media.quote || media.metadata?.title} />
       </div>
-      <div className={classes.details}>{subtitleDetails}</div>
+      <BulletSeparator details={details} />
       <div className={classes.description}>
         <ParsedText text={description || media.metadata?.description || media.quote} />
       </div>

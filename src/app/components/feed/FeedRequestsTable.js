@@ -12,14 +12,16 @@ import {
   TableHead,
   TableRow,
   TableContainer,
+  TableSortLabel,
 } from '@material-ui/core';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import { makeStyles } from '@material-ui/core/styles';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ListHeader from '../layout/ListHeader';
 import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
-import { opaqueBlack03 } from '../../styles/js/shared';
+import { opaqueBlack03, checkBlue } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +34,9 @@ const useStyles = makeStyles({
       background: opaqueBlack03,
       transform: 'scale(1)',
     },
+  },
+  highlight: {
+    color: checkBlue,
   },
 });
 
@@ -65,12 +70,18 @@ const FeedRequestsTable = ({
                   description="Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
                 />
               </TableCell>
-              <TableCell>
-                <FormattedMessage
-                  id="feedRequestsTable.lastSubmitted"
-                  defaultMessage="Last submitted"
-                  description="Header label for date column, in which are shown timestamps of last time a media was sent"
-                />
+              <TableCell classes={{ root: classes.highlight }}>
+                <TableSortLabel
+                  active
+                  direction="desc"
+                  IconComponent={KeyboardArrowDownIcon}
+                >
+                  <FormattedMessage
+                    id="feedRequestsTable.lastSubmitted"
+                    defaultMessage="Last submitted"
+                    description="Header label for date column, in which are shown timestamps of last time a media was sent"
+                  />
+                </TableSortLabel>
               </TableCell>
               <TableCell>
                 <FormattedMessage

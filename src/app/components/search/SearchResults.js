@@ -432,7 +432,7 @@ function SearchResultsComponent({
             title={title}
             style={{
               font: headline,
-              color: black54,
+              color: '#656565',
               display: 'flex',
               alignItems: 'center',
             }}

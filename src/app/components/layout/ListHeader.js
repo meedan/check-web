@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const colorTextSecondary = '#656565'; // eslint-disable-line
+const colorTextSecondary = '#656565';
 
 const useStyles = makeStyles({
   bold: {

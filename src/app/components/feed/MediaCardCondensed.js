@@ -7,12 +7,15 @@ import {
 } from '@material-ui/core';
 import FeedRequestedMediaDialog from './FeedRequestedMediaDialog';
 import ExternalLink from '../ExternalLink';
-import { brandSecondary, black54 } from '../../styles/js/shared';
+import ParsedText from '../ParsedText';
+import BulletSeparator from '../layout/BulletSeparator';
+import { brandSecondary } from '../../styles/js/shared';
 
 // Modelled after src/app/components/media/Similarity/MediaItem.js
 
 const useStyles = makeStyles(theme => ({
   root: {
+    cursor: 'pointer',
     width: '100%',
     border: `1px solid ${brandSecondary}`,
     borderRadius: 8,
@@ -29,24 +32,32 @@ const useStyles = makeStyles(theme => ({
     width: 96,
     objectFit: 'cover',
     border: `1px solid ${brandSecondary}`,
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1.5),
+  },
+  text: {
+    overflow: 'hidden',
   },
   url: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(0.5),
+    marginBottom: theme.spacing(0.5),
+    lineHeight: '143%',
   },
   title: {
+    fontSize: '16px',
     fontWeight: 500,
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-  details: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    color: black54,
+    marginBottom: theme.spacing(0.5),
+    lineHeight: '150%',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
   description: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(0.5),
+    maxHeight: '20px',
+    lineHeight: '143%',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
 }));
 
@@ -58,16 +69,22 @@ const MediaCardCondensed = ({
   url,
   media,
   request,
+  onImport,
 }) => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const classes = useStyles();
   const defaultImage = '/images/image_placeholder.svg';
-  const subtitleDetails = details.map((d, index) => (
-    <span key={d}>
-      { index > 0 ? ' • ' : null }
-      {d}
-    </span>
-  ));
+
+  const handleClose = (e) => {
+    setOpenDialog(false);
+    e.stopPropagation();
+  };
+
+  const handleImport = (e) => {
+    setOpenDialog(false);
+    onImport(media.dbid);
+    e.stopPropagation();
+  };
 
   return (
     <Box
@@ -76,7 +93,7 @@ const MediaCardCondensed = ({
     >
       <Box display="flex">
         {
-          picture ?
+          media?.picture || picture ?
             <img
               alt=""
               className={classes.image}
@@ -84,19 +101,22 @@ const MediaCardCondensed = ({
               src={media?.picture || picture}
             /> : null
         }
-        <div>
-          <div className={classes.title}>{ title || media?.quote || media.metadata.title}</div>
-          <div className={classes.details}>{ subtitleDetails }</div>
-          { url ? <div className={classes.url}><ExternalLink url={media?.url || url} /></div> : null }
-          <div className={classes.description}>{ media?.quote || description }</div>
+        <div className={classes.text}>
+          <div className={classes.title}>{title || media?.quote || media.metadata.title}</div>
+          <BulletSeparator details={details} />
+          { media?.url || url ? <div className={classes.url}><ExternalLink url={media?.url || url} maxUrlLength={60} /></div> : null }
+          <div className={classes.description}>
+            <ParsedText text={description || media.metadata?.description || media.quote} />
+          </div>
         </div>
       </Box>
       { openDialog ?
         <FeedRequestedMediaDialog
-          open
+          open={openDialog}
           media={media}
           request={request}
-          onClose={() => setOpenDialog(false)}
+          onClose={handleClose}
+          onImport={handleImport}
         />
         : null
       }
@@ -122,6 +142,7 @@ MediaCardCondensed.defaultProps = {
 
 export default createFragmentContainer(MediaCardCondensed, graphql`
   fragment MediaCardCondensed_media on Media {
+    dbid
     quote
     picture
     url
