@@ -21,6 +21,7 @@ const FeedRequestedMedia = ({ request }) => {
   });
 
   const handleSelectAllCheckbox = () => {
+    setImportMediaId(null);
     if (selectedMediaIds.length) {
       setSelectedMediaIds([]);
     } else {
@@ -29,6 +30,7 @@ const FeedRequestedMedia = ({ request }) => {
   };
 
   const handleMediaCheckbox = (e, mediaDbid, index) => {
+    setImportMediaId(null);
     const newSelectedMediaIds = [...selectedMediaIds];
     if (e.target.checked) {
       newSelectedMediaIds.push(mediaDbid);
