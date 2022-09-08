@@ -352,7 +352,7 @@ export const ContentColumn = styled.div`
 export const Column = styled.div`
   flex: 1;
   min-width: 340px;
-  max-width: 720px;
+  max-width: 50%;
   padding: ${units(2)};
   height: calc(100vh - 64px);
   max-height: calc(100vh - 64px);

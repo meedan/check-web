@@ -126,7 +126,7 @@ const FeedRequestsTable = ({
                   />
                 </TableSort>
               </TableCell>
-              <TableCell>
+              <TableCell align="center">
                 <TableSort field="requests">
                   <FormattedMessage
                     id="feedRequestsTable.requests"
@@ -135,7 +135,7 @@ const FeedRequestsTable = ({
                   />
                 </TableSort>
               </TableCell>
-              <TableCell>
+              <TableCell align="center">
                 <TableSort field="medias">
                   <FormattedMessage
                     id="feedRequestsTable.matchedMedia"
@@ -176,8 +176,8 @@ const FeedRequestsTable = ({
                       day="2-digit"
                     />
                   </TableCell>
-                  <TableCell align="right">{r.node.requests_count}</TableCell>
-                  <TableCell align="right">{r.node.medias_count}</TableCell>
+                  <TableCell align="center">{r.node.requests_count}</TableCell>
+                  <TableCell align="center">{r.node.medias_count}</TableCell>
                 </TableRow>
               );
             }) }
