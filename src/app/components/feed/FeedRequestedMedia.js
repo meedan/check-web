@@ -14,7 +14,6 @@ const FeedRequestedMedia = ({ request }) => {
   const [importMediaId, setImportMediaId] = React.useState(null);
 
   React.useEffect(() => {
-    console.log('importMediaId', importMediaId); // eslint-disable-line
     if (importMediaId) {
       const importButton = document.querySelector('.import-dialog__button');
       importButton?.click();
