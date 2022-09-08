@@ -251,16 +251,23 @@ const MediaSuggestionReview = ({ projectMedia, setFlashMessage }) => {
           <Typography className={classes.title} variant="h5" component="h1">
             <FormattedMessage id="mediaSuggestionReview.matchTitle" defaultMessage="Matched claim" description="Title of a box that lets the user open a claim that this has been matched with." />
           </Typography>
-          <Typography variant="body">
+          <Typography className={classes.prompt} variant="body" component="p">
             <FormattedMessage id="mediaSuggestionReview.matchDescription" defaultMessage="This media has been associated with the claim and fact-check below." description="Hint text to tell the user what the 'Open claim' button does." />
           </Typography>
-          <Button
-            variant="outlined"
-            className={classes.button}
-            onClick={() => browserHistory.push(confirmedMainItemLink)}
-          >
-            Open claim
-          </Button>
+          <Grid container direction="row" justifyContent="center" alignItems="flex-end">
+            <Grid item xs={6}>
+              <></>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="outlined"
+                className={classes.button}
+                onClick={() => browserHistory.push(confirmedMainItemLink)}
+              >
+                <FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />
+              </Button>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     );
@@ -303,7 +310,7 @@ const MediaSuggestionReview = ({ projectMedia, setFlashMessage }) => {
               className={classes.button}
               onClick={() => window.open(suggestedMainItemLink, '_blank')}
             >
-              Open claim
+              <FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />
             </Button>
           </Grid>
         </Grid>

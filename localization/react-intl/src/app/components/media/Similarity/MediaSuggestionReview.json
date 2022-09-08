@@ -10,6 +10,11 @@
     "defaultMessage": "This media has been associated with the claim and fact-check below."
   },
   {
+    "id": "mediaSuggestionReview.openButtonMatched",
+    "description": "A label for a button that opens a claim item",
+    "defaultMessage": "Open claim"
+  },
+  {
     "id": "mediaSuggestionReview.title",
     "description": "Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app).",
     "defaultMessage": "Suggested Claim and Fact-check"
