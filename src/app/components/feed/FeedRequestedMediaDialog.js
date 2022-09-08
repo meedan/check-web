@@ -14,6 +14,7 @@ import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import { ImportButton } from './ImportDialog';
 import MediaCard from './MediaCard';
 import RequestCards from './RequestCards';
+import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
 import { separationGray, textPrimary } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -73,7 +74,7 @@ const FeedRequestedMediaDialog = ({
             <ImportButton onClick={onImport} />
             <MediaCard
               details={[
-                media.type,
+                <MediaTypeDisplayName mediaType={media.type} />,
                 intl.formatDate(request.last_submitted_at, { year: 'numeric', month: 'short', day: '2-digit' }),
               ]}
               media={media}

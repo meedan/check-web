@@ -8,6 +8,7 @@ import {
 import ImportDialog from './ImportDialog';
 import FeedRequestedMediaDialog from './FeedRequestedMediaDialog'; // eslint-disable-line no-unused-vars
 import MediaCardCondensed from './MediaCardCondensed';
+import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
 
 const FeedRequestedMedia = ({ request }) => {
   const [selectedMediaIds, setSelectedMediaIds] = React.useState([]);
@@ -29,12 +30,13 @@ const FeedRequestedMedia = ({ request }) => {
     }
   };
 
-  const handleMediaCheckbox = (e, mediaDbid, index) => {
+  const handleMediaCheckbox = (e, mediaDbid) => {
     setImportMediaId(null);
     const newSelectedMediaIds = [...selectedMediaIds];
     if (e.target.checked) {
       newSelectedMediaIds.push(mediaDbid);
     } else {
+      const index = newSelectedMediaIds.indexOf(mediaDbid);
       newSelectedMediaIds.splice(index, 1);
     }
     setSelectedMediaIds(newSelectedMediaIds);
@@ -75,7 +77,7 @@ const FeedRequestedMedia = ({ request }) => {
             { /* FIXME: Find the optimal way of passing props to MediaCardCondensed for the sake of reusability  */ }
             <MediaCardCondensed
               details={[
-                m.node.type,
+                <MediaTypeDisplayName mediaType={m.node.type} />,
                 (<FormattedMessage
                   id="feedRequestedMedia.lastSubmitted"
                   defaultMessage="Last submitted {date}"
