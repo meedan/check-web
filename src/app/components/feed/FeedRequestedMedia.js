@@ -91,12 +91,6 @@ const FeedRequestedMedia = ({ request }) => {
                     ),
                   }}
                 />),
-                (<FormattedMessage
-                  id="feedRequestedMedia.requestCount"
-                  defaultMessage="{requestCount, plural, one {# request} other {# requests}}"
-                  description="Header of verification requests for this media. Example: 3 requests"
-                  values={{ requestCount: request.requests_count }}
-                />),
               ]}
               media={m.node}
               request={request}
@@ -123,6 +117,5 @@ export default createFragmentContainer(FeedRequestedMedia, graphql`
       }
     }
     last_submitted_at
-    requests_count
   }
 `);
