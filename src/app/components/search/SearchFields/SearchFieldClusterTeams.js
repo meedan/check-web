@@ -16,13 +16,16 @@ const SearchFieldClusterTeams = ({
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query SearchFieldClusterTeamsQuery($teamSlug: String!) {
-        team(slug: $teamSlug) {
+      query SearchFieldClusterTeamsQuery($teamSlug: String!, $random: String!) {
+        team(slug: $teamSlug, random: $random) {
           shared_teams
         }
       }
     `}
-    variables={{ teamSlug }}
+    variables={{
+      teamSlug,
+      random: String(Math.random()),
+    }}
     render={({ error, props }) => {
       if (!error && props) {
         const { shared_teams: sharedTeams } = props.team;

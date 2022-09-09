@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -123,7 +122,7 @@ class TagMenuComponent extends Component {
         color="primary"
         onClick={() => this.handleAddNew(searchValue)}
       >
-        <FormattedMessage id="tagMenu.create" defaultMessage="+ Create this tag" />
+        <FormattedMessage id="tagMenu.create" defaultMessage="+ Create this tag" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." />
       </Button>
     ) : null;
 
@@ -131,7 +130,7 @@ class TagMenuComponent extends Component {
       <React.Fragment>
         <StyledIconButton
           className="tag-menu__icon"
-          tooltip={<FormattedMessage id="tagMenu.tooltip" defaultMessage="Edit tags" />}
+          tooltip={<FormattedMessage id="tagMenu.tooltip" defaultMessage="Edit tags" description="A tooltip that appears over an icon a user is supposed to press when they want to edit the tags associated with an item." />}
           onClick={this.handleOpenMenu}
         >
           <LocalOfferOutlinedIcon />
@@ -141,7 +140,7 @@ class TagMenuComponent extends Component {
           open={Boolean(this.state.anchorEl)}
           onClose={this.handleCloseMenu}
         >
-          <FormattedMessage id="multiSelector.search" defaultMessage="Search…">
+          <FormattedMessage id="multiSelector.search" defaultMessage="Search…" description="The placeholder text in a search box.">
             {placeholder => (
               <MultiSelector
                 actionButton={actionButton}
@@ -156,6 +155,7 @@ class TagMenuComponent extends Component {
                   <FormattedMessage
                     id="tagMenu.notFound"
                     defaultMessage="No tags found"
+                    description="A message that appears when a user has searched for tag text but no matches have been found."
                   />
                 }
                 submitLabel={
@@ -179,7 +179,31 @@ TagMenuComponent.contextTypes = {
 };
 
 TagMenuComponent.propTypes = {
-  media: PropTypes.object.isRequired,
+  media: PropTypes.shape({
+    id: PropTypes.string,
+    dbid: PropTypes.number,
+    archived: PropTypes.bool,
+    permissions: PropTypes.string.isRequired,
+    tags: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          tag_text: PropTypes.string.isRequired,
+          tag: PropTypes.string.isRequired,
+        }),
+      }).isRequired).isRequired,
+    }).isRequired,
+    team: PropTypes.shape({
+      id: PropTypes.string,
+      tag_texts: PropTypes.shape({
+        edges: PropTypes.arrayOf(PropTypes.shape({
+          node: PropTypes.shape({
+            text: PropTypes.string.isRequired,
+          }),
+        }).isRequired).isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
   relay: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
@@ -192,7 +216,7 @@ const TagMenuContainer = Relay.createContainer(withSetFlashMessage(TagMenuCompon
         dbid
         archived
         permissions
-        tags(first: 10000) {
+        tags(last: 100) {
           edges {
             node {
               tag,
@@ -203,7 +227,7 @@ const TagMenuContainer = Relay.createContainer(withSetFlashMessage(TagMenuCompon
         }
         team {
           id,
-          tag_texts(first: 10000) {
+          tag_texts(last: 100) {
             edges {
               node {
                 text
@@ -216,11 +240,13 @@ const TagMenuContainer = Relay.createContainer(withSetFlashMessage(TagMenuCompon
   },
 });
 
+// eslint-disable-next-line import/no-unused-modules
+export { TagMenuComponent as TagMenuTest };
+
 // eslint-disable-next-line react/no-multi-comp
 class TagMenu extends React.PureComponent {
   render() {
-    const projectId = this.props.media.project_id;
-    const ids = `${this.props.media.dbid},${projectId}`;
+    const ids = `${this.props.mediaId}`;
     const route = new MediaRoute({ ids });
 
     return (
@@ -232,5 +258,9 @@ class TagMenu extends React.PureComponent {
     );
   }
 }
+
+TagMenu.propTypes = {
+  mediaId: PropTypes.number.isRequired, // dbid of media item
+};
 
 export default injectIntl(TagMenu);

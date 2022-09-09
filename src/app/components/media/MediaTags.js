@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -105,15 +104,15 @@ class MediaTags extends React.Component {
 
   render() {
     const { projectMedia } = this.props;
-    const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
+    const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item?.dbid;
     const { regularTags, videoTags } = this.filterTags(projectMedia.tags.edges);
     const tags = regularTags.concat(videoTags);
 
     return (
-      <StyledMediaTagsContainer className="media-tags__container">
+      <StyledMediaTagsContainer className="media-tags__container" >
         <div className="media-tags">
           <ul className="media-tags__list">
-            <li>{ readOnly ? null : <TagMenu media={projectMedia} /> }</li>
+            <li>{ readOnly ? null : <TagMenu mediaId={projectMedia.dbid} /> }</li>
             {tags.map((tag) => {
               if (tag.node.tag_text) {
                 return (
@@ -137,10 +136,18 @@ class MediaTags extends React.Component {
 
 MediaTags.propTypes = {
   projectMedia: PropTypes.shape({
+    id: PropTypes.string,
+    dbid: PropTypes.number,
+    team: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }).isRequired,
+    suggested_main_item: PropTypes.shape({
+      dbid: PropTypes.number,
+    }),
+    is_secondary: PropTypes.bool,
     tags: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
-          tag: PropTypes.string.isRequired,
           id: PropTypes.string.isRequired,
           tag_text: PropTypes.string.isRequired,
         }),
@@ -165,7 +172,6 @@ export default createFragmentContainer(MediaTags, graphql`
       edges {
         node {
           id
-          tag
           tag_text
           fragment
         }

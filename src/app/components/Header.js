@@ -40,7 +40,7 @@ function HeaderComponent(props) {
   const tasksPage = /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/tasks$/.test(path);
   const mediaPage = /^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+(\/suggested-matches|\/similar-media)?$/.test(path);
   const sourcePage = /^\/[^/]+\/project\/[0-9]+\/source\/[0-9]+$/.test(path);
-  const feedPage = /\/feed\/[0-9]+\/cluster\/[0-9]+/.test(path);
+  const feedPage = /\/feed\/[0-9]+\/request\/[0-9]+/.test(path);
 
   if (tasksPage || (!mediaPage && !sourcePage && !feedPage)) {
     return null;

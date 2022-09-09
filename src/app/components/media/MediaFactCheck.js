@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 
 const MediaFactCheck = ({ projectMedia }) => {
   const classes = useStyles();
-  const claimDescription = projectMedia.claim_description;
+  const claimDescription = projectMedia.suggested_main_item ? projectMedia.suggested_main_item.claim_description : projectMedia.claim_description;
   const factCheck = claimDescription ? claimDescription.fact_check : null;
 
   const [title, setTitle] = React.useState(factCheck ? factCheck.title : '');
@@ -31,6 +31,12 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [saving, setSaving] = React.useState(false);
   const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
+
+  React.useEffect(() => {
+    setTitle(factCheck?.title);
+    setSummary(factCheck?.summary);
+    setUrl(factCheck?.url);
+  }, [factCheck?.title, factCheck?.summary, factCheck?.url]);
 
   const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
@@ -195,7 +201,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           setSummary(newValue);
           handleBlur('summary', newValue);
         }}
-        hasClaimDescription={Boolean(claimDescription)}
+        hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
         key={`summary-${claimDescription}`}
@@ -214,7 +220,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           setUrl(newUrl);
           handleBlur('url', newUrl);
         }}
-        hasClaimDescription={Boolean(claimDescription)}
+        hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
         rows={1}

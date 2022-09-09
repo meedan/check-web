@@ -203,7 +203,7 @@
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.annotatedBy": {
-		"string": "Annotated by",
+		"string": "Annotés par",
 		"developer_comment": "Menu option to enable searching items by annotated by"
 	},
 	"addFilterMenu.annotation": {
@@ -225,10 +225,6 @@
 	"addFilterMenu.collection": {
 		"string": "Collection",
 		"developer_comment": "Menu option to enable searching items by collection"
-	},
-	"addFilterMenu.country": {
-		"string": "Pays",
-		"developer_comment": "Menu option to enable searching items by country"
 	},
 	"addFilterMenu.createdBy": {
 		"string": "Créé par",
@@ -504,7 +500,7 @@
 		"developer_comment": "Log entry indicating a claim has been edited"
 	},
 	"annotation.updateLanguage": {
-		"string": "Language {value} updated by {author}",
+		"string": "La langue {value} a été mise à jour par {author}",
 		"developer_comment": "Log entry indicating an item language has been updated. {value} receives language name"
 	},
 	"annotation.updateSource": {
@@ -570,7 +566,7 @@
 		"string": "Les éléments ont été déplacés vers la corbeille."
 	},
 	"bulkActions.movedFromSpamSuccessfully": {
-		"string": "Items moved from Spam to '{toProject}'",
+		"string": "Les éléments ont été déplacés d’Indésirables vers « {toProject} »",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
@@ -774,7 +770,7 @@
 	},
 	"checkedByTeamsCell.noFactCheck": {
 		"string": "Aucune vérification de faits",
-		"developer_comment": "Table cell displayed on Trends page when claim is not fact-checked yet"
+		"developer_comment": "Table cell displayed on feed page when claim is not fact-checked yet"
 	},
 	"confirmProceedDialog.confirmationText": {
 		"string": "Tapez « {text} » pour confirmer."
@@ -969,15 +965,16 @@
 		"developer_comment": "Title of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.statusNotInUseMessage": {
-		"string": "Are you sure you want to delete this status?",
+		"string": "Voulez-vous vraiment supprimer cet état ?",
 		"developer_comment": "Confirmation message displayed on a modal when a status is deleted from statuses settings page."
 	},
 	"deleteStatusDialog.statusNotInUseTitle": {
-		"string": "Confirm status deletion",
+		"string": "Confirmer la suppression de l’état",
 		"developer_comment": "Title displayed on a confirmation modal when a status being deleted is not in used by any item."
 	},
 	"destinationProjects.choose": {
-		"string": "Choisissez un dossier"
+		"string": "Choisissez un dossier",
+		"developer_comment": "Choose a folder input label"
 	},
 	"destinationProjects.empty": {
 		"string": "Il n’y a aucun dossier dans cette collection"
@@ -1031,6 +1028,171 @@
 	"errorBoundary.message": {
 		"string": "Bonjour, j’éprouve des difficultés avec Check. L’interface Web a planté et m’empêche de travailler.",
 		"developer_comment": "Prefilled support request message when Check UI crashes"
+	},
+	"feed.feed": {
+		"string": "Feed",
+		"developer_comment": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
+	},
+	"feed.shared": {
+		"string": "Shared",
+		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
+	},
+	"feedItem.aboutThisClaim": {
+		"string": "À propos de cette affirmation"
+	},
+	"feedItem.claimDescription": {
+		"string": "Affirmations"
+	},
+	"feedItem.completedAnnotations": {
+		"string": "Annotations remplies"
+	},
+	"feedItem.couldNotImport": {
+		"string": "Nous n’avons pas pu importer cette affirmation, car le média qui y est associé existe déjà dans cet espace de travail."
+	},
+	"feedItem.factCheck": {
+		"string": "Vérification des faits",
+		"developer_comment": "Middle column title on feed item page"
+	},
+	"feedItem.factCheckSummary": {
+		"string": "Résumé",
+		"developer_comment": "Fact-check summary"
+	},
+	"feedItem.factCheckTitle": {
+		"string": "Titre",
+		"developer_comment": "Fact-check title"
+	},
+	"feedItem.factCheckUrl": {
+		"string": "URL de l’article publié",
+		"developer_comment": "Fact-check article URL"
+	},
+	"feedItem.import": {
+		"string": "Importation"
+	},
+	"feedItem.importDescription": {
+		"string": "Une nouvelle affirmation sera créée avec ce média dans votre espace de travail.",
+		"developer_comment": "Dialog description when importing a claim from feed page."
+	},
+	"feedItem.importSelectLabel": {
+		"string": "Importer dans l'espace de travail",
+		"developer_comment": "Select field label used in import claim dialog from feed page."
+	},
+	"feedItem.importTextLabel": {
+		"string": "Description de l’affirmation",
+		"developer_comment": "Text field label used in import claim dialog from feed page."
+	},
+	"feedItem.importTitle": {
+		"string": "Importer des données dans l’espace de travail",
+		"developer_comment": "Dialog title when importing a claim from feed page."
+	},
+	"feedItem.importedSuccessfully": {
+		"string": "L’affirmation a été importée avec succès dans l’espace de travail {workspaceName}"
+	},
+	"feedItem.importingQuestion": {
+		"string": "Quel contenu voulez-vous importer ?",
+		"developer_comment": "Question in feed page importing modal"
+	},
+	"feedItem.lastSubmitted": {
+		"string": "Dernier envoi",
+		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
+	},
+	"feedItem.mediaRequests": {
+		"string": "{number} demandes Tipline pour tous les médias"
+	},
+	"feedItem.mediasColumnTitleAll": {
+		"string": "{number} médias pour tous les organismes"
+	},
+	"feedItem.mediasColumnTitleSingle": {
+		"string": "{number} médias de {organizationName}"
+	},
+	"feedItem.noClaim": {
+		"string": "Aucune affirmation n’a encore été ajoutée"
+	},
+	"feedItem.noImportingClaim": {
+		"string": "Sélectionner un organisme pour afficher la vérification de faits et les annotations proposées.",
+		"developer_comment": "Message displayed on feed item page when no claim was selected."
+	},
+	"feedItem.noTags": {
+		"string": "Aucune étiquette.",
+		"developer_comment": "Displayed on feed item page when item has no tags."
+	},
+	"feedItem.noTasks": {
+		"string": "Aucune annotation remplie.",
+		"developer_comment": "Displayed on feed item page when item has no completed annotations."
+	},
+	"feedItem.notPublished": {
+		"string": "Pas encore publié"
+	},
+	"feedItem.proceedImport": {
+		"string": "Importation",
+		"developer_comment": "Button label to confirm importing claim from feed page"
+	},
+	"feedItem.publishedAt": {
+		"string": "Rapport publié le : {date}"
+	},
+	"feedItem.rating": {
+		"string": "Évaluation : {rating}"
+	},
+	"feedItem.request": {
+		"string": "Demande",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
+	},
+	"feedItem.requests": {
+		"string": "Demandes",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
+	},
+	"feedItem.sortBy": {
+		"string": "Trier par"
+	},
+	"feedItem.tags": {
+		"string": "Étiquettes"
+	},
+	"feedSharingSwitch.cancel": {
+		"string": "Annuler",
+		"developer_comment": "Button label displayed on 'Enable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.confirmDisableSharingContent": {
+		"string": "Are you sure? {numberOfWorkspaces} other workspaces will immediately loose access to this content.",
+		"developer_comment": "Content of 'Disable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.confirmDisableSharingTitle": {
+		"string": "Disable Shared Feed",
+		"developer_comment": "Title of 'Disable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.confirmEnableSharingContent": {
+		"string": "Are you sure? Any current and future content matching this filter will immediately be shared with {numberOfWorkspaces} other workspaces.",
+		"developer_comment": "Content of 'Enable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.confirmEnableSharingTitle": {
+		"string": "Enable Shared Feed",
+		"developer_comment": "Title of 'Enable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.defaultErrorMessage": {
+		"string": "Could not update your sharing settings for this feed, please try again",
+		"developer_comment": "Error message displayed when it's not possible to change sharing setting for a feed."
+	},
+	"feedSharingSwitch.description": {
+		"string": "Select the content to share in this feed using the filter.",
+		"developer_comment": "Description for a toggle/switcher displayed on feed page, under the Shared tab."
+	},
+	"feedSharingSwitch.disableSharing": {
+		"string": "Disable sharing",
+		"developer_comment": "Button label displayed on 'Disable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.enableSharing": {
+		"string": "Enable sharing",
+		"developer_comment": "Button label displayed on 'Enable feed sharing' confirmation window."
+	},
+	"feedSharingSwitch.label": {
+		"string": "Enable sharing",
+		"developer_comment": "Label for a toggle/switcher displayed on feed page, under the Shared tab."
+	},
+	"feedSharingSwitch.savedSuccessfully": {
+		"string": "Content shared to {feedName}",
+		"developer_comment": "Success message displayed when data sharing is changed for a feed."
+	},
+	"feedSharingSwitch.tooltip": {
+		"string": "Apply and save the filter to share",
+		"developer_comment": "Tooltip displayed on feed 'Enable sharing' switcher"
 	},
 	"fetchBot.contactUs": {
 		"string": "Contactez-nous pour la configuration"
@@ -1124,22 +1286,28 @@
 		"string": "Connexion"
 	},
 	"home.invalidExpiredInvitation": {
-		"string": "Désolé, l’invitation que vous avez reçue était expiré. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
+		"string": "Désolé, l’invitation que vous avez reçue était expiré. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur.",
+		"developer_comment": "Error message displayed when an invitation to join the app doesn't work."
 	},
 	"home.invalidInvitation": {
-		"string": "Désolé, une erreur est survenue lors du traitement de votre invitation. Veuillez contacter {supportEmail}."
+		"string": "Désolé, une erreur est survenue lors du traitement de votre invitation. Veuillez contacter {supportEmail}.",
+		"developer_comment": "Error message displayed when an invitation to join the app doesn't work."
 	},
 	"home.invalidNoInvitation": {
-		"string": "Désolé, l’invitation que vous avez reçue est introuvable. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
+		"string": "Désolé, l’invitation que vous avez reçue est introuvable. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur.",
+		"developer_comment": "Error message displayed when an invitation to join the app doesn't work."
 	},
 	"home.invalidTeamInvitation": {
-		"string": "Désolé, l’espace de travail auquel vous avez été invité est introuvable. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
+		"string": "Désolé, l’espace de travail auquel vous avez été invité est introuvable. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur.",
+		"developer_comment": "Error message displayed when an invitation to join the app doesn't work."
 	},
 	"home.somethingWrong": {
-		"string": "Désolé, une erreur est survenue. Veuillez actualiser votre navigateur et envoyer un courriel à {supportEmail} si la situation persiste."
+		"string": "Désolé, une erreur est survenue. Veuillez actualiser votre navigateur et envoyer un courriel à {supportEmail} si la situation persiste.",
+		"developer_comment": "Generic error displayed when some error happens."
 	},
 	"home.successInvitation": {
-		"string": "Bienvenue sur {appName}. Veuillez vous connecter avec le mot de passe que vous avez reçu dans le courriel de bienvenue."
+		"string": "Welcome to Check. Please login with the password that you received in the welcome email.",
+		"developer_comment": "Message that appears after accepting an invitation to join the app."
 	},
 	"inviteDialog.invitationSent": {
 		"string": "Les invitations ont été envoyées",
@@ -1274,6 +1442,9 @@
 		"string": "Créé par",
 		"developer_comment": "Table header for column that shows the creator name"
 	},
+	"list.factCheck": {
+		"string": "Vérification des faits"
+	},
 	"list.folder": {
 		"string": "Dossier",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
@@ -1299,6 +1470,10 @@
 	},
 	"list.tags": {
 		"string": "Étiquettes"
+	},
+	"list.teamName": {
+		"string": "Fact-check by",
+		"developer_comment": "Table header for column that shows the team name"
 	},
 	"list.updated": {
 		"string": "Mis à jour"
@@ -2179,6 +2354,9 @@
 	"projectHeader.allItems": {
 		"string": "Tous les éléments"
 	},
+	"projectHeader.feed": {
+		"string": "Shared feed"
+	},
 	"projectHeader.importedReports": {
 		"string": "Rapports importés"
 	},
@@ -2190,9 +2368,6 @@
 	},
 	"projectHeader.trash": {
 		"string": "Corbeille"
-	},
-	"projectHeader.trends": {
-		"string": "Base de données partagée"
 	},
 	"projectMoveDialogComponent.choose": {
 		"string": "Choisissez une collection"
@@ -2240,7 +2415,8 @@
 		"string": "Corbeille"
 	},
 	"projectsComponent.allItems": {
-		"string": "Tous les éléments"
+		"string": "Tous les éléments",
+		"developer_comment": "Label for the 'All items' list displayed on the left sidebar"
 	},
 	"projectsComponent.couldNotMove": {
 		"string": "Impossible de déplacer le dossier vers la collection",
@@ -2255,7 +2431,8 @@
 		"developer_comment": "Button label for creating new folder"
 	},
 	"projectsComponent.createList": {
-		"string": "Créer une liste"
+		"string": "Créer une liste",
+		"developer_comment": "Label for a button to create a new list displayed on the left sidebar."
 	},
 	"projectsComponent.deleteType": {
 		"string": "Supprimer {type}",
@@ -2265,10 +2442,12 @@
 		"string": "Description"
 	},
 	"projectsComponent.folders": {
-		"string": "Dossiers"
+		"string": "Dossiers",
+		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Rapports importés"
+		"string": "Rapports importés",
+		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.invalidMove": {
 		"string": "Les dossiers ne peuvent être déplacés que vers des collections",
@@ -2315,7 +2494,8 @@
 		"developer_comment": "Success message when new folder is created"
 	},
 	"projectsComponent.newList": {
-		"string": "Nouvelle liste"
+		"string": "Nouvelle liste",
+		"developer_comment": "Title for a dialog to create a new list displayed on the left sidebar."
 	},
 	"projectsComponent.newListErrorMessage": {
 		"string": "Impossible de créer la liste, veuillez réessayer",
@@ -2349,18 +2529,20 @@
 		"string": "Renommer {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
+	"projectsComponent.sharedFeeds": {
+		"string": "Shared feeds",
+		"developer_comment": "Feeds of content shared across workspaces"
+	},
 	"projectsComponent.suggestedMatches": {
-		"string": "Correspondances suggérées"
+		"string": "Correspondances suggérées",
+		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.tiplineInbox": {
-		"string": "Boîte de réception Tipline"
+		"string": "Boîte de réception Tipline",
+		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.title": {
 		"string": "Titre"
-	},
-	"projectsComponent.trends": {
-		"string": "Base de données partagée (bêta)",
-		"developer_comment": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction."
 	},
 	"reportDesigner.addIntro": {
 		"string": "Ajouter du contenu à l’introduction"
@@ -2659,18 +2841,22 @@
 		"developer_comment": "'Create' here is an infinitive verb"
 	},
 	"saveList.defaultErrorMessage": {
-		"string": "Impossible d’enregistrer la liste, veuillez réessayer",
+		"string": "Could not save filters, please try again",
 		"developer_comment": "Error message displayed when it's not possible to save a list"
 	},
 	"saveList.newList": {
 		"string": "Enregistrer la liste"
 	},
+	"saveList.saveFeed": {
+		"string": "Save and share",
+		"developer_comment": "'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters."
+	},
 	"saveList.saveList": {
-		"string": "Enregistrer la liste",
-		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
+		"string": "Enregistrer",
+		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
 	},
 	"saveList.savedSuccessfully": {
-		"string": "La liste a été enregistrée avec succès",
+		"string": "Filters saved successfully",
 		"developer_comment": "Success message displayed when a list is saved"
 	},
 	"saveList.title": {
@@ -2729,7 +2915,7 @@
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.annotatedBy": {
-		"string": "Annotated by",
+		"string": "Annotés par",
 		"developer_comment": "Prefix label for field to filter by annotated by"
 	},
 	"search.anyDate": {
@@ -4198,7 +4384,7 @@
 		"developer_comment": "Success message displayed when status is created."
 	},
 	"statusesComponent.deleteButton": {
-		"string": "Delete status",
+		"string": "Supprimer l’état",
 		"developer_comment": "Button label to delete status"
 	},
 	"statusesComponent.deleted": {

@@ -47,8 +47,8 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
       listPath = `/${routeParams.team}/project/${routeParams.projectId}`;
     } else if (routeParams.listId) {
       listPath = `/${routeParams.team}/list/${routeParams.listId}`;
-    } else if (/\/feed\/[0-9]+\/cluster\/[0-9]+/.test(locationPathname)) {
-      listPath = `/${routeParams.team}/feed`;
+    } else if (/\/feed\/[0-9]+\/request\/[0-9]+/.test(locationPathname)) {
+      listPath = `/${routeParams.team}/feed/${routeParams.feedId}`;
     } else {
       listPath = `/${routeParams.team}/all-items`;
     }

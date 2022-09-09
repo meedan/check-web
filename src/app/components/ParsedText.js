@@ -55,7 +55,9 @@ const ParsedText = (props) => {
   }
 
   // Convert unicode.
-  const text = props.text.replace(/\\u(\w\w\w\w)/g, (a, b) => {
+  // if task type is URL we have an array of object
+  const taskAnswer = props.text[0]?.url ? props.text[0].url : props.text;
+  const text = taskAnswer.replace(/\\u(\w\w\w\w)/g, (a, b) => {
     const charCode = parseInt(b, 16);
     return String.fromCharCode(charCode);
   });
@@ -102,7 +104,10 @@ const ParsedText = (props) => {
 };
 
 ParsedText.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]),
   block: PropTypes.bool,
   truncateFileUrls: PropTypes.bool,
 };

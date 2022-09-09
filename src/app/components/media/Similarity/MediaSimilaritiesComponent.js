@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -8,8 +8,9 @@ import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
-import MediaItem from './MediaItem';
+import MediaRelationship from './MediaRelationship';
 import MediaExpanded from '../MediaExpanded';
+import MediaItem from './MediaItem'; // eslint-disable-line no-unused-vars
 import { can } from '../../Can';
 
 const useStyles = makeStyles(theme => ({
@@ -78,18 +79,18 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
         </Typography>
       </Box>
       { sort(projectMedia.confirmed_similar_relationships.edges).map(relationship => (
-        <MediaItem
+        <MediaRelationship
           key={relationship.node.id}
-          mainProjectMedia={projectMedia}
-          team={projectMedia.team}
-          projectMedia={relationship.node.target}
           relationship={relationship.node}
           canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
           canDelete={can(projectMedia.permissions, 'destroy ProjectMedia')}
           isSelected={relationship.node.target_id === selectedProjectMediaDbid}
-          showReportStatus={false}
-          onSelect={handleSelectItem}
-          modalOnly
+          handleSelectItem={handleSelectItem}
+          mainProjectMediaId={projectMedia.id}
+          mainProjectMediaDemand={projectMedia.demand}
+          mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
+          relationshipSourceId={relationship.node.source_id}
+          relationshipTargetId={relationship.node.target_id}
         />
       ))}
     </div>
@@ -99,9 +100,9 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
 MediaSimilaritiesComponent.propTypes = {
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
+    demand: PropTypes.number.isRequired,
+    confirmedSimilarCount: PropTypes.number.isRequired,
     permissions: PropTypes.string.isRequired,
-    confirmed_main_item: PropTypes.object.isRequired,
     confirmed_similar_relationships: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
@@ -113,32 +114,19 @@ MediaSimilaritiesComponent.propTypes = {
         }).isRequired,
       })).isRequired,
     }).isRequired,
-    team: PropTypes.shape({
-      dbid: PropTypes.number.isRequired,
-      smooch_bot: PropTypes.shape({
-        id: PropTypes.string,
-      }),
-    }).isRequired,
   }).isRequired,
 };
 
 export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
   fragment MediaSimilaritiesComponent_projectMedia on ProjectMedia {
     id
-    dbid
     demand
     permissions
     confirmedSimilarCount: confirmed_similar_items_count
-    confirmed_main_item {
-      id
-      dbid
-      ...MediaItem_projectMedia
-    }
     confirmed_similar_relationships(first: 10000) {
       edges {
         node {
           id
-          dbid
           source_id
           target_id
           target {
@@ -146,12 +134,6 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
             ...MediaItem_projectMedia
           }
         }
-      }
-    }
-    team {
-      dbid
-      smooch_bot: team_bot_installation(bot_identifier: "smooch") {
-        id
       }
     }
   }

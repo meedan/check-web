@@ -43,14 +43,14 @@ class DrawerNavigationComponent extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.team && this.props.team.dbid !== nextProps.team.dbid) {
+    if (this.props.team && this.props.team?.dbid !== nextProps.team?.dbid) {
       this.unsubscribe();
     }
   }
 
   componentDidUpdate(prevProps) {
     this.setContextTeam();
-    if (this.props.team && this.props.team.dbid !== prevProps.team.dbid) {
+    if (this.props.team && this.props.team?.dbid !== prevProps.team?.dbid) {
       this.subscribe();
     }
   }

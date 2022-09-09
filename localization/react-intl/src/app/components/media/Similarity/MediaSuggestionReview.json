@@ -1,0 +1,27 @@
+[
+  {
+    "id": "mediaSuggestionReview.matchTitle",
+    "description": "Title of a box that lets the user open a claim that this has been matched with.",
+    "defaultMessage": "Matched claim"
+  },
+  {
+    "id": "mediaSuggestionReview.matchDescription",
+    "description": "Hint text to tell the user what the 'Open claim' button does.",
+    "defaultMessage": "This media has been associated with the claim and fact-check below."
+  },
+  {
+    "id": "mediaSuggestionReview.openButtonMatched",
+    "description": "A label for a button that opens a claim item",
+    "defaultMessage": "Open claim"
+  },
+  {
+    "id": "mediaSuggestionReview.title",
+    "description": "Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app).",
+    "defaultMessage": "Suggested Claim and Fact-check"
+  },
+  {
+    "id": "mediaSuggestionReview.prompt",
+    "description": "Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app).",
+    "defaultMessage": "Is the Claim or Fact-check below a good match for this media?"
+  }
+]

@@ -97,7 +97,7 @@ const MediaSuggestionsComponent = ({
   setFlashMessage,
 }) => {
   const classes = useStyles();
-  const params = new URLSearchParams();
+  const params = new URLSearchParams(window.location.search);
   // sort suggestions by the larger (more recent) of `last_seen` vs `created_at`, descending
   const sortedRelationships = relationships.sort((a, b) => Math.max(+b.target.created_at, +b.target.last_seen) - Math.max(+a.target.created_at, +a.target.last_seen));
   const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}${window.location.search}`;

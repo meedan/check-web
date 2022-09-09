@@ -59,7 +59,7 @@ const NavigateAwayDialog = ({
 
   return (
     <ConfirmProceedDialog
-      open={leaveLocation}
+      open={Boolean(leaveLocation)}
       title={title}
       body={
         <div>

@@ -1,23 +1,5 @@
 [
   {
-    "id": "mediaSimilarityBarComponent.hasMain",
-    "defaultMessage": "This media has been associated with an existing claim."
-  },
-  {
-    "id": "mediaSimilarityBarComponent.openClaim",
-    "defaultMessage": "Open claim"
-  },
-  {
-    "id": "mediaSimilarityBarComponent.hasSuggestedMain",
-    "description": "Caption to inform user that there is a suggested similarity",
-    "defaultMessage": "This media has been suggested as similar to an existing claim."
-  },
-  {
-    "id": "mediaSimilarityBarComponent.reviewSuggestion",
-    "description": "Button label for reviewing similarity suggestions",
-    "defaultMessage": "Review suggestion"
-  },
-  {
     "id": "mediaSimilarityBarComponent.similarMedia",
     "description": "Plural. Heading for the number of similar media",
     "defaultMessage": "Similar media"

@@ -20,7 +20,7 @@ import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { black87, black54, headline, units, Row } from '../../styles/js/shared';
+import { black87, black54, headline, units, Row, textSecondary } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
@@ -432,7 +432,7 @@ function SearchResultsComponent({
             title={title}
             style={{
               font: headline,
-              color: black54,
+              color: textSecondary,
               display: 'flex',
               alignItems: 'center',
             }}
@@ -443,17 +443,19 @@ function SearchResultsComponent({
             </span>
             {listActions}
           </div>
-          <SearchKeyword
-            query={unsortedQuery}
-            setQuery={setQuery}
-            project={project}
-            hideFields={hideFields}
-            title={title}
-            team={team}
-            showExpand={showExpand}
-            cleanupQuery={cleanupQuery}
-            handleSubmit={handleSubmit}
-          />
+          { /\/feed\/[0-9]+\/shared/.test(window.location.pathname) ?
+            null :
+            <SearchKeyword
+              query={unsortedQuery}
+              setQuery={setQuery}
+              project={project}
+              hideFields={hideFields}
+              title={title}
+              team={team}
+              showExpand={showExpand}
+              cleanupQuery={cleanupQuery}
+              handleSubmit={handleSubmit}
+            /> }
         </Row>
         <Row className="project__description">
           {listDescription && listDescription.trim().length ?

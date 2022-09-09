@@ -25,9 +25,9 @@
     "defaultMessage": "Web Form"
   },
   {
-    "id": "searchFieldChannel.sharedDatabase",
-    "description": "Filter option that refers to items created from the shared database.",
-    "defaultMessage": "Shared Database"
+    "id": "searchFieldChannel.sharedFeed",
+    "description": "Filter option that refers to items created from the shared feed.",
+    "defaultMessage": "Shared Feed"
   },
   {
     "id": "SearchFieldChannel.label",
