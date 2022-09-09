@@ -149,7 +149,7 @@ const MultiSelectFilter = ({
   const selectedArray = Array.isArray(selected) ? selected : [selected];
 
   const getLabelForValue = (value) => {
-    const option = options.find(o => o.value === value);
+    const option = options.find(o => String(o.value) === String(value));
     return option ? option.label : '';
   };
 

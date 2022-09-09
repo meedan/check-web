@@ -23,7 +23,7 @@ import CardContent from '@material-ui/core/CardContent';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import SettingsHeader from '../SettingsHeader';
 import LanguageSwitcher from '../../LanguageSwitcher';
-import { ContentColumn } from '../../../styles/js/shared';
+import { ContentColumn, textSecondary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
   helpIcon: {
     marginLeft: theme.spacing(1),
-    color: '#656565',
+    color: textSecondary,
     cursor: 'help',
   },
   typographyButton: {

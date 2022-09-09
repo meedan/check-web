@@ -58,18 +58,18 @@ const CustomFiltersManagerComponent = ({
   if (hide) { return null; }
   const [errorMessage, setErrorMessage] = React.useState('');
 
-  const teamTasks = team.team_tasks.edges;
+  const teamTasks = team?.team_tasks?.edges ? team.team_tasks.edges : [];
 
   const handleTeamTaskFilterChange = (teamTaskFilter, index) => {
     const newQuery = {};
-    newQuery.team_tasks = query.team_tasks ? [...query.team_tasks] : [];
+    newQuery.team_tasks = query?.team_tasks ? [...query.team_tasks] : [];
     newQuery.team_tasks.splice(index, 1, teamTaskFilter);
     onFilterChange(newQuery);
   };
 
   const handleRemoveFilter = (index) => {
     const newQuery = {};
-    newQuery.team_tasks = query.team_tasks ? [...query.team_tasks] : [];
+    newQuery.team_tasks = query?.team_tasks ? [...query.team_tasks] : [];
     newQuery.team_tasks.splice(index, 1);
     if (newQuery.team_tasks.length === 0) {
       delete newQuery.team_tasks;
@@ -87,7 +87,7 @@ const CustomFiltersManagerComponent = ({
     }
   };
 
-  const filters = query.team_tasks && query.team_tasks.length > 0 ? query.team_tasks : [{}];
+  const filters = query?.team_tasks && query?.team_tasks?.length > 0 ? query.team_tasks : [{}];
 
   const icons = {
     free_text: <ShortTextIcon />,

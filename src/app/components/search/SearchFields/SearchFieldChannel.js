@@ -35,9 +35,9 @@ const messages = defineMessages({
     description: 'Filter option that refers to items created via a web form',
   },
   sharedDatabase: {
-    id: 'searchFieldChannel.sharedDatabase',
-    defaultMessage: 'Shared Database',
-    description: 'Filter option that refers to items created from the shared database.',
+    id: 'searchFieldChannel.sharedFeed',
+    defaultMessage: 'Shared Feed',
+    description: 'Filter option that refers to items created from the shared feed.',
   },
 });
 

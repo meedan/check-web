@@ -32,7 +32,49 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         creator_name
         user_id
         channel
-        suggested_main_item # used by MediaClaim, MediaFactCheck
+        suggested_similar_relationships(first: 10000) {
+          edges {
+            node {
+              id
+                relationship_type
+                dbid
+                source_id
+                target_id
+            }
+          }
+        }
+        suggested_main_item { # used by MediaClaim, MediaFactCheck
+          dbid
+          team {
+            slug
+          }
+          claim_description {
+            id
+            dbid
+            context
+            description
+            user {
+              name
+            }
+            updated_at
+            fact_check {
+              id
+              summary
+              title
+              url
+              user {
+                name
+              }
+              updated_at
+            }
+          }
+        }
+        confirmed_main_item {
+          dbid
+          team {
+            slug
+          }
+        }
         is_confirmed_similar_to_another_item
         is_secondary
         claim_description {
@@ -153,6 +195,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           get_language
           get_report
           verification_statuses
+          permissions
           team_bots(first: 10000) {
             edges {
               node {

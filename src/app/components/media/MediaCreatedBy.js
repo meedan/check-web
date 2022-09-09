@@ -28,9 +28,9 @@ const messages = defineMessages({
     description: 'Creator that refers to items created via web forms.',
   },
   shareddatabase: {
-    id: 'mediaAnalysis.sharedDatabase',
-    defaultMessage: 'Shared Database',
-    description: 'Creator that refers to items created from the shared database.',
+    id: 'mediaAnalysis.sharedFeed',
+    defaultMessage: 'Shared Feed',
+    description: 'Creator that refers to items created from the shared feed.',
   },
 });
 

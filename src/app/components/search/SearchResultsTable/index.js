@@ -152,14 +152,12 @@ const AllPossibleColumns = [
     field: 'creator_name',
     headerText: <FormattedMessage id="list.createdBy" defaultMessage="Created by" description="Table header for column that shows the creator name" />,
     cellComponent: CreatorNameCell,
-    align: 'center',
     sortKey: 'creator_name',
   },
   {
     field: 'sources_as_sentence',
     headerText: <FormattedMessage id="list.sourceName" defaultMessage="Source" description="Table header for column that shows item source" />,
     cellComponent: SourcesCell,
-    align: 'center',
   },
   {
     field: 'cluster_fact_checked_by_team_names',
