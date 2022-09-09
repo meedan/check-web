@@ -188,7 +188,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
-        rows={1}
+        rows={3 / 2}
         key={`title-${claimDescription}`}
       />
 
