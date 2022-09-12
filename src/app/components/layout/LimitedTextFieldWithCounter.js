@@ -34,8 +34,8 @@ const LimitedTextFieldWithCounter = ({
       onBlur={(e) => { onUpdate(e.target.value.trim()); }}
       defaultValue={value}
       rows={rows}
-      multiline={rows > 1}
-      rowsMax={rows > 1 ? Infinity : 1}
+      multiline
+      rowsMax={Infinity}
       variant="outlined"
       fullWidth
       {...textFieldProps}
