@@ -135,7 +135,7 @@ const SaveList = ({
     }
   }
 
-  // Don't show the button if it's a tipline inbox or suggested matches page and nothing changed
+  // Don't show the button if it's a tipline inbox or suggested media page and nothing changed
   if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
     let defaultQuery = {};
     let savedQuery = '{}';

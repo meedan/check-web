@@ -43,7 +43,7 @@ const MediaSimilarityBarAdd = ({
   let label = '';
   let reverse = false;
   if (action === 'addSimilarToThis') {
-    label = <FormattedMessage id="mediaSimilarityBarAdd.addSimilarToThisTitle" defaultMessage="Import similar media from other items" />;
+    label = <FormattedMessage id="mediaSimilarityBarAdd.addMatchedToThisTitle" defaultMessage="Import matched media from other items" />;
   } else if (action === 'addThisToSimilar') {
     label = <FormattedMessage id="mediaSimilarityBarAdd.addThisToSimilarTitle" defaultMessage="Export all media to another item" />;
     reverse = true;
@@ -207,8 +207,8 @@ const MediaSimilarityBarAdd = ({
           <ListItemText
             primary={
               <FormattedMessage
-                id="mediaSimilarityBarAdd.addSimilarToThis"
-                defaultMessage="Import similar media into this item"
+                id="mediaSimilarityBarAdd.addMatchedToThis"
+                defaultMessage="Import matched media into this item"
               />
             }
           />

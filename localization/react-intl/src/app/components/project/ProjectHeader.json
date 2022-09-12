@@ -12,8 +12,8 @@
     "defaultMessage": "Imported reports"
   },
   {
-    "id": "projectHeader.suggestedMatches",
-    "defaultMessage": "Suggested matches"
+    "id": "projectHeader.suggestedMedias",
+    "defaultMessage": "Suggested media"
   },
   {
     "id": "projectHeader.feed",

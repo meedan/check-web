@@ -43,7 +43,7 @@ const SuggestedMatches = ({ routeParams }) => (
             <Search
               searchUrlPrefix={`/${routeParams.team}/suggested-matches`}
               mediaUrlPrefix={`/${routeParams.team}/media`}
-              title={<FormattedMessage id="suggestedMatches.title" defaultMessage="Suggested matches" />}
+              title={<FormattedMessage id="suggestedMedias.title" defaultMessage="Suggested media" />}
               icon={<NewReleasesIcon />}
               teamSlug={routeParams.team}
               query={query}

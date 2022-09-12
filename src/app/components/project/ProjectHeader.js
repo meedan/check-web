@@ -29,7 +29,7 @@ class ProjectHeaderComponent extends React.PureComponent {
     } else if (/\/imported-reports(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.importedReports" defaultMessage="Imported reports" />;
     } else if (/\/suggested-matches(\/|$)/.test(listUrl)) {
-      pageTitle = <FormattedMessage id="projectHeader.suggestedMatches" defaultMessage="Suggested matches" />;
+      pageTitle = <FormattedMessage id="projectHeader.suggestedMedias" defaultMessage="Suggested media" />;
     } else if (isFeedPage) {
       pageTitle = <FormattedMessage id="projectHeader.feed" defaultMessage="Shared feed" />;
     } else if (project) {

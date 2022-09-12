@@ -219,9 +219,9 @@ const AddFilterMenu = ({
     icon: <NumberIcon />,
     label: (
       <FormattedMessage
-        id="addFilterMenu.similarMedias"
-        defaultMessage="Number of similar medias"
-        description="Menu option to enable searching items by similar medias"
+        id="addFilterMenu.matchedMedias"
+        defaultMessage="Number of matched medias"
+        description="Menu option to enable searching items by matched medias"
       />
     ),
   },

@@ -22,12 +22,12 @@
   },
   {
     "id": "mediaItem.detach",
-    "defaultMessage": "Detach"
+    "defaultMessage": "Un-match media"
   },
   {
     "id": "detachDialog.dialogdetachedToListTitle",
     "description": "Dialog title prompting user to select a destination folder for the item",
-    "defaultMessage": "Move detached item to…"
+    "defaultMessage": "Move un-matched item to…"
   },
   {
     "id": "detachDialog.detached",

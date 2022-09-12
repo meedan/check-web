@@ -70,9 +70,9 @@
     "defaultMessage": "Tipline request"
   },
   {
-    "id": "addFilterMenu.similarMedias",
-    "description": "Menu option to enable searching items by similar medias",
-    "defaultMessage": "Number of similar medias"
+    "id": "addFilterMenu.matchedMedias",
+    "description": "Menu option to enable searching items by matched medias",
+    "defaultMessage": "Number of matched medias"
   },
   {
     "id": "addFilterMenu.suggestedMedias",

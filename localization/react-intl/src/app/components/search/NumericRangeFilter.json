@@ -1,8 +1,8 @@
 [
   {
     "id": "numericRangeFilter.linkedItems",
-    "description": "Filter option that refers to number of similar medias",
-    "defaultMessage": "Number of similar medias is between"
+    "description": "Filter option that refers to number of matched medias",
+    "defaultMessage": "Number of matched medias is between"
   },
   {
     "id": "numericRangeFilter.suggestedItems",
