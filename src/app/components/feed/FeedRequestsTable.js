@@ -101,7 +101,7 @@ const FeedRequestsTable = ({
         <IconButton onClick={onGoToThePreviousPage} disabled={!hasPreviousPage}>
           <PrevIcon />
         </IconButton>
-        <Box className={classes.pager}>{rangeStart} - {rangeEnd} / {feed.requests_count}</Box>
+        <Box className={classes.pager}>{rangeStart} - {rangeEnd > feed.root_requests_count ? feed.root_requests_count : rangeEnd} / {feed.root_requests_count}</Box>
         <IconButton onClick={onGoToTheNextPage} disabled={!hasNextPage}>
           <NextIcon />
         </IconButton>
@@ -213,7 +213,7 @@ const FeedRequestsTableQuery = ({
               feed(dbid: $feedId) {
                 dbid
                 name
-                requests_count
+                root_requests_count
                 requests(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType) {
                   edges {
                     node {
@@ -263,7 +263,7 @@ const FeedRequestsTableQuery = ({
                 onGoToThePreviousPage={() => { setPage(page - 1); }}
                 rangeStart={((page - 1) * pageSize) + 1}
                 rangeEnd={((page - 1) * pageSize) + pageSize}
-                hasNextPage={(page * pageSize) < props.team?.feed?.requests_count}
+                hasNextPage={(page * pageSize) < props.team?.feed?.root_requests_count}
                 hasPreviousPage={page > 1}
               />);
           }
