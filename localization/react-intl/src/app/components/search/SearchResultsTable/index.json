@@ -57,6 +57,10 @@
     "defaultMessage": "Report published by"
   },
   {
+    "id": "list.factCheckPublishedAt",
+    "defaultMessage": "Fact check published at"
+  },
+  {
     "id": "list.reactCount",
     "defaultMessage": "FB Reactions"
   },
