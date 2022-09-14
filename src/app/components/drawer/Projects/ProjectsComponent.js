@@ -322,7 +322,7 @@ const ProjectsComponent = ({
               <NewReleasesIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.suggestedMedias" defaultMessage="Suggested media" description="Label for a list displayed on the left sidebar." />
+              <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggested media" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 

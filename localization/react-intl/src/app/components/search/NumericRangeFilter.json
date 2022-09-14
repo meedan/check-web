@@ -2,7 +2,7 @@
   {
     "id": "numericRangeFilter.linkedItems",
     "description": "Filter option that refers to number of matched medias",
-    "defaultMessage": "Number of matched medias is between"
+    "defaultMessage": "Number of matched media is between"
   },
   {
     "id": "numericRangeFilter.suggestedItems",

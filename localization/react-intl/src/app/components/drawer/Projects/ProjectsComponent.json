@@ -30,7 +30,7 @@
     "defaultMessage": "Imported reports"
   },
   {
-    "id": "projectsComponent.suggestedMedias",
+    "id": "projectsComponent.suggestedMatches",
     "description": "Label for a list displayed on the left sidebar.",
     "defaultMessage": "Suggested media"
   },

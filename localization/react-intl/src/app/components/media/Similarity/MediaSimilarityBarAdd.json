@@ -1,6 +1,6 @@
 [
   {
-    "id": "mediaSimilarityBarAdd.addMatchedToThisTitle",
+    "id": "mediaSimilarityBarAdd.addSimilarToThisTitle",
     "defaultMessage": "Import matched media from other items"
   },
   {
@@ -22,7 +22,7 @@
     "defaultMessage": "Add similar"
   },
   {
-    "id": "mediaSimilarityBarAdd.addMatchedToThis",
+    "id": "mediaSimilarityBarAdd.addSimilarToThis",
     "defaultMessage": "Import matched media into this item"
   },
   {

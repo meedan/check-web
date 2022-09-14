@@ -86,8 +86,8 @@ const MediaSimilarityBarComponent = ({
           style={confirmedSimilarCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
         >
           <FormattedMessage
-            id="mediaSimilarityBarComponent.matchedMedia"
-            defaultMessage="Matched medias"
+            id="mediaSimilarityBarComponent.similarMedia"
+            defaultMessage="Matched media"
             description="Plural. Heading for the number of matched media"
           />
           <br />
@@ -99,7 +99,7 @@ const MediaSimilarityBarComponent = ({
           style={suggestionsCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
         >
           <FormattedMessage
-            id="mediaSimilarityBarComponent.suggestedMedia"
+            id="mediaSimilarityBarComponent.suggestedMatches"
             defaultMessage="Suggested media"
             description="Plural. Heading for the number of suggested media"
           />
