@@ -29,7 +29,7 @@ const projectMediaBlank = {
     fact_check_summary: '',
     fact_check_url: undefined,
   },
-}
+};
 
 describe('<FactCheckCell>', () => {
   it('should render title', () => {
