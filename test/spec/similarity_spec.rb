@@ -16,7 +16,7 @@ shared_examples 'similarity' do
     add_related_item('Claim 0')
     wait_for_selector("//span[contains(text(), '2 medias')]", :xpath)
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
-    expect(@driver.page_source.include?('More media')).to be(true)
+    expect(@driver.page_source.include?('Matched media')).to be(true)
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector_list('.media__heading').last.click
@@ -28,12 +28,12 @@ shared_examples 'similarity' do
     @driver.navigate.refresh
     wait_for_selector('.media-similarity__menu-icon')
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
-    expect(@driver.page_source.include?('More media')).to be(true)
+    expect(@driver.page_source.include?('Matched media')).to be(true)
     # list similar items
     wait_for_selector("//span[contains(text(), '3 medias')]", :xpath).click
     wait_for_selector_none('.media-tab__metadata"')
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
-    expect(@driver.page_source.include?('More media')).to be(true)
+    expect(@driver.page_source.include?('Matched media')).to be(true)
     # pin similar item
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__delete-relationship')
@@ -134,7 +134,7 @@ shared_examples 'similarity' do
       wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
       wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
       wait_for_selector('.media__more-medias')
-      expect(@driver.page_source.include?('More medias')).to be(true)
+      expect(@driver.page_source.include?('Matched media')).to be(true)
       expect(@driver.page_source.include?('2 medias')).to be(true)
     end
   end
@@ -184,7 +184,7 @@ shared_examples 'similarity' do
       wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
       wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
       wait_for_selector('.media__more-medias')
-      expect(@driver.page_source.include?('More medias')).to be(true)
+      expect(@driver.page_source.include?('Matched media')).to be(true)
       expect(@driver.page_source.include?('2 medias')).to be(true)
     end
   end
@@ -211,7 +211,7 @@ shared_examples 'similarity' do
       wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
       wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
       wait_for_selector('.media__more-medias')
-      expect(@driver.page_source.include?('More medias')).to be(true)
+      expect(@driver.page_source.include?('Matched media')).to be(true)
       expect(@driver.page_source.include?('2 medias')).to be(true)
     end
   end
@@ -235,7 +235,7 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
     wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
     wait_for_selector('.media__more-medias')
-    expect(@driver.page_source.include?('More medias')).to be(true)
+    expect(@driver.page_source.include?('Matched media')).to be(true)
     expect(@driver.page_source.include?('2 medias')).to be(true)
   end
 
