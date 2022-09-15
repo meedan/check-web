@@ -57,6 +57,7 @@ const TeamTagsActions = ({
           destroyTagText(input: $input) {
             team {
               id
+              get_rules
               tag_texts(first: 10000) {
                 edges {
                   node {
