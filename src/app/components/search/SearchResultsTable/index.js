@@ -45,7 +45,7 @@ const AllPossibleColumns = [
     sortKey: 'title',
   },
   {
-    field: 'fact_check',
+    field: 'fact_check_title',
     headerText: <FormattedMessage id="list.factCheck" defaultMessage="Fact-check" />,
     cellComponent: FactCheckCell,
   },
@@ -209,7 +209,7 @@ const showInFeed = [
 ];
 
 const showInFactCheck = [
-  'fact_check',
+  'fact_check_title',
   'status',
   'updated_at_timestamp',
   'team_name',
