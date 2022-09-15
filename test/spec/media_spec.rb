@@ -45,7 +45,7 @@ shared_examples 'media' do |type|
     wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
     wait_for_selector('#media-search__current-item')
     wait_for_selector('#media-fact-check__title')
-    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath)
 
     expect(page_source_body.include?('1 of 3')).to be(false)
     expect(page_source_body.include?('2 of 3')).to be(true)

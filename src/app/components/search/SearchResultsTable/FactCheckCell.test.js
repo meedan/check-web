@@ -23,6 +23,14 @@ const projectMedia = {
   },
 };
 
+const projectMediaBlank = {
+  feed_columns_values: {
+    fact_check_title: null,
+    fact_check_summary: '',
+    fact_check_url: undefined,
+  },
+};
+
 describe('<FactCheckCell>', () => {
   it('should render title', () => {
     const cell = mountInTable(<FactCheckCell projectMedia={projectMedia} />);
@@ -43,5 +51,11 @@ describe('<FactCheckCell>', () => {
     projectMedia.feed_columns_values.fact_check_url = null;
     const cell = mountInTable(<FactCheckCell projectMedia={projectMedia} />);
     expect(cell.find('a').length).toEqual(0);
+  });
+
+  it('should render a "-" instead of blank', () => {
+    projectMedia.feed_columns_values.fact_check_url = null;
+    const cell = mountInTable(<FactCheckCell projectMedia={projectMediaBlank} />);
+    expect(cell.text()).toEqual('-');
   });
 });

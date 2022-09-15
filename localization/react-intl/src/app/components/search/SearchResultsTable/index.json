@@ -17,7 +17,7 @@
   },
   {
     "id": "list.LinkedItems",
-    "defaultMessage": "Similar media"
+    "defaultMessage": "Matched media"
   },
   {
     "id": "list.Type",
@@ -57,6 +57,10 @@
     "defaultMessage": "Report published by"
   },
   {
+    "id": "list.factCheckPublishedAt",
+    "defaultMessage": "Fact check published at"
+  },
+  {
     "id": "list.reactCount",
     "defaultMessage": "FB Reactions"
   },
@@ -66,7 +70,7 @@
   },
   {
     "id": "list.suggestionsCount",
-    "defaultMessage": "Suggested matches"
+    "defaultMessage": "Suggested media"
   },
   {
     "id": "list.folder",
@@ -96,7 +100,7 @@
   {
     "id": "list.clusterSize",
     "description": "Table header for column that shows the number of similar items that belong to the same cluster",
-    "defaultMessage": "Similar media"
+    "defaultMessage": "Matched media"
   },
   {
     "id": "list.clusterFirstItemAt",

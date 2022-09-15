@@ -72,8 +72,8 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
           <strong>
             <FormattedMessage
               id="mediaSimilarities.moreMedias"
-              defaultMessage="More medias"
-              description="Heading for a list of similar medias"
+              defaultMessage="Matched media"
+              description="Heading for a list of matched medias"
             />
           </strong>
         </Typography>

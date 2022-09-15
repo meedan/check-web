@@ -1,7 +1,7 @@
 [
   {
     "id": "mediaSimilarities.moreMedias",
-    "description": "Heading for a list of similar medias",
-    "defaultMessage": "More medias"
+    "description": "Heading for a list of matched medias",
+    "defaultMessage": "Matched media"
   }
 ]

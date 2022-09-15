@@ -21,6 +21,7 @@ import MetadataCell from './MetadataCell';
 import ReportStatusCell from './ReportStatusCell';
 import TagsCell from './TagsCell';
 import MediaPublishedCell from './MediaPublishedCell';
+import FactCheckPublishedAtCell from './FactCheckPublishedAtCell';
 import ReportPublishedByCell from './ReportPublishedByCell';
 import ReactionCountCell from './ReactionCountCell';
 import CommentCountCell from './CommentCountCell';
@@ -44,7 +45,7 @@ const AllPossibleColumns = [
     sortKey: 'title',
   },
   {
-    field: 'fact_check',
+    field: 'fact_check_title',
     headerText: <FormattedMessage id="list.factCheck" defaultMessage="Fact-check" />,
     cellComponent: FactCheckCell,
   },
@@ -65,7 +66,7 @@ const AllPossibleColumns = [
   },
   {
     field: 'linked_items_count',
-    headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Similar media" />,
+    headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Matched media" />,
     cellComponent: LinkedItemsCountCell,
     align: 'center',
     sortKey: 'related',
@@ -123,6 +124,11 @@ const AllPossibleColumns = [
     cellComponent: ReportPublishedByCell,
   },
   {
+    field: 'fact_check_published_on',
+    headerText: <FormattedMessage id="list.factCheckPublishedAt" defaultMessage="Fact check published at" />,
+    cellComponent: FactCheckPublishedAtCell,
+  },
+  {
     field: 'reaction_count',
     headerText: <FormattedMessage id="list.reactCount" defaultMessage="FB Reactions" />,
     cellComponent: ReactionCountCell,
@@ -138,7 +144,7 @@ const AllPossibleColumns = [
   },
   {
     field: 'suggestions_count',
-    headerText: <FormattedMessage id="list.suggestionsCount" defaultMessage="Suggested matches" />,
+    headerText: <FormattedMessage id="list.suggestionsCount" defaultMessage="Suggested media" />,
     cellComponent: SuggestionsCountCell,
     align: 'center',
     sortKey: 'suggestions_count',
@@ -174,7 +180,7 @@ const AllPossibleColumns = [
   },
   {
     field: 'cluster_size',
-    headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Similar media" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
+    headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Matched media" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
     cellComponent: ClusterSizeCell,
     align: 'center',
     sortKey: 'cluster_size',
@@ -203,7 +209,7 @@ const showInFeed = [
 ];
 
 const showInFactCheck = [
-  'fact_check',
+  'fact_check_title',
   'status',
   'updated_at_timestamp',
   'team_name',

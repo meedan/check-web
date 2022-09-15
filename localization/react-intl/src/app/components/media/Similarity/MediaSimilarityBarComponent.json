@@ -1,8 +1,8 @@
 [
   {
     "id": "mediaSimilarityBarComponent.similarMedia",
-    "description": "Plural. Heading for the number of similar media",
-    "defaultMessage": "Similar media"
+    "description": "Plural. Heading for the number of matched media",
+    "defaultMessage": "Matched media"
   },
   {
     "id": "mediaSimilarityBarComponent.suggestedMatches",

@@ -87,8 +87,8 @@ const MediaSimilarityBarComponent = ({
         >
           <FormattedMessage
             id="mediaSimilarityBarComponent.similarMedia"
-            defaultMessage="Similar media"
-            description="Plural. Heading for the number of similar media"
+            defaultMessage="Matched media"
+            description="Plural. Heading for the number of matched media"
           />
           <br />
           <span className={classes.similarMediaCount}>{confirmedSimilarCount}</span>

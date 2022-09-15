@@ -1,7 +1,7 @@
 [
   {
     "id": "mediaItem.similarMedia",
-    "defaultMessage": "{count, plural, one {# similar media} other {# similar media}}"
+    "defaultMessage": "{count, plural, one {# matched media} other {# matched media}}"
   },
   {
     "id": "mediaItem.lastSubmitted",
