@@ -21,6 +21,7 @@ import MetadataCell from './MetadataCell';
 import ReportStatusCell from './ReportStatusCell';
 import TagsCell from './TagsCell';
 import MediaPublishedCell from './MediaPublishedCell';
+import FactCheckPublishedAtCell from './FactCheckPublishedAtCell';
 import ReportPublishedByCell from './ReportPublishedByCell';
 import ReactionCountCell from './ReactionCountCell';
 import CommentCountCell from './CommentCountCell';
@@ -121,6 +122,11 @@ const AllPossibleColumns = [
     field: 'published_by',
     headerText: <FormattedMessage id="list.reportPublishedBy" defaultMessage="Report published by" />,
     cellComponent: ReportPublishedByCell,
+  },
+  {
+    field: 'fact_check_published_on',
+    headerText: <FormattedMessage id="list.factCheckPublishedAt" defaultMessage="Fact check published at" />,
+    cellComponent: FactCheckPublishedAtCell,
   },
   {
     field: 'reaction_count',
