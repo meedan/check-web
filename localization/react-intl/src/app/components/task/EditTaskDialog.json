@@ -1,21 +1,5 @@
 [
   {
-    "id": "singleChoiceTask.value",
-    "defaultMessage": "Value"
-  },
-  {
-    "id": "singleChoiceTask.other",
-    "defaultMessage": "Other"
-  },
-  {
-    "id": "singleChoiceTask.addValue",
-    "defaultMessage": "Add Option"
-  },
-  {
-    "id": "singleChoiceTask.addOther",
-    "defaultMessage": "Add \"Other\""
-  },
-  {
     "id": "tasks.textType",
     "description": "Label for text type field",
     "defaultMessage": "Text"
@@ -112,22 +96,27 @@
   },
   {
     "id": "tasks.description",
+    "description": "Description field for custom annotation field",
     "defaultMessage": "Description (optional)"
   },
   {
     "id": "tasks.timezones",
+    "description": "Label of timezones list available to the task",
     "defaultMessage": "Timezones available to complete the task"
   },
   {
-    "id": "tasks.assign",
-    "defaultMessage": "Assign"
-  },
-  {
     "id": "tasks.cancelAdd",
+    "description": "Cancel action button label",
     "defaultMessage": "Cancel"
   },
   {
+    "id": "tasks.saveButtonWarning",
+    "description": "Save action button label warning",
+    "defaultMessage": "I understand, save changes"
+  },
+  {
     "id": "tasks.add",
+    "description": "Save action button label",
     "defaultMessage": "Save"
   }
 ]

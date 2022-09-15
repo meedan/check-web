@@ -10,7 +10,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
-import Message from '../Message';
 
 class TeamTaskConfirmDialog extends React.Component {
   constructor(props) {
@@ -110,7 +109,6 @@ class TeamTaskConfirmDialog extends React.Component {
         </DialogTitle>
         <DialogContent>
           <Typography variant="body1" component="div" paragraph>
-            <Message message={this.props.message} />
             <Box my={2} mx={0}>
               { task.tasks_with_answers_count > 0 ?
                 <div>

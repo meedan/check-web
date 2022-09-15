@@ -124,7 +124,7 @@ class TeamComponent extends Component {
                 value="columns"
               /> : null
             }
-            { can(team.permissions, 'mange TeamTask') ?
+            { can(team.permissions, 'manage TeamTask') ?
               <Tab
                 className="team-settings__metadata-tab"
                 label={
