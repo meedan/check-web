@@ -124,7 +124,7 @@ const AllPossibleColumns = [
     cellComponent: ReportPublishedByCell,
   },
   {
-    field: 'fact_check_published_at',
+    field: 'fact_check_published_on',
     headerText: <FormattedMessage id="list.factCheckPublishedAt" defaultMessage="Fact check published at" />,
     cellComponent: FactCheckPublishedAtCell,
   },
