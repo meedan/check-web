@@ -63,16 +63,17 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               }
               value="feed"
             /> : null }
-          <Tab
-            label={
-              <FormattedMessage
-                id="feed.requests"
-                defaultMessage="Requests"
-                description="Tab with label 'Requests' displayed on a feed page. It references all requests submitted to that feed."
-              />
-            }
-            value="requests"
-          />
+          { feed.published ?
+            <Tab
+              label={
+                <FormattedMessage
+                  id="feed.requests"
+                  defaultMessage="Requests"
+                  description="Tab with label 'Requests' displayed on a feed page. It references all requests submitted to that feed."
+                />
+              }
+              value="requests"
+            /> : null }
         </Tabs>
         { tab === 'shared' ? <FeedSharingSwitch enabled={feedTeam.shared} feedTeamId={feedTeam.id} readOnly={readOnlySwitcher} numberOfWorkspaces={feed.teams_count} feedName={feed.name} /> : null }
       </React.Fragment>
@@ -200,7 +201,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
         : null
       }
 
-      { tab === 'requests' ?
+      { tab === 'requests' && feed.published ?
         <div id="feed__requests">
           <FeedRequestsTable
             tabs={topBar}

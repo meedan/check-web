@@ -355,7 +355,7 @@ export const ContentColumn = styled.div`
 export const Column = styled.div`
   flex: 1;
   min-width: 340px;
-  max-width: 50%;
+  max-width: ${props => props.maxWidth ? props.maxWidth : '720px'};
   padding: ${units(2)};
   height: calc(100vh - 64px);
   max-height: calc(100vh - 64px);

@@ -24,10 +24,10 @@ const StyledTwoColumnLayout = styled.div`
 const FeedClusterPage = ({ request }) => (
   <div id="feed-cluster-page">
     <StyledTwoColumnLayout>
-      <Column className="media__column">
+      <Column className="media__column" maxWidth="50%">
         <FeedRequestedMedia request={request} />
       </Column>
-      <Column className="requests__column">
+      <Column className="requests__column" maxWidth="50%">
         <RequestCards requestDbid={request.dbid} />
       </Column>
     </StyledTwoColumnLayout>
