@@ -93,7 +93,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             setError(true);
           },
         });
-      } else if (values.title || values.summary || values.url) {
+      } else if (values.title && values.summary) {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
@@ -135,6 +135,9 @@ const MediaFactCheck = ({ projectMedia }) => {
             setError(true);
           },
         });
+      } else {
+        setSaving(false);
+        setError(true);
       }
     }
   };
@@ -151,9 +154,9 @@ const MediaFactCheck = ({ projectMedia }) => {
         <Typography variant="caption" component="div">
           { error ?
             <FormattedMessage
-              id="mediaFactCheck,error"
-              defaultMessage="error"
-              description="Caption that informs that a fact-check could not be saved"
+              id="mediaFactCheck.error"
+              defaultMessage="Title and description have to be filled"
+              description="Caption that informs that a fact-check could not be saved and that the fields have to be filled"
             /> : null }
           { saving && !error ?
             <FormattedMessage
@@ -164,7 +167,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           { !saving && !error && factCheck ?
             <FormattedMessage
               className="media-fact-check__saved-by"
-              id="mediaFactCheck,saved"
+              id="mediaFactCheck.saved"
               defaultMessage="saved by {userName} {timeAgo}"
               values={{
                 userName: factCheck.user.name,
@@ -185,6 +188,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           setTitle(newValue);
           handleBlur('title', newValue);
         }}
+        required
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
@@ -201,6 +205,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           setSummary(newValue);
           handleBlur('summary', newValue);
         }}
+        required
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly || published}

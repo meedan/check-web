@@ -23,6 +23,7 @@ const MediaFactCheckField = ({
   rows,
   onBlur,
   intl,
+  required,
 }) => {
   let defaultValue = intl.formatMessage(messages.placeholder);
 
@@ -39,6 +40,7 @@ const MediaFactCheckField = ({
         rows={rows}
         value={defaultValue}
         textFieldProps={{
+          required,
           id: `media-fact-check__${name}`,
           className: `media-fact-check__${name}`,
           disabled: (!hasPermission || disabled),
@@ -52,6 +54,7 @@ const MediaFactCheckField = ({
 MediaFactCheckField.defaultProps = {
   disabled: false,
   rows: 3,
+  required: false,
 };
 
 MediaFactCheckField.propTypes = {
@@ -65,6 +68,7 @@ MediaFactCheckField.propTypes = {
   rows: PropTypes.number,
   onBlur: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
+  required: PropTypes.bool,
 };
 
 export default injectIntl(MediaFactCheckField);
