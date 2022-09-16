@@ -194,6 +194,14 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'demand',
               'sources',
               'dynamic',
+              'annotated_by',
+              'language',
+              'published_by',
+              'has_claim',
+              'cluster_published_reports',
+              'cluster_teams',
+              'archived',
+              'read',
             ]}
             {...commonSearchProps}
           />
