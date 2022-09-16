@@ -261,7 +261,7 @@ class HomeComponent extends Component {
     }
 
     const isMediaPage = /\/media\/[0-9]+/.test(window.location.pathname);
-    const isFeedPage = /\/feed\/[0-9]+\/request\/[0-9]+/.test(window.location.pathname);
+    const isFeedPage = /\/feed\/[0-9]+\/(request|cluster)\/[0-9]+/.test(window.location.pathname);
 
     let userTiplines = '';
     if (user && user.current_team && user.current_team.team_bot_installation && user.current_team.team_bot_installation.smooch_enabled_integrations) {

@@ -105,6 +105,7 @@ const FeedItem = ({ routeParams, location }) => {
                     media_id
                     description
                     requests_count
+                    created_at
                     updated_at
                     last_seen
                     picture
@@ -125,6 +126,7 @@ const FeedItem = ({ routeParams, location }) => {
                       type
                       picture
                       file_path
+                      embed_path
                     }
                   }
                 }

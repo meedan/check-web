@@ -380,9 +380,11 @@ const FeedItemComponent = ({
               <Typography className={classes.columnTitle}>
                 <FormattedMessage id="feedItem.claimDescription" defaultMessage="Claims" />
               </Typography>
-              <IconButton onClick={handleClose}>
-                <CloseIcon />
-              </IconButton>
+              { importingClaim ?
+                <IconButton onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+                : null }
             </Box>
             <Box mt={1}>
               {/* Claims */}
