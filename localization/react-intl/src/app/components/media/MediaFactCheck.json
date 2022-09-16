@@ -5,9 +5,9 @@
     "defaultMessage": "Fact-check"
   },
   {
-    "id": "mediaFactCheck,error",
-    "description": "Caption that informs that a fact-check could not be saved",
-    "defaultMessage": "error"
+    "id": "mediaFactCheck.error",
+    "description": "Caption that informs that a fact-check could not be saved and that the fields have to be filled",
+    "defaultMessage": "Title and description have to be filled"
   },
   {
     "id": "mediaFactCheck.saving",
@@ -15,7 +15,7 @@
     "defaultMessage": "saving…"
   },
   {
-    "id": "mediaFactCheck,saved",
+    "id": "mediaFactCheck.saved",
     "description": "Caption that informs who last saved this fact-check and when it happened.",
     "defaultMessage": "saved by {userName} {timeAgo}"
   },
