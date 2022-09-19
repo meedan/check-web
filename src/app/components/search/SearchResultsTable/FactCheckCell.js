@@ -87,9 +87,9 @@ const MaybeLink = ({ to, className, children }) => {
 };
 
 const FactCheckCell = ({ projectMedia, viewMode }) => {
-  const title = projectMedia.feed_columns_values.fact_check_title;
-  const summary = projectMedia.feed_columns_values.fact_check_summary;
-  const url = projectMedia.feed_columns_values.fact_check_url;
+  const title = projectMedia.feed_columns_values?.fact_check_title;
+  const summary = projectMedia.feed_columns_values?.fact_check_summary;
+  const url = projectMedia.feed_columns_values?.fact_check_url;
   const classes = useStyles();
   const isBlank = !summary && !title;
 
