@@ -15,6 +15,16 @@
     "defaultMessage": "Requests"
   },
   {
+    "id": "feedRequestsTable.subscriptions",
+    "description": "Header label for number of subscriptions column",
+    "defaultMessage": "Subscriptions"
+  },
+  {
+    "id": "feedRequestsTable.factCheckBy",
+    "description": "Header label for fact-check by column",
+    "defaultMessage": "Fact-check by"
+  },
+  {
     "id": "feedRequestsTable.matchedMedia",
     "description": "Header label for number of medias found to be matched to the current one",
     "defaultMessage": "Matched media"

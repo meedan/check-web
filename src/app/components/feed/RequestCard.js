@@ -37,8 +37,6 @@ RequestCard.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
-RequestCard.defaultProps = {
-
-};
+RequestCard.defaultProps = {};
 
 export default RequestCard;

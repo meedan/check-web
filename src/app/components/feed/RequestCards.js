@@ -7,8 +7,10 @@ import { Box, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import RequestCard from './RequestCard';
+import RequestSubscription from './RequestSubscription';
 import MediasLoading from '../media/MediasLoading';
 import ErrorBoundary from '../error/ErrorBoundary';
+import BulletSeparator from '../layout/BulletSeparator';
 import { whatsappGreen } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
@@ -48,11 +50,22 @@ const RequestCards = ({ request, mediaDbid }) => {
         <div className={classes.requestsHeader}>
           {
             isAllMedias ? (
-              <FormattedMessage
-                id="feedRequestedMedia.requestsForAllMedias"
-                defaultMessage="{requestsCount, plural, one {# request across all medias} other {# requests across all medias}}"
-                description="Header of requests list. Example: 26 requests across all medias"
-                values={{ requestsCount }}
+              <BulletSeparator
+                icon={whatsappIcon}
+                details={[
+                  (<FormattedMessage
+                    id="feedRequestedMedia.requestsForAllMedias"
+                    defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
+                    description="Header of requests list. Example: 26 requests"
+                    values={{ requestsCount }}
+                  />),
+                  (<FormattedMessage
+                    id="feedRequestedMedia.subscriptionsForAllMedias"
+                    defaultMessage="{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}"
+                    description="Part of the header of requests list. Example: 12 subscriptions"
+                    values={{ subscriptionsCount: request.subscriptions_count }}
+                  />),
+                ]}
               />
             ) : (
               <FormattedMessage
@@ -77,6 +90,10 @@ const RequestCards = ({ request, mediaDbid }) => {
               day="2-digit"
             />),
             feedChip,
+            (<RequestSubscription
+              subscribed={request.subscribed}
+              lastCalledAt={request.last_called_webhook_at}
+            />),
           ]}
         />
         : null
@@ -94,6 +111,10 @@ const RequestCards = ({ request, mediaDbid }) => {
               day="2-digit"
             />),
             feedChip,
+            (<RequestSubscription
+              subscribed={r.node.subscribed}
+              lastCalledAt={r.node.last_called_webhook_at}
+            />),
           ]}
         />
       )) }
@@ -113,6 +134,9 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
         query RequestCardsQuery($requestId: ID!, $mediaId: Int!) {
           request(id: $requestId) {
             content
+            subscriptions_count
+            subscribed
+            last_called_webhook_at
             feed {
               name
             }
@@ -125,7 +149,9 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
                 node {
                   dbid
                   content
+                  subscribed
                   last_submitted_at
+                  last_called_webhook_at
                 }
               }
             }

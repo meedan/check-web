@@ -126,7 +126,7 @@ const FeedRequestsTable = ({
                   />
                 </TableSort>
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="left">
                 <TableSort field="requests">
                   <FormattedMessage
                     id="feedRequestsTable.requests"
@@ -135,7 +135,23 @@ const FeedRequestsTable = ({
                   />
                 </TableSort>
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="left">
+                <TableSort field="subscriptions">
+                  <FormattedMessage
+                    id="feedRequestsTable.subscriptions"
+                    defaultMessage="Subscriptions"
+                    description="Header label for number of subscriptions column"
+                  />
+                </TableSort>
+              </TableCell>
+              <TableCell align="left">
+                <FormattedMessage
+                  id="feedRequestsTable.factCheckBy"
+                  defaultMessage="Fact-check by"
+                  description="Header label for fact-check by column"
+                />
+              </TableCell>
+              <TableCell align="left">
                 <TableSort field="medias">
                   <FormattedMessage
                     id="feedRequestsTable.matchedMedia"
@@ -176,8 +192,10 @@ const FeedRequestsTable = ({
                       day="2-digit"
                     />
                   </TableCell>
-                  <TableCell align="center">{r.node.requests_count}</TableCell>
-                  <TableCell align="center">{r.node.medias_count}</TableCell>
+                  <TableCell align="left">{r.node.requests_count}</TableCell>
+                  <TableCell align="left">{r.node.subscriptions_count}</TableCell>
+                  <TableCell align="left">{r.node.fact_checked_by.split(', ').map(teamName => (<span>{teamName}<br /></span>))}</TableCell>
+                  <TableCell align="left">{r.node.medias_count}</TableCell>
                 </TableRow>
               );
             }) }
@@ -223,6 +241,8 @@ const FeedRequestsTableQuery = ({
                       last_submitted_at
                       requests_count
                       medias_count
+                      subscriptions_count
+                      fact_checked_by
                       media {
                         quote
                         metadata
