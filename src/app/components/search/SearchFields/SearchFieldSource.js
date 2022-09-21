@@ -17,6 +17,7 @@ const SearchFieldSource = ({
   onRemove,
 }) => {
   const [keyword, setKeyword] = React.useState('');
+  const [random] = React.useState(String(Math.random()));
 
   // Maximum number of options to be displayed
   const max = 500;
@@ -54,7 +55,7 @@ const SearchFieldSource = ({
         teamSlug,
         keyword,
         max,
-        random: String(Math.random()),
+        random,
       }}
       render={({ error, props }) => {
         if (!error && props) {

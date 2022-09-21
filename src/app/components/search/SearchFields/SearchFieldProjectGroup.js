@@ -15,59 +15,62 @@ const SearchFieldProjectGroup = ({
   onChange,
   onRemove,
   readOnly,
-}) => (
-  <QueryRenderer
-    environment={Relay.Store}
-    query={graphql`
-      query SearchFieldProjectGroupQuery($teamSlug: String!, $random: String!) {
-        team(slug: $teamSlug, random: $random) {
-          id
-          project_groups(first: 10000) {
-            edges {
-              node {
-                title
-                dbid
+}) => {
+  const [random] = React.useState(String(Math.random()));
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query SearchFieldProjectGroupQuery($teamSlug: String!, $random: String!) {
+          team(slug: $teamSlug, random: $random) {
+            id
+            project_groups(first: 10000) {
+              edges {
+                node {
+                  title
+                  dbid
+                }
               }
             }
           }
         }
-      }
-    `}
-    variables={{
-      teamSlug,
-      random: String(Math.random()),
-    }}
-    render={({ error, props }) => {
-      if (!error && props) {
-        const selectedProjectGroups = query.project_group_id ? query.project_group_id.map(p => `${p}`) : [];
-        const selected = projectGroup ? [projectGroup.dbid] : selectedProjectGroups;
-        const projectGroupOptions = [];
-        props.team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
-          projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
-        });
+      `}
+      variables={{
+        teamSlug,
+        random,
+      }}
+      render={({ error, props }) => {
+        if (!error && props) {
+          const selectedProjectGroups = query.project_group_id ? query.project_group_id.map(p => `${p}`) : [];
+          const selected = projectGroup ? [projectGroup.dbid] : selectedProjectGroups;
+          const projectGroupOptions = [];
+          props.team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
+            projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
+          });
 
-        return (
-          <FormattedMessage id="SearchFieldProjectGroup.collection" defaultMessage="Collection is" description="Prefix label for field to filter by collection">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<FolderSpecialIcon />}
-                options={projectGroupOptions}
-                selected={selected}
-                onChange={onChange}
-                readOnly={readOnly}
-                onRemove={onRemove}
-              />
-            )}
-          </FormattedMessage>
-        );
-      }
+          return (
+            <FormattedMessage id="SearchFieldProjectGroup.collection" defaultMessage="Collection is" description="Prefix label for field to filter by collection">
+              { label => (
+                <MultiSelectFilter
+                  label={label}
+                  icon={<FolderSpecialIcon />}
+                  options={projectGroupOptions}
+                  selected={selected}
+                  onChange={onChange}
+                  readOnly={readOnly}
+                  onRemove={onRemove}
+                />
+              )}
+            </FormattedMessage>
+          );
+        }
 
-      // TODO: We need a better error handling in the future, standardized with other components
-      return <CircularProgress size={36} />;
-    }}
-  />
-);
+        // TODO: We need a better error handling in the future, standardized with other components
+        return <CircularProgress size={36} />;
+      }}
+    />
+  );
+};
 
 SearchFieldProjectGroup.defaultProps = {
   projectGroup: null,

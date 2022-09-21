@@ -231,6 +231,7 @@ const CustomFiltersManager = ({
   query,
 }) => {
   const teamSlug = team.slug;
+  const [random] = React.useState(String(Math.random()));
   return (
     <QueryRenderer
       environment={Relay.Store}
@@ -254,7 +255,7 @@ const CustomFiltersManager = ({
       `}
       variables={{
         teamSlug,
-        random: String(Math.random()),
+        random,
       }}
       render={({ error, props }) => {
         if (!error && props) {

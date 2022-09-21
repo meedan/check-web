@@ -12,42 +12,45 @@ const SearchFieldClusterTeams = ({
   selected,
   onChange,
   onRemove,
-}) => (
-  <QueryRenderer
-    environment={Relay.Store}
-    query={graphql`
-      query SearchFieldClusterTeamsQuery($teamSlug: String!, $random: String!) {
-        team(slug: $teamSlug, random: $random) {
-          shared_teams
+}) => {
+  const [random] = React.useState(String(Math.random()));
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query SearchFieldClusterTeamsQuery($teamSlug: String!, $random: String!) {
+          team(slug: $teamSlug, random: $random) {
+            shared_teams
+          }
         }
-      }
-    `}
-    variables={{
-      teamSlug,
-      random: String(Math.random()),
-    }}
-    render={({ error, props }) => {
-      if (!error && props) {
-        const { shared_teams: sharedTeams } = props.team;
-        const options = Object.keys(sharedTeams).map(t => ({ label: sharedTeams[t], value: t }));
+      `}
+      variables={{
+        teamSlug,
+        random,
+      }}
+      render={({ error, props }) => {
+        if (!error && props) {
+          const { shared_teams: sharedTeams } = props.team;
+          const options = Object.keys(sharedTeams).map(t => ({ label: sharedTeams[t], value: t }));
 
-        return (
-          <MultiSelectFilter
-            label={label}
-            icon={icon}
-            selected={selected}
-            options={options}
-            onChange={(newValue) => { onChange(newValue); }}
-            onRemove={onRemove}
-          />
-        );
-      }
+          return (
+            <MultiSelectFilter
+              label={label}
+              icon={icon}
+              selected={selected}
+              options={options}
+              onChange={(newValue) => { onChange(newValue); }}
+              onRemove={onRemove}
+            />
+          );
+        }
 
-      // TODO: We need a better error handling in the future, standardized with other components
-      return <CircularProgress size={36} />;
-    }}
-  />
-);
+        // TODO: We need a better error handling in the future, standardized with other components
+        return <CircularProgress size={36} />;
+      }}
+    />
+  );
+};
 
 SearchFieldClusterTeams.defaultProps = {
   selected: [],

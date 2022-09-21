@@ -17,57 +17,60 @@ const SearchFieldUser = ({
   readOnly,
   onToggleOperator,
   operator,
-}) => (
-  <QueryRenderer
-    environment={Relay.Store}
-    query={graphql`
-      query SearchFieldUserQuery($teamSlug: String!, $random: String!) {
-        team(slug: $teamSlug, random: $random) {
-          id
-          users(first: 10000) {
-            edges {
-              node {
-                id
-                dbid
-                name
-                is_bot
+}) => {
+  const [random] = React.useState(String(Math.random()));
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query SearchFieldUserQuery($teamSlug: String!, $random: String!) {
+          team(slug: $teamSlug, random: $random) {
+            id
+            users(first: 10000) {
+              edges {
+                node {
+                  id
+                  dbid
+                  name
+                  is_bot
+                }
               }
             }
           }
         }
-      }
-    `}
-    variables={{
-      teamSlug,
-      random: String(Math.random()),
-    }}
-    render={({ error, props }) => {
-      if (!error && props) {
-        const users = props.team.users ?
-          props.team.users.edges.slice()
-            .filter(u => !u.node.is_bot)
-            .sort((a, b) => a.node.name.localeCompare(b.node.name)) : [];
+      `}
+      variables={{
+        teamSlug,
+        random,
+      }}
+      render={({ error, props }) => {
+        if (!error && props) {
+          const users = props.team.users ?
+            props.team.users.edges.slice()
+              .filter(u => !u.node.is_bot)
+              .sort((a, b) => a.node.name.localeCompare(b.node.name)) : [];
 
-        return (
-          <MultiSelectFilter
-            label={label}
-            icon={icon}
-            selected={selected}
-            options={extraOptions.concat(users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` })))}
-            onChange={(newValue) => { onChange(newValue); }}
-            readOnly={readOnly}
-            onRemove={onRemove}
-            onToggleOperator={onToggleOperator}
-            operator={operator}
-          />
-        );
-      }
+          return (
+            <MultiSelectFilter
+              label={label}
+              icon={icon}
+              selected={selected}
+              options={extraOptions.concat(users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` })))}
+              onChange={(newValue) => { onChange(newValue); }}
+              readOnly={readOnly}
+              onRemove={onRemove}
+              onToggleOperator={onToggleOperator}
+              operator={operator}
+            />
+          );
+        }
 
-      // TODO: We need a better error handling in the future, standardized with other components
-      return <CircularProgress size={36} />;
-    }}
-  />
-);
+        // TODO: We need a better error handling in the future, standardized with other components
+        return <CircularProgress size={36} />;
+      }}
+    />
+  );
+};
 
 SearchFieldUser.defaultProps = {
   selected: [],
