@@ -45,6 +45,11 @@
     "defaultMessage": "This is not an accepted file type. Accepted file types include: {extensions}. Please try again with a different file."
   },
   {
+    "id": "metadata.file.noFile",
+    "description": "This message appears when a user tries to access a file that does not exist in the database.",
+    "defaultMessage": "This file is missing from the database. Edit and clear this annotation to upload a new file."
+  },
+  {
     "id": "metadata.url.helperText",
     "description": "A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL.",
     "defaultMessage": "Must be a valid URL"
