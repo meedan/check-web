@@ -27,7 +27,7 @@
   {
     "id": "detachDialog.dialogdetachedToListTitle",
     "description": "Dialog title prompting user to select a destination folder for the item",
-    "defaultMessage": "Move un-matched item to…"
+    "defaultMessage": "Move detached item to…"
   },
   {
     "id": "detachDialog.detached",
