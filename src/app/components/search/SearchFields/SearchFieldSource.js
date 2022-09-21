@@ -17,6 +17,7 @@ const SearchFieldSource = ({
   onRemove,
 }) => {
   const [keyword, setKeyword] = React.useState('');
+  // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
   const [random] = React.useState(String(Math.random()));
 
   // Maximum number of options to be displayed

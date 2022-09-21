@@ -18,6 +18,7 @@ const SearchFieldUser = ({
   onToggleOperator,
   operator,
 }) => {
+  // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
   const [random] = React.useState(String(Math.random()));
   return (
     <QueryRenderer
