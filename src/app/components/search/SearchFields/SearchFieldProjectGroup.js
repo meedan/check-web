@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -24,7 +23,6 @@ const SearchFieldProjectGroup = ({
       query={graphql`
         query SearchFieldProjectGroupQuery($teamSlug: String!, $random: String!) {
           team(slug: $teamSlug, random: $random) {
-            id
             project_groups(first: 10000) {
               edges {
                 node {

@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -38,12 +37,10 @@ const SearchFieldSource = ({
       query={graphql`
         query SearchFieldSourceQuery($teamSlug: String!, $keyword: String, $max: Int, $random: String!) {
           team(slug: $teamSlug, random: $random) {
-            id
             sources_count(keyword: $keyword)
             sources(first: $max, keyword: $keyword) {
               edges {
                 node {
-                  id
                   dbid
                   name
                 }

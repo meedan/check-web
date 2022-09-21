@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -26,11 +25,9 @@ const SearchFieldUser = ({
       query={graphql`
         query SearchFieldUserQuery($teamSlug: String!, $random: String!) {
           team(slug: $teamSlug, random: $random) {
-            id
             users(first: 10000) {
               edges {
                 node {
-                  id
                   dbid
                   name
                   is_bot

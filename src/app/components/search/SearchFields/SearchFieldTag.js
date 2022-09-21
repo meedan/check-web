@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -25,7 +24,6 @@ const SearchFieldTag = ({
       query={graphql`
         query SearchFieldTagQuery($teamSlug: String!, $random: String!) {
           team(slug: $teamSlug, random: $random) {
-            id
             tag_texts(first: 10000) {
               edges {
                 node {
