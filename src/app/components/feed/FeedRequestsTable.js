@@ -45,6 +45,8 @@ const useStyles = makeStyles({
     fontWeight: 'bolder',
     textAlign: 'center',
   },
+  noFactCheck: {
+  },
 });
 
 const FeedRequestsTable = ({
@@ -194,7 +196,19 @@ const FeedRequestsTable = ({
                   </TableCell>
                   <TableCell align="left">{r.node.requests_count}</TableCell>
                   <TableCell align="left">{r.node.subscriptions_count}</TableCell>
-                  <TableCell align="left">{r.node.fact_checked_by.split(', ').map(teamName => (<span>{teamName}<br /></span>))}</TableCell>
+                  <TableCell align="left">
+                    {
+                      r.node.fact_checked_by ?
+                        r.node.fact_checked_by.split(', ').map(teamName => (<span>{teamName}<br /></span>)) :
+                        <Box className={classes.noFactCheck}>
+                          <FormattedMessage
+                            id="feedRequestsTable.noFactCheck"
+                            defaultMessage="No fact-check"
+                            description="Displayed on feed requests table when a request was not fact-checked yet."
+                          />
+                        </Box>
+                    }
+                  </TableCell>
                   <TableCell align="left">{r.node.medias_count}</TableCell>
                 </TableRow>
               );

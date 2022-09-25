@@ -21,6 +21,9 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
   },
+  subscriptions: {
+    color: '#E78A00',
+  },
 });
 
 const RequestCards = ({ request, mediaDbid }) => {
@@ -59,12 +62,16 @@ const RequestCards = ({ request, mediaDbid }) => {
                     description="Header of requests list. Example: 26 requests"
                     values={{ requestsCount }}
                   />),
-                  (<FormattedMessage
-                    id="feedRequestedMedia.subscriptionsForAllMedias"
-                    defaultMessage="{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}"
-                    description="Part of the header of requests list. Example: 12 subscriptions"
-                    values={{ subscriptionsCount: request.subscriptions_count }}
-                  />),
+                  (
+                    <span className={classes.subscriptions}>
+                      <FormattedMessage
+                        id="feedRequestedMedia.subscriptionsForAllMedias"
+                        defaultMessage="{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}"
+                        description="Part of the header of requests list. Example: 12 subscriptions"
+                        values={{ subscriptionsCount: request.subscriptions_count }}
+                      />
+                    </span>
+                  ),
                 ]}
               />
             ) : (
@@ -90,10 +97,13 @@ const RequestCards = ({ request, mediaDbid }) => {
               day="2-digit"
             />),
             feedChip,
-            (<RequestSubscription
-              subscribed={request.subscribed}
-              lastCalledAt={request.last_called_webhook_at}
-            />),
+            ((request.subscribed || request.last_called_webhook_at) ?
+              <RequestSubscription
+                subscribed={request.subscribed}
+                lastCalledAt={request.last_called_webhook_at}
+              />
+              : null
+            ),
           ]}
         />
         : null
@@ -111,10 +121,13 @@ const RequestCards = ({ request, mediaDbid }) => {
               day="2-digit"
             />),
             feedChip,
-            (<RequestSubscription
-              subscribed={r.node.subscribed}
-              lastCalledAt={r.node.last_called_webhook_at}
-            />),
+            ((request.subscribed || request.last_called_webhook_at) ?
+              <RequestSubscription
+                subscribed={request.subscribed}
+                lastCalledAt={request.last_called_webhook_at}
+              />
+              : null
+            ),
           ]}
         />
       )) }

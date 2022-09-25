@@ -28,5 +28,10 @@
     "id": "feedRequestsTable.matchedMedia",
     "description": "Header label for number of medias found to be matched to the current one",
     "defaultMessage": "Matched media"
+  },
+  {
+    "id": "feedRequestsTable.noFactCheck",
+    "description": "Displayed on feed requests table when a request was not fact-checked yet.",
+    "defaultMessage": "No fact-check"
   }
 ]
