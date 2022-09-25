@@ -9,7 +9,7 @@ import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TimeBefore from '../TimeBefore';
-import { parseStringUnixTimestamp } from '../../helpers';
+import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import { can } from '../Can';
 import MediaFactCheckField from './MediaFactCheckField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -25,17 +25,17 @@ const MediaFactCheck = ({ projectMedia }) => {
   const claimDescription = projectMedia.suggested_main_item ? projectMedia.suggested_main_item.claim_description : projectMedia.claim_description;
   const factCheck = claimDescription ? claimDescription.fact_check : null;
 
-  const [title, setTitle] = React.useState(factCheck ? factCheck.title : '');
+  const [title, setTitle] = React.useState((factCheck && factCheck.title) ? factCheck.title : '');
   const [summary, setSummary] = React.useState(factCheck ? factCheck.summary : '');
-  const [url, setUrl] = React.useState(factCheck ? factCheck.url : '');
+  const [url, setUrl] = React.useState((factCheck && factCheck.url) ? factCheck.url : '');
   const [saving, setSaving] = React.useState(false);
   const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
-    setTitle(factCheck?.title);
+    setTitle(factCheck?.title || '');
     setSummary(factCheck?.summary);
-    setUrl(factCheck?.url);
+    setUrl(factCheck?.url || '');
   }, [factCheck?.title, factCheck?.summary, factCheck?.url]);
 
   const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
@@ -180,7 +180,6 @@ const MediaFactCheck = ({ projectMedia }) => {
       </Box>
 
       <MediaFactCheckField
-        limit={140}
         label={<FormattedMessage id="mediaFactCheck.title" defaultMessage="Title" description="Label for fact-check title field" />}
         name="title"
         value={title}
@@ -197,10 +196,10 @@ const MediaFactCheck = ({ projectMedia }) => {
       />
 
       <MediaFactCheckField
-        limit={620}
+        limit={900 - title.length - url.length}
         label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
         name="summary"
-        value={summary}
+        value={truncateLength(summary, 900 - title.length - url.length)}
         onBlur={(newValue) => {
           setSummary(newValue);
           handleBlur('summary', newValue);
@@ -209,11 +208,10 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
-        key={`summary-${claimDescription}`}
+        key={`summary-${claimDescription}-${title.length}-${url.length}`}
       />
 
       <MediaFactCheckField
-        limit={140}
         label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Article URL" description="Label for fact-check URL field" />}
         name="url"
         value={url}
