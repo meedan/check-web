@@ -121,10 +121,10 @@ const RequestCards = ({ request, mediaDbid }) => {
               day="2-digit"
             />),
             feedChip,
-            ((request.subscribed || request.last_called_webhook_at) ?
+            ((r.node.subscribed || r.node.last_called_webhook_at) ?
               <RequestSubscription
-                subscribed={request.subscribed}
-                lastCalledAt={request.last_called_webhook_at}
+                subscribed={r.node.subscribed}
+                lastCalledAt={r.node.last_called_webhook_at}
               />
               : null
             ),
