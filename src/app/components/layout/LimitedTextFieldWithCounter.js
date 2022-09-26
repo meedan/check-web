@@ -30,7 +30,7 @@ const LimitedTextFieldWithCounter = ({
         </React.Fragment>
       }
       inputProps={{ maxLength: limit, style: { maxHeight: 266, overflow: 'auto' } }}
-      onChange={(e) => { setRemaining(limit - e.target.value.trim().length); }}
+      onChange={(e) => { setRemaining(limit - e.target.value.trim()?.length); }}
       onBlur={(e) => { onUpdate(e.target.value.trim()); }}
       defaultValue={value}
       rows={rows}

@@ -244,10 +244,10 @@ class MediaActionsBarComponent extends Component {
   render() {
     const { classes, media } = this.props;
 
-    const isParent = !(media.suggested_main_item || media.is_confirmed_similar_to_another_item);
+    const isParent = !(media?.suggested_main_item || media?.is_confirmed_similar_to_another_item);
 
     const { project } = media;
-    const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
+    const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design?.data && media?.dynamic_annotation_report_design?.data?.state === 'published');
 
     const options = [];
     media.team.team_users?.edges.forEach((teamUser) => {

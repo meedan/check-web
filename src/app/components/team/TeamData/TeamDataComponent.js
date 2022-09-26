@@ -270,7 +270,7 @@ const TeamDataComponent = ({
                   ))}
                 </Select> : null }
             </FormControl>
-            { JSON.parse(languages).length > 1 ?
+            { JSON.parse(languages)?.length > 1 ?
               <LanguageSwitcher
                 component="dropdown"
                 currentLanguage={currentLanguage}
