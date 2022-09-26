@@ -46,6 +46,14 @@ const useStyles = makeStyles({
     textAlign: 'center',
   },
   noFactCheck: {
+    fontSize: 12,
+    fontWeight: 400,
+    color: 'white',
+    background: '#E78A00',
+    display: 'inline-block',
+    borderRadius: '50px',
+    padding: '3px 10px',
+    whiteSpace: 'nowrap',
   },
 });
 
