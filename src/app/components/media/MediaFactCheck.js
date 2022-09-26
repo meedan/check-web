@@ -199,7 +199,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         limit={900 - title.length - url.length}
         label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
         name="summary"
-        value={truncateLength(summary, 900 - title.length - url.length)}
+        value={truncateLength(summary, 900 - title.length - url.length - 3)}
         onBlur={(newValue) => {
           setSummary(newValue);
           handleBlur('summary', newValue);
