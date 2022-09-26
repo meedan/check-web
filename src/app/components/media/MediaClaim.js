@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
 const MediaClaim = ({ projectMedia }) => {
   const classes = useStyles();
   // If the item we are viewing is being suggested to a main item, show the claim for the main item. Otherwise show the claim associated with this item
-  const claimDescription = projectMedia.suggested_main_item ? projectMedia.suggested_main_item.claim_description : projectMedia.claim_description;
+  const claimDescription = projectMedia.suggested_main_item ? projectMedia.suggested_main_item?.claim_description : projectMedia.claim_description;
 
   // override to compensate for fast onBlur stateless component
   const textElement = document.querySelector('#media-claim__description');

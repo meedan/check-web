@@ -351,11 +351,11 @@ class SearchKeyword extends React.Component {
                     isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
                     showExpand={this.props.showExpand}
                     setParentSearchText={this.setSearchText}
-                    searchText={this.props.query.keyword || ''}
+                    searchText={this.props.query?.keyword || ''}
                     inputBaseProps={{
                       onBlur: this.handleInputChange,
                       ref: this.searchInput,
-                      disabled: this.state.imgData.data.length > 0,
+                      disabled: this.state?.imgData?.data?.length > 0,
                     }}
                     endAdornment={
                       <InputAdornment
@@ -392,7 +392,7 @@ class SearchKeyword extends React.Component {
                   </Typography>
                 </Grid>) : null
               }
-              { this.props.showExpand && (this.state.imgData.data.length > 0 || this.state.isSaving) ? (
+              { this.props.showExpand && (this.state?.imgData?.data?.length > 0 || this.state.isSaving) ? (
                 <Grid item>
                   { this.state.isSaving ? (
                     <CircularProgress size={36} />
@@ -400,7 +400,7 @@ class SearchKeyword extends React.Component {
                   }
                 </Grid>) : null
               }
-              { this.props.showExpand && this.state.imgData.data.length === 0 ? (
+              { this.props.showExpand && this.state?.imgData?.data?.length === 0 ? (
                 <Grid item>
                   <label htmlFor="media-upload">
                     <input
