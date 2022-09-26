@@ -15,6 +15,7 @@ shared_examples 'report' do
     expect(@driver.page_source.include?('My fact-check title')).to be(false)
     expect(@driver.page_source.include?('My fact-check summary')).to be(false)
     wait_for_selector('#media-fact-check__title').send_keys('My fact-check title')
+    wait_for_selector('#media-fact-check__summary').click
     wait_for_selector('#media-fact-check__summary').send_keys('My fact-check summary')
     wait_for_text_change(' ', '#media-fact-check__summary', :css)
     wait_for_selector('#media__claim').click
