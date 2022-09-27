@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   FormControl,
+  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -56,11 +57,12 @@ const ImportButton = ({ onClick, disabled }) => (
 
 const ImportDialog = ({
   teams,
+  currentTeam,
   mediaIds,
   setFlashMessage,
 }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [selectedTeamDbid, setSelectedTeamDbid] = React.useState(null);
+  const [selectedTeamDbid, setSelectedTeamDbid] = React.useState(currentTeam);
   const [claimDescription, setClaimDescription] = React.useState(null);
 
   const handleImport = () => {
@@ -125,6 +127,13 @@ const ImportDialog = ({
             </Typography>
             <Box my={3}>
               <FormControl variant="outlined" fullWidth>
+                <InputLabel id="import-to-workspace-label">
+                  <FormattedMessage
+                    id="feedItem.importSelectLabel"
+                    defaultMessage="Import into"
+                    description="Select field label used in import claim dialog from feed page."
+                  />
+                </InputLabel>
                 <Select
                   labelId="import-to-workspace-label"
                   value={selectedTeamDbid}
@@ -132,7 +141,7 @@ const ImportDialog = ({
                   label={
                     <FormattedMessage
                       id="feedItem.importSelectLabel"
-                      defaultMessage="Select workspace"
+                      defaultMessage="Import into"
                       description="Select field label used in import claim dialog from feed page."
                     />
                   }
@@ -183,6 +192,7 @@ const ImportDialogQuery = ({ mediaIds }) => (
     query={graphql`
       query ImportDialogQuery {
         me {
+          current_team_id
           teams(first: 10000) {
             edges {
               node {
@@ -196,7 +206,7 @@ const ImportDialogQuery = ({ mediaIds }) => (
     `}
     render={({ error, props }) => {
       if (!error && props) {
-        return (<ImportDialogWithFlashMessage teams={props.me.teams} mediaIds={mediaIds} />);
+        return (<ImportDialogWithFlashMessage teams={props.me.teams} currentTeam={props.me.current_team_id} mediaIds={mediaIds} />);
       }
       // TODO: We need a better error handling in the future, standardized with other components
       return null;
