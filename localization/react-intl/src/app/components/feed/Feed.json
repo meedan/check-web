@@ -7,7 +7,7 @@
   {
     "id": "feed.feed",
     "description": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them.",
-    "defaultMessage": "Feed"
+    "defaultMessage": "Fact-checks"
   },
   {
     "id": "feed.requests",
