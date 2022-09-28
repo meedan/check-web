@@ -111,6 +111,22 @@
 		"string": "Organization is",
 		"developer_comment": "Prefix label for field to filter by workspace"
 	},
+	"SearchFieldProject.label": {
+		"string": "Folder is",
+		"developer_comment": "Prefix label for field to filter by folder to which items belong"
+	},
+	"SearchFieldProject.notInAny": {
+		"string": "Not in any collection",
+		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
+	},
+	"SearchFieldProjectGroup.collection": {
+		"string": "Collection is",
+		"developer_comment": "Prefix label for field to filter by collection"
+	},
+	"SearchFieldTag.label": {
+		"string": "Tag is",
+		"developer_comment": "Prefix label for field to filter by tags"
+	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Akaunti Tayari Imethibitishwa",
 		"developer_comment": "Message for accounts already confirmed"
@@ -263,15 +279,15 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Number of similar medias",
-		"developer_comment": "Menu option to enable searching items by similar medias"
+		"string": "Number of matched media",
+		"developer_comment": "Menu option to enable searching items by matched medias"
 	},
 	"addFilterMenu.source": {
 		"string": "Chanzo",
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Number of suggested medias",
+		"string": "Number of suggested media",
 		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
@@ -805,6 +821,10 @@
 		"string": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>",
 		"developer_comment": "Content warning displayed over sensitive content"
 	},
+	"contentScreen.warningByAutomationRule": {
+		"string": "An automation rule has detected this content as sensitive",
+		"developer_comment": "Content warning displayed over sensitive content"
+	},
 	"createMedia.addItem": {
 		"string": "Ongeza kipengee "
 	},
@@ -906,7 +926,8 @@
 		"developer_comment": "Button that triggers creation of a new field"
 	},
 	"createTeamTask.errorMetadata": {
-		"string": "Samahani, hitilafu ilitokea wakati wa kusasisha sehemu ya metadata. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
+		"string": "Samahani, hitilafu ilitokea wakati wa kusasisha sehemu ya metadata. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea.",
+		"developer_comment": "Error message displayed when creating an annotation field fails"
 	},
 	"customAutocomplete.done": {
 		"string": "Imekamilika",
@@ -1030,8 +1051,12 @@
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"feed.feed": {
-		"string": "Feed",
+		"string": "Fact-checks",
 		"developer_comment": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
+	},
+	"feed.requests": {
+		"string": "Maombi",
+		"developer_comment": "Tab with label 'Requests' displayed on a feed page. It references all requests submitted to that feed."
 	},
 	"feed.shared": {
 		"string": "Shared",
@@ -1073,12 +1098,12 @@
 		"developer_comment": "Dialog description when importing a claim from feed page."
 	},
 	"feedItem.importSelectLabel": {
-		"string": "Import to workspace",
+		"string": "Import into",
 		"developer_comment": "Select field label used in import claim dialog from feed page."
 	},
 	"feedItem.importTextLabel": {
-		"string": "Claim description",
-		"developer_comment": "Text field label used in import claim dialog from feed page."
+		"string": "Claim",
+		"developer_comment": "Text field that prompts user to add a claim for related media."
 	},
 	"feedItem.importTitle": {
 		"string": "Import data to workspace",
@@ -1145,6 +1170,62 @@
 	},
 	"feedItem.tags": {
 		"string": "Lebo"
+	},
+	"feedRequestedMedia.import": {
+		"string": "Import",
+		"developer_comment": "Button label for importing media into workspace action"
+	},
+	"feedRequestedMedia.lastSubmitted": {
+		"string": "Last submitted {date}",
+		"developer_comment": "Header of medias list. Example: 3 medias"
+	},
+	"feedRequestedMedia.numberOfMedias": {
+		"string": "{mediasCount, plural, one {# media} other {# medias}}",
+		"developer_comment": "Header of medias list. Example: 3 medias"
+	},
+	"feedRequestedMedia.requestsForAllMedias": {
+		"string": "{requestsCount, plural, one {# request} other {# requests}}",
+		"developer_comment": "Header of requests list. Example: 26 requests"
+	},
+	"feedRequestedMedia.requestsForThisMedia": {
+		"string": "{requestsCount, plural, one {# request for this media} other {# requests for this media}}",
+		"developer_comment": "Header of requests list. Example: 3 requests for this media"
+	},
+	"feedRequestedMedia.subscriptionsForAllMedias": {
+		"string": "{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}",
+		"developer_comment": "Part of the header of requests list. Example: 12 subscriptions"
+	},
+	"feedRequestedMediaDialog.title": {
+		"string": "Import medias and requests",
+		"developer_comment": "Dialog title for importing medias and requests"
+	},
+	"feedRequestsTable.factCheckBy": {
+		"string": "Fact-check by",
+		"developer_comment": "Header label for fact-check by column"
+	},
+	"feedRequestsTable.lastSubmitted": {
+		"string": "Iliwasilishwa mwisho",
+		"developer_comment": "Header label for date column, in which are shown timestamps of last time a media was sent"
+	},
+	"feedRequestsTable.matchedMedia": {
+		"string": "Matched media",
+		"developer_comment": "Header label for number of medias found to be matched to the current one"
+	},
+	"feedRequestsTable.media": {
+		"string": "Vyombo vya habari",
+		"developer_comment": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
+	},
+	"feedRequestsTable.noFactCheck": {
+		"string": "No fact-check",
+		"developer_comment": "Displayed on feed requests table when a request was not fact-checked yet."
+	},
+	"feedRequestsTable.requests": {
+		"string": "Maombi",
+		"developer_comment": "Header label for number of requests column"
+	},
+	"feedRequestsTable.subscriptions": {
+		"string": "Subscriptions",
+		"developer_comment": "Header label for number of subscriptions column"
 	},
 	"feedSharingSwitch.cancel": {
 		"string": "Ghairi",
@@ -1309,6 +1390,18 @@
 		"string": "Welcome to Check. Please login with the password that you received in the welcome email.",
 		"developer_comment": "Message that appears after accepting an invitation to join the app."
 	},
+	"importDialog.importDescription": {
+		"string": "A new claim will be created in your workspace with all selected media.",
+		"developer_comment": "Dialog description when importing a claim from feed page."
+	},
+	"importDialog.importTitle": {
+		"string": "Import data to workspace",
+		"developer_comment": "Dialog title when importing a claim from feed page."
+	},
+	"importDialog.success": {
+		"string": "Media imported successfully",
+		"developer_comment": "Banner displayed after items are imported successfully"
+	},
 	"inviteDialog.invitationSent": {
 		"string": "Invites sent!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
@@ -1404,7 +1497,7 @@
 		"string": "Claim"
 	},
 	"list.LinkedItems": {
-		"string": "Vyombo vya habari sawa"
+		"string": "Matched media"
 	},
 	"list.ShareCount": {
 		"string": "Shiriki za FB"
@@ -1432,7 +1525,7 @@
 		"developer_comment": "Table header for column that shows number of requests in a cluster"
 	},
 	"list.clusterSize": {
-		"string": "Vyombo vya habari sawa",
+		"string": "Matched media",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.commentCount": {
@@ -1444,6 +1537,9 @@
 	},
 	"list.factCheck": {
 		"string": "Fact-check"
+	},
+	"list.factCheckPublishedAt": {
+		"string": "Fact check published at"
 	},
 	"list.folder": {
 		"string": "Folder",
@@ -1466,7 +1562,7 @@
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
-		"string": "Mechi zilizopendekezwa"
+		"string": "Suggested media"
 	},
 	"list.tags": {
 		"string": "Lebo"
@@ -1665,9 +1761,9 @@
 		"string": "Learn more",
 		"developer_comment": "Text that links to an external help article"
 	},
-	"mediaAnalysis.sharedDatabase": {
-		"string": "Shared Database",
-		"developer_comment": "Creator that refers to items created from the shared database."
+	"mediaAnalysis.sharedFeed": {
+		"string": "Shared Feed",
+		"developer_comment": "Creator that refers to items created from the shared feed."
 	},
 	"mediaAnalysis.tipline": {
 		"string": "Tipline",
@@ -1802,14 +1898,6 @@
 	"mediaExpandedMetadata.shares": {
 		"string": "Shiriki za FB"
 	},
-	"mediaFactCheck,error": {
-		"string": "error",
-		"developer_comment": "Caption that informs that a fact-check could not be saved"
-	},
-	"mediaFactCheck,saved": {
-		"string": "saved by {userName} {timeAgo}",
-		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
-	},
 	"mediaFactCheck.claimMissingDesc": {
 		"string": "You must add a claim to access the fact-check report.",
 		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
@@ -1822,9 +1910,17 @@
 		"string": "Go back to editing",
 		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
 	},
+	"mediaFactCheck.error": {
+		"string": "Title and description have to be filled",
+		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
+	},
 	"mediaFactCheck.factCheck": {
 		"string": "Fact-check",
 		"developer_comment": "Title of the media fact-check section."
+	},
+	"mediaFactCheck.saved": {
+		"string": "saved by {userName} {timeAgo}",
+		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
 	"mediaFactCheck.saving": {
 		"string": "saving…",
@@ -1853,7 +1949,7 @@
 		"string": "Confirmed by {name}"
 	},
 	"mediaItem.detach": {
-		"string": "Tenganisha"
+		"string": "Un-match media"
 	},
 	"mediaItem.detachedSuccessfully": {
 		"string": "Kipengee kimejitenga na  '{toProject}'",
@@ -1888,7 +1984,7 @@
 		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count, plural, one {# similar media} other {# similar media}}"
+		"string": "{count, plural, one {# matched media} other {# matched media}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Samahani, hitilafu imetokea wakati wa kusasisha lugha. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea.",
@@ -1961,8 +2057,8 @@
 		"string": "{current} ya {total}"
 	},
 	"mediaSimilarities.moreMedias": {
-		"string": "More medias",
-		"developer_comment": "Heading for a list of similar medias"
+		"string": "Matched media",
+		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Export all media"
@@ -1974,10 +2070,10 @@
 		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Ingiza media sawa kwenye kipengee hiki"
+		"string": "Import matched media into this item"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Ingiza media inayofanana kutoka kwa vitu vingine"
+		"string": "Import matched media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Hamisha media zote kwa kipengee kingine"
@@ -1999,23 +2095,9 @@
 		"string": "Bidhaa sawa imeongezwa kwa mafanikio",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
-	"mediaSimilarityBarComponent.hasMain": {
-		"string": "This media has been associated with an existing claim."
-	},
-	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "This media has been suggested as similar to an existing claim.",
-		"developer_comment": "Caption to inform user that there is a suggested similarity"
-	},
-	"mediaSimilarityBarComponent.openClaim": {
-		"string": "Open claim"
-	},
-	"mediaSimilarityBarComponent.reviewSuggestion": {
-		"string": "Review suggestion",
-		"developer_comment": "Button label for reviewing similarity suggestions"
-	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Vyombo vya habari sawa",
-		"developer_comment": "Plural. Heading for the number of similar media"
+		"string": "Matched media",
+		"developer_comment": "Plural. Heading for the number of matched media"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "Suggested media",
@@ -2027,6 +2109,26 @@
 	},
 	"mediaStatus.error": {
 		"string": "Samahani, hitilafu imetokea wakati wa kusasisha hali. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
+	},
+	"mediaSuggestionReview.matchDescription": {
+		"string": "This media has been associated with the claim and fact-check below.",
+		"developer_comment": "Hint text to tell the user what the 'Open claim' button does."
+	},
+	"mediaSuggestionReview.matchTitle": {
+		"string": "Matched claim",
+		"developer_comment": "Title of a box that lets the user open a claim that this has been matched with."
+	},
+	"mediaSuggestionReview.openButtonMatched": {
+		"string": "Open claim",
+		"developer_comment": "A label for a button that opens a claim item"
+	},
+	"mediaSuggestionReview.prompt": {
+		"string": "Is the Claim or Fact-check below a good match for this media?",
+		"developer_comment": "Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
+	},
+	"mediaSuggestionReview.title": {
+		"string": "Suggested Claim and Fact-check",
+		"developer_comment": "Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Nyuma"
@@ -2096,6 +2198,10 @@
 		"string": "This is not a valid file. Please try again with a different file.",
 		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
 	},
+	"metadata.file.noFile": {
+		"string": "This file is missing from the database. Edit and clear this annotation to upload a new file.",
+		"developer_comment": "This message appears when a user tries to access a file that does not exist in the database."
+	},
 	"metadata.file.tooBig": {
 		"string": "This file is too big. The maximum allowed file size is {fileSizeLabel}. Please try again with a different file.",
 		"developer_comment": "This message appears when a user tries to upload a file that is too big. The 'fileSizeLabel' will read something like '1.0 MB' and will not be localized."
@@ -2161,7 +2267,8 @@
 		"string": "Hakuna vipengee vilivyopatikana"
 	},
 	"multiSelector.search": {
-		"string": "Tafuta..."
+		"string": "Tafuta...",
+		"developer_comment": "The placeholder text in a search box."
 	},
 	"network.noResponse": {
 		"string": "Haikuweza kuunganishwa kwa {app}, tafadhali hakikisha umeunganishwa kwenye mtandao"
@@ -2200,8 +2307,8 @@
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "Number of similar medias is between",
-		"developer_comment": "Filter option that refers to number of similar medias"
+		"string": "Number of matched media is between",
+		"developer_comment": "Filter option that refers to number of matched medias"
 	},
 	"numericRangeFilter.suggestedItems": {
 		"string": "Number of suggested medias is between",
@@ -2361,7 +2468,7 @@
 		"string": "Imported reports"
 	},
 	"projectHeader.suggestedMatches": {
-		"string": "Mechi zilizopendekezwa"
+		"string": "Suggested media"
 	},
 	"projectHeader.tiplineInbox": {
 		"string": "Tipline inbox"
@@ -2534,7 +2641,7 @@
 		"developer_comment": "Feeds of content shared across workspaces"
 	},
 	"projectsComponent.suggestedMatches": {
-		"string": "Mechi zilizopendekezwa",
+		"string": "Suggested media",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.tiplineInbox": {
@@ -3117,7 +3224,7 @@
 		"developer_comment": "Describes media type Link"
 	},
 	"search.showSimilar": {
-		"string": "Show similar",
+		"string": "Show matched media",
 		"developer_comment": "Allow user to show/hide secondary items"
 	},
 	"search.showVideos": {
@@ -3152,9 +3259,9 @@
 		"string": "Manual",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
-	"searchFieldChannel.sharedDatabase": {
-		"string": "Shared Database",
-		"developer_comment": "Filter option that refers to items created from the shared database."
+	"searchFieldChannel.sharedFeed": {
+		"string": "Shared Feed",
+		"developer_comment": "Filter option that refers to items created from the shared feed."
 	},
 	"searchFieldChannel.webForm": {
 		"string": "Web Form",
@@ -3337,10 +3444,12 @@
 		"developer_comment": "Title to similarity matching settings page"
 	},
 	"singleChoiceTask.addOther": {
-		"string": "Ongeza \"Nyingine\""
+		"string": "Ongeza \"Nyingine\"",
+		"developer_comment": "Button for creating a new entry to a list of selectable options, in which the user is free to specify the value that will be selected"
 	},
 	"singleChoiceTask.addValue": {
-		"string": "Ongeza Chaguo"
+		"string": "Ongeza Chaguo",
+		"developer_comment": "Button for creating a new entry to a list of selectable options"
 	},
 	"singleChoiceTask.other": {
 		"string": "Nyingine"
@@ -4412,7 +4521,7 @@
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"suggestedMatches.title": {
-		"string": "Mechi zilizopendekezwa"
+		"string": "Suggested media"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Ghairi"
@@ -4442,10 +4551,12 @@
 		"string": "Tafuta au ongeza lebo mpya"
 	},
 	"tagMenu.create": {
-		"string": "+ Create this tag"
+		"string": "+ Create this tag",
+		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
 	},
 	"tagMenu.notFound": {
-		"string": "No tags found"
+		"string": "No tags found",
+		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
 	},
 	"tagMenu.search": {
 		"string": "Tafuta..."
@@ -4455,7 +4566,8 @@
 		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.tooltip": {
-		"string": "Hariri lebo"
+		"string": "Hariri lebo",
+		"developer_comment": "A tooltip that appears over an icon a user is supposed to press when they want to edit the tags associated with an item."
 	},
 	"tagPicker.emptyTags": {
 		"string": "Hakuna lebo za eneo hili la kazi kwa sasa."
@@ -4514,10 +4626,15 @@
 		"developer_comment": "Label for the URL type field"
 	},
 	"tasks.add": {
-		"string": "Hifadhi"
+		"string": "Hifadhi",
+		"developer_comment": "Save action button label"
 	},
 	"tasks.addMetadata": {
 		"string": "Metadata mpya"
+	},
+	"tasks.addOptionWithAnswersBody": {
+		"string": "{number, plural, one {• # new option will be added to this field.} other {• # new options will be added to this field.}}",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.addTask": {
 		"string": "Kazi mpya"
@@ -4525,15 +4642,13 @@
 	"tasks.answer": {
 		"string": "Jibu kazi"
 	},
-	"tasks.assign": {
-		"string": "Pangia"
-	},
 	"tasks.blankAnnotation": {
 		"string": "No annotation fields",
 		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
-		"string": "Ghairi"
+		"string": "Ghairi",
+		"developer_comment": "Cancel action button label"
 	},
 	"tasks.cancelEdit": {
 		"string": "Ghairi"
@@ -4541,6 +4656,10 @@
 	"tasks.cantChangeTypeMessage": {
 		"string": "The field type cannot be changed because answers have already been filled",
 		"developer_comment": "Message when team task has answers and type cannot be updated"
+	},
+	"tasks.changeOptionWithAnswersBody": {
+		"string": "• \"{oldOption}\" will be changed to \"{newOption}\" in existing responses.",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.chooseMultiple": {
 		"string": "Chaguo nyingi"
@@ -4571,8 +4690,17 @@
 		"string": "Allows you to pick a date from the calendar",
 		"developer_comment": "Description for date type field"
 	},
+	"tasks.deleteOptionWithAnswersBody": {
+		"string": "• \"{deletedOption}\" will be permanently deleted from existing responses.",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
+	},
 	"tasks.description": {
-		"string": "Maelezo (hiari)"
+		"string": "Maelezo (hiari)",
+		"developer_comment": "Description field for custom annotation field"
+	},
+	"tasks.editFieldWithAnswersTitle": {
+		"string": "{number, plural, one {Editing field with # existing response} other {Editing field with # existing responses}}",
+		"developer_comment": "Title of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.fileUpload": {
 		"string": "Upakiaji wa faili"
@@ -4619,6 +4747,10 @@
 		"string": "Number",
 		"developer_comment": "Label for number type field"
 	},
+	"tasks.saveButtonWarning": {
+		"string": "I understand, save changes",
+		"developer_comment": "Save action button label warning"
+	},
 	"tasks.shortAnswer": {
 		"string": "Ujumbe"
 	},
@@ -4650,7 +4782,8 @@
 		"developer_comment": "Label for text type field"
 	},
 	"tasks.timezones": {
-		"string": "Ukanda wa saa unaopatikana kukamilisha kazi"
+		"string": "Ukanda wa saa unaopatikana kukamilisha kazi",
+		"developer_comment": "Label of timezones list available to the task"
 	},
 	"tasks.when": {
 		"string": "When",
@@ -5291,7 +5424,7 @@
 		"string": "Vyombo vya habari"
 	},
 	"trendItem.media": {
-		"string": "Vyombo vya habari sawa"
+		"string": "Matched media"
 	},
 	"trendItem.mediaRequests": {
 		"string": "{number} tipline requests across all medias"
