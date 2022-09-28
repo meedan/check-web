@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
@@ -17,6 +16,8 @@ const SearchFieldSource = ({
   onRemove,
 }) => {
   const [keyword, setKeyword] = React.useState('');
+  // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
+  const [random] = React.useState(String(Math.random()));
 
   // Maximum number of options to be displayed
   const max = 500;
@@ -36,12 +37,10 @@ const SearchFieldSource = ({
       query={graphql`
         query SearchFieldSourceQuery($teamSlug: String!, $keyword: String, $max: Int, $random: String!) {
           team(slug: $teamSlug, random: $random) {
-            id
             sources_count(keyword: $keyword)
             sources(first: $max, keyword: $keyword) {
               edges {
                 node {
-                  id
                   dbid
                   name
                 }
@@ -54,7 +53,7 @@ const SearchFieldSource = ({
         teamSlug,
         keyword,
         max,
-        random: String(Math.random()),
+        random,
       }}
       render={({ error, props }) => {
         if (!error && props) {

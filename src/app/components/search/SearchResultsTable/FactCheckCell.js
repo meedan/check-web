@@ -86,25 +86,27 @@ const MaybeLink = ({ to, className, children }) => {
   return <span className={className}>{children}</span>;
 };
 
-
 const FactCheckCell = ({ projectMedia, viewMode }) => {
-  const title = projectMedia.feed_columns_values.fact_check_title;
-  const summary = projectMedia.feed_columns_values.fact_check_summary;
-  const url = projectMedia.feed_columns_values.fact_check_url;
+  const title = projectMedia.feed_columns_values?.fact_check_title;
+  const summary = projectMedia.feed_columns_values?.fact_check_summary;
+  const url = projectMedia.feed_columns_values?.fact_check_url;
   const classes = useStyles();
+  const isBlank = !summary && !title;
 
   return (
     <TableCell className="media__heading" component="th" scope="row">
-      <MaybeLink className={classes.root} to={url}>
-        <Box display="flex" alignItems="center">
-          <TitleText
-            classes={classes}
-            title={title}
-            description={summary}
-            viewMode={viewMode}
-          />
-        </Box>
-      </MaybeLink>
+      {isBlank ? <Box>-</Box> : (
+        <MaybeLink className={classes.root} to={url}>
+          <Box display="flex" alignItems="center">
+            <TitleText
+              classes={classes}
+              title={title}
+              description={summary}
+              viewMode={viewMode}
+            />
+          </Box>
+        </MaybeLink>
+      )}
     </TableCell>
   );
 };

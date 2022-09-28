@@ -1,8 +1,13 @@
 [
   {
     "id": "feedRequestedMedia.requestsForAllMedias",
-    "description": "Header of requests list. Example: 26 requests across all medias",
-    "defaultMessage": "{requestsCount, plural, one {# request across all medias} other {# requests across all medias}}"
+    "description": "Header of requests list. Example: 26 requests",
+    "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
+  },
+  {
+    "id": "feedRequestedMedia.subscriptionsForAllMedias",
+    "description": "Part of the header of requests list. Example: 12 subscriptions",
+    "defaultMessage": "{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}"
   },
   {
     "id": "feedRequestedMedia.requestsForThisMedia",

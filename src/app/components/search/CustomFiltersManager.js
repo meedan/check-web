@@ -231,12 +231,14 @@ const CustomFiltersManager = ({
   query,
 }) => {
   const teamSlug = team.slug;
+  // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
+  const [random] = React.useState(String(Math.random()));
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query CustomFiltersManagerQuery($teamSlug: String!) {
-          team(slug: $teamSlug) {
+        query CustomFiltersManagerQuery($teamSlug: String!, $random: String!) {
+          team(slug: $teamSlug, random: $random) {
             id
             team_tasks(first: 10000) {
               edges {
@@ -254,6 +256,7 @@ const CustomFiltersManager = ({
       `}
       variables={{
         teamSlug,
+        random,
       }}
       render={({ error, props }) => {
         if (!error && props) {

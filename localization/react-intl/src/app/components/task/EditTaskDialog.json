@@ -1,21 +1,5 @@
 [
   {
-    "id": "singleChoiceTask.value",
-    "defaultMessage": "Value"
-  },
-  {
-    "id": "singleChoiceTask.other",
-    "defaultMessage": "Other"
-  },
-  {
-    "id": "singleChoiceTask.addValue",
-    "defaultMessage": "Add Option"
-  },
-  {
-    "id": "singleChoiceTask.addOther",
-    "defaultMessage": "Add \"Other\""
-  },
-  {
     "id": "tasks.textType",
     "description": "Label for text type field",
     "defaultMessage": "Text"
@@ -112,37 +96,27 @@
   },
   {
     "id": "tasks.description",
+    "description": "Description field for custom annotation field",
     "defaultMessage": "Description (optional)"
   },
   {
     "id": "tasks.timezones",
+    "description": "Label of timezones list available to the task",
     "defaultMessage": "Timezones available to complete the task"
   },
   {
-    "id": "tasks.assign",
-    "defaultMessage": "Assign"
-  },
-  {
-    "id": "tasks.editFieldWithAnswersTitle",
-    "description": "Title of warning when user tries to edit an annotation field that already has colledted responses",
-    "defaultMessage": "Updating field with existing responses"
-  },
-  {
-    "id": "tasks.editFieldWithAnswersBody1",
-    "description": "Body of warning when user tries to edit an annotation field that already has colledted responses",
-    "defaultMessage": "{number, plural, one {You are updating a field that has already collected # response.} other {You are updating a field that has already collected # responses.}}"
-  },
-  {
-    "id": "tasks.editFieldWithAnswersBody2",
-    "description": "Body of warning when user tries to edit an annotation field that already has colledted responses",
-    "defaultMessage": "This change will show on these responses, and may not make sense with the updated field. Select \"Save\" if you understand and want to continue."
-  },
-  {
     "id": "tasks.cancelAdd",
+    "description": "Cancel action button label",
     "defaultMessage": "Cancel"
   },
   {
+    "id": "tasks.saveButtonWarning",
+    "description": "Save action button label warning",
+    "defaultMessage": "I understand, save changes"
+  },
+  {
     "id": "tasks.add",
+    "description": "Save action button label",
     "defaultMessage": "Save"
   }
 ]

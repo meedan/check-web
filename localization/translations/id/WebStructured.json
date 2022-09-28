@@ -111,6 +111,22 @@
 		"string": "Organisasi adalah",
 		"developer_comment": "Prefix label for field to filter by workspace"
 	},
+	"SearchFieldProject.label": {
+		"string": "Folder adalah",
+		"developer_comment": "Prefix label for field to filter by folder to which items belong"
+	},
+	"SearchFieldProject.notInAny": {
+		"string": "Tidak ada di koleksi manapun",
+		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
+	},
+	"SearchFieldProjectGroup.collection": {
+		"string": "Koleksi adalah",
+		"developer_comment": "Prefix label for field to filter by collection"
+	},
+	"SearchFieldTag.label": {
+		"string": "Label adalah",
+		"developer_comment": "Prefix label for field to filter by tags"
+	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Akun Sudah Terkonfirmasi",
 		"developer_comment": "Message for accounts already confirmed"
@@ -203,7 +219,7 @@
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.annotatedBy": {
-		"string": "Annotated by",
+		"string": "Dicatat oleh",
 		"developer_comment": "Menu option to enable searching items by annotated by"
 	},
 	"addFilterMenu.annotation": {
@@ -263,15 +279,15 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Beberapa media serupa",
-		"developer_comment": "Menu option to enable searching items by similar medias"
+		"string": "Number of matched media",
+		"developer_comment": "Menu option to enable searching items by matched medias"
 	},
 	"addFilterMenu.source": {
 		"string": "Sumber",
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Beberapa media yang disarankan",
+		"string": "Number of suggested media",
 		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
@@ -500,7 +516,7 @@
 		"developer_comment": "Log entry indicating a claim has been edited"
 	},
 	"annotation.updateLanguage": {
-		"string": "Language {value} updated by {author}",
+		"string": "Bahasa {value} diperbarui oleh {author}",
 		"developer_comment": "Log entry indicating an item language has been updated. {value} receives language name"
 	},
 	"annotation.updateSource": {
@@ -566,7 +582,7 @@
 		"string": "Perihal dibuang ke Tong Sampah."
 	},
 	"bulkActions.movedFromSpamSuccessfully": {
-		"string": "Items moved from Spam to '{toProject}'",
+		"string": "Perihal dipindahkan dari Spam ke '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
@@ -805,6 +821,10 @@
 		"string": "<strong>{user_name}</strong> telah mendeteksi konten ini sebagai <strong>{warning_category}</strong>",
 		"developer_comment": "Content warning displayed over sensitive content"
 	},
+	"contentScreen.warningByAutomationRule": {
+		"string": "An automation rule has detected this content as sensitive",
+		"developer_comment": "Content warning displayed over sensitive content"
+	},
 	"createMedia.addItem": {
 		"string": "Tambah perihal"
 	},
@@ -906,7 +926,8 @@
 		"developer_comment": "Button that triggers creation of a new field"
 	},
 	"createTeamTask.errorMetadata": {
-		"string": "Maaf, terjadi kesalahan saat memperbarui bidang metadata. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya berlanjut."
+		"string": "Maaf, terjadi kesalahan saat memperbarui bidang metadata. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya berlanjut.",
+		"developer_comment": "Error message displayed when creating an annotation field fails"
 	},
 	"customAutocomplete.done": {
 		"string": "Selesai",
@@ -965,11 +986,11 @@
 		"developer_comment": "Title of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.statusNotInUseMessage": {
-		"string": "Are you sure you want to delete this status?",
+		"string": "Anda yakin ingin menghapus status ini?",
 		"developer_comment": "Confirmation message displayed on a modal when a status is deleted from statuses settings page."
 	},
 	"deleteStatusDialog.statusNotInUseTitle": {
-		"string": "Confirm status deletion",
+		"string": "Konfirmasi penghapusan status",
 		"developer_comment": "Title displayed on a confirmation modal when a status being deleted is not in used by any item."
 	},
 	"destinationProjects.choose": {
@@ -1030,11 +1051,15 @@
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"feed.feed": {
-		"string": "Feed",
+		"string": "Fact-checks",
 		"developer_comment": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
 	},
+	"feed.requests": {
+		"string": "Permintaan",
+		"developer_comment": "Tab with label 'Requests' displayed on a feed page. It references all requests submitted to that feed."
+	},
 	"feed.shared": {
-		"string": "Shared",
+		"string": "Dibagikan",
 		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
 	},
 	"feedItem.aboutThisClaim": {
@@ -1073,12 +1098,12 @@
 		"developer_comment": "Dialog description when importing a claim from feed page."
 	},
 	"feedItem.importSelectLabel": {
-		"string": "Impor ke ruang kerja",
+		"string": "Import into",
 		"developer_comment": "Select field label used in import claim dialog from feed page."
 	},
 	"feedItem.importTextLabel": {
-		"string": "Deskripsi klaim",
-		"developer_comment": "Text field label used in import claim dialog from feed page."
+		"string": "Klaim",
+		"developer_comment": "Text field that prompts user to add a claim for related media."
 	},
 	"feedItem.importTitle": {
 		"string": "Impor data ke ruang kerja",
@@ -1146,52 +1171,108 @@
 	"feedItem.tags": {
 		"string": "Label"
 	},
+	"feedRequestedMedia.import": {
+		"string": "Impor",
+		"developer_comment": "Button label for importing media into workspace action"
+	},
+	"feedRequestedMedia.lastSubmitted": {
+		"string": "Last submitted {date}",
+		"developer_comment": "Header of medias list. Example: 3 medias"
+	},
+	"feedRequestedMedia.numberOfMedias": {
+		"string": "{mediasCount, plural, one {# media} other {# medias}}",
+		"developer_comment": "Header of medias list. Example: 3 medias"
+	},
+	"feedRequestedMedia.requestsForAllMedias": {
+		"string": "{requestsCount, plural, one {# request} other {# requests}}",
+		"developer_comment": "Header of requests list. Example: 26 requests"
+	},
+	"feedRequestedMedia.requestsForThisMedia": {
+		"string": "{requestsCount, plural, one {# request for this media} other {# requests for this media}}",
+		"developer_comment": "Header of requests list. Example: 3 requests for this media"
+	},
+	"feedRequestedMedia.subscriptionsForAllMedias": {
+		"string": "{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}",
+		"developer_comment": "Part of the header of requests list. Example: 12 subscriptions"
+	},
+	"feedRequestedMediaDialog.title": {
+		"string": "Import medias and requests",
+		"developer_comment": "Dialog title for importing medias and requests"
+	},
+	"feedRequestsTable.factCheckBy": {
+		"string": "Pengecekan fakta oleh",
+		"developer_comment": "Header label for fact-check by column"
+	},
+	"feedRequestsTable.lastSubmitted": {
+		"string": "Terakhir diserahkan",
+		"developer_comment": "Header label for date column, in which are shown timestamps of last time a media was sent"
+	},
+	"feedRequestsTable.matchedMedia": {
+		"string": "Matched media",
+		"developer_comment": "Header label for number of medias found to be matched to the current one"
+	},
+	"feedRequestsTable.media": {
+		"string": "Media",
+		"developer_comment": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
+	},
+	"feedRequestsTable.noFactCheck": {
+		"string": "Belum ada pengecekan fakta",
+		"developer_comment": "Displayed on feed requests table when a request was not fact-checked yet."
+	},
+	"feedRequestsTable.requests": {
+		"string": "Permintaan",
+		"developer_comment": "Header label for number of requests column"
+	},
+	"feedRequestsTable.subscriptions": {
+		"string": "Subscriptions",
+		"developer_comment": "Header label for number of subscriptions column"
+	},
 	"feedSharingSwitch.cancel": {
 		"string": "Batalkan",
 		"developer_comment": "Button label displayed on 'Enable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.confirmDisableSharingContent": {
-		"string": "Are you sure? {numberOfWorkspaces} other workspaces will immediately loose access to this content.",
+		"string": "Anda yakin? {numberOfWorkspaces} ruang kerja lain akan segera kehilangan akses ke konten ini.",
 		"developer_comment": "Content of 'Disable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.confirmDisableSharingTitle": {
-		"string": "Disable Shared Feed",
+		"string": "Nonaktifkan Umpan Bersama",
 		"developer_comment": "Title of 'Disable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.confirmEnableSharingContent": {
-		"string": "Are you sure? Any current and future content matching this filter will immediately be shared with {numberOfWorkspaces} other workspaces.",
+		"string": "Anda yakin? Konten apa pun saat ini dan di masa mendatang yang cocok dengan saringan ini akan segera dibagikan {numberOfWorkspaces} ruang kerja lain.",
 		"developer_comment": "Content of 'Enable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.confirmEnableSharingTitle": {
-		"string": "Enable Shared Feed",
+		"string": "Aktifkan Umpan Bersama",
 		"developer_comment": "Title of 'Enable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.defaultErrorMessage": {
-		"string": "Could not update your sharing settings for this feed, please try again",
+		"string": "Tidak dapat memperbarui pengaturan berbagi Anda untuk umpan ini, silakan coba lagi",
 		"developer_comment": "Error message displayed when it's not possible to change sharing setting for a feed."
 	},
 	"feedSharingSwitch.description": {
-		"string": "Select the content to share in this feed using the filter.",
+		"string": "Pilih konten untuk dibagikan dalam umpan ini dengan menggunakan saringan",
 		"developer_comment": "Description for a toggle/switcher displayed on feed page, under the Shared tab."
 	},
 	"feedSharingSwitch.disableSharing": {
-		"string": "Disable sharing",
+		"string": "Nonaktifkan berbagi",
 		"developer_comment": "Button label displayed on 'Disable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.enableSharing": {
-		"string": "Enable sharing",
+		"string": "Aktifkan berbagi",
 		"developer_comment": "Button label displayed on 'Enable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.label": {
-		"string": "Enable sharing",
+		"string": "Aktifkan berbagi",
 		"developer_comment": "Label for a toggle/switcher displayed on feed page, under the Shared tab."
 	},
 	"feedSharingSwitch.savedSuccessfully": {
-		"string": "Content shared to {feedName}",
+		"string": "Konten dibagikan ke {feedName}",
 		"developer_comment": "Success message displayed when data sharing is changed for a feed."
 	},
 	"feedSharingSwitch.tooltip": {
-		"string": "Apply and save the filter to share",
+		"string": "Terapkan dan simpan saringan untuk dibagikan",
 		"developer_comment": "Tooltip displayed on feed 'Enable sharing' switcher"
 	},
 	"fetchBot.contactUs": {
@@ -1306,8 +1387,20 @@
 		"developer_comment": "Generic error displayed when some error happens."
 	},
 	"home.successInvitation": {
-		"string": "Welcome to Check. Please login with the password that you received in the welcome email.",
+		"string": "Selamat datang di Check. Silakan masuk dengan kata sandi yang Anda terima dalam surel selamat datang.",
 		"developer_comment": "Message that appears after accepting an invitation to join the app."
+	},
+	"importDialog.importDescription": {
+		"string": "A new claim will be created in your workspace with all selected media.",
+		"developer_comment": "Dialog description when importing a claim from feed page."
+	},
+	"importDialog.importTitle": {
+		"string": "Impor data ke ruang kerja",
+		"developer_comment": "Dialog title when importing a claim from feed page."
+	},
+	"importDialog.success": {
+		"string": "Media imported successfully",
+		"developer_comment": "Banner displayed after items are imported successfully"
 	},
 	"inviteDialog.invitationSent": {
 		"string": "Undangan terkirim!",
@@ -1404,7 +1497,7 @@
 		"string": "Klaim"
 	},
 	"list.LinkedItems": {
-		"string": "Media yang mirip"
+		"string": "Matched media"
 	},
 	"list.ShareCount": {
 		"string": "Dibagikan di FB"
@@ -1432,7 +1525,7 @@
 		"developer_comment": "Table header for column that shows number of requests in a cluster"
 	},
 	"list.clusterSize": {
-		"string": "Media yang mirip",
+		"string": "Matched media",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.commentCount": {
@@ -1444,6 +1537,9 @@
 	},
 	"list.factCheck": {
 		"string": "Pengecekan fakta"
+	},
+	"list.factCheckPublishedAt": {
+		"string": "Fact check published at"
 	},
 	"list.folder": {
 		"string": "Folder",
@@ -1466,13 +1562,13 @@
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
-		"string": "Kecocokan yang disarankan"
+		"string": "Media yang disarankan"
 	},
 	"list.tags": {
 		"string": "Label"
 	},
 	"list.teamName": {
-		"string": "Fact-check by",
+		"string": "Pengecekan fakta oleh",
 		"developer_comment": "Table header for column that shows the team name"
 	},
 	"list.updated": {
@@ -1665,9 +1761,9 @@
 		"string": "Pelajari lebih lanjut",
 		"developer_comment": "Text that links to an external help article"
 	},
-	"mediaAnalysis.sharedDatabase": {
-		"string": "Basis data Bersama",
-		"developer_comment": "Creator that refers to items created from the shared database."
+	"mediaAnalysis.sharedFeed": {
+		"string": "Shared Feed",
+		"developer_comment": "Creator that refers to items created from the shared feed."
 	},
 	"mediaAnalysis.tipline": {
 		"string": "Tipline",
@@ -1802,14 +1898,6 @@
 	"mediaExpandedMetadata.shares": {
 		"string": "Dibagikan di FB"
 	},
-	"mediaFactCheck,error": {
-		"string": "kesalahan",
-		"developer_comment": "Caption that informs that a fact-check could not be saved"
-	},
-	"mediaFactCheck,saved": {
-		"string": "disimpan oleh {userName} {timeAgo}",
-		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
-	},
 	"mediaFactCheck.claimMissingDesc": {
 		"string": "Anda harus menambahkan klaim untuk mengakses laporan pengecekan fakta.",
 		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
@@ -1822,9 +1910,17 @@
 		"string": "Kembali menyunting",
 		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
 	},
+	"mediaFactCheck.error": {
+		"string": "Title and description have to be filled",
+		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
+	},
 	"mediaFactCheck.factCheck": {
 		"string": "Pengecekan fakta",
 		"developer_comment": "Title of the media fact-check section."
+	},
+	"mediaFactCheck.saved": {
+		"string": "disimpan oleh {userName} {timeAgo}",
+		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
 	"mediaFactCheck.saving": {
 		"string": "menyimpan…",
@@ -1853,7 +1949,7 @@
 		"string": "Dikonfirmasi oleh {name}"
 	},
 	"mediaItem.detach": {
-		"string": "Pisahkan"
+		"string": "Un-match media"
 	},
 	"mediaItem.detachedSuccessfully": {
 		"string": "Perihal dipisahkan ke '{toProject}'",
@@ -1888,7 +1984,7 @@
 		"string": "{count, plural, other {# permintaan}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count, plural, other {# media yang mirip}}"
+		"string": "{count, plural, one {# matched media} other {# matched media}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Maaf, terjadi kesalahan saat memperbarui bahasa. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut.",
@@ -1961,8 +2057,8 @@
 		"string": "{current} dari {total}"
 	},
 	"mediaSimilarities.moreMedias": {
-		"string": "Lebih banyak media",
-		"developer_comment": "Heading for a list of similar medias"
+		"string": "Matched media",
+		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Ekspor semua media"
@@ -1974,10 +2070,10 @@
 		"string": "{count, plural, other {Impor semua media dari # perihal}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Impor media yang mirip ke dalam perihal ini"
+		"string": "Import matched media into this item"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Impor media yang mirip dari perihal lainnya"
+		"string": "Import matched media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Ekspor semua media ke perihal lain"
@@ -1999,23 +2095,9 @@
 		"string": "Perihal yang mirip berhasil ditambahkan",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
-	"mediaSimilarityBarComponent.hasMain": {
-		"string": "Media ini telah diasosiasikan dengan klaim yang sudah ada"
-	},
-	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "Media ini telah disarankan mirip dengan klaim yang ada.",
-		"developer_comment": "Caption to inform user that there is a suggested similarity"
-	},
-	"mediaSimilarityBarComponent.openClaim": {
-		"string": "Buka klaim"
-	},
-	"mediaSimilarityBarComponent.reviewSuggestion": {
-		"string": "Tinjau saran",
-		"developer_comment": "Button label for reviewing similarity suggestions"
-	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Media yang mirip",
-		"developer_comment": "Plural. Heading for the number of similar media"
+		"string": "Matched media",
+		"developer_comment": "Plural. Heading for the number of matched media"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "Media yang disarankan",
@@ -2027,6 +2109,26 @@
 	},
 	"mediaStatus.error": {
 		"string": "Maaf, terjadi kesalahan saat memperbarui status. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut."
+	},
+	"mediaSuggestionReview.matchDescription": {
+		"string": "This media has been associated with the claim and fact-check below.",
+		"developer_comment": "Hint text to tell the user what the 'Open claim' button does."
+	},
+	"mediaSuggestionReview.matchTitle": {
+		"string": "Matched claim",
+		"developer_comment": "Title of a box that lets the user open a claim that this has been matched with."
+	},
+	"mediaSuggestionReview.openButtonMatched": {
+		"string": "Buka klaim",
+		"developer_comment": "A label for a button that opens a claim item"
+	},
+	"mediaSuggestionReview.prompt": {
+		"string": "Is the Claim or Fact-check below a good match for this media?",
+		"developer_comment": "Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
+	},
+	"mediaSuggestionReview.title": {
+		"string": "Suggested Claim and Fact-check",
+		"developer_comment": "Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Kembali"
@@ -2096,6 +2198,10 @@
 		"string": "Berkas ini tidak valid. Silakan coba lagi dengan berkas yang berbeda.",
 		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
 	},
+	"metadata.file.noFile": {
+		"string": "This file is missing from the database. Edit and clear this annotation to upload a new file.",
+		"developer_comment": "This message appears when a user tries to access a file that does not exist in the database."
+	},
 	"metadata.file.tooBig": {
 		"string": "Berkas ini terlalu besar. Ukuran maksimal berkas adalah {fileSizeLabel}. Silakan coba lagi dengan berkas yang berbeda.",
 		"developer_comment": "This message appears when a user tries to upload a file that is too big. The 'fileSizeLabel' will read something like '1.0 MB' and will not be localized."
@@ -2161,7 +2267,8 @@
 		"string": "Tidak ada perihal yang ditemukan"
 	},
 	"multiSelector.search": {
-		"string": "Cari..."
+		"string": "Cari...",
+		"developer_comment": "The placeholder text in a search box."
 	},
 	"network.noResponse": {
 		"string": "Tidak dapat tersambung ke {app}, pastikan Anda tersambung ke internet"
@@ -2200,8 +2307,8 @@
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "Beberapa media serupa di antara",
-		"developer_comment": "Filter option that refers to number of similar medias"
+		"string": "Number of matched media is between",
+		"developer_comment": "Filter option that refers to number of matched medias"
 	},
 	"numericRangeFilter.suggestedItems": {
 		"string": "Beberapa media yang disarankan di antara",
@@ -2355,13 +2462,13 @@
 		"string": "Semua perihal"
 	},
 	"projectHeader.feed": {
-		"string": "Shared feed"
+		"string": "Umpan bersama"
 	},
 	"projectHeader.importedReports": {
 		"string": "Laporan yang diimpor"
 	},
 	"projectHeader.suggestedMatches": {
-		"string": "Kecocokan yang disarankan"
+		"string": "Media yang disarankan"
 	},
 	"projectHeader.tiplineInbox": {
 		"string": "Kotak masuk Tipline"
@@ -2530,11 +2637,11 @@
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.sharedFeeds": {
-		"string": "Shared feeds",
+		"string": "Umpan bersama",
 		"developer_comment": "Feeds of content shared across workspaces"
 	},
 	"projectsComponent.suggestedMatches": {
-		"string": "Kecocokan yang disarankan",
+		"string": "Media yang disarankan",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.tiplineInbox": {
@@ -2841,14 +2948,14 @@
 		"developer_comment": "'Create' here is an infinitive verb"
 	},
 	"saveList.defaultErrorMessage": {
-		"string": "Could not save filters, please try again",
+		"string": "Tidak dapat menyimpan saringan, silakan coba lagi",
 		"developer_comment": "Error message displayed when it's not possible to save a list"
 	},
 	"saveList.newList": {
 		"string": "Simpan daftar"
 	},
 	"saveList.saveFeed": {
-		"string": "Save and share",
+		"string": "Simpan dan bagikan",
 		"developer_comment": "'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters."
 	},
 	"saveList.saveList": {
@@ -2856,7 +2963,7 @@
 		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
 	},
 	"saveList.savedSuccessfully": {
-		"string": "Filters saved successfully",
+		"string": "Saringan berhasil disimpan",
 		"developer_comment": "Success message displayed when a list is saved"
 	},
 	"saveList.title": {
@@ -2915,7 +3022,7 @@
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.annotatedBy": {
-		"string": "Annotated by",
+		"string": "Dicatat oleh",
 		"developer_comment": "Prefix label for field to filter by annotated by"
 	},
 	"search.anyDate": {
@@ -3117,7 +3224,7 @@
 		"developer_comment": "Describes media type Link"
 	},
 	"search.showSimilar": {
-		"string": "Tampilkan kemiripan",
+		"string": "Show matched media",
 		"developer_comment": "Allow user to show/hide secondary items"
 	},
 	"search.showVideos": {
@@ -3152,9 +3259,9 @@
 		"string": "Panduan",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
-	"searchFieldChannel.sharedDatabase": {
-		"string": "Basis data bersama",
-		"developer_comment": "Filter option that refers to items created from the shared database."
+	"searchFieldChannel.sharedFeed": {
+		"string": "Shared Feed",
+		"developer_comment": "Filter option that refers to items created from the shared feed."
 	},
 	"searchFieldChannel.webForm": {
 		"string": "Formulir web",
@@ -3337,10 +3444,12 @@
 		"developer_comment": "Title to similarity matching settings page"
 	},
 	"singleChoiceTask.addOther": {
-		"string": "Tambah \"Lainnya\""
+		"string": "Tambah \"Lainnya\"",
+		"developer_comment": "Button for creating a new entry to a list of selectable options, in which the user is free to specify the value that will be selected"
 	},
 	"singleChoiceTask.addValue": {
-		"string": "Tambah Opsi"
+		"string": "Tambah Opsi",
+		"developer_comment": "Button for creating a new entry to a list of selectable options"
 	},
 	"singleChoiceTask.other": {
 		"string": "Lainnya"
@@ -4384,7 +4493,7 @@
 		"developer_comment": "Success message displayed when status is created."
 	},
 	"statusesComponent.deleteButton": {
-		"string": "Delete status",
+		"string": "Hapus status",
 		"developer_comment": "Button label to delete status"
 	},
 	"statusesComponent.deleted": {
@@ -4412,7 +4521,7 @@
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"suggestedMatches.title": {
-		"string": "Kecocokan yang disarankan"
+		"string": "Media yang disarankan"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Batalkan"
@@ -4442,10 +4551,12 @@
 		"string": "Cari atau tambahkan label baru"
 	},
 	"tagMenu.create": {
-		"string": "+ Buat label ini"
+		"string": "+ Buat label ini",
+		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
 	},
 	"tagMenu.notFound": {
-		"string": "Tidak ada label yang ditemukan"
+		"string": "Tidak ada label yang ditemukan",
+		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
 	},
 	"tagMenu.search": {
 		"string": "Cari..."
@@ -4455,7 +4566,8 @@
 		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.tooltip": {
-		"string": "Sunting label"
+		"string": "Sunting label",
+		"developer_comment": "A tooltip that appears over an icon a user is supposed to press when they want to edit the tags associated with an item."
 	},
 	"tagPicker.emptyTags": {
 		"string": "Saat ini tidak ada label untuk ruang kerja ini."
@@ -4514,10 +4626,15 @@
 		"developer_comment": "Label for the URL type field"
 	},
 	"tasks.add": {
-		"string": "Simpan"
+		"string": "Simpan",
+		"developer_comment": "Save action button label"
 	},
 	"tasks.addMetadata": {
 		"string": "Metadata baru"
+	},
+	"tasks.addOptionWithAnswersBody": {
+		"string": "{number, plural, one {• # new option will be added to this field.} other {• # new options will be added to this field.}}",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.addTask": {
 		"string": "Tugas baru"
@@ -4525,15 +4642,13 @@
 	"tasks.answer": {
 		"string": "Jawab Tugas"
 	},
-	"tasks.assign": {
-		"string": "Tugaskan"
-	},
 	"tasks.blankAnnotation": {
 		"string": "Tidak ada bidang anotasi",
 		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
-		"string": "Batalkan"
+		"string": "Batalkan",
+		"developer_comment": "Cancel action button label"
 	},
 	"tasks.cancelEdit": {
 		"string": "Batalkan"
@@ -4541,6 +4656,10 @@
 	"tasks.cantChangeTypeMessage": {
 		"string": "Jenis bidang tidak dapat diubah karena telah terisi jawaban",
 		"developer_comment": "Message when team task has answers and type cannot be updated"
+	},
+	"tasks.changeOptionWithAnswersBody": {
+		"string": "• \"{oldOption}\" will be changed to \"{newOption}\" in existing responses.",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.chooseMultiple": {
 		"string": "Pilih beberapa"
@@ -4571,8 +4690,17 @@
 		"string": "Memungkinkan Anda untuk memilih tanggal dari kalender",
 		"developer_comment": "Description for date type field"
 	},
+	"tasks.deleteOptionWithAnswersBody": {
+		"string": "• \"{deletedOption}\" will be permanently deleted from existing responses.",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
+	},
 	"tasks.description": {
-		"string": "Deskripsi (opsional)"
+		"string": "Deskripsi (opsional)",
+		"developer_comment": "Description field for custom annotation field"
+	},
+	"tasks.editFieldWithAnswersTitle": {
+		"string": "{number, plural, one {Editing field with # existing response} other {Editing field with # existing responses}}",
+		"developer_comment": "Title of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.fileUpload": {
 		"string": "Unggahan berkas"
@@ -4619,6 +4747,10 @@
 		"string": "Nomor",
 		"developer_comment": "Label for number type field"
 	},
+	"tasks.saveButtonWarning": {
+		"string": "I understand, save changes",
+		"developer_comment": "Save action button label warning"
+	},
 	"tasks.shortAnswer": {
 		"string": "Teks"
 	},
@@ -4650,7 +4782,8 @@
 		"developer_comment": "Label for text type field"
 	},
 	"tasks.timezones": {
-		"string": "Zona waktu yang tersedia untuk menyelesaikan tugas"
+		"string": "Zona waktu yang tersedia untuk menyelesaikan tugas",
+		"developer_comment": "Label of timezones list available to the task"
 	},
 	"tasks.when": {
 		"string": "Saat",
@@ -5291,7 +5424,7 @@
 		"string": "Media"
 	},
 	"trendItem.media": {
-		"string": "Media yang mirip"
+		"string": "Matched media"
 	},
 	"trendItem.mediaRequests": {
 		"string": "{number} permintaan tipline di semua media"

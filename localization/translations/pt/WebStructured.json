@@ -111,6 +111,22 @@
 		"string": "A organização é",
 		"developer_comment": "Prefix label for field to filter by workspace"
 	},
+	"SearchFieldProject.label": {
+		"string": "A pasta é",
+		"developer_comment": "Prefix label for field to filter by folder to which items belong"
+	},
+	"SearchFieldProject.notInAny": {
+		"string": "Sem coleção",
+		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
+	},
+	"SearchFieldProjectGroup.collection": {
+		"string": "A coleção é",
+		"developer_comment": "Prefix label for field to filter by collection"
+	},
+	"SearchFieldTag.label": {
+		"string": "A tag é",
+		"developer_comment": "Prefix label for field to filter by tags"
+	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Conta já confirmada",
 		"developer_comment": "Message for accounts already confirmed"
@@ -263,15 +279,15 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Número de mídias semelhantes",
-		"developer_comment": "Menu option to enable searching items by similar medias"
+		"string": "Number of matched media",
+		"developer_comment": "Menu option to enable searching items by matched medias"
 	},
 	"addFilterMenu.source": {
 		"string": "Fonte",
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Número de mídias sugeridas",
+		"string": "Number of suggested media",
 		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
@@ -805,6 +821,10 @@
 		"string": "<strong>{user_name}</strong> detectou este conteúdo como <strong>{warning_category}</strong>",
 		"developer_comment": "Content warning displayed over sensitive content"
 	},
+	"contentScreen.warningByAutomationRule": {
+		"string": "An automation rule has detected this content as sensitive",
+		"developer_comment": "Content warning displayed over sensitive content"
+	},
 	"createMedia.addItem": {
 		"string": "Adicionar item"
 	},
@@ -906,7 +926,8 @@
 		"developer_comment": "Button that triggers creation of a new field"
 	},
 	"createTeamTask.errorMetadata": {
-		"string": "Desculpe, ocorreu um erro ao atualizar o campo de metadados. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+		"string": "Desculpe, ocorreu um erro ao atualizar o campo de metadados. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
+		"developer_comment": "Error message displayed when creating an annotation field fails"
 	},
 	"customAutocomplete.done": {
 		"string": "Terminado",
@@ -1030,11 +1051,15 @@
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"feed.feed": {
-		"string": "Feed",
+		"string": "Fact-checks",
 		"developer_comment": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
 	},
+	"feed.requests": {
+		"string": "Solicitações",
+		"developer_comment": "Tab with label 'Requests' displayed on a feed page. It references all requests submitted to that feed."
+	},
 	"feed.shared": {
-		"string": "Shared",
+		"string": "Compartilhado",
 		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
 	},
 	"feedItem.aboutThisClaim": {
@@ -1073,12 +1098,12 @@
 		"developer_comment": "Dialog description when importing a claim from feed page."
 	},
 	"feedItem.importSelectLabel": {
-		"string": "Importar para o espaço de trabalho",
+		"string": "Import into",
 		"developer_comment": "Select field label used in import claim dialog from feed page."
 	},
 	"feedItem.importTextLabel": {
-		"string": "Descrição da afirmação",
-		"developer_comment": "Text field label used in import claim dialog from feed page."
+		"string": "Afirmação",
+		"developer_comment": "Text field that prompts user to add a claim for related media."
 	},
 	"feedItem.importTitle": {
 		"string": "Importar dados para o espaço de trabalho",
@@ -1146,52 +1171,108 @@
 	"feedItem.tags": {
 		"string": "Tags"
 	},
+	"feedRequestedMedia.import": {
+		"string": "Importar",
+		"developer_comment": "Button label for importing media into workspace action"
+	},
+	"feedRequestedMedia.lastSubmitted": {
+		"string": "Last submitted {date}",
+		"developer_comment": "Header of medias list. Example: 3 medias"
+	},
+	"feedRequestedMedia.numberOfMedias": {
+		"string": "{mediasCount, plural, one {# media} other {# medias}}",
+		"developer_comment": "Header of medias list. Example: 3 medias"
+	},
+	"feedRequestedMedia.requestsForAllMedias": {
+		"string": "{requestsCount, plural, one {# request} other {# requests}}",
+		"developer_comment": "Header of requests list. Example: 26 requests"
+	},
+	"feedRequestedMedia.requestsForThisMedia": {
+		"string": "{requestsCount, plural, one {# request for this media} other {# requests for this media}}",
+		"developer_comment": "Header of requests list. Example: 3 requests for this media"
+	},
+	"feedRequestedMedia.subscriptionsForAllMedias": {
+		"string": "{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}",
+		"developer_comment": "Part of the header of requests list. Example: 12 subscriptions"
+	},
+	"feedRequestedMediaDialog.title": {
+		"string": "Import medias and requests",
+		"developer_comment": "Dialog title for importing medias and requests"
+	},
+	"feedRequestsTable.factCheckBy": {
+		"string": "Verificação de fatos por",
+		"developer_comment": "Header label for fact-check by column"
+	},
+	"feedRequestsTable.lastSubmitted": {
+		"string": "Último envio",
+		"developer_comment": "Header label for date column, in which are shown timestamps of last time a media was sent"
+	},
+	"feedRequestsTable.matchedMedia": {
+		"string": "Matched media",
+		"developer_comment": "Header label for number of medias found to be matched to the current one"
+	},
+	"feedRequestsTable.media": {
+		"string": "Mídia",
+		"developer_comment": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
+	},
+	"feedRequestsTable.noFactCheck": {
+		"string": "Sem verificação de fatos",
+		"developer_comment": "Displayed on feed requests table when a request was not fact-checked yet."
+	},
+	"feedRequestsTable.requests": {
+		"string": "Solicitações",
+		"developer_comment": "Header label for number of requests column"
+	},
+	"feedRequestsTable.subscriptions": {
+		"string": "Subscriptions",
+		"developer_comment": "Header label for number of subscriptions column"
+	},
 	"feedSharingSwitch.cancel": {
 		"string": "Cancelar",
 		"developer_comment": "Button label displayed on 'Enable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.confirmDisableSharingContent": {
-		"string": "Are you sure? {numberOfWorkspaces} other workspaces will immediately loose access to this content.",
+		"string": "Você tem certeza? {numberOfWorkspaces} outros espaços de trabalho perderão imediatamente acesso a este conteúdo.",
 		"developer_comment": "Content of 'Disable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.confirmDisableSharingTitle": {
-		"string": "Disable Shared Feed",
+		"string": "Desabilitar Feed Compartilhado",
 		"developer_comment": "Title of 'Disable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.confirmEnableSharingContent": {
-		"string": "Are you sure? Any current and future content matching this filter will immediately be shared with {numberOfWorkspaces} other workspaces.",
+		"string": "Você tem certeza? Qualquer conteúdo atual e futuro que corresponda a este filtro será imediatamente compartilhado com {numberOfWorkspaces} outros espaços de trabalho.",
 		"developer_comment": "Content of 'Enable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.confirmEnableSharingTitle": {
-		"string": "Enable Shared Feed",
+		"string": "Habilitar Feed Compartilhado",
 		"developer_comment": "Title of 'Enable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.defaultErrorMessage": {
-		"string": "Could not update your sharing settings for this feed, please try again",
+		"string": "Não foi possível atualizar suas configurações de compartilhamento para este feed. Por favor, tente novamente.",
 		"developer_comment": "Error message displayed when it's not possible to change sharing setting for a feed."
 	},
 	"feedSharingSwitch.description": {
-		"string": "Select the content to share in this feed using the filter.",
+		"string": "Selecione o conteúdo a ser compartilhado neste feed usando o filtro.",
 		"developer_comment": "Description for a toggle/switcher displayed on feed page, under the Shared tab."
 	},
 	"feedSharingSwitch.disableSharing": {
-		"string": "Disable sharing",
+		"string": "Desabilitar compartilhamento",
 		"developer_comment": "Button label displayed on 'Disable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.enableSharing": {
-		"string": "Enable sharing",
+		"string": "Habilitar compartilhamento",
 		"developer_comment": "Button label displayed on 'Enable feed sharing' confirmation window."
 	},
 	"feedSharingSwitch.label": {
-		"string": "Enable sharing",
+		"string": "Habilitar compartilhamento",
 		"developer_comment": "Label for a toggle/switcher displayed on feed page, under the Shared tab."
 	},
 	"feedSharingSwitch.savedSuccessfully": {
-		"string": "Content shared to {feedName}",
+		"string": "Conteúdo compartilhado para {feedName}",
 		"developer_comment": "Success message displayed when data sharing is changed for a feed."
 	},
 	"feedSharingSwitch.tooltip": {
-		"string": "Apply and save the filter to share",
+		"string": "Aplica e salva o filtro para compartilhar",
 		"developer_comment": "Tooltip displayed on feed 'Enable sharing' switcher"
 	},
 	"fetchBot.contactUs": {
@@ -1306,8 +1387,20 @@
 		"developer_comment": "Generic error displayed when some error happens."
 	},
 	"home.successInvitation": {
-		"string": "Welcome to Check. Please login with the password that you received in the welcome email.",
+		"string": "Bem-vindo(a) ao Check. Por favor, faça o login com a senha que você recebeu no e-mail de boas-vindas.",
 		"developer_comment": "Message that appears after accepting an invitation to join the app."
+	},
+	"importDialog.importDescription": {
+		"string": "A new claim will be created in your workspace with all selected media.",
+		"developer_comment": "Dialog description when importing a claim from feed page."
+	},
+	"importDialog.importTitle": {
+		"string": "Importar dados para o espaço de trabalho",
+		"developer_comment": "Dialog title when importing a claim from feed page."
+	},
+	"importDialog.success": {
+		"string": "Media imported successfully",
+		"developer_comment": "Banner displayed after items are imported successfully"
 	},
 	"inviteDialog.invitationSent": {
 		"string": "Convites enviados!",
@@ -1404,7 +1497,7 @@
 		"string": "Afirmação"
 	},
 	"list.LinkedItems": {
-		"string": "Mídia semelhante"
+		"string": "Matched media"
 	},
 	"list.ShareCount": {
 		"string": "Compartilhamentos do Facebook"
@@ -1432,7 +1525,7 @@
 		"developer_comment": "Table header for column that shows number of requests in a cluster"
 	},
 	"list.clusterSize": {
-		"string": "Mídia semelhante",
+		"string": "Matched media",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.commentCount": {
@@ -1444,6 +1537,9 @@
 	},
 	"list.factCheck": {
 		"string": "Verificação de fatos"
+	},
+	"list.factCheckPublishedAt": {
+		"string": "Fact check published at"
 	},
 	"list.folder": {
 		"string": "Pasta",
@@ -1466,13 +1562,13 @@
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
-		"string": "Correspondências sugeridas"
+		"string": "Mídias sugeridas"
 	},
 	"list.tags": {
 		"string": "Tags"
 	},
 	"list.teamName": {
-		"string": "Fact-check by",
+		"string": "Verificação de fatos por",
 		"developer_comment": "Table header for column that shows the team name"
 	},
 	"list.updated": {
@@ -1665,9 +1761,9 @@
 		"string": "Saiba mais",
 		"developer_comment": "Text that links to an external help article"
 	},
-	"mediaAnalysis.sharedDatabase": {
-		"string": "Banco de dados compartilhado",
-		"developer_comment": "Creator that refers to items created from the shared database."
+	"mediaAnalysis.sharedFeed": {
+		"string": "Shared Feed",
+		"developer_comment": "Creator that refers to items created from the shared feed."
 	},
 	"mediaAnalysis.tipline": {
 		"string": "Tipline",
@@ -1802,14 +1898,6 @@
 	"mediaExpandedMetadata.shares": {
 		"string": "Compartilhamentos do Facebook"
 	},
-	"mediaFactCheck,error": {
-		"string": "erro",
-		"developer_comment": "Caption that informs that a fact-check could not be saved"
-	},
-	"mediaFactCheck,saved": {
-		"string": "salva por {userName} {timeAgo}",
-		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
-	},
 	"mediaFactCheck.claimMissingDesc": {
 		"string": "Você precisa adicionar uma afirmação para acessar o relatório de verificação de fatos.",
 		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
@@ -1822,9 +1910,17 @@
 		"string": "Voltar para edição",
 		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
 	},
+	"mediaFactCheck.error": {
+		"string": "Title and description have to be filled",
+		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
+	},
 	"mediaFactCheck.factCheck": {
 		"string": "Verificação de fatos",
 		"developer_comment": "Title of the media fact-check section."
+	},
+	"mediaFactCheck.saved": {
+		"string": "salva por {userName} {timeAgo}",
+		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
 	"mediaFactCheck.saving": {
 		"string": "salvando...",
@@ -1853,7 +1949,7 @@
 		"string": "Confirmado por {name}"
 	},
 	"mediaItem.detach": {
-		"string": "Desprender"
+		"string": "Un-match media"
 	},
 	"mediaItem.detachedSuccessfully": {
 		"string": "O item foi desprendido para '{toProject}'",
@@ -1888,7 +1984,7 @@
 		"string": "{count, plural, one {# solicitação} many {# solicitações} other {# solicitações}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count, plural, one {# mídia semelhante} many {# mídias semelhantes} other {# mídias semelhantes}}"
+		"string": "{count, plural, one {# matched media} other {# matched media}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Desculpe, ocorreu um erro ao atualizar o idioma. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
@@ -1961,8 +2057,8 @@
 		"string": "{current} de {total}"
 	},
 	"mediaSimilarities.moreMedias": {
-		"string": "Mais mídias",
-		"developer_comment": "Heading for a list of similar medias"
+		"string": "Matched media",
+		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Exportar todas as mídias"
@@ -1974,10 +2070,10 @@
 		"string": "{count, plural, one {Importar todas as mídias de um item} many {Importar todas as mídias de # itens} other {Importar todas as mídias de # itens}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Importar mídia semelhante para este item"
+		"string": "Import matched media into this item"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Importar mídias semelhantes de outros itens"
+		"string": "Import matched media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Exportar todas as mídias para outro item"
@@ -1999,23 +2095,9 @@
 		"string": "Item semelhante adicionado com sucesso",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
-	"mediaSimilarityBarComponent.hasMain": {
-		"string": "Esta mídia foi associada a uma afirmação existente."
-	},
-	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "Esta mídia foi sugerida como semelhante a uma afirmação existente.",
-		"developer_comment": "Caption to inform user that there is a suggested similarity"
-	},
-	"mediaSimilarityBarComponent.openClaim": {
-		"string": "Afirmação aberta"
-	},
-	"mediaSimilarityBarComponent.reviewSuggestion": {
-		"string": "Revisar sugestão",
-		"developer_comment": "Button label for reviewing similarity suggestions"
-	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Mídia semelhante",
-		"developer_comment": "Plural. Heading for the number of similar media"
+		"string": "Matched media",
+		"developer_comment": "Plural. Heading for the number of matched media"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "Mídias sugeridas",
@@ -2027,6 +2109,26 @@
 	},
 	"mediaStatus.error": {
 		"string": "Desculpe, ocorreu um erro ao atualizar o status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+	},
+	"mediaSuggestionReview.matchDescription": {
+		"string": "This media has been associated with the claim and fact-check below.",
+		"developer_comment": "Hint text to tell the user what the 'Open claim' button does."
+	},
+	"mediaSuggestionReview.matchTitle": {
+		"string": "Matched claim",
+		"developer_comment": "Title of a box that lets the user open a claim that this has been matched with."
+	},
+	"mediaSuggestionReview.openButtonMatched": {
+		"string": "Afirmação aberta",
+		"developer_comment": "A label for a button that opens a claim item"
+	},
+	"mediaSuggestionReview.prompt": {
+		"string": "Is the Claim or Fact-check below a good match for this media?",
+		"developer_comment": "Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
+	},
+	"mediaSuggestionReview.title": {
+		"string": "Suggested Claim and Fact-check",
+		"developer_comment": "Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Voltar"
@@ -2096,6 +2198,10 @@
 		"string": "Este arquivo não é válido. Por favor, tente novamente com um arquivo diferente.",
 		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
 	},
+	"metadata.file.noFile": {
+		"string": "This file is missing from the database. Edit and clear this annotation to upload a new file.",
+		"developer_comment": "This message appears when a user tries to access a file that does not exist in the database."
+	},
 	"metadata.file.tooBig": {
 		"string": "Este arquivo é grande demais. O tamanho máximo permitido é {fileSizeLabel}. Por favor, tente novamente com um arquivo diferente.",
 		"developer_comment": "This message appears when a user tries to upload a file that is too big. The 'fileSizeLabel' will read something like '1.0 MB' and will not be localized."
@@ -2161,7 +2267,8 @@
 		"string": "Nenhum item encontrado "
 	},
 	"multiSelector.search": {
-		"string": "Buscar..."
+		"string": "Buscar...",
+		"developer_comment": "The placeholder text in a search box."
 	},
 	"network.noResponse": {
 		"string": "Não foi possível conectar-se ao {app}. Por favor, certifique-se de estar conectado(a) à internet"
@@ -2200,8 +2307,8 @@
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "O número de mídias semelhantes está entre",
-		"developer_comment": "Filter option that refers to number of similar medias"
+		"string": "Number of matched media is between",
+		"developer_comment": "Filter option that refers to number of matched medias"
 	},
 	"numericRangeFilter.suggestedItems": {
 		"string": "O número de mídias sugeridas está entre",
@@ -2355,13 +2462,13 @@
 		"string": "Todos os itens"
 	},
 	"projectHeader.feed": {
-		"string": "Shared feed"
+		"string": "Feed compartilhado"
 	},
 	"projectHeader.importedReports": {
 		"string": "Relatórios importados"
 	},
 	"projectHeader.suggestedMatches": {
-		"string": "Correspondências sugeridas"
+		"string": "Mídias sugeridas"
 	},
 	"projectHeader.tiplineInbox": {
 		"string": "Caixa de entrada Tipline"
@@ -2530,11 +2637,11 @@
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.sharedFeeds": {
-		"string": "Shared feeds",
+		"string": "Feeds compartilhados",
 		"developer_comment": "Feeds of content shared across workspaces"
 	},
 	"projectsComponent.suggestedMatches": {
-		"string": "Correspondências sugeridas",
+		"string": "Mídias sugeridas",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.tiplineInbox": {
@@ -2841,14 +2948,14 @@
 		"developer_comment": "'Create' here is an infinitive verb"
 	},
 	"saveList.defaultErrorMessage": {
-		"string": "Could not save filters, please try again",
+		"string": "Não foi possível salvar os filtros. Por favor, tente novamente.",
 		"developer_comment": "Error message displayed when it's not possible to save a list"
 	},
 	"saveList.newList": {
 		"string": "Salvar lista"
 	},
 	"saveList.saveFeed": {
-		"string": "Save and share",
+		"string": "Salvar e compartilhar",
 		"developer_comment": "'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters."
 	},
 	"saveList.saveList": {
@@ -2856,7 +2963,7 @@
 		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
 	},
 	"saveList.savedSuccessfully": {
-		"string": "Filters saved successfully",
+		"string": "Os filtros foram salvos com sucesso.",
 		"developer_comment": "Success message displayed when a list is saved"
 	},
 	"saveList.title": {
@@ -3117,7 +3224,7 @@
 		"developer_comment": "Describes media type Link"
 	},
 	"search.showSimilar": {
-		"string": "Mostrar semelhantes",
+		"string": "Show matched media",
 		"developer_comment": "Allow user to show/hide secondary items"
 	},
 	"search.showVideos": {
@@ -3152,9 +3259,9 @@
 		"string": "Manual",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
-	"searchFieldChannel.sharedDatabase": {
-		"string": "Banco de dados compartilhado",
-		"developer_comment": "Filter option that refers to items created from the shared database."
+	"searchFieldChannel.sharedFeed": {
+		"string": "Shared Feed",
+		"developer_comment": "Filter option that refers to items created from the shared feed."
 	},
 	"searchFieldChannel.webForm": {
 		"string": "Formulário Web",
@@ -3337,10 +3444,12 @@
 		"developer_comment": "Title to similarity matching settings page"
 	},
 	"singleChoiceTask.addOther": {
-		"string": "Adicionar \"Outro\""
+		"string": "Adicionar \"Outro\"",
+		"developer_comment": "Button for creating a new entry to a list of selectable options, in which the user is free to specify the value that will be selected"
 	},
 	"singleChoiceTask.addValue": {
-		"string": "Adicionar Opção"
+		"string": "Adicionar Opção",
+		"developer_comment": "Button for creating a new entry to a list of selectable options"
 	},
 	"singleChoiceTask.other": {
 		"string": "Outro"
@@ -4412,7 +4521,7 @@
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"suggestedMatches.title": {
-		"string": "Correspondências sugeridas"
+		"string": "Mídias sugeridas"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Cancelar"
@@ -4442,10 +4551,12 @@
 		"string": "Buscar ou adicionar nova tag"
 	},
 	"tagMenu.create": {
-		"string": "+ Criar esta tag"
+		"string": "+ Criar esta tag",
+		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
 	},
 	"tagMenu.notFound": {
-		"string": "Nenhuma tag encontrada"
+		"string": "Nenhuma tag encontrada",
+		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
 	},
 	"tagMenu.search": {
 		"string": "Buscar..."
@@ -4455,7 +4566,8 @@
 		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.tooltip": {
-		"string": "Editar tags"
+		"string": "Editar tags",
+		"developer_comment": "A tooltip that appears over an icon a user is supposed to press when they want to edit the tags associated with an item."
 	},
 	"tagPicker.emptyTags": {
 		"string": "Não há tags para esse espaço de trabalho."
@@ -4514,10 +4626,15 @@
 		"developer_comment": "Label for the URL type field"
 	},
 	"tasks.add": {
-		"string": "Salvar"
+		"string": "Salvar",
+		"developer_comment": "Save action button label"
 	},
 	"tasks.addMetadata": {
 		"string": "Novos metadados"
+	},
+	"tasks.addOptionWithAnswersBody": {
+		"string": "{number, plural, one {• # new option will be added to this field.} other {• # new options will be added to this field.}}",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.addTask": {
 		"string": "Nova tarefa"
@@ -4525,15 +4642,13 @@
 	"tasks.answer": {
 		"string": "Responder à tarefa"
 	},
-	"tasks.assign": {
-		"string": "Atribuir"
-	},
 	"tasks.blankAnnotation": {
 		"string": "Não há campos de anotação",
 		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
-		"string": "Cancelar"
+		"string": "Cancelar",
+		"developer_comment": "Cancel action button label"
 	},
 	"tasks.cancelEdit": {
 		"string": "Cancelar"
@@ -4541,6 +4656,10 @@
 	"tasks.cantChangeTypeMessage": {
 		"string": "O tipo de campo não pode ser alterado porque as respostas já foram preenchidas",
 		"developer_comment": "Message when team task has answers and type cannot be updated"
+	},
+	"tasks.changeOptionWithAnswersBody": {
+		"string": "• \"{oldOption}\" will be changed to \"{newOption}\" in existing responses.",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.chooseMultiple": {
 		"string": "Escolha múltipla"
@@ -4571,8 +4690,17 @@
 		"string": "Permite a você escolher uma data a partir do calendário",
 		"developer_comment": "Description for date type field"
 	},
+	"tasks.deleteOptionWithAnswersBody": {
+		"string": "• \"{deletedOption}\" will be permanently deleted from existing responses.",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
+	},
 	"tasks.description": {
-		"string": "Descrição (opcional)"
+		"string": "Descrição (opcional)",
+		"developer_comment": "Description field for custom annotation field"
+	},
+	"tasks.editFieldWithAnswersTitle": {
+		"string": "{number, plural, one {Editing field with # existing response} other {Editing field with # existing responses}}",
+		"developer_comment": "Title of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.fileUpload": {
 		"string": "Carregamento de arquivo"
@@ -4619,6 +4747,10 @@
 		"string": "Número",
 		"developer_comment": "Label for number type field"
 	},
+	"tasks.saveButtonWarning": {
+		"string": "I understand, save changes",
+		"developer_comment": "Save action button label warning"
+	},
 	"tasks.shortAnswer": {
 		"string": "Texto"
 	},
@@ -4650,7 +4782,8 @@
 		"developer_comment": "Label for text type field"
 	},
 	"tasks.timezones": {
-		"string": "Fusos horários disponíveis para completar a tarefa"
+		"string": "Fusos horários disponíveis para completar a tarefa",
+		"developer_comment": "Label of timezones list available to the task"
 	},
 	"tasks.when": {
 		"string": "Quando",
@@ -5291,7 +5424,7 @@
 		"string": "Mídia"
 	},
 	"trendItem.media": {
-		"string": "Mídia semelhante"
+		"string": "Matched media"
 	},
 	"trendItem.mediaRequests": {
 		"string": "{number} solicitações da Tipline em todas as mídias"

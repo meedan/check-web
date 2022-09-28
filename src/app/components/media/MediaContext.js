@@ -24,7 +24,7 @@ const MediaContext = ({
 
   // override to compensate for fast onBlur stateless component
   const textElement = document.querySelector('#media-claim__context');
-  if (textElement && claimDescription && textElement.value !== claimDescription.context) {
+  if (textElement && claimDescription && claimDescription.context && textElement.value !== claimDescription.context) {
     textElement.value = claimDescription.context;
   }
 
@@ -140,7 +140,7 @@ const MediaContext = ({
               onBlur={(e) => { handleBlur(e.target.value); }}
               variant="outlined"
               inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
-              rows={3}
+              rows={1}
               rowsMax={Infinity}
               disabled={!hasPermission || readOnly}
               multiline

@@ -22,7 +22,7 @@
   {
     "id": "feedItem.importSelectLabel",
     "description": "Select field label used in import claim dialog from feed page.",
-    "defaultMessage": "Select workspace"
+    "defaultMessage": "Import into"
   },
   {
     "id": "feedItem.importTextLabel",

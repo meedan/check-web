@@ -13,6 +13,7 @@ import LinkOutlinedIcon from '@material-ui/icons/LinkOutlined';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import TeamTaskCard from './TeamTaskCard';
 import TeamTaskContainer from './TeamTaskContainer';
+import { withSetFlashMessage } from '../FlashMessage';
 import Reorder from '../layout/Reorder';
 import ConditionalField from '../task/ConditionalField';
 import EditTaskDialog from '../task/EditTaskDialog';
@@ -142,7 +143,6 @@ class TeamTasksListItem extends React.Component {
 
     this.state = {
       action: null,
-      message: null,
       dialogOpen: false,
       editLabelOrDescription: false,
       showInBrowserExtension: !!this.props.task?.show_in_browser_extension,
@@ -162,7 +162,7 @@ class TeamTasksListItem extends React.Component {
 
   fail = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-    this.setState({ message });
+    this.props.setFlashMessage(message, 'error');
   };
 
   handleMenuEdit = () => {
@@ -177,23 +177,19 @@ class TeamTasksListItem extends React.Component {
     this.handleCloseDialog();
     if (this.state.action === 'delete') {
       this.handleDestroy(keepCompleted);
-    } else if (this.state.action === 'edit') {
-      this.handleSubmitTask(keepCompleted);
     }
   }
 
   handleEdit = (editedTask) => {
-    this.setState({
-      isEditing: false,
-      editedTask,
-      editLabelOrDescription: editedTask.editLabelOrDescription,
-      dialogOpen: true,
-    });
+    this.setState(
+      { isEditing: false, editedTask },
+      this.handleSubmitTask,
+    );
   };
 
   handleDestroy = (keepCompleted) => {
     const { task } = this.props;
-
+    // FIXME Update to RelayModern mutation
     Relay.Store.commitUpdate(
       new DeleteTeamTaskMutation({
         teamId: this.props.team.id,
@@ -205,14 +201,14 @@ class TeamTasksListItem extends React.Component {
   };
 
   handleCloseDialog = () => {
-    this.setState({ dialogOpen: false, message: null });
+    this.setState({ dialogOpen: false });
   };
 
   handleCloseEdit = () => {
-    this.setState({ action: null, isEditing: false, message: null });
+    this.setState({ action: null, isEditing: false });
   };
 
-  handleSubmitTask = (keepCompleted) => {
+  handleSubmitTask = () => {
     const task = this.state.editedTask;
     const { id } = this.props.task;
 
@@ -224,16 +220,15 @@ class TeamTasksListItem extends React.Component {
       show_in_browser_extension: this.state.showInBrowserExtension,
       required: this.state.required,
       json_options: task.jsonoptions,
-      json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
-      keep_completed_tasks: keepCompleted,
+      options_diff: task.diff,
     };
 
     const onSuccess = () => {
       this.handleCloseEdit();
       this.setState({ editedTask: null });
     };
-
+    // FIXME Update to RelayModern mutation
     Relay.Store.commitUpdate(
       new UpdateTeamTaskMutation({
         team: this.props.team,
@@ -255,7 +250,7 @@ class TeamTasksListItem extends React.Component {
     const onSuccess = () => {
       this.handleCloseEdit();
     };
-
+    // FIXME Update to RelayModern mutation
     Relay.Store.commitUpdate(
       new UpdateTeamTaskMutation({
         team: this.props.team,
@@ -291,9 +286,7 @@ class TeamTasksListItem extends React.Component {
   };
 
   render() {
-    const { task, team } = this.props;
-    const projects = team.projects ? team.projects.edges : null;
-    const selectedProjects = task ? task.project_ids : [];
+    const { task } = this.props;
 
     const icon = {
       free_text: <ShortTextIcon />,
@@ -332,8 +325,6 @@ class TeamTasksListItem extends React.Component {
             <TeamTaskContainer task={task} team={this.props.team}>
               {teamTask => (
                 <TeamTaskConfirmDialog
-                  projects={projects}
-                  selectedProjects={selectedProjects}
                   editedTask={this.state.editedTask}
                   editLabelOrDescription={this.state.editLabelOrDescription}
                   task={teamTask}
@@ -341,7 +332,6 @@ class TeamTasksListItem extends React.Component {
                   action={this.state.action}
                   handleClose={this.handleCloseDialog}
                   handleConfirm={this.handleConfirmDialog}
-                  message={this.state.message}
                 />
               )}
             </TeamTaskContainer> : null }
@@ -349,13 +339,10 @@ class TeamTasksListItem extends React.Component {
             <TeamTaskContainer task={task} team={this.props.team}>
               {teamTask => (
                 <EditTaskDialog
-                  message={this.state.message}
                   taskType={teamTask.type}
                   onDismiss={this.handleCloseEdit}
                   onSubmit={this.handleEdit}
-                  projects={projects}
                   task={teamTask}
-                  isTeamTask
                 />
               )}
             </TeamTaskContainer> : null }
@@ -375,25 +362,14 @@ TeamTasksListItem.propTypes = {
     show_in_browser_extension: PropTypes.bool,
     type: PropTypes.string.isRequired,
     json_options: PropTypes.string,
-    json_project_ids: PropTypes.string,
     json_schema: PropTypes.string,
     tasks_count: PropTypes.number,
   }).isRequired,
   tasks: PropTypes.array.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    projects: PropTypes.shape({
-      edges: PropTypes.arrayOf((
-        PropTypes.shape({
-          node: PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            dbid: PropTypes.number.isRequired,
-          }),
-        })
-      )),
-    }),
   }).isRequired,
   about: PropTypes.object.isRequired,
 };
 
-export default (TeamTasksListItem);
+export default withSetFlashMessage(TeamTasksListItem);

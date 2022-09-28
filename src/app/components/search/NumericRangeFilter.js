@@ -14,8 +14,8 @@ import { checkBlue } from '../../styles/js/shared';
 const messages = defineMessages({
   linkedItems: {
     id: 'numericRangeFilter.linkedItems',
-    defaultMessage: 'Number of similar medias is between',
-    description: 'Filter option that refers to number of similar medias',
+    defaultMessage: 'Number of matched media is between',
+    description: 'Filter option that refers to number of matched medias',
   },
   suggestedItems: {
     id: 'numericRangeFilter.suggestedItems',

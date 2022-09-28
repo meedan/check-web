@@ -57,7 +57,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               label={
                 <FormattedMessage
                   id="feed.feed"
-                  defaultMessage="Feed"
+                  defaultMessage="Fact-checks"
                   description="Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
                 />
               }

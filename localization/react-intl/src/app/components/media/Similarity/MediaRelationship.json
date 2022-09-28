@@ -22,7 +22,7 @@
   },
   {
     "id": "mediaItem.detach",
-    "defaultMessage": "Detach"
+    "defaultMessage": "Un-match media"
   },
   {
     "id": "detachDialog.dialogdetachedToListTitle",
