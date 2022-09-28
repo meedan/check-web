@@ -23,7 +23,7 @@ const MediaClaim = ({ projectMedia }) => {
   // If the item we are viewing is being suggested to a main item, show the claim for the main item. Otherwise show the claim associated with this item
   const claimDescription = projectMedia.suggested_main_item ? projectMedia.suggested_main_item?.claim_description : projectMedia.claim_description;
 
-  // override to compensate for fast onBlur stateless component
+  // Override to compensate for fast onBlur stateless component
   const textElement = document.querySelector('#media-claim__description');
   if (textElement && claimDescription && textElement.value !== claimDescription.description) {
     textElement.value = claimDescription.description;
@@ -172,7 +172,7 @@ const MediaClaim = ({ projectMedia }) => {
               onBlur={(e) => { handleBlur(e.target.value); }}
               variant="outlined"
               inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
-              rows={3}
+              rows={1}
               rowsMax={Infinity}
               disabled={!hasPermission || readOnly}
               multiline
@@ -181,7 +181,7 @@ const MediaClaim = ({ projectMedia }) => {
           )}
         </FormattedMessage>
       </Box>
-      <Box id="hello">
+      <Box>
         <MediaContext
           projectMedia={projectMedia}
           claimDescription={claimDescription}

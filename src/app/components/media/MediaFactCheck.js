@@ -216,8 +216,10 @@ const MediaFactCheck = ({ projectMedia }) => {
         value={url}
         onBlur={(newValue) => {
           let newUrl = newValue;
-          if (!/^https?:\/\//.test(newValue)) {
+          if (!/^https?:\/\//.test(newValue) && newValue && newValue.length > 0) {
             newUrl = `https://${newValue}`;
+            // eslint-disable-next-line no-console
+            console.log('newUrl', newUrl);
           }
           setUrl(newUrl);
           handleBlur('url', newUrl);
@@ -226,7 +228,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasPermission={hasPermission}
         disabled={readOnly || published}
         rows={1}
-        key={`url-${claimDescription}`}
+        key={`url-${claimDescription}-${url}`}
       />
 
       { projectMedia.team.smooch_bot ?

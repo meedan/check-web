@@ -140,7 +140,7 @@ const MediaContext = ({
               onBlur={(e) => { handleBlur(e.target.value); }}
               variant="outlined"
               inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
-              rows={3}
+              rows={1}
               rowsMax={Infinity}
               disabled={!hasPermission || readOnly}
               multiline
