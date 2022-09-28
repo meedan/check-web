@@ -187,7 +187,6 @@ const MediaFactCheck = ({ projectMedia }) => {
           setTitle(newValue);
           handleBlur('title', newValue);
         }}
-        required
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
@@ -204,10 +203,10 @@ const MediaFactCheck = ({ projectMedia }) => {
           setSummary(newValue);
           handleBlur('summary', newValue);
         }}
-        required
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
+        rows={1}
         key={`summary-${claimDescription}-${title.length}-${url.length}`}
       />
 
