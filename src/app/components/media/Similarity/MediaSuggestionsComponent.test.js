@@ -1,6 +1,6 @@
 import React from 'react';
-import { MediaSuggestionsComponentTest } from './MediaSuggestionsComponent';
 import { shallow } from 'enzyme';
+import { MediaSuggestionsComponentTest } from './MediaSuggestionsComponent';
 
 describe('<MediaSuggestionsComponent />', () => {
   const team = {
@@ -8,7 +8,7 @@ describe('<MediaSuggestionsComponent />', () => {
     name: 'new-team',
     slug: 'new-team',
     permissions: JSON.stringify({}),
-    smooch_bot: {id: 'id'},
+    smooch_bot: { id: 'id' },
   };
 
   const media = {
@@ -21,17 +21,17 @@ describe('<MediaSuggestionsComponent />', () => {
   const mainItem = {
     dbid: 80,
     demand: 0,
-    id: "UHJvamVjdE1lZGlhLzgw\n",
-    report_type: "claim",
-    suggested_similar_relationships: { edges:[]}
-  }
+    id: 'UHJvamVjdE1lZGlhLzgw\n',
+    report_type: 'claim',
+    suggested_similar_relationships: { edges: [] },
+  };
 
-  const empty_relationships = []
+  const empty_relationships = [];
 
   const relationships = [
-    {id: "1", target_id: 1, target: {created_at: '', last_seen:''}},
-    {id: "2", target_id: 2, target: {created_at: '', last_seen:''}},
-  ]
+    { id: '1', target_id: 1, target: { created_at: '', last_seen: '' } },
+    { id: '2', target_id: 2, target: { created_at: '', last_seen: '' } },
+  ];
 
   it('should not render suggested media action buttons if media has no suggested media', () => {
     const wrapper = shallow(<MediaSuggestionsComponentTest
@@ -39,7 +39,7 @@ describe('<MediaSuggestionsComponent />', () => {
       media={media}
       relationships={empty_relationships}
       mainItem={mainItem}
-      setFlashMessage={() =>{}}
+      setFlashMessage={() => {}}
     />);
     expect(wrapper.find('#similarity-media-item__accept-relationship')).toHaveLength(0);
     expect(wrapper.find('#similarity-media-item__reject-relationship')).toHaveLength(0);
@@ -52,7 +52,7 @@ describe('<MediaSuggestionsComponent />', () => {
       media={media}
       relationships={relationships}
       mainItem={mainItem}
-      setFlashMessage={() =>{}}
+      setFlashMessage={() => {}}
     />);
     expect(wrapper.find('#similarity-media-item__accept-relationship')).toHaveLength(1);
     expect(wrapper.find('#similarity-media-item__reject-relationship')).toHaveLength(1);

@@ -143,7 +143,7 @@ const ReportDesignerComponent = (props) => {
 
     const images = {};
     fields.options.forEach((option, i) => {
-      const { image } = data?.options[i] || {image: null}; // File, String or null
+      const { image } = data?.options[i] || { image: null }; // File, String or null
       if (!image || image?.preview) {
         // image is a File? The mutation's fields.image must be "" and its
         // props.image must be the File.
