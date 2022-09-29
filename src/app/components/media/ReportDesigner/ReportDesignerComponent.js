@@ -54,8 +54,8 @@ const ReportDesignerComponent = (props) => {
   const classes = useStyles();
   const { media, media: { team } } = props;
 
-  const savedReportData = props.media.dynamic_annotation_report_design || { data: {} };
-  const initialLanguage = savedReportData.data.default_language || team.get_language || 'en';
+  const savedReportData = props.media?.dynamic_annotation_report_design || { data: {} };
+  const initialLanguage = savedReportData.data?.default_language || team.get_language || 'en';
   const [currentLanguage, setCurrentLanguage] = React.useState(initialLanguage);
   const [data, setData] = React.useState(propsToData(props, currentLanguage));
   const [pending, setPending] = React.useState(false);
@@ -143,8 +143,8 @@ const ReportDesignerComponent = (props) => {
 
     const images = {};
     fields.options.forEach((option, i) => {
-      const { image } = data.options[i]; // File, String or null
-      if (!image || image.preview) {
+      const { image } = data?.options[i] || {image: null}; // File, String or null
+      if (!image || image?.preview) {
         // image is a File? The mutation's fields.image must be "" and its
         // props.image must be the File.
         //
@@ -152,7 +152,7 @@ const ReportDesignerComponent = (props) => {
         // props.image must be null.
         fields.options[i].image = '';
       }
-      if (image && image.preview) {
+      if (image && image?.preview) {
         images[i] = image;
       }
     });
