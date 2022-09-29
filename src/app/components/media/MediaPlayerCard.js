@@ -41,10 +41,10 @@ const MediaPlayerCard = props => (
 );
 
 MediaPlayerCard.propTypes = {
-  contentWarning: PropTypes.bool.isRequired,
-  warningCreator: PropTypes.string.isRequired,
-  warningCategory: PropTypes.string.isRequired,
-  coverImage: PropTypes.string.isRequired,
+  contentWarning: PropTypes.bool,
+  warningCreator: PropTypes.string,
+  warningCategory: PropTypes.string,
+  coverImage: PropTypes.string,
   filePath: PropTypes.string.isRequired,
   playbackRate: PropTypes.number,
   setPlayerState: PropTypes.func,
@@ -58,6 +58,10 @@ MediaPlayerCard.propTypes = {
 };
 
 MediaPlayerCard.defaultProps = {
+  contentWarning: false,
+  warningCreator: '',
+  warningCategory: '',
+  coverImage: '',
   playbackRate: 1,
   setPlayerState: () => {},
   onPlayerReady: () => {},
