@@ -99,12 +99,12 @@ const MediaSuggestionsComponent = ({
   const classes = useStyles();
   const params = new URLSearchParams(window.location.search);
   // sort suggestions by the larger (more recent) of `last_seen` vs `created_at`, descending
-  const sortedRelationships = relationships.sort((a, b) => Math.max(+b.target.created_at, +b.target.last_seen) - Math.max(+a.target.created_at, +a.target.last_seen));
+  const sortedRelationships = relationships.sort((a, b) => Math.max(+b.target?.created_at, +b.target?.last_seen) - Math.max(+a.target?.created_at, +a.target?.last_seen));
   const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}${window.location.search}`;
   // reviewId is set when navigating from a suggested media so we find the index to display the right suggestion
   const getReviewId = () => {
     const reviewId = params.get('reviewId');
-    const firstSuggestionId = relationships[0] ? relationships[0].target_id : null;
+    const firstSuggestionId = relationships[0] ? relationships[0]?.target_id : null;
     return reviewId ? parseInt(reviewId, 10) : firstSuggestionId;
   };
 
@@ -118,7 +118,7 @@ const MediaSuggestionsComponent = ({
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
   const relationship = sortedRelationships[index];
-  const projectMedia = relationship ? { dbid: relationship.target_id, id: relationship.target.id } : null;
+  const projectMedia = relationship ? { dbid: relationship.target_id, id: relationship.target?.id } : null;
   const itemUrl = projectMedia ? window.location.pathname.replace(/[0-9]+\/similar-media$/, projectMedia.dbid) : '';
   const total = sortedRelationships.length;
   const hasNext = (index + 1 < total);
@@ -172,7 +172,7 @@ const MediaSuggestionsComponent = ({
       variables: {
         input: {
           project_media_to_be_replaced_id: mainItem.id,
-          new_project_media_id: relationship.target.id,
+          new_project_media_id: relationship.target?.id,
         },
       },
       onCompleted: ({ error }) => {
@@ -543,6 +543,7 @@ const MediaSuggestionsComponent = ({
                 <Typography>
                   <FormattedMessage
                     id="mediaSuggestionsComponent.noSuggestions"
+                    data-testid="media-suggestions__no-suggestions-mensage"
                     defaultMessage="There is no suggested media."
                   />
                 </Typography>
@@ -578,4 +579,6 @@ MediaSuggestionsComponent.propTypes = {
   }).isRequired,
 };
 
+// eslint-disable-next-line
+export { MediaSuggestionsComponent as MediaSuggestionsComponentTest };
 export default withSetFlashMessage(MediaSuggestionsComponent);
