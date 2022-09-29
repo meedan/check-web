@@ -5,10 +5,13 @@ import AspectRatio from '../layout/AspectRatio';
 
 const MediaPreview = ({ media }) => {
   let preview = null;
-  if (media.url && media.domain === 'youtube.com') {
+  if (
+    media.type === 'UploadedVideo' ||
+    media.type === 'UploadedAudio' ||
+    (media.url && media.domain === 'youtube.com')) {
     preview = (
       <MediaPlayerCard
-        filePath={media.url}
+        filePath={media.file_path || media.url}
       />
     );
   } else if (media.picture) {
@@ -26,10 +29,13 @@ const MediaPreview = ({ media }) => {
   );
 };
 
+export { MediaPreview };
 export default createFragmentContainer(MediaPreview, graphql`
   fragment MediaPreview_media on Media {
+    type
     domain
     picture
     url
+    file_path
   }
 `);
