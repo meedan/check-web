@@ -31,7 +31,7 @@ const RequestCards = ({ request, mediaDbid }) => {
   const isParentRequest = request.media.dbid === mediaDbid;
   const classes = useStyles();
 
-  let requestsCount = request.similar_requests?.edges.length;
+  let requestsCount = request.requests_count;
   if (isAllMedias || isParentRequest) { requestsCount += 1; }
 
   const whatsappIcon = (
@@ -149,6 +149,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
             content
             subscriptions_count
             subscribed
+            requests_count
             last_called_webhook_at
             feed {
               name
@@ -157,7 +158,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
             media {
               dbid
             }
-            similar_requests(first: 50, media_id: $mediaId) {
+            similar_requests(first: 100, media_id: $mediaId) {
               edges {
                 node {
                   dbid

@@ -61,7 +61,7 @@ const FeedRequestedMedia = ({ request }) => {
                 id="feedRequestedMedia.numberOfMedias"
                 defaultMessage="{mediasCount, plural, one {# media} other {# medias}}"
                 description="Header of medias list. Example: 3 medias"
-                values={{ mediasCount: request.medias?.edges.length }}
+                values={{ mediasCount: request.medias_count }}
               />
             </strong>
           </Box>
@@ -109,7 +109,8 @@ const FeedRequestedMedia = ({ request }) => {
 export default createFragmentContainer(FeedRequestedMedia, graphql`
   fragment FeedRequestedMedia_request on Request {
     dbid
-    medias(first: 50) {
+    medias_count
+    medias(first: 100) {
       edges {
         node {
           dbid
