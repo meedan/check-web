@@ -46,5 +46,9 @@
   {
     "id": "similarityComponent.minimumRequests",
     "defaultMessage": "Minimum number of requests"
+  },
+  {
+    "id": "similarityComponent.languageForSimilarity",
+    "defaultMessage": "Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
   }
 ]
