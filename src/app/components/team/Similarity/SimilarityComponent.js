@@ -456,6 +456,21 @@ const SimilarityComponent = ({
                     />
                   </Box>
                 </Box>
+                <Box mb={4}>
+                  <TextField
+                    label={
+                      <FormattedMessage
+                        id="similarityComponent.languageForSimilarity"
+                        defaultMessage="Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
+                      />
+                    }
+                    variant="outlined"
+                    size="small"
+                    value={settings.language_for_similarity}
+                    onChange={(e) => { handleSettingsChange('language_for_similarity', e.target.value); }}
+                    fullWidth
+                  />
+                </Box>
               </CardContent>
             </Card>
           </React.Fragment>
