@@ -80,6 +80,30 @@ const FeedRequestsTable = ({
 
   const classes = useStyles();
 
+  const mediaType = requestType => ({
+    text: (
+      <FormattedMessage
+        id="feedRequestsTable.mediaTypeText"
+        defaultMessage="Text"
+        description="Label for feed request media type"
+      />
+    ),
+    image: (
+      <FormattedMessage
+        id="feedRequestsTable.mediaTypeImage"
+        defaultMessage="Image"
+        description="Label for feed request media type"
+      />
+    ),
+    video: (
+      <FormattedMessage
+        id="feedRequestsTable.mediaTypeVideo"
+        defaultMessage="Video"
+        description="Label for feed request media type"
+      />
+    ),
+  }[requestType] || '-');
+
   const toggleSortType = () => {
     onChangeSortType(sortType === 'desc' ? 'asc' : 'desc');
   };
@@ -136,6 +160,15 @@ const FeedRequestsTable = ({
                   />
                 </TableSort>
               </TableCell>
+              <TableCell>
+                <TableSort field="media_type">
+                  <FormattedMessage
+                    id="feedRequestsTable.mediaType"
+                    defaultMessage="Media type"
+                    description="Header label for media type column, in which are shown the type of the media associated with the request"
+                  />
+                </TableSort>
+              </TableCell>
               <TableCell align="left">
                 <TableSort field="requests">
                   <FormattedMessage
@@ -174,10 +207,15 @@ const FeedRequestsTable = ({
           </TableHead>
           <TableBody>
             { feed?.requests?.edges.map((r) => {
-              const title = r.node.media?.quote || r.node.media?.metadata?.title || r.node.content || '';
+              let requestTitle = '';
+              if (r.node.request_type === 'text') {
+                requestTitle = r.node.media?.quote || r.node.media?.metadata?.title;
+              } else {
+                requestTitle = r.node.title;
+              }
 
               // This means a request for the latest fact-checks
-              if (title === '.') {
+              if (r.node.request_type === 'text' && r.node.content === '.') {
                 return null;
               }
 
@@ -189,8 +227,8 @@ const FeedRequestsTable = ({
                 >
                   <TitleCell
                     projectMedia={{
-                      title: title.toString(),
-                      description: r.node.content.trim() === title.trim() ? '' : r.node.content,
+                      title: requestTitle,
+                      description: '',
                       picture: r.node.media?.picture,
                     }}
                   />
@@ -202,6 +240,7 @@ const FeedRequestsTable = ({
                       day="2-digit"
                     />
                   </TableCell>
+                  <TableCell align="left">{mediaType(r.node.request_type)}</TableCell>
                   <TableCell align="left">{r.node.requests_count}</TableCell>
                   <TableCell align="left">{r.node.subscriptions_count}</TableCell>
                   <TableCell align="left">
@@ -265,9 +304,11 @@ const FeedRequestsTableQuery = ({
                       medias_count
                       subscriptions_count
                       fact_checked_by
+                      title
+                      request_type
                       media {
-                        quote
                         metadata
+                        quote
                         picture
                       }
                     }

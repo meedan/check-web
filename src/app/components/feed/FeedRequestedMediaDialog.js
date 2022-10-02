@@ -73,9 +73,19 @@ const FeedRequestedMediaDialog = ({
           <div className={classes.column}>
             <ImportButton onClick={onImport} />
             <MediaCard
+              title={`${request.request_type}-${request.feed.name}-${media.dbid}`}
               details={[
                 <MediaTypeDisplayName mediaType={media.type} />,
-                intl.formatDate(request.last_submitted_at, { year: 'numeric', month: 'short', day: '2-digit' }),
+                (
+                  <FormattedMessage
+                    id="feedRequestedMediaDialog.lastSubmitted"
+                    defaultMessage="Last submitted {date}"
+                    description="Shows the last time a media was submitted (on feed request media card)"
+                    values={{
+                      date: intl.formatDate(request.last_submitted_at, { year: 'numeric', month: 'short', day: '2-digit' }),
+                    }}
+                  />
+                ),
               ]}
               media={media}
             />

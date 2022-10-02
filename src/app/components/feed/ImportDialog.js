@@ -59,6 +59,7 @@ const ImportDialog = ({
   teams,
   currentTeam,
   mediaIds,
+  importedTitlePrefix,
   setFlashMessage,
 }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -89,6 +90,7 @@ const ImportDialog = ({
         media_id: mediaDbid,
         team_id: selectedTeamDbid,
         set_claim_description: claimDescription,
+        set_title: `${importedTitlePrefix}${mediaDbid}`,
       };
 
       submitImport(input, onCompleted, onError);
@@ -186,7 +188,7 @@ const ImportDialog = ({
 
 const ImportDialogWithFlashMessage = withSetFlashMessage(ImportDialog);
 
-const ImportDialogQuery = ({ mediaIds }) => (
+const ImportDialogQuery = ({ mediaIds, importedTitlePrefix }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
@@ -206,7 +208,7 @@ const ImportDialogQuery = ({ mediaIds }) => (
     `}
     render={({ error, props }) => {
       if (!error && props) {
-        return (<ImportDialogWithFlashMessage teams={props.me.teams} currentTeam={props.me.current_team_id} mediaIds={mediaIds} />);
+        return (<ImportDialogWithFlashMessage teams={props.me.teams} currentTeam={props.me.current_team_id} mediaIds={mediaIds} importedTitlePrefix={importedTitlePrefix} />);
       }
       // TODO: We need a better error handling in the future, standardized with other components
       return null;
