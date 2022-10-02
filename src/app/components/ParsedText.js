@@ -11,6 +11,11 @@ const StyledEmojiOnly = styled.span`
   font-size: ${units(4)};
 `;
 
+const Styled = styled.span`
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+`;
+
 const marked = (text, truncateFileUrls) => {
   let parsedText = text;
 
@@ -97,7 +102,7 @@ const ParsedText = (props) => {
 
   // Linkify the result.
   const linkified =
-    <Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{breakified}</Linkify>;
+    <Styled><Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{breakified}</Linkify></Styled>;
 
   // Block or not.
   return props.block ? <div>{linkified}</div> : linkified;

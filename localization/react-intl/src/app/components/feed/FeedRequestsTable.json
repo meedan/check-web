@@ -1,5 +1,20 @@
 [
   {
+    "id": "feedRequestsTable.mediaTypeText",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "feedRequestsTable.mediaTypeImage",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Image"
+  },
+  {
+    "id": "feedRequestsTable.mediaTypeVideo",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Video"
+  },
+  {
     "id": "feedRequestsTable.media",
     "description": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text",
     "defaultMessage": "Media"
@@ -8,6 +23,11 @@
     "id": "feedRequestsTable.lastSubmitted",
     "description": "Header label for date column, in which are shown timestamps of last time a media was sent",
     "defaultMessage": "Last submitted"
+  },
+  {
+    "id": "feedRequestsTable.mediaType",
+    "description": "Header label for media type column, in which are shown the type of the media associated with the request",
+    "defaultMessage": "Media type"
   },
   {
     "id": "feedRequestsTable.requests",

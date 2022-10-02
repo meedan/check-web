@@ -65,7 +65,7 @@ const FeedRequestedMedia = ({ request }) => {
               />
             </strong>
           </Box>
-          <ImportDialog mediaIds={selectedMediaIds} />
+          <ImportDialog mediaIds={selectedMediaIds} importedTitlePrefix={`${request.request_type}-${request.feed.name}-`} />
         </Box>
         { request.medias?.edges.map((m, index) => (
           <Box key={m.node.dbid} display="flex" alignItems="center">
@@ -76,6 +76,7 @@ const FeedRequestedMedia = ({ request }) => {
             />
             { /* FIXME: Find the optimal way of passing props to MediaCardCondensed for the sake of reusability  */ }
             <MediaCardCondensed
+              title={`${request.request_type}-${request.feed.name}-${m.node.dbid}`}
               details={[
                 <MediaTypeDisplayName mediaType={m.node.type} />,
                 (<FormattedMessage
@@ -109,7 +110,12 @@ const FeedRequestedMedia = ({ request }) => {
 export default createFragmentContainer(FeedRequestedMedia, graphql`
   fragment FeedRequestedMedia_request on Request {
     dbid
+    request_type
     medias_count
+    last_submitted_at
+    feed {
+      name
+    }
     medias(first: 100) {
       edges {
         node {
@@ -119,6 +125,5 @@ export default createFragmentContainer(FeedRequestedMedia, graphql`
         }
       }
     }
-    last_submitted_at
   }
 `);

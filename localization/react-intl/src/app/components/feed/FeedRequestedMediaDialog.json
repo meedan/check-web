@@ -3,5 +3,10 @@
     "id": "feedRequestedMediaDialog.title",
     "description": "Dialog title for importing medias and requests",
     "defaultMessage": "Import medias and requests"
+  },
+  {
+    "id": "feedRequestedMediaDialog.lastSubmitted",
+    "description": "Shows the last time a media was submitted (on feed request media card)",
+    "defaultMessage": "Last submitted {date}"
   }
 ]

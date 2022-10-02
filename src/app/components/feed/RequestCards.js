@@ -30,9 +30,7 @@ const RequestCards = ({ request, mediaDbid }) => {
   const isAllMedias = !mediaDbid;
   const isParentRequest = request.media.dbid === mediaDbid;
   const classes = useStyles();
-
-  let requestsCount = request.requests_count;
-  if (isAllMedias || isParentRequest) { requestsCount += 1; }
+  const requestsCount = request.requests_count;
 
   const whatsappIcon = (
     <WhatsAppIcon
@@ -79,7 +77,7 @@ const RequestCards = ({ request, mediaDbid }) => {
                 id="feedRequestedMedia.requestsForThisMedia"
                 defaultMessage="{requestsCount, plural, one {# request for this media} other {# requests for this media}}"
                 description="Header of requests list. Example: 3 requests for this media"
-                values={{ requestsCount }}
+                values={{ requestsCount: request.similar_requests?.edges.length || 1 }}
               />
             )
           }
@@ -89,7 +87,9 @@ const RequestCards = ({ request, mediaDbid }) => {
         <RequestCard
           icon={whatsappIcon}
           text={request.content}
+          fileUrl={request.media?.file_path}
           details={[
+            `request-${request.dbid}`,
             (<FormattedDate
               value={request.last_submitted_at}
               year="numeric"
@@ -113,7 +113,9 @@ const RequestCards = ({ request, mediaDbid }) => {
           key={r.node.dbid}
           icon={whatsappIcon}
           text={r.node.content}
+          fileUrl={r.node.media?.file_path}
           details={[
+            `request-${r.node.dbid}`,
             (<FormattedDate
               value={r.node.last_submitted_at}
               year="numeric"
@@ -146,6 +148,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
       query={graphql`
         query RequestCardsQuery($requestId: ID!, $mediaId: Int!) {
           request(id: $requestId) {
+            dbid
             content
             subscriptions_count
             subscribed
@@ -157,6 +160,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
             last_submitted_at
             media {
               dbid
+              file_path
             }
             similar_requests(first: 100, media_id: $mediaId) {
               edges {
@@ -166,6 +170,9 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
                   subscribed
                   last_submitted_at
                   last_called_webhook_at
+                  media {
+                    file_path
+                  }
                 }
               }
             }
