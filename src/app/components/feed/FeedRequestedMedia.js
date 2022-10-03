@@ -76,7 +76,7 @@ const FeedRequestedMedia = ({ request }) => {
             />
             { /* FIXME: Find the optimal way of passing props to MediaCardCondensed for the sake of reusability  */ }
             <MediaCardCondensed
-              title={`${request.request_type}-${request.feed.name}-${m.node.dbid}`}
+              title={`${request.request_type}-${request.feed.name.replace(' ', '-')}-${m.node.dbid}`}
               details={[
                 <MediaTypeDisplayName mediaType={m.node.type} />,
                 (<FormattedMessage
