@@ -55,6 +55,9 @@ const useStyles = makeStyles({
     padding: '3px 10px',
     whiteSpace: 'nowrap',
   },
+  tableHeadCell: {
+    whiteSpace: 'nowrap',
+  },
 });
 
 const FeedRequestsTable = ({
@@ -144,14 +147,14 @@ const FeedRequestsTable = ({
         <Table stickyHeader size="small">
           <TableHead>
             <TableRow>
-              <TableCell>
+              <TableCell className={classes.tableHeadCell}>
                 <FormattedMessage
                   id="feedRequestsTable.media"
                   defaultMessage="Media"
                   description="Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
                 />
               </TableCell>
-              <TableCell>
+              <TableCell className={classes.tableHeadCell}>
                 <TableSort field="last_submitted">
                   <FormattedMessage
                     id="feedRequestsTable.lastSubmitted"
@@ -160,7 +163,7 @@ const FeedRequestsTable = ({
                   />
                 </TableSort>
               </TableCell>
-              <TableCell>
+              <TableCell className={classes.tableHeadCell}>
                 <TableSort field="media_type">
                   <FormattedMessage
                     id="feedRequestsTable.mediaType"
@@ -169,7 +172,7 @@ const FeedRequestsTable = ({
                   />
                 </TableSort>
               </TableCell>
-              <TableCell align="left">
+              <TableCell align="left" className={classes.tableHeadCell}>
                 <TableSort field="requests">
                   <FormattedMessage
                     id="feedRequestsTable.requests"
@@ -178,7 +181,7 @@ const FeedRequestsTable = ({
                   />
                 </TableSort>
               </TableCell>
-              <TableCell align="left">
+              <TableCell align="left" className={classes.tableHeadCell}>
                 <TableSort field="subscriptions">
                   <FormattedMessage
                     id="feedRequestsTable.subscriptions"
@@ -187,14 +190,14 @@ const FeedRequestsTable = ({
                   />
                 </TableSort>
               </TableCell>
-              <TableCell align="left">
+              <TableCell align="left" className={classes.tableHeadCell}>
                 <FormattedMessage
                   id="feedRequestsTable.factCheckBy"
                   defaultMessage="Fact-check by"
                   description="Header label for fact-check by column"
                 />
               </TableCell>
-              <TableCell align="left">
+              <TableCell align="left" className={classes.tableHeadCell}>
                 <TableSort field="medias">
                   <FormattedMessage
                     id="feedRequestsTable.matchedMedia"
