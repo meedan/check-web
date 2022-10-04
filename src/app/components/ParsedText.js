@@ -14,6 +14,7 @@ const StyledEmojiOnly = styled.span`
 const Styled = styled.span`
   overflow-wrap: break-word;
   word-wrap: break-word;
+  line-height: ${units(2.5)};
 `;
 
 const marked = (text, truncateFileUrls, fileUrlName) => {
