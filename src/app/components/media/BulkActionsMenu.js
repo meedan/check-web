@@ -9,10 +9,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import Divider from '@material-ui/core/Divider';
 import BulkActionsMove from './BulkActionsMove';
 import BulkActionsAssign from './BulkActionsAssign';
 import BulkActionsStatus from './BulkActionsStatus';
 import BulkActionsTag from './BulkActionsTag';
+import BulkActionsRemoveTag from './BulkActionsRemoveTag';
 
 const BulkActionsMenu = ({
   excludeProjectDbids,
@@ -30,6 +32,7 @@ const BulkActionsMenu = ({
   };
   const handleMenuMove = () => setMode('move');
   const handleMenuTag = () => setMode('tag');
+  const handleMenuRemoveTag = () => setMode('untag');
   const handleMenuAssign = () => setMode('assign');
   const handleMenuChangeStatus = () => setMode('status');
 
@@ -50,13 +53,22 @@ const BulkActionsMenu = ({
             description="Menu option for bulk moving selected items into a folder"
           />
         </MenuItem>
-        <MenuItem className="bulk-actions-menu__tag" onClick={handleMenuTag}>
+        <Divider />
+        <MenuItem className="bulk-actions-menu__add-tag" onClick={handleMenuTag}>
           <FormattedMessage
-            id="bulkActionsMenu.tag"
-            defaultMessage="Tag"
+            id="bulkActionsMenu.addTag"
+            defaultMessage="Add tag"
             description="Menu option for bulk tagging selected items"
           />
         </MenuItem>
+        <MenuItem className="bulk-actions-menu__remove-tag" onClick={handleMenuRemoveTag}>
+          <FormattedMessage
+            id="bulkActionsMenu.removeTag"
+            defaultMessage="Remove tag"
+            description="Menu option for bulk untagging selected items"
+          />
+        </MenuItem>
+        <Divider />
         <MenuItem className="bulk-actions-menu__assign" onClick={handleMenuAssign}>
           <FormattedMessage
             id="bulkActionsMenu.assign"
@@ -86,6 +98,13 @@ const BulkActionsMenu = ({
       <BulkActionsTag
         onDismiss={handleClose}
         selectedMedia={selectedProjectMedia.map(pm => pm.dbid)}
+        team={team}
+      />
+    ),
+    untag: (
+      <BulkActionsRemoveTag
+        onDismiss={handleClose}
+        selectedMedia={selectedMedia}
         team={team}
       />
     ),
@@ -168,6 +187,7 @@ const BulkActionsMenuRenderer = (parentProps) => {
             ...BulkActionsMove_team
             ...BulkActionsStatus_team
             ...BulkActionsTag_team
+            ...BulkActionsRemoveTag_team
           }
         }
       `}

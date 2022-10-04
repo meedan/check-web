@@ -1,0 +1,34 @@
+[
+  {
+    "id": "BulkActionsRemoveTag.success",
+    "description": "Success message for bulk untagging items",
+    "defaultMessage": "TODO: add success message."
+  },
+  {
+    "id": "tagMenu.search",
+    "defaultMessage": "Search…"
+  },
+  {
+    "id": "tagMenu.notFound",
+    "defaultMessage": "No tags found"
+  },
+  {
+    "id": "bulkActionsTag.submitLabel",
+    "description": "Button for commiting the action of untagging of a number of items in bulk",
+    "defaultMessage": "{numItems, plural, one {Remove 1 tag} other {Remove # tags}}"
+  },
+  {
+    "id": "BulkActionsRemoveTag.dialogTitle",
+    "description": "Title of dialog warning after bulk untagging items",
+    "defaultMessage": "Tags will be removed from eligible items"
+  },
+  {
+    "id": "BulkActionsRemoveTag.dialogBody",
+    "description": "Body of dialog warning that bulk untagging items",
+    "defaultMessage": "The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?"
+  },
+  {
+    "id": "BulkActionsRemoveTag.proceedLabel",
+    "defaultMessage": "Remove tags"
+  }
+]
