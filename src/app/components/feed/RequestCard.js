@@ -20,6 +20,7 @@ const RequestCard = ({
   details,
   text,
   fileUrl,
+  mediaTitle,
 }) => {
   const classes = useStyles();
 
@@ -33,7 +34,7 @@ const RequestCard = ({
     <div className={[classes.root, 'request-card'].join(' ')}>
       <BulletSeparator icon={icon} details={details} />
       <div>
-        <ParsedText text={preParsedText} />
+        <ParsedText text={preParsedText} fileUrlName={mediaTitle} />
       </div>
     </div>
   );
@@ -44,10 +45,12 @@ RequestCard.propTypes = {
   text: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
   fileUrl: PropTypes.string,
+  mediaTitle: PropTypes.string,
 };
 
 RequestCard.defaultProps = {
   fileUrl: null,
+  mediaTitle: null,
 };
 
 export default RequestCard;

@@ -14,16 +14,17 @@ const StyledEmojiOnly = styled.span`
 const Styled = styled.span`
   overflow-wrap: break-word;
   word-wrap: break-word;
+  line-height: ${units(2.5)};
 `;
 
-const marked = (text, truncateFileUrls) => {
+const marked = (text, truncateFileUrls, fileUrlName) => {
   let parsedText = text;
 
   // If a URL ends on a filename, display only the filename, not the full URL
 
   if (truncateFileUrls) {
     parsedText = reactStringReplace(text, /(https?:\/\/[^ ]+\/[^/.]+\.[^ ]+)/gm, (match, i) => (
-      <a href={match} target="_blank" key={i} rel="noopener noreferrer">{match.replace(/.*\//, '')}</a>
+      <a href={match} target="_blank" key={i} rel="noopener noreferrer">{fileUrlName || match.replace(/.*\//, '')}</a>
     ));
   }
 
@@ -90,7 +91,7 @@ const ParsedText = (props) => {
 
   // Add the line breaks elements.
   const breakified = e2.map((line, key) => {
-    const parsedLine = line.map(part => (typeof part === 'string' ? marked(part, props.truncateFileUrls) : part));
+    const parsedLine = line.map(part => (typeof part === 'string' ? marked(part, props.truncateFileUrls, props.fileUrlName) : part));
     return (
       // eslint-disable-next-line react/no-array-index-key
       <React.Fragment key={key}>
@@ -115,12 +116,14 @@ ParsedText.propTypes = {
   ]),
   block: PropTypes.bool,
   truncateFileUrls: PropTypes.bool,
+  fileUrlName: PropTypes.string,
 };
 
 ParsedText.defaultProps = {
   text: '',
   block: false,
   truncateFileUrls: true,
+  fileUrlName: null,
 };
 
 export default ParsedText;

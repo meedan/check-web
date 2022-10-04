@@ -88,6 +88,7 @@ const RequestCards = ({ request, mediaDbid }) => {
           icon={whatsappIcon}
           text={request.content}
           fileUrl={request.media?.file_path}
+          mediaTitle={request.title}
           details={[
             `request-${request.dbid}`,
             (<FormattedDate
@@ -114,6 +115,7 @@ const RequestCards = ({ request, mediaDbid }) => {
           icon={whatsappIcon}
           text={r.node.content}
           fileUrl={r.node.media?.file_path}
+          mediaTitle={r.node.title}
           details={[
             `request-${r.node.dbid}`,
             (<FormattedDate
@@ -154,6 +156,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
             subscribed
             requests_count
             last_called_webhook_at
+            title
             feed {
               name
             }
@@ -167,6 +170,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
                 node {
                   dbid
                   content
+                  title
                   subscribed
                   last_submitted_at
                   last_called_webhook_at

@@ -73,7 +73,7 @@ const FeedRequestedMediaDialog = ({
           <div className={classes.column}>
             <ImportButton onClick={onImport} />
             <MediaCard
-              title={`${request.request_type}-${request.feed.name}-${media.dbid}`}
+              title={`${request.request_type}-${request.feed.name.replace(' ', '-')}-${media.dbid}`}
               details={[
                 <MediaTypeDisplayName mediaType={media.type} />,
                 (
