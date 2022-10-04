@@ -11,6 +11,7 @@ const StyledTwoColumnLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 100vw;
 
   .media__column {
     background-color: ${backgroundMain};
