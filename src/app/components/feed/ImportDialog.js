@@ -16,7 +16,9 @@ import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutli
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import { getErrorMessageForRelayModernProblem, safelyParseJSON } from '../../helpers';
+
+import CheckError from '../../CheckError';
 
 const submitImport = (input, onCompleted, onError) => {
   commitMutation(Relay.Store, {
@@ -79,8 +81,13 @@ const ImportDialog = ({
     };
 
     const onError = (error) => {
-      const errorMessage = getErrorMessageForRelayModernProblem(error) || <GenericUnknownErrorMessage />;
-      setFlashMessage(errorMessage, 'error');
+      const json = safelyParseJSON(error.source);
+      if (json.errors[0].code === CheckError.codes.DUPLICATED) {
+        setFlashMessage(CheckError.messages.DUPLICATED);
+      } else {
+        const errorMessage = getErrorMessageForRelayModernProblem(error) || <GenericUnknownErrorMessage />;
+        setFlashMessage(errorMessage);
+      }
       setDialogOpen(false);
     };
 
