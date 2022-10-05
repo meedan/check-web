@@ -63,7 +63,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               }
               value="feed"
             /> : null }
-          { feed.published ?
+          { (feed.published && feedTeam.shared) ?
             <Tab
               label={
                 <FormattedMessage
