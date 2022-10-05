@@ -32,8 +32,12 @@ const BulkActionsRemoveTag = ({
     const onSuccess = () => {
       setFlashMessage((
         <FormattedMessage
-          id="BulkActionsRemoveTag.success"
-          defaultMessage="TODO: add success message."
+          id="bulkActionsRemoveTag.success"
+          defaultMessage="{tags} tags removed from {itemsCount} items"
+          values={{
+            tags: selectedValueText,
+            itemsCount: selectedMedia.length,
+          }}
           description="Success message for bulk untagging items"
         />
       ), 'success');
@@ -72,7 +76,7 @@ const BulkActionsRemoveTag = ({
 
   const handleSelectChange = (value) => {
     setSelectedValue(value);
-    const tagTexts = team.tag_texts.edges.filter(tt => value.indexOf(tt.node.dbid.toString()) !== -1).map(tt => tt.node.text);
+    const tagTexts = team.tag_texts.edges.filter(tt => value.indexOf(tt.node.dbid.toString()) !== -1).map(tt => `"${tt.node.text}"`);
     const lastTag = tagTexts.pop();
     let displayTags = '';
     if (tagTexts.length) {
@@ -91,7 +95,7 @@ const BulkActionsRemoveTag = ({
 
   return (
     <React.Fragment>
-      <FormattedMessage id="tagMenu.search" defaultMessage="Search…">
+      <FormattedMessage id="tagMenu.search" defaultMessage="Search…" description="Search in tags list">
         {placeholder => (
           <MultiSelector
             allowSearch
@@ -106,11 +110,12 @@ const BulkActionsRemoveTag = ({
               <FormattedMessage
                 id="tagMenu.notFound"
                 defaultMessage="No tags found"
+                description="Text to display if no tags found"
               />
             }
             submitLabel={
               <FormattedMessage
-                id="bulkActionsTag.submitLabel"
+                id="bulkActionsRemoveTag.submitLabel"
                 defaultMessage="{numItems, plural, one {Remove 1 tag} other {Remove # tags}}"
                 values={{ numItems: selectedValue.length }}
                 description="Button for commiting the action of untagging of a number of items in bulk"
@@ -123,7 +128,7 @@ const BulkActionsRemoveTag = ({
         open={showDialog}
         title={
           <FormattedMessage
-            id="BulkActionsRemoveTag.dialogTitle"
+            id="bulkActionsRemoveTag.dialogTitle"
             defaultMessage="Tags will be removed from eligible items"
             description="Title of dialog warning after bulk untagging items"
           />
@@ -131,7 +136,7 @@ const BulkActionsRemoveTag = ({
         body={
           <Typography variant="body1" component="p" paragraph>
             <FormattedHTMLMessage
-              id="BulkActionsRemoveTag.dialogBody"
+              id="bulkActionsRemoveTag.dialogBody"
               defaultMessage="The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?"
               values={{
                 tags: selectedValueText,
@@ -144,8 +149,9 @@ const BulkActionsRemoveTag = ({
         onCancel={handleOnCancel}
         proceedLabel={
           <FormattedMessage
-            id="BulkActionsRemoveTag.proceedLabel"
+            id="bulkActionsRemoveTag.proceedLabel"
             defaultMessage="Remove tags"
+            description="Button to confirm remove tags"
           />
         }
       />
