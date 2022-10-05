@@ -18,7 +18,7 @@ const BulkActionsTag = ({
   team,
 }) => {
   const [searchValue, setSearchValue] = React.useState(null);
-  const selected = [];
+  const [selectedValue, setSelectedValue] = React.useState([]);
   const options = team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
 
   const onFailure = (error) => {
@@ -55,6 +55,8 @@ const BulkActionsTag = ({
       onError: onFailure,
     });
   };
+
+  const handleSelectChange = value => setSelectedValue(value);
 
   const actionButton = searchValue && !options.includes(searchValue) ? (
     <Button
@@ -142,9 +144,10 @@ const BulkActionsTag = ({
           actionButton={actionButton}
           cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
           inputPlaceholder={placeholder}
-          selected={selected}
+          selected={[]}
           onDismiss={onDismiss}
           onSearchChange={value => setSearchValue(value)}
+          onSelectChange={handleSelectChange}
           options={options}
           onSubmit={handleSubmit}
           notFoundLabel={
@@ -156,8 +159,8 @@ const BulkActionsTag = ({
           submitLabel={
             <FormattedMessage
               id="bulkActionsTag.submitLabel"
-              defaultMessage="{numItems, plural, one {Tag 1 item} other {Tag # items}}"
-              values={{ numItems: selectedMedia.length }}
+              defaultMessage="{numItems, plural, one {Add 1 tag} other {Add # tags}}"
+              values={{ numItems: selectedValue.length }}
               description="Button for commiting the action of tagging of a number of items in bulk"
             />
           }
