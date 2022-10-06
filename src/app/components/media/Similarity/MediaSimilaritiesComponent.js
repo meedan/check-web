@@ -53,7 +53,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
   };
 
   return (
-    <div className="media__more-medias">
+    <div className="media__more-medias" id="matched-media">
       { selectedProjectMediaDbid ?
         <Dialog
           open={selectedProjectMediaDbid}

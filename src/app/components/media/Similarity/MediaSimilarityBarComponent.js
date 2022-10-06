@@ -2,16 +2,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import { Link } from 'react-router';
+import { Box } from '@material-ui/core';
 import {
-  opaqueBlack54,
-  checkBlue,
   brandSecondary,
   backgroundMain,
 } from '../../../styles/js/shared';
 import MediaSimilarityBarAdd from './MediaSimilarityBarAdd';
+import CounterButton from '../../cds/buttons-checkboxes-chips/CounterButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,36 +25,8 @@ const useStyles = makeStyles(theme => ({
   },
   spacing: {
     display: 'flex',
-    gap: `${theme.spacing(3)}px`,
+    gap: `${theme.spacing(2)}px`,
     alignItems: 'center',
-  },
-  link: {
-    display: 'block',
-    fontWeight: 'bold',
-    fontSize: 14,
-    color: opaqueBlack54,
-    textAlign: 'center',
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'none',
-    },
-  },
-  similarMediaCount: {
-    fontSize: 18,
-  },
-  suggestionsCount: {
-    fontSize: 18,
-  },
-  similarityBackButton: {
-    padding: 0,
-  },
-  similarityMessage: {
-    padding: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    fontWeight: 'bold',
-    fontSize: 14,
-    color: 'black',
-    textAlign: 'left',
   },
 }));
 
@@ -80,32 +51,28 @@ const MediaSimilarityBarComponent = ({
   return (
     <Box className={classes.root} display="flex" justifyContent="space-between" alignItems="center">
       <Box className={classes.spacing}>
-        <Link
-          className={classes.link}
-          to={`${linkPrefix[0]}/similar-media${window.location.search}`}
-          style={confirmedSimilarCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
-        >
-          <FormattedMessage
-            id="mediaSimilarityBarComponent.similarMedia"
-            defaultMessage="Matched media"
-            description="Plural. Heading for the number of matched media"
-          />
-          <br />
-          <span className={classes.similarMediaCount}>{confirmedSimilarCount}</span>
-        </Link>
-        <Link
-          className={classes.link}
-          to={`${linkPrefix[0]}/similar-media${window.location.search}`}
-          style={suggestionsCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
-        >
-          <FormattedMessage
-            id="mediaSimilarityBarComponent.suggestedMatches"
-            defaultMessage="Suggested media"
-            description="Plural. Heading for the number of suggested media"
-          />
-          <br />
-          <span className={classes.suggestionsCount}>{suggestionsCount}</span>
-        </Link>
+        <CounterButton
+          count={confirmedSimilarCount}
+          label={
+            <FormattedMessage
+              id="mediaSimilarityBarComponent.similarMedia"
+              defaultMessage="Matched media"
+              description="Plural. Heading for the number of matched media"
+            />
+          }
+          onClick={() => { document.getElementById('matched-media').scrollIntoView({ behavior: 'smooth' }); }}
+        />
+        <CounterButton
+          count={suggestionsCount}
+          label={
+            <FormattedMessage
+              id="mediaSimilarityBarComponent.suggestedMatches"
+              defaultMessage="Suggested media"
+              description="Plural. Heading for the number of suggested media"
+            />
+          }
+          onClick={() => { browserHistory.push(`${linkPrefix[0]}/similar-media${window.location.search}`); }}
+        />
       </Box>
       <Box>
         { canAdd ?

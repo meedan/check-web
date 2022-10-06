@@ -11,6 +11,7 @@ import MediaDetail from './MediaDetail';
 import MediaSidebar from './MediaSidebar';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
+import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
 import MediaSuggestions from './Similarity/MediaSuggestions';
 import CheckContext from '../../CheckContext';
 
@@ -279,7 +280,7 @@ class MediaComponent extends Component {
                     playing, start, end, gaps, seekTo, scrubTo,
                   }}
                 />
-                {this.props.extras}
+                <MediaSimilaritiesComponent projectMedia={media} />
               </Column>
               <Column className="media__annotations-column" overflow="hidden">
                 <MediaComponentRightPanel
