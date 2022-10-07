@@ -10,6 +10,11 @@
     "defaultMessage": "Image"
   },
   {
+    "id": "feedRequestsTable.mediaTypeAudio",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Audio"
+  },
+  {
     "id": "feedRequestsTable.mediaTypeVideo",
     "description": "Label for feed request media type",
     "defaultMessage": "Video"
