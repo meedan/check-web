@@ -16,7 +16,7 @@ import {
   TableSortLabel,
 } from '@material-ui/core';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -98,6 +98,13 @@ const FeedRequestsTable = ({
         description="Label for feed request media type"
       />
     ),
+    audio: (
+      <FormattedMessage
+        id="feedRequestsTable.mediaTypeAudio"
+        defaultMessage="Audio"
+        description="Label for feed request media type"
+      />
+    ),
     video: (
       <FormattedMessage
         id="feedRequestsTable.mediaTypeVideo"
@@ -128,6 +135,15 @@ const FeedRequestsTable = ({
     </TableSortLabel>
   );
 
+  const TableContainerWithScrollbars = withStyles({
+    root: {
+      overflow: 'auto',
+      display: 'block',
+      maxWidth: 'calc(100vw - 256px)',
+      maxHeight: 'calc(100vh - 232px)',
+    },
+  })(TableContainer);
+
   return (
     <React.Fragment>
       <Box mb={2}>
@@ -143,7 +159,7 @@ const FeedRequestsTable = ({
           <NextIcon />
         </IconButton>
       </Box>
-      <TableContainer>
+      <TableContainerWithScrollbars>
         <Table stickyHeader size="small">
           <TableHead>
             <TableRow>
@@ -265,7 +281,7 @@ const FeedRequestsTable = ({
             }) }
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainerWithScrollbars>
     </React.Fragment>
   );
 };
