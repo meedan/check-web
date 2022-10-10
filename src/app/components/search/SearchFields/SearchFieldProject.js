@@ -51,9 +51,9 @@ const SearchFieldProject = ({
         if (!error && props) {
           // Folder options are grouped by collection
           // FIXME: Simplify the code below and improve its performance
-          const projects = props.team.projects.edges.slice().map(p => p.node).sort((a, b) => a.title.localeCompare(b.title));
+          const projects = props.team.projects?.edges?.slice().map(p => p.node).sort((a, b) => a.title.localeCompare(b.title));
           let projectOptions = [];
-          props.team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
+          props.team.project_groups?.edges?.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
             const subProjects = [];
             projects.filter(p => p.project_group_id === pg.dbid).forEach((p) => {
               subProjects.push({ label: p.title, value: `${p.dbid}` });
