@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -53,7 +52,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
   };
 
   return (
-    <div className="media__more-medias">
+    <div className="media__more-medias" id="matched-media">
       { selectedProjectMediaDbid ?
         <Dialog
           open={selectedProjectMediaDbid}

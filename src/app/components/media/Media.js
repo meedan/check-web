@@ -8,6 +8,7 @@ import MediaComponent from './MediaComponent';
 import MediasLoading from './MediasLoading';
 import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
 import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
+import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent'; // eslint-disable-line no-unused-vars
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
@@ -32,6 +33,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         creator_name
         user_id
         channel
+        ${MediaSimilaritiesComponent.getFragment('projectMedia')}
         suggested_similar_relationships(first: 10000) {
           edges {
             node {

@@ -19,6 +19,8 @@ export const backgroundMain = '#F7F8FD';
 // Check Design System Colors
 export const textPrimary = '#1F1F1F';
 export const textSecondary = '#656565';
+export const brandMainCDS = '#567BFF';
+export const brandSecondaryCDS = '#3B5CD0';
 
 // Material blacks
 // TODO make these opaque!
@@ -135,6 +137,23 @@ export const MuiTheme = {
           primary: textPrimary,
         },
       },
+    },
+  },
+  typography: {
+    overline: {
+      textTransform: 'uppercase',
+      letterSpacing: '1px',
+      lineHeight: '266%',
+      fontSize: '12px',
+      fontWeight: 400,
+    },
+    // The "Title" variant in Check Design System
+    h2: {
+      letterSpacing: '0.15px',
+      lineHeight: '150%',
+      fontSize: '16px',
+      fontWeight: 500,
+      color: 'currentcolor',
     },
   },
   overrides: { // Override of all material UI components. Information at https://material-ui.com/api/{component}

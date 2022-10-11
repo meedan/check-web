@@ -14,7 +14,8 @@ shared_examples 'similarity' do
     # import similarity item
     wait_for_selector("//span[contains(text(), 'Import matched media into this item')]", :xpath).click
     add_related_item('Claim 0')
-    wait_for_selector("//span[contains(text(), '2 medias')]", :xpath)
+    wait_for_selector('.media__relationship')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('Matched media')).to be(true)
     @driver.navigate.to project_url
@@ -30,7 +31,8 @@ shared_examples 'similarity' do
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
     expect(@driver.page_source.include?('Matched media')).to be(true)
     # list similar items
-    wait_for_selector("//span[contains(text(), '3 medias')]", :xpath).click
+    wait_for_selector('.media__relationship')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 2
     wait_for_selector_none('.media-tab__metadata"')
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
     expect(@driver.page_source.include?('Matched media')).to be(true)
@@ -134,8 +136,7 @@ shared_examples 'similarity' do
       wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
       wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
       wait_for_selector('.media__more-medias')
-      expect(@driver.page_source.include?('Matched media')).to be(true)
-      expect(@driver.page_source.include?('2 medias')).to be(true)
+      expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     end
   end
 
@@ -184,8 +185,7 @@ shared_examples 'similarity' do
       wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
       wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
       wait_for_selector('.media__more-medias')
-      expect(@driver.page_source.include?('Matched media')).to be(true)
-      expect(@driver.page_source.include?('2 medias')).to be(true)
+      expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     end
   end
 
@@ -211,8 +211,7 @@ shared_examples 'similarity' do
       wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
       wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
       wait_for_selector('.media__more-medias')
-      expect(@driver.page_source.include?('Matched media')).to be(true)
-      expect(@driver.page_source.include?('2 medias')).to be(true)
+      expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     end
   end
 
@@ -235,8 +234,7 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
     wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
     wait_for_selector('.media__more-medias')
-    expect(@driver.page_source.include?('Matched media')).to be(true)
-    expect(@driver.page_source.include?('2 medias')).to be(true)
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
   it 'should extract text from a image', bin9: true do
