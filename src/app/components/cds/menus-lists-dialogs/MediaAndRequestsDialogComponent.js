@@ -1,0 +1,102 @@
+import React from 'react';
+import { browserHistory } from 'react-router';
+import { FormattedMessage } from 'react-intl';
+import { makeStyles } from '@material-ui/core/styles';
+import {
+  Box,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Grid,
+  IconButton,
+  Paper,
+  Typography,
+} from '@material-ui/core';
+import {
+  HighlightOff as CloseIcon,
+} from '@material-ui/icons';
+import MediaExpanded from '../../media/MediaExpanded';
+import MediaRequests from '../../media/MediaRequests';
+import MainButton from '../buttons-checkboxes-chips/MainButton';
+
+const useStyles = makeStyles(theme => ({
+  dialog: {
+    borderRadius: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+  },
+  innerBox: {
+    borderRadius: theme.spacing(1),
+  },
+  dialogTitle: {
+    paddingTop: 0,
+  },
+}));
+
+const MediaAndRequestsDialogComponent = ({ projectMediaId, onClick, onClose }) => {
+  const classes = useStyles();
+
+  return (
+    <Dialog
+      open={projectMediaId}
+      onClick={onClick}
+      onClose={onClose}
+      maxWidth="md"
+      fullWidth
+      PaperProps={{ classes: { root: classes.dialog } }}
+    >
+      <DialogTitle>
+        <Typography variant="h1">
+          <FormattedMessage
+            id="cds.mediaAndRequestsDialog.matchedMedia"
+            defaultMessage="Matched media"
+            description="Plural. Heading for the number of matched media"
+          />
+        </Typography>
+        <IconButton className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent className={classes.dialogTitle} dividers py={0}>
+        <Grid container>
+          <Grid item xs={6}>
+            <Box my={1}>
+              <MainButton
+                variant="outlined"
+                label={
+                  <FormattedMessage
+                    id="cds.mediaAndRequestsDialog.openMedia"
+                    defaultMessage="Open media"
+                    description="Singular. Label for a button that opens the media item the user is currently viewing."
+                  />
+                }
+                onClick={() => {
+                  const url = window.location.pathname.replace(/\/media\/\d+/, `/media/${projectMediaId}`);
+                  browserHistory.push(url);
+                }}
+              />
+            </Box>
+            <Paper
+              elevation={0}
+              variant="outlined"
+              className={classes.innerBox}
+            >
+              <MediaExpanded
+                media={{ dbid: projectMediaId }}
+                hideActions
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <MediaRequests media={{ dbid: projectMediaId }} />
+          </Grid>
+        </Grid>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default MediaAndRequestsDialogComponent;

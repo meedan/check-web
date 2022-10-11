@@ -27,6 +27,19 @@ const useStyles = makeStyles(theme => ({
     gap: `${theme.spacing(2)}px`,
     alignItems: 'center',
   },
+  animation: {
+    animation: '$highlight 1000ms',
+  },
+  '@keyframes highlight': {
+    '0%': {
+      opacity: 0.7,
+      height: `calc(100% + ${theme.spacing(5)}px)`,
+    },
+    '100%': {
+      opacity: 0,
+      height: `calc(100% + ${theme.spacing(5)}px)`,
+    },
+  },
 }));
 
 const MediaSimilarityBarComponent = ({
@@ -59,7 +72,14 @@ const MediaSimilarityBarComponent = ({
               description="Plural. Heading for the number of matched media"
             />
           }
-          onClick={() => { document.getElementById('matched-media').scrollIntoView({ behavior: 'smooth' }); }}
+          onClick={() => {
+            document.getElementById('matched-media').scrollIntoView({ behavior: 'smooth' });
+            const overlayElement = document.getElementById('matched-overlay');
+            overlayElement.classList.remove(classes.animation);
+            // eslint-disable-next-line
+            overlayElement.offsetWidth; // accessing this getter triggers a reflow of the elment to reset animation
+            overlayElement.classList.add(classes.animation);
+          }}
         />
         <CounterButton
           count={suggestionsCount}

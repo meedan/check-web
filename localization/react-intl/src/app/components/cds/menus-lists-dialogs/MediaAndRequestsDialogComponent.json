@@ -1,0 +1,12 @@
+[
+  {
+    "id": "cds.mediaAndRequestsDialog.matchedMedia",
+    "description": "Plural. Heading for the number of matched media",
+    "defaultMessage": "Matched media"
+  },
+  {
+    "id": "cds.mediaAndRequestsDialog.openMedia",
+    "description": "Singular. Label for a button that opens the media item the user is currently viewing.",
+    "defaultMessage": "Open media"
+  }
+]

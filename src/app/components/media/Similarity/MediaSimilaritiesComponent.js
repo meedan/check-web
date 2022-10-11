@@ -2,19 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import MediaRelationship from './MediaRelationship';
-import MediaExpanded from '../MediaExpanded';
+import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaItem from './MediaItem'; // eslint-disable-line no-unused-vars
 import { can } from '../../Can';
+import { brandLightCDS } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(2),
+  container: {
+    position: 'relative',
+  },
+  overlay: {
+    position: 'absolute',
+    top: -theme.spacing(2.5),
+    left: -theme.spacing(2),
+    opacity: 0,
+    background: brandLightCDS,
+    height: 0,
+    width: `calc(100% + ${theme.spacing(4)}px)`,
+    display: 'block',
+    borderRadius: theme.spacing(2),
   },
 }));
 
@@ -32,7 +42,7 @@ const swallowClick = (ev) => {
 
 let listener = null;
 
-const MediaSimilaritiesComponent = ({ projectMedia }) => {
+const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
   const classes = useStyles();
   const [selectedProjectMediaDbid, setSelectedProjectMediaDbid] = React.useState(null);
 
@@ -51,22 +61,20 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
     setSelectedProjectMediaDbid(newSelectedProjectMediaDbid);
   };
 
+  // TODO: hoist the "Pin as item" and "Un-match media" functionality from MediaRelationship into THIS component. Pass the relevant functionality (as seen in handleSwitch and handleDelete functions in MediaRelationship) into MediaRelationship and MediaAndRequestsDialogComponent, since both now need it.
+  // OR (and this is almost certainly better) change how selecting media works so that the modal is instantiated from inside MediaRelationship rather than this weird state variable on MediaSimilaritiesComponent!
   return (
     <div className="media__more-medias" id="matched-media">
       { selectedProjectMediaDbid ?
-        <Dialog
-          open={selectedProjectMediaDbid}
+        <MediaAndRequestsDialogComponent
+          projectMediaId={selectedProjectMediaDbid}
           onClick={swallowClick}
           onClose={() => setSelectedProjectMediaDbid(null)}
           maxWidth="sm"
           fullWidth
-        >
-          <DialogContent classes={classes}>
-            <MediaExpanded media={{ dbid: selectedProjectMediaDbid }} hideActions />
-          </DialogContent>
-        </Dialog>
+        />
         : null }
-      <Box my={2}>
+      <Box my={4}>
         <Typography variant="body">
           <strong>
             <FormattedMessage
@@ -77,21 +85,24 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
           </strong>
         </Typography>
       </Box>
-      { sort(projectMedia.confirmed_similar_relationships.edges).map(relationship => (
-        <MediaRelationship
-          key={relationship.node.id}
-          relationship={relationship.node}
-          canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
-          canDelete={can(projectMedia.permissions, 'destroy ProjectMedia')}
-          isSelected={relationship.node.target_id === selectedProjectMediaDbid}
-          handleSelectItem={handleSelectItem}
-          mainProjectMediaId={projectMedia.id}
-          mainProjectMediaDemand={projectMedia.demand}
-          mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
-          relationshipSourceId={relationship.node.source_id}
-          relationshipTargetId={relationship.node.target_id}
-        />
-      ))}
+      <div className={classes.container}>
+        <span className={`${classes.overlay} ${isHighlighting ? classes.animation : ''}`} id="matched-overlay" />
+        { sort(projectMedia.confirmed_similar_relationships.edges).map(relationship => (
+          <MediaRelationship
+            key={relationship.node.id}
+            relationship={relationship.node}
+            canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
+            canDelete={can(projectMedia.permissions, 'destroy ProjectMedia')}
+            isSelected={relationship.node.target_id === selectedProjectMediaDbid}
+            handleSelectItem={handleSelectItem}
+            mainProjectMediaId={projectMedia.id}
+            mainProjectMediaDemand={projectMedia.demand}
+            mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
+            relationshipSourceId={relationship.node.source_id}
+            relationshipTargetId={relationship.node.target_id}
+          />
+        ))}
+      </div>
     </div>
   );
 };
