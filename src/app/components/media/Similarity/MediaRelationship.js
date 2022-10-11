@@ -284,7 +284,7 @@ const MediaRelationship = ({
 }) => {
   const classes = useStyles();
   return (
-    <div className={classes.outer} id="media__relationship">
+    <div className={`${classes.outer} media__relationship`}>
       <MediaItem
         key={relationship.id}
         mainProjectMedia={{
@@ -298,7 +298,7 @@ const MediaRelationship = ({
         onSelect={handleSelectItem}
         modalOnly
       />
-      <div className={classes.inner} id="media__relationship__menu">
+      <div className={`${classes.inner} media__relationship__menu`}>
         <RelationshipMenu
           canDelete={canDelete}
           canSwitch={canSwitch}
