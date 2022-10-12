@@ -68,14 +68,14 @@ class MediaRequestsComponent extends Component {
               id="mediaRequests.allRequests"
               defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
               values={{
-                count: this.props.media.demand,
+                count: media.demand,
               }}
             /> :
             <FormattedMessage
               id="mediaRequests.thisRequests"
               defaultMessage="{count, plural, one {# request} other {# requests}}"
               values={{
-                count: this.props.media.requests_count,
+                count: media.requests_count,
               }}
             />
           }
@@ -86,7 +86,7 @@ class MediaRequestsComponent extends Component {
           annotations={media.requests.edges}
           annotated={media}
           annotatedType="ProjectMedia"
-          annotationsCount={media.demand}
+          annotationsCount={this.props.all ? media.demand : media.requests_count}
           relay={this.props.relay}
           noActivityMessage={
             <FormattedMessage
