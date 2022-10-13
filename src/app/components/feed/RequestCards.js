@@ -6,7 +6,7 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import { Box, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import RequestCard from './RequestCard';
+import Request from '../cds/requests-annotations/Request';
 import RequestSubscription from './RequestSubscription';
 import MediasLoading from '../media/MediasLoading';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -84,7 +84,7 @@ const RequestCards = ({ request, mediaDbid }) => {
         </div>
       </Box>
       { isAllMedias || isParentRequest ?
-        <RequestCard
+        <Request
           icon={whatsappIcon}
           text={request.content}
           fileUrl={request.media?.file_path}
@@ -110,7 +110,7 @@ const RequestCards = ({ request, mediaDbid }) => {
         : null
       }
       { request.similar_requests?.edges.map(r => (
-        <RequestCard
+        <Request
           key={r.node.dbid}
           icon={whatsappIcon}
           text={r.node.content}

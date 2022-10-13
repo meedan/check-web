@@ -14,10 +14,14 @@ const useStyles = makeStyles(theme => ({
   },
   details: {
     display: 'flex',
+    flexWrap: 'wrap',
     alignItems: 'center',
     color: textSecondary,
+    fontSize: '12px',
+    lineHeight: '24px',
   },
   icon: {
+    height: '24px',
     marginRight: theme.spacing(1),
   },
 }));
@@ -28,17 +32,17 @@ const BulletSeparator = ({
 }) => {
   const classes = useStyles();
   const subtitleDetails = details.filter(d => !!d).map((d, index) => (
-    <Box display="flex" alignItems="center" key={`${d}-${Math.random()}`}>
+    <span key={`${d}-${Math.random()}`}>
       { index > 0 ? <FiberManualRecordIcon className={classes.dot} /> : null }
       {d}
-    </Box>
+    </span>
   ));
 
   return (
     <div>
-      <Box display="flex" alignItems="center" mb={2}>
+      <Box display="flex" alignItems="center" mb={2} className={classes.details}>
         { icon ? <div className={classes.icon}>{icon}</div> : null }
-        <div className={classes.details}>{subtitleDetails}</div>
+        {subtitleDetails}
       </Box>
     </div>
   );

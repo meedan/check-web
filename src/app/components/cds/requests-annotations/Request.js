@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import ParsedText from '../ParsedText';
-import BulletSeparator from '../layout/BulletSeparator';
-import { separationGray } from '../../styles/js/shared';
+import ParsedText from '../../ParsedText';
+import BulletSeparator from '../../layout/BulletSeparator';
+import { separationGray } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const RequestCard = ({
+const Request = ({
   icon,
   details,
   text,
@@ -40,7 +40,7 @@ const RequestCard = ({
   );
 };
 
-RequestCard.propTypes = {
+Request.propTypes = {
   details: PropTypes.array.isRequired,
   text: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
@@ -48,9 +48,9 @@ RequestCard.propTypes = {
   mediaTitle: PropTypes.string,
 };
 
-RequestCard.defaultProps = {
+Request.defaultProps = {
   fileUrl: null,
   mediaTitle: null,
 };
 
-export default RequestCard;
+export default Request;
