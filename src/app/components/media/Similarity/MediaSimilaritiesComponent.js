@@ -77,7 +77,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
           </strong>
         </Typography>
       </Box>
-      { sort(projectMedia.confirmed_similar_relationships.edges).map(relationship => (
+      { sort(projectMedia?.confirmed_similar_relationships?.edges).map(relationship => (
         <MediaRelationship
           key={relationship.node.id}
           relationship={relationship.node}
@@ -88,8 +88,8 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
           mainProjectMediaId={projectMedia.id}
           mainProjectMediaDemand={projectMedia.demand}
           mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
-          relationshipSourceId={relationship.node.source_id}
-          relationshipTargetId={relationship.node.target_id}
+          relationshipSourceId={relationship?.node?.source_id}
+          relationshipTargetId={relationship?.node?.target_id}
         />
       ))}
     </div>
