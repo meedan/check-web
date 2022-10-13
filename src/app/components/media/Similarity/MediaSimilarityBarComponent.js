@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     position: 'sticky',
     top: theme.spacing(-2),
     background: backgroundMain,
-    zIndex: 2,
+    zIndex: 200,
   },
   spacing: {
     display: 'flex',
