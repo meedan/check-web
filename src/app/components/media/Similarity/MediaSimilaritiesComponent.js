@@ -6,7 +6,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import MediaRelationship from './MediaRelationship';
-import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaItem from './MediaItem'; // eslint-disable-line no-unused-vars
 import { can } from '../../Can';
 import { brandLightCDS } from '../../../styles/js/shared';
@@ -35,45 +34,11 @@ function sort(items) {
   return items.slice().sort((a, b) => b.node.target.requests_count - a.node.target.requests_count);
 }
 
-const swallowClick = (ev) => {
-  // Don't close Dialog when clicking on it
-  ev.stopPropagation();
-};
-
-let listener = null;
-
 const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
   const classes = useStyles();
-  const [selectedProjectMediaDbid, setSelectedProjectMediaDbid] = React.useState(null);
 
-  listener = () => {
-    setSelectedProjectMediaDbid(null);
-  };
-
-  React.useEffect(() => {
-    window.addEventListener('click', listener, false);
-    return () => {
-      window.removeEventListener('click', listener, false);
-    };
-  });
-
-  const handleSelectItem = (newSelectedProjectMediaDbid) => {
-    setSelectedProjectMediaDbid(newSelectedProjectMediaDbid);
-  };
-
-  // TODO: hoist the "Pin as item" and "Un-match media" functionality from MediaRelationship into THIS component. Pass the relevant functionality (as seen in handleSwitch and handleDelete functions in MediaRelationship) into MediaRelationship and MediaAndRequestsDialogComponent, since both now need it.
-  // OR (and this is almost certainly better) change how selecting media works so that the modal is instantiated from inside MediaRelationship rather than this weird state variable on MediaSimilaritiesComponent!
   return (
     <div className="media__more-medias" id="matched-media">
-      { selectedProjectMediaDbid ?
-        <MediaAndRequestsDialogComponent
-          projectMediaId={selectedProjectMediaDbid}
-          onClick={swallowClick}
-          onClose={() => setSelectedProjectMediaDbid(null)}
-          maxWidth="sm"
-          fullWidth
-        />
-        : null }
       <Box my={4}>
         <Typography variant="body">
           <strong>
@@ -93,8 +58,6 @@ const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
             relationship={relationship.node}
             canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
             canDelete={can(projectMedia.permissions, 'destroy ProjectMedia')}
-            isSelected={relationship.node.target_id === selectedProjectMediaDbid}
-            handleSelectItem={handleSelectItem}
             mainProjectMediaId={projectMedia.id}
             mainProjectMediaDemand={projectMedia.demand}
             mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}

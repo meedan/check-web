@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -17,6 +16,7 @@ import MediaItem from './MediaItem';
 import SelectProjectDialog from '../SelectProjectDialog';
 import globalStrings from '../../../globalStrings';
 import { withSetFlashMessage } from '../../FlashMessage';
+import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 
 const useStyles = makeStyles(() => ({
   outer: {
@@ -29,10 +29,37 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const commitPinMutation = (id, targetId, sourceId, onCompleted, onError) => {
+  const mutation = graphql`
+    mutation MediaRelationshipUpdateRelationshipMutation($input: UpdateRelationshipInput!) {
+      updateRelationship(input: $input) {
+        relationship {
+          id
+        }
+      }
+    }
+  `;
+
+  commitMutation(Store, {
+    mutation,
+    variables: {
+      input: {
+        id,
+        source_id: targetId,
+        target_id: sourceId,
+      },
+    },
+    onCompleted,
+    onError,
+  });
+};
+
 const RelationshipMenu = ({
   canDelete,
   canSwitch,
   setFlashMessage,
+  isDialogOpen,
+  setIsDialogOpen,
   id,
   sourceId,
   targetId,
@@ -40,7 +67,6 @@ const RelationshipMenu = ({
 }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
@@ -61,47 +87,28 @@ const RelationshipMenu = ({
 
   const handleError = () => {
     // FIXME: Replace with `<GenericUnknownErrorMessage />`;
-    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" />, 'error');
+    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" description="A generic error message" />, 'error');
   };
 
   const handleSwitch = () => {
-    setFlashMessage(<FormattedMessage id="mediaItem.pinning" defaultMessage="Pinning…" />, 'info');
+    setFlashMessage(<FormattedMessage id="mediaItem.pinning" defaultMessage="Pinning…" description="A message that appears while the 'pin' action is resolving on the server" />, 'info');
 
-    const mutation = graphql`
-      mutation MediaRelationshipUpdateRelationshipMutation($input: UpdateRelationshipInput!) {
-        updateRelationship(input: $input) {
-          relationship {
-            id
-          }
-        }
-      }
-    `;
-
-    commitMutation(Store, {
-      mutation,
-      variables: {
-        input: {
-          id,
-          source_id: targetId,
-          target_id: sourceId,
-        },
-      },
-      onCompleted: (response, error) => {
-        if (error) {
-          handleError();
-        } else {
-          setFlashMessage((
-            <FormattedMessage
-              id="mediaItem.doneRedirecting"
-              defaultMessage="Done, redirecting to new main item…"
-            />
-          ), 'success');
-          window.location.assign(`/${teamSlug}/media/${targetId}/similar-media`);
-        }
-      },
-      onError: () => {
+    commitPinMutation(id, targetId, sourceId, (response, error) => {
+      if (error) {
         handleError();
-      },
+      } else {
+        setFlashMessage((
+          <FormattedMessage
+            id="mediaItem.doneRedirecting"
+            defaultMessage="Done, redirecting to new main item…"
+            description="A message that informs the user a 'pin' action is finished and a redirect is about to happen"
+          />
+        ), 'success');
+        window.location.assign(`/${teamSlug}/media/${targetId}/similar-media`);
+      }
+    },
+    () => {
+      handleError();
     });
   };
 
@@ -222,7 +229,7 @@ const RelationshipMenu = ({
               <ListItemText
                 className="similarity-media-item__pin-relationship"
                 primary={
-                  <FormattedMessage id="mediaItem.pinAsMain" defaultMessage="Pin as main" />
+                  <FormattedMessage id="mediaItem.pinAsMain" defaultMessage="Pin as main" description="Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places)." />
                 }
               />
             </MenuItem>
@@ -230,7 +237,7 @@ const RelationshipMenu = ({
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
-                  <FormattedMessage id="mediaItem.detach" defaultMessage="Un-match media" />
+                  <FormattedMessage id="mediaItem.detach" defaultMessage="Un-match media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." />
                 }
               />
             </MenuItem>
@@ -253,6 +260,7 @@ const RelationshipMenu = ({
             description="Dialog title prompting user to select a destination folder for the item"
           />
         }
+        // eslint-disable-next-line @calm/react-intl/missing-attribute
         cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         submitLabel={
           <FormattedMessage
@@ -275,16 +283,61 @@ const MediaRelationship = ({
   relationshipTargetId,
   canSwitch,
   canDelete,
-  handleSelectItem,
-  isSelected,
   mainProjectMediaId,
   mainProjectMediaDemand,
   mainProjectMediaConfirmedSimilarCount,
   setFlashMessage,
 }) => {
+  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const classes = useStyles();
+  const [isSelected, setIsSelected] = React.useState(false);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+
+  const swallowClick = (ev) => {
+    // Don't close Dialog when clicking on it
+    ev.stopPropagation();
+  };
+
+  const handleError = () => {
+    // FIXME: Replace with `<GenericUnknownErrorMessage />`;
+    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" description="A generic error message" />, 'error');
+  };
+
+  const onPin = () => {
+    commitPinMutation(relationship.id, relationshipTargetId, relationshipSourceId, (response, error) => {
+      if (error) {
+        handleError();
+      } else {
+        setFlashMessage((
+          <FormattedMessage
+            id="mediaItem.doneRedirecting"
+            defaultMessage="Done, redirecting to new main item…"
+            description="A message that informs the user a 'pin' action is finished and a redirect is about to happen"
+          />
+        ), 'success');
+        window.location.assign(`/${teamSlug}/media/${relationshipTargetId}/similar-media`);
+      }
+    },
+    () => {
+      handleError();
+    });
+  };
+
   return (
-    <div className={`${classes.outer} media__relationship`}>
+    <div className={`${classes.outer} media__relationship`} >
+      { isSelected ?
+        <MediaAndRequestsDialogComponent
+          projectMediaId={relationship.target_id}
+          onClick={swallowClick}
+          onClose={() => setIsSelected(false)}
+          onPin={onPin}
+          onUnmatch={() => {
+            setIsDialogOpen(true);
+          }}
+          maxWidth="sm"
+          fullWidth
+        />
+        : null }
       <MediaItem
         key={relationship.id}
         mainProjectMedia={{
@@ -294,8 +347,8 @@ const MediaRelationship = ({
         }}
         projectMedia={relationship.target}
         isSelected={isSelected}
+        setIsSelected={setIsSelected}
         showReportStatus={false}
-        onSelect={handleSelectItem}
         modalOnly
       />
       <div className={`${classes.inner} media__relationship__menu`}>
@@ -311,6 +364,8 @@ const MediaRelationship = ({
             confirmedSimilarCount: mainProjectMediaConfirmedSimilarCount,
             demand: mainProjectMediaDemand,
           }}
+          setIsDialogOpen={setIsDialogOpen}
+          isDialogOpen={isDialogOpen}
         />
       </div>
     </div>
@@ -323,8 +378,6 @@ MediaRelationship.propTypes = {
   relationshipTargetId: PropTypes.number.isRequired,
   canSwitch: PropTypes.bool.isRequired,
   canDelete: PropTypes.bool.isRequired,
-  handleSelectItem: PropTypes.func.isRequired,
-  isSelected: PropTypes.bool.isRequired,
   mainProjectMediaId: PropTypes.string.isRequired,
   mainProjectMediaDemand: PropTypes.number.isRequired,
   mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,

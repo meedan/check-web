@@ -12,8 +12,8 @@ import {
 
 const useStyles = makeStyles(theme => ({
   mainButton: {
-    display: 'block',
     padding: `${theme.spacing(0.5)}px ${theme.spacing(1.5)}px`,
+    marginRight: theme.spacing(2),
     borderRadius: theme.spacing(1),
     '&:hover': {
       color: brandSecondaryCDS,
