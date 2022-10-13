@@ -52,7 +52,7 @@ const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
       </Box>
       <div className={classes.container}>
         <span className={`${classes.overlay} ${isHighlighting ? classes.animation : ''}`} id="matched-overlay" />
-        { sort(projectMedia.confirmed_similar_relationships.edges).map(relationship => (
+        { sort(projectMedia.confirmed_similar_relationships?.edges).map(relationship => (
           <MediaRelationship
             key={relationship.node.id}
             relationship={relationship.node}
