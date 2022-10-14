@@ -45,6 +45,11 @@
     "defaultMessage": "Subscriptions"
   },
   {
+    "id": "feedRequestsTable.factChecksSent",
+    "description": "Header label for fact-checks sent column",
+    "defaultMessage": "Fact-checks sent"
+  },
+  {
     "id": "feedRequestsTable.factCheckBy",
     "description": "Header label for fact-check by column",
     "defaultMessage": "Fact-check by"
