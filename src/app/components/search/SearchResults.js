@@ -429,7 +429,7 @@ function SearchResultsComponent({
         <Row className="search__list-header-filter-row">
           <div
             className="project__title"
-            title={title}
+            title={title?.props?.defaultMessage || title}
             style={{
               font: headline,
               color: textSecondary,
