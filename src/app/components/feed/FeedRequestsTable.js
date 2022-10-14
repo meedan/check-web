@@ -207,11 +207,13 @@ const FeedRequestsTable = ({
                 </TableSort>
               </TableCell>
               <TableCell align="left" className={classes.tableHeadCell}>
-                <FormattedMessage
-                  id="feedRequestsTable.factCheckBy"
-                  defaultMessage="Fact-check by"
-                  description="Header label for fact-check by column"
-                />
+                <TableSort field="fact_checked_by">
+                  <FormattedMessage
+                    id="feedRequestsTable.factCheckBy"
+                    defaultMessage="Fact-check by"
+                    description="Header label for fact-check by column"
+                  />
+                </TableSort>
               </TableCell>
               <TableCell align="left" className={classes.tableHeadCell}>
                 <TableSort field="medias">
