@@ -27,7 +27,7 @@
   {
     "id": "projectsComponent.importedReports",
     "description": "Label for a list displayed on the left sidebar.",
-    "defaultMessage": "Imported reports"
+    "defaultMessage": "Imported fact-checks"
   },
   {
     "id": "projectsComponent.suggestedMatches",

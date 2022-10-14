@@ -308,7 +308,7 @@ const ProjectsComponent = ({
               <GetAppIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported reports" description="Label for a list displayed on the left sidebar." />
+              <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported fact-checks" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 

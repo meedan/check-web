@@ -27,7 +27,7 @@
   {
     "id": "mediaSimilarityBarAdd.addSimilarToThis",
     "description": "Menu item for importing (one or more) media matched as similar",
-    "defaultMessage": "Import matched media into this item"
+    "defaultMessage": "Import media into this fact-check"
   },
   {
     "id": "mediaSimilarityBarAdd.exportTooltip",
@@ -37,12 +37,12 @@
   {
     "id": "mediaSimilarityBarAdd.addThisToSimilar",
     "description": "Menu option for exporting media from this item to another",
-    "defaultMessage": "Export all media to another item"
+    "defaultMessage": "Export media to another fact-check"
   },
   {
     "id": "mediaSimilarityBarAdd.addToImportedReport",
-    "description": "Menu option for adding the current media into an imported report",
-    "defaultMessage": "Add to imported report"
+    "description": "Menu option for adding the current media to an imported fact-check",
+    "defaultMessage": "Add to imported fact-check"
   },
   {
     "id": "mediaSimilarityBarAdd.addAsSimilar",

@@ -101,7 +101,7 @@ const BlankMediaButton = ({
           reverse ?
             <FormattedMessage
               id="blankMediaButton.addToImportedReport"
-              defaultMessage="Add to imported report"
+              defaultMessage="Add to imported fact-check"
             /> : null
         }
         team={team}
