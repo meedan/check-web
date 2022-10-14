@@ -19,7 +19,7 @@ export default function ImportedReports({ routeParams }) {
       <Search
         searchUrlPrefix={`/${routeParams.team}/imported-reports`}
         mediaUrlPrefix={`/${routeParams.team}/media`}
-        title={<FormattedMessage id="ImportedReports.title" defaultMessage="Imported reports" />}
+        title={<FormattedMessage id="ImportedReports.title" defaultMessage="Imported fact-checks" />}
         icon={<GetAppIcon />}
         teamSlug={routeParams.team}
         query={query}
