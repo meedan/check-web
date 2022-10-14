@@ -1,10 +1,12 @@
 [
   {
     "id": "mediaSimilarityBarAdd.addSimilarToThisTitle",
+    "description": "Dialog title for importing media from other items.",
     "defaultMessage": "Import matched media from other items"
   },
   {
     "id": "mediaSimilarityBarAdd.addThisToSimilarTitle",
+    "description": "Dialog title for exporting media to other item.",
     "defaultMessage": "Export all media to another item"
   },
   {
@@ -19,30 +21,37 @@
   },
   {
     "id": "mediaSimilarityBarAdd.addSimilar",
+    "description": "Label to the similarity menu that allows importing and exporting media",
     "defaultMessage": "Add similar"
   },
   {
     "id": "mediaSimilarityBarAdd.addSimilarToThis",
+    "description": "Menu item for importing (one or more) media matched as similar",
     "defaultMessage": "Import matched media into this item"
   },
   {
     "id": "mediaSimilarityBarAdd.exportTooltip",
+    "description": "Tooltip message for exporting media menu option",
     "defaultMessage": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
   },
   {
     "id": "mediaSimilarityBarAdd.addThisToSimilar",
+    "description": "Menu option for exporting media from this item to another",
     "defaultMessage": "Export all media to another item"
   },
   {
     "id": "mediaSimilarityBarAdd.addToImportedReport",
+    "description": "Menu option for adding the current media into an imported report",
     "defaultMessage": "Add to imported report"
   },
   {
     "id": "mediaSimilarityBarAdd.addAsSimilar",
+    "description": "Button label to commit action of exporting media",
     "defaultMessage": "Export all media"
   },
   {
     "id": "mediaSimilarityBarAdd.addSimilarItem",
+    "description": "Button label to commit action of importing media from one or more items into the current one",
     "defaultMessage": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
   }
 ]

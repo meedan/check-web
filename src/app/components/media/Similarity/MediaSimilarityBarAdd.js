@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -43,9 +42,21 @@ const MediaSimilarityBarAdd = ({
   let label = '';
   let reverse = false;
   if (action === 'addSimilarToThis') {
-    label = <FormattedMessage id="mediaSimilarityBarAdd.addSimilarToThisTitle" defaultMessage="Import matched media from other items" />;
+    label = (
+      <FormattedMessage
+        id="mediaSimilarityBarAdd.addSimilarToThisTitle"
+        defaultMessage="Import matched media from other items"
+        description="Dialog title for importing media from other items."
+      />
+    );
   } else if (action === 'addThisToSimilar') {
-    label = <FormattedMessage id="mediaSimilarityBarAdd.addThisToSimilarTitle" defaultMessage="Export all media to another item" />;
+    label = (
+      <FormattedMessage
+        id="mediaSimilarityBarAdd.addThisToSimilarTitle"
+        defaultMessage="Export all media to another item"
+        description="Dialog title for exporting media to other item."
+      />
+    );
     reverse = true;
   }
 
@@ -192,6 +203,7 @@ const MediaSimilarityBarAdd = ({
         <FormattedMessage
           id="mediaSimilarityBarAdd.addSimilar"
           defaultMessage="Add similar"
+          description="Label to the similarity menu that allows importing and exporting media"
         />
       </Button>
       <Menu
@@ -209,6 +221,7 @@ const MediaSimilarityBarAdd = ({
               <FormattedMessage
                 id="mediaSimilarityBarAdd.addSimilarToThis"
                 defaultMessage="Import matched media into this item"
+                description="Menu item for importing (one or more) media matched as similar"
               />
             }
           />
@@ -221,6 +234,7 @@ const MediaSimilarityBarAdd = ({
             <FormattedMessage
               id="mediaSimilarityBarAdd.exportTooltip"
               defaultMessage="Media from this item cannot be exported if this item is attached to a main item or if its report is published"
+              description="Tooltip message for exporting media menu option"
             />
           }
         >
@@ -234,6 +248,7 @@ const MediaSimilarityBarAdd = ({
                   <FormattedMessage
                     id="mediaSimilarityBarAdd.addThisToSimilar"
                     defaultMessage="Export all media to another item"
+                    description="Menu option for exporting media from this item to another"
                   />
                 }
               />
@@ -260,6 +275,7 @@ const MediaSimilarityBarAdd = ({
                   <FormattedMessage
                     id="mediaSimilarityBarAdd.addToImportedReport"
                     defaultMessage="Add to imported report"
+                    description="Menu option for adding the current media into an imported report"
                   />
                 }
               />
@@ -275,9 +291,20 @@ const MediaSimilarityBarAdd = ({
         media={{ dbid: projectMediaDbid }}
         isSubmitting={submitting}
         submitButtonLabel={count => (
-          reverse ?
-            <FormattedMessage id="mediaSimilarityBarAdd.addAsSimilar" defaultMessage="Export all media" /> :
-            <FormattedMessage id="mediaSimilarityBarAdd.addSimilarItem" defaultMessage="{count, plural, one {Import all media from one item} other {Import all media from # items}}" values={{ count }} />
+          reverse ? (
+            <FormattedMessage
+              id="mediaSimilarityBarAdd.addAsSimilar"
+              defaultMessage="Export all media"
+              description="Button label to commit action of exporting media"
+            />
+          ) : (
+            <FormattedMessage
+              id="mediaSimilarityBarAdd.addSimilarItem"
+              defaultMessage="{count, plural, one {Import all media from one item} other {Import all media from # items}}"
+              values={{ count }}
+              description="Button label to commit action of importing media from one or more items into the current one"
+            />
+          )
         )}
         multiple={!reverse}
         hideNew
