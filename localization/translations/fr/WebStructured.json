@@ -92,7 +92,7 @@
 		"string": "Terminé"
 	},
 	"ImportedReports.title": {
-		"string": "Rapports importés"
+		"string": "Imported fact-checks"
 	},
 	"ItemHistoryDialog.title": {
 		"string": "Historique de l’élément"
@@ -557,7 +557,7 @@
 		"string": "Ajouter un élément"
 	},
 	"blankMediaButton.addToImportedReport": {
-		"string": "Ajouter au rapport importé"
+		"string": "Add to imported fact-check"
 	},
 	"blankMediaButton.addToReport": {
 		"string": "Ajouter un rapport"
@@ -1695,7 +1695,7 @@
 		"string": "Contenu sonore"
 	},
 	"media.typeBlank": {
-		"string": "Rapport importé"
+		"string": "Imported fact-check"
 	},
 	"media.typeClaim": {
 		"string": "Texte"
@@ -2110,35 +2110,44 @@
 		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Exporter tous les médias"
+		"string": "Exporter tous les médias",
+		"developer_comment": "Button label to commit action of exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Ajouter un élément semblable"
+		"string": "Ajouter un élément semblable",
+		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, one {Importer tous les médias d’un élément} many {Importer tous les médias de # éléments} other {Importer tous les médias de # éléments}}"
+		"string": "{count, plural, one {Importer tous les médias d’un élément} many {Importer tous les médias de # éléments} other {Importer tous les médias de # éléments}}",
+		"developer_comment": "Button label to commit action of importing media from one or more items into the current one"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Importer les médias correspondants dans cet élément"
+		"string": "Import media into this fact-check",
+		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Importer les médias correspondants d’autres éléments"
+		"string": "Importer les médias correspondants d’autres éléments",
+		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "Exporter tous les médias vers un autre élément"
+		"string": "Export media to another fact-check",
+		"developer_comment": "Menu option for exporting media from this item to another"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "Exporter tous les médias vers un autre élément"
+		"string": "Exporter tous les médias vers un autre élément",
+		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "Ajouter au rapport importé"
+		"string": "Add to imported fact-check",
+		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "Impossible d’ajouter l’élément semblable",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
-		"string": "Les médias de cet élément ne peuvent pas être exportés si cet élément est joint à un élément principal ou si son rapport est publié."
+		"string": "Les médias de cet élément ne peuvent pas être exportés si cet élément est joint à un élément principal ou si son rapport est publié.",
+		"developer_comment": "Tooltip message for exporting media menu option"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "L’élément semblable a été ajouté avec succès",
@@ -2514,7 +2523,7 @@
 		"string": "Fil partagé"
 	},
 	"projectHeader.importedReports": {
-		"string": "Rapports importés"
+		"string": "Imported fact-checks"
 	},
 	"projectHeader.suggestedMatches": {
 		"string": "Médias suggérés"
@@ -2602,7 +2611,7 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Rapports importés",
+		"string": "Imported fact-checks",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.invalidMove": {

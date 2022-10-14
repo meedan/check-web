@@ -92,7 +92,7 @@
 		"string": "إتمام"
 	},
 	"ImportedReports.title": {
-		"string": "التقارير المستوردة"
+		"string": "Imported fact-checks"
 	},
 	"ItemHistoryDialog.title": {
 		"string": "تاريخ العنصر"
@@ -557,7 +557,7 @@
 		"string": "إضافة عنصر"
 	},
 	"blankMediaButton.addToImportedReport": {
-		"string": "إضافة إلى التقرير المستورد"
+		"string": "Add to imported fact-check"
 	},
 	"blankMediaButton.addToReport": {
 		"string": "إضافة إلى التقرير"
@@ -1695,7 +1695,7 @@
 		"string": "ملف صوتي"
 	},
 	"media.typeBlank": {
-		"string": "التقرير المستورد"
+		"string": "Imported fact-check"
 	},
 	"media.typeClaim": {
 		"string": "نص"
@@ -2110,35 +2110,44 @@
 		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "تصدير كل المواد الإعلامية"
+		"string": "تصدير كل المواد الإعلامية",
+		"developer_comment": "Button label to commit action of exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "إضافة مشابه"
+		"string": "إضافة مشابه",
+		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, zero {عدم استيراد المواد الإعلامية من أي عنصر} one {استيراد كل المواد الإعلامية من عنصر واحد} two {استيراد كل المواد الإعلامية من عنصرين} few {استيراد كل المواد الإعلامية من # عناصر} many {استيراد كل المواد الإعلامية من # عنصرا} other {استيراد كل المواد الإعلامية من # عنصر}}"
+		"string": "{count, plural, zero {عدم استيراد المواد الإعلامية من أي عنصر} one {استيراد كل المواد الإعلامية من عنصر واحد} two {استيراد كل المواد الإعلامية من عنصرين} few {استيراد كل المواد الإعلامية من # عناصر} many {استيراد كل المواد الإعلامية من # عنصرا} other {استيراد كل المواد الإعلامية من # عنصر}}",
+		"developer_comment": "Button label to commit action of importing media from one or more items into the current one"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Import matched media into this item"
+		"string": "Import media into this fact-check",
+		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import matched media from other items"
+		"string": "Import matched media from other items",
+		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "تصدير كل المواد الإعلامية إلى عنصر آخر"
+		"string": "Export media to another fact-check",
+		"developer_comment": "Menu option for exporting media from this item to another"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "تصدير كل المواد الإعلامية إلى عنصر آخر"
+		"string": "تصدير كل المواد الإعلامية إلى عنصر آخر",
+		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "إضافة إلى التقرير المستورد"
+		"string": "Add to imported fact-check",
+		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "لا يمكن إضافة عنصر مشابه",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
-		"string": "لا يمكن تصدير المواد اﻹعلامية من هذا العنصر إذا كان متعلقا بعنصر رئيس أو كانت تقاريره منشورة."
+		"string": "لا يمكن تصدير المواد اﻹعلامية من هذا العنصر إذا كان متعلقا بعنصر رئيس أو كانت تقاريره منشورة.",
+		"developer_comment": "Tooltip message for exporting media menu option"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "تمت إضافة العنصر المشابه بنجاح",
@@ -2514,7 +2523,7 @@
 		"string": "الموجز الذي تمت مشاركته"
 	},
 	"projectHeader.importedReports": {
-		"string": "التقارير المستوردة"
+		"string": "Imported fact-checks"
 	},
 	"projectHeader.suggestedMatches": {
 		"string": "المواد الإعلامية المقترحة"
@@ -2602,7 +2611,7 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "التقارير المستوردة",
+		"string": "Imported fact-checks",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.invalidMove": {
