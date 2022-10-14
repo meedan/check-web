@@ -282,7 +282,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           <FormattedMessage
             id="mediaFactCheck.confirmButtonLabel"
             defaultMessage="Go back to editing"
-            description="A label on a button that the user can press to go back to the screen where they edit a fact check."
+            description="A label on a button that the user can press to go back to the screen where they edit a fact-check."
           />
         }
         onProceed={() => { setShowDialog(false); }}
