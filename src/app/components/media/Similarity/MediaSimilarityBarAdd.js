@@ -208,7 +208,7 @@ const MediaSimilarityBarAdd = ({
             primary={
               <FormattedMessage
                 id="mediaSimilarityBarAdd.addSimilarToThis"
-                defaultMessage="Import matched media into this item"
+                defaultMessage="Import media into this fact-check"
               />
             }
           />
@@ -233,7 +233,7 @@ const MediaSimilarityBarAdd = ({
                 primary={
                   <FormattedMessage
                     id="mediaSimilarityBarAdd.addThisToSimilar"
-                    defaultMessage="Export all media to another item"
+                    defaultMessage="Export media to another fact-check"
                   />
                 }
               />
@@ -259,7 +259,7 @@ const MediaSimilarityBarAdd = ({
                 primary={
                   <FormattedMessage
                     id="mediaSimilarityBarAdd.addToImportedReport"
-                    defaultMessage="Add to imported report"
+                    defaultMessage="Add media to an imported fact-check"
                   />
                 }
               />
