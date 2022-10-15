@@ -202,7 +202,7 @@ const MediaSimilarityBarAdd = ({
       >
         <FormattedMessage
           id="mediaSimilarityBarAdd.addSimilar"
-          defaultMessage="Add similar"
+          defaultMessage="Manage media"
           description="Label to the similarity menu that allows importing and exporting media"
         />
       </Button>
@@ -217,6 +217,7 @@ const MediaSimilarityBarAdd = ({
             <GetAppIcon />
           </ListItemIcon>
           <ListItemText
+            id="import-fact-check__button"
             primary={
               <FormattedMessage
                 id="mediaSimilarityBarAdd.addSimilarToThis"
@@ -244,6 +245,7 @@ const MediaSimilarityBarAdd = ({
                 <PublishIcon />
               </ListItemIcon>
               <ListItemText
+                id="export-fact-check__button"
                 primary={
                   <FormattedMessage
                     id="mediaSimilarityBarAdd.addThisToSimilar"

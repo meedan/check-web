@@ -22,7 +22,7 @@
   {
     "id": "mediaSimilarityBarAdd.addSimilar",
     "description": "Label to the similarity menu that allows importing and exporting media",
-    "defaultMessage": "Add similar"
+    "defaultMessage": "Manage media"
   },
   {
     "id": "mediaSimilarityBarAdd.addSimilarToThis",

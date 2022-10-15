@@ -10,9 +10,9 @@ shared_examples 'similarity' do
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
     wait_for_selector('#media__claim')
-    wait_for_selector("//span[contains(text(), 'Add similar')]", :xpath).click
+    wait_for_selector("#media-similarity__add-button").click
     # import similarity item
-    wait_for_selector("//span[contains(text(), 'Import matched media into this item')]", :xpath).click
+    wait_for_selector("#import-fact-check__button").click
     add_related_item('Claim 0')
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
@@ -23,8 +23,8 @@ shared_examples 'similarity' do
     wait_for_selector_list('.media__heading').last.click
     wait_for_selector('#media__claim')
     # export similarity item
-    wait_for_selector("//span[contains(text(), 'Add similar')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Export all media to another item')]", :xpath).click
+    wait_for_selector("#media-similarity__add-button").click
+    wait_for_selector("#export-fact-check__button").click
     add_related_item('Claim 2')
     @driver.navigate.refresh
     wait_for_selector('.media-similarity__menu-icon')
