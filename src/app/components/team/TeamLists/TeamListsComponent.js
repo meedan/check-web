@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -182,7 +181,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
           helpUrl="http://help.checkmedia.org/en/articles/4637158-list-settings"
           actionButton={
             <Button variant="contained" color="primary" disabled={saving || !hasUnsavedChanges} onClick={handleConfirmSave}>
-              <FormattedMessage id="settingsHeader.save" defaultMessage="Save" />
+              <FormattedMessage id="settingsHeader.save" defaultMessage="Save" description="Button label for save columns settings" />
             </Button>
           }
         />
@@ -195,6 +194,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                   <FormattedMessage
                     id="teamListsComponent.displayedColumns"
                     defaultMessage="Displayed columns"
+                    description="Columns that are displayed for users in folders, collections and lists."
                   />
                 }
                 onToggle={handleToggle}
@@ -213,6 +213,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                   <FormattedMessage
                     id="teamListsComponent.generalColumns"
                     defaultMessage="General"
+                    description="Columns not currently displayed for users in folders, collections and lists."
                   />
                 }
                 onToggle={handleToggle}
@@ -223,14 +224,16 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                   <FormattedMessage
                     id="teamListsComponent.metadataColumns"
                     defaultMessage="Annotation"
+                    description="Subtitle for Column settings page, where users can configure the visibility of annotations columns in folders, collections and lists."
                   />
                 }
                 onToggle={handleToggle}
                 placeholder={
-                  <Link to={`/${team.slug}/settings/metadata`} className={classes.link} id="create-metadata__add-button" >
+                  <Link to={`/${team.slug}/settings/annotation`} className={classes.link} id="create-metadata__add-button" >
                     <FormattedMessage
                       id="teamListsComponent.createMetadata"
-                      defaultMessage="Create new metadata field"
+                      defaultMessage="Create new annotation field"
+                      description="Button label for create new annotation field"
                     />
                   </Link>
                 }
@@ -245,18 +248,21 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
           <FormattedMessage
             id="teamListsComponent.confirmSaveTitle"
             defaultMessage="Workspace columns change"
+            description="Dialog title for saving columns change"
           />
         }
         blurb={
           <FormattedMessage
             id="teamListsComponent.confirmSaveText"
             defaultMessage="Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
+            description="Content of 'Save changes' confirmation dialog."
           />
         }
         continueButtonLabel={
           <FormattedMessage
             id="teamListsComponent.buttonLabel"
             defaultMessage="Save changes"
+            description="Button label for saving changes"
           />
         }
         handleClose={handleCloseDialogs}
