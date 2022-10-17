@@ -1,11 +1,10 @@
 import React from 'react';
-import Request from './Request';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import Request from './Request';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
 describe('<Request />', () => {
   it('should display render Request card with proper data', () => {
-    const media = { picture: 'foo' };
     const wrapper = mountWithIntl((
       <Request
         details={[]}
@@ -13,7 +12,6 @@ describe('<Request />', () => {
         icon={<WhatsAppIcon />}
       />
     ));
-    console.log('wrapper.debug()', wrapper.debug());
     expect(wrapper.find(WhatsAppIcon).length).toEqual(1);
   });
 });

@@ -20,7 +20,6 @@ describe('<TiplineRequest />', () => {
         annotated={media}
       />
     ));
-    console.log('wrapper.debug()', wrapper.debug());
     expect(wrapper.find(Request).length).toEqual(1);
     // TODO Test messageText, reportReceiveStatus, all params
   });
