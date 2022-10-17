@@ -53,7 +53,7 @@ const Tasks = ({
   setFlashMessage,
 }) => {
   const teamSlug = /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
-  const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
+  const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/annotation`);
 
   const isBrowserExtension = (window.parent !== window);
   const [isEditing, setIsEditing] = React.useState(false);

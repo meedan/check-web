@@ -89,7 +89,7 @@ const SearchFieldChannelComponent = ({
   if (/tipline-inbox/.test(window.location.pathname)) {
     selectedChannels = [CheckChannels.ANYTIPLINE];
   }
-  if (/imported-reports/.test(window.location.pathname)) {
+  if (/imported-fact-checks/.test(window.location.pathname)) {
     selectedChannels = [CheckChannels.FETCH];
   }
 

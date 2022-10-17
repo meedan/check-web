@@ -61,6 +61,14 @@ const RequestCards = ({ request, mediaDbid }) => {
                     values={{ requestsCount }}
                   />),
                   (
+                    <FormattedMessage
+                      id="feedRequestedMedia.factChecksSentForAllMedias"
+                      defaultMessage="{factChecksCount, plural, one {# fact-check sent} other {# fact-checks sent}}"
+                      description="Part of the header of requests list. Example: 12 fact-checks sent"
+                      values={{ factChecksCount: request.project_medias_count }}
+                    />
+                  ),
+                  (
                     <span className={classes.subscriptions}>
                       <FormattedMessage
                         id="feedRequestedMedia.subscriptionsForAllMedias"
@@ -153,6 +161,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
             dbid
             content
             subscriptions_count
+            project_medias_count
             subscribed
             requests_count
             last_called_webhook_at

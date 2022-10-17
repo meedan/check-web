@@ -43,7 +43,7 @@ describe('<TeamListsComponent />', () => {
 
   it('should render create metadata button', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team} />);
-    expect(wrapper.html()).toMatch('Create new metadata field');
+    expect(wrapper.html()).toMatch('Create new annotation field');
     expect(wrapper.find('#create-metadata__add-button').hostNodes()).toHaveLength(1);
   });
 

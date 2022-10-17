@@ -207,11 +207,22 @@ const FeedRequestsTable = ({
                 </TableSort>
               </TableCell>
               <TableCell align="left" className={classes.tableHeadCell}>
-                <FormattedMessage
-                  id="feedRequestsTable.factCheckBy"
-                  defaultMessage="Fact-check by"
-                  description="Header label for fact-check by column"
-                />
+                <TableSort field="fact_checks">
+                  <FormattedMessage
+                    id="feedRequestsTable.factChecksSent"
+                    defaultMessage="Fact-checks sent"
+                    description="Header label for fact-checks sent column"
+                  />
+                </TableSort>
+              </TableCell>
+              <TableCell align="left" className={classes.tableHeadCell}>
+                <TableSort field="fact_checked_by">
+                  <FormattedMessage
+                    id="feedRequestsTable.factCheckBy"
+                    defaultMessage="Fact-check by"
+                    description="Header label for fact-check by column"
+                  />
+                </TableSort>
               </TableCell>
               <TableCell align="left" className={classes.tableHeadCell}>
                 <TableSort field="medias">
@@ -262,6 +273,7 @@ const FeedRequestsTable = ({
                   <TableCell align="left">{mediaType(r.node.request_type)}</TableCell>
                   <TableCell align="left">{r.node.requests_count}</TableCell>
                   <TableCell align="left">{r.node.subscriptions_count}</TableCell>
+                  <TableCell align="left">{r.node.project_medias_count}</TableCell>
                   <TableCell align="left">
                     {
                       r.node.fact_checked_by ?
@@ -322,6 +334,7 @@ const FeedRequestsTableQuery = ({
                       requests_count
                       medias_count
                       subscriptions_count
+                      project_medias_count
                       fact_checked_by
                       title
                       request_type
