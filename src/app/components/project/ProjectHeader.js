@@ -26,7 +26,7 @@ class ProjectHeaderComponent extends React.PureComponent {
       pageTitle = <FormattedMessage id="projectHeader.trash" defaultMessage="Trash" />;
     } else if (/\/tipline-inbox(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.tiplineInbox" defaultMessage="Tipline inbox" />;
-    } else if (/\/imported-reports(\/|$)/.test(listUrl)) {
+    } else if (/\/imported-fact-checks(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.importedReports" defaultMessage="Imported fact-checks" />;
     } else if (/\/suggested-matches(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.suggestedMatches" defaultMessage="Suggested media" />;
