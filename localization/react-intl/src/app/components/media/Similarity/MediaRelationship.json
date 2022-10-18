@@ -1,14 +1,12 @@
 [
   {
-    "id": "mediaItem.error",
-    "defaultMessage": "Error, please try again"
-  },
-  {
     "id": "mediaItem.pinning",
+    "description": "Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item",
     "defaultMessage": "Pinning…"
   },
   {
     "id": "mediaItem.doneRedirecting",
+    "description": "Message displayed when the action of pinning an item is completed by the server",
     "defaultMessage": "Done, redirecting to new main item…"
   },
   {
@@ -18,10 +16,12 @@
   },
   {
     "id": "mediaItem.pinAsMain",
+    "description": "Menu option for pinning an item as the main item",
     "defaultMessage": "Pin as main"
   },
   {
     "id": "mediaItem.detach",
+    "description": "Menu option for removing the similarity relationship between the current media item and the main one",
     "defaultMessage": "Un-match media"
   },
   {

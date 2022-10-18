@@ -1,18 +1,22 @@
 [
   {
+    "id": "annotation.smoochNoMessage",
+    "description": "Replacement for tipline requests without a message",
+    "defaultMessage": "No message was sent with the request"
+  },
+  {
     "id": "annotation.openInSlack",
+    "description": "Label for link to conversation in Slack",
     "defaultMessage": "Open in Slack"
   },
   {
     "id": "annotation.reportReceived",
+    "description": "Caption for report sent date",
     "defaultMessage": "Report sent on {date}"
   },
   {
     "id": "annotation.reportUpdateReceived",
+    "description": "Caption for report update sent date",
     "defaultMessage": "Report update sent on {date}"
-  },
-  {
-    "id": "annotation.smoochNoMessage",
-    "defaultMessage": "No message was sent with the request"
   }
 ]

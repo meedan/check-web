@@ -16,7 +16,7 @@ import {
   TableSortLabel,
 } from '@material-ui/core';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -53,6 +53,9 @@ const useStyles = makeStyles({
     display: 'inline-block',
     borderRadius: '50px',
     padding: '3px 10px',
+    whiteSpace: 'nowrap',
+  },
+  hasFactCheck: {
     whiteSpace: 'nowrap',
   },
   tableHeadCell: {
@@ -98,6 +101,13 @@ const FeedRequestsTable = ({
         description="Label for feed request media type"
       />
     ),
+    audio: (
+      <FormattedMessage
+        id="feedRequestsTable.mediaTypeAudio"
+        defaultMessage="Audio"
+        description="Label for feed request media type"
+      />
+    ),
     video: (
       <FormattedMessage
         id="feedRequestsTable.mediaTypeVideo"
@@ -128,6 +138,15 @@ const FeedRequestsTable = ({
     </TableSortLabel>
   );
 
+  const TableContainerWithScrollbars = withStyles({
+    root: {
+      overflow: 'auto',
+      display: 'block',
+      maxWidth: 'calc(100vw - 256px)',
+      maxHeight: 'calc(100vh - 232px)',
+    },
+  })(TableContainer);
+
   return (
     <React.Fragment>
       <Box mb={2}>
@@ -143,7 +162,7 @@ const FeedRequestsTable = ({
           <NextIcon />
         </IconButton>
       </Box>
-      <TableContainer>
+      <TableContainerWithScrollbars>
         <Table stickyHeader size="small">
           <TableHead>
             <TableRow>
@@ -191,11 +210,22 @@ const FeedRequestsTable = ({
                 </TableSort>
               </TableCell>
               <TableCell align="left" className={classes.tableHeadCell}>
-                <FormattedMessage
-                  id="feedRequestsTable.factCheckBy"
-                  defaultMessage="Fact-check by"
-                  description="Header label for fact-check by column"
-                />
+                <TableSort field="fact_checks">
+                  <FormattedMessage
+                    id="feedRequestsTable.factChecksSent"
+                    defaultMessage="Fact-checks sent"
+                    description="Header label for fact-checks sent column"
+                  />
+                </TableSort>
+              </TableCell>
+              <TableCell align="left" className={classes.tableHeadCell}>
+                <TableSort field="fact_checked_by">
+                  <FormattedMessage
+                    id="feedRequestsTable.factCheckBy"
+                    defaultMessage="Fact-check by"
+                    description="Header label for fact-check by column"
+                  />
+                </TableSort>
               </TableCell>
               <TableCell align="left" className={classes.tableHeadCell}>
                 <TableSort field="medias">
@@ -246,10 +276,13 @@ const FeedRequestsTable = ({
                   <TableCell align="left">{mediaType(r.node.request_type)}</TableCell>
                   <TableCell align="left">{r.node.requests_count}</TableCell>
                   <TableCell align="left">{r.node.subscriptions_count}</TableCell>
+                  <TableCell align="left">{r.node.project_medias_count}</TableCell>
                   <TableCell align="left">
                     {
                       r.node.fact_checked_by ?
-                        r.node.fact_checked_by.split(', ').map(teamName => (<span>{teamName}<br /></span>)) :
+                        <Box className={classes.hasFactCheck}>
+                          {r.node.fact_checked_by.split(', ').map(teamName => (<span>{teamName}<br /></span>))}
+                        </Box> :
                         <Box className={classes.noFactCheck}>
                           <FormattedMessage
                             id="feedRequestsTable.noFactCheck"
@@ -265,7 +298,7 @@ const FeedRequestsTable = ({
             }) }
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainerWithScrollbars>
     </React.Fragment>
   );
 };
@@ -306,6 +339,7 @@ const FeedRequestsTableQuery = ({
                       requests_count
                       medias_count
                       subscriptions_count
+                      project_medias_count
                       fact_checked_by
                       title
                       request_type

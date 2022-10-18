@@ -21,34 +21,42 @@
   },
   {
     "id": "settingsHeader.save",
+    "description": "Button label for save columns settings",
     "defaultMessage": "Save"
   },
   {
     "id": "teamListsComponent.displayedColumns",
+    "description": "Columns that are displayed for users in folders, collections and lists.",
     "defaultMessage": "Displayed columns"
   },
   {
     "id": "teamListsComponent.generalColumns",
+    "description": "Columns not currently displayed for users in folders, collections and lists.",
     "defaultMessage": "General"
   },
   {
     "id": "teamListsComponent.metadataColumns",
+    "description": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in folders, collections and lists.",
     "defaultMessage": "Annotation"
   },
   {
     "id": "teamListsComponent.createMetadata",
-    "defaultMessage": "Create new metadata field"
+    "description": "Button label for create new annotation field",
+    "defaultMessage": "Create new annotation field"
   },
   {
     "id": "teamListsComponent.confirmSaveTitle",
+    "description": "Dialog title for saving columns change",
     "defaultMessage": "Workspace columns change"
   },
   {
     "id": "teamListsComponent.confirmSaveText",
+    "description": "Content of 'Save changes' confirmation dialog.",
     "defaultMessage": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
   },
   {
     "id": "teamListsComponent.buttonLabel",
+    "description": "Button label for saving changes",
     "defaultMessage": "Save changes"
   }
 ]

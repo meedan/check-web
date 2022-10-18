@@ -5,9 +5,14 @@
     "defaultMessage": "Move to folder"
   },
   {
-    "id": "bulkActionsMenu.tag",
+    "id": "bulkActionsMenu.addTag",
     "description": "Menu option for bulk tagging selected items",
-    "defaultMessage": "Tag"
+    "defaultMessage": "Add tag"
+  },
+  {
+    "id": "bulkActionsMenu.removeTag",
+    "description": "Menu option for bulk untagging selected items",
+    "defaultMessage": "Remove tag"
   },
   {
     "id": "bulkActionsMenu.assign",

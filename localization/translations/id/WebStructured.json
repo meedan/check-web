@@ -92,7 +92,7 @@
 		"string": "Selesai"
 	},
 	"ImportedReports.title": {
-		"string": "Laporan yang diimpor"
+		"string": "Imported fact-checks"
 	},
 	"ItemHistoryDialog.title": {
 		"string": "Riwayat perihal"
@@ -557,7 +557,7 @@
 		"string": "Tambah perihal"
 	},
 	"blankMediaButton.addToImportedReport": {
-		"string": "Tambah ke laporan yang diimpor"
+		"string": "Add to imported fact-check"
 	},
 	"blankMediaButton.addToReport": {
 		"string": "Tambah ke laporan"
@@ -633,6 +633,10 @@
 		"string": "Tindakan",
 		"developer_comment": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
 	},
+	"bulkActionsMenu.addTag": {
+		"string": "Tambah label",
+		"developer_comment": "Menu option for bulk tagging selected items"
+	},
 	"bulkActionsMenu.assign": {
 		"string": "Tugaskan",
 		"developer_comment": "Menu option for bulk assigning selected items"
@@ -645,9 +649,9 @@
 		"string": "Pindahkan ke folder",
 		"developer_comment": "Menu option for bulk moving selected items into a folder"
 	},
-	"bulkActionsMenu.tag": {
-		"string": "Label",
-		"developer_comment": "Menu option for bulk tagging selected items"
+	"bulkActionsMenu.removeTag": {
+		"string": "Remove tag",
+		"developer_comment": "Menu option for bulk untagging selected items"
 	},
 	"bulkActionsMove.notFound": {
 		"string": "Tidak ada folder yang ditemukan",
@@ -656,6 +660,26 @@
 	"bulkActionsMove.submitLabel": {
 		"string": "{numItems, plural, other {Pindahkan # perihal}}",
 		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
+	},
+	"bulkActionsRemoveTag.dialogBody": {
+		"string": "The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?",
+		"developer_comment": "Body of dialog warning that bulk untagging items"
+	},
+	"bulkActionsRemoveTag.dialogTitle": {
+		"string": "Tags will be removed from eligible items",
+		"developer_comment": "Title of dialog warning after bulk untagging items"
+	},
+	"bulkActionsRemoveTag.proceedLabel": {
+		"string": "Remove tags",
+		"developer_comment": "Button to confirm remove tags"
+	},
+	"bulkActionsRemoveTag.submitLabel": {
+		"string": "{numItems, plural, one {Remove 1 tag} other {Remove # tags}}",
+		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
+	},
+	"bulkActionsRemoveTag.success": {
+		"string": "{tags} tags removed from {itemsCount} items",
+		"developer_comment": "Success message for bulk untagging items"
 	},
 	"bulkActionsStatus.dialogBody": {
 		"string": "{publishedCount, plural, other {Status # perihal tidak dapat diubah karena laporannya saat ini sedang diterbitkan. Silakan sunting satu per satu.}}",
@@ -674,7 +698,7 @@
 		"developer_comment": "Success message for bulk status change action"
 	},
 	"bulkActionsTag.submitLabel": {
-		"string": "{numItems, plural, other {Tandai # perihal}}",
+		"string": "{numItems, plural, one {Add 1 tag} other {Add # tags}}",
 		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
@@ -1195,6 +1219,10 @@
 		"string": "{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}",
 		"developer_comment": "Part of the header of requests list. Example: 12 subscriptions"
 	},
+	"feedRequestedMediaDialog.lastSubmitted": {
+		"string": "Last submitted {date}",
+		"developer_comment": "Shows the last time a media was submitted (on feed request media card)"
+	},
 	"feedRequestedMediaDialog.title": {
 		"string": "Import medias and requests",
 		"developer_comment": "Dialog title for importing medias and requests"
@@ -1214,6 +1242,26 @@
 	"feedRequestsTable.media": {
 		"string": "Media",
 		"developer_comment": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
+	},
+	"feedRequestsTable.mediaType": {
+		"string": "Tipe media",
+		"developer_comment": "Header label for media type column, in which are shown the type of the media associated with the request"
+	},
+	"feedRequestsTable.mediaTypeAudio": {
+		"string": "Audio",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeImage": {
+		"string": "Gambar",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeText": {
+		"string": "Teks",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeVideo": {
+		"string": "Video",
+		"developer_comment": "Label for feed request media type"
 	},
 	"feedRequestsTable.noFactCheck": {
 		"string": "Belum ada pengecekan fakta",
@@ -1647,7 +1695,7 @@
 		"string": "Audio"
 	},
 	"media.typeBlank": {
-		"string": "Laporan yang diimpor"
+		"string": "Imported fact-check"
 	},
 	"media.typeClaim": {
 		"string": "Teks"
@@ -1949,27 +1997,28 @@
 		"string": "Dikonfirmasi oleh {name}"
 	},
 	"mediaItem.detach": {
-		"string": "Un-match media"
+		"string": "Un-match media",
+		"developer_comment": "Menu option for removing the similarity relationship between the current media item and the main one"
 	},
 	"mediaItem.detachedSuccessfully": {
 		"string": "Perihal dipisahkan ke '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
-		"string": "Selesai, mengalihkan ke perihal utama yang baru..."
-	},
-	"mediaItem.error": {
-		"string": "Terjadi kesalahan, silakan coba lagi"
+		"string": "Selesai, mengalihkan ke perihal utama yang baru...",
+		"developer_comment": "Message displayed when the action of pinning an item is completed by the server"
 	},
 	"mediaItem.lastSubmitted": {
 		"string": "Terakhir diserahkan {timeAgo}",
 		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
 	},
 	"mediaItem.pinAsMain": {
-		"string": "Sematkan sebagai yang utama"
+		"string": "Sematkan sebagai yang utama",
+		"developer_comment": "Menu option for pinning an item as the main item"
 	},
 	"mediaItem.pinning": {
-		"string": "Menyematkan..."
+		"string": "Menyematkan...",
+		"developer_comment": "Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item"
 	},
 	"mediaItem.reportPaused": {
 		"string": "Ditunda"
@@ -2061,35 +2110,44 @@
 		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Ekspor semua media"
+		"string": "Ekspor semua media",
+		"developer_comment": "Button label to commit action of exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Tambah kemiripan"
+		"string": "Tambah kemiripan",
+		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, other {Impor semua media dari # perihal}}"
+		"string": "{count, plural, other {Impor semua media dari # perihal}}",
+		"developer_comment": "Button label to commit action of importing media from one or more items into the current one"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Import matched media into this item"
+		"string": "Import media into this fact-check",
+		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import matched media from other items"
+		"string": "Import matched media from other items",
+		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "Ekspor semua media ke perihal lain"
+		"string": "Export media to another fact-check",
+		"developer_comment": "Menu option for exporting media from this item to another"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "Ekspor semua media ke perihal lain"
+		"string": "Ekspor semua media ke perihal lain",
+		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "Tambah ke laporan yang diimpor"
+		"string": "Add to imported fact-check",
+		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "Tidak dapat menambah perihal yang mirip",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
-		"string": "Media dari perihal ini tidak dapat diekspor jika perihal ini melekat ke perihal utama atau laporannya telah diterbitkan"
+		"string": "Media dari perihal ini tidak dapat diekspor jika perihal ini melekat ke perihal utama atau laporannya telah diterbitkan",
+		"developer_comment": "Tooltip message for exporting media menu option"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "Perihal yang mirip berhasil ditambahkan",
@@ -2465,7 +2523,7 @@
 		"string": "Umpan bersama"
 	},
 	"projectHeader.importedReports": {
-		"string": "Laporan yang diimpor"
+		"string": "Imported fact-checks"
 	},
 	"projectHeader.suggestedMatches": {
 		"string": "Media yang disarankan"
@@ -2553,7 +2611,7 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Laporan yang diimpor",
+		"string": "Imported fact-checks",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.invalidMove": {
@@ -3416,6 +3474,9 @@
 	"similarityComponent.dateThresholdSettings": {
 		"string": "Batasi pencocokan untuk konten yang baru diserahkan",
 		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
+	},
+	"similarityComponent.languageForSimilarity": {
+		"string": "Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
 	},
 	"similarityComponent.masterSwitchLabelOff": {
 		"string": "Pencocokan otomatis NONAKTIF"
@@ -4559,7 +4620,8 @@
 		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
 	},
 	"tagMenu.search": {
-		"string": "Cari..."
+		"string": "Cari...",
+		"developer_comment": "Search in tags list"
 	},
 	"tagMenu.submit": {
 		"string": "Label",

@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -15,8 +14,11 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { FormattedMessage } from 'react-intl';
 import MediaItem from './MediaItem';
 import SelectProjectDialog from '../SelectProjectDialog';
-import globalStrings from '../../../globalStrings';
 import { withSetFlashMessage } from '../../FlashMessage';
+import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
+import globalStrings from '../../../globalStrings';
+import { getErrorMessage } from '../../../helpers';
+
 
 const useStyles = makeStyles(() => ({
   outer: {
@@ -59,13 +61,20 @@ const RelationshipMenu = ({
     setAnchorEl(null);
   };
 
-  const handleError = () => {
-    // FIXME: Replace with `<GenericUnknownErrorMessage />`;
-    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" />, 'error');
+  const handleError = (error) => {
+    const message = getErrorMessage(error, <GenericUnknownErrorMessage />);
+    setFlashMessage(message, 'error');
   };
 
   const handleSwitch = () => {
-    setFlashMessage(<FormattedMessage id="mediaItem.pinning" defaultMessage="Pinning…" />, 'info');
+    setFlashMessage(
+      <FormattedMessage
+        id="mediaItem.pinning"
+        defaultMessage="Pinning…"
+        description="Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item"
+      />,
+      'info',
+    );
 
     const mutation = graphql`
       mutation MediaRelationshipUpdateRelationshipMutation($input: UpdateRelationshipInput!) {
@@ -88,20 +97,19 @@ const RelationshipMenu = ({
       },
       onCompleted: (response, error) => {
         if (error) {
-          handleError();
+          handleError(error);
         } else {
           setFlashMessage((
             <FormattedMessage
               id="mediaItem.doneRedirecting"
               defaultMessage="Done, redirecting to new main item…"
+              description="Message displayed when the action of pinning an item is completed by the server"
             />
           ), 'success');
           window.location.assign(`/${teamSlug}/media/${targetId}/similar-media`);
         }
       },
-      onError: () => {
-        handleError();
-      },
+      onError: handleError,
     });
   };
 
@@ -175,7 +183,7 @@ const RelationshipMenu = ({
       ],
       onCompleted: (response, error) => {
         if (error) {
-          handleError();
+          handleError(error);
         } else {
           const { title: projectTitle, dbid: projectId } = project;
           const message = (
@@ -196,9 +204,7 @@ const RelationshipMenu = ({
           setFlashMessage(message, 'success');
         }
       },
-      onError: () => {
-        handleError();
-      },
+      onError: handleError,
     });
   };
 
@@ -222,7 +228,11 @@ const RelationshipMenu = ({
               <ListItemText
                 className="similarity-media-item__pin-relationship"
                 primary={
-                  <FormattedMessage id="mediaItem.pinAsMain" defaultMessage="Pin as main" />
+                  <FormattedMessage
+                    id="mediaItem.pinAsMain"
+                    defaultMessage="Pin as main"
+                    description="Menu option for pinning an item as the main item"
+                  />
                 }
               />
             </MenuItem>
@@ -230,7 +240,11 @@ const RelationshipMenu = ({
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
-                  <FormattedMessage id="mediaItem.detach" defaultMessage="Un-match media" />
+                  <FormattedMessage
+                    id="mediaItem.detach"
+                    defaultMessage="Un-match media"
+                    description="Menu option for removing the similarity relationship between the current media item and the main one"
+                  />
                 }
               />
             </MenuItem>
@@ -253,6 +267,7 @@ const RelationshipMenu = ({
             description="Dialog title prompting user to select a destination folder for the item"
           />
         }
+        /* eslint-disable-next-line @calm/react-intl/missing-attribute */
         cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         submitLabel={
           <FormattedMessage
@@ -284,7 +299,7 @@ const MediaRelationship = ({
 }) => {
   const classes = useStyles();
   return (
-    <div className={classes.outer} id="media__relationship">
+    <div className={`${classes.outer} media__relationship`}>
       <MediaItem
         key={relationship.id}
         mainProjectMedia={{
@@ -298,7 +313,7 @@ const MediaRelationship = ({
         onSelect={handleSelectItem}
         modalOnly
       />
-      <div className={classes.inner} id="media__relationship__menu">
+      <div className={`${classes.inner} media__relationship__menu`}>
         <RelationshipMenu
           canDelete={canDelete}
           canSwitch={canSwitch}

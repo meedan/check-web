@@ -99,7 +99,7 @@ class Root extends Component {
                   <Route path=":team/list/:savedSearchId(/:query)" component={SavedSearch} />
                   <Route path=":team/all-items(/:query)" component={AllItems} />
                   <Route path=":team/tipline-inbox(/:query)" component={TiplineInbox} />
-                  <Route path=":team/imported-reports(/:query)" component={ImportedReports} />
+                  <Route path=":team/imported-fact-checks(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
                   <Route path=":team/spam(/:query)" component={Spam} />

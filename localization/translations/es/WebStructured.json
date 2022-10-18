@@ -92,7 +92,7 @@
 		"string": "Listo"
 	},
 	"ImportedReports.title": {
-		"string": "Informes importados"
+		"string": "Imported fact-checks"
 	},
 	"ItemHistoryDialog.title": {
 		"string": "Historial del Ítem"
@@ -557,7 +557,7 @@
 		"string": "Añadir ítem"
 	},
 	"blankMediaButton.addToImportedReport": {
-		"string": "Añadir al informe importado"
+		"string": "Add to imported fact-check"
 	},
 	"blankMediaButton.addToReport": {
 		"string": "Añadir al informe"
@@ -633,6 +633,10 @@
 		"string": "Acción",
 		"developer_comment": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
 	},
+	"bulkActionsMenu.addTag": {
+		"string": "Añadir etiqueta",
+		"developer_comment": "Menu option for bulk tagging selected items"
+	},
 	"bulkActionsMenu.assign": {
 		"string": "Asignar",
 		"developer_comment": "Menu option for bulk assigning selected items"
@@ -645,9 +649,9 @@
 		"string": "Mover a carpeta",
 		"developer_comment": "Menu option for bulk moving selected items into a folder"
 	},
-	"bulkActionsMenu.tag": {
-		"string": "Etiqueta",
-		"developer_comment": "Menu option for bulk tagging selected items"
+	"bulkActionsMenu.removeTag": {
+		"string": "Remove tag",
+		"developer_comment": "Menu option for bulk untagging selected items"
 	},
 	"bulkActionsMove.notFound": {
 		"string": "No se encontraron carpetas",
@@ -656,6 +660,26 @@
 	"bulkActionsMove.submitLabel": {
 		"string": "{numItems, plural, one {Mover 1 ítem} many {Mover # ítems} other {Mover # ítems}}",
 		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
+	},
+	"bulkActionsRemoveTag.dialogBody": {
+		"string": "The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?",
+		"developer_comment": "Body of dialog warning that bulk untagging items"
+	},
+	"bulkActionsRemoveTag.dialogTitle": {
+		"string": "Tags will be removed from eligible items",
+		"developer_comment": "Title of dialog warning after bulk untagging items"
+	},
+	"bulkActionsRemoveTag.proceedLabel": {
+		"string": "Remove tags",
+		"developer_comment": "Button to confirm remove tags"
+	},
+	"bulkActionsRemoveTag.submitLabel": {
+		"string": "{numItems, plural, one {Remove 1 tag} other {Remove # tags}}",
+		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
+	},
+	"bulkActionsRemoveTag.success": {
+		"string": "{tags} tags removed from {itemsCount} items",
+		"developer_comment": "Success message for bulk untagging items"
 	},
 	"bulkActionsStatus.dialogBody": {
 		"string": "{publishedCount, plural, one {El estado de 1 ítem no pudo ser cambiado porque su reporte está actualmente publicado. Por favor edítalo individualmente.} many {El estado de # ítems no pudo ser cambiado porque sus reportes están actualmente publicados. Por favor edítalos individualmente.} other {El estado de # ítems no pudo ser cambiado porque sus reportes están actualmente publicados. Por favor edítalos individualmente.}}",
@@ -674,7 +698,7 @@
 		"developer_comment": "Success message for bulk status change action"
 	},
 	"bulkActionsTag.submitLabel": {
-		"string": "{numItems, plural, one {Etiqueta 1 ítem} many {Etiqueta # ítems} other {Etiqueta # ítems}}",
+		"string": "{numItems, plural, one {Add 1 tag} other {Add # tags}}",
 		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
@@ -822,7 +846,7 @@
 		"developer_comment": "Content warning displayed over sensitive content"
 	},
 	"contentScreen.warningByAutomationRule": {
-		"string": "An automation rule has detected this content as sensitive",
+		"string": "Una regla de automatización ha detectado este contenido como confidencial",
 		"developer_comment": "Content warning displayed over sensitive content"
 	},
 	"createMedia.addItem": {
@@ -1051,7 +1075,7 @@
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"feed.feed": {
-		"string": "Fact-checks",
+		"string": "Verificaciones de hechos",
 		"developer_comment": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
 	},
 	"feed.requests": {
@@ -1098,7 +1122,7 @@
 		"developer_comment": "Dialog description when importing a claim from feed page."
 	},
 	"feedItem.importSelectLabel": {
-		"string": "Import into",
+		"string": "Importar en",
 		"developer_comment": "Select field label used in import claim dialog from feed page."
 	},
 	"feedItem.importTextLabel": {
@@ -1180,23 +1204,27 @@
 		"developer_comment": "Header of medias list. Example: 3 medias"
 	},
 	"feedRequestedMedia.numberOfMedias": {
-		"string": "{mediasCount, plural, one {# media} other {# medias}}",
+		"string": "{mediasCount, plural, one {# medio} many {# medios} other {# medios}}",
 		"developer_comment": "Header of medias list. Example: 3 medias"
 	},
 	"feedRequestedMedia.requestsForAllMedias": {
-		"string": "{requestsCount, plural, one {# request} other {# requests}}",
+		"string": "{requestsCount, plural, one {# solicitud} many {# solicitudes} other {# solicitudes}}",
 		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
 	"feedRequestedMedia.requestsForThisMedia": {
-		"string": "{requestsCount, plural, one {# request for this media} other {# requests for this media}}",
+		"string": "{requestsCount, plural, one {# solicitud para este medio} many {# solicitudes para este medio} other {# solicitudes para este medio}}",
 		"developer_comment": "Header of requests list. Example: 3 requests for this media"
 	},
 	"feedRequestedMedia.subscriptionsForAllMedias": {
-		"string": "{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}",
+		"string": "{subscriptionsCount, plural, one {# suscripción} many {# suscripciones} other {# suscripciones}}",
 		"developer_comment": "Part of the header of requests list. Example: 12 subscriptions"
 	},
+	"feedRequestedMediaDialog.lastSubmitted": {
+		"string": "Last submitted {date}",
+		"developer_comment": "Shows the last time a media was submitted (on feed request media card)"
+	},
 	"feedRequestedMediaDialog.title": {
-		"string": "Import medias and requests",
+		"string": "Importar medios y solicitudes",
 		"developer_comment": "Dialog title for importing medias and requests"
 	},
 	"feedRequestsTable.factCheckBy": {
@@ -1208,12 +1236,32 @@
 		"developer_comment": "Header label for date column, in which are shown timestamps of last time a media was sent"
 	},
 	"feedRequestsTable.matchedMedia": {
-		"string": "Matched media",
+		"string": "Medios coincidentes",
 		"developer_comment": "Header label for number of medias found to be matched to the current one"
 	},
 	"feedRequestsTable.media": {
 		"string": "Medio",
 		"developer_comment": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
+	},
+	"feedRequestsTable.mediaType": {
+		"string": "Tipo de Medios",
+		"developer_comment": "Header label for media type column, in which are shown the type of the media associated with the request"
+	},
+	"feedRequestsTable.mediaTypeAudio": {
+		"string": "Audio",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeImage": {
+		"string": "Imagen",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeText": {
+		"string": "Texto",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeVideo": {
+		"string": "Vídeo",
+		"developer_comment": "Label for feed request media type"
 	},
 	"feedRequestsTable.noFactCheck": {
 		"string": "Sin verificación de hechos",
@@ -1224,7 +1272,7 @@
 		"developer_comment": "Header label for number of requests column"
 	},
 	"feedRequestsTable.subscriptions": {
-		"string": "Subscriptions",
+		"string": "Suscripciones",
 		"developer_comment": "Header label for number of subscriptions column"
 	},
 	"feedSharingSwitch.cancel": {
@@ -1497,7 +1545,7 @@
 		"string": "Afirmación"
 	},
 	"list.LinkedItems": {
-		"string": "Matched media"
+		"string": "Medios coincidentes"
 	},
 	"list.ShareCount": {
 		"string": "Compartidas en FB"
@@ -1525,7 +1573,7 @@
 		"developer_comment": "Table header for column that shows number of requests in a cluster"
 	},
 	"list.clusterSize": {
-		"string": "Matched media",
+		"string": "Medios coincidentes",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.commentCount": {
@@ -1647,7 +1695,7 @@
 		"string": "Audio"
 	},
 	"media.typeBlank": {
-		"string": "Informe importado"
+		"string": "Imported fact-check"
 	},
 	"media.typeClaim": {
 		"string": "Texto"
@@ -1911,7 +1959,7 @@
 		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
 	},
 	"mediaFactCheck.error": {
-		"string": "Title and description have to be filled",
+		"string": "Se debe completar el título y la descripción",
 		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
 	},
 	"mediaFactCheck.factCheck": {
@@ -1949,27 +1997,28 @@
 		"string": "Confirmado por {name}"
 	},
 	"mediaItem.detach": {
-		"string": "Un-match media"
+		"string": "Un-match media",
+		"developer_comment": "Menu option for removing the similarity relationship between the current media item and the main one"
 	},
 	"mediaItem.detachedSuccessfully": {
 		"string": "Ítem separado a '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
-		"string": "Hecho, redireccionando a nuevo ítem principal..."
-	},
-	"mediaItem.error": {
-		"string": "Error, por favor intenta otra vez"
+		"string": "Hecho, redireccionando a nuevo ítem principal...",
+		"developer_comment": "Message displayed when the action of pinning an item is completed by the server"
 	},
 	"mediaItem.lastSubmitted": {
 		"string": "Último envío {timeAgo}",
 		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
 	},
 	"mediaItem.pinAsMain": {
-		"string": "Fijar como principal"
+		"string": "Fijar como principal",
+		"developer_comment": "Menu option for pinning an item as the main item"
 	},
 	"mediaItem.pinning": {
-		"string": "Fijando..."
+		"string": "Fijando...",
+		"developer_comment": "Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item"
 	},
 	"mediaItem.reportPaused": {
 		"string": "Pausado"
@@ -2057,46 +2106,55 @@
 		"string": "{current} de {total}"
 	},
 	"mediaSimilarities.moreMedias": {
-		"string": "Matched media",
+		"string": "Medios coincidentes",
 		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Exportar todos los medios"
+		"string": "Exportar todos los medios",
+		"developer_comment": "Button label to commit action of exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Añadir similar"
+		"string": "Añadir similar",
+		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, one {Importar todos los medios de un ítem} many {Importar todos los medios de los # ítems} other {Importar todos los medios de los # ítems}}"
+		"string": "{count, plural, one {Importar todos los medios de un ítem} many {Importar todos los medios de los # ítems} other {Importar todos los medios de los # ítems}}",
+		"developer_comment": "Button label to commit action of importing media from one or more items into the current one"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Import matched media into this item"
+		"string": "Import media into this fact-check",
+		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import matched media from other items"
+		"string": "Import matched media from other items",
+		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "Exportar todos los medios a otro ítem"
+		"string": "Export media to another fact-check",
+		"developer_comment": "Menu option for exporting media from this item to another"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "Exportar todos los medios a otro ítem"
+		"string": "Exportar todos los medios a otro ítem",
+		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "Añadir al informe importado"
+		"string": "Add to imported fact-check",
+		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "No se pudo añadir ítem similar",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
-		"string": "Medios de este ítem no pueden ser exportados si este ítem está adjunto al ítem principal o si su reporte está publicado."
+		"string": "Medios de este ítem no pueden ser exportados si este ítem está adjunto al ítem principal o si su reporte está publicado.",
+		"developer_comment": "Tooltip message for exporting media menu option"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "Ítem similar añadido exitosamente",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Matched media",
+		"string": "Medios coincidentes",
 		"developer_comment": "Plural. Heading for the number of matched media"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
@@ -2199,7 +2257,7 @@
 		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
 	},
 	"metadata.file.noFile": {
-		"string": "This file is missing from the database. Edit and clear this annotation to upload a new file.",
+		"string": "Falta este archivo en la base de datos. Edita y borra esta anotación para subir un archivo nuevo.",
 		"developer_comment": "This message appears when a user tries to access a file that does not exist in the database."
 	},
 	"metadata.file.tooBig": {
@@ -2465,7 +2523,7 @@
 		"string": "Feed compartido"
 	},
 	"projectHeader.importedReports": {
-		"string": "Informes importados"
+		"string": "Imported fact-checks"
 	},
 	"projectHeader.suggestedMatches": {
 		"string": "Medios sugeridos"
@@ -2553,7 +2611,7 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Informes importados",
+		"string": "Imported fact-checks",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.invalidMove": {
@@ -3416,6 +3474,9 @@
 	"similarityComponent.dateThresholdSettings": {
 		"string": "Limitar las coincidencias al contenido enviado recientemente",
 		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
+	},
+	"similarityComponent.languageForSimilarity": {
+		"string": "Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
 	},
 	"similarityComponent.masterSwitchLabelOff": {
 		"string": "El emparejamiento automático está APAGADO"
@@ -4559,7 +4620,8 @@
 		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
 	},
 	"tagMenu.search": {
-		"string": "Buscar..."
+		"string": "Buscar...",
+		"developer_comment": "Search in tags list"
 	},
 	"tagMenu.submit": {
 		"string": "Etiqueta",
@@ -4633,7 +4695,7 @@
 		"string": "Nuevo metadato"
 	},
 	"tasks.addOptionWithAnswersBody": {
-		"string": "{number, plural, one {• # new option will be added to this field.} other {• # new options will be added to this field.}}",
+		"string": "{number, plural, one {• # nueva opción será añadida a este campo.} many {• # nuevas opciones serán añadidas a este campo.} other {• # nuevas opciones serán añadidas a este campo.}}",
 		"developer_comment": "Body of warning when user tries to edit an annotation field that already has collected responses"
 	},
 	"tasks.addTask": {
@@ -4748,7 +4810,7 @@
 		"developer_comment": "Label for number type field"
 	},
 	"tasks.saveButtonWarning": {
-		"string": "I understand, save changes",
+		"string": "Entiendo, guardar cambios",
 		"developer_comment": "Save action button label warning"
 	},
 	"tasks.shortAnswer": {
@@ -5424,7 +5486,7 @@
 		"string": "Medio"
 	},
 	"trendItem.media": {
-		"string": "Matched media"
+		"string": "Medios coincidentes"
 	},
 	"trendItem.mediaRequests": {
 		"string": "{number} solicitudes de tipline en todos los medios"

@@ -71,14 +71,14 @@ const CustomFiltersManagerComponent = ({
     const newQuery = {};
     newQuery.team_tasks = query?.team_tasks ? [...query.team_tasks] : [];
     newQuery.team_tasks.splice(index, 1);
-    if (newQuery.team_tasks.length === 0) {
+    if (newQuery.team_tasks?.length === 0) {
       delete newQuery.team_tasks;
     }
     onFilterChange(newQuery);
   };
 
   const handleSelectMetadataField = (val, index) => {
-    const teamTask = teamTasks.find(tt => tt.node.dbid.toString() === val);
+    const teamTask = teamTasks.find(tt => tt.node?.dbid.toString() === val);
     if (teamTask) {
       handleTeamTaskFilterChange({
         id: val,
@@ -117,7 +117,7 @@ const CustomFiltersManagerComponent = ({
       }
       if (teamTask.node.options) {
         options.push({ label: '', value: '' });
-        options = options.concat(teamTask.node.options.filter(fo => !fo.other).map(tt => ({ label: tt.label, value: tt.label })));
+        options = options.concat(teamTask.node?.options.filter(fo => !fo.other).map(tt => ({ label: tt.label, value: tt.label })));
       }
 
       // extraParams will be an object which contains type-specific keys. e.g.: extraParams = { range: { min: x, max: y }}
@@ -157,7 +157,7 @@ const CustomFiltersManagerComponent = ({
               id={`${filter.task_type}-${filter.id}`}
               allowSearch={false}
               extraInputs={getExtraInputs()}
-              label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
+              label={intl.formatMessage(messages.labelIs, { title: teamTask.node?.label })}
               icon={icons[teamTask.node.type]}
               selected={filter.response}
               options={options}
@@ -184,7 +184,7 @@ const CustomFiltersManagerComponent = ({
           <MultiSelectFilter
             label={label}
             icon={<NoteAltOutlinedIcon />}
-            options={teamTasks.filter(tt => existingFilters.indexOf(tt.node.dbid.toString()) === -1).map(tt => ({
+            options={teamTasks.filter(tt => existingFilters.indexOf(tt.node?.dbid.toString()) === -1).map(tt => ({
               label: tt.node.label,
               value: tt.node.dbid.toString(),
               icon: icons[tt.node.type],

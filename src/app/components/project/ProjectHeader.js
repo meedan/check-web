@@ -26,8 +26,8 @@ class ProjectHeaderComponent extends React.PureComponent {
       pageTitle = <FormattedMessage id="projectHeader.trash" defaultMessage="Trash" />;
     } else if (/\/tipline-inbox(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.tiplineInbox" defaultMessage="Tipline inbox" />;
-    } else if (/\/imported-reports(\/|$)/.test(listUrl)) {
-      pageTitle = <FormattedMessage id="projectHeader.importedReports" defaultMessage="Imported reports" />;
+    } else if (/\/imported-fact-checks(\/|$)/.test(listUrl)) {
+      pageTitle = <FormattedMessage id="projectHeader.importedReports" defaultMessage="Imported fact-checks" />;
     } else if (/\/suggested-matches(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.suggestedMatches" defaultMessage="Suggested media" />;
     } else if (isFeedPage) {
@@ -46,7 +46,7 @@ class ProjectHeaderComponent extends React.PureComponent {
           <IconButton onClick={() => browserHistory.push(listUrl)} className="project-header__back-button">
             <ArrowBackIcon />
           </IconButton>
-          <HeaderTitle className="project-header__title" style={{ maxWidth: 300 }} title={pageTitle}>
+          <HeaderTitle className="project-header__title" style={{ maxWidth: 300 }} title={pageTitle?.props?.defaultMessage || pageTitle}>
             <Text ellipsis>
               {pageTitle}
             </Text>
