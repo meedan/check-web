@@ -519,7 +519,7 @@ class Task extends Component {
               }
               if (!payload && (!this.state.textValue || isEmptyUrlArray()) && task.first_response_value && task.first_response?.id) {
                 this.submitDeleteTaskResponse(task.first_response.id);
-              } else if (task?.first_response && tempTextValue === task?.first_response_value) {
+              } else if (tempTextValue === task?.first_response_value) {
                 // if the current submission hasn't changed at all, do nothing
               } else if (responseObj) {
                 // if there is a pre-existing response, we must be updating a record
