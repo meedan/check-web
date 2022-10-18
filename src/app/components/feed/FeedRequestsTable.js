@@ -55,6 +55,9 @@ const useStyles = makeStyles({
     padding: '3px 10px',
     whiteSpace: 'nowrap',
   },
+  hasFactCheck: {
+    whiteSpace: 'nowrap',
+  },
   tableHeadCell: {
     whiteSpace: 'nowrap',
   },
@@ -277,7 +280,9 @@ const FeedRequestsTable = ({
                   <TableCell align="left">
                     {
                       r.node.fact_checked_by ?
-                        r.node.fact_checked_by.split(', ').map(teamName => (<span>{teamName}<br /></span>)) :
+                        <Box className={classes.hasFactCheck}>
+                          {r.node.fact_checked_by.split(', ').map(teamName => (<span>{teamName}<br /></span>))}
+                        </Box> :
                         <Box className={classes.noFactCheck}>
                           <FormattedMessage
                             id="feedRequestsTable.noFactCheck"
