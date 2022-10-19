@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckIcon from '@material-ui/icons/Check';
-import RequestSubscription from './RequestSubscription';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import RequestSubscription from './RequestSubscription';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<RequestSubscription />', () => {
@@ -12,7 +12,7 @@ describe('<RequestSubscription />', () => {
   });
 
   it('should render bell icon', () => {
-    const wrapper = mountWithIntl(<RequestSubscription subscribed={true} />);
+    const wrapper = mountWithIntl(<RequestSubscription subscribed />);
     expect(wrapper.find(NotificationsNoneIcon).length).toEqual(1);
   });
 });
