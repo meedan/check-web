@@ -7,6 +7,7 @@ describe('<TiplineRequest />', () => {
   it('should display render Request card with proper data', () => {
     const media = { picture: 'foo' };
     const annotation = {
+      smooch_report_received_at: 1666157415,
       value_json: {
         text: 'Hello Meedan',
         source: {
@@ -21,6 +22,7 @@ describe('<TiplineRequest />', () => {
       />
     ));
     expect(wrapper.find(Request).length).toEqual(1);
-    // TODO Test messageText, reportReceiveStatus, all params
+    expect(wrapper.html()).toMatch('Report sent on Oct 19, 2022');
+    expect(wrapper.html()).toMatch('Hello Meedan');
   });
 });
