@@ -58,7 +58,7 @@ const RequestCards = ({ request, mediaDbid }) => {
                     id="feedRequestedMedia.requestsForAllMedias"
                     defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
                     description="Header of requests list. Example: 26 requests"
-                    values={{ requestsCount }}
+                    values={{ requestsCount: Math.max(0, requestsCount - request.subscriptions_count) }}
                   />),
                   (
                     <FormattedMessage
