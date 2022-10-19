@@ -274,7 +274,7 @@ const FeedRequestsTable = ({
                     />
                   </TableCell>
                   <TableCell align="left">{mediaType(r.node.request_type)}</TableCell>
-                  <TableCell align="left">{r.node.requests_count}</TableCell>
+                  <TableCell align="left">{Math.max(0, r.node.requests_count - r.node.subscriptions_count)}</TableCell>
                   <TableCell align="left">{r.node.subscriptions_count}</TableCell>
                   <TableCell align="left">{r.node.project_medias_count}</TableCell>
                   <TableCell align="left">
