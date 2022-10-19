@@ -20,6 +20,10 @@ const useStyles = makeStyles(theme => ({
     fontSize: '12px',
     lineHeight: '24px',
   },
+  detailSpan: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   icon: {
     height: '24px',
     marginRight: theme.spacing(1),
@@ -32,7 +36,7 @@ const BulletSeparator = ({
 }) => {
   const classes = useStyles();
   const subtitleDetails = details.filter(d => !!d).map((d, index) => (
-    <span key={`${d}-${Math.random()}`}>
+    <span key={`${d}-${Math.random()}`} className={classes.detailSpan}>
       { index > 0 ? <FiberManualRecordIcon className={classes.dot} /> : null }
       {d}
     </span>

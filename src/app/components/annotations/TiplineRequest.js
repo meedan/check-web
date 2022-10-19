@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
-import styled from 'styled-components';
-import CheckIcon from '@material-ui/icons/Check';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import TelegramIcon from '@material-ui/icons/Telegram';
+import TimeBefore from '../TimeBefore';
+import RequestSubscription from '../feed/RequestSubscription';
 import ViberIcon from '../../icons/ViberIcon';
 import LineIcon from '../../icons/LineIcon';
-import TimeBefore from '../TimeBefore';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -18,15 +17,12 @@ import {
 import Request from '../cds/requests-annotations/Request';
 import {
   units,
-  black54,
-  caption,
   twitterBlue,
   facebookBlue,
   whatsappGreen,
   telegramBlue,
   viberPurple,
   lineGreen,
-  completedGreen,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -36,15 +32,6 @@ const messages = defineMessages({
     description: 'Replacement for tipline requests without a message',
   },
 });
-
-// FIXME: Convert styled-components to useStyles
-const StyledReportReceived = styled.div`
-  color: ${black54};
-  font: ${caption};
-  display: flex;
-  align-items: center;
-  margin-bottom: ${units(2)};
-`;
 
 const SmoochIcon = ({ name }) => {
   switch (name) {
@@ -144,47 +131,48 @@ const TiplineRequest = ({
 
   if (smoochReportReceivedAt) {
     reportReceiveStatus = (
-      <StyledReportReceived className="annotation__smooch-report-received">
-        <CheckIcon style={{ color: completedGreen }} />
-        { /* FIXME: Remove space character and use proper styling for padding */ }
-        {' '}
-        <span title={smoochReportReceivedAt.toLocaleString(locale)}>
-          <FormattedMessage
-            id="annotation.reportReceived"
-            defaultMessage="Report sent on {date}"
-            description="Caption for report sent date"
-            values={{
-              date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
-            }}
-          />
-        </span>
-      </StyledReportReceived>
+      <FormattedMessage
+        id="annotation.reportReceived"
+        defaultMessage="Report sent on {date}"
+        description="Caption for report sent date"
+        values={{
+          date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
+        }}
+      >
+        {text => (
+          <span title={text}>
+            <RequestSubscription lastCalledAt={smoochReportReceivedAt.toLocaleString(locale)} />
+          </span>
+        )}
+      </FormattedMessage>
     );
   }
   if (smoochReportUpdateReceivedAt) {
     reportReceiveStatus = (
-      <StyledReportReceived className="annotation__smooch-report-received">
-        <CheckIcon style={{ color: completedGreen }} />
-        { /* FIXME: Remove space character and use proper styling for padding */ }
-        {' '}
-        <span title={smoochReportUpdateReceivedAt.toLocaleString(locale)}>
-          <FormattedMessage
-            id="annotation.reportUpdateReceived"
-            defaultMessage="Report update sent on {date}"
-            description="Caption for report update sent date"
-            values={{
-              date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
-            }}
-          />
-        </span>
-      </StyledReportReceived>
+      <FormattedMessage
+        id="annotation.reportUpdateReceived"
+        defaultMessage="Report update sent on {date}"
+        description="Caption for report update sent date"
+        values={{
+          date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
+        }}
+      >
+        {text => (
+          <span title={text}>
+            <RequestSubscription lastCalledAt={smoochReportUpdateReceivedAt.toLocaleString(locale)} />
+          </span>
+        )}
+      </FormattedMessage>
     );
+  }
+
+  if (reportReceiveStatus) {
+    details.push(reportReceiveStatus);
   }
 
   return (
     <Request
       details={details}
-      reportReceiveStatus={reportReceiveStatus}
       text={messageText ? (
         parseText(messageText, projectMedia, activity)
       ) : (
