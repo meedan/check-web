@@ -30,6 +30,11 @@
     "defaultMessage": "Un-match media"
   },
   {
+    "id": "mediaRelationship.openMedia",
+    "description": "Singular 'media'. Label for a button that opens the media item the user is currently viewing.",
+    "defaultMessage": "Open media"
+  },
+  {
     "id": "detachDialog.dialogdetachedToListTitle",
     "description": "Dialog title prompting user to select a destination folder for the item",
     "defaultMessage": "Move detached item to…"

@@ -21,6 +21,7 @@ import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/Media
 const useStyles = makeStyles(() => ({
   outer: {
     position: 'relative',
+    cursor: 'pointer',
   },
   inner: {
     position: 'absolute',
@@ -83,6 +84,11 @@ const RelationshipMenu = ({
   const handleCloseMenu = (event) => {
     event.stopPropagation();
     setAnchorEl(null);
+  };
+
+  const openMedia = () => {
+    const url = window.location.pathname.replace(/\/media\/\d+/, `/media/${targetId}`);
+    browserHistory.push(url);
   };
 
   const handleError = () => {
@@ -238,6 +244,18 @@ const RelationshipMenu = ({
                 className="similarity-media-item__delete-relationship"
                 primary={
                   <FormattedMessage id="mediaItem.detach" defaultMessage="Un-match media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." />
+                }
+              />
+            </MenuItem>
+            <MenuItem onClick={event => swallowClick(event, openMedia)}>
+              <ListItemText
+                className="similarity-media-item__open-relationship"
+                primary={
+                  <FormattedMessage
+                    id="mediaRelationship.openMedia"
+                    defaultMessage="Open media"
+                    description="Singular 'media'. Label for a button that opens the media item the user is currently viewing."
+                  />
                 }
               />
             </MenuItem>
