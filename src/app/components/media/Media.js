@@ -1,223 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import CheckContext from '../../CheckContext';
-import MediaRoute from '../../relay/MediaRoute';
+import { injectIntl } from 'react-intl';
 import MediaComponent from './MediaComponent';
 import MediasLoading from './MediasLoading';
-import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
-import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
-import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent'; // eslint-disable-line no-unused-vars
+import ErrorBoundary from '../error/ErrorBoundary';
+import CheckContext from '../../CheckContext';
 
-const MediaContainer = Relay.createContainer(MediaComponent, {
-  initialVariables: {
-    contextId: null,
-  },
-  fragments: {
-    media: () => Relay.QL`
-      fragment on ProjectMedia {
-        id
-        dbid
-        title
-        ${MediaAnalysis.getFragment('projectMedia')}
-        ${MediaTags.getFragment('projectMedia')}
-        read_by_someone: is_read
-        read_by_me: is_read(by_me: true)
-        permissions
-        pusher_channel
-        project_id
-        requests_count
-        picture
-        show_warning_cover
-        creator_name
-        user_id
-        channel
-        ${MediaSimilaritiesComponent.getFragment('projectMedia')}
-        suggested_similar_relationships(first: 10000) {
-          edges {
-            node {
-              id
-                relationship_type
-                dbid
-                source_id
-                target_id
-            }
-          }
-        }
-        suggested_main_item { # used by MediaClaim, MediaFactCheck
-          dbid
-          team {
-            slug
-          }
-          claim_description {
-            id
-            dbid
-            context
-            description
-            user {
-              name
-            }
-            updated_at
-            fact_check {
-              id
-              summary
-              title
-              url
-              user {
-                name
-              }
-              updated_at
-            }
-          }
-        }
-        confirmed_main_item {
-          dbid
-          team {
-            slug
-          }
-        }
-        is_confirmed_similar_to_another_item
-        is_secondary
-        claim_description {
-          id
-          dbid
-          description
-          context
-          updated_at
-          user {
-            name
-          }
-          fact_check {
-            id
-            title
-            summary
-            url
-            updated_at
-            user {
-              name
-            }
-          }
-        }
-        media {
-          url
-          quote
-          embed_path
-          metadata
-          type
-          picture
-        }
-        last_status
-        last_status_obj {
-          id
-          data
-          updated_at
-        }
-        report: dynamic_annotation_report_design {
-          id
-          data
-        }
-        comments: annotations(first: 10000, annotation_type: "comment") {
-          edges {
-            node {
-              ... on Comment {
-                id
-                dbid
-                text
-                parsed_fragment
-                annotator {
-                  id
-                  name
-                  profile_image
-                }
-                comments: annotations(first: 10000, annotation_type: "comment") {
-                  edges {
-                    node {
-                      ... on Comment {
-                        id
-                        created_at
-                        text
-                        annotator {
-                          id
-                          name
-                          profile_image
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        clips: annotations(first: 10000, annotation_type: "clip") {
-          edges {
-            node {
-              ... on Dynamic {
-                id
-                data
-                parsed_fragment
-              }
-            }
-          }
-        }
-        tags(first: 10000) {
-          edges {
-            node {
-              id
-              dbid
-              fragment
-              parsed_fragment
-              annotated_id
-              annotated_type
-              annotated_type
-              tag_text_object {
-                id
-                text
-              }
-            }
-          }
-        }
-        geolocations: annotations(first: 10000, annotation_type: "geolocation") {
-          edges {
-            node {
-              ... on Dynamic {
-                id
-                parsed_fragment
-                content
-              }
-            }
-          }
-        }
-        team {
-          id
-          dbid
-          slug
-          name
-          get_language
-          get_report
-          verification_statuses
-          permissions
-          team_bots(first: 10000) {
-            edges {
-              node {
-                login
-              }
-            }
-          }
-          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
-            id
-          }
-        }
-      }
-    `,
-  },
-});
-
-const ProjectMedia = (props, context) => {
-  let { projectId } = props;
-  const { projectMediaId, view } = props;
-  const checkContext = new CheckContext({ props, context });
+const ProjectMedia = (parentProps, context) => {
+  let { projectId } = parentProps;
+  const { projectMediaId, view } = parentProps;
+  const checkContext = new CheckContext({ props: parentProps, context });
   checkContext.setContext();
   if (!projectId) {
     const store = checkContext.getContextStore();
@@ -225,17 +19,40 @@ const ProjectMedia = (props, context) => {
       projectId = store.project.dbid;
     }
   }
-  const ids = `${projectMediaId},${projectId}`;
-  const route = new MediaRoute({ ids });
 
   return (
-    <Relay.RootContainer
-      Component={MediaContainer}
-      route={route}
-      renderLoading={() => <MediasLoading count={1} />}
-      renderFetched={data => <MediaContainer {...data} view={view} />}
-      forceFetch
-    />
+    <ErrorBoundary component="Media">
+      <QueryRenderer
+        environment={Relay.Store}
+        query={graphql`
+          query MediaQuery($ids: String!) {
+            project_media(ids: $ids) {
+              ...MediaComponent_projectMedia
+            }
+          }
+        `}
+        variables={{
+          ids: `${projectMediaId},,`,
+        }}
+        render={({ error, props }) => {
+          if (!error && !props) {
+            return (<MediasLoading count={1} />);
+          }
+
+          if (!error && props) {
+            return (
+              <MediaComponent
+                projectMedia={props.project_media}
+                view={view}
+              />
+            );
+          }
+
+          // TODO: We need a better error handling in the future, standardized with other components
+          return null;
+        }}
+      />
+    </ErrorBoundary>
   );
 };
 
