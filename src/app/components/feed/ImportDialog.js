@@ -109,9 +109,9 @@ const ImportDialog = ({
         };
 
         submitImport(input, () => {}, onError);
-
-        onCompleted();
       });
+
+      onCompleted();
     };
 
     submitImport(inputMain, onCompletedMain, onError);
