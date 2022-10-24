@@ -87,28 +87,35 @@ const FeedRequestsTable = ({
   const classes = useStyles();
 
   const mediaType = requestType => ({
-    text: (
+    Claim: (
       <FormattedMessage
         id="feedRequestsTable.mediaTypeText"
         defaultMessage="Text"
         description="Label for feed request media type"
       />
     ),
-    image: (
+    Link: (
+      <FormattedMessage
+        id="feedRequestsTable.mediaTypeLink"
+        defaultMessage="Link"
+        description="Label for feed request media type"
+      />
+    ),
+    UploadedImage: (
       <FormattedMessage
         id="feedRequestsTable.mediaTypeImage"
         defaultMessage="Image"
         description="Label for feed request media type"
       />
     ),
-    audio: (
+    UploadedAudio: (
       <FormattedMessage
         id="feedRequestsTable.mediaTypeAudio"
         defaultMessage="Audio"
         description="Label for feed request media type"
       />
     ),
-    video: (
+    UploadedVideo: (
       <FormattedMessage
         id="feedRequestsTable.mediaTypeVideo"
         defaultMessage="Video"
@@ -273,7 +280,7 @@ const FeedRequestsTable = ({
                       day="2-digit"
                     />
                   </TableCell>
-                  <TableCell align="left">{mediaType(r.node.request_type)}</TableCell>
+                  <TableCell align="left">{mediaType(r.node.media_type)}</TableCell>
                   <TableCell align="left">{Math.max(0, r.node.requests_count - r.node.subscriptions_count)}</TableCell>
                   <TableCell align="left">{r.node.subscriptions_count}</TableCell>
                   <TableCell align="left">{r.node.project_medias_count}</TableCell>
@@ -343,6 +350,7 @@ const FeedRequestsTableQuery = ({
                       fact_checked_by
                       title
                       request_type
+                      media_type
                       media {
                         metadata
                         quote
