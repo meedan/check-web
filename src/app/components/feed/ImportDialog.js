@@ -93,19 +93,23 @@ const ImportDialog = ({
     };
 
     const inputCommon = {
-      channel: JSON.stringify({ main: 12 }), // Shared Database
+      channel: JSON.stringify({ main: 12 }), // Shared Feed
       team_id: selectedTeamDbid,
-      set_claim_description: claimDescription,
     };
     const mainMediaDbid = mediaIds.shift();
-    const inputMain = { ...inputCommon, media_id: mainMediaDbid, set_title: `${importedTitlePrefix}-${mainMediaDbid}` };
+    const inputMain = {
+      ...inputCommon,
+      media_id: mainMediaDbid,
+      set_title: `${importedTitlePrefix}${mainMediaDbid}`,
+      set_claim_description: claimDescription,
+    };
     const onCompletedMain = (response) => {
       mediaIds.forEach((mediaDbid) => {
         const input = {
           ...inputCommon,
           media_id: mediaDbid,
           related_to_id: response.createProjectMedia.project_media.dbid,
-          set_title: `${importedTitlePrefix}-${mediaDbid}`,
+          set_title: `${importedTitlePrefix}${mediaDbid}`,
         };
 
         submitImport(input, () => {}, onError);

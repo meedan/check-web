@@ -65,7 +65,7 @@ const FeedRequestedMedia = ({ request }) => {
               />
             </strong>
           </Box>
-          <ImportDialog mediaIds={selectedMediaIds} importedTitlePrefix={`${request.request_type}-${request.feed.name}-`} />
+          <ImportDialog mediaIds={selectedMediaIds} importedTitlePrefix={`${request.request_type}-${request.feed.name.replace(' ', '-')}-`} />
         </Box>
         { request.medias?.edges.map((m, index) => (
           <Box key={m.node.dbid} display="flex" alignItems="center">
