@@ -106,7 +106,7 @@ const FeedRequestedMedia = ({ request }) => {
   );
 };
 
-
+export { FeedRequestedMedia };
 export default createFragmentContainer(FeedRequestedMedia, graphql`
   fragment FeedRequestedMedia_request on Request {
     dbid

@@ -410,4 +410,5 @@ FeedRequestsTableQuery.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
 };
 
+export { FeedRequestsTable };
 export default FeedRequestsTableQuery;
