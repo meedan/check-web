@@ -84,6 +84,7 @@ const FeedRequestsTable = ({
   const buildItemUrl = (requestDbid) => {
     const urlParams = new URLSearchParams();
     urlParams.set('listPath', searchUrlPrefix);
+    urlParams.set('listQuery', JSON.stringify(filters));
     return `/check/feed/${feed.dbid}/request/${requestDbid}?${urlParams.toString()}`;
   };
 
@@ -349,13 +350,13 @@ const FeedRequestsTableQuery = ({
         environment={Relay.Store}
         query={graphql`
           query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!, $offset: Int!, $pageSize: Int!, $sort: String, $sortType: String, $mediasCountMin: Int, $mediasCountMax: Int
-                                       $requestsCountMin: Int, $requestsCountMax: Int, $createdAtFrom: String, $createdAtTo: String) {
+                                       $requestsCountMin: Int, $requestsCountMax: Int, $requestCreatedAt: String) {
             team(slug: $teamSlug) {
               feed(dbid: $feedId) {
                 dbid
                 name
                 requests(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax,
-                         requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax, created_at_from: $createdAtFrom, created_at_to: $createdAtTo) {
+                         requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax, request_created_at: $requestCreatedAt) {
                   totalCount
                   edges {
                     node {
@@ -394,8 +395,7 @@ const FeedRequestsTableQuery = ({
           mediasCountMax: filters.linked_items_count?.max,
           requestsCountMin: filters.demand?.min,
           requestsCountMax: filters.demand?.max,
-          createdAtFrom: filters.range?.request_created_at?.start_time,
-          createdAtTo: filters.range?.request_created_at?.end_time,
+          requestCreatedAt: filters.range?.request_created_at ? JSON.stringify(filters.range?.request_created_at) : null,
         }}
         render={({ props, error }) => {
           if (!error && !props) {
