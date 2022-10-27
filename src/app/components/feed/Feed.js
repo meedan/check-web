@@ -216,6 +216,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             teamSlug={routeParams.team}
             feedId={parseInt(routeParams.feedId, 10)}
             searchUrlPrefix={commonSearchProps.searchUrlPrefix}
+            filters={{ ...safelyParseJSON(routeParams.query, {}) }}
           />
         </div>
         : null

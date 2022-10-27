@@ -227,6 +227,7 @@ const DateRangeFilter = ({
   classes,
   hide,
   value,
+  optionsToHide,
   onChange,
   onRemove,
 }) => {
@@ -234,6 +235,7 @@ const DateRangeFilter = ({
     if (value && value.updated_at) return 'updated_at';
     if (value && value.media_published_at) return 'media_published_at';
     if (value && value.report_published_at) return 'report_published_at';
+    if (value && value.request_created_at) return 'request_created_at';
     return 'created_at';
   };
   const rangeTypes = {
@@ -378,6 +380,7 @@ const DateRangeFilter = ({
     media_published_at: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Media published" />,
     updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Item updated" />,
     report_published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Report published" />,
+    request_created_at: <FormattedMessage id="search.dateRequestHeading" defaultMessage="Request submitted" />,
     startEnd: <FormattedMessage id="search.dateStartEnd" defaultMessage="between" description="This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'." />,
     relative: <FormattedMessage id="search.dateRelative" defaultMessage="less than" description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'." />,
     relativeDays: <FormattedMessage id="search.relativeDays" defaultMessage="days ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 days ago'." />,
@@ -402,10 +405,9 @@ const DateRangeFilter = ({
               />
             }
           >
-            <MenuItem value="created_at"> { label.created_at } </MenuItem>
-            <MenuItem value="media_published_at"> { label.media_published_at } </MenuItem>
-            <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
-            <MenuItem value="report_published_at"> { label.report_published_at } </MenuItem>
+            { ['created_at', 'media_published_at', 'updated_at', 'report_published_at', 'request_created_at'].filter(option => !optionsToHide.includes(option)).map(option => (
+              <MenuItem value={option}>{ label[option] }</MenuItem>
+            ))}
           </Select>
           <Select
             onChange={handleChangeRangeType}
@@ -448,11 +450,13 @@ const DateRangeFilter = ({
 DateRangeFilter.defaultProps = {
   hide: false,
   value: null,
+  optionsToHide: [],
 };
 
 DateRangeFilter.propTypes = {
   classes: PropTypes.object.isRequired,
   hide: PropTypes.bool,
+  optionsToHide: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([
     PropTypes.shape({
       created_at: PropTypes.oneOfType([
@@ -495,6 +499,19 @@ DateRangeFilter.propTypes = {
     }),
     PropTypes.shape({
       report_published_at: PropTypes.oneOfType([
+        PropTypes.shape({
+          start_time: PropTypes.string,
+          end_time: PropTypes.string,
+        }),
+        PropTypes.shape({
+          condition: PropTypes.string,
+          period: PropTypes.number,
+          period_type: PropTypes.string,
+        }),
+      ]),
+    }),
+    PropTypes.shape({
+      request_created_at: PropTypes.oneOfType([
         PropTypes.shape({
           start_time: PropTypes.string,
           end_time: PropTypes.string,

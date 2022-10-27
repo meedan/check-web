@@ -21,6 +21,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
+import FeedFilters from './FeedFilters';
 import ListHeader from '../layout/ListHeader';
 import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -69,8 +70,10 @@ const FeedRequestsTable = ({
   searchUrlPrefix,
   sort,
   sortType,
+  filters,
   onChangeSort,
   onChangeSortType,
+  onChangeFilters,
   onGoToTheNextPage,
   onGoToThePreviousPage,
   rangeStart,
@@ -150,9 +153,11 @@ const FeedRequestsTable = ({
       overflow: 'auto',
       display: 'block',
       maxWidth: 'calc(100vw - 256px)',
-      maxHeight: 'calc(100vh - 232px)',
+      maxHeight: 'calc(100vh - 270px)',
     },
   })(TableContainer);
+
+  const { totalCount } = feed.requests;
 
   return (
     <React.Fragment>
@@ -160,11 +165,14 @@ const FeedRequestsTable = ({
         <ListHeader listName={feed.name} icon={<DynamicFeedIcon />} />
         { tabs({}) }
       </Box>
+      <Box>
+        <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} />
+      </Box>
       <Box display="flex" alignItems="center">
         <IconButton onClick={onGoToThePreviousPage} disabled={!hasPreviousPage}>
           <PrevIcon />
         </IconButton>
-        <Box className={classes.pager}>{rangeStart} - {rangeEnd > feed.root_requests_count ? feed.root_requests_count : rangeEnd} / {feed.root_requests_count}</Box>
+        <Box className={classes.pager}>{rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</Box>
         <IconButton onClick={onGoToTheNextPage} disabled={!hasNextPage}>
           <NextIcon />
         </IconButton>
@@ -317,26 +325,38 @@ const FeedRequestsTableQuery = ({
   feedId,
   tabs,
   searchUrlPrefix,
+  filters,
 }) => {
   const pageSize = 50;
-  const [sort, setSort] = React.useState('last_submitted');
-  const [sortType, setSortType] = React.useState('desc');
+  const page = filters.page || 1;
+  const sort = filters.sort || 'last_submitted';
+  const sortType = filters.sortType || 'desc';
 
-  // FIXME: Implement a better pagination method (e.g., properly Relay). I tried to implement using pageInfo and cursors but it was not working correctly.
-  const [page, setPage] = React.useState(1);
+  const setSearchParam = (name, value) => {
+    const params = { ...filters };
+    params[name] = value;
+    browserHistory.push(`/${teamSlug}/feed/${feedId}/requests/${JSON.stringify(params)}`);
+  };
+
+  const setFilters = (newFilters) => {
+    const params = { ...newFilters, page: 1 };
+    browserHistory.push(`/${teamSlug}/feed/${feedId}/requests/${JSON.stringify(params)}`);
+  };
 
   return (
     <ErrorBoundary component="FeedRequestsTable">
       <QueryRenderer
         environment={Relay.Store}
         query={graphql`
-          query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!, $offset: Int!, $pageSize: Int!, $sort: String, $sortType: String) {
+          query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!, $offset: Int!, $pageSize: Int!, $sort: String, $sortType: String, $mediasCountMin: Int, $mediasCountMax: Int
+                                       $requestsCountMin: Int, $requestsCountMax: Int, $createdAtFrom: String, $createdAtTo: String) {
             team(slug: $teamSlug) {
               feed(dbid: $feedId) {
                 dbid
                 name
-                root_requests_count
-                requests(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType) {
+                requests(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax,
+                         requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax, created_at_from: $createdAtFrom, created_at_to: $createdAtTo) {
+                  totalCount
                   edges {
                     node {
                       id
@@ -370,6 +390,12 @@ const FeedRequestsTableQuery = ({
           pageSize,
           sort,
           sortType,
+          mediasCountMin: filters.linked_items_count?.min,
+          mediasCountMax: filters.linked_items_count?.max,
+          requestsCountMin: filters.demand?.min,
+          requestsCountMax: filters.demand?.max,
+          createdAtFrom: filters.range?.request_created_at?.start_time,
+          createdAtTo: filters.range?.request_created_at?.end_time,
         }}
         render={({ props, error }) => {
           if (!error && !props) {
@@ -385,13 +411,15 @@ const FeedRequestsTableQuery = ({
                 searchUrlPrefix={searchUrlPrefix}
                 sort={sort}
                 sortType={sortType}
-                onChangeSort={(value) => { setSort(value); }}
-                onChangeSortType={(value) => { setSortType(value); }}
-                onGoToTheNextPage={() => { setPage(page + 1); }}
-                onGoToThePreviousPage={() => { setPage(page - 1); }}
+                filters={filters}
+                onChangeSort={(value) => { setSearchParam('sort', value); }}
+                onChangeSortType={(value) => { setSearchParam('sortType', value); }}
+                onChangeFilters={(value) => { setFilters(value); }}
+                onGoToTheNextPage={() => { setSearchParam('page', page + 1); }}
+                onGoToThePreviousPage={() => { setSearchParam('page', page - 1); }}
                 rangeStart={((page - 1) * pageSize) + 1}
                 rangeEnd={((page - 1) * pageSize) + pageSize}
-                hasNextPage={(page * pageSize) < props.team?.feed?.root_requests_count}
+                hasNextPage={(page * pageSize) < props.team?.feed?.requests?.totalCount}
                 hasPreviousPage={page > 1}
               />);
           }
@@ -402,11 +430,16 @@ const FeedRequestsTableQuery = ({
   );
 };
 
+FeedRequestsTableQuery.defaultProps = {
+  filters: {},
+};
+
 FeedRequestsTableQuery.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   feedId: PropTypes.number.isRequired,
   tabs: PropTypes.func.isRequired,
   searchUrlPrefix: PropTypes.string.isRequired,
+  filters: PropTypes.object,
 };
 
 export default FeedRequestsTableQuery;

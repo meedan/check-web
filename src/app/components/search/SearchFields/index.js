@@ -313,6 +313,7 @@ const SearchFields = ({
           onChange={handleDateChange}
           value={query.range}
           readOnly={readOnlyFields.includes('range')}
+          optionsToHide={['request_created_at']}
           onRemove={() => handleRemoveField('range')}
         />
       </Box>

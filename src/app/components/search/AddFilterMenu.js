@@ -36,6 +36,7 @@ const AddFilterMenu = ({
   team,
   addedFields,
   hideOptions,
+  showOptions,
   onSelect,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -240,20 +241,18 @@ const AddFilterMenu = ({
       ),
     });
   }
-  if (team.smooch_bot) {
-    options.push({
-      id: 'add-filter-menu__tipline-requests',
-      key: 'demand',
-      icon: <NumberIcon />,
-      label: (
-        <FormattedMessage
-          id="addFilterMenu.tiplineRequests"
-          defaultMessage="Number of tipline requests"
-          description="Menu option to enable searching items by tipline requests"
-        />
-      ),
-    });
-  }
+  options.push({
+    id: 'add-filter-menu__tipline-requests',
+    key: 'demand',
+    icon: <NumberIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.tiplineRequests"
+        defaultMessage="Number of requests"
+        description="Menu option to enable searching items by tipline requests"
+      />
+    ),
+  });
   options = options.concat([
     {
       id: 'add-filter-menu__language',
@@ -355,7 +354,7 @@ const AddFilterMenu = ({
             description="Header to menu of filter field types"
           />
         </MenuItem>
-        { options.map(o => hideOptions.includes(o.key) ? null : (
+        { options.map(o => (hideOptions.includes(o.key) || (showOptions.length > 0 && !showOptions.includes(o.key))) ? null : (
           <MenuItem
             id={o.id}
             key={o.key}
@@ -376,11 +375,15 @@ const AddFilterMenu = ({
 AddFilterMenu.defaultProps = {
   addedFields: [],
   hideOptions: [],
+  showOptions: [],
+  team: {},
 };
 
 AddFilterMenu.propTypes = {
   addedFields: PropTypes.arrayOf(PropTypes.string),
   hideOptions: PropTypes.arrayOf(PropTypes.string),
+  showOptions: PropTypes.arrayOf(PropTypes.string),
+  team: PropTypes.object,
   onSelect: PropTypes.func.isRequired,
 };
 
