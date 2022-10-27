@@ -116,4 +116,4 @@ it("should do whatever my unit expects");
 
 ## Notes and tips
 
-* Remove your `node_modules` directory if you face errors related to `npm install`
+* Remove your `node_modules` directory if you face any errors related to `npm install`
