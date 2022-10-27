@@ -28,6 +28,15 @@ describe('<MediaPreview />', () => {
     expect(component.find(MediaPlayerCard).length).toEqual(1);
   });
 
+  it('UploadedAudio should use default coverImage', () => {
+    const media = {
+      type: 'UploadedAudio',
+      file_path: 'foobar',
+    };
+    const component = mountWithIntlProvider(<MediaPreview media={media} />);
+    expect(component.html()).toMatch('/images/player_cover.svg');
+  });
+
   it('should show player for Youtube links', () => {
     const media = {
       type: 'Link',

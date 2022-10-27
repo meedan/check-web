@@ -253,6 +253,7 @@ const FeedRequestsTable = ({
               } else {
                 requestTitle = r.node.title;
               }
+              const requestPicture = r.node.request_type === 'audio' ? '/images/image_placeholder.svg' : r.node.media?.picture;
 
               // This means a request for the latest fact-checks
               if (r.node.request_type === 'text' && r.node.content === '.') {
@@ -269,7 +270,7 @@ const FeedRequestsTable = ({
                     projectMedia={{
                       title: requestTitle,
                       description: '',
-                      picture: r.node.media?.picture,
+                      picture: requestPicture,
                     }}
                   />
                   <TableCell>
@@ -409,4 +410,5 @@ FeedRequestsTableQuery.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
 };
 
+export { FeedRequestsTable };
 export default FeedRequestsTableQuery;
