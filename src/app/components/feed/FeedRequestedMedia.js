@@ -76,7 +76,7 @@ const FeedRequestedMedia = ({ request }) => {
             />
             { /* FIXME: Find the optimal way of passing props to MediaCardCondensed for the sake of reusability  */ }
             <MediaCardCondensed
-              title={`${request.request_type}-${request.feed.name.replace(' ', '-')}-${m.node.dbid}`}
+              title={m.node.quote || `${request.request_type}-${request.feed.name.replace(' ', '-')}-${m.node.dbid}`}
               details={[
                 <MediaTypeDisplayName mediaType={m.node.type} />,
                 (<FormattedMessage
@@ -121,6 +121,7 @@ export default createFragmentContainer(FeedRequestedMedia, graphql`
         node {
           dbid
           type
+          quote
           ...MediaCardCondensed_media
         }
       }

@@ -93,12 +93,12 @@ const MediaCardCondensed = ({
     >
       <Box display="flex">
         {
-          media?.picture || picture ?
+          media?.picture || picture || media.type === 'UploadedAudio' ?
             <img
               alt=""
               className={classes.image}
               onError={(e) => { e.target.onerror = null; e.target.src = defaultImage; }}
-              src={media?.picture || picture}
+              src={media?.picture || picture || defaultImage}
             /> : null
         }
         <div className={classes.text}>
@@ -143,6 +143,7 @@ MediaCardCondensed.defaultProps = {
 export default createFragmentContainer(MediaCardCondensed, graphql`
   fragment MediaCardCondensed_media on Media {
     dbid
+    type
     quote
     picture
     url
