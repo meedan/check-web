@@ -4,10 +4,6 @@ import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedRequestsTable />', () => {
   it('UploadedAudio should use default image as thumbnail', () => {
-    const media = {
-      type: 'UploadedAudio',
-      file_path: 'foobar',
-    };
     const feed = {
       requests: {
         edges: [
