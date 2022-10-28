@@ -26,6 +26,7 @@ import ListHeader from '../layout/ListHeader';
 import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
+import SearchKeyword from '../search/SearchKeyword';
 import { opaqueBlack03, opaqueBlack87 } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
@@ -67,6 +68,7 @@ const useStyles = makeStyles({
 const FeedRequestsTable = ({
   tabs,
   feed,
+  feedTeam,
   searchUrlPrefix,
   sort,
   sortType,
@@ -81,14 +83,14 @@ const FeedRequestsTable = ({
   hasNextPage,
   hasPreviousPage,
 }) => {
+  const classes = useStyles();
+
   const buildItemUrl = (requestDbid) => {
     const urlParams = new URLSearchParams();
     urlParams.set('listPath', searchUrlPrefix);
     urlParams.set('listQuery', JSON.stringify(filters));
     return `/check/feed/${feed.dbid}/request/${requestDbid}?${urlParams.toString()}`;
   };
-
-  const classes = useStyles();
 
   const mediaType = requestType => ({
     Claim: (
@@ -163,11 +165,35 @@ const FeedRequestsTable = ({
   return (
     <React.Fragment>
       <Box mb={2}>
-        <ListHeader listName={feed.name} icon={<DynamicFeedIcon />} />
+        <Box display="flex" alignItems="flex-start" justifyContent="space-between">
+          <ListHeader listName={feed.name} icon={<DynamicFeedIcon />} />
+          <Box p={2}>
+            <SearchKeyword
+              query={{ keyword: filters.keyword }}
+              team={{ verification_statuses: {} }}
+              setQuery={(query) => {
+                // Clear
+                if (!query.keyword || query.keyword === '') {
+                  const newFilters = { ...filters };
+                  delete newFilters.keyword;
+                  onChangeFilters(newFilters);
+                }
+              }}
+              showExpand={false}
+              cleanupQuery={query => query}
+              handleSubmit={(e) => {
+                const newFilters = { ...filters, keyword: e.target[0].value };
+                onChangeFilters(newFilters);
+                e.preventDefault();
+              }}
+              hideAdvanced
+            />
+          </Box>
+        </Box>
         { tabs({}) }
       </Box>
       <Box>
-        <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} />
+        <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} feedTeam={feedTeam} />
       </Box>
       <Box display="flex" alignItems="center">
         <IconButton onClick={onGoToThePreviousPage} disabled={!hasPreviousPage}>
@@ -297,7 +323,7 @@ const FeedRequestsTable = ({
                     {
                       r.node.fact_checked_by ?
                         <Box className={classes.hasFactCheck}>
-                          {r.node.fact_checked_by.split(', ').map(teamName => (<span>{teamName}<br /></span>))}
+                          {r.node.fact_checked_by.split(', ').map(teamName => (<span key={teamName}>{teamName}<br /></span>))}
                         </Box> :
                         <Box className={classes.noFactCheck}>
                           <FormattedMessage
@@ -324,6 +350,7 @@ FeedRequestsTable.propTypes = {};
 const FeedRequestsTableQuery = ({
   teamSlug,
   feedId,
+  feedTeam,
   tabs,
   searchUrlPrefix,
   filters,
@@ -350,13 +377,13 @@ const FeedRequestsTableQuery = ({
         environment={Relay.Store}
         query={graphql`
           query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!, $offset: Int!, $pageSize: Int!, $sort: String, $sortType: String, $mediasCountMin: Int, $mediasCountMax: Int
-                                       $requestsCountMin: Int, $requestsCountMax: Int, $requestCreatedAt: String) {
+                                       $requestsCountMin: Int, $requestsCountMax: Int, $requestCreatedAt: String, $factCheckedBy: String, $keyword: String) {
             team(slug: $teamSlug) {
               feed(dbid: $feedId) {
                 dbid
                 name
                 requests(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax,
-                         requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax, request_created_at: $requestCreatedAt) {
+                         requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax, request_created_at: $requestCreatedAt, fact_checked_by: $factCheckedBy, keyword: $keyword) {
                   totalCount
                   edges {
                     node {
@@ -396,6 +423,8 @@ const FeedRequestsTableQuery = ({
           requestsCountMin: filters.demand?.min,
           requestsCountMax: filters.demand?.max,
           requestCreatedAt: filters.range?.request_created_at ? JSON.stringify(filters.range?.request_created_at) : null,
+          factCheckedBy: filters.feed_fact_checked_by,
+          keyword: filters.keyword,
         }}
         render={({ props, error }) => {
           if (!error && !props) {
@@ -408,6 +437,7 @@ const FeedRequestsTableQuery = ({
                 key={page}
                 tabs={tabs}
                 feed={props.team?.feed}
+                feedTeam={feedTeam}
                 searchUrlPrefix={searchUrlPrefix}
                 sort={sort}
                 sortType={sortType}
@@ -440,6 +470,10 @@ FeedRequestsTableQuery.propTypes = {
   tabs: PropTypes.func.isRequired,
   searchUrlPrefix: PropTypes.string.isRequired,
   filters: PropTypes.object,
+  feedTeam: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    requests_filters: PropTypes.object,
+  }).isRequired,
 };
 
 export default FeedRequestsTableQuery;

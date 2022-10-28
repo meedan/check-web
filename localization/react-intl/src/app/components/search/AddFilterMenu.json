@@ -110,6 +110,11 @@
     "defaultMessage": "Organization"
   },
   {
+    "id": "addFilterMenu.feedFactCheckedBy",
+    "description": "Menu option to enable searching feed items by whether they were fact-checked",
+    "defaultMessage": "Fact-checked by"
+  },
+  {
     "id": "addFilterMenu.addFilter",
     "description": "Button that opens menu with filter field options",
     "defaultMessage": "Add filter"

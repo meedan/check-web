@@ -326,6 +326,18 @@ const AddFilterMenu = ({
         />
       ),
     },
+    {
+      id: 'add-filter-menu__feed-fact-checked-by',
+      key: 'feed_fact_checked_by',
+      icon: <HowToRegIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.feedFactCheckedBy"
+          defaultMessage="Fact-checked by"
+          description="Menu option to enable searching feed items by whether they were fact-checked"
+        />
+      ),
+    },
   ]);
 
   return (

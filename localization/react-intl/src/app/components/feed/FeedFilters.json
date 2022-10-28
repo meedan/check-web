@@ -1,5 +1,35 @@
 [
   {
+    "id": "feedFilters.defaultErrorMessage",
+    "description": "Error message displayed when it's not possible to save feed requests filters",
+    "defaultMessage": "Could not save filters, please try again"
+  },
+  {
+    "id": "feedFilters.savedSuccessfully",
+    "description": "Success message displayed when feed requests filters are saved",
+    "defaultMessage": "Filters saved successfully"
+  },
+  {
+    "id": "feedFilters.factCheckedBy",
+    "description": "Field label for feed filter",
+    "defaultMessage": "Fact-checked by"
+  },
+  {
+    "id": "feedFilters.factCheckByAny",
+    "description": "Filter option for feed filter 'Fact-checked by'",
+    "defaultMessage": "Any organization"
+  },
+  {
+    "id": "feedFilters.factCheckByMy",
+    "description": "Filter option for feed filter 'Fact-checked by'",
+    "defaultMessage": "My organization"
+  },
+  {
+    "id": "feedFilters.factCheckByNone",
+    "description": "Filter option for feed filter 'Fact-checked by'",
+    "defaultMessage": "No organization"
+  },
+  {
     "id": "feedFilters.applyFilters",
     "description": "Button to perform query with specified filters",
     "defaultMessage": "Apply filter"
@@ -8,5 +38,10 @@
     "id": "feedFilters.clear",
     "description": "Tooltip for button to remove any applied filters",
     "defaultMessage": "Clear filters"
+  },
+  {
+    "id": "feedFilters.saveFilters",
+    "description": "'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters.",
+    "defaultMessage": "Save filters"
   }
 ]
