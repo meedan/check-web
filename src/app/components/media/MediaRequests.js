@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import merge from 'lodash.merge';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
@@ -57,8 +56,7 @@ class MediaRequestsComponent extends Component {
   }
 
   render() {
-    const media = merge(this.props.cachedMedia, this.props.media);
-    const { classes } = this.props;
+    const { classes, media } = this.props;
 
     return (
       <div id="media__requests" className={classes.root}>
@@ -83,7 +81,7 @@ class MediaRequestsComponent extends Component {
         <Annotations
           noLink
           component={TiplineRequest}
-          annotations={media.requests.edges}
+          annotations={media.requests?.edges}
           annotated={media}
           annotatedType="ProjectMedia"
           annotationsCount={this.props.all ? media.demand : media.requests_count}
