@@ -150,6 +150,11 @@
     "defaultMessage": "Organization is"
   },
   {
+    "id": "search.factCheckedBy",
+    "description": "Prefix label for field to filter by fact-checked by",
+    "defaultMessage": "Fact-checked by"
+  },
+  {
     "id": "search.applyFilters",
     "description": "Button to perform query with specified filters",
     "defaultMessage": "Apply filter"

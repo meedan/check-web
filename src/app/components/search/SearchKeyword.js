@@ -359,24 +359,26 @@ class SearchKeyword extends React.Component {
                       disabled: this.state?.imgData?.data?.length > 0,
                     }}
                     endAdornment={
-                      <InputAdornment
-                        classes={{
-                          root: classes.endAdornmentRoot,
-                          filled: (
-                            this.keywordConfigIsActive() ?
-                              classes.endAdornmentActive :
-                              classes.endAdornmentInactive
-                          ),
-                        }}
-                        variant="filled"
-                      >
-                        <SearchKeywordMenu
-                          teamSlug={this.props.team.slug}
-                          onChange={this.handleKeywordConfigChange}
-                          query={this.props.query}
-                          anchorParent={() => this.searchInput.current}
-                        />
-                      </InputAdornment>
+                      this.props.hideAdvanced ?
+                        true :
+                        <InputAdornment
+                          classes={{
+                            root: classes.endAdornmentRoot,
+                            filled: (
+                              this.keywordConfigIsActive() ?
+                                classes.endAdornmentActive :
+                                classes.endAdornmentInactive
+                            ),
+                          }}
+                          variant="filled"
+                        >
+                          <SearchKeywordMenu
+                            teamSlug={this.props.team.slug}
+                            onChange={this.handleKeywordConfigChange}
+                            query={this.props.query}
+                            anchorParent={() => this.searchInput.current}
+                          />
+                        </InputAdornment>
                     }
                   />
                 </Box>
