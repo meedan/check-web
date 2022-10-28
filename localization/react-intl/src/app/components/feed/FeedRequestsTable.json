@@ -5,6 +5,11 @@
     "defaultMessage": "Text"
   },
   {
+    "id": "feedRequestsTable.mediaTypeLink",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Link"
+  },
+  {
     "id": "feedRequestsTable.mediaTypeImage",
     "description": "Label for feed request media type",
     "defaultMessage": "Image"

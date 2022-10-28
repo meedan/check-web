@@ -27,6 +27,7 @@ const submitImport = (input, onCompleted, onError) => {
         createProjectMedia(input: $input) {
           project_media {
             id
+            dbid
           }
         }
       }
@@ -91,17 +92,33 @@ const ImportDialog = ({
       setDialogOpen(false);
     };
 
-    mediaIds.forEach((mediaDbid) => {
-      const input = {
-        channel: JSON.stringify({ main: 12 }), // Shared Database
-        media_id: mediaDbid,
-        team_id: selectedTeamDbid,
-        set_claim_description: claimDescription,
-        set_title: `${importedTitlePrefix}${mediaDbid}`,
-      };
+    const inputCommon = {
+      channel: JSON.stringify({ main: 12 }), // Shared Feed
+      team_id: selectedTeamDbid,
+    };
+    const mainMediaDbid = mediaIds.shift();
+    const inputMain = {
+      ...inputCommon,
+      media_id: mainMediaDbid,
+      set_title: `${importedTitlePrefix}${mainMediaDbid}`,
+      set_claim_description: claimDescription,
+    };
+    const onCompletedMain = (response) => {
+      mediaIds.forEach((mediaDbid) => {
+        const input = {
+          ...inputCommon,
+          media_id: mediaDbid,
+          related_to_id: response.createProjectMedia.project_media.dbid,
+          set_title: `${importedTitlePrefix}${mediaDbid}`,
+        };
 
-      submitImport(input, onCompleted, onError);
-    });
+        submitImport(input, () => {}, onError);
+      });
+
+      onCompleted();
+    };
+
+    submitImport(inputMain, onCompletedMain, onError);
   };
 
   const handleCloseDialog = () => {

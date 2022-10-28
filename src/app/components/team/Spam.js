@@ -32,7 +32,7 @@ export default function Spam({ routeParams }) {
         icon={<DeleteIcon />}
         teamSlug={routeParams.team}
         query={query}
-        hideFields={['user', 'cluster_teams', 'cluster_published_reports', 'archived']}
+        hideFields={['feed_fact_checked_by', 'user', 'cluster_teams', 'cluster_published_reports', 'archived']}
         page="spam"
       />
     </ErrorBoundary>
