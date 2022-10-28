@@ -368,7 +368,7 @@ const FeedRequestsTableQuery = ({
   };
 
   const setFilters = (newFilters) => {
-    const params = { ...newFilters, page: 1 };
+    const params = { ...newFilters, page: 1, timestamp: new Date().getTime() };
     browserHistory.push(`/${teamSlug}/feed/${feedId}/requests/${JSON.stringify(params)}`);
   };
 
