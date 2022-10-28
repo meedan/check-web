@@ -191,10 +191,9 @@ const FeedFilters = ({
               key={filter}
               label={<FormattedMessage id="feedFilters.factCheckedBy" defaultMessage="Fact-checked by" description="Field label for feed filter" />}
               icon={<HowToRegIcon />}
-              selected={['ANY', 'MINE', 'NONE'].includes(value) ? [value] : []}
+              selected={['ANY', 'NONE'].includes(value) ? [value] : []}
               options={[
                 { key: 'ANY', label: <FormattedMessage id="feedFilters.factCheckByAny" defaultMessage="Any organization" description="Filter option for feed filter 'Fact-checked by'" />, value: 'ANY' },
-                { key: 'MINE', label: <FormattedMessage id="feedFilters.factCheckByMy" defaultMessage="My organization" description="Filter option for feed filter 'Fact-checked by'" />, value: 'MINE' },
                 { key: 'NONE', label: <FormattedMessage id="feedFilters.factCheckByNone" defaultMessage="No organization" description="Filter option for feed filter 'Fact-checked by'" />, value: 'NONE' },
               ]}
               onChange={newValue => handleOptionChange('feed_fact_checked_by', newValue)}

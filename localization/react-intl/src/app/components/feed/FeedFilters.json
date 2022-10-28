@@ -20,11 +20,6 @@
     "defaultMessage": "Any organization"
   },
   {
-    "id": "feedFilters.factCheckByMy",
-    "description": "Filter option for feed filter 'Fact-checked by'",
-    "defaultMessage": "My organization"
-  },
-  {
     "id": "feedFilters.factCheckByNone",
     "description": "Filter option for feed filter 'Fact-checked by'",
     "defaultMessage": "No organization"

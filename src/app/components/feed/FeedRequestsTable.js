@@ -199,7 +199,7 @@ const FeedRequestsTable = ({
         <IconButton onClick={onGoToThePreviousPage} disabled={!hasPreviousPage}>
           <PrevIcon />
         </IconButton>
-        <Box className={classes.pager}>{rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</Box>
+        <Box className={classes.pager}>{rangeStart > totalCount ? totalCount : rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</Box>
         <IconButton onClick={onGoToTheNextPage} disabled={!hasNextPage}>
           <NextIcon />
         </IconButton>
@@ -377,7 +377,7 @@ const FeedRequestsTableQuery = ({
       <QueryRenderer
         environment={Relay.Store}
         query={graphql`
-          query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!, $offset: Int!, $pageSize: Int!, $sort: String, $sortType: String, $mediasCountMin: Int, $mediasCountMax: Int
+          query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!, $offset: Int!, $pageSize: Int!, $sort: String, $sortType: String, $mediasCountMin: Int, $mediasCountMax: Int,
                                        $requestsCountMin: Int, $requestsCountMax: Int, $requestCreatedAt: String, $factCheckedBy: String, $keyword: String) {
             team(slug: $teamSlug) {
               feed(dbid: $feedId) {
@@ -424,7 +424,7 @@ const FeedRequestsTableQuery = ({
           requestsCountMin: filters.demand?.min,
           requestsCountMax: filters.demand?.max,
           requestCreatedAt: filters.range?.request_created_at ? JSON.stringify(filters.range?.request_created_at) : null,
-          factCheckedBy: filters.feed_fact_checked_by,
+          factCheckedBy: ['ANY', 'NONE'].includes(filters.feed_fact_checked_by) ? filters.feed_fact_checked_by : null,
           keyword: filters.keyword,
         }}
         render={({ props, error }) => {
