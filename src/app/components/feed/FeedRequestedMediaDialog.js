@@ -73,7 +73,7 @@ const FeedRequestedMediaDialog = ({
           <div className={classes.column}>
             <ImportButton onClick={onImport} />
             <MediaCard
-              title={`${request.request_type}-${request.feed.name.replace(' ', '-')}-${media.dbid}`}
+              title={media.quote || `${request.request_type}-${request.feed.name.replace(' ', '-')}-${media.dbid}`}
               details={[
                 <MediaTypeDisplayName mediaType={media.type} />,
                 (
@@ -109,6 +109,7 @@ export default createFragmentContainer(injectIntl(FeedRequestedMediaDialog), gra
   fragment FeedRequestedMediaDialog_media on Media {
     dbid
     type
+    quote
     ...MediaCard_media
   }
 `);

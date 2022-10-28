@@ -82,7 +82,7 @@
   {
     "id": "addFilterMenu.tiplineRequests",
     "description": "Menu option to enable searching items by tipline requests",
-    "defaultMessage": "Number of tipline requests"
+    "defaultMessage": "Number of requests"
   },
   {
     "id": "addFilterMenu.language",
@@ -108,6 +108,11 @@
     "id": "addFilterMenu.Workspace",
     "description": "Menu option to enable searching items by workspace",
     "defaultMessage": "Organization"
+  },
+  {
+    "id": "addFilterMenu.feedFactCheckedBy",
+    "description": "Menu option to enable searching feed items by whether they were fact-checked",
+    "defaultMessage": "Fact-checked by"
   },
   {
     "id": "addFilterMenu.addFilter",

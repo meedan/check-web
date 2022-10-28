@@ -114,7 +114,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               feedFilters: feed.filters,
               shared: feedTeam.shared,
             }}
-            hideFields={['cluster_teams', 'cluster_published_reports']}
+            hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
             {...commonSearchProps}
           />
         </div>
@@ -135,6 +135,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             }}
             resultType="factCheck"
             hideFields={[
+              'feed_fact_checked_by',
               'folder',
               'projects',
               'project_group_id',
@@ -179,6 +180,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             }}
             resultType="feed"
             hideFields={[
+              'feed_fact_checked_by',
               'folder',
               'projects',
               'project_group_id',
@@ -215,7 +217,16 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             tabs={topBar}
             teamSlug={routeParams.team}
             feedId={parseInt(routeParams.feedId, 10)}
+            feedTeam={{
+              id: feedTeam.id,
+              requests_filters: feedTeam.requests_filters || {},
+            }}
             searchUrlPrefix={commonSearchProps.searchUrlPrefix}
+            filters={
+              routeParams.query ?
+                { ...safelyParseJSON(routeParams.query, {}) } :
+                (feedTeam.requests_filters || {})
+            }
           />
         </div>
         : null
@@ -264,6 +275,7 @@ const Feed = ({ routeParams }) => (
                 id
                 filters
                 shared
+                requests_filters
               }
             }
           }
