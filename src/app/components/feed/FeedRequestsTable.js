@@ -477,5 +477,4 @@ FeedRequestsTableQuery.propTypes = {
   }).isRequired,
 };
 
-export { FeedRequestsTable };
 export default FeedRequestsTableQuery;
