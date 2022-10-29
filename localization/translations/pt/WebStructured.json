@@ -1236,7 +1236,7 @@
 		"string": "Tags"
 	},
 	"feedRequestedMedia.factChecksSentForAllMedias": {
-		"string": "{factChecksCount, plural, one {# checagem enviada} many {# checagens enviadas} other {# checagem enviada}}",
+		"string": "{factChecksCount, plural, one {# verificação de fatos enviada} many {# verificações de fatos enviadas} other {# verificação de fatos enviada}}",
 		"developer_comment": "Part of the header of requests list. Example: 12 fact-checks sent"
 	},
 	"feedRequestedMedia.import": {
@@ -1276,7 +1276,7 @@
 		"developer_comment": "Header label for fact-check by column"
 	},
 	"feedRequestsTable.factChecksSent": {
-		"string": "Checagens enviadas",
+		"string": "Verificações de fatos enviadas",
 		"developer_comment": "Header label for fact-checks sent column"
 	},
 	"feedRequestsTable.lastSubmitted": {
