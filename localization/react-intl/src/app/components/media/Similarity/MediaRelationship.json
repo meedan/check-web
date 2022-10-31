@@ -1,17 +1,12 @@
 [
   {
-    "id": "mediaItem.error",
-    "description": "A generic error message",
-    "defaultMessage": "Error, please try again"
-  },
-  {
     "id": "mediaItem.pinning",
-    "description": "A message that appears while the 'pin' action is resolving on the server",
+    "description": "Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item",
     "defaultMessage": "Pinning…"
   },
   {
     "id": "mediaItem.doneRedirecting",
-    "description": "A message that informs the user a 'pin' action is finished and a redirect is about to happen",
+    "description": "Message displayed when the action of pinning an item is completed by the server",
     "defaultMessage": "Done, redirecting to new main item…"
   },
   {
@@ -21,12 +16,12 @@
   },
   {
     "id": "mediaItem.pinAsMain",
-    "description": "Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places).",
+    "description": "Menu option for pinning an item as the main item",
     "defaultMessage": "Pin as main"
   },
   {
     "id": "mediaItem.detach",
-    "description": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item.",
+    "description": "Menu option for removing the similarity relationship between the current media item and the main one",
     "defaultMessage": "Un-match media"
   },
   {

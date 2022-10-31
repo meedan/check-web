@@ -17,13 +17,13 @@ export default function ImportedReports({ routeParams }) {
   return (
     <ErrorBoundary component="ImportedReports">
       <Search
-        searchUrlPrefix={`/${routeParams.team}/imported-reports`}
+        searchUrlPrefix={`/${routeParams.team}/imported-fact-checks`}
         mediaUrlPrefix={`/${routeParams.team}/media`}
-        title={<FormattedMessage id="ImportedReports.title" defaultMessage="Imported reports" />}
+        title={<FormattedMessage id="ImportedReports.title" defaultMessage="Imported fact-checks" />}
         icon={<GetAppIcon />}
         teamSlug={routeParams.team}
         query={query}
-        hideFields={['channels', 'cluster_teams', 'cluster_published_reports']}
+        hideFields={['feed_fact_checked_by', 'channels', 'cluster_teams', 'cluster_published_reports']}
         page="imported-reports"
       />
     </ErrorBoundary>

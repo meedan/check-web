@@ -1,74 +1,37 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
-import styled from 'styled-components';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import CheckIcon from '@material-ui/icons/Check';
+import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import TelegramIcon from '@material-ui/icons/Telegram';
+import TimeBefore from '../TimeBefore';
+import RequestSubscription from '../feed/RequestSubscription';
 import ViberIcon from '../../icons/ViberIcon';
 import LineIcon from '../../icons/LineIcon';
-import ParsedText from '../ParsedText';
-import TimeBefore from '../TimeBefore';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
   parseStringUnixTimestamp,
 } from '../../helpers';
+import Request from '../cds/requests-annotations/Request';
 import {
   units,
-  black38,
-  black54,
-  checkBlue,
-  caption,
-  Row,
   twitterBlue,
   facebookBlue,
   whatsappGreen,
   telegramBlue,
   viberPurple,
   lineGreen,
-  completedGreen,
-  separationGray,
 } from '../../styles/js/shared';
 
-// FIXME: Convert styled-components to useStyles
-const StyledRequestHeader = styled(Row)`
-  color: ${black38};
-  flex-flow: wrap row;
-  font: ${caption};
-  margin-bottom: ${units(2)};
-
-  .separation_dot:before {
-    content: '\\25CF ';
-    padding: 0 ${units(1)};
-    font-size: ${units(1)};
-  }
-
-  .annotation__card-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  a, a:visited, a:hover {
-    color: ${checkBlue};
-    text-decoration: underline;
-  }
-`;
-
-// FIXME: Convert styled-components to useStyles
-const StyledReportReceived = styled.div`
-  color: ${black54};
-  font: ${caption};
-  display: flex;
-  align-items: center;
-  margin-bottom: ${units(2)};
-`;
+const messages = defineMessages({
+  smoochNoMessage: {
+    id: 'annotation.smoochNoMessage',
+    defaultMessage: 'No message was sent with the request',
+    description: 'Replacement for tipline requests without a message',
+  },
+});
 
 const SmoochIcon = ({ name }) => {
   switch (name) {
@@ -95,16 +58,6 @@ const SmoochIcon = ({ name }) => {
 SmoochIcon.propTypes = {
   name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line']).isRequired,
 };
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    borderBottom: `1px ${separationGray} solid`,
-    padding: `${theme.spacing(4)}px ${theme.spacing(1)}px`,
-  },
-  name: {
-    marginLeft: theme.spacing(1),
-  },
-}));
 
 function parseText(text, projectMedia, activity) {
   let parsedText = text;
@@ -147,84 +100,86 @@ const TiplineRequest = ({
   const smoochReportUpdateReceivedAt = activity.smooch_report_update_received_at ?
     new Date(parseInt(activity.smooch_report_update_received_at, 10) * 1000) : null;
   const smoochRequestLanguage = activity.smooch_user_request_language;
-  const { locale } = intl;
-  const classes = useStyles();
+  const { locale, formatMessage } = intl;
+
+  const details = [emojify(objectValue.name)];
+  if (smoochExternalId) {
+    details.push(smoochExternalId);
+  }
+  if (smoochRequestLanguage) {
+    details.push(languageName(smoochRequestLanguage));
+  }
+  details.push(<TimeBefore date={updatedAt} />);
+  if (messageType !== 'telegram' && smoochSlackUrl) {
+    details.push((
+      <a
+        target="_blank"
+        style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
+        rel="noopener noreferrer"
+        href={smoochSlackUrl}
+      >
+        <FormattedMessage
+          id="annotation.openInSlack"
+          defaultMessage="Open in Slack"
+          description="Label for link to conversation in Slack"
+        />
+      </a>
+    ));
+  }
+
+  let reportReceiveStatus = null;
+
+  if (smoochReportReceivedAt) {
+    reportReceiveStatus = (
+      <FormattedMessage
+        id="annotation.reportReceived"
+        defaultMessage="Report sent on {date}"
+        description="Caption for report sent date"
+        values={{
+          date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
+        }}
+      >
+        {text => (
+          <span title={text}>
+            <RequestSubscription lastCalledAt={smoochReportReceivedAt.toLocaleString(locale)} />
+          </span>
+        )}
+      </FormattedMessage>
+    );
+  }
+  if (smoochReportUpdateReceivedAt) {
+    reportReceiveStatus = (
+      <FormattedMessage
+        id="annotation.reportUpdateReceived"
+        defaultMessage="Report update sent on {date}"
+        description="Caption for report update sent date"
+        values={{
+          date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
+        }}
+      >
+        {text => (
+          <span title={text}>
+            <RequestSubscription lastCalledAt={smoochReportUpdateReceivedAt.toLocaleString(locale)} />
+          </span>
+        )}
+      </FormattedMessage>
+    );
+  }
+
+  if (reportReceiveStatus) {
+    details.push(reportReceiveStatus);
+  }
 
   return (
-    <div className={classes.root}>
-      <StyledRequestHeader>
-        <span className="annotation__card-header">
-          <SmoochIcon name={messageType} />
-          <span className={classes.name}>
-            { emojify(objectValue.name) }
-          </span>
-          { smoochExternalId ?
-            <span className="separation_dot">
-              {smoochExternalId}
-            </span> : null }
-          { smoochRequestLanguage ?
-            <span className="separation_dot">
-              {languageName(smoochRequestLanguage)}
-            </span> : null }
-          <span className="separation_dot">
-            <TimeBefore date={updatedAt} />
-          </span>
-          { messageType !== 'telegram' && smoochSlackUrl ?
-            <span className="separation_dot">
-              <a
-                target="_blank"
-                style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
-                rel="noopener noreferrer"
-                href={smoochSlackUrl}
-              >
-                <FormattedMessage id="annotation.openInSlack" defaultMessage="Open in Slack" />
-              </a>
-            </span> : null }
-        </span>
-      </StyledRequestHeader>
-      { smoochReportReceivedAt && !smoochReportUpdateReceivedAt ?
-        <StyledReportReceived className="annotation__smooch-report-received">
-          <CheckIcon style={{ color: completedGreen }} />
-          { /* FIXME: Remove space character and use proper styling for padding */ }
-          {' '}
-          <span title={smoochReportReceivedAt.toLocaleString(locale)}>
-            <FormattedMessage
-              id="annotation.reportReceived"
-              defaultMessage="Report sent on {date}"
-              values={{
-                date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
-              }}
-            />
-          </span>
-        </StyledReportReceived> : null }
-      { smoochReportUpdateReceivedAt ?
-        <StyledReportReceived className="annotation__smooch-report-received">
-          <CheckIcon style={{ color: completedGreen }} />
-          { /* FIXME: Remove space character and use proper styling for padding */ }
-          {' '}
-          <span title={smoochReportUpdateReceivedAt.toLocaleString(locale)}>
-            <FormattedMessage
-              id="annotation.reportUpdateReceived"
-              defaultMessage="Report update sent on {date}"
-              values={{
-                date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
-              }}
-            />
-          </span>
-        </StyledReportReceived> : null }
-      <div className="annotation__card-content">
-        <Typography variant="body2">
-          { messageText ? (
-            <ParsedText text={parseText(messageText, projectMedia, activity)} />
-          ) : (
-            <FormattedMessage
-              id="annotation.smoochNoMessage"
-              defaultMessage="No message was sent with the request"
-            />
-          )}
-        </Typography>
-      </div>
-    </div>
+    <Request
+      details={details}
+      text={messageText ? (
+        parseText(messageText, projectMedia, activity)
+      ) : (
+        formatMessage(messages.smoochNoMessage)
+      )}
+      icon={<SmoochIcon name={messageType} />}
+    />
   );
 };
 

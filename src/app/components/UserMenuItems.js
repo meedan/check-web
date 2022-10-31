@@ -38,13 +38,13 @@ const UserMenuItems = () => (
       </MenuItem>
     </ExternalLink>
 
-    <ExternalLink url="https://meedan.com/en/check/check_tos.html">
+    <ExternalLink url="https://meedan.com/legal/terms-of-service">
       <MenuItem className="user-menu__tos">
         <FormattedMessage id="UserMenu.tos" defaultMessage="Terms of service" />
       </MenuItem>
     </ExternalLink>
 
-    <ExternalLink url="https://meedan.com/en/check/check_privacy.html">
+    <ExternalLink url="https://meedan.com/legal/privacy-policy">
       <MenuItem className="user-menu__pp">
         <ListItemText
           primary={
@@ -54,7 +54,7 @@ const UserMenuItems = () => (
       </MenuItem>
     </ExternalLink>
 
-    <ExternalLink url="https://meedan.com/en/check/">
+    <ExternalLink url="https://meedan.com/check">
       <MenuItem className="user-menu__about">
         <ListItemText
           primary={<FormattedMessage id="UserMenu.about" defaultMessage="About" />}

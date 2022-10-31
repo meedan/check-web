@@ -6,7 +6,7 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import { Box, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import RequestCard from './RequestCard';
+import Request from '../cds/requests-annotations/Request';
 import RequestSubscription from './RequestSubscription';
 import MediasLoading from '../media/MediasLoading';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -58,8 +58,16 @@ const RequestCards = ({ request, mediaDbid }) => {
                     id="feedRequestedMedia.requestsForAllMedias"
                     defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
                     description="Header of requests list. Example: 26 requests"
-                    values={{ requestsCount }}
+                    values={{ requestsCount: Math.max(0, requestsCount - request.subscriptions_count) }}
                   />),
+                  (
+                    <FormattedMessage
+                      id="feedRequestedMedia.factChecksSentForAllMedias"
+                      defaultMessage="{factChecksCount, plural, one {# fact-check sent} other {# fact-checks sent}}"
+                      description="Part of the header of requests list. Example: 12 fact-checks sent"
+                      values={{ factChecksCount: request.project_medias_count }}
+                    />
+                  ),
                   (
                     <span className={classes.subscriptions}>
                       <FormattedMessage
@@ -84,7 +92,7 @@ const RequestCards = ({ request, mediaDbid }) => {
         </div>
       </Box>
       { isAllMedias || isParentRequest ?
-        <RequestCard
+        <Request
           icon={whatsappIcon}
           text={request.content}
           fileUrl={request.media?.file_path}
@@ -110,7 +118,7 @@ const RequestCards = ({ request, mediaDbid }) => {
         : null
       }
       { request.similar_requests?.edges.map(r => (
-        <RequestCard
+        <Request
           key={r.node.dbid}
           icon={whatsappIcon}
           text={r.node.content}
@@ -153,6 +161,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
             dbid
             content
             subscriptions_count
+            project_medias_count
             subscribed
             requests_count
             last_called_webhook_at

@@ -14,9 +14,11 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { FormattedMessage } from 'react-intl';
 import MediaItem from './MediaItem';
 import SelectProjectDialog from '../SelectProjectDialog';
-import globalStrings from '../../../globalStrings';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
+import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
+import globalStrings from '../../../globalStrings';
+import { getErrorMessage } from '../../../helpers';
 
 const useStyles = makeStyles(() => ({
   outer: {
@@ -91,13 +93,20 @@ const RelationshipMenu = ({
     browserHistory.push(url);
   };
 
-  const handleError = () => {
-    // FIXME: Replace with `<GenericUnknownErrorMessage />`;
-    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" description="A generic error message" />, 'error');
+  const handleError = (error) => {
+    const message = getErrorMessage(error, <GenericUnknownErrorMessage />);
+    setFlashMessage(message, 'error');
   };
 
   const handleSwitch = () => {
-    setFlashMessage(<FormattedMessage id="mediaItem.pinning" defaultMessage="Pinning…" description="A message that appears while the 'pin' action is resolving on the server" />, 'info');
+    setFlashMessage(
+      <FormattedMessage
+        id="mediaItem.pinning"
+        defaultMessage="Pinning…"
+        description="Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item"
+      />,
+      'info',
+    );
 
     commitPinMutation(id, targetId, sourceId, (response, error) => {
       if (error) {
@@ -188,7 +197,7 @@ const RelationshipMenu = ({
       ],
       onCompleted: (response, error) => {
         if (error) {
-          handleError();
+          handleError(error);
         } else {
           const { title: projectTitle, dbid: projectId } = project;
           const message = (
@@ -209,9 +218,7 @@ const RelationshipMenu = ({
           setFlashMessage(message, 'success');
         }
       },
-      onError: () => {
-        handleError();
-      },
+      onError: handleError,
     });
   };
 
@@ -235,7 +242,11 @@ const RelationshipMenu = ({
               <ListItemText
                 className="similarity-media-item__pin-relationship"
                 primary={
-                  <FormattedMessage id="mediaItem.pinAsMain" defaultMessage="Pin as main" description="Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places)." />
+                  <FormattedMessage
+                    id="mediaItem.pinAsMain"
+                    defaultMessage="Pin as main"
+                    description="Menu option for pinning an item as the main item"
+                  />
                 }
               />
             </MenuItem>
@@ -278,7 +289,7 @@ const RelationshipMenu = ({
             description="Dialog title prompting user to select a destination folder for the item"
           />
         }
-        // eslint-disable-next-line @calm/react-intl/missing-attribute
+        /* eslint-disable-next-line @calm/react-intl/missing-attribute */
         cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         submitLabel={
           <FormattedMessage

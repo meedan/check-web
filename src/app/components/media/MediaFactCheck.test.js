@@ -81,7 +81,7 @@ const projectMedia5 = {
 };
 
 describe('<MediaFactCheck>', () => {
-  it('should render fact check input fields', () => {
+  it('should render fact-check input fields', () => {
     const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia} />);
     expect(wrapper.find('#media__fact-check-title').hostNodes()).toHaveLength(1);
     expect(wrapper.find('#media-fact-check__summary').hostNodes()).toHaveLength(1);

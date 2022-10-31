@@ -1,5 +1,6 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -126,5 +127,21 @@ class Annotations extends React.Component {
       </StyledAnnotations>);
   }
 }
+
+Annotations.propTypes = {
+  noLink: PropTypes.bool,
+  annotations: PropTypes.array,
+  annotated: PropTypes.object.isRequired,
+  annotatedType: PropTypes.string.isRequired,
+  relay: PropTypes.object,
+  noActivityMessage: PropTypes.node,
+};
+
+Annotations.defaultProps = {
+  noLink: false,
+  annotations: [],
+  relay: null,
+  noActivityMessage: null,
+};
 
 export default injectIntl(Annotations);

@@ -5,6 +5,11 @@
     "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
   },
   {
+    "id": "feedRequestedMedia.factChecksSentForAllMedias",
+    "description": "Part of the header of requests list. Example: 12 fact-checks sent",
+    "defaultMessage": "{factChecksCount, plural, one {# fact-check sent} other {# fact-checks sent}}"
+  },
+  {
     "id": "feedRequestedMedia.subscriptionsForAllMedias",
     "description": "Part of the header of requests list. Example: 12 subscriptions",
     "defaultMessage": "{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}"

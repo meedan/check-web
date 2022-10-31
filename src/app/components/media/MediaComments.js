@@ -66,8 +66,7 @@ class MediaCommentsComponent extends Component {
   }
 
   render() {
-    const media = Object.assign(this.props.cachedMedia, this.props.media);
-    const { classes } = this.props;
+    const { classes, media } = this.props;
 
     return (
       <div id="media__comments" className={classes.root}>
@@ -121,6 +120,7 @@ const MediaCommentsContainer = Relay.createContainer(withStyles(styles)(withPush
         dbid
         archived
         pusher_channel
+        permissions
         annotations_count(annotation_type: "comment")
         comments(last: $pageSize) {
           edges {

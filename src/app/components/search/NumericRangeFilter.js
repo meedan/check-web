@@ -24,7 +24,7 @@ const messages = defineMessages({
   },
   tiplineRequests: {
     id: 'numericRangeFilter.tiplineRequests',
-    defaultMessage: 'Number of tipline requests is between',
+    defaultMessage: 'Number of requests is between',
     description: 'Filter option that refers to tipline requests',
   },
 });

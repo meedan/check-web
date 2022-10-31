@@ -9,9 +9,11 @@ const MediaPreview = ({ media }) => {
     media.type === 'UploadedVideo' ||
     media.type === 'UploadedAudio' ||
     (media.url && media.domain === 'youtube.com')) {
+    const coverImage = media.thumbnail_path || '/images/player_cover.svg';
     preview = (
       <MediaPlayerCard
         filePath={media.file_path || media.url}
+        coverImage={coverImage}
       />
     );
   } else if (media.picture) {
@@ -37,5 +39,6 @@ export default createFragmentContainer(MediaPreview, graphql`
     picture
     url
     file_path
+    thumbnail_path
   }
 `);

@@ -92,7 +92,7 @@
 		"string": "Done"
 	},
 	"ImportedReports.title": {
-		"string": "Imported reports"
+		"string": "Imported fact-checks"
 	},
 	"ItemHistoryDialog.title": {
 		"string": "Item history"
@@ -235,7 +235,7 @@
 		"developer_comment": "Menu option to enable searching items by channel"
 	},
 	"addFilterMenu.claim": {
-		"string": "അവകാശവാദം",
+		"string": "Claim",
 		"developer_comment": "Menu option to enable searching items by claim"
 	},
 	"addFilterMenu.collection": {
@@ -245,6 +245,10 @@
 	"addFilterMenu.createdBy": {
 		"string": "Created by",
 		"developer_comment": "Menu option to enable searching items by author"
+	},
+	"addFilterMenu.feedFactCheckedBy": {
+		"string": "Fact-checked by",
+		"developer_comment": "Menu option to enable searching feed items by whether they were fact-checked"
 	},
 	"addFilterMenu.filterBy": {
 		"string": "Filter by",
@@ -283,7 +287,7 @@
 		"developer_comment": "Menu option to enable searching items by matched medias"
 	},
 	"addFilterMenu.source": {
-		"string": "ഉറവിടം",
+		"string": "Source",
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
@@ -291,7 +295,7 @@
 		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
-		"string": "ടാഗ്",
+		"string": "Tag",
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
@@ -303,7 +307,7 @@
 		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
 	},
 	"addFilterMenu.tiplineRequests": {
-		"string": "Number of tipline requests",
+		"string": "Number of requests",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
@@ -421,7 +425,8 @@
 		"string": "No activity"
 	},
 	"annotation.openInSlack": {
-		"string": "Open in Slack"
+		"string": "Open in Slack",
+		"developer_comment": "Label for link to conversation in Slack"
 	},
 	"annotation.pausedBy": {
 		"string": "paused by",
@@ -443,10 +448,12 @@
 		"developer_comment": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
 	},
 	"annotation.reportReceived": {
-		"string": "Report sent on {date}"
+		"string": "Report sent on {date}",
+		"developer_comment": "Caption for report sent date"
 	},
 	"annotation.reportUpdateReceived": {
-		"string": "Report update sent on {date}"
+		"string": "Report update sent on {date}",
+		"developer_comment": "Caption for report update sent date"
 	},
 	"annotation.similarCreated": {
 		"string": "Match confirmed by {author}: {title}",
@@ -457,7 +464,8 @@
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
-		"string": "No message was sent with the request"
+		"string": "No message was sent with the request",
+		"developer_comment": "Replacement for tipline requests without a message"
 	},
 	"annotation.statusLocked": {
 		"string": "Item status locked by {author}",
@@ -557,7 +565,7 @@
 		"string": "Add item"
 	},
 	"blankMediaButton.addToImportedReport": {
-		"string": "Add to imported report"
+		"string": "Add to imported fact-check"
 	},
 	"blankMediaButton.addToReport": {
 		"string": "Add to report"
@@ -633,6 +641,10 @@
 		"string": "Action",
 		"developer_comment": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
 	},
+	"bulkActionsMenu.addTag": {
+		"string": "Add tag",
+		"developer_comment": "Menu option for bulk tagging selected items"
+	},
 	"bulkActionsMenu.assign": {
 		"string": "Assign",
 		"developer_comment": "Menu option for bulk assigning selected items"
@@ -645,9 +657,9 @@
 		"string": "Move to folder",
 		"developer_comment": "Menu option for bulk moving selected items into a folder"
 	},
-	"bulkActionsMenu.tag": {
-		"string": "ടാഗ്",
-		"developer_comment": "Menu option for bulk tagging selected items"
+	"bulkActionsMenu.removeTag": {
+		"string": "Remove tag",
+		"developer_comment": "Menu option for bulk untagging selected items"
 	},
 	"bulkActionsMove.notFound": {
 		"string": "No folders found",
@@ -656,6 +668,26 @@
 	"bulkActionsMove.submitLabel": {
 		"string": "{numItems, plural, one {Move 1 item} other {Move # items}}",
 		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
+	},
+	"bulkActionsRemoveTag.dialogBody": {
+		"string": "The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?",
+		"developer_comment": "Body of dialog warning that bulk untagging items"
+	},
+	"bulkActionsRemoveTag.dialogTitle": {
+		"string": "Tags will be removed from eligible items",
+		"developer_comment": "Title of dialog warning after bulk untagging items"
+	},
+	"bulkActionsRemoveTag.proceedLabel": {
+		"string": "Remove tags",
+		"developer_comment": "Button to confirm remove tags"
+	},
+	"bulkActionsRemoveTag.submitLabel": {
+		"string": "{numItems, plural, one {Remove 1 tag} other {Remove # tags}}",
+		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
+	},
+	"bulkActionsRemoveTag.success": {
+		"string": "{tags} tags removed from {itemsCount} items",
+		"developer_comment": "Success message for bulk untagging items"
 	},
 	"bulkActionsStatus.dialogBody": {
 		"string": "{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}",
@@ -674,7 +706,7 @@
 		"developer_comment": "Success message for bulk status change action"
 	},
 	"bulkActionsTag.submitLabel": {
-		"string": "{numItems, plural, one {Tag 1 item} other {Tag # items}}",
+		"string": "{numItems, plural, one {Add 1 tag} other {Add # tags}}",
 		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
@@ -879,7 +911,7 @@
 		"developer_comment": "Message displayed when a team tag is created"
 	},
 	"createTag.name": {
-		"string": "പേര്"
+		"string": "Name"
 	},
 	"createTag.rule": {
 		"string": "Automatically tag items matching the following conditions:"
@@ -1062,6 +1094,38 @@
 		"string": "Shared",
 		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
 	},
+	"feedFilters.applyFilters": {
+		"string": "Apply filter",
+		"developer_comment": "Button to perform query with specified filters"
+	},
+	"feedFilters.clear": {
+		"string": "Clear filters",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
+	"feedFilters.defaultErrorMessage": {
+		"string": "Could not save filters, please try again",
+		"developer_comment": "Error message displayed when it's not possible to save feed requests filters"
+	},
+	"feedFilters.factCheckByAny": {
+		"string": "Any organization",
+		"developer_comment": "Filter option for feed filter 'Fact-checked by'"
+	},
+	"feedFilters.factCheckByNone": {
+		"string": "No organization",
+		"developer_comment": "Filter option for feed filter 'Fact-checked by'"
+	},
+	"feedFilters.factCheckedBy": {
+		"string": "Fact-checked by",
+		"developer_comment": "Field label for feed filter"
+	},
+	"feedFilters.saveFilters": {
+		"string": "Save filters",
+		"developer_comment": "'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
+	},
+	"feedFilters.savedSuccessfully": {
+		"string": "Filters saved successfully",
+		"developer_comment": "Success message displayed when feed requests filters are saved"
+	},
 	"feedItem.aboutThisClaim": {
 		"string": "About this claim"
 	},
@@ -1102,7 +1166,7 @@
 		"developer_comment": "Select field label used in import claim dialog from feed page."
 	},
 	"feedItem.importTextLabel": {
-		"string": "അവകാശവാദം",
+		"string": "Claim",
 		"developer_comment": "Text field that prompts user to add a claim for related media."
 	},
 	"feedItem.importTitle": {
@@ -1171,6 +1235,10 @@
 	"feedItem.tags": {
 		"string": "Tags"
 	},
+	"feedRequestedMedia.factChecksSentForAllMedias": {
+		"string": "{factChecksCount, plural, one {# fact-check sent} other {# fact-checks sent}}",
+		"developer_comment": "Part of the header of requests list. Example: 12 fact-checks sent"
+	},
 	"feedRequestedMedia.import": {
 		"string": "Import",
 		"developer_comment": "Button label for importing media into workspace action"
@@ -1195,6 +1263,10 @@
 		"string": "{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}",
 		"developer_comment": "Part of the header of requests list. Example: 12 subscriptions"
 	},
+	"feedRequestedMediaDialog.lastSubmitted": {
+		"string": "Last submitted {date}",
+		"developer_comment": "Shows the last time a media was submitted (on feed request media card)"
+	},
 	"feedRequestedMediaDialog.title": {
 		"string": "Import medias and requests",
 		"developer_comment": "Dialog title for importing medias and requests"
@@ -1202,6 +1274,10 @@
 	"feedRequestsTable.factCheckBy": {
 		"string": "Fact-check by",
 		"developer_comment": "Header label for fact-check by column"
+	},
+	"feedRequestsTable.factChecksSent": {
+		"string": "Fact-checks sent",
+		"developer_comment": "Header label for fact-checks sent column"
 	},
 	"feedRequestsTable.lastSubmitted": {
 		"string": "Last submitted",
@@ -1214,6 +1290,30 @@
 	"feedRequestsTable.media": {
 		"string": "Media",
 		"developer_comment": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
+	},
+	"feedRequestsTable.mediaType": {
+		"string": "Media type",
+		"developer_comment": "Header label for media type column, in which are shown the type of the media associated with the request"
+	},
+	"feedRequestsTable.mediaTypeAudio": {
+		"string": "Audio",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeImage": {
+		"string": "Image",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeLink": {
+		"string": "Link",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeText": {
+		"string": "Text",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeVideo": {
+		"string": "Video",
+		"developer_comment": "Label for feed request media type"
 	},
 	"feedRequestsTable.noFactCheck": {
 		"string": "No fact-check",
@@ -1438,7 +1538,7 @@
 		"developer_comment": "Label for user email field"
 	},
 	"inviteNewAccountnameLabel": {
-		"string": "പേര്",
+		"string": "Name",
 		"developer_comment": "Label for user name field"
 	},
 	"inviteNewAccountpasswordConfirmLabel": {
@@ -1494,7 +1594,7 @@
 		"string": "Submitted"
 	},
 	"list.Item": {
-		"string": "അവകാശവാദം"
+		"string": "Claim"
 	},
 	"list.LinkedItems": {
 		"string": "Matched media"
@@ -1558,7 +1658,7 @@
 		"string": "Report status"
 	},
 	"list.sourceName": {
-		"string": "ഉറവിടം",
+		"string": "Source",
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
@@ -1587,7 +1687,7 @@
 		"string": "Or, sign in with your email"
 	},
 	"login.nameLabel": {
-		"string": "പേര്"
+		"string": "Name"
 	},
 	"login.newAccount": {
 		"string": "Don't have an account ?"
@@ -1647,16 +1747,16 @@
 		"string": "Audio"
 	},
 	"media.typeBlank": {
-		"string": "Imported report"
+		"string": "Imported fact-check"
 	},
 	"media.typeClaim": {
 		"string": "Text"
 	},
 	"media.typeImage": {
-		"string": "ചിത്രം"
+		"string": "Image"
 	},
 	"media.typeLink": {
-		"string": "ലിങ്ക് "
+		"string": "Link"
 	},
 	"media.typeVideo": {
 		"string": "Video"
@@ -1786,7 +1886,7 @@
 		"developer_comment": "Link text that once clicked copies text to clipboard."
 	},
 	"mediaClaim.claim": {
-		"string": "അവകാശവാദം",
+		"string": "Claim",
 		"developer_comment": "Title of the media claim section."
 	},
 	"mediaClaim.error": {
@@ -1824,7 +1924,7 @@
 		"developer_comment": "Label for the Requests tab, as in requests from users"
 	},
 	"mediaComponent.source": {
-		"string": "ഉറവിടം",
+		"string": "Source",
 		"developer_comment": "Label for the Source tab, as in source of the information"
 	},
 	"mediaComponent.timelineTab": {
@@ -1908,7 +2008,7 @@
 	},
 	"mediaFactCheck.confirmButtonLabel": {
 		"string": "Go back to editing",
-		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
+		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact-check."
 	},
 	"mediaFactCheck.error": {
 		"string": "Title and description have to be filled",
@@ -1949,27 +2049,28 @@
 		"string": "Confirmed by {name}"
 	},
 	"mediaItem.detach": {
-		"string": "Un-match media"
+		"string": "Un-match media",
+		"developer_comment": "Menu option for removing the similarity relationship between the current media item and the main one"
 	},
 	"mediaItem.detachedSuccessfully": {
 		"string": "Item detached to '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
-		"string": "Done, redirecting to new main item…"
-	},
-	"mediaItem.error": {
-		"string": "Error, please try again"
+		"string": "Done, redirecting to new main item…",
+		"developer_comment": "Message displayed when the action of pinning an item is completed by the server"
 	},
 	"mediaItem.lastSubmitted": {
 		"string": "Last submitted {timeAgo}",
 		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
 	},
 	"mediaItem.pinAsMain": {
-		"string": "Pin as main"
+		"string": "Pin as main",
+		"developer_comment": "Menu option for pinning an item as the main item"
 	},
 	"mediaItem.pinning": {
-		"string": "Pinning…"
+		"string": "Pinning…",
+		"developer_comment": "Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item"
 	},
 	"mediaItem.reportPaused": {
 		"string": "Paused"
@@ -2061,35 +2162,44 @@
 		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Export all media"
+		"string": "Export all media",
+		"developer_comment": "Button label to commit action of exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Add similar"
+		"string": "Manage media",
+		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}",
+		"developer_comment": "Button label to commit action of importing media from one or more items into the current one"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Import matched media into this item"
+		"string": "Import media into this fact-check",
+		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import matched media from other items"
+		"string": "Import matched media from other items",
+		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "Export all media to another item"
+		"string": "Export media to another fact-check",
+		"developer_comment": "Menu option for exporting media from this item to another"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "Export all media to another item"
+		"string": "Export all media to another item",
+		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "Add to imported report"
+		"string": "Add to imported fact-check",
+		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "Could not add similar item",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
-		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published",
+		"developer_comment": "Tooltip message for exporting media menu option"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "Similar item added successfully",
@@ -2315,7 +2425,7 @@
 		"developer_comment": "Filter option that refers to number of suggested medias"
 	},
 	"numericRangeFilter.tiplineRequests": {
-		"string": "Number of tipline requests is between",
+		"string": "Number of requests is between",
 		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {
@@ -2465,7 +2575,7 @@
 		"string": "Shared feed"
 	},
 	"projectHeader.importedReports": {
-		"string": "Imported reports"
+		"string": "Imported fact-checks"
 	},
 	"projectHeader.suggestedMatches": {
 		"string": "Suggested media"
@@ -2553,7 +2663,7 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Imported reports",
+		"string": "Imported fact-checks",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.invalidMove": {
@@ -2855,7 +2965,7 @@
 		"string": "If"
 	},
 	"ruleBody.ruleName": {
-		"string": "പേര്"
+		"string": "Name"
 	},
 	"ruleBody.ruleNameValidation": {
 		"string": "Rule name is required"
@@ -2906,7 +3016,7 @@
 		"string": "Rules saved successfully"
 	},
 	"rulesTableHead.name": {
-		"string": "പേര്",
+		"string": "Name",
 		"developer_comment": "Table header for rule names"
 	},
 	"rulesTableHead.updated": {
@@ -2982,7 +3092,7 @@
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
 	},
 	"saveTag.name": {
-		"string": "പേര്"
+		"string": "Name"
 	},
 	"saveTag.rule": {
 		"string": "Automatically tag items matching the following conditions:"
@@ -3078,6 +3188,9 @@
 	"search.dateRelative": {
 		"string": "less than",
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'."
+	},
+	"search.dateRequestHeading": {
+		"string": "Request submitted"
 	},
 	"search.dateStartEnd": {
 		"string": "between",
@@ -3216,11 +3329,11 @@
 		"developer_comment": "Describes media type Text"
 	},
 	"search.showImages": {
-		"string": "ചിത്രം",
+		"string": "Image",
 		"developer_comment": "Describes media type Image"
 	},
 	"search.showLinks": {
-		"string": "ലിങ്ക് ",
+		"string": "Link",
 		"developer_comment": "Describes media type Link"
 	},
 	"search.showSimilar": {
@@ -3284,7 +3397,7 @@
 		"developer_comment": "Tooltip for button to remove any applied keyword search"
 	},
 	"searchKeywordConfig.accounts": {
-		"string": "ഉറവിടം"
+		"string": "Source"
 	},
 	"searchKeywordConfig.allMetadataAnswers": {
 		"string": "All metadata answers"
@@ -3312,7 +3425,7 @@
 		"string": "Fact-check title"
 	},
 	"searchKeywordConfig.item": {
-		"string": "തരം"
+		"string": "Item"
 	},
 	"searchKeywordConfig.mediaContent": {
 		"string": "Media content"
@@ -3395,7 +3508,8 @@
 		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"settingsHeader.save": {
-		"string": "Save"
+		"string": "Save",
+		"developer_comment": "Button label for save columns settings"
 	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Answer task"
@@ -3416,6 +3530,9 @@
 	"similarityComponent.dateThresholdSettings": {
 		"string": "Limit matching to recently submitted content",
 		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
+	},
+	"similarityComponent.languageForSimilarity": {
+		"string": "Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
 	},
 	"similarityComponent.masterSwitchLabelOff": {
 		"string": "Automated matching is OFF"
@@ -4559,10 +4676,11 @@
 		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
 	},
 	"tagMenu.search": {
-		"string": "Search…"
+		"string": "Search…",
+		"developer_comment": "Search in tags list"
 	},
 	"tagMenu.submit": {
-		"string": "ടാഗ്",
+		"string": "Tag",
 		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.tooltip": {
@@ -4915,16 +5033,20 @@
 		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
 	},
 	"teamListsComponent.buttonLabel": {
-		"string": "Save changes"
+		"string": "Save changes",
+		"developer_comment": "Button label for saving changes"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
+		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace.",
+		"developer_comment": "Content of 'Save changes' confirmation dialog."
 	},
 	"teamListsComponent.confirmSaveTitle": {
-		"string": "Workspace columns change"
+		"string": "Workspace columns change",
+		"developer_comment": "Dialog title for saving columns change"
 	},
 	"teamListsComponent.createMetadata": {
-		"string": "Create new metadata field"
+		"string": "Create new annotation field",
+		"developer_comment": "Button label for create new annotation field"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Could not save column settings",
@@ -4935,13 +5057,16 @@
 		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
-		"string": "Displayed columns"
+		"string": "Displayed columns",
+		"developer_comment": "Columns that are displayed for users in folders, collections and lists."
 	},
 	"teamListsComponent.generalColumns": {
-		"string": "General"
+		"string": "General",
+		"developer_comment": "Columns not currently displayed for users in folders, collections and lists."
 	},
 	"teamListsComponent.metadataColumns": {
-		"string": "Annotation"
+		"string": "Annotation",
+		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in folders, collections and lists."
 	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Column settings saved successfully",
@@ -4984,7 +5109,7 @@
 		"string": "Invite"
 	},
 	"teamMembers.pending": {
-		"string": "തീര്‍ന്നിട്ടില്ല",
+		"string": "Pending",
 		"developer_comment": "Label for invite pending acceptance"
 	},
 	"teamMembers.remove": {
@@ -5008,7 +5133,7 @@
 		"developer_comment": "Column header in members table."
 	},
 	"teamMembers.tableHeaderName": {
-		"string": "പേര്",
+		"string": "Name",
 		"developer_comment": "Column header in members table."
 	},
 	"teamMembers.tableHeaderRole": {
@@ -5227,7 +5352,7 @@
 		"string": "New tag"
 	},
 	"teamTagsComponent.tableHeaderName": {
-		"string": "പേര്",
+		"string": "Name",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderTagsCount": {
@@ -5625,7 +5750,7 @@
 		"string": "Bio"
 	},
 	"userInfoEdit.sourceName": {
-		"string": "പേര്"
+		"string": "Name"
 	},
 	"userInfoEdit.userEmail": {
 		"string": "Email"

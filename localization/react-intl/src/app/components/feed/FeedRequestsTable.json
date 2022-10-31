@@ -5,9 +5,19 @@
     "defaultMessage": "Text"
   },
   {
+    "id": "feedRequestsTable.mediaTypeLink",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Link"
+  },
+  {
     "id": "feedRequestsTable.mediaTypeImage",
     "description": "Label for feed request media type",
     "defaultMessage": "Image"
+  },
+  {
+    "id": "feedRequestsTable.mediaTypeAudio",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Audio"
   },
   {
     "id": "feedRequestsTable.mediaTypeVideo",
@@ -38,6 +48,11 @@
     "id": "feedRequestsTable.subscriptions",
     "description": "Header label for number of subscriptions column",
     "defaultMessage": "Subscriptions"
+  },
+  {
+    "id": "feedRequestsTable.factChecksSent",
+    "description": "Header label for fact-checks sent column",
+    "defaultMessage": "Fact-checks sent"
   },
   {
     "id": "feedRequestsTable.factCheckBy",

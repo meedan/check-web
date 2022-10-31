@@ -16,7 +16,9 @@ import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutli
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import { getErrorMessageForRelayModernProblem, safelyParseJSON } from '../../helpers';
+
+import CheckError from '../../CheckError';
 
 const submitImport = (input, onCompleted, onError) => {
   commitMutation(Relay.Store, {
@@ -25,6 +27,7 @@ const submitImport = (input, onCompleted, onError) => {
         createProjectMedia(input: $input) {
           project_media {
             id
+            dbid
           }
         }
       }
@@ -79,22 +82,43 @@ const ImportDialog = ({
     };
 
     const onError = (error) => {
-      const errorMessage = getErrorMessageForRelayModernProblem(error) || <GenericUnknownErrorMessage />;
-      setFlashMessage(errorMessage, 'error');
+      const json = safelyParseJSON(error.source);
+      if (json.errors[0].code === CheckError.codes.DUPLICATED) {
+        setFlashMessage(CheckError.messages.DUPLICATED);
+      } else {
+        const errorMessage = getErrorMessageForRelayModernProblem(error) || <GenericUnknownErrorMessage />;
+        setFlashMessage(errorMessage);
+      }
       setDialogOpen(false);
     };
 
-    mediaIds.forEach((mediaDbid) => {
-      const input = {
-        channel: JSON.stringify({ main: 12 }), // Shared Database
-        media_id: mediaDbid,
-        team_id: selectedTeamDbid,
-        set_claim_description: claimDescription,
-        set_title: `${importedTitlePrefix}${mediaDbid}`,
-      };
+    const inputCommon = {
+      channel: JSON.stringify({ main: 12 }), // Shared Feed
+      team_id: selectedTeamDbid,
+    };
+    const mainMediaDbid = mediaIds.shift();
+    const inputMain = {
+      ...inputCommon,
+      media_id: mainMediaDbid,
+      set_title: `${importedTitlePrefix}${mainMediaDbid}`,
+      set_claim_description: claimDescription,
+    };
+    const onCompletedMain = (response) => {
+      mediaIds.forEach((mediaDbid) => {
+        const input = {
+          ...inputCommon,
+          media_id: mediaDbid,
+          related_to_id: response.createProjectMedia.project_media.dbid,
+          set_title: `${importedTitlePrefix}${mediaDbid}`,
+        };
 
-      submitImport(input, onCompleted, onError);
-    });
+        submitImport(input, () => {}, onError);
+      });
+
+      onCompleted();
+    };
+
+    submitImport(inputMain, onCompletedMain, onError);
   };
 
   const handleCloseDialog = () => {

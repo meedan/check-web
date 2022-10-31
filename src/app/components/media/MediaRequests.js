@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import merge from 'lodash.merge';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
@@ -57,8 +56,7 @@ class MediaRequestsComponent extends Component {
   }
 
   render() {
-    const media = merge(this.props.cachedMedia, this.props.media);
-    const { classes } = this.props;
+    const { classes, media } = this.props;
 
     return (
       <div id="media__requests" className={classes.root}>
@@ -68,14 +66,14 @@ class MediaRequestsComponent extends Component {
               id="mediaRequests.allRequests"
               defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
               values={{
-                count: this.props.media.demand,
+                count: media.demand,
               }}
             /> :
             <FormattedMessage
               id="mediaRequests.thisRequests"
               defaultMessage="{count, plural, one {# request} other {# requests}}"
               values={{
-                count: this.props.media.demand,
+                count: media.requests_count,
               }}
             />
           }
@@ -83,10 +81,10 @@ class MediaRequestsComponent extends Component {
         <Annotations
           noLink
           component={TiplineRequest}
-          annotations={media.requests.edges}
+          annotations={media.requests?.edges}
           annotated={media}
           annotatedType="ProjectMedia"
-          annotationsCount={media.demand}
+          annotationsCount={this.props.all ? media.demand : media.requests_count}
           relay={this.props.relay}
           noActivityMessage={
             <FormattedMessage
@@ -130,6 +128,7 @@ const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withP
         archived
         pusher_channel
         demand
+        requests_count
         media {
           file_path
         }
@@ -171,6 +170,7 @@ const MediaOwnRequestsContainer = Relay.createContainer(withStyles(styles)(withP
         archived
         pusher_channel
         demand
+        requests_count
         media {
           file_path
         }
