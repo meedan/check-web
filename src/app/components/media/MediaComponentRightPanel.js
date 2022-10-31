@@ -8,12 +8,14 @@ import MediaTasks from './MediaTasks';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaSource from './MediaSource';
+import MediaSuggestions from './Similarity/MediaSuggestions';
 import ErrorBoundary from '../error/ErrorBoundary';
 
 const MediaComponentRightPanel = ({ projectMedia }) => {
   const { team_bots: teamBots } = projectMedia.team;
   const enabledBots = teamBots.edges.map(b => b.node.login);
   const showRequests = (enabledBots.indexOf('smooch') > -1 || projectMedia.requests_count > 0);
+  const showSuggestedMedia = projectMedia.suggested_similar_relationships.edges.length > 0;
 
   const [showTab, setShowTab] = React.useState(showRequests ? 'requests' : 'metadata');
 
@@ -39,6 +41,19 @@ const MediaComponentRightPanel = ({ projectMedia }) => {
             }
             value="requests"
             className="media-tab__requests"
+          />
+          : null }
+        { showSuggestedMedia ?
+          <Tab
+            label={
+              <FormattedMessage
+                id="mediaComponent.suggestedMedia"
+                defaultMessage="Suggested media"
+                description="Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
+              />
+            }
+            value="suggestedMedia"
+            className="media-tab__sugestedMedia"
           />
           : null }
         <Tab
@@ -78,6 +93,7 @@ const MediaComponentRightPanel = ({ projectMedia }) => {
       { /* Set maxHeight to screen height - (media bar + tabs) */ }
       <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
         { showTab === 'requests' ? <MediaRequests media={projectMedia} all={!projectMedia.is_confirmed_similar_to_another_item} /> : null }
+        { showTab === 'suggestedMedia' ? <MediaSuggestions projectMedia={projectMedia} /> : null }
         { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
         { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
         { showTab === 'notes' ? <MediaComments media={projectMedia} /> : null }

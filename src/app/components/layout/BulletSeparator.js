@@ -36,7 +36,7 @@ const BulletSeparator = ({
 
   return (
     <div>
-      <Box display="flex" alignItems="center" mb={2}>
+      <Box display="flex" alignItems="center">
         { icon ? <div className={classes.icon}>{icon}</div> : null }
         <div className={classes.details}>{subtitleDetails}</div>
       </Box>
