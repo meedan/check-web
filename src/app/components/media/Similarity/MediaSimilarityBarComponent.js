@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import {
@@ -51,6 +50,7 @@ const MediaSimilarityBarComponent = ({
   canAdd,
   isBlank,
   isPublished,
+  setShowTab,
 }) => {
   const classes = useStyles();
   const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
@@ -90,7 +90,7 @@ const MediaSimilarityBarComponent = ({
               description="Plural. Heading for the number of suggested media"
             />
           }
-          onClick={() => { browserHistory.push(`${linkPrefix[0]}/similar-media${window.location.search}`); }}
+          onClick={() => { setShowTab('suggestedMedia'); }}
         />
       </Box>
       <Box>
@@ -122,6 +122,7 @@ MediaSimilarityBarComponent.propTypes = {
   canAdd: PropTypes.bool.isRequired,
   isBlank: PropTypes.bool.isRequired,
   isPublished: PropTypes.bool.isRequired,
+  setShowTab: PropTypes.func.isRequired, // React useState setter
 };
 
 export default MediaSimilarityBarComponent;

@@ -11,13 +11,11 @@ import MediaSource from './MediaSource';
 import MediaSuggestions from './Similarity/MediaSuggestions';
 import ErrorBoundary from '../error/ErrorBoundary';
 
-const MediaComponentRightPanel = ({ projectMedia }) => {
+const MediaComponentRightPanel = ({ projectMedia, setShowTab, showTab }) => {
   const { team_bots: teamBots } = projectMedia.team;
   const enabledBots = teamBots.edges.map(b => b.node.login);
   const showRequests = (enabledBots.indexOf('smooch') > -1 || projectMedia.requests_count > 0);
   const showSuggestedMedia = projectMedia.suggested_similar_relationships.edges.length > 0;
-
-  const [showTab, setShowTab] = React.useState(showRequests ? 'requests' : 'metadata');
 
   return (
     <ErrorBoundary component="MediaComponentRightPanel">
@@ -104,6 +102,8 @@ const MediaComponentRightPanel = ({ projectMedia }) => {
 
 MediaComponentRightPanel.propTypes = {
   projectMedia: PropTypes.object.isRequired, // FIXME: Detail which fields are expected
+  setShowTab: PropTypes.func.isRequired, // React useState setter
+  showTab: PropTypes.func.isRequired, // React useState state
 };
 
 export default MediaComponentRightPanel;
