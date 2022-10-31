@@ -1,22 +1,12 @@
 [
   {
-    "id": "search.or",
-    "description": "This is a label that appears between two mutually exclusive search options, indicating that you may select one option 'OR' the other.",
-    "defaultMessage": "OR"
+    "id": "searchKeyword.clear",
+    "description": "Tooltip for button to remove any applied keyword search",
+    "defaultMessage": "Clear keyword search"
   },
   {
     "id": "search.file",
     "description": "This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt.",
     "defaultMessage": "Search with file"
-  },
-  {
-    "id": "search",
-    "description": "This is a label on a button that the user presses in order to execute a search query.",
-    "defaultMessage": "Search"
-  },
-  {
-    "id": "searchKeyword.clear",
-    "description": "Tooltip for button to remove any applied keyword search",
-    "defaultMessage": "Clear keyword search"
   }
 ]

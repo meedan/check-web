@@ -8,8 +8,8 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import PermMediaOutlinedIcon from '@material-ui/icons/PermMediaOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import {
@@ -47,8 +47,8 @@ const styles = theme => ({
     backgroundColor: checkBlue,
   },
   searchButton: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
   input: {
     display: 'none',
@@ -81,7 +81,6 @@ class SearchKeyword extends React.Component {
   constructor(props) {
     super(props);
 
-    this.searchInput = React.createRef();
     this.initialQuery = {
       keyword: props.query.keyword,
     };
@@ -120,6 +119,7 @@ class SearchKeyword extends React.Component {
       isSaving: false,
     });
     this.props.setQuery(cleanQuery);
+    this.props.handleSubmit();
   };
 
   onUploadFailure = () => {
@@ -328,16 +328,18 @@ class SearchKeyword extends React.Component {
       </Box>
     );
 
+    const showExpand = this.props.showExpand || true;
+
     return (
       <div>
         <PageTitle prefix={title} team={this.props.team} />
-        <Row>
-          <form
-            id="search-form"
-            className="search__form"
-            onSubmit={this.props.handleSubmit}
-            autoComplete="off"
-          >
+        <form
+          id="search-form"
+          className="search__form"
+          onSubmit={this.props.handleSubmit}
+          autoComplete="off"
+        >
+          <Row>
             <Grid
               container
               direction="row"
@@ -350,109 +352,83 @@ class SearchKeyword extends React.Component {
                 <Box width="450px">
                   <SearchField
                     isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
-                    showExpand={this.props.showExpand}
+                    showExpand={showExpand}
                     setParentSearchText={this.setSearchText}
                     searchText={this.props.query?.keyword || ''}
                     inputBaseProps={{
                       onBlur: this.handleInputChange,
-                      ref: this.searchInput,
                       disabled: this.state?.imgData?.data?.length > 0,
                     }}
-                    endAdornment={
-                      this.props.hideAdvanced ?
-                        true :
-                        <InputAdornment
-                          classes={{
-                            root: classes.endAdornmentRoot,
-                            filled: (
-                              this.keywordConfigIsActive() ?
-                                classes.endAdornmentActive :
-                                classes.endAdornmentInactive
-                            ),
-                          }}
-                          variant="filled"
-                        >
-                          <SearchKeywordMenu
-                            teamSlug={this.props.team.slug}
-                            onChange={this.handleKeywordConfigChange}
-                            query={this.props.query}
-                            anchorParent={() => this.searchInput.current}
-                          />
-                        </InputAdornment>
-                    }
                   />
                 </Box>
               </Grid>
-              { this.props.showExpand ? (
-                <Grid item>
-                  <Typography>
-                    &nbsp;
-                    <FormattedMessage
-                      id="search.or"
-                      defaultMessage="OR"
-                      description="This is a label that appears between two mutually exclusive search options, indicating that you may select one option 'OR' the other."
-                    />
-                  </Typography>
-                </Grid>) : null
-              }
-              { this.props.showExpand && (this.state?.imgData?.data?.length > 0 || this.state.isSaving) ? (
-                <Grid item>
-                  { this.state.isSaving ? (
-                    <CircularProgress size={36} />
-                  ) : <ImagePreview />
-                  }
-                </Grid>) : null
-              }
-              { this.props.showExpand && this.state?.imgData?.data?.length === 0 ? (
-                <Grid item>
-                  <label htmlFor="media-upload">
-                    <input
-                      className={classes.input}
-                      id="media-upload"
-                      type="file"
-                      accept="image/*,video/*,audio/*"
-                      onChange={this.handleUpload}
-                    />
-                    <Button
-                      variant="outlined"
-                      className={classes.searchButton}
-                      component="span"
-                    >
-                      <FormattedMessage
-                        id="search.file"
-                        defaultMessage="Search with file"
-                        description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
-                      />
-                    </Button>
-                  </label>
-                </Grid>) : null
-              }
-              { this.props.showExpand ? (
-                <Grid item>
+            </Grid>
+            { this.keywordIsActive() ? (
+              <Tooltip title={<FormattedMessage id="searchKeyword.clear" defaultMessage="Clear keyword search" description="Tooltip for button to remove any applied keyword search" />}>
+                <IconButton id="search-keyword__clear-button" onClick={this.handleClickClear}>
+                  <ClearIcon color="primary" />
+                </IconButton>
+              </Tooltip>
+            ) : null}
+          </Row>
+          <Row>
+            { showExpand && (this.state?.imgData?.data?.length > 0 || this.state.isSaving) ? (
+              <Grid item>
+                { this.state.isSaving ? (
+                  <CircularProgress size={36} />
+                ) : <ImagePreview />
+                }
+              </Grid>) : null
+            }
+            { showExpand && this.state?.imgData?.data?.length === 0 ? (
+              <Grid item>
+                <label htmlFor="media-upload">
+                  <input
+                    className={classes.input}
+                    id="media-upload"
+                    type="file"
+                    accept="image/*,video/*,audio/*"
+                    onChange={this.handleUpload}
+                  />
                   <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={this.props.handleSubmit}
+                    startIcon={<PermMediaOutlinedIcon />}
+                    className={classes.searchButton}
+                    component="span"
                   >
                     <FormattedMessage
-                      id="search"
-                      defaultMessage="Search"
-                      description="This is a label on a button that the user presses in order to execute a search query."
+                      id="search.file"
+                      defaultMessage="Search with file"
+                      description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
                     />
                   </Button>
-                </Grid>) : null
+                </label>
+              </Grid>) : null
+            }
+            <Grid item>
+              {
+                this.props.hideAdvanced ?
+                  null :
+                  <InputAdornment
+                    className={classes.searchButton}
+                    classes={{
+                      root: classes.endAdornmentRoot,
+                      filled: (
+                        this.keywordConfigIsActive() ?
+                          classes.endAdornmentActive :
+                          classes.endAdornmentInactive
+                      ),
+                    }}
+                  >
+                    <SearchKeywordMenu
+                      teamSlug={this.props.team.slug}
+                      onChange={this.handleKeywordConfigChange}
+                      query={this.props.query}
+                    />
+                  </InputAdornment>
               }
             </Grid>
-          </form>
-
-          { this.keywordIsActive() ? (
-            <Tooltip title={<FormattedMessage id="searchKeyword.clear" defaultMessage="Clear keyword search" description="Tooltip for button to remove any applied keyword search" />}>
-              <IconButton id="search-keyword__clear-button" onClick={this.handleClickClear}>
-                <ClearIcon color="primary" />
-              </IconButton>
-            </Tooltip>
-          ) : null}
-        </Row>
+          </Row>
+        </form>
       </div>
     );
   }
