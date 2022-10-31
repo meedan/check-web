@@ -430,97 +430,97 @@ const MediaSuggestionsComponent = ({
               </>
             </Box>
           </div> : null }
-        { relationships.map(relationshipItem => (
-          <Grid container alignItems="center">
-            <Grid item xs={1}>
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                flexDirection="column"
-                mr={1}
-              >
-                <IconButton
-                  onClick={reportType === 'blank' ? () => { handleDestroyAndReplace(relationshipItem); } : () => { handleConfirm(relationshipItem); }}
-                  disabled={disableAcceptRejectButtons}
-                  className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept}`}
-                  id="similarity-media-item__accept-relationship"
+        <div id="suggested-media__items">
+          { relationships.map(relationshipItem => (
+            <Grid container alignItems="center" className="suggested-media__item" key={relationshipItem.id}>
+              <Grid item xs={1}>
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  flexDirection="column"
+                  mr={1}
                 >
-                  <CheckCircleOutlineIcon fontSize="large" />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    setSelectedRelationship(relationshipItem);
-                    openDialog();
-                  }}
-                  disabled={disableAcceptRejectButtons}
-                  className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject}`}
-                  id="similarity-media-item__reject-relationship"
-                >
-                  <HighlightOffIcon fontSize="large" />
-                </IconButton>
-              </Box>
-            </Grid>
-            <Grid item xs={11}>
-              <MediaCardCondensed
-                title={relationshipItem?.target?.title}
-                details={[
-                  <MediaTypeDisplayName mediaType={relationshipItem?.target?.type} />,
-                  (
+                  <IconButton
+                    onClick={reportType === 'blank' ? () => { handleDestroyAndReplace(relationshipItem); } : () => { handleConfirm(relationshipItem); }}
+                    disabled={disableAcceptRejectButtons}
+                    className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept} similarity-media-item__accept-relationship`}
+                  >
+                    <CheckCircleOutlineIcon fontSize="large" />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      setSelectedRelationship(relationshipItem);
+                      openDialog();
+                    }}
+                    disabled={disableAcceptRejectButtons}
+                    className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject} similarity-media-item__reject-relationship`}
+                  >
+                    <HighlightOffIcon fontSize="large" />
+                  </IconButton>
+                </Box>
+              </Grid>
+              <Grid item xs={11}>
+                <MediaCardCondensed
+                  title={relationshipItem?.target?.title}
+                  details={[
+                    <MediaTypeDisplayName mediaType={relationshipItem?.target?.type} />,
+                    (
+                      <FormattedMessage
+                        id="mediaSuggestions.lastSubmitted"
+                        defaultMessage="Last submitted {date}"
+                        description="Shows the last time a media was submitted (on feed request media card)"
+                        values={{
+                          date: intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                        }}
+                      />
+                    ),
                     <FormattedMessage
-                      id="mediaSuggestions.lastSubmitted"
-                      defaultMessage="Last submitted {date}"
-                      description="Shows the last time a media was submitted (on feed request media card)"
-                      values={{
-                        date: intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                      }}
-                    />
-                  ),
-                  <FormattedMessage
-                    id="mediaSuggestions.requestsCount"
-                    defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                    description="Header of requests list. Example: 26 requests"
-                    values={{ requestsCount: relationshipItem?.target?.requests_count }}
-                  />,
-                ]}
-                media={relationshipItem?.target}
-                description={relationshipItem?.target?.description}
-                url={relationshipItem?.target?.url}
-                onClick={() => window.open(`/${team.slug}/media/${relationshipItem.target_id}`, '_blank')}
-                menu={(
-                  <div>
-                    <IconButton
-                      tooltip={<FormattedMessage id="mediaSuggestionsMenu.tooltip" defaultMessage="Item actions" />}
-                      onClick={handleOpenMenu(relationshipItem.id)}
-                    >
-                      <IconMoreVert />
-                    </IconButton>
-                    <Menu
-                      className="media-suggestions-menu"
-                      anchorEl={anchorEl}
-                      open={openEl === relationshipItem.id}
-                      onClose={handleCloseMenu}
-                    >
-                      <MenuItem
-                        onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM, relationshipItem)}
+                      id="mediaSuggestions.requestsCount"
+                      defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
+                      description="Header of requests list. Example: 26 requests"
+                      values={{ requestsCount: relationshipItem?.target?.requests_count }}
+                    />,
+                  ]}
+                  media={relationshipItem?.target}
+                  description={relationshipItem?.target?.description}
+                  url={relationshipItem?.target?.url}
+                  onClick={() => window.open(`/${team.slug}/media/${relationshipItem.target_id}`, '_blank')}
+                  menu={(
+                    <div>
+                      <IconButton
+                        tooltip={<FormattedMessage id="mediaSuggestionsMenu.tooltip" defaultMessage="Item actions" />}
+                        onClick={handleOpenMenu(relationshipItem.id)}
                       >
-                        <FormattedMessage
-                          id="mediaSuggestionsComponent.sendItemsToSpam"
-                          defaultMessage="Mark as spam"
-                        />
-                      </MenuItem>
-                      <MenuItem onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED, relationshipItem)}>
-                        <FormattedMessage
-                          id="mediaSuggestionsComponent.sendItemsToTrash"
-                          defaultMessage="Send to trash"
-                        />
-                      </MenuItem>
-                    </Menu>
-                  </div>
-                )}
-              />
+                        <IconMoreVert />
+                      </IconButton>
+                      <Menu
+                        className="media-suggestions-menu"
+                        anchorEl={anchorEl}
+                        open={openEl === relationshipItem.id}
+                        onClose={handleCloseMenu}
+                      >
+                        <MenuItem
+                          onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM, relationshipItem)}
+                        >
+                          <FormattedMessage
+                            id="mediaSuggestionsComponent.sendItemsToSpam"
+                            defaultMessage="Mark as spam"
+                          />
+                        </MenuItem>
+                        <MenuItem onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED, relationshipItem)}>
+                          <FormattedMessage
+                            id="mediaSuggestionsComponent.sendItemsToTrash"
+                            defaultMessage="Send to trash"
+                          />
+                        </MenuItem>
+                      </Menu>
+                    </div>
+                  )}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        ))}
+          ))}
+        </div>
       </Column>
     </React.Fragment>
   );
@@ -531,7 +531,6 @@ MediaSuggestionsComponent.propTypes = {
     id: PropTypes.string.isRequired,
   }).isRequired,
   reportType: PropTypes.string.isRequired,
-  demand: PropTypes.number.isRequired,
   relationships: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     target_id: PropTypes.number.isRequired,
