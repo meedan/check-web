@@ -8,24 +8,13 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import PermMediaOutlinedIcon from '@material-ui/icons/PermMediaOutlined';
-import Tooltip from '@material-ui/core/Tooltip';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import {
-  Cancel as CancelIcon,
-  FiberManualRecord as MaskIcon,
-  VolumeUp as AudioIcon,
-  Clear as ClearIcon,
-  Movie as MovieIcon,
-  Image as ImageIcon,
-} from '@material-ui/icons';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import {
-  Row,
   black16,
   checkBlue,
 } from '../../styles/js/shared';
@@ -105,6 +94,9 @@ class SearchKeyword extends React.Component {
   onUploadSuccess = (data) => {
     const cleanQuery = this.props.cleanupQuery(this.props.query);
     cleanQuery.file_handle = data.searchUpload?.file_handle;
+    // TODO: get file url from data
+    // cleanQuery.file_url = data.searchUpload?.file_url;
+    cleanQuery.file_url = 'http://localhost:9000/check-api-dev/uploads/uploaded_image/47/embed_3f77b180713d5a67ec8e311bbf3ed573.png';
     let file_type;
     if (this.state.imgData.type.match(/^video\//)) {
       file_type = 'video';
@@ -131,6 +123,7 @@ class SearchKeyword extends React.Component {
     cleanQuery.keyword = text;
     delete cleanQuery.file_type;
     delete cleanQuery.file_handle;
+    delete cleanQuery.file_url;
     this.props.setQuery(cleanQuery);
   }
 
@@ -216,6 +209,20 @@ class SearchKeyword extends React.Component {
     this.props.setQuery(newQuery);
   };
 
+  handleImageDismiss = () => {
+    const cleanQuery = this.props.cleanupQuery(this.props.query);
+    delete cleanQuery.file_type;
+    delete cleanQuery.file_handle;
+    delete cleanQuery.file_url;
+    this.setState({
+      imgData: {
+        data: '',
+        name: '',
+      },
+    });
+    this.props.setQuery(cleanQuery);
+  };
+
   subscribe() {
     const { pusher, clientSessionId, team } = this.props;
     pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'SearchKeyword', (data, run) => {
@@ -280,7 +287,7 @@ class SearchKeyword extends React.Component {
   }
 
   render() {
-    const { team, classes } = this.props;
+    const { team, classes, showExpand } = this.props;
     const { statuses } = team.verification_statuses;
     let projects = [];
     if (team.projects) {
@@ -291,45 +298,6 @@ class SearchKeyword extends React.Component {
       ? this.title(statuses, projects)
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
-    const handleImageDismiss = () => {
-      const cleanQuery = this.props.cleanupQuery(this.props.query);
-      delete cleanQuery.file_type;
-      delete cleanQuery.file_handle;
-      this.setState({
-        imgData: {
-          data: '',
-          name: '',
-        },
-      });
-      this.props.setQuery(cleanQuery);
-    };
-
-    /* eslint-disable jsx-a11y/media-has-caption */
-    const Thumbnail = () => {
-      let output;
-      if (this.state.imgData.type.match(/^video\//)) {
-        output = <MovieIcon id="icon" fontSize="medium" htmlColor="black" />;
-      } else if (this.state.imgData.type.match(/^image\//)) {
-        output = <ImageIcon id="icon" fontSize="medium" htmlColor="black" />;
-      } else if (this.state.imgData.type.match(/^audio\//)) {
-        output = <AudioIcon id="icon" fontSize="medium" htmlColor="black" />;
-      }
-      return output;
-    };
-    /* eslint-enable jsx-a11y/media-has-caption */
-
-    const ImagePreview = () => (
-      <Box className={classes.image}>
-        <Thumbnail />
-        <MaskIcon fontSize="small" htmlColor="white" />
-        <IconButton onClick={handleImageDismiss}>
-          <CancelIcon fontSize="small" htmlColor="black" />
-        </IconButton>
-      </Box>
-    );
-
-    const showExpand = this.props.showExpand || true;
-
     return (
       <div>
         <PageTitle prefix={title} team={this.props.team} />
@@ -339,7 +307,7 @@ class SearchKeyword extends React.Component {
           onSubmit={this.props.handleSubmit}
           autoComplete="off"
         >
-          <Row>
+          <Box>
             <Grid
               container
               direction="row"
@@ -355,28 +323,23 @@ class SearchKeyword extends React.Component {
                     showExpand={showExpand}
                     setParentSearchText={this.setSearchText}
                     searchText={this.props.query?.keyword || ''}
+                    searchQuery={this.props.query}
                     inputBaseProps={{
                       onBlur: this.handleInputChange,
                       disabled: this.state?.imgData?.data?.length > 0,
                     }}
+                    handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
                   />
                 </Box>
               </Grid>
             </Grid>
-            { this.keywordIsActive() ? (
-              <Tooltip title={<FormattedMessage id="searchKeyword.clear" defaultMessage="Clear keyword search" description="Tooltip for button to remove any applied keyword search" />}>
-                <IconButton id="search-keyword__clear-button" onClick={this.handleClickClear}>
-                  <ClearIcon color="primary" />
-                </IconButton>
-              </Tooltip>
-            ) : null}
-          </Row>
-          <Row>
+          </Box>
+          <Box display="flex" justifyContent="flex-end" pr={2}>
             { showExpand && (this.state?.imgData?.data?.length > 0 || this.state.isSaving) ? (
               <Grid item>
                 { this.state.isSaving ? (
                   <CircularProgress size={36} />
-                ) : <ImagePreview />
+                ) : null
                 }
               </Grid>) : null
             }
@@ -427,7 +390,7 @@ class SearchKeyword extends React.Component {
                   </InputAdornment>
               }
             </Grid>
-          </Row>
+          </Box>
         </form>
       </div>
     );

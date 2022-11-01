@@ -9,6 +9,7 @@ class UploadFileMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on SearchUploadPayload {
         file_handle
+        file_url
       }
     `;
   }

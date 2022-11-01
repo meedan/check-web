@@ -10,6 +10,11 @@
     "defaultMessage": "Cancel"
   },
   {
+    "id": "search.clear",
+    "description": "A label on a button that lets a user clear typing search text, deleting the text in the process.",
+    "defaultMessage": "Clear"
+  },
+  {
     "id": "search.setText",
     "description": "A label on a button that lets a user set the text on an associated popup to the original input field.",
     "defaultMessage": "Set text"
