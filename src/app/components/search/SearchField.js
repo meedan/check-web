@@ -10,10 +10,9 @@ import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import SearchIcon from '@material-ui/icons/Search';
 import { Clear as ClearIcon } from '@material-ui/icons';
+import { MediaPreview } from '../feed/MediaPreview';
 import {
   black16,
   borderWidthLarge,
@@ -54,6 +53,8 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
   },
   closeButton: {
+    color: 'white',
+    zIndex: 1000,
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
@@ -74,7 +75,6 @@ const SearchField = ({
   const [expand, setExpand] = React.useState(false);
   const [expandMedia, setExpandMedia] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [expandedText, setExpandedText] = React.useState(searchText);
   const [localSearchText, setLocalSearchText] = React.useState(searchText);
 
   function handleExpand(event) {
@@ -95,7 +95,6 @@ const SearchField = ({
   }
 
   function handleClickClear() {
-    setExpandedText('');
     setLocalSearchText('');
     handleClear();
   }
@@ -217,9 +216,9 @@ const SearchField = ({
               variant="outlined"
               fullWidth
               onChange={(e) => {
-                setExpandedText(e.target.value);
+                setLocalSearchText(e.target.value);
               }}
-              value={expandedText}
+              value={localSearchText}
             />
             <Grid
               container
@@ -229,32 +228,11 @@ const SearchField = ({
             >
               <Grid item className={classes.button}>
                 <Button
-                  onClick={handleClose}
-                >
-                  <FormattedMessage id="search.cancel" defaultMessage="Cancel" description="A label on a button that lets a user cancel typing search text, deleting the text in the process." />
-                </Button>
-              </Grid>
-              <Grid item className={classes.button}>
-                <Button
                   startIcon={<ClearIcon />}
                   onClick={handleClickClear}
-                  disabled={!expandedText}
+                  disabled={!localSearchText}
                 >
                   <FormattedMessage id="search.clear" defaultMessage="Clear" description="A label on a button that lets a user clear typing search text, deleting the text in the process." />
-                </Button>
-              </Grid>
-              <Grid item className={classes.button}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={(e) => {
-                    setParentSearchText(expandedText);
-                    handleClose();
-                    inputBaseProps.onChange(e, expandedText);
-                  }}
-                  disabled={!expandedText}
-                >
-                  <FormattedMessage id="search.setText" defaultMessage="Set text" description="A label on a button that lets a user set the text on an associated popup to the original input field." />
                 </Button>
               </Grid>
             </Grid>
@@ -265,7 +243,7 @@ const SearchField = ({
             maxWidth="md"
             fullWidth
           >
-            <DialogTitle>
+            <div>
               <IconButton
                 aria-label="close"
                 className={classes.closeButton}
@@ -274,13 +252,8 @@ const SearchField = ({
               >
                 <CloseIcon />
               </IconButton>
-            </DialogTitle>
-            <DialogContent>
-              <img
-                src={searchQuery?.file_url}
-                alt=""
-              />
-            </DialogContent>
+              <MediaPreview media={{ picture: searchQuery?.file_url }} />
+            </div>
           </Dialog>
         </div>
       )}

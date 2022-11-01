@@ -9,62 +9,17 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import PermMediaOutlinedIcon from '@material-ui/icons/PermMediaOutlined';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
-import {
-  black16,
-  checkBlue,
-} from '../../styles/js/shared';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
 
-const styles = theme => ({
-  endAdornmentRoot: {
-    cursor: 'pointer',
-    display: 'flex',
-    justifyContent: 'center',
-    width: theme.spacing(6),
-    height: theme.spacing(6),
-  },
-  endAdornmentInactive: {
-    backgroundColor: black16,
-  },
-  endAdornmentActive: {
-    color: 'white',
-    backgroundColor: checkBlue,
-  },
-  searchButton: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-  },
+const styles = {
   input: {
     display: 'none',
   },
-  image: {
-    position: 'relative',
-    overflowY: 'hidden',
-    height: '40px',
-    maxWidth: '50px',
-    '& img': {
-      maxWidth: '50px',
-    },
-    '& video': {
-      maxWidth: '50px',
-    },
-    '& #icon': {
-      position: 'relative',
-      marginTop: theme.spacing(1.5),
-      marginLeft: theme.spacing(2),
-    },
-    '& svg,button': {
-      position: 'absolute',
-      left: '0px',
-      top: '0px',
-    },
-  },
-});
+};
 
 class SearchKeyword extends React.Component {
   constructor(props) {
@@ -96,7 +51,7 @@ class SearchKeyword extends React.Component {
     cleanQuery.file_handle = data.searchUpload?.file_handle;
     // TODO: get file url from data
     // cleanQuery.file_url = data.searchUpload?.file_url;
-    cleanQuery.file_url = 'http://localhost:9000/check-api-dev/uploads/uploaded_image/47/embed_3f77b180713d5a67ec8e311bbf3ed573.png';
+    cleanQuery.file_url = 'http://localhost:9000/check-api-dev/uploads/uploaded_image/22/embed_f9872e895cc0580c66383775d2925c35.jpeg';
     let file_type;
     if (this.state.imgData.type.match(/^video\//)) {
       file_type = 'video';
@@ -307,88 +262,57 @@ class SearchKeyword extends React.Component {
           onSubmit={this.props.handleSubmit}
           autoComplete="off"
         >
-          <Box>
-            <Grid
-              container
-              direction="row"
-              justify="flex-end"
-              alignItems="center"
-              className={classes.endAdornmentContainer}
-              spacing={2}
-            >
-              <Grid item>
-                <Box width="450px">
-                  <SearchField
-                    isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
-                    showExpand={showExpand}
-                    setParentSearchText={this.setSearchText}
-                    searchText={this.props.query?.keyword || ''}
-                    searchQuery={this.props.query}
-                    inputBaseProps={{
-                      onBlur: this.handleInputChange,
-                      disabled: this.state?.imgData?.data?.length > 0,
-                    }}
-                    handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
-                  />
-                </Box>
+          <Box width="450px">
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <SearchField
+                  isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
+                  showExpand={showExpand}
+                  setParentSearchText={this.setSearchText}
+                  searchText={this.props.query?.keyword || ''}
+                  searchQuery={this.props.query}
+                  inputBaseProps={{
+                    onBlur: this.handleInputChange,
+                    disabled: this.state?.imgData?.data?.length > 0,
+                  }}
+                  handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+                />
               </Grid>
-            </Grid>
-          </Box>
-          <Box display="flex" justifyContent="flex-end" pr={2}>
-            { showExpand && (this.state?.imgData?.data?.length > 0 || this.state.isSaving) ? (
-              <Grid item>
-                { this.state.isSaving ? (
-                  <CircularProgress size={36} />
-                ) : null
-                }
-              </Grid>) : null
-            }
-            { showExpand && this.state?.imgData?.data?.length === 0 ? (
-              <Grid item>
-                <label htmlFor="media-upload">
-                  <input
-                    className={classes.input}
-                    id="media-upload"
-                    type="file"
-                    accept="image/*,video/*,audio/*"
-                    onChange={this.handleUpload}
-                  />
-                  <Button
-                    startIcon={<PermMediaOutlinedIcon />}
-                    className={classes.searchButton}
-                    component="span"
-                  >
-                    <FormattedMessage
-                      id="search.file"
-                      defaultMessage="Search with file"
-                      description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
-                    />
-                  </Button>
-                </label>
-              </Grid>) : null
-            }
-            <Grid item>
-              {
-                this.props.hideAdvanced ?
-                  null :
-                  <InputAdornment
-                    className={classes.searchButton}
-                    classes={{
-                      root: classes.endAdornmentRoot,
-                      filled: (
-                        this.keywordConfigIsActive() ?
-                          classes.endAdornmentActive :
-                          classes.endAdornmentInactive
-                      ),
-                    }}
-                  >
+              <Grid item container xs={12}>
+                <Box display="flex" justifyContent="flex-end" marginLeft="auto">
+                  { showExpand ? (
+                    <div>
+                      <label htmlFor="media-upload">
+                        <input
+                          className={classes.input}
+                          id="media-upload"
+                          type="file"
+                          accept="image/*,video/*,audio/*"
+                          onChange={this.handleUpload}
+                        />
+                        <Button
+                          startIcon={this.state.isSaving ? <CircularProgress size={24} /> : <PermMediaOutlinedIcon />}
+                          component="span"
+                        >
+                          <FormattedMessage
+                            id="search.file"
+                            defaultMessage="Search with file"
+                            description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
+                          />
+                        </Button>
+                      </label>
+                    </div>
+                  ) : null }
+                  { this.props.hideAdvanced ?
+                    null :
                     <SearchKeywordMenu
                       teamSlug={this.props.team.slug}
                       onChange={this.handleKeywordConfigChange}
                       query={this.props.query}
                     />
-                  </InputAdornment>
-              }
+                  }
+                </Box>
+              </Grid>
             </Grid>
           </Box>
         </form>
