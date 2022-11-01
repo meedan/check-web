@@ -406,7 +406,7 @@ const MediaSuggestionsComponent = ({
             <Typography variant="body2">
               <FormattedMessage
                 id="mediaSuggestionsComponent.question"
-                defaultMessage="Is this media a good match for the claim and medias on the left?"
+                defaultMessage="Are the medias below a good match for the claim and medias on the left?"
                 description="Subtitle for similarity matching widget"
               />
             </Typography>

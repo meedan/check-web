@@ -22,7 +22,7 @@
   {
     "id": "mediaSuggestionsComponent.question",
     "description": "Subtitle for similarity matching widget",
-    "defaultMessage": "Is this media a good match for the claim and medias on the left?"
+    "defaultMessage": "Are the medias below a good match for the claim and medias on the left?"
   },
   {
     "id": "mediaSuggestionsComponent.dialogRejectTitle",
