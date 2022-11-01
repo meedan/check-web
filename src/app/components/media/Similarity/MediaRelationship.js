@@ -119,7 +119,7 @@ const RelationshipMenu = ({
             description="A message that informs the user a 'pin' action is finished and a redirect is about to happen"
           />
         ), 'success');
-        window.location.assign(`/${teamSlug}/media/${targetId}/similar-media`);
+        browserHistory.push(`/${teamSlug}/media/${targetId}`);
       }
     },
     () => {
@@ -344,7 +344,7 @@ const MediaRelationship = ({
             description="A message that informs the user a 'pin' action is finished and a redirect is about to happen"
           />
         ), 'success');
-        window.location.assign(`/${teamSlug}/media/${relationshipTargetId}/similar-media`);
+        browserHistory.push(`/${teamSlug}/media/${relationshipTargetId}`);
       }
     },
     () => {
