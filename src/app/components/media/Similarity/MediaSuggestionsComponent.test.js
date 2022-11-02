@@ -26,11 +26,15 @@ describe('<MediaSuggestionsComponent />', () => {
     suggested_similar_relationships: { edges: [] },
   };
 
+  const intl = {
+    formatDate: () => {},
+  };
+
   const empty_relationships = [];
 
   const relationships = [
-    { id: '1', target_id: 1, target: { created_at: '', last_seen: '' } },
-    { id: '2', target_id: 2, target: { created_at: '', last_seen: '' } },
+    { id: '1', target_id: 1, target: { created_at: '', last_seen: '', type: 'Link' } },
+    { id: '2', target_id: 2, target: { created_at: '', last_seen: '', type: 'Claim' } },
   ];
 
   it('should not render suggested media action buttons if media has no suggested media', () => {
@@ -40,10 +44,10 @@ describe('<MediaSuggestionsComponent />', () => {
       relationships={empty_relationships}
       mainItem={mainItem}
       setFlashMessage={() => {}}
+      intl={intl}
+      reportType="blank"
     />);
-    expect(wrapper.find('#similarity-media-item__accept-relationship')).toHaveLength(0);
-    expect(wrapper.find('#similarity-media-item__reject-relationship')).toHaveLength(0);
-    expect(wrapper.find('[data-testid="media-suggestions__no-suggestions-mensage"]')).toHaveLength(1);
+    expect(wrapper.find('.suggested-media__item')).toHaveLength(0);
   });
 
   it('should render suggested media action buttons if media has suggested medias', () => {
@@ -53,8 +57,10 @@ describe('<MediaSuggestionsComponent />', () => {
       relationships={relationships}
       mainItem={mainItem}
       setFlashMessage={() => {}}
+      intl={intl}
+      reportType="blank"
     />);
-    expect(wrapper.find('#similarity-media-item__accept-relationship')).toHaveLength(1);
-    expect(wrapper.find('#similarity-media-item__reject-relationship')).toHaveLength(1);
+    expect(wrapper.find('.similarity-media-item__accept-relationship')).toHaveLength(2);
+    expect(wrapper.find('.similarity-media-item__reject-relationship')).toHaveLength(2);
   });
 });

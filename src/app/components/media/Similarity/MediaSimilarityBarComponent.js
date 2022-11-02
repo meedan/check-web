@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import {
@@ -20,12 +19,25 @@ const useStyles = makeStyles(theme => ({
     position: 'sticky',
     top: theme.spacing(-2),
     background: backgroundMain,
-    zIndex: 2,
+    zIndex: 200,
   },
   spacing: {
     display: 'flex',
     gap: `${theme.spacing(2)}px`,
     alignItems: 'center',
+  },
+  animation: {
+    animation: '$highlight 1000ms',
+  },
+  '@keyframes highlight': {
+    '0%': {
+      opacity: 0.7,
+      height: `calc(100% + ${theme.spacing(5)}px)`,
+    },
+    '100%': {
+      opacity: 0,
+      height: `calc(100% + ${theme.spacing(5)}px)`,
+    },
   },
 }));
 
@@ -38,6 +50,7 @@ const MediaSimilarityBarComponent = ({
   canAdd,
   isBlank,
   isPublished,
+  setShowTab,
 }) => {
   const classes = useStyles();
   const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
@@ -59,7 +72,14 @@ const MediaSimilarityBarComponent = ({
               description="Plural. Heading for the number of matched media"
             />
           }
-          onClick={() => { document.getElementById('matched-media').scrollIntoView({ behavior: 'smooth' }); }}
+          onClick={() => {
+            document.getElementById('matched-media').scrollIntoView({ behavior: 'smooth' });
+            const overlayElement = document.getElementById('matched-overlay');
+            overlayElement.classList.remove(classes.animation);
+            // eslint-disable-next-line
+            overlayElement.offsetWidth; // accessing this getter triggers a reflow of the elment to reset animation
+            overlayElement.classList.add(classes.animation);
+          }}
         />
         <CounterButton
           count={suggestionsCount}
@@ -70,7 +90,7 @@ const MediaSimilarityBarComponent = ({
               description="Plural. Heading for the number of suggested media"
             />
           }
-          onClick={() => { browserHistory.push(`${linkPrefix[0]}/similar-media${window.location.search}`); }}
+          onClick={() => { setShowTab('suggestedMedia'); }}
         />
       </Box>
       <Box>
@@ -102,6 +122,7 @@ MediaSimilarityBarComponent.propTypes = {
   canAdd: PropTypes.bool.isRequired,
   isBlank: PropTypes.bool.isRequired,
   isPublished: PropTypes.bool.isRequired,
+  setShowTab: PropTypes.func.isRequired, // React useState setter
 };
 
 export default MediaSimilarityBarComponent;

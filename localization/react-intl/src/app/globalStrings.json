@@ -9,6 +9,7 @@
   },
   {
     "id": "global.cancel",
+    "description": "A generic label for a cancel action",
     "defaultMessage": "Cancel"
   },
   {

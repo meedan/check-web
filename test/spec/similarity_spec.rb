@@ -72,13 +72,11 @@ shared_examples 'similarity' do
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
-    wait_for_selector("//span[contains(text(), '1 of 2 suggested media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Is this media a good match for')]", :xpath)
-    wait_for_selector('#similarity-media-item__accept-relationship').click
-    wait_for_selector("//span[contains(text(), '1 of 1 suggested media')]", :xpath)
-    wait_for_selector('#similarity-media-item__reject-relationship').click
+    wait_for_selector("//span[contains(text(), '2 suggested medias')]", :xpath)
+    wait_for_selector('.similarity-media-item__accept-relationship').click
+    wait_for_selector("//span[contains(text(), '1 suggested media')]", :xpath)
+    wait_for_selector('.similarity-media-item__reject-relationship').click
     wait_for_selector('.media-actions-bar__add-button').click
-    wait_for_selector('.media-page__back-button').click
     wait_for_selector('#media-similarity__add-button')
     wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
@@ -108,9 +106,8 @@ shared_examples 'similarity' do
       wait_for_selector('#media__claim')
       wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath)
       wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
-      wait_for_selector('#similarity-media-item__accept-relationship')
-      expect(@driver.page_source.include?('Is this media a good match for the claim')).to be(true)
-      expect(@driver.page_source.include?('1 of 1 suggested media')).to be(true)
+      wait_for_selector('.similarity-media-item__accept-relationship')
+      expect(@driver.page_source.include?('1 suggested media')).to be(true)
     end
   end
 
@@ -157,9 +154,8 @@ shared_examples 'similarity' do
     wait_for_selector('#media__claim')
     wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath)
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
-    wait_for_selector('#similarity-media-item__accept-relationship')
-    expect(@driver.page_source.include?('Is this media a good match for the claim')).to be(true)
-    expect(@driver.page_source.include?('1 of 1 suggested media')).to be(true)
+    wait_for_selector('.similarity-media-item__accept-relationship')
+    expect(@driver.page_source.include?('1 suggested media')).to be(true)
   end
 
   {

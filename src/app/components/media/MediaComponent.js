@@ -94,6 +94,10 @@ class MediaComponent extends Component {
     if (start) gaps.push([0, start]);
     if (end) gaps.push([end, Number.MAX_VALUE]);
 
+    const { team_bots: teamBots } = this.props.projectMedia.team;
+    const enabledBots = teamBots.edges.map(b => b.node.login);
+    const showRequests = (enabledBots.indexOf('smooch') > -1 || this.props.projectMedia.requests_count > 0);
+
     this.state = {
       playerState: {
         start,
@@ -101,6 +105,7 @@ class MediaComponent extends Component {
         gaps,
         playing: false,
       },
+      showTab: showRequests ? 'requests' : 'metadata',
     };
 
     this.playerRef = React.createRef();
@@ -258,6 +263,8 @@ class MediaComponent extends Component {
       },
     } = this.state;
 
+    const setShowTab = value => this.setState({ showTab: value });
+
     return (
       <div>
         <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
@@ -268,7 +275,7 @@ class MediaComponent extends Component {
           { view === 'default' ?
             <React.Fragment>
               <Column className="media__column">
-                <MediaSimilarityBar projectMedia={projectMedia} />
+                <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} />
                 <MediaDetail
                   hideBorder
                   hideRelated
@@ -281,11 +288,13 @@ class MediaComponent extends Component {
                     playing, start, end, gaps, seekTo, scrubTo,
                   }}
                 />
-                <MediaSimilaritiesComponent projectMedia={projectMedia} />
+                <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} />
               </Column>
               <Column className="media__annotations-column" overflow="hidden">
                 <MediaComponentRightPanel
                   projectMedia={projectMedia}
+                  showTab={this.state.showTab}
+                  setShowTab={setShowTab}
                 />
               </Column>
             </React.Fragment> : null }

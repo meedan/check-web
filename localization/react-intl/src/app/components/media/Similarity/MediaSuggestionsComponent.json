@@ -16,25 +16,13 @@
     "defaultMessage": "Spam"
   },
   {
-    "id": "mediaSuggestionsComponent.back",
-    "defaultMessage": "Back"
-  },
-  {
-    "id": "mediaSuggestionsComponent.mediasCount",
-    "defaultMessage": "{number, plural, one {# media} other {# medias}}"
-  },
-  {
-    "id": "mediaSuggestionsComponent.requestsCount",
-    "defaultMessage": "{number} tipline requests across all medias"
-  },
-  {
     "id": "mediaSuggestionsComponent.title",
-    "defaultMessage": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
+    "defaultMessage": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
   },
   {
     "id": "mediaSuggestionsComponent.question",
     "description": "Subtitle for similarity matching widget",
-    "defaultMessage": "Is this media a good match for the claim and medias on the left?"
+    "defaultMessage": "Are the medias below a good match for the claim and medias on the left?"
   },
   {
     "id": "mediaSuggestionsComponent.dialogRejectTitle",
@@ -45,19 +33,25 @@
     "defaultMessage": "Move item"
   },
   {
+    "id": "mediaSuggestions.lastSubmitted",
+    "description": "Shows the last time a media was submitted (on feed request media card)",
+    "defaultMessage": "Last submitted {date}"
+  },
+  {
+    "id": "mediaSuggestions.requestsCount",
+    "description": "Header of requests list. Example: 26 requests",
+    "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
+  },
+  {
+    "id": "mediaSuggestionsMenu.tooltip",
+    "defaultMessage": "Item actions"
+  },
+  {
     "id": "mediaSuggestionsComponent.sendItemsToSpam",
     "defaultMessage": "Mark as spam"
   },
   {
     "id": "mediaSuggestionsComponent.sendItemsToTrash",
     "defaultMessage": "Send to trash"
-  },
-  {
-    "id": "mediaSuggestionsComponent.noSuggestions",
-    "defaultMessage": "There is no suggested media."
-  },
-  {
-    "id": "mediaSuggestionsComponent.goBack",
-    "defaultMessage": "Back to main view"
   }
 ]

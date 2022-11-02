@@ -96,6 +96,7 @@ const MediaItem = ({
   projectMedia,
   mainProjectMedia,
   isSelected,
+  setIsSelected,
   showReportStatus,
   onSelect,
   modalOnly,
@@ -121,6 +122,8 @@ const MediaItem = ({
       onClick={(event) => {
         if (onSelect) {
           onSelect(projectMedia.dbid);
+        } else {
+          setIsSelected(true);
         }
         event.stopPropagation();
       }}
@@ -239,7 +242,7 @@ MediaItem.defaultProps = {
   mainProjectMedia: { id: '' },
   isSelected: false,
   showReportStatus: true,
-  onSelect: () => {},
+  onSelect: undefined,
   modalOnly: false,
 };
 

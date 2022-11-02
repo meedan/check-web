@@ -103,7 +103,7 @@ const MediaSimilarityBarAdd = ({
     handleClose();
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     const mainItemDbid = response.createRelationship.relationshipEdge.node.source_id;
-    const mediaUrl = `/${teamSlug}/media/${mainItemDbid}/similar-media`;
+    const mediaUrl = `/${teamSlug}/media/${mainItemDbid}`;
     browserHistory.push(mediaUrl);
   };
 
