@@ -154,9 +154,8 @@ shared_examples 'similarity' do
     wait_for_selector('#media__claim')
     wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath)
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
-    wait_for_selector('#similarity-media-item__accept-relationship')
-    expect(@driver.page_source.include?('Is this media a good match for the claim')).to be(true)
-    expect(@driver.page_source.include?('1 of 1 suggested media')).to be(true)
+    wait_for_selector('.similarity-media-item__accept-relationship')
+    expect(@driver.page_source.include?('1 suggested media')).to be(true)
   end
 
   {
