@@ -49,9 +49,7 @@ class SearchKeyword extends React.Component {
   onUploadSuccess = (data) => {
     const cleanQuery = this.props.cleanupQuery(this.props.query);
     cleanQuery.file_handle = data.searchUpload?.file_handle;
-    // TODO: get file url from data
-    // cleanQuery.file_url = data.searchUpload?.file_url;
-    cleanQuery.file_url = 'http://localhost:9000/check-api-dev/uploads/uploaded_image/22/embed_f9872e895cc0580c66383775d2925c35.jpeg';
+    cleanQuery.file_url = data.searchUpload?.file_url;
     let file_type;
     if (this.state.imgData.type.match(/^video\//)) {
       file_type = 'video';
@@ -61,6 +59,7 @@ class SearchKeyword extends React.Component {
       file_type = 'audio';
     }
     cleanQuery.file_type = file_type;
+    cleanQuery.file_name = this.state.imgData.name;
     delete cleanQuery.keyword;
     this.setState({
       isSaving: false,
@@ -79,6 +78,7 @@ class SearchKeyword extends React.Component {
     delete cleanQuery.file_type;
     delete cleanQuery.file_handle;
     delete cleanQuery.file_url;
+    delete cleanQuery.file_name;
     this.props.setQuery(cleanQuery);
   }
 
@@ -169,6 +169,7 @@ class SearchKeyword extends React.Component {
     delete cleanQuery.file_type;
     delete cleanQuery.file_handle;
     delete cleanQuery.file_url;
+    delete cleanQuery.file_name;
     this.setState({
       imgData: {
         data: '',

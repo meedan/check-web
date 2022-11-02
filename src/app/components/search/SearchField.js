@@ -75,7 +75,7 @@ const SearchField = ({
   const [expand, setExpand] = React.useState(false);
   const [expandMedia, setExpandMedia] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [localSearchText, setLocalSearchText] = React.useState(searchText);
+  const [localSearchText, setLocalSearchText] = React.useState(searchText || searchQuery?.file_name);
 
   function handleExpand(event) {
     setExpand(true);
@@ -97,6 +97,16 @@ const SearchField = ({
   function handleClickClear() {
     setLocalSearchText('');
     handleClear();
+  }
+
+  let mediaData = {};
+  if (searchQuery?.file_type) {
+    const mediaMapping = { image: 'UploadedImage', video: 'UploadedVideo', audio: 'UploadedAudio' };
+    mediaData = {
+      picture: searchQuery?.file_url,
+      url: searchQuery?.file_url,
+      type: mediaMapping[searchQuery?.file_type],
+    };
   }
 
   return (
@@ -252,7 +262,7 @@ const SearchField = ({
               >
                 <CloseIcon />
               </IconButton>
-              <MediaPreview media={{ picture: searchQuery?.file_url }} />
+              <MediaPreview media={mediaData} />
             </div>
           </Dialog>
         </div>
