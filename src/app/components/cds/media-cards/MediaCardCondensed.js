@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
   innerBox: {
     cursor: 'pointer',
+    maxWidth: '500px',
   },
   image: {
     height: 96,

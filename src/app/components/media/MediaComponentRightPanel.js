@@ -15,7 +15,7 @@ const MediaComponentRightPanel = ({ projectMedia, setShowTab, showTab }) => {
   const { team_bots: teamBots } = projectMedia.team;
   const enabledBots = teamBots.edges.map(b => b.node.login);
   const showRequests = (enabledBots.indexOf('smooch') > -1 || projectMedia.requests_count > 0);
-  const showSuggestedMedia = projectMedia.suggested_similar_relationships.edges.length > 0;
+  const showSuggestedMedia = !projectMedia.is_suggested && projectMedia.suggested_similar_relationships.edges.length > 0;
 
   return (
     <ErrorBoundary component="MediaComponentRightPanel">

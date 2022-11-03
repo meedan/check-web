@@ -265,6 +265,8 @@ class MediaComponent extends Component {
 
     const setShowTab = value => this.setState({ showTab: value });
 
+    const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
+
     return (
       <div>
         <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
@@ -275,7 +277,7 @@ class MediaComponent extends Component {
           { view === 'default' ?
             <React.Fragment>
               <Column className="media__column">
-                <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} />
+                { linkPrefix ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
                 <MediaDetail
                   hideBorder
                   hideRelated
@@ -379,6 +381,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
       }
     }
     is_confirmed_similar_to_another_item
+    is_suggested
     is_secondary
     claim_description {
       id
