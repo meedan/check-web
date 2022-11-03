@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
     objectFit: 'cover',
     border: `1px solid ${brandSecondary}`,
     marginRight: theme.spacing(1.5),
+    alignSelf: 'center',
   },
   text: {
     overflow: 'hidden',
