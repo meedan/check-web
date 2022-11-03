@@ -182,7 +182,7 @@ const FeedRequestsTable = ({
               showExpand={false}
               cleanupQuery={query => query}
               handleSubmit={(e) => {
-                const newFilters = { ...filters, keyword: e.target[0].value };
+                const newFilters = { ...filters, keyword: e.target['search-input'].value };
                 onChangeFilters(newFilters);
                 e.preventDefault();
               }}
