@@ -8,7 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
+import CloseIcon from '@material-ui/icons/Close';
+import Dialog from '@material-ui/core/Dialog';
 import SearchIcon from '@material-ui/icons/Search';
+import { Clear as ClearIcon } from '@material-ui/icons';
+import { MediaPreview } from '../feed/MediaPreview';
 import {
   black16,
   borderWidthLarge,
@@ -48,6 +52,13 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginLeft: theme.spacing(2),
   },
+  closeButton: {
+    color: 'white',
+    zIndex: 1000,
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+  },
 }));
 
 const SearchField = ({
@@ -57,12 +68,14 @@ const SearchField = ({
   showExpand,
   setParentSearchText,
   searchText,
+  handleClear,
+  searchQuery,
 }) => {
   const classes = useStyles();
   const [expand, setExpand] = React.useState(false);
+  const [expandMedia, setExpandMedia] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [expandedText, setExpandedText] = React.useState(searchText);
-  const [localSearchText, setLocalSearchText] = React.useState(searchText);
+  const [localSearchText, setLocalSearchText] = React.useState(searchText || searchQuery?.file_name);
 
   function handleExpand(event) {
     setExpand(true);
@@ -71,6 +84,29 @@ const SearchField = ({
 
   function handleClose() {
     setExpand(false);
+  }
+
+  function handleExpandMedia() {
+    setExpandMedia(true);
+  }
+
+  function handleCloseExpandMedia() {
+    setExpandMedia(false);
+  }
+
+  function handleClickClear() {
+    setLocalSearchText('');
+    handleClear();
+  }
+
+  let mediaData = {};
+  if (searchQuery?.file_type) {
+    const mediaMapping = { image: 'UploadedImage', video: 'UploadedVideo', audio: 'UploadedAudio' };
+    mediaData = {
+      picture: searchQuery?.file_url,
+      url: searchQuery?.file_url,
+      type: mediaMapping[searchQuery?.file_type],
+    };
   }
 
   return (
@@ -119,7 +155,13 @@ const SearchField = ({
                     root: classes.startAdornmentRoot,
                   }}
                 >
-                  <SearchIcon />
+                  { localSearchText || searchQuery?.file_type ? (
+                    <IconButton
+                      onClick={handleClickClear}
+                    >
+                      <ClearIcon color="primary" />
+                    </IconButton>
+                  ) : <SearchIcon /> }
                 </InputAdornment>
               ),
               endAdornment: (
@@ -138,7 +180,7 @@ const SearchField = ({
                         }}
                       >
                         <IconButton
-                          onClick={handleExpand}
+                          onClick={searchQuery?.file_type ? handleExpandMedia : handleExpand}
                         >
                           <img
                             src="/images/open_full.svg"
@@ -180,13 +222,13 @@ const SearchField = ({
             <InputBase
               label="Type something"
               multiline
-              rows={20}
+              rows={5}
               variant="outlined"
               fullWidth
               onChange={(e) => {
-                setExpandedText(e.target.value);
+                setLocalSearchText(e.target.value);
               }}
-              value={expandedText}
+              value={localSearchText}
             />
             <Grid
               container
@@ -196,26 +238,33 @@ const SearchField = ({
             >
               <Grid item className={classes.button}>
                 <Button
-                  onClick={handleClose}
+                  startIcon={<ClearIcon />}
+                  onClick={handleClickClear}
+                  disabled={!localSearchText}
                 >
-                  <FormattedMessage id="search.cancel" defaultMessage="Cancel" description="A label on a button that lets a user cancel typing search text, deleting the text in the process." />
-                </Button>
-              </Grid>
-              <Grid item className={classes.button}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={(e) => {
-                    setParentSearchText(expandedText);
-                    handleClose();
-                    inputBaseProps.onChange(e, expandedText);
-                  }}
-                >
-                  <FormattedMessage id="search.setText" defaultMessage="Set text" description="A label on a button that lets a user set the text on an associated popup to the original input field." />
+                  <FormattedMessage id="search.clear" defaultMessage="Clear" description="A label on a button that lets a user clear typing search text, deleting the text in the process." />
                 </Button>
               </Grid>
             </Grid>
           </Popover>
+          <Dialog
+            open={expandMedia}
+            onClose={handleCloseExpandMedia}
+            maxWidth="md"
+            fullWidth
+          >
+            <div>
+              <IconButton
+                aria-label="close"
+                className={classes.closeButton}
+                id="search-field__close-button"
+                onClick={handleCloseExpandMedia}
+              >
+                <CloseIcon />
+              </IconButton>
+              <MediaPreview media={mediaData} />
+            </div>
+          </Dialog>
         </div>
       )}
     </FormattedMessage>
@@ -228,6 +277,8 @@ SearchField.defaultProps = {
   endAdornment: null,
   showExpand: false,
   setParentSearchText: () => {},
+  handleClear: () => {},
+  searchQuery: {},
 };
 
 SearchField.propTypes = {
@@ -236,6 +287,8 @@ SearchField.propTypes = {
   endAdornment: PropTypes.node,
   showExpand: PropTypes.bool,
   setParentSearchText: PropTypes.func,
+  handleClear: PropTypes.func,
+  searchQuery: PropTypes.object,
 };
 
 export default SearchField;
