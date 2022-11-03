@@ -444,19 +444,17 @@ function SearchResultsComponent({
             </span>
             {listActions}
           </div>
-          { /\/feed\/[0-9]+\/shared/.test(window.location.pathname) ?
-            null :
-            <SearchKeyword
-              query={unsortedQuery}
-              setQuery={setQuery}
-              project={project}
-              hideFields={hideFields}
-              title={title}
-              team={team}
-              showExpand={showExpand}
-              cleanupQuery={cleanupQuery}
-              handleSubmit={handleSubmit}
-            /> }
+          <SearchKeyword
+            query={unsortedQuery}
+            setQuery={setQuery}
+            project={project}
+            hideFields={hideFields}
+            title={title}
+            team={team}
+            showExpand={showExpand}
+            cleanupQuery={cleanupQuery}
+            handleSubmit={handleSubmit}
+          />
         </Row>
         <Row className="project__description">
           {listDescription && listDescription.trim().length ?
