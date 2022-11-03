@@ -32,6 +32,7 @@ class UploadFileMutation extends Relay.Mutation {
         type: 'FIELDS_CHANGE',
         fieldIDs: {
           file_handle: this.props.file_handle,
+          file_url: this.props.file_url,
         },
       },
     ];
