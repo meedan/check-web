@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -25,16 +24,6 @@ const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
             confirmedMainItem: confirmed_main_item {
               id
               dbid
-              team {
-                slug
-              }
-            }
-            suggestedMainItem: suggested_main_item {
-              id
-              dbid
-              team {
-                slug
-              }
             }
             suggestionsCount: suggested_similar_items_count
             confirmedSimilarCount: confirmed_similar_items_count
@@ -53,7 +42,7 @@ const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
               confirmedSimilarCount={props.project_media.confirmedSimilarCount}
               hasMain={props.project_media.hasMain}
               isSuggested={props.project_media.isSuggested}
-              confirmedMainItem={props.project_media.confirmedMainItem}
+              confirmedMainItemId={props.project_media.confirmedMainItem.id}
               canAdd={can(props.project_media.permissions, 'update ProjectMedia')}
               isBlank={props.project_media.type === 'Blank'}
               isPublished={props.project_media.report_status === 'published'}
