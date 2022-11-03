@@ -46,24 +46,20 @@ const MediaSimilarityBarComponent = ({
   suggestionsCount,
   confirmedSimilarCount,
   hasMain,
-  confirmedMainItem,
+  isSuggested,
+  confirmedMainItemId,
   canAdd,
   isBlank,
   isPublished,
   setShowTab,
 }) => {
   const classes = useStyles();
-  const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
-
-  // This component should be used only on an item page
-  if (!linkPrefix) {
-    return null;
-  }
 
   return (
     <Box className={classes.root} display="flex" justifyContent="space-between" alignItems="center">
       <Box className={classes.spacing}>
         <CounterButton
+          className="similarity-bar__matches-count"
           count={confirmedSimilarCount}
           label={
             <FormattedMessage
@@ -82,7 +78,8 @@ const MediaSimilarityBarComponent = ({
           }}
         />
         <CounterButton
-          count={suggestionsCount}
+          className="similarity-bar__suggestions-count"
+          count={isSuggested ? 0 : suggestionsCount}
           label={
             <FormattedMessage
               id="mediaSimilarityBarComponent.suggestedMatches"
@@ -96,7 +93,7 @@ const MediaSimilarityBarComponent = ({
       <Box>
         { canAdd ?
           <MediaSimilarityBarAdd
-            projectMediaId={confirmedMainItem.id}
+            projectMediaId={confirmedMainItemId}
             projectMediaDbid={projectMediaDbid}
             canBeAddedToSimilar={!hasMain && !isPublished}
             similarCanBeAddedToIt={!hasMain}
@@ -107,21 +104,25 @@ const MediaSimilarityBarComponent = ({
   );
 };
 
+MediaSimilarityBarComponent.defaultProps = {
+  confirmedMainItemId: null,
+  hasMain: false,
+  isSuggested: false,
+  canAdd: false,
+  isBlank: false,
+  isPublished: false,
+};
+
 MediaSimilarityBarComponent.propTypes = {
   projectMediaDbid: PropTypes.number.isRequired,
   suggestionsCount: PropTypes.number.isRequired,
   confirmedSimilarCount: PropTypes.number.isRequired,
-  hasMain: PropTypes.bool.isRequired,
-  confirmedMainItem: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
-    team: PropTypes.shape({
-      slug: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-  canAdd: PropTypes.bool.isRequired,
-  isBlank: PropTypes.bool.isRequired,
-  isPublished: PropTypes.bool.isRequired,
+  hasMain: PropTypes.bool,
+  isSuggested: PropTypes.bool,
+  confirmedMainItemId: PropTypes.number,
+  canAdd: PropTypes.bool,
+  isBlank: PropTypes.bool,
+  isPublished: PropTypes.bool,
   setShowTab: PropTypes.func.isRequired, // React useState setter
 };
 

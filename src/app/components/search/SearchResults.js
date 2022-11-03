@@ -31,6 +31,7 @@ const StyledListHeader = styled.div`
   .search__list-header-filter-row {
     justify-content: space-between;
     display: flex;
+    align-items: flex-start;
   }
 
   .project__title-text {
