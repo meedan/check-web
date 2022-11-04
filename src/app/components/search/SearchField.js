@@ -20,12 +20,14 @@ import {
 } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
+  input: {
+    borderRadius: 50,
+    fontSize: 14,
+  },
   inputInactive: {
-    borderRadius: theme.spacing(0.5),
     border: `${borderWidthLarge} solid ${black16}`,
   },
   inputActive: {
-    borderRadius: theme.spacing(0.5),
     border: `${borderWidthLarge} solid ${checkBlue}`,
   },
   startAdornmentRoot: {
@@ -117,8 +119,8 @@ const SearchField = ({
             classes={{
               root: (
                 isActive ?
-                  classes.inputActive :
-                  classes.inputInactive
+                  [classes.input, classes.inputActive].join(' ') :
+                  [classes.input, classes.inputInactive].join(' ')
               ),
             }}
             placeholder={placeholder}

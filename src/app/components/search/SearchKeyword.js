@@ -19,6 +19,12 @@ const styles = {
   input: {
     display: 'none',
   },
+  button: {
+    fontWeight: 400,
+    fontSize: 12,
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
 };
 
 class SearchKeyword extends React.Component {
@@ -264,7 +270,7 @@ class SearchKeyword extends React.Component {
           autoComplete="off"
         >
           <Box width="450px">
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
               <Grid item xs={12}>
                 <SearchField
                   isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
@@ -294,6 +300,7 @@ class SearchKeyword extends React.Component {
                         <Button
                           startIcon={this.state.isSaving ? <CircularProgress size={24} /> : <PermMediaOutlinedIcon />}
                           component="span"
+                          className={classes.button}
                         >
                           <FormattedMessage
                             id="search.file"
