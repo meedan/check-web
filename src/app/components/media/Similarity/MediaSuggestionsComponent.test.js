@@ -30,8 +30,6 @@ describe('<MediaSuggestionsComponent />', () => {
     formatDate: () => {},
   };
 
-  const empty_relationships = [];
-
   const relationships = [
     { id: '1', target_id: 1, target: { created_at: '', last_seen: '', type: 'Link' } },
     { id: '2', target_id: 2, target: { created_at: '', last_seen: '', type: 'Claim' } },
