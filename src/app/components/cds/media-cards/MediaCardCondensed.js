@@ -60,6 +60,16 @@ const useStyles = makeStyles(theme => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },
+  placeholder: {
+    border: '1px solid rgba(0, 0, 0, 0.23)',
+    borderRadius: theme.spacing(1),
+    color: 'black',
+    padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
 }));
 
 const MediaCardCondensed = ({
@@ -71,9 +81,20 @@ const MediaCardCondensed = ({
   media,
   onClick,
   menu,
+  placeholder,
 }) => {
   const classes = useStyles();
   const defaultImage = '/images/image_placeholder.svg';
+
+  if (placeholder) {
+    return (
+      <Box
+        className={classes.placeholder}
+      >
+        {placeholder}
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -122,6 +143,7 @@ MediaCardCondensed.propTypes = {
   url: PropTypes.string,
   onClick: PropTypes.func,
   menu: PropTypes.element,
+  placeholder: PropTypes.element,
 };
 
 MediaCardCondensed.defaultProps = {
@@ -132,6 +154,7 @@ MediaCardCondensed.defaultProps = {
   url: null,
   onClick: () => {},
   menu: null,
+  placeholder: null,
 };
 
 export default MediaCardCondensed;

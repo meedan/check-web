@@ -95,6 +95,18 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     textAlign: 'right',
   },
+  card: {
+    border: `1px solid ${brandSecondary}`,
+    borderRadius: theme.spacing(2),
+    color: 'black',
+    backgroundColor: 'white',
+    margin: theme.spacing(2, 1, 1, 1),
+    padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
 }));
 
 const MediaSuggestionsComponent = ({
@@ -108,6 +120,15 @@ const MediaSuggestionsComponent = ({
   const classes = useStyles();
   // sort suggestions by the larger (more recent) of `last_seen` vs `created_at`, descending
   const sortedRelationships = relationships.sort((a, b) => Math.max(+b.target?.created_at, +b.target?.last_seen) - Math.max(+a.target?.created_at, +a.target?.last_seen));
+
+  if (relationships.length === 0) {
+    return (
+      <Box className={classes.card}>
+        <Typography variant="h2">0 suggested media</Typography>
+        <Typography variant="body1">Future suggestions will be listed here.</Typography>
+      </Box>
+    );
+  }
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [openEl, setOpenEl] = React.useState(null);

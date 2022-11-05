@@ -37,19 +37,6 @@ describe('<MediaSuggestionsComponent />', () => {
     { id: '2', target_id: 2, target: { created_at: '', last_seen: '', type: 'Claim' } },
   ];
 
-  it('should not render suggested media action buttons if media has no suggested media', () => {
-    const wrapper = shallow(<MediaSuggestionsComponentTest
-      team={team}
-      media={media}
-      relationships={empty_relationships}
-      mainItem={mainItem}
-      setFlashMessage={() => {}}
-      intl={intl}
-      reportType="blank"
-    />);
-    expect(wrapper.find('.suggested-media__item')).toHaveLength(0);
-  });
-
   it('should render suggested media action buttons if media has suggested medias', () => {
     const wrapper = shallow(<MediaSuggestionsComponentTest
       team={team}

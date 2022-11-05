@@ -14,7 +14,6 @@ import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
-import MediaSuggestions from './Similarity/MediaSuggestions';
 import CheckContext from '../../CheckContext';
 
 import {
@@ -265,6 +264,10 @@ class MediaComponent extends Component {
 
     const setShowTab = value => this.setState({ showTab: value });
 
+    if (view === 'similarMedia') {
+      setShowTab('suggestedMedia');
+    }
+
     const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
 
     return (
@@ -274,7 +277,7 @@ class MediaComponent extends Component {
           <AnalysisColumn>
             <MediaSidebar projectMedia={projectMedia} />
           </AnalysisColumn>
-          { view === 'default' ?
+          { view === 'default' || view === 'similarMedia' ?
             <React.Fragment>
               <Column className="media__column">
                 { linkPrefix ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
@@ -300,7 +303,6 @@ class MediaComponent extends Component {
                 />
               </Column>
             </React.Fragment> : null }
-          { view === 'suggestedMatches' || view === 'similarMedia' ? <MediaSuggestions projectMedia={projectMedia} /> : null }
         </StyledThreeColumnLayout>
       </div>
     );

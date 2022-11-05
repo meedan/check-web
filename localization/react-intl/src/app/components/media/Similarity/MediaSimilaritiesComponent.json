@@ -3,5 +3,10 @@
     "id": "mediaSimilarities.moreMedias",
     "description": "Heading for a list of matched medias",
     "defaultMessage": "Matched media"
+  },
+  {
+    "id": "mediaSimilarities.noMedia",
+    "description": "A message that shows when the matched media list is empty.",
+    "defaultMessage": "0 matched media"
   }
 ]

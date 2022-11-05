@@ -15,7 +15,6 @@ const MediaComponentRightPanel = ({ projectMedia, setShowTab, showTab }) => {
   const { team_bots: teamBots } = projectMedia.team;
   const enabledBots = teamBots.edges.map(b => b.node.login);
   const showRequests = (enabledBots.indexOf('smooch') > -1 || projectMedia.requests_count > 0);
-  const showSuggestedMedia = !projectMedia.is_suggested && projectMedia.suggested_similar_relationships.edges.length > 0;
 
   return (
     <ErrorBoundary component="MediaComponentRightPanel">
@@ -41,19 +40,17 @@ const MediaComponentRightPanel = ({ projectMedia, setShowTab, showTab }) => {
             className="media-tab__requests"
           />
           : null }
-        { showSuggestedMedia ?
-          <Tab
-            label={
-              <FormattedMessage
-                id="mediaComponent.suggestedMedia"
-                defaultMessage="Suggested media"
-                description="Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
-              />
-            }
-            value="suggestedMedia"
-            className="media-tab__sugestedMedia"
-          />
-          : null }
+        <Tab
+          label={
+            <FormattedMessage
+              id="mediaComponent.suggestedMedia"
+              defaultMessage="Suggested media"
+              description="Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
+            />
+          }
+          value="suggestedMedia"
+          className="media-tab__sugestedMedia"
+        />
         <Tab
           label={
             <FormattedMessage
