@@ -8,13 +8,13 @@ import {
 import {
   brandSecondaryCDS,
   brandMainCDS,
-  textPrimary,
 } from '../../../styles/js/shared';
 
-const useStyles = makeStyles({
-  counterButton: {
-    display: 'block',
-    padding: '0 8px',
+const useStyles = makeStyles(theme => ({
+  mainButton: {
+    padding: `${theme.spacing(0.5)}px ${theme.spacing(1.5)}px`,
+    marginRight: theme.spacing(2),
+    borderRadius: theme.spacing(1),
     '&:hover': {
       color: brandSecondaryCDS,
       backgroundColor: 'inherit',
@@ -23,43 +23,37 @@ const useStyles = makeStyles({
       color: brandMainCDS,
     },
   },
-  zeroCount: {
-    color: textPrimary,
-  },
-  moreThanZeroCount: {
-    color: brandMainCDS,
-  },
-});
+}));
 
-const CounterButton = ({ label, count, onClick }) => {
+const MainButton = ({ variant, label, onClick }) => {
   const classes = useStyles();
   return (
     <Button
       onClick={onClick}
-      className={`counter-button ${classes.counterButton} ${count === 0 ? classes.zeroCount : classes.moreThanZeroCount}`}
+      className={`main-button ${classes.mainButton}`}
+      variant={variant}
       disableRipple
     >
       <Typography
-        variant="overline"
+        variant="button"
       >
         {label}
       </Typography>
       <br />
-      <Typography variant="h2">
-        {count}
-      </Typography>
     </Button>
   );
 };
 
-CounterButton.defaultProps = {
+MainButton.defaultProps = {
   onClick: () => {},
+  variant: 'text',
 };
 
-CounterButton.propTypes = {
+MainButton.propTypes = {
   label: PropTypes.object.isRequired,
-  count: PropTypes.number.isRequired,
   onClick: PropTypes.func,
+  variant: PropTypes.string,
 };
 
-export default CounterButton;
+export default MainButton;
+

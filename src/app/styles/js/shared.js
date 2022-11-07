@@ -21,6 +21,7 @@ export const textPrimary = '#1F1F1F';
 export const textSecondary = '#656565';
 export const brandMainCDS = '#567BFF';
 export const brandSecondaryCDS = '#3B5CD0';
+export const brandLightCDS = '#CFDFFF';
 
 // Material blacks
 // TODO make these opaque!
@@ -147,6 +148,27 @@ export const MuiTheme = {
       fontSize: '12px',
       fontWeight: 400,
     },
+    body1: {
+      fontSize: '14px',
+      lineHeight: '143%',
+      fontWeight: 400,
+      color: textPrimary,
+    },
+    body2: {
+      fontSize: '12px',
+      lineHeight: '143%',
+      fontWeight: 400,
+      color: textPrimary,
+      letterSpacing: '0.15px',
+    },
+    // The "Big title" variant in Check Design System
+    h1: {
+      letterSpacing: '0.15px',
+      lineHeight: '150%',
+      fontSize: '20px',
+      fontWeight: 500,
+      color: textPrimary,
+    },
     // The "Title" variant in Check Design System
     h2: {
       letterSpacing: '0.15px',
@@ -154,6 +176,13 @@ export const MuiTheme = {
       fontSize: '16px',
       fontWeight: 500,
       color: 'currentcolor',
+    },
+    button: {
+      fontWeight: 500,
+      fontSize: '14px',
+      lineHeight: '24px',
+      letterSpacing: '0.4px',
+      textTransform: 'none',
     },
   },
   overrides: { // Override of all material UI components. Information at https://material-ui.com/api/{component}

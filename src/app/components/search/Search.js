@@ -126,7 +126,7 @@ Search.defaultProps = {
   readOnlyFields: [],
   listDescription: undefined,
   listActions: undefined,
-  showExpand: false,
+  showExpand: true,
   resultType: 'default',
   icon: null,
   extra: null,

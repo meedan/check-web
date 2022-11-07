@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -6,7 +5,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaSimilarityBarComponent from './MediaSimilarityBarComponent';
 import { can } from '../../Can';
 
-const MediaSimilarityBar = ({ projectMedia }) => {
+const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
   const ids = `${projectMedia.dbid},0,${projectMedia.team.dbid}`; // Project ID doesn't matter
 
   return (
@@ -21,19 +20,10 @@ const MediaSimilarityBar = ({ projectMedia }) => {
             permissions
             report_status
             hasMain: is_confirmed_similar_to_another_item
+            isSuggested: is_suggested
             confirmedMainItem: confirmed_main_item {
               id
               dbid
-              team {
-                slug
-              }
-            }
-            suggestedMainItem: suggested_main_item {
-              id
-              dbid
-              team {
-                slug
-              }
             }
             suggestionsCount: suggested_similar_items_count
             confirmedSimilarCount: confirmed_similar_items_count
@@ -51,10 +41,12 @@ const MediaSimilarityBar = ({ projectMedia }) => {
               suggestionsCount={props.project_media.suggestionsCount}
               confirmedSimilarCount={props.project_media.confirmedSimilarCount}
               hasMain={props.project_media.hasMain}
-              confirmedMainItem={props.project_media.confirmedMainItem}
+              isSuggested={props.project_media.isSuggested}
+              confirmedMainItemId={props.project_media.confirmedMainItem.id}
               canAdd={can(props.project_media.permissions, 'update ProjectMedia')}
               isBlank={props.project_media.type === 'Blank'}
               isPublished={props.project_media.report_status === 'published'}
+              setShowTab={setShowTab}
             />
           );
         }
@@ -71,6 +63,7 @@ MediaSimilarityBar.propTypes = {
       dbid: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
+  setShowTab: PropTypes.func.isRequired, // React useState setter
 };
 
 export default MediaSimilarityBar;

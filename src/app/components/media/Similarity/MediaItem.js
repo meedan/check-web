@@ -96,6 +96,7 @@ const MediaItem = ({
   projectMedia,
   mainProjectMedia,
   isSelected,
+  setIsSelected,
   showReportStatus,
   onSelect,
   modalOnly,
@@ -121,6 +122,8 @@ const MediaItem = ({
       onClick={(event) => {
         if (onSelect) {
           onSelect(projectMedia.dbid);
+        } else {
+          setIsSelected(true);
         }
         event.stopPropagation();
       }}
@@ -201,7 +204,7 @@ const MediaItem = ({
                       </div> : null }
                   </div>
                 </React.Fragment> : null }
-              { projectMedia.added_as_similar_by_name && !projectMedia.confirmed_as_similar_by_name ?
+              { projectMedia.added_as_similar_by_name && !projectMedia.is_confirmed_similar_to_another_item ?
                 <React.Fragment>
                   <div className={classes.sep}> - </div>
                   <div className={classes.by}>
@@ -239,7 +242,7 @@ MediaItem.defaultProps = {
   mainProjectMedia: { id: '' },
   isSelected: false,
   showReportStatus: true,
-  onSelect: () => {},
+  onSelect: undefined,
   modalOnly: false,
 };
 
@@ -284,6 +287,7 @@ export default createFragmentContainer(MediaItem, {
       report_status
       added_as_similar_by_name
       confirmed_as_similar_by_name
+      is_confirmed_similar_to_another_item
     }
   `,
 });

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import {
@@ -20,12 +19,25 @@ const useStyles = makeStyles(theme => ({
     position: 'sticky',
     top: theme.spacing(-2),
     background: backgroundMain,
-    zIndex: 2,
+    zIndex: 200,
   },
   spacing: {
     display: 'flex',
     gap: `${theme.spacing(2)}px`,
     alignItems: 'center',
+  },
+  animation: {
+    animation: '$highlight 1000ms',
+  },
+  '@keyframes highlight': {
+    '0%': {
+      opacity: 0.7,
+      height: `calc(100% + ${theme.spacing(5)}px)`,
+    },
+    '100%': {
+      opacity: 0,
+      height: `calc(100% + ${theme.spacing(5)}px)`,
+    },
   },
 }));
 
@@ -34,23 +46,20 @@ const MediaSimilarityBarComponent = ({
   suggestionsCount,
   confirmedSimilarCount,
   hasMain,
-  confirmedMainItem,
+  isSuggested,
+  confirmedMainItemId,
   canAdd,
   isBlank,
   isPublished,
+  setShowTab,
 }) => {
   const classes = useStyles();
-  const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
-
-  // This component should be used only on an item page
-  if (!linkPrefix) {
-    return null;
-  }
 
   return (
     <Box className={classes.root} display="flex" justifyContent="space-between" alignItems="center">
       <Box className={classes.spacing}>
         <CounterButton
+          className="similarity-bar__matches-count"
           count={confirmedSimilarCount}
           label={
             <FormattedMessage
@@ -59,10 +68,18 @@ const MediaSimilarityBarComponent = ({
               description="Plural. Heading for the number of matched media"
             />
           }
-          onClick={() => { document.getElementById('matched-media').scrollIntoView({ behavior: 'smooth' }); }}
+          onClick={() => {
+            document.getElementById('matched-media').scrollIntoView({ behavior: 'smooth' });
+            const overlayElement = document.getElementById('matched-overlay');
+            overlayElement.classList.remove(classes.animation);
+            // eslint-disable-next-line
+            overlayElement.offsetWidth; // accessing this getter triggers a reflow of the elment to reset animation
+            overlayElement.classList.add(classes.animation);
+          }}
         />
         <CounterButton
-          count={suggestionsCount}
+          className="similarity-bar__suggestions-count"
+          count={isSuggested ? 0 : suggestionsCount}
           label={
             <FormattedMessage
               id="mediaSimilarityBarComponent.suggestedMatches"
@@ -70,13 +87,13 @@ const MediaSimilarityBarComponent = ({
               description="Plural. Heading for the number of suggested media"
             />
           }
-          onClick={() => { browserHistory.push(`${linkPrefix[0]}/similar-media${window.location.search}`); }}
+          onClick={() => { setShowTab('suggestedMedia'); }}
         />
       </Box>
       <Box>
         { canAdd ?
           <MediaSimilarityBarAdd
-            projectMediaId={confirmedMainItem.id}
+            projectMediaId={confirmedMainItemId}
             projectMediaDbid={projectMediaDbid}
             canBeAddedToSimilar={!hasMain && !isPublished}
             similarCanBeAddedToIt={!hasMain}
@@ -87,21 +104,26 @@ const MediaSimilarityBarComponent = ({
   );
 };
 
+MediaSimilarityBarComponent.defaultProps = {
+  confirmedMainItemId: null,
+  hasMain: false,
+  isSuggested: false,
+  canAdd: false,
+  isBlank: false,
+  isPublished: false,
+};
+
 MediaSimilarityBarComponent.propTypes = {
   projectMediaDbid: PropTypes.number.isRequired,
   suggestionsCount: PropTypes.number.isRequired,
   confirmedSimilarCount: PropTypes.number.isRequired,
-  hasMain: PropTypes.bool.isRequired,
-  confirmedMainItem: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
-    team: PropTypes.shape({
-      slug: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-  canAdd: PropTypes.bool.isRequired,
-  isBlank: PropTypes.bool.isRequired,
-  isPublished: PropTypes.bool.isRequired,
+  hasMain: PropTypes.bool,
+  isSuggested: PropTypes.bool,
+  confirmedMainItemId: PropTypes.number,
+  canAdd: PropTypes.bool,
+  isBlank: PropTypes.bool,
+  isPublished: PropTypes.bool,
+  setShowTab: PropTypes.func.isRequired, // React useState setter
 };
 
 export default MediaSimilarityBarComponent;

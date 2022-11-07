@@ -152,11 +152,11 @@ module AppSpecHelpers
 
   def create_image(file)
     wait_for_selector('#create-media__add-item').click
-    wait_for_selector('.without-file')
-    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))
-    wait_for_selector('.with-file')
+    wait_for_selector('#create-media-dialog-form .without-file')
+    wait_for_selector('#create-media-dialog-form input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))
+    wait_for_selector('#create-media-dialog-form .with-file')
     wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector_none('.with-file')
+    wait_for_selector_none('#create-media-dialog-form .with-file')
   end
 
   def team_url(path)

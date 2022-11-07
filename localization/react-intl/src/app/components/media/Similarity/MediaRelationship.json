@@ -6,7 +6,7 @@
   },
   {
     "id": "mediaItem.doneRedirecting",
-    "description": "Message displayed when the action of pinning an item is completed by the server",
+    "description": "A message that informs the user a 'pin' action is finished and a redirect is about to happen",
     "defaultMessage": "Done, redirecting to new main item…"
   },
   {
@@ -21,8 +21,13 @@
   },
   {
     "id": "mediaItem.detach",
-    "description": "Menu option for removing the similarity relationship between the current media item and the main one",
+    "description": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item.",
     "defaultMessage": "Un-match media"
+  },
+  {
+    "id": "mediaRelationship.openMedia",
+    "description": "Singular 'media'. Label for a button that opens the media item the user is currently viewing.",
+    "defaultMessage": "Open media"
   },
   {
     "id": "detachDialog.dialogdetachedToListTitle",
@@ -33,5 +38,10 @@
     "id": "detachDialog.detached",
     "description": "Button to commit the action of moving item",
     "defaultMessage": "Move to folder"
+  },
+  {
+    "id": "mediaItem.error",
+    "description": "A generic error message",
+    "defaultMessage": "Error, please try again"
   }
 ]
