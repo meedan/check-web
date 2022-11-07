@@ -241,6 +241,10 @@ function SearchResultsComponent({
     if (query.sort_type) {
       cleanQuery.sort_type = query.sort_type;
     }
+    if (newQuery.sort === 'clear') {
+      delete cleanQuery.sort;
+      delete cleanQuery.sort_type;
+    }
     navigateToQuery(cleanQuery);
   };
 
@@ -308,8 +312,8 @@ function SearchResultsComponent({
     return cleanQuery;
   };
 
-  const handleSubmit = () => {
-    const cleanQuery = cleanupQuery(query);
+  const handleSubmit = (e, newQuery) => {
+    const cleanQuery = cleanupQuery(newQuery || query);
     handleChangeQuery(cleanQuery);
   };
 
@@ -419,10 +423,6 @@ function SearchResultsComponent({
     );
   }
 
-  const unsortedQuery = simplifyQuery(query, project, projectGroup); // nix .projects, .project_group_id and .channels
-  delete unsortedQuery.sort;
-  delete unsortedQuery.sort_type;
-
   return (
     <React.Fragment>
       <StyledListHeader>
@@ -446,7 +446,7 @@ function SearchResultsComponent({
           { /\/feed\/[0-9]+\/shared/.test(window.location.pathname) ?
             null :
             <SearchKeyword
-              query={unsortedQuery}
+              query={query}
               setQuery={setQuery}
               project={project}
               hideFields={hideFields}
@@ -466,7 +466,7 @@ function SearchResultsComponent({
       { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
       <Box m={2}>
         <SearchFields
-          query={unsortedQuery}
+          query={query}
           setQuery={setQuery}
           onChange={handleChangeQuery}
           project={project}

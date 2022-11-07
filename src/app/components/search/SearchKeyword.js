@@ -213,7 +213,10 @@ class SearchKeyword extends React.Component {
   handleClickClear = () => {
     const newQuery = { ...this.props.query };
     delete newQuery.keyword;
-    this.props.setQuery(newQuery);
+    if (newQuery.sort === 'score') {
+      newQuery.sort = 'clear';
+    }
+    this.props.handleSubmit(null, newQuery);
   };
 
   subscribe() {
