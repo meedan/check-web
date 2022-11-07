@@ -148,19 +148,6 @@ export const MuiTheme = {
       fontSize: '12px',
       fontWeight: 400,
     },
-    body1: {
-      fontSize: '14px',
-      lineHeight: '143%',
-      fontWeight: 400,
-      color: textPrimary,
-    },
-    body2: {
-      fontSize: '12px',
-      lineHeight: '143%',
-      fontWeight: 400,
-      color: textPrimary,
-      letterSpacing: '0.15px',
-    },
     // The "Big title" variant in Check Design System
     h1: {
       letterSpacing: '0.15px',
