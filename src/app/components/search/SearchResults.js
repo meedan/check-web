@@ -234,7 +234,12 @@ function SearchResultsComponent({
     navigateToQuery(cleanQuery);
   };
 
-  const handleChangeQuery = (newQuery /* minus sort data */) => {
+  /*
+  clear means that the user cleared the search after searching by keywords
+  and no other sort filter is applied
+  if other filter is applied, the new query should keep the previous sort parameter
+  */
+  const handleChangeQuery = (newQuery) => {
     const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
     if (query.sort) {
       cleanQuery.sort = query.sort;
@@ -313,6 +318,10 @@ function SearchResultsComponent({
     return cleanQuery;
   };
 
+  /*
+  when clicking on the "clear search" button, we call the handleSubmit passing the newQuery.
+  If does not have the newQuery param get the query from props
+  */
   const handleSubmit = (e, newQuery) => {
     const cleanQuery = cleanupQuery(newQuery || query);
     handleChangeQuery(cleanQuery);
