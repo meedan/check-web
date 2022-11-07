@@ -234,13 +234,22 @@ function SearchResultsComponent({
     navigateToQuery(cleanQuery);
   };
 
-  const handleChangeQuery = (newQuery /* minus sort data */) => {
+  /*
+  clear means that the user cleared the search after searching by keywords
+  and no other sort filter is applied
+  if other filter is applied, the new query should keep the previous sort parameter
+  */
+  const handleChangeQuery = (newQuery) => {
     const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
     if (query.sort) {
       cleanQuery.sort = query.sort;
     }
     if (query.sort_type) {
       cleanQuery.sort_type = query.sort_type;
+    }
+    if (newQuery.sort === 'clear') {
+      delete cleanQuery.sort;
+      delete cleanQuery.sort_type;
     }
     navigateToQuery(cleanQuery);
   };
@@ -309,8 +318,12 @@ function SearchResultsComponent({
     return cleanQuery;
   };
 
-  const handleSubmit = () => {
-    const cleanQuery = cleanupQuery(query);
+  /*
+  when clicking on the "clear search" button, we call the handleSubmit passing the newQuery.
+  If does not have the newQuery param get the query from props
+  */
+  const handleSubmit = (e, newQuery) => {
+    const cleanQuery = cleanupQuery(newQuery || query);
     handleChangeQuery(cleanQuery);
   };
 
@@ -420,10 +433,6 @@ function SearchResultsComponent({
     );
   }
 
-  const unsortedQuery = simplifyQuery(query, project, projectGroup); // nix .projects, .project_group_id and .channels
-  delete unsortedQuery.sort;
-  delete unsortedQuery.sort_type;
-
   return (
     <React.Fragment>
       <StyledListHeader>
@@ -445,7 +454,7 @@ function SearchResultsComponent({
             {listActions}
           </div>
           <SearchKeyword
-            query={unsortedQuery}
+            query={query}
             setQuery={setQuery}
             project={project}
             hideFields={hideFields}
@@ -465,7 +474,7 @@ function SearchResultsComponent({
       { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
       <Box m={2}>
         <SearchFields
-          query={unsortedQuery}
+          query={query}
           setQuery={setQuery}
           onChange={handleChangeQuery}
           project={project}

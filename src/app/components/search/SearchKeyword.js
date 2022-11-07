@@ -164,10 +164,17 @@ class SearchKeyword extends React.Component {
     this.props.setQuery(newQuery);
   }
 
+  /*
+  check that the sort parameter is the default, if it is, set the parameter to "clear"
+  to identify that no other sort filter is applied and the search query should be reseted
+  */
   handleClickClear = () => {
     const newQuery = { ...this.props.query };
     delete newQuery.keyword;
-    this.props.setQuery(newQuery);
+    if (newQuery.sort === 'score') {
+      newQuery.sort = 'clear';
+    }
+    this.props.handleSubmit(null, newQuery);
   };
 
   handleImageDismiss = () => {
