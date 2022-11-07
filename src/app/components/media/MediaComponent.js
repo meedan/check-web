@@ -1,5 +1,6 @@
+/* eslint-disable relay/unused-fields */
 import React, { Component } from 'react';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -8,10 +9,11 @@ import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaSidebar from './MediaSidebar';
+import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
+import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
-import MediaSuggestions from './Similarity/MediaSuggestions';
 import CheckContext from '../../CheckContext';
 
 import {
@@ -91,6 +93,10 @@ class MediaComponent extends Component {
     if (start) gaps.push([0, start]);
     if (end) gaps.push([end, Number.MAX_VALUE]);
 
+    const { team_bots: teamBots } = this.props.projectMedia.team;
+    const enabledBots = teamBots.edges.map(b => b.node.login);
+    const showRequests = (enabledBots.indexOf('smooch') > -1 || this.props.projectMedia.requests_count > 0);
+
     this.state = {
       playerState: {
         start,
@@ -98,19 +104,20 @@ class MediaComponent extends Component {
         gaps,
         playing: false,
       },
+      showTab: showRequests ? 'requests' : 'metadata',
     };
 
     this.playerRef = React.createRef();
   }
 
   componentDidMount() {
-    this.setCurrentContext();
+    // this.setCurrentContext();
     MediaComponent.scrollToAnnotation();
     this.subscribe();
     window.addEventListener('resize', this.updatePlayerRect);
     window.addEventListener('scroll', this.updatePlayerRect);
     this.setPlayerRect();
-    if (!this.props.media.read_by_me) {
+    if (!this.props.projectMedia.read_by_me) {
       commitMutation(Store, {
         mutation: graphql`
           mutation MediaComponentCreateProjectMediaUserMutation($input: CreateProjectMediaUserInput!) {
@@ -125,7 +132,7 @@ class MediaComponent extends Component {
         `,
         variables: {
           input: {
-            project_media_id: this.props.media.dbid,
+            project_media_id: this.props.projectMedia.dbid,
             read: true,
           },
         },
@@ -146,24 +153,24 @@ class MediaComponent extends Component {
     JSON.stringify(this.props) !== JSON.stringify(nextProps);
   }
 
-  componentWillUpdate(nextProps) {
-    if (this.props.media.dbid !== nextProps.media.dbid) {
-      this.unsubscribe();
-    }
-  }
+  // componentWillUpdate(nextProps) {
+  //   if (this.props.projectMedia.dbid !== nextProps.media.dbid) {
+  //     this.unsubscribe();
+  //   }
+  // }
 
-  componentDidUpdate(prevProps) {
-    this.setCurrentContext();
-    MediaComponent.scrollToAnnotation();
-    if (this.props.media.dbid !== prevProps.media.dbid) {
-      this.subscribe();
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   this.setCurrentContext();
+  //   MediaComponent.scrollToAnnotation();
+  //   if (this.props.projectMedia.dbid !== prevProps.media.dbid) {
+  //     this.subscribe();
+  //   }
+  // }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updatePlayerRect);
     window.removeEventListener('scroll', this.updatePlayerRect);
-    this.unsubscribe();
+    // this.unsubscribe();
   }
 
   setCurrentContext() {
@@ -194,35 +201,35 @@ class MediaComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, media } = this.props;
-    pusher.subscribe(media.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
+    const { pusher, clientSessionId, projectMedia } = this.props;
+    pusher.subscribe(projectMedia.pusher_channel).bind('relationship_change', 'MediaComponent', (data, run) => {
       const relationship = JSON.parse(data.message);
       if (
         (!relationship.id || clientSessionId !== data.actor_session_id) &&
-        (relationship.source_id === media.dbid ||
-        relationship.target_id === media.dbid)
+        (relationship.source_id === projectMedia.dbid ||
+        relationship.target_id === projectMedia.dbid)
       ) {
         if (run) {
           this.props.relay.forceFetch();
           return true;
         }
         return {
-          id: `media-${media.dbid}`,
+          id: `media-${projectMedia.dbid}`,
           callback: this.props.relay.forceFetch,
         };
       }
       return false;
     });
 
-    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
+    pusher.subscribe(projectMedia.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
       const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
+      if (annotation.annotated_id === projectMedia.dbid && clientSessionId !== data.actor_session_id) {
         if (run) {
           this.props.relay.forceFetch();
           return true;
         }
         return {
-          id: `media-${media.dbid}`,
+          id: `media-${projectMedia.dbid}`,
           callback: this.props.relay.forceFetch,
         };
       }
@@ -231,19 +238,18 @@ class MediaComponent extends Component {
   }
 
   unsubscribe() {
-    const { pusher, media } = this.props;
-    pusher.unsubscribe(media.pusher_channel);
+    const { pusher, projectMedia } = this.props;
+    pusher.unsubscribe(projectMedia.pusher_channel);
   }
 
   render() {
-    if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
-      return null;
-    }
+    // if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
+    //   return null;
+    // }
+    // TODO: New Relay `relay` prop has no  `variables`, `setVariables` or `forceFetch`
+    // What will be of pusher?
 
-    const { media, view } = this.props;
-    media.url = media.media.url;
-    media.quote = media.media.quote;
-    media.embed_path = media.media.embed_path;
+    const { projectMedia, view } = this.props;
 
     const {
       playerState: {
@@ -256,21 +262,29 @@ class MediaComponent extends Component {
       },
     } = this.state;
 
+    const setShowTab = value => this.setState({ showTab: value });
+
+    if (view === 'similarMedia') {
+      setShowTab('suggestedMedia');
+    }
+
+    const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
+
     return (
       <div>
-        <PageTitle prefix={media.title} team={media.team} />
+        <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
         <StyledThreeColumnLayout className="media">
           <AnalysisColumn>
-            <MediaSidebar projectMedia={media} />
+            <MediaSidebar projectMedia={projectMedia} />
           </AnalysisColumn>
-          { view === 'default' ?
+          { view === 'default' || view === 'similarMedia' ?
             <React.Fragment>
               <Column className="media__column">
-                <MediaSimilarityBar projectMedia={media} />
+                { linkPrefix ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
                 <MediaDetail
                   hideBorder
                   hideRelated
-                  media={media}
+                  media={projectMedia}
                   onPlayerReady={this.setPlayerRect}
                   onReady={this.handleMediaDetailReady}
                   playerRef={this.playerRef}
@@ -279,15 +293,16 @@ class MediaComponent extends Component {
                     playing, start, end, gaps, seekTo, scrubTo,
                   }}
                 />
-                <MediaSimilaritiesComponent projectMedia={media} />
+                <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} />
               </Column>
               <Column className="media__annotations-column" overflow="hidden">
                 <MediaComponentRightPanel
-                  projectMedia={media}
+                  projectMedia={projectMedia}
+                  showTab={this.state.showTab}
+                  setShowTab={setShowTab}
                 />
               </Column>
             </React.Fragment> : null }
-          { view === 'suggestedMatches' || view === 'similarMedia' ? <MediaSuggestions projectMedia={media} /> : null }
         </StyledThreeColumnLayout>
       </div>
     );
@@ -305,4 +320,200 @@ MediaComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withPusher(MediaComponent);
+export default createFragmentContainer(withPusher(MediaComponent), graphql`
+  fragment MediaComponent_projectMedia on ProjectMedia {
+    ...MediaAnalysis_projectMedia
+    ...MediaTags_projectMedia
+    ...MediaSimilaritiesComponent_projectMedia
+    id
+    dbid
+    title
+    read_by_someone: is_read
+    read_by_me: is_read(by_me: true)
+    permissions
+    pusher_channel
+    project_id
+    requests_count
+    picture
+    show_warning_cover
+    creator_name
+    user_id
+    channel
+    suggested_similar_relationships(first: 10000) {
+      edges {
+        node {
+          id
+            relationship_type
+            dbid
+            source_id
+            target_id
+        }
+      }
+    }
+    suggested_main_item { # used by MediaClaim, MediaFactCheck
+      dbid
+      team {
+        slug
+      }
+      claim_description {
+        id
+        dbid
+        context
+        description
+        user {
+          name
+        }
+        updated_at
+        fact_check {
+          id
+          summary
+          title
+          url
+          user {
+            name
+          }
+          updated_at
+        }
+      }
+    }
+    confirmed_main_item {
+      dbid
+      team {
+        slug
+      }
+    }
+    is_confirmed_similar_to_another_item
+    is_suggested
+    is_secondary
+    claim_description {
+      id
+      dbid
+      description
+      context
+      updated_at
+      user {
+        name
+      }
+      fact_check {
+        id
+        title
+        summary
+        url
+        updated_at
+        user {
+          name
+        }
+      }
+    }
+    media {
+      url
+      quote
+      embed_path
+      metadata
+      type
+      picture
+    }
+    last_status
+    last_status_obj {
+      id
+      data
+      updated_at
+    }
+    report: dynamic_annotation_report_design {
+      id
+      data
+    }
+    comments: annotations(first: 10000, annotation_type: "comment") {
+      edges {
+        node {
+          ... on Comment {
+            id
+            dbid
+            text
+            parsed_fragment
+            annotator {
+              id
+              name
+              profile_image
+            }
+            comments: annotations(first: 10000, annotation_type: "comment") {
+              edges {
+                node {
+                  ... on Comment {
+                    id
+                    created_at
+                    text
+                    annotator {
+                      id
+                      name
+                      profile_image
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    clips: annotations(first: 10000, annotation_type: "clip") {
+      edges {
+        node {
+          ... on Dynamic {
+            id
+            data
+            parsed_fragment
+          }
+        }
+      }
+    }
+    tags(first: 10000) {
+      edges {
+        node {
+          id
+          dbid
+          fragment
+          parsed_fragment
+          annotated_id
+          annotated_type
+          annotated_type
+          tag_text_object {
+            id
+            text
+          }
+        }
+      }
+    }
+    geolocations: annotations(first: 10000, annotation_type: "geolocation") {
+      edges {
+        node {
+          ... on Dynamic {
+            id
+            parsed_fragment
+            content
+          }
+        }
+      }
+    }
+    team {
+      id
+      dbid
+      slug
+      name
+      get_language
+      get_report
+      verification_statuses
+      permissions
+      team_bots(first: 10000) {
+        edges {
+          node {
+            login
+          }
+        }
+      }
+      smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+        id
+      }
+    }
+  }
+`);

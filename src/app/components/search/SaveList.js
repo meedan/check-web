@@ -249,6 +249,7 @@ const SaveList = ({
 
   const handleSaveFeed = () => {
     setSaving(true);
+    delete feedFilters.keyword;
 
     const mutation = graphql`
       mutation SaveListUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {

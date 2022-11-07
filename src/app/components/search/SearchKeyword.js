@@ -8,80 +8,29 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import {
-  Cancel as CancelIcon,
-  FiberManualRecord as MaskIcon,
-  VolumeUp as AudioIcon,
-  Clear as ClearIcon,
-  Movie as MovieIcon,
-  Image as ImageIcon,
-} from '@material-ui/icons';
+import PermMediaOutlinedIcon from '@material-ui/icons/PermMediaOutlined';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
-import {
-  Row,
-  black16,
-  checkBlue,
-} from '../../styles/js/shared';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
 
-const styles = theme => ({
-  endAdornmentRoot: {
-    cursor: 'pointer',
-    display: 'flex',
-    justifyContent: 'center',
-    width: theme.spacing(6),
-    height: theme.spacing(6),
-  },
-  endAdornmentInactive: {
-    backgroundColor: black16,
-  },
-  endAdornmentActive: {
-    color: 'white',
-    backgroundColor: checkBlue,
-  },
-  searchButton: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
+const styles = {
   input: {
     display: 'none',
   },
-  image: {
-    position: 'relative',
-    overflowY: 'hidden',
-    height: '40px',
-    maxWidth: '50px',
-    '& img': {
-      maxWidth: '50px',
-    },
-    '& video': {
-      maxWidth: '50px',
-    },
-    '& #icon': {
-      position: 'relative',
-      marginTop: theme.spacing(1.5),
-      marginLeft: theme.spacing(2),
-    },
-    '& svg,button': {
-      position: 'absolute',
-      left: '0px',
-      top: '0px',
-    },
+  button: {
+    fontWeight: 400,
+    fontSize: 12,
+    paddingTop: 0,
+    paddingBottom: 0,
   },
-});
+};
 
 class SearchKeyword extends React.Component {
   constructor(props) {
     super(props);
 
-    this.searchInput = React.createRef();
     this.initialQuery = {
       keyword: props.query.keyword,
     };
@@ -106,6 +55,7 @@ class SearchKeyword extends React.Component {
   onUploadSuccess = (data) => {
     const cleanQuery = this.props.cleanupQuery(this.props.query);
     cleanQuery.file_handle = data.searchUpload?.file_handle;
+    cleanQuery.file_url = data.searchUpload?.file_url;
     let file_type;
     if (this.state.imgData.type.match(/^video\//)) {
       file_type = 'video';
@@ -115,11 +65,13 @@ class SearchKeyword extends React.Component {
       file_type = 'audio';
     }
     cleanQuery.file_type = file_type;
+    cleanQuery.file_name = this.state.imgData.name;
     delete cleanQuery.keyword;
     this.setState({
       isSaving: false,
     });
     this.props.setQuery(cleanQuery);
+    this.props.handleSubmit();
   };
 
   onUploadFailure = () => {
@@ -131,6 +83,8 @@ class SearchKeyword extends React.Component {
     cleanQuery.keyword = text;
     delete cleanQuery.file_type;
     delete cleanQuery.file_handle;
+    delete cleanQuery.file_url;
+    delete cleanQuery.file_name;
     this.props.setQuery(cleanQuery);
   }
 
@@ -219,6 +173,21 @@ class SearchKeyword extends React.Component {
     this.props.handleSubmit(null, newQuery);
   };
 
+  handleImageDismiss = () => {
+    const cleanQuery = this.props.cleanupQuery(this.props.query);
+    delete cleanQuery.file_type;
+    delete cleanQuery.file_handle;
+    delete cleanQuery.file_url;
+    delete cleanQuery.file_name;
+    this.setState({
+      imgData: {
+        data: '',
+        name: '',
+      },
+    });
+    this.props.setQuery(cleanQuery);
+  };
+
   subscribe() {
     const { pusher, clientSessionId, team } = this.props;
     pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'SearchKeyword', (data, run) => {
@@ -283,7 +252,7 @@ class SearchKeyword extends React.Component {
   }
 
   render() {
-    const { team, classes } = this.props;
+    const { team, classes, showExpand } = this.props;
     const { statuses } = team.verification_statuses;
     let projects = [];
     if (team.projects) {
@@ -294,166 +263,70 @@ class SearchKeyword extends React.Component {
       ? this.title(statuses, projects)
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
-    const handleImageDismiss = () => {
-      const cleanQuery = this.props.cleanupQuery(this.props.query);
-      delete cleanQuery.file_type;
-      delete cleanQuery.file_handle;
-      this.setState({
-        imgData: {
-          data: '',
-          name: '',
-        },
-      });
-      this.props.setQuery(cleanQuery);
-    };
-
-    /* eslint-disable jsx-a11y/media-has-caption */
-    const Thumbnail = () => {
-      let output;
-      if (this.state.imgData.type.match(/^video\//)) {
-        output = <MovieIcon id="icon" fontSize="medium" htmlColor="black" />;
-      } else if (this.state.imgData.type.match(/^image\//)) {
-        output = <ImageIcon id="icon" fontSize="medium" htmlColor="black" />;
-      } else if (this.state.imgData.type.match(/^audio\//)) {
-        output = <AudioIcon id="icon" fontSize="medium" htmlColor="black" />;
-      }
-      return output;
-    };
-    /* eslint-enable jsx-a11y/media-has-caption */
-
-    const ImagePreview = () => (
-      <Box className={classes.image}>
-        <Thumbnail />
-        <MaskIcon fontSize="small" htmlColor="white" />
-        <IconButton onClick={handleImageDismiss}>
-          <CancelIcon fontSize="small" htmlColor="black" />
-        </IconButton>
-      </Box>
-    );
-
     return (
       <div>
         <PageTitle prefix={title} team={this.props.team} />
-        <Row>
-          <form
-            id="search-form"
-            className="search__form"
-            onSubmit={this.props.handleSubmit}
-            autoComplete="off"
-          >
-            <Grid
-              container
-              direction="row"
-              justify="flex-end"
-              alignItems="center"
-              className={classes.endAdornmentContainer}
-              spacing={2}
-            >
-              <Grid item>
-                <Box width="450px">
-                  <SearchField
-                    isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
-                    showExpand={this.props.showExpand}
-                    setParentSearchText={this.setSearchText}
-                    searchText={this.props.query?.keyword || ''}
-                    inputBaseProps={{
-                      onBlur: this.handleInputChange,
-                      ref: this.searchInput,
-                      disabled: this.state?.imgData?.data?.length > 0,
-                    }}
-                    endAdornment={
-                      <InputAdornment
-                        classes={{
-                          root: classes.endAdornmentRoot,
-                          filled: (
-                            this.keywordConfigIsActive() ?
-                              classes.endAdornmentActive :
-                              classes.endAdornmentInactive
-                          ),
-                        }}
-                        variant="filled"
-                      >
-                        <SearchKeywordMenu
-                          teamSlug={this.props.team.slug}
-                          onChange={this.handleKeywordConfigChange}
-                          query={this.props.query}
-                          anchorParent={() => this.searchInput.current}
+        <form
+          id="search-form"
+          className="search__form"
+          onSubmit={this.props.handleSubmit}
+          autoComplete="off"
+        >
+          <Box width="450px">
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <SearchField
+                  isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
+                  showExpand={showExpand}
+                  setParentSearchText={this.setSearchText}
+                  searchText={this.props.query?.keyword || ''}
+                  searchQuery={this.props.query}
+                  inputBaseProps={{
+                    onBlur: this.handleInputChange,
+                    disabled: this.state?.imgData?.data?.length > 0,
+                  }}
+                  handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+                />
+              </Grid>
+              <Grid item container xs={12}>
+                <Box display="flex" justifyContent="flex-end" marginLeft="auto">
+                  { showExpand ? (
+                    <div>
+                      <label htmlFor="media-upload">
+                        <input
+                          className={classes.input}
+                          id="media-upload"
+                          type="file"
+                          accept="image/*,video/*,audio/*"
+                          onChange={this.handleUpload}
                         />
-                      </InputAdornment>
-                    }
-                  />
+                        <Button
+                          startIcon={this.state.isSaving ? <CircularProgress size={24} /> : <PermMediaOutlinedIcon />}
+                          component="span"
+                          className={classes.button}
+                        >
+                          <FormattedMessage
+                            id="search.file"
+                            defaultMessage="Search with file"
+                            description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
+                          />
+                        </Button>
+                      </label>
+                    </div>
+                  ) : null }
+                  { this.props.hideAdvanced ?
+                    null :
+                    <SearchKeywordMenu
+                      teamSlug={this.props.team.slug}
+                      onChange={this.handleKeywordConfigChange}
+                      query={this.props.query}
+                    />
+                  }
                 </Box>
               </Grid>
-              { this.props.showExpand ? (
-                <Grid item>
-                  <Typography>
-                    &nbsp;
-                    <FormattedMessage
-                      id="search.or"
-                      defaultMessage="OR"
-                      description="This is a label that appears between two mutually exclusive search options, indicating that you may select one option 'OR' the other."
-                    />
-                  </Typography>
-                </Grid>) : null
-              }
-              { this.props.showExpand && (this.state?.imgData?.data?.length > 0 || this.state.isSaving) ? (
-                <Grid item>
-                  { this.state.isSaving ? (
-                    <CircularProgress size={36} />
-                  ) : <ImagePreview />
-                  }
-                </Grid>) : null
-              }
-              { this.props.showExpand && this.state?.imgData?.data?.length === 0 ? (
-                <Grid item>
-                  <label htmlFor="media-upload">
-                    <input
-                      className={classes.input}
-                      id="media-upload"
-                      type="file"
-                      accept="image/*,video/*,audio/*"
-                      onChange={this.handleUpload}
-                    />
-                    <Button
-                      variant="outlined"
-                      className={classes.searchButton}
-                      component="span"
-                    >
-                      <FormattedMessage
-                        id="search.file"
-                        defaultMessage="Search with file"
-                        description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
-                      />
-                    </Button>
-                  </label>
-                </Grid>) : null
-              }
-              { this.props.showExpand ? (
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={this.props.handleSubmit}
-                  >
-                    <FormattedMessage
-                      id="search"
-                      defaultMessage="Search"
-                      description="This is a label on a button that the user presses in order to execute a search query."
-                    />
-                  </Button>
-                </Grid>) : null
-              }
             </Grid>
-          </form>
-
-          { this.keywordIsActive() ? (
-            <Tooltip title={<FormattedMessage id="searchKeyword.clear" defaultMessage="Clear keyword search" description="Tooltip for button to remove any applied keyword search" />}>
-              <IconButton id="search-keyword__clear-button" onClick={this.handleClickClear}>
-                <ClearIcon color="primary" />
-              </IconButton>
-            </Tooltip>
-          ) : null}
-        </Row>
+          </Box>
+        </form>
       </div>
     );
   }

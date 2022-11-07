@@ -143,9 +143,7 @@ class MediaTasksComponent extends Component {
   }
 
   render() {
-    const { about } = this.props;
-    const media = Object.assign(this.props.cachedMedia, this.props.media);
-
+    const { about, media } = this.props;
     const itemTasks = media.item_metadata;
 
     return (

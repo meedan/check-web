@@ -31,6 +31,7 @@ const StyledListHeader = styled.div`
   .search__list-header-filter-row {
     justify-content: space-between;
     display: flex;
+    align-items: flex-start;
   }
 
   .project__title-text {
@@ -443,19 +444,17 @@ function SearchResultsComponent({
             </span>
             {listActions}
           </div>
-          { /\/feed\/[0-9]+\/shared/.test(window.location.pathname) ?
-            null :
-            <SearchKeyword
-              query={query}
-              setQuery={setQuery}
-              project={project}
-              hideFields={hideFields}
-              title={title}
-              team={team}
-              showExpand={showExpand}
-              cleanupQuery={cleanupQuery}
-              handleSubmit={handleSubmit}
-            /> }
+          <SearchKeyword
+            query={query}
+            setQuery={setQuery}
+            project={project}
+            hideFields={hideFields}
+            title={title}
+            team={team}
+            showExpand={showExpand}
+            cleanupQuery={cleanupQuery}
+            handleSubmit={handleSubmit}
+          />
         </Row>
         <Row className="project__description">
           {listDescription && listDescription.trim().length ?

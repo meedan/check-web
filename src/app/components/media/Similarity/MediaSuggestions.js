@@ -5,6 +5,7 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaSuggestionsComponent from './MediaSuggestionsComponent';
 import MediaSimilaritiesComponent from './MediaSimilaritiesComponent'; // eslint-disable-line no-unused-vars
+import MediaItem from './MediaItem'; // eslint-disable-line no-unused-vars
 import MediasLoading from '../MediasLoading';
 
 const MediaSuggestions = ({ projectMedia }) => {
@@ -33,6 +34,14 @@ const MediaSuggestions = ({ projectMedia }) => {
                     project_id
                     created_at
                     last_seen
+                    title
+                    description
+                    picture
+                    type
+                    requests_count
+                    report_status
+                    domain
+                    url
                   }
                 }
               }
@@ -55,6 +64,8 @@ const MediaSuggestions = ({ projectMedia }) => {
           return (
             <MediaSuggestionsComponent
               mainItem={props.project_media}
+              reportType={props.project_media.report_type}
+              demand={props.project_media.demand}
               key={props.project_media.confirmedSimilarCount}
               team={props.project_media.team}
               relationships={props.project_media.suggested_similar_relationships.edges

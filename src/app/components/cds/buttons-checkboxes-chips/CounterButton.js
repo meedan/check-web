@@ -8,6 +8,7 @@ import {
 import {
   brandSecondaryCDS,
   brandMainCDS,
+  textPrimary,
 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
@@ -22,6 +23,12 @@ const useStyles = makeStyles({
       color: brandMainCDS,
     },
   },
+  zeroCount: {
+    color: textPrimary,
+  },
+  moreThanZeroCount: {
+    color: brandMainCDS,
+  },
 });
 
 const CounterButton = ({ label, count, onClick }) => {
@@ -29,7 +36,7 @@ const CounterButton = ({ label, count, onClick }) => {
   return (
     <Button
       onClick={onClick}
-      className={`counter-button ${classes.counterButton}`}
+      className={`counter-button ${classes.counterButton} ${count === 0 ? classes.zeroCount : classes.moreThanZeroCount}`}
       disableRipple
     >
       <Typography

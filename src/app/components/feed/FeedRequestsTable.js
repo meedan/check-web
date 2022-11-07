@@ -21,10 +21,12 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
+import FeedFilters from './FeedFilters';
 import ListHeader from '../layout/ListHeader';
 import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
+import SearchKeyword from '../search/SearchKeyword';
 import { opaqueBlack03, opaqueBlack87 } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
@@ -66,11 +68,14 @@ const useStyles = makeStyles({
 const FeedRequestsTable = ({
   tabs,
   feed,
+  feedTeam,
   searchUrlPrefix,
   sort,
   sortType,
+  filters,
   onChangeSort,
   onChangeSortType,
+  onChangeFilters,
   onGoToTheNextPage,
   onGoToThePreviousPage,
   rangeStart,
@@ -78,13 +83,14 @@ const FeedRequestsTable = ({
   hasNextPage,
   hasPreviousPage,
 }) => {
+  const classes = useStyles();
+
   const buildItemUrl = (requestDbid) => {
     const urlParams = new URLSearchParams();
     urlParams.set('listPath', searchUrlPrefix);
+    urlParams.set('listQuery', JSON.stringify(filters));
     return `/check/feed/${feed.dbid}/request/${requestDbid}?${urlParams.toString()}`;
   };
-
-  const classes = useStyles();
 
   const mediaType = requestType => ({
     Claim: (
@@ -150,21 +156,50 @@ const FeedRequestsTable = ({
       overflow: 'auto',
       display: 'block',
       maxWidth: 'calc(100vw - 256px)',
-      maxHeight: 'calc(100vh - 232px)',
+      maxHeight: 'calc(100vh - 270px)',
     },
   })(TableContainer);
+
+  const { totalCount } = feed.requests;
 
   return (
     <React.Fragment>
       <Box mb={2}>
-        <ListHeader listName={feed.name} icon={<DynamicFeedIcon />} />
+        <Box display="flex" alignItems="flex-start" justifyContent="space-between">
+          <ListHeader listName={feed.name} icon={<DynamicFeedIcon />} />
+          <Box p={2}>
+            <SearchKeyword
+              query={{ keyword: filters.keyword }}
+              team={{ verification_statuses: {} }}
+              setQuery={(query) => {
+                // Clear
+                if (!query.keyword || query.keyword === '') {
+                  const newFilters = { ...filters };
+                  delete newFilters.keyword;
+                  onChangeFilters(newFilters);
+                }
+              }}
+              showExpand={false}
+              cleanupQuery={query => query}
+              handleSubmit={(e) => {
+                const newFilters = { ...filters, keyword: e.target['search-input'].value };
+                onChangeFilters(newFilters);
+                e.preventDefault();
+              }}
+              hideAdvanced
+            />
+          </Box>
+        </Box>
         { tabs({}) }
+      </Box>
+      <Box>
+        <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} feedTeam={feedTeam} />
       </Box>
       <Box display="flex" alignItems="center">
         <IconButton onClick={onGoToThePreviousPage} disabled={!hasPreviousPage}>
           <PrevIcon />
         </IconButton>
-        <Box className={classes.pager}>{rangeStart} - {rangeEnd > feed.root_requests_count ? feed.root_requests_count : rangeEnd} / {feed.root_requests_count}</Box>
+        <Box className={classes.pager}>{rangeStart > totalCount ? totalCount : rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</Box>
         <IconButton onClick={onGoToTheNextPage} disabled={!hasNextPage}>
           <NextIcon />
         </IconButton>
@@ -253,6 +288,7 @@ const FeedRequestsTable = ({
               } else {
                 requestTitle = r.node.title;
               }
+              const requestPicture = r.node.request_type === 'audio' ? '/images/image_placeholder.svg' : r.node.media?.picture;
 
               // This means a request for the latest fact-checks
               if (r.node.request_type === 'text' && r.node.content === '.') {
@@ -269,7 +305,7 @@ const FeedRequestsTable = ({
                     projectMedia={{
                       title: requestTitle,
                       description: '',
-                      picture: r.node.media?.picture,
+                      picture: requestPicture,
                     }}
                   />
                   <TableCell>
@@ -288,7 +324,7 @@ const FeedRequestsTable = ({
                     {
                       r.node.fact_checked_by ?
                         <Box className={classes.hasFactCheck}>
-                          {r.node.fact_checked_by.split(', ').map(teamName => (<span>{teamName}<br /></span>))}
+                          {r.node.fact_checked_by.split(', ').map(teamName => (<span key={teamName}>{teamName}<br /></span>))}
                         </Box> :
                         <Box className={classes.noFactCheck}>
                           <FormattedMessage
@@ -315,28 +351,41 @@ FeedRequestsTable.propTypes = {};
 const FeedRequestsTableQuery = ({
   teamSlug,
   feedId,
+  feedTeam,
   tabs,
   searchUrlPrefix,
+  filters,
 }) => {
   const pageSize = 50;
-  const [sort, setSort] = React.useState('last_submitted');
-  const [sortType, setSortType] = React.useState('desc');
+  const page = filters.page || 1;
+  const sort = filters.sort || 'last_submitted';
+  const sortType = filters.sortType || 'desc';
 
-  // FIXME: Implement a better pagination method (e.g., properly Relay). I tried to implement using pageInfo and cursors but it was not working correctly.
-  const [page, setPage] = React.useState(1);
+  const setSearchParam = (name, value) => {
+    const params = { ...filters };
+    params[name] = value;
+    browserHistory.push(`/${teamSlug}/feed/${feedId}/requests/${JSON.stringify(params)}`);
+  };
+
+  const setFilters = (newFilters) => {
+    const params = { ...newFilters, page: 1, timestamp: new Date().getTime() };
+    browserHistory.push(`/${teamSlug}/feed/${feedId}/requests/${JSON.stringify(params)}`);
+  };
 
   return (
     <ErrorBoundary component="FeedRequestsTable">
       <QueryRenderer
         environment={Relay.Store}
         query={graphql`
-          query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!, $offset: Int!, $pageSize: Int!, $sort: String, $sortType: String) {
+          query FeedRequestsTableQuery($teamSlug: String!, $feedId: Int!, $offset: Int!, $pageSize: Int!, $sort: String, $sortType: String, $mediasCountMin: Int, $mediasCountMax: Int,
+                                       $requestsCountMin: Int, $requestsCountMax: Int, $requestCreatedAt: String, $factCheckedBy: String, $keyword: String) {
             team(slug: $teamSlug) {
               feed(dbid: $feedId) {
                 dbid
                 name
-                root_requests_count
-                requests(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType) {
+                requests(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax,
+                         requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax, request_created_at: $requestCreatedAt, fact_checked_by: $factCheckedBy, keyword: $keyword) {
+                  totalCount
                   edges {
                     node {
                       id
@@ -370,6 +419,13 @@ const FeedRequestsTableQuery = ({
           pageSize,
           sort,
           sortType,
+          mediasCountMin: filters.linked_items_count?.min,
+          mediasCountMax: filters.linked_items_count?.max,
+          requestsCountMin: filters.demand?.min,
+          requestsCountMax: filters.demand?.max,
+          requestCreatedAt: filters.range?.request_created_at ? JSON.stringify(filters.range?.request_created_at) : null,
+          factCheckedBy: ['ANY', 'NONE'].includes(filters.feed_fact_checked_by) ? filters.feed_fact_checked_by : null,
+          keyword: filters.keyword,
         }}
         render={({ props, error }) => {
           if (!error && !props) {
@@ -382,16 +438,19 @@ const FeedRequestsTableQuery = ({
                 key={page}
                 tabs={tabs}
                 feed={props.team?.feed}
+                feedTeam={feedTeam}
                 searchUrlPrefix={searchUrlPrefix}
                 sort={sort}
                 sortType={sortType}
-                onChangeSort={(value) => { setSort(value); }}
-                onChangeSortType={(value) => { setSortType(value); }}
-                onGoToTheNextPage={() => { setPage(page + 1); }}
-                onGoToThePreviousPage={() => { setPage(page - 1); }}
+                filters={filters}
+                onChangeSort={(value) => { setSearchParam('sort', value); }}
+                onChangeSortType={(value) => { setSearchParam('sortType', value); }}
+                onChangeFilters={(value) => { setFilters(value); }}
+                onGoToTheNextPage={() => { setSearchParam('page', page + 1); }}
+                onGoToThePreviousPage={() => { setSearchParam('page', page - 1); }}
                 rangeStart={((page - 1) * pageSize) + 1}
                 rangeEnd={((page - 1) * pageSize) + pageSize}
-                hasNextPage={(page * pageSize) < props.team?.feed?.root_requests_count}
+                hasNextPage={(page * pageSize) < props.team?.feed?.requests?.totalCount}
                 hasPreviousPage={page > 1}
               />);
           }
@@ -402,11 +461,20 @@ const FeedRequestsTableQuery = ({
   );
 };
 
+FeedRequestsTableQuery.defaultProps = {
+  filters: {},
+};
+
 FeedRequestsTableQuery.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   feedId: PropTypes.number.isRequired,
   tabs: PropTypes.func.isRequired,
   searchUrlPrefix: PropTypes.string.isRequired,
+  filters: PropTypes.object,
+  feedTeam: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    requests_filters: PropTypes.object,
+  }).isRequired,
 };
 
 export default FeedRequestsTableQuery;

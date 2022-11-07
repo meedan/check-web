@@ -64,6 +64,10 @@ const TeamTagsComponent = ({
     }
   };
 
+  const handleSearchFieldClear = () => {
+    setSearchTerm('');
+  };
+
   const sortFunc = (a, b) => (a[sortParam] > b[sortParam] ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1);
 
   const sortedTags = tags.slice().filter(t => t.text.toLowerCase().includes(searchTerm.toLowerCase())).sort(sortFunc);
@@ -98,6 +102,7 @@ const TeamTagsComponent = ({
               inputBaseProps={{
                 onChange: (e) => { setSearchTerm(e.target.value); },
               }}
+              handleClear={handleSearchFieldClear}
             />
           </Box>
         }

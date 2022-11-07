@@ -246,6 +246,10 @@
 		"string": "Creat de",
 		"developer_comment": "Menu option to enable searching items by author"
 	},
+	"addFilterMenu.feedFactCheckedBy": {
+		"string": "Fact-checked by",
+		"developer_comment": "Menu option to enable searching feed items by whether they were fact-checked"
+	},
 	"addFilterMenu.filterBy": {
 		"string": "Filtrează după",
 		"developer_comment": "Header to menu of filter field types"
@@ -303,7 +307,7 @@
 		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
 	},
 	"addFilterMenu.tiplineRequests": {
-		"string": "Number of tipline requests",
+		"string": "Number of requests",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
@@ -421,7 +425,8 @@
 		"string": "Nicio activitate"
 	},
 	"annotation.openInSlack": {
-		"string": "Deschide în Slack"
+		"string": "Deschide în Slack",
+		"developer_comment": "Label for link to conversation in Slack"
 	},
 	"annotation.pausedBy": {
 		"string": "paused by",
@@ -443,10 +448,12 @@
 		"developer_comment": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
 	},
 	"annotation.reportReceived": {
-		"string": "Raport trimis pe {date}"
+		"string": "Raport trimis pe {date}",
+		"developer_comment": "Caption for report sent date"
 	},
 	"annotation.reportUpdateReceived": {
-		"string": "Actualizare raport trimisă pe {date}"
+		"string": "Actualizare raport trimisă pe {date}",
+		"developer_comment": "Caption for report update sent date"
 	},
 	"annotation.similarCreated": {
 		"string": "Match confirmed by {author}: {title}",
@@ -457,7 +464,8 @@
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
-		"string": "Nu a fost trimis niciun mesaj cu cererea"
+		"string": "Nu a fost trimis niciun mesaj cu cererea",
+		"developer_comment": "Replacement for tipline requests without a message"
 	},
 	"annotation.statusLocked": {
 		"string": "Starea elementului blocată de {author}",
@@ -1086,6 +1094,38 @@
 		"string": "Shared",
 		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
 	},
+	"feedFilters.applyFilters": {
+		"string": "Apply filter",
+		"developer_comment": "Button to perform query with specified filters"
+	},
+	"feedFilters.clear": {
+		"string": "Clear filters",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
+	"feedFilters.defaultErrorMessage": {
+		"string": "Could not save filters, please try again",
+		"developer_comment": "Error message displayed when it's not possible to save feed requests filters"
+	},
+	"feedFilters.factCheckByAny": {
+		"string": "Any organization",
+		"developer_comment": "Filter option for feed filter 'Fact-checked by'"
+	},
+	"feedFilters.factCheckByNone": {
+		"string": "No organization",
+		"developer_comment": "Filter option for feed filter 'Fact-checked by'"
+	},
+	"feedFilters.factCheckedBy": {
+		"string": "Fact-checked by",
+		"developer_comment": "Field label for feed filter"
+	},
+	"feedFilters.saveFilters": {
+		"string": "Save filters",
+		"developer_comment": "'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
+	},
+	"feedFilters.savedSuccessfully": {
+		"string": "Filters saved successfully",
+		"developer_comment": "Success message displayed when feed requests filters are saved"
+	},
 	"feedItem.aboutThisClaim": {
 		"string": "About this claim"
 	},
@@ -1195,6 +1235,10 @@
 	"feedItem.tags": {
 		"string": "Etichete"
 	},
+	"feedRequestedMedia.factChecksSentForAllMedias": {
+		"string": "{factChecksCount, plural, one {# fact-check sent} other {# fact-checks sent}}",
+		"developer_comment": "Part of the header of requests list. Example: 12 fact-checks sent"
+	},
 	"feedRequestedMedia.import": {
 		"string": "Import",
 		"developer_comment": "Button label for importing media into workspace action"
@@ -1231,6 +1275,10 @@
 		"string": "Fact-check by",
 		"developer_comment": "Header label for fact-check by column"
 	},
+	"feedRequestsTable.factChecksSent": {
+		"string": "Fact-checks sent",
+		"developer_comment": "Header label for fact-checks sent column"
+	},
 	"feedRequestsTable.lastSubmitted": {
 		"string": "Ultimul transmis",
 		"developer_comment": "Header label for date column, in which are shown timestamps of last time a media was sent"
@@ -1253,6 +1301,10 @@
 	},
 	"feedRequestsTable.mediaTypeImage": {
 		"string": "Imagine",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeLink": {
+		"string": "Link",
 		"developer_comment": "Label for feed request media type"
 	},
 	"feedRequestsTable.mediaTypeText": {
@@ -1956,7 +2008,7 @@
 	},
 	"mediaFactCheck.confirmButtonLabel": {
 		"string": "Go back to editing",
-		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
+		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact-check."
 	},
 	"mediaFactCheck.error": {
 		"string": "Title and description have to be filled",
@@ -2114,7 +2166,7 @@
 		"developer_comment": "Button label to commit action of exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Adaugă un element similar",
+		"string": "Manage media",
 		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
@@ -2373,7 +2425,7 @@
 		"developer_comment": "Filter option that refers to number of suggested medias"
 	},
 	"numericRangeFilter.tiplineRequests": {
-		"string": "Number of tipline requests is between",
+		"string": "Number of requests is between",
 		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {
@@ -3137,6 +3189,9 @@
 		"string": "less than",
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'."
 	},
+	"search.dateRequestHeading": {
+		"string": "Request submitted"
+	},
 	"search.dateStartEnd": {
 		"string": "between",
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'."
@@ -3453,7 +3508,8 @@
 		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"settingsHeader.save": {
-		"string": "Salvează"
+		"string": "Salvează",
+		"developer_comment": "Button label for save columns settings"
 	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Rezolvă sarcina"
@@ -4977,16 +5033,20 @@
 		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
 	},
 	"teamListsComponent.buttonLabel": {
-		"string": "Save changes"
+		"string": "Save changes",
+		"developer_comment": "Button label for saving changes"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
+		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace.",
+		"developer_comment": "Content of 'Save changes' confirmation dialog."
 	},
 	"teamListsComponent.confirmSaveTitle": {
-		"string": "Workspace columns change"
+		"string": "Workspace columns change",
+		"developer_comment": "Dialog title for saving columns change"
 	},
 	"teamListsComponent.createMetadata": {
-		"string": "Creează câmp nou de metadate"
+		"string": "Create new annotation field",
+		"developer_comment": "Button label for create new annotation field"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Could not save column settings",
@@ -4997,13 +5057,16 @@
 		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
-		"string": "Coloane afișate"
+		"string": "Coloane afișate",
+		"developer_comment": "Columns that are displayed for users in folders, collections and lists."
 	},
 	"teamListsComponent.generalColumns": {
-		"string": "General"
+		"string": "General",
+		"developer_comment": "Columns not currently displayed for users in folders, collections and lists."
 	},
 	"teamListsComponent.metadataColumns": {
-		"string": "Annotation"
+		"string": "Annotation",
+		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in folders, collections and lists."
 	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Column settings saved successfully",

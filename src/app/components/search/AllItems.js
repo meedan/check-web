@@ -16,7 +16,7 @@ export default function AllItems({ routeParams }) {
         query={safelyParseJSON(routeParams.query, {})}
         teamSlug={routeParams.team}
         hideFields={[
-          'cluster_teams', 'cluster_published_reports',
+          'cluster_teams', 'cluster_published_reports', 'feed_fact_checked_by',
         ]}
       />
     </ErrorBoundary>

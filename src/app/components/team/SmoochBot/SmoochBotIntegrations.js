@@ -221,7 +221,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<TwitterIcon />}
           color={twitterBlue}
           online={isOnline('twitter')}
-          readOnly={isWabaSet}
+          readOnly={!isSmoochSet}
           info={
             isOnline('twitter') ?
               <FormattedMessage
@@ -247,7 +247,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<FacebookIcon />}
           color={facebookBlue}
           online={isOnline('messenger')}
-          readOnly={isWabaSet}
+          readOnly={!isSmoochSet}
           info={
             isOnline('messenger') ?
               <FormattedMessage
@@ -271,7 +271,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<TelegramIcon />}
           color={telegramBlue}
           online={isOnline('telegram')}
-          readOnly={isWabaSet}
+          readOnly={!isSmoochSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_6aa3557c62"
           params={[
             {
@@ -302,7 +302,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<ViberIcon />}
           color={viberPurple}
           online={isOnline('viber')}
-          readOnly={isWabaSet}
+          readOnly={!isSmoochSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_895bbda0a6"
           params={[
             {
@@ -329,7 +329,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<LineIcon />}
           color={lineGreen}
           online={isOnline('line')}
-          readOnly={isWabaSet}
+          readOnly={!isSmoochSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_351dd4f960"
           params={[
             {

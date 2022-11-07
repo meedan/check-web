@@ -92,7 +92,7 @@
 		"string": "Terminé"
 	},
 	"ImportedReports.title": {
-		"string": "Imported fact-checks"
+		"string": "Vérifications de faits importées"
 	},
 	"ItemHistoryDialog.title": {
 		"string": "Historique de l’élément"
@@ -246,6 +246,10 @@
 		"string": "Créé par",
 		"developer_comment": "Menu option to enable searching items by author"
 	},
+	"addFilterMenu.feedFactCheckedBy": {
+		"string": "Fact-checked by",
+		"developer_comment": "Menu option to enable searching feed items by whether they were fact-checked"
+	},
 	"addFilterMenu.filterBy": {
 		"string": "Filtrer par",
 		"developer_comment": "Header to menu of filter field types"
@@ -303,7 +307,7 @@
 		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
 	},
 	"addFilterMenu.tiplineRequests": {
-		"string": "Nombre de demandes Tipline",
+		"string": "Number of requests",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
@@ -421,7 +425,8 @@
 		"string": "Aucune activité"
 	},
 	"annotation.openInSlack": {
-		"string": "Ouvrir dans Slack"
+		"string": "Ouvrir dans Slack",
+		"developer_comment": "Label for link to conversation in Slack"
 	},
 	"annotation.pausedBy": {
 		"string": "mis en pause",
@@ -443,10 +448,12 @@
 		"developer_comment": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
 	},
 	"annotation.reportReceived": {
-		"string": "Rapport envoyé le {date}"
+		"string": "Rapport envoyé le {date}",
+		"developer_comment": "Caption for report sent date"
 	},
 	"annotation.reportUpdateReceived": {
-		"string": "Mise à jour du rapport envoyée le {date}"
+		"string": "Mise à jour du rapport envoyée le {date}",
+		"developer_comment": "Caption for report update sent date"
 	},
 	"annotation.similarCreated": {
 		"string": "La correspondance a été confirmée par {author} : {title}",
@@ -457,7 +464,8 @@
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
-		"string": "Aucun message n’a été envoyé avec la demande"
+		"string": "Aucun message n’a été envoyé avec la demande",
+		"developer_comment": "Replacement for tipline requests without a message"
 	},
 	"annotation.statusLocked": {
 		"string": "L’état de l’élément a été verrouillé par {author}",
@@ -557,7 +565,7 @@
 		"string": "Ajouter un élément"
 	},
 	"blankMediaButton.addToImportedReport": {
-		"string": "Add to imported fact-check"
+		"string": "Ajouter à la vérification de faits importée"
 	},
 	"blankMediaButton.addToReport": {
 		"string": "Ajouter un rapport"
@@ -650,7 +658,7 @@
 		"developer_comment": "Menu option for bulk moving selected items into a folder"
 	},
 	"bulkActionsMenu.removeTag": {
-		"string": "Remove tag",
+		"string": "Supprimer l’étiquette",
 		"developer_comment": "Menu option for bulk untagging selected items"
 	},
 	"bulkActionsMove.notFound": {
@@ -662,23 +670,23 @@
 		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
 	},
 	"bulkActionsRemoveTag.dialogBody": {
-		"string": "The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?",
+		"string": "L’étiquette <b>{tags}</b> sera supprimée des éléments sélectionnés qui la portent. Si un élément sélectionné ne porte pas cette étiquette, il ne sera pas affecté par la suppression. Cette action est irréversible. Confirmez-vous ?",
 		"developer_comment": "Body of dialog warning that bulk untagging items"
 	},
 	"bulkActionsRemoveTag.dialogTitle": {
-		"string": "Tags will be removed from eligible items",
+		"string": "Les étiquettes seront supprimées des éléments qui les portent",
 		"developer_comment": "Title of dialog warning after bulk untagging items"
 	},
 	"bulkActionsRemoveTag.proceedLabel": {
-		"string": "Remove tags",
+		"string": "Supprimer les étiquettes",
 		"developer_comment": "Button to confirm remove tags"
 	},
 	"bulkActionsRemoveTag.submitLabel": {
-		"string": "{numItems, plural, one {Remove 1 tag} other {Remove # tags}}",
+		"string": "{numItems, plural, one {Supprimer une étiquette} many {Supprimer # d’étiquettes} other {Supprimer # étiquettes}}",
 		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
 	},
 	"bulkActionsRemoveTag.success": {
-		"string": "{tags} tags removed from {itemsCount} items",
+		"string": "{tags} étiquettes ont été supprimées de {itemsCount} éléments",
 		"developer_comment": "Success message for bulk untagging items"
 	},
 	"bulkActionsStatus.dialogBody": {
@@ -698,7 +706,7 @@
 		"developer_comment": "Success message for bulk status change action"
 	},
 	"bulkActionsTag.submitLabel": {
-		"string": "{numItems, plural, one {Add 1 tag} other {Add # tags}}",
+		"string": "{numItems, plural, one {Ajouter une étiquette} many {Ajouter # d’étiquettes} other {Ajouter # étiquettes}}",
 		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
@@ -1075,7 +1083,7 @@
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"feed.feed": {
-		"string": "Vérifications des faits",
+		"string": "Vérifications de faits",
 		"developer_comment": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
 	},
 	"feed.requests": {
@@ -1085,6 +1093,38 @@
 	"feed.shared": {
 		"string": "Partagé",
 		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
+	},
+	"feedFilters.applyFilters": {
+		"string": "Appliquer le filtre",
+		"developer_comment": "Button to perform query with specified filters"
+	},
+	"feedFilters.clear": {
+		"string": "Effacer les filtres",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
+	"feedFilters.defaultErrorMessage": {
+		"string": "Impossible d’enregistrer les filtres, veuillez réessayer",
+		"developer_comment": "Error message displayed when it's not possible to save feed requests filters"
+	},
+	"feedFilters.factCheckByAny": {
+		"string": "Any organization",
+		"developer_comment": "Filter option for feed filter 'Fact-checked by'"
+	},
+	"feedFilters.factCheckByNone": {
+		"string": "No organization",
+		"developer_comment": "Filter option for feed filter 'Fact-checked by'"
+	},
+	"feedFilters.factCheckedBy": {
+		"string": "Fact-checked by",
+		"developer_comment": "Field label for feed filter"
+	},
+	"feedFilters.saveFilters": {
+		"string": "Save filters",
+		"developer_comment": "'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
+	},
+	"feedFilters.savedSuccessfully": {
+		"string": "Les filtres ont été enregistrés avec succès",
+		"developer_comment": "Success message displayed when feed requests filters are saved"
 	},
 	"feedItem.aboutThisClaim": {
 		"string": "À propos de cette affirmation"
@@ -1099,7 +1139,7 @@
 		"string": "Nous n’avons pas pu importer cette affirmation, car le média qui y est associé existe déjà dans cet espace de travail."
 	},
 	"feedItem.factCheck": {
-		"string": "Vérification des faits",
+		"string": "Vérification de faits",
 		"developer_comment": "Middle column title on feed item page"
 	},
 	"feedItem.factCheckSummary": {
@@ -1195,6 +1235,10 @@
 	"feedItem.tags": {
 		"string": "Étiquettes"
 	},
+	"feedRequestedMedia.factChecksSentForAllMedias": {
+		"string": "{factChecksCount, plural, one {# fact-check sent} other {# fact-checks sent}}",
+		"developer_comment": "Part of the header of requests list. Example: 12 fact-checks sent"
+	},
 	"feedRequestedMedia.import": {
 		"string": "Importer",
 		"developer_comment": "Button label for importing media into workspace action"
@@ -1228,8 +1272,12 @@
 		"developer_comment": "Dialog title for importing medias and requests"
 	},
 	"feedRequestsTable.factCheckBy": {
-		"string": "Vérification des faits par",
+		"string": "Vérification de faits par",
 		"developer_comment": "Header label for fact-check by column"
+	},
+	"feedRequestsTable.factChecksSent": {
+		"string": "Fact-checks sent",
+		"developer_comment": "Header label for fact-checks sent column"
 	},
 	"feedRequestsTable.lastSubmitted": {
 		"string": "Dernier envoi",
@@ -1253,6 +1301,10 @@
 	},
 	"feedRequestsTable.mediaTypeImage": {
 		"string": "Image",
+		"developer_comment": "Label for feed request media type"
+	},
+	"feedRequestsTable.mediaTypeLink": {
+		"string": "Lien",
 		"developer_comment": "Label for feed request media type"
 	},
 	"feedRequestsTable.mediaTypeText": {
@@ -1584,7 +1636,7 @@
 		"developer_comment": "Table header for column that shows the creator name"
 	},
 	"list.factCheck": {
-		"string": "Vérification des faits"
+		"string": "Vérification de faits"
 	},
 	"list.factCheckPublishedAt": {
 		"string": "Vérification de faits publiés à"
@@ -1616,7 +1668,7 @@
 		"string": "Étiquettes"
 	},
 	"list.teamName": {
-		"string": "Vérification des faits par",
+		"string": "Vérification de faits par",
 		"developer_comment": "Table header for column that shows the team name"
 	},
 	"list.updated": {
@@ -1695,7 +1747,7 @@
 		"string": "Contenu sonore"
 	},
 	"media.typeBlank": {
-		"string": "Imported fact-check"
+		"string": "Vérification de faits importée"
 	},
 	"media.typeClaim": {
 		"string": "Texte"
@@ -1947,7 +1999,7 @@
 		"string": "Partages sur Facebook"
 	},
 	"mediaFactCheck.claimMissingDesc": {
-		"string": "Vous devez ajouter une affirmation pour accéder au rapport de vérification des faits.",
+		"string": "Vous devez ajouter une affirmation pour accéder au rapport de vérification de faits.",
 		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.claimMissingTitle": {
@@ -1956,14 +2008,14 @@
 	},
 	"mediaFactCheck.confirmButtonLabel": {
 		"string": "Retourner à l’édition",
-		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
+		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact-check."
 	},
 	"mediaFactCheck.error": {
 		"string": "Le titre et la description doivent être complétés",
 		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
 	},
 	"mediaFactCheck.factCheck": {
-		"string": "Vérification des faits",
+		"string": "Vérification de faits",
 		"developer_comment": "Title of the media fact-check section."
 	},
 	"mediaFactCheck.saved": {
@@ -1987,7 +2039,7 @@
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
-		"string": "Ajoutez une affirmation pour accéder à la vérification des faits",
+		"string": "Ajoutez une affirmation pour accéder à la vérification de faits",
 		"developer_comment": "Placeholder for fact-check field when there is no claim description filled."
 	},
 	"mediaItem.addedBy": {
@@ -2114,7 +2166,7 @@
 		"developer_comment": "Button label to commit action of exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Ajouter un élément semblable",
+		"string": "Manage media",
 		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
@@ -2122,7 +2174,7 @@
 		"developer_comment": "Button label to commit action of importing media from one or more items into the current one"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Import media into this fact-check",
+		"string": "Importer des médias dans cette vérification de faits",
 		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
@@ -2130,7 +2182,7 @@
 		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "Export media to another fact-check",
+		"string": "Exporter des médias vers une autre vérification de faits",
 		"developer_comment": "Menu option for exporting media from this item to another"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
@@ -2138,7 +2190,7 @@
 		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "Add to imported fact-check",
+		"string": "Ajouter à la vérification de faits importée",
 		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
@@ -2169,7 +2221,7 @@
 		"string": "Désolé, une erreur est survenue lors de la mise à jour de l’état. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste."
 	},
 	"mediaSuggestionReview.matchDescription": {
-		"string": "Ce média a été associé avec l’affirmation et la vérification des faits ci-dessous.",
+		"string": "Ce média a été associé avec l’affirmation et la vérification de faits ci-dessous.",
 		"developer_comment": "Hint text to tell the user what the 'Open claim' button does."
 	},
 	"mediaSuggestionReview.matchTitle": {
@@ -2181,11 +2233,11 @@
 		"developer_comment": "A label for a button that opens a claim item"
 	},
 	"mediaSuggestionReview.prompt": {
-		"string": "L’affirmation ou la vérification des faits ci-dessous sont-elles adéquates pour cet élément ?",
+		"string": "L’affirmation ou la vérification de faits ci-dessous sont-elles adéquates pour cet élément ?",
 		"developer_comment": "Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
 	},
 	"mediaSuggestionReview.title": {
-		"string": "Affirmation et vérification des faits suggérées",
+		"string": "Affirmation et vérification de faits suggérées",
 		"developer_comment": "Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
 	},
 	"mediaSuggestionsComponent.back": {
@@ -2373,7 +2425,7 @@
 		"developer_comment": "Filter option that refers to number of suggested medias"
 	},
 	"numericRangeFilter.tiplineRequests": {
-		"string": "Le nombre de demandes Tipline est entre",
+		"string": "Number of requests is between",
 		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {
@@ -2523,7 +2575,7 @@
 		"string": "Fil partagé"
 	},
 	"projectHeader.importedReports": {
-		"string": "Imported fact-checks"
+		"string": "Vérifications de faits importées"
 	},
 	"projectHeader.suggestedMatches": {
 		"string": "Médias suggérés"
@@ -2611,7 +2663,7 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Imported fact-checks",
+		"string": "Vérifications de faits importées",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.invalidMove": {
@@ -2827,7 +2879,7 @@
 		"string": "Supprimer l’image"
 	},
 	"reportDesigner.report": {
-		"string": "Vérification des faits"
+		"string": "Vérification de faits"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Aperçu du rapport",
@@ -3137,6 +3189,9 @@
 		"string": "il y a moins de",
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'."
 	},
+	"search.dateRequestHeading": {
+		"string": "Request submitted"
+	},
 	"search.dateStartEnd": {
 		"string": "entre le",
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'."
@@ -3364,10 +3419,10 @@
 		"string": "Description de l’affirmation"
 	},
 	"searchKeywordConfig.factCheckSummary": {
-		"string": "Résumé de la vérification des faits"
+		"string": "Résumé de la vérification de faits"
 	},
 	"searchKeywordConfig.factCheckTitle": {
-		"string": "Titre de la vérification des faits"
+		"string": "Titre de la vérification de faits"
 	},
 	"searchKeywordConfig.item": {
 		"string": "Élément"
@@ -3453,7 +3508,8 @@
 		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"settingsHeader.save": {
-		"string": "Enregistrer"
+		"string": "Enregistrer",
+		"developer_comment": "Button label for save columns settings"
 	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Répondre à la tâche"
@@ -3476,7 +3532,7 @@
 		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
 	},
 	"similarityComponent.languageForSimilarity": {
-		"string": "Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
+		"string": "Analyseur de langues pour la recherche de similitudes (p. ex. « fr », « en ». etc.)"
 	},
 	"similarityComponent.masterSwitchLabelOff": {
 		"string": "La correspondance automatisée est désactivée"
@@ -3501,7 +3557,7 @@
 		"developer_comment": "Banner displayed when similarity settings are saved successfully"
 	},
 	"similarityComponent.title": {
-		"string": "Correspondance des similitudes",
+		"string": "Recherche de similitudes",
 		"developer_comment": "Title to similarity matching settings page"
 	},
 	"singleChoiceTask.addOther": {
@@ -3710,16 +3766,16 @@
 		"string": "Nouvelle ressource du robot"
 	},
 	"smoochBot.placeholderGreeting": {
-		"string": "Bonjour ! Bienvenue sur le robot de vérification des faits de [nom de votre organisation]."
+		"string": "Bonjour ! Bienvenue sur le robot de vérification de faits de [nom de votre organisation]."
 	},
 	"smoochBot.placeholderInactive": {
-		"string": "❌Nous vous remercions de votre message. Notre service de vérification des faits est *inactif* actuellement.\n\nPour toute autre demande, contactez-nous à *[adresse courriel ou autre contact]*."
+		"string": "❌Nous vous remercions de votre message. Notre service de vérification de faits est *inactif* actuellement.\n\nPour toute autre demande, contactez-nous à *[adresse courriel ou autre contact]*."
 	},
 	"smoochBot.placeholderInvalidFormat": {
 		"string": "❌Désolé, nous ne pouvons pour le moment pas accepter ce genre de message pour qu’il soit vérifié.\n\nNous acceptons la plupart des images, vidéos, liens, messages texte et messages WhatsApp partagés."
 	},
 	"smoochBot.placeholderMainMenu": {
-		"string": "📌*Menu principal*\n\n*Répondez 1* (ou 🔍) pour envoyer une demande de vérification des faits relatifs à un article, une vidéo, une image ou à tout autre contenu.\n*Répondez 2* (ou 🦠) pour obtenir les derniers renseignements sur la maladie à coronavirus (COVID-19)"
+		"string": "📌*Menu principal*\n\n*Répondez 1* (ou 🔍) pour envoyer une demande de vérification de faits relatifs à un article, une vidéo, une image ou à tout autre contenu.\n*Répondez 2* (ou 🦠) pour obtenir les derniers renseignements sur la maladie à coronavirus (COVID-19)"
 	},
 	"smoochBot.placeholderNewsletter": {
 		"string": "Tapez pour rédiger votre lettre d’information. Ci-dessous, vous pouvez ajouter du contenu du RSS."
@@ -4977,16 +5033,20 @@
 		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
 	},
 	"teamListsComponent.buttonLabel": {
-		"string": "Enregistrer les changements"
+		"string": "Enregistrer les changements",
+		"developer_comment": "Button label for saving changes"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "Confirmez-vous ? Vos changements affecteront tous les dossiers, collections et listes, et seront visibles par tous les utilisateurs dans votre espace de travail."
+		"string": "Confirmez-vous ? Vos changements affecteront tous les dossiers, collections et listes, et seront visibles par tous les utilisateurs dans votre espace de travail.",
+		"developer_comment": "Content of 'Save changes' confirmation dialog."
 	},
 	"teamListsComponent.confirmSaveTitle": {
-		"string": "Changement des colonnes de l’espace de travail"
+		"string": "Changement des colonnes de l’espace de travail",
+		"developer_comment": "Dialog title for saving columns change"
 	},
 	"teamListsComponent.createMetadata": {
-		"string": "Créer un nouveau champ de métadonnées"
+		"string": "Create new annotation field",
+		"developer_comment": "Button label for create new annotation field"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Impossible d’enregistrer les paramètres des colonnes",
@@ -4997,13 +5057,16 @@
 		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
-		"string": "Colonnes affichées"
+		"string": "Colonnes affichées",
+		"developer_comment": "Columns that are displayed for users in folders, collections and lists."
 	},
 	"teamListsComponent.generalColumns": {
-		"string": "Général"
+		"string": "Général",
+		"developer_comment": "Columns not currently displayed for users in folders, collections and lists."
 	},
 	"teamListsComponent.metadataColumns": {
-		"string": "Annotation"
+		"string": "Annotation",
+		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in folders, collections and lists."
 	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Les paramètres des colonnes ont été enregistrés avec succès",
@@ -5460,7 +5523,7 @@
 		"string": "Affirmations"
 	},
 	"trendItem.factCheck": {
-		"string": "Vérification des faits",
+		"string": "Vérification de faits",
 		"developer_comment": "Middle column title on trends item page"
 	},
 	"trendItem.factCheckSummary": {
@@ -5542,7 +5605,7 @@
 		"string": "Nous n’avons pas pu importer cette affirmation, car le média qui y est associé existe déjà dans cet espace de travail."
 	},
 	"trendsItem.factCheck": {
-		"string": "Vérification des faits"
+		"string": "Vérification de faits"
 	},
 	"trendsItem.importDescription": {
 		"string": "Une nouvelle affirmation sera créée avec ce média dans votre espace de travail.",

@@ -260,7 +260,8 @@ const TableContainerWithScrollbars = withStyles({
     overflow: 'auto',
     display: 'block',
     maxWidth: 'calc(100vw - 256px)',
-    maxHeight: 'calc(100vh - 232px)',
+    // FIXME: We should not have to keep fiddling with height offsets every time the content above the TableContainer changes height. There is probably a better way to lay out the page in general to ensure we always see the horizontal scrollbar here (see 56c679ea0fbc5ff6f18f18bfba9981428a0d34e8 for a relevant commit)
+    maxHeight: 'calc(100vh - 259px)',
   },
 })(TableContainer);
 
