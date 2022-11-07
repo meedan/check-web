@@ -107,6 +107,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     overflow: 'hidden',
   },
+  cardText: {
+    fontSize: '14px',
+    lineHeight: '143%',
+    fontWeight: 400,
+  },
 }));
 
 const MediaSuggestionsComponent = ({
@@ -125,7 +130,7 @@ const MediaSuggestionsComponent = ({
     return (
       <Box className={classes.card}>
         <Typography variant="h2">0 suggested media</Typography>
-        <Typography variant="body1">Future suggestions will be listed here.</Typography>
+        <Typography className={classes.cardText}>Future suggestions will be listed here.</Typography>
       </Box>
     );
   }
