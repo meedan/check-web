@@ -268,6 +268,7 @@ class MediaComponent extends Component {
     }
 
     const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
+    const isSuggestedOrSimilar = (projectMedia.is_suggested || projectMedia.is_confirmed_similar_to_another_item);
 
     return (
       <div>
@@ -279,7 +280,7 @@ class MediaComponent extends Component {
           { view === 'default' || view === 'similarMedia' ?
             <React.Fragment>
               <Column className="media__column">
-                { linkPrefix ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
+                { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
                 <MediaDetail
                   hideBorder
                   hideRelated
@@ -292,7 +293,7 @@ class MediaComponent extends Component {
                     playing, start, end, gaps, seekTo, scrubTo,
                   }}
                 />
-                <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} />
+                { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} /> }
               </Column>
               <Column className="media__annotations-column" overflow="hidden">
                 <MediaComponentRightPanel

@@ -143,6 +143,7 @@ const RelationshipMenu = ({
           target_project_media {
             id
             demand
+            is_suggested
             hasMain: is_confirmed_similar_to_another_item
             confirmedSimilarCount: confirmed_similar_items_count
             default_relationships_count
