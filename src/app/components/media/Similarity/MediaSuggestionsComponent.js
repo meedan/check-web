@@ -130,7 +130,6 @@ const MediaSuggestionsComponent = ({
     return (
       <Box className={classes.card}>
         <Typography variant="h2">0 suggested media</Typography>
-        <Typography className={classes.cardText}>Future suggestions will be listed here.</Typography>
       </Box>
     );
   }
