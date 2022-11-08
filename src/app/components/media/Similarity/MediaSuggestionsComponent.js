@@ -219,6 +219,7 @@ const MediaSuggestionsComponent = ({
           hasMain: is_confirmed_similar_to_another_item
           suggestionsCount: suggested_similar_items_count
           confirmedSimilarCount: confirmed_similar_items_count
+          is_suggested
           suggested_similar_relationships(first: 10000) {
             edges {
               node {
