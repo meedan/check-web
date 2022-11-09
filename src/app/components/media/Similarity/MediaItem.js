@@ -204,14 +204,14 @@ const MediaItem = ({
                       </div> : null }
                   </div>
                 </React.Fragment> : null }
-              { projectMedia.added_as_similar_by_name && projectMedia.is_confirmed_similar_to_another_item ?
+              { projectMedia.added_as_similar_by_name && projectMedia.is_confirmed_similar_to_another_item && !projectMedia.confirmed_as_similar_by_name ?
                 <React.Fragment>
                   <div className={classes.sep}> - </div>
                   <div className={classes.by}>
                     <FormattedMessage id="mediaItem.addedBy" defaultMessage="Added by {name}" values={{ name: projectMedia.added_as_similar_by_name }} />
                   </div>
                 </React.Fragment> : null }
-              { projectMedia.confirmed_as_similar_by_name ?
+              { projectMedia.confirmed_as_similar_by_name && projectMedia.is_confirmed_similar_to_another_item ?
                 <React.Fragment>
                   <div className={classes.sep}> - </div>
                   <div className={classes.by}>
