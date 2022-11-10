@@ -126,14 +126,6 @@ const MediaSuggestionsComponent = ({
   // sort suggestions by the larger (more recent) of `last_seen` vs `created_at`, descending
   const sortedRelationships = relationships.sort((a, b) => Math.max(+b.target?.created_at, +b.target?.last_seen) - Math.max(+a.target?.created_at, +a.target?.last_seen));
 
-  if (relationships.length === 0) {
-    return (
-      <Box className={classes.card}>
-        <Typography variant="h2">0 suggested media</Typography>
-      </Box>
-    );
-  }
-
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [openEl, setOpenEl] = React.useState(null);
   const [isMutationPending, setIsMutationPending] = React.useState(false);
@@ -409,6 +401,14 @@ const MediaSuggestionsComponent = ({
   };
 
   const disableAcceptRejectButtons = total === 0 || !can(team.permissions, 'update Relationship') || isMutationPending;
+
+  if (relationships.length === 0) {
+    return (
+      <Box className={classes.card}>
+        <Typography variant="h2">0 suggested media</Typography>
+      </Box>
+    );
+  }
 
   return (
     <React.Fragment>
