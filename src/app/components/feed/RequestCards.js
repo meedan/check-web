@@ -100,7 +100,7 @@ const RequestCards = ({ request, mediaDbid }) => {
           details={[
             `request-${request.dbid}`,
             (<FormattedDate
-              value={request.last_submitted_at}
+              value={request.last_submitted_at * 1000}
               year="numeric"
               month="short"
               day="2-digit"
@@ -127,7 +127,7 @@ const RequestCards = ({ request, mediaDbid }) => {
           details={[
             `request-${r.node.dbid}`,
             (<FormattedDate
-              value={r.node.last_submitted_at}
+              value={r.node.last_submitted_at * 1000}
               year="numeric"
               month="short"
               day="2-digit"

@@ -310,7 +310,7 @@ const FeedRequestsTable = ({
                   />
                   <TableCell>
                     <FormattedDate
-                      value={r.node.last_submitted_at || '-'}
+                      value={r.node.last_submitted_at * 1000 || '-'}
                       year="numeric"
                       month="short"
                       day="2-digit"
