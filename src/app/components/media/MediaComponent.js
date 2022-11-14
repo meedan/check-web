@@ -99,7 +99,7 @@ class MediaComponent extends Component {
     let initialTab = 'metadata';
     if (showRequests && this.props.view !== 'similarMedia') {
       initialTab = 'requests';
-    } else {
+    } else if (this.props.view === 'similarMedia') {
       initialTab = 'suggestedMedia';
     }
 
