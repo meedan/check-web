@@ -96,6 +96,13 @@ class MediaComponent extends Component {
     const enabledBots = teamBots.edges.map(b => b.node.login);
     const showRequests = (enabledBots.indexOf('smooch') > -1 || this.props.projectMedia.requests_count > 0);
 
+    let initialTab = 'metadata';
+    if (showRequests && this.props.view !== 'similarMedia') {
+      initialTab = 'requests';
+    } else {
+      initialTab = 'suggestedMedia';
+    }
+
     this.state = {
       playerState: {
         start,
@@ -103,7 +110,7 @@ class MediaComponent extends Component {
         gaps,
         playing: false,
       },
-      showTab: showRequests ? 'requests' : 'metadata',
+      showTab: initialTab,
     };
 
     this.playerRef = React.createRef();
@@ -262,10 +269,6 @@ class MediaComponent extends Component {
     } = this.state;
 
     const setShowTab = value => this.setState({ showTab: value });
-
-    if (view === 'similarMedia') {
-      setShowTab('suggestedMedia');
-    }
 
     const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
     const isSuggestedOrSimilar = (projectMedia.is_suggested || projectMedia.is_confirmed_similar_to_another_item);

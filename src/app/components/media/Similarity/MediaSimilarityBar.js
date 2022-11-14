@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -27,6 +28,36 @@ const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
             }
             suggestionsCount: suggested_similar_items_count
             confirmedSimilarCount: confirmed_similar_items_count
+            suggested_similar_relationships(first: 10000) {
+              edges {
+                node {
+                  id
+                  target_id
+                  target {
+                    id
+                    dbid
+                    project_id
+                    created_at
+                    last_seen
+                    title
+                    description
+                    picture
+                    type
+                    requests_count
+                    report_status
+                    domain
+                    url
+                  }
+                }
+              }
+            }
+            team {
+              slug
+              smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+                id
+              }
+              permissions
+            }
           }
         }
       `}
