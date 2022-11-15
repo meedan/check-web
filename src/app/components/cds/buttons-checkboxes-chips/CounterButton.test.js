@@ -38,4 +38,3 @@ describe('<CounterButton />', () => {
     expect(button.props().className).toContain('zeroCount');
   });
 });
-
