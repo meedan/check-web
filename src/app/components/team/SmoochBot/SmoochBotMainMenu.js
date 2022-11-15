@@ -74,13 +74,6 @@ const SmoochBotMainMenu = ({
         <FormattedMessage id="smoochBotMainMenu.mainMenu" defaultMessage="Main menu" description="Title of the tipline bot main menu settings page." />
       </Typography>
 
-      <Typography component="div" variant="body2" paragraph>
-        <FormattedMessage
-          id="smoochBotMainMenu.subtitle"
-          defaultMessage="The menu of your bot, asking the user to choose between a set of options."
-          description="Subtitle displayed in tipline settings page for the main menu."
-        />
-      </Typography>
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
         <Typography component="div" variant="body2" paragraph>
           <FormattedMessage
@@ -117,7 +110,7 @@ const SmoochBotMainMenu = ({
           title={
             <FormattedMessage
               id="smoochBotMainMenu.alertTitle"
-              defaultMessage="You have {numberOfOptions} main menu options including languages. Language options will be available to users in a secondary menu."
+              defaultMessage="There are {numberOfOptions} including all languages. Detailed language options will be sent to users when they select the option '🌐 Languages'."
               values={{ numberOfOptions: optionsCount }}
               description="Title of an alert box displayed on tipline main menu settings page when there are more than 10 options."
             />

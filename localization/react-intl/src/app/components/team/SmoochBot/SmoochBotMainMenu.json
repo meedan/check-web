@@ -20,11 +20,6 @@
     "defaultMessage": "Main menu"
   },
   {
-    "id": "smoochBotMainMenu.subtitle",
-    "description": "Subtitle displayed in tipline settings page for the main menu.",
-    "defaultMessage": "The menu of your bot, asking the user to choose between a set of options."
-  },
-  {
     "id": "smoochBotMainMenu.subtitle2",
     "description": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform.",
     "defaultMessage": "Please note that some messaging services may have different menu display options than others. {linkToLearnMore}."
@@ -42,7 +37,7 @@
   {
     "id": "smoochBotMainMenu.alertTitle",
     "description": "Title of an alert box displayed on tipline main menu settings page when there are more than 10 options.",
-    "defaultMessage": "You have {numberOfOptions} main menu options including languages. Language options will be available to users in a secondary menu."
+    "defaultMessage": "There are {numberOfOptions} including all languages. Detailed language options will be sent to users when they select the option '🌐 Languages'."
   },
   {
     "id": "smoochBotMainMenu.languagesAndPrivacy",
