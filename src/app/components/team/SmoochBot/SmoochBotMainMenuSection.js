@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   box: {
     background: '#F6F6F6',
     border: `1px solid ${opaqueBlack23}`,
-    borderRadius: theme.spacing(0.5),
+    borderRadius: theme.spacing(2),
   },
   textField: {
     background: 'white',

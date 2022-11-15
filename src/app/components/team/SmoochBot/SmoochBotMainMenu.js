@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import HelpIcon from '@material-ui/icons/HelpOutline';
 import { languageLabel } from '../../../LanguageRegistry';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
 import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
+import { checkBlue } from '../../../styles/js/shared';
 
 const messages = defineMessages({
   privacyStatement: {
@@ -75,24 +78,18 @@ const SmoochBotMainMenu = ({
       </Typography>
 
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
-        <Typography component="div" variant="body2" paragraph>
-          <FormattedMessage
-            id="smoochBotMainMenu.subtitle2"
-            defaultMessage="Please note that some messaging services may have different menu display options than others. {linkToLearnMore}."
-            description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
-            values={{
-              linkToLearnMore: (
-                <a href="http://help.checkmedia.org/en/articles/4838307-creating-your-tipline-bot" target="_blank" rel="noopener noreferrer">
-                  <FormattedMessage
-                    id="smoochBotMainMenu.learnMore"
-                    defaultMessage="Learn more"
-                    description="Link with help article about which menu features are supported by each platform in tipline settings page for the main menu."
-                  />
-                </a>
-              ),
-            }}
-          />
-        </Typography> : null }
+        <Box display="flex" alignItems="center" mb={1}>
+          <Typography component="div" variant="body2">
+            <FormattedMessage
+              id="smoochBotMainMenu.subtitle2"
+              defaultMessage="Please note that some messaging services have different menu display options than others."
+              description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
+            />
+          </Typography>
+          <a href="https://help.checkmedia.org/en/articles/5982401-tipline-bot-settings" target="_blank" rel="noopener noreferrer">
+            <HelpIcon style={{ color: checkBlue }} />
+          </a>
+        </Box> : null }
       <Typography component="div" variant="subtitle2" paragraph>
         <FormattedMessage
           id="smoochBotMainMenu.optionsCounter"
