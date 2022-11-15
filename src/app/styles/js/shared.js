@@ -232,6 +232,16 @@ export const MuiTheme = {
         right: 'auto',
       },
     },
+    MuiOutlinedInput: {
+      root: {
+        borderRadius: 8,
+      },
+    },
+    MuiFormControl: {
+      root: {
+        borderRadius: 8,
+      },
+    },
   },
 };
 
