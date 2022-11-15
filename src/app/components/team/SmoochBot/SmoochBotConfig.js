@@ -311,7 +311,7 @@ const SmoochBotConfig = (props) => {
               { currentOption === 'smooch_main_menu' ?
                 <SmoochBotMainMenu
                   key={currentLanguage}
-                  languages={languages}
+                  languages={languages.filter(f => f !== currentLanguage)}
                   value={value.smooch_workflows[currentWorkflowIndex]}
                   enabledIntegrations={props.enabledIntegrations}
                   onChange={handleChangeMenu}
