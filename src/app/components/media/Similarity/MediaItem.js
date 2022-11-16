@@ -122,7 +122,7 @@ const MediaItem = ({
       onClick={(event) => {
         if (onSelect) {
           onSelect(projectMedia.dbid);
-        } else {
+        } else if (setIsSelected) {
           setIsSelected(true);
         }
         event.stopPropagation();
