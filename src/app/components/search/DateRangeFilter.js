@@ -376,7 +376,7 @@ const DateRangeFilter = ({
   }
 
   const label = {
-    created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Media submitted" />,
+    created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Request submitted" />,
     media_published_at: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Media published" />,
     updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Item updated" />,
     report_published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Report published" />,
