@@ -107,7 +107,7 @@ const SmoochBotMainMenu = ({
           title={
             <FormattedMessage
               id="smoochBotMainMenu.alertTitle"
-              defaultMessage="There are {numberOfOptions} including all languages. Detailed language options will be sent to users when they select the option '🌐 Languages'."
+              defaultMessage="There are {numberOfOptions} options including all languages. Detailed language options will be sent to users when they select the option 'Languages'."
               values={{ numberOfOptions: optionsCount }}
               description="Title of an alert box displayed on tipline main menu settings page when there are more than 10 options."
             />
