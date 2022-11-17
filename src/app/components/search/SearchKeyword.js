@@ -156,7 +156,7 @@ class SearchKeyword extends React.Component {
 
   handleInputChange = (ev, textOverride) => {
     const { keyword, ...newQuery } = this.props.query;
-    const newKeyword = ev.target.value || textOverride;
+    const newKeyword = ev?.target?.value || textOverride;
     if (newKeyword) { // empty string => remove property from query
       newQuery.keyword = newKeyword;
       newQuery.sort = 'score';
