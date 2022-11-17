@@ -182,9 +182,9 @@ const FeedRequestsTable = ({
               showExpand={false}
               cleanupQuery={query => query}
               handleSubmit={(e) => {
-                const newFilters = { ...filters, keyword: e.target['search-input'].value };
+                const newFilters = { ...filters, keyword: e?.target['search-input']?.value };
                 onChangeFilters(newFilters);
-                e.preventDefault();
+                e?.preventDefault();
               }}
               hideAdvanced
             />
@@ -281,7 +281,7 @@ const FeedRequestsTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            { feed?.requests?.edges.map((r) => {
+            { feed?.requests?.edges?.map((r) => {
               let requestTitle = '';
               if (r.node.request_type === 'text') {
                 requestTitle = r.node.media?.quote || r.node.media?.metadata?.title;
