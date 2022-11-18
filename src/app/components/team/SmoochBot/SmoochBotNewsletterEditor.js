@@ -181,7 +181,7 @@ const SmoochBotNewsletterEditor = ({
   const handleChangeBulletPoint = (i, text) => {
     if (!bulletPoints[i] || bulletPoints[i] !== text) {
       const newBulletPoints = bulletPoints.slice();
-      newBulletPoints[i] = text.replaceAll('\n', ' ');
+      newBulletPoints[i] = text?.replace('\n', ' ');
       const newBody = newBulletPoints.join('\n\n');
       onChange('smooch_newsletter_body', newBody);
     }
@@ -189,7 +189,7 @@ const SmoochBotNewsletterEditor = ({
 
   const handleChangeNumberOfBulletPoints = (value) => {
     const newBody = [];
-    [...Array(3).keys()].forEach((i) => {
+    [...Array(value).keys()].forEach((i) => {
       if (i < value) {
         newBody.push(bulletPoints[i]);
       }
