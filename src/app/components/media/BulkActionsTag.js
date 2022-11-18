@@ -183,7 +183,7 @@ BulkActionsTag.propTypes = {
 export default createFragmentContainer(withSetFlashMessage(BulkActionsTag), graphql`
   fragment BulkActionsTag_team on Team {
     dbid
-    tag_texts(first: 10000) {
+    tag_texts(first: 100) {
       edges {
         node {
           text
