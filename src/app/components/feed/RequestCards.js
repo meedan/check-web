@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 
 const RequestCards = ({ request, mediaDbid }) => {
   const isAllMedias = !mediaDbid;
-  const isParentRequest = request.media.dbid === mediaDbid;
+  const isParentRequest = request?.media?.dbid === mediaDbid;
   const classes = useStyles();
   const requestsCount = request.requests_count;
 
@@ -43,7 +43,7 @@ const RequestCards = ({ request, mediaDbid }) => {
     />
   );
 
-  const feedChip = <Chip label={request.feed.name} size="small" />;
+  const feedChip = <Chip label={request.feed?.name} size="small" />;
 
   return (
     <div className="request-cards">
@@ -123,9 +123,9 @@ const RequestCards = ({ request, mediaDbid }) => {
           icon={whatsappIcon}
           text={r.node.content}
           fileUrl={r.node.media?.file_path}
-          mediaTitle={r.node.title}
+          mediaTitle={r.node?.title}
           details={[
-            `request-${r.node.dbid}`,
+            `request-${r.node?.dbid}`,
             (<FormattedDate
               value={r.node.last_submitted_at * 1000}
               year="numeric"
@@ -133,10 +133,10 @@ const RequestCards = ({ request, mediaDbid }) => {
               day="2-digit"
             />),
             feedChip,
-            ((r.node.subscribed || r.node.last_called_webhook_at) ?
+            ((r.node?.subscribed || r.node?.last_called_webhook_at) ?
               <RequestSubscription
                 subscribed={r.node.subscribed}
-                lastCalledAt={r.node.last_called_webhook_at}
+                lastCalledAt={r.node?.last_called_webhook_at}
               />
               : null
             ),
