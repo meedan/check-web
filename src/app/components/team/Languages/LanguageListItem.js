@@ -17,7 +17,7 @@ import { FormattedGlobalMessage } from '../../MappedMessage';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
-import { languageLabel } from '../../../LanguageRegistry';
+import { languageLabelFull } from '../../../LanguageRegistry';
 
 const messages = defineMessages({
   deleteConfirmationText: {
@@ -182,7 +182,7 @@ const LanguageListItem = ({ code, team, intl }) => {
 
   const listItemText = (
     <Typography variant="h6" component="span">
-      { languageLabel(code) }
+      { languageLabelFull(code) }
     </Typography>
   );
 
@@ -226,14 +226,14 @@ const LanguageListItem = ({ code, team, intl }) => {
                 <FormattedMessage
                   id="statusListItem.translationNeededBody1"
                   defaultMessage="Not all statuses are currently translated into {language}!"
-                  values={{ language: <strong>{languageLabel(code)}</strong> }}
+                  values={{ language: <strong>{languageLabelFull(code)}</strong> }}
                 />
               </Typography>
               <Typography variant="body1" component="p" paragraph>
                 <FormattedMessage
                   id="statusListItem.translationNeededBody2"
                   defaultMessage="Before you can make {language} the default language you must first translate all existing statuses into {language} in the Statuses settings tab."
-                  values={{ language: <strong>{languageLabel(code)}</strong> }}
+                  values={{ language: <strong>{languageLabelFull(code)}</strong> }}
                 />
               </Typography>
             </div>
@@ -245,7 +245,7 @@ const LanguageListItem = ({ code, team, intl }) => {
             <FormattedMessage
               id="statusListItem.translationNeededTitle"
               defaultMessage="You need to translate all statuses into {language}"
-              values={{ language: languageLabel(code) }}
+              values={{ language: languageLabelFull(code) }}
             />
           }
         />
@@ -258,8 +258,8 @@ const LanguageListItem = ({ code, team, intl }) => {
                   id="statusListItem.confirmDefaultBody1"
                   defaultMessage="This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
                   values={{
-                    currentDefaultLanguage: <strong>{languageLabel(defaultLanguage)}</strong>,
-                    newDefaultLanguage: <strong>{languageLabel(code)}</strong>,
+                    currentDefaultLanguage: <strong>{languageLabelFull(defaultLanguage)}</strong>,
+                    newDefaultLanguage: <strong>{languageLabelFull(code)}</strong>,
                   }}
                 />
               </Typography>
@@ -267,7 +267,7 @@ const LanguageListItem = ({ code, team, intl }) => {
                 <FormattedMessage
                   id="statusListItem.confirmDefaultBody2"
                   defaultMessage="{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
-                  values={{ language: <strong>{languageLabel(code)}</strong> }}
+                  values={{ language: <strong>{languageLabelFull(code)}</strong> }}
                 />
               </Typography>
             </div>
@@ -280,14 +280,14 @@ const LanguageListItem = ({ code, team, intl }) => {
             <FormattedMessage
               id="statusListItem.confirmDefaultButton"
               defaultMessage="Set {language} as default"
-              values={{ language: languageLabel(code) }}
+              values={{ language: languageLabelFull(code) }}
             />
           }
           title={
             <FormattedMessage
               id="statusListItem.confirmDefaultTitle"
               defaultMessage="Do you want to set the default language to {language}?"
-              values={{ language: languageLabel(code) }}
+              values={{ language: languageLabelFull(code) }}
             />
           }
         />
@@ -301,19 +301,19 @@ const LanguageListItem = ({ code, team, intl }) => {
                 id="statusListItem.confirmDeleteBody1"
                 defaultMessage="All content in {language} for the 'Tipline', 'Statuses' and 'Report' tabs will be deleted permanently."
                 description="Warning about content being lost after deleting a language"
-                values={{ language: languageLabel(code) }}
+                values={{ language: languageLabelFull(code) }}
               />
             </Typography>
             <Typography variant="body1" component="p" paragraph>
               <FormattedMessage
                 id="statusListItem.confirmDeleteBody2"
                 defaultMessage="Users will receive this content in the default language {language} instead."
-                values={{ language: <strong>{languageLabel(defaultLanguage)}</strong> }}
+                values={{ language: <strong>{languageLabelFull(defaultLanguage)}</strong> }}
               />
             </Typography>
           </div>
         )}
-        typeTextToConfirm={intl.formatMessage(messages.deleteConfirmationText, { language: languageLabel(code) })}
+        typeTextToConfirm={intl.formatMessage(messages.deleteConfirmationText, { language: languageLabelFull(code) })}
         isSaving={isSaving}
         onCancel={() => setDeleteDialogOpen(false)}
         onProceed={submitDelete}
@@ -329,7 +329,7 @@ const LanguageListItem = ({ code, team, intl }) => {
                 id="statusListItem.confirmDeleteDefaultBody"
                 defaultMessage="You cannot delete the default language. You must set a different default language before you can delete {language}."
                 description="Message warning user to set a new default language before deleting the current one"
-                values={{ language: <strong>{languageLabel(defaultLanguage)}</strong> }}
+                values={{ language: <strong>{languageLabelFull(defaultLanguage)}</strong> }}
               />
             </Typography>
           </div>

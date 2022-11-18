@@ -1,22 +1,22 @@
 [
   {
-    "id": "addLanguageAction.optionLabel",
-    "defaultMessage": "{languageName} ({languageCode})"
-  },
-  {
     "id": "addLanguageAction.newLanguage",
+    "description": "Label for button that adds a new language to list of supported languages",
     "defaultMessage": "New language"
   },
   {
     "id": "addLanguageAction.title",
+    "description": "Title of language picker dialog",
     "defaultMessage": "Choose a new language"
   },
   {
     "id": "addLanguageAction.selectLanguage",
+    "description": "Label to language selection dropdown",
     "defaultMessage": "Select a language"
   },
   {
     "id": "addLanguageAction.addLanguage",
+    "description": "Label to submit button of language picker dialog",
     "defaultMessage": "Add language"
   }
 ]
