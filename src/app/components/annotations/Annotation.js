@@ -771,7 +771,6 @@ class Annotation extends Component {
 
       // TODO Replace with Pender-supplied names.
       const archivers = {
-        archive_is_response: 'Archive.is',
         archive_org_response: 'Archive.org',
         perma_cc_response: 'Perma.cc',
         video_archiver_response: 'Video Archiver',

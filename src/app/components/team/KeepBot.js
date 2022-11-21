@@ -20,18 +20,6 @@ const KeepBot = ({
       <FormGroup>
         <FormControlLabel
           control={<Checkbox
-            checked={value.archive_archive_is_enabled}
-            onChange={() => handleChange('archive_archive_is_enabled')}
-            name="checkedA"
-          />}
-          label={intl.formatMessage({
-            id: 'keepBot.archiveIs',
-            defaultMessage: 'Enable Archive.is',
-            description: 'Label for a setting that causes a bot to enable the "Archive.is" service (name of a third party provider, should not be localized)',
-          })}
-        />
-        <FormControlLabel
-          control={<Checkbox
             checked={value.archive_archive_org_enabled}
             onChange={() => handleChange('archive_archive_org_enabled')}
             name="checkedB"

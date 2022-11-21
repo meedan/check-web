@@ -8,7 +8,7 @@ describe('<MediaExpandedArchives />', () => {
       data: {
         fields: [
           {
-            field_name: 'archive_is_response',
+            field_name: 'archive_org_response',
             value_json: {
               location: 'https://example.com/archive',
             },
@@ -23,7 +23,7 @@ describe('<MediaExpandedArchives />', () => {
       projectMedia={projectMedia}
     />);
 
-    expect(wrapper.find('ExternalLink').text()).toBe('Archive.is');
+    expect(wrapper.find('ExternalLink').text()).toBe('Archive.org');
     expect(wrapper.find('ExternalLink').childAt(0).render().attr('href')).toBe('https://example.com/archive');
   });
 });
