@@ -58,7 +58,7 @@ const TeamTagsActions = ({
             team {
               id
               get_rules
-              tag_texts(first: 10000) {
+              tag_texts(first: 100) {
                 edges {
                   node {
                     id

@@ -34,7 +34,7 @@ const BulkActionsTag = ({
           createTagText(input: $input) {
             team {
               id
-              tag_texts(first: 10000) {
+              tag_texts(first: 100) {
                 edges {
                   node {
                     id
@@ -108,7 +108,7 @@ const BulkActionsTag = ({
             }
             team {
               dbid
-              tag_texts(first: 10000) {
+              tag_texts(first: 100) {
                 edges {
                   node {
                     id
