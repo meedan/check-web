@@ -117,7 +117,7 @@ const MediaCardCondensed = ({
             /> : null
         }
         <div className={classes.text}>
-          <div className={classes.title}>{title || media?.quote || media.metadata.title}</div>
+          <div className={classes.title}>{title || media?.quote || media.metadata?.title}</div>
           <BulletSeparator details={details} />
           { media?.url || url ? <div className={classes.url}><ExternalLink url={media?.url || url} maxUrlLength={60} /></div> : null }
           <div className={classes.description}>
