@@ -172,7 +172,7 @@ const ExtraMediaActions = ({
 class MediaExpandedActions extends React.Component {
   reverseImageSearchGoogle() {
     const imagePath = this.props.projectMedia.picture;
-    window.open(`https://www.google.com/searchbyimage?image_url=${imagePath}`);
+    window.open(`https://lens.google.com/uploadbyurl?url=${imagePath}`);
   }
 
   render() {
