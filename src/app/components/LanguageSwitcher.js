@@ -12,7 +12,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { compareLanguages, languageLabel } from '../LanguageRegistry';
+import { compareLanguages, languageLabelFull } from '../LanguageRegistry';
 
 const useStyles = makeStyles(theme => ({
   verticalLanguageSwitcher: {
@@ -59,7 +59,7 @@ const LanguageSwitcher = (props) => {
       <FormControl variant="outlined">
         <Select value={currentLanguage} onChange={(e) => { handleChange(e, e.target.value); }} margin="dense" className="language-switcher">
           {languages.map(languageCode => (
-            <MenuItem value={languageCode} key={languageCode}>{languageLabel(languageCode)}</MenuItem>
+            <MenuItem value={languageCode} key={languageCode}>{languageLabelFull(languageCode)}</MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -76,7 +76,7 @@ const LanguageSwitcher = (props) => {
       className={orientation === 'vertical' ? classes.verticalLanguageSwitcher : ''}
     >
       { languages.map((languageCode) => {
-        const label = languageLabel(languageCode);
+        const label = languageLabelFull(languageCode);
         return (
           <Tab
             label={
