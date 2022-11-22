@@ -24,7 +24,7 @@ class CreateTagMutation extends Relay.Mutation {
         }
         team {
           id
-          tag_texts(first: 10000),
+          tag_texts(first: 100),
         }
       }`;
     default:
@@ -80,7 +80,7 @@ class CreateTagMutation extends Relay.Mutation {
           fragment on CreateTagPayload {
             team {
               id
-              tag_texts(first: 10000),
+              tag_texts(first: 100),
             }
           }`,
         ],
