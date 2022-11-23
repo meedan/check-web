@@ -43,11 +43,11 @@ shared_examples 'language' do
     expect(@driver.page_source.include?('need to translate all')).to be(true)
     wait_for_selector('.confirm-proceed-dialog__proceed').click
     # delete language
-    wait_for_selector_list('.language-actions__menu')[1].click
+    wait_for_selector_list('.language-actions__menu')[2].click
     wait_for_selector('.language-actions__delete').click
-    wait_for_selector('#confirm-proceed-dialog__confirmation-text').send_keys('Delete English and all content')
+    wait_for_selector('#confirm-proceed-dialog__confirmation-text').send_keys('Delete Norwegian / Norsk (no) and all content')
     wait_for_selector('.confirm-proceed-dialog__proceed').click
-    wait_for_selector_none('.language-list-item__en')
-    expect(@driver.page_source.include?('English')).to be(false)
+    wait_for_selector_none('.confirm-proceed-dialog__proceed')
+    expect(@driver.page_source.include?('Nork')).to be(false)
   end
 end
