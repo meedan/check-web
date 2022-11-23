@@ -1,7 +1,6 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
@@ -16,14 +15,7 @@ import { FormattedGlobalMessage } from '../../MappedMessage';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
-import LanguageRegistry, { compareLanguages, languageLabel } from '../../../LanguageRegistry';
-
-const messages = defineMessages({
-  optionLabel: {
-    id: 'addLanguageAction.optionLabel',
-    defaultMessage: '{languageName} ({languageCode})',
-  },
-});
+import LanguageRegistry, { compareLanguages, languageLabelFull } from '../../../LanguageRegistry';
 
 function submitAddLanguage({
   team,
@@ -60,7 +52,7 @@ function submitAddLanguage({
 }
 
 // FIXME rewrite using LanguagePickerDialog
-const AddLanguageAction = ({ team, intl }) => {
+const AddLanguageAction = ({ team }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -70,12 +62,7 @@ const AddLanguageAction = ({ team, intl }) => {
   const options = Object.keys(LanguageRegistry)
     .filter(code => !languages.includes(code))
     .sort((a, b) => compareLanguages(null, a, b));
-  const getOptionLabel =
-    code => intl.formatMessage(messages.optionLabel, {
-      // FIXME Another helper for english label
-      languageName: `${LanguageRegistry[code].name} / ${languageLabel(code)}`,
-      languageCode: code,
-    });
+  const getOptionLabel = code => languageLabelFull(code);
 
   const handleChange = (e, val) => {
     setValue(val);
@@ -113,6 +100,7 @@ const AddLanguageAction = ({ team, intl }) => {
         <FormattedMessage
           id="addLanguageAction.newLanguage"
           defaultMessage="New language"
+          description="Label for button that adds a new language to list of supported languages"
         />
       </Button>
       <Dialog
@@ -121,7 +109,11 @@ const AddLanguageAction = ({ team, intl }) => {
         fullWidth
       >
         <DialogTitle>
-          <FormattedMessage id="addLanguageAction.title" defaultMessage="Choose a new language" />
+          <FormattedMessage
+            id="addLanguageAction.title"
+            defaultMessage="Choose a new language"
+            description="Title of language picker dialog"
+          />
         </DialogTitle>
         <DialogContent>
           <Autocomplete
@@ -133,10 +125,12 @@ const AddLanguageAction = ({ team, intl }) => {
             value={value}
             renderInput={
               params => (<TextField
+                variant="outlined"
                 label={
                   <FormattedMessage
                     id="addLanguageAction.selectLanguage"
                     defaultMessage="Select a language"
+                    description="Label to language selection dropdown"
                   />
                 }
                 {...params}
@@ -158,7 +152,11 @@ const AddLanguageAction = ({ team, intl }) => {
             onClick={handleSubmit}
             variant="contained"
           >
-            <FormattedMessage id="addLanguageAction.addLanguage" defaultMessage="Add language" />
+            <FormattedMessage
+              id="addLanguageAction.addLanguage"
+              defaultMessage="Add language"
+              description="Label to submit button of language picker dialog"
+            />
           </Button>
         </DialogActions>
       </Dialog>
@@ -171,10 +169,9 @@ AddLanguageAction.propTypes = {
     id: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
-  intl: intlShape.isRequired,
 };
 
-export default createFragmentContainer(injectIntl(AddLanguageAction), graphql`
+export default createFragmentContainer(AddLanguageAction, graphql`
   fragment AddLanguageAction_team on Team {
     id
     get_languages

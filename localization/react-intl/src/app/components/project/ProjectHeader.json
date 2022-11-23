@@ -4,6 +4,10 @@
     "defaultMessage": "Trash"
   },
   {
+    "id": "projectHeader.Spam",
+    "defaultMessage": "Spam"
+  },
+  {
     "id": "projectHeader.tiplineInbox",
     "defaultMessage": "Tipline inbox"
   },

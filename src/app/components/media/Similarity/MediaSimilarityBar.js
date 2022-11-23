@@ -47,6 +47,9 @@ const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
                     report_status
                     domain
                     url
+                    media {
+                      url
+                    }
                   }
                 }
               }

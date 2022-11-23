@@ -22,6 +22,9 @@ export const textSecondary = '#656565';
 export const brandMainCDS = '#567BFF';
 export const brandSecondaryCDS = '#3B5CD0';
 export const brandLightCDS = '#CFDFFF';
+export const alertLightCDS = '#FFF8ED';
+export const alertSecondaryCDS = '#A66300';
+export const alertMainCDS = '#E78A00';
 
 // Material blacks
 // TODO make these opaque!
@@ -227,6 +230,16 @@ export const MuiTheme = {
     MuiTabs: {
       indicator: {
         right: 'auto',
+      },
+    },
+    MuiOutlinedInput: {
+      root: {
+        borderRadius: 8,
+      },
+    },
+    MuiFormControl: {
+      root: {
+        borderRadius: 8,
       },
     },
   },

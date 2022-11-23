@@ -42,6 +42,9 @@ const MediaSuggestions = ({ projectMedia }) => {
                     report_status
                     domain
                     url
+                    media {
+                      url
+                    }
                   }
                 }
               }

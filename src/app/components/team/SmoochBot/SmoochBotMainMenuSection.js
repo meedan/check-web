@@ -8,18 +8,21 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import AddIcon from '@material-ui/icons/Add';
 import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
+import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { opaqueBlack23, opaqueBlack54 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
     background: '#F6F6F6',
     border: `1px solid ${opaqueBlack23}`,
-    borderRadius: theme.spacing(0.5),
+    borderRadius: theme.spacing(2),
   },
   textField: {
     background: 'white',
@@ -52,17 +55,23 @@ const SmoochBotMainMenuSection = ({
   readOnly,
   optional,
   noTitleNoDescription,
+  canCreate,
   onChangeTitle,
   onChangeMenuOptions,
 }) => {
   const classes = useStyles();
   const [showNewOptionDialog, setShowNewOptionDialog] = React.useState(false);
   const [editingOptionIndex, setEditingOptionIndex] = React.useState(-1);
+  const [showErrorDialog, setShowErrorDialog] = React.useState(false);
 
   const options = value.smooch_menu_options || [];
 
   const handleAddNewOption = () => {
-    setShowNewOptionDialog(true);
+    if (canCreate) {
+      setShowNewOptionDialog(true);
+    } else {
+      setShowErrorDialog(true);
+    }
   };
 
   const handleEditOption = (optionIndex) => {
@@ -159,7 +168,7 @@ const SmoochBotMainMenuSection = ({
 
           {/* Title */}
           { readOnly ?
-            <Box p={1}>
+            <Box pt={1} pb={1}>
               <Typography variant="body2" component="div" className={classes.title}>
                 <strong>
                   {value.smooch_menu_title}
@@ -206,7 +215,7 @@ const SmoochBotMainMenuSection = ({
 
         {/* Add a new menu option */}
         <Box pr={1}>
-          <Button color="primary" variant="contained" disabled={readOnly} onClick={handleAddNewOption}>
+          <Button color="primary" disabled={readOnly} onClick={handleAddNewOption} startIcon={<AddIcon />}>
             <FormattedMessage
               id="smoochBotMainMenuSection.newOption"
               defaultMessage="New option"
@@ -231,7 +240,7 @@ const SmoochBotMainMenuSection = ({
       {/* Each menu option */}
       <Box p={1}>
         { options.map((option, i) => (
-          <Box display="flex" alignItems="center" justifyContent="space-between" my={1} key={option}>
+          <Box display="flex" alignItems="center" justifyContent="space-between" my={1} key={formatOptionLabel(option)}>
 
             {/* Menu option label and arrows */}
             <Box display="flex" alignItems="center">
@@ -249,10 +258,10 @@ const SmoochBotMainMenuSection = ({
                 </Box> }
               {' '}
 
-              <Box>
+              <Box m={readOnly ? 1 : 0}>
                 {/* Menu option label */}
                 <Typography variant="body2" component="div">
-                  {formatOptionLabel(option)}
+                  <strong>{formatOptionLabel(option)}</strong>
                 </Typography>
 
                 {/* Menu option description */}
@@ -277,20 +286,16 @@ const SmoochBotMainMenuSection = ({
               {/* Edit */}
               { readOnly ?
                 null :
-                <Button disabled={readOnly} onClick={() => { handleEditOption(i); }} variant="outlined" size="small">
-                  <FormattedMessage
-                    id="smoochBotMainMenuSection.editOption"
-                    defaultMessage="Edit"
-                    description="Button label to edit a main menu option on tipline bot settings."
-                  />
-                </Button> }
+                <IconButton disabled={readOnly} onClick={() => { handleEditOption(i); }}>
+                  <EditOutlinedIcon />
+                </IconButton> }
               {' '}
 
               {/* Delete */}
               { readOnly || (!optional && options.length === 1) ?
                 null :
                 <IconButton onClick={() => { handleDeleteOption(i); }}>
-                  <DeleteIcon />
+                  <CancelOutlinedIcon />
                 </IconButton> }
 
               {/* Locked */}
@@ -315,6 +320,38 @@ const SmoochBotMainMenuSection = ({
           onSave={handleSaveOption}
           onCancel={handleCancel}
         /> : null }
+
+      {/* Dialog: Can't add more menu options */}
+      <ConfirmProceedDialog
+        open={showErrorDialog}
+        title={
+          <FormattedMessage
+            id="smoochBotMainMenuSection.maxOptionsReachedTitle"
+            defaultMessage="Maximum menu options"
+            description="Title of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
+          />
+        }
+        body={
+          <div>
+            <Typography variant="body1" component="p" paragraph>
+              <FormattedMessage
+                id="smoochBotMainMenuSection.maxOptionsReachedDescription"
+                defaultMessage="The maximum number of options in the main menu is 10."
+                description="Text of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
+              />
+            </Typography>
+          </div>
+        }
+        proceedLabel={
+          <FormattedMessage
+            id="smoochBotMainMenuSection.maxOptionsReachedLabel"
+            defaultMessage="Go back"
+            description="A label on a button that the user can press to go back to the screen where they edit the tipline bot menu options."
+          />
+        }
+        onProceed={() => { setShowErrorDialog(false); }}
+        onCancel={() => { setShowErrorDialog(false); }}
+      />
     </Box>
   );
 };
@@ -325,6 +362,7 @@ SmoochBotMainMenuSection.defaultProps = {
   readOnly: false,
   optional: false,
   noTitleNoDescription: false,
+  canCreate: true,
 };
 
 SmoochBotMainMenuSection.propTypes = {
@@ -334,6 +372,7 @@ SmoochBotMainMenuSection.propTypes = {
   readOnly: PropTypes.bool,
   optional: PropTypes.bool,
   noTitleNoDescription: PropTypes.bool,
+  canCreate: PropTypes.bool,
   onChangeTitle: PropTypes.func.isRequired,
   onChangeMenuOptions: PropTypes.func.isRequired,
 };

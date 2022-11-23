@@ -64,6 +64,10 @@ const LanguageRegistry = {
     name: 'Bihari',
     nativeName: 'भोजपुरी',
   },
+  bho: {
+    name: 'Bhojpuri',
+    nativeName: 'भोजपुरी',
+  },
   bi: {
     name: 'Bislama',
     nativeName: 'Bislama',
@@ -785,6 +789,15 @@ const LanguageRegistry = {
 export function languageLabel(code) {
   const language = LanguageRegistry[code];
   return language ? language.nativeName : code;
+}
+
+function languageLabelEnglish(code) {
+  const language = LanguageRegistry[code];
+  return language ? language.name : code;
+}
+
+export function languageLabelFull(code) {
+  return `${languageLabelEnglish(code)} / ${languageLabel(code)} (${code})`;
 }
 
 export function compareLanguages(defaultCode, a, b) {

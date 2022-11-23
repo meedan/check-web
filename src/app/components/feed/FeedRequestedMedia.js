@@ -86,7 +86,7 @@ const FeedRequestedMedia = ({ request }) => {
                   values={{
                     date: (
                       <FormattedDate
-                        value={request.last_submitted_at}
+                        value={request.last_submitted_at * 1000}
                         year="numeric"
                         month="short"
                         day="2-digit"

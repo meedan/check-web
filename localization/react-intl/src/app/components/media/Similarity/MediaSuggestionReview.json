@@ -7,7 +7,7 @@
   {
     "id": "mediaSuggestionReview.matchDescription",
     "description": "Hint text to tell the user what the 'Open claim' button does.",
-    "defaultMessage": "This media has been associated with the claim and fact-check below."
+    "defaultMessage": "This media has been matched to the claim and fact-check below."
   },
   {
     "id": "mediaSuggestionReview.openButtonMatched",

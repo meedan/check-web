@@ -21,11 +21,12 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     justifyContent: 'space-between',
     overflow: 'hidden',
-    height: theme.spacing(14),
+    maxHeight: theme.spacing(14),
   },
   innerBox: {
     cursor: 'pointer',
-    maxWidth: '500px',
+    width: 'inherit',
+    maxWidth: 'calc(100% - 48px)', // 48px is the width of a menu icon
   },
   image: {
     height: 96,
@@ -37,11 +38,15 @@ const useStyles = makeStyles(theme => ({
   },
   text: {
     overflow: 'hidden',
+    alignSelf: 'center',
   },
   url: {
     marginTop: theme.spacing(0.5),
     marginBottom: theme.spacing(0.5),
     lineHeight: '143%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   title: {
     fontSize: '16px',
@@ -70,6 +75,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     overflow: 'hidden',
   },
+  menuBox: {
+    marginTop: theme.spacing(-1),
+  },
 }));
 
 const MediaCardCondensed = ({
@@ -85,6 +93,7 @@ const MediaCardCondensed = ({
 }) => {
   const classes = useStyles();
   const defaultImage = '/images/image_placeholder.svg';
+  const externalUrl = media?.url || url || media?.media?.url;
 
   if (placeholder) {
     return (
@@ -117,9 +126,9 @@ const MediaCardCondensed = ({
             /> : null
         }
         <div className={classes.text}>
-          <div className={classes.title}>{title || media?.quote || media.metadata.title}</div>
-          <BulletSeparator details={details} />
-          { media?.url || url ? <div className={classes.url}><ExternalLink url={media?.url || url} maxUrlLength={60} /></div> : null }
+          <div className={classes.title}>{title || media?.quote || media.metadata?.title}</div>
+          <BulletSeparator compact details={details} />
+          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} /></div> : null }
           <div className={classes.description}>
             <ParsedText text={description || media.metadata?.description || media.quote} />
           </div>
@@ -128,6 +137,7 @@ const MediaCardCondensed = ({
       <Box
         display="flex"
         alignSelf="flex-start"
+        className={classes.menuBox}
       >
         { menu }
       </Box>

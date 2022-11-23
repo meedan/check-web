@@ -5,24 +5,34 @@
     "defaultMessage": "Privacy statement"
   },
   {
+    "id": "smoochBotMainMenu.languages",
+    "description": "Menu label used in the tipline bot when multiple languages are collapsed in a single menu option",
+    "defaultMessage": "Languages"
+  },
+  {
+    "id": "smoochBotMainMenu.numberOfLanguages",
+    "description": "Menu description used in the tipline bot when multiple languages are collapsed in a single menu option (always plural)",
+    "defaultMessage": "{numberOfLanguages} languages"
+  },
+  {
     "id": "smoochBotMainMenu.mainMenu",
     "description": "Title of the tipline bot main menu settings page.",
     "defaultMessage": "Main menu"
   },
   {
-    "id": "smoochBotMainMenu.subtitle",
-    "description": "Subtitle displayed in tipline settings page for the main menu.",
-    "defaultMessage": "The menu of your bot, asking the user to choose between a set of options."
-  },
-  {
     "id": "smoochBotMainMenu.subtitle2",
     "description": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform.",
-    "defaultMessage": "Please note that some messaging services may have different menu display options than others. {linkToLearnMore}."
+    "defaultMessage": "Please note that some messaging services have different menu display options than others."
   },
   {
-    "id": "smoochBotMainMenu.learnMore",
-    "description": "Link with help article about which menu features are supported by each platform in tipline settings page for the main menu.",
-    "defaultMessage": "Learn more"
+    "id": "smoochBotMainMenu.optionsCounter",
+    "description": "Counter that is displayed on tipline settings page in order to inform the user how many options they can still add to the bot main menu.",
+    "defaultMessage": "{available}/{total} main menu options available"
+  },
+  {
+    "id": "smoochBotMainMenu.alertTitle",
+    "description": "Title of an alert box displayed on tipline main menu settings page when there are more than 10 options.",
+    "defaultMessage": "There are {numberOfOptions} options including all languages. Detailed language options will be sent to users when they select the option 'Languages'."
   },
   {
     "id": "smoochBotMainMenu.languagesAndPrivacy",
