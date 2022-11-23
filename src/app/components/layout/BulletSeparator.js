@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 const BulletSeparator = ({
   icon,
   details,
+  compact,
 }) => {
   const classes = useStyles();
   const subtitleDetails = details.filter(d => !!d).map((d, index) => (
@@ -44,7 +45,7 @@ const BulletSeparator = ({
 
   return (
     <div>
-      <Box display="flex" alignItems="center" mb={2} className={classes.details}>
+      <Box display="flex" alignItems="center" mb={compact ? 0 : 2} className={classes.details}>
         { icon ? <div className={classes.icon}>{icon}</div> : null }
         {subtitleDetails}
       </Box>
@@ -55,10 +56,12 @@ const BulletSeparator = ({
 BulletSeparator.propTypes = {
   details: PropTypes.array.isRequired,
   icon: PropTypes.node,
+  compact: PropTypes.bool,
 };
 
 BulletSeparator.defaultProps = {
   icon: null,
+  compact: false,
 };
 
 export default BulletSeparator;
