@@ -80,6 +80,10 @@ const LanguageRegistry = {
     name: 'Bengali',
     nativeName: 'বাংলা',
   },
+  bn_BD: {
+    name: 'Bengali (Bangladesh)',
+    nativeName: 'বাংলা',
+  },
   bo: {
     name: 'Tibetan Standard',
     nativeName: 'བོད་ཡིག',
@@ -350,7 +354,7 @@ const LanguageRegistry = {
   },
   ks: {
     name: 'Kashmiri',
-    nativeName: 'कश्मीरी',
+    nativeName: 'کٲشُر',
   },
   ku: {
     name: 'Kurdish',
