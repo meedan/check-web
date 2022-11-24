@@ -168,6 +168,7 @@ shared_examples 'similarity' do
       wait_for_selector('.projects-list__all-items').click
       wait_for_selector('.project__description')
       create_image(file[0])
+      sleep 10
       create_image(file[1])
       wait_for_selector('.medias__item')
       sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
@@ -194,6 +195,7 @@ shared_examples 'similarity' do
       wait_for_selector('.projects-list__all-items').click
       wait_for_selector('.project__description')
       create_image(file[0])
+      sleep 10
       create_image(file[1])
       wait_for_selector('.medias__item')
       sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
@@ -216,6 +218,7 @@ shared_examples 'similarity' do
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('.project__description')
     create_image('files/audio.mp3')
+    sleep 10
     wait_for_selector('.medias__item', :css, 20, true)
     create_image('files/audio.ogg')
     wait_for_selector('.medias__item')

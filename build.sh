@@ -27,6 +27,11 @@ else
       fi
       sleep 5
     done
+    if [ -z $NGROK_URL ]
+    then
+      echo "Not able to connect a Ngrok Tunnel. Please try again"
+      exit 1
+    fi
     sed -i '/storage_public_endpoint/ i \  \storage_asset_host:\ '"'$NGROK_URL/check-api-test'"'' check-api/config/config.yml
     sed -i '/storage_public_endpoint/ i \  \storage_endpoint:\ '"'$NGROK_URL'"'' check-api/config/config.yml
     docker-compose build

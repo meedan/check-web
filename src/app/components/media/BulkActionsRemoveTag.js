@@ -170,7 +170,7 @@ BulkActionsRemoveTag.propTypes = {
 
 export default createFragmentContainer(withSetFlashMessage(BulkActionsRemoveTag), graphql`
   fragment BulkActionsRemoveTag_team on Team {
-    tag_texts(first: 10000) {
+    tag_texts(first: 100) {
       edges {
         node {
           dbid

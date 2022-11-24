@@ -276,7 +276,7 @@ const MediaSimilarityBarAdd = ({
                 primary={
                   <FormattedMessage
                     id="mediaSimilarityBarAdd.addToImportedReport"
-                    defaultMessage="Add to imported fact-check"
+                    defaultMessage="Add media to an imported fact-check"
                     description="Menu option for adding the current media to an imported fact-check"
                   />
                 }
