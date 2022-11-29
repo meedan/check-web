@@ -47,6 +47,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    maxWidth: '33vw', // 1/3 of the viewport width
   },
   title: {
     fontSize: '16px',
@@ -65,6 +66,7 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+    maxWidth: '33vw', // 1/3 of the viewport width
   },
   placeholder: {
     border: '1px solid rgba(0, 0, 0, 0.23)',
