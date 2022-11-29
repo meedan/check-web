@@ -402,6 +402,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
         title
         summary
         url
+        language
         updated_at
         user {
           name
