@@ -73,7 +73,7 @@ const ReportDesignerTopBar = (props) => {
       defaultMessage="You must have at least Report Text or Visual Card selected in order to publish the report."
     />
   );
-  const defaultReport = data.options.find(r => r.language === defaultLanguage);
+  const defaultReport = data.options;
   // If text report and visual card are not set for the default language, can't publish (we need at least one of them)
   if (defaultReport && !defaultReport.use_visual_card && !defaultReport.use_text_message) {
     cantPublishReason = (

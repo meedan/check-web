@@ -8,16 +8,12 @@ import Button from '@material-ui/core/Button';
 import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
-import EditIcon from '@material-ui/icons/Edit';
-import LanguageIcon from '@material-ui/icons/Language';
 import TimeBefore from '../TimeBefore';
 import LanguagePickerDialog from '../layout/LanguagePickerDialog';
 import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import { can } from '../Can';
 import MediaFactCheckField from './MediaFactCheckField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import { languageLabel } from '../../LanguageRegistry';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -37,7 +33,6 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [saving, setSaving] = React.useState(false);
   const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [correctingLanguage, setCorrectingLanguage] = React.useState(false);
 
   React.useEffect(() => {
     setTitle(factCheck?.title || '');
@@ -161,7 +156,6 @@ const MediaFactCheck = ({ projectMedia }) => {
     const { languageCode } = value;
     setLanguage(languageCode);
     handleBlur('language', languageCode);
-    setCorrectingLanguage(false);
   };
 
   return (
@@ -240,8 +234,6 @@ const MediaFactCheck = ({ projectMedia }) => {
           let newUrl = newValue;
           if (!/^https?:\/\//.test(newValue) && newValue && newValue.length > 0) {
             newUrl = `https://${newValue}`;
-            // eslint-disable-next-line no-console
-            console.log('newUrl', newUrl);
           }
           setUrl(newUrl);
           handleBlur('url', newUrl);
@@ -253,20 +245,8 @@ const MediaFactCheck = ({ projectMedia }) => {
         key={`url-${claimDescription}-${url}`}
       />
 
-      <Chip
-        className="media-tags__tag media-tags__language"
-        deleteIcon={<EditIcon />}
-        icon={<LanguageIcon />}
-        color="primary"
-        label={language === '' || language === 'und' ? 'Unknown language' : languageLabel(language)}
-        onDelete={
-          hasPermission && factCheck ? () => setCorrectingLanguage(true) : null
-        }
-      />
       <LanguagePickerDialog
-        isSaving={saving}
-        open={correctingLanguage}
-        onDismiss={() => setCorrectingLanguage(false)}
+        selectedlanguage={language}
         onSubmit={handleLanguageSubmit}
         team={projectMedia.team}
       />

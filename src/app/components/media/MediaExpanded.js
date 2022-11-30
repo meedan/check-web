@@ -15,7 +15,6 @@ import MediaExpandedArchives from './MediaExpandedArchives';
 import MediaExpandedMetadata from './MediaExpandedMetadata';
 import MediaExpandedSecondRow from './MediaExpandedSecondRow';
 import MediaExpandedUrl from './MediaExpandedUrl';
-import MediaLanguageChip from './MediaLanguageChip';
 import MoreLess from '../layout/MoreLess';
 import ParsedText from '../ParsedText';
 import QuoteMediaCard from './QuoteMediaCard';
@@ -287,7 +286,6 @@ class MediaExpandedComponent extends Component {
               </Typography>
             </MoreLess>
           </Box>
-          <Box mb={2}><MediaLanguageChip projectMedia={media} /></Box>
           <MediaExpandedUrl url={media.media.url} />
           <MediaExpandedArchives projectMedia={media} />
           <MediaExpandedMetadata projectMedia={media} />
@@ -371,7 +369,6 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
             name
           }
         }
-        ${MediaLanguageChip.getFragment('projectMedia')}
         ${MediaExpandedActions.getFragment('projectMedia')}
         ${MediaExpandedArchives.getFragment('projectMedia')}
         ${MediaExpandedMetadata.getFragment('projectMedia')}

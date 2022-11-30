@@ -14,6 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ReportDesignerFormSection from './ReportDesignerFormSection';
 import ColorPicker from '../../layout/ColorPicker';
 import UploadFile from '../../UploadFile';
+import LanguagePickerDialog from '../../layout/LanguagePickerDialog';
 import { formatDate } from './reportDesignerHelpers';
 import LimitedTextFieldWithCounter from '../../layout/LimitedTextFieldWithCounter';
 
@@ -51,8 +52,9 @@ const useStyles = makeStyles(theme => ({
 
 const ReportDesignerForm = (props) => {
   const classes = useStyles();
-  const { media } = props;
+  const { media, team } = props;
   const data = props.data || { use_text_message: true, text: '' };
+  const currentLanguage = data.language;
 
   const handleImageChange = (image) => {
     props.onUpdate('image', image);
@@ -72,6 +74,11 @@ const ReportDesignerForm = (props) => {
     props.onUpdate('image', ' ');
   };
 
+  const handleLanguageSubmit = (value) => {
+    const { languageCode } = value;
+    props.onUpdate('language', languageCode);
+  };
+
   const textFieldProps = {
     className: classes.textField,
     variant: 'outlined',
@@ -83,6 +90,13 @@ const ReportDesignerForm = (props) => {
     <Box className={classes.root}>
       { props.disabled ? <Box className={classes.mask} /> : null }
       <Box>
+        <Box>
+          <LanguagePickerDialog
+            selectedlanguage={currentLanguage}
+            onSubmit={handleLanguageSubmit}
+            team={team}
+          />
+        </Box>
         <ReportDesignerFormSection
           enabled={Boolean(data.use_introduction)}
           onToggle={(enabled) => { props.onUpdate('use_introduction', enabled); }}

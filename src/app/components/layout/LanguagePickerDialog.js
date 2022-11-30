@@ -2,16 +2,9 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { FormattedGlobalMessage } from '../MappedMessage';
+import LanguageIcon from '@material-ui/icons/Language';
 import { safelyParseJSON } from '../../helpers';
 import LanguageRegistry, { languageLabel } from '../../LanguageRegistry';
 
@@ -26,23 +19,13 @@ const messages = defineMessages({
   },
 });
 
-const useStyles = makeStyles(() => ({
-  dialog: {
-    position: 'absolute',
-    top: 60,
-  },
-}));
-
 const LanguagePickerDialog = ({
   intl,
-  isSaving,
-  onDismiss,
+  selectedlanguage,
   onSubmit,
-  open,
   team,
 }) => {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState(selectedlanguage);
   const languages = safelyParseJSON(team.get_languages) || [];
 
   languages.unshift('und');
@@ -69,73 +52,53 @@ const LanguagePickerDialog = ({
 
   const handleChange = (e, val) => {
     setValue(val);
-  };
-
-  const handleSubmit = () => {
-    onSubmit({ languageCode: value, languageName: languageLabel(value) });
+    onSubmit({ languageCode: val, languageName: languageLabel(val) });
   };
 
   return (
-    <Dialog
-      open={open}
-      maxWidth="xs"
-      PaperProps={{
-        className: window.parent === window ? '' : classes.dialog, // Fixed position in browser extension
-      }}
-      fullWidth
-    >
-      <DialogTitle>
-        <FormattedMessage id="languagePickerDialog.title" defaultMessage="Choose a language" />
-      </DialogTitle>
-      <DialogContent>
-        <Autocomplete
-          id="autocomplete-add-language"
-          name="autocomplete-add-language"
-          options={options}
-          openOnFocus
-          getOptionLabel={getOptionLabel}
-          getOptionDisabled={option => option === 'disabled'}
-          value={value}
-          renderInput={
-            params => (<TextField
-              label={
-                <FormattedMessage
-                  id="languagePickerDialog.selectLanguage"
-                  defaultMessage="Select a language"
-                />
-              }
-              {...params}
-            />)
-          }
-          onChange={handleChange}
-          fullWidth
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button className="add-language-action__cancel" onClick={onDismiss}>
-          <FormattedGlobalMessage messageKey="cancel" />
-        </Button>
-        <Button
-          className="add-language-action__submit"
-          color="primary"
-          endIcon={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
-          disabled={!value || isSaving}
-          onClick={handleSubmit}
-          variant="contained"
-        >
-          <FormattedGlobalMessage messageKey="submit" />
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <div id="language-change">
+      <Autocomplete
+        disableClearable
+        id="autocomplete-add-language"
+        name="autocomplete-add-language"
+        options={options}
+        openOnFocus
+        getOptionLabel={getOptionLabel}
+        getOptionDisabled={option => option === 'disabled'}
+        value={value}
+        onChange={handleChange}
+        renderInput={params => (
+          <TextField
+            {...params}
+            name="language-name"
+            label={
+              <FormattedMessage
+                id="languagePickerDialog.selectLanguage"
+                defaultMessage="Select language"
+                description="Change language label"
+              />
+            }
+            variant="outlined"
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <React.Fragment>
+                  <LanguageIcon />
+                  {params.InputProps.startAdornment}
+                </React.Fragment>
+              ),
+            }}
+          />
+        )}
+      />
+    </div>
   );
 };
 
 LanguagePickerDialog.propTypes = {
-  isSaving: PropTypes.bool.isRequired,
   intl: intlShape.isRequired,
-  onDismiss: PropTypes.func.isRequired,
+  selectedlanguage: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,

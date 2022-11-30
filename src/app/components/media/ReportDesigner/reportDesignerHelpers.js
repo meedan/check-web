@@ -31,33 +31,17 @@ export function defaultOptions(media, language) {
   return options;
 }
 
-export function findReportIndex(data, language) {
-  return data.options.findIndex(option => (option.language === language));
-}
-
 export function propsToData(props, language) {
   let { data } = props.media.dynamic_annotation_report_design || {};
   if (!data) {
-    data = { options: [defaultOptions(props.media, language)] };
+    data = { options: defaultOptions(props.media, language) };
   } else {
     data = JSON.parse(JSON.stringify(data));
-  }
-  if (findReportIndex(data, language) === -1) {
-    data.options.push(defaultOptions(props.media, language));
   }
   if (!data.state) {
     data.state = 'paused';
   }
   return data;
-}
-
-export function cloneData(data) {
-  const clone = Object.assign({}, data);
-  clone.options = [];
-  data.options.forEach((option) => {
-    clone.options.push(Object.assign({}, option));
-  });
-  return clone;
 }
 
 export function formatDate(date, language) {
