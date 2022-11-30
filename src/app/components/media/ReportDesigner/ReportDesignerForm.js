@@ -90,7 +90,7 @@ const ReportDesignerForm = (props) => {
     <Box className={classes.root}>
       { props.disabled ? <Box className={classes.mask} /> : null }
       <Box>
-        <Box>
+        <Box mb={4}>
           <LanguagePickerDialog
             selectedlanguage={currentLanguage}
             onSubmit={handleLanguageSubmit}

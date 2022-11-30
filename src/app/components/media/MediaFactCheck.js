@@ -43,6 +43,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
+  const isDisabled = Boolean(readOnly || published);
 
   const handleGoToReport = () => {
     if (!claimDescription || claimDescription.description?.trim()?.length === 0) {
@@ -205,7 +206,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
-        disabled={readOnly || published}
+        disabled={isDisabled}
         rows={1}
         key={`title-${claimDescription}`}
       />
@@ -221,7 +222,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
-        disabled={readOnly || published}
+        disabled={isDisabled}
         rows={1}
         key={`summary-${claimDescription}-${title.length}-${url.length}`}
       />
@@ -240,12 +241,13 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
-        disabled={readOnly || published}
+        disabled={isDisabled}
         rows={1}
         key={`url-${claimDescription}-${url}`}
       />
 
       <LanguagePickerDialog
+        isDisabled={(!hasPermission || isDisabled)}
         selectedlanguage={language}
         onSubmit={handleLanguageSubmit}
         team={projectMedia.team}

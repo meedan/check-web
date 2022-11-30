@@ -21,6 +21,7 @@ const messages = defineMessages({
 
 const LanguagePickerDialog = ({
   intl,
+  isDisabled,
   selectedlanguage,
   onSubmit,
   team,
@@ -58,6 +59,7 @@ const LanguagePickerDialog = ({
   return (
     <div id="language-change">
       <Autocomplete
+        disabled={isDisabled}
         disableClearable
         id="autocomplete-add-language"
         name="autocomplete-add-language"
@@ -95,8 +97,13 @@ const LanguagePickerDialog = ({
   );
 };
 
+LanguagePickerDialog.defaultProps = {
+  isDisabled: false,
+};
+
 LanguagePickerDialog.propTypes = {
   intl: intlShape.isRequired,
+  isDisabled: PropTypes.bool,
   selectedlanguage: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   team: PropTypes.shape({
