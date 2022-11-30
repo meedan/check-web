@@ -19,7 +19,7 @@ describe('<ReportDesignerForm />', () => {
   };
   const team = {
     get_languages: '[]',
-  }
+  };
 
   it('should render report form', () => {
     const wrapper = mountWithIntl(<ReportDesignerForm
