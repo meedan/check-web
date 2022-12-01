@@ -26,7 +26,7 @@ const LanguagePickerDialog = ({
   onSubmit,
   team,
 }) => {
-  const [value, setValue] = React.useState(selectedlanguage);
+  const [value, setValue] = React.useState(selectedlanguage || 'und');
   const languages = safelyParseJSON(team.get_languages) || [];
 
   languages.unshift('und');

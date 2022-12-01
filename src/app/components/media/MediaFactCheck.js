@@ -38,7 +38,8 @@ const MediaFactCheck = ({ projectMedia }) => {
     setTitle(factCheck?.title || '');
     setSummary(factCheck?.summary);
     setUrl(factCheck?.url || '');
-  }, [factCheck?.title, factCheck?.summary, factCheck?.url]);
+    setLanguage(factCheck?.language || '');
+  }, [factCheck?.title, factCheck?.summary, factCheck?.url, factCheck?.language]);
 
   const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
