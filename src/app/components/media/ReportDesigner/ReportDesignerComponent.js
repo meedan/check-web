@@ -51,7 +51,7 @@ const ReportDesignerComponent = (props) => {
   const classes = useStyles();
   const { media, media: { team } } = props;
 
-  const savedReportData = props.media?.dynamic_annotation_report_design || { data: {} };
+  const savedReportData = props.media?.dynamic_annotation_report_design || { data: { options: { } } };
   const currentLanguage = savedReportData.data.options.language || team.get_language || 'en';
   const [data, setData] = React.useState(propsToData(props, currentLanguage));
   const [pending, setPending] = React.useState(false);
@@ -112,7 +112,7 @@ const ReportDesignerComponent = (props) => {
       fields.options.previous_published_status_label = fields.options.status_label;
     }
 
-    let images = {};
+    let images = [];
 
     const { image } = data?.options || { image: null }; // File, String or null
     if (!image || image?.preview) {
@@ -124,7 +124,7 @@ const ReportDesignerComponent = (props) => {
       fields.options.image = '';
     }
     if (image && image?.preview) {
-      images = { image };
+      images = [image];
     }
 
     if (!annotation) {
