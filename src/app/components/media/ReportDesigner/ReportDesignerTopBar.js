@@ -84,7 +84,7 @@ const ReportDesignerTopBar = (props) => {
       />
     );
   }
-  const hasLanguage = defaultReport.language.length > 0 && defaultReport.language !== 'und';
+  const hasLanguage = defaultReport.language?.length > 0;
   // We can publish if there is a default report with either visual card or text report
   const hasValidTextReport = defaultReport && hasLanguage && defaultReport.use_text_message && defaultReport.text?.length > 0 && defaultReport.title?.length > 0;
   const hasValidVisualCard = defaultReport && hasLanguage && defaultReport.use_visual_card && defaultReport.headline?.length > 0 && defaultReport.description?.length > 0;

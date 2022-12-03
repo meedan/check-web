@@ -21,7 +21,7 @@ export function defaultOptions(media, language) {
     text: '',
     headline: '',
     description: '',
-    language: '',
+    language: null,
     status_label: status.label.substring(0, 16),
     theme_color: getStatusStyle(status, 'color'),
   };

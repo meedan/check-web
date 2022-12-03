@@ -26,21 +26,13 @@ const LanguagePickerDialog = ({
   onSubmit,
   team,
 }) => {
-  const [value, setValue] = React.useState(selectedlanguage || 'und');
+  const [value, setValue] = React.useState(selectedlanguage);
   const languages = safelyParseJSON(team.get_languages) || [];
-
-  languages.unshift('und');
-
-  const options = (languages ? languages.concat('disabled') : [])
-    .concat(Object.keys(LanguageRegistry)
-      .filter(code => !languages.includes(code)));
 
   // intl.formatMessage needed here because Autocomplete
   // performs toLowerCase on strings for comparison
   const getOptionLabel = (code) => {
     if (code === 'disabled') return '──────────';
-    if (code === 'und') return intl.formatMessage(messages.unknownLanguage);
-
     return intl.formatMessage(messages.optionLabel, {
       languageName: (
         LanguageRegistry[code] ?
@@ -63,34 +55,34 @@ const LanguagePickerDialog = ({
         disableClearable
         id="autocomplete-add-language"
         name="autocomplete-add-language"
-        options={options}
+        options={languages}
         openOnFocus
         getOptionLabel={getOptionLabel}
         getOptionDisabled={option => option === 'disabled'}
+        getOptionSelected={(option, val) => val !== null && option.id === val.id}
         value={value}
         onChange={handleChange}
         renderInput={params => (
-          <TextField
-            {...params}
-            name="language-name"
-            label={
-              <FormattedMessage
-                id="languagePickerDialog.selectLanguage"
-                defaultMessage="Select language"
-                description="Change language label"
+          <FormattedMessage id="languagePickerDialog.selectLanguage" defaultMessage="Select language" description="Change language label" >
+            { placeholder => (
+              <TextField
+                {...params}
+                name="language-name"
+                label={placeholder}
+                placeholder={placeholder}
+                variant="outlined"
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: (
+                    <React.Fragment>
+                      <LanguageIcon />
+                      {params.InputProps.startAdornment}
+                    </React.Fragment>
+                  ),
+                }}
               />
-            }
-            variant="outlined"
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: (
-                <React.Fragment>
-                  <LanguageIcon />
-                  {params.InputProps.startAdornment}
-                </React.Fragment>
-              ),
-            }}
-          />
+            )}
+          </FormattedMessage>
         )}
       />
     </div>

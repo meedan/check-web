@@ -29,7 +29,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [title, setTitle] = React.useState((factCheck && factCheck.title) ? factCheck.title : '');
   const [summary, setSummary] = React.useState(factCheck ? factCheck.summary : '');
   const [url, setUrl] = React.useState((factCheck && factCheck.url) ? factCheck.url : '');
-  const [language, setLanguage] = React.useState(factCheck ? factCheck.language : '');
+  const [language, setLanguage] = React.useState(factCheck ? factCheck.language : null);
   const [saving, setSaving] = React.useState(false);
   const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -38,7 +38,7 @@ const MediaFactCheck = ({ projectMedia }) => {
     setTitle(factCheck?.title || '');
     setSummary(factCheck?.summary);
     setUrl(factCheck?.url || '');
-    setLanguage(factCheck?.language || '');
+    setLanguage(factCheck?.language || null);
   }, [factCheck?.title, factCheck?.summary, factCheck?.url, factCheck?.language]);
 
   const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
@@ -247,12 +247,14 @@ const MediaFactCheck = ({ projectMedia }) => {
         key={`url-${claimDescription}-${url}`}
       />
 
-      <LanguagePickerDialog
-        isDisabled={(!hasPermission || isDisabled)}
-        selectedlanguage={language}
-        onSubmit={handleLanguageSubmit}
-        team={projectMedia.team}
-      />
+      <Box mt={3} mb={2}>
+        <LanguagePickerDialog
+          isDisabled={(!hasPermission || isDisabled)}
+          selectedlanguage={language}
+          onSubmit={handleLanguageSubmit}
+          team={projectMedia.team}
+        />
+      </Box>
 
       { projectMedia.team.smooch_bot ?
         <Box mt={1}>
