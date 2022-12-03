@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TimeBefore from '../TimeBefore';
 import LanguagePickerDialog from '../layout/LanguagePickerDialog';
-import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
+import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
 import { can } from '../Can';
 import MediaFactCheckField from './MediaFactCheckField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -45,6 +45,9 @@ const MediaFactCheck = ({ projectMedia }) => {
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
   const isDisabled = Boolean(readOnly || published);
+
+  const { team } = projectMedia;
+  const languages = safelyParseJSON(team.get_languages) || [];
 
   const handleGoToReport = () => {
     if (!claimDescription || claimDescription.description?.trim()?.length === 0) {
@@ -247,14 +250,16 @@ const MediaFactCheck = ({ projectMedia }) => {
         key={`url-${claimDescription}-${url}`}
       />
 
-      <Box mt={3} mb={2}>
-        <LanguagePickerDialog
-          isDisabled={(!hasPermission || isDisabled)}
-          selectedlanguage={language}
-          onSubmit={handleLanguageSubmit}
-          team={projectMedia.team}
-        />
-      </Box>
+      { languages.length > 1 ?
+        <Box my={2} >
+          <LanguagePickerDialog
+            isDisabled={(!hasPermission || isDisabled)}
+            selectedlanguage={language}
+            onSubmit={handleLanguageSubmit}
+            team={team}
+          />
+        </Box> : null
+      }
 
       { projectMedia.team.smooch_bot ?
         <Box mt={1}>

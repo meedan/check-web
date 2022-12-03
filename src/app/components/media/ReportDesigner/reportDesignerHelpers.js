@@ -12,6 +12,7 @@ export function defaultOptions(media, language) {
   const default_report = default_reports[language] || {};
   const isDefaultLanguage = (language === team.get_language);
   const options = {
+    language,
     use_introduction: isDefaultLanguage ? !!default_report.use_introduction : false,
     introduction: default_report.introduction || '',
     use_visual_card: false,
@@ -21,7 +22,6 @@ export function defaultOptions(media, language) {
     text: '',
     headline: '',
     description: '',
-    language: null,
     status_label: status.label.substring(0, 16),
     theme_color: getStatusStyle(status, 'color'),
   };

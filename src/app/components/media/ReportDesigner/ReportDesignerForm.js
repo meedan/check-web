@@ -17,6 +17,7 @@ import UploadFile from '../../UploadFile';
 import LanguagePickerDialog from '../../layout/LanguagePickerDialog';
 import { formatDate } from './reportDesignerHelpers';
 import LimitedTextFieldWithCounter from '../../layout/LimitedTextFieldWithCounter';
+import { safelyParseJSON } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,6 +56,7 @@ const ReportDesignerForm = (props) => {
   const { media, team } = props;
   const data = props.data || { use_text_message: true, text: '' };
   const currentLanguage = data.language;
+  const languages = safelyParseJSON(team.get_languages) || [];
 
   const handleImageChange = (image) => {
     props.onUpdate('image', image);
@@ -90,13 +92,15 @@ const ReportDesignerForm = (props) => {
     <Box className={classes.root}>
       { props.disabled ? <Box className={classes.mask} /> : null }
       <Box>
-        <Box mb={4}>
-          <LanguagePickerDialog
-            selectedlanguage={currentLanguage}
-            onSubmit={handleLanguageSubmit}
-            team={team}
-          />
-        </Box>
+        { languages.length > 1 ?
+          <Box mb={3} >
+            <LanguagePickerDialog
+              selectedlanguage={currentLanguage}
+              onSubmit={handleLanguageSubmit}
+              team={team}
+            />
+          </Box> : null
+        }
         <ReportDesignerFormSection
           enabled={Boolean(data.use_introduction)}
           onToggle={(enabled) => { props.onUpdate('use_introduction', enabled); }}
