@@ -73,7 +73,7 @@ const ReportDesignerTopBar = (props) => {
       defaultMessage="You must have at least Report Text or Visual Card selected in order to publish the report."
     />
   );
-  const defaultReport = data.options.find(r => r.language === defaultLanguage);
+  const defaultReport = data.options;
   // If text report and visual card are not set for the default language, can't publish (we need at least one of them)
   if (defaultReport && !defaultReport.use_visual_card && !defaultReport.use_text_message) {
     cantPublishReason = (
@@ -84,16 +84,18 @@ const ReportDesignerTopBar = (props) => {
       />
     );
   }
+  const hasLanguage = defaultReport.language?.length > 0;
   // We can publish if there is a default report with either visual card or text report
-  const hasValidTextReport = defaultReport && defaultReport.use_text_message && defaultReport.text?.length > 0 && defaultReport.title?.length > 0;
-  const hasValidVisualCard = defaultReport && defaultReport.use_visual_card && defaultReport.headline?.length > 0 && defaultReport.description?.length > 0;
+  const hasValidTextReport = defaultReport && hasLanguage && defaultReport.use_text_message && defaultReport.text?.length > 0 && defaultReport.title?.length > 0;
+  const hasValidVisualCard = defaultReport && hasLanguage && defaultReport.use_visual_card && defaultReport.headline?.length > 0 && defaultReport.description?.length > 0;
   if (hasValidTextReport || hasValidVisualCard) {
     cantPublishReason = null;
   } else {
     cantPublishReason = (
       <FormattedMessage
         id="reportDesignerToolbar.cantPublishText"
-        defaultMessage="You must add a title and a summary to the fact-check in order to publish the report."
+        defaultMessage="You must add a title, a summary and a language to the fact-check in order to publish the report."
+        description="Text with a reason why user can not publish a report"
       />
     );
   }

@@ -9,7 +9,8 @@
   },
   {
     "id": "reportDesignerToolbar.cantPublishText",
-    "defaultMessage": "You must add a title and a summary to the fact-check in order to publish the report."
+    "description": "Text with a reason why user can not publish a report",
+    "defaultMessage": "You must add a title, a summary and a language to the fact-check in order to publish the report."
   },
   {
     "id": "reportDesignerToolbar.cantPublishStatus",
