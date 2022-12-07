@@ -17,7 +17,7 @@ import {
   defaultOptions,
   propsToData,
 } from './reportDesignerHelpers';
-import { getStatus, getStatusStyle } from '../../../helpers';
+import { getStatus, getStatusStyle, safelyParseJSON } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
 import { checkBlue, backgroundMain } from '../../../styles/js/shared';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
@@ -52,7 +52,9 @@ const ReportDesignerComponent = (props) => {
   const { media, media: { team } } = props;
 
   const savedReportData = props.media?.dynamic_annotation_report_design || { data: { options: { } } };
-  const currentLanguage = savedReportData.data.options.language || team.get_language || 'en';
+  const languages = safelyParseJSON(team.get_languages) || ['en'];
+  const defaultReportLanguage = languages && languages.length === 1 ? languages[0] : null;
+  const currentLanguage = savedReportData.data.options.language || defaultReportLanguage;
   const [data, setData] = React.useState(propsToData(props, currentLanguage));
   const [pending, setPending] = React.useState(false);
 
@@ -110,6 +112,11 @@ const ReportDesignerComponent = (props) => {
         fields.first_published = parseInt(new Date().getTime() / 1000, 10).toString();
       }
       fields.options.previous_published_status_label = fields.options.status_label;
+    }
+
+    // Set language `und` for workspaces that has more than one language
+    if (!fields.options.language) {
+      fields.options.language = 'und';
     }
 
     let images = [];

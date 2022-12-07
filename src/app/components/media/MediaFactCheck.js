@@ -9,7 +9,7 @@ import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TimeBefore from '../TimeBefore';
-import LanguagePickerDialog from '../layout/LanguagePickerDialog';
+import LanguagePickerSelect from '../layout/LanguagePickerSelect';
 import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
 import { can } from '../Can';
 import MediaFactCheckField from './MediaFactCheckField';
@@ -67,7 +67,7 @@ const MediaFactCheck = ({ projectMedia }) => {
     };
     values[field] = value;
     if (hasPermission) {
-      if (factCheck) {
+      if (factCheck && values.language && values.language !== 'und') {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
@@ -106,7 +106,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             setError(true);
           },
         });
-      } else if (values.title && values.summary) {
+      } else if (values.title && values.summary && values.language && values.language !== 'und') {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
@@ -142,7 +142,6 @@ const MediaFactCheck = ({ projectMedia }) => {
               setError(true);
             } else {
               setError(false);
-              setLanguage(response.createFactCheck.claim_description.fact_check.language);
             }
           },
           onError: () => {
@@ -176,7 +175,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           { error ?
             <FormattedMessage
               id="mediaFactCheck.error"
-              defaultMessage="Title and description have to be filled"
+              defaultMessage="Title, description and language have to be filled"
               description="Caption that informs that a fact-check could not be saved and that the fields have to be filled"
             /> : null }
           { saving && !error ?
@@ -252,7 +251,7 @@ const MediaFactCheck = ({ projectMedia }) => {
 
       { languages.length > 1 ?
         <Box my={2} >
-          <LanguagePickerDialog
+          <LanguagePickerSelect
             isDisabled={(!hasPermission || isDisabled)}
             selectedlanguage={language}
             onSubmit={handleLanguageSubmit}

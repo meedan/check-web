@@ -10,16 +10,16 @@ import LanguageRegistry, { languageLabel } from '../../LanguageRegistry';
 
 const messages = defineMessages({
   optionLabel: {
-    id: 'languagePickerDialog.optionLabel',
+    id: 'LanguagePickerSelect.optionLabel',
     defaultMessage: '{languageName} ({languageCode})',
   },
   unknownLanguage: {
-    id: 'languagePickerDialog.unknownLanguage',
+    id: 'LanguagePickerSelect.unknownLanguage',
     defaultMessage: 'Unknown language',
   },
 });
 
-const LanguagePickerDialog = ({
+const LanguagePickerSelect = ({
   intl,
   isDisabled,
   selectedlanguage,
@@ -28,11 +28,12 @@ const LanguagePickerDialog = ({
 }) => {
   const [value, setValue] = React.useState(selectedlanguage);
   const languages = safelyParseJSON(team.get_languages) || [];
+  languages.unshift('und');
 
   // intl.formatMessage needed here because Autocomplete
   // performs toLowerCase on strings for comparison
   const getOptionLabel = (code) => {
-    if (code === 'disabled') return '──────────';
+    if (code === 'und') return intl.formatMessage(messages.unknownLanguage);
     return intl.formatMessage(messages.optionLabel, {
       languageName: (
         LanguageRegistry[code] ?
@@ -58,12 +59,12 @@ const LanguagePickerDialog = ({
         options={languages}
         openOnFocus
         getOptionLabel={getOptionLabel}
-        getOptionDisabled={option => option === 'disabled'}
+        getOptionDisabled={option => option === 'und'}
         getOptionSelected={(option, val) => val !== null && option.id === val.id}
         value={value}
         onChange={handleChange}
         renderInput={params => (
-          <FormattedMessage id="languagePickerDialog.selectLanguage" defaultMessage="Select language" description="Change language label" >
+          <FormattedMessage id="LanguagePickerSelect.selectLanguage" defaultMessage="Select language" description="Change language label" >
             { placeholder => (
               <TextField
                 {...params}
@@ -89,11 +90,11 @@ const LanguagePickerDialog = ({
   );
 };
 
-LanguagePickerDialog.defaultProps = {
+LanguagePickerSelect.defaultProps = {
   isDisabled: false,
 };
 
-LanguagePickerDialog.propTypes = {
+LanguagePickerSelect.propTypes = {
   intl: intlShape.isRequired,
   isDisabled: PropTypes.bool,
   selectedlanguage: PropTypes.string.isRequired,
@@ -104,4 +105,4 @@ LanguagePickerDialog.propTypes = {
   }).isRequired,
 };
 
-export default injectIntl(LanguagePickerDialog);
+export default injectIntl(LanguagePickerSelect);
