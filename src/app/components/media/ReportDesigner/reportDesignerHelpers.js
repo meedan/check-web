@@ -10,7 +10,7 @@ export function defaultOptions(media, language) {
   );
   const default_reports = team.get_report || {};
   const default_report = default_reports[language] || {};
-  const isDefaultLanguage = (language === team.get_language);
+  const isDefaultLanguage = (language === team.get_language || !language);
   const options = {
     language,
     use_introduction: isDefaultLanguage ? !!default_report.use_introduction : false,
