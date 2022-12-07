@@ -54,21 +54,18 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.Demand" defaultMessage="Requests" />,
     onlyIfSmoochBotEnabled: true,
     cellComponent: DemandCell,
-    align: 'center',
     sortKey: 'demand',
   },
   {
     field: 'share_count',
     headerText: <FormattedMessage id="list.ShareCount" defaultMessage="FB Shares" />,
     cellComponent: ShareCountCell,
-    align: 'center',
     sortKey: 'share_count',
   },
   {
     field: 'linked_items_count',
     headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Matched media" />,
     cellComponent: LinkedItemsCountCell,
-    align: 'center',
     sortKey: 'related',
   },
   {
@@ -132,21 +129,18 @@ const AllPossibleColumns = [
     field: 'reaction_count',
     headerText: <FormattedMessage id="list.reactCount" defaultMessage="FB Reactions" />,
     cellComponent: ReactionCountCell,
-    align: 'center',
     sortKey: 'reaction_count',
   },
   {
     field: 'comment_count',
     headerText: <FormattedMessage id="list.commentCount" defaultMessage="FB Comments" />,
     cellComponent: CommentCountCell,
-    align: 'center',
     sortKey: 'comment_count',
   },
   {
     field: 'suggestions_count',
     headerText: <FormattedMessage id="list.suggestionsCount" defaultMessage="Suggested media" />,
     cellComponent: SuggestionsCountCell,
-    align: 'center',
     sortKey: 'suggestions_count',
   },
   {
@@ -175,14 +169,12 @@ const AllPossibleColumns = [
     field: 'cluster_requests',
     headerText: <FormattedMessage id="list.clusterRequests" defaultMessage="Requests" description="Table header for column that shows number of requests in a cluster" />,
     cellComponent: ClusterRequestsCell,
-    align: 'center',
     sortKey: 'cluster_requests_count',
   },
   {
     field: 'cluster_size',
     headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Matched media" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
     cellComponent: ClusterSizeCell,
-    align: 'center',
     sortKey: 'cluster_size',
   },
   {
@@ -244,7 +236,7 @@ function buildColumnDefs(team, resultType) {
           cellComponent: MetadataCell,
           sortKey: listColumn.key,
           type: listColumn.type,
-          align: listColumn.type === 'url' ? 'center' : 'inherit',
+          align: 'inherit',
         };
       }
       if (column) {
