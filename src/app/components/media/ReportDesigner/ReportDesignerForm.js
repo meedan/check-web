@@ -93,7 +93,7 @@ const ReportDesignerForm = (props) => {
       { props.disabled ? <Box className={classes.mask} /> : null }
       <Box>
         { languages.length > 1 ?
-          <Box mb={3} >
+          <Box my={3} >
             <LanguagePickerSelect
               selectedlanguage={currentLanguage}
               onSubmit={handleLanguageSubmit}
