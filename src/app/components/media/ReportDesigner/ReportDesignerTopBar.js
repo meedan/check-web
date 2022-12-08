@@ -110,7 +110,7 @@ const ReportDesignerTopBar = (props) => {
     );
   }
   // We Can't publish if using a visual card and there's a content warning and no alternative image is set
-  if (media.show_warning_cover && data.options.some(r => (media.media.picture === r.image) && r.use_visual_card)) {
+  if (media.show_warning_cover && defaultReport.image === media.media.picture && defaultReport.use_visual_card) {
     cantPublishReason = (
       <FormattedMessage
         id="reportDesignerToolbar.cantPublishContentFlag"
@@ -120,9 +120,9 @@ const ReportDesignerTopBar = (props) => {
   }
 
   const readOnly = props.readOnly || statusChanging;
-  const statusChanged = !!(data.last_published && data.options && data.options.length &&
-    data.options[0].previous_published_status_label &&
-    data.options[0].status_label !== data.options[0].previous_published_status_label);
+  const statusChanged = !!(data.last_published && defaultReport &&
+    defaultReport.previous_published_status_label &&
+    defaultReport.status_label !== defaultReport.previous_published_status_label);
   let firstSent = data.first_published;
   if (!firstSent && data.last_published && data.published_count > 0) {
     firstSent = data.last_published;
