@@ -471,6 +471,22 @@ const SimilarityComponent = ({
                     fullWidth
                   />
                 </Box>
+                <Box mb={4}>
+                  <TextField
+                    label={
+                      <FormattedMessage
+                        id="similarityComponent.minEsScore"
+                        defaultMessage="Minimum score for ElasticSearch"
+                      />
+                    }
+                    variant="outlined"
+                    size="small"
+                    type="number"
+                    value={settings.min_es_score}
+                    onChange={(e) => { handleSettingsChange('min_es_score', parseInt(e.target.value, 10)); }}
+                    fullWidth
+                  />
+                </Box>
               </CardContent>
             </Card>
           </React.Fragment>

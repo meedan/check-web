@@ -50,5 +50,9 @@
   {
     "id": "similarityComponent.languageForSimilarity",
     "defaultMessage": "Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
+  },
+  {
+    "id": "similarityComponent.minEsScore",
+    "defaultMessage": "Minimum score for ElasticSearch"
   }
 ]
