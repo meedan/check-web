@@ -28,6 +28,8 @@ export const alertMainCDS = '#E78A00';
 export const brandBackgroundCDS = '#F1F5F6';
 export const grayBorderCDS = '#CDD0D1';
 export const otherErrorMainCDS = '#F44336';
+export const validationLightCDS = '#F0FFF1';
+export const validationSecondaryCDS = '#237C27';
 
 // Material blacks
 // TODO make these opaque!

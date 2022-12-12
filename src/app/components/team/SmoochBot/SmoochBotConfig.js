@@ -33,6 +33,8 @@ const useStyles = makeStyles(theme => ({
   box: {
     padding: theme.spacing(2),
     paddingTop: theme.spacing(1),
+    overflow: 'auto',
+    maxHeight: 'calc(100vh - 310px)',
   },
   resource: {
     color: checkBlue,

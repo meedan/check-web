@@ -20,8 +20,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { getTimeZones } from '@vvo/tzdb';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import { placeholders } from './localizables';
-import { inProgressYellow, completedGreen, opaqueBlack38, opaqueBlack23 } from '../../../styles/js/shared';
+import { opaqueBlack38, opaqueBlack23 } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
+import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
+import SuccessAlert from '../../cds/alerts-and-prompts/SuccessAlert';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -66,14 +68,6 @@ const useStyles = makeStyles(theme => ({
   },
   schedule: {
     gap: '8px',
-  },
-  active: {
-    background: completedGreen,
-    color: 'white',
-  },
-  paused: {
-    background: inProgressYellow,
-    color: 'white',
   },
   none: {
     background: '#F6F6F6',
@@ -216,21 +210,30 @@ const SmoochBotNewsletterEditor = ({
     <React.Fragment>
       <Box>
         { newsletterInformation ?
-          <Box p={1} mt={1} mb={2} className={newsletterInformation.paused ? classes.paused : classes.active}>
+          <Box mb={1}>
             <Typography component="div" variant="body2">
               { newsletterInformation.paused ?
-                <FormattedMessage
-                  id="smoochBotNewsletterEditor.paused"
-                  defaultMessage="To send your next newsletter, please add new content"
+                <WarningAlert
+                  title={
+                    <FormattedMessage
+                      id="smoochBotNewsletterEditor.paused"
+                      defaultMessage="To send your next newsletter, please add new content"
+                    />
+                  }
                 /> :
-                <FormattedMessage
-                  id="smoochBotNewsletterEditor.active"
-                  defaultMessage="The newsletter will be sent to {count} users on {dateTime}"
-                  values={{
-                    count: newsletterInformation.subscribers_count,
-                    dateTime: newsletterInformation.next_date_and_time,
-                  }}
-                /> }
+                <SuccessAlert
+                  title={
+                    <FormattedMessage
+                      id="smoochBotNewsletterEditor.active"
+                      defaultMessage="The newsletter will be sent to {count} users on {dateTime}"
+                      values={{
+                        count: newsletterInformation.subscribers_count,
+                        dateTime: newsletterInformation.next_date_and_time,
+                      }}
+                    />
+                  }
+                />
+              }
             </Typography>
           </Box> :
           <Box p={1} mt={1} mb={2} className={classes.none}>
