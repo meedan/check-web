@@ -11,7 +11,6 @@ const labels = {
   smooch_message_smooch_bot_message_confirmed: <FormattedMessage id="smoochBot.labelQueryReceived" defaultMessage="Query received" />,
   smooch_state_subscription: <FormattedMessage id="smoochBot.labelSubscription" defaultMessage="Subscription opt-in" />,
   smooch_newsletter: <FormattedMessage id="smoochBot.labelNewsletter" defaultMessage="Newsletter" />,
-  smooch_message_smooch_bot_no_action: <FormattedMessage id="smoochBot.labelNoAction" defaultMessage="No action from user" />,
   smooch_message_smooch_bot_option_not_available: <FormattedMessage id="smoochBot.labelOptionNotAvailable" defaultMessage="Option not available" />,
   smooch_message_smooch_bot_result_changed: <FormattedMessage id="smoochBot.labelReportUpdated" defaultMessage="Report updated" />,
   smooch_message_smooch_bot_message_type_unsupported: <FormattedMessage id="smoochBot.labelInvalidFormat" defaultMessage="Invalid format" />,
@@ -20,10 +19,9 @@ const labels = {
 };
 
 const labelsV2 = {
-  smooch_content: <FormattedMessage id="smoochBot.labelContent" defaultMessage="Content and translation" description="Button label in tipline settings page" />,
+  smooch_content: <FormattedMessage id="smoochBot.labelContent" defaultMessage="Content & translation" description="Button label in tipline settings page" />,
   smooch_main_menu: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main menu" />,
-  smooch_newsletter: <FormattedMessage id="smoochBot.labelNewsletterV2" defaultMessage="Newsletter content" />,
-  smooch_message_smooch_bot_no_action: <FormattedMessage id="smoochBot.labelNoAction" defaultMessage="No action from user" />,
+  smooch_newsletter: <FormattedMessage id="smoochBot.labelNewsletterV2" defaultMessage="Newsletter" />,
 };
 
 const descriptions = {
@@ -42,7 +40,6 @@ const descriptions = {
       <FormattedMessage id="smoochBot.descriptionNewsletter3" defaultMessage="2. Select a day and time of the week" />
     </React.Fragment>
   ),
-  smooch_message_smooch_bot_no_action: <FormattedMessage id="smoochBot.descriptionNoAction" defaultMessage="This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt." />,
   smooch_message_smooch_bot_option_not_available: <FormattedMessage id="smoochBot.descriptionOptionNotAvailable" defaultMessage="The message sent if the user response to a menu is not a valid menu scenario." />,
   smooch_message_smooch_bot_result_changed: <FormattedMessage id="smoochBot.descriptionReportUpdated" defaultMessage="The message sent to the user when status of a report has changed. The report must be completed for this message to be sent." />,
   smooch_message_smooch_bot_message_type_unsupported: <FormattedMessage id="smoochBot.descriptionInvalidFormat" defaultMessage="An automatic message sent to the user when they have sent a file that is not supported by Check." />,
