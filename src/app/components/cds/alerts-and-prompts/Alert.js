@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     fontWeight: 600,
     fontSize: 14,
+    lineHeight: `${theme.spacing(3)}px`,
   },
   content: {
     fontWeight: 400,

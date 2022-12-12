@@ -1,18 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { FormattedMessage } from 'react-intl';
 import TiplineContentTranslation from '../../cds/settings-pages/TiplineContentTranslation';
 import UploadFile from '../../UploadFile';
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    overflow: 'auto',
-    paddingRight: theme.spacing(2),
-    maxHeight: 'calc(100vh - 310px)',
-  },
-}));
 
 const SmoochBotContentAndTranslation = ({
   value,
@@ -20,8 +11,6 @@ const SmoochBotContentAndTranslation = ({
   onChangeStateMessage,
   onChangeImage,
 }) => {
-  const classes = useStyles();
-
   let greetingImage = value.smooch_greeting_image;
   if (typeof greetingImage === 'string') {
     if (greetingImage === '' || greetingImage === 'none') {
@@ -114,7 +103,7 @@ const SmoochBotContentAndTranslation = ({
   ];
 
   return (
-    <Box className={classes.container}>
+    <Box>
       { strings.map(string => (
         <Box mb={4} key={string.key}>
           <TiplineContentTranslation
