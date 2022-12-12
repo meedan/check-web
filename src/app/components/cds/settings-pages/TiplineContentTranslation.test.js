@@ -9,7 +9,7 @@ describe('<TiplineContentTranslation />', () => {
       title={<span>Foo</span>}
       description={<span>Bar</span>}
       defaultValue="Test"
-      onUpdate={(newValue) => {}}
+      onUpdate={() => {}}
     />);
     expect(wrapper.find('textarea').hostNodes()).toHaveLength(2);
   });
