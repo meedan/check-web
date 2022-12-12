@@ -28,7 +28,7 @@
   {
     "id": "smoochBotComponent.missingInformationBody",
     "description": "Content of dialog that opens when there is a validation error on tipline settings",
-    "defaultMessage": "The step '11. Newsletter opt-in and opt-out' is missing a placeholder."
+    "defaultMessage": "The message 'Newsletter opt-in and opt-out' is missing a placeholder."
   },
   {
     "id": "smoochBotComponent.back",
