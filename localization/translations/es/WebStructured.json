@@ -97,6 +97,16 @@
 	"ItemHistoryDialog.title": {
 		"string": "Historial del Ítem"
 	},
+	"LanguagePickerSelect.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"LanguagePickerSelect.selectLanguage": {
+		"string": "Selecciona el idioma ",
+		"developer_comment": "Change language label"
+	},
+	"LanguagePickerSelect.unknownLanguage": {
+		"string": "Idioma desconocido"
+	},
 	"MultiSelector.all": {
 		"string": "Buscar Todo"
 	},
@@ -126,6 +136,10 @@
 	"SearchFieldTag.label": {
 		"string": "Etiqueta es",
 		"developer_comment": "Prefix label for field to filter by tags"
+	},
+	"SearchKeywordMenu.advanced": {
+		"string": "Advanced",
+		"developer_comment": "Button for advanced search"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Esta cuenta ya ha sido confirmada",
@@ -247,7 +261,7 @@
 		"developer_comment": "Menu option to enable searching items by author"
 	},
 	"addFilterMenu.feedFactCheckedBy": {
-		"string": "Fact-checked by",
+		"string": "Verificado por",
 		"developer_comment": "Menu option to enable searching feed items by whether they were fact-checked"
 	},
 	"addFilterMenu.filterBy": {
@@ -307,23 +321,24 @@
 		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
 	},
 	"addFilterMenu.tiplineRequests": {
-		"string": "Number of requests",
+		"string": "Número de solicitudes",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
-		"string": "Añadir idioma"
+		"string": "Añadir idioma",
+		"developer_comment": "Label to submit button of language picker dialog"
 	},
 	"addLanguageAction.newLanguage": {
-		"string": "Nuevo idioma"
-	},
-	"addLanguageAction.optionLabel": {
-		"string": "{languageName} ({languageCode})"
+		"string": "Nuevo idioma",
+		"developer_comment": "Label for button that adds a new language to list of supported languages"
 	},
 	"addLanguageAction.selectLanguage": {
-		"string": "Selecciona un idioma"
+		"string": "Selecciona un idioma",
+		"developer_comment": "Label to language selection dropdown"
 	},
 	"addLanguageAction.title": {
-		"string": "Elegir un nuevo idioma"
+		"string": "Elegir un nuevo idioma",
+		"developer_comment": "Title of language picker dialog"
 	},
 	"annotation.addLanguage": {
 		"string": "Idioma {value} añadido por {author}",
@@ -712,6 +727,22 @@
 	"bulkActionsTag.success": {
 		"string": "Ítems etiquetados con éxito",
 		"developer_comment": "Success message for bulk tagging actions"
+	},
+	"cds.mediaAndRequestsDialog.matchedMedia": {
+		"string": "Medios coincidentes",
+		"developer_comment": "Plural. Heading for the number of matched media"
+	},
+	"cds.mediaAndRequestsDialog.openMedia": {
+		"string": "Open media",
+		"developer_comment": "Singular. Label for a button that opens the media item the user is currently viewing."
+	},
+	"cds.mediaAndRequestsDialog.pinAsMain": {
+		"string": "Fijar como principal",
+		"developer_comment": "Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places)."
+	},
+	"cds.mediaAndRequestsDialog.unmatch": {
+		"string": "Un-match",
+		"developer_comment": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "Cancelar",
@@ -1103,23 +1134,23 @@
 		"developer_comment": "Tooltip for button to remove any applied filters"
 	},
 	"feedFilters.defaultErrorMessage": {
-		"string": "No se pudieron guardar los filtros, por favor vuelve a intentar",
+		"string": "No se pudieron guardar los filtros, por favor intenta nuevamente",
 		"developer_comment": "Error message displayed when it's not possible to save feed requests filters"
 	},
 	"feedFilters.factCheckByAny": {
-		"string": "Any organization",
+		"string": "Cualquier organización",
 		"developer_comment": "Filter option for feed filter 'Fact-checked by'"
 	},
 	"feedFilters.factCheckByNone": {
-		"string": "No organization",
+		"string": "Sin organización",
 		"developer_comment": "Filter option for feed filter 'Fact-checked by'"
 	},
 	"feedFilters.factCheckedBy": {
-		"string": "Fact-checked by",
+		"string": "Verificado por",
 		"developer_comment": "Field label for feed filter"
 	},
 	"feedFilters.saveFilters": {
-		"string": "Save filters",
+		"string": "Guardar filtros",
 		"developer_comment": "'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
 	},
 	"feedFilters.savedSuccessfully": {
@@ -1236,7 +1267,7 @@
 		"string": "Etiquetas"
 	},
 	"feedRequestedMedia.factChecksSentForAllMedias": {
-		"string": "{factChecksCount, plural, one {# fact-check sent} other {# fact-checks sent}}",
+		"string": "{factChecksCount, plural, one {# verificación enviada} many {# verificaciones enviadas} other {# verificaciones enviadas}}",
 		"developer_comment": "Part of the header of requests list. Example: 12 fact-checks sent"
 	},
 	"feedRequestedMedia.import": {
@@ -1276,7 +1307,7 @@
 		"developer_comment": "Header label for fact-check by column"
 	},
 	"feedRequestsTable.factChecksSent": {
-		"string": "Fact-checks sent",
+		"string": "Verificaciones enviadas",
 		"developer_comment": "Header label for fact-checks sent column"
 	},
 	"feedRequestsTable.lastSubmitted": {
@@ -1558,18 +1589,6 @@
 	},
 	"languageListItem.deleteConfirmationText": {
 		"string": "Eliminar {language} y todo el contenido"
-	},
-	"languagePickerDialog.optionLabel": {
-		"string": "{languageName} ({languageCode})"
-	},
-	"languagePickerDialog.selectLanguage": {
-		"string": "Selecciona un idioma"
-	},
-	"languagePickerDialog.title": {
-		"string": "Selecciona un idioma"
-	},
-	"languagePickerDialog.unknownLanguage": {
-		"string": "Idioma desconocido"
 	},
 	"languageSwitcher.makeDefault": {
 		"string": "Establecer como idioma predeterminado para este ítem"
@@ -1927,6 +1946,10 @@
 		"string": "Fuente",
 		"developer_comment": "Label for the Source tab, as in source of the information"
 	},
+	"mediaComponent.suggestedMedia": {
+		"string": "Medios sugeridos",
+		"developer_comment": "Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
+	},
 	"mediaComponent.timelineTab": {
 		"string": "Cronología"
 	},
@@ -2014,6 +2037,10 @@
 		"string": "Se debe completar el título y la descripción",
 		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
 	},
+	"mediaFactCheck.errorWithLanguage": {
+		"string": "Title, description and language have to be filled",
+		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
+	},
 	"mediaFactCheck.factCheck": {
 		"string": "Verificación de hechos",
 		"developer_comment": "Title of the media fact-check section."
@@ -2050,7 +2077,7 @@
 	},
 	"mediaItem.detach": {
 		"string": "Desvincular medios",
-		"developer_comment": "Menu option for removing the similarity relationship between the current media item and the main one"
+		"developer_comment": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
 	},
 	"mediaItem.detachedSuccessfully": {
 		"string": "Ítem separado a '{toProject}'",
@@ -2058,7 +2085,11 @@
 	},
 	"mediaItem.doneRedirecting": {
 		"string": "Hecho, redireccionando a nuevo ítem principal...",
-		"developer_comment": "Message displayed when the action of pinning an item is completed by the server"
+		"developer_comment": "A message that informs the user a 'pin' action is finished and a redirect is about to happen"
+	},
+	"mediaItem.error": {
+		"string": "Error, por favor intenta otra vez",
+		"developer_comment": "A generic error message"
 	},
 	"mediaItem.lastSubmitted": {
 		"string": "Último envío {timeAgo}",
@@ -2133,6 +2164,10 @@
 	"mediaRelatedComponent.submitButton": {
 		"string": "{count, plural, one {Añadir relación para un ítem} many {Añadir relación para # ítems} other {Añadir relación para # ítems}}"
 	},
+	"mediaRelationship.openMedia": {
+		"string": "Open media",
+		"developer_comment": "Singular 'media'. Label for a button that opens the media item the user is currently viewing."
+	},
 	"mediaRequests.allRequests": {
 		"string": "{count, plural, one {# solicitud en todos los medios} many {# solicitudes en todos los medios} other {# solicitudes en todos los medios}}"
 	},
@@ -2161,12 +2196,16 @@
 		"string": "Medios coincidentes",
 		"developer_comment": "Heading for a list of matched medias"
 	},
+	"mediaSimilarities.noMedia": {
+		"string": "0 matched media",
+		"developer_comment": "A message that shows when the matched media list is empty."
+	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Exportar todos los medios",
 		"developer_comment": "Button label to commit action of exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Manage media",
+		"string": "Administrar medios",
 		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
@@ -2190,7 +2229,7 @@
 		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "Añadir a verificación datos importada",
+		"string": "Add media to an imported fact-check",
 		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
@@ -2221,7 +2260,7 @@
 		"string": "Lo sentimos, se produjo un error al actualizar el estado. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
 	},
 	"mediaSuggestionReview.matchDescription": {
-		"string": "Este medio ha sido asociado con la afirmación y verificación de datos a continuación.",
+		"string": "This media has been matched to the claim and fact-check below.",
 		"developer_comment": "Hint text to tell the user what the 'Open claim' button does."
 	},
 	"mediaSuggestionReview.matchTitle": {
@@ -2240,17 +2279,16 @@
 		"string": "Afirmación y Verificación de datos sugerida",
 		"developer_comment": "Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
 	},
-	"mediaSuggestionsComponent.back": {
-		"string": "Volver"
+	"mediaSuggestions.lastSubmitted": {
+		"string": "Último envío {date}",
+		"developer_comment": "Shows the last time a media was submitted (on feed request media card)"
+	},
+	"mediaSuggestions.requestsCount": {
+		"string": "{requestsCount, plural, one {# request} other {# requests}}",
+		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
 	"mediaSuggestionsComponent.dialogRejectTitle": {
 		"string": "Elije una carpeta de destino para este ítem"
-	},
-	"mediaSuggestionsComponent.goBack": {
-		"string": "Volver a vista principal"
-	},
-	"mediaSuggestionsComponent.mediasCount": {
-		"string": "{number, plural, one {# medio} many {# medios} other {# medios}}"
 	},
 	"mediaSuggestionsComponent.moveItem": {
 		"string": "Mover ítem"
@@ -2261,15 +2299,9 @@
 	"mediaSuggestionsComponent.movedToTrash": {
 		"string": "El ítem se movió a {trash}"
 	},
-	"mediaSuggestionsComponent.noSuggestions": {
-		"string": "No hay medios sugeridos."
-	},
 	"mediaSuggestionsComponent.question": {
-		"string": "¿Es este medio una buena combinación para la afirmación y medios en la izquierda?",
+		"string": "Are the medias below a good match for the claim and medias on the left?",
 		"developer_comment": "Subtitle for similarity matching widget"
-	},
-	"mediaSuggestionsComponent.requestsCount": {
-		"string": "{number} solicitudes de tipline en todos los medios"
 	},
 	"mediaSuggestionsComponent.sendItemsToSpam": {
 		"string": "Marcar como Spam"
@@ -2278,7 +2310,10 @@
 		"string": "Enviar a la papelera"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{current}de # medio sugerido} many {{current}de # medios sugeridos} other {{current}de # medios sugeridos}}"
+		"string": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+	},
+	"mediaSuggestionsMenu.tooltip": {
+		"string": "Acciones de los ítems"
 	},
 	"metadata.cancel": {
 		"string": "Cancelar",
@@ -2425,7 +2460,7 @@
 		"developer_comment": "Filter option that refers to number of suggested medias"
 	},
 	"numericRangeFilter.tiplineRequests": {
-		"string": "Number of requests is between",
+		"string": "Número de solicitudes entre",
 		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {
@@ -2558,7 +2593,8 @@
 		"string": "+{count} más"
 	},
 	"projectBlankState.blank": {
-		"string": "No hay ítems aquí. "
+		"string": "No hay ítems aquí. ",
+		"developer_comment": "Message displayed when there are no items"
 	},
 	"projectGroup.deleteMessage": {
 		"string": "Si eliminas esta colección, todas las carpetas seguirán estando accesibles fuera de la colección.",
@@ -2567,6 +2603,9 @@
 	"projectGroup.name": {
 		"string": "colección",
 		"developer_comment": "A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case."
+	},
+	"projectHeader.Spam": {
+		"string": "Spam"
 	},
 	"projectHeader.allItems": {
 		"string": "Todos los ítems"
@@ -2938,7 +2977,8 @@
 		"string": "Tu ítem aún tiene el estado por defecto {status} y debe ser cambiado a un estado diferente antes de poder ser publicado."
 	},
 	"reportDesignerToolbar.cantPublishText": {
-		"string": "Debes añadir un título y un resumen a la verificación de datos para publicar el informe."
+		"string": "You must add a title, a summary and a language to the fact-check in order to publish the report.",
+		"developer_comment": "Text with a reason why user can not publish a report"
 	},
 	"reportStatusCell.paused": {
 		"string": "Pausado"
@@ -3116,10 +3156,6 @@
 	"savedSearch.name": {
 		"string": "lista"
 	},
-	"search": {
-		"string": "Buscar ",
-		"developer_comment": "This is a label on a button that the user presses in order to execute a search query."
-	},
 	"search.afterDate": {
 		"string": "después ",
 		"developer_comment": "String displayed before a date picker"
@@ -3155,10 +3191,6 @@
 		"string": "y",
 		"developer_comment": "String displayed between after and before date pickers"
 	},
-	"search.cancel": {
-		"string": "Cancelar",
-		"developer_comment": "A label on a button that lets a user cancel typing search text, deleting the text in the process."
-	},
 	"search.categoriesHeading": {
 		"string": "Etiqueta es",
 		"developer_comment": "Prefix label for field to filter by tags"
@@ -3166,6 +3198,10 @@
 	"search.claim": {
 		"string": "Campo de afirmación es",
 		"developer_comment": "Prefix label for field to filter by claim"
+	},
+	"search.clear": {
+		"string": "Clear",
+		"developer_comment": "A label on a button that lets a user clear typing search text, deleting the text in the process."
 	},
 	"search.clusterTeams": {
 		"string": "Organización es",
@@ -3190,14 +3226,14 @@
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'."
 	},
 	"search.dateRequestHeading": {
-		"string": "Request submitted"
+		"string": "Solicitud enviada"
 	},
 	"search.dateStartEnd": {
 		"string": "entre",
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'."
 	},
 	"search.dateSubmittedHeading": {
-		"string": "Medios enviados"
+		"string": "Solicitud enviada"
 	},
 	"search.dateUpdatedHeading": {
 		"string": "Ítem actualizado"
@@ -3262,8 +3298,8 @@
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "O",
-		"developer_comment": "This is a label that appears between two mutually exclusive search options, indicating that you may select one option 'OR' the other."
+		"string": "o",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
 		"string": "Página anterior"
@@ -3307,10 +3343,6 @@
 	"search.reportStatusUnpublished": {
 		"string": "Sin publicar",
 		"developer_comment": "Refers to a report status"
-	},
-	"search.setText": {
-		"string": "Establecer texto",
-		"developer_comment": "A label on a button that lets a user set the text on an associated popup to the original input field."
 	},
 	"search.show": {
 		"string": "Tipo es",
@@ -3391,10 +3423,6 @@
 	"searchFields.clear": {
 		"string": "Limpiar filtros",
 		"developer_comment": "Tooltip for button to remove any applied filters"
-	},
-	"searchKeyword.clear": {
-		"string": "Limpiar búsqueda de palabras clave",
-		"developer_comment": "Tooltip for button to remove any applied keyword search"
 	},
 	"searchKeywordConfig.accounts": {
 		"string": "Fuente"
@@ -3543,6 +3571,9 @@
 	"similarityComponent.maximumDuration": {
 		"string": "Duración máxima en segundos"
 	},
+	"similarityComponent.minEsScore": {
+		"string": "Minimum score for ElasticSearch"
+	},
 	"similarityComponent.minimumDuration": {
 		"string": "Duración mínima en segundos"
 	},
@@ -3673,9 +3704,6 @@
 	"smoochBot.descriptionNewsletter3": {
 		"string": "2. Selecciona una hora y día de la semana"
 	},
-	"smoochBot.descriptionNoAction": {
-		"string": "Este mensaje se enviará a las(os) usuarias(os) si, después de iniciar una conversación, no seleccionan ninguna de las opciones: recibir un recurso o enviar contenido para verificar. Este mensaje también se enviará a las(os) usuarias(os) que enviaron contenido sin esperar el mensaje de consulta."
-	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "El mensaje enviado si la respuesta del usuario a un menú no es un escenario de menú válido."
 	},
@@ -3714,7 +3742,7 @@
 		"string": "La Declaración de Privacidad predeterminada se puede reemplazar por una personalizada bajo la opción 'Declaración de Privacidad' en esta página. "
 	},
 	"smoochBot.labelContent": {
-		"string": "Contenido y traducción",
+		"string": "Content & translation",
 		"developer_comment": "Button label in tipline settings page"
 	},
 	"smoochBot.labelGreeting": {
@@ -3733,10 +3761,7 @@
 		"string": "Boletín"
 	},
 	"smoochBot.labelNewsletterV2": {
-		"string": "Contenido del boletín"
-	},
-	"smoochBot.labelNoAction": {
-		"string": "Ninguna acción de usuario(a)"
+		"string": "Boletín"
 	},
 	"smoochBot.labelOptionNotAvailable": {
 		"string": "Opción no disponible"
@@ -3821,7 +3846,7 @@
 		"string": "Instalar"
 	},
 	"smoochBotComponent.missingInformationBody": {
-		"string": "Al paso \"11. Suscripción y cancelación de suscripción al boletín\" le falta un marcador de posición.",
+		"string": "The message 'Newsletter opt-in and opt-out' is missing a placeholder.",
 		"developer_comment": "Content of dialog that opens when there is a validation error on tipline settings"
 	},
 	"smoochBotComponent.missingInformationTitle": {
@@ -3850,7 +3875,7 @@
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.addMoreInformationTitle": {
-		"string": "Enviar contenido",
+		"string": "Indicacíon de envío",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.error": {
@@ -3862,11 +3887,11 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.feedbackDescription": {
-		"string": "Cuando las verificaciones de hechos se devuelven a la/el usuaria(o), el bot realiza un seguimiento automático para preguntar si los resultados son satisfactorios.",
+		"string": "After fact-checks are returned to the user, the bot automatically follows up to ask if the results are satisfactory.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.feedbackTitle": {
-		"string": "Comentarios",
+		"string": "Feedback prompt",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.greetingsDefault": {
@@ -3934,11 +3959,11 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityDescription": {
-		"string": "Este mensaje se envía a cualquier usuaria(o) que haya enviado un mensaje a la Tipline cuando el Check Message bot está configurado como inactivo.",
+		"string": "If the tipline is set to inactive, this message is sent in response to any user message.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityTitle": {
-		"string": "Aviso de inactividad",
+		"string": "Inactive bot",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.optionNotAvailableDefault": {
@@ -3946,7 +3971,7 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.optionNotAvailableDescription": {
-		"string": "El mensaje enviado si la respuesta de usuaria(o) a un menú no es un escenario de menú válido.",
+		"string": "The message sent if the user response is not a valid option.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.optionNotAvailableTitle": {
@@ -3969,45 +3994,41 @@
 		"string": "Comentario positivo",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
-	"smoochBotContentAndTranslation.submissionCanceledDefault": {
-		"string": "¡OK! Tu envío está cancelado.",
-		"developer_comment": "Default value for a customizable string of the tipline bot."
-	},
-	"smoochBotContentAndTranslation.submissionCanceledDescription": {
-		"string": "Este mensaje se envía cuando usuaria(o) cancela el envío de contenido.",
-		"developer_comment": "Description of a customizable string of the tipline bot."
-	},
-	"smoochBotContentAndTranslation.submissionCanceledTitle": {
-		"string": "Envío cancelado",
-		"developer_comment": "Title of a customizable string of the tipline bot."
-	},
 	"smoochBotContentAndTranslation.submissionPromptDefault": {
 		"string": "Por favor ingresa la pregunta, enlace, imagen o video que deseas que sea verificado.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptDescription": {
-		"string": "El mensaje solicitando a usuaria(o) que envíe contenido para verificación de hechos.",
+		"string": "This message prompts the user to submit content for a fact-check.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptTitle": {
-		"string": "Indicacíon de envío",
+		"string": "Content prompt",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDefault": {
-		"string": "¡Gracias! Buscando verificaciones de hechos, puede tomar un minuto.",
+		"string": "No se han encontrado verificaciones de hechos. Periodistas de nuestro equipo han sido notificadas(os) y recibirás una actualización en este hilo si se verifica la información. ",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDescription": {
-		"string": "La confirmación enviada a la/el usuaria(o) después una consulta válida de la/el usuaria(o) ha sido recibida, mientras el bot está buscando contenido. ",
+		"string": "The confirmation sent to the user after the content is submitted.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedTitle": {
 		"string": "Envío recibido",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
-	"smoochBotContentAndTranslation.subtitle": {
-		"string": "Reemplaza o traduce el contenido predeterminado para cada mensaje de bot estándar.",
-		"developer_comment": "Subtitle displayed in tipline settings page for content and translation."
+	"smoochBotContentAndTranslation.timeoutDefault": {
+		"string": "Thank you for reaching out to us! Type any key to start a new conversation.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.timeoutDescription": {
+		"string": "After 15 minutes of activity, this message is sent to users to close the conversation.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.timeoutTitle": {
+		"string": "Conversation time out",
+		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "Cancelar"
@@ -4123,17 +4144,29 @@
 	"smoochBotIntegrations.viberPublicAccountToken": {
 		"string": "Token público de la cuenta de Viber"
 	},
+	"smoochBotMainMenu.alertTitle": {
+		"string": "There are {numberOfOptions} options including all languages. Detailed language options will be sent to users when they select the option 'Languages'.",
+		"developer_comment": "Title of an alert box displayed on tipline main menu settings page when there are more than 10 options."
+	},
+	"smoochBotMainMenu.languages": {
+		"string": "Idiomas",
+		"developer_comment": "Menu label used in the tipline bot when multiple languages are collapsed in a single menu option"
+	},
 	"smoochBotMainMenu.languagesAndPrivacy": {
 		"string": "Idiomas y Privacidad",
 		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
 	},
-	"smoochBotMainMenu.learnMore": {
-		"string": "Aprende más",
-		"developer_comment": "Link with help article about which menu features are supported by each platform in tipline settings page for the main menu."
-	},
 	"smoochBotMainMenu.mainMenu": {
 		"string": "Menú principal",
 		"developer_comment": "Title of the tipline bot main menu settings page."
+	},
+	"smoochBotMainMenu.numberOfLanguages": {
+		"string": "{numberOfLanguages} languages",
+		"developer_comment": "Menu description used in the tipline bot when multiple languages are collapsed in a single menu option (always plural)"
+	},
+	"smoochBotMainMenu.optionsCounter": {
+		"string": "{available}/{total} main menu options available",
+		"developer_comment": "Counter that is displayed on tipline settings page in order to inform the user how many options they can still add to the bot main menu."
 	},
 	"smoochBotMainMenu.privacy": {
 		"string": "Privacidad",
@@ -4143,12 +4176,8 @@
 		"string": "Declaración de privacidad",
 		"developer_comment": "Menu label used in the tipline bot"
 	},
-	"smoochBotMainMenu.subtitle": {
-		"string": "El menú de tu bot, pregunta a la/el usuaria(o) que elija entre un grupo de opciones.",
-		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
-	},
 	"smoochBotMainMenu.subtitle2": {
-		"string": "Por favor ten en cuenta que algunos servicios de mensajería pueden tener opciones de visualización del menú diferentes a las de otros. {linkToLearnMore}.",
+		"string": "Please note that some messaging services have different menu display options than others.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
@@ -4247,9 +4276,17 @@
 		"string": "Opciones de menú",
 		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
 	},
-	"smoochBotMainMenuSection.editOption": {
-		"string": "Editar",
-		"developer_comment": "Button label to edit a main menu option on tipline bot settings."
+	"smoochBotMainMenuSection.maxOptionsReachedDescription": {
+		"string": "The maximum number of options in the main menu is 10.",
+		"developer_comment": "Text of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
+	},
+	"smoochBotMainMenuSection.maxOptionsReachedLabel": {
+		"string": "Regresar",
+		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit the tipline bot menu options."
+	},
+	"smoochBotMainMenuSection.maxOptionsReachedTitle": {
+		"string": "Maximum menu options",
+		"developer_comment": "Title of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
 	},
 	"smoochBotMainMenuSection.newOption": {
 		"string": "Nueva opción",
@@ -5045,7 +5082,7 @@
 		"developer_comment": "Dialog title for saving columns change"
 	},
 	"teamListsComponent.createMetadata": {
-		"string": "Create new annotation field",
+		"string": "Crear nuevo campo de anotación",
 		"developer_comment": "Button label for create new annotation field"
 	},
 	"teamListsComponent.defaultErrorMessage": {
