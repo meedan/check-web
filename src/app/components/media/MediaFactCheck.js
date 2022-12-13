@@ -9,7 +9,8 @@ import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TimeBefore from '../TimeBefore';
-import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
+import LanguagePickerSelect from '../layout/LanguagePickerSelect';
+import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
 import { can } from '../Can';
 import MediaFactCheckField from './MediaFactCheckField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -24,10 +25,14 @@ const MediaFactCheck = ({ projectMedia }) => {
   const classes = useStyles();
   const claimDescription = projectMedia.suggested_main_item ? projectMedia.suggested_main_item.claim_description : projectMedia.claim_description;
   const factCheck = claimDescription ? claimDescription.fact_check : null;
+  const { team } = projectMedia;
+  const languages = safelyParseJSON(team.get_languages) || ['en'];
+  const defaultFactCheckLanguage = languages && languages.length === 1 ? languages[0] : null;
 
   const [title, setTitle] = React.useState((factCheck && factCheck.title) ? factCheck.title : '');
   const [summary, setSummary] = React.useState(factCheck ? factCheck.summary : '');
   const [url, setUrl] = React.useState((factCheck && factCheck.url) ? factCheck.url : '');
+  const [language, setLanguage] = React.useState(factCheck ? factCheck.language : defaultFactCheckLanguage);
   const [saving, setSaving] = React.useState(false);
   const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -36,11 +41,13 @@ const MediaFactCheck = ({ projectMedia }) => {
     setTitle(factCheck?.title || '');
     setSummary(factCheck?.summary);
     setUrl(factCheck?.url || '');
-  }, [factCheck?.title, factCheck?.summary, factCheck?.url]);
+    setLanguage(factCheck?.language || defaultFactCheckLanguage);
+  }, [factCheck?.title, factCheck?.summary, factCheck?.url, factCheck?.language]);
 
   const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
+  const isDisabled = Boolean(readOnly || published);
 
   const handleGoToReport = () => {
     if (!claimDescription || claimDescription.description?.trim()?.length === 0) {
@@ -52,10 +59,15 @@ const MediaFactCheck = ({ projectMedia }) => {
 
   const handleBlur = (field, value) => {
     setError(false);
-    const values = { title, summary, url };
+    const values = {
+      title,
+      summary,
+      url,
+      language,
+    };
     values[field] = value;
     if (hasPermission) {
-      if (factCheck) {
+      if (factCheck && values.language && values.language !== 'und') {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
@@ -67,6 +79,7 @@ const MediaFactCheck = ({ projectMedia }) => {
                   title
                   summary
                   url
+                  language
                   user {
                     name
                   }
@@ -93,7 +106,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             setError(true);
           },
         });
-      } else if (values.title && values.summary) {
+      } else if (values.title && values.summary && values.language && values.language !== 'und') {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
@@ -107,6 +120,7 @@ const MediaFactCheck = ({ projectMedia }) => {
                     title
                     summary
                     url
+                    language
                     updated_at
                     user {
                       name
@@ -142,6 +156,27 @@ const MediaFactCheck = ({ projectMedia }) => {
     }
   };
 
+  const handleLanguageSubmit = (value) => {
+    const { languageCode } = value;
+    setLanguage(languageCode);
+    handleBlur('language', languageCode);
+  };
+
+  const errorMessage = languages.length > 1 ? (
+    <FormattedMessage
+      id="mediaFactCheck.errorWithLanguage"
+      defaultMessage="Title, description and language have to be filled"
+      description="Caption that informs that a fact-check could not be saved and that the fields have to be filled"
+    />)
+    :
+    (
+      <FormattedMessage
+        id="mediaFactCheck.error"
+        defaultMessage="Title and description have to be filled"
+        description="Caption that informs that a fact-check could not be saved and that the fields have to be filled"
+      />
+    );
+
   return (
     <Box id="media__fact-check">
       <Box id="media__fact-check-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
@@ -152,12 +187,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         </Typography>
         {' '}
         <Typography variant="caption" component="div">
-          { error ?
-            <FormattedMessage
-              id="mediaFactCheck.error"
-              defaultMessage="Title and description have to be filled"
-              description="Caption that informs that a fact-check could not be saved and that the fields have to be filled"
-            /> : null }
+          { error ? errorMessage : null }
           { saving && !error ?
             <FormattedMessage
               id="mediaFactCheck.saving"
@@ -189,7 +219,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
-        disabled={readOnly || published}
+        disabled={isDisabled}
         rows={1}
         key={`title-${claimDescription}`}
       />
@@ -205,7 +235,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
-        disabled={readOnly || published}
+        disabled={isDisabled}
         rows={1}
         key={`summary-${claimDescription}-${title.length}-${url.length}`}
       />
@@ -218,18 +248,27 @@ const MediaFactCheck = ({ projectMedia }) => {
           let newUrl = newValue;
           if (!/^https?:\/\//.test(newValue) && newValue && newValue.length > 0) {
             newUrl = `https://${newValue}`;
-            // eslint-disable-next-line no-console
-            console.log('newUrl', newUrl);
           }
           setUrl(newUrl);
           handleBlur('url', newUrl);
         }}
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
-        disabled={readOnly || published}
+        disabled={isDisabled}
         rows={1}
         key={`url-${claimDescription}-${url}`}
       />
+
+      { languages.length > 1 ?
+        <Box my={2} >
+          <LanguagePickerSelect
+            isDisabled={(!hasPermission || isDisabled)}
+            selectedlanguage={language}
+            onSubmit={handleLanguageSubmit}
+            team={team}
+          />
+        </Box> : null
+      }
 
       { projectMedia.team.smooch_bot ?
         <Box mt={1}>
@@ -313,6 +352,7 @@ MediaFactCheck.propTypes = {
         title: PropTypes.string,
         summary: PropTypes.string,
         url: PropTypes.string,
+        language: PropTypes.string,
         updated_at: PropTypes.string,
         user: PropTypes.shape({
           name: PropTypes.string,

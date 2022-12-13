@@ -28,10 +28,6 @@
     "defaultMessage": "Newsletter"
   },
   {
-    "id": "smoochBot.labelNoAction",
-    "defaultMessage": "No action from user"
-  },
-  {
     "id": "smoochBot.labelOptionNotAvailable",
     "defaultMessage": "Option not available"
   },
@@ -54,11 +50,11 @@
   {
     "id": "smoochBot.labelContent",
     "description": "Button label in tipline settings page",
-    "defaultMessage": "Content and translation"
+    "defaultMessage": "Content & translation"
   },
   {
     "id": "smoochBot.labelNewsletterV2",
-    "defaultMessage": "Newsletter content"
+    "defaultMessage": "Newsletter"
   },
   {
     "id": "smoochBot.descriptionGreeting",
@@ -95,10 +91,6 @@
   {
     "id": "smoochBot.descriptionNewsletter3",
     "defaultMessage": "2. Select a day and time of the week"
-  },
-  {
-    "id": "smoochBot.descriptionNoAction",
-    "defaultMessage": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
   },
   {
     "id": "smoochBot.descriptionOptionNotAvailable",

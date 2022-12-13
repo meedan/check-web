@@ -25,6 +25,11 @@
     "defaultMessage": "Video"
   },
   {
+    "id": "projectBlankState.blank",
+    "description": "Message displayed when there are no items",
+    "defaultMessage": "There are no items here."
+  },
+  {
     "id": "feedRequestsTable.media",
     "description": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text",
     "defaultMessage": "Media"

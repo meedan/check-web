@@ -113,7 +113,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-relay": "^1.8.3",
     "eslint-plugin-require-path-exists": "1.1.7",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "file-loader": "^6.2.0",
     "graphql": "^14.6.0",
     "gulp": "^4.0.2",

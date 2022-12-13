@@ -1,10 +1,5 @@
 [
   {
-    "id": "smoochBotContentAndTranslation.placeholder",
-    "description": "Placeholder used in all fields under tipline content and translation settings.",
-    "defaultMessage": "Type custom content or translation here."
-  },
-  {
     "id": "smoochBotContentAndTranslation.greetingsTitle",
     "description": "Title of a customizable string of the tipline bot.",
     "defaultMessage": "Greetings"
@@ -22,47 +17,17 @@
   {
     "id": "smoochBotContentAndTranslation.submissionPromptTitle",
     "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "Submission prompt"
+    "defaultMessage": "Content prompt"
   },
   {
     "id": "smoochBotContentAndTranslation.submissionPromptDescription",
     "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "The message asking the user to submit content for a fact-check."
+    "defaultMessage": "This message prompts the user to submit content for a fact-check."
   },
   {
     "id": "smoochBotContentAndTranslation.submissionPromptDefault",
     "description": "Default value for a customizable string of the tipline bot.",
     "defaultMessage": "Please enter the question, link, picture, or video that you want to be fact-checked."
-  },
-  {
-    "id": "smoochBotContentAndTranslation.submissionCanceledTitle",
-    "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "Submission canceled"
-  },
-  {
-    "id": "smoochBotContentAndTranslation.submissionCanceledDescription",
-    "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "This message is sent when user cancels the submission of content."
-  },
-  {
-    "id": "smoochBotContentAndTranslation.submissionCanceledDefault",
-    "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "OK! Your submission is canceled."
-  },
-  {
-    "id": "smoochBotContentAndTranslation.addMoreInformationTitle",
-    "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "Submit content"
-  },
-  {
-    "id": "smoochBotContentAndTranslation.addMoreInformationDescription",
-    "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "This message is sent to user after they send content, to make sure all the information they want to submit has been provided."
-  },
-  {
-    "id": "smoochBotContentAndTranslation.addMoreInformationDefault",
-    "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "Are you ready to submit?"
   },
   {
     "id": "smoochBotContentAndTranslation.moreContentPromptTitle",
@@ -80,6 +45,21 @@
     "defaultMessage": "Please add more content."
   },
   {
+    "id": "smoochBotContentAndTranslation.addMoreInformationTitle",
+    "description": "Title of a customizable string of the tipline bot.",
+    "defaultMessage": "Submission prompt"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.addMoreInformationDescription",
+    "description": "Description of a customizable string of the tipline bot.",
+    "defaultMessage": "This message is sent to user after they send content, to make sure all the information they want to submit has been provided."
+  },
+  {
+    "id": "smoochBotContentAndTranslation.addMoreInformationDefault",
+    "description": "Default value for a customizable string of the tipline bot.",
+    "defaultMessage": "Are you ready to submit?"
+  },
+  {
     "id": "smoochBotContentAndTranslation.submissionReceivedTitle",
     "description": "Title of a customizable string of the tipline bot.",
     "defaultMessage": "Submission received"
@@ -87,12 +67,12 @@
   {
     "id": "smoochBotContentAndTranslation.submissionReceivedDescription",
     "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "The confirmation sent to the user after a valid query from the user has been received, while the bot is retrieving content."
+    "defaultMessage": "The confirmation sent to the user after the content is submitted."
   },
   {
     "id": "smoochBotContentAndTranslation.submissionReceivedDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "Thank you! Looking for fact-checks, it may take a minute."
+    "defaultMessage": "No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked."
   },
   {
     "id": "smoochBotContentAndTranslation.noSearchResultTitle",
@@ -112,32 +92,17 @@
   {
     "id": "smoochBotContentAndTranslation.feedbackTitle",
     "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "Feedback"
+    "defaultMessage": "Feedback prompt"
   },
   {
     "id": "smoochBotContentAndTranslation.feedbackDescription",
     "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "When fact-checks are returned to the user, the bot automatically follows up to ask if the results are satisfactory."
+    "defaultMessage": "After fact-checks are returned to the user, the bot automatically follows up to ask if the results are satisfactory."
   },
   {
     "id": "smoochBotContentAndTranslation.feedbackDefault",
     "description": "Default value for a customizable string of the tipline bot.",
     "defaultMessage": "Are these fact-checks answering your question?"
-  },
-  {
-    "id": "smoochBotContentAndTranslation.negativeFeedbackTitle",
-    "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "Negative feedback"
-  },
-  {
-    "id": "smoochBotContentAndTranslation.negativeFeedbackDescription",
-    "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "If the user is not satisfied, this message informs the user that the content has been sent to journalists."
-  },
-  {
-    "id": "smoochBotContentAndTranslation.negativeFeedbackDefault",
-    "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if a new fact-check is published."
   },
   {
     "id": "smoochBotContentAndTranslation.positiveFeedbackTitle",
@@ -153,6 +118,21 @@
     "id": "smoochBotContentAndTranslation.positiveFeedbackDefault",
     "description": "Default value for a customizable string of the tipline bot.",
     "defaultMessage": "Thank you! Spread the word about this tipline to help us fight misinformation! *insert_entry_point_link*"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.negativeFeedbackTitle",
+    "description": "Title of a customizable string of the tipline bot.",
+    "defaultMessage": "Negative feedback"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.negativeFeedbackDescription",
+    "description": "Description of a customizable string of the tipline bot.",
+    "defaultMessage": "If the user is not satisfied, this message informs the user that the content has been sent to journalists."
+  },
+  {
+    "id": "smoochBotContentAndTranslation.negativeFeedbackDefault",
+    "description": "Default value for a customizable string of the tipline bot.",
+    "defaultMessage": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if a new fact-check is published."
   },
   {
     "id": "smoochBotContentAndTranslation.newsletterTitle",
@@ -177,7 +157,7 @@
   {
     "id": "smoochBotContentAndTranslation.optionNotAvailableDescription",
     "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "The message sent if the user response to a menu is not a valid menu scenario."
+    "defaultMessage": "The message sent if the user response is not a valid option."
   },
   {
     "id": "smoochBotContentAndTranslation.optionNotAvailableDefault",
@@ -185,24 +165,34 @@
     "defaultMessage": "I'm sorry, I didn't understand your message."
   },
   {
+    "id": "smoochBotContentAndTranslation.timeoutTitle",
+    "description": "Title of a customizable string of the tipline bot.",
+    "defaultMessage": "Conversation time out"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.timeoutDescription",
+    "description": "Description of a customizable string of the tipline bot.",
+    "defaultMessage": "After 15 minutes of activity, this message is sent to users to close the conversation."
+  },
+  {
+    "id": "smoochBotContentAndTranslation.timeoutDefault",
+    "description": "Default value for a customizable string of the tipline bot.",
+    "defaultMessage": "Thank you for reaching out to us! Type any key to start a new conversation."
+  },
+  {
     "id": "smoochBotContentAndTranslation.noticeOfInactivityTitle",
     "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "Notice of inactivity"
+    "defaultMessage": "Inactive bot"
   },
   {
     "id": "smoochBotContentAndTranslation.noticeOfInactivityDescription",
     "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive."
+    "defaultMessage": "If the tipline is set to inactive, this message is sent in response to any user message."
   },
   {
     "id": "smoochBotContentAndTranslation.noticeOfInactivityDefault",
     "description": "Default value for a customizable string of the tipline bot.",
     "defaultMessage": "Our bot is currently inactive. Please visit *insert URL* to read the latest fact-checks."
-  },
-  {
-    "id": "smoochBotContentAndTranslation.subtitle",
-    "description": "Subtitle displayed in tipline settings page for content and translation.",
-    "defaultMessage": "Replace or translate the default content for each standard bot message."
   },
   {
     "id": "smoochBotContentAndTranslation.error",

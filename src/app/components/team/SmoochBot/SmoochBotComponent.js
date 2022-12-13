@@ -218,7 +218,7 @@ const SmoochBotComponent = ({
         body={(
           <FormattedMessage
             id="smoochBotComponent.missingInformationBody"
-            defaultMessage="The step '11. Newsletter opt-in and opt-out' is missing a placeholder."
+            defaultMessage="The message 'Newsletter opt-in and opt-out' is missing a placeholder."
             description="Content of dialog that opens when there is a validation error on tipline settings"
           />
         )}

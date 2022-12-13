@@ -8,7 +8,6 @@ import HelpIcon from '@material-ui/icons/HelpOutline';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import LanguageSwitcher from '../../LanguageSwitcher';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
 import ReportDesignerForm from './ReportDesignerForm';
@@ -16,11 +15,9 @@ import { withSetFlashMessage } from '../../FlashMessage';
 import { can } from '../../Can';
 import {
   defaultOptions,
-  findReportIndex,
   propsToData,
-  cloneData,
 } from './reportDesignerHelpers';
-import { getStatus, getStatusStyle } from '../../../helpers';
+import { getStatus, getStatusStyle, safelyParseJSON } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
 import { checkBlue, backgroundMain } from '../../../styles/js/shared';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
@@ -54,45 +51,23 @@ const ReportDesignerComponent = (props) => {
   const classes = useStyles();
   const { media, media: { team } } = props;
 
-  const savedReportData = props.media?.dynamic_annotation_report_design || { data: {} };
-  const initialLanguage = savedReportData.data?.default_language || team.get_language || 'en';
-  const [currentLanguage, setCurrentLanguage] = React.useState(initialLanguage);
+  const savedReportData = props.media?.dynamic_annotation_report_design || { data: { options: { } } };
+  const languages = safelyParseJSON(team.get_languages) || ['en'];
+  const defaultReportLanguage = languages && languages.length === 1 ? languages[0] : null;
+  const currentLanguage = savedReportData.data.options.language || defaultReportLanguage;
   const [data, setData] = React.useState(propsToData(props, currentLanguage));
   const [pending, setPending] = React.useState(false);
 
-  const defaultLanguage = data.default_language || team.get_language || 'en';
-  const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
-  const currentReportIndex = findReportIndex(data, currentLanguage);
-
-  const handleChangeLanguage = (newLanguageCode) => {
-    const reportIndex = findReportIndex(data, newLanguageCode);
-    if (reportIndex === -1) {
-      const updatedData = cloneData(data);
-      const newReport = defaultOptions(media, newLanguageCode);
-      updatedData.options.push(newReport);
-      setData(updatedData);
-    }
-    setCurrentLanguage(newLanguageCode);
-  };
-
-  const handleSetDefaultLanguage = (newValue) => {
-    const updatedData = cloneData(data);
-    updatedData.default_language = newValue;
-    setData(updatedData);
-  };
-
   const handleStatusChange = () => {
-    const updatedData = cloneData(data);
-    updatedData.options.forEach((option, i) => {
-      const status = getStatus(
-        media.team.verification_statuses,
-        media.last_status,
-        option.language,
-        media.team.get_language,
-      );
-      updatedData.options[i].status_label = status.label.substring(0, 16);
-      updatedData.options[i].theme_color = getStatusStyle(status, 'color');
-    });
+    const updatedData = { ...data };
+    const status = getStatus(
+      media.team.verification_statuses,
+      media.last_status,
+      updatedData.options.language,
+      media.team.get_language,
+    );
+    updatedData.options.status_label = status.label.substring(0, 16);
+    updatedData.options.theme_color = getStatusStyle(status, 'color');
     setData(updatedData);
   };
 
@@ -136,26 +111,28 @@ const ReportDesignerComponent = (props) => {
       if (!fields.first_published) {
         fields.first_published = parseInt(new Date().getTime() / 1000, 10).toString();
       }
-      fields.options.forEach((option, i) => {
-        fields.options[i].previous_published_status_label = option.status_label;
-      });
+      fields.options.previous_published_status_label = fields.options.status_label;
     }
 
-    const images = {};
-    fields.options.forEach((option, i) => {
-      const { image } = data?.options[i] || { image: null }; // File, String or null
-      if (!image || image?.preview) {
-        // image is a File? The mutation's fields.image must be "" and its
-        // props.image must be the File.
-        //
-        // image is null? The mutation's fields.image must be "" and its
-        // props.image must be null.
-        fields.options[i].image = '';
-      }
-      if (image && image?.preview) {
-        images[i] = image;
-      }
-    });
+    // Set language `und` for workspaces that has more than one language
+    if (!fields.options.language) {
+      fields.options.language = 'und';
+    }
+
+    let images = [];
+
+    const { image } = data?.options || { image: null }; // File, String or null
+    if (!image || image?.preview) {
+      // image is a File? The mutation's fields.image must be "" and its
+      // props.image must be the File.
+      //
+      // image is null? The mutation's fields.image must be "" and its
+      // props.image must be null.
+      fields.options.image = '';
+    }
+    if (image && image?.preview) {
+      images = [image];
+    }
 
     if (!annotation) {
       Relay.Store.commitUpdate(
@@ -205,15 +182,15 @@ const ReportDesignerComponent = (props) => {
     } else {
       updates[fieldOrObject] = valueOrNothing;
     }
-    const updatedData = cloneData(data);
+    const updatedData = { ...data };
     Object.keys(updates).forEach((field) => {
       const value = updates[field];
-      if (currentReportIndex > -1) {
-        updatedData.options[currentReportIndex][field] = value;
+      if (updatedData) {
+        updatedData.options[field] = value;
       } else {
         const newReport = defaultOptions(media, currentLanguage);
         newReport[field] = value;
-        updatedData.options.push(newReport);
+        updatedData.options = newReport;
       }
     });
     setData(updatedData);
@@ -238,7 +215,7 @@ const ReportDesignerComponent = (props) => {
     <React.Fragment>
       <ReportDesignerTopBar
         media={media}
-        defaultLanguage={defaultLanguage}
+        defaultLanguage={currentLanguage}
         data={data}
         state={data.state}
         readOnly={
@@ -252,7 +229,7 @@ const ReportDesignerComponent = (props) => {
       />
       <Box display="flex" width="1">
         <Box flex="1" alignItems="flex-start" display="flex" className={[classes.preview, classes.section].join(' ')}>
-          <ReportDesignerPreview data={data.options[currentReportIndex]} media={media} />
+          <ReportDesignerPreview data={data.options} media={media} />
         </Box>
         <Box flex="1" className={[classes.editor, classes.section].join(' ')}>
           <Box display="flex" className="report-designer__title">
@@ -266,18 +243,12 @@ const ReportDesignerComponent = (props) => {
               <HelpIcon className={classes.helpIcon} />
             </IconButton>
           </Box>
-          <LanguageSwitcher
-            primaryLanguage={defaultLanguage}
-            currentLanguage={currentLanguage}
-            languages={languages}
-            onChange={handleChangeLanguage}
-            onSetDefault={handleSetDefaultLanguage}
-          />
           <ReportDesignerForm
-            data={data.options[currentReportIndex]}
+            data={data.options}
             disabled={data.state === 'published'}
             pending={pending}
             media={media}
+            team={team}
             onUpdate={handleUpdate}
           />
         </Box>

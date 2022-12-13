@@ -27,6 +27,7 @@ import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import SearchKeyword from '../search/SearchKeyword';
+import ProjectBlankState from '../project/ProjectBlankState';
 import { opaqueBlack03, opaqueBlack87 } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
@@ -195,153 +196,167 @@ const FeedRequestsTable = ({
       <Box>
         <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} feedTeam={feedTeam} />
       </Box>
-      <Box display="flex" alignItems="center">
-        <IconButton onClick={onGoToThePreviousPage} disabled={!hasPreviousPage}>
-          <PrevIcon />
-        </IconButton>
-        <Box className={classes.pager}>{rangeStart > totalCount ? totalCount : rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</Box>
-        <IconButton onClick={onGoToTheNextPage} disabled={!hasNextPage}>
-          <NextIcon />
-        </IconButton>
-      </Box>
-      <TableContainerWithScrollbars>
-        <Table stickyHeader size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell className={classes.tableHeadCell}>
-                <FormattedMessage
-                  id="feedRequestsTable.media"
-                  defaultMessage="Media"
-                  description="Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
-                />
-              </TableCell>
-              <TableCell className={classes.tableHeadCell}>
-                <TableSort field="last_submitted">
+      {totalCount ?
+        <Box display="flex" alignItems="center">
+          <IconButton onClick={onGoToThePreviousPage} disabled={!hasPreviousPage}>
+            <PrevIcon />
+          </IconButton>
+          <Box className={classes.pager}>{rangeStart > totalCount ? totalCount : rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</Box>
+          <IconButton onClick={onGoToTheNextPage} disabled={!hasNextPage}>
+            <NextIcon />
+          </IconButton>
+        </Box>
+        : null }
+      {totalCount === 0 ?
+        <ProjectBlankState
+          message={
+            <FormattedMessage
+              id="projectBlankState.blank"
+              defaultMessage="There are no items here."
+              description="Message displayed when there are no items"
+            />
+          }
+        />
+        :
+        <TableContainerWithScrollbars>
+          <Table stickyHeader size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell className={classes.tableHeadCell}>
                   <FormattedMessage
-                    id="feedRequestsTable.lastSubmitted"
-                    defaultMessage="Last submitted"
-                    description="Header label for date column, in which are shown timestamps of last time a media was sent"
+                    id="feedRequestsTable.media"
+                    defaultMessage="Media"
+                    description="Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
                   />
-                </TableSort>
-              </TableCell>
-              <TableCell className={classes.tableHeadCell}>
-                <TableSort field="media_type">
-                  <FormattedMessage
-                    id="feedRequestsTable.mediaType"
-                    defaultMessage="Media type"
-                    description="Header label for media type column, in which are shown the type of the media associated with the request"
-                  />
-                </TableSort>
-              </TableCell>
-              <TableCell align="left" className={classes.tableHeadCell}>
-                <TableSort field="requests">
-                  <FormattedMessage
-                    id="feedRequestsTable.requests"
-                    defaultMessage="Requests"
-                    description="Header label for number of requests column"
-                  />
-                </TableSort>
-              </TableCell>
-              <TableCell align="left" className={classes.tableHeadCell}>
-                <TableSort field="subscriptions">
-                  <FormattedMessage
-                    id="feedRequestsTable.subscriptions"
-                    defaultMessage="Subscriptions"
-                    description="Header label for number of subscriptions column"
-                  />
-                </TableSort>
-              </TableCell>
-              <TableCell align="left" className={classes.tableHeadCell}>
-                <TableSort field="fact_checks">
-                  <FormattedMessage
-                    id="feedRequestsTable.factChecksSent"
-                    defaultMessage="Fact-checks sent"
-                    description="Header label for fact-checks sent column"
-                  />
-                </TableSort>
-              </TableCell>
-              <TableCell align="left" className={classes.tableHeadCell}>
-                <TableSort field="fact_checked_by">
-                  <FormattedMessage
-                    id="feedRequestsTable.factCheckBy"
-                    defaultMessage="Fact-check by"
-                    description="Header label for fact-check by column"
-                  />
-                </TableSort>
-              </TableCell>
-              <TableCell align="left" className={classes.tableHeadCell}>
-                <TableSort field="medias">
-                  <FormattedMessage
-                    id="feedRequestsTable.matchedMedia"
-                    defaultMessage="Matched media"
-                    description="Header label for number of medias found to be matched to the current one"
-                  />
-                </TableSort>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            { feed?.requests?.edges?.map((r) => {
-              let requestTitle = '';
-              if (r.node.request_type === 'text') {
-                requestTitle = r.node.media?.quote || r.node.media?.metadata?.title;
-              } else {
-                requestTitle = r.node.title;
-              }
-              const requestPicture = r.node.request_type === 'audio' ? '/images/image_placeholder.svg' : r.node.media?.picture;
-
-              // This means a request for the latest fact-checks
-              if (r.node.request_type === 'text' && r.node.content === '.') {
-                return null;
-              }
-
-              return (
-                <TableRow
-                  key={r.node.id}
-                  classes={{ root: classes.root }}
-                  onClick={() => browserHistory.push(buildItemUrl(r.node.dbid))}
-                >
-                  <TitleCell
-                    projectMedia={{
-                      title: requestTitle,
-                      description: '',
-                      picture: requestPicture,
-                    }}
-                  />
-                  <TableCell>
-                    <FormattedDate
-                      value={r.node.last_submitted_at * 1000 || '-'}
-                      year="numeric"
-                      month="short"
-                      day="2-digit"
+                </TableCell>
+                <TableCell className={classes.tableHeadCell}>
+                  <TableSort field="last_submitted">
+                    <FormattedMessage
+                      id="feedRequestsTable.lastSubmitted"
+                      defaultMessage="Last submitted"
+                      description="Header label for date column, in which are shown timestamps of last time a media was sent"
                     />
-                  </TableCell>
-                  <TableCell align="left">{mediaType(r.node.media_type)}</TableCell>
-                  <TableCell align="left">{Math.max(0, r.node.requests_count - r.node.subscriptions_count)}</TableCell>
-                  <TableCell align="left">{r.node.subscriptions_count}</TableCell>
-                  <TableCell align="left">{r.node.project_medias_count}</TableCell>
-                  <TableCell align="left">
-                    {
-                      r.node.fact_checked_by ?
-                        <Box className={classes.hasFactCheck}>
-                          {r.node.fact_checked_by.split(', ').map(teamName => (<span key={teamName}>{teamName}<br /></span>))}
-                        </Box> :
-                        <Box className={classes.noFactCheck}>
-                          <FormattedMessage
-                            id="feedRequestsTable.noFactCheck"
-                            defaultMessage="No fact-check"
-                            description="Displayed on feed requests table when a request was not fact-checked yet."
-                          />
-                        </Box>
-                    }
-                  </TableCell>
-                  <TableCell align="left">{r.node.medias_count}</TableCell>
-                </TableRow>
-              );
-            }) }
-          </TableBody>
-        </Table>
-      </TableContainerWithScrollbars>
+                  </TableSort>
+                </TableCell>
+                <TableCell className={classes.tableHeadCell}>
+                  <TableSort field="media_type">
+                    <FormattedMessage
+                      id="feedRequestsTable.mediaType"
+                      defaultMessage="Media type"
+                      description="Header label for media type column, in which are shown the type of the media associated with the request"
+                    />
+                  </TableSort>
+                </TableCell>
+                <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableSort field="requests">
+                    <FormattedMessage
+                      id="feedRequestsTable.requests"
+                      defaultMessage="Requests"
+                      description="Header label for number of requests column"
+                    />
+                  </TableSort>
+                </TableCell>
+                <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableSort field="subscriptions">
+                    <FormattedMessage
+                      id="feedRequestsTable.subscriptions"
+                      defaultMessage="Subscriptions"
+                      description="Header label for number of subscriptions column"
+                    />
+                  </TableSort>
+                </TableCell>
+                <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableSort field="fact_checks">
+                    <FormattedMessage
+                      id="feedRequestsTable.factChecksSent"
+                      defaultMessage="Fact-checks sent"
+                      description="Header label for fact-checks sent column"
+                    />
+                  </TableSort>
+                </TableCell>
+                <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableSort field="fact_checked_by">
+                    <FormattedMessage
+                      id="feedRequestsTable.factCheckBy"
+                      defaultMessage="Fact-check by"
+                      description="Header label for fact-check by column"
+                    />
+                  </TableSort>
+                </TableCell>
+                <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableSort field="medias">
+                    <FormattedMessage
+                      id="feedRequestsTable.matchedMedia"
+                      defaultMessage="Matched media"
+                      description="Header label for number of medias found to be matched to the current one"
+                    />
+                  </TableSort>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              { feed?.requests?.edges?.map((r) => {
+                let requestTitle = '';
+                if (r.node.request_type === 'text') {
+                  requestTitle = r.node.media?.quote || r.node.media?.metadata?.title;
+                } else {
+                  requestTitle = r.node.title;
+                }
+                const requestPicture = r.node.request_type === 'audio' ? '/images/image_placeholder.svg' : r.node.media?.picture;
+
+                // This means a request for the latest fact-checks
+                if (r.node.request_type === 'text' && r.node.content === '.') {
+                  return null;
+                }
+
+                return (
+                  <TableRow
+                    key={r.node.id}
+                    classes={{ root: classes.root }}
+                    onClick={() => browserHistory.push(buildItemUrl(r.node.dbid))}
+                  >
+                    <TitleCell
+                      projectMedia={{
+                        title: requestTitle,
+                        description: '',
+                        picture: requestPicture,
+                      }}
+                    />
+                    <TableCell>
+                      <FormattedDate
+                        value={r.node.last_submitted_at * 1000 || '-'}
+                        year="numeric"
+                        month="short"
+                        day="2-digit"
+                      />
+                    </TableCell>
+                    <TableCell align="left">{mediaType(r.node.media_type)}</TableCell>
+                    <TableCell align="left">{Math.max(0, r.node.requests_count - r.node.subscriptions_count)}</TableCell>
+                    <TableCell align="left">{r.node.subscriptions_count}</TableCell>
+                    <TableCell align="left">{r.node.project_medias_count}</TableCell>
+                    <TableCell align="left">
+                      {
+                        r.node.fact_checked_by ?
+                          <Box className={classes.hasFactCheck}>
+                            {r.node.fact_checked_by.split(', ').map(teamName => (<span key={teamName}>{teamName}<br /></span>))}
+                          </Box> :
+                          <Box className={classes.noFactCheck}>
+                            <FormattedMessage
+                              id="feedRequestsTable.noFactCheck"
+                              defaultMessage="No fact-check"
+                              description="Displayed on feed requests table when a request was not fact-checked yet."
+                            />
+                          </Box>
+                      }
+                    </TableCell>
+                    <TableCell align="left">{r.node.medias_count}</TableCell>
+                  </TableRow>
+                );
+              }) }
+            </TableBody>
+          </Table>
+        </TableContainerWithScrollbars>
+      }
     </React.Fragment>
   );
 };

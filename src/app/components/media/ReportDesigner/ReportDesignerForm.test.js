@@ -17,12 +17,16 @@ describe('<ReportDesignerForm />', () => {
   const media = {
     title: 'title',
   };
+  const team = {
+    get_languages: '[]',
+  };
 
   it('should render report form', () => {
     const wrapper = mountWithIntl(<ReportDesignerForm
       state="published"
       media={media}
       data={data}
+      team={team}
       onUpdate={() => {}}
       pending
       disabled={false}

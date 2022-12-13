@@ -402,6 +402,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
         title
         summary
         url
+        language
         updated_at
         user {
           name
@@ -504,6 +505,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
       slug
       name
       get_language
+      get_languages
       get_report
       verification_statuses
       permissions
