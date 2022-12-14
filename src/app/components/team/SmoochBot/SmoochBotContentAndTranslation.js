@@ -91,7 +91,7 @@ const SmoochBotContentAndTranslation = ({
     {
       key: 'timeout',
       title: <FormattedMessage id="smoochBotContentAndTranslation.timeoutTitle" defaultMessage="Conversation time out" description="Title of a customizable string of the tipline bot." />,
-      description: <FormattedMessage id="smoochBotContentAndTranslation.timeoutDescription" defaultMessage="After 15 minutes of activity, this message is sent to users to close the conversation." description="Description of a customizable string of the tipline bot." />,
+      description: <FormattedMessage id="smoochBotContentAndTranslation.timeoutDescription" defaultMessage="After 15 minutes of inactivity, this message is sent to users to close the conversation." description="Description of a customizable string of the tipline bot." />,
       default: <FormattedMessage id="smoochBotContentAndTranslation.timeoutDefault" defaultMessage="Thank you for reaching out to us! Type any key to start a new conversation." description="Default value for a customizable string of the tipline bot." />,
     },
     {
