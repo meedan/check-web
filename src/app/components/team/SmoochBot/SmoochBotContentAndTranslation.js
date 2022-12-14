@@ -83,7 +83,7 @@ const SmoochBotContentAndTranslation = ({
       default: <FormattedMessage id="smoochBotContentAndTranslation.newsletterDefault" defaultMessage="Subscribe now to get the most important facts delivered directly on WhatsApp, every week. {subscription_status}." description="Default value for a customizable string of the tipline bot." />,
     },
     {
-      key: 'smooch_message_smooch_bot_option_not_available',
+      key: 'option_not_available',
       title: <FormattedMessage id="smoochBotContentAndTranslation.optionNotAvailableTitle" defaultMessage="Option not available" description="Title of a customizable string of the tipline bot." />,
       description: <FormattedMessage id="smoochBotContentAndTranslation.optionNotAvailableDescription" defaultMessage="The message sent if the user response is not a valid option." description="Description of a customizable string of the tipline bot." />,
       default: <FormattedMessage id="smoochBotContentAndTranslation.optionNotAvailableDefault" defaultMessage="I'm sorry, I didn't understand your message." description="Default value for a customizable string of the tipline bot." />,
