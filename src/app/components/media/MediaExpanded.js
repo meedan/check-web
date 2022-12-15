@@ -35,22 +35,11 @@ const TypographyBlack54 = withStyles({
   },
 })(Typography);
 
-const useStyles = () => ({
+const styles = {
   title: {
-    fontSize: 14,
-    lineHeight: '1.5em',
-    color: 'black',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    textDecoration: 'none',
-    '&:hover': {
-      color: 'black',
-    },
-    '&:visited': {
-      color: 'black',
-    },
+    overflowWrap: 'anywhere',
   },
-});
+};
 
 class MediaExpandedComponent extends Component {
   constructor(props) {
@@ -139,7 +128,7 @@ class MediaExpandedComponent extends Component {
     const isWebPage = media.media.url && data.provider === 'page';
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const { mediaUrl, mediaQuery, linkTitle } = this.props;
+    const { mediaUrl, mediaQuery } = this.props;
     const coverImage = media.media.thumbnail_path || '/images/player_cover.svg';
 
     let warningType = null;
@@ -249,10 +238,9 @@ class MediaExpandedComponent extends Component {
         <CardHeader
           className="media-expanded__title"
           title={
-            linkTitle ?
-              <a href={mediaUrl} className={classes ? classes.title : null} target="_blank" rel="noopener noreferrer">
-                <strong>{truncateLength(title, 110)}</strong>
-              </a> : truncateLength(title, 110)
+            <span className={classes.title}>
+              {truncateLength(title, 110)}
+            </span>
           }
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
@@ -416,5 +404,5 @@ const MediaExpanded = (props) => {
   );
 };
 
-export default withStyles(useStyles)(MediaExpanded);
+export default withStyles(styles)(MediaExpanded);
 export { MediaExpandedComponent };
