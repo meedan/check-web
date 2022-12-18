@@ -57,6 +57,7 @@ const ReportDesignerForm = (props) => {
   const data = props.data || { use_text_message: true, text: '' };
   const currentLanguage = data.language;
   const languages = safelyParseJSON(team.get_languages) || [];
+  const default_reports = team.get_report || {};
 
   const handleImageChange = (image) => {
     props.onUpdate('image', image);
@@ -78,7 +79,13 @@ const ReportDesignerForm = (props) => {
 
   const handleLanguageSubmit = (value) => {
     const { languageCode } = value;
-    props.onUpdate('language', languageCode);
+    const updates = { language: languageCode };
+    if (languageCode !== currentLanguage) {
+      const default_report = default_reports[languageCode] || {};
+      updates.use_introduction = !!default_report.use_introduction;
+      updates.introduction = default_report.introduction;
+    }
+    props.onUpdate(updates);
   };
 
   const textFieldProps = {

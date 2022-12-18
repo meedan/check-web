@@ -67,7 +67,7 @@ const MediaFactCheck = ({ projectMedia }) => {
     };
     values[field] = value;
     if (hasPermission) {
-      if (factCheck && values.language && values.language !== 'und') {
+      if (factCheck) {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
@@ -106,7 +106,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             setError(true);
           },
         });
-      } else if (values.title && values.summary && values.language && values.language !== 'und') {
+      } else if (values.title && values.summary) {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
@@ -162,20 +162,13 @@ const MediaFactCheck = ({ projectMedia }) => {
     handleBlur('language', languageCode);
   };
 
-  const errorMessage = languages.length > 1 ? (
+  const errorMessage = (
     <FormattedMessage
-      id="mediaFactCheck.errorWithLanguage"
-      defaultMessage="Title, description and language have to be filled"
+      id="mediaFactCheck.error"
+      defaultMessage="Title and description have to be filled"
       description="Caption that informs that a fact-check could not be saved and that the fields have to be filled"
-    />)
-    :
-    (
-      <FormattedMessage
-        id="mediaFactCheck.error"
-        defaultMessage="Title and description have to be filled"
-        description="Caption that informs that a fact-check could not be saved and that the fields have to be filled"
-      />
-    );
+    />
+  );
 
   return (
     <Box id="media__fact-check">

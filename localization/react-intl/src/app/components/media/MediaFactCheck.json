@@ -1,10 +1,5 @@
 [
   {
-    "id": "mediaFactCheck.errorWithLanguage",
-    "description": "Caption that informs that a fact-check could not be saved and that the fields have to be filled",
-    "defaultMessage": "Title, description and language have to be filled"
-  },
-  {
     "id": "mediaFactCheck.error",
     "description": "Caption that informs that a fact-check could not be saved and that the fields have to be filled",
     "defaultMessage": "Title and description have to be filled"
