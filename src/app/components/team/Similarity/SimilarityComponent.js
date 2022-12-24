@@ -218,15 +218,6 @@ const SimilarityComponent = ({
                   />
                 </Box>
               </Box>
-              <Box mt={1}>
-                <SettingSwitch
-                  checked={settings.single_language_fact_checks_enabled}
-                  onChange={() => handleSettingsChange('single_language_fact_checks_enabled', !settings.single_language_fact_checks_enabled)}
-                  label={
-                    <FormattedMessage id="similarityComponent.singleLanguageFactChecksEnabled" description="Label displayed when similarity setting for single language fact-checks is enabled" defaultMessage="Only send fact-checks in the same language as the conversation language" />
-                  }
-                />
-              </Box>
             </Box>
           </CardContent>
         </Card>
