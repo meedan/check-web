@@ -36,6 +36,11 @@
     "defaultMessage": "Similar content last submitted more than {maxTime} months ago will only be suggested"
   },
   {
+    "id": "similarityComponent.singleLanguageFactChecksEnabled",
+    "description": "Label displayed when similarity setting for single language fact-checks is enabled",
+    "defaultMessage": "Only send fact-checks in the same language as the conversation language"
+  },
+  {
     "id": "similarityComponent.minimumDuration",
     "defaultMessage": "Minimum duration in seconds"
   },
