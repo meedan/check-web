@@ -255,6 +255,8 @@ const SearchFields = ({
 
   const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
+  const hideChannel = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname) || readOnlyFields.includes('channels');
+
   const OperatorToggle = () => {
     let operatorProps = { style: { minWidth: 0, color: checkBlue }, onClick: handleOperatorClick };
     if (page === 'feed') {
@@ -396,7 +398,7 @@ const SearchFields = ({
         query={query}
         onChange={(newValue) => { handleFilterClick(newValue, 'channels'); }}
         onRemove={() => handleRemoveField('channels')}
-        readOnly={isSpecialPage || readOnlyFields.includes('channels')}
+        readOnly={hideChannel}
       />
     ),
     archived: (
