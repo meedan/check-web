@@ -47,5 +47,21 @@ describe('<MediaSuggestionsComponent />', () => {
     />);
     expect(wrapper.find('.similarity-media-item__accept-relationship')).toHaveLength(2);
     expect(wrapper.find('.similarity-media-item__reject-relationship')).toHaveLength(2);
+    expect(wrapper.find('.similarity-media-no-items')).toHaveLength(0);
+  });
+
+  it('should render no media when no media is suggested', () => {
+    const wrapper = shallow(<MediaSuggestionsComponentTest
+      team={team}
+      media={media}
+      relationships={[]}
+      mainItem={mainItem}
+      setFlashMessage={() => {}}
+      intl={intl}
+      reportType="blank"
+    />);
+    expect(wrapper.find('.similarity-media-item__accept-relationship')).toHaveLength(0);
+    expect(wrapper.find('.similarity-media-item__reject-relationship')).toHaveLength(0);
+    expect(wrapper.find('.similarity-media-no-items')).toHaveLength(1);
   });
 });

@@ -1,22 +1,27 @@
 [
   {
     "id": "mediaSuggestionsComponent.movedToTrash",
+    "description": "Text that appears in a popup to confirmt hat a 'move to trash' action was successful",
     "defaultMessage": "The item was moved to {trash}"
   },
   {
     "id": "mediaDetail.trash",
+    "description": "Label on a link that, when clicked, takes the user to a list of trashed (marked for deletion) items",
     "defaultMessage": "Trash"
   },
   {
     "id": "mediaSuggestionsComponent.movedToSpam",
+    "description": "Text that appears in a popup to confirmt hat a 'move to spam' action was successful",
     "defaultMessage": "The item was moved to {spam}"
   },
   {
     "id": "mediaDetail.spam",
+    "description": "Label on a link that, when clicked, takes the user to a list of items marked as spam",
     "defaultMessage": "Spam"
   },
   {
     "id": "mediaSuggestionsComponent.title",
+    "description": "A header that tells the user how many suggested media items are in the list to follow",
     "defaultMessage": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
   },
   {
@@ -26,10 +31,12 @@
   },
   {
     "id": "mediaSuggestionsComponent.dialogRejectTitle",
+    "description": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on",
     "defaultMessage": "Choose a destination folder for this item"
   },
   {
     "id": "mediaSuggestionsComponent.moveItem",
+    "description": "Label for an action button that causes a user to move an item into a given folder",
     "defaultMessage": "Move item"
   },
   {
@@ -44,14 +51,17 @@
   },
   {
     "id": "mediaSuggestionsMenu.tooltip",
+    "description": "Label for a tooltip on a menu button, indicating that this will list a series of actions that can be performed on an item",
     "defaultMessage": "Item actions"
   },
   {
     "id": "mediaSuggestionsComponent.sendItemsToSpam",
+    "description": "Label for a menu item, indicating that clicking this will mark an item as spam and send it to the spam list",
     "defaultMessage": "Mark as spam"
   },
   {
     "id": "mediaSuggestionsComponent.sendItemsToTrash",
+    "description": "Label for a menu item, indicating that clicking this will mark an item as trash and send it to the trash list",
     "defaultMessage": "Send to trash"
   }
 ]

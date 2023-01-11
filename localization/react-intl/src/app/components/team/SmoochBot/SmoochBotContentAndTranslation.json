@@ -172,7 +172,7 @@
   {
     "id": "smoochBotContentAndTranslation.timeoutDescription",
     "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "After 15 minutes of activity, this message is sent to users to close the conversation."
+    "defaultMessage": "After 15 minutes of inactivity, this message is sent to users to close the conversation."
   },
   {
     "id": "smoochBotContentAndTranslation.timeoutDefault",

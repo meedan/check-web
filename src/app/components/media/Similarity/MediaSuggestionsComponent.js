@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -366,11 +365,12 @@ const MediaSuggestionsComponent = ({
             <FormattedMessage
               id="mediaSuggestionsComponent.movedToTrash"
               defaultMessage="The item was moved to {trash}"
+              description="Text that appears in a popup to confirmt hat a 'move to trash' action was successful"
               values={{
                 trash: (
                   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
                   <a onClick={() => browserHistory.push(`/${team.slug}/trash`)}>
-                    <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" />
+                    <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" description="Label on a link that, when clicked, takes the user to a list of trashed (marked for deletion) items" />
                   </a>
                 ),
               }}
@@ -379,11 +379,12 @@ const MediaSuggestionsComponent = ({
             <FormattedMessage
               id="mediaSuggestionsComponent.movedToSpam"
               defaultMessage="The item was moved to {spam}"
+              description="Text that appears in a popup to confirmt hat a 'move to spam' action was successful"
               values={{
                 spam: (
                   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
                   <a onClick={() => browserHistory.push(`/${team.slug}/spam`)}>
-                    <FormattedMessage id="mediaDetail.spam" defaultMessage="Spam" />
+                    <FormattedMessage id="mediaDetail.spam" defaultMessage="Spam" description="Label on a link that, when clicked, takes the user to a list of items marked as spam" />
                   </a>
                 ),
               }}
@@ -405,7 +406,16 @@ const MediaSuggestionsComponent = ({
   if (relationships.length === 0) {
     return (
       <Box className={classes.card}>
-        <Typography variant="h2">0 suggested media</Typography>
+        <Typography variant="h2" className="similarity-media-no-items">
+          <FormattedMessage
+            id="mediaSuggestionsComponent.title"
+            defaultMessage="{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+            description="A header that tells the user how many suggested media items are in the list to follow"
+            values={{
+              total: 0,
+            }}
+          />
+        </Typography>
       </Box>
     );
   }
@@ -420,6 +430,7 @@ const MediaSuggestionsComponent = ({
                 <FormattedMessage
                   id="mediaSuggestionsComponent.title"
                   defaultMessage="{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+                  description="A header that tells the user how many suggested media items are in the list to follow"
                   values={{
                     total,
                   }}
@@ -445,10 +456,12 @@ const MediaSuggestionsComponent = ({
                     <FormattedMessage
                       id="mediaSuggestionsComponent.dialogRejectTitle"
                       defaultMessage="Choose a destination folder for this item"
+                      description="Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
                     />
                   }
+                  // eslint-disable-next-line @calm/react-intl/missing-attribute
                   cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
+                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" description="Label for an action button that causes a user to move an item into a given folder" />}
                   submitButtonClassName="media-actions-bar__add-button"
                   onCancel={closeDialog}
                   onSubmit={handleReject}
@@ -514,7 +527,7 @@ const MediaSuggestionsComponent = ({
                   menu={(
                     <div>
                       <IconButton
-                        tooltip={<FormattedMessage id="mediaSuggestionsMenu.tooltip" defaultMessage="Item actions" />}
+                        tooltip={<FormattedMessage id="mediaSuggestionsMenu.tooltip" defaultMessage="Item actions" description="Label for a tooltip on a menu button, indicating that this will list a series of actions that can be performed on an item" />}
                         onClick={handleOpenMenu(relationshipItem.id)}
                       >
                         <IconMoreVert />
@@ -531,12 +544,14 @@ const MediaSuggestionsComponent = ({
                           <FormattedMessage
                             id="mediaSuggestionsComponent.sendItemsToSpam"
                             defaultMessage="Mark as spam"
+                            description="Label for a menu item, indicating that clicking this will mark an item as spam and send it to the spam list"
                           />
                         </MenuItem>
                         <MenuItem onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED, relationshipItem)}>
                           <FormattedMessage
                             id="mediaSuggestionsComponent.sendItemsToTrash"
                             defaultMessage="Send to trash"
+                            description="Label for a menu item, indicating that clicking this will mark an item as trash and send it to the trash list"
                           />
                         </MenuItem>
                       </Menu>
