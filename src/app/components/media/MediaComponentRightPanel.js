@@ -90,7 +90,7 @@ const MediaComponentRightPanel = ({ projectMedia, setShowTab, showTab }) => {
       { /* Set maxHeight to screen height - (media bar + tabs) */ }
       <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
         { showTab === 'requests' ? <MediaRequests media={projectMedia} all={!projectMedia.is_confirmed_similar_to_another_item} /> : null }
-        { showTab === 'suggestedMedia' ? <MediaSuggestions projectMedia={projectMedia} /> : null }
+        { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} /> : null }
         { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
         { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
         { showTab === 'notes' ? <MediaComments media={projectMedia} /> : null }

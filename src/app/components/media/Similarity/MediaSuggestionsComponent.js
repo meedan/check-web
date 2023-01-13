@@ -6,6 +6,7 @@ import { Store } from 'react-relay/classic';
 import {
   Box,
   Grid,
+  Button,
   IconButton,
   Menu,
   MenuItem,
@@ -22,6 +23,7 @@ import { can } from '../../Can';
 // import MediaCardComponent from '../../cds/media-cards/MediaCardComponent';
 import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
+import MediasLoading from '../MediasLoading';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
@@ -119,21 +121,21 @@ const MediaSuggestionsComponent = ({
   relationships,
   team,
   setFlashMessage,
+  relay,
+  totalCount,
+  pageSize,
   intl,
 }) => {
   const classes = useStyles();
-  // sort suggestions by the larger (more recent) of `last_seen` vs `created_at`, descending
-  const sortedRelationships = relationships.sort((a, b) => Math.max(+b.target?.created_at, +b.target?.last_seen) - Math.max(+a.target?.created_at, +a.target?.last_seen));
-
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [openEl, setOpenEl] = React.useState(null);
   const [isMutationPending, setIsMutationPending] = React.useState(false);
   const [selectedRelationship, setSelectedRelationship] = React.useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [cursor, setCursor] = React.useState(0);
+  const [isPaginationLoading, setIsPaginationLoading] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
-
-  const total = sortedRelationships.length;
 
   const handleCompleted = () => {
     setIsMutationPending(false);
@@ -401,16 +403,16 @@ const MediaSuggestionsComponent = ({
     window.open('http://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions');
   };
 
-  const disableAcceptRejectButtons = total === 0 || !can(team.permissions, 'update Relationship') || isMutationPending;
+  const disableAcceptRejectButtons = totalCount === 0 || !can(team.permissions, 'update Relationship') || isMutationPending;
 
-  if (relationships.length === 0) {
+  if (totalCount === 0) {
     return (
       <Box className={classes.card}>
         <Typography variant="h2" className="similarity-media-no-items">
           <FormattedMessage
-            id="mediaSuggestionsComponent.title"
+            id="mediaSuggestionsComponent.noItems"
             defaultMessage="{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
-            description="A header that tells the user how many suggested media items are in the list to follow"
+            description="A header that tells the user there are no items in the list"
             values={{
               total: 0,
             }}
@@ -425,14 +427,50 @@ const MediaSuggestionsComponent = ({
       <Column className="media__suggestions-column">
         { relationships.length > 0 ?
           <div>
+            <Button
+              disabled={isPaginationLoading || cursor - pageSize < 0}
+              onClick={() => {
+                if (cursor - pageSize >= 0) {
+                  setCursor(cursor - pageSize);
+                }
+              }}
+            >
+              <FormattedMessage
+                id="mediaSuggestionsComponent.previous"
+                defaultMessage="Previous"
+                description="Label for the 'go to previous page' button on paginated suggestions"
+              />
+            </Button>
+            <Button
+              disabled={isPaginationLoading || cursor + pageSize >= totalCount}
+              onClick={() => {
+                if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize === relationships.length)) {
+                  setIsPaginationLoading(true);
+                  relay.loadMore(pageSize, () => {
+                    setCursor(cursor + pageSize);
+                    setIsPaginationLoading(false);
+                  });
+                } else if (cursor + pageSize < relationships.length) {
+                  setCursor(cursor + pageSize);
+                }
+              }}
+            >
+              <FormattedMessage
+                id="mediaSuggestionsComponent.back"
+                defaultMessage="Next"
+                description="Label for the 'go to next page' button on paginated suggestions"
+              />
+            </Button>
             <Box display="flex" alignItems="center" className={classes.suggestionsTopBar}>
               <Typography variant="body" className={classes.title}>
                 <FormattedMessage
                   id="mediaSuggestionsComponent.title"
-                  defaultMessage="{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+                  defaultMessage="{start} to {end} of {total, plural, one {{total} suggested media} other {{total} suggested medias}}"
                   description="A header that tells the user how many suggested media items are in the list to follow"
                   values={{
-                    total,
+                    total: totalCount,
+                    start: cursor + 1,
+                    end: Math.min(cursor + pageSize, totalCount),
                   }}
                 />
               </Typography>
@@ -470,7 +508,7 @@ const MediaSuggestionsComponent = ({
             </Box>
           </div> : null }
         <div id="suggested-media__items">
-          { relationships.map(relationshipItem => (
+          { isPaginationLoading ? <MediasLoading count={pageSize} /> : relationships.slice(cursor, cursor + pageSize).map(relationshipItem => (
             <Grid container alignItems="center" className="suggested-media__item" key={relationshipItem.id}>
               <Grid item xs={1}>
                 <Box
@@ -576,6 +614,9 @@ MediaSuggestionsComponent.propTypes = {
     id: PropTypes.string.isRequired,
     target_id: PropTypes.number.isRequired,
   })).isRequired,
+  relay: PropTypes.object.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  totalCount: PropTypes.number.isRequired,
   team: PropTypes.shape({
     slug: PropTypes.string,
     smooch_bot: PropTypes.shape({

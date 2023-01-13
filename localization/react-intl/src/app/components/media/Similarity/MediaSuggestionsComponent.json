@@ -20,9 +20,24 @@
     "defaultMessage": "Spam"
   },
   {
+    "id": "mediaSuggestionsComponent.noItems",
+    "description": "A header that tells the user there are no items in the list",
+    "defaultMessage": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+  },
+  {
+    "id": "mediaSuggestionsComponent.previous",
+    "description": "Label for the 'go to previous page' button on paginated suggestions",
+    "defaultMessage": "Previous"
+  },
+  {
+    "id": "mediaSuggestionsComponent.back",
+    "description": "Label for the 'go to next page' button on paginated suggestions",
+    "defaultMessage": "Next"
+  },
+  {
     "id": "mediaSuggestionsComponent.title",
     "description": "A header that tells the user how many suggested media items are in the list to follow",
-    "defaultMessage": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+    "defaultMessage": "{start} to {end} of {total, plural, one {{total} suggested media} other {{total} suggested medias}}"
   },
   {
     "id": "mediaSuggestionsComponent.question",
