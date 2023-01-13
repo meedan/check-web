@@ -72,7 +72,7 @@
   {
     "id": "smoochBotContentAndTranslation.submissionReceivedDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked."
+    "defaultMessage": "Thank you! Looking for fact-checks, it may take a minute."
   },
   {
     "id": "smoochBotContentAndTranslation.noSearchResultTitle",
@@ -172,7 +172,7 @@
   {
     "id": "smoochBotContentAndTranslation.timeoutDescription",
     "description": "Description of a customizable string of the tipline bot.",
-    "defaultMessage": "After 15 minutes of activity, this message is sent to users to close the conversation."
+    "defaultMessage": "After 15 minutes of inactivity, this message is sent to users to close the conversation."
   },
   {
     "id": "smoochBotContentAndTranslation.timeoutDefault",
