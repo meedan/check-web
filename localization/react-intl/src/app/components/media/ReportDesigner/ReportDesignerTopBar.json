@@ -62,7 +62,7 @@
   },
   {
     "id": "reportDesigner.confirmPublishText2",
-    "defaultMessage": "All future users who request this item will receive this version of the report while it remains published."
+    "defaultMessage": "Future users who request this item will receive this version of the report while it remains published."
   },
   {
     "id": "reportDesigner.confirmRepublishResendText",
@@ -71,6 +71,10 @@
   {
     "id": "reportDesigner.correction",
     "defaultMessage": "correction"
+  },
+  {
+    "id": "reportDesigner.republishAndResendSingleLanguage",
+    "defaultMessage": "Also send this updated report only to users who requested this item in {reportLanguage}."
   },
   {
     "id": "reportDesigner.republishAndResend",
