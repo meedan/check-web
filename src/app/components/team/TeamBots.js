@@ -32,7 +32,7 @@ class TeamBots extends Component {
 
   componentWillMount() {
     const settings = {};
-    this.props.root.team_bots_approved.edges.forEach((bot) => {
+    this.props.root.team_bots_listed.edges.forEach((bot) => {
       const installation = this.getInstallation(bot.node.id);
       if (installation) {
         const value = installation.json_settings || '{}';
@@ -104,7 +104,7 @@ class TeamBots extends Component {
 
     return (
       <Box className="team-bots">
-        { root.team_bots_approved.edges.map((teamBot) => {
+        { root.team_bots_listed.edges.map((teamBot) => {
           const bot = teamBot.node;
           const installation = this.getInstallation(bot.id);
 

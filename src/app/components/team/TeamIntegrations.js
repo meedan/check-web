@@ -40,7 +40,7 @@ const TeamIntegrations = () => (<QueryRenderer
           }
           ...SlackConfig_team
         }
-        team_bots_approved(first: 10000) {
+        team_bots_listed(first: 10000) {
           edges {
             node {
               id
