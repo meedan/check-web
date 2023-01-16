@@ -44,6 +44,9 @@ describe('<MediaSuggestionsComponent />', () => {
       setFlashMessage={() => {}}
       intl={intl}
       reportType="blank"
+      pageSize={2}
+      totalCount={5}
+      relay={{}}
     />);
     expect(wrapper.find('.similarity-media-item__accept-relationship')).toHaveLength(2);
     expect(wrapper.find('.similarity-media-item__reject-relationship')).toHaveLength(2);
@@ -59,6 +62,9 @@ describe('<MediaSuggestionsComponent />', () => {
       setFlashMessage={() => {}}
       intl={intl}
       reportType="blank"
+      pageSize={2}
+      totalCount={0}
+      relay={{}}
     />);
     expect(wrapper.find('.similarity-media-item__accept-relationship')).toHaveLength(0);
     expect(wrapper.find('.similarity-media-item__reject-relationship')).toHaveLength(0);
