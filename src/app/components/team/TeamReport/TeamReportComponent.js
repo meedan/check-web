@@ -39,6 +39,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const [reports, setReports] = React.useState(JSON.parse(JSON.stringify(team.get_report || {})));
   const [saving, setSaving] = React.useState(false);
+  const [errorField, setErrorField] = React.useState(null);
   const report = reports[currentLanguage] || {};
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
@@ -70,6 +71,25 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
         description="Banner displayed when report settings are saved successfully"
       />
     ), 'success');
+  };
+
+  const isUrl = (string) => {
+    try {
+      return Boolean(new URL(string));
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const validateSignatureField = (field, value) => {
+    const newReports = { ...reports };
+    if (!isUrl(value)) {
+      handleChange(field, value);
+      setErrorField(null);
+    } else {
+      newReports[currentLanguage][field] = '';
+      setErrorField(field);
+    }
   };
 
   const handleSave = () => {
@@ -290,7 +310,15 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   key={`facebook-${currentLanguage}`}
                   value={report.facebook || ''}
                   disabled={!report.use_signature}
-                  onChange={(e) => { handleChange('facebook', e.target.value); }}
+                  onChange={e => validateSignatureField('facebook', e.target.value)}
+                  error={errorField === 'facebook'}
+                  helperText={errorField === 'facebook' ?
+                    <FormattedMessage
+                      id="teamReportComponent.facebookFieldError"
+                      defaultMessage="Please use the page name instead of the full URL"
+                    />
+                    : null
+                  }
                   label={
                     <FormattedMessage
                       id="teamReportComponent.facebook"
@@ -314,7 +342,15 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   key={`twitter-${currentLanguage}`}
                   value={report.twitter || ''}
                   disabled={!report.use_signature}
-                  onChange={(e) => { handleChange('twitter', e.target.value); }}
+                  onChange={e => validateSignatureField('twitter', e.target.value)}
+                  error={errorField === 'twitter'}
+                  helperText={errorField === 'twitter' ?
+                    <FormattedMessage
+                      id="teamReportComponent.twitterFieldError"
+                      defaultMessage="Please use the account name instead of the full URL"
+                    />
+                    : null
+                  }
                   label={
                     <FormattedMessage
                       id="teamReportComponent.twitter"
@@ -339,7 +375,15 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   key={`telegram-${currentLanguage}`}
                   value={report.telegram || ''}
                   disabled={!report.use_signature}
-                  onChange={(e) => { handleChange('telegram', e.target.value); }}
+                  onChange={e => validateSignatureField('telegram', e.target.value)}
+                  error={errorField === 'telegram'}
+                  helperText={errorField === 'telegram' ?
+                    <FormattedMessage
+                      id="teamReportComponent.telegramFieldError"
+                      defaultMessage="Please use the bot username instead of the full URL"
+                    />
+                    : null
+                  }
                   label={
                     <FormattedMessage
                       id="teamReportComponent.telegram"
