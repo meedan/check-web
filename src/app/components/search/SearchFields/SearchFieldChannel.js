@@ -53,7 +53,7 @@ const SearchFieldChannelComponent = ({
 
   const optionLabels = {
     MANUAL: intl.formatMessage(messages.manual),
-    FETCH: 'Fetch',
+    FETCH: 'Imported Fact-checks',
     BROWSER_EXTENSION: intl.formatMessage(messages.browserExtension),
     API: intl.formatMessage(messages.api),
     ZAPIER: 'Zapier',

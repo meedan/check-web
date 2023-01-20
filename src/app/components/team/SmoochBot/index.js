@@ -40,7 +40,7 @@ const SmoochBot = ({ currentUser }) => {
                 }
               }
             }
-            team_bots_approved(first: 10000) {
+            team_bots_listed(first: 10000) {
               edges {
                 node {
                   id
@@ -57,7 +57,7 @@ const SmoochBot = ({ currentUser }) => {
       }}
       render={({ props }) => {
         if (props) {
-          const smoochBotDbid = props.root.team_bots_approved.edges.find(bot => bot.node.name === 'Smooch').node.dbid;
+          const smoochBotDbid = props.root.team_bots_listed.edges.find(bot => bot.node.name === 'Smooch').node.dbid;
           return (<SmoochBotComponent team={props.root.current_team} currentUser={currentUser} smoochBotDbid={smoochBotDbid} />);
         }
         return null;

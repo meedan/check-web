@@ -57,6 +57,9 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
           get_report
           get_report_design_image_template
           verification_statuses
+          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+            alegre_settings
+          }
         }
       }
     `,

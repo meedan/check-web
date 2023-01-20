@@ -54,7 +54,7 @@ const LanguageSwitcher = (props) => {
     setAnchorEl(null);
   };
 
-  if (props.component === 'dropdown') {
+  if (props.component === 'dropdown' && languages.length > 1) {
     return (
       <FormControl variant="outlined">
         <Select value={currentLanguage} onChange={(e) => { handleChange(e, e.target.value); }} margin="dense" className="language-switcher">

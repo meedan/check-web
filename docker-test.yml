@@ -16,6 +16,7 @@ services:
   api:
     environment:
       RAILS_ENV: test
+      PAPERTRAIL_ENABLED: "true"
       SERVER_PORT: 3000
   api-background:
     environment:

@@ -48,12 +48,24 @@
     "defaultMessage": "WhatsApp number"
   },
   {
+    "id": "teamReportComponent.facebookFieldError",
+    "defaultMessage": "Please use the page name instead of the full URL"
+  },
+  {
     "id": "teamReportComponent.facebook",
     "defaultMessage": "Facebook page name"
   },
   {
+    "id": "teamReportComponent.twitterFieldError",
+    "defaultMessage": "Please use the account name instead of the full URL"
+  },
+  {
     "id": "teamReportComponent.twitter",
     "defaultMessage": "Twitter account name"
+  },
+  {
+    "id": "teamReportComponent.telegramFieldError",
+    "defaultMessage": "Please use the bot username instead of the full URL"
   },
   {
     "id": "teamReportComponent.telegram",

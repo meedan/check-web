@@ -50,7 +50,7 @@ const SmoochBotContentAndTranslation = ({
       key: 'search_state',
       title: <FormattedMessage id="smoochBotContentAndTranslation.submissionReceivedTitle" defaultMessage="Submission received" description="Title of a customizable string of the tipline bot." />,
       description: <FormattedMessage id="smoochBotContentAndTranslation.submissionReceivedDescription" defaultMessage="The confirmation sent to the user after the content is submitted." description="Description of a customizable string of the tipline bot." />,
-      default: <FormattedMessage id="smoochBotContentAndTranslation.submissionReceivedDefault" defaultMessage="No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked." description="Default value for a customizable string of the tipline bot." />,
+      default: <FormattedMessage id="smoochBotContentAndTranslation.submissionReceivedDefault" defaultMessage="Thank you! Looking for fact-checks, it may take a minute." description="Default value for a customizable string of the tipline bot." />,
     },
     {
       key: 'search_no_results',
