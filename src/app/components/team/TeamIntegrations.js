@@ -24,6 +24,7 @@ const TeamIntegrations = () => (<QueryRenderer
               node {
                 id
                 json_settings
+                lock_version
                 bot_user {
                   id
                 }

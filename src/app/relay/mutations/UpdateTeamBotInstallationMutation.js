@@ -8,7 +8,12 @@ class UpdateTeamBotInstallationMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { id: this.props.id, json_settings: this.props.json_settings };
+    const vars = {
+      id: this.props.id,
+      json_settings: this.props.json_settings,
+      lock_version: this.props.lock_version,
+    };
+    return vars;
   }
 
   getFatQuery() {
@@ -17,6 +22,7 @@ class UpdateTeamBotInstallationMutation extends Relay.Mutation {
         id
         json_settings
         smooch_newsletter_information
+        lock_version
       }
     }`;
   }
