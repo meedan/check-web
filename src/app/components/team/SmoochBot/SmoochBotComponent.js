@@ -19,6 +19,7 @@ import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import CreateTeamBotInstallationMutation from '../../../relay/mutations/CreateTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../../relay/mutations/UpdateTeamBotInstallationMutation';
+import { getErrorMessage } from '../../../helpers';
 
 const SmoochBotComponent = ({
   team,
@@ -44,9 +45,10 @@ const SmoochBotComponent = ({
     window.open('https://airtable.com/shr727e2MeBQnTGa1');
   };
 
-  const handleError = () => {
+  const handleError = (transaction) => {
     setSaving(false);
-    setFlashMessage((<GenericUnknownErrorMessage />), 'error');
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+    setFlashMessage(message, 'error');
   };
 
   const handleSuccess = () => {
@@ -75,6 +77,7 @@ const SmoochBotComponent = ({
         new UpdateTeamBotInstallationMutation({
           id: installation.id,
           json_settings: JSON.stringify(settings),
+          lock_version: installation.lock_version,
           files,
         }),
         { onSuccess: handleSuccess, onFailure: handleError },
