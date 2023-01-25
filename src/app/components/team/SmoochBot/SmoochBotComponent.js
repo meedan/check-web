@@ -19,7 +19,8 @@ import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import CreateTeamBotInstallationMutation from '../../../relay/mutations/CreateTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../../relay/mutations/UpdateTeamBotInstallationMutation';
-import { getErrorMessage } from '../../../helpers';
+import { getErrorObjectsForRelayModernProblem } from '../../../helpers';
+import CheckError from '../../../CheckError';
 
 const SmoochBotComponent = ({
   team,
@@ -47,7 +48,8 @@ const SmoochBotComponent = ({
 
   const handleError = (transaction) => {
     setSaving(false);
-    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+    const errors = getErrorObjectsForRelayModernProblem(transaction.getError());
+    const message = errors && errors.length > 0 ? CheckError.getMessageFromCode(errors[0].code) : <GenericUnknownErrorMessage />;
     setFlashMessage(message, 'error');
   };
 
