@@ -1,43 +1,15 @@
 [
   {
-    "id": "searchKeywordConfig.item",
-    "defaultMessage": "Item"
-  },
-  {
-    "id": "searchKeywordConfig.mediaTitle",
-    "defaultMessage": "Media title"
-  },
-  {
-    "id": "searchKeywordConfig.mediaContent",
-    "defaultMessage": "Media content"
-  },
-  {
-    "id": "searchKeywordConfig.mediaUrl",
-    "defaultMessage": "Media URL"
-  },
-  {
-    "id": "searchKeywordConfig.analysisTitle",
-    "defaultMessage": "Analysis title"
-  },
-  {
-    "id": "searchKeywordConfig.analysisContent",
-    "defaultMessage": "Analysis content"
-  },
-  {
-    "id": "searchKeywordConfig.tags",
-    "defaultMessage": "Tags"
-  },
-  {
-    "id": "searchKeywordConfig.accounts",
-    "defaultMessage": "Source"
-  },
-  {
-    "id": "searchKeywordConfig.ocr",
-    "defaultMessage": "Extracted text (OCR)"
+    "id": "searchKeywordConfig.claimAndFactCheck",
+    "defaultMessage": "Claim and fact-check"
   },
   {
     "id": "searchKeywordConfig.claimDescription",
-    "defaultMessage": "Claim description"
+    "defaultMessage": "Claim"
+  },
+  {
+    "id": "searchKeywordConfig.claimDescriptionContext",
+    "defaultMessage": "Claim context"
   },
   {
     "id": "searchKeywordConfig.factCheckTitle",
@@ -48,12 +20,28 @@
     "defaultMessage": "Fact-check summary"
   },
   {
-    "id": "searchKeywordConfig.allMetadataAnswers",
-    "defaultMessage": "All metadata answers"
+    "id": "searchKeywordConfig.mediaUrl",
+    "defaultMessage": "Fact-check URL"
   },
   {
-    "id": "searchKeywordConfig.allNotes",
-    "defaultMessage": "All notes"
+    "id": "searchKeywordConfig.tags",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "searchKeywordConfig.media",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "searchKeywordConfig.mediaTitle",
+    "defaultMessage": "Media title"
+  },
+  {
+    "id": "searchKeywordConfig.mediaContent",
+    "defaultMessage": "Media content"
+  },
+  {
+    "id": "searchKeywordConfig.accounts",
+    "defaultMessage": "Source"
   },
   {
     "id": "searchKeywordConfig.annotation",
@@ -62,6 +50,6 @@
   },
   {
     "id": "MultiSelector.all",
-    "defaultMessage": "Search All"
+    "defaultMessage": "Select All"
   }
 ]

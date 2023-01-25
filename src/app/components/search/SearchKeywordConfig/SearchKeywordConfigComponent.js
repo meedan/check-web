@@ -11,7 +11,7 @@ const SearchKeywordConfigComponent = ({
   onDismiss,
   onSubmit,
 }) => {
-  let selected = [];
+  let selected = ['claim_description', 'fact_check_title', 'fact_check_summary', 'title', 'description'];
   if (query.keyword_fields) {
     if (query.keyword_fields.fields) {
       selected = selected.concat(query.keyword_fields.fields);
@@ -21,94 +21,34 @@ const SearchKeywordConfigComponent = ({
     }
   }
   let options = [{
-    value: '',
+    value: 'claim_and_fact_check',
     label: (
       <FormattedMessage
-        id="searchKeywordConfig.item"
-        defaultMessage="Item"
+        id="searchKeywordConfig.claimAndFactCheck"
+        defaultMessage="Claim and fact-check"
       />
     ),
+    hasChildren: true,
   },
   {
-    value: 'title',
+    value: 'claim_description',
     label: (
       <FormattedMessage
-        id="searchKeywordConfig.mediaTitle"
-        defaultMessage="Media title"
+        id="searchKeywordConfig.claimDescription"
+        defaultMessage="Claim"
       />
     ),
-  },
-  {
-    value: 'description',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.mediaContent"
-        defaultMessage="Media content"
-      />
-    ),
-  },
-  {
-    value: 'url',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.mediaUrl"
-        defaultMessage="Media URL"
-      />
-    ),
-  },
-  {
-    value: 'analysis_title',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.analysisTitle"
-        defaultMessage="Analysis title"
-      />
-    ),
-  },
-  {
-    value: 'analysis_description',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.analysisContent"
-        defaultMessage="Analysis content"
-      />
-    ),
-  },
-  {
-    value: 'tags',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.tags"
-        defaultMessage="Tags"
-      />
-    ),
-  },
-  {
-    value: 'accounts',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.accounts"
-        defaultMessage="Source"
-      />
-    ),
-  },
-  {
-    value: 'extracted_text',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.ocr"
-        defaultMessage="Extracted text (OCR)"
-      />
-    ),
+    parent: 'claim_and_fact_check',
   },
   {
     value: 'claim_description_content',
     label: (
       <FormattedMessage
-        id="searchKeywordConfig.claimDescription"
-        defaultMessage="Claim description"
+        id="searchKeywordConfig.claimDescriptionContext"
+        defaultMessage="Claim context"
       />
     ),
+    parent: 'claim_and_fact_check',
   },
   {
     value: 'fact_check_title',
@@ -118,6 +58,7 @@ const SearchKeywordConfigComponent = ({
         defaultMessage="Fact-check title"
       />
     ),
+    parent: 'claim_and_fact_check',
   },
   {
     value: 'fact_check_summary',
@@ -127,28 +68,71 @@ const SearchKeywordConfigComponent = ({
         defaultMessage="Fact-check summary"
       />
     ),
+    parent: 'claim_and_fact_check',
+  },
+  {
+    value: 'fact_check_url',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.mediaUrl"
+        defaultMessage="Fact-check URL"
+      />
+    ),
+    parent: 'claim_and_fact_check',
+  },
+  {
+    value: 'tags',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.tags"
+        defaultMessage="Tags"
+      />
+    ),
+    parent: 'claim_and_fact_check',
   },
   {
     value: '',
     label: '',
   },
   {
-    value: 'metadata_answers',
+    value: 'media',
     label: (
       <FormattedMessage
-        id="searchKeywordConfig.allMetadataAnswers"
-        defaultMessage="All metadata answers"
+        id="searchKeywordConfig.media"
+        defaultMessage="Media"
       />
     ),
+    hasChildren: true,
   },
   {
-    value: 'comments',
+    value: 'title',
     label: (
       <FormattedMessage
-        id="searchKeywordConfig.allNotes"
-        defaultMessage="All notes"
+        id="searchKeywordConfig.mediaTitle"
+        defaultMessage="Media title"
       />
     ),
+    parent: 'media',
+  },
+  {
+    value: 'description',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.mediaContent"
+        defaultMessage="Media content"
+      />
+    ),
+    parent: 'media',
+  },
+  {
+    value: 'accounts',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.accounts"
+        defaultMessage="Source"
+      />
+    ),
+    parent: 'media',
   }];
 
   const wantedTeamTaskTypes = m => (
@@ -161,17 +145,18 @@ const SearchKeywordConfigComponent = ({
     m.node.associated_type === 'ProjectMedia'
   );
 
-  const formatOption = m => ({ value: `${m.node.dbid}`, label: m.node.label });
+  const formatOption = m => ({ value: `${m.node.dbid}`, label: m.node.label, parent: 'annotations' });
 
   const teamMetadata = team.metadata.edges
     .filter(wantedTeamTaskAssociatedTypes).filter(wantedTeamTaskTypes)
-    .map(formatOption);
+    .map(formatOption)
+    .sort((a, b) => (a.label.localeCompare(b.label)));
 
   if (teamMetadata.length) {
     options = options.concat([{ value: '', label: '' }]);
     if (teamMetadata.length) {
       const label = <FormattedMessage id="searchKeywordConfig.annotation" defaultMessage="Annotation" description="Header before a listing of annotation options" />;
-      options = options.concat([{ value: '', label }]);
+      options = options.concat([{ value: 'annotations', label, hasChildren: true }]);
       options = options.concat(teamMetadata);
     }
   }
@@ -206,8 +191,7 @@ const SearchKeywordConfigComponent = ({
   return (
     <MultiSelector
       allowToggleAll
-      defaultAllSelected
-      toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="Search All" />}
+      toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="Select All" />}
       submitLabel={<FormattedMessage {...globalStrings.update} />}
       cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
       options={options}
