@@ -87,7 +87,7 @@ By default, only unit tests will run for branches on Travis other than develop o
 
 and comment this verification in the build script to build and up all necessary containers:
 * https://github.com/meedan/check-web/blob/develop/build.sh#L3-L8
-* https://github.com/meedan/check-web/blob/develop/build.sh#L38
+* https://github.com/meedan/check-web/blob/develop/build.sh#L43
 
 *Writing*
 
