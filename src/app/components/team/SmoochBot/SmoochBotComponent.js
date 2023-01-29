@@ -135,6 +135,11 @@ const SmoochBotComponent = ({
     }
     setCurrentLanguage(newValue);
   };
+
+  // Workspace languages for which there is a tipline workflow
+  const workflowLanguages = settings?.smooch_workflows?.map(w => w.smooch_workflow_language) || [];
+  const validLanguages = languages.filter(l => workflowLanguages.includes(l)) || [];
+
   // If only on language, no margin left. If more than one language the language selector is displayed, so we add a margin.
   return (
     <Box display="flex" justifyContent="left" className="smooch-bot-component" ml={installation && bot && languages.length > 1 ? 0 : 6}>
@@ -178,7 +183,7 @@ const SmoochBotComponent = ({
                 currentUser={currentUser}
                 userRole={userRole}
                 currentLanguage={currentLanguage}
-                languages={languages}
+                languages={validLanguages}
                 enabledIntegrations={installation.smooch_enabled_integrations}
                 newsletterInformation={installation.smooch_newsletter_information}
               /> :
