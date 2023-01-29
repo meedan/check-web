@@ -32,7 +32,7 @@ describe('<TeamDataComponent />', () => {
   });
 
   it('should list languages from data', () => {
-    const data  = [
+    const data = [
       {
         Month: 'January 2022',
         Conversations: 123,
