@@ -10,6 +10,11 @@
     "defaultMessage": "Button text - 24 characters limit"
   },
   {
+    "id": "smoochBotMainMenuOption.labelError",
+    "description": "Error message displayed when user tries to save tipline menu option with a blank label",
+    "defaultMessage": "Please add text to label the button"
+  },
+  {
     "id": "smoochBotMainMenuOption.description",
     "description": "Description field label on dialog that opens to add a new option to tipline bot main menu",
     "defaultMessage": "Description - 72 characters limit"
@@ -48,6 +53,11 @@
     "id": "smoochBotMainMenuOption.resources",
     "description": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu",
     "defaultMessage": "Resources"
+  },
+  {
+    "id": "smoochBotMainMenuOption.responseError",
+    "description": "Error message displayed when user tries to save tipline option with empty response",
+    "defaultMessage": "Please choose a response"
   },
   {
     "id": "smoochBotMainMenuOption.save",
