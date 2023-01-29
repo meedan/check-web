@@ -17,7 +17,13 @@ describe('<TeamDataComponent />', () => {
   it('should render table if there is data', () => {
     const wrapper = mountWithIntl(<TeamDataComponent
       slug="test"
-      data={[{ Month: 'January 2022', Conversations: 123, Language: 'en', Platform: 'WhatsApp', ID: 1 }]}
+      data={[{
+        Month: 'January 2022',
+        Conversations: 123,
+        Language: 'en',
+        Platform: 'WhatsApp',
+        ID: 1,
+      }]}
       params={{}}
       route={{ action: 'settings' }}
     />);
@@ -27,8 +33,20 @@ describe('<TeamDataComponent />', () => {
 
   it('should list languages from data', () => {
     const data  = [
-      { Month: 'January 2022', Conversations: 123, Language: 'en', Platform: 'WhatsApp', ID: '1' },
-      { Month: 'February 2022', Conversations: 456, Language: 'es', Platform: 'WhatsApp', ID: '2' },
+      {
+        Month: 'January 2022',
+        Conversations: 123,
+        Language: 'en',
+        Platform: 'WhatsApp',
+        ID: '1',
+      },
+      {
+        Month: 'February 2022',
+        Conversations: 456,
+        Language: 'es',
+        Platform: 'WhatsApp',
+        ID: '2',
+      },
     ];
 
     let wrapper = mountWithIntl(<TeamDataComponent
