@@ -13,7 +13,6 @@ const renderQuery = ({ error, props }) => {
         slug={team.slug}
         data={team.data_report}
         defaultLanguage={team.get_language}
-        languages={team.get_languages}
       />
     );
   }
@@ -31,7 +30,6 @@ const TeamData = props => (
           id
           slug
           get_language
-          get_languages
           data_report
         }
       }
