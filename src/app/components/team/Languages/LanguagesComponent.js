@@ -35,7 +35,7 @@ const LanguagesComponent = ({ team }) => {
               defaultMessage="Add new languages to your workspace in order to create reports, tipline bots and statuses in multiple languages when communicating with users."
             />
           }
-          helpUrl="https://help.checkmedia.org/en/articles/4285291-content-language"
+          helpUrl="https://help.checkmedia.org/en/articles/4498863-languages"
           actionButton={
             <AddLanguageAction team={team} />
           }
