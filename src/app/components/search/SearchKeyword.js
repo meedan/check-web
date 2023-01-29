@@ -321,7 +321,6 @@ class SearchKeyword extends React.Component {
                   { this.props.hideAdvanced ?
                     null :
                     <SearchKeywordMenu
-                      teamSlug={this.props.team.slug}
                       onChange={this.handleKeywordConfigChange}
                       query={this.props.query}
                     />
@@ -347,7 +346,6 @@ SearchKeyword.propTypes = {
   setQuery: PropTypes.func.isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
-    slug: PropTypes.string.isRequired,
     pusher_channel: PropTypes.string.isRequired,
     verification_statuses: PropTypes.shape({
       statuses: PropTypes.arrayOf(PropTypes.shape({
@@ -378,7 +376,6 @@ export default createFragmentContainer(withStyles(styles)(withPusher(SearchKeywo
     verification_statuses
     pusher_channel
     name
-    slug
     projects(first: 10000) {
       edges {
         node {

@@ -6,7 +6,6 @@ import { MultiSelector } from '@meedan/check-ui';
 import globalStrings from '../../../globalStrings';
 
 const SearchKeywordConfigComponent = ({
-  team,
   query,
   onDismiss,
   onSubmit,
@@ -16,175 +15,186 @@ const SearchKeywordConfigComponent = ({
     if (query.keyword_fields.fields) {
       selected = selected.concat(query.keyword_fields.fields);
     }
-    if (query.keyword_fields.team_tasks) {
-      selected = selected.concat(query.keyword_fields.team_tasks);
-    }
   }
-  let options = [{
-    value: 'claim_and_fact_check',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.claimAndFactCheck"
-        defaultMessage="Claim and fact-check"
-      />
-    ),
-    hasChildren: true,
-  },
-  {
-    value: 'claim_description',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.claimDescription"
-        defaultMessage="Claim"
-      />
-    ),
-    parent: 'claim_and_fact_check',
-  },
-  {
-    value: 'claim_description_content',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.claimDescriptionContext"
-        defaultMessage="Claim context"
-      />
-    ),
-    parent: 'claim_and_fact_check',
-  },
-  {
-    value: 'fact_check_title',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.factCheckTitle"
-        defaultMessage="Fact-check title"
-      />
-    ),
-    parent: 'claim_and_fact_check',
-  },
-  {
-    value: 'fact_check_summary',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.factCheckSummary"
-        defaultMessage="Fact-check summary"
-      />
-    ),
-    parent: 'claim_and_fact_check',
-  },
-  {
-    value: 'fact_check_url',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.mediaUrl"
-        defaultMessage="Fact-check URL"
-      />
-    ),
-    parent: 'claim_and_fact_check',
-  },
-  {
-    value: 'tags',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.tags"
-        defaultMessage="Tags"
-      />
-    ),
-    parent: 'claim_and_fact_check',
-  },
-  {
-    value: '',
-    label: '',
-  },
-  {
-    value: 'media',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.media"
-        defaultMessage="Media"
-      />
-    ),
-    hasChildren: true,
-  },
-  {
-    value: 'title',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.mediaTitle"
-        defaultMessage="Media title"
-      />
-    ),
-    parent: 'media',
-  },
-  {
-    value: 'description',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.mediaContent"
-        defaultMessage="Media content"
-      />
-    ),
-    parent: 'media',
-  },
-  {
-    value: 'accounts',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.accounts"
-        defaultMessage="Source"
-      />
-    ),
-    parent: 'media',
-  }];
 
-  const wantedTeamTaskTypes = m => (
-    m.node.type === 'free_text' ||
-    m.node.type === 'single_choice' ||
-    m.node.type === 'multiple_choice'
-  );
-
-  const wantedTeamTaskAssociatedTypes = m => (
-    m.node.associated_type === 'ProjectMedia'
-  );
-
-  const formatOption = m => ({ value: `${m.node.dbid}`, label: m.node.label, parent: 'annotations' });
-
-  const teamMetadata = team.metadata.edges
-    .filter(wantedTeamTaskAssociatedTypes).filter(wantedTeamTaskTypes)
-    .map(formatOption)
-    .sort((a, b) => (a.label.localeCompare(b.label)));
-
-  if (teamMetadata.length) {
-    options = options.concat([{ value: '', label: '' }]);
-    if (teamMetadata.length) {
-      const label = <FormattedMessage id="searchKeywordConfig.annotation" defaultMessage="Annotation" description="Header before a listing of annotation options" />;
-      options = options.concat([{ value: 'annotations', label, hasChildren: true }]);
-      options = options.concat(teamMetadata);
-    }
-  }
+  const claimFactCheckOptions = [
+    {
+      value: 'claim_and_fact_check',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.claimAndFactCheck"
+          defaultMessage="Claim and fact-check"
+        />
+      ),
+      hasChildren: true,
+    },
+    {
+      value: 'claim_description',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.claimDescription"
+          defaultMessage="Claim"
+        />
+      ),
+      parent: 'claim_and_fact_check',
+    },
+    {
+      value: 'claim_description_content',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.claimDescriptionContext"
+          defaultMessage="Claim context"
+        />
+      ),
+      parent: 'claim_and_fact_check',
+    },
+    {
+      value: 'fact_check_title',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.factCheckTitle"
+          defaultMessage="Fact-check title"
+        />
+      ),
+      parent: 'claim_and_fact_check',
+    },
+    {
+      value: 'fact_check_summary',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.factCheckSummary"
+          defaultMessage="Fact-check summary"
+        />
+      ),
+      parent: 'claim_and_fact_check',
+    },
+    {
+      value: 'fact_check_url',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.factCheckUrl"
+          defaultMessage="Fact-check URL"
+        />
+      ),
+      parent: 'claim_and_fact_check',
+    },
+    {
+      value: 'tags',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.tags"
+          defaultMessage="Tags"
+        />
+      ),
+      parent: 'claim_and_fact_check',
+    },
+    {
+      value: 'comments',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.notes"
+          defaultMessage="Notes"
+        />
+      ),
+      parent: 'claim_and_fact_check',
+    },
+  ];
+  const mediaOptions = [
+    {
+      value: 'media',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.media"
+          defaultMessage="Media"
+        />
+      ),
+      hasChildren: true,
+    },
+    {
+      value: 'title',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.mediaTitle"
+          defaultMessage="Media title"
+        />
+      ),
+      parent: 'media',
+    },
+    {
+      value: 'description',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.mediaContent"
+          defaultMessage="Media content"
+        />
+      ),
+      parent: 'media',
+    },
+    {
+      value: 'url',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.mediaUrl"
+          defaultMessage="Media URL"
+        />
+      ),
+      parent: 'media',
+    },
+    {
+      value: 'source_title',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.sourceTitle"
+          defaultMessage="Source title"
+        />
+      ),
+      parent: 'media',
+    },
+  ];
+  const userRequestOptions = [
+    {
+      value: 'user_and_request',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.userAndRequest"
+          defaultMessage="User & Rquest"
+        />
+      ),
+      hasChildren: true,
+    },
+    {
+      value: 'user_name',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.userNamePhoneNumber"
+          defaultMessage="Username or phone number"
+        />
+      ),
+      parent: 'user_and_request',
+    },
+    {
+      value: 'request_content',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.requestContent"
+          defaultMessage="Request content"
+        />
+      ),
+      parent: 'user_and_request',
+    },
+  ];
+  const hrOption = [{ value: '', label: '' }];
+  const options = [...claimFactCheckOptions, ...hrOption, ...mediaOptions, ...hrOption, ...userRequestOptions];
 
   const handleChange = (values) => {
     const fields = [];
-    const team_tasks = [];
-    let keyword_fields = {};
-
+    const keyword_fields = {};
     values.forEach((v) => {
-      if (parseInt(v, 10)) {
-        team_tasks.push(v);
-      } else {
-        fields.push(v);
-      }
+      fields.push(v);
     });
-
     if (fields.length) {
       keyword_fields.fields = fields;
     }
-    if (team_tasks.length) {
-      keyword_fields.team_tasks = team_tasks;
-    }
-    const filteredOptions = options.filter(o => o.value !== '');
-    if (values.length === filteredOptions.length) {
-      keyword_fields = {};
-    }
-
     onSubmit({ keyword_fields });
   };
 
