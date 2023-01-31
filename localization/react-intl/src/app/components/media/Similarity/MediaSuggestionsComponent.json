@@ -17,7 +17,7 @@
   },
   {
     "id": "mediaSuggestionsComponent.title",
-    "defaultMessage": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+    "defaultMessage": "{total, plural, one {{total} suggestion} other {{total} suggestions}}"
   },
   {
     "id": "mediaSuggestionsComponent.question",

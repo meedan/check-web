@@ -407,7 +407,7 @@ const MediaSuggestionsComponent = ({
   if (relationships.length === 0) {
     return (
       <Box className={classes.card}>
-        <Typography variant="h2">0 suggested media</Typography>
+        <Typography variant="h2">0 suggestion</Typography>
       </Box>
     );
   }
@@ -421,7 +421,7 @@ const MediaSuggestionsComponent = ({
               <Typography variant="body" className={classes.title}>
                 <FormattedMessage
                   id="mediaSuggestionsComponent.title"
-                  defaultMessage="{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+                  defaultMessage="{total, plural, one {{total} suggestion} other {{total} suggestions}}"
                   values={{
                     total,
                   }}
