@@ -17,7 +17,7 @@
   },
   {
     "id": "list.LinkedItems",
-    "defaultMessage": "Matched media"
+    "defaultMessage": "Media"
   },
   {
     "id": "list.Type",
@@ -70,7 +70,7 @@
   },
   {
     "id": "list.suggestionsCount",
-    "defaultMessage": "Suggested media"
+    "defaultMessage": "Suggestions"
   },
   {
     "id": "list.folder",
@@ -100,7 +100,7 @@
   {
     "id": "list.clusterSize",
     "description": "Table header for column that shows the number of similar items that belong to the same cluster",
-    "defaultMessage": "Matched media"
+    "defaultMessage": "Media"
   },
   {
     "id": "list.clusterFirstItemAt",

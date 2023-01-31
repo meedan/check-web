@@ -64,7 +64,7 @@ const MediaSimilarityBarComponent = ({
           label={
             <FormattedMessage
               id="mediaSimilarityBarComponent.similarMedia"
-              defaultMessage="Matched media"
+              defaultMessage="Media"
               description="Plural. Heading for the number of matched media"
             />
           }
@@ -83,7 +83,7 @@ const MediaSimilarityBarComponent = ({
           label={
             <FormattedMessage
               id="mediaSimilarityBarComponent.suggestedMatches"
-              defaultMessage="Suggested media"
+              defaultMessage="Suggestions"
               description="Plural. Heading for the number of suggested media"
             />
           }
