@@ -1,12 +1,12 @@
 window.config = {
   appName: 'check',
-  selfHost: 'web:3333',
-  restBaseUrl: 'http://api:3000/api/',
-  relayPath: 'http://api:3000/api/graphql',
+  selfHost: 'localhost:3333',
+  restBaseUrl: 'http://localhost:3000/api/',
+  relayPath: 'http://localhost:3000/api/graphql',
   relayHeaders: {
     'X-Check-Token': ''
   },
-  penderUrl: 'http://pender:3200',
+  penderUrl: 'http://localhost:3200',
 
   // Pusher is used for push notifications from backend to frontend https://pusher.com/channels
   //
