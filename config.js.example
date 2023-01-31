@@ -12,8 +12,8 @@ window.config = {
   //
   // REQUIRED
   //
-  pusherKey: 'pusherKey', // '<PUSHER KEY>',
-  pusherCluster: 'pusherCluster', // '<PUSHER CLUSTER>',
+  pusherKey: null, // '<PUSHER KEY>',
+  pusherCluster: null, // '<PUSHER CLUSTER>',
   pusherDebug: true,
 
   // Mapbox is used to show maps on geolocation tasks https://www.mapbox.com/
@@ -35,4 +35,11 @@ window.config = {
   // OPTIONAL
   //
   intercomAppId: null, // '<INTERCOM APP ID>',
+
+  // Errbit is used to capture exceptions that happen in the browser
+  //
+  // OPTIONAL
+  //
+  errbitApiKey: null,
+  errbitHost: null,
 }
