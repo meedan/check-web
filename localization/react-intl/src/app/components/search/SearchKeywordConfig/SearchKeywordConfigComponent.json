@@ -1,7 +1,7 @@
 [
   {
-    "id": "searchKeywordConfig.claimAndFactCheck",
-    "defaultMessage": "Claim and fact-check"
+    "id": "searchKeywordConfig.factCheck",
+    "defaultMessage": "Fact-check"
   },
   {
     "id": "searchKeywordConfig.claimDescription",
@@ -9,59 +9,55 @@
   },
   {
     "id": "searchKeywordConfig.claimDescriptionContext",
-    "defaultMessage": "Claim context"
-  },
-  {
-    "id": "searchKeywordConfig.factCheckTitle",
-    "defaultMessage": "Fact-check title"
+    "defaultMessage": "Context"
   },
   {
     "id": "searchKeywordConfig.factCheckSummary",
-    "defaultMessage": "Fact-check summary"
-  },
-  {
-    "id": "searchKeywordConfig.factCheckUrl",
-    "defaultMessage": "Fact-check URL"
+    "defaultMessage": "Summary"
   },
   {
     "id": "searchKeywordConfig.tags",
     "defaultMessage": "Tags"
   },
   {
-    "id": "searchKeywordConfig.notes",
-    "defaultMessage": "Notes"
+    "id": "searchKeywordConfig.factCheckTitle",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "searchKeywordConfig.factCheckUrl",
+    "defaultMessage": "URLs"
   },
   {
     "id": "searchKeywordConfig.media",
     "defaultMessage": "Media"
   },
   {
-    "id": "searchKeywordConfig.mediaTitle",
-    "defaultMessage": "Media title"
-  },
-  {
     "id": "searchKeywordConfig.mediaContent",
-    "defaultMessage": "Media content"
-  },
-  {
-    "id": "searchKeywordConfig.mediaUrl",
-    "defaultMessage": "Media URL"
+    "defaultMessage": "Content"
   },
   {
     "id": "searchKeywordConfig.sourceTitle",
-    "defaultMessage": "Source title"
+    "defaultMessage": "Source"
   },
   {
-    "id": "searchKeywordConfig.userAndRequest",
-    "defaultMessage": "User & Rquest"
+    "id": "searchKeywordConfig.mediaTitle",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "searchKeywordConfig.mediaUrl",
+    "defaultMessage": "URL"
+  },
+  {
+    "id": "searchKeywordConfig.request",
+    "defaultMessage": "Rquest"
   },
   {
     "id": "searchKeywordConfig.userNamePhoneNumber",
-    "defaultMessage": "Username or phone number"
+    "defaultMessage": "Username / phone number"
   },
   {
     "id": "searchKeywordConfig.requestContent",
-    "defaultMessage": "Request content"
+    "defaultMessage": "Content"
   },
   {
     "id": "MultiSelector.all",

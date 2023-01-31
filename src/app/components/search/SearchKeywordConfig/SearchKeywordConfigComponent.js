@@ -10,10 +10,10 @@ const SearchKeywordConfigComponent = ({
   onDismiss,
   onSubmit,
 }) => {
-  let selected = ['claim_description', 'fact_check_title', 'fact_check_summary', 'title', 'description'];
+  let selected = ['claim_description_content', 'fact_check_title', 'fact_check_summary', 'title', 'description'];
   if (query.keyword_fields) {
     if (query.keyword_fields.fields) {
-      selected = selected.concat(query.keyword_fields.fields);
+      selected = query.keyword_fields.fields;
     }
   }
 
@@ -22,14 +22,14 @@ const SearchKeywordConfigComponent = ({
       value: 'claim_and_fact_check',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.claimAndFactCheck"
-          defaultMessage="Claim and fact-check"
+          id="searchKeywordConfig.factCheck"
+          defaultMessage="Fact-check"
         />
       ),
       hasChildren: true,
     },
     {
-      value: 'claim_description',
+      value: 'claim_description_content',
       label: (
         <FormattedMessage
           id="searchKeywordConfig.claimDescription"
@@ -39,21 +39,11 @@ const SearchKeywordConfigComponent = ({
       parent: 'claim_and_fact_check',
     },
     {
-      value: 'claim_description_content',
+      value: 'claim_description_context',
       label: (
         <FormattedMessage
           id="searchKeywordConfig.claimDescriptionContext"
-          defaultMessage="Claim context"
-        />
-      ),
-      parent: 'claim_and_fact_check',
-    },
-    {
-      value: 'fact_check_title',
-      label: (
-        <FormattedMessage
-          id="searchKeywordConfig.factCheckTitle"
-          defaultMessage="Fact-check title"
+          defaultMessage="Context"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -63,17 +53,7 @@ const SearchKeywordConfigComponent = ({
       label: (
         <FormattedMessage
           id="searchKeywordConfig.factCheckSummary"
-          defaultMessage="Fact-check summary"
-        />
-      ),
-      parent: 'claim_and_fact_check',
-    },
-    {
-      value: 'fact_check_url',
-      label: (
-        <FormattedMessage
-          id="searchKeywordConfig.factCheckUrl"
-          defaultMessage="Fact-check URL"
+          defaultMessage="Summary"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -89,11 +69,21 @@ const SearchKeywordConfigComponent = ({
       parent: 'claim_and_fact_check',
     },
     {
-      value: 'comments',
+      value: 'fact_check_title',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.notes"
-          defaultMessage="Notes"
+          id="searchKeywordConfig.factCheckTitle"
+          defaultMessage="Title"
+        />
+      ),
+      parent: 'claim_and_fact_check',
+    },
+    {
+      value: 'fact_check_url',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.factCheckUrl"
+          defaultMessage="URLs"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -111,21 +101,31 @@ const SearchKeywordConfigComponent = ({
       hasChildren: true,
     },
     {
-      value: 'title',
+      value: 'description',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.mediaTitle"
-          defaultMessage="Media title"
+          id="searchKeywordConfig.mediaContent"
+          defaultMessage="Content"
         />
       ),
       parent: 'media',
     },
     {
-      value: 'description',
+      value: 'source_name',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.mediaContent"
-          defaultMessage="Media content"
+          id="searchKeywordConfig.sourceTitle"
+          defaultMessage="Source"
+        />
+      ),
+      parent: 'media',
+    },
+    {
+      value: 'title',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.mediaTitle"
+          defaultMessage="Title"
         />
       ),
       parent: 'media',
@@ -135,17 +135,7 @@ const SearchKeywordConfigComponent = ({
       label: (
         <FormattedMessage
           id="searchKeywordConfig.mediaUrl"
-          defaultMessage="Media URL"
-        />
-      ),
-      parent: 'media',
-    },
-    {
-      value: 'source_title',
-      label: (
-        <FormattedMessage
-          id="searchKeywordConfig.sourceTitle"
-          defaultMessage="Source title"
+          defaultMessage="URL"
         />
       ),
       parent: 'media',
@@ -156,8 +146,8 @@ const SearchKeywordConfigComponent = ({
       value: 'user_and_request',
       label: (
         <FormattedMessage
-          id="searchKeywordConfig.userAndRequest"
-          defaultMessage="User & Rquest"
+          id="searchKeywordConfig.request"
+          defaultMessage="Rquest"
         />
       ),
       hasChildren: true,
@@ -167,7 +157,7 @@ const SearchKeywordConfigComponent = ({
       label: (
         <FormattedMessage
           id="searchKeywordConfig.userNamePhoneNumber"
-          defaultMessage="Username or phone number"
+          defaultMessage="Username / phone number"
         />
       ),
       parent: 'user_and_request',
@@ -177,7 +167,7 @@ const SearchKeywordConfigComponent = ({
       label: (
         <FormattedMessage
           id="searchKeywordConfig.requestContent"
-          defaultMessage="Request content"
+          defaultMessage="Content"
         />
       ),
       parent: 'user_and_request',
