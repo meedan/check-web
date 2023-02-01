@@ -45,7 +45,7 @@ const CounterButton = ({ label, count, onClick }) => {
         {label}
       </Typography>
       <br />
-      <Typography variant="h2">
+      <Typography variant="subtitle2">
         {count}
       </Typography>
     </Button>
