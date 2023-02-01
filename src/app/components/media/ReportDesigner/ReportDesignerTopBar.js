@@ -257,7 +257,7 @@ const ReportDesignerTopBar = (props) => {
                       <Typography paragraph>
                         <FormattedMessage
                           id="reportDesigner.confirmPublishText2"
-                          defaultMessage="All future users who request this item will receive this version of the report while it remains published."
+                          defaultMessage="Future users who request this item will receive this version of the report while it remains published."
                         />
                       </Typography> : null }
 
@@ -297,25 +297,33 @@ const ReportDesignerTopBar = (props) => {
                             />
                           }
                           label={
-                            <FormattedMessage
-                              id="reportDesigner.republishAndResend"
-                              defaultMessage="{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
-                              values={{
-                                demand: media.demand,
-                                correctionLink: (
-                                  <React.Fragment>
-                                    <a href="https://help.checkmedia.org" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
-                                      <FormattedMessage
-                                        id="reportDesigner.correction"
-                                        defaultMessage="correction"
-                                      />
-                                      {' '}
-                                      <HelpIcon />
-                                    </a>
-                                  </React.Fragment>
-                                ),
-                              }}
-                            />
+                            media.team?.get_languages?.length > 1 && data.options?.language && data.options.language !== 'und' && media.team?.alegre_bot?.alegre_settings?.single_language_fact_checks_enabled ?
+                              <FormattedMessage
+                                id="reportDesigner.republishAndResendSingleLanguage"
+                                defaultMessage="Also send this updated report only to users who requested this item in {reportLanguage}."
+                                values={{
+                                  reportLanguage: languageLabel(data?.options?.language),
+                                }}
+                              /> :
+                              <FormattedMessage
+                                id="reportDesigner.republishAndResend"
+                                defaultMessage="{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
+                                values={{
+                                  demand: media.demand,
+                                  correctionLink: (
+                                    <React.Fragment>
+                                      <a href="https://help.checkmedia.org" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
+                                        <FormattedMessage
+                                          id="reportDesigner.correction"
+                                          defaultMessage="correction"
+                                        />
+                                        {' '}
+                                        <HelpIcon />
+                                      </a>
+                                    </React.Fragment>
+                                  ),
+                                }}
+                              />
                           }
                         />
                       </Box> : null }

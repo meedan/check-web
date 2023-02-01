@@ -72,7 +72,7 @@
   {
     "id": "smoochBotContentAndTranslation.submissionReceivedDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked."
+    "defaultMessage": "Thank you! Looking for fact-checks, it may take a minute."
   },
   {
     "id": "smoochBotContentAndTranslation.noSearchResultTitle",

@@ -85,7 +85,7 @@ const TeamTagsComponent = ({
         subtitle={
           <Box>{sortedTags.length} / {tags.length}</Box>
         }
-        helpUrl="https://help.checkmedia.org/en/articles/3648432-workflow-settings#default-tag-settings"
+        helpUrl="https://help.checkmedia.org/en/articles/6542134-tags"
         actionButton={
           <Can permissions={permissions} permission="create TagText">
             <Button variant="contained" color="primary" onClick={() => { setShowCreateTag(true); }} id="team-tags__create" className={classes.teamTagsNewTagButton}>

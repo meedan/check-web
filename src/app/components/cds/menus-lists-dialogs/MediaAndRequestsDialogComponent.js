@@ -59,7 +59,7 @@ const MediaAndRequestsDialogComponent = ({
         <Typography variant="h1">
           <FormattedMessage
             id="cds.mediaAndRequestsDialog.matchedMedia"
-            defaultMessage="Matched media"
+            defaultMessage="Media"
             description="Plural. Heading for the number of matched media"
           />
         </Typography>

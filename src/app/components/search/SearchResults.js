@@ -510,7 +510,7 @@ function SearchResultsComponent({
               label={
                 <FormattedMessage
                   id="search.showSimilar"
-                  defaultMessage="Show matched media"
+                  defaultMessage="Show all medias"
                   description="Allow user to show/hide secondary items"
                 />
               }

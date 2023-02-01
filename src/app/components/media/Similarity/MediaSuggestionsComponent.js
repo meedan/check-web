@@ -478,6 +478,8 @@ const MediaSuggestionsComponent = ({
           target_project_media {
             demand
             requests_count
+            added_as_similar_by_name
+            confirmed_as_similar_by_name
             hasMain: is_confirmed_similar_to_another_item
             suggestionsCount: suggested_similar_items_count
             confirmedSimilarCount: confirmed_similar_items_count

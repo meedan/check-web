@@ -17,7 +17,7 @@ shared_examples 'similarity' do
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
-    expect(@driver.page_source.include?('Matched media')).to be(true)
+    expect(@driver.page_source.include?('Media')).to be(true)
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector_list('.media__heading').last.click
@@ -29,13 +29,13 @@ shared_examples 'similarity' do
     @driver.navigate.refresh
     wait_for_selector('.media-similarity__menu-icon')
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
-    expect(@driver.page_source.include?('Matched media')).to be(true)
+    expect(@driver.page_source.include?('Media')).to be(true)
     # list similar items
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 2
     wait_for_selector_none('.media-tab__metadata"')
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
-    expect(@driver.page_source.include?('Matched media')).to be(true)
+    expect(@driver.page_source.include?('Media')).to be(true)
     # pin similar item
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__delete-relationship')
@@ -71,14 +71,14 @@ shared_examples 'similarity' do
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}/media/#{pm1.id}"
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.page_source.include?('claim 2')).to be(false)
-    wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
-    wait_for_selector("//span[contains(text(), '2 suggested medias')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
+    wait_for_selector("//span[contains(text(), '2 suggestions')]", :xpath)
     wait_for_selector('.similarity-media-item__accept-relationship').click
-    wait_for_selector("//span[contains(text(), '1 suggested media')]", :xpath)
+    wait_for_selector("//span[contains(text(), '1 suggestion')]", :xpath)
     wait_for_selector('.similarity-media-item__reject-relationship').click
     wait_for_selector('.media-actions-bar__add-button').click
     wait_for_selector('#media-similarity__add-button')
-    wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.find_elements(:css, '.MuiCardHeader-title').length).to eq 2
@@ -104,10 +104,10 @@ shared_examples 'similarity' do
       wait_for_selector('.media__heading svg')
       wait_for_selector('.media__heading', index: 1).click
       wait_for_selector('#media__claim')
-      wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath)
-      wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
+      wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
+      wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
       wait_for_selector('.similarity-media-item__accept-relationship')
-      expect(@driver.page_source.include?('1 suggested media')).to be(true)
+      expect(@driver.page_source.include?('1 suggestion')).to be(true)
     end
   end
 
@@ -130,8 +130,8 @@ shared_examples 'similarity' do
       wait_for_selector('.media__heading svg')
       wait_for_selector('.media__heading', index: 1).click
       wait_for_selector('#media__claim')
-      wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
-      wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
+      wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
+      wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
       wait_for_selector('.media__more-medias')
       expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     end
@@ -152,10 +152,10 @@ shared_examples 'similarity' do
     wait_for_selector('.media__heading svg')
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
-    wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
     wait_for_selector('.similarity-media-item__accept-relationship')
-    expect(@driver.page_source.include?('1 suggested media')).to be(true)
+    expect(@driver.page_source.include?('1 suggestion')).to be(true)
   end
 
   {
@@ -179,8 +179,8 @@ shared_examples 'similarity' do
       wait_for_selector('.media__heading svg')
       wait_for_selector('.media__heading', index: 1).click
       wait_for_selector('#media__claim')
-      wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
-      wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
+      wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
+      wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
       wait_for_selector('.media__more-medias')
       expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     end
@@ -206,8 +206,8 @@ shared_examples 'similarity' do
       wait_for_selector('.media__heading svg')
       wait_for_selector('.media__heading', index: 1).click
       wait_for_selector('#media__claim')
-      wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
-      wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
+      wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
+      wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
       wait_for_selector('.media__more-medias')
       expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     end
@@ -230,8 +230,8 @@ shared_examples 'similarity' do
     wait_for_selector('.media__heading svg')
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
-    wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Matched media')]", :xpath).click
+    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end

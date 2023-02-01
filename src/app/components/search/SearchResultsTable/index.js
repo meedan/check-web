@@ -64,7 +64,7 @@ const AllPossibleColumns = [
   },
   {
     field: 'linked_items_count',
-    headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Matched media" />,
+    headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Media" />,
     cellComponent: LinkedItemsCountCell,
     sortKey: 'related',
   },
@@ -139,7 +139,7 @@ const AllPossibleColumns = [
   },
   {
     field: 'suggestions_count',
-    headerText: <FormattedMessage id="list.suggestionsCount" defaultMessage="Suggested media" />,
+    headerText: <FormattedMessage id="list.suggestionsCount" defaultMessage="Suggestions" />,
     cellComponent: SuggestionsCountCell,
     sortKey: 'suggestions_count',
   },
@@ -173,7 +173,7 @@ const AllPossibleColumns = [
   },
   {
     field: 'cluster_size',
-    headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Matched media" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
+    headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Media" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
     cellComponent: ClusterSizeCell,
     sortKey: 'cluster_size',
   },

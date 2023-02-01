@@ -88,7 +88,7 @@ const SmoochBotSettings = (props) => {
             {Object.keys(fields).filter(f => /^smooch_template_name_for_/.test(f)).map(field => (
               <SmoochBotSetting
                 field={field}
-                value={props.settings[field]}
+                value={props.settings[field] || ' '}
                 schema={fields[field]}
                 onChange={props.onChange}
                 currentUser={props.currentUser}
