@@ -48,8 +48,12 @@
     "defaultMessage": "URL"
   },
   {
+    "id": "searchKeywordConfig.allNotes",
+    "defaultMessage": "Notes"
+  },
+  {
     "id": "searchKeywordConfig.request",
-    "defaultMessage": "Rquest"
+    "defaultMessage": "Request"
   },
   {
     "id": "searchKeywordConfig.userNamePhoneNumber",

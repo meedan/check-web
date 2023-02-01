@@ -141,13 +141,24 @@ const SearchKeywordConfigComponent = ({
       parent: 'media',
     },
   ];
+  const noteOption = [
+    {
+      value: 'comments',
+      label: (
+        <FormattedMessage
+          id="searchKeywordConfig.allNotes"
+          defaultMessage="Notes"
+        />
+      ),
+    },
+  ];
   const userRequestOptions = [
     {
       value: 'user_and_request',
       label: (
         <FormattedMessage
           id="searchKeywordConfig.request"
-          defaultMessage="Rquest"
+          defaultMessage="Request"
         />
       ),
       hasChildren: true,
@@ -174,7 +185,15 @@ const SearchKeywordConfigComponent = ({
     },
   ];
   const hrOption = [{ value: '', label: '' }];
-  const options = [...claimFactCheckOptions, ...hrOption, ...mediaOptions, ...hrOption, ...userRequestOptions];
+  const options = [
+    ...claimFactCheckOptions,
+    ...hrOption,
+    ...mediaOptions,
+    ...hrOption,
+    ...noteOption,
+    ...hrOption,
+    ...userRequestOptions,
+  ];
 
   const handleChange = (values) => {
     const fields = [];
