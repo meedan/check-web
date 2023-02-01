@@ -47,6 +47,7 @@ describe('<MediaSuggestionsComponent />', () => {
       reportType="blank"
       pageSize={Infinity}
       totalCount={5}
+      project={{}}
       relay={{}}
     />);
     expect(wrapper.find('.similarity-media-item__accept-relationship')).toHaveLength(3);
@@ -65,6 +66,7 @@ describe('<MediaSuggestionsComponent />', () => {
       reportType="blank"
       pageSize={2}
       totalCount={5}
+      project={{}}
       relay={{}}
     />);
     expect(wrapper.find('.similarity-media-item__accept-relationship')).toHaveLength(2);
@@ -83,6 +85,7 @@ describe('<MediaSuggestionsComponent />', () => {
       reportType="blank"
       pageSize={2}
       totalCount={0}
+      project={{}}
       relay={{}}
     />);
     expect(wrapper.find('.similarity-media-item__accept-relationship')).toHaveLength(0);

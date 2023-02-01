@@ -135,6 +135,16 @@
     "defaultMessage": "Move item"
   },
   {
+    "id": "mediaSuggestionsComponent.dialogBulkRejectTitle",
+    "description": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on",
+    "defaultMessage": "Choose a destination folder for the {number} rejected medias"
+  },
+  {
+    "id": "mediaSuggestionsComponent.bulkRejectConfirm",
+    "description": "Label for an action button that causes all selected items to be rejected",
+    "defaultMessage": "Reject all"
+  },
+  {
     "id": "mediaSuggestionsComponent.accept",
     "description": "Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list.",
     "defaultMessage": "Match media"

@@ -149,7 +149,7 @@ const MediaSuggestionsComponent = ({
   intl,
 }) => {
   const classes = useStyles();
-  const [selectedItemId, setSelectedItemId] = React.useState(null);
+  const [selectedItemId, setSelectedItemId] = React.useState(0);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [isBulkRejectDialogOpen, setIsBulkRejectDialogOpen] = React.useState(false);
   const [isBulkSpamDialogOpen, setIsBulkSpamDialogOpen] = React.useState(false);
@@ -733,7 +733,7 @@ const MediaSuggestionsComponent = ({
                         openBulkAcceptDialog();
                       }}
                       disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept} similarity-media-item__accept-relationship`}
+                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept}`}
                     >
                       <AcceptIcon fontSize="large" />
                     </IconButton>
@@ -746,7 +746,7 @@ const MediaSuggestionsComponent = ({
                         openBulkRejectDialog();
                       }}
                       disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject} similarity-media-item__reject-relationship`}
+                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject}`}
                     >
                       <RejectIcon fontSize="large" />
                     </IconButton>
@@ -759,7 +759,7 @@ const MediaSuggestionsComponent = ({
                         openBulkSpamDialog();
                       }}
                       disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash} similarity-media-item__reject-relationship`}
+                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
                     >
                       <SpamIcon fontSize="large" />
                     </IconButton>
@@ -772,7 +772,7 @@ const MediaSuggestionsComponent = ({
                         openBulkTrashDialog();
                       }}
                       disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash} similarity-media-item__reject-relationship`}
+                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
                     >
                       <TrashIcon fontSize="large" />
                     </IconButton>
@@ -932,14 +932,17 @@ const MediaSuggestionsComponent = ({
                   excludeProjectDbids={[]}
                   title={
                     <FormattedMessage
-                      id="mediaSuggestionsComponent.dialogRejectTitle"
-                      defaultMessage="Choose a destination folder for this item"
+                      id="mediaSuggestionsComponent.dialogBulkRejectTitle"
+                      defaultMessage="Choose a destination folder for the {number} rejected medias"
                       description="Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
+                      values={{
+                        number: relationships.slice(cursor, cursor + pageSize).length,
+                      }}
                     />
                   }
                   // eslint-disable-next-line @calm/react-intl/missing-attribute
                   cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" description="Label for an action button that causes a user to move an item into a given folder" />}
+                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.bulkRejectConfirm" defaultMessage="Reject all" description="Label for an action button that causes all selected items to be rejected" />}
                   submitButtonClassName="media-actions-bar__add-button"
                   onCancel={closeBulkRejectDialog}
                   onSubmit={handleBulkReject}
@@ -1021,7 +1024,7 @@ const MediaSuggestionsComponent = ({
                     <IconButton
                       onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM, relationshipItem)}
                       disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash} similarity-media-item__reject-relationship`}
+                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
                     >
                       <SpamIcon fontSize="large" />
                     </IconButton>
@@ -1030,7 +1033,7 @@ const MediaSuggestionsComponent = ({
                     <IconButton
                       onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED, relationshipItem)}
                       disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash} similarity-media-item__reject-relationship`}
+                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
                     >
                       <TrashIcon fontSize="large" />
                     </IconButton>
