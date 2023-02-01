@@ -27,7 +27,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import SelectProjectDialog from '../SelectProjectDialog';
 import { can } from '../../Can';
-// import MediaCardComponent from '../../cds/media-cards/MediaCardComponent';
+import SuggestedMediaDialogComponent from '../../cds/menus-lists-dialogs/SuggestedMediaDialogComponent';
 import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import MediasLoading from '../MediasLoading';
@@ -54,6 +54,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
   },
   title: {
+    userSelect: 'none',
     fontWeight: 'bold',
     lineHeight: 'normal',
     letterSpacing: 'normal',
@@ -148,11 +149,13 @@ const MediaSuggestionsComponent = ({
   intl,
 }) => {
   const classes = useStyles();
+  const [selectedItemId, setSelectedItemId] = React.useState(null);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [isBulkRejectDialogOpen, setIsBulkRejectDialogOpen] = React.useState(false);
   const [isBulkSpamDialogOpen, setIsBulkSpamDialogOpen] = React.useState(false);
   const [isBulkTrashDialogOpen, setIsBulkTrashDialogOpen] = React.useState(false);
   const [isBulkAcceptDialogOpen, setIsBulkAcceptDialogOpen] = React.useState(false);
+  const [isSuggestedMediaDialogOpen, setIsSuggestedMediaDialogOpen] = React.useState(false);
   const [isMutationPending, setIsMutationPending] = React.useState(false);
   const [selectedRelationship, setSelectedRelationship] = React.useState(0);
   const [cursor, setCursor] = React.useState(0);
@@ -167,6 +170,10 @@ const MediaSuggestionsComponent = ({
   const closeBulkSpamDialog = React.useCallback(() => setIsBulkSpamDialogOpen(false), [setIsBulkSpamDialogOpen]);
   const openBulkTrashDialog = React.useCallback(() => setIsBulkTrashDialogOpen(true), [setIsBulkTrashDialogOpen]);
   const closeBulkTrashDialog = React.useCallback(() => setIsBulkTrashDialogOpen(false), [setIsBulkTrashDialogOpen]);
+
+  const swallowClick = (event) => {
+    event.stopPropagation();
+  };
 
   const handleCompleted = () => {
     setIsMutationPending(false);
@@ -633,6 +640,11 @@ const MediaSuggestionsComponent = ({
     window.open('http://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions');
   };
 
+  const openSuggestedMediaDialog = (relationshipItem) => {
+    setSelectedItemId(relationshipItem.target?.dbid);
+    setIsSuggestedMediaDialogOpen(true);
+  };
+
   const disableAcceptRejectButtons = totalCount === 0 || !can(team.permissions, 'update Relationship') || isMutationPending;
 
   if (totalCount === 0) {
@@ -771,6 +783,14 @@ const MediaSuggestionsComponent = ({
             </Box>
             <Box display="flex" alignItems="center">
               <>
+                <SuggestedMediaDialogComponent
+                  isOpen={isSuggestedMediaDialogOpen}
+                  projectMediaId={selectedItemId}
+                  onClick={swallowClick}
+                  onClose={() => setIsSuggestedMediaDialogOpen(false)}
+                  maxWidth="sm"
+                  fullWidth
+                />
                 <Dialog
                   open={isBulkAcceptDialogOpen}
                   onClose={closeBulkAcceptDialog}
@@ -983,7 +1003,9 @@ const MediaSuggestionsComponent = ({
                   media={relationshipItem?.target}
                   description={relationshipItem?.target?.description}
                   url={relationshipItem?.target?.url}
-                  onClick={() => window.open(`/${team.slug}/media/${relationshipItem.target_id}`, '_blank')}
+                  onClick={() => {
+                    openSuggestedMediaDialog(relationshipItem);
+                  }}
                 />
               </Grid>
               <Grid item xs={1}>
