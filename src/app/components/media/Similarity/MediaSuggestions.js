@@ -20,11 +20,22 @@ const mediaSuggestionsQuery = graphql`
       demand
       ...PaginatedMediaSuggestions_root
       team {
+        check_search_trash { id, number_of_results }
+        check_search_spam { id, number_of_results }
+        public_team { id, trash_count, spam_count }
         slug
         smooch_bot: team_bot_installation(bot_identifier: "smooch") {
           id
         }
         permissions
+        search_id
+        medias_count
+        id
+      }
+      project {
+        id
+        medias_count
+        search_id
       }
     }
   }

@@ -21,10 +21,21 @@ const mediaSuggestionsQuery = graphql`
       team {
         slug
         dbid
+        check_search_trash { id, number_of_results }
+        check_search_spam { id, number_of_results }
+        public_team { id, trash_count, spam_count }
         smooch_bot: team_bot_installation(bot_identifier: "smooch") {
           id
         }
         permissions
+        search_id
+        medias_count
+        id
+      }
+      project {
+        id
+        medias_count
+        search_id
       }
     }
   }
@@ -38,6 +49,7 @@ const PaginatedMediaSuggestions = createPaginationContainer(
       demand={props.parentProps.project_media.demand}
       key={props.parentProps.project_media.confirmedSimilarCount}
       team={props.parentProps.project_media.team}
+      project={props.parentProps.project_media.project}
       relationships={props.root.suggested_similar_relationships ? props.root.suggested_similar_relationships?.edges.map(r => r.node) : []}
       pageSize={props.pageSize}
       totalCount={props.root.suggested_similar_relationships?.totalCount}
