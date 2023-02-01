@@ -1,5 +1,30 @@
 [
   {
+    "id": "mediaSuggestionsComponent.flashBulkRejectTitle",
+    "description": "Title that appears in a popup to confirm that a 'bulk reject' action was successful",
+    "defaultMessage": "{number} media rejected"
+  },
+  {
+    "id": "mediaSuggestionsComponent.flashBulkReject",
+    "description": "Text that appears in a popup to confirm that a 'bulk reject' action was successful",
+    "defaultMessage": "Added to the list \"{folder}\""
+  },
+  {
+    "id": "mediaSuggestionsComponent.flashBulkConfirmTitle",
+    "description": "Title that appears in a popup to confirm that a 'bulk accept' action was successful",
+    "defaultMessage": "{number} suggested media matched"
+  },
+  {
+    "id": "mediaSuggestionsComponent.flashBulkTrash",
+    "description": "Text that appears in a popup to confirm that a 'bulk move to trash' action was successful",
+    "defaultMessage": "{number} media sent to the trash"
+  },
+  {
+    "id": "mediaSuggestionsComponent.flashBulkSpam",
+    "description": "Text that appears in a popup to confirm that a 'bulk move to spam' action was successful",
+    "defaultMessage": "{number} media marked as spam"
+  },
+  {
     "id": "mediaSuggestionsComponent.movedToTrash",
     "description": "Text that appears in a popup to confirmt hat a 'move to trash' action was successful",
     "defaultMessage": "The item was moved to {trash}"
@@ -63,6 +88,41 @@
     "id": "mediaSuggestionsComponent.bulkTrash",
     "description": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' folder and removed from the suggestions list.",
     "defaultMessage": "Send all medias on this page to trash"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkAcceptTitle",
+    "description": "Prompt to a user when they choose to match media as a bulk action",
+    "defaultMessage": "Are you sure you want to match {number} suggested media?"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Regular Cancel action label",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkAcceptConfirm",
+    "description": "Button that a user presses to confirm that they are going to match all visible suggested media",
+    "defaultMessage": "Match all"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkSpamTitle",
+    "description": "Prompt to a user when they choose to mark media as spam in bulk",
+    "defaultMessage": "Are you sure you want to mark {number} suggested media as spam?"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkSpamConfirm",
+    "description": "Button that a user presses to confirm that they are going to mark all visible suggested media as spam",
+    "defaultMessage": "Mark as spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkTrashTitle",
+    "description": "Prompt to a user when they choose to send media to trash in bulk",
+    "defaultMessage": "Are you sure you want to send {number} suggested media to the trash?"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkTrashConfirm",
+    "description": "Button that a user presses to confirm that they are going to send all visible suggested media to trash",
+    "defaultMessage": "Send to trash"
   },
   {
     "id": "mediaSuggestionsComponent.dialogRejectTitle",
