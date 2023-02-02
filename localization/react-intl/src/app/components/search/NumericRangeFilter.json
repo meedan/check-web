@@ -1,13 +1,13 @@
 [
   {
     "id": "numericRangeFilter.linkedItems",
-    "description": "Filter option that refers to number of matched medias",
-    "defaultMessage": "Number of matched media is between"
+    "description": "Filter option that refers to number of media",
+    "defaultMessage": "Number of media is between"
   },
   {
     "id": "numericRangeFilter.suggestedItems",
-    "description": "Filter option that refers to number of suggested medias",
-    "defaultMessage": "Number of suggested medias is between"
+    "description": "Filter option that refers to number of suggestions",
+    "defaultMessage": "Number of suggestions is between"
   },
   {
     "id": "numericRangeFilter.tiplineRequests",
