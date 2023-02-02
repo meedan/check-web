@@ -204,12 +204,6 @@ export const MuiTheme = {
       letterSpacing: '0.15px',
       lineHeight: '20px',
     },
-    body1Accent: {
-      fontSize: '14px',
-      fontWeight: 600,
-      letterSpacing: '0.15px',
-      lineHeight: '20px',
-    },
     body2: {
       fontSize: '12px',
       fontWeight: 400,
