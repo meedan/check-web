@@ -497,12 +497,15 @@ const MediaSuggestionsComponent = ({
       }
     `;
 
+    // eslint-disable-next-line
+    console.log('~~~tot',relationships.length);
+
     setIsMutationPending(true);
     commitMutation(Store, {
       mutation,
       variables: {
+        totalLoaded: relationships.length,
         input: {
-          totalLoaded: relationships.length,
           id: relationship.id,
           relationship_source_type: relationship_type,
           relationship_target_type: relationship_type,
