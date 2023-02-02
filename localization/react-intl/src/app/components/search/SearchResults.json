@@ -6,7 +6,7 @@
   {
     "id": "search.showSimilar",
     "description": "Allow user to show/hide secondary items",
-    "defaultMessage": "Show all medias"
+    "defaultMessage": "Show all media"
   },
   {
     "id": "search.previousPage",

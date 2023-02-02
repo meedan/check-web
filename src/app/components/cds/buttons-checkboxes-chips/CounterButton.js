@@ -31,7 +31,9 @@ const useStyles = makeStyles({
   },
 });
 
-const CounterButton = ({ label, count, onClick }) => {
+const CounterButton = ({
+  label, count, onClick, className,
+}) => {
   const classes = useStyles();
   return (
     <Button
@@ -46,7 +48,7 @@ const CounterButton = ({ label, count, onClick }) => {
       </Typography>
       <br />
       <Typography variant="subtitle2">
-        {count}
+        { className === 'similarity-bar__matches-count' ? count + 1 : count }
       </Typography>
     </Button>
   );

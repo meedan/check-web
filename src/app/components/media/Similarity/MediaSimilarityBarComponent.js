@@ -65,7 +65,7 @@ const MediaSimilarityBarComponent = ({
             <FormattedMessage
               id="mediaSimilarityBarComponent.similarMedia"
               defaultMessage="Media"
-              description="Plural. Heading for the number of matched media"
+              description="Plural. Heading for the number of media"
             />
           }
           onClick={() => {
@@ -84,7 +84,7 @@ const MediaSimilarityBarComponent = ({
             <FormattedMessage
               id="mediaSimilarityBarComponent.suggestedMatches"
               defaultMessage="Suggestions"
-              description="Plural. Heading for the number of suggested media"
+              description="Plural. Heading for the number of suggestions"
             />
           }
           onClick={() => { setShowTab('suggestedMedia'); }}
