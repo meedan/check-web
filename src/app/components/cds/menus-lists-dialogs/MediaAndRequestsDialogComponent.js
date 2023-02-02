@@ -56,7 +56,7 @@ const MediaAndRequestsDialogComponent = ({
       PaperProps={{ classes: { root: classes.dialog } }}
     >
       <DialogTitle>
-        <Typography variant="h1">
+        <Typography variant="h6">
           <FormattedMessage
             id="cds.mediaAndRequestsDialog.matchedMedia"
             defaultMessage="Media"

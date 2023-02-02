@@ -47,7 +47,7 @@ const CounterButton = ({
         {label}
       </Typography>
       <br />
-      <Typography variant="h2">
+      <Typography variant="subtitle2">
         { className === 'similarity-bar__matches-count' ? count + 1 : count }
       </Typography>
     </Button>

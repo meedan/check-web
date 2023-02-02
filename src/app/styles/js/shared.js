@@ -5,8 +5,8 @@ import Card from '@material-ui/core/Card';
 // Styles for overriding material UI
 // General colors
 //
-export const white = '#ffffff';
-export const black = '#000000';
+export const white = '#fff';
+export const black = '#000';
 export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
 export const checkOrange = '#f2994a';
@@ -149,35 +149,93 @@ export const MuiTheme = {
     },
   },
   typography: {
-    overline: {
-      textTransform: 'uppercase',
-      letterSpacing: '1px',
-      lineHeight: '266%',
-      fontSize: '12px',
-      fontWeight: 400,
-    },
-    // The "Big title" variant in Check Design System
     h1: {
-      letterSpacing: '0.15px',
-      lineHeight: '150%',
+      fontSize: '96px',
+      fontWeight: 300,
+      letterSpacing: '-1.5px',
+      lineHeight: '112px',
+    },
+    h2: {
+      fontSize: '60px',
+      fontWeight: 300,
+      letterSpacing: '-0.5px',
+      lineHeight: '72px',
+    },
+    h3: {
+      fontSize: '48px',
+      fontWeight: 400,
+      letterSpacing: '0px',
+      lineHeight: '56px',
+    },
+    h4: {
+      fontSize: '34px',
+      fontWeight: 400,
+      letterSpacing: '0.25px',
+      lineHeight: '42px',
+    },
+    h5: {
+      color: 'currentcolor',
+      fontSize: '24px',
+      fontWeight: 400,
+      letterSpacing: '0px',
+      lineHeight: '32px',
+    },
+    h6: {
       fontSize: '20px',
       fontWeight: 500,
-      color: textPrimary,
-    },
-    // The "Title" variant in Check Design System
-    h2: {
       letterSpacing: '0.15px',
-      lineHeight: '150%',
+      lineHeight: '32px',
+    },
+    subtitle1: {
       fontSize: '16px',
+      fontWeight: 400,
+      letterSpacing: '0.15px',
+      lineHeight: '28px',
+    },
+    subtitle2: {
+      fontSize: '15px',
       fontWeight: 500,
-      color: 'currentcolor',
+      letterSpacing: '0.1px',
+      lineHeight: '24px',
+    },
+    body1: {
+      fontSize: '14px',
+      fontWeight: 400,
+      letterSpacing: '0.15px',
+      lineHeight: '20px',
+    },
+    body1Accent: {
+      fontSize: '14px',
+      fontWeight: 600,
+      letterSpacing: '0.15px',
+      lineHeight: '20px',
+    },
+    body2: {
+      fontSize: '12px',
+      fontWeight: 400,
+      letterSpacing: '0.15px',
+      lineHeight: '17px',
     },
     button: {
-      fontWeight: 500,
+      color: 'currentcolor',
       fontSize: '14px',
-      lineHeight: '24px',
+      fontWeight: 500,
       letterSpacing: '0.4px',
+      lineHeight: '24px',
       textTransform: 'none',
+    },
+    caption: {
+      fontSize: '12px',
+      fontWeight: 400,
+      letterSpacing: '0.4px',
+      lineHeight: '20px',
+    },
+    overline: {
+      fontSize: '12px',
+      fontWeight: 400,
+      letterSpacing: '1px',
+      lineHeight: '32px',
+      textTransform: 'uppercase',
     },
   },
   overrides: { // Override of all material UI components. Information at https://material-ui.com/api/{component}

@@ -407,7 +407,7 @@ const MediaSuggestionsComponent = ({
   if (relationships.length === 0) {
     return (
       <Box className={classes.card}>
-        <Typography variant="h2">0 suggestion</Typography>
+        <Typography variant="subtitle2">0 suggestion</Typography>
       </Box>
     );
   }
