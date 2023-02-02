@@ -221,7 +221,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.similarMedias"
-        defaultMessage="Number of matched media"
+        defaultMessage="Number of media"
         description="Menu option to enable searching items by matched medias"
       />
     ),
@@ -235,8 +235,8 @@ const AddFilterMenu = ({
       label: (
         <FormattedMessage
           id="addFilterMenu.suggestedMedias"
-          defaultMessage="Number of suggested media"
-          description="Menu option to enable searching items by suggested medias"
+          defaultMessage="Number of suggestions"
+          description="Menu option to enable searching items by suggestions"
         />
       ),
     });
