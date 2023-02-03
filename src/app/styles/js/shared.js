@@ -199,13 +199,13 @@ export const MuiTheme = {
       lineHeight: '24px',
     },
     body1: {
-      fontSize: '14px',
+      fontSize: '16px',
       fontWeight: 400,
       letterSpacing: '0.15px',
       lineHeight: '20px',
     },
     body2: {
-      fontSize: '12px',
+      fontSize: '14px',
       fontWeight: 400,
       letterSpacing: '0.15px',
       lineHeight: '17px',
