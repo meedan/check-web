@@ -1,7 +1,7 @@
 [
   {
     "id": "cds.mediaAndRequestsDialog.matchedMedia",
-    "description": "Plural. Heading for the number of matched media",
+    "description": "Plural. Heading for the number of media",
     "defaultMessage": "Media"
   },
   {

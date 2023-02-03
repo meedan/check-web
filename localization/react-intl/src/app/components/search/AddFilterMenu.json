@@ -72,12 +72,12 @@
   {
     "id": "addFilterMenu.similarMedias",
     "description": "Menu option to enable searching items by matched medias",
-    "defaultMessage": "Number of matched media"
+    "defaultMessage": "Number of media"
   },
   {
     "id": "addFilterMenu.suggestedMedias",
-    "description": "Menu option to enable searching items by suggested medias",
-    "defaultMessage": "Number of suggested media"
+    "description": "Menu option to enable searching items by suggestions",
+    "defaultMessage": "Number of suggestions"
   },
   {
     "id": "addFilterMenu.tiplineRequests",

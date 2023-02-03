@@ -56,11 +56,11 @@ const MediaAndRequestsDialogComponent = ({
       PaperProps={{ classes: { root: classes.dialog } }}
     >
       <DialogTitle>
-        <Typography variant="h1">
+        <Typography variant="h6">
           <FormattedMessage
             id="cds.mediaAndRequestsDialog.matchedMedia"
             defaultMessage="Media"
-            description="Plural. Heading for the number of matched media"
+            description="Plural. Heading for the number of media"
           />
         </Typography>
         <IconButton className={classes.closeButton} onClick={onClose}>
