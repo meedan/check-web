@@ -107,7 +107,7 @@ shared_examples 'similarity' do
       wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
       wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
       wait_for_selector('.similarity-media-item__accept-relationship')
-      expect(@driver.page_source.include?('1 suggestion')).to be(true)
+      expect(@driver.page_source.include?('1 suggested')).to be(true)
     end
   end
 
@@ -155,7 +155,7 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
     wait_for_selector('.similarity-media-item__accept-relationship')
-    expect(@driver.page_source.include?('1 suggestion')).to be(true)
+    expect(@driver.page_source.include?('1 suggested')).to be(true)
   end
 
   {
