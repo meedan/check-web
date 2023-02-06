@@ -120,8 +120,8 @@ class SearchKeyword extends React.Component {
     }
     this.props.setQuery(newQuery);
     // eslint-disable-next-line no-console
-    // console.log('handleKeywordConfigChange', newQuery);
-    // this.props.handleSubmit();
+    console.log('handleKeywordConfigChange', newQuery);
+    this.props.handleSubmit();
   }
 
   // Create title out of query parameters

@@ -11,7 +11,7 @@ const SearchKeywordConfigComponent = ({
   onSubmit,
 }) => {
   const defaultSelected = ['claim_description_content', 'fact_check_title', 'fact_check_summary', 'title', 'description'];
-  const [selected, setSselected] = React.useState(query.keyword_fields?.fields ? query.keyword_fields.fields : defaultSelected);
+  const selected = query.keyword_fields?.fields || defaultSelected;
   const claimFactCheckOptions = [
     {
       value: 'claim_and_fact_check',
@@ -202,14 +202,6 @@ const SearchKeywordConfigComponent = ({
     onSubmit({ keyword_fields });
   };
 
-  const handleReset = () => {
-    setSselected(defaultSelected);
-    // eslint-disable-next-line no-console
-    console.log('handleReset', selected);
-  };
-
-  const disableReset = JSON.stringify(selected.sort()) === JSON.stringify(defaultSelected.sort());
-
   return (
     <MultiSelector
       allowToggleAll
@@ -225,8 +217,7 @@ const SearchKeywordConfigComponent = ({
       }
       options={options}
       selected={selected}
-      disableReset={disableReset}
-      onReset={handleReset}
+      defaultValue={defaultSelected}
       onDismiss={onDismiss}
       onSubmit={handleChange}
     />
