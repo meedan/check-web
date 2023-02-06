@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const SearchKeywordMenu = ({
-  teamSlug,
   query,
   onChange,
 }) => {
@@ -38,14 +37,13 @@ const SearchKeywordMenu = ({
         onClick={e => setAnchorEl(e.currentTarget)}
       >
         <FormattedMessage
-          id="SearchKeywordMenu.advanced"
-          defaultMessage="Advanced"
-          description="Button for advanced search"
+          id="SearchKeywordMenu.searchSettings"
+          defaultMessage="Search settings"
+          description="Button for search settings"
         />
       </Button>
       { anchorEl ?
         <SearchKeywordContainer
-          teamSlug={teamSlug}
           query={query}
           onDismiss={handleClose}
           onSubmit={handleChange}

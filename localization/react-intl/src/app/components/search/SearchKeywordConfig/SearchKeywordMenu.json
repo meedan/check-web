@@ -1,7 +1,7 @@
 [
   {
-    "id": "SearchKeywordMenu.advanced",
-    "description": "Button for advanced search",
-    "defaultMessage": "Advanced"
+    "id": "SearchKeywordMenu.searchSettings",
+    "description": "Button for search settings",
+    "defaultMessage": "Search settings"
   }
 ]
