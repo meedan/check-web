@@ -322,7 +322,7 @@ const ProjectsComponent = ({
               <NewReleasesIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggested media" description="Label for a list displayed on the left sidebar." />
+              <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -504,7 +504,7 @@ const ProjectsComponent = ({
             {/* Lists */}
             <Collapse in={feedsExpanded} className={classes.projectsComponentCollapse}>
               <Box>
-                {feeds.sort((a, b) => (a.title.localeCompare(b.title))).map(feed => (
+                {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
                   <ProjectsListItem
                     key={feed.id}
                     routePrefix="feed"

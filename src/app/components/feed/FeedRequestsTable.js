@@ -287,7 +287,7 @@ const FeedRequestsTable = ({
                   <TableSort field="medias">
                     <FormattedMessage
                       id="feedRequestsTable.matchedMedia"
-                      defaultMessage="Matched media"
+                      defaultMessage="Media"
                       description="Header label for number of medias found to be matched to the current one"
                     />
                   </TableSort>

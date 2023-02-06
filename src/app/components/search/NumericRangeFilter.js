@@ -14,13 +14,13 @@ import { checkBlue } from '../../styles/js/shared';
 const messages = defineMessages({
   linkedItems: {
     id: 'numericRangeFilter.linkedItems',
-    defaultMessage: 'Number of matched media is between',
-    description: 'Filter option that refers to number of matched medias',
+    defaultMessage: 'Number of media is between',
+    description: 'Filter option that refers to number of media',
   },
   suggestedItems: {
     id: 'numericRangeFilter.suggestedItems',
-    defaultMessage: 'Number of suggested medias is between',
-    description: 'Filter option that refers to number of suggested medias',
+    defaultMessage: 'Number of suggestions is between',
+    description: 'Filter option that refers to number of suggestions',
   },
   tiplineRequests: {
     id: 'numericRangeFilter.tiplineRequests',

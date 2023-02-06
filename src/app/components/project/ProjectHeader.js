@@ -31,7 +31,7 @@ class ProjectHeaderComponent extends React.PureComponent {
     } else if (/\/imported-fact-checks(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.importedReports" defaultMessage="Imported fact-checks" />;
     } else if (/\/suggested-matches(\/|$)/.test(listUrl)) {
-      pageTitle = <FormattedMessage id="projectHeader.suggestedMatches" defaultMessage="Suggested media" />;
+      pageTitle = <FormattedMessage id="projectHeader.suggestedMatches" defaultMessage="Suggestions" />;
     } else if (isFeedPage) {
       pageTitle = <FormattedMessage id="projectHeader.feed" defaultMessage="Shared feed" />;
     } else if (project) {

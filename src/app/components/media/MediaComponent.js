@@ -41,7 +41,7 @@ const StyledThreeColumnLayout = styled.div`
   /* Right Column */
   .media__suggestions-column {
     max-width: none;
-    background-color: ${backgroundMain};
+    background-color: white;
   }
 
   /* Right Column */
