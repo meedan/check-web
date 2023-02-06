@@ -655,7 +655,7 @@ const MediaSuggestionsComponent = ({
   if (totalCount === 0) {
     return (
       <Box className={classes.card}>
-        <Typography variant="h2" className="similarity-media-no-items">
+        <Typography variant="subtitle2" className="similarity-media-no-items">
           <FormattedMessage
             id="mediaSuggestionsComponent.noItems"
             defaultMessage="{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
