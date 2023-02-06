@@ -119,9 +119,7 @@ class SearchKeyword extends React.Component {
       delete newQuery.keyword_fields;
     }
     this.props.setQuery(newQuery);
-    // eslint-disable-next-line no-console
-    console.log('handleKeywordConfigChange', newQuery);
-    this.props.handleSubmit();
+    this.props.handleSubmit(null, newQuery);
   }
 
   // Create title out of query parameters
