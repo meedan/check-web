@@ -10,13 +10,8 @@ const SearchKeywordConfigComponent = ({
   onDismiss,
   onSubmit,
 }) => {
-  let selected = ['claim_description_content', 'fact_check_title', 'fact_check_summary', 'title', 'description'];
-  if (query.keyword_fields) {
-    if (query.keyword_fields.fields) {
-      selected = query.keyword_fields.fields;
-    }
-  }
-
+  const defaultSelected = ['claim_description_content', 'fact_check_title', 'fact_check_summary', 'title', 'description'];
+  const [selected, setSselected] = React.useState(query.keyword_fields?.fields ? query.keyword_fields.fields : defaultSelected);
   const claimFactCheckOptions = [
     {
       value: 'claim_and_fact_check',
@@ -164,7 +159,7 @@ const SearchKeywordConfigComponent = ({
       hasChildren: true,
     },
     {
-      value: 'user_name',
+      value: 'request_username',
       label: (
         <FormattedMessage
           id="searchKeywordConfig.userNamePhoneNumber"
@@ -207,14 +202,31 @@ const SearchKeywordConfigComponent = ({
     onSubmit({ keyword_fields });
   };
 
+  const handleReset = () => {
+    setSselected(defaultSelected);
+    // eslint-disable-next-line no-console
+    console.log('handleReset', selected);
+  };
+
+  const disableReset = JSON.stringify(selected.sort()) === JSON.stringify(defaultSelected.sort());
+
   return (
     <MultiSelector
       allowToggleAll
-      toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="Select All" />}
+      toggleAllLabel={<FormattedMessage id="SearchKeywordConfigComponent.all" defaultMessage="Select All" />}
       submitLabel={<FormattedMessage {...globalStrings.update} />}
       cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+      resetLabel={
+        <FormattedMessage
+          id="SearchKeywordConfigComponent.resetLabel"
+          defaultMessage="Reset"
+          description="Lable for reset options to default"
+        />
+      }
       options={options}
       selected={selected}
+      disableReset={disableReset}
+      onReset={handleReset}
       onDismiss={onDismiss}
       onSubmit={handleChange}
     />

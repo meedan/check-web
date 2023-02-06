@@ -64,7 +64,12 @@
     "defaultMessage": "Content"
   },
   {
-    "id": "MultiSelector.all",
+    "id": "SearchKeywordConfigComponent.all",
     "defaultMessage": "Select All"
+  },
+  {
+    "id": "SearchKeywordConfigComponent.resetLabel",
+    "description": "Lable for reset options to default",
+    "defaultMessage": "Reset"
   }
 ]
