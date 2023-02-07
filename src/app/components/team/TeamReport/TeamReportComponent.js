@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -139,13 +138,18 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
             <FormattedMessage
               id="teamReportComponent.title"
               defaultMessage="Default report settings"
+              description="Header for the default report settings page"
             />
           }
           helpUrl="http://help.checkmedia.org/en/articles/3627266-check-message-report"
           actionButton={
             <Can permissions={team.permissions} permission="update Team">
               <Button onClick={handleSave} color="primary" variant="contained" id="team-report__save" disabled={saving}>
-                <FormattedMessage id="teamReportComponent.save" defaultMessage="Save" />
+                <FormattedMessage
+                  id="teamReportComponent.save"
+                  defaultMessage="Save"
+                  description="Save settings button label"
+                />
               </Button>
             </Can>
           }
@@ -171,7 +175,11 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   />
                 }
                 label={
-                  <FormattedMessage id="teamReportComponent.introduction" defaultMessage="Introduction" />
+                  <FormattedMessage
+                    id="teamReportComponent.introduction"
+                    defaultMessage="Introduction"
+                    description="Label to the report introduction field"
+                  />
                 }
               />
               <TextField
@@ -184,6 +192,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   <FormattedMessage
                     id="teamReportComponent.introductionSub"
                     defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+                    description="Instructions for filling the report introduction field"
                     values={{
                       query_date: '{{query_date}}',
                       status: '{{status}}',
@@ -209,7 +218,11 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   />
                 }
                 label={
-                  <FormattedMessage id="teamReportComponent.url" defaultMessage="Website URL" />
+                  <FormattedMessage
+                    id="teamReportComponent.url"
+                    defaultMessage="Website URL"
+                    description="Label to the report url field"
+                  />
                 }
               />
               <Box width={0.5}>
@@ -248,7 +261,11 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   />
                 }
                 label={
-                  <FormattedMessage id="teamReportComponent.signature" defaultMessage="Signature" />
+                  <FormattedMessage
+                    id="teamReportComponent.signature"
+                    defaultMessage="Signature"
+                    description="Label to report signature field"
+                  />
                 }
               />
               <Box width={0.5} mt={1} mb={2}>
@@ -291,6 +308,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="teamReportComponent.whatsapp"
                       defaultMessage="WhatsApp number"
+                      description="Label to WhatsApp number field"
                     />
                   }
                   InputProps={{
@@ -316,6 +334,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="teamReportComponent.facebookFieldError"
                       defaultMessage="Please use the page name instead of the full URL"
+                      description="Error message displayed when facebook profile is filled incorrectly"
                     />
                     : null
                   }
@@ -323,6 +342,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="teamReportComponent.facebook"
                       defaultMessage="Facebook page name"
+                      description="Label to facebook page field"
                     />
                   }
                   InputProps={{
@@ -348,6 +368,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="teamReportComponent.twitterFieldError"
                       defaultMessage="Please use the account name instead of the full URL"
+                      description="Error message displayed when twitter profile is filled incorrectly"
                     />
                     : null
                   }
@@ -355,6 +376,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="teamReportComponent.twitter"
                       defaultMessage="Twitter account name"
+                      description="Label to twitter username field"
                     />
                   }
                   InputProps={{
@@ -381,6 +403,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="teamReportComponent.telegramFieldError"
                       defaultMessage="Please use the bot username instead of the full URL"
+                      description="Error message displayed when telegram username is filled incorrectly"
                     />
                     : null
                   }
@@ -388,6 +411,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="teamReportComponent.telegram"
                       defaultMessage="Telegram bot username"
+                      description="Label to Telegram username field"
                     />
                   }
                   InputProps={{
@@ -412,6 +436,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="teamReportComponent.viber"
                       defaultMessage="Viber public account URI"
+                      description="Label to Viber account field"
                     />
                   }
                   InputProps={{
@@ -436,6 +461,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="teamReportComponent.line"
                       defaultMessage="LINE channel"
+                      description="Label to LINE channel field"
                     />
                   }
                   InputProps={{

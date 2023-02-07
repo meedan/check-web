@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -19,6 +18,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.factCheck"
           defaultMessage="Fact-check"
+          description="Label for checkbox to toggle searching for keyword across Fact-checks"
         />
       ),
       hasChildren: true,
@@ -29,6 +29,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.claimDescription"
           defaultMessage="Claim"
+          description="Label for checkbox to toggle searching for keyword across claims"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -39,6 +40,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.claimDescriptionContext"
           defaultMessage="Context"
+          description="Label for checkbox to toggle searching for keyword across context data"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -49,6 +51,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.factCheckSummary"
           defaultMessage="Summary"
+          description="Label for checkbox to toggle searching for keyword across summaries data"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -59,6 +62,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.tags"
           defaultMessage="Tags"
+          description="Label for checkbox to toggle searching for keyword across tags"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -69,6 +73,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.factCheckTitle"
           defaultMessage="Title"
+          description="Label for checkbox to toggle searching for keyword across Fact-check titles"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -79,6 +84,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.factCheckUrl"
           defaultMessage="URLs"
+          description="Label for checkbox to toggle searching for keyword across Fact-checks urls"
         />
       ),
       parent: 'claim_and_fact_check',
@@ -91,6 +97,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.media"
           defaultMessage="Media"
+          description="Label for checkbox to toggle searching for keyword across medias"
         />
       ),
       hasChildren: true,
@@ -101,6 +108,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.mediaContent"
           defaultMessage="Content"
+          description="Label for checkbox to toggle searching for keyword across media contents"
         />
       ),
       parent: 'media',
@@ -111,6 +119,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.sourceTitle"
           defaultMessage="Source"
+          description="Label for checkbox to toggle searching for keyword across titles of media sources"
         />
       ),
       parent: 'media',
@@ -121,6 +130,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.mediaTitle"
           defaultMessage="Title"
+          description="Label for checkbox to toggle searching for keyword across media titles"
         />
       ),
       parent: 'media',
@@ -131,6 +141,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.mediaUrl"
           defaultMessage="URL"
+          description="Label for checkbox to toggle searching for keyword across media URLs"
         />
       ),
       parent: 'media',
@@ -143,6 +154,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.allNotes"
           defaultMessage="Notes"
+          description="Label for checkbox to toggle searching for keyword across notes (aka comments)"
         />
       ),
     },
@@ -154,6 +166,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.request"
           defaultMessage="Request"
+          description="Label for checkbox to toggle searching for keyword across Requests data"
         />
       ),
       hasChildren: true,
@@ -164,6 +177,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.userNamePhoneNumber"
           defaultMessage="Username / phone number"
+          description="Label for checkbox to toggle searching for keyword across usernames and phone numbers in Requests"
         />
       ),
       parent: 'user_and_request',
@@ -174,6 +188,7 @@ const SearchKeywordConfigComponent = ({
         <FormattedMessage
           id="searchKeywordConfig.requestContent"
           defaultMessage="Content"
+          description="Label for checkbox to toggle searching for keyword across requests contents"
         />
       ),
       parent: 'user_and_request',
@@ -205,14 +220,20 @@ const SearchKeywordConfigComponent = ({
   return (
     <MultiSelector
       allowToggleAll
-      toggleAllLabel={<FormattedMessage id="SearchKeywordConfigComponent.all" defaultMessage="Select All" />}
-      submitLabel={<FormattedMessage {...globalStrings.update} />}
-      cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+      toggleAllLabel={
+        <FormattedMessage
+          id="SearchKeywordConfigComponent.all"
+          defaultMessage="Select all"
+          description="Label for checkbox to toggle selection of all checkboxes in menu"
+        />
+      }
+      submitLabel={<FormattedMessage {...globalStrings.update} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
+      cancelLabel={<FormattedMessage {...globalStrings.cancel} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
       resetLabel={
         <FormattedMessage
           id="SearchKeywordConfigComponent.resetLabel"
           defaultMessage="Reset"
-          description="Lable for reset options to default"
+          description="Label for reset options to default"
         />
       }
       options={options}

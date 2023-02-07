@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -43,7 +43,13 @@ const SuggestedMatches = ({ routeParams }) => (
             <Search
               searchUrlPrefix={`/${routeParams.team}/suggested-matches`}
               mediaUrlPrefix={`/${routeParams.team}/media`}
-              title={<FormattedMessage id="suggestedMatches.title" defaultMessage="Suggestions" />}
+              title={
+                <FormattedMessage
+                  id="suggestedMatches.title"
+                  defaultMessage="Suggestions"
+                  description="Header for suggested media page"
+                />
+              }
               icon={<NewReleasesIcon />}
               teamSlug={routeParams.team}
               query={query}

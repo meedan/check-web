@@ -1,42 +1,52 @@
 [
   {
     "id": "mediaActionsBar.movedToTrash",
+    "description": "Delete item action success message",
     "defaultMessage": "The item was moved to {trash}"
   },
   {
     "id": "mediaDetail.trash",
+    "description": "Label used inside delete action success message. Links to the Trash page",
     "defaultMessage": "Trash"
   },
   {
     "id": "mediaActionsBar.movedToSpam",
+    "description": "Send item to spam action success message",
     "defaultMessage": "The item was moved to {spam}"
   },
   {
     "id": "mediaDetail.spam",
+    "description": "Label used inside 'send to spam' action success message. Links to the Spam page",
     "defaultMessage": "Spam"
   },
   {
     "id": "mediaActionsBar.assignmentsUpdated",
+    "description": "Success message displayed when assigned user is updated",
     "defaultMessage": "Assignments updated successfully"
   },
   {
     "id": "mediaActionsBar.assignmentTitle",
+    "description": "Assignment dialog title",
     "defaultMessage": "Assign item to collaborators"
   },
   {
     "id": "multiSelector.search",
+    "description": "Search box placeholder",
     "defaultMessage": "Search…"
   },
   {
     "id": "MultiSelector.all",
+    "description": "Checkbox label for toggling select/unselect all",
     "defaultMessage": "All"
   },
   {
     "id": "mediaActionsBar.assignmentNotesTitle",
+    "description": "Helper text to field for adding details about the assignment",
     "defaultMessage": "Add a note to the email"
   },
   {
     "id": "mediaActionsBar.assignmentNotes",
+    "description": "Label to field for adding details about the assignment",
     "defaultMessage": "Notes"
   }
 ]
