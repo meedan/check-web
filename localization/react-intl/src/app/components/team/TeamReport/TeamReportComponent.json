@@ -11,22 +11,27 @@
   },
   {
     "id": "teamReportComponent.title",
+    "description": "Header for the default report settings page",
     "defaultMessage": "Default report settings"
   },
   {
     "id": "teamReportComponent.save",
+    "description": "Save settings button label",
     "defaultMessage": "Save"
   },
   {
     "id": "teamReportComponent.introduction",
+    "description": "Label to the report introduction field",
     "defaultMessage": "Introduction"
   },
   {
     "id": "teamReportComponent.introductionSub",
+    "description": "Instructions for filling the report introduction field",
     "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
   },
   {
     "id": "teamReportComponent.url",
+    "description": "Label to the report url field",
     "defaultMessage": "Website URL"
   },
   {
@@ -36,6 +41,7 @@
   },
   {
     "id": "teamReportComponent.signature",
+    "description": "Label to report signature field",
     "defaultMessage": "Signature"
   },
   {
@@ -45,38 +51,47 @@
   },
   {
     "id": "teamReportComponent.whatsapp",
+    "description": "Label to WhatsApp number field",
     "defaultMessage": "WhatsApp number"
   },
   {
     "id": "teamReportComponent.facebookFieldError",
+    "description": "Error message displayed when facebook profile is filled incorrectly",
     "defaultMessage": "Please use the page name instead of the full URL"
   },
   {
     "id": "teamReportComponent.facebook",
+    "description": "Label to facebook page field",
     "defaultMessage": "Facebook page name"
   },
   {
     "id": "teamReportComponent.twitterFieldError",
+    "description": "Error message displayed when twitter profile is filled incorrectly",
     "defaultMessage": "Please use the account name instead of the full URL"
   },
   {
     "id": "teamReportComponent.twitter",
+    "description": "Label to twitter username field",
     "defaultMessage": "Twitter account name"
   },
   {
     "id": "teamReportComponent.telegramFieldError",
+    "description": "Error message displayed when telegram username is filled incorrectly",
     "defaultMessage": "Please use the bot username instead of the full URL"
   },
   {
     "id": "teamReportComponent.telegram",
+    "description": "Label to Telegram username field",
     "defaultMessage": "Telegram bot username"
   },
   {
     "id": "teamReportComponent.viber",
+    "description": "Label to Viber account field",
     "defaultMessage": "Viber public account URI"
   },
   {
     "id": "teamReportComponent.line",
+    "description": "Label to LINE channel field",
     "defaultMessage": "LINE channel"
   }
 ]

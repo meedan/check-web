@@ -1,75 +1,92 @@
 [
   {
     "id": "searchKeywordConfig.factCheck",
+    "description": "Label for checkbox to toggle searching for keyword across Fact-checks",
     "defaultMessage": "Fact-check"
   },
   {
     "id": "searchKeywordConfig.claimDescription",
+    "description": "Label for checkbox to toggle searching for keyword across claims",
     "defaultMessage": "Claim"
   },
   {
     "id": "searchKeywordConfig.claimDescriptionContext",
+    "description": "Label for checkbox to toggle searching for keyword across context data",
     "defaultMessage": "Context"
   },
   {
     "id": "searchKeywordConfig.factCheckSummary",
+    "description": "Label for checkbox to toggle searching for keyword across summaries data",
     "defaultMessage": "Summary"
   },
   {
     "id": "searchKeywordConfig.tags",
+    "description": "Label for checkbox to toggle searching for keyword across tags",
     "defaultMessage": "Tags"
   },
   {
     "id": "searchKeywordConfig.factCheckTitle",
+    "description": "Label for checkbox to toggle searching for keyword across Fact-check titles",
     "defaultMessage": "Title"
   },
   {
     "id": "searchKeywordConfig.factCheckUrl",
+    "description": "Label for checkbox to toggle searching for keyword across Fact-checks urls",
     "defaultMessage": "URLs"
   },
   {
     "id": "searchKeywordConfig.media",
+    "description": "Label for checkbox to toggle searching for keyword across medias",
     "defaultMessage": "Media"
   },
   {
     "id": "searchKeywordConfig.mediaContent",
+    "description": "Label for checkbox to toggle searching for keyword across media contents",
     "defaultMessage": "Content"
   },
   {
     "id": "searchKeywordConfig.sourceTitle",
+    "description": "Label for checkbox to toggle searching for keyword across titles of media sources",
     "defaultMessage": "Source"
   },
   {
     "id": "searchKeywordConfig.mediaTitle",
+    "description": "Label for checkbox to toggle searching for keyword across media titles",
     "defaultMessage": "Title"
   },
   {
     "id": "searchKeywordConfig.mediaUrl",
+    "description": "Label for checkbox to toggle searching for keyword across media URLs",
     "defaultMessage": "URL"
   },
   {
     "id": "searchKeywordConfig.allNotes",
+    "description": "Label for checkbox to toggle searching for keyword across notes (aka comments)",
     "defaultMessage": "Notes"
   },
   {
     "id": "searchKeywordConfig.request",
+    "description": "Label for checkbox to toggle searching for keyword across Requests data",
     "defaultMessage": "Request"
   },
   {
     "id": "searchKeywordConfig.userNamePhoneNumber",
+    "description": "Label for checkbox to toggle searching for keyword across usernames and phone numbers in Requests",
     "defaultMessage": "Username / phone number"
   },
   {
     "id": "searchKeywordConfig.requestContent",
+    "description": "Label for checkbox to toggle searching for keyword across requests contents",
     "defaultMessage": "Content"
   },
   {
     "id": "SearchKeywordConfigComponent.all",
-    "defaultMessage": "Select All"
+    "description": "Label for checkbox to toggle selection of all checkboxes in menu",
+    "defaultMessage": "Select all"
   },
   {
     "id": "SearchKeywordConfigComponent.resetLabel",
-    "description": "Lable for reset options to default",
+    "description": "Label for reset options to default",
     "defaultMessage": "Reset"
   }
 ]
