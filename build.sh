@@ -15,7 +15,6 @@ else
     NGROK_URL=""
     while [ -z "$NGROK_URL" -a $i -lt 5 ]; do
       i=$(($i + 1))
-      ./ngrok config add-authtoken $NGROK_TOKEN
       ./ngrok http 9000 >/dev/null &
       until curl --silent -I -f --fail http://localhost:4040; do printf .; sleep 1; done
       curl -I -v http://localhost:4040
