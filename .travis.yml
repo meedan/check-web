@@ -1,6 +1,10 @@
 language: minimal
 dist: bionic
 before_install:
+# Install Node
+- sudo apt update
+- curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+- sudo apt -y install nodejs make gcc g++
 # Decrypt credentials for Alegre
 - openssl aes-256-cbc -K $encrypted_e6af0c606e27_key -iv $encrypted_e6af0c606e27_iv
   -in test/google_credentials.json.enc -out test/google_credentials.json -d
@@ -11,9 +15,6 @@ before_install:
 # Needed to fix error when installing Pender gems
 # Error: `There was an error while loading `rswag.gemspec`: Illformed requirement`
 # https://github.com/jetpackworkflow/rswag/blob/master/rswag/rswag.gemspec#L18
-- curl https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok-stable-linux-amd64.zip
-- unzip ngrok-stable-linux-amd64.zip
-- chmod +x ngrok
 - export TRAVIS_TAG=0.0.0
 # Docker
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -58,7 +59,7 @@ before_script:
 jobs:
   include:
     - stage: tests
-      if: branch = develop OR branch = master
+      # if: branch = develop OR branch = master
       name: integration-and-unit-tests
       script:
       - docker-compose exec
@@ -72,7 +73,7 @@ jobs:
         web npm run tests
     - stage: tests
       name: similarity-tests
-      if: branch = develop OR branch = master
+      # if: branch = develop OR branch = master
       script:
       - docker-compose exec
         -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
