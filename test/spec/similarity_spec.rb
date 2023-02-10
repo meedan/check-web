@@ -159,16 +159,16 @@ shared_examples 'similarity' do
   end
 
   {
-    'saturation' => ['files/similarity.jpg', 'files/similarity2.jpg'],
+    'saturations' => ['files/similarity.jpg', 'files/similarity2.jpg'],
     'formats' => ['files/similarity3.jpg', 'files/similarity3.jpeg'],
-    'size' => ['files/test.png', 'files/test2.png']
+    'sizes' => ['files/test.png', 'files/test2.png']
   }.each do |param, file|
-    it "should identify image in differents #{param} as similar", bin9: true do
+    it "should identify images in different #{param} as similar", bin9: true do
       create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
       wait_for_selector('.projects-list__all-items').click
       wait_for_selector('.project__description')
       create_image(file[0])
-      sleep 10
+      sleep 60
       create_image(file[1])
       wait_for_selector('.medias__item')
       sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
