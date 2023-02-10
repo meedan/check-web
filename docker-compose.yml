@@ -109,6 +109,7 @@ services:
     volumes:
       - "./pender:/app"
     depends_on:
+      - postgres
       - redis
       - minio
     environment:

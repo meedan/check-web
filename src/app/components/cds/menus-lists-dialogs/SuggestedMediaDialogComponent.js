@@ -37,18 +37,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaAndRequestsDialogComponent = ({
+const SuggestedMediaDialogComponent = ({
   projectMediaId,
   onClick,
   onClose,
-  onUnmatch,
-  onPin,
+  isOpen,
 }) => {
   const classes = useStyles();
 
   return (
     <Dialog
-      open={projectMediaId}
+      open={isOpen}
       onClick={onClick}
       onClose={onClose}
       maxWidth="md"
@@ -56,11 +55,11 @@ const MediaAndRequestsDialogComponent = ({
       PaperProps={{ classes: { root: classes.dialog } }}
     >
       <DialogTitle>
-        <Typography variant="h6">
+        <Typography variant="h1">
           <FormattedMessage
             id="cds.mediaAndRequestsDialog.matchedMedia"
-            defaultMessage="Media"
-            description="Plural. Heading for the number of media"
+            defaultMessage="Matched media"
+            description="Plural. Heading for the number of matched media"
           />
         </Typography>
         <IconButton className={classes.closeButton} onClick={onClose}>
@@ -86,30 +85,6 @@ const MediaAndRequestsDialogComponent = ({
                   browserHistory.push(url);
                 }}
               />
-              <MainButton
-                variant="outlined"
-                className={classes.button}
-                label={
-                  <FormattedMessage
-                    id="cds.mediaAndRequestsDialog.pinAsMain"
-                    defaultMessage="Pin as main"
-                    description="Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places)."
-                  />
-                }
-                onClick={onPin}
-              />
-              <MainButton
-                variant="outlined"
-                className={classes.button}
-                label={
-                  <FormattedMessage
-                    id="cds.mediaAndRequestsDialog.unmatch"
-                    defaultMessage="Un-match"
-                    description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
-                  />
-                }
-                onClick={onUnmatch}
-              />
             </Box>
             <Paper
               elevation={0}
@@ -131,12 +106,11 @@ const MediaAndRequestsDialogComponent = ({
   );
 };
 
-MediaAndRequestsDialogComponent.propTypes = {
+SuggestedMediaDialogComponent.propTypes = {
   projectMediaId: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  onUnmatch: PropTypes.func.isRequired,
-  onPin: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
-export default MediaAndRequestsDialogComponent;
+export default SuggestedMediaDialogComponent;

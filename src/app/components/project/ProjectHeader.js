@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, createFragmentContainer, graphql } from 'react-relay/compat';
@@ -23,23 +22,65 @@ class ProjectHeaderComponent extends React.PureComponent {
 
     let pageTitle;
     if (/\/trash(\/|$)/.test(listUrl)) {
-      pageTitle = <FormattedMessage id="projectHeader.trash" defaultMessage="Trash" />;
+      pageTitle = (
+        <FormattedMessage
+          id="projectHeader.trash"
+          defaultMessage="Trash"
+          description="Title label for the Trash page"
+        />
+      );
     } else if (/\/spam(\/|$)/.test(listUrl)) {
-      pageTitle = <FormattedMessage id="projectHeader.Spam" defaultMessage="Spam" />;
+      pageTitle = (
+        <FormattedMessage
+          id="projectHeader.Spam"
+          defaultMessage="Spam"
+          description="Title label for the Spam page"
+        />
+      );
     } else if (/\/tipline-inbox(\/|$)/.test(listUrl)) {
-      pageTitle = <FormattedMessage id="projectHeader.tiplineInbox" defaultMessage="Tipline inbox" />;
+      pageTitle = (
+        <FormattedMessage
+          id="projectHeader.tiplineInbox"
+          defaultMessage="Tipline inbox"
+          description="Title label for the Tipline inbox page"
+        />
+      );
     } else if (/\/imported-fact-checks(\/|$)/.test(listUrl)) {
-      pageTitle = <FormattedMessage id="projectHeader.importedReports" defaultMessage="Imported fact-checks" />;
+      pageTitle = (
+        <FormattedMessage
+          id="projectHeader.importedReports"
+          defaultMessage="Imported fact-checks"
+          description="Title label for the Imported fact-checks page"
+        />
+      );
     } else if (/\/suggested-matches(\/|$)/.test(listUrl)) {
-      pageTitle = <FormattedMessage id="projectHeader.suggestedMatches" defaultMessage="Suggested media" />;
+      pageTitle = (
+        <FormattedMessage
+          id="projectHeader.suggestedMatches"
+          defaultMessage="Suggestions"
+          description="Title label for the suggested media page"
+        />
+      );
     } else if (isFeedPage) {
-      pageTitle = <FormattedMessage id="projectHeader.feed" defaultMessage="Shared feed" />;
+      pageTitle = (
+        <FormattedMessage
+          id="projectHeader.feed"
+          defaultMessage="Shared feed"
+          description="Title label for the Shared feed page"
+        />
+      );
     } else if (project) {
       pageTitle = project.title;
     } else if (saved_search) {
       pageTitle = saved_search.title;
     } else {
-      pageTitle = <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />;
+      pageTitle = (
+        <FormattedMessage
+          id="projectHeader.allItems"
+          defaultMessage="All items"
+          description="Title label for the All items page"
+        />
+      );
     }
 
     return (

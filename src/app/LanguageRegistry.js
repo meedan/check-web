@@ -180,6 +180,10 @@ const LanguageRegistry = {
     name: 'Persian',
     nativeName: 'فارسی',
   },
+  fil: {
+    name: 'Filipino',
+    nativeName: 'Filipino',
+  },
   ff: {
     name: 'Fula',
     nativeName: 'Fulfulde',

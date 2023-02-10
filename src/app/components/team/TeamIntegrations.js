@@ -24,6 +24,7 @@ const TeamIntegrations = () => (<QueryRenderer
               node {
                 id
                 json_settings
+                lock_version
                 bot_user {
                   id
                 }
@@ -91,7 +92,7 @@ const TeamIntegrations = () => (<QueryRenderer
                   defaultMessage="Third party tools to enhance productivity."
                 />
               }
-              helpUrl="https://help.checkmedia.org/en/articles/4841437-integrations"
+              helpUrl="https://help.checkmedia.org/en/articles/6925397-integrations"
             />
             <Box className="team-integrations__integrations">
               <TeamBots {...props} />

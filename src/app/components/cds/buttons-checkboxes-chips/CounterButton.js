@@ -31,7 +31,9 @@ const useStyles = makeStyles({
   },
 });
 
-const CounterButton = ({ label, count, onClick }) => {
+const CounterButton = ({
+  label, count, onClick,
+}) => {
   const classes = useStyles();
   return (
     <Button
@@ -45,7 +47,7 @@ const CounterButton = ({ label, count, onClick }) => {
         {label}
       </Typography>
       <br />
-      <Typography variant="h2">
+      <Typography variant="subtitle2">
         {count}
       </Typography>
     </Button>

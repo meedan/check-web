@@ -88,6 +88,7 @@ class TeamBots extends Component {
       new UpdateTeamBotInstallationMutation({
         id: installation.id,
         json_settings: settings,
+        lock_version: installation.lock_version,
       }),
       { onSuccess, onFailure },
     );

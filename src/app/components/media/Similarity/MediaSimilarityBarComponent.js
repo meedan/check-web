@@ -60,12 +60,12 @@ const MediaSimilarityBarComponent = ({
       <Box className={classes.spacing}>
         <CounterButton
           className="similarity-bar__matches-count"
-          count={confirmedSimilarCount}
+          count={confirmedSimilarCount + 1}
           label={
             <FormattedMessage
               id="mediaSimilarityBarComponent.similarMedia"
-              defaultMessage="Matched media"
-              description="Plural. Heading for the number of matched media"
+              defaultMessage="Media"
+              description="Plural. Heading for the number of media"
             />
           }
           onClick={() => {
@@ -83,8 +83,8 @@ const MediaSimilarityBarComponent = ({
           label={
             <FormattedMessage
               id="mediaSimilarityBarComponent.suggestedMatches"
-              defaultMessage="Suggested media"
-              description="Plural. Heading for the number of suggested media"
+              defaultMessage="Suggestions"
+              description="Plural. Heading for the number of suggestions"
             />
           }
           onClick={() => { setShowTab('suggestedMedia'); }}

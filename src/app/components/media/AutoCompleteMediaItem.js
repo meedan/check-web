@@ -360,7 +360,6 @@ const AutoCompleteMediaItem = (props, context) => {
           </Typography>
           <SearchKeywordContainer
             anchorEl={anchorEl}
-            teamSlug={teamSlug}
             query={query}
             onDismiss={handleCloseFilters}
             onSubmit={handleChangeFilters}

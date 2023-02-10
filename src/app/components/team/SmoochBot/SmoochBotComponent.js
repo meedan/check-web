@@ -19,6 +19,8 @@ import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import CreateTeamBotInstallationMutation from '../../../relay/mutations/CreateTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../../relay/mutations/UpdateTeamBotInstallationMutation';
+import { getErrorObjectsForRelayModernProblem } from '../../../helpers';
+import CheckError from '../../../CheckError';
 
 const SmoochBotComponent = ({
   team,
@@ -44,9 +46,11 @@ const SmoochBotComponent = ({
     window.open('https://airtable.com/shr727e2MeBQnTGa1');
   };
 
-  const handleError = () => {
+  const handleError = (transaction) => {
     setSaving(false);
-    setFlashMessage((<GenericUnknownErrorMessage />), 'error');
+    const errors = getErrorObjectsForRelayModernProblem(transaction.getError());
+    const message = errors && errors.length > 0 ? CheckError.getMessageFromCode(errors[0].code) : <GenericUnknownErrorMessage />;
+    setFlashMessage(message, 'error');
   };
 
   const handleSuccess = () => {
@@ -75,6 +79,7 @@ const SmoochBotComponent = ({
         new UpdateTeamBotInstallationMutation({
           id: installation.id,
           json_settings: JSON.stringify(settings),
+          lock_version: installation.lock_version,
           files,
         }),
         { onSuccess: handleSuccess, onFailure: handleError },
@@ -130,6 +135,11 @@ const SmoochBotComponent = ({
     }
     setCurrentLanguage(newValue);
   };
+
+  // Workspace languages for which there is a tipline workflow
+  const workflowLanguages = settings?.smooch_workflows?.map(w => w.smooch_workflow_language) || [];
+  const validLanguages = languages.filter(l => workflowLanguages.includes(l)) || [];
+
   // If only on language, no margin left. If more than one language the language selector is displayed, so we add a margin.
   return (
     <Box display="flex" justifyContent="left" className="smooch-bot-component" ml={installation && bot && languages.length > 1 ? 0 : 6}>
@@ -173,7 +183,7 @@ const SmoochBotComponent = ({
                 currentUser={currentUser}
                 userRole={userRole}
                 currentLanguage={currentLanguage}
-                languages={languages}
+                languages={validLanguages}
                 enabledIntegrations={installation.smooch_enabled_integrations}
                 newsletterInformation={installation.smooch_newsletter_information}
               /> :

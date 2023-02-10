@@ -108,7 +108,8 @@
 		"string": "Unknown language"
 	},
 	"MultiSelector.all": {
-		"string": "Search All"
+		"string": "All",
+		"developer_comment": "Checkbox label for toggling select/unselect all"
 	},
 	"MultiSelector.search": {
 		"string": "Search…"
@@ -137,9 +138,17 @@
 		"string": "Tag is",
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
-	"SearchKeywordMenu.advanced": {
-		"string": "Advanced",
-		"developer_comment": "Button for advanced search"
+	"SearchKeywordConfigComponent.all": {
+		"string": "Select all",
+		"developer_comment": "Label for checkbox to toggle selection of all checkboxes in menu"
+	},
+	"SearchKeywordConfigComponent.resetLabel": {
+		"string": "Reset",
+		"developer_comment": "Label for reset options to default"
+	},
+	"SearchKeywordMenu.searchSettings": {
+		"string": "Search settings",
+		"developer_comment": "Button for search settings"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Account Already Confirmed",
@@ -297,7 +306,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Number of matched media",
+		"string": "Number of media",
 		"developer_comment": "Menu option to enable searching items by matched medias"
 	},
 	"addFilterMenu.source": {
@@ -305,8 +314,8 @@
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Number of suggested media",
-		"developer_comment": "Menu option to enable searching items by suggested medias"
+		"string": "Number of suggestions",
+		"developer_comment": "Menu option to enable searching items by suggestions"
 	},
 	"addFilterMenu.tag": {
 		"string": "Tag",
@@ -1315,7 +1324,7 @@
 		"developer_comment": "Header label for date column, in which are shown timestamps of last time a media was sent"
 	},
 	"feedRequestsTable.matchedMedia": {
-		"string": "Matched media",
+		"string": "Media",
 		"developer_comment": "Header label for number of medias found to be matched to the current one"
 	},
 	"feedRequestsTable.media": {
@@ -1607,25 +1616,32 @@
 		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
-		"string": "Requests"
+		"string": "Requests",
+		"developer_comment": "Table header for Requests column"
 	},
 	"list.FirstSeen": {
-		"string": "Submitted"
+		"string": "Submitted",
+		"developer_comment": "Table header for item submitted date column"
 	},
 	"list.Item": {
-		"string": "Claim"
+		"string": "Claim",
+		"developer_comment": "Table header for Claim column"
 	},
 	"list.LinkedItems": {
-		"string": "Matched media"
+		"string": "Media",
+		"developer_comment": "Plural - Table header for number of related media column"
 	},
 	"list.ShareCount": {
-		"string": "FB Shares"
+		"string": "FB Shares",
+		"developer_comment": "Table header for Facebook share count column"
 	},
 	"list.Status": {
-		"string": "Status"
+		"string": "Status",
+		"developer_comment": "Table header for item status column"
 	},
 	"list.Type": {
-		"string": "Type"
+		"string": "Type",
+		"developer_comment": "Table header for item type column"
 	},
 	"list.clusterFactCheckedByTeamNames": {
 		"string": "Report published",
@@ -1644,54 +1660,64 @@
 		"developer_comment": "Table header for column that shows number of requests in a cluster"
 	},
 	"list.clusterSize": {
-		"string": "Matched media",
+		"string": "Media",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.commentCount": {
-		"string": "FB Comments"
+		"string": "FB Comments",
+		"developer_comment": "Table header for Facebook comments count column"
 	},
 	"list.createdBy": {
 		"string": "Created by",
 		"developer_comment": "Table header for column that shows the creator name"
 	},
 	"list.factCheck": {
-		"string": "Fact-check"
+		"string": "Fact-check",
+		"developer_comment": "Table header for Fact-check column"
 	},
 	"list.factCheckPublishedAt": {
-		"string": "Fact check published at"
+		"string": "Fact check published at",
+		"developer_comment": "Table header for fact-check publication date column"
 	},
 	"list.folder": {
 		"string": "Folder",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
 	},
 	"list.mediaPublishedAt": {
-		"string": "Media published"
+		"string": "Media published",
+		"developer_comment": "Table header for media (singular) published date column"
 	},
 	"list.reactCount": {
-		"string": "FB Reactions"
+		"string": "FB Reactions",
+		"developer_comment": "Table header for Facebook reactions count column"
 	},
 	"list.reportPublishedBy": {
-		"string": "Report published by"
+		"string": "Report published by",
+		"developer_comment": "Table header for user who published report column"
 	},
 	"list.reportStatus": {
-		"string": "Report status"
+		"string": "Report status",
+		"developer_comment": "Table header for report status column"
 	},
 	"list.sourceName": {
 		"string": "Source",
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
-		"string": "Suggested media"
+		"string": "Suggestions",
+		"developer_comment": "Table header suggested matches count column"
 	},
 	"list.tags": {
-		"string": "Tags"
+		"string": "Tags",
+		"developer_comment": "Table header for item tags column"
 	},
 	"list.teamName": {
 		"string": "Fact-check by",
 		"developer_comment": "Table header for column that shows the team name"
 	},
 	"list.updated": {
-		"string": "Updated"
+		"string": "Updated",
+		"developer_comment": "Table header for item updated date column"
 	},
 	"login.alreadyHasAccount": {
 		"string": "Already have an account ?"
@@ -1805,16 +1831,20 @@
 		"string": "Unlock status"
 	},
 	"mediaActionsBar.assignmentNotes": {
-		"string": "Notes"
+		"string": "Notes",
+		"developer_comment": "Label to field for adding details about the assignment"
 	},
 	"mediaActionsBar.assignmentNotesTitle": {
-		"string": "Add a note to the email"
+		"string": "Add a note to the email",
+		"developer_comment": "Helper text to field for adding details about the assignment"
 	},
 	"mediaActionsBar.assignmentTitle": {
-		"string": "Assign item to collaborators"
+		"string": "Assign item to collaborators",
+		"developer_comment": "Assignment dialog title"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Assignments updated successfully"
+		"string": "Assignments updated successfully",
+		"developer_comment": "Success message displayed when assigned user is updated"
 	},
 	"mediaActionsBar.confirmTo": {
 		"string": "Confirm"
@@ -1838,10 +1868,12 @@
 		"string": "Restored from Trash, redirecting…"
 	},
 	"mediaActionsBar.movedToSpam": {
-		"string": "The item was moved to {spam}"
+		"string": "The item was moved to {spam}",
+		"developer_comment": "Send item to spam action success message"
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "The item was moved to {trash}"
+		"string": "The item was moved to {trash}",
+		"developer_comment": "Delete item action success message"
 	},
 	"mediaActionsBar.notSpamTo": {
 		"string": "Not spam"
@@ -1947,7 +1979,7 @@
 		"developer_comment": "Label for the Source tab, as in source of the information"
 	},
 	"mediaComponent.suggestedMedia": {
-		"string": "Suggested media",
+		"string": "Suggestions",
 		"developer_comment": "Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
 	},
 	"mediaComponent.timelineTab": {
@@ -1969,10 +2001,12 @@
 		"developer_comment": "A text field that indicates who the original author of a claim is. The {name} field will render the display name of the user who created the item."
 	},
 	"mediaDetail.spam": {
-		"string": "Spam"
+		"string": "Spam",
+		"developer_comment": "Label on a link that, when clicked, takes the user to a list of items marked as spam"
 	},
 	"mediaDetail.trash": {
-		"string": "Trash"
+		"string": "Trash",
+		"developer_comment": "Label on a link that, when clicked, takes the user to a list of trashed (marked for deletion) items"
 	},
 	"mediaExpanded.extractedText": {
 		"string": "Text extracted from image:",
@@ -2035,10 +2069,6 @@
 	},
 	"mediaFactCheck.error": {
 		"string": "Title and description have to be filled",
-		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
-	},
-	"mediaFactCheck.errorWithLanguage": {
-		"string": "Title, description and language have to be filled",
 		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
 	},
 	"mediaFactCheck.factCheck": {
@@ -2193,11 +2223,11 @@
 		"string": "{current} of {total}"
 	},
 	"mediaSimilarities.moreMedias": {
-		"string": "Matched media",
+		"string": "Media",
 		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarities.noMedia": {
-		"string": "0 matched media",
+		"string": "0 media",
 		"developer_comment": "A message that shows when the matched media list is empty."
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
@@ -2245,12 +2275,12 @@
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Matched media",
-		"developer_comment": "Plural. Heading for the number of matched media"
+		"string": "Media",
+		"developer_comment": "Plural. Heading for the number of media"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "Suggested media",
-		"developer_comment": "Plural. Heading for the number of suggested media"
+		"string": "Suggestions",
+		"developer_comment": "Plural. Heading for the number of suggestions"
 	},
 	"mediaSource.changeSource": {
 		"string": "Change",
@@ -2287,33 +2317,125 @@
 		"string": "{requestsCount, plural, one {# request} other {# requests}}",
 		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
+	"mediaSuggestionsComponent.accept": {
+		"string": "Match media",
+		"developer_comment": "Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list."
+	},
+	"mediaSuggestionsComponent.bulkAccept": {
+		"string": "Match all medias on this page",
+		"developer_comment": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media."
+	},
+	"mediaSuggestionsComponent.bulkEdit": {
+		"string": "Bulk edit",
+		"developer_comment": "A header that tells the user the buttons to follow are for bulk editing items (editing more than one item at a time, like marking all as spam)"
+	},
+	"mediaSuggestionsComponent.bulkReject": {
+		"string": "Reject all medias on this page",
+		"developer_comment": "Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list."
+	},
+	"mediaSuggestionsComponent.bulkRejectConfirm": {
+		"string": "Reject all",
+		"developer_comment": "Label for an action button that causes all selected items to be rejected"
+	},
+	"mediaSuggestionsComponent.bulkSpam": {
+		"string": "Mark all medias on this page as spam",
+		"developer_comment": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list."
+	},
+	"mediaSuggestionsComponent.bulkTrash": {
+		"string": "Send all medias on this page to trash",
+		"developer_comment": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' folder and removed from the suggestions list."
+	},
+	"mediaSuggestionsComponent.dialogBulkAcceptConfirm": {
+		"string": "Match all",
+		"developer_comment": "Button that a user presses to confirm that they are going to match all visible suggested media"
+	},
+	"mediaSuggestionsComponent.dialogBulkAcceptTitle": {
+		"string": "Are you sure you want to match {number} suggested media?",
+		"developer_comment": "Prompt to a user when they choose to match media as a bulk action"
+	},
+	"mediaSuggestionsComponent.dialogBulkRejectTitle": {
+		"string": "Choose a destination folder for the {number} rejected medias",
+		"developer_comment": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
+	},
+	"mediaSuggestionsComponent.dialogBulkSpamConfirm": {
+		"string": "Mark as spam",
+		"developer_comment": "Button that a user presses to confirm that they are going to mark all visible suggested media as spam"
+	},
+	"mediaSuggestionsComponent.dialogBulkSpamTitle": {
+		"string": "Are you sure you want to mark {number} suggested media as spam?",
+		"developer_comment": "Prompt to a user when they choose to mark media as spam in bulk"
+	},
+	"mediaSuggestionsComponent.dialogBulkTrashConfirm": {
+		"string": "Send to trash",
+		"developer_comment": "Button that a user presses to confirm that they are going to send all visible suggested media to trash"
+	},
+	"mediaSuggestionsComponent.dialogBulkTrashTitle": {
+		"string": "Are you sure you want to send {number} suggested media to the trash?",
+		"developer_comment": "Prompt to a user when they choose to send media to trash in bulk"
+	},
 	"mediaSuggestionsComponent.dialogRejectTitle": {
-		"string": "Choose a destination folder for this item"
+		"string": "Choose a destination folder for this item",
+		"developer_comment": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
+	},
+	"mediaSuggestionsComponent.flashBulkConfirmTitle": {
+		"string": "{number} suggested media matched",
+		"developer_comment": "Title that appears in a popup to confirm that a 'bulk accept' action was successful"
+	},
+	"mediaSuggestionsComponent.flashBulkReject": {
+		"string": "Added to the list \"{folder}\"",
+		"developer_comment": "Text that appears in a popup to confirm that a 'bulk reject' action was successful"
+	},
+	"mediaSuggestionsComponent.flashBulkRejectTitle": {
+		"string": "{number} media rejected",
+		"developer_comment": "Title that appears in a popup to confirm that a 'bulk reject' action was successful"
+	},
+	"mediaSuggestionsComponent.flashBulkSpam": {
+		"string": "{number} media marked as spam",
+		"developer_comment": "Text that appears in a popup to confirm that a 'bulk move to spam' action was successful"
+	},
+	"mediaSuggestionsComponent.flashBulkTrash": {
+		"string": "{number} media sent to the trash",
+		"developer_comment": "Text that appears in a popup to confirm that a 'bulk move to trash' action was successful"
 	},
 	"mediaSuggestionsComponent.moveItem": {
-		"string": "Move item"
+		"string": "Move item",
+		"developer_comment": "Label for an action button that causes a user to move an item into a given folder"
 	},
 	"mediaSuggestionsComponent.movedToSpam": {
-		"string": "The item was moved to {spam}"
+		"string": "The item was moved to {spam}",
+		"developer_comment": "Text that appears in a popup to confirmt hat a 'move to spam' action was successful"
 	},
 	"mediaSuggestionsComponent.movedToTrash": {
-		"string": "The item was moved to {trash}"
+		"string": "The item was moved to {trash}",
+		"developer_comment": "Text that appears in a popup to confirmt hat a 'move to trash' action was successful"
 	},
-	"mediaSuggestionsComponent.question": {
-		"string": "Are the medias below a good match for the claim and medias on the left?",
-		"developer_comment": "Subtitle for similarity matching widget"
+	"mediaSuggestionsComponent.next": {
+		"string": "Next",
+		"developer_comment": "Label for the 'go to next page' button on paginated suggestions"
 	},
-	"mediaSuggestionsComponent.sendItemsToSpam": {
-		"string": "Mark as spam"
+	"mediaSuggestionsComponent.noItems": {
+		"string": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}",
+		"developer_comment": "A header that tells the user there are no items in the list"
 	},
-	"mediaSuggestionsComponent.sendItemsToTrash": {
-		"string": "Send to trash"
+	"mediaSuggestionsComponent.previous": {
+		"string": "Previous",
+		"developer_comment": "Label for the 'go to previous page' button on paginated suggestions"
+	},
+	"mediaSuggestionsComponent.reject": {
+		"string": "Reject media",
+		"developer_comment": "Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list."
+	},
+	"mediaSuggestionsComponent.spam": {
+		"string": "Mark media as spam",
+		"developer_comment": "Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list."
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+		"string": "{start} to {end} of {total, plural, one {{total} suggested media} other {{total} suggested medias}}",
+		"developer_comment": "A header that tells the user how many suggested media items are in the list to follow"
 	},
-	"mediaSuggestionsMenu.tooltip": {
-		"string": "Item actions"
+	"mediaSuggestionsComponent.trash": {
+		"string": "Send media to trash",
+		"developer_comment": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash folder, and removed from the suggested items list."
 	},
 	"metadata.cancel": {
 		"string": "Cancel",
@@ -2452,12 +2574,12 @@
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "Number of matched media is between",
-		"developer_comment": "Filter option that refers to number of matched medias"
+		"string": "Number of media is between",
+		"developer_comment": "Filter option that refers to number of media"
 	},
 	"numericRangeFilter.suggestedItems": {
-		"string": "Number of suggested medias is between",
-		"developer_comment": "Filter option that refers to number of suggested medias"
+		"string": "Number of suggestions is between",
+		"developer_comment": "Filter option that refers to number of suggestions"
 	},
 	"numericRangeFilter.tiplineRequests": {
 		"string": "Number of requests is between",
@@ -2605,25 +2727,32 @@
 		"developer_comment": "A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case."
 	},
 	"projectHeader.Spam": {
-		"string": "Spam"
+		"string": "Spam",
+		"developer_comment": "Title label for the Spam page"
 	},
 	"projectHeader.allItems": {
-		"string": "All items"
+		"string": "All items",
+		"developer_comment": "Title label for the All items page"
 	},
 	"projectHeader.feed": {
-		"string": "Shared feed"
+		"string": "Shared feed",
+		"developer_comment": "Title label for the Shared feed page"
 	},
 	"projectHeader.importedReports": {
-		"string": "Imported fact-checks"
+		"string": "Imported fact-checks",
+		"developer_comment": "Title label for the Imported fact-checks page"
 	},
 	"projectHeader.suggestedMatches": {
-		"string": "Suggested media"
+		"string": "Suggestions",
+		"developer_comment": "Title label for the suggested media page"
 	},
 	"projectHeader.tiplineInbox": {
-		"string": "Tipline inbox"
+		"string": "Tipline inbox",
+		"developer_comment": "Title label for the Tipline inbox page"
 	},
 	"projectHeader.trash": {
-		"string": "Trash"
+		"string": "Trash",
+		"developer_comment": "Title label for the Trash page"
 	},
 	"projectMoveDialogComponent.choose": {
 		"string": "Choose a collection"
@@ -2790,7 +2919,7 @@
 		"developer_comment": "Feeds of content shared across workspaces"
 	},
 	"projectsComponent.suggestedMatches": {
-		"string": "Suggested media",
+		"string": "Suggestions",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.tiplineInbox": {
@@ -2807,55 +2936,72 @@
 		"string": "Add content to the text message"
 	},
 	"reportDesigner.back": {
-		"string": "Back to annotation"
+		"string": "Back to annotation",
+		"developer_comment": "Button label to navigate back to annotation mode"
 	},
 	"reportDesigner.cancelPause": {
-		"string": "Go back"
+		"string": "Go back",
+		"developer_comment": "Cancel action button label"
 	},
 	"reportDesigner.cancelPublish": {
-		"string": "Go back"
+		"string": "Go back",
+		"developer_comment": "Cancel action button label"
 	},
 	"reportDesigner.cantPublish": {
-		"string": "Go back to editing"
+		"string": "Go back to editing",
+		"developer_comment": "Back to editing action button label"
 	},
 	"reportDesigner.cantPublishTitle": {
-		"string": "Your report is not ready to be published"
+		"string": "Your report is not ready to be published",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPause": {
-		"string": "Pause report"
+		"string": "Pause report",
+		"developer_comment": "Confirm pause report publication action button label"
 	},
 	"reportDesigner.confirmPauseText": {
-		"string": "This will stop the report from being sent out to users until it is published again."
+		"string": "This will stop the report from being sent out to users until it is published again.",
+		"developer_comment": "Pause report publication action helper text"
 	},
 	"reportDesigner.confirmPauseTitle": {
-		"string": "Do you want to pause the report?"
+		"string": "Do you want to pause the report?",
+		"developer_comment": "Pause report publication dialog title"
 	},
 	"reportDesigner.confirmPublish": {
-		"string": "Publish report"
+		"string": "Publish report",
+		"developer_comment": "Publish report action button label"
 	},
 	"reportDesigner.confirmPublishSameStatus": {
-		"string": "Publish changes"
+		"string": "Publish changes",
+		"developer_comment": "Publish report action button label"
 	},
 	"reportDesigner.confirmPublishStatusChange": {
-		"string": "Publish changes and send correction"
+		"string": "Publish changes and send correction",
+		"developer_comment": "Publish report action button label"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
+		"string": "{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPublishText2": {
-		"string": "All future users who request this item will receive this version of the report while it remains published."
+		"string": "Future users who request this item will receive this version of the report while it remains published.",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPublishTitle": {
-		"string": "Ready to publish your report?"
+		"string": "Ready to publish your report?",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
+		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
-		"string": "Ready to publish your changes?"
+		"string": "Ready to publish your changes?",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmRepublishTitle": {
-		"string": "Ready to publish your changes?"
+		"string": "Ready to publish your changes?",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.content": {
 		"string": "Summary"
@@ -2868,7 +3014,8 @@
 		"string": "Copied"
 	},
 	"reportDesigner.correction": {
-		"string": "correction"
+		"string": "correction",
+		"developer_comment": "This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
 	},
 	"reportDesigner.darkOverlay": {
 		"string": "Dark overlay"
@@ -2883,7 +3030,8 @@
 		"string": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
 	},
 	"reportDesigner.firstSent": {
-		"string": "First published"
+		"string": "First published",
+		"developer_comment": "Header for first publication date of report"
 	},
 	"reportDesigner.goBack": {
 		"string": "Go back to the annotation page and remove the content warning.",
@@ -2903,16 +3051,19 @@
 		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
 	},
 	"reportDesigner.lastPublished": {
-		"string": "Last published"
+		"string": "Last published",
+		"developer_comment": "Header for last publication date of report"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "Start creating your report to preview what users will see when they receive it."
 	},
 	"reportDesigner.pause": {
-		"string": "Pause"
+		"string": "Pause",
+		"developer_comment": "Pause report publication action button label"
 	},
 	"reportDesigner.publish": {
-		"string": "Publish"
+		"string": "Publish",
+		"developer_comment": "Label for publish report button"
 	},
 	"reportDesigner.removeImage": {
 		"string": "Remove image"
@@ -2925,10 +3076,16 @@
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
+		"string": "{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}",
+		"developer_comment": "Helper message to publishing report correction action"
+	},
+	"reportDesigner.republishAndResendSingleLanguage": {
+		"string": "Also send this updated report only to users who requested this item in {reportLanguage}.",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.sentCount": {
-		"string": "Reports sent"
+		"string": "Reports sent",
+		"developer_comment": "Header for reports sent count"
 	},
 	"reportDesigner.statusLabel": {
 		"string": "Status label"
@@ -2965,16 +3122,20 @@
 		"string": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution."
 	},
 	"reportDesignerToolbar.cantPublishContentFlag": {
-		"string": "Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
+		"string": "Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option.",
+		"developer_comment": "Report designer helper message"
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
-		"string": "The report for {language} cannot be empty because it is the default language. You must have content in Report Text or Visual Card for {language}. Or, you can right-click on the tab for another language to make it the default language."
+		"string": "The report for {language} cannot be empty because it is the default language. You must have content in Report Text or Visual Card for {language}. Or, you can right-click on the tab for another language to make it the default language.",
+		"developer_comment": "Report designer helper message"
 	},
 	"reportDesignerToolbar.cantPublishInitial": {
-		"string": "You must have at least Report Text or Visual Card selected in order to publish the report."
+		"string": "You must have at least Report Text or Visual Card selected in order to publish the report.",
+		"developer_comment": "Report designer helper message"
 	},
 	"reportDesignerToolbar.cantPublishStatus": {
-		"string": "Your item still has the default status {status} and must be changed to a different status before it can be published."
+		"string": "Your item still has the default status {status} and must be changed to a different status before it can be published.",
+		"developer_comment": "Report designer helper message"
 	},
 	"reportDesignerToolbar.cantPublishText": {
 		"string": "You must add a title, a summary and a language to the fact-check in order to publish the report.",
@@ -3369,7 +3530,7 @@
 		"developer_comment": "Describes media type Link"
 	},
 	"search.showSimilar": {
-		"string": "Show matched media",
+		"string": "Show all media",
 		"developer_comment": "Allow user to show/hide secondary items"
 	},
 	"search.showVideos": {
@@ -3424,51 +3585,69 @@
 		"string": "Clear filters",
 		"developer_comment": "Tooltip for button to remove any applied filters"
 	},
-	"searchKeywordConfig.accounts": {
-		"string": "Source"
-	},
-	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "All metadata answers"
-	},
 	"searchKeywordConfig.allNotes": {
-		"string": "All notes"
-	},
-	"searchKeywordConfig.analysisContent": {
-		"string": "Analysis content"
-	},
-	"searchKeywordConfig.analysisTitle": {
-		"string": "Analysis title"
-	},
-	"searchKeywordConfig.annotation": {
-		"string": "Annotation",
-		"developer_comment": "Header before a listing of annotation options"
+		"string": "Notes",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across notes (aka comments)"
 	},
 	"searchKeywordConfig.claimDescription": {
-		"string": "Claim description"
+		"string": "Claim",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across claims"
+	},
+	"searchKeywordConfig.claimDescriptionContext": {
+		"string": "Context",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across context data"
+	},
+	"searchKeywordConfig.factCheck": {
+		"string": "Fact-check",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-checks"
 	},
 	"searchKeywordConfig.factCheckSummary": {
-		"string": "Fact-check summary"
+		"string": "Summary",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across summaries data"
 	},
 	"searchKeywordConfig.factCheckTitle": {
-		"string": "Fact-check title"
+		"string": "Title",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-check titles"
 	},
-	"searchKeywordConfig.item": {
-		"string": "Item"
+	"searchKeywordConfig.factCheckUrl": {
+		"string": "URLs",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-checks urls"
+	},
+	"searchKeywordConfig.media": {
+		"string": "Media",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across medias"
 	},
 	"searchKeywordConfig.mediaContent": {
-		"string": "Media content"
+		"string": "Content",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across media contents"
 	},
 	"searchKeywordConfig.mediaTitle": {
-		"string": "Media title"
+		"string": "Title",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across media titles"
 	},
 	"searchKeywordConfig.mediaUrl": {
-		"string": "Media URL"
+		"string": "URL",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across media URLs"
 	},
-	"searchKeywordConfig.ocr": {
-		"string": "Extracted text (OCR)"
+	"searchKeywordConfig.request": {
+		"string": "Request",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across Requests data"
+	},
+	"searchKeywordConfig.requestContent": {
+		"string": "Content",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across requests contents"
+	},
+	"searchKeywordConfig.sourceTitle": {
+		"string": "Source",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across titles of media sources"
 	},
 	"searchKeywordConfig.tags": {
-		"string": "Tags"
+		"string": "Tags",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across tags"
+	},
+	"searchKeywordConfig.userNamePhoneNumber": {
+		"string": "Username / phone number",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across usernames and phone numbers in Requests"
 	},
 	"searchResults.itemsCount": {
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
@@ -3586,6 +3765,10 @@
 	"similarityComponent.savedSuccessfully": {
 		"string": "Similarity settings saved successfully",
 		"developer_comment": "Banner displayed when similarity settings are saved successfully"
+	},
+	"similarityComponent.singleLanguageFactChecksEnabled": {
+		"string": "Only send fact-checks in the same language as the conversation language",
+		"developer_comment": "Label displayed when similarity setting for single language fact-checks is enabled"
 	},
 	"similarityComponent.title": {
 		"string": "Similarity matching",
@@ -4007,7 +4190,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDefault": {
-		"string": "No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
+		"string": "Thank you! Looking for fact-checks, it may take a minute.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDescription": {
@@ -4023,7 +4206,7 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.timeoutDescription": {
-		"string": "After 15 minutes of activity, this message is sent to users to close the conversation.",
+		"string": "After 15 minutes of inactivity, this message is sent to users to close the conversation.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.timeoutTitle": {
@@ -4145,7 +4328,7 @@
 		"string": "Viber public account token"
 	},
 	"smoochBotMainMenu.alertTitle": {
-		"string": "There are {numberOfOptions} options including all languages. Detailed language options will be sent to users when they select the option 'Languages'.",
+		"string": "There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option.",
 		"developer_comment": "Title of an alert box displayed on tipline main menu settings page when there are more than 10 options."
 	},
 	"smoochBotMainMenu.languages": {
@@ -4236,6 +4419,10 @@
 		"string": "Button text - 24 characters limit",
 		"developer_comment": "Text field label on dialog that opens to add a new option to tipline bot main menu"
 	},
+	"smoochBotMainMenuOption.labelError": {
+		"string": "Please add text to label the button",
+		"developer_comment": "Error message displayed when user tries to save tipline menu option with a blank label"
+	},
 	"smoochBotMainMenuOption.main": {
 		"string": "Main",
 		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
@@ -4251,6 +4438,10 @@
 	"smoochBotMainMenuOption.response": {
 		"string": "Response",
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.responseError": {
+		"string": "Please choose a response",
+		"developer_comment": "Error message displayed when user tries to save tipline option with empty response"
 	},
 	"smoochBotMainMenuOption.save": {
 		"string": "Save",
@@ -4675,7 +4866,8 @@
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"suggestedMatches.title": {
-		"string": "Suggested media"
+		"string": "Suggestions",
+		"developer_comment": "Header for suggested media page"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Cancel"
@@ -5212,52 +5404,76 @@
 		"developer_comment": "Warning displayed if an error occurred when saving report settings"
 	},
 	"teamReportComponent.facebook": {
-		"string": "Facebook page name"
+		"string": "Facebook page name",
+		"developer_comment": "Label to facebook page field"
+	},
+	"teamReportComponent.facebookFieldError": {
+		"string": "Please use the page name instead of the full URL",
+		"developer_comment": "Error message displayed when facebook profile is filled incorrectly"
 	},
 	"teamReportComponent.introduction": {
-		"string": "Introduction"
+		"string": "Introduction",
+		"developer_comment": "Label to the report introduction field"
 	},
 	"teamReportComponent.introductionSub": {
-		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article.",
+		"developer_comment": "Instructions for filling the report introduction field"
 	},
 	"teamReportComponent.line": {
-		"string": "LINE channel"
+		"string": "LINE channel",
+		"developer_comment": "Label to LINE channel field"
 	},
 	"teamReportComponent.save": {
-		"string": "Save"
+		"string": "Save",
+		"developer_comment": "Save settings button label"
 	},
 	"teamReportComponent.savedSuccessfully": {
 		"string": "Report settings saved successfully",
 		"developer_comment": "Banner displayed when report settings are saved successfully"
 	},
 	"teamReportComponent.signature": {
-		"string": "Signature"
+		"string": "Signature",
+		"developer_comment": "Label to report signature field"
 	},
 	"teamReportComponent.signatureLabel": {
 		"string": "Signature ({max} characters max)",
 		"developer_comment": "Label for signature field in report settings"
 	},
 	"teamReportComponent.telegram": {
-		"string": "Telegram bot username"
+		"string": "Telegram bot username",
+		"developer_comment": "Label to Telegram username field"
+	},
+	"teamReportComponent.telegramFieldError": {
+		"string": "Please use the bot username instead of the full URL",
+		"developer_comment": "Error message displayed when telegram username is filled incorrectly"
 	},
 	"teamReportComponent.title": {
-		"string": "Default report settings"
+		"string": "Default report settings",
+		"developer_comment": "Header for the default report settings page"
 	},
 	"teamReportComponent.twitter": {
-		"string": "Twitter account name"
+		"string": "Twitter account name",
+		"developer_comment": "Label to twitter username field"
+	},
+	"teamReportComponent.twitterFieldError": {
+		"string": "Please use the account name instead of the full URL",
+		"developer_comment": "Error message displayed when twitter profile is filled incorrectly"
 	},
 	"teamReportComponent.url": {
-		"string": "Website URL"
+		"string": "Website URL",
+		"developer_comment": "Label to the report url field"
 	},
 	"teamReportComponent.urlLabel": {
 		"string": "Short URL ({max} characters max)",
 		"developer_comment": "Label for URL field in report settings"
 	},
 	"teamReportComponent.viber": {
-		"string": "Viber public account URI"
+		"string": "Viber public account URI",
+		"developer_comment": "Label to Viber account field"
 	},
 	"teamReportComponent.whatsapp": {
-		"string": "WhatsApp number"
+		"string": "WhatsApp number",
+		"developer_comment": "Label to WhatsApp number field"
 	},
 	"teamSettings.Tags": {
 		"string": "Tags"

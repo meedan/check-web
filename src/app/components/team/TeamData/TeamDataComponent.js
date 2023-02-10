@@ -175,24 +175,27 @@ const TeamDataComponent = ({
   slug,
   data,
   defaultLanguage,
-  languages,
 }) => {
   const classes = useStyles();
   const defaultOrder = 'Month';
-  const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState(defaultOrder);
 
   const headers = data ? Object.keys(data[0]).filter(header => !['ID', 'Org', 'Language', 'Platform'].includes(header)) : null;
 
+  const languages = [];
   const platforms = [];
   if (data) {
     data.forEach((row) => {
       if (platforms.indexOf(row.Platform) === -1) {
         platforms.push(row.Platform);
       }
+      if (languages.indexOf(row.Language) === -1) {
+        languages.push(row.Language);
+      }
     });
   }
+  const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage || languages[0]);
   const [currentPlatform, setCurrentPlatform] = React.useState(platforms[0]);
 
   const helpMessages = {
@@ -270,11 +273,11 @@ const TeamDataComponent = ({
                   ))}
                 </Select> : null }
             </FormControl>
-            { JSON.parse(languages)?.length > 1 ?
+            { languages.length > 1 ?
               <LanguageSwitcher
                 component="dropdown"
                 currentLanguage={currentLanguage}
-                languages={JSON.parse(languages)}
+                languages={languages}
                 onChange={setCurrentLanguage}
               /> : null }
           </Box>
@@ -357,14 +360,12 @@ const TeamDataComponent = ({
 TeamDataComponent.defaultProps = {
   data: null,
   defaultLanguage: null,
-  languages: '[]',
 };
 
 TeamDataComponent.propTypes = {
   slug: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.object), // or null
   defaultLanguage: PropTypes.string, // or null
-  languages: PropTypes.string, // JSON-encoded array of languages, or null
   intl: intlShape.isRequired,
 };
 

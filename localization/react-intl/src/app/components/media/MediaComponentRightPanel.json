@@ -7,7 +7,7 @@
   {
     "id": "mediaComponent.suggestedMedia",
     "description": "Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing",
-    "defaultMessage": "Suggested media"
+    "defaultMessage": "Suggestions"
   },
   {
     "id": "mediaComponent.annotation",

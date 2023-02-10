@@ -108,7 +108,8 @@
 		"string": "Bahasa tidak diketahui"
 	},
 	"MultiSelector.all": {
-		"string": "Cari Semua"
+		"string": "Semua",
+		"developer_comment": "Checkbox label for toggling select/unselect all"
 	},
 	"MultiSelector.search": {
 		"string": "Cari..."
@@ -137,9 +138,17 @@
 		"string": "Label adalah",
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
-	"SearchKeywordMenu.advanced": {
-		"string": "Advanced",
-		"developer_comment": "Button for advanced search"
+	"SearchKeywordConfigComponent.all": {
+		"string": "Select all",
+		"developer_comment": "Label for checkbox to toggle selection of all checkboxes in menu"
+	},
+	"SearchKeywordConfigComponent.resetLabel": {
+		"string": "Reset",
+		"developer_comment": "Label for reset options to default"
+	},
+	"SearchKeywordMenu.searchSettings": {
+		"string": "Pengaturan pencarian",
+		"developer_comment": "Button for search settings"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Akun Sudah Terkonfirmasi",
@@ -297,7 +306,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Beberapa media yang cocok",
+		"string": "Number of media",
 		"developer_comment": "Menu option to enable searching items by matched medias"
 	},
 	"addFilterMenu.source": {
@@ -305,8 +314,8 @@
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Beberapa media yang disarankan",
-		"developer_comment": "Menu option to enable searching items by suggested medias"
+		"string": "Number of suggestions",
+		"developer_comment": "Menu option to enable searching items by suggestions"
 	},
 	"addFilterMenu.tag": {
 		"string": "Label",
@@ -733,7 +742,7 @@
 		"developer_comment": "Plural. Heading for the number of matched media"
 	},
 	"cds.mediaAndRequestsDialog.openMedia": {
-		"string": "Open media",
+		"string": "Buka media",
 		"developer_comment": "Singular. Label for a button that opens the media item the user is currently viewing."
 	},
 	"cds.mediaAndRequestsDialog.pinAsMain": {
@@ -741,7 +750,7 @@
 		"developer_comment": "Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places)."
 	},
 	"cds.mediaAndRequestsDialog.unmatch": {
-		"string": "Un-match",
+		"string": "Tidak cocok",
 		"developer_comment": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
 	},
 	"changeMediaSource.cancelButton": {
@@ -1315,7 +1324,7 @@
 		"developer_comment": "Header label for date column, in which are shown timestamps of last time a media was sent"
 	},
 	"feedRequestsTable.matchedMedia": {
-		"string": "Media yang cocok",
+		"string": "Media",
 		"developer_comment": "Header label for number of medias found to be matched to the current one"
 	},
 	"feedRequestsTable.media": {
@@ -1607,25 +1616,32 @@
 		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
-		"string": "Permintaan"
+		"string": "Permintaan",
+		"developer_comment": "Table header for Requests column"
 	},
 	"list.FirstSeen": {
-		"string": "Diserahkan"
+		"string": "Diserahkan",
+		"developer_comment": "Table header for item submitted date column"
 	},
 	"list.Item": {
-		"string": "Klaim"
+		"string": "Klaim",
+		"developer_comment": "Table header for Claim column"
 	},
 	"list.LinkedItems": {
-		"string": "Media yang cocok"
+		"string": "Media",
+		"developer_comment": "Plural - Table header for number of related media column"
 	},
 	"list.ShareCount": {
-		"string": "Dibagikan di FB"
+		"string": "Dibagikan di FB",
+		"developer_comment": "Table header for Facebook share count column"
 	},
 	"list.Status": {
-		"string": "Status"
+		"string": "Status",
+		"developer_comment": "Table header for item status column"
 	},
 	"list.Type": {
-		"string": "Tipe"
+		"string": "Tipe",
+		"developer_comment": "Table header for item type column"
 	},
 	"list.clusterFactCheckedByTeamNames": {
 		"string": "Laporan yang diterbitkan",
@@ -1644,54 +1660,64 @@
 		"developer_comment": "Table header for column that shows number of requests in a cluster"
 	},
 	"list.clusterSize": {
-		"string": "Media yang cocok",
+		"string": "Media",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.commentCount": {
-		"string": "Komentar di FB"
+		"string": "Komentar di FB",
+		"developer_comment": "Table header for Facebook comments count column"
 	},
 	"list.createdBy": {
 		"string": "Dibuat oleh",
 		"developer_comment": "Table header for column that shows the creator name"
 	},
 	"list.factCheck": {
-		"string": "Pengecekan fakta"
+		"string": "Pengecekan fakta",
+		"developer_comment": "Table header for Fact-check column"
 	},
 	"list.factCheckPublishedAt": {
-		"string": "Pengecekan fakta diterbitkan pada"
+		"string": "Pengecekan fakta diterbitkan pada",
+		"developer_comment": "Table header for fact-check publication date column"
 	},
 	"list.folder": {
 		"string": "Folder",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
 	},
 	"list.mediaPublishedAt": {
-		"string": "Media yang diterbitkan"
+		"string": "Media yang diterbitkan",
+		"developer_comment": "Table header for media (singular) published date column"
 	},
 	"list.reactCount": {
-		"string": "Reaksi di FB"
+		"string": "Reaksi di FB",
+		"developer_comment": "Table header for Facebook reactions count column"
 	},
 	"list.reportPublishedBy": {
-		"string": "Laporan diterbitkan oleh"
+		"string": "Laporan diterbitkan oleh",
+		"developer_comment": "Table header for user who published report column"
 	},
 	"list.reportStatus": {
-		"string": "Status laporan"
+		"string": "Status laporan",
+		"developer_comment": "Table header for report status column"
 	},
 	"list.sourceName": {
 		"string": "Sumber",
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
-		"string": "Media yang disarankan"
+		"string": "Suggestions",
+		"developer_comment": "Table header suggested matches count column"
 	},
 	"list.tags": {
-		"string": "Label"
+		"string": "Label",
+		"developer_comment": "Table header for item tags column"
 	},
 	"list.teamName": {
 		"string": "Pengecekan fakta oleh",
 		"developer_comment": "Table header for column that shows the team name"
 	},
 	"list.updated": {
-		"string": "Diperbarui"
+		"string": "Diperbarui",
+		"developer_comment": "Table header for item updated date column"
 	},
 	"login.alreadyHasAccount": {
 		"string": "Sudah memiliki akun?"
@@ -1805,16 +1831,20 @@
 		"string": "Buka kunci status"
 	},
 	"mediaActionsBar.assignmentNotes": {
-		"string": "Catatan"
+		"string": "Catatan",
+		"developer_comment": "Label to field for adding details about the assignment"
 	},
 	"mediaActionsBar.assignmentNotesTitle": {
-		"string": "Tambah catatan untuk surel"
+		"string": "Tambah catatan untuk surel",
+		"developer_comment": "Helper text to field for adding details about the assignment"
 	},
 	"mediaActionsBar.assignmentTitle": {
-		"string": "Tugaskan perihal ke kolaborator"
+		"string": "Tugaskan perihal ke kolaborator",
+		"developer_comment": "Assignment dialog title"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Penugasan berhasil diperbarui"
+		"string": "Penugasan berhasil diperbarui",
+		"developer_comment": "Success message displayed when assigned user is updated"
 	},
 	"mediaActionsBar.confirmTo": {
 		"string": "Konfirmasi"
@@ -1838,10 +1868,12 @@
 		"string": "Dikembalikan dari Tong Sampah, mengalihkan..."
 	},
 	"mediaActionsBar.movedToSpam": {
-		"string": "Perihal telah dipindahkan ke {spam}"
+		"string": "Perihal telah dipindahkan ke {spam}",
+		"developer_comment": "Send item to spam action success message"
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "Perihal telah dipindahkan ke {trash}"
+		"string": "Perihal telah dipindahkan ke {trash}",
+		"developer_comment": "Delete item action success message"
 	},
 	"mediaActionsBar.notSpamTo": {
 		"string": "Bukan spam"
@@ -1947,7 +1979,7 @@
 		"developer_comment": "Label for the Source tab, as in source of the information"
 	},
 	"mediaComponent.suggestedMedia": {
-		"string": "Media yang disarankan",
+		"string": "Suggestions",
 		"developer_comment": "Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
 	},
 	"mediaComponent.timelineTab": {
@@ -1969,10 +2001,12 @@
 		"developer_comment": "A text field that indicates who the original author of a claim is. The {name} field will render the display name of the user who created the item."
 	},
 	"mediaDetail.spam": {
-		"string": "Spam"
+		"string": "Spam",
+		"developer_comment": "Label on a link that, when clicked, takes the user to a list of items marked as spam"
 	},
 	"mediaDetail.trash": {
-		"string": "Tong Sampah"
+		"string": "Tong Sampah",
+		"developer_comment": "Label on a link that, when clicked, takes the user to a list of trashed (marked for deletion) items"
 	},
 	"mediaExpanded.extractedText": {
 		"string": "Teks yang diambil dari gambar:",
@@ -2035,10 +2069,6 @@
 	},
 	"mediaFactCheck.error": {
 		"string": "Judul dan deskripsi harus diisi",
-		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
-	},
-	"mediaFactCheck.errorWithLanguage": {
-		"string": "Title, description and language have to be filled",
 		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
 	},
 	"mediaFactCheck.factCheck": {
@@ -2165,7 +2195,7 @@
 		"string": "{count, plural, other {Tambah kaitan untuk # perihal}}"
 	},
 	"mediaRelationship.openMedia": {
-		"string": "Open media",
+		"string": "Buka media",
 		"developer_comment": "Singular 'media'. Label for a button that opens the media item the user is currently viewing."
 	},
 	"mediaRequests.allRequests": {
@@ -2193,11 +2223,11 @@
 		"string": "{current} dari {total}"
 	},
 	"mediaSimilarities.moreMedias": {
-		"string": "Media yang cocok",
+		"string": "Media",
 		"developer_comment": "Heading for a list of matched medias"
 	},
 	"mediaSimilarities.noMedia": {
-		"string": "0 matched media",
+		"string": "0 media",
 		"developer_comment": "A message that shows when the matched media list is empty."
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
@@ -2229,7 +2259,7 @@
 		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "Add media to an imported fact-check",
+		"string": "Tambah media ke pengecekan fakta yang diimpor",
 		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
@@ -2245,12 +2275,12 @@
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Media yang cocok",
-		"developer_comment": "Plural. Heading for the number of matched media"
+		"string": "Media",
+		"developer_comment": "Plural. Heading for the number of media"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "Media yang disarankan",
-		"developer_comment": "Plural. Heading for the number of suggested media"
+		"string": "Suggestions",
+		"developer_comment": "Plural. Heading for the number of suggestions"
 	},
 	"mediaSource.changeSource": {
 		"string": "Ubah",
@@ -2260,7 +2290,7 @@
 		"string": "Maaf, terjadi kesalahan saat memperbarui status. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"mediaSuggestionReview.matchDescription": {
-		"string": "This media has been matched to the claim and fact-check below.",
+		"string": "Media ini telah dicocokkan dengan klaim dan pengecekan fakta di bawah ini.",
 		"developer_comment": "Hint text to tell the user what the 'Open claim' button does."
 	},
 	"mediaSuggestionReview.matchTitle": {
@@ -2284,36 +2314,128 @@
 		"developer_comment": "Shows the last time a media was submitted (on feed request media card)"
 	},
 	"mediaSuggestions.requestsCount": {
-		"string": "{requestsCount, plural, one {# request} other {# requests}}",
+		"string": "{requestsCount, plural, other {# permintaan}}",
 		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
+	"mediaSuggestionsComponent.accept": {
+		"string": "Match media",
+		"developer_comment": "Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list."
+	},
+	"mediaSuggestionsComponent.bulkAccept": {
+		"string": "Match all medias on this page",
+		"developer_comment": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media."
+	},
+	"mediaSuggestionsComponent.bulkEdit": {
+		"string": "Bulk edit",
+		"developer_comment": "A header that tells the user the buttons to follow are for bulk editing items (editing more than one item at a time, like marking all as spam)"
+	},
+	"mediaSuggestionsComponent.bulkReject": {
+		"string": "Reject all medias on this page",
+		"developer_comment": "Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list."
+	},
+	"mediaSuggestionsComponent.bulkRejectConfirm": {
+		"string": "Reject all",
+		"developer_comment": "Label for an action button that causes all selected items to be rejected"
+	},
+	"mediaSuggestionsComponent.bulkSpam": {
+		"string": "Mark all medias on this page as spam",
+		"developer_comment": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list."
+	},
+	"mediaSuggestionsComponent.bulkTrash": {
+		"string": "Send all medias on this page to trash",
+		"developer_comment": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' folder and removed from the suggestions list."
+	},
+	"mediaSuggestionsComponent.dialogBulkAcceptConfirm": {
+		"string": "Match all",
+		"developer_comment": "Button that a user presses to confirm that they are going to match all visible suggested media"
+	},
+	"mediaSuggestionsComponent.dialogBulkAcceptTitle": {
+		"string": "Are you sure you want to match {number} suggested media?",
+		"developer_comment": "Prompt to a user when they choose to match media as a bulk action"
+	},
+	"mediaSuggestionsComponent.dialogBulkRejectTitle": {
+		"string": "Choose a destination folder for the {number} rejected medias",
+		"developer_comment": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
+	},
+	"mediaSuggestionsComponent.dialogBulkSpamConfirm": {
+		"string": "Tandai sebagai spam",
+		"developer_comment": "Button that a user presses to confirm that they are going to mark all visible suggested media as spam"
+	},
+	"mediaSuggestionsComponent.dialogBulkSpamTitle": {
+		"string": "Are you sure you want to mark {number} suggested media as spam?",
+		"developer_comment": "Prompt to a user when they choose to mark media as spam in bulk"
+	},
+	"mediaSuggestionsComponent.dialogBulkTrashConfirm": {
+		"string": "Buang ke tong sampah",
+		"developer_comment": "Button that a user presses to confirm that they are going to send all visible suggested media to trash"
+	},
+	"mediaSuggestionsComponent.dialogBulkTrashTitle": {
+		"string": "Are you sure you want to send {number} suggested media to the trash?",
+		"developer_comment": "Prompt to a user when they choose to send media to trash in bulk"
+	},
 	"mediaSuggestionsComponent.dialogRejectTitle": {
-		"string": "Pilih folder tujuan untuk perihal ini"
+		"string": "Pilih folder tujuan untuk perihal ini",
+		"developer_comment": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
+	},
+	"mediaSuggestionsComponent.flashBulkConfirmTitle": {
+		"string": "{number} suggested media matched",
+		"developer_comment": "Title that appears in a popup to confirm that a 'bulk accept' action was successful"
+	},
+	"mediaSuggestionsComponent.flashBulkReject": {
+		"string": "Added to the list \"{folder}\"",
+		"developer_comment": "Text that appears in a popup to confirm that a 'bulk reject' action was successful"
+	},
+	"mediaSuggestionsComponent.flashBulkRejectTitle": {
+		"string": "{number} media rejected",
+		"developer_comment": "Title that appears in a popup to confirm that a 'bulk reject' action was successful"
+	},
+	"mediaSuggestionsComponent.flashBulkSpam": {
+		"string": "{number} media marked as spam",
+		"developer_comment": "Text that appears in a popup to confirm that a 'bulk move to spam' action was successful"
+	},
+	"mediaSuggestionsComponent.flashBulkTrash": {
+		"string": "{number} media sent to the trash",
+		"developer_comment": "Text that appears in a popup to confirm that a 'bulk move to trash' action was successful"
 	},
 	"mediaSuggestionsComponent.moveItem": {
-		"string": "Pindahkan perihal"
+		"string": "Pindahkan perihal",
+		"developer_comment": "Label for an action button that causes a user to move an item into a given folder"
 	},
 	"mediaSuggestionsComponent.movedToSpam": {
-		"string": "Perihal telah dipindahkan ke {spam}"
+		"string": "Perihal telah dipindahkan ke {spam}",
+		"developer_comment": "Text that appears in a popup to confirmt hat a 'move to spam' action was successful"
 	},
 	"mediaSuggestionsComponent.movedToTrash": {
-		"string": "Perihal telah dipindahkan ke {trash}"
+		"string": "Perihal telah dipindahkan ke {trash}",
+		"developer_comment": "Text that appears in a popup to confirmt hat a 'move to trash' action was successful"
 	},
-	"mediaSuggestionsComponent.question": {
-		"string": "Are the medias below a good match for the claim and medias on the left?",
-		"developer_comment": "Subtitle for similarity matching widget"
+	"mediaSuggestionsComponent.next": {
+		"string": "Next",
+		"developer_comment": "Label for the 'go to next page' button on paginated suggestions"
 	},
-	"mediaSuggestionsComponent.sendItemsToSpam": {
-		"string": "Tandai sebagai spam"
+	"mediaSuggestionsComponent.noItems": {
+		"string": "{total, plural, other {{total} media yang disarankan}}",
+		"developer_comment": "A header that tells the user there are no items in the list"
 	},
-	"mediaSuggestionsComponent.sendItemsToTrash": {
-		"string": "Buang ke tong sampah"
+	"mediaSuggestionsComponent.previous": {
+		"string": "Previous",
+		"developer_comment": "Label for the 'go to previous page' button on paginated suggestions"
+	},
+	"mediaSuggestionsComponent.reject": {
+		"string": "Reject media",
+		"developer_comment": "Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list."
+	},
+	"mediaSuggestionsComponent.spam": {
+		"string": "Mark media as spam",
+		"developer_comment": "Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list."
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+		"string": "{start} to {end} of {total, plural, one {{total} suggested media} other {{total} suggested medias}}",
+		"developer_comment": "A header that tells the user how many suggested media items are in the list to follow"
 	},
-	"mediaSuggestionsMenu.tooltip": {
-		"string": "Tindakan perihal"
+	"mediaSuggestionsComponent.trash": {
+		"string": "Send media to trash",
+		"developer_comment": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash folder, and removed from the suggested items list."
 	},
 	"metadata.cancel": {
 		"string": "Batalkan",
@@ -2452,12 +2574,12 @@
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "Beberapa media yang cocok di antara",
-		"developer_comment": "Filter option that refers to number of matched medias"
+		"string": "Number of media is between",
+		"developer_comment": "Filter option that refers to number of media"
 	},
 	"numericRangeFilter.suggestedItems": {
-		"string": "Beberapa media yang disarankan di antara",
-		"developer_comment": "Filter option that refers to number of suggested medias"
+		"string": "Number of suggestions is between",
+		"developer_comment": "Filter option that refers to number of suggestions"
 	},
 	"numericRangeFilter.tiplineRequests": {
 		"string": "Beberapa permintaan di antara",
@@ -2605,25 +2727,32 @@
 		"developer_comment": "A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case."
 	},
 	"projectHeader.Spam": {
-		"string": "Spam"
+		"string": "Spam",
+		"developer_comment": "Title label for the Spam page"
 	},
 	"projectHeader.allItems": {
-		"string": "Semua perihal"
+		"string": "Semua perihal",
+		"developer_comment": "Title label for the All items page"
 	},
 	"projectHeader.feed": {
-		"string": "Umpan bersama"
+		"string": "Umpan bersama",
+		"developer_comment": "Title label for the Shared feed page"
 	},
 	"projectHeader.importedReports": {
-		"string": "Pengecekan fakta yang diimpor"
+		"string": "Pengecekan fakta yang diimpor",
+		"developer_comment": "Title label for the Imported fact-checks page"
 	},
 	"projectHeader.suggestedMatches": {
-		"string": "Media yang disarankan"
+		"string": "Suggestions",
+		"developer_comment": "Title label for the suggested media page"
 	},
 	"projectHeader.tiplineInbox": {
-		"string": "Kotak masuk Tipline"
+		"string": "Kotak masuk Tipline",
+		"developer_comment": "Title label for the Tipline inbox page"
 	},
 	"projectHeader.trash": {
-		"string": "Tong Sampah"
+		"string": "Tong Sampah",
+		"developer_comment": "Title label for the Trash page"
 	},
 	"projectMoveDialogComponent.choose": {
 		"string": "Pilih sebuah koleksi"
@@ -2790,7 +2919,7 @@
 		"developer_comment": "Feeds of content shared across workspaces"
 	},
 	"projectsComponent.suggestedMatches": {
-		"string": "Media yang disarankan",
+		"string": "Suggestions",
 		"developer_comment": "Label for a list displayed on the left sidebar."
 	},
 	"projectsComponent.tiplineInbox": {
@@ -2807,55 +2936,72 @@
 		"string": "Tambah konten ke pesan teks"
 	},
 	"reportDesigner.back": {
-		"string": "Kembali ke anotasi"
+		"string": "Kembali ke anotasi",
+		"developer_comment": "Button label to navigate back to annotation mode"
 	},
 	"reportDesigner.cancelPause": {
-		"string": "Kembali"
+		"string": "Kembali",
+		"developer_comment": "Cancel action button label"
 	},
 	"reportDesigner.cancelPublish": {
-		"string": "Kembali"
+		"string": "Kembali",
+		"developer_comment": "Cancel action button label"
 	},
 	"reportDesigner.cantPublish": {
-		"string": "Kembali menyunting"
+		"string": "Kembali menyunting",
+		"developer_comment": "Back to editing action button label"
 	},
 	"reportDesigner.cantPublishTitle": {
-		"string": "Laporan Anda belum siap untuk diterbitkan"
+		"string": "Laporan Anda belum siap untuk diterbitkan",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPause": {
-		"string": "Tunda laporan"
+		"string": "Tunda laporan",
+		"developer_comment": "Confirm pause report publication action button label"
 	},
 	"reportDesigner.confirmPauseText": {
-		"string": "Ini akan menghentikan laporan dikirimkan ke para pengguna sampai laporannya diterbitkan lagi."
+		"string": "Ini akan menghentikan laporan dikirimkan ke para pengguna sampai laporannya diterbitkan lagi.",
+		"developer_comment": "Pause report publication action helper text"
 	},
 	"reportDesigner.confirmPauseTitle": {
-		"string": "Apakah Anda ingin menunda laporannya?"
+		"string": "Apakah Anda ingin menunda laporannya?",
+		"developer_comment": "Pause report publication dialog title"
 	},
 	"reportDesigner.confirmPublish": {
-		"string": "Terbitkan laporan"
+		"string": "Terbitkan laporan",
+		"developer_comment": "Publish report action button label"
 	},
 	"reportDesigner.confirmPublishSameStatus": {
-		"string": "Terbitkan perubahan"
+		"string": "Terbitkan perubahan",
+		"developer_comment": "Publish report action button label"
 	},
 	"reportDesigner.confirmPublishStatusChange": {
-		"string": "Terbitkan perubahan dan kirimkan koreksi"
+		"string": "Terbitkan perubahan dan kirimkan koreksi",
+		"developer_comment": "Publish report action button label"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, other {Anda akan mengirimkan laporan ini ke # pengguna yang meminta perihal ini.}}"
+		"string": "{demand, plural, other {Anda akan mengirimkan laporan ini ke # pengguna yang meminta perihal ini.}}",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPublishText2": {
-		"string": "Semua pengguna di masa mendatang yang meminta perihal ini akan menerima laporan versi ini saat masih terbit."
+		"string": "Future users who request this item will receive this version of the report while it remains published.",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPublishTitle": {
-		"string": "Siap untuk menerbitkan laporan Anda?"
+		"string": "Siap untuk menerbitkan laporan Anda?",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, other {Karena statusnya telah berubah, laporan yang telah diperbarui akan dikirimkan sebagai {correctionLink}ke # pengguna yang telah menerima versi sebelumnya dari laporan ini.}}"
+		"string": "{demand, plural, other {Karena statusnya telah berubah, laporan yang telah diperbarui akan dikirimkan sebagai {correctionLink}ke # pengguna yang telah menerima versi sebelumnya dari laporan ini.}}",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
-		"string": "Siap untuk menerbitkan perubahan Anda?"
+		"string": "Siap untuk menerbitkan perubahan Anda?",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmRepublishTitle": {
-		"string": "Siap untuk menerbitkan perubahan Anda?"
+		"string": "Siap untuk menerbitkan perubahan Anda?",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.content": {
 		"string": "Ringkasan"
@@ -2868,7 +3014,8 @@
 		"string": "Disalin"
 	},
 	"reportDesigner.correction": {
-		"string": "koreksi"
+		"string": "koreksi",
+		"developer_comment": "This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
 	},
 	"reportDesigner.darkOverlay": {
 		"string": "Lapisan gelap"
@@ -2883,7 +3030,8 @@
 		"string": "Maaf, terjadi kesalahan saat memperbarui pengaturan laporan. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"reportDesigner.firstSent": {
-		"string": "Pertama kali diterbitkan"
+		"string": "Pertama kali diterbitkan",
+		"developer_comment": "Header for first publication date of report"
 	},
 	"reportDesigner.goBack": {
 		"string": "Kembali ke halaman anotasi perihal dan hapus peringatan konten.",
@@ -2903,16 +3051,19 @@
 		"string": "Gunakan placeholder {query_date} untuk menampilkan tanggal pertanyaan asli. Gunakan {status} untuk mengomunikasikan status artikel."
 	},
 	"reportDesigner.lastPublished": {
-		"string": "Terakhir diterbitkan"
+		"string": "Terakhir diterbitkan",
+		"developer_comment": "Header for last publication date of report"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "Mulai buat laporan Anda untuk meninjau terlebih dahulu apa yang akan dilihat pengguna saat mereka menerimanya."
 	},
 	"reportDesigner.pause": {
-		"string": "Tunda"
+		"string": "Tunda",
+		"developer_comment": "Pause report publication action button label"
 	},
 	"reportDesigner.publish": {
-		"string": "Terbitkan"
+		"string": "Terbitkan",
+		"developer_comment": "Label for publish report button"
 	},
 	"reportDesigner.removeImage": {
 		"string": "Hapus gambar"
@@ -2925,10 +3076,16 @@
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, other {Kirim juga laporan yang diperbarui ini sebagai {correctionLink} ke # pengguna yang telah menerima versi sebelumnya dari laporan ini.}}"
+		"string": "{demand, plural, other {Kirim juga laporan yang diperbarui ini sebagai {correctionLink} ke # pengguna yang telah menerima versi sebelumnya dari laporan ini.}}",
+		"developer_comment": "Helper message to publishing report correction action"
+	},
+	"reportDesigner.republishAndResendSingleLanguage": {
+		"string": "Also send this updated report only to users who requested this item in {reportLanguage}.",
+		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.sentCount": {
-		"string": "Laporan terkirim"
+		"string": "Laporan terkirim",
+		"developer_comment": "Header for reports sent count"
 	},
 	"reportDesigner.statusLabel": {
 		"string": "Label status"
@@ -2965,19 +3122,23 @@
 		"string": "Peringatan — membagikan hal ini akan memaparkan informasi kepada orang-orang di luar ruang kerja privat Anda. Lanjutkan dengan hati-hati."
 	},
 	"reportDesignerToolbar.cantPublishContentFlag": {
-		"string": "Perihal Anda masih memiliki peringatan konten pada kartu visual. Unggah gambar alternatif atau hapus centang pada opsi kartu visual."
+		"string": "Perihal Anda masih memiliki peringatan konten pada kartu visual. Unggah gambar alternatif atau hapus centang pada opsi kartu visual.",
+		"developer_comment": "Report designer helper message"
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
-		"string": "Laporan untuk {language} tidak boleh kosong karena ini adalah bahasa bawaan. Anda harus memiliki konten dalam Teks Laporan atau Kartu Visual untuk {language}. Atau, Anda dapat mengeklik kanan pada tab untuk bahasa lain untuk menjadikannya bahasa bawaan."
+		"string": "Laporan untuk {language} tidak boleh kosong karena ini adalah bahasa bawaan. Anda harus memiliki konten dalam Teks Laporan atau Kartu Visual untuk {language}. Atau, Anda dapat mengeklik kanan pada tab untuk bahasa lain untuk menjadikannya bahasa bawaan.",
+		"developer_comment": "Report designer helper message"
 	},
 	"reportDesignerToolbar.cantPublishInitial": {
-		"string": "Anda harus memiliki setidaknya Teks Laporan atau Kartu Visual yang dipilih untuk menerbitkan laporan."
+		"string": "Anda harus memiliki setidaknya Teks Laporan atau Kartu Visual yang dipilih untuk menerbitkan laporan.",
+		"developer_comment": "Report designer helper message"
 	},
 	"reportDesignerToolbar.cantPublishStatus": {
-		"string": "Perihal Anda memiliki status bawaan {status} dan harus diubah ke status yang berbeda sebelum dapat diterbitkan."
+		"string": "Perihal Anda memiliki status bawaan {status} dan harus diubah ke status yang berbeda sebelum dapat diterbitkan.",
+		"developer_comment": "Report designer helper message"
 	},
 	"reportDesignerToolbar.cantPublishText": {
-		"string": "You must add a title, a summary and a language to the fact-check in order to publish the report.",
+		"string": "Anda harus menambahkan judul, ringkasan dan bahasa ke pengecekan fakta untuk menerbitkan laporan.",
 		"developer_comment": "Text with a reason why user can not publish a report"
 	},
 	"reportStatusCell.paused": {
@@ -3200,7 +3361,7 @@
 		"developer_comment": "Prefix label for field to filter by claim"
 	},
 	"search.clear": {
-		"string": "Clear",
+		"string": "Kosongkan",
 		"developer_comment": "A label on a button that lets a user clear typing search text, deleting the text in the process."
 	},
 	"search.clusterTeams": {
@@ -3369,7 +3530,7 @@
 		"developer_comment": "Describes media type Link"
 	},
 	"search.showSimilar": {
-		"string": "Tampilkan media yang cocok",
+		"string": "Show all media",
 		"developer_comment": "Allow user to show/hide secondary items"
 	},
 	"search.showVideos": {
@@ -3424,51 +3585,69 @@
 		"string": "Hapus saringan",
 		"developer_comment": "Tooltip for button to remove any applied filters"
 	},
-	"searchKeywordConfig.accounts": {
-		"string": "Sumber"
-	},
-	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "Semua jawaban metadata"
-	},
 	"searchKeywordConfig.allNotes": {
-		"string": "Semua catatan"
-	},
-	"searchKeywordConfig.analysisContent": {
-		"string": "Analisis konten"
-	},
-	"searchKeywordConfig.analysisTitle": {
-		"string": "Analisis judul"
-	},
-	"searchKeywordConfig.annotation": {
-		"string": "Anotasi",
-		"developer_comment": "Header before a listing of annotation options"
+		"string": "Catatan",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across notes (aka comments)"
 	},
 	"searchKeywordConfig.claimDescription": {
-		"string": "Deskripsi klaim"
+		"string": "Klaim",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across claims"
+	},
+	"searchKeywordConfig.claimDescriptionContext": {
+		"string": "Context",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across context data"
+	},
+	"searchKeywordConfig.factCheck": {
+		"string": "Pengecekan fakta",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-checks"
 	},
 	"searchKeywordConfig.factCheckSummary": {
-		"string": "Ringkasan pengecekan fakta"
+		"string": "Ringkasan",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across summaries data"
 	},
 	"searchKeywordConfig.factCheckTitle": {
-		"string": "Judul pengecekan fakta"
+		"string": "Judul",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-check titles"
 	},
-	"searchKeywordConfig.item": {
-		"string": "Perihal"
+	"searchKeywordConfig.factCheckUrl": {
+		"string": "URLs",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-checks urls"
+	},
+	"searchKeywordConfig.media": {
+		"string": "Media",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across medias"
 	},
 	"searchKeywordConfig.mediaContent": {
-		"string": "Konten media"
+		"string": "Konten",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across media contents"
 	},
 	"searchKeywordConfig.mediaTitle": {
-		"string": "Judul media"
+		"string": "Judul",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across media titles"
 	},
 	"searchKeywordConfig.mediaUrl": {
-		"string": "URL media"
+		"string": "URL",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across media URLs"
 	},
-	"searchKeywordConfig.ocr": {
-		"string": "Teks yang diekstraksi (OCR)"
+	"searchKeywordConfig.request": {
+		"string": "Permintaan",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across Requests data"
+	},
+	"searchKeywordConfig.requestContent": {
+		"string": "Konten",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across requests contents"
+	},
+	"searchKeywordConfig.sourceTitle": {
+		"string": "Sumber",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across titles of media sources"
 	},
 	"searchKeywordConfig.tags": {
-		"string": "Label"
+		"string": "Label",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across tags"
+	},
+	"searchKeywordConfig.userNamePhoneNumber": {
+		"string": "Username / phone number",
+		"developer_comment": "Label for checkbox to toggle searching for keyword across usernames and phone numbers in Requests"
 	},
 	"searchResults.itemsCount": {
 		"string": "{count, plural, other {{from} - {to} / #}}"
@@ -3572,7 +3751,7 @@
 		"string": "Durasi maksimum dalam detik"
 	},
 	"similarityComponent.minEsScore": {
-		"string": "Minimum score for ElasticSearch"
+		"string": "Skor minimum untuk ElasticSearch"
 	},
 	"similarityComponent.minimumDuration": {
 		"string": "Durasi minimum dalam detik"
@@ -3586,6 +3765,10 @@
 	"similarityComponent.savedSuccessfully": {
 		"string": "Pengaturan kemiripan berhasil disimpan",
 		"developer_comment": "Banner displayed when similarity settings are saved successfully"
+	},
+	"similarityComponent.singleLanguageFactChecksEnabled": {
+		"string": "Only send fact-checks in the same language as the conversation language",
+		"developer_comment": "Label displayed when similarity setting for single language fact-checks is enabled"
 	},
 	"similarityComponent.title": {
 		"string": "Pencocokan kemiripan",
@@ -3742,7 +3925,7 @@
 		"string": "Pernyataan Privasi bawaan dapat diganti dengan yang kustom di bawah opsi 'Pernyataan Privasi' di halaman ini."
 	},
 	"smoochBot.labelContent": {
-		"string": "Content & translation",
+		"string": "Konten & terjemahan",
 		"developer_comment": "Button label in tipline settings page"
 	},
 	"smoochBot.labelGreeting": {
@@ -3846,7 +4029,7 @@
 		"string": "Pasang"
 	},
 	"smoochBotComponent.missingInformationBody": {
-		"string": "The message 'Newsletter opt-in and opt-out' is missing a placeholder.",
+		"string": "Tidak ada placeholder pada pesan 'Keikutsertaan buletin'.",
 		"developer_comment": "Content of dialog that opens when there is a validation error on tipline settings"
 	},
 	"smoochBotComponent.missingInformationTitle": {
@@ -3887,11 +4070,11 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.feedbackDescription": {
-		"string": "After fact-checks are returned to the user, the bot automatically follows up to ask if the results are satisfactory.",
+		"string": "Setelah pengecekan fakta dikembalikan ke pengguna, bot secara otomatis menindaklanjuti untuk menanyakan apakah hasilnya memuaskan.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.feedbackTitle": {
-		"string": "Feedback prompt",
+		"string": "Permintaan masukan",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.greetingsDefault": {
@@ -3959,11 +4142,11 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityDescription": {
-		"string": "If the tipline is set to inactive, this message is sent in response to any user message.",
+		"string": "Jika tipline diatur menjadi tidak aktif, pesan ini dikirim sebagai tanggapan atas pesan setiap pengguna.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityTitle": {
-		"string": "Inactive bot",
+		"string": "Bot tidak aktif",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.optionNotAvailableDefault": {
@@ -3971,7 +4154,7 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.optionNotAvailableDescription": {
-		"string": "The message sent if the user response is not a valid option.",
+		"string": "Pesan yang dikirim jika tanggapan pengguna bukan skenario yang valid.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.optionNotAvailableTitle": {
@@ -3999,19 +4182,19 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptDescription": {
-		"string": "This message prompts the user to submit content for a fact-check.",
+		"string": "Pesan ini meminta pengguna untuk menyerahkan konten untuk pemeriksaan fakta.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptTitle": {
-		"string": "Content prompt",
+		"string": "Permintaan konten",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDefault": {
-		"string": "Tidak ada pengecekan fakta yang ditemukan. Jurnalis di tim kami telah diberi tahu dan Anda akan menerima pembaruan di utas ini jika informasi tersebut telah dicek faktanya.",
+		"string": "Terima kasih! Mencari pengecekan fakta, mungkin perlu beberapa menit.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDescription": {
-		"string": "The confirmation sent to the user after the content is submitted.",
+		"string": "Konfirmasi dikirim ke pengguna setelah konten diserahkan.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedTitle": {
@@ -4019,15 +4202,15 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.timeoutDefault": {
-		"string": "Thank you for reaching out to us! Type any key to start a new conversation.",
+		"string": "Terima kasih telah menghubungi kami! Ketik tombol apa saja untuk memulai percakapan baru.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.timeoutDescription": {
-		"string": "After 15 minutes of activity, this message is sent to users to close the conversation.",
+		"string": "After 15 minutes of inactivity, this message is sent to users to close the conversation.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.timeoutTitle": {
-		"string": "Conversation time out",
+		"string": "Waktu percakapan habis",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotIntegrationButton.cancel": {
@@ -4145,7 +4328,7 @@
 		"string": "Token akun publik Viber"
 	},
 	"smoochBotMainMenu.alertTitle": {
-		"string": "There are {numberOfOptions} options including all languages. Detailed language options will be sent to users when they select the option 'Languages'.",
+		"string": "There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option.",
 		"developer_comment": "Title of an alert box displayed on tipline main menu settings page when there are more than 10 options."
 	},
 	"smoochBotMainMenu.languages": {
@@ -4161,11 +4344,11 @@
 		"developer_comment": "Title of the tipline bot main menu settings page."
 	},
 	"smoochBotMainMenu.numberOfLanguages": {
-		"string": "{numberOfLanguages} languages",
+		"string": "{numberOfLanguages} bahasa",
 		"developer_comment": "Menu description used in the tipline bot when multiple languages are collapsed in a single menu option (always plural)"
 	},
 	"smoochBotMainMenu.optionsCounter": {
-		"string": "{available}/{total} main menu options available",
+		"string": "{available}/{total} opsi menu utama tersedia",
 		"developer_comment": "Counter that is displayed on tipline settings page in order to inform the user how many options they can still add to the bot main menu."
 	},
 	"smoochBotMainMenu.privacy": {
@@ -4177,7 +4360,7 @@
 		"developer_comment": "Menu label used in the tipline bot"
 	},
 	"smoochBotMainMenu.subtitle2": {
-		"string": "Please note that some messaging services have different menu display options than others.",
+		"string": "Harap dicatat bahwa beberapa layanan olah pesan memiliki opsi tampilan menu yang berbeda dari yang lain.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
@@ -4236,6 +4419,10 @@
 		"string": "Teks tombol - batas 24 karakter",
 		"developer_comment": "Text field label on dialog that opens to add a new option to tipline bot main menu"
 	},
+	"smoochBotMainMenuOption.labelError": {
+		"string": "Please add text to label the button",
+		"developer_comment": "Error message displayed when user tries to save tipline menu option with a blank label"
+	},
 	"smoochBotMainMenuOption.main": {
 		"string": "Utama",
 		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
@@ -4251,6 +4438,10 @@
 	"smoochBotMainMenuOption.response": {
 		"string": "Tanggapan",
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.responseError": {
+		"string": "Please choose a response",
+		"developer_comment": "Error message displayed when user tries to save tipline option with empty response"
 	},
 	"smoochBotMainMenuOption.save": {
 		"string": "Simpan",
@@ -4277,7 +4468,7 @@
 		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.maxOptionsReachedDescription": {
-		"string": "The maximum number of options in the main menu is 10.",
+		"string": "Jumlah maksimum opsi di menu utama adalah 10.",
 		"developer_comment": "Text of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
 	},
 	"smoochBotMainMenuSection.maxOptionsReachedLabel": {
@@ -4285,7 +4476,7 @@
 		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit the tipline bot menu options."
 	},
 	"smoochBotMainMenuSection.maxOptionsReachedTitle": {
-		"string": "Maximum menu options",
+		"string": "Opsi menu maksimal",
 		"developer_comment": "Title of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
 	},
 	"smoochBotMainMenuSection.newOption": {
@@ -4675,7 +4866,8 @@
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"suggestedMatches.title": {
-		"string": "Media yang disarankan"
+		"string": "Suggestions",
+		"developer_comment": "Header for suggested media page"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Batalkan"
@@ -5212,52 +5404,76 @@
 		"developer_comment": "Warning displayed if an error occurred when saving report settings"
 	},
 	"teamReportComponent.facebook": {
-		"string": "Nama halaman Facebook"
+		"string": "Nama halaman Facebook",
+		"developer_comment": "Label to facebook page field"
+	},
+	"teamReportComponent.facebookFieldError": {
+		"string": "Please use the page name instead of the full URL",
+		"developer_comment": "Error message displayed when facebook profile is filled incorrectly"
 	},
 	"teamReportComponent.introduction": {
-		"string": "Pengantar"
+		"string": "Pengantar",
+		"developer_comment": "Label to the report introduction field"
 	},
 	"teamReportComponent.introductionSub": {
-		"string": "Gunakan placeholder {query_date} untuk menampilkan tanggal pertanyaan asli. Gunakan {status} untuk mengomunikasikan status artikel."
+		"string": "Gunakan placeholder {query_date} untuk menampilkan tanggal pertanyaan asli. Gunakan {status} untuk mengomunikasikan status artikel.",
+		"developer_comment": "Instructions for filling the report introduction field"
 	},
 	"teamReportComponent.line": {
-		"string": "Saluran LINE"
+		"string": "Saluran LINE",
+		"developer_comment": "Label to LINE channel field"
 	},
 	"teamReportComponent.save": {
-		"string": "Simpan"
+		"string": "Simpan",
+		"developer_comment": "Save settings button label"
 	},
 	"teamReportComponent.savedSuccessfully": {
 		"string": "Pengaturan laporan berhasil disimpan",
 		"developer_comment": "Banner displayed when report settings are saved successfully"
 	},
 	"teamReportComponent.signature": {
-		"string": "Tanda tangan"
+		"string": "Tanda tangan",
+		"developer_comment": "Label to report signature field"
 	},
 	"teamReportComponent.signatureLabel": {
 		"string": "Tanda tangan (maksimal {max} karakter)",
 		"developer_comment": "Label for signature field in report settings"
 	},
 	"teamReportComponent.telegram": {
-		"string": "Nama pengguna bot Telegram"
+		"string": "Nama pengguna bot Telegram",
+		"developer_comment": "Label to Telegram username field"
+	},
+	"teamReportComponent.telegramFieldError": {
+		"string": "Please use the bot username instead of the full URL",
+		"developer_comment": "Error message displayed when telegram username is filled incorrectly"
 	},
 	"teamReportComponent.title": {
-		"string": "Pengaturan laporan bawaan"
+		"string": "Pengaturan laporan bawaan",
+		"developer_comment": "Header for the default report settings page"
 	},
 	"teamReportComponent.twitter": {
-		"string": "Nama akun Twitter"
+		"string": "Nama akun Twitter",
+		"developer_comment": "Label to twitter username field"
+	},
+	"teamReportComponent.twitterFieldError": {
+		"string": "Please use the account name instead of the full URL",
+		"developer_comment": "Error message displayed when twitter profile is filled incorrectly"
 	},
 	"teamReportComponent.url": {
-		"string": "URL situs web"
+		"string": "URL situs web",
+		"developer_comment": "Label to the report url field"
 	},
 	"teamReportComponent.urlLabel": {
 		"string": "URL pendek (maksimal {max} karakter)",
 		"developer_comment": "Label for URL field in report settings"
 	},
 	"teamReportComponent.viber": {
-		"string": "URI akun publik Viber"
+		"string": "URI akun publik Viber",
+		"developer_comment": "Label to Viber account field"
 	},
 	"teamReportComponent.whatsapp": {
-		"string": "Nomor Whatsapp"
+		"string": "Nomor Whatsapp",
+		"developer_comment": "Label to WhatsApp number field"
 	},
 	"teamSettings.Tags": {
 		"string": "Label"

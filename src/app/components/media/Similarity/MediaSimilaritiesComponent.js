@@ -45,7 +45,7 @@ const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
           <strong>
             <FormattedMessage
               id="mediaSimilarities.moreMedias"
-              defaultMessage="Matched media"
+              defaultMessage="Media"
               description="Heading for a list of matched medias"
             />
           </strong>
@@ -60,7 +60,7 @@ const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
                 <Typography variant="body2">
                   <FormattedMessage
                     id="mediaSimilarities.noMedia"
-                    defaultMessage="0 matched media"
+                    defaultMessage="0 media"
                     description="A message that shows when the matched media list is empty."
                   />
                 </Typography>

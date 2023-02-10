@@ -1,7 +1,7 @@
 language: minimal
 dist: bionic
 before_install:
-# decrypt credentials for Alegre
+# Decrypt credentials for Alegre
 - openssl aes-256-cbc -K $encrypted_e6af0c606e27_key -iv $encrypted_e6af0c606e27_iv
   -in test/google_credentials.json.enc -out test/google_credentials.json -d
 # Set a UTF-8 capabable locale
@@ -15,9 +15,9 @@ before_install:
 - unzip ngrok-stable-linux-amd64.zip
 - chmod +x ngrok
 - export TRAVIS_TAG=0.0.0
-# docker
+# Docker
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-# pender
+# Pender
 - export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $PENDER_BRANCH for Pender"
 - git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
@@ -26,7 +26,7 @@ before_install:
 - cp config/database.yml.example config/database.yml
 - cp config/sidekiq.yml.example config/sidekiq.yml
 - cd -
-# check api
+# Check API
 - export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $CHECK_API_BRANCH for Check API"
 - git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
@@ -43,7 +43,7 @@ before_install:
 - cp .env_file.test .env_file
 - cp ../test/google_credentials.json google_credentials.json
 - cd -
-# config files
+# Configuration files
 - cp test/config.js.example config.js
 - cp test/config.js.example test/config.js
 - cp config-build.js.example config-build.js

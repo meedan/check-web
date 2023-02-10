@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -78,6 +77,7 @@ class MediaActionsBarComponent extends Component {
 
   fail(transaction) {
     const fallbackMessage = (
+      // eslint-disable-next-line @calm/react-intl/missing-attribute
       <FormattedMessage
         {...globalStrings.unknownError}
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
@@ -108,11 +108,16 @@ class MediaActionsBarComponent extends Component {
         <FormattedMessage
           id="mediaActionsBar.movedToTrash"
           defaultMessage="The item was moved to {trash}"
+          description="Delete item action success message"
           values={{
             trash: (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
               <a onClick={() => browserHistory.push(`/${pm.team.slug}/trash`)}>
-                <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" />
+                <FormattedMessage
+                  id="mediaDetail.trash"
+                  defaultMessage="Trash"
+                  description="Label used inside delete action success message. Links to the Trash page"
+                />
               </a>
             ),
           }}
@@ -121,11 +126,16 @@ class MediaActionsBarComponent extends Component {
         <FormattedMessage
           id="mediaActionsBar.movedToSpam"
           defaultMessage="The item was moved to {spam}"
+          description="Send item to spam action success message"
           values={{
             spam: (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
               <a onClick={() => browserHistory.push(`/${pm.team.slug}/spam`)}>
-                <FormattedMessage id="mediaDetail.spam" defaultMessage="Spam" />
+                <FormattedMessage
+                  id="mediaDetail.spam"
+                  defaultMessage="Spam"
+                  description="Label used inside 'send to spam' action success message. Links to the Spam page"
+                />
               </a>
             ),
           }}
@@ -212,6 +222,7 @@ class MediaActionsBarComponent extends Component {
         <FormattedMessage
           id="mediaActionsBar.assignmentsUpdated"
           defaultMessage="Assignments updated successfully"
+          description="Success message displayed when assigned user is updated"
         />
       );
       this.props.setFlashMessage(message, 'success');
@@ -334,19 +345,30 @@ class MediaActionsBarComponent extends Component {
             <FormattedMessage
               id="mediaActionsBar.assignmentTitle"
               defaultMessage="Assign item to collaborators"
+              description="Assignment dialog title"
             />
           </DialogTitle>
           <DialogContent>
             <Box display="flex" style={{ outline: 0 }}>
-              <FormattedMessage id="multiSelector.search" defaultMessage="Search…">
+              <FormattedMessage
+                id="multiSelector.search"
+                defaultMessage="Search…"
+                description="Search box placeholder"
+              >
                 {placeholder => (
                   <MultiSelector
                     allowToggleAll
                     allowSearch
                     inputPlaceholder={placeholder}
-                    toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="All" />}
-                    cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                    submitLabel={<FormattedMessage {...globalStrings.update} />}
+                    toggleAllLabel={
+                      <FormattedMessage
+                        id="MultiSelector.all"
+                        defaultMessage="All"
+                        description="Checkbox label for toggling select/unselect all"
+                      />
+                    }
+                    cancelLabel={<FormattedMessage {...globalStrings.cancel} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
+                    submitLabel={<FormattedMessage {...globalStrings.update} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
                     options={options}
                     selected={selected}
                     onDismiss={this.handleCloseDialogs.bind(this)}
@@ -359,6 +381,7 @@ class MediaActionsBarComponent extends Component {
                   <FormattedMessage
                     id="mediaActionsBar.assignmentNotesTitle"
                     defaultMessage="Add a note to the email"
+                    description="Helper text to field for adding details about the assignment"
                   />
                 </Typography>
                 <TextField
@@ -366,6 +389,7 @@ class MediaActionsBarComponent extends Component {
                     <FormattedMessage
                       id="mediaActionsBar.assignmentNotes"
                       defaultMessage="Notes"
+                      description="Label to field for adding details about the assignment"
                     />
                   }
                   variant="outlined"
