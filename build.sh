@@ -34,13 +34,15 @@
     fi
     echo "Ngrok tunnel: $NGROK_URL"
     sed -i "s~similarity_media_file_url_host: ''~similarity_media_file_url_host: '$NGROK_URL'~g" check-api/config/config.yml
+    cat check-api/config/config.yml | grep similarity_media_file_url_host
     docker-compose build
     docker-compose -f docker-compose.yml -f docker-test.yml up -d
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
   fi
   until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
   until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
-  # Uncomment to debug Check API. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
+  # Uncomment to debug Check API and Alegre. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
   # tail -f check-api/log/test.log &
   # docker-compose logs -f api &
+  docker-compose logs -f alegre &
 # fi
