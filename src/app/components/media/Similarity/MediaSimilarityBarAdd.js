@@ -45,7 +45,7 @@ const MediaSimilarityBarAdd = ({
     label = (
       <FormattedMessage
         id="mediaSimilarityBarAdd.addSimilarToThisTitle"
-        defaultMessage="Import matched media from other items"
+        defaultMessage="Import media from other items"
         description="Dialog title for importing media from other items."
       />
     );

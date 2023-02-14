@@ -2,7 +2,7 @@
   {
     "id": "mediaSimilarityBarAdd.addSimilarToThisTitle",
     "description": "Dialog title for importing media from other items.",
-    "defaultMessage": "Import matched media from other items"
+    "defaultMessage": "Import media from other items"
   },
   {
     "id": "mediaSimilarityBarAdd.addThisToSimilarTitle",
