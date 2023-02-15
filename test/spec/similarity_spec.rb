@@ -72,9 +72,9 @@ shared_examples 'similarity' do
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
-    wait_for_selector("//span[contains(text(), '2 suggested')]", :xpath)
+    wait_for_selector("//span[contains(text(), '2 suggestion')]", :xpath)
     wait_for_selector('.similarity-media-item__accept-relationship').click
-    wait_for_selector("//span[contains(text(), '1 suggested')]", :xpath)
+    wait_for_selector("//span[contains(text(), '1 suggestion')]", :xpath)
     wait_for_selector('.similarity-media-item__reject-relationship').click
     wait_for_selector('.media-actions-bar__add-button').click
     wait_for_selector('#media-similarity__add-button')
@@ -107,7 +107,7 @@ shared_examples 'similarity' do
       wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
       wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
       wait_for_selector('.similarity-media-item__accept-relationship')
-      expect(@driver.page_source.include?('1 suggested')).to be(true)
+      expect(@driver.page_source.include?('1 suggestion')).to be(true)
     end
   end
 
@@ -155,7 +155,7 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
     wait_for_selector('.similarity-media-item__accept-relationship')
-    expect(@driver.page_source.include?('1 suggested')).to be(true)
+    expect(@driver.page_source.include?('1 suggestion')).to be(true)
   end
 
   {

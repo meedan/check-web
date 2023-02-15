@@ -150,7 +150,7 @@ const MediaItem = ({
                 { projectMedia.linked_items_count && !mainProjectMedia.id ?
                   <FormattedMessage
                     id="mediaItem.similarMedia"
-                    defaultMessage="{count, plural, one {# matched media} other {# matched media}}"
+                    defaultMessage="{count, plural, one {# media} other {# media}}"
                     values={{
                       count: projectMedia.linked_items_count,
                     }}

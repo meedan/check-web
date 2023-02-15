@@ -47,7 +47,7 @@ const MediaComponentRightPanel = ({ projectMedia, setShowTab, showTab }) => {
               <FormattedMessage
                 id="mediaComponent.suggestedMedia"
                 defaultMessage="Suggestions"
-                description="Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
+                description="Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
               />
             }
             value="suggestedMedia"

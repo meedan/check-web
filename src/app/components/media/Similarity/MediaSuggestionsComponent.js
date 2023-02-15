@@ -658,7 +658,7 @@ const MediaSuggestionsComponent = ({
         <Typography variant="subtitle2" className="similarity-media-no-items">
           <FormattedMessage
             id="mediaSuggestionsComponent.noItems"
-            defaultMessage="{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+            defaultMessage="{total, plural, one {{total} suggestion} other {{total} suggestions}}"
             description="A header that tells the user there are no items in the list"
             values={{
               total: 0,
@@ -691,8 +691,8 @@ const MediaSuggestionsComponent = ({
                 <Typography variant="body" className={classes.title}>
                   <FormattedMessage
                     id="mediaSuggestionsComponent.title"
-                    defaultMessage="{start} to {end} of {total, plural, one {{total} suggested media} other {{total} suggested medias}}"
-                    description="A header that tells the user how many suggested media items are in the list to follow"
+                    defaultMessage="{start} to {end} of {total, plural, one {{total} suggestion} other {{total} suggestions}}"
+                    description="A header that tells the user how many suggestions items are in the list to follow"
                     values={{
                       total: totalCount,
                       start: cursor + 1,
@@ -730,7 +730,7 @@ const MediaSuggestionsComponent = ({
               </Box>
               <Grid container justify="center" direction="row" spacing={1}>
                 <Grid item>
-                  <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.bulkAccept" defaultMessage="Match all medias on this page" description="Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media." />}>
+                  <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.bulkAccept" defaultMessage="Match all media on this page" description="Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media." />}>
                     <IconButton
                       onClick={() => {
                         openBulkAcceptDialog();
@@ -805,7 +805,7 @@ const MediaSuggestionsComponent = ({
                   <DialogTitle>
                     <FormattedMessage
                       id="mediaSuggestionsComponent.dialogBulkAcceptTitle"
-                      defaultMessage="Are you sure you want to match {number} suggested media?"
+                      defaultMessage="Are you sure you want to match {number} suggestions?"
                       description="Prompt to a user when they choose to match media as a bulk action"
                       values={{
                         number: relationships.slice(cursor, cursor + pageSize).length,
@@ -883,7 +883,7 @@ const MediaSuggestionsComponent = ({
                   <DialogTitle>
                     <FormattedMessage
                       id="mediaSuggestionsComponent.dialogBulkTrashTitle"
-                      defaultMessage="Are you sure you want to send {number} suggested media to the trash?"
+                      defaultMessage="Are you sure you want to send {number} suggestions to the trash?"
                       description="Prompt to a user when they choose to send media to trash in bulk"
                       values={{
                         number: relationships.slice(cursor, cursor + pageSize).length,

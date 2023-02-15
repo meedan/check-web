@@ -11,7 +11,6 @@ import {
   Grid,
   IconButton,
   Paper,
-  Typography,
 } from '@material-ui/core';
 import {
   HighlightOff as CloseIcon,
@@ -55,13 +54,11 @@ const SuggestedMediaDialogComponent = ({
       PaperProps={{ classes: { root: classes.dialog } }}
     >
       <DialogTitle>
-        <Typography variant="h1">
-          <FormattedMessage
-            id="cds.mediaAndRequestsDialog.matchedMedia"
-            defaultMessage="Matched media"
-            description="Plural. Heading for the number of matched media"
-          />
-        </Typography>
+        <FormattedMessage
+          id="cds.mediaAndRequestsDialog.matchedMedia"
+          defaultMessage="Media"
+          description="Plural. Heading for the number of media"
+        />
         <IconButton className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
