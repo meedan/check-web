@@ -47,7 +47,7 @@
   {
     "id": "mediaSuggestionsComponent.noItems",
     "description": "A header that tells the user there are no items in the list",
-    "defaultMessage": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+    "defaultMessage": "{total, plural, one {{total} suggestion} other {{total} suggestions}}"
   },
   {
     "id": "mediaSuggestionsComponent.previous",
@@ -56,8 +56,8 @@
   },
   {
     "id": "mediaSuggestionsComponent.title",
-    "description": "A header that tells the user how many suggested media items are in the list to follow",
-    "defaultMessage": "{start} to {end} of {total, plural, one {{total} suggested media} other {{total} suggested medias}}"
+    "description": "A header that tells the user how many suggestions items are in the list to follow",
+    "defaultMessage": "{start} to {end} of {total, plural, one {{total} suggestion} other {{total} suggestions}}"
   },
   {
     "id": "mediaSuggestionsComponent.next",
@@ -72,7 +72,7 @@
   {
     "id": "mediaSuggestionsComponent.bulkAccept",
     "description": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media.",
-    "defaultMessage": "Match all medias on this page"
+    "defaultMessage": "Match all media on this page"
   },
   {
     "id": "mediaSuggestionsComponent.bulkReject",
@@ -92,7 +92,7 @@
   {
     "id": "mediaSuggestionsComponent.dialogBulkAcceptTitle",
     "description": "Prompt to a user when they choose to match media as a bulk action",
-    "defaultMessage": "Are you sure you want to match {number} suggested media?"
+    "defaultMessage": "Are you sure you want to match {number} suggestions?"
   },
   {
     "id": "global.cancel",
@@ -117,7 +117,7 @@
   {
     "id": "mediaSuggestionsComponent.dialogBulkTrashTitle",
     "description": "Prompt to a user when they choose to send media to trash in bulk",
-    "defaultMessage": "Are you sure you want to send {number} suggested media to the trash?"
+    "defaultMessage": "Are you sure you want to send {number} suggestions to the trash?"
   },
   {
     "id": "mediaSuggestionsComponent.dialogBulkTrashConfirm",
