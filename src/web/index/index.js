@@ -55,7 +55,18 @@ const pusherContextValue = getPusherContextValueForClientSessionId(clientSession
 
 const dir = rtlDetect.isRtlLang(locale) ? 'rtl' : 'ltr';
 const styledComponentsTheme = { dir };
-const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
+
+const muiTheme = createMuiTheme({
+  direction: dir,
+  ...MuiTheme,
+  props: {
+    MuiButtonBase: {
+      disableRipple: true
+    }
+  }
+});
+
+
 // JSS and StylesProvider and <Helmet><body> are to make material-ui
 // support right-to-left (e.g., Arabic).
 // See https://material-ui.com/guides/right-to-left/
