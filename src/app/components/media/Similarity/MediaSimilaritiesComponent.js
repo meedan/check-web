@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import MediaRelationship from './MediaRelationship';
@@ -40,17 +39,6 @@ const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
 
   return (
     <div className="media__more-medias" id="matched-media">
-      <Box my={4}>
-        <Typography variant="body">
-          <strong>
-            <FormattedMessage
-              id="mediaSimilarities.moreMedias"
-              defaultMessage="Media"
-              description="Heading for a list of matched medias"
-            />
-          </strong>
-        </Typography>
-      </Box>
       <div className={classes.container}>
         <span className={`${classes.overlay} ${isHighlighting ? classes.animation : ''}`} id="matched-overlay" />
         {
