@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import MediaRelationship from './MediaRelationship';
-import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
 import MediaItem from './MediaItem'; // eslint-disable-line no-unused-vars
 import { can } from '../../Can';
 import { brandLightCDS } from '../../../styles/js/shared';
@@ -41,21 +38,6 @@ const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
     <div className="media__more-medias" id="matched-media">
       <div className={classes.container}>
         <span className={`${classes.overlay} ${isHighlighting ? classes.animation : ''}`} id="matched-overlay" />
-        {
-          projectMedia.confirmed_similar_relationships?.edges?.length === 0 ? (
-            <MediaCardCondensed
-              placeholder={
-                <Typography variant="body2">
-                  <FormattedMessage
-                    id="mediaSimilarities.noMedia"
-                    defaultMessage="0 media"
-                    description="A message that shows when the matched media list is empty."
-                  />
-                </Typography>
-              }
-            />
-          ) : null
-        }
         { sort(projectMedia.confirmed_similar_relationships?.edges).map(relationship => (
           <MediaRelationship
             key={relationship.node.id}
