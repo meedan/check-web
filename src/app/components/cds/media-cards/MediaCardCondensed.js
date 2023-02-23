@@ -7,12 +7,12 @@ import {
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import BulletSeparator from '../../layout/BulletSeparator';
-import { brandSecondary } from '../../../styles/js/shared';
+import { brandBorder } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: 8,
     color: 'black',
     backgroundColor: 'white',
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     height: 96,
     width: 96,
     objectFit: 'cover',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     marginRight: theme.spacing(1.5),
     alignSelf: 'center',
   },

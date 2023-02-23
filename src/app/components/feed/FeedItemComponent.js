@@ -36,6 +36,7 @@ import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 import {
   brandBackground,
+  brandBorder,
   brandSecondary,
   brandMain,
   opaqueBlack54,
@@ -52,14 +53,14 @@ const useStyles = makeStyles(theme => ({
   },
   claimsColumn: {
     backgroundColor: 'white',
-    borderRight: `1px solid ${brandSecondary}`,
+    borderRight: `1px solid ${brandBorder}`,
     width: 360,
     minWidth: 360,
     maxWidth: 360,
   },
   middleColumn: {
     backgroundColor: 'white',
-    borderRight: `1px solid ${brandSecondary}`,
+    borderRight: `1px solid ${brandBorder}`,
   },
   mediasColumn: {
     width: 590,
@@ -73,13 +74,13 @@ const useStyles = makeStyles(theme => ({
     height: 80,
     width: 80,
     objectFit: 'cover',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     float: 'left',
     marginRight: theme.spacing(1),
   },
   cardMain: {
     boxShadow: 'none',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
@@ -87,7 +88,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardDetail: {
     boxShadow: 'none',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),

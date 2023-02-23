@@ -41,7 +41,7 @@ import {
   brandMain,
   validationMain,
   errorMain,
-  brandSecondary,
+  brandBorder,
   black54,
   brandBackground,
 } from '../../../styles/js/shared';
@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0.5),
   },
   media: {
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: 8,
     color: 'black',
     backgroundColor: 'white',
@@ -108,7 +108,7 @@ const useStyles = makeStyles(theme => ({
     color: black54,
   },
   suggestionsNoMediaBox: {
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),
@@ -118,7 +118,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'right',
   },
   card: {
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(2),
     color: 'black',
     backgroundColor: 'white',

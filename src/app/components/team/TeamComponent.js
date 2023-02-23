@@ -25,17 +25,18 @@ import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
-import { brandBackground, brandSecondary } from '../../styles/js/shared';
+import { grayBackground, brandBackground, grayBorderMain } from '../../styles/js/shared';
 
 const StyledTabs = styled(Tabs)`
-  background-color: ${brandSecondary};
+  background-color: ${brandBackground};
+  border-bottom: solid 1px ${grayBorderMain};
   box-shadow: none !important;
   padding-left: 32px;
   margin-bottom: 32px;
 `;
 
 const StyledTeamContainer = styled.div`
-  background-color: ${brandBackground};
+  background-color: ${grayBackground};
   min-height: 100vh;
 `;
 

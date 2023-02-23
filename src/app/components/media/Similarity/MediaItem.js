@@ -11,11 +11,11 @@ import LayersIcon from '@material-ui/icons/Layers';
 import TimeBefore from '../../TimeBefore';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import { parseStringUnixTimestamp, truncateLength } from '../../../helpers';
-import { brandSecondary, brandMain, alertMain, black32 } from '../../../styles/js/shared';
+import { brandSecondary, brandBorder, brandMain, alertMain, black32 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: 8,
     color: 'black',
     marginBottom: theme.spacing(1),
@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     height: 80,
     width: 80,
     objectFit: 'cover',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
   },
   sep: {
     marginLeft: theme.spacing(0.5),

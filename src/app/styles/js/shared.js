@@ -292,7 +292,7 @@ export const MuiTheme = {
     MuiPaper: {
       elevation1: {
         boxShadow: 'none',
-        border: `2px solid ${brandSecondary}`,
+        border: `2px solid ${brandBorder}`,
       },
     },
     MuiTabs: {

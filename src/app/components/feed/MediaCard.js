@@ -6,12 +6,12 @@ import MediaPreview from './MediaPreview';
 import ExternalLink from '../ExternalLink';
 import ParsedText from '../ParsedText';
 import BulletSeparator from '../layout/BulletSeparator';
-import { brandSecondary } from '../../styles/js/shared';
+import { brandBorder } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: 8,
     backgroundColor: 'white',
     marginBottom: theme.spacing(1),

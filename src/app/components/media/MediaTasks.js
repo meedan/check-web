@@ -17,7 +17,7 @@ import {
   black87,
   black54,
   units,
-  brandSecondary,
+  brandBorder,
 } from '../../styles/js/shared';
 
 const StyledAnnotationRow = styled.div`
@@ -26,7 +26,7 @@ const StyledAnnotationRow = styled.div`
   .annotation-header-row {
     padding: ${units(1)} ${units(3)};
     margin: 0;
-    border-bottom: 1px solid ${brandSecondary};
+    border-bottom: 1px solid ${brandBorder};
     display: flex;
     justify-content: space-between;
     align-items: center;

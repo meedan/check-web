@@ -18,8 +18,8 @@ import CheckContext from '../../CheckContext';
 
 import {
   units,
-  brandSecondary,
-  brandBackground,
+  brandBorder,
+  grayBackground,
   Column,
 } from '../../styles/js/shared';
 
@@ -30,7 +30,7 @@ const StyledThreeColumnLayout = styled.div`
 
   /* Middle column */
   .media__column {
-    background-color: ${brandBackground};
+    background-color: ${grayBackground};
   }
 
   /* Middle column */
@@ -46,7 +46,8 @@ const StyledThreeColumnLayout = styled.div`
 
   /* Right Column */
   .media__annotations-column {
-    border-left: 2px solid ${brandSecondary};
+    border-left: 1px solid ${brandBorder};
+    border-top: 1px solid ${brandBorder};
     padding-top: 0;
     padding-left: 0;
     padding-right: 0;
@@ -55,7 +56,7 @@ const StyledThreeColumnLayout = styled.div`
     /* Container of tabs */
     .media__annotations-tabs {
       background-color: white;
-      border-bottom: 1px solid ${brandSecondary};
+      border-bottom: 1px solid ${brandBorder};
       padding-top: ${units(0.5)};
     }
   }
@@ -65,7 +66,8 @@ const AnalysisColumn = styled.div`
   width: 420px;
   flex-grow: 0;
   padding: 0 ${units(2)} ${units(2)} ${units(2)};
-  border-right: 1px solid ${brandSecondary};
+  border-right: 1px solid ${brandBorder};
+  border-top: 1px solid ${brandBorder};
   max-height: calc(100vh - 64px);
   overflow-y: auto;
 `;
