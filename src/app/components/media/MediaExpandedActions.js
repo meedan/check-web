@@ -124,7 +124,7 @@ const ExtraMediaActions = ({
               description="Menu option for performing reverse image searches on google or other engines"
             />
           </MenuItem> : null }
-        { isVideo || isUploadedAudio ?
+        { (isVideo && !isYoutubeVideo) || isUploadedAudio ?
           <MenuItem onClick={e => setAnchorElPlaybackSpeed(e.currentTarget)}>
             <ListItemIcon>
               <SlowMotionVideoIcon />
