@@ -163,6 +163,7 @@ class MediaExpandedComponent extends Component {
           <div ref={this.props.playerRef}>
             <MediaPlayerCard
               key={media.dynamic_annotation_flag}
+              isYoutube={isYoutube}
               filePath={filePath}
               coverImage={coverImage}
               contentWarning={media.show_warning_cover}
