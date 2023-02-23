@@ -43,11 +43,6 @@ const messages = defineMessages({
     defaultMessage: 'Text',
     description: 'Describes media type Text',
   },
-  link: {
-    id: 'search.showLinks',
-    defaultMessage: 'Link',
-    description: 'Describes media type Link',
-  },
   image: {
     id: 'search.showImages',
     defaultMessage: 'Image',

@@ -5,11 +5,6 @@
     "defaultMessage": "Text"
   },
   {
-    "id": "search.showLinks",
-    "description": "Describes media type Link",
-    "defaultMessage": "Link"
-  },
-  {
     "id": "search.showImages",
     "description": "Describes media type Image",
     "defaultMessage": "Image"
