@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { checkBlue } from '../../../styles/js/shared';
+import { brandMain } from '../../../styles/js/shared';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
   },
   helpIcon: {
-    color: checkBlue,
+    color: brandMain,
   },
   box: {
     padding: theme.spacing(2),
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     maxHeight: 'calc(100vh - 310px)',
   },
   resource: {
-    color: checkBlue,
+    color: brandMain,
   },
 }));
 

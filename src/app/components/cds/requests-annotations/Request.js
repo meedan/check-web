@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import ParsedText from '../../ParsedText';
 import BulletSeparator from '../../layout/BulletSeparator';
-import { separationGray } from '../../../styles/js/shared';
+import { grayBorderMain } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    borderBottom: `1px ${separationGray} solid`,
+    borderBottom: `1px ${grayBorderMain} solid`,
     padding: `${theme.spacing(3)}px ${theme.spacing(1)}px`,
   },
   name: {

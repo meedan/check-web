@@ -25,7 +25,7 @@ import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
-import { backgroundMain, brandSecondary } from '../../styles/js/shared';
+import { brandBackground, brandSecondary } from '../../styles/js/shared';
 
 const StyledTabs = styled(Tabs)`
   background-color: ${brandSecondary};
@@ -35,7 +35,7 @@ const StyledTabs = styled(Tabs)`
 `;
 
 const StyledTeamContainer = styled.div`
-  background-color: ${backgroundMain};
+  background-color: ${brandBackground};
   min-height: 100vh;
 `;
 

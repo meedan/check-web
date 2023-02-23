@@ -38,18 +38,18 @@ import globalStrings from '../../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import {
   Column,
-  checkBlue,
-  completedGreen,
-  alertRed,
+  brandMain,
+  validationMain,
+  errorMain,
   brandSecondary,
   black54,
-  brandBackgroundCDS,
+  brandBackground,
 } from '../../../styles/js/shared';
 import BulkArchiveProjectMediaMutation from '../../../relay/mutations/BulkArchiveProjectMediaMutation';
 
 const useStyles = makeStyles(theme => ({
   containerBox: {
-    backgroundColor: brandBackgroundCDS,
+    backgroundColor: brandBackground,
     borderRadius: theme.spacing(2),
     position: 'relative',
   },
@@ -71,17 +71,17 @@ const useStyles = makeStyles(theme => ({
     right: 0,
   },
   helpIcon: {
-    color: checkBlue,
+    color: brandMain,
   },
   disabled: {
     opacity: 0.5,
   },
   accept: {
-    color: completedGreen,
+    color: validationMain,
     padding: theme.spacing(0.5),
   },
   reject: {
-    color: alertRed,
+    color: errorMain,
     padding: theme.spacing(0.5),
   },
   spamTrash: {

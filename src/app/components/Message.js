@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
-  white,
+  otherWhite,
   black54,
   gutterSmall,
   gutterMedium,
@@ -14,14 +14,14 @@ import {
 const StyledMessage = styled(FadeIn)`
   background: ${black54};
   border-radius: ${defaultBorderRadius};
-  color: ${white};
+  color: ${otherWhite};
   margin: ${gutterMedium} auto;
   padding: ${gutterSmall} ${gutterLarge};
   position: relative;
   text-align: center;
 
   a {
-    color: ${white} !important;
+    color: ${otherWhite} !important;
     text-decoration: underline;
   }
 `;

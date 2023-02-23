@@ -19,7 +19,7 @@ import CheckContext from '../../CheckContext';
 import {
   units,
   brandSecondary,
-  backgroundMain,
+  brandBackground,
   Column,
 } from '../../styles/js/shared';
 
@@ -30,7 +30,7 @@ const StyledThreeColumnLayout = styled.div`
 
   /* Middle column */
   .media__column {
-    background-color: ${backgroundMain};
+    background-color: ${brandBackground};
   }
 
   /* Middle column */

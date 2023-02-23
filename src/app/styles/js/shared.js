@@ -3,33 +3,39 @@ import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 
 // Styles for overriding material UI
-// General colors
-//
-export const white = '#fff';
-export const black = '#000';
-export const alertRed = '#d0021b';
-export const checkBlue = '#2e77fc';
-export const checkOrange = '#f2994a';
-export const checkError = '#fa555f';
-export const inProgressYellow = '#efac51';
-export const completedGreen = '#5cae73';
-export const separationGray = '#E5E5E5';
-export const brandSecondary = '#DFE4F4';
-export const backgroundMain = '#F7F8FD';
 // Check Design System Colors
-export const textPrimary = '#1F1F1F';
+export const brandMain = '#567bff';
+export const brandSecondary = '#3b5cd0';
+export const brandLight = '#cfdfff';
+export const brandAccent = '#293e86';// eslint-disable-line import/no-unused-modules
+export const brandBorder = '#d0d6ec';// eslint-disable-line import/no-unused-modules
+export const brandBackground = '#f1f5f6';
+export const brandHoverAccent = '#f2f8ff';// eslint-disable-line import/no-unused-modules
+
+export const textPrimary = '#1f1f1f';
 export const textSecondary = '#656565';
-export const brandMainCDS = '#567BFF';
-export const brandSecondaryCDS = '#3B5CD0';
-export const brandLightCDS = '#CFDFFF';
-export const alertLightCDS = '#FFF8ED';
-export const alertSecondaryCDS = '#A66300';
-export const alertMainCDS = '#E78A00';
-export const brandBackgroundCDS = '#F1F5F6';
-export const grayBorderCDS = '#CDD0D1';
-export const otherErrorMainCDS = '#F44336';
-export const validationLightCDS = '#F0FFF1';
-export const validationSecondaryCDS = '#237C27';
+export const textPlaceholder = '#b6b6b6';// eslint-disable-line import/no-unused-modules
+export const textDisabled = '#999';// eslint-disable-line import/no-unused-modules
+export const textLink = '#3b5cd0';// eslint-disable-line import/no-unused-modules
+
+export const validationMain = '#4caf50';
+export const validationSecondary = '#237c27';
+export const validationLight = '#f0fff1';
+
+export const alertMain = '#e78a00';
+export const alertSecondary = '#a66300';
+export const alertLight = '#fff8ed';
+
+export const errorMain = '#f44336';
+export const errorSecondary = '#c9291d';// eslint-disable-line import/no-unused-modules
+export const errorLight = '#ffeeed';// eslint-disable-line import/no-unused-modules
+
+export const grayBackground = '#f7f7f7';// eslint-disable-line import/no-unused-modules
+export const grayDisabledBackground = '#efefef';// eslint-disable-line import/no-unused-modules
+export const grayBorderMain = '#e4e4e4';
+export const grayBorderAccent = '#b4b4b4';// eslint-disable-line import/no-unused-modules
+
+export const otherWhite = '#fff';
 
 // Material blacks
 // TODO make these opaque!
@@ -135,10 +141,10 @@ export const MuiTheme = {
   palette: {
     type: 'light',
     primary: {
-      main: checkBlue,
+      main: brandMain,
     },
     secondary: {
-      main: checkBlue,
+      main: brandMain,
     },
     types: {
       light: {
@@ -238,22 +244,22 @@ export const MuiTheme = {
         // @material-ui/core sets #fafafa, only for sticky header. Undo that.
         // We do need a color, though -- if we choose "transparent" the tbody
         // will show through.
-        backgroundColor: white,
+        backgroundColor: otherWhite,
       },
     },
     MuiTableSortLabel: {
       active: {
-        color: `${checkBlue} !important`,
+        color: `${brandMain} !important`,
       },
       icon: {
-        color: `${checkBlue} !important`,
+        color: `${brandMain} !important`,
       },
     },
     MuiIconButton: { // Buttons with Icons
       root: {
         '&:hover': {
           backgroundColor: 'transparent',
-          color: checkBlue,
+          color: brandMain,
         },
       },
     },
@@ -321,19 +327,19 @@ const shimmerKeyframes = keyframes`
 export const Shimmer = styled.div`
   animation: ${shimmerKeyframes} 1s ease-out infinite;
   animation-fill-mode: forwards;
-  background: linear-gradient(90deg, ${opaqueBlack05}, ${opaqueBlack05}, ${opaqueBlack02}, ${opaqueBlack02}, ${white}, ${opaqueBlack02}, ${opaqueBlack05}, ${opaqueBlack05});
+  background: linear-gradient(90deg, ${opaqueBlack05}, ${opaqueBlack05}, ${opaqueBlack02}, ${opaqueBlack02}, ${otherWhite}, ${opaqueBlack02}, ${opaqueBlack05}, ${opaqueBlack05});
   background-size: 400%;
 `;
 
 const pulseKeyframes = keyframes`
   0% {
-    background-color: ${white};
+    background-color: ${otherWhite};
   }
   50% {
     background-color: ${opaqueBlack02};
   }
   100% {
-    background-color: ${white};
+    background-color: ${otherWhite};
   }
 `;
 

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import {
   brandSecondary,
-  backgroundMain,
+  brandBackground,
 } from '../../../styles/js/shared';
 import MediaSimilarityBarAdd from './MediaSimilarityBarAdd';
 import CounterButton from '../../cds/buttons-checkboxes-chips/CounterButton';
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     borderBottom: `1px solid ${brandSecondary}`,
     position: 'sticky',
     top: theme.spacing(-2),
-    background: backgroundMain,
+    background: brandBackground,
     zIndex: 200,
   },
   spacing: {

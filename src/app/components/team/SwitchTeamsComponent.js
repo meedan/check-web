@@ -19,7 +19,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CreateTeamDialog from './CreateTeamDialog';
 import {
   defaultBorderRadius,
-  white,
+  otherWhite,
   black05,
   black87,
 } from '../../styles/js/shared';
@@ -99,7 +99,7 @@ class SwitchTeamsComponent extends Component {
     const teamAvatarStyle = {
       border: `1px solid ${black05}`,
       borderRadius: `${defaultBorderRadius}`,
-      backgroundColor: white,
+      backgroundColor: otherWhite,
     };
 
     teamUsers.forEach((teamUser) => {

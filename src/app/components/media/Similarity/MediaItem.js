@@ -11,7 +11,7 @@ import LayersIcon from '@material-ui/icons/Layers';
 import TimeBefore from '../../TimeBefore';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import { parseStringUnixTimestamp, truncateLength } from '../../../helpers';
-import { brandSecondary, checkBlue, inProgressYellow, black32 } from '../../../styles/js/shared';
+import { brandSecondary, brandMain, alertMain, black32 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -79,16 +79,16 @@ const useStyles = makeStyles(theme => ({
     textOverflow: 'ellipsis',
   },
   reportPublished: {
-    color: checkBlue,
+    color: brandMain,
   },
   reportPaused: {
-    color: inProgressYellow,
+    color: alertMain,
   },
   reportUnpublished: {
     color: black32,
   },
   by: {
-    color: checkBlue,
+    color: brandMain,
   },
 }));
 

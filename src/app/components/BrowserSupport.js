@@ -10,13 +10,13 @@ import {
   ContentColumn,
   units,
   black54,
-  white,
+  otherWhite,
 } from '../styles/js/shared';
 
 const Message = styled.div`
   padding: ${units(1)};
   color: ${black54};
-  background-color: ${white};
+  background-color: ${otherWhite};
   > div {
     display: flex;
     align-items: center;

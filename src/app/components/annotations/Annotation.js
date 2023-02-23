@@ -41,12 +41,12 @@ import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   units,
-  white,
+  otherWhite,
   opaqueBlack16,
   black38,
   black54,
   black87,
-  checkBlue,
+  brandMain,
   borderWidthLarge,
   caption,
   breakWordStyles,
@@ -126,7 +126,7 @@ const StyledAnnotationWrapper = styled.section`
       border-radius: 100%;
       content: '';
       height: ${units(1)};
-      outline: ${dotSize} solid ${white};
+      outline: ${dotSize} solid ${otherWhite};
       position: absolute;
       top: ${units(2)};
       width: ${units(1)};
@@ -140,7 +140,7 @@ const StyledAnnotationWrapper = styled.section`
   }
 
   .annotation__card-activity-move-to-trash {
-    background: ${checkBlue};
+    background: ${brandMain};
     color: #fff;
     border-radius: ${defaultBorderRadius};
 

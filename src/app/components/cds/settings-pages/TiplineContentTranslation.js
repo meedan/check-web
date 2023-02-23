@@ -8,11 +8,11 @@ import {
   TextField,
 } from '@material-ui/core';
 import {
-  brandBackgroundCDS,
-  grayBorderCDS,
+  brandBackground,
+  grayBorderMain,
   textPrimary,
   textSecondary,
-  otherErrorMainCDS,
+  errorMain,
 } from '../../../styles/js/shared';
 
 const StyledTextField = withStyles({
@@ -22,25 +22,25 @@ const StyledTextField = withStyles({
       opacity: 1,
     },
     '& .MuiFormHelperText-root.Mui-error': {
-      color: otherErrorMainCDS,
+      color: errorMain,
       marginLeft: 0,
       fontSize: 12,
       fontWeight: 400,
     },
     '& .MuiOutlinedInput-root': {
       '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: otherErrorMainCDS,
+        borderColor: errorMain,
       },
       '& fieldset': {
-        borderColor: grayBorderCDS,
+        borderColor: grayBorderMain,
         borderWidth: 1,
       },
       '&:hover fieldset': {
-        borderColor: grayBorderCDS,
+        borderColor: grayBorderMain,
         borderWidth: 1,
       },
       '&.Mui-focused fieldset': {
-        borderColor: grayBorderCDS,
+        borderColor: grayBorderMain,
         borderWidth: 1,
       },
     },
@@ -61,9 +61,9 @@ const useStyles = makeStyles(theme => ({
   defaultString: {
     borderTopLeftRadius: theme.spacing(1),
     borderTopRightRadius: theme.spacing(1),
-    border: `1px solid ${grayBorderCDS}`,
+    border: `1px solid ${grayBorderMain}`,
     borderBottom: 0,
-    background: brandBackgroundCDS,
+    background: brandBackground,
     padding: '12px 10px',
   },
   // FIXME: Once Typography is implemented according to specs from the design system, this custom style can be removed

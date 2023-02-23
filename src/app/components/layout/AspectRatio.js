@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { opaqueBlack87, black32, checkBlue, opaqueBlack38, units, white } from '../../styles/js/shared.js';
+import { opaqueBlack87, black32, brandMain, opaqueBlack38, units, otherWhite } from '../../styles/js/shared.js';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     backgroundColor: props.contentWarning ? opaqueBlack87 : 'transparent',
     zIndex: 100,
-    color: 'white',
+    color: otherWhite,
   }),
   icon: props => ({
     fontSize: '40px',
@@ -57,9 +57,9 @@ const useStyles = makeStyles(theme => ({
   button: props => ({
     pointerEvents: 'auto',
     bottom: 0,
-    color: 'white',
+    color: otherWhite,
     minWidth: theme.spacing(22),
-    backgroundColor: props.contentWarning ? 'black' : checkBlue,
+    backgroundColor: props.contentWarning ? 'black' : brandMain,
     border: '2px solid white',
     '& :hover': {
       backgroundColor: 'unset',
@@ -102,7 +102,7 @@ const AspectRatioComponent = ({
           <IconButton
             onClick={onClickExpand}
             style={{
-              color: white,
+              color: otherWhite,
               backgroundColor: black32,
               position: 'absolute',
               right: '0',

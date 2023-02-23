@@ -15,7 +15,7 @@ import { ImportButton } from './ImportDialog';
 import MediaCard from './MediaCard';
 import RequestCards from './RequestCards';
 import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
-import { separationGray, textPrimary } from '../../styles/js/shared';
+import { grayBorderMain, textPrimary } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   column: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     minHeight: '500px',
   },
   dialogTitle: {
-    borderBottom: `1px solid ${separationGray}`,
+    borderBottom: `1px solid ${grayBorderMain}`,
   },
 }));
 

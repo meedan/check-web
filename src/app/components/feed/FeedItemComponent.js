@@ -35,9 +35,9 @@ import NextPreviousLinks from '../media/NextPreviousLinks';
 import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 import {
-  backgroundMain,
+  brandBackground,
   brandSecondary,
-  checkBlue,
+  brandMain,
   opaqueBlack54,
   opaqueBlack38,
   Column,
@@ -48,7 +48,7 @@ import { withSetFlashMessage } from '../FlashMessage';
 const defaultImage = '/images/image_placeholder.svg';
 const useStyles = makeStyles(theme => ({
   main: {
-    backgroundColor: backgroundMain,
+    backgroundColor: brandBackground,
   },
   claimsColumn: {
     backgroundColor: 'white',
@@ -155,7 +155,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   teamName: {
-    color: checkBlue,
+    color: brandMain,
   },
   boxes: {
     gap: `${theme.spacing(1)}px`,

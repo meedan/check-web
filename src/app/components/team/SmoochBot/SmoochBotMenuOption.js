@@ -12,13 +12,13 @@ import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { placeholders } from './localizables';
 import { languageLabel } from '../../../LanguageRegistry';
-import { checkBlue } from '../../../styles/js/shared';
+import { brandMain } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     boxShadow: 'none',
-    border: `2px solid ${checkBlue}`,
+    border: `2px solid ${brandMain}`,
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
@@ -26,10 +26,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
   },
   ifTitle: {
-    color: checkBlue,
+    color: brandMain,
   },
   thenTitle: {
-    color: checkBlue,
+    color: brandMain,
   },
   caption: {
     margin: `0 ${theme.spacing(1)}px`,

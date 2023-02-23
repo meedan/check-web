@@ -9,8 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   units,
   black87,
-  checkBlue,
-  checkOrange,
+  brandMain,
+  alertMain,
   opaqueBlack54,
   opaqueBlack87,
 } from '../../../styles/js/shared';
@@ -133,13 +133,13 @@ const IconOrNothing = ({
     return null;
   }
   if (isMain) {
-    return <ContentCopyIcon style={{ color: checkBlue }} className={`${className} similarity-is-main`} />;
+    return <ContentCopyIcon style={{ color: brandMain }} className={`${className} similarity-is-main`} />;
   }
   if (isConfirmed) {
     return <ContentCopyIcon style={{ transform: 'rotate(180deg)' }} className={`${className} similarity-is-confirmed`} />;
   }
   if (isSuggested) {
-    return <ContentCopyIcon style={{ color: checkOrange }} className={`${className} similarity-is-suggested`} />;
+    return <ContentCopyIcon style={{ color: alertMain }} className={`${className} similarity-is-suggested`} />;
   }
   return null;
 };

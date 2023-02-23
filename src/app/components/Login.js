@@ -20,7 +20,7 @@ import {
   black54,
   StyledSubHeader,
   StyledCard,
-  checkBlue,
+  brandMain,
 } from '../styles/js/shared';
 
 const styles = {
@@ -218,7 +218,7 @@ class Login extends React.Component {
             <Message
               message={this.state.message}
               style={this.state.registrationSubmitted ? {
-                backgroundColor: checkBlue,
+                backgroundColor: brandMain,
               } : null}
             />
             {this.state.registrationSubmitted ?
