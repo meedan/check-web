@@ -238,6 +238,11 @@ export const MuiTheme = {
       textTransform: 'uppercase',
     },
   },
+  props: {
+    MuiButtonBase: {
+      disableRipple: true,
+    },
+  },
   overrides: { // Override of all material UI components. Information at https://material-ui.com/api/{component}
     MuiTableCell: {
       stickyHeader: {
