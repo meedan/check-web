@@ -84,7 +84,7 @@ shared_examples 'project' do
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__media-type').click
     wait_for_selector('.custom-select-dropdown__select-button').click
-    wait_for_selector('#links').click
+    wait_for_selector('#weblink').click
     wait_for_selector('.multi__selector-save').click
     wait_for_selector('#search-fields__submit-button').click
     wait_for_selector_none('.medias__item')
