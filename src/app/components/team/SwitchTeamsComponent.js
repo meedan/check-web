@@ -20,8 +20,8 @@ import CreateTeamDialog from './CreateTeamDialog';
 import {
   defaultBorderRadius,
   otherWhite,
-  black05,
-  black87,
+  opaqueBlack05,
+  opaqueBlack87,
 } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
@@ -97,7 +97,7 @@ class SwitchTeamsComponent extends Component {
     const pendingTeams = [];
 
     const teamAvatarStyle = {
-      border: `1px solid ${black05}`,
+      border: `1px solid ${opaqueBlack05}`,
       borderRadius: `${defaultBorderRadius}`,
       backgroundColor: otherWhite,
     };
@@ -152,7 +152,7 @@ class SwitchTeamsComponent extends Component {
                 </ListItemAvatar>
                 <ListItemText
                   primary={team.name}
-                  style={{ color: black87 }}
+                  style={{ color: opaqueBlack87 }}
                   secondary={
                     <FormattedMessage
                       id="switchTeams.member"

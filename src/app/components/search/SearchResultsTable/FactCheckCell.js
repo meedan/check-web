@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   units,
-  black87,
+  opaqueBlack87,
   opaqueBlack54,
 } from '../../../styles/js/shared';
 
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: {
-    color: black87,
+    color: opaqueBlack87,
     fontWeight: 'bold',
     overflow: 'hidden',
     display: '-webkit-box',

@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TeamListsColumn from './TeamListsColumn';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
-import { ContentColumn, black16 } from '../../../styles/js/shared';
+import { ContentColumn, opaqueBlack16 } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const useStyles = makeStyles(theme => ({
@@ -203,7 +203,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 style={{
                   background: '#F6F6F6',
                   borderRadius: '5px',
-                  border: `1px solid ${black16}`,
+                  border: `1px solid ${opaqueBlack16}`,
                   padding: '.3rem 1rem .5rem 0',
                 }}
               />

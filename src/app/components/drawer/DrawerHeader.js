@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TeamAvatar from '../team/TeamAvatar';
 import { stringHelper } from '../../customHelpers';
 import {
-  black87,
+  opaqueBlack87,
   subheading1,
   units,
   Text,
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     flex: '1 1 auto',
     font: subheading1,
     fontWeight: 500,
-    color: black87,
+    color: opaqueBlack87,
     '&:hover': {
       textDecoration: 'underline',
     },

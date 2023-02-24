@@ -9,12 +9,12 @@ import Tooltip from '@material-ui/core/Tooltip';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import ClearIcon from '@material-ui/icons/Clear';
 import { makeStyles } from '@material-ui/core/styles';
-import { black54 } from '../../../styles/js/shared';
+import { opaqueBlack54 } from '../../../styles/js/shared';
 import RuleOperatorButton from './RuleOperatorButton';
 
 const useStyles = makeStyles(() => ({
   separator: {
-    color: black54,
+    color: opaqueBlack54,
   },
   button: {
     padding: 0,
@@ -94,7 +94,7 @@ RuleOperatorWrapper.defaultProps = {
   allowRemove: false,
   operator: 'and',
   operators: ['and', 'or'],
-  deleteIconColor: black54,
+  deleteIconColor: opaqueBlack54,
   onSetOperator: null,
 };
 

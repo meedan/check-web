@@ -8,7 +8,6 @@ import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   units,
-  black87,
   brandMain,
   alertMain,
   opaqueBlack54,
@@ -64,7 +63,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: ({ isRead }) => ({
-    color: black87,
+    color: opaqueBlack87,
     fontWeight: !isRead || isFeedPage() ? 'bold' : 'normal',
     overflow: 'hidden',
     display: '-webkit-box',

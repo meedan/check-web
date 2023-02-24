@@ -14,8 +14,8 @@ import CheckContext from '../../CheckContext';
 import {
   subheading2,
   body1,
-  black87,
-  black54,
+  opaqueBlack87,
+  opaqueBlack54,
   units,
   brandBorder,
 } from '../../styles/js/shared';
@@ -30,12 +30,12 @@ const StyledAnnotationRow = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: ${black54};
+    color: ${opaqueBlack54};
     font: ${body1};
   }
 
   h2 {
-    color: ${black87};
+    color: ${opaqueBlack87};
     flex: 1;
     font: ${subheading2};
     margin: 0;

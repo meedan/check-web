@@ -43,9 +43,9 @@ import {
   units,
   otherWhite,
   opaqueBlack16,
-  black38,
-  black54,
-  black87,
+  opaqueBlack38,
+  opaqueBlack54,
+  opaqueBlack87,
   brandMain,
   borderWidthLarge,
   caption,
@@ -59,7 +59,7 @@ const dotSize = borderWidthLarge;
 const dotOffset = stripUnit(units(4)) - stripUnit(dotSize);
 
 const StyledDefaultAnnotation = styled.div`
-  color: ${black87};
+  color: ${opaqueBlack87};
   display: flex;
   font: ${caption};
   width: 100%;
@@ -150,7 +150,7 @@ const StyledAnnotationWrapper = styled.section`
   }
 
   .annotation__timestamp {
-    color: ${black38};
+    color: ${opaqueBlack38};
     display: inline;
     flex: 1;
     white-space: pre;
@@ -194,13 +194,13 @@ const StyledAnnotationWrapper = styled.section`
 `;
 
 const StyledAnnotationMetadata = styled(Row)`
-  color: ${black54};
+  color: ${opaqueBlack54};
   flex-flow: wrap row;
   font: ${caption};
   margin-top: ${units(3)};
 
   .annotation__card-author {
-    color: ${black87};
+    color: ${opaqueBlack87};
     padding-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
   }
 `;
@@ -371,7 +371,7 @@ class Annotation extends Component {
             <MenuItem>
               <a
                 href={`#annotation-${activity.dbid}`}
-                style={{ textDecoration: 'none', color: black87 }}
+                style={{ textDecoration: 'none', color: opaqueBlack87 }}
               >
                 <FormattedMessage
                   id="annotation.permalink"

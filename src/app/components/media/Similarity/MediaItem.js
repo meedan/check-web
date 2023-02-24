@@ -11,7 +11,7 @@ import LayersIcon from '@material-ui/icons/Layers';
 import TimeBefore from '../../TimeBefore';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import { parseStringUnixTimestamp, truncateLength } from '../../../helpers';
-import { brandSecondary, brandBorder, brandMain, alertMain, black32 } from '../../../styles/js/shared';
+import { brandSecondary, brandBorder, brandMain, alertMain, opaqueBlack32 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -85,7 +85,7 @@ const useStyles = makeStyles(theme => ({
     color: alertMain,
   },
   reportUnpublished: {
-    color: black32,
+    color: opaqueBlack32,
   },
   by: {
     color: brandMain,

@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { opaqueBlack87, black32, brandMain, opaqueBlack38, units, otherWhite } from '../../styles/js/shared.js';
+import { opaqueBlack87, opaqueBlack32, brandMain, opaqueBlack38, units, otherWhite } from '../../styles/js/shared.js';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -103,7 +103,7 @@ const AspectRatioComponent = ({
             onClick={onClickExpand}
             style={{
               color: otherWhite,
-              backgroundColor: black32,
+              backgroundColor: opaqueBlack32,
               position: 'absolute',
               right: '0',
               top: '0',

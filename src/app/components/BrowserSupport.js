@@ -9,13 +9,13 @@ import { mapGlobalMessage } from './MappedMessage';
 import {
   ContentColumn,
   units,
-  black54,
+  opaqueBlack54,
   otherWhite,
 } from '../styles/js/shared';
 
 const Message = styled.div`
   padding: ${units(1)};
-  color: ${black54};
+  color: ${opaqueBlack54};
   background-color: ${otherWhite};
   > div {
     display: flex;
@@ -60,7 +60,7 @@ class BrowserSupport extends Component {
       return (
         <Message>
           <ContentColumn>
-            <IconButton style={{ fontSize: '20px', color: black54 }} onClick={this.close.bind(this)}>
+            <IconButton style={{ fontSize: '20px', color: opaqueBlack54 }} onClick={this.close.bind(this)}>
               <ClearIcon />
             </IconButton>
             <div>

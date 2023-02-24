@@ -7,11 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Reorder from '../../layout/Reorder';
-import { black16 } from '../../../styles/js/shared';
+import { opaqueBlack16 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
-    border: `2px solid ${black16}`,
+    border: `2px solid ${opaqueBlack16}`,
     borderRadius: '5px',
     padding: theme.spacing(1),
     marginBottom: theme.spacing(1),

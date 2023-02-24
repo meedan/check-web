@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import styled from 'styled-components';
 import FetchBot from './FetchBot';
 import KeepBot from './KeepBot';
-import { units, black32 } from '../../styles/js/shared';
+import { units, opaqueBlack32 } from '../../styles/js/shared';
 
 const StyledSchemaForm = styled.div`
   div {
@@ -28,7 +28,7 @@ const StyledSchemaForm = styled.div`
   fieldset fieldset {
     padding: ${units(1)};
     margin-top: ${units(1)};
-    border: 1px solid ${black32};
+    border: 1px solid ${opaqueBlack32};
   }
 
   fieldset fieldset button {
@@ -36,7 +36,7 @@ const StyledSchemaForm = styled.div`
     width: 32px !important;
     background: #fff !important;
     border-radius: 5px !important;
-    color: ${black32} !important;
+    color: ${opaqueBlack32} !important;
   }
   
   #bot-fetch fieldset div {

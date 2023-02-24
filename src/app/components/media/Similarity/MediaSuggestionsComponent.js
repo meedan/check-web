@@ -42,7 +42,7 @@ import {
   validationMain,
   errorMain,
   brandBorder,
-  black54,
+  opaqueBlack54,
   brandBackground,
 } from '../../../styles/js/shared';
 import BulkArchiveProjectMediaMutation from '../../../relay/mutations/BulkArchiveProjectMediaMutation';
@@ -105,7 +105,7 @@ const useStyles = makeStyles(theme => ({
   },
   suggestionsBackButton: {
     padding: 0,
-    color: black54,
+    color: opaqueBlack54,
   },
   suggestionsNoMediaBox: {
     border: `1px solid ${brandBorder}`,

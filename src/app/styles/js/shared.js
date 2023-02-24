@@ -37,17 +37,6 @@ export const grayBorderAccent = '#b4b4b4';// eslint-disable-line import/no-unuse
 
 export const otherWhite = '#fff';
 
-// Material blacks
-// TODO make these opaque!
-// TODO change their names!
-// TODO https://material.io/design/color/the-color-system.html
-export const black87 = 'rgba(0, 0, 0, .87)';
-export const black54 = 'rgba(0, 0, 0, .54)';
-export const black38 = 'rgba(0, 0, 0, .38)';
-export const black32 = 'rgba(0, 0, 0, .32)';
-export const black16 = 'rgba(0, 0, 0, .16)';
-export const black05 = 'rgba(0, 0, 0, .05)';
-
 // Material blacks, translated to opaque versions
 //
 export const opaqueBlack87 = '#212121';
@@ -60,6 +49,7 @@ export const opaqueBlack07 = '#eeeeee';
 export const opaqueBlack05 = '#f2f2f2';
 export const opaqueBlack03 = '#f8f8f8';
 export const opaqueBlack02 = '#fafafa';
+export const opaqueBlack32 = '#ADADAD';
 
 // Social network colors
 //
@@ -382,7 +372,7 @@ export const Text = styled.div`
 export const HeaderTitle = styled.h3`
   ${ellipsisStyles}
   font: ${subheading2};
-  color: ${black54};
+  color: ${opaqueBlack54};
   max-width: 45vw;
   ${mediaQuery.tablet`
      max-width: 27vw;
@@ -396,7 +386,7 @@ export const HeaderTitle = styled.h3`
 export const StyledSubHeader = styled.h2`
   font: ${title1};
   font-weight: 600;
-  color: ${black54};
+  color: ${opaqueBlack54};
   text-align: center;
   margin-top: ${units(2)};
 `;
@@ -489,7 +479,7 @@ export const AlignOpposite = styled.div`
 export const StyledIconButton = styled(IconButton)`
   font-size: 20px !important;
   svg {
-    color: ${black38} !important;
+    color: ${opaqueBlack38} !important;
     margin: 0!important;
   }
 `;

@@ -11,7 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import NextOrPreviousButton from './NextOrPreviousButton';
-import { units, black54 } from '../../styles/js/shared';
+import { units, opaqueBlack54 } from '../../styles/js/shared';
 import { getPathnameAndSearch, pageSize } from '../../urlHelpers';
 
 const StyledPager = styled.div`
@@ -26,12 +26,12 @@ const StyledPager = styled.div`
   justify-content: flex-end;
   font-weight: bold;
   font-size: ${units(2)};
-  color: ${black54};
+  color: ${opaqueBlack54};
 
   button {
     background: transparent;
     border: 0;
-    color: ${black54};
+    color: ${opaqueBlack54};
     cursor: pointer;
     outline: 0;
   }

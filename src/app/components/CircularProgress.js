@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
-import { black16, units } from '../styles/js/shared';
+import { opaqueBlack16, units } from '../styles/js/shared';
 
 const rotationBuilder = () => {
   const rotation = keyframes`
