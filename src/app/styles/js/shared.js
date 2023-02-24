@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 // Check Design System Colors
 export const brandMain = '#567bff';
 export const brandSecondary = '#3b5cd0';
-export const brandLight = '#cfdfff';
+export const brandLight = '#e7efff';
 export const brandAccent = '#293e86';// eslint-disable-line import/no-unused-modules
 export const brandBorder = '#d0d6ec';// eslint-disable-line import/no-unused-modules
 export const brandBackground = '#f1f5f6';
@@ -47,7 +47,6 @@ export const black38 = 'rgba(0, 0, 0, .38)';
 export const black32 = 'rgba(0, 0, 0, .32)';
 export const black16 = 'rgba(0, 0, 0, .16)';
 export const black05 = 'rgba(0, 0, 0, .05)';
-export const black02 = 'rgba(0, 0, 0, .02)'; // eslint-disable-line import/no-unused-modules
 
 // Material blacks, translated to opaque versions
 //
@@ -58,9 +57,9 @@ export const opaqueBlack23 = '#c4c4c4';
 export const opaqueBlack16 = '#d6d6d6';
 export const opaqueBlack10 = '#e5e5e5';
 export const opaqueBlack07 = '#eeeeee';
-export const opaqueBlack05 = '#f2f2f2'; // eslint-disable-line import/no-unused-modules
+export const opaqueBlack05 = '#f2f2f2';
 export const opaqueBlack03 = '#f8f8f8';
-export const opaqueBlack02 = '#fafafa'; // eslint-disable-line import/no-unused-modules
+export const opaqueBlack02 = '#fafafa';
 
 // Social network colors
 //
