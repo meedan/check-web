@@ -39,8 +39,8 @@ import {
   brandBorder,
   brandSecondary,
   brandMain,
-  opaqueBlack54,
-  opaqueBlack38,
+  textSecondary,
+  textDisabled,
   Column,
 } from '../../styles/js/shared';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -121,7 +121,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: '150px',
   },
   cardSubhead: {
-    color: opaqueBlack54,
+    color: textSecondary,
     fontSize: '0.85em',
     fontWeight: 500,
   },
@@ -416,7 +416,7 @@ const FeedItemComponent = ({
                               date: (
                                 claim?.project_media?.report_status === 'published' ?
                                   <TimeBefore date={parseStringUnixTimestamp(claim.project_media.report?.data?.last_published)} /> :
-                                  <span style={{ color: opaqueBlack38 }}>
+                                  <span style={{ color: textDisabled }}>
                                     <FormattedMessage id="feedItem.notPublished" defaultMessage="Not published yet" />
                                   </span>
                               ),
@@ -442,7 +442,7 @@ const FeedItemComponent = ({
                     />
                     <CardContent>
                       <Box mt={2}>
-                        <span style={{ color: opaqueBlack38 }}>
+                        <span style={{ color: textDisabled }}>
                           <FormattedMessage
                             id="feedItem.noClaim"
                             defaultMessage="No claim added yet"

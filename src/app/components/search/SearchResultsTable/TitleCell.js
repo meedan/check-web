@@ -10,8 +10,8 @@ import {
   units,
   brandMain,
   alertMain,
-  opaqueBlack54,
-  opaqueBlack87,
+  textSecondary,
+  textPrimary,
 } from '../../../styles/js/shared';
 
 const isFeedPage = () => (/\/feed/.test(window.location.pathname));
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     minHeight: units(10),
     height: units(10),
     marginRight: units(1),
-    backgroundColor: opaqueBlack87,
+    backgroundColor: textPrimary,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -63,7 +63,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: ({ isRead }) => ({
-    color: opaqueBlack87,
+    color: textPrimary,
     fontWeight: !isRead || isFeedPage() ? 'bold' : 'normal',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -71,7 +71,7 @@ const useStyles = makeStyles({
   }),
   description: {
     maxHeight: units(5),
-    color: opaqueBlack54,
+    color: textSecondary,
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',

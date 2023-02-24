@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { units, headline, opaqueBlack38 } from '../../styles/js/shared';
+import { units, headline, textDisabled } from '../../styles/js/shared';
 
 const StyledBlankState = styled.div`
   margin-top: ${units(5)};
   font: ${headline};
-  color: ${opaqueBlack38};
+  color: ${textDisabled};
   text-align: center;
 `;
 

@@ -27,11 +27,11 @@ import UserUtil from '../user/UserUtil';
 import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
-import { units, opaqueBlack54 } from '../../styles/js/shared';
+import { units, textSecondary } from '../../styles/js/shared';
 
 const TypographyBlack54 = withStyles({
   root: {
-    color: opaqueBlack54,
+    color: textSecondary,
   },
 })(Typography);
 
@@ -248,7 +248,7 @@ class MediaExpandedComponent extends Component {
           <MediaExpandedSecondRow projectMedia={media} />
           { isImage ?
             <Box mb={2}>
-              <TypographyBlack54 variant="body2" color={opaqueBlack54}>
+              <TypographyBlack54 variant="body2" color={textSecondary}>
                 { media.extracted_text ?
                   <FormattedMessage id="mediaExpanded.extractedText" defaultMessage="Text extracted from image:" description="Label for text extracted from the image below" /> :
                   <FormattedMessage id="mediaExpanded.noExtractedText" defaultMessage="No text extracted from this image" description="Label when text extracted from an image is not available" />
@@ -258,7 +258,7 @@ class MediaExpandedComponent extends Component {
           }
           { isMedia ?
             <Box mb={2}>
-              <TypographyBlack54 variant="body2" color={opaqueBlack54}>
+              <TypographyBlack54 variant="body2" color={textSecondary}>
                 { media.transcription && media.transcription.data.last_response.job_status === 'COMPLETED' ?
                   <FormattedMessage id="mediaExpanded.transcriptionCompleted" defaultMessage="Audio transcribed from media:" description="Label for transcription from audio or video" /> : null }
                 { media.transcription && media.transcription.data.last_response.job_status === 'IN_PROGRESS' ?

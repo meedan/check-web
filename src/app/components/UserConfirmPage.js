@@ -18,13 +18,13 @@ import {
   units,
   mediaQuery,
   title1,
-  opaqueBlack54,
+  textSecondary,
 } from '../styles/js/shared';
 
 const StyledSubHeader = styled.h2`
   font: ${title1};
   font-weight: 600;
-  color: ${opaqueBlack54};
+  color: ${textSecondary};
   text-align: center;
   margin-top: ${units(2)};
 `;

@@ -1,7 +1,6 @@
 import {
   otherWhite,
   body1,
-  opaqueBlack87,
   title1,
   subheading1,
   textLink,
@@ -33,12 +32,12 @@ export const typography = `
   }
 
   h1 {
-    color: ${opaqueBlack87};
+    color: ${textPrimary};
     font: ${title1};
   }
 
   h2 {
-    color: ${opaqueBlack87};
+    color: ${textPrimary};
     font: ${subheading1};
   }
 

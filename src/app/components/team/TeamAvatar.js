@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {
   avatarSize,
   backgroundCover,
-  opaqueBlack05,
+  grayDisabledBackground,
   borderWidthSmall,
   defaultBorderRadius,
   grayBorderMain,
@@ -11,7 +11,7 @@ import {
 } from '../../styles/js/shared';
 
 const StyledAvatarDiv = styled.div`
-  border: ${borderWidthSmall} solid ${opaqueBlack05};
+  border: ${borderWidthSmall} solid ${grayDisabledBackground};
   border-radius: ${defaultBorderRadius};
   flex: 0 0 auto;
   ${backgroundCover}

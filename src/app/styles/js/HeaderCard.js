@@ -4,8 +4,8 @@ import {
   mediaQuery,
   units,
   headline,
-  opaqueBlack38,
-  opaqueBlack54,
+  textDisabled,
+  textSecondary,
   caption,
   subheading1,
   Row,
@@ -38,13 +38,13 @@ export const StyledName = styled.h1`
 `;
 
 export const StyledDescription = styled.div`
-  color: ${opaqueBlack54};
+  color: ${textSecondary};
   font: ${subheading1};
   margin-bottom: ${units(1)};
 `;
 
 export const StyledHelper = styled.div`
-  color: ${opaqueBlack38};
+  color: ${textDisabled};
   font: ${caption};
   margin-bottom: ${units(2)};
   ${mediaQuery.handheld`
@@ -53,7 +53,7 @@ export const StyledHelper = styled.div`
 `;
 
 export const StyledContactInfo = styled.div`
-  color: ${opaqueBlack54};
+  color: ${textSecondary};
   display: flex;
   flex-flow: wrap row;
   font: ${caption};

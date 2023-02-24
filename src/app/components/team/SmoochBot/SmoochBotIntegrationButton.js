@@ -11,19 +11,19 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import { opaqueBlack05, opaqueBlack87, errorMain, validationMain } from '../../../styles/js/shared';
+import { grayDisabledBackground, textPrimary, errorMain, validationMain } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
   smoochBotIntegrationButton: {
     margin: theme.spacing(1),
-    background: opaqueBlack05,
+    background: grayDisabledBackground,
     flex: '1 1 0px',
     minWidth: 250,
     justifyContent: 'space-between',
     '&:hover': {
-      background: opaqueBlack05,
+      background: grayDisabledBackground,
     },
   },
   smoochBotIntegrationButtonIcon: {
@@ -50,8 +50,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: validationMain,
   },
   smoochBotIntegrationButtonDisconnected: {
-    color: opaqueBlack87,
-    borderColor: opaqueBlack87,
+    color: textPrimary,
+    borderColor: textPrimary,
   },
   smoochBotIntegrationButtonWarning: {
     color: errorMain,

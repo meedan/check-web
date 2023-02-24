@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
-import { opaqueBlack16, units } from '../styles/js/shared';
+import { grayBorderMain, units } from '../styles/js/shared';
 
 const rotationBuilder = () => {
   const rotation = keyframes`
@@ -69,7 +69,7 @@ const CircularProgress = ({ color }) => (
   </StyledBox>
 );
 CircularProgress.defaultProps = {
-  color: black16,
+  color: grayBorderMain,
 };
 CircularProgress.propTypes = {
   color: PropTypes.string, // or null

@@ -15,14 +15,14 @@ import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
 import MediaItem from './Similarity/MediaItem';
-import { opaqueBlack32 } from '../../styles/js/shared';
+import { grayBorderAccent } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   searchSettingsTitle: {
     fontWeight: 'bold',
   },
   searchSettingsBox: {
-    borderLeft: `1px solid ${opaqueBlack32}`,
+    borderLeft: `1px solid ${grayBorderAccent}`,
     marginLeft: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     width: 300,

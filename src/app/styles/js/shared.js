@@ -33,23 +33,9 @@ export const errorLight = '#ffeeed';// eslint-disable-line import/no-unused-modu
 export const grayBackground = '#f7f7f7';// eslint-disable-line import/no-unused-modules
 export const grayDisabledBackground = '#efefef';// eslint-disable-line import/no-unused-modules
 export const grayBorderMain = '#e4e4e4';
-export const grayBorderAccent = '#b4b4b4';// eslint-disable-line import/no-unused-modules
+export const grayBorderAccent = '#b4b4b4';
 
 export const otherWhite = '#fff';
-
-// Material blacks, translated to opaque versions
-//
-export const opaqueBlack87 = '#212121';
-export const opaqueBlack54 = '#757575';
-export const opaqueBlack38 = '#9e9e9e';
-export const opaqueBlack23 = '#c4c4c4';
-export const opaqueBlack16 = '#d6d6d6';
-export const opaqueBlack10 = '#e5e5e5';
-export const opaqueBlack07 = '#eeeeee';
-export const opaqueBlack05 = '#f2f2f2';
-export const opaqueBlack03 = '#f8f8f8';
-export const opaqueBlack02 = '#fafafa';
-export const opaqueBlack32 = '#ADADAD';
 
 // Social network colors
 //
@@ -321,7 +307,7 @@ const shimmerKeyframes = keyframes`
 export const Shimmer = styled.div`
   animation: ${shimmerKeyframes} 1s ease-out infinite;
   animation-fill-mode: forwards;
-  background: linear-gradient(90deg, ${opaqueBlack05}, ${opaqueBlack05}, ${opaqueBlack02}, ${opaqueBlack02}, ${otherWhite}, ${opaqueBlack02}, ${opaqueBlack05}, ${opaqueBlack05});
+  background: linear-gradient(90deg, ${grayDisabledBackground}, ${grayDisabledBackground}, ${grayBackground}, ${grayBackground}, ${otherWhite}, ${grayBackground}, ${grayDisabledBackground}, ${grayDisabledBackground});
   background-size: 400%;
 `;
 
@@ -330,7 +316,7 @@ const pulseKeyframes = keyframes`
     background-color: ${otherWhite};
   }
   50% {
-    background-color: ${opaqueBlack02};
+    background-color: ${grayBackground};
   }
   100% {
     background-color: ${otherWhite};
@@ -372,7 +358,7 @@ export const Text = styled.div`
 export const HeaderTitle = styled.h3`
   ${ellipsisStyles}
   font: ${subheading2};
-  color: ${opaqueBlack54};
+  color: ${textSecondary};
   max-width: 45vw;
   ${mediaQuery.tablet`
      max-width: 27vw;
@@ -386,7 +372,7 @@ export const HeaderTitle = styled.h3`
 export const StyledSubHeader = styled.h2`
   font: ${title1};
   font-weight: 600;
-  color: ${opaqueBlack54};
+  color: ${textSecondary};
   text-align: center;
   margin-top: ${units(2)};
 `;
@@ -479,7 +465,7 @@ export const AlignOpposite = styled.div`
 export const StyledIconButton = styled(IconButton)`
   font-size: 20px !important;
   svg {
-    color: ${opaqueBlack38} !important;
+    color: ${textDisabled} !important;
     margin: 0!important;
   }
 `;

@@ -29,9 +29,9 @@ import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import {
   units,
-  opaqueBlack38,
-  opaqueBlack54,
-  opaqueBlack87,
+  textDisabled,
+  textSecondary,
+  textPrimary,
   caption,
   breakWordStyles,
   grayBorderMain,
@@ -71,7 +71,7 @@ const StyledAnnotationWrapper = styled.section`
   }
 
   .annotation__timestamp {
-    color: ${opaqueBlack38};
+    color: ${textDisabled};
     display: inline;
     flex: 1;
     white-space: pre;
@@ -80,12 +80,12 @@ const StyledAnnotationWrapper = styled.section`
 `;
 
 const StyledAnnotationMetadata = styled(Row)`
-  color: ${opaqueBlack54};
+  color: ${textSecondary};
   flex-flow: wrap row;
   font: ${caption};
 
   .annotation__card-author {
-    color: ${opaqueBlack87};
+    color: ${textPrimary};
     padding-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
   }
 `;
@@ -186,7 +186,7 @@ class Comment extends Component {
             <MenuItem>
               <a
                 href={`#annotation-${annotation.dbid}`}
-                style={{ textDecoration: 'none', color: opaqueBlack87 }}
+                style={{ textDecoration: 'none', color: textPrimary }}
               >
                 <FormattedMessage
                   id="annotation.permalink"

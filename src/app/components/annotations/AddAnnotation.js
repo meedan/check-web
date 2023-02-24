@@ -18,7 +18,7 @@ import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import UploadFile from '../UploadFile';
-import { Row, opaqueBlack38, opaqueBlack87, units } from '../../styles/js/shared';
+import { Row, textDisabled, textPrimary, units } from '../../styles/js/shared';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
@@ -337,9 +337,9 @@ class AddAnnotation extends Component {
       justify-content: flex-end;
       .add-annotation__insert-photo {
         svg {
-          path { color: ${opaqueBlack38}; }
+          path { color: ${textDisabled}; }
           &:hover path {
-            color: ${opaqueBlack87};
+            color: ${textPrimary};
             cusor: pointer;
           }
         }

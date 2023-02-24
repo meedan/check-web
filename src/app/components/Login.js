@@ -17,7 +17,7 @@ import { getErrorObjects } from '../helpers';
 import CheckError from '../CheckError';
 import {
   units,
-  opaqueBlack54,
+  textSecondary,
   StyledSubHeader,
   StyledCard,
   brandMain,
@@ -35,7 +35,7 @@ const styles = {
   },
   secondaryButton: {
     display: 'block',
-    color: opaqueBlack54,
+    color: textSecondary,
     maxWidth: units(26),
     margin: `${units(2)} auto`,
   },

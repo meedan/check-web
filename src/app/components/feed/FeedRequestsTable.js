@@ -28,22 +28,22 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import SearchKeyword from '../search/SearchKeyword';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { opaqueBlack03, opaqueBlack87 } from '../../styles/js/shared';
+import { grayBackground, textPrimary } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   root: {
     cursor: 'pointer',
-    background: opaqueBlack03,
+    background: grayBackground,
     textDecoration: 'none',
     height: '96px',
     '&:hover': {
       boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
-      background: opaqueBlack03,
+      background: grayBackground,
       transform: 'scale(1)',
     },
   },
   pager: {
-    color: opaqueBlack87,
+    color: textPrimary,
     fontSize: 'larger',
     fontWeight: 'bolder',
     textAlign: 'center',

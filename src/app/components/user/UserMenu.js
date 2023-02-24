@@ -8,7 +8,7 @@ import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
 import {
   Text,
-  opaqueBlack54,
+  textSecondary,
   units,
   body1,
 } from '../../styles/js/shared';
@@ -52,7 +52,7 @@ export default class UserMenu extends React.Component {
                     {user ? user.name : null}
                   </span>
                   {role ? (
-                    <span className="user-menu__role" style={{ color: opaqueBlack54, marginLeft: units(1) }}>
+                    <span className="user-menu__role" style={{ color: textSecondary, marginLeft: units(1) }}>
                       <LocalizedRole role={role} />
                     </span>
                   ) : null}

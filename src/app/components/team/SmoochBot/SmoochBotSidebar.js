@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import Divider from '@material-ui/core/Divider';
 import { labels, labelsV2 } from './localizables';
-import { brandMain, opaqueBlack54 } from '../../../styles/js/shared';
+import { brandMain, textSecondary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   selected: {
@@ -14,8 +14,8 @@ const useStyles = makeStyles(theme => ({
     color: brandMain,
   },
   notSelected: {
-    borderColor: opaqueBlack54,
-    color: opaqueBlack54,
+    borderColor: textSecondary,
+    color: textSecondary,
   },
   root: {
     borderRadius: 4,
