@@ -32,8 +32,7 @@ export const typography = `
     font: ${body1};
   }
 
-  h1,
-  .main-title {
+  h1 {
     color: ${black87};
     font: ${title1};
   }
