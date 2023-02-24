@@ -38,18 +38,18 @@ import globalStrings from '../../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import {
   Column,
-  checkBlue,
-  completedGreen,
-  alertRed,
-  brandSecondary,
+  brandMain,
+  validationMain,
+  errorMain,
+  brandBorder,
   black54,
-  brandBackgroundCDS,
+  brandBackground,
 } from '../../../styles/js/shared';
 import BulkArchiveProjectMediaMutation from '../../../relay/mutations/BulkArchiveProjectMediaMutation';
 
 const useStyles = makeStyles(theme => ({
   containerBox: {
-    backgroundColor: brandBackgroundCDS,
+    backgroundColor: brandBackground,
     borderRadius: theme.spacing(2),
     position: 'relative',
   },
@@ -71,24 +71,24 @@ const useStyles = makeStyles(theme => ({
     right: 0,
   },
   helpIcon: {
-    color: checkBlue,
+    color: brandMain,
   },
   disabled: {
     opacity: 0.5,
   },
   accept: {
-    color: completedGreen,
+    color: validationMain,
     padding: theme.spacing(0.5),
   },
   reject: {
-    color: alertRed,
+    color: errorMain,
     padding: theme.spacing(0.5),
   },
   spamTrash: {
     padding: theme.spacing(0.5),
   },
   media: {
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: 8,
     color: 'black',
     backgroundColor: 'white',
@@ -108,7 +108,7 @@ const useStyles = makeStyles(theme => ({
     color: black54,
   },
   suggestionsNoMediaBox: {
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),
@@ -118,7 +118,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'right',
   },
   card: {
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(2),
     color: 'black',
     backgroundColor: 'white',

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MediaRelationship from './MediaRelationship';
 import MediaItem from './MediaItem'; // eslint-disable-line no-unused-vars
 import { can } from '../../Can';
-import { brandLightCDS } from '../../../styles/js/shared';
+import { brandLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     top: -theme.spacing(2.5),
     left: -theme.spacing(2),
     opacity: 0,
-    background: brandLightCDS,
+    background: brandLight,
     height: 0,
     width: `calc(100% + ${theme.spacing(4)}px)`,
     display: 'block',

@@ -9,7 +9,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import ParsedText from '../../ParsedText';
 import ReportDesignerImagePreview from './ReportDesignerImagePreview';
 import { formatDate } from './reportDesignerHelpers';
-import { alertRed, opaqueBlack87 } from '../../../styles/js/shared';
+import { errorMain, opaqueBlack87 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     fontSize: '80px',
-    color: alertRed,
+    color: errorMain,
   },
 }));
 

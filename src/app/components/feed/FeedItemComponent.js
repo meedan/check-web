@@ -35,9 +35,10 @@ import NextPreviousLinks from '../media/NextPreviousLinks';
 import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 import {
-  backgroundMain,
+  brandBackground,
+  brandBorder,
   brandSecondary,
-  checkBlue,
+  brandMain,
   opaqueBlack54,
   opaqueBlack38,
   Column,
@@ -48,18 +49,18 @@ import { withSetFlashMessage } from '../FlashMessage';
 const defaultImage = '/images/image_placeholder.svg';
 const useStyles = makeStyles(theme => ({
   main: {
-    backgroundColor: backgroundMain,
+    backgroundColor: brandBackground,
   },
   claimsColumn: {
     backgroundColor: 'white',
-    borderRight: `1px solid ${brandSecondary}`,
+    borderRight: `1px solid ${brandBorder}`,
     width: 360,
     minWidth: 360,
     maxWidth: 360,
   },
   middleColumn: {
     backgroundColor: 'white',
-    borderRight: `1px solid ${brandSecondary}`,
+    borderRight: `1px solid ${brandBorder}`,
   },
   mediasColumn: {
     width: 590,
@@ -73,13 +74,13 @@ const useStyles = makeStyles(theme => ({
     height: 80,
     width: 80,
     objectFit: 'cover',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     float: 'left',
     marginRight: theme.spacing(1),
   },
   cardMain: {
     boxShadow: 'none',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
@@ -87,7 +88,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardDetail: {
     boxShadow: 'none',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
@@ -155,7 +156,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   teamName: {
-    color: checkBlue,
+    color: brandMain,
   },
   boxes: {
     gap: `${theme.spacing(1)}px`,

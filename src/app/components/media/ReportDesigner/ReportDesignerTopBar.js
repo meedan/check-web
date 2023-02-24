@@ -15,17 +15,17 @@ import IconPause from '@material-ui/icons/Pause';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import MediaStatus from '../MediaStatus';
-import { completedGreen, inProgressYellow, brandSecondary, checkBlue } from '../../../styles/js/shared';
+import { validationMain, alertMain, brandSecondary, brandMain } from '../../../styles/js/shared';
 import { getStatus } from '../../../helpers';
 import { languageLabel } from '../../../LanguageRegistry';
 
 const useStyles = makeStyles(theme => ({
   publish: {
-    background: completedGreen,
+    background: validationMain,
     color: 'white',
   },
   pause: {
-    background: inProgressYellow,
+    background: alertMain,
     color: 'white',
   },
   confirmation: {
@@ -41,9 +41,9 @@ const useStyles = makeStyles(theme => ({
   correctionLink: {
     display: 'inline-flex',
     gap: `${theme.spacing(0.5)}px`,
-    color: checkBlue,
+    color: brandMain,
     '&:visited': {
-      color: checkBlue,
+      color: brandMain,
     },
     '&:hover': {
       textDecoration: 'none',

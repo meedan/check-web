@@ -7,7 +7,7 @@ import HelpIcon from '@material-ui/icons/HelpOutline';
 import { languageLabel } from '../../../LanguageRegistry';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
 import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
-import { checkBlue } from '../../../styles/js/shared';
+import { brandMain } from '../../../styles/js/shared';
 
 const messages = defineMessages({
   privacyStatement: {
@@ -87,7 +87,7 @@ const SmoochBotMainMenu = ({
             />
           </Typography>
           <a href="https://help.checkmedia.org/en/articles/5982401-tipline-bot-settings" target="_blank" rel="noopener noreferrer">
-            <HelpIcon style={{ color: checkBlue }} />
+            <HelpIcon style={{ color: brandMain }} />
           </a>
         </Box> : null }
       <Typography component="div" variant="subtitle2" paragraph>

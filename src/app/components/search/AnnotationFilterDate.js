@@ -5,7 +5,7 @@ import { DatePicker } from '@material-ui/pickers';
 import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import { FlexRow, units, opaqueBlack07, checkBlue } from '../../styles/js/shared';
+import { FlexRow, units, opaqueBlack07, brandMain } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 const StyledCloseIcon = withStyles({
@@ -30,7 +30,7 @@ const StyledInputBaseDate = withStyles(theme => ({
 
 const Styles = {
   dateRangeFilterSelected: {
-    backgroundColor: checkBlue,
+    backgroundColor: brandMain,
     color: 'white',
     height: 24,
     margin: '6px 3px',

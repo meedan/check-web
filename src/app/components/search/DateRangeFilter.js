@@ -13,7 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import CloseIcon from '@material-ui/icons/Close';
 import RemoveableWrapper from './RemoveableWrapper';
-import { FlexRow, units, opaqueBlack07, checkBlue } from '../../styles/js/shared';
+import { FlexRow, units, opaqueBlack07, brandMain } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 const StyledCloseIcon = withStyles({
@@ -54,11 +54,11 @@ const StyledInputBaseDropdown = withStyles(theme => ({
     },
   },
   input: {
-    backgroundColor: checkBlue,
+    backgroundColor: brandMain,
     color: 'white',
     paddingLeft: theme.spacing(1),
     '&:focus': {
-      backgroundColor: checkBlue,
+      backgroundColor: brandMain,
       borderRadius: 4,
     },
     padding: '4px 0 4px',
@@ -73,7 +73,7 @@ const Styles = {
     padding: '0 4px 0 0',
   },
   dateRangeFilterSelected: {
-    backgroundColor: checkBlue,
+    backgroundColor: brandMain,
     color: 'white',
     height: 'auto',
     borderRadius: 4,

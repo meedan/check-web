@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import MediaExpanded from './MediaExpanded';
 
 import {
-  brandSecondary,
+  brandBorder,
 } from '../../styles/js/shared';
 
 const StyledMainCard = styled.div`
   .media-detail {
     box-shadow: none;
-    border: 1px solid ${brandSecondary};
+    border: 1px solid ${brandBorder};
     border-radius: 8px;
   }
 `;

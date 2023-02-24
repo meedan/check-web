@@ -19,7 +19,7 @@ import {
 } from './reportDesignerHelpers';
 import { getStatus, getStatusStyle, safelyParseJSON } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
-import { checkBlue, backgroundMain } from '../../../styles/js/shared';
+import { brandMain, brandBackground } from '../../../styles/js/shared';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     height: 'calc(100vh - 60px)',
     overflow: 'auto',
     padding: theme.spacing(2),
-    backgroundColor: backgroundMain,
+    backgroundColor: brandBackground,
   },
   preview: {
     borderRight: '1px solid #DFE4F4',
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   helpIcon: {
-    color: checkBlue,
+    color: brandMain,
   },
 }));
 

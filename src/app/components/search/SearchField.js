@@ -16,7 +16,7 @@ import { MediaPreview } from '../feed/MediaPreview';
 import {
   black16,
   borderWidthLarge,
-  checkBlue,
+  brandMain,
 } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     border: `${borderWidthLarge} solid ${black16}`,
   },
   inputActive: {
-    border: `${borderWidthLarge} solid ${checkBlue}`,
+    border: `${borderWidthLarge} solid ${brandMain}`,
   },
   startAdornmentRoot: {
     display: 'flex',

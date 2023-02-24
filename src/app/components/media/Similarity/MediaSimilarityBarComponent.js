@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import {
-  brandSecondary,
-  backgroundMain,
+  brandBorder,
+  grayBackground,
 } from '../../../styles/js/shared';
 import MediaSimilarityBarAdd from './MediaSimilarityBarAdd';
 import CounterButton from '../../cds/buttons-checkboxes-chips/CounterButton';
@@ -15,10 +15,11 @@ const useStyles = makeStyles(theme => ({
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     margin: theme.spacing(-2),
     marginBottom: theme.spacing(2),
-    borderBottom: `1px solid ${brandSecondary}`,
+    borderBottom: `1px solid ${brandBorder}`,
+    borderTop: `1px solid ${brandBorder}`,
     position: 'sticky',
     top: theme.spacing(-2),
-    background: backgroundMain,
+    background: grayBackground,
     zIndex: 200,
   },
   spacing: {

@@ -23,8 +23,8 @@ import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import {
   units,
   black16,
-  separationGray,
-  checkBlue,
+  grayBorderMain,
+  brandMain,
 } from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
@@ -37,7 +37,7 @@ const StyledWordBreakDiv = styled.div`
   .task {
     box-shadow: none;
     border: 0;
-    border-bottom: 1px solid ${separationGray};
+    border-bottom: 1px solid ${grayBorderMain};
     border-radius: 0;
     margin-bottom: 0 !important;
 
@@ -95,7 +95,7 @@ const StyledMultiselect = styled.div`
     color: black;
   }
   .Mui-checked {
-    color: ${checkBlue} !important;
+    color: ${brandMain} !important;
   }
 `;
 

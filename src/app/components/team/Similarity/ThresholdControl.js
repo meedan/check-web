@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Slider from '@material-ui/core/Slider';
 import TextField from '@material-ui/core/TextField';
-import { alertRed } from '../../../styles/js/shared';
+import { errorMain } from '../../../styles/js/shared';
 
 const styles = theme => ({
   textFieldRoot: {
@@ -17,7 +17,7 @@ const styles = theme => ({
     maxWidth: theme.spacing(30),
   },
   error: {
-    color: alertRed,
+    color: errorMain,
   },
 });
 
@@ -68,7 +68,7 @@ const ThresholdControl = ({
         onChange={(e, newValue) => onChange(newValue)}
       />
     </Box>
-    <Box color={alertRed} my={1}>
+    <Box color={errorMain} my={1}>
       { error ?
         <FormattedMessage
           data-testid="threshold-control__error-message"

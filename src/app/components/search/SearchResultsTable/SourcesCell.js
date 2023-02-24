@@ -4,14 +4,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import ValueListCell from './ValueListCell';
 import { urlFromSearchQuery } from '../../search/Search';
 import { safelyParseJSON, truncateLength } from '../../../helpers';
-import { checkBlue } from '../../../styles/js/shared';
+import { brandMain } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
   source: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: checkBlue,
+    color: brandMain,
     textDecoration: 'underline',
   },
 });

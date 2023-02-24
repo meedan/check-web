@@ -11,7 +11,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { MultiSelector } from '@meedan/check-ui';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
-import { checkBlue, checkError } from '../../styles/js/shared';
+import { brandMain, errorMain } from '../../styles/js/shared';
 
 const NoHoverButton = withStyles({
   root: {
@@ -52,7 +52,7 @@ const useTagStyles = makeStyles({
     margin: '2px',
     lineHeight: '22px',
     color: 'white',
-    backgroundColor: checkBlue,
+    backgroundColor: brandMain,
     borderRadius: '4px',
     boxSizing: 'content-box',
     padding: '0 8px 0 8px',
@@ -76,7 +76,7 @@ const useTagStyles = makeStyles({
     },
   },
   missingProperty: {
-    backgroundColor: checkError,
+    backgroundColor: errorMain,
   },
 });
 

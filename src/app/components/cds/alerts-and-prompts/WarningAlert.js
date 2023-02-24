@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import {
-  alertLightCDS,
-  alertSecondaryCDS,
-  alertMainCDS,
+  alertLight,
+  alertSecondary,
+  alertMain,
 } from '../../../styles/js/shared';
 import Alert from './Alert';
 
@@ -12,9 +12,9 @@ const WarningAlert = ({ title, content }) => (
   <Alert
     title={title}
     content={content}
-    primaryColor={alertLightCDS}
-    secondaryColor={alertSecondaryCDS}
-    icon={<ErrorOutlineIcon style={{ color: alertMainCDS }} />}
+    primaryColor={alertLight}
+    secondaryColor={alertSecondary}
+    icon={<ErrorOutlineIcon style={{ color: alertMain }} />}
   />
 );
 

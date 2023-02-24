@@ -9,18 +9,18 @@ import TeamTasksProject from './TeamTasksProject';
 import SettingsHeader from './SettingsHeader';
 import CreateTeamTask from './CreateTeamTask';
 import BlankState from '../layout/BlankState';
-import { backgroundMain, ContentColumn } from '../../styles/js/shared';
+import { grayBackground, ContentColumn } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: `${backgroundMain}`,
+    backgroundColor: `${grayBackground}`,
     display: 'flex',
     minHeight: 224,
     marginBottom: 50,
   },
   tabs: {
-    backgroundColor: `${backgroundMain}`,
+    backgroundColor: `${grayBackground}`,
     marginRight: theme.spacing(5),
     marginTop: theme.spacing(2),
   },

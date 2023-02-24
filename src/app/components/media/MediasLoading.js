@@ -8,7 +8,7 @@ import {
   black05,
   borderWidthSmall,
   defaultBorderRadius,
-  white,
+  otherWhite,
 } from '../../styles/js/shared';
 
 const gridUnit = units(1.5);
@@ -28,7 +28,7 @@ const StyledLoadingInner = styled(ContentColumn)`
 `;
 
 const StyledLoadingCard = styled.div`
-  background: ${white};
+  background: ${otherWhite};
   border: ${borderWidthSmall} solid ${black05};
   border-radius: ${defaultBorderRadius};
   margin: ${gridUnit} 0;

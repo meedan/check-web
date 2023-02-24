@@ -34,9 +34,9 @@ import {
   black87,
   caption,
   breakWordStyles,
-  separationGray,
+  grayBorderMain,
   Row,
-  checkBlue,
+  brandMain,
 } from '../../styles/js/shared';
 
 const StyledAnnotationCardWrapper = styled.div`
@@ -232,7 +232,7 @@ class Comment extends Component {
                 href={commentContent.file_path}
                 target="_blank"
                 rel="noreferrer noopener"
-                color={checkBlue}
+                color={brandMain}
                 className="annotation__card-file"
               >
                 {commentContent.file_name}
@@ -250,7 +250,7 @@ class Comment extends Component {
         <StyledAnnotationCardWrapper>
           <Box
             py={2}
-            borderBottom={`1px ${separationGray} solid`}
+            borderBottom={`1px ${grayBorderMain} solid`}
             className="annotation__card-text annotation__card-activity-comment"
           >
             { authorName ?

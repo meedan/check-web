@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import {
-  validationLightCDS,
-  validationSecondaryCDS,
+  validationLight,
+  validationSecondary,
 } from '../../../styles/js/shared';
 import Alert from './Alert';
 
@@ -11,9 +11,9 @@ const SuccessAlert = ({ title, content }) => (
   <Alert
     title={title}
     content={content}
-    primaryColor={validationLightCDS}
-    secondaryColor={validationSecondaryCDS}
-    icon={<CheckCircleOutlineOutlinedIcon style={{ color: validationSecondaryCDS }} />}
+    primaryColor={validationLight}
+    secondaryColor={validationSecondary}
+    icon={<CheckCircleOutlineOutlinedIcon style={{ color: validationSecondary }} />}
   />
 );
 

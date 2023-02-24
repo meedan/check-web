@@ -6,8 +6,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import {
-  brandSecondaryCDS,
-  brandMainCDS,
+  brandSecondary,
+  brandMain,
   textPrimary,
 } from '../../../styles/js/shared';
 
@@ -16,18 +16,18 @@ const useStyles = makeStyles({
     display: 'block',
     padding: '0 8px',
     '&:hover': {
-      color: brandSecondaryCDS,
+      color: brandSecondary,
       backgroundColor: 'inherit',
     },
     '&:active': {
-      color: brandMainCDS,
+      color: brandMain,
     },
   },
   zeroCount: {
     color: textPrimary,
   },
   moreThanZeroCount: {
-    color: brandMainCDS,
+    color: brandMain,
   },
 });
 

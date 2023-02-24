@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
+import { brandMain, alertMain } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
   tableCell: {
@@ -17,10 +17,10 @@ const useStyles = makeStyles({
     fontSize: 12,
   },
   noFactCheck: {
-    background: inProgressYellow,
+    background: alertMain,
   },
   more: {
-    background: checkBlue,
+    background: brandMain,
   },
 });
 

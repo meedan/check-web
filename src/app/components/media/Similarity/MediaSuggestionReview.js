@@ -19,8 +19,8 @@ import {
 } from '@material-ui/icons';
 import {
   brandSecondary,
-  completedGreen,
-  alertRed,
+  validationMain,
+  errorMain,
 } from '../../../styles/js/shared.js';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
@@ -47,11 +47,11 @@ const useStyles = makeStyles(theme => ({
     float: 'right',
   },
   accept: {
-    color: completedGreen,
+    color: validationMain,
     padding: '4px',
   },
   reject: {
-    color: alertRed,
+    color: errorMain,
     padding: '4px',
   },
 }));

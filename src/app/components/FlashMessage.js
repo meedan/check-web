@@ -9,7 +9,7 @@ import reactStringReplace from 'react-string-replace';
 import Message from './Message';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
-import { checkBlue, white, black54 } from '../styles/js/shared';
+import { brandMain, otherWhite, black54 } from '../styles/js/shared';
 
 /**
  * A global message, already translated for the user.
@@ -68,7 +68,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
 
 const useSnackBarStyles = makeStyles({
   info: {
-    backgroundColor: `${checkBlue} !important`,
+    backgroundColor: `${brandMain} !important`,
   },
   icon: {
     color: 'white !important',
@@ -83,7 +83,7 @@ const useSnackBarStyles = makeStyles({
       alignItems: 'flex-start',
     },
     '& a': {
-      color: white,
+      color: otherWhite,
       textDecoration: 'underline',
       cursor: 'pointer',
       '&:not([href])': {
@@ -94,7 +94,7 @@ const useSnackBarStyles = makeStyles({
         textDecoration: 'underline',
       },
       '&:visited': {
-        color: white,
+        color: otherWhite,
       },
       '&:hover': {
         color: black54,
@@ -147,10 +147,10 @@ const useStyles = makeStyles({
     zIndex: '1000',
   },
   link: {
-    color: white,
+    color: otherWhite,
     textDecoration: 'underline',
     '&:visited': {
-      color: white,
+      color: otherWhite,
     },
   },
 });

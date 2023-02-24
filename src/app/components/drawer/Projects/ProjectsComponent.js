@@ -30,7 +30,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import Can from '../../Can';
-import { brandSecondary } from '../../../styles/js/shared';
+import { brandLight } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const useStyles = makeStyles(theme => ({
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: 0,
   },
   projectsComponentCollectionExpanded: {
-    background: brandSecondary,
+    background: brandLight,
   },
   projectsComponentNestedList: {
     paddingLeft: theme.spacing(3),
