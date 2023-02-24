@@ -23,7 +23,6 @@ import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import {
   units,
   grayBorderMain,
-  grayBorderMain,
   brandMain,
 } from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
