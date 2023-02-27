@@ -105,7 +105,7 @@ class MediaActionsMenuButton extends React.PureComponent {
             onClick={e => this.handleActionAndClose(e, handleStatusLock)}
           >
             <ListItemText
-              primary={projectMedia.last_status_obj.locked ?
+              primary={projectMedia.last_status_obj?.locked ?
                 <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
                 <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
             />
