@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
   otherWhite,
-  black54,
+  textSecondary,
   gutterSmall,
   gutterMedium,
   gutterLarge,
@@ -12,7 +12,7 @@ import {
 } from '../styles/js/shared';
 
 const StyledMessage = styled(FadeIn)`
-  background: ${black54};
+  background: ${textSecondary};
   border-radius: ${defaultBorderRadius};
   color: ${otherWhite};
   margin: ${gutterMedium} auto;

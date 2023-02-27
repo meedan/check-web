@@ -22,7 +22,6 @@ import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMuta
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import {
   units,
-  black16,
   grayBorderMain,
   brandMain,
 } from '../../styles/js/shared';
@@ -65,7 +64,7 @@ const StyledWordBreakDiv = styled.div`
 
 const StyledTaskResponses = styled.div`
   .task__resolved {
-    border-bottom: 1px solid ${black16};
+    border-bottom: 1px solid ${grayBorderMain};
     padding-bottom: ${units(1)};
     margin-bottom: ${units(1)};
   }

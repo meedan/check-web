@@ -22,7 +22,7 @@ import globalStrings from '../../globalStrings';
 import {
   ContentColumn,
   units,
-  opaqueBlack10,
+  grayBorderMain,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -223,7 +223,7 @@ class UserSecurity extends Component {
       lineHeight: units(3),
       fontWeight: 'bold',
       fontSize: units(1.5),
-      backgroundColor: opaqueBlack10,
+      backgroundColor: grayBorderMain,
       margin: '5px',
       textAlign: 'center',
     };

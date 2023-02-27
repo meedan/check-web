@@ -1,7 +1,6 @@
 import {
   otherWhite,
   body1,
-  black87,
   title1,
   subheading1,
   textLink,
@@ -32,14 +31,13 @@ export const typography = `
     font: ${body1};
   }
 
-  h1,
-  .main-title {
-    color: ${black87};
+  h1 {
+    color: ${textPrimary};
     font: ${title1};
   }
 
   h2 {
-    color: ${black87};
+    color: ${textPrimary};
     font: ${subheading1};
   }
 

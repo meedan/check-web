@@ -20,7 +20,7 @@ import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { black87, black54, headline, units, Row, textSecondary } from '../../styles/js/shared';
+import { textPrimary, textSecondary, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
@@ -52,7 +52,7 @@ const StyledListHeader = styled.div`
 
 const StyledSearchResultsWrapper = styled.div`
   .search__results-heading {
-    color: ${black87};
+    color: ${textPrimary};
     font-size: larger;
     font-weight: bolder;
     text-align: center;
@@ -63,7 +63,7 @@ const StyledSearchResultsWrapper = styled.div`
       padding: 0 ${units(1)};
       display: flex;
       cursor: pointer;
-      color: ${black87};
+      color: ${textPrimary};
 
       &:first-child {
         padding-left: 0;
@@ -71,7 +71,7 @@ const StyledSearchResultsWrapper = styled.div`
     }
 
     .search__button-disabled {
-      color: ${black54};
+      color: ${textSecondary};
       cursor: default;
     }
   }

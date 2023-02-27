@@ -5,7 +5,7 @@ import {
   ContentColumn,
   FadeIn,
   Shimmer,
-  black05,
+  grayDisabledBackground,
   borderWidthSmall,
   defaultBorderRadius,
   otherWhite,
@@ -29,7 +29,7 @@ const StyledLoadingInner = styled(ContentColumn)`
 
 const StyledLoadingCard = styled.div`
   background: ${otherWhite};
-  border: ${borderWidthSmall} solid ${black05};
+  border: ${borderWidthSmall} solid ${grayDisabledBackground};
   border-radius: ${defaultBorderRadius};
   margin: ${gridUnit} 0;
   min-height: ${units(11)};

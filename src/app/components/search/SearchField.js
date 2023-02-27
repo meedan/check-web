@@ -14,7 +14,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { Clear as ClearIcon } from '@material-ui/icons';
 import { MediaPreview } from '../feed/MediaPreview';
 import {
-  black16,
+  grayBorderMain,
   borderWidthLarge,
   brandMain,
 } from '../../styles/js/shared';
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
   },
   inputInactive: {
-    border: `${borderWidthLarge} solid ${black16}`,
+    border: `${borderWidthLarge} solid ${grayBorderMain}`,
   },
   inputActive: {
     border: `${borderWidthLarge} solid ${brandMain}`,
