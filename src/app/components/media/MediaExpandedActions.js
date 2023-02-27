@@ -27,7 +27,7 @@ const ExtraMediaActions = ({
   const isUploadedAudio = projectMedia.media.type === 'UploadedAudio';
   const isYoutubeVideo = projectMedia.media.type === 'Link' && projectMedia.media.metadata.provider === 'youtube';
   const isUploadedVideo = projectMedia.media.type === 'UploadedVideo';
-  const isPicture = !!projectMedia.picture;
+  const isPicture = !!projectMedia.picture && !isYoutubeVideo;
   const isVideo = isYoutubeVideo || isUploadedVideo;
   const allowsReverseSearch = isPicture || isVideo;
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -69,7 +69,7 @@ const ExtraMediaActions = ({
   };
   let menuLabel = null;
   if (isPicture) menuLabel = labelObj.image;
-  if (isVideo) menuLabel = labelObj.video;
+  if (isVideo && !isYoutubeVideo) menuLabel = labelObj.video;
   if (isUploadedAudio) menuLabel = labelObj.audio;
   if (!menuLabel) return null;
 
