@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import CreateProjectMedia from '../media/CreateMedia';
 import ViewModeSwitcher from './ViewModeSwitcher';
 import Can from '../Can';
-import { otherWhite, black87, units, Row, FlexRow } from '../../styles/js/shared';
+import { otherWhite, textPrimary, units, Row, FlexRow } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
   background-color: ${otherWhite};
@@ -15,7 +15,7 @@ const StyledToolbar = styled.div`
   margin: 0;
 
   .toolbar__title {
-    color: ${black87};
+    color: ${textPrimary};
     margin: ${units(2)};
   }
 `;

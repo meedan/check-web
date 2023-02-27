@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
 import BlankState from '../layout/BlankState';
-import { units, opaqueBlack16, borderWidthMedium } from '../../styles/js/shared';
+import { units, grayBorderMain, borderWidthMedium } from '../../styles/js/shared';
 
 const StyledAnnotations = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const StyledAnnotations = styled.div`
       ${prop => prop.noLink ? null : `
         // The timeline line
         &::before {
-          background-color: ${opaqueBlack16};
+          background-color: ${grayBorderMain};
           content: '';
           display: block;
           position: absolute;

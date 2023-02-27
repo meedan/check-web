@@ -9,7 +9,7 @@ import reactStringReplace from 'react-string-replace';
 import Message from './Message';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
-import { brandMain, otherWhite, black54 } from '../styles/js/shared';
+import { brandMain, otherWhite, textSecondary } from '../styles/js/shared';
 
 /**
  * A global message, already translated for the user.
@@ -90,14 +90,14 @@ const useSnackBarStyles = makeStyles({
         textDecoration: 'underline',
       },
       '&:not([href]):hover': {
-        color: black54,
+        color: textSecondary,
         textDecoration: 'underline',
       },
       '&:visited': {
         color: otherWhite,
       },
       '&:hover': {
-        color: black54,
+        color: textSecondary,
       },
     },
   },

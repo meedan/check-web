@@ -15,7 +15,7 @@ import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import NotFound from '../NotFound';
 import ProjectActions from '../drawer/Projects/ProjectActions';
-import { units, black32 } from '../../styles/js/shared';
+import { units, grayBorderAccent } from '../../styles/js/shared';
 
 class ProjectComponent extends React.PureComponent {
   componentDidMount() {
@@ -95,7 +95,7 @@ class ProjectComponent extends React.PureComponent {
               { project.privacy > 0 ?
                 <div
                   style={{
-                    color: black32,
+                    color: grayBorderAccent,
                     display: 'flex',
                     alignItems: 'center',
                     fontSize: 14,

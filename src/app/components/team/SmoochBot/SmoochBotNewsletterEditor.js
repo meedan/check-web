@@ -20,7 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { getTimeZones } from '@vvo/tzdb';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import { placeholders } from './localizables';
-import { opaqueBlack38, opaqueBlack23 } from '../../../styles/js/shared';
+import { textDisabled, textPlaceholder } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
 import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
 import SuccessAlert from '../../cds/alerts-and-prompts/SuccessAlert';
@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
     color: 'black',
   },
   bullet: {
-    color: opaqueBlack38,
+    color: textDisabled,
     fontSize: theme.spacing(2),
     marginRight: theme.spacing(1),
     height: theme.spacing(7),
@@ -82,12 +82,12 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   bulletRss: {
-    color: opaqueBlack38,
+    color: textDisabled,
     fontSize: theme.spacing(2),
     marginRight: theme.spacing(1),
   },
   textField: {
-    border: `1px solid ${opaqueBlack23}`,
+    border: `1px solid ${textPlaceholder}`,
     borderRadius: theme.spacing(0.5),
   },
   bulletPoints: {

@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import { brandMain, opaqueBlack23 } from '../../../styles/js/shared';
+import { brandMain, textPlaceholder } from '../../../styles/js/shared';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
 
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   box: {
-    border: `2px solid ${opaqueBlack23}`,
+    border: `2px solid ${textPlaceholder}`,
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     borderRadius: 4,

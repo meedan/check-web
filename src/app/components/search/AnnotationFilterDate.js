@@ -5,7 +5,7 @@ import { DatePicker } from '@material-ui/pickers';
 import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import { FlexRow, units, opaqueBlack07, brandMain } from '../../styles/js/shared';
+import { FlexRow, units, grayDisabledBackground, brandMain } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 const StyledCloseIcon = withStyles({
@@ -20,7 +20,7 @@ const StyledCloseIcon = withStyles({
 
 const StyledInputBaseDate = withStyles(theme => ({
   root: {
-    backgroundColor: opaqueBlack07,
+    backgroundColor: grayDisabledBackground,
     padding: `0 ${theme.spacing(0.5)}px`,
     height: theme.spacing(4.5),
     fontSize: 14,
@@ -103,7 +103,7 @@ class AnnotationFilterDate extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div style={{ background: opaqueBlack07 }}>
+      <div style={{ background: grayDisabledBackground }}>
         <FlexRow>
           <DatePicker
             onChange={this.handleChangeStartDate}
