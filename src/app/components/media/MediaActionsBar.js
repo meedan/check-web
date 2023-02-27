@@ -199,8 +199,8 @@ class MediaActionsBarComponent extends Component {
       parent_type: 'project_media',
       annotated: media,
       annotation: {
-        status_id: media.last_status_obj.id,
-        locked: !media.last_status_obj.locked,
+        status_id: media.last_status_obj?.id,
+        locked: !media.last_status_obj?.locked,
       },
     };
 
@@ -310,7 +310,7 @@ class MediaActionsBarComponent extends Component {
               media={media}
               readonly={(
                 (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
-                media.last_status_obj.locked ||
+                media.last_status_obj?.locked ||
                 published
               )}
             /> : null
