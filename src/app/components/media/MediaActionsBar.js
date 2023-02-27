@@ -269,7 +269,7 @@ class MediaActionsBarComponent extends Component {
     });
 
     const selected = [];
-    if (media.last_status_obj.assignments?.edges) {
+    if (media.last_status_obj?.assignments?.edges) {
       const assignments = media.last_status_obj.assignments.edges;
       assignments.forEach((user) => {
         selected.push(user.node.dbid.toString());
