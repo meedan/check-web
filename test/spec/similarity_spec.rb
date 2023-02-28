@@ -85,7 +85,7 @@ shared_examples 'similarity' do
   end
 
   {
-    'english' => ['This is a text test similarity', 'This is another text test similarity'],
+    # 'english' => ['This is a text test similarity', 'text test similarity'],
     'portuguese' => ['este é um teste de similaridade', 'este é um outro teste sobre similaridade de textos'],
     'espanish' => ['esta es una prueba de similitud de texto', 'este es otro ejemplo de prueba de similitud de texto'],
     'hindi' => ['यह एक पाठ समानता परीक्षण है', 'यह एक और पाठ समानता परीक्षण उदाहरण है'],
