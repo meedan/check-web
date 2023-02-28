@@ -88,6 +88,10 @@ const ReportDesignerForm = (props) => {
     props.onUpdate(updates);
   };
 
+  const handleChangeColor = (event) => {
+    props.onUpdate('theme_color', event.target.value);
+  };
+
   const textFieldProps = {
     className: classes.textField,
     variant: 'outlined',
@@ -301,7 +305,7 @@ const ReportDesignerForm = (props) => {
               <Box display="flex">
                 <ColorPicker
                   color={data.theme_color}
-                  onChange={color => props.onUpdate('theme_color', color.hex)}
+                  onChange={handleChangeColor}
                 />
                 <div className={classes.spacer} />
                 <Box display="flex" flexWrap="wrap" flexGrow="1">

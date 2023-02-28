@@ -74,6 +74,10 @@ const EditStatusDialog = ({
     }
   };
 
+  const handleChangeColor = (event) => {
+    setStatusColor(event.target.value);
+  };
+
   return (
     <Dialog
       open={open}
@@ -116,7 +120,7 @@ const EditStatusDialog = ({
           <Box p={1} />
           <ColorPicker
             color={statusColor}
-            onChange={color => setStatusColor(color.hex)}
+            onChange={handleChangeColor}
           />
         </Box>
         <TextField
