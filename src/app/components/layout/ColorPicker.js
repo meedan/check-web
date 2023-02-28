@@ -1,10 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import Popover from '@material-ui/core/Popover';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { SketchPicker } from 'react-color';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   statusButton: props => ({
@@ -17,31 +16,25 @@ const useStyles = makeStyles(theme => ({
   statusButtonIcon: {
     fontSize: 32,
   },
+  input: {
+    position: 'absolute',
+    opacity: 0,
+    width: '100%',
+    height: '100%',
+  },
 }));
 
 const ColorPicker = ({ color, onChange }) => {
   const classes = useStyles({ backgroundColor: color });
-  const [colorPickerAnchorEl, setColorPickerAnchorEl] = React.useState(null);
 
   return (
     <React.Fragment>
       <IconButton
         className={classes.statusButton}
-        onClick={e => setColorPickerAnchorEl(e.currentTarget)}
       >
         <ExpandMoreIcon className={classes.statusButtonIcon} />
+        <input className={classes.input} type="color" id="head" name="head" value={color} onChange={onChange} />
       </IconButton>
-      <Popover
-        open={Boolean(colorPickerAnchorEl)}
-        anchorEl={colorPickerAnchorEl}
-        onClose={() => setColorPickerAnchorEl(null)}
-      >
-        <SketchPicker
-          color={color}
-          onChangeComplete={onChange}
-          disableAlpha
-        />
-      </Popover>
     </React.Fragment>
   );
 };
