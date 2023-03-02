@@ -47,7 +47,7 @@ const MediaCreatedBy = ({ projectMedia, intl }) => {
   const formattedChannelName = Object.keys(messages).includes(channelNameKey) ? intl.formatMessage(messages[channelNameKey]) : creatorName;
 
   return (
-    <Typography className={classes.createdBy} variant="body" component="div">
+    <Typography className={classes.createdBy} variant="body1" component="div">
       <FormattedMessage
         id="mediaCreatedBy.createdBy"
         defaultMessage="Item created by {name}"

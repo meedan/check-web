@@ -38,7 +38,7 @@ const MediaAnalysis = ({ projectMedia }) => {
         <Divider />
       </Box>
       <Box mt={2} mb={3}>
-        <Typography variant="body" component="div" paragraph>
+        <Typography variant="body1" component="div" paragraph>
           <strong>
             <FormattedMessage id="mediaAnalysis.analysis" defaultMessage="Analysis" description="Title of the media analysis bar" />
           </strong>
