@@ -222,7 +222,7 @@ const SmoochBotNewsletterEditor = ({
                   }
                 /> :
                 <Alert
-                  type="error"
+                  type="info"
                   button="true"
                   title={
                     <FormattedMessage

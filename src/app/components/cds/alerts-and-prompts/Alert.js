@@ -1,3 +1,4 @@
+/* eslint-disable-line no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,6 +21,9 @@ import {
   errorLight,
   errorMain,
   errorSecondary,
+  brandMain,
+  brandSecondary,
+  brandBackground,
 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -36,8 +40,12 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 400,
     fontSize: 14,
   },
-  buttonContent: {
-
+  closeButton: {
+    position: 'absolute',
+    left: '20.83%',
+    right: '20.83%',
+    top: '20.83%',
+    bottom: '20.83%',
   },
 }));
 
@@ -55,10 +63,10 @@ const alertTypes = {
     buttonColor: alertSecondary,
   },
   info: {
-    icon: <InfoOutlinedIcon style={{ color: alertSecondary }} />,
-    primaryColor: alertLight,
-    secondaryColor: alertSecondary,
-    buttonColor: alertSecondary,
+    icon: <InfoOutlinedIcon style={{ color: brandMain }} />,
+    primaryColor: brandBackground,
+    secondaryColor: brandSecondary,
+    // buttonColor: InfoSecondary,
   },
   error: {
     icon: <ErrorOutlineIcon style={{ color: errorMain }} />,
@@ -75,6 +83,7 @@ const Alert = ({
   button,
   dismiss,
   buttonContent,
+  shadow,
 }) => {
   // eslint-disable-next-line
   // console.log("alertType", alertType)
@@ -92,28 +101,34 @@ const Alert = ({
       <Box>
         <Typography variant="body1" className={[classes.title, 'alert-title'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
           {title}
+          { dismiss || shadow ?
+            <IconButton
+              className={classes.closeButton}
+              onClick={handleClose}
+            >
+              <IconClose />
+            </IconButton>
+            : null
+          }
         </Typography>
         { content ?
           <Typography variant="body2" className={[classes.content, 'alert-content'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
             {content}
           </Typography> : null }
         { button ?
-          <Button
-            variant="contained"
-            color="primary"
-            // color={alertTypes[type].buttonColor}
-            style={{ width: '10%' }}
-          >
-            { buttonContent }
-          </Button>
-          : null
-        }
-        { dismiss ?
-          <IconButton
-            onClick={handleClose}
-          >
-            <IconClose />
-          </IconButton>
+          <Box display="flex" justifyContent="flex-end">
+            {/* <Typography component="div" align="center"> */}
+            <Button
+              variant="contained"
+              color="primary"
+              // color={alertTypes[type].buttonColor}
+              style={{ width: '10%' }}
+            >
+              { buttonContent }
+            </Button>
+            {/* </Typography> */}
+          </Box>
+
           : null
         }
       </Box>
@@ -126,6 +141,7 @@ Alert.defaultProps = {
   button: null,
   dismiss: true,
   buttonContent: 'content',
+  shadow: '',
 };
 
 Alert.propTypes = {
@@ -133,6 +149,7 @@ Alert.propTypes = {
   content: PropTypes.object,
   button: PropTypes.object,
   dismiss: PropTypes.string,
+  shadow: PropTypes.string,
   buttonContent: PropTypes.string,
 };
 
