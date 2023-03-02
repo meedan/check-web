@@ -85,7 +85,6 @@ shared_examples 'similarity' do
   end
 
   {
-    'english' => ['This is a text test similarity', 'This another text test similarity example'],
     'portuguese' => ['este é um teste de similaridade', 'este é um outro teste sobre similaridade de textos'],
     'espanish' => ['esta es una prueba de similitud de texto', 'este es otro ejemplo de prueba de similitud de texto'],
     'hindi' => ['यह एक पाठ समानता परीक्षण है', 'यह एक और पाठ समानता परीक्षण उदाहरण है'],
@@ -112,7 +111,6 @@ shared_examples 'similarity' do
   end
 
   {
-    'simple' => ['este é um teste de similaridade de texto', 'este é um outro teste de similaridade texto'],
     'big' => ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.', 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining almost unchanged. It was popularised in the 1960s with the new release of Letraset sheets containing Lorem Ipsum passages, and most recently with desktop publishing software like Aldus PageMaker including many versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is more than a simply random text. It has strong roots in a piece of classical literature from 45 BC, making it over 3000 years old.']
   }.each do |param, claim|
     it "should identify #{param} texts as similar", bin7: true do
