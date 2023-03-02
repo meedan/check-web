@@ -3,19 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import {
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemText,
+} from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
-import ImageSearch from '@material-ui/icons/ImageSearch';
-import DownloadIcon from '@material-ui/icons/MoveToInbox';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import OcrButton from './OcrButton';
-import SensitiveContentMenuButton from './SensitiveContentMenuButton';
 import TranscriptionButton from './TranscriptionButton';
 import ExternalLink from '../ExternalLink';
 
@@ -44,45 +42,14 @@ const ExtraMediaActions = ({
     setAnchorElPlaybackSpeed(null);
   };
 
-  const labelObj = {
-    video: (
-      <FormattedMessage
-        id="mediaMetadata.videoActions"
-        defaultMessage="Video actions"
-        description="Actions menu for item of type Video"
-      />
-    ),
-    image: (
-      <FormattedMessage
-        id="mediaMetadata.imageActions"
-        defaultMessage="Image actions"
-        description="Actions menu for item of type Image"
-      />
-    ),
-    audio: (
-      <FormattedMessage
-        id="mediaMetadata.audioActions"
-        defaultMessage="Audio actions"
-        description="Actions menu for item of type Audio"
-      />
-    ),
-  };
-  let menuLabel = null;
-  if (isPicture) menuLabel = labelObj.image;
-  if (isVideo && !isYoutubeVideo) menuLabel = labelObj.video;
-  if (isUploadedAudio) menuLabel = labelObj.audio;
-  if (!menuLabel) return null;
-
   return (
     <div className="media-expanded-actions">
-      <Button
+      <IconButton
         id="media-expanded-actions__menu"
-        variant="outlined"
         onClick={e => setAnchorEl(e.currentTarget)}
-        endIcon={<KeyboardArrowDownIcon />}
       >
-        {menuLabel}
-      </Button>
+        <MoreVertIcon />
+      </IconButton>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -90,9 +57,6 @@ const ExtraMediaActions = ({
       >
         { (projectMedia.media && projectMedia.media.file_path) ?
           <MenuItem onClick={() => setAnchorEl(null)}>
-            <ListItemIcon>
-              <DownloadIcon />
-            </ListItemIcon>
             <ExternalLink
               url={projectMedia.media.file_path}
               style={{ color: 'unset', textDecoration: 'none' }}
@@ -115,9 +79,6 @@ const ExtraMediaActions = ({
             id="media-expanded-actions__reverse-image-search"
             onClick={() => handleMenuAndClose(reverseImageSearchGoogle)}
           >
-            <ListItemIcon>
-              <ImageSearch />
-            </ListItemIcon>
             <FormattedMessage
               id="mediaMetadata.ImageSearch"
               defaultMessage="Reverse image search"
@@ -126,9 +87,6 @@ const ExtraMediaActions = ({
           </MenuItem> : null }
         { (isVideo && !isYoutubeVideo) || isUploadedAudio ?
           <MenuItem onClick={e => setAnchorElPlaybackSpeed(e.currentTarget)}>
-            <ListItemIcon>
-              <SlowMotionVideoIcon />
-            </ListItemIcon>
             <ListItemText>
               <FormattedMessage
                 id="mediaMetadata.playbackSpeed"
@@ -177,7 +135,6 @@ class MediaExpandedActions extends React.Component {
 
   render() {
     const {
-      currentUserRole,
       projectMedia,
       onPlaybackRateChange,
     } = this.props;
@@ -191,20 +148,19 @@ class MediaExpandedActions extends React.Component {
     if (!isPicture && !isVideo && !isUploadedAudio) return null;
 
     return (
-      <Box mt={1} mx={1} width="100%" className="media-detail__check-metadata">
-        { (projectMedia.picture || (projectMedia.media && projectMedia.media.file_path) || (projectMedia.media.type === 'Claim' || projectMedia.media.type === 'Link')) ?
-          <Box width="100%" display="flex" justifyContent="space-between">
-            <SensitiveContentMenuButton
-              currentUserRole={currentUserRole}
-              projectMedia={projectMedia}
-              key={projectMedia.dynamic_annotation_flag}
-            />
-            <ExtraMediaActions
-              projectMedia={projectMedia}
-              onPlaybackRateChange={onPlaybackRateChange}
-              reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
-            />
-          </Box> : null }
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Button variant="contained" color="primary">
+          <FormattedMessage
+            id="mediaCardLarge.more"
+            description="Button to open an expanded view of the media"
+            defaultMessage="More"
+          />
+        </Button>
+        <ExtraMediaActions
+          projectMedia={projectMedia}
+          onPlaybackRateChange={onPlaybackRateChange}
+          reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+        />
       </Box>
     );
   }
@@ -212,9 +168,7 @@ class MediaExpandedActions extends React.Component {
 
 MediaExpandedActions.propTypes = {
   projectMedia: PropTypes.shape({
-    title: PropTypes.string.isRequired,
     media: PropTypes.shape({
-      quote: PropTypes.string,
       type: PropTypes.string,
       metadata: PropTypes.shape({
         provider: PropTypes.string, // or undefined
@@ -227,27 +181,14 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
   # projectMedia: graphql
   fragment MediaExpandedActions_projectMedia on ProjectMedia {
     id
-    dbid
     picture
-    title
     transcription: annotation(annotation_type: "transcription") {
       data
     }
     extracted_text: annotation(annotation_type: "extracted_text") {
       data
     }
-    show_warning_cover
-    dynamic_annotation_flag {
-      id
-      dbid
-      content
-      data
-      annotator {
-        name
-      }
-    }
     media {
-      quote
       type
       metadata
       file_path

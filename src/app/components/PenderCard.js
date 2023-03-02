@@ -75,6 +75,7 @@ class PenderCard extends Component {
   }
 
   render() {
+    console.log('Hello PenderCard'); // eslint-disable-line
     return (
       <div>
         <PenderCardContainer

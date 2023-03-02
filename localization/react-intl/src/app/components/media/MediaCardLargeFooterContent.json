@@ -1,0 +1,7 @@
+[
+  {
+    "id": "mediaCardLargeFooterContent.transcription",
+    "description": "Header for the transcription content of an audio or video",
+    "defaultMessage": "Transcription"
+  }
+]

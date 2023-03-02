@@ -1,20 +1,5 @@
 [
   {
-    "id": "mediaMetadata.videoActions",
-    "description": "Actions menu for item of type Video",
-    "defaultMessage": "Video actions"
-  },
-  {
-    "id": "mediaMetadata.imageActions",
-    "description": "Actions menu for item of type Image",
-    "defaultMessage": "Image actions"
-  },
-  {
-    "id": "mediaMetadata.audioActions",
-    "description": "Actions menu for item of type Audio",
-    "defaultMessage": "Audio actions"
-  },
-  {
     "id": "mediaMetadata.download",
     "description": "Menu option for downloading the original file of current item",
     "defaultMessage": "Download"
@@ -33,5 +18,10 @@
     "id": "media.normalSpeed",
     "description": "Sets video playback rate to original 1x speed",
     "defaultMessage": "Normal speed"
+  },
+  {
+    "id": "mediaCardLarge.more",
+    "description": "Button to open an expanded view of the media",
+    "defaultMessage": "More"
   }
 ]

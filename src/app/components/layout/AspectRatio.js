@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { textPrimary, grayBorderAccent, brandMain, textDisabled, units, otherWhite } from '../../styles/js/shared.js';
+import { textPrimary, grayBorderAccent, brandMain, units, otherWhite } from '../../styles/js/shared.js';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     height: 0,
     paddingBottom: '56.25%',
     position: 'relative',
-    backgroundColor: textDisabled,
+    backgroundColor: textPrimary,
   },
   innerWrapper: {
     position: 'absolute',
