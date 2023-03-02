@@ -22,8 +22,7 @@ import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import { placeholders } from './localizables';
 import { textDisabled, textPlaceholder } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
-import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
-import SuccessAlert from '../../cds/alerts-and-prompts/SuccessAlert';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -213,7 +212,8 @@ const SmoochBotNewsletterEditor = ({
           <Box mb={1}>
             <Typography component="div" variant="body2">
               { newsletterInformation.paused ?
-                <WarningAlert
+                <Alert
+                  type="warning"
                   title={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.paused"
@@ -221,7 +221,9 @@ const SmoochBotNewsletterEditor = ({
                     />
                   }
                 /> :
-                <SuccessAlert
+                <Alert
+                  type="error"
+                  button="true"
                   title={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.active"

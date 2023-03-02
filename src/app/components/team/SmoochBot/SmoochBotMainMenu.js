@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import { languageLabel } from '../../../LanguageRegistry';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
-import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import { brandMain } from '../../../styles/js/shared';
 
 const messages = defineMessages({
@@ -103,7 +103,8 @@ const SmoochBotMainMenu = ({
       </Typography>
 
       { collapseLanguages ?
-        <WarningAlert
+        <Alert
+          type="warnig"
           title={
             <FormattedMessage
               id="smoochBotMainMenu.alertTitle"
