@@ -330,7 +330,7 @@ const MediaSuggestionsComponent = ({
               />
             </Typography>
             <div className={classes.break} />
-            <Typography variant="body">
+            <Typography variant="body1">
               <FormattedMessage
                 id="mediaSuggestionsComponent.flashBulkReject"
                 defaultMessage='Added to the list "{folder}"'
@@ -688,7 +688,7 @@ const MediaSuggestionsComponent = ({
                     <PreviousIcon />
                   </IconButton>
                 </Tooltip>
-                <Typography variant="body" className={classes.title}>
+                <Typography variant="body1" className={classes.title}>
                   <FormattedMessage
                     id="mediaSuggestionsComponent.title"
                     defaultMessage="{start} to {end} of {total, plural, one {{total} suggestion} other {{total} suggestions}}"
