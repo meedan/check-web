@@ -224,7 +224,7 @@ const SmoochBotNewsletterEditor = ({
                 <Alert
                   type="info"
                   button="true"
-                  title={
+                  content={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.active"
                       defaultMessage="The newsletter will be sent to {count} users on {dateTime}"

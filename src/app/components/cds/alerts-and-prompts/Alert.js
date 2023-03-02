@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
   box: {
     borderRadius: theme.spacing(2),
     padding: theme.spacing(2),
+    position: 'relative',
   },
   title: {
     fontWeight: 600,
@@ -42,10 +43,8 @@ const useStyles = makeStyles(theme => ({
   },
   closeButton: {
     position: 'absolute',
-    left: '20.83%',
-    right: '20.83%',
-    top: '20.83%',
-    bottom: '20.83%',
+    right: '0',
+    top: '0',
   },
 }));
 
@@ -98,37 +97,32 @@ const Alert = ({
   return showAlert ? (
     <Box className={[classes.box, 'alert'].join(' ')} style={{ background: alertTypes[type].primaryColor }} display="flex" alignItems="flex-start">
       { alertTypes[type]?.icon ? <Box mr={1}>{alertTypes[type].icon}</Box> : null }
+      { dismiss || shadow ?
+        <IconButton
+          className={classes.closeButton}
+          onClick={handleClose}
+        >
+          <IconClose />
+        </IconButton>
+        : null
+      }
       <Box>
-        <Typography variant="body1" className={[classes.title, 'alert-title'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
+        <Typography variant="subtitle2" className={[classes.title, 'alert-title'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
           {title}
-          { dismiss || shadow ?
-            <IconButton
-              className={classes.closeButton}
-              onClick={handleClose}
-            >
-              <IconClose />
-            </IconButton>
-            : null
-          }
         </Typography>
         { content ?
           <Typography variant="body2" className={[classes.content, 'alert-content'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
             {content}
           </Typography> : null }
         { button ?
-          <Box display="flex" justifyContent="flex-end">
-            {/* <Typography component="div" align="center"> */}
-            <Button
-              variant="contained"
-              color="primary"
-              // color={alertTypes[type].buttonColor}
-              style={{ width: '10%' }}
-            >
-              { buttonContent }
-            </Button>
-            {/* </Typography> */}
-          </Box>
-
+          <Button
+            variant="contained"
+            color="primary"
+            // color={alertTypes[type].buttonColor}
+            style={{ width: '10%' }}
+          >
+            { buttonContent }
+          </Button>
           : null
         }
       </Box>
