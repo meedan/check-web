@@ -155,7 +155,7 @@ const SmoochBotResourceEditor = ({
               />
             </strong>
           </Typography>
-          <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: errorMain} : {}}>
+          <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: errorMain } : {}}>
             <FormattedMessage
               id="smoochBotResourceEditor.charsCounter"
               defaultMessage="{count}/{max} characters available"

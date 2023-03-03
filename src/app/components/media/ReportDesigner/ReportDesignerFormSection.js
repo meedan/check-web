@@ -8,7 +8,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { brandBorder} from '../../../styles/js/shared';
+import { brandBorder } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(() => ({
   expansionPanelDetails: {

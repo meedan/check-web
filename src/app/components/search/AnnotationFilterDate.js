@@ -5,7 +5,7 @@ import { DatePicker } from '@material-ui/pickers';
 import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import { FlexRow, units, grayDisabledBackground, brandMain, otherWhite} from '../../styles/js/shared';
+import { FlexRow, units, grayDisabledBackground, brandMain, otherWhite } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 const StyledCloseIcon = withStyles({
