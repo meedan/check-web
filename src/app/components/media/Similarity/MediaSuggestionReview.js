@@ -18,7 +18,7 @@ import {
   HighlightOff as RejectIcon,
 } from '@material-ui/icons';
 import {
-  brandSecondary,
+  alertLight,
   validationMain,
   errorMain,
 } from '../../../styles/js/shared.js';
@@ -29,8 +29,8 @@ import { can } from '../../Can';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    background: brandSecondary,
-    borderColor: brandSecondary,
+    background: alertLight,
+    borderColor: alertLight,
     borderRadius: '8px',
     marginBottom: `${theme.spacing(2)}px`,
     fontSize: '12px',
