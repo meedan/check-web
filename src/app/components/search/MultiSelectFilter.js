@@ -11,13 +11,13 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { MultiSelector } from '@meedan/check-ui';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
-import { brandMain, errorMain } from '../../styles/js/shared';
+import { textPrimary, brandMain, brandAccent, otherWhite, errorMain } from '../../styles/js/shared';
 
 const NoHoverButton = withStyles({
   root: {
     borderRadius: 0,
-    borderLeft: '2px solid white',
-    borderRight: '2px solid white',
+    borderLeft: `2px solid ${otherWhite}`,
+    borderRight: `2px solid ${otherWhite}`,
     height: '36px',
     minWidth: 0,
     margin: 0,
@@ -26,7 +26,7 @@ const NoHoverButton = withStyles({
     },
   },
   disabled: {
-    color: 'black !important',
+    color: `${textPrimary} !important`,
   },
 })(Button);
 
@@ -51,7 +51,7 @@ const useTagStyles = makeStyles({
     height: '24px',
     margin: '2px',
     lineHeight: '22px',
-    color: 'white',
+    color: otherWhite,
     backgroundColor: brandMain,
     borderRadius: '4px',
     boxSizing: 'content-box',
@@ -59,8 +59,8 @@ const useTagStyles = makeStyles({
     outline: 0,
     overflow: 'hidden',
     '& :focus': {
-      borderColor: '#40a9ff',
-      backgroundColor: '#e6f7ff',
+      borderColor: brandAccent,
+      backgroundColor: brandAccent,
     },
     '& span': {
       overflow: 'hidden',
@@ -110,7 +110,7 @@ const usePlusButtonStyles = makeStyles({
   root: {
     height: '36px',
     paddingLeft: '4px',
-    borderLeft: '2px solid white',
+    borderLeft: '2px solid otherWhite',
     alignItems: 'center',
     display: 'flex',
     cursor: 'pointer',

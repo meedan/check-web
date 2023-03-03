@@ -5,6 +5,7 @@ import {
   Box,
   Typography,
 } from '@material-ui/core';
+import { otherWhite, textPrimary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -49,8 +50,8 @@ const Alert = ({
 Alert.defaultProps = {
   icon: null,
   content: null,
-  primaryColor: 'white',
-  secondaryColor: 'black',
+  primaryColor: otherWhite,
+  secondaryColor: textPrimary,
 };
 
 Alert.propTypes = {

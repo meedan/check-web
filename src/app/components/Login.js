@@ -21,6 +21,7 @@ import {
   StyledSubHeader,
   StyledCard,
   brandMain,
+  grayBorderMain,
 } from '../styles/js/shared';
 
 const styles = {
@@ -40,7 +41,7 @@ const styles = {
     margin: `${units(2)} auto`,
   },
   googleButton: {
-    border: '2px solid #D5D5D5',
+    border: `2px solid ${grayBorderMain}`,
   },
   orDivider: {
     padding: `${units(3)} 0`,

@@ -44,6 +44,8 @@ import {
   brandBorder,
   textSecondary,
   brandBackground,
+  otherWhite,
+  textPrimary,
 } from '../../../styles/js/shared';
 import BulkArchiveProjectMediaMutation from '../../../relay/mutations/BulkArchiveProjectMediaMutation';
 
@@ -90,15 +92,15 @@ const useStyles = makeStyles(theme => ({
   media: {
     border: `1px solid ${brandBorder}`,
     borderRadius: 8,
-    color: 'black',
-    backgroundColor: 'white',
+    color: textPrimary,
+    backgroundColor: otherWhite,
   },
   noMedia: {
-    color: 'black',
+    color: textPrimary,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 14,
-    backgroundColor: 'white',
+    backgroundColor: otherWhite,
   },
   spaced: {
     padding: theme.spacing(1),
@@ -120,8 +122,8 @@ const useStyles = makeStyles(theme => ({
   card: {
     border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(2),
-    color: 'black',
-    backgroundColor: 'white',
+    color: textPrimary,
+    backgroundColor: otherWhite,
     margin: theme.spacing(2, 1, 1, 1),
     padding: theme.spacing(2),
     display: 'flex',
