@@ -75,16 +75,10 @@ const MediaSimilarityBarAdd = ({
     setAnchorEl(null);
   };
 
-  const handleError = () => {
+  // Accepts a JS Error object
+  const handleError = (error) => {
     setSubmitting(false);
-    // FIXME: Get error message from backend
-    setFlashMessage((
-      <FormattedMessage
-        id="mediaSimilarityBarAdd.defaultErrorMessage"
-        defaultMessage="Could not add similar item"
-        description="Warning displayed if an error occurred when adding a similar item"
-      />
-    ), 'error');
+    setFlashMessage(error.message, 'error');
   };
 
   const handleSuccess = (response) => {
@@ -172,15 +166,17 @@ const MediaSimilarityBarAdd = ({
           rangeBehavior: 'prepend',
         }],
       }],
-      onCompleted: (response, error) => {
-        if (error) {
-          handleError();
+      onCompleted: (response, errors) => {
+        if (errors?.length > 0) {
+          for (error of errors) {
+            handleError(error);
+          }
         } else {
           handleSuccess(response);
         }
       },
-      onError: () => {
-        handleError();
+      onError: (error) => {
+        handleError(error);
       },
     });
   };
