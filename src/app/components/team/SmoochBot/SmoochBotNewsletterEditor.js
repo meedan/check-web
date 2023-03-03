@@ -128,6 +128,7 @@ const SmoochBotNewsletterEditor = ({
   const bulletPoints = body.split(/\n+/);
   const [numberOfBulletPoints, setNumberOfBulletPoints] = React.useState(bulletPoints.length || 1);
   const [introduction, setIntroduction] = React.useState(newsletter.smooch_newsletter_introduction);
+  const [showAlert, setShowAlert] = React.useState(true);
 
   const maxCharacters = 1024;
   let charactersCount = 0;
@@ -208,13 +209,13 @@ const SmoochBotNewsletterEditor = ({
   return (
     <React.Fragment>
       <Box>
-        { newsletterInformation ?
+        { newsletterInformation && showAlert ?
           <Box mb={1}>
             <Typography component="div" variant="body2">
               { newsletterInformation.paused ?
                 <Alert
                   type="warning"
-                  title={
+                  details={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.paused"
                       defaultMessage="To send your next newsletter, please add new content"
@@ -223,8 +224,10 @@ const SmoochBotNewsletterEditor = ({
                 /> :
                 <Alert
                   type="info"
-                  button="true"
-                  content={
+                  title="title tiel"
+                  dropShadow="borderInfo"
+                  onClose={() => setShowAlert(false)}
+                  details={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.active"
                       defaultMessage="The newsletter will be sent to {count} users on {dateTime}"

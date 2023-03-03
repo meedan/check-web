@@ -14,6 +14,7 @@ import IconClose from '@material-ui/icons/Close';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import {
   validationLight,
+  validationMain,
   validationSecondary,
   alertLight,
   alertSecondary,
@@ -24,6 +25,7 @@ import {
   brandMain,
   brandSecondary,
   brandBackground,
+  units,
 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -46,105 +48,97 @@ const useStyles = makeStyles(theme => ({
     right: '0',
     top: '0',
   },
+  secondaryButton: {
+    color: '#FFFFFF',
+    // width: '40%',
+    maxWidth: units(20),
+    margin: `${units(1)} auto`,
+  },
 }));
 
 const alertTypes = {
   success: {
-    icon: <CheckCircleOutlineOutlinedIcon style={{ color: validationSecondary }} />,
+    icon: <CheckCircleOutlineOutlinedIcon style={{ color: validationMain }} />,
     primaryColor: validationLight,
     secondaryColor: validationSecondary,
-    buttonColor: validationSecondary,
+    borderInfo: `1px solid ${validationSecondary} `,
   },
   warning: {
     icon: <ErrorOutlineIcon style={{ color: alertMain }} />,
     primaryColor: alertLight,
     secondaryColor: alertSecondary,
-    buttonColor: alertSecondary,
+    borderInfo: `1px solid ${alertSecondary} `,
   },
   info: {
     icon: <InfoOutlinedIcon style={{ color: brandMain }} />,
     primaryColor: brandBackground,
     secondaryColor: brandSecondary,
-    // buttonColor: InfoSecondary,
+    borderInfo: `1px solid ${brandSecondary} `,
   },
   error: {
     icon: <ErrorOutlineIcon style={{ color: errorMain }} />,
     primaryColor: errorLight,
     secondaryColor: errorSecondary,
-    buttonColor: errorSecondary,
+    borderInfo: `1px solid ${errorSecondary} `,
   },
 };
 
-const Alert = ({
-  title,
-  content,
-  type,
-  button,
-  dismiss,
-  buttonContent,
-  shadow,
-}) => {
-  // eslint-disable-next-line
-  // console.log("alertType", alertType)
-
-  const [showAlert, setShowAlert] = React.useState(true);
-
-  const handleClose = () => {
-    setShowAlert(false);
-  };
-
+function Alert({
+  title, details, type, dismiss, button, dropShadow, handleClick, onClose,
+}) {
   const classes = useStyles();
-  return showAlert ? (
-    <Box className={[classes.box, 'alert'].join(' ')} style={{ background: alertTypes[type].primaryColor }} display="flex" alignItems="flex-start">
-      { alertTypes[type]?.icon ? <Box mr={1}>{alertTypes[type].icon}</Box> : null }
-      { dismiss || shadow ?
+  return (
+    <Box className={[classes.box, 'alert'].join(' ')} style={{ background: alertTypes[type].primaryColor, border: dropShadow ? alertTypes[type].borderInfo : null }} display="flex" alignItems="flex-start">
+      {alertTypes[type]?.icon ? <Box mr={1}>{alertTypes[type].icon}</Box> : null}
+      {dismiss ?
         <IconButton
           className={classes.closeButton}
-          onClick={handleClose}
+          onClick={onClose}
         >
           <IconClose />
         </IconButton>
-        : null
-      }
+        : null}
       <Box>
         <Typography variant="subtitle2" className={[classes.title, 'alert-title'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
           {title}
         </Typography>
-        { content ?
+        {details ?
           <Typography variant="body2" className={[classes.content, 'alert-content'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
-            {content}
-          </Typography> : null }
-        { button ?
+            {details}
+          </Typography> : null}
+        {button ?
           <Button
+            className={classes.secondaryButton}
+            style={{ background: alertTypes[type].secondaryColor }}
             variant="contained"
-            color="primary"
-            // color={alertTypes[type].buttonColor}
-            style={{ width: '10%' }}
+            onClick={handleClick}
           >
-            { buttonContent }
+            {button}
           </Button>
-          : null
-        }
+          : null}
       </Box>
     </Box>
-  ) : null;
-};
+  );
+}
 
 Alert.defaultProps = {
-  content: 'alert-content',
-  button: null,
+  details: '',
+  title: '',
   dismiss: true,
-  buttonContent: 'content',
-  shadow: '',
+  button: 'content',
+  handleClick: null,
+  onClose: null,
+  dropShadow: '',
 };
 
 Alert.propTypes = {
-  title: PropTypes.object.isRequired,
-  content: PropTypes.object,
-  button: PropTypes.object,
+  title: PropTypes.string,
+  details: PropTypes.object,
   dismiss: PropTypes.string,
-  shadow: PropTypes.string,
-  buttonContent: PropTypes.string,
+  dropShadow: PropTypes.string,
+  button: PropTypes.string,
+  handleClick: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 export default Alert;
