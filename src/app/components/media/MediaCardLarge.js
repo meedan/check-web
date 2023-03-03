@@ -11,6 +11,7 @@ import QuoteMediaCard from './QuoteMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import PenderCard from '../PenderCard';
+import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 
 const StyledCardBorder = styled.div`
   background: #fff;
@@ -36,8 +37,8 @@ const MediaCardLarge = ({
   if (isTwitter) type = 'Twitter';
   if (isFacebook) type = 'Facebook';
 
-  const extractedText = projectMedia.extracted_text?.data?.text;
-  const transcription = projectMedia.transcription?.data.text;
+  // const extractedText = projectMedia.extracted_text?.data?.text;
+  // const transcription = projectMedia.transcription?.data.text;
 
   return (
     <>
@@ -49,11 +50,13 @@ const MediaCardLarge = ({
         ) : null }
         { type === 'UploadedImage' ? (
           <ImageMediaCard
+            projectMedia={projectMedia}
             imagePath={media.embed_path}
           />
         ) : null }
         { type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube ? (
           <MediaPlayerCard
+            projectMedia={projectMedia}
             isYoutube={isYoutube}
             filePath={media.file_path || media.url}
           />
@@ -77,8 +80,8 @@ const MediaCardLarge = ({
           <Box mb={2}>
             <MediaSlug
               mediaType={type}
-              slug={`${type}-${projectMedia.team.slug}-${projectMedia.dbid}`}
-              details={[`Last submitted on ${projectMedia.last_seen}`, '25 requests']}
+              slug={projectMedia.title}
+              details={[`Last submitted on ${projectMedia.last_seen}`, `${projectMedia.requests_count} requests`]}
             />
           </Box>
           <MediaExpandedActions projectMedia={projectMedia} />
@@ -102,16 +105,18 @@ MediaCardLarge.propTypes = {
 
 export default createFragmentContainer(MediaCardLarge, graphql`
   fragment MediaCardLarge_projectMedia on ProjectMedia {
-    dbid
+    title
+    ...AspectRatio_projectMedia
     ...WebPageMediaCard_projectMedia
     ...MediaExpandedActions_projectMedia
     last_seen
-    extracted_text: annotation(annotation_type: "extracted_text") {
-      data
-    }
-    transcription: annotation(annotation_type: "transcription") {
-      data
-    }
+    requests_count
+    # extracted_text: annotation(annotation_type: "extracted_text") {
+    #  data
+    # }
+    # transcription: annotation(annotation_type: "transcription") {
+    #  data
+    # }
     media {
       type
       domain
@@ -120,9 +125,6 @@ export default createFragmentContainer(MediaCardLarge, graphql`
       metadata
       embed_path
       file_path
-    }
-    team {
-      slug
     }
   }
 `);

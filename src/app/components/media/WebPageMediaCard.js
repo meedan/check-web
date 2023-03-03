@@ -50,6 +50,7 @@ class WebPageMediaCard extends Component {
                 contentWarning={contentWarning}
                 warningCreator={warningCreator}
                 warningCategory={warningCategory}
+                projectMedia={projectMedia}
               >
                 <img src={projectMedia.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
               </AspectRatio> : null
@@ -73,6 +74,7 @@ class WebPageMediaCard extends Component {
 
 export default createFragmentContainer(WebPageMediaCard, graphql`
   fragment WebPageMediaCard_projectMedia on ProjectMedia {
+    ...AspectRatio_projectMedia
     picture
     team {
       get_embed_whitelist

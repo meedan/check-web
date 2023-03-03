@@ -49,7 +49,6 @@ class MediaExpandedComponent extends Component {
 
   render() {
     const { media, hideActions } = this.props;
-    const { playbackRate } = this.state;
 
     const currentTeam = this.getContext().team || this.getContext().currentUser.current_team;
 
@@ -73,30 +72,11 @@ class MediaExpandedComponent extends Component {
     const randomNumber = Math.floor(Math.random() * 1000000);
     const coverImage = media.media.thumbnail_path || '/images/player_cover.svg';
 
-    let warningType = null;
-    if (media.dynamic_annotation_flag) {
-      // Sort by flag category likelihood and display most likely
-      let sortable = [];
-      // Put custom flag at beginning of array
-      if (media.dynamic_annotation_flag.data.custom) {
-        sortable = sortable.concat([...Object.entries(media.dynamic_annotation_flag.data.custom)]);
-      }
-      const filteredFlags = {};
-      ['adult', 'medical', 'violence'].forEach((key) => { filteredFlags[key] = media.dynamic_annotation_flag.data.flags[key]; });
-      sortable = sortable.concat([...Object.entries(filteredFlags)]);
-      sortable.sort((a, b) => b[1] - a[1]);
-      const type = sortable[0];
-      [warningType] = type;
-    }
-
     const embedCard = (() => {
       if (isImage) {
         return (
           <ImageMediaCard
             key={media.dynamic_annotation_flag}
-            contentWarning={media.show_warning_cover}
-            warningCreator={media.dynamic_annotation_flag?.annotator?.name}
-            warningCategory={warningType}
             imagePath={media.media.embed_path}
           />
         );
@@ -107,9 +87,6 @@ class MediaExpandedComponent extends Component {
             isYoutube={isYoutube}
             filePath={filePath}
             coverImage={coverImage}
-            contentWarning={media.show_warning_cover}
-            warningCreator={media.dynamic_annotation_flag?.annotator?.name}
-            warningCategory={warningType}
           />
         );
       } else if (isQuote) {
@@ -123,9 +100,6 @@ class MediaExpandedComponent extends Component {
         return (
           <WebPageMediaCard
             key={media.dynamic_annotation_flag}
-            contentWarning={media.show_warning_cover}
-            warningCreator={media.dynamic_annotation_flag?.annotator?.name}
-            warningCategory={warningType}
             media={media}
             data={data}
           />
@@ -209,8 +183,6 @@ class MediaExpandedComponent extends Component {
               <MediaExpandedActions
                 currentUserRole={currentUserRole}
                 projectMedia={media}
-                playbackRate={playbackRate}
-                onPlaybackRateChange={r => this.setState({ playbackRate: r })}
               />
             </CardActions>
           )
