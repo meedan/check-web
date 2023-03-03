@@ -168,8 +168,8 @@ const MediaSimilarityBarAdd = ({
       }],
       onCompleted: (response, errors) => {
         if (errors?.length > 0) {
-          for (error of errors) {
-            handleError(error);
+          for (let i = 0; i < errors.length; i += 1) {
+            handleError(errors[i]);
           }
         } else {
           handleSuccess(response);
