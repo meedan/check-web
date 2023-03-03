@@ -59,8 +59,8 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     color: otherWhite,
     minWidth: theme.spacing(22),
-    backgroundColor: props.contentWarning ? 'black' : brandMain,
-    border: '2px solid white',
+    backgroundColor: props.contentWarning ? textPrimary : brandMain,
+    border: `2px solid ${otherWhite}`,
     '& :hover': {
       backgroundColor: 'unset',
     },

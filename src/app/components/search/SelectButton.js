@@ -4,15 +4,16 @@ import { FormattedMessage } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import { brandMain, grayBorderMain, textDisabled } from '../../styles/js/shared';
 
 const StyledButton = withStyles({
   root: {
-    backgroundColor: '#ddd',
+    backgroundColor: grayBorderMain,
     padding: '0 8px',
     fontWeight: 'normal',
   },
   text: {
-    color: '#777',
+    color: textDisabled,
   },
 })(Button);
 

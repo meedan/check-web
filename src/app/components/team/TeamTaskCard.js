@@ -15,7 +15,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TeamTaskCardForm from './TeamTaskCardForm';
 import globalStrings from '../../globalStrings';
-
+import { grayBackground } from '../../styles/js/shared';
 
 const TeamTaskCard = ({
   about,
@@ -47,8 +47,8 @@ const TeamTaskCard = ({
     <Box
       my={2}
       mr={2}
-      bgcolor="#f6f6f6"
-      border="2px solid #ced3e2"
+      bgcolor={grayBackground}
+      border="2px solid {brandBorder}"
       borderRadius="10px"
       minHeight="100px"
       width="100%"

@@ -12,13 +12,13 @@ import CardContent from '@material-ui/core/CardContent';
 import TeamListsColumn from './TeamListsColumn';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
-import { ContentColumn, grayBorderMain } from '../../../styles/js/shared';
+import { ContentColumn, grayBorderMain, grayBackground } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const useStyles = makeStyles(theme => ({
   link: {
     textDecoration: 'underline',
-    background: '#F6F6F6',
+    background: grayBackground,
     padding: theme.spacing(1),
     margin: theme.spacing(1),
     minHeight: theme.spacing(10),
@@ -201,7 +201,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 onMoveUp={handleMoveUp}
                 onMoveDown={handleMoveDown}
                 style={{
-                  background: '#F6F6F6',
+                  background: grayBackground,
                   borderRadius: '5px',
                   border: `1px solid ${grayBorderMain}`,
                   padding: '.3rem 1rem .5rem 0',

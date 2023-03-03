@@ -23,6 +23,7 @@ import {
   telegramBlue,
   viberPurple,
   lineGreen,
+  otherWhite,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -40,7 +41,7 @@ const SmoochIcon = ({ name }) => {
       <WhatsAppIcon
         style={{
           backgroundColor: whatsappGreen,
-          color: '#FFF',
+          color: otherWhite,
           borderRadius: 4,
           padding: 2,
         }}

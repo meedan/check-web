@@ -12,6 +12,7 @@ import {
   alertMain,
   textSecondary,
   textPrimary,
+  otherWhite,
 } from '../../../styles/js/shared';
 
 const isFeedPage = () => (/\/feed/.test(window.location.pathname));
@@ -46,7 +47,7 @@ const useStyles = makeStyles({
   },
   icon: {
     fontSize: '40px',
-    color: 'white',
+    color: otherWhite,
   },
   textBox: {
     // This is a <div>, not a <th> with vertical-align center, because we need

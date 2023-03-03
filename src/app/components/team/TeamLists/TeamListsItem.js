@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     Minheight: theme.spacing(10),
-    background: 'white',
+    background: otherWhite,
   },
   label: {
     fontSize: 14,

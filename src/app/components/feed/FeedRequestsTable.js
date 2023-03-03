@@ -28,7 +28,7 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import SearchKeyword from '../search/SearchKeyword';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { grayBackground, textPrimary } from '../../styles/js/shared';
+import { grayBackground, textPrimary, otherWhite, alertMain } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   root: {
@@ -51,8 +51,8 @@ const useStyles = makeStyles({
   noFactCheck: {
     fontSize: 12,
     fontWeight: 400,
-    color: 'white',
-    background: '#E78A00',
+    color: otherWhite,
+    background: alertMain,
     display: 'inline-block',
     borderRadius: '50px',
     padding: '3px 10px',
