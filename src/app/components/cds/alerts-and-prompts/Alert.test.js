@@ -7,6 +7,7 @@ describe('<Alert />', () => {
     const alertBox = shallow(<Alert
       title={<span>Foo</span>}
       content={<span>Bar</span>}
+      type="success"
     />);
     const title = alertBox.find('.alert-title');
     expect(title).toHaveLength(1);

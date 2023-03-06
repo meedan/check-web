@@ -215,7 +215,7 @@ const SmoochBotNewsletterEditor = ({
               { newsletterInformation.paused ?
                 <Alert
                   type="warning"
-                  details={
+                  content={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.paused"
                       defaultMessage="To send your next newsletter, please add new content"
@@ -223,11 +223,9 @@ const SmoochBotNewsletterEditor = ({
                   }
                 /> :
                 <Alert
-                  type="info"
-                  title="title tiel"
-                  dropShadow="borderInfo"
+                  type="success"
                   onClose={() => setShowAlert(false)}
-                  details={
+                  content={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.active"
                       defaultMessage="The newsletter will be sent to {count} users on {dateTime}"

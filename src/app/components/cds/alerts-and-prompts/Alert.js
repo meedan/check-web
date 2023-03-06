@@ -16,7 +16,6 @@ import {
   validationLight,
   otherWhite,
   validationMain,
-  textPrimary,
   validationSecondary,
   alertLight,
   alertSecondary,
@@ -51,10 +50,10 @@ const useStyles = makeStyles(theme => ({
     top: '0',
   },
   secondaryButton: {
-    color: '#FFFFFF',
-    // width: '40%',
-    maxWidth: units(20),
+    color: otherWhite,
     margin: `${units(1)} auto`,
+    borderRadius: theme.spacing(1),
+    width: units(15),
   },
 }));
 
@@ -83,15 +82,11 @@ const alertTypes = {
     secondaryColor: errorSecondary,
     borderInfo: `1px solid ${errorSecondary} `,
   },
-  default: {
-    primaryColor: otherWhite,
-    secondaryColor: textPrimary,
-  },
 };
 
 function Alert({
   title,
-  details,
+  content,
   type,
   dismiss,
   button,
@@ -115,9 +110,9 @@ function Alert({
         <Typography variant="subtitle2" className={[classes.title, 'alert-title'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
           {title}
         </Typography>
-        {details ?
+        {content ?
           <Typography variant="body2" className={[classes.content, 'alert-content'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
-            {details}
+            {content}
           </Typography> : null}
         {button ?
           <Button
@@ -135,20 +130,20 @@ function Alert({
 }
 
 Alert.defaultProps = {
-  details: null,
+  content: '',
   title: '',
-  dismiss: true,
-  button: 'content',
+  dismiss: false,
+  button: null,
   handleClick: null,
   onClose: null,
-  dropShadow: '',
+  dropShadow: false,
 };
 
 Alert.propTypes = {
-  title: PropTypes.string,
-  details: PropTypes.object,
-  dismiss: PropTypes.string,
-  dropShadow: PropTypes.string,
+  title: PropTypes.object,
+  content: PropTypes.object,
+  dismiss: PropTypes.bool,
+  dropShadow: PropTypes.bool,
   button: PropTypes.string,
   handleClick: PropTypes.func,
   onClose: PropTypes.func,

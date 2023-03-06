@@ -104,8 +104,8 @@ const SmoochBotMainMenu = ({
 
       { collapseLanguages ?
         <Alert
-          type="warnig"
-          title={
+          type="warning"
+          content={
             <FormattedMessage
               id="smoochBotMainMenu.alertTitle"
               defaultMessage="There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option."
