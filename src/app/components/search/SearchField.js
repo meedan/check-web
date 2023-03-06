@@ -17,6 +17,7 @@ import {
   grayBorderMain,
   borderWidthLarge,
   brandMain,
+  otherWhite,
 } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -55,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
   },
   closeButton: {
-    color: 'white',
+    color: otherWhite,
     zIndex: 1000,
     position: 'absolute',
     right: theme.spacing(1),

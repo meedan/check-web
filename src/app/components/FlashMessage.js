@@ -9,7 +9,7 @@ import reactStringReplace from 'react-string-replace';
 import Message from './Message';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
-import { brandMain, otherWhite, textSecondary } from '../styles/js/shared';
+import { brandMain, textSecondary, otherWhite } from '../styles/js/shared';
 
 /**
  * A global message, already translated for the user.
@@ -71,11 +71,11 @@ const useSnackBarStyles = makeStyles({
     backgroundColor: `${brandMain} !important`,
   },
   icon: {
-    color: 'white !important',
+    color: `${otherWhite} !important`,
     marginTop: '8px !important',
     paddingTop: '0px !important',
     '&:hover': {
-      color: 'white !important',
+      color: `${otherWhite} !important`,
     },
   },
   root: {

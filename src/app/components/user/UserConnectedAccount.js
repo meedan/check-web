@@ -12,7 +12,7 @@ import ConfirmDialog from '../layout/ConfirmDialog';
 import UserDisconnectLoginAccountMutation from '../../relay/mutations/UserDisconnectLoginAccountMutation';
 import { login } from '../../redux/actions';
 import SocialIcon from '../SocialIcon';
-import { FlexRow } from '../../styles/js/shared';
+import { FlexRow, brandMain } from '../../styles/js/shared';
 
 class UserConnectedAccount extends Component {
   static renderLabel(userAction) {
@@ -70,7 +70,7 @@ class UserConnectedAccount extends Component {
   render() {
     const { provider } = this.props;
     const buttonStyle = {
-      color: 'rgb(46, 119, 252)',
+      color: brandMain,
     };
     const confirmDialog = {
       title: <FormattedMessage

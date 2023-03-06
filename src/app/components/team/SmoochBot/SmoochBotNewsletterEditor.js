@@ -20,7 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { getTimeZones } from '@vvo/tzdb';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import { placeholders } from './localizables';
-import { textDisabled, textPlaceholder } from '../../../styles/js/shared';
+import { textDisabled, textPlaceholder, grayBackground, textPrimary, errorMain } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
 import Alert from '../../cds/alerts-and-prompts/Alert';
 
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   icon: {
-    color: '#979797',
+    color: textDisabled,
   },
   load: {
     height: theme.spacing(4),
@@ -69,8 +69,8 @@ const useStyles = makeStyles(theme => ({
     gap: '8px',
   },
   none: {
-    background: '#F6F6F6',
-    color: 'black',
+    background: grayBackground,
+    color: textPrimary,
   },
   bullet: {
     color: textDisabled,
@@ -326,7 +326,7 @@ const SmoochBotNewsletterEditor = ({
         <Typography paragraph>
           <FormattedMessage id="smoochBotNewsletterEditor.secondStep2" defaultMessage="If the content is not changed between two scheduled sendouts, the newsletter will not be sent." description="Explanation about tipline newsletter delivery, in tipline newsletter settings page" />
         </Typography>
-        <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: 'red' } : {}}>
+        <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: errorMain } : {}}>
           <FormattedMessage
             id="smoochBotNewsletterEditor.charsCounter"
             defaultMessage="{count}/{max} characters available"

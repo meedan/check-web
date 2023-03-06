@@ -3,6 +3,7 @@ import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import MediaStatus from './MediaStatus';
 import { MediaActionsBarComponent } from './MediaActionsBar';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import { brandMain } from '../../styles/js/shared';
 
 describe('<MediaActionsBarComponent />', () => {
   const team = {
@@ -17,8 +18,8 @@ describe('<MediaActionsBarComponent />', () => {
           id: 'undetermined',
           label: 'Unstarted',
           style: {
-            backgroundColor: '#518FFF',
-            color: '#518FFF',
+            backgroundColor: brandMain,
+            color: brandMain,
           },
         },
       ],
@@ -40,8 +41,8 @@ describe('<MediaActionsBarComponent />', () => {
           id: 'undetermined',
           label: 'Unstarted',
           style: {
-            backgroundColor: '#518FFF',
-            color: '#518FFF',
+            backgroundColor: brandMain,
+            color: brandMain,
           },
         },
       ],

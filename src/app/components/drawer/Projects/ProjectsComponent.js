@@ -30,7 +30,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import Can from '../../Can';
-import { brandLight } from '../../../styles/js/shared';
+import { brandLight, otherWhite } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const useStyles = makeStyles(theme => ({
@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
     right: 0,
     top: 0,
     bottom: 0,
-    background: 'white',
+    background: otherWhite,
     opacity: 0.7,
     zIndex: 1,
   },

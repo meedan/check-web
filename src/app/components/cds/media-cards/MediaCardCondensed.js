@@ -7,15 +7,15 @@ import {
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import BulletSeparator from '../../layout/BulletSeparator';
-import { brandBorder } from '../../../styles/js/shared';
+import { brandBorder, grayBorderAccent, otherWhite, textPrimary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     border: `1px solid ${brandBorder}`,
     borderRadius: 8,
-    color: 'black',
-    backgroundColor: 'white',
+    color: textPrimary,
+    backgroundColor: otherWhite,
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     padding: theme.spacing(1),
@@ -69,9 +69,9 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '33vw', // 1/3 of the viewport width
   },
   placeholder: {
-    border: '1px solid rgba(0, 0, 0, 0.23)',
+    border: `1px solid ${grayBorderAccent}`,
     borderRadius: theme.spacing(1),
-    color: 'black',
+    color: textPrimary,
     padding: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',

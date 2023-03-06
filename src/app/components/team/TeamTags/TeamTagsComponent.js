@@ -20,7 +20,7 @@ import SaveTag from './SaveTag';
 import TeamTagsActions from './TeamTagsActions';
 import TimeBefore from '../../TimeBefore';
 import SettingsHeader from '../SettingsHeader';
-import { ContentColumn } from '../../../styles/js/shared';
+import { ContentColumn, otherWhite } from '../../../styles/js/shared';
 import Can from '../../Can';
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     borderBottom: 0,
   },
   teamTagsSearchField: {
-    background: 'white',
+    background: otherWhite,
     margin: `0 ${theme.spacing(27)}px`,
   },
   teamTagsNewTagButton: {

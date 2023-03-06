@@ -14,7 +14,9 @@ import IconClose from '@material-ui/icons/Close';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import {
   validationLight,
+  otherWhite,
   validationMain,
+  textPrimary,
   validationSecondary,
   alertLight,
   alertSecondary,
@@ -81,10 +83,21 @@ const alertTypes = {
     secondaryColor: errorSecondary,
     borderInfo: `1px solid ${errorSecondary} `,
   },
+  default: {
+    primaryColor: otherWhite,
+    secondaryColor: textPrimary,
+  },
 };
 
 function Alert({
-  title, details, type, dismiss, button, dropShadow, handleClick, onClose,
+  title,
+  details,
+  type,
+  dismiss,
+  button,
+  dropShadow,
+  handleClick,
+  onClose,
 }) {
   const classes = useStyles();
   return (
@@ -122,7 +135,7 @@ function Alert({
 }
 
 Alert.defaultProps = {
-  details: '',
+  details: null,
   title: '',
   dismiss: true,
   button: 'content',

@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import { brandMain, alertMain } from '../../../styles/js/shared';
+import { brandMain, alertMain, otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
   tableCell: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     textOverflow: 'ellipsis',
   },
   chip: {
-    color: 'white',
+    color: otherWhite,
     fontSize: 12,
   },
   noFactCheck: {

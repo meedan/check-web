@@ -9,7 +9,7 @@ import FeedRequestedMediaDialog from './FeedRequestedMediaDialog';
 import ExternalLink from '../ExternalLink';
 import ParsedText from '../ParsedText';
 import BulletSeparator from '../layout/BulletSeparator';
-import { brandBorder } from '../../styles/js/shared';
+import { brandBorder, textPrimary, otherWhite } from '../../styles/js/shared';
 
 // Modelled after src/app/components/media/Similarity/MediaItem.js
 
@@ -19,8 +19,8 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     border: `1px solid ${brandBorder}`,
     borderRadius: 8,
-    color: 'black',
-    backgroundColor: 'white',
+    color: textPrimary,
+    backgroundColor: otherWhite,
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     padding: theme.spacing(1),
