@@ -28,7 +28,7 @@ const MediaAnalysis = ({ projectMedia }) => {
   const title = getValue('title');
   const content = getValue('content');
 
-  if ((!title && !content) || title === projectMedia.media.quote) {
+  if ((!title && !content) || title === projectMedia.media.quote || projectMedia.user.login === 'smooch') {
     return null;
   }
 
@@ -38,7 +38,7 @@ const MediaAnalysis = ({ projectMedia }) => {
         <Divider />
       </Box>
       <Box mt={2} mb={3}>
-        <Typography variant="body" component="div" paragraph>
+        <Typography variant="body1" component="div" paragraph>
           <strong>
             <FormattedMessage id="mediaAnalysis.analysis" defaultMessage="Analysis" description="Title of the media analysis bar" />
           </strong>
@@ -87,6 +87,9 @@ MediaAnalysis.propTypes = {
     media: PropTypes.shape({
       quote: PropTypes.string,
     }).isRequired,
+    user: PropTypes.shape({
+      login: PropTypes.string,
+    }).isRequired,
   }),
 };
 
@@ -97,6 +100,9 @@ export default createFragmentContainer(MediaAnalysis, graphql`
     }
     media {
       quote
+    }
+    user {
+      login
     }
   }
 `);

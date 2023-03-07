@@ -26,6 +26,7 @@ import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import MultiSelectFilter from '../../search/MultiSelectFilter';
 import { safelyParseJSON } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
+import { grayBackground, textDisabled } from '../../../styles/js/shared';
 
 const messages = defineMessages({
   defaultLabel: {
@@ -40,10 +41,10 @@ const useStyles = makeStyles(theme => ({
     minWidth: 800,
   },
   header: {
-    backgroundColor: '#F6F6F6',
+    backgroundColor: grayBackground,
   },
   icon: {
-    color: '#979797',
+    color: textDisabled,
   },
   box: {
     padding: theme.spacing(2),

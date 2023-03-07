@@ -18,6 +18,7 @@ import LanguagePickerSelect from '../../layout/LanguagePickerSelect';
 import { formatDate } from './reportDesignerHelpers';
 import LimitedTextFieldWithCounter from '../../layout/LimitedTextFieldWithCounter';
 import { safelyParseJSON } from '../../../helpers';
+import { otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'white',
+    background: otherWhite,
     opacity: 0.5,
     cursor: 'not-allowed',
     zIndex: 2,

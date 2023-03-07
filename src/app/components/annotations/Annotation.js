@@ -694,7 +694,7 @@ class Annotation extends Component {
                     style={{
                       background: `transparent url('${botResponse.image_url}') top left no-repeat`,
                       backgroundSize: 'cover',
-                      border: '1px solid #ccc',
+                      border: `1px solid ${grayBorderMain}`,
                       width: 80,
                       height: 80,
                       cursor: 'pointer',

@@ -42,6 +42,7 @@ import {
   textSecondary,
   textDisabled,
   Column,
+  otherWhite,
 } from '../../styles/js/shared';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -52,14 +53,14 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: brandBackground,
   },
   claimsColumn: {
-    backgroundColor: 'white',
+    backgroundColor: otherWhite,
     borderRight: `1px solid ${brandBorder}`,
     width: 360,
     minWidth: 360,
     maxWidth: 360,
   },
   middleColumn: {
-    backgroundColor: 'white',
+    backgroundColor: otherWhite,
     borderRight: `1px solid ${brandBorder}`,
   },
   mediasColumn: {
@@ -135,7 +136,7 @@ const useStyles = makeStyles(theme => ({
   },
   selected: {
     backgroundColor: brandSecondary,
-    border: '1px solid #ced3e2',
+    border: `1px solid ${brandBorder}`,
   },
   detailTitle: {
     overflow: 'hidden',
@@ -164,9 +165,9 @@ const useStyles = makeStyles(theme => ({
   },
   box: {
     textAlign: 'center',
-    backgroundColor: 'white',
+    backgroundColor: otherWhite,
     padding: theme.spacing(2),
-    border: '1px solid #ced3e2',
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     whiteSpace: 'nowrap',
   },

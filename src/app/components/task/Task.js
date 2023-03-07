@@ -24,6 +24,7 @@ import {
   units,
   grayBorderMain,
   brandMain,
+  textDisabled,
 } from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
@@ -74,7 +75,7 @@ const StyledAnnotatorInformation = styled.span`
   display: inline-block;
   p {
     font-size: 9px;
-    color: #979797;
+    color: ${textDisabled};
   }
 `;
 

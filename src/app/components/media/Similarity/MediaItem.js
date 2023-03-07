@@ -11,13 +11,13 @@ import LayersIcon from '@material-ui/icons/Layers';
 import TimeBefore from '../../TimeBefore';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import { parseStringUnixTimestamp, truncateLength } from '../../../helpers';
-import { brandSecondary, brandBorder, brandMain, alertMain, grayBorderAccent } from '../../../styles/js/shared';
+import { textPrimary, brandSecondary, brandBorder, brandMain, alertMain, grayBorderAccent, otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
     border: `1px solid ${brandBorder}`,
     borderRadius: 8,
-    color: 'black',
+    color: textPrimary,
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     justifyContent: 'space-between',
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     width: 'calc(100% - 50px)', // Make space for the menu
   },
   notSelected: {
-    background: 'white',
+    background: otherWhite,
   },
   selected: {
     background: brandSecondary,
@@ -36,16 +36,16 @@ const useStyles = makeStyles(theme => ({
   title: {
     fontSize: 14,
     lineHeight: '1.5em',
-    color: 'black',
+    color: textPrimary,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     textDecoration: 'none',
     '&:hover': {
-      color: 'black',
+      color: textPrimary,
     },
     '&:visited': {
-      color: 'black',
+      color: textPrimary,
     },
   },
   image: {
@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
   },
   description: {
-    color: 'black',
+    color: textPrimary,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',

@@ -123,7 +123,7 @@ const MediaClaim = ({ projectMedia }) => {
   return (
     <Box id="media__claim">
       <Box id="media__claim-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <Typography className={classes.title} variant="body" component="div">
+        <Typography className={classes.title} variant="body1" component="div">
           <strong>
             <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
           </strong>

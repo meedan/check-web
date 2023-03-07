@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import { grayDisabledBackground, textPrimary, errorMain, validationMain } from '../../../styles/js/shared';
+import { grayDisabledBackground, textPrimary, errorMain, validationMain, otherWhite } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   smoochBotIntegrationButtonIcon: {
-    color: 'white',
+    color: otherWhite,
     padding: theme.spacing(0.5),
     display: 'flex',
     borderRadius: theme.spacing(1),
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: 80,
   },
   smoochBotIntegrationButtonConnected: {
-    color: 'white',
+    color: otherWhite,
     backgroundColor: validationMain,
   },
   smoochBotIntegrationButtonDisconnected: {

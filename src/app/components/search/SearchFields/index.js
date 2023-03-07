@@ -27,7 +27,7 @@ import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
 import { can } from '../../Can';
 import { languageLabel } from '../../../LanguageRegistry';
-import { Row, brandMain } from '../../../styles/js/shared';
+import { Row, brandMain, textPrimary } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
@@ -298,7 +298,7 @@ const SearchFields = ({
   const OperatorToggle = () => {
     let operatorProps = { style: { minWidth: 0, color: brandMain }, onClick: handleOperatorClick };
     if (page === 'feed') {
-      operatorProps = { style: { minWidth: 0, color: 'black' }, disabled: true };
+      operatorProps = { style: { minWidth: 0, color: textPrimary }, disabled: true };
     }
     return (
       <Button {...operatorProps}>

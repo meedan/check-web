@@ -15,18 +15,18 @@ import IconPause from '@material-ui/icons/Pause';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import MediaStatus from '../MediaStatus';
-import { validationMain, alertMain, brandSecondary, brandMain } from '../../../styles/js/shared';
+import { validationMain, alertMain, brandSecondary, brandMain, otherWhite } from '../../../styles/js/shared';
 import { getStatus } from '../../../helpers';
 import { languageLabel } from '../../../LanguageRegistry';
 
 const useStyles = makeStyles(theme => ({
   publish: {
     background: validationMain,
-    color: 'white',
+    color: otherWhite,
   },
   pause: {
     background: alertMain,
-    color: 'white',
+    color: otherWhite,
   },
   confirmation: {
     marginBottom: theme.spacing(2),
