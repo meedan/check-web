@@ -89,7 +89,7 @@ const OcrButton = ({
         /> :
         <FormattedMessage
           id="ocrButton.label"
-          defaultMessage="Image text extraction"
+          defaultMessage="Extract text"
           description="Button label - when this button is clicked, text is extracted from image"
         /> }
     </MenuItem>

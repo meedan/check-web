@@ -311,6 +311,7 @@ const SensitiveContentMenuButton = ({
   currentUserRole,
   projectMedia,
   setFlashMessage,
+  iconButtonClasses,
 }) => {
   const { show_warning_cover } = projectMedia;
   const [anchorEl, setAnchorEl] = React.useState();
@@ -318,6 +319,7 @@ const SensitiveContentMenuButton = ({
   return (
     <React.Fragment>
       <IconButton
+        classes={iconButtonClasses}
         disabled={(
           show_warning_cover &&
           currentUserRole !== 'admin' &&
@@ -345,6 +347,11 @@ SensitiveContentMenuButton.propTypes = {
     show_warning_cover: PropTypes.bool.isRequired,
   }).isRequired,
   setFlashMessage: PropTypes.func.isRequired,
+  iconButtonClasses: PropTypes.object,
+};
+
+SensitiveContentMenuButton.defaultProps = {
+  iconButtonClasses: null,
 };
 
 export default createFragmentContainer(withSetFlashMessage(SensitiveContentMenuButton), graphql`

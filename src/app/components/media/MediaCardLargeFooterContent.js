@@ -12,6 +12,8 @@ const MediaCardLargeFooterContent = ({
   title,
   type,
 }) => {
+  if (!body) return null;
+
   const transcriptionLabel = (
     <FormattedMessage
       id="mediaCardLargeFooterContent.transcription"
@@ -19,8 +21,18 @@ const MediaCardLargeFooterContent = ({
       description="Header for the transcription content of an audio or video"
     />
   );
+  const extractedTextLabel = (
+    <FormattedMessage
+      id="mediaCardLargeFooterContent.extractedText"
+      defaultMessage="Extracted text"
+      description="Header for the OCR extracted text content of an image"
+    />
+  );
 
-  const label = type === 'Transcription' ? transcriptionLabel : title;
+  let label = null;
+  if (type === 'Transcription') label = transcriptionLabel;
+  if (type === 'ExtractedText') label = extractedTextLabel;
+  if (title) label = title;
 
   return (
     <>

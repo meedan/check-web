@@ -3,5 +3,10 @@
     "id": "mediaCardLargeFooterContent.transcription",
     "description": "Header for the transcription content of an audio or video",
     "defaultMessage": "Transcription"
+  },
+  {
+    "id": "mediaCardLargeFooterContent.extractedText",
+    "description": "Header for the OCR extracted text content of an image",
+    "defaultMessage": "Extracted text"
   }
 ]

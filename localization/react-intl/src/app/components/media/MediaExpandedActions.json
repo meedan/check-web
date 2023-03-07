@@ -1,8 +1,8 @@
 [
   {
-    "id": "mediaMetadata.download",
-    "description": "Menu option for downloading the original file of current item",
-    "defaultMessage": "Download"
+    "id": "mediaMetadata.openLink",
+    "description": "Menu option for navigating to the original media url",
+    "defaultMessage": "Open link"
   },
   {
     "id": "mediaMetadata.ImageSearch",

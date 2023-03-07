@@ -136,15 +136,19 @@ const AspectRatio = ({
         </div> : null }
       { downloadUrl ?
         <div>
-          <a href={downloadUrl} download noopener noreferrer />
-          <IconButton
-            classes={{ root: classes.iconButton }}
-          >
-            <DownloadIcon />
-          </IconButton>
+          <a href={downloadUrl} download>
+            <IconButton
+              classes={{ root: classes.iconButton }}
+            >
+              <DownloadIcon />
+            </IconButton>
+          </a>
         </div> : null }
       <div>
-        <SensitiveContentMenuButton projectMedia={projectMedia} />
+        <SensitiveContentMenuButton
+          iconButtonClasses={{ root: classes.iconButton }}
+          projectMedia={projectMedia}
+        />
       </div>
     </div>
   );

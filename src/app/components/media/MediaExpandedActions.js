@@ -11,6 +11,7 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import RefreshButton from './RefreshButton';
 import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
 import ExternalLink from '../ExternalLink';
@@ -44,16 +45,16 @@ const ExtraMediaActions = ({
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        { (projectMedia.media && projectMedia.media.file_path) ?
+        { (projectMedia.media && projectMedia.media.url) ?
           <MenuItem onClick={() => setAnchorEl(null)}>
             <ExternalLink
-              url={projectMedia.media.file_path}
+              url={projectMedia.media.url}
               style={{ color: 'unset', textDecoration: 'none' }}
             >
               <FormattedMessage
-                id="mediaMetadata.download"
-                defaultMessage="Download"
-                description="Menu option for downloading the original file of current item"
+                id="mediaMetadata.openLink"
+                defaultMessage="Open link"
+                description="Menu option for navigating to the original media url"
               />
             </ExternalLink>
           </MenuItem> : null }
@@ -106,17 +107,25 @@ class MediaExpandedActions extends React.Component {
 
     return (
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Button variant="contained" color="primary">
+        { /* TODO: Implement More action to pop up media dialog */}
+        <Button
+          style={{ visibility: 'hidden' }}
+          variant="contained"
+          color="primary"
+        >
           <FormattedMessage
             id="mediaCardLarge.more"
             description="Button to open an expanded view of the media"
             defaultMessage="More"
           />
         </Button>
-        <ExtraMediaActions
-          projectMedia={projectMedia}
-          reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
-        />
+        <Box display="flex">
+          <RefreshButton projectMediaId={projectMedia.id} />
+          <ExtraMediaActions
+            projectMedia={projectMedia}
+            reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+          />
+        </Box>
       </Box>
     );
   }
@@ -144,7 +153,9 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
     extracted_text: annotation(annotation_type: "extracted_text") {
       data
     }
+    url
     media {
+      url
       type
       metadata
       file_path

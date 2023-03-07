@@ -23,7 +23,6 @@ const MediaCardLarge = ({
   // inModal, TODO: tweak layout according to inModal prop
   projectMedia,
 }) => {
-  console.log('projectMedia', projectMedia); // eslint-disable-line
   const { media } = projectMedia;
   const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
 
@@ -37,8 +36,12 @@ const MediaCardLarge = ({
   if (isTwitter) type = 'Twitter';
   if (isFacebook) type = 'Facebook';
 
-  // const extractedText = projectMedia.extracted_text?.data?.text;
-  // const transcription = projectMedia.transcription?.data.text;
+  const extractedText = projectMedia.extracted_text?.data?.text;
+  const transcription = projectMedia.transcription?.data.text;
+  let footerType = null;
+  if (extractedText) footerType = 'ExtractedText';
+  if (transcription) footerType = 'Transcription';
+  const footerBody = extractedText || transcription || null;
 
   return (
     <>
@@ -85,12 +88,14 @@ const MediaCardLarge = ({
             />
           </Box>
           <MediaExpandedActions projectMedia={projectMedia} />
-          <Box mt={2}>
-            <MediaCardLargeFooterContent
-              type="Transcription"
-              body="Hello World"
-            />
-          </Box>
+          { footerBody ? (
+            <Box mt={2}>
+              <MediaCardLargeFooterContent
+                type={footerType}
+                body={footerBody}
+              />
+            </Box>
+          ) : null }
         </Box>
       </StyledCardBorder>
     </>
