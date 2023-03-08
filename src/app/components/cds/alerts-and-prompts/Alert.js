@@ -11,18 +11,20 @@ import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlin
 import IconButton from '@material-ui/core/IconButton';
 import IconClose from '@material-ui/icons/Close';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
+
 import {
   validationLight,
   otherWhite,
-  validationMain,
+  // validationMain,
   validationSecondary,
   alertLight,
   alertSecondary,
-  alertMain,
+  // alertMain,
   errorLight,
-  errorMain,
+  // errorMain,
   errorSecondary,
-  brandMain,
+  // brandMain,
   brandSecondary,
   brandBackground,
   units,
@@ -47,36 +49,39 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     right: '0',
     top: '0',
+    marginLeft: theme.spacing(1),
   },
-  secondaryButton: {
+  smallButton: {
     color: otherWhite,
-    margin: `${units(1)} auto`,
-    borderRadius: theme.spacing(1),
+    marginTop: theme.spacing(1.5),
+    marginBottom: 0,
+    borderRadius: theme.spacing(1.5),
     width: units(15),
+    padding: theme.spacing(1.5),
   },
 }));
 
 const alertTypes = {
   success: {
-    icon: <CheckCircleOutlineOutlinedIcon style={{ color: validationMain }} />,
+    icon: <CheckCircleOutlineOutlinedIcon style={{ color: validationSecondary }} />,
     primaryColor: validationLight,
     secondaryColor: validationSecondary,
     borderInfo: `1px solid ${validationSecondary} `,
   },
   warning: {
-    icon: <ErrorOutlineIcon style={{ color: alertMain }} />,
+    icon: <ReportProblemOutlinedIcon style={{ color: alertSecondary }} />,
     primaryColor: alertLight,
     secondaryColor: alertSecondary,
     borderInfo: `1px solid ${alertSecondary} `,
   },
   info: {
-    icon: <InfoOutlinedIcon style={{ color: brandMain }} />,
+    icon: <InfoOutlinedIcon style={{ color: brandSecondary }} />,
     primaryColor: brandBackground,
     secondaryColor: brandSecondary,
     borderInfo: `1px solid ${brandSecondary} `,
   },
   error: {
-    icon: <ErrorOutlineIcon style={{ color: errorMain }} />,
+    icon: <ErrorOutlineIcon style={{ color: errorSecondary }} />,
     primaryColor: errorLight,
     secondaryColor: errorSecondary,
     borderInfo: `1px solid ${errorSecondary} `,
@@ -95,18 +100,19 @@ function Alert({
 }) {
   const classes = useStyles();
   return (
-    <Box className={[classes.box, 'alert'].join(' ')} style={{ background: alertTypes[type].primaryColor, border: dropShadow ? alertTypes[type].borderInfo : null }} display="flex" alignItems="flex-start">
+    <Box className={[classes.box, 'alert'].join(' ')} style={{ background: alertTypes[type].primaryColor, border: dropShadow ? alertTypes[type].borderInfo : null, boxShadow: dropShadow ? '0 4px 16px rgba(0, 0, 0, 0.1)' : null }} display="flex" alignItems="flex-start">
       {alertTypes[type]?.icon ? <Box mr={1}>{alertTypes[type].icon}</Box> : null}
-      {dismiss ?
-        <IconButton
-          className={classes.closeButton}
-          onClick={onClose}
-        >
-          <IconClose />
-        </IconButton>
-        : null}
       <Box>
-        <Typography variant="subtitle2" className={[classes.title, 'alert-title'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
+        {dismiss ?
+          <IconButton
+            className={classes.closeButton}
+            style={{ color: alertTypes[type].secondaryColor }}
+            onClick={onClose}
+          >
+            <IconClose />
+          </IconButton>
+          : null}
+        <Typography variant="subtitle2" style={{ color: alertTypes[type].secondaryColor }}>
           {title}
         </Typography>
         {content ?
@@ -115,7 +121,7 @@ function Alert({
           </Typography> : null}
         {button ?
           <Button
-            className={classes.secondaryButton}
+            className={classes.smallButton}
             style={{ background: alertTypes[type].secondaryColor }}
             variant="contained"
             onClick={handleClick}
