@@ -72,6 +72,7 @@ class WebPageMediaCard extends Component {
   }
 }
 
+export { WebPageMediaCard };
 export default createFragmentContainer(WebPageMediaCard, graphql`
   fragment WebPageMediaCard_projectMedia on ProjectMedia {
     ...AspectRatio_projectMedia
