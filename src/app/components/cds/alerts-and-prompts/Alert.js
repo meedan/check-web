@@ -12,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton';
 import IconClose from '@material-ui/icons/Close';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
-
 import {
   validationLight,
   otherWhite,
@@ -92,17 +91,31 @@ function Alert({
 }) {
   const classes = useStyles();
   return (
-    <Box className={[classes.box, 'alert'].join(' ')} style={{ background: alertTypes[type].primaryColor, border: hasBorder ? alertTypes[type].borderInfo : null, boxShadow: hasBorder ? '0 4px 16px rgba(0, 0, 0, 0.1)' : null }} display="flex" alignItems="flex-start">
-      {alertTypes[type]?.icon ? <Box mr={1}>{alertTypes[type].icon}</Box> : null}
+    <Box
+      className={[classes.box, 'alert'].join(' ')}
+      style={{
+        background: alertTypes[type].primaryColor,
+        border: hasBorder ? alertTypes[type].borderInfo : null,
+        boxShadow: hasBorder ? '0 4px 16px rgba(0, 0, 0, 0.1)' : null,
+      }}
+      display="flex"
+      alignItems="flex-start"
+    >
+      { alertTypes[type]?.icon ? <Box mr={1}>{alertTypes[type].icon}</Box> : null }
       <Box>
         <Typography variant="subtitle2" style={{ color: alertTypes[type].secondaryColor }}>
           {title}
         </Typography>
-        {content ?
-          <Typography variant="body2" className={[classes.content, 'alert-content'].join(' ')} style={{ color: alertTypes[type].secondaryColor }}>
+        { content ?
+          <Typography
+            variant="body2"
+            className={[classes.content, 'alert-content'].join(' ')}
+            style={{ color: alertTypes[type].secondaryColor }}
+          >
             {content}
-          </Typography> : null}
-        {buttonLabel ?
+          </Typography>
+          : null }
+        { buttonLabel ?
           <Button
             className={classes.smallButton}
             style={{ background: alertTypes[type].secondaryColor }}
@@ -111,9 +124,9 @@ function Alert({
           >
             {buttonLabel}
           </Button>
-          : null}
+          : null }
       </Box>
-      {onClose ?
+      { onClose ?
         <Box>
           <IconButton
             className={classes.closeButton}
@@ -123,7 +136,7 @@ function Alert({
             <IconClose />
           </IconButton>
         </Box>
-        : null}
+        : null }
     </Box>
   );
 }
