@@ -58,25 +58,25 @@ const alertTypes = {
     icon: <CheckCircleOutlineOutlinedIcon style={{ color: validationSecondary }} />,
     primaryColor: validationLight,
     secondaryColor: validationSecondary,
-    borderInfo: `1px solid ${validationSecondary} `,
+    borderBox: `1px solid ${validationSecondary} `,
   },
   warning: {
     icon: <ReportProblemOutlinedIcon style={{ color: alertSecondary }} />,
     primaryColor: alertLight,
     secondaryColor: alertSecondary,
-    borderInfo: `1px solid ${alertSecondary} `,
+    borderBox: `1px solid ${alertSecondary} `,
   },
   info: {
     icon: <InfoOutlinedIcon style={{ color: brandSecondary }} />,
     primaryColor: brandBackground,
     secondaryColor: brandSecondary,
-    borderInfo: `1px solid ${brandSecondary} `,
+    borderBox: `1px solid ${brandSecondary} `,
   },
   error: {
     icon: <ErrorOutlineIcon style={{ color: errorSecondary }} />,
     primaryColor: errorLight,
     secondaryColor: errorSecondary,
-    borderInfo: `1px solid ${errorSecondary} `,
+    borderBox: `1px solid ${errorSecondary} `,
   },
 };
 
@@ -90,27 +90,34 @@ function Alert({
   onClose,
 }) {
   const classes = useStyles();
+  const {
+    icon,
+    primaryColor,
+    secondaryColor,
+    borderBox,
+  } = alertTypes[type];
+
   return (
     <Box
       className={[classes.box, 'alert'].join(' ')}
       style={{
-        background: alertTypes[type].primaryColor,
-        border: hasBorder ? alertTypes[type].borderInfo : null,
+        background: primaryColor,
+        border: hasBorder ? borderBox : null,
         boxShadow: hasBorder ? '0 4px 16px rgba(0, 0, 0, 0.1)' : null,
       }}
       display="flex"
       alignItems="flex-start"
     >
-      { alertTypes[type]?.icon ? <Box mr={1}>{alertTypes[type].icon}</Box> : null }
+      { icon ? <Box mr={1}>{icon}</Box> : null }
       <Box>
-        <Typography variant="subtitle2" style={{ color: alertTypes[type].secondaryColor }}>
+        <Typography variant="subtitle2" style={{ color: secondaryColor }}>
           {title}
         </Typography>
         { content ?
           <Typography
             variant="body2"
             className={[classes.content, 'alert-content'].join(' ')}
-            style={{ color: alertTypes[type].secondaryColor }}
+            style={{ color: secondaryColor }}
           >
             {content}
           </Typography>
@@ -118,7 +125,7 @@ function Alert({
         { buttonLabel ?
           <Button
             className={classes.smallButton}
-            style={{ background: alertTypes[type].secondaryColor }}
+            style={{ background: secondaryColor }}
             variant="contained"
             onClick={onButtonClick}
           >
@@ -130,7 +137,7 @@ function Alert({
         <Box>
           <IconButton
             className={classes.closeButton}
-            style={{ color: alertTypes[type].secondaryColor }}
+            style={{ color: secondaryColor }}
             onClick={onClose}
           >
             <IconClose />
