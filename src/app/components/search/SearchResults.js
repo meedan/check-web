@@ -26,7 +26,7 @@ import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
 
 const StyledListHeader = styled.div`
-  margin: ${units(2)};
+  margin: ${units(2)} ${units(2)} 0;
 
   .search__list-header-filter-row {
     justify-content: space-between;
@@ -465,11 +465,11 @@ function SearchResultsComponent({
             handleSubmit={handleSubmit}
           />
         </Row>
-        <Row className="project__description">
+        <>
           {listDescription && listDescription.trim().length ?
-            <ParsedText text={listDescription} />
+            <Row className="project__description"><ParsedText text={listDescription} /></Row>
             : null}
-        </Row>
+        </>
       </StyledListHeader>
       { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
       <Box m={2}>
