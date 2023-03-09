@@ -5,7 +5,7 @@ import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
 import styled from 'styled-components';
 import CheckError from './CheckError';
-import { units } from './styles/js/shared';
+import { units, otherWhite } from './styles/js/shared';
 
 /**
  * TODO
@@ -190,7 +190,7 @@ function createFriendlyErrorMessage(error) {
     & > .MuiButtonBase-root {
       text-transform: uppercase;
       color: #d32f2f;
-      background-color: white;
+      background-color: ${otherWhite};
     }
   `;
   const friendlyMessage = CheckError.getMessageFromCode(error.code);
