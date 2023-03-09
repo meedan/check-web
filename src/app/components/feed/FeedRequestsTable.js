@@ -156,7 +156,7 @@ const FeedRequestsTable = ({
     root: {
       overflow: 'auto',
       display: 'block',
-      maxWidth: 'calc(100vw - 256px)',
+      flex: '0 0 256px',
       maxHeight: 'calc(100vh - 270px)',
     },
   })(TableContainer);

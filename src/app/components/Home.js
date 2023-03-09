@@ -22,17 +22,32 @@ import { withClientSessionId } from '../ClientSessionId';
 import { stringHelper } from '../customHelpers';
 import { bemClass } from '../helpers';
 import MeRoute from '../relay/MeRoute';
+import { otherWhite } from '../styles/js/shared';
 
 const Wrapper = styled.div`
   display: flex;
 `;
 
 const Main = styled.main`
-  flex: 1 1 auto;
+  flex: 0 1 calc(100% - 256px);
+  height: 100vh;
+  overflow: hidden;
 `;
 
 const StyledContent = styled.div`
-  background-color: white;
+  background-color: ${otherWhite};
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  .project,
+  .project-group,
+  .saved-search {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 `;
 
 function buildLoginContainerMessage(flashMessage, error, childRoute, queryString) {
