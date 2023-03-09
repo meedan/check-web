@@ -300,7 +300,7 @@ const MediaSuggestionsComponent = ({
     }
   `;
 
-  const handleBulkReject = (targetProject, disableFlashMessage, callback) => {
+  const handleBulkReject = (targetProject, disableFlashMessage, callback = () => {}) => {
     setIsBulkRejectDialogOpen(false);
     const visibleItemIds = relationships.slice(cursor, cursor + pageSize).map(relationship => relationship.id);
 

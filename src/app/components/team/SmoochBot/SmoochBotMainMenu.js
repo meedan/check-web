@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import { languageLabel } from '../../../LanguageRegistry';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
-import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import { brandMain } from '../../../styles/js/shared';
 
 const messages = defineMessages({
@@ -103,8 +103,9 @@ const SmoochBotMainMenu = ({
       </Typography>
 
       { collapseLanguages ?
-        <WarningAlert
-          title={
+        <Alert
+          type="warning"
+          content={
             <FormattedMessage
               id="smoochBotMainMenu.alertTitle"
               defaultMessage="There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option."
