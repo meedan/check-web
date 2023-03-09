@@ -105,7 +105,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('1 suggestion')).to be(true)
   end
 
-  it "should identify images as similar", bin9: true do
+  it 'should identify images as similar', bin9: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('.project__description')
@@ -127,7 +127,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it "should identify videos as similar", bin8: true do
+  it 'should identify videos as similar', bin8: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('.project__description')
