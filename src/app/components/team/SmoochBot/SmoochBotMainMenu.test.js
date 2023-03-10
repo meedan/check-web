@@ -1,7 +1,7 @@
 import React from 'react';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
-import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 
 const defaultProps = {
   enabledIntegrations: {},
@@ -37,13 +37,13 @@ describe('<SmoochBotMainMenu />', () => {
       {...defaultProps}
       languages={['en', 'es', 'fr', 'ar', 'pt', 'de', 'it', 'bn', 'hi']}
     />);
-    expect(wrapper.find(WarningAlert)).toHaveLength(1);
+    expect(wrapper.find(Alert)).toHaveLength(1);
   });
 
   it('should not render warning', () => {
     const wrapper = mountWithIntl(<SmoochBotMainMenu
       {...defaultProps}
     />);
-    expect(wrapper.find(WarningAlert)).toHaveLength(0);
+    expect(wrapper.find(Alert)).toHaveLength(0);
   });
 });
