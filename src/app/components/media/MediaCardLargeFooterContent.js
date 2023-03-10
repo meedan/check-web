@@ -4,9 +4,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { textPrimary, textSecondary } from '../../styles/js/shared';
 
-/*
-  How should I specify props? Discrete props or pass down projectMedia?
-*/
 const MediaCardLargeFooterContent = ({
   body,
   title,
