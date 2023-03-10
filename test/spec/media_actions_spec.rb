@@ -17,7 +17,7 @@ shared_examples 'media actions' do
 
   it 'should refresh media', bin1: true do
     api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://ca.ios.ba/files/meedan/random.php' })
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     title1 = wait_for_selector('.media-expanded__title span').text
     expect((title1 =~ /Random/).nil?).to be(false)
     wait_for_selector('.media-actions__icon').click
@@ -31,7 +31,7 @@ shared_examples 'media actions' do
   it 'should autorefresh media when annotation is created', bin3: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     url = @driver.current_url
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
     current_window = @driver.window_handles.last
     @driver.execute_script("window.open('#{url}')")
@@ -68,7 +68,7 @@ shared_examples 'media actions' do
 
   it 'should add and delete note', bin3: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     wait_for_selector('.media-tab__comments').click
     wait_for_selector('.annotations__list')
     fill_field('#cmd-input', 'A comment')
@@ -76,7 +76,7 @@ shared_examples 'media actions' do
     wait_for_selector('.annotation--comment')
     expect(@driver.page_source.include?('A comment')).to be(true)
     @driver.navigate.refresh
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
     wait_for_selector('.media-tab__comments').click
     wait_for_selector('.annotation--comment')
@@ -86,7 +86,7 @@ shared_examples 'media actions' do
     wait_for_selector_none('.annotation__avatar-col')
     expect(@driver.page_source.include?('A comment')).to be(false)
     @driver.navigate.refresh
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
     wait_for_selector('.media-tab__comments').click
     expect(@driver.page_source.include?('A comment')).to be(false)
@@ -135,14 +135,14 @@ shared_examples 'media actions' do
     api_create_team_project_and_link_and_redirect_to_media_page({ url: @media_url })
     id1 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1.positive?).to be(true)
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('.search__results')
     wait_for_selector('.medias__item')
     wait_for_selector('#create-media__add-item').click
     fill_field('#create-media-input', @media_url)
     wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     id2 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1 == id2).to be(true)
   end
