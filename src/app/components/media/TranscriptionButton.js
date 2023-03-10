@@ -4,8 +4,6 @@ import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const TranscriptionButton = ({
@@ -83,9 +81,6 @@ const TranscriptionButton = ({
       onClick={handleClick}
       disabled={pending || (transcription && transcription.data && transcription.data.last_response.job_status)}
     >
-      <ListItemIcon>
-        <DescriptionOutlinedIcon />
-      </ListItemIcon>
       { pending ?
         <FormattedMessage
           id="transcriptionButton.inProgress"

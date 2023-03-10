@@ -64,7 +64,7 @@ MediaCreatedBy.propTypes = {
   projectMedia: PropTypes.shape({
     user_id: PropTypes.number.isRequired,
     creator_name: PropTypes.string.isRequired,
-    channel: PropTypes.string.isRequired,
+    channel: PropTypes.object.isRequired,
   }).isRequired,
   intl: intlShape.isRequired,
 };

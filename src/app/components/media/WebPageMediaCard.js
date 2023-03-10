@@ -1,8 +1,9 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
+import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
 import AspectRatio from '../layout/AspectRatio';
+import MediaCardTitleSummary from './MediaCardTitleSummary';
 
 class WebPageMediaCard extends Component {
   shouldComponentUpdate(nextProps) {
@@ -10,7 +11,7 @@ class WebPageMediaCard extends Component {
   }
 
   canEmbedHtml() {
-    const { media: { team }, media: { media: { metadata } } } = this.props;
+    const { projectMedia: { team }, projectMedia: { media: { metadata } } } = this.props;
     const embed = metadata;
     if (!embed.html) return false;
     if (!team.get_embed_whitelist) return false;
@@ -22,7 +23,7 @@ class WebPageMediaCard extends Component {
 
   render() {
     const {
-      media,
+      projectMedia,
       data,
       contentWarning,
       warningCreator,
@@ -31,6 +32,10 @@ class WebPageMediaCard extends Component {
 
     return (
       <article className="web-page-media-card">
+        <MediaCardTitleSummary
+          title={data.title}
+          summary={data.description}
+        />
         {this.canEmbedHtml() ?
           <div
             dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
@@ -39,14 +44,15 @@ class WebPageMediaCard extends Component {
           />
           :
           <div>
-            { media.picture ?
+            { projectMedia.picture ?
               <AspectRatio
                 key={contentWarning}
                 contentWarning={contentWarning}
                 warningCreator={warningCreator}
                 warningCategory={warningCategory}
+                projectMedia={projectMedia}
               >
-                <img src={media.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
+                <img src={projectMedia.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
               </AspectRatio> : null
             }
             <p />
@@ -55,6 +61,7 @@ class WebPageMediaCard extends Component {
                 <FormattedMessage
                   id="webPageMediaCard.Error"
                   defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
+                  description="Error message displayed when link data is unavailable"
                 />
               </div> : null
             }
@@ -65,4 +72,16 @@ class WebPageMediaCard extends Component {
   }
 }
 
-export default WebPageMediaCard;
+export { WebPageMediaCard };
+export default createFragmentContainer(WebPageMediaCard, graphql`
+  fragment WebPageMediaCard_projectMedia on ProjectMedia {
+    ...AspectRatio_projectMedia
+    picture
+    team {
+      get_embed_whitelist
+    }
+    media {
+      metadata
+    }
+  }
+`);

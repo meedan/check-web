@@ -102,7 +102,7 @@ const MediaComponentRightPanel = ({ projectMedia, setShowTab, showTab }) => {
 MediaComponentRightPanel.propTypes = {
   projectMedia: PropTypes.object.isRequired, // FIXME: Detail which fields are expected
   setShowTab: PropTypes.func.isRequired, // React useState setter
-  showTab: PropTypes.func.isRequired, // React useState state
+  showTab: PropTypes.string.isRequired, // React useState state
 };
 
 export default MediaComponentRightPanel;

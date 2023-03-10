@@ -91,7 +91,7 @@ shared_examples 'tag' do
 
   it 'should add a tag, reject duplicated and delete tag', bin3: true, quick: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     new_tag = "tag:#{Time.now.to_i}"
     # Validate assumption that tag does not exist
     expect(@driver.page_source.include?(new_tag)).to be(false)
@@ -109,7 +109,7 @@ shared_examples 'tag' do
     wait_for_selector_none('.multiselector__search-input input')
     delete_tag(new_tag)
     @driver.navigate.refresh
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     expect(@driver.page_source.include?(new_tag)).to be(false)
   end
 end

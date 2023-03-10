@@ -2,7 +2,7 @@ shared_examples 'report' do
   it 'should set claim and fact check information for an item, and go to the report', bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     api_install_bot 'smooch'
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
 
     # Claim
     expect(@driver.page_source.include?('My claim description')).to be(false)
