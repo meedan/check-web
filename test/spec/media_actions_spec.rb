@@ -18,12 +18,12 @@ shared_examples 'media actions' do
   it 'should refresh media', bin1: true do
     api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://ca.ios.ba/files/meedan/random.php' })
     wait_for_selector('.media-card-large')
-    title1 = wait_for_selector('.media-expanded__title span').text
+    title1 = wait_for_selector('.media-card-large__title').text
     expect((title1 =~ /Random/).nil?).to be(false)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__refresh').click
-    wait_for_text_change(title1, '.media-expanded__title span', :css)
-    title2 = wait_for_selector('.media-expanded__title span').text
+    wait_for_text_change(title1, '.media-card-large__title')
+    title2 = wait_for_selector('.media-card-large__title').text
     expect((title2 =~ /Random/).nil?).to be(false)
     expect(title1 != title2).to be(true)
   end

@@ -9,7 +9,7 @@ const MediaCardTitleSummary = ({
   <>
     <Box p={2}>
       <div>
-        <Typography variant="subtitle2">
+        <Typography variant="subtitle2" className="media-card-large__title">
           {title}
         </Typography>
       </div>
