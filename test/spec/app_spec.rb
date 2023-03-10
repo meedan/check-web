@@ -108,7 +108,7 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'status'
     include_examples 'tag'
     include_examples 'team'
-    # include_examples 'similarity'
+    include_examples 'similarity'
     it_behaves_like 'media', 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like 'media', 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
