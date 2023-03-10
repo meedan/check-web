@@ -1,7 +1,7 @@
 shared_examples 'language' do
   it 'should manage workspace languages', bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team-settings__languages-tab').click
     wait_for_selector('.language-list-item__en-default')

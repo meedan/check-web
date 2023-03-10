@@ -1,48 +1,24 @@
 import React from 'react';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
 import AspectRatio from '../layout/AspectRatio';
 
-/* eslint jsx-a11y/click-events-have-key-events: 0 */
-/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
-class ImageMediaCard extends React.Component {
-  state = {
-    image: null,
-  };
-
-  handleCloseLightbox = () => {
-    this.setState({ image: null });
-  };
-
-  handleOpenLightbox = () => {
-    this.setState({ image: this.props.imagePath });
-  }
-
-  render() {
-    return (
-      <article className="image-media-card" style={{ textAlign: 'center' }}>
-        <AspectRatio
-          key={this.props.contentWarning}
-          contentWarning={this.props.contentWarning}
-          warningCreator={this.props.warningCreator}
-          warningCategory={this.props.warningCategory}
-          onClickExpand={this.handleOpenLightbox}
-        >
-          <img
-            src={this.props.imagePath}
-            alt=""
-          />
-        </AspectRatio>
-        { this.state.image ?
-          <Lightbox
-            onCloseRequest={this.handleCloseLightbox}
-            mainSrc={this.state.image}
-            reactModalStyle={{ overlay: { zIndex: 2000 } }}
-          />
-          : null }
-      </article>
-    );
-  }
-}
+const ImageMediaCard = ({
+  imagePath,
+  projectMedia,
+}) => (
+  <article className="image-media-card">
+    <AspectRatio
+      expandedImage={imagePath}
+      downloadUrl={imagePath}
+      projectMedia={projectMedia}
+    >
+      <div className="aspect-ratio__overlay">
+        <img
+          src={imagePath}
+          alt=""
+        />
+      </div>
+    </AspectRatio>
+  </article>
+);
 
 export default ImageMediaCard;

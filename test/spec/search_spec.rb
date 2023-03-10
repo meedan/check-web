@@ -190,7 +190,7 @@ shared_examples 'search' do
 
   it 'should find all medias with an empty search', bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     wait_for_selector('.project-header__back-button').click
     create_image('files/test.png')
     old = wait_for_selector_list('.medias__item').length

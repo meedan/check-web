@@ -5,6 +5,8 @@ import {
   Box,
   Typography,
 } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
+import { FormattedMessage } from 'react-intl';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import Button from '@material-ui/core/Button';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
@@ -135,13 +137,22 @@ function Alert({
       </Box>
       { onClose ?
         <Box>
-          <IconButton
-            className={classes.closeButton}
-            style={{ color: secondaryColor }}
-            onClick={onClose}
+          <Tooltip title={
+            <FormattedMessage
+              id="alert.closeButton"
+              defaultMessage="Close alert"
+              description="Tooltip for close alert"
+            />
+          }
           >
-            <IconClose />
-          </IconButton>
+            <IconButton
+              className={classes.closeButton}
+              style={{ color: secondaryColor }}
+              onClick={onClose}
+            >
+              <IconClose />
+            </IconButton>
+          </Tooltip>
         </Box>
         : null }
     </Box>

@@ -4,7 +4,6 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -24,9 +23,7 @@ import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
 import BlankMediaButton from './BlankMediaButton';
 import UserUtil from '../user/UserUtil';
-import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
-import { withPusher, pusherShape } from '../../pusher';
 import { units, textSecondary } from '../../styles/js/shared';
 
 const TypographyBlack54 = withStyles({
@@ -35,33 +32,9 @@ const TypographyBlack54 = withStyles({
   },
 })(Typography);
 
-const styles = {
-  title: {
-    overflowWrap: 'anywhere',
-  },
-};
-
 class MediaExpandedComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      mediaVersion: false,
-      playbackRate: 1,
-    };
-  }
-
-  componentDidMount() {
-    this.setContext();
-    this.subscribe();
-  }
-
   componentDidUpdate() {
     this.setContext();
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
   }
 
   getContext() {
@@ -74,39 +47,8 @@ class MediaExpandedComponent extends Component {
     context.setContextStore({ team, project });
   }
 
-  subscribe() {
-    const { pusher, clientSessionId, media } = this.props;
-    if (pusher) {
-      pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
-        const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `media-${media.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
-        }
-        return false;
-      });
-    }
-  }
-
-  unsubscribe() {
-    const { pusher, media } = this.props;
-    if (pusher) {
-      pusher.unsubscribe(media.pusher_channel);
-    }
-  }
-
   render() {
-    const { classes } = this.props;
-    const {
-      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady, hideActions,
-    } = this.props;
-    const { playbackRate } = this.state;
+    const { media, hideActions } = this.props;
 
     const currentTeam = this.getContext().team || this.getContext().currentUser.current_team;
 
@@ -128,52 +70,24 @@ class MediaExpandedComponent extends Component {
     const isWebPage = media.media.url && data.provider === 'page';
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const { mediaUrl, mediaQuery } = this.props;
     const coverImage = media.media.thumbnail_path || '/images/player_cover.svg';
-
-    let warningType = null;
-    if (media.dynamic_annotation_flag) {
-      // Sort by flag category likelihood and display most likely
-      let sortable = [];
-      // Put custom flag at beginning of array
-      if (media.dynamic_annotation_flag.data.custom) {
-        sortable = sortable.concat([...Object.entries(media.dynamic_annotation_flag.data.custom)]);
-      }
-      const filteredFlags = {};
-      ['adult', 'medical', 'violence'].forEach((key) => { filteredFlags[key] = media.dynamic_annotation_flag.data.flags[key]; });
-      sortable = sortable.concat([...Object.entries(filteredFlags)]);
-      sortable.sort((a, b) => b[1] - a[1]);
-      const type = sortable[0];
-      [warningType] = type;
-    }
 
     const embedCard = (() => {
       if (isImage) {
         return (
           <ImageMediaCard
             key={media.dynamic_annotation_flag}
-            contentWarning={media.show_warning_cover}
-            warningCreator={media.dynamic_annotation_flag?.annotator?.name}
-            warningCategory={warningType}
             imagePath={media.media.embed_path}
           />
         );
       } else if (isMedia || isYoutube) {
         return (
-          <div ref={this.props.playerRef}>
-            <MediaPlayerCard
-              key={media.dynamic_annotation_flag}
-              isYoutube={isYoutube}
-              filePath={filePath}
-              coverImage={coverImage}
-              contentWarning={media.show_warning_cover}
-              warningCreator={media.dynamic_annotation_flag?.annotator?.name}
-              warningCategory={warningType}
-              {...{
-                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState, playbackRate,
-              }}
-            />
-          </div>
+          <MediaPlayerCard
+            key={media.dynamic_annotation_flag}
+            isYoutube={isYoutube}
+            filePath={filePath}
+            coverImage={coverImage}
+          />
         );
       } else if (isQuote) {
         return (
@@ -186,12 +100,7 @@ class MediaExpandedComponent extends Component {
         return (
           <WebPageMediaCard
             key={media.dynamic_annotation_flag}
-            contentWarning={media.show_warning_cover}
-            warningCreator={media.dynamic_annotation_flag?.annotator?.name}
-            warningCategory={warningType}
             media={media}
-            mediaUrl={mediaUrl}
-            mediaQuery={mediaQuery}
             data={data}
           />
         );
@@ -201,7 +110,7 @@ class MediaExpandedComponent extends Component {
             url={media.media.url}
             fallback={null}
             domId={`pender-card-${randomNumber}`}
-            mediaVersion={this.state.mediaVersion || data.refreshes_count}
+            mediaVersion={data.refreshes_count}
           />
         );
       }
@@ -227,23 +136,11 @@ class MediaExpandedComponent extends Component {
       );
     }
 
-    const analysis = media.last_status_obj?.data?.fields || [];
-    const mediaTitle = analysis.find(f => f.field_name === 'file_title')?.value;
-    const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
-    const title = mediaTitle || media.media.metadata.title || media.media.quote || fileTitle || media.title;
     let description = media.extracted_text ? media.extracted_text.data.text : media.media.metadata.description;
     description = media.transcription && media.transcription.data.text ? media.transcription.data.text : description;
 
     return (
       <React.Fragment>
-        <CardHeader
-          className="media-expanded__title"
-          title={
-            <span className={classes.title}>
-              {truncateLength(title, 110)}
-            </span>
-          }
-        />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
           <MediaExpandedSecondRow projectMedia={media} />
           { isImage ?
@@ -286,8 +183,6 @@ class MediaExpandedComponent extends Component {
               <MediaExpandedActions
                 currentUserRole={currentUserRole}
                 projectMedia={media}
-                playbackRate={playbackRate}
-                onPlaybackRateChange={r => this.setState({ playbackRate: r })}
               />
             </CardActions>
           )
@@ -302,9 +197,6 @@ MediaExpandedComponent.contextTypes = {
 };
 
 MediaExpandedComponent.propTypes = {
-  pusher: pusherShape.isRequired,
-  playerRef: PropTypes.shape({ current: PropTypes.instanceOf(HTMLElement) }).isRequired,
-  relay: PropTypes.object.isRequired,
   /*
     FIXME refactor MediaExpanded component and children.
     Make children fragmentContainer and simplify parent query.
@@ -313,7 +205,7 @@ MediaExpandedComponent.propTypes = {
   media: PropTypes.object.isRequired,
 };
 
-const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedComponent), {
+const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -405,5 +297,5 @@ const MediaExpanded = (props) => {
   );
 };
 
-export default withStyles(styles)(MediaExpanded);
+export default MediaExpanded;
 export { MediaExpandedComponent };

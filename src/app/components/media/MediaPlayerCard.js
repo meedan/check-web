@@ -19,18 +19,12 @@ const MediaPlayerCard = ({
   coverImage,
   filePath,
   isYoutube,
-  playbackRate,
+  projectMedia,
   warningCategory,
   warningCreator,
 }) => {
   const classes = useStyles();
   const videoRef = React.useRef();
-
-  React.useEffect(() => {
-    if (!isYoutube) {
-      videoRef.current.playbackRate = playbackRate;
-    }
-  }, [playbackRate]);
 
   return (
     <article className="video-media-card" style={{ position: 'relative' }}>
@@ -39,6 +33,7 @@ const MediaPlayerCard = ({
         contentWarning={contentWarning}
         warningCreator={warningCreator}
         warningCategory={warningCategory}
+        projectMedia={projectMedia}
       >
         { coverImage ? (
           <img
@@ -77,7 +72,6 @@ MediaPlayerCard.propTypes = {
   coverImage: PropTypes.string,
   filePath: PropTypes.string.isRequired,
   isYoutube: PropTypes.bool,
-  playbackRate: PropTypes.number,
   warningCategory: PropTypes.string,
   warningCreator: PropTypes.string,
 };
@@ -86,7 +80,6 @@ MediaPlayerCard.defaultProps = {
   contentWarning: false,
   coverImage: '',
   isYoutube: false,
-  playbackRate: 1.0,
   warningCategory: '',
   warningCreator: '',
 };
