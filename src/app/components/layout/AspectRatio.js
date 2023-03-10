@@ -49,8 +49,6 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(1),
     paddingRight: theme.spacing(1),
     zIndex: 20,
-    // margin: units(2),
-    // zIndex: contentWarning && maskContent ? 15 : 150,
   },
   sensitiveScreen: props => ({
     pointerEvents: 'none',
