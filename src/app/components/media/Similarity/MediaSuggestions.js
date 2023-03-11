@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaSimilaritiesComponent from './MediaSimilaritiesComponent'; // eslint-disable-line no-unused-vars
-import MediaItem from './MediaItem'; // eslint-disable-line no-unused-vars
 import PaginatedMediaSuggestions from './PaginatedMediaSuggestions';
 import MediasLoading from '../MediasLoading';
 

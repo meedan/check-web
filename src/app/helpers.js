@@ -341,6 +341,18 @@ function botName(bot) {
   return bot.name === 'Smooch' ? 'Tipline' : bot.name;
 }
 
+/**
+ * Return a media type if it's a link
+ * Expect media object to have properties type, url and domain
+ */
+function getMediaType(media) {
+  let { type } = media;
+  if (media.url && media.domain === 'youtube.com') type = 'Youtube';
+  if (media.url && media.domain === 'twitter.com') type = 'Twitter';
+  if (media.url && media.domain === 'facebook.com') type = 'Facebook';
+  return type;
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -362,4 +374,5 @@ export { // eslint-disable-line import/no-unused-modules
   emojify,
   parseStringUnixTimestamp,
   botName,
+  getMediaType,
 };
