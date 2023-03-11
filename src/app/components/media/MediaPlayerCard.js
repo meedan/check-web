@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AspectRatio from '../layout/AspectRatio';
+import MediaControls from '../cds/media-cards/MediaControls.js';
 
 const useStyles = makeStyles(() => ({
   video: {
@@ -34,6 +35,8 @@ const MediaPlayerCard = ({
         warningCreator={warningCreator}
         warningCategory={warningCategory}
         projectMedia={projectMedia}
+        downloadUrl={isYoutube ? null : filePath}
+        isVideoFile
       >
         { coverImage ? (
           <img
@@ -53,13 +56,15 @@ const MediaPlayerCard = ({
               frameBorder="0"
             />
           ) : (
-            <video
-              id="media-player-card__video"
-              ref={videoRef}
-              src={filePath}
-              className={classes.video}
-              controls
-            />
+            <>
+              <video
+                id="media-player-card__video"
+                ref={videoRef}
+                src={filePath}
+                className={classes.video}
+              />
+              <MediaControls videoRef={videoRef} />
+            </>
           )}
         </div>
       </AspectRatio>
