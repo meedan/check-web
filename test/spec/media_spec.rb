@@ -22,51 +22,48 @@ shared_examples 'media' do |type|
     end
   end
 
-  # it 'should go from one item to another', bin2: true do
-  #   create_media_depending_on_type(nil, 3)
-  #   wait_for_selector('.projects-list')
-  #   wait_for_selector('.medias__item')
-  #   wait_for_selector('.media__heading a').click
-  #   wait_for_selector('.media-search__actions-bar')
-  #   wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
+  it 'should go from one item to another', bin2: true do
+    create_media_depending_on_type(nil, 3)
+    wait_for_selector('.projects-list')
+    wait_for_selector('.medias__item')
+    wait_for_selector('.media__heading a').click
+    wait_for_selector('#media-fact-check__title')
 
-  #   # First item
-  #   expect(page_source_body.include?('1 of 3')).to be(true)
-  #   expect(page_source_body.include?('2 of 3')).to be(false)
-  #   expect(page_source_body.include?('3 of 3')).to be(false)
-  #   expect(page_source_body.include?('Claim 2')).to be(true)
-  #   expect(page_source_body.include?('Claim 1')).to be(false)
-  #   expect(page_source_body.include?('Claim 0')).to be(false)
+    # First item
+    expect(page_source_body.include?('1 of 3')).to be(true)
+    expect(page_source_body.include?('2 of 3')).to be(false)
+    expect(page_source_body.include?('3 of 3')).to be(false)
+    expect(page_source_body.include?('Claim 2')).to be(true)
+    expect(page_source_body.include?('Claim 1')).to be(false)
+    expect(page_source_body.include?('Claim 0')).to be(false)
 
-  #   # Second item
-  #   press_button('.media-search__next-item')
-  #   wait_for_selector_none("//span[contains(text(), '1 of 3')]", :xpath)
-  #   @driver.navigate.refresh
-  #   wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
-  #   wait_for_selector('#media-search__current-item')
-  #   wait_for_selector('#media-fact-check__title')
-  #   wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
+    # Second item
+    press_button('.media-search__next-item')
+    wait_for_selector_none("//span[contains(text(), '1 of 3')]", :xpath)
+    @driver.navigate.refresh
+    wait_for_selector('#media-search__current-item')
+    wait_for_selector('#media-fact-check__title')
+    wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
 
-  #   expect(page_source_body.include?('1 of 3')).to be(false)
-  #   expect(page_source_body.include?('2 of 3')).to be(true)
-  #   expect(page_source_body.include?('3 of 3')).to be(false)
-  #   expect(page_source_body.include?('Claim 2')).to be(false)
-  #   expect(page_source_body.include?('Claim 1')).to be(true)
-  #   expect(page_source_body.include?('Claim 0')).to be(false)
+    expect(page_source_body.include?('1 of 3')).to be(false)
+    expect(page_source_body.include?('2 of 3')).to be(true)
+    expect(page_source_body.include?('3 of 3')).to be(false)
+    expect(page_source_body.include?('Claim 2')).to be(false)
+    expect(page_source_body.include?('Claim 1')).to be(true)
+    expect(page_source_body.include?('Claim 0')).to be(false)
 
-  #   # Third item
-  #   wait_for_selector('#media-search__current-item')
-  #   press_button('.media-search__next-item')
-  #   wait_for_selector_none("//span[contains(text(), '2 of 3')]", :xpath)
-  #   wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
+    # Third item
+    wait_for_selector('#media-search__current-item')
+    press_button('.media-search__next-item')
+    wait_for_selector_none("//span[contains(text(), '2 of 3')]", :xpath)
 
-  #   expect(page_source_body.include?('1 of 3')).to be(false)
-  #   expect(page_source_body.include?('2 of 3')).to be(false)
-  #   expect(page_source_body.include?('3 of 3')).to be(true)
-  #   expect(page_source_body.include?('Claim 2')).to be(false)
-  #   expect(page_source_body.include?('Claim 1')).to be(false)
-  #   expect(page_source_body.include?('Claim 0')).to be(true)
-  # end
+    expect(page_source_body.include?('1 of 3')).to be(false)
+    expect(page_source_body.include?('2 of 3')).to be(false)
+    expect(page_source_body.include?('3 of 3')).to be(true)
+    expect(page_source_body.include?('Claim 2')).to be(false)
+    expect(page_source_body.include?('Claim 1')).to be(false)
+    expect(page_source_body.include?('Claim 0')).to be(true)
+  end
 
   it 'should restore item from trash from item page', bin6: true do
     create_media_depending_on_type
