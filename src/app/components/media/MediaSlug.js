@@ -13,10 +13,17 @@ const MediaSlug = ({
   <>
     <div>
       <Box display="flex" alignItems="center">
-        <MediaTypeDisplayIcon mediaType={mediaType} />
-        <Typography variant="subtitle2">{slug}</Typography>
+        <Box mr={1}>
+          <MediaTypeDisplayIcon mediaType={mediaType} />
+        </Box>
+        <Typography
+          variant="subtitle2"
+          style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+        >
+          {slug}
+        </Typography>
       </Box>
-      <BulletSeparator details={details} />
+      <BulletSeparator compact details={details} />
     </div>
   </>
 );

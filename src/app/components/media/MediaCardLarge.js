@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
@@ -30,14 +31,19 @@ const MediaCardLarge = ({
   const isYoutube = media.url && media.domain === 'youtube.com';
   const isTwitter = media.url && media.domain === 'twitter.com';
   const isFacebook = media.url && media.domain === 'facebook.com';
+  const isInstagram = media.url && media.domain === 'instagram.com';
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
   if (isYoutube) type = 'Youtube';
   if (isTwitter) type = 'Twitter';
   if (isFacebook) type = 'Facebook';
+  if (isInstagram) type = 'Instagram';
+
+  const coverImage = media.thumbnail_path || '/images/player_cover.svg';
 
   const extractedText = projectMedia.extracted_text?.data?.text;
   const transcription = projectMedia.transcription?.data.text;
+
   let footerType = null;
   if (extractedText) footerType = 'ExtractedText';
   if (transcription) footerType = 'Transcription';
@@ -62,6 +68,7 @@ const MediaCardLarge = ({
             projectMedia={projectMedia}
             isYoutube={isYoutube}
             filePath={media.file_path || media.url}
+            coverImage={coverImage}
           />
         ) : null }
         { isWebPage ? (
@@ -84,7 +91,32 @@ const MediaCardLarge = ({
             <MediaSlug
               mediaType={type}
               slug={projectMedia.title}
-              details={[`Last submitted on ${projectMedia.last_seen}`, `${projectMedia.requests_count} requests`]}
+              details={[(
+                <FormattedMessage
+                  id="mediaCardLarge.lastSeen"
+                  defaultMessage="Last submitted on {date}"
+                  description="Header for the date when the media item was last received by the workspace"
+                  values={{
+                    date: (
+                      <FormattedDate
+                        value={projectMedia.last_seen * 1000}
+                        year="numeric"
+                        month="short"
+                        day="numeric"
+                      />
+                    ),
+                  }}
+                />
+              ), (
+                <FormattedMessage
+                  id="mediaCardLarge.requests"
+                  defaultMessage="{count, plural, one {# request} other {# requests}}"
+                  description="Number of times a request has been sent about this media"
+                  values={{
+                    count: projectMedia.requests_count,
+                  }}
+                />
+              )]}
             />
           </Box>
           <MediaExpandedActions projectMedia={projectMedia} />
@@ -130,6 +162,7 @@ export default createFragmentContainer(MediaCardLarge, graphql`
       metadata
       embed_path
       file_path
+      thumbnail_path
     }
   }
 `);
