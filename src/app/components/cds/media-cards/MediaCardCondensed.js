@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,
 } from '@material-ui/core';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
-import BulletSeparator from '../../layout/BulletSeparator';
+import MediaSlug from '../../media/MediaSlug';
+import { getMediaType } from '../../../helpers';
 import { brandBorder, grayBorderAccent, otherWhite, textPrimary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     justifyContent: 'space-between',
     overflow: 'hidden',
-    maxHeight: theme.spacing(14),
+    height: theme.spacing(14),
   },
   innerBox: {
     cursor: 'pointer',
@@ -41,8 +43,6 @@ const useStyles = makeStyles(theme => ({
     alignSelf: 'center',
   },
   url: {
-    marginTop: theme.spacing(0.5),
-    marginBottom: theme.spacing(0.5),
     lineHeight: '143%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -50,17 +50,12 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '33vw', // 1/3 of the viewport width
   },
   title: {
-    fontSize: '16px',
-    fontWeight: 500,
-    marginBottom: theme.spacing(0.5),
-    lineHeight: '150%',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     maxWidth: '33vw', // 1/3 of the viewport width
   },
   description: {
-    marginTop: theme.spacing(0.5),
     maxHeight: '20px',
     lineHeight: '143%',
     whiteSpace: 'nowrap',
@@ -128,13 +123,25 @@ const MediaCardCondensed = ({
               src={media?.picture || picture}
             /> : null
         }
+        {
+          media?.media?.type === 'UploadedAudio' ?
+            <img
+              alt=""
+              className={classes.image}
+              src="/images/audio_placeholder.svg"
+            /> : null
+        }
         <div className={classes.text}>
-          <div className={classes.title}>{title || media?.quote || media.metadata?.title}</div>
-          <BulletSeparator compact details={details} />
-          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} /></div> : null }
+          <MediaSlug
+            mediaType={getMediaType({ type: media?.media?.type, url: media?.media?.url, domain: media?.media?.domain })}
+            slug={<div className={classes.title}>{title || media.title}</div>}
+            details={details}
+            compact
+          />
           <div className={classes.description}>
             <ParsedText text={description || media.metadata?.description || media.quote} />
           </div>
+          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} /></div> : null }
         </div>
       </Box>
       <Box
@@ -170,4 +177,17 @@ MediaCardCondensed.defaultProps = {
   placeholder: null,
 };
 
-export default MediaCardCondensed;
+export default createFragmentContainer(MediaCardCondensed, graphql`
+  fragment MediaCardCondensed_projectMedia on ProjectMedia {
+    title
+    type
+    url
+    picture
+    quote
+    media {
+      type
+      url
+      domain
+    }
+  }
+`);

@@ -134,6 +134,12 @@ const MediaSimilarityBarAdd = ({
                 requests_count
                 linked_items_count
                 report_status
+                url
+                media {
+                  url
+                  domain
+                  type
+                }
               }
             }
           }
