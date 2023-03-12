@@ -16,14 +16,22 @@ const useStyles = makeStyles(theme => ({
 
 const CustomSlider = withStyles(theme => ({
   root: {
+    '&:hover': {
+      '& $thumb': {
+        opacity: 1,
+      },
+    },
   },
   thumb: {
     height: theme.spacing(1.5),
     width: theme.spacing(1.5),
+    opacity: 0,
+    '&:focus, &:hover, &$active': {
+      boxShadow: 'inherit',
+    },
   },
-  active: {
-  },
-  valueLabel: {
+  focusVisible: {
+    boxShadow: 'none',
   },
   track: {
     height: theme.spacing(0.5),
@@ -37,12 +45,17 @@ const CustomSlider = withStyles(theme => ({
 
 const MediaTimeline = ({
   currentTime,
+  setCurrentTime,
   duration,
   videoRef,
 }) => {
   const classes = useStyles();
 
   const handleChange = (event, newValue) => {
+    setCurrentTime(newValue);
+  };
+
+  const handleCommit = (event, newValue) => {
     const video = videoRef.current;
     video.currentTime = newValue;
   };
@@ -54,6 +67,7 @@ const MediaTimeline = ({
       step={duration / 1000}
       max={duration}
       onChange={handleChange}
+      onChangeCommitted={handleCommit}
     />
   );
 };
