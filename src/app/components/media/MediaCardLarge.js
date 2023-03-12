@@ -44,7 +44,7 @@ const MediaCardLarge = ({
   const footerBody = extractedText || transcription || null;
 
   return (
-    <>
+    <div className="media-card-large">
       <StyledCardBorder>
         { type === 'Claim' ? (
           <Box mt={2} mx={2}>
@@ -98,7 +98,7 @@ const MediaCardLarge = ({
           ) : null }
         </Box>
       </StyledCardBorder>
-    </>
+    </div>
   );
 };
 

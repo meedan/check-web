@@ -22,8 +22,7 @@ import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import { placeholders } from './localizables';
 import { textDisabled, textPlaceholder, grayBackground, textPrimary, errorMain } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
-import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
-import SuccessAlert from '../../cds/alerts-and-prompts/SuccessAlert';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -129,6 +128,7 @@ const SmoochBotNewsletterEditor = ({
   const bulletPoints = body.split(/\n+/);
   const [numberOfBulletPoints, setNumberOfBulletPoints] = React.useState(bulletPoints.length || 1);
   const [introduction, setIntroduction] = React.useState(newsletter.smooch_newsletter_introduction);
+  const [showAlert, setShowAlert] = React.useState(true);
 
   const maxCharacters = 1024;
   let charactersCount = 0;
@@ -209,20 +209,23 @@ const SmoochBotNewsletterEditor = ({
   return (
     <React.Fragment>
       <Box>
-        { newsletterInformation ?
+        { newsletterInformation && showAlert ?
           <Box mb={1}>
             <Typography component="div" variant="body2">
               { newsletterInformation.paused ?
-                <WarningAlert
-                  title={
+                <Alert
+                  type="warning"
+                  content={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.paused"
                       defaultMessage="To send your next newsletter, please add new content"
                     />
                   }
                 /> :
-                <SuccessAlert
-                  title={
+                <Alert
+                  type="success"
+                  onClose={() => setShowAlert(false)}
+                  content={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.active"
                       defaultMessage="The newsletter will be sent to {count} users on {dateTime}"
