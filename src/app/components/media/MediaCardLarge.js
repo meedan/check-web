@@ -22,6 +22,7 @@ const StyledCardBorder = styled.div`
 const MediaCardLarge = ({
   // inModal, TODO: tweak layout according to inModal prop
   projectMedia,
+  currentUserRole,
 }) => {
   const { media } = projectMedia;
   const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
@@ -62,6 +63,7 @@ const MediaCardLarge = ({
             projectMedia={projectMedia}
             isYoutube={isYoutube}
             filePath={media.file_path || media.url}
+            currentUserRole={currentUserRole}
           />
         ) : null }
         { isWebPage ? (

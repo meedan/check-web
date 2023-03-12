@@ -109,6 +109,7 @@ const messages = defineMessages({
 });
 
 const AspectRatio = ({
+  currentUserRole,
   expandedImage,
   downloadUrl,
   children,
@@ -146,6 +147,7 @@ const AspectRatio = ({
           <IconButton
             classes={{ root: classes.iconButton }}
             onClick={handleOnExpand}
+            size="small"
           >
             { isFullscreenVideo ? <FullscreenExitIcon /> : <FullscreenIcon /> }
           </IconButton>
@@ -155,6 +157,7 @@ const AspectRatio = ({
           <a href={downloadUrl} download>
             <IconButton
               classes={{ root: classes.iconButton }}
+              size="small"
             >
               <DownloadIcon />
             </IconButton>
@@ -164,6 +167,7 @@ const AspectRatio = ({
         <SensitiveContentMenuButton
           iconButtonClasses={{ root: classes.iconButton }}
           projectMedia={projectMedia}
+          currentUserRole={currentUserRole}
         />
       </div>
     </div>

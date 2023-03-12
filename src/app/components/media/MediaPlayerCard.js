@@ -18,6 +18,7 @@ const youtubeRegex = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|
 const MediaPlayerCard = ({
   contentWarning,
   coverImage,
+  currentUserRole,
   filePath,
   isYoutube,
   projectMedia,
@@ -37,6 +38,7 @@ const MediaPlayerCard = ({
         projectMedia={projectMedia}
         downloadUrl={isYoutube ? null : filePath}
         isVideoFile
+        currentUserRole={currentUserRole}
       >
         { coverImage ? (
           <img
