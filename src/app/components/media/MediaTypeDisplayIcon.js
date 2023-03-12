@@ -7,6 +7,7 @@ import {
   MovieOutlined,
   PublicOutlined,
   Facebook,
+  Instagram,
   Twitter,
   YouTube,
 } from '@material-ui/icons';
@@ -25,6 +26,8 @@ export default function MediaTypeDisplayIcon({ mediaType }) {
     return <AudiotrackOutlined />;
   case 'Facebook':
     return <Facebook />;
+  case 'Instagram':
+    return <Instagram />;
   case 'Twitter':
     return <Twitter />;
   case 'Youtube':

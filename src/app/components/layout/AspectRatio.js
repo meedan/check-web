@@ -117,8 +117,8 @@ const AspectRatio = ({
   isVideoFile,
   intl,
 }) => {
-  const contentWarning = projectMedia.show_warning_cover;
-  const warningCreator = projectMedia.dynamic_annotation_flag?.annotator?.name;
+  const contentWarning = projectMedia?.show_warning_cover;
+  const warningCreator = projectMedia?.dynamic_annotation_flag?.annotator?.name;
 
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
@@ -163,18 +163,20 @@ const AspectRatio = ({
             </IconButton>
           </a>
         </div> : null }
-      <div>
-        <SensitiveContentMenuButton
-          iconButtonClasses={{ root: classes.iconButton }}
-          projectMedia={projectMedia}
-          currentUserRole={currentUserRole}
-        />
-      </div>
+      { projectMedia ?
+        <div>
+          <SensitiveContentMenuButton
+            iconButtonClasses={{ root: classes.iconButton }}
+            projectMedia={projectMedia}
+            currentUserRole={currentUserRole}
+          />
+        </div> : null
+      }
     </div>
   );
 
   let warningType = null;
-  if (projectMedia.dynamic_annotation_flag) {
+  if (projectMedia?.dynamic_annotation_flag) {
     // Sort by flag category likelihood and display most likely
     let sortable = [];
     // Put custom flag at beginning of array

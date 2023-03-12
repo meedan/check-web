@@ -47,6 +47,7 @@ const MediaPlayerCard = ({
           <img
             src={coverImage}
             alt=""
+            onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }}
           />
         ) : null }
         <div className="aspect-ratio__overlay">
