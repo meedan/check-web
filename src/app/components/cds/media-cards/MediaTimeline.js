@@ -4,7 +4,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   Slider,
 } from '@material-ui/core';
-// import { brandBorder, grayBorderAccent, otherWhite, textPrimary } from '../../../styles/js/shared';
+import { otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const CustomSlider = withStyles(theme => ({
   root: {
+    padding: theme.spacing(1, 0, 2, 0),
     '&:hover': {
       '& $thumb': {
         opacity: 1,
@@ -23,6 +24,7 @@ const CustomSlider = withStyles(theme => ({
     },
   },
   thumb: {
+    color: otherWhite,
     height: theme.spacing(1.5),
     width: theme.spacing(1.5),
     opacity: 0,
@@ -36,10 +38,12 @@ const CustomSlider = withStyles(theme => ({
   track: {
     height: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
+    color: otherWhite,
   },
   rail: {
     height: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
+    color: 'rgba(255, 255, 255, 0.7)',
   },
 }))(Slider);
 

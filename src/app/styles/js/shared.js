@@ -35,6 +35,8 @@ export const grayDisabledBackground = '#efefef';
 export const grayBorderMain = '#e4e4e4';
 export const grayBorderAccent = '#b4b4b4';
 
+export const overlayLight = 'rgba(34, 34, 34, 0.7)';
+
 export const otherWhite = '#fff';
 
 // Social network colors

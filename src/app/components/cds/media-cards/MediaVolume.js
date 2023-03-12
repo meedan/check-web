@@ -6,7 +6,7 @@ import {
   Slider,
 } from '@material-ui/core';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-// import { brandBorder, grayBorderAccent, otherWhite, textPrimary } from '../../../styles/js/shared';
+import { otherWhite, overlayLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
         opacity: 1,
         transition: '0.5s',
       },
-      backgroundColor: 'yellow',
+      backgroundColor: overlayLight,
     },
   },
   slider: {
@@ -46,6 +46,7 @@ const CustomSlider = withStyles(theme => ({
     },
   },
   thumb: {
+    color: otherWhite,
     height: theme.spacing(1.5),
     width: theme.spacing(1.5),
     opacity: 0,
@@ -60,10 +61,12 @@ const CustomSlider = withStyles(theme => ({
   track: {
     height: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
+    color: otherWhite,
   },
   rail: {
     height: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
+    color: 'rgba(255, 255, 255, 0.7)',
   },
 }))(Slider);
 
@@ -90,7 +93,7 @@ const MediaVolume = ({
         max={1}
         onChange={handleChange}
       />
-      <VolumeUpIcon className={classes.icon} />
+      <VolumeUpIcon className={classes.icon} size="small" />
     </Box>
   );
 };

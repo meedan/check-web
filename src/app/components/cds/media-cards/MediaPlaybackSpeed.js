@@ -8,11 +8,18 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
-// import { brandBorder, grayBorderAccent, otherWhite, textPrimary } from '../../../styles/js/shared';
+import { brandBackground, otherWhite, overlayLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(() => ({
   active: {
-    backgroundColor: 'red',
+    backgroundColor: brandBackground,
+  },
+  icon: {
+    color: otherWhite,
+    '&:hover': {
+      color: otherWhite,
+      backgroundColor: overlayLight,
+    },
   },
 }));
 
@@ -23,11 +30,13 @@ const MediaPlaybackSpeed = ({
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const containerRef = React.useRef(null);
 
   const handlePlaybackRateChange = (newValue) => {
     setPlaybackSpeed(newValue);
     const video = videoRef.current;
     video.playbackRate = newValue;
+    setAnchorEl(null);
   };
 
   const handleClick = (event) => {
@@ -39,15 +48,16 @@ const MediaPlaybackSpeed = ({
   };
 
   return (
-    <>
-      <IconButton onClick={handleClick}>
-        <SlowMotionVideoIcon className={classes.icon} />
+    <div ref={containerRef}>
+      <IconButton className={classes.icon} onClick={handleClick} size="small">
+        <SlowMotionVideoIcon />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        container={containerRef.current}
       >
         <MenuItem className={playbackSpeed === 0.25 ? classes.active : ''} onClick={() => handlePlaybackRateChange(0.25)}>0.25x</MenuItem>
         <MenuItem className={playbackSpeed === 0.5 ? classes.active : ''} onClick={() => handlePlaybackRateChange(0.5)}>0.5x</MenuItem>
@@ -60,7 +70,7 @@ const MediaPlaybackSpeed = ({
         <MenuItem className={playbackSpeed === 1.75 ? classes.active : ''} onClick={() => handlePlaybackRateChange(1.75)}>1.75x</MenuItem>
         <MenuItem className={playbackSpeed === 2 ? classes.active : ''} onClick={() => handlePlaybackRateChange(2)}>2x</MenuItem>
       </Menu>
-    </>
+    </div>
   );
 };
 

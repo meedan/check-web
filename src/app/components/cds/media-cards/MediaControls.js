@@ -12,18 +12,24 @@ import PauseIcon from '@material-ui/icons/Pause';
 import MediaTimeline from './MediaTimeline';
 import MediaVolume from './MediaVolume';
 import MediaPlaybackSpeed from './MediaPlaybackSpeed';
-// import { brandBorder, grayBorderAccent, otherWhite, textPrimary } from '../../../styles/js/shared';
+import { otherWhite, overlayLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: 'red',
+    color: otherWhite,
+    background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.31) 51.56%, rgba(0, 0, 0, 0.7) 100%)',
     position: 'absolute',
-    bottom: '20px',
+    bottom: 0,
     width: '100%',
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
+    padding: theme.spacing(1.5, 1, 0, 1),
   },
-  innerBox: {
+  icon: {
+    color: otherWhite,
+    marginRight: theme.spacing(1),
+    '&:hover': {
+      color: otherWhite,
+      backgroundColor: overlayLight,
+    },
   },
 }));
 
@@ -52,8 +58,6 @@ const MediaControls = ({
 
   const PlayButton = () => {
     const handleClick = () => {
-      // eslint-disable-next-line
-      console.log('~~~',currentTime);
       if (isPlaying) {
         videoRef.current?.pause();
         setIsPlaying(false);
@@ -65,16 +69,30 @@ const MediaControls = ({
 
     return (
       <IconButton
+        className={classes.icon}
         onPointerUp={handleClick}
+        size="small"
       >
         { isPlaying ? <PauseIcon /> : <PlayArrowIcon /> }
       </IconButton>
     );
   };
 
+  const prettyPrintTime = (seconds) => {
+    let sliceOffset = 0;
+    // if video less than ten minutes, only show m:ss
+    if (duration < 600) {
+      sliceOffset = 4;
+    } else if (duration < 3600) {
+      // if video is less than 1 hour, show only mm:ss
+      sliceOffset = 3;
+    }
+    return new Date(seconds * 1000).toISOString().slice(11 + sliceOffset, 19);
+  };
+  const durationDisplay = prettyPrintTime(duration);
   const TimeDisplay = () => (
     <Box>
-      <Typography>{currentTime} / {duration}</Typography>
+      <Typography>{prettyPrintTime(currentTime)} / {durationDisplay}</Typography>
     </Box>
   );
 
