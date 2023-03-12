@@ -80,6 +80,8 @@ const PaginatedMediaSuggestions = createPaginationContainer(
                 url
                 media {
                   url
+                  domain
+                  type
                 }
               }
             }

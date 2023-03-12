@@ -1,7 +1,7 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -14,7 +14,8 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
-import MediaItem from './Similarity/MediaItem';
+import MediaCardCondensed from '../cds/media-cards/MediaCardCondensed';
+import MediaTypeDisplayName from './MediaTypeDisplayName';
 import { grayBorderAccent } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -68,7 +69,6 @@ const AutoCompleteMediaItem = (props, context) => {
   const [searchText, setSearchText] = React.useState('');
   const [showFilters, setShowFilters] = React.useState(false);
   const [keywordFields, setKeywordFields] = React.useState(null);
-  const [selectedProjectMediaDbid, setSelectedProjectMediaDbid] = React.useState(null);
 
   // Object with { loading, items, error } (only one truthy), or `null`
   const [searchResult, setSearchResult] = React.useState(null);
@@ -82,7 +82,6 @@ const AutoCompleteMediaItem = (props, context) => {
 
   const handleSelectOne = (dbid) => {
     const selProjectMedia = searchResult.items.find(projectMedia => projectMedia.dbid === dbid);
-    setSelectedProjectMediaDbid(dbid);
     props.onSelect(selProjectMedia);
   };
 
@@ -163,6 +162,11 @@ const AutoCompleteMediaItem = (props, context) => {
                     linked_items_count
                     report_status
                     is_confirmed_similar_to_another_item
+                    media {
+                      url
+                      domain
+                      type
+                    }
                   }
                 }
               }
@@ -339,11 +343,36 @@ const AutoCompleteMediaItem = (props, context) => {
                         </span>
                       </Tooltip> : null
                     }
-                    <MediaItem
-                      team={searchResult.team}
-                      projectMedia={projectMedia}
-                      onSelect={props.multiple ? null : handleSelectOne}
-                      isSelected={selectedProjectMediaDbid === projectMedia.dbid}
+                    <MediaCardCondensed
+                      title={projectMedia.title}
+                      details={[
+                        <MediaTypeDisplayName mediaType={projectMedia.type} />,
+                        (
+                          <FormattedMessage
+                            id="autoCompleteMediaItem.lastSubmitted"
+                            defaultMessage="Last submitted {date}"
+                            description="Shows the last time a media was submitted"
+                            values={{
+                              date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                            }}
+                          />
+                        ),
+                        <FormattedMessage
+                          id="autoCompleteMediaItem.requestsCount"
+                          defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
+                          description="Header of requests list. Example: 26 requests"
+                          values={{ requestsCount: projectMedia.requests_count }}
+                        />,
+                      ]}
+                      media={projectMedia}
+                      type={projectMedia.media?.type}
+                      description={projectMedia.description}
+                      url={projectMedia.url}
+                      onClick={() => {
+                        if (!props.multiple) {
+                          handleSelectOne(projectMedia.dbid);
+                        }
+                      }}
                     />
                   </Box>
                 ))}
@@ -392,4 +421,4 @@ AutoCompleteMediaItem.propTypes = {
   disablePublished: PropTypes.bool,
 };
 
-export default AutoCompleteMediaItem;
+export default injectIntl(AutoCompleteMediaItem);

@@ -12,6 +12,7 @@ import ImageMediaCard from './ImageMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
+import { getMediaType } from '../../helpers';
 
 const StyledCardBorder = styled.div`
   background: #fff;
@@ -28,13 +29,9 @@ const MediaCardLarge = ({
 
   let { type } = media;
   const isYoutube = media.url && media.domain === 'youtube.com';
-  const isTwitter = media.url && media.domain === 'twitter.com';
-  const isFacebook = media.url && media.domain === 'facebook.com';
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
-  if (isYoutube) type = 'Youtube';
-  if (isTwitter) type = 'Twitter';
-  if (isFacebook) type = 'Facebook';
+  type = getMediaType(media);
 
   const extractedText = projectMedia.extracted_text?.data?.text;
   const transcription = projectMedia.transcription?.data.text;

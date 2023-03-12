@@ -11,11 +11,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import { FormattedMessage } from 'react-intl';
-import MediaItem from './MediaItem';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
+import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
+import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
@@ -86,11 +87,6 @@ const RelationshipMenu = ({
   const handleCloseMenu = (event) => {
     event.stopPropagation();
     setAnchorEl(null);
-  };
-
-  const openMedia = () => {
-    const url = window.location.pathname.replace(/\/media\/\d+/, `/media/${targetId}`);
-    browserHistory.push(url);
   };
 
   const handleError = (error) => {
@@ -245,7 +241,7 @@ const RelationshipMenu = ({
                 primary={
                   <FormattedMessage
                     id="mediaItem.pinAsMain"
-                    defaultMessage="Pin as main"
+                    defaultMessage="Pin to the top"
                     description="Menu option for pinning an item as the main item"
                   />
                 }
@@ -255,19 +251,7 @@ const RelationshipMenu = ({
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
-                  <FormattedMessage id="mediaItem.detach" defaultMessage="Un-match media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." />
-                }
-              />
-            </MenuItem>
-            <MenuItem onClick={event => swallowClick(event, openMedia)}>
-              <ListItemText
-                className="similarity-media-item__open-relationship"
-                primary={
-                  <FormattedMessage
-                    id="mediaRelationship.openMedia"
-                    defaultMessage="Open media"
-                    description="Singular 'media'. Label for a button that opens the media item the user is currently viewing."
-                  />
+                  <FormattedMessage id="mediaItem.detach" defaultMessage="Detatch media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." />
                 }
               />
             </MenuItem>
@@ -317,6 +301,7 @@ const MediaRelationship = ({
   mainProjectMediaDemand,
   mainProjectMediaConfirmedSimilarCount,
   setFlashMessage,
+  intl,
 }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const classes = useStyles();
@@ -368,18 +353,35 @@ const MediaRelationship = ({
           fullWidth
         />
         : null }
-      <MediaItem
+      <MediaCardCondensed
         key={relationship.id}
-        mainProjectMedia={{
-          id: mainProjectMediaId,
-          confirmedSimilarCount: mainProjectMediaConfirmedSimilarCount,
-          demand: mainProjectMediaDemand,
+        title={relationship?.target?.title}
+        details={[
+          <MediaTypeDisplayName mediaType={relationship?.target?.type} />,
+          (
+            <FormattedMessage
+              id="mediaRelationship.lastSubmitted"
+              defaultMessage="Last submitted {date}"
+              description="Shows the last time a media was submitted"
+              values={{
+                date: intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+              }}
+            />
+          ),
+          <FormattedMessage
+            id="mediaSuggestions.requestsCount"
+            defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
+            description="Header of requests list. Example: 26 requests"
+            values={{ requestsCount: relationship?.target?.requests_count }}
+          />,
+        ]}
+        media={relationship?.target}
+        type={relationship?.target?.media?.type}
+        description={relationship?.target?.description}
+        url={relationship?.target?.url}
+        onClick={() => {
+          setIsSelected(true);
         }}
-        projectMedia={relationship.target}
-        isSelected={isSelected}
-        setIsSelected={setIsSelected}
-        showReportStatus={false}
-        modalOnly
       />
       <div className={`${classes.inner} media__relationship__menu`}>
         <RelationshipMenu
@@ -413,4 +415,4 @@ MediaRelationship.propTypes = {
   mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
 };
 
-export default withSetFlashMessage(MediaRelationship);
+export default withSetFlashMessage(injectIntl(MediaRelationship));

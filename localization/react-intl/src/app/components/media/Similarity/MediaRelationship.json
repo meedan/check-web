@@ -17,17 +17,12 @@
   {
     "id": "mediaItem.pinAsMain",
     "description": "Menu option for pinning an item as the main item",
-    "defaultMessage": "Pin as main"
+    "defaultMessage": "Pin to the top"
   },
   {
     "id": "mediaItem.detach",
     "description": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item.",
-    "defaultMessage": "Un-match media"
-  },
-  {
-    "id": "mediaRelationship.openMedia",
-    "description": "Singular 'media'. Label for a button that opens the media item the user is currently viewing.",
-    "defaultMessage": "Open media"
+    "defaultMessage": "Detatch media"
   },
   {
     "id": "detachDialog.dialogdetachedToListTitle",
@@ -43,5 +38,15 @@
     "id": "mediaItem.error",
     "description": "A generic error message",
     "defaultMessage": "Error, please try again"
+  },
+  {
+    "id": "mediaRelationship.lastSubmitted",
+    "description": "Shows the last time a media was submitted",
+    "defaultMessage": "Last submitted {date}"
+  },
+  {
+    "id": "mediaSuggestions.requestsCount",
+    "description": "Header of requests list. Example: 26 requests",
+    "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
   }
 ]
