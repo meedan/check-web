@@ -64,6 +64,7 @@ const MediaCardLarge = ({
             isYoutube={isYoutube}
             filePath={media.file_path || media.url}
             currentUserRole={currentUserRole}
+            isAudio={type === 'UploadedAudio'}
           />
         ) : null }
         { isWebPage ? (
