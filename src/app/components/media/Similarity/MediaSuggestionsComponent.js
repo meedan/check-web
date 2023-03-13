@@ -499,9 +499,6 @@ const MediaSuggestionsComponent = ({
       }
     `;
 
-    // eslint-disable-next-line
-    console.log('~~~tot',relationships.length);
-
     setIsMutationPending(true);
     commitMutation(Store, {
       mutation,
@@ -1011,6 +1008,7 @@ const MediaSuggestionsComponent = ({
                     />,
                   ]}
                   media={relationshipItem?.target}
+                  type={relationshipItem?.target?.media?.type}
                   description={relationshipItem?.target?.description}
                   url={relationshipItem?.target?.url}
                   onClick={() => {

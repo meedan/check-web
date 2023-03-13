@@ -18,7 +18,12 @@ const MediaSlug = ({
         </Box>
         <Typography
           variant="subtitle2"
-          style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          style={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            minWidth: 0, /* https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child */
+          }}
         >
           {slug}
         </Typography>
