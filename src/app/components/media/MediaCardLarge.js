@@ -13,7 +13,7 @@ import WebPageMediaCard from './WebPageMediaCard';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import { getMediaType } from '../../helpers';
-import { otherWhite, } from '../../styles/js/shared';
+import { otherWhite, brandBorder, } from '../../styles/js/shared';
 
 const StyledCardBorder = styled.div`
   background: ${otherWhite};
