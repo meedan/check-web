@@ -16,7 +16,7 @@ import CheckArchivedFlags from '../../CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
 import MediaCardCondensed from '../cds/media-cards/MediaCardCondensed';
 import MediaTypeDisplayName from './MediaTypeDisplayName';
-import { grayBorderAccent } from '../../styles/js/shared';
+import { grayBorderAccent, grayBackground } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   searchSettingsTitle: {
@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme => ({
   },
   searchSettingsButton: {
     marginTop: theme.spacing(0.5),
+  },
+  selectedItem: {
+    background: grayBackground,
   },
 }));
 
@@ -69,6 +72,7 @@ const AutoCompleteMediaItem = (props, context) => {
   const [searchText, setSearchText] = React.useState('');
   const [showFilters, setShowFilters] = React.useState(false);
   const [keywordFields, setKeywordFields] = React.useState(null);
+  const [selectedDbid, setSelectedDbid] = React.useState(null);
 
   // Object with { loading, items, error } (only one truthy), or `null`
   const [searchResult, setSearchResult] = React.useState(null);
@@ -82,6 +86,7 @@ const AutoCompleteMediaItem = (props, context) => {
 
   const handleSelectOne = (dbid) => {
     const selProjectMedia = searchResult.items.find(projectMedia => projectMedia.dbid === dbid);
+    setSelectedDbid(dbid);
     props.onSelect(selProjectMedia);
   };
 
@@ -368,6 +373,7 @@ const AutoCompleteMediaItem = (props, context) => {
                       type={projectMedia.media?.type}
                       description={projectMedia.description}
                       url={projectMedia.url}
+                      className={selectedDbid === projectMedia.dbid ? classes.selectedItem : null}
                       onClick={() => {
                         if (!props.multiple) {
                           handleSelectOne(projectMedia.dbid);
