@@ -31,6 +31,12 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: overlayLight,
     },
   },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    height: '100%',
+    width: '100%',
+  },
 }));
 
 const MediaControls = ({
@@ -58,27 +64,25 @@ const MediaControls = ({
     video.volume = volume;
   }, []);
 
-  const PlayButton = () => {
-    const handleClick = () => {
-      if (isPlaying) {
-        videoRef.current?.pause();
-        setIsPlaying(false);
-      } else {
-        videoRef.current?.play();
-        setIsPlaying(true);
-      }
-    };
-
-    return (
-      <IconButton
-        className={classes.icon}
-        onPointerUp={handleClick}
-        size="small"
-      >
-        { isPlaying ? <PauseIcon /> : <PlayArrowIcon /> }
-      </IconButton>
-    );
+  const togglePlay = () => {
+    if (isPlaying) {
+      videoRef.current?.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current?.play();
+      setIsPlaying(true);
+    }
   };
+
+  const PlayButton = () => (
+    <IconButton
+      className={classes.icon}
+      onPointerUp={togglePlay}
+      size="small"
+    >
+      { isPlaying ? <PauseIcon /> : <PlayArrowIcon /> }
+    </IconButton>
+  );
 
   const prettyPrintTime = (seconds) => {
     let sliceOffset = 0;
@@ -100,6 +104,7 @@ const MediaControls = ({
 
   return (
     <>
+      <div className={classes.overlay} onPointerUp={togglePlay} onKeyUp={togglePlay} />
       <Grid
         container
         className={classes.root}
