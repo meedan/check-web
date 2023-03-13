@@ -148,12 +148,12 @@ export default createFragmentContainer(MediaCardLarge, graphql`
     ...MediaExpandedActions_projectMedia
     last_seen
     requests_count
-    # extracted_text: annotation(annotation_type: "extracted_text") {
-    #  data
-    # }
-    # transcription: annotation(annotation_type: "transcription") {
-    #  data
-    # }
+    extracted_text: annotation(annotation_type: "extracted_text") {
+      data
+    }
+    transcription: annotation(annotation_type: "transcription") {
+      data
+    }
     media {
       type
       domain
