@@ -3,9 +3,11 @@ import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   Box,
+  IconButton,
   Slider,
 } from '@material-ui/core';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import { otherWhite, overlayLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +34,11 @@ const useStyles = makeStyles(theme => ({
     opacity: 0,
   },
   icon: {
-    flex: '0 0 24px',
+    color: otherWhite,
+    '&:hover': {
+      color: otherWhite,
+      backgroundColor: overlayLight,
+    },
     marginRight: theme.spacing(-1),
   },
 }));
@@ -76,11 +82,32 @@ const MediaVolume = ({
   videoRef,
 }) => {
   const classes = useStyles();
+  const [isVolumeOff, setIsVolumeOff] = React.useState(false);
+  const [oldVolume, setOldVolume] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setVolume(newValue);
     const video = videoRef.current;
     video.volume = newValue;
+    if (newValue === 0) {
+      setIsVolumeOff(true);
+    } else {
+      setIsVolumeOff(false);
+    }
+  };
+
+  const handleMute = () => {
+    const video = videoRef.current;
+    // if volume is NOT currently off, so we are turning it off
+    if (!isVolumeOff) {
+      setOldVolume(video.volume);
+      setVolume(0);
+      video.volume = 0;
+    } else {
+      setVolume(oldVolume);
+      video.volume = oldVolume;
+    }
+    setIsVolumeOff(!isVolumeOff);
   };
 
   return (
@@ -93,7 +120,9 @@ const MediaVolume = ({
         max={1}
         onChange={handleChange}
       />
-      <VolumeUpIcon className={classes.icon} size="small" />
+      <IconButton className={classes.icon} onClick={handleMute} size="small">
+        { isVolumeOff ? <VolumeOffIcon /> : <VolumeUpIcon /> }
+      </IconButton>
     </Box>
   );
 };

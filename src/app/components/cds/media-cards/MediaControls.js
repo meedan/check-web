@@ -45,15 +45,17 @@ const MediaControls = ({
 
   // We need to do all our event listener setup in the effect in order to make sure the video reference is not null on component load. This effect only runs once on component mount due to the empty array in the second parameter.
   React.useEffect(() => {
-    videoRef.current.addEventListener('loadedmetadata', () => {
+    const video = videoRef.current;
+    video.addEventListener('loadedmetadata', () => {
       setDuration(videoRef.current.duration);
     });
-    videoRef.current.addEventListener('timeupdate', () => {
+    video.addEventListener('timeupdate', () => {
       setCurrentTime(videoRef.current.currentTime);
     });
-    videoRef.current.addEventListener('ended', () => {
+    video.addEventListener('ended', () => {
       setIsPlaying(false);
     });
+    video.volume = volume;
   }, []);
 
   const PlayButton = () => {
