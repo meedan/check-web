@@ -43,7 +43,7 @@ const MediaCreatedBy = ({ projectMedia, intl }) => {
   const classes = useStyles();
 
   const showUserName = [CheckChannels.MANUAL, CheckChannels.BROWSER_EXTENSION].indexOf(channel.toString()) !== -1;
-  const channelNameKey = creatorName.replace(/[ _-]+/g, '').toLocaleLowerCase();
+  const channelNameKey = creatorName?.replace(/[ _-]+/g, '').toLocaleLowerCase();
   const formattedChannelName = Object.keys(messages).includes(channelNameKey) ? intl.formatMessage(messages[channelNameKey]) : creatorName;
 
   return (

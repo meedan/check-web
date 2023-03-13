@@ -4,6 +4,7 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import styled from 'styled-components';
+import BlankMediaButton from './BlankMediaButton';
 import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaExpandedActions from './MediaExpandedActions';
 import MediaPlayerCard from './MediaPlayerCard';
@@ -34,6 +35,7 @@ const MediaCardLarge = ({
   const isInstagram = media.url && media.domain === 'instagram.com';
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
+  const isBlank = media.type === 'Blank';
   if (isYoutube) type = 'Youtube';
   if (isTwitter) type = 'Twitter';
   if (isFacebook) type = 'Facebook';
@@ -84,6 +86,19 @@ const MediaCardLarge = ({
             domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
             mediaVersion={data.refreshes_count}
           />
+        ) : null }
+        { isBlank ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            style={{ minHeight: 400 }}
+          >
+            <BlankMediaButton
+              projectMediaId={projectMedia.id}
+              team={projectMedia.team}
+            />
+          </Box>
         ) : null }
 
         <Box p={2}>
@@ -142,6 +157,7 @@ MediaCardLarge.propTypes = {
 
 export default createFragmentContainer(MediaCardLarge, graphql`
   fragment MediaCardLarge_projectMedia on ProjectMedia {
+    id
     title
     ...AspectRatio_projectMedia
     ...WebPageMediaCard_projectMedia

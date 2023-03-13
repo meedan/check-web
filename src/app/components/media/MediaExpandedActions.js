@@ -93,17 +93,10 @@ class MediaExpandedActions extends React.Component {
   }
 
   render() {
-    const {
-      projectMedia,
-    } = this.props;
+    const { projectMedia } = this.props;
+    const { media } = projectMedia;
 
-    const isUploadedAudio = projectMedia.media.type === 'UploadedAudio';
-    const isYoutubeVideo = projectMedia.media.type === 'Link' && projectMedia.media.metadata.provider === 'youtube';
-    const isUploadedVideo = projectMedia.media.type === 'UploadedVideo';
-    const isPicture = !!projectMedia.picture;
-    const isVideo = isYoutubeVideo || isUploadedVideo;
-
-    if (!isPicture && !isVideo && !isUploadedAudio) return null;
+    if (media.type === 'Claim' || media.type === 'Blank') return null;
 
     return (
       <Box display="flex" justifyContent="space-between" alignItems="center">
