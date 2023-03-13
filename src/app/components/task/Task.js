@@ -22,8 +22,10 @@ import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMuta
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import {
   units,
+  grayBackground,
   grayBorderMain,
   brandMain,
+  textPrimary,
   textDisabled,
 } from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
@@ -80,7 +82,7 @@ const StyledAnnotatorInformation = styled.span`
 `;
 
 const StyledRequired = styled.span`
-  color: red;
+  color: ${errorMain};
 `;
 
 const StyledMapEditor = styled.div`
@@ -92,7 +94,7 @@ const StyledMapEditor = styled.div`
 
 const StyledMultiselect = styled.div`
   .Mui-checked + .MuiFormControlLabel-label.Mui-disabled {
-    color: black;
+    color: ${textPrimary};
   }
   .Mui-checked {
     color: ${brandMain} !important;
@@ -105,12 +107,12 @@ const StyledFieldInformation = styled.div`
 
 const StyledMetadataButton = styled.div`
   button {
-    background-color: #f4f4f4;
+    background-color: ${grayBackground};
     margin-top: ${units(1)};
     display: none;
   }
   button:hover {
-    background-color: #ddd;
+    background-color: ${grayBorderMain};;
   }
 `;
 

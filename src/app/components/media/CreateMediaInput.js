@@ -11,6 +11,7 @@ import MediaStatusCommon from './MediaStatusCommon';
 import Message from '../Message';
 import UploadFile from '../UploadFile';
 import {
+  textPrimary,
   Row,
   units,
 } from '../../styles/js/shared';
@@ -37,7 +38,7 @@ const StyledTextField = styled.span`
 
 const StyledButton = styled.span`
   & > .MuiButtonBase-root {
-    color: black;
+    color: ${textPrimary};
     margin-top: ${units(-2)};
   }
   & > .MuiButtonBase-root > span > span {

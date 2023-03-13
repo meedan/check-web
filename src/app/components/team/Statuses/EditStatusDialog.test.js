@@ -1,6 +1,7 @@
 import React from 'react';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import EditStatusDialog from './EditStatusDialog';
+import { textPrimary } from '../../../styles/js/shared.js';
 
 describe('<EditStatusDialog />', () => {
   const team = {
@@ -22,7 +23,7 @@ describe('<EditStatusDialog />', () => {
     locales: {
       en: { label: 'True', description: 'description A', message: 'message to be sent' },
     },
-    style: { color: 'black' },
+    style: { color: textPrimary },
     label: 'True',
     should_send_message: true,
   };
