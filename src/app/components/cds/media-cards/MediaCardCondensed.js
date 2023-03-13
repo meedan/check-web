@@ -56,12 +56,20 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '33vw', // 1/3 of the viewport width
   },
   description: {
-    maxHeight: '20px',
     lineHeight: '143%',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     maxWidth: '33vw', // 1/3 of the viewport width
+  },
+  oneLineDescription: {
+    maxHeight: '20px',
+  },
+  twoLinesDescription: { // Just works on Webkit
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical',
+    whiteSpace: 'pre-line',
   },
   placeholder: {
     border: `1px solid ${grayBorderAccent}`,
@@ -139,7 +147,7 @@ const MediaCardCondensed = ({
             details={details}
             compact
           />
-          <div className={classes.description}>
+          <div className={[classes.description, (externalUrl ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
             <ParsedText text={description || media.metadata?.description || media.quote} />
           </div>
           { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} /></div> : null }
