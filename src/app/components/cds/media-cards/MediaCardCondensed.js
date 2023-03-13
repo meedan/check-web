@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,
 } from '@material-ui/core';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
-import BulletSeparator from '../../layout/BulletSeparator';
+import MediaSlug from '../../media/MediaSlug';
+import { getMediaType } from '../../../helpers';
 import { brandBorder, grayBorderAccent, otherWhite, textPrimary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     justifyContent: 'space-between',
     overflow: 'hidden',
-    maxHeight: theme.spacing(14),
+    height: theme.spacing(14),
   },
   innerBox: {
     cursor: 'pointer',
@@ -41,8 +43,6 @@ const useStyles = makeStyles(theme => ({
     alignSelf: 'center',
   },
   url: {
-    marginTop: theme.spacing(0.5),
-    marginBottom: theme.spacing(0.5),
     lineHeight: '143%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -50,23 +50,26 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '33vw', // 1/3 of the viewport width
   },
   title: {
-    fontSize: '16px',
-    fontWeight: 500,
-    marginBottom: theme.spacing(0.5),
-    lineHeight: '150%',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     maxWidth: '33vw', // 1/3 of the viewport width
   },
   description: {
-    marginTop: theme.spacing(0.5),
-    maxHeight: '20px',
     lineHeight: '143%',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     maxWidth: '33vw', // 1/3 of the viewport width
+  },
+  oneLineDescription: {
+    maxHeight: '20px',
+  },
+  twoLinesDescription: { // Just works on Webkit
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical',
+    whiteSpace: 'pre-line',
   },
   placeholder: {
     border: `1px solid ${grayBorderAccent}`,
@@ -93,6 +96,7 @@ const MediaCardCondensed = ({
   onClick,
   menu,
   placeholder,
+  className,
 }) => {
   const classes = useStyles();
   const defaultImage = '/images/image_placeholder.svg';
@@ -110,7 +114,7 @@ const MediaCardCondensed = ({
 
   return (
     <Box
-      className={classes.root}
+      className={[classes.root, className].join(' ')}
       display="flex"
       alignItems="center"
     >
@@ -128,13 +132,24 @@ const MediaCardCondensed = ({
               src={media?.picture || picture}
             /> : null
         }
+        {
+          media?.media?.type === 'UploadedAudio' ?
+            <img
+              alt=""
+              className={classes.image}
+              src="/images/audio_placeholder.svg"
+            /> : null
+        }
         <div className={classes.text}>
-          <div className={classes.title}>{title || media?.quote || media.metadata?.title}</div>
-          <BulletSeparator compact details={details} />
-          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} /></div> : null }
-          <div className={classes.description}>
+          <MediaSlug
+            mediaType={getMediaType({ type: media?.media?.type, url: media?.media?.url, domain: media?.media?.domain })}
+            slug={<div className={classes.title}>{title || media.title}</div>}
+            details={details}
+          />
+          <div className={[classes.description, (externalUrl ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
             <ParsedText text={description || media.metadata?.description || media.quote} />
           </div>
+          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} /></div> : null }
         </div>
       </Box>
       <Box
@@ -157,6 +172,7 @@ MediaCardCondensed.propTypes = {
   onClick: PropTypes.func,
   menu: PropTypes.element,
   placeholder: PropTypes.element,
+  className: PropTypes.string,
 };
 
 MediaCardCondensed.defaultProps = {
@@ -168,6 +184,20 @@ MediaCardCondensed.defaultProps = {
   onClick: () => {},
   menu: null,
   placeholder: null,
+  className: '',
 };
 
-export default MediaCardCondensed;
+export default createFragmentContainer(MediaCardCondensed, graphql`
+  fragment MediaCardCondensed_projectMedia on ProjectMedia {
+    title
+    type
+    url
+    picture
+    quote
+    media {
+      type
+      url
+      domain
+    }
+  }
+`);

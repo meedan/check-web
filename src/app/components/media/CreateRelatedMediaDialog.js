@@ -57,10 +57,12 @@ class CreateRelatedMediaDialog extends React.Component {
     if (this.props.onSelect) {
       if (!this.props.multiple && this.state.selectedItem) {
         this.props.onSelect(this.state.selectedItem);
+        this.setState({ selectedItem: null });
       } else if (this.props.multiple && this.state.selectedItems.length > 0) {
         this.state.selectedItems.forEach((item) => {
           this.props.onSelect(item);
         });
+        this.setState({ selectedItems: [] });
       }
     }
   }

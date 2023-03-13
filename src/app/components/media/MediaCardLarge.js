@@ -4,6 +4,7 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import styled from 'styled-components';
+import BlankMediaButton from './BlankMediaButton';
 import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaExpandedActions from './MediaExpandedActions';
 import MediaPlayerCard from './MediaPlayerCard';
@@ -13,6 +14,7 @@ import ImageMediaCard from './ImageMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
+import { getMediaType } from '../../helpers';
 
 const StyledCardBorder = styled.div`
   background: #fff;
@@ -30,15 +32,10 @@ const MediaCardLarge = ({
 
   let { type } = media;
   const isYoutube = media.url && media.domain === 'youtube.com';
-  const isTwitter = media.url && media.domain === 'twitter.com';
-  const isFacebook = media.url && media.domain === 'facebook.com';
-  const isInstagram = media.url && media.domain === 'instagram.com';
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
-  if (isYoutube) type = 'Youtube';
-  if (isTwitter) type = 'Twitter';
-  if (isFacebook) type = 'Facebook';
-  if (isInstagram) type = 'Instagram';
+  const isBlank = media.type === 'Blank';
+  type = getMediaType(media);
 
   const coverImage = media.thumbnail_path || '/images/player_cover.svg';
 
@@ -87,6 +84,19 @@ const MediaCardLarge = ({
             domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
             mediaVersion={data.refreshes_count}
           />
+        ) : null }
+        { isBlank ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            style={{ minHeight: 400 }}
+          >
+            <BlankMediaButton
+              projectMediaId={projectMedia.id}
+              team={projectMedia.team}
+            />
+          </Box>
         ) : null }
 
         <Box p={2}>
@@ -145,18 +155,19 @@ MediaCardLarge.propTypes = {
 
 export default createFragmentContainer(MediaCardLarge, graphql`
   fragment MediaCardLarge_projectMedia on ProjectMedia {
+    id
     title
     ...AspectRatio_projectMedia
     ...WebPageMediaCard_projectMedia
     ...MediaExpandedActions_projectMedia
     last_seen
     requests_count
-    # extracted_text: annotation(annotation_type: "extracted_text") {
-    #  data
-    # }
-    # transcription: annotation(annotation_type: "transcription") {
-    #  data
-    # }
+    extracted_text: annotation(annotation_type: "extracted_text") {
+      data
+    }
+    transcription: annotation(annotation_type: "transcription") {
+      data
+    }
     media {
       type
       domain

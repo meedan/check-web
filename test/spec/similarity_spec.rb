@@ -176,7 +176,7 @@ shared_examples 'similarity' do
     wait_for_selector('.media__heading').click
     wait_for_selector('.image-media-card')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    expect(@driver.page_source.include?('Text extracted from image')).to be(false)
+    expect(@driver.page_source.include?('Extracted text')).to be(false)
     expect(@driver.page_source.include?('RAILS')).to be(false)
     wait_for_selector('#media-expanded-actions__menu').click
     wait_for_selector('#media-expanded-actions__reverse-image-search')
@@ -185,7 +185,7 @@ shared_examples 'similarity' do
     @driver.navigate.refresh
     wait_for_selector('.image-media-card')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    expect(@driver.page_source.include?('Text extracted from image')).to be(true)
+    expect(@driver.page_source.include?('Extracted text')).to be(true)
     expect(@driver.page_source.include?('RAILS')).to be(true)
   end
 end
