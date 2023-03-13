@@ -25,19 +25,27 @@ import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
-import { grayBackground, brandBackground, grayBorderMain } from '../../styles/js/shared';
+import { units, grayBackground, brandBackground, grayBorderMain } from '../../styles/js/shared';
+
+const StyledTeamContainer = styled.div`
+  background-color: ${grayBackground};
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
 
 const StyledTabs = styled(Tabs)`
   background-color: ${brandBackground};
   border-bottom: solid 1px ${grayBorderMain};
   box-shadow: none !important;
   padding-left: 32px;
-  margin-bottom: 32px;
+  flex: 0 0 48px;
 `;
 
-const StyledTeamContainer = styled.div`
-  background-color: ${grayBackground};
-  min-height: 100vh;
+const StyledTeamContent = styled.div`
+  flex: 1 1 auto;
+  overflow: scroll;
+  padding: ${units(2)} 0;
 `;
 
 class TeamComponent extends Component {
@@ -284,45 +292,47 @@ class TeamComponent extends Component {
       <PageTitle team={team}>
         <StyledTeamContainer className="team">
           <TeamSettingsTabs />
-          { tab === 'members'
-            ? <TeamMembers teamSlug={team.slug} />
-            : null }
-          { tab === 'edit'
-            ? <TeamDetails team={team} />
-            : null }
-          { isSettings && tab === 'columns'
-            ? <TeamLists key={tab} />
-            : null }
-          { isSettings && tab === 'annotation'
-            ? <TeamTasks key={tab} team={team} fieldset="metadata" />
-            : null }
-          { isSettings && tab === 'tipline'
-            ? <SmoochBot currentUser={this.getCurrentUser()} />
-            : null }
-          { isSettings && tab === 'data'
-            ? <TeamData teamSlug={team.slug} />
-            : null }
-          { isSettings && tab === 'rules'
-            ? <TeamRules teamSlug={team.slug} />
-            : null }
-          { isSettings && tab === 'report'
-            ? <TeamReport team={team} />
-            : null }
-          { isSettings && tab === 'integrations'
-            ? <TeamIntegrations />
-            : null }
-          { isReadOnly && tab === 'tags'
-            ? <TeamTags teamSlug={team.slug} />
-            : null }
-          { isSettings && tab === 'statuses'
-            ? <TeamStatuses teamSlug={team.slug} />
-            : null }
-          { isSettings && tab === 'languages'
-            ? <TeamLanguages teamSlug={team.slug} />
-            : null }
-          { isSettings && tab === 'similarity'
-            ? <TeamSimilarity teamSlug={team.slug} />
-            : null }
+          <StyledTeamContent>
+            { tab === 'members'
+              ? <TeamMembers teamSlug={team.slug} />
+              : null }
+            { tab === 'edit'
+              ? <TeamDetails team={team} />
+              : null }
+            { isSettings && tab === 'columns'
+              ? <TeamLists key={tab} />
+              : null }
+            { isSettings && tab === 'annotation'
+              ? <TeamTasks key={tab} team={team} fieldset="metadata" />
+              : null }
+            { isSettings && tab === 'tipline'
+              ? <SmoochBot currentUser={this.getCurrentUser()} />
+              : null }
+            { isSettings && tab === 'data'
+              ? <TeamData teamSlug={team.slug} />
+              : null }
+            { isSettings && tab === 'rules'
+              ? <TeamRules teamSlug={team.slug} />
+              : null }
+            { isSettings && tab === 'report'
+              ? <TeamReport team={team} />
+              : null }
+            { isSettings && tab === 'integrations'
+              ? <TeamIntegrations />
+              : null }
+            { isReadOnly && tab === 'tags'
+              ? <TeamTags teamSlug={team.slug} />
+              : null }
+            { isSettings && tab === 'statuses'
+              ? <TeamStatuses teamSlug={team.slug} />
+              : null }
+            { isSettings && tab === 'languages'
+              ? <TeamLanguages teamSlug={team.slug} />
+              : null }
+            { isSettings && tab === 'similarity'
+              ? <TeamSimilarity teamSlug={team.slug} />
+              : null }
+          </StyledTeamContent>
         </StyledTeamContainer>
       </PageTitle>
     );

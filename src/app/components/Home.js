@@ -39,7 +39,6 @@ const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 16px 0 0;
   width: 100%;
 
   .project,

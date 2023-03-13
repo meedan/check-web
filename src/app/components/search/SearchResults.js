@@ -26,7 +26,7 @@ import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
 
 const StyledListHeader = styled.div`
-  margin: 0 ${units(2)};
+  margin: ${units(2)} ${units(2)} 0;
 
   .search__list-header-filter-row {
     justify-content: space-between;
