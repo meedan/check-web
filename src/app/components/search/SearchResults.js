@@ -42,11 +42,7 @@ const StyledListHeader = styled.div`
   }
 
   .project__description {
-    max-width: 30%;
     padding-top: ${units(0.5)};
-    height: ${units(4)};
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 `;
 
