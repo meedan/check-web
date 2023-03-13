@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
   }),
   iconButton: {
     color: otherWhite,
-    backgroundColor: '#222222b1',
+    backgroundColor: textPrimary,
     margin: theme.spacing(0.5),
     '&:hover': {
       color: `${otherWhite} !important`,

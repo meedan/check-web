@@ -22,6 +22,7 @@ import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMuta
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import {
   units,
+  errorMain,
   grayBackground,
   grayBorderMain,
   brandMain,
