@@ -100,7 +100,7 @@ class MediaExpandedComponent extends Component {
         return (
           <WebPageMediaCard
             key={media.dynamic_annotation_flag}
-            media={media}
+            projectMedia={media}
             data={data}
           />
         );

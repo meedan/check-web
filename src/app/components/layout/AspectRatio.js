@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import DownloadIcon from '@material-ui/icons/Download';
 import { textPrimary, brandMain, otherWhite } from '../../styles/js/shared.js';
@@ -108,10 +109,12 @@ const messages = defineMessages({
 });
 
 const AspectRatio = ({
+  currentUserRole,
   expandedImage,
   downloadUrl,
   children,
   projectMedia,
+  isVideoFile,
   intl,
 }) => {
   const contentWarning = projectMedia?.show_warning_cover;
@@ -119,17 +122,34 @@ const AspectRatio = ({
 
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
+  const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
   const classes = useStyles({ contentWarning: contentWarning && maskContent });
+
+  const handleOnExpand = () => {
+    // If this is video, use the button to enter or exit fullscreen for the container div depending on whether we are already in fullscreen
+    if (isVideoFile) {
+      if (isFullscreenVideo) {
+        document.exitFullscreen();
+        setIsFullscreenVideo(false);
+      } else {
+        document.querySelectorAll('.video-media-card')[0].requestFullscreen();
+        setIsFullscreenVideo(true);
+      }
+    } else {
+      setExpandedContent(expandedImage);
+    }
+  };
 
   const ButtonsContainer = () => (
     <div className={classes.buttonsContainer}>
-      { expandedImage ?
+      { expandedImage || isVideoFile ?
         <div>
           <IconButton
             classes={{ root: classes.iconButton }}
-            onClick={() => setExpandedContent(expandedImage)}
+            onClick={handleOnExpand}
+            size="small"
           >
-            <FullscreenIcon />
+            { isFullscreenVideo ? <FullscreenExitIcon /> : <FullscreenIcon /> }
           </IconButton>
         </div> : null }
       { downloadUrl ?
@@ -137,6 +157,7 @@ const AspectRatio = ({
           <a href={downloadUrl} download>
             <IconButton
               classes={{ root: classes.iconButton }}
+              size="small"
             >
               <DownloadIcon />
             </IconButton>
@@ -147,6 +168,7 @@ const AspectRatio = ({
           <SensitiveContentMenuButton
             iconButtonClasses={{ root: classes.iconButton }}
             projectMedia={projectMedia}
+            currentUserRole={currentUserRole}
           />
         </div> : null
       }
@@ -254,10 +276,12 @@ const AspectRatio = ({
 AspectRatio.propTypes = {
   children: PropTypes.node.isRequired,
   downloadUrl: PropTypes.string,
+  isVideoFile: PropTypes.bool,
 };
 
 AspectRatio.defaultProps = {
   downloadUrl: '',
+  isVideoFile: false,
 };
 
 export default createFragmentContainer(injectIntl(AspectRatio), graphql`

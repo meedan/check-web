@@ -137,7 +137,7 @@ const MediaCardCondensed = ({
             <img
               alt=""
               className={classes.image}
-              src="/images/audio_placeholder.svg"
+              src="/images/audio_placeholder.svg#svgView(viewBox(398,170,160,160))"
             /> : null
         }
         <div className={classes.text}>

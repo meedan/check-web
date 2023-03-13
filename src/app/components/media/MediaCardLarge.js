@@ -25,6 +25,7 @@ const StyledCardBorder = styled.div`
 const MediaCardLarge = ({
   // inModal, TODO: tweak layout according to inModal prop
   projectMedia,
+  currentUserRole,
 }) => {
   const { media } = projectMedia;
   const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
@@ -35,6 +36,7 @@ const MediaCardLarge = ({
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
   const isBlank = media.type === 'Blank';
   type = getMediaType(media);
+
   const coverImage = media.thumbnail_path || '/images/player_cover.svg';
 
   const extractedText = projectMedia.extracted_text?.data?.text;
@@ -64,6 +66,8 @@ const MediaCardLarge = ({
             projectMedia={projectMedia}
             isYoutube={isYoutube}
             filePath={media.file_path || media.url}
+            currentUserRole={currentUserRole}
+            isAudio={type === 'UploadedAudio'}
             coverImage={coverImage}
           />
         ) : null }

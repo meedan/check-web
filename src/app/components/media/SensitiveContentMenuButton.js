@@ -25,6 +25,7 @@ const SensitiveContentMenu = ({
   onDismiss,
   projectMedia,
   setFlashMessage,
+  container,
 }) => {
   let warningType = null;
   let warningTypeCustom = null;
@@ -206,6 +207,7 @@ const SensitiveContentMenu = ({
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
       onClose={onDismiss}
+      container={container}
     >
       <Box p={2}>
         <Box color={!enableSwitch && (formError === 'no_switch_enabled') ? 'red' : null}>
@@ -315,9 +317,10 @@ const SensitiveContentMenuButton = ({
 }) => {
   const { show_warning_cover } = projectMedia;
   const [anchorEl, setAnchorEl] = React.useState();
+  const containerRef = React.useRef(null);
 
   return (
-    <React.Fragment>
+    <div ref={containerRef}>
       <IconButton
         classes={iconButtonClasses}
         disabled={(
@@ -326,6 +329,7 @@ const SensitiveContentMenuButton = ({
           currentUserRole !== 'editor'
         )}
         onClick={e => setAnchorEl(e.currentTarget)}
+        size="small"
       >
         <VisibilityOffIcon />
       </IconButton>
@@ -335,8 +339,9 @@ const SensitiveContentMenuButton = ({
         onDismiss={() => setAnchorEl(null)}
         projectMedia={projectMedia}
         setFlashMessage={setFlashMessage}
+        container={containerRef.current}
       />
-    </React.Fragment>
+    </div>
   );
 };
 
