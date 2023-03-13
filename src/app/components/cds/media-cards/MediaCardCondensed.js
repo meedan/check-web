@@ -88,6 +88,7 @@ const MediaCardCondensed = ({
   onClick,
   menu,
   placeholder,
+  className,
 }) => {
   const classes = useStyles();
   const defaultImage = '/images/image_placeholder.svg';
@@ -105,7 +106,7 @@ const MediaCardCondensed = ({
 
   return (
     <Box
-      className={classes.root}
+      className={[classes.root, className].join(' ')}
       display="flex"
       alignItems="center"
     >
@@ -164,6 +165,7 @@ MediaCardCondensed.propTypes = {
   onClick: PropTypes.func,
   menu: PropTypes.element,
   placeholder: PropTypes.element,
+  className: PropTypes.string,
 };
 
 MediaCardCondensed.defaultProps = {
@@ -175,6 +177,7 @@ MediaCardCondensed.defaultProps = {
   onClick: () => {},
   menu: null,
   placeholder: null,
+  className: '',
 };
 
 export default createFragmentContainer(MediaCardCondensed, graphql`
