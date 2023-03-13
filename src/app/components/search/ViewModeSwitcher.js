@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import ViewModeShorter from '../../icons/ViewModeShorter';
 import ViewModeLonger from '../../icons/ViewModeLonger';
-import { units, textPlaceholder, textSecondary, } from '../../styles/js/shared';
+import { units, textPlaceholder, textSecondary } from '../../styles/js/shared';
 
 const Styled = styled.div`
   .toolbar_view-mode {
