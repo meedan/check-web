@@ -145,7 +145,6 @@ const MediaCardCondensed = ({
             mediaType={getMediaType({ type: media?.media?.type, url: media?.media?.url, domain: media?.media?.domain })}
             slug={<div className={classes.title}>{title || media.title}</div>}
             details={details}
-            compact
           />
           <div className={[classes.description, (externalUrl ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
             <ParsedText text={description || media.metadata?.description || media.quote} />
