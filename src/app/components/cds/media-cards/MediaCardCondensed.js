@@ -53,6 +53,7 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+    fontWeight: 'normal',
     maxWidth: '33vw', // 1/3 of the viewport width
   },
   description: {
@@ -141,15 +142,15 @@ const MediaCardCondensed = ({
             /> : null
         }
         <div className={classes.text}>
+          <div className={[classes.description, (externalUrl ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
+            <ParsedText text={media.metadata?.title || media.quote || description} />
+          </div>
           <MediaSlug
             mediaType={getMediaType({ type: media?.media?.type, url: media?.media?.url, domain: media?.media?.domain })}
             slug={<div className={classes.title}>{title || media.title}</div>}
             details={details}
           />
-          <div className={[classes.description, (externalUrl ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
-            <ParsedText text={description || media.metadata?.description || media.quote} />
-          </div>
-          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} /></div> : null }
+          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} readable /></div> : null }
         </div>
       </Box>
       <Box

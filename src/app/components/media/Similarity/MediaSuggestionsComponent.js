@@ -673,7 +673,7 @@ const MediaSuggestionsComponent = ({
       <Column className="media__suggestions-column">
         { relationships.length > 0 ?
           <div>
-            <Box className={classes.containerBox}>
+            <Box className={classes.containerBox} mb={2}>
               <Box display="flex" justifyContent="center" alignItems="center">
                 <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.previous" defaultMessage="Previous" description="Label for the 'go to previous page' button on paginated suggestions" />}>
                   <IconButton
