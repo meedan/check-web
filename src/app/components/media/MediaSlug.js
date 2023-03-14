@@ -12,8 +12,8 @@ const MediaSlug = ({
 }) => (
   <>
     <div>
-      <Box display="flex" alignItems="center">
-        <Box mr={1}>
+      <Box display="flex" alignItems="center" mt={0.5} mb={0.5}>
+        <Box mr={1} display="flex" alignItems="center">
           <MediaTypeDisplayIcon mediaType={mediaType} />
         </Box>
         <Typography

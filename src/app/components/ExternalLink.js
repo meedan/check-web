@@ -7,8 +7,13 @@ const ExternalLink = ({
   url,
   maxUrlLength,
   style,
+  readable,
 }) => {
-  const displayUrl = maxUrlLength ? truncateLength(url, maxUrlLength) : url;
+  let displayUrl = url;
+  if (readable) {
+    displayUrl = displayUrl.replace(/^https?:\/\/(www\.)?/, '');
+  }
+  displayUrl = maxUrlLength ? truncateLength(displayUrl, maxUrlLength) : displayUrl;
 
   return (
     <a href={url} style={style} target="_blank" rel="noopener noreferrer">
@@ -22,12 +27,14 @@ ExternalLink.propTypes = {
   url: PropTypes.string.isRequired,
   maxUrlLength: PropTypes.number,
   style: PropTypes.object,
+  readable: PropTypes.bool,
 };
 
 ExternalLink.defaultProps = {
   style: {},
   children: null,
   maxUrlLength: null,
+  readable: false,
 };
 
 export default ExternalLink;
