@@ -13,6 +13,7 @@ import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
+import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import {
   units,
@@ -186,6 +187,12 @@ class MediaComponent extends Component {
     const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
     const isSuggestedOrSimilar = (projectMedia.is_suggested || projectMedia.is_confirmed_similar_to_another_item);
 
+    const currentTeam = this.getContext().team || this.getContext().currentUser.current_team;
+    const currentUserRole = UserUtil.myRole(
+      this.getContext().currentUser,
+      currentTeam.slug,
+    );
+
     return (
       <div>
         <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
@@ -197,7 +204,7 @@ class MediaComponent extends Component {
             <React.Fragment>
               <Column className="media__column">
                 { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
-                <MediaCardLarge projectMedia={projectMedia} />
+                <MediaCardLarge projectMedia={projectMedia} currentUserRole={currentUserRole} />
                 { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} /> }
               </Column>
               <Column className="media__annotations-column" overflow="hidden">

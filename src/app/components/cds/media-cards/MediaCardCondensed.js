@@ -53,15 +53,24 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+    fontWeight: 'normal',
     maxWidth: '33vw', // 1/3 of the viewport width
   },
   description: {
-    maxHeight: '20px',
     lineHeight: '143%',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
     maxWidth: '33vw', // 1/3 of the viewport width
+  },
+  oneLineDescription: {
+    maxHeight: '20px',
+  },
+  twoLinesDescription: { // Just works on Webkit
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical',
+    whiteSpace: 'pre-line',
   },
   placeholder: {
     border: `1px solid ${grayBorderAccent}`,
@@ -129,20 +138,19 @@ const MediaCardCondensed = ({
             <img
               alt=""
               className={classes.image}
-              src="/images/audio_placeholder.svg"
+              src="/images/audio_placeholder.svg#svgView(viewBox(398,170,160,160))"
             /> : null
         }
         <div className={classes.text}>
+          <div className={[classes.description, (externalUrl ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
+            <ParsedText text={media.metadata?.title || media.quote || description} />
+          </div>
           <MediaSlug
             mediaType={getMediaType({ type: media?.media?.type, url: media?.media?.url, domain: media?.media?.domain })}
             slug={<div className={classes.title}>{title || media.title}</div>}
             details={details}
-            compact
           />
-          <div className={classes.description}>
-            <ParsedText text={description || media.metadata?.description || media.quote} />
-          </div>
-          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} /></div> : null }
+          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} readable /></div> : null }
         </div>
       </Box>
       <Box

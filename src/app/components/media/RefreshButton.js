@@ -1,11 +1,14 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
 import IconButton from '@material-ui/core/IconButton';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { textPrimary } from '../../styles/js/shared';
 
-const submitRefresh = (projectMediaId) => {
+const submitRefresh = (projectMediaId, onSuccess, onFailure) => {
   commitMutation(Relay.Store, {
     mutation: graphql`
       mutation RefreshButtonUpdateProjectMediaMutation($input: UpdateProjectMediaInput!) {
@@ -29,21 +32,47 @@ const submitRefresh = (projectMediaId) => {
     },
     onCompleted: ({ error }) => {
       if (error) {
-        // TODO return onFailure(error);
+        onFailure();
+      } else {
+        onSuccess();
       }
-      // TODO return onSuccess(response);
     },
-    onError: () => {}, // TODO
+    onError: onFailure,
   });
 };
 
-const RefreshButton = ({ projectMediaId }) => (
-  <IconButton
-    onClick={() => submitRefresh(projectMediaId)}
-    style={{ color: textPrimary }}
-  >
-    <RefreshIcon />
-  </IconButton>
-);
+const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
+  const [waitRequest, setWaitRequest] = React.useState(false);
 
-export default RefreshButton;
+  const onSuccess = () => {
+    setWaitRequest(false);
+    setFlashMessage((
+      <FormattedMessage
+        id="refreshButton.success"
+        defaultMessage="Media refreshed sucessfully"
+        description="Notification displayed when refresh action (re-parsing) of media is completed"
+      />
+    ), 'success');
+  };
+  const onFailure = () => {
+    setWaitRequest(false);
+    setFlashMessage(<GenericUnknownErrorMessage />, 'error');
+  };
+
+  const handleClick = () => {
+    setWaitRequest(true);
+    submitRefresh(projectMediaId, onSuccess, onFailure);
+  };
+
+  return (
+    <IconButton
+      disabled={waitRequest}
+      onClick={handleClick}
+      style={{ color: waitRequest ? null : textPrimary }}
+    >
+      <RefreshIcon />
+    </IconButton>
+  );
+};
+
+export default withSetFlashMessage(RefreshButton);

@@ -1,7 +1,12 @@
 [
   {
-    "id": "mediaCardLarge.more",
-    "description": "Button to open an expanded view of the media",
-    "defaultMessage": "More"
+    "id": "mediaCardLarge.lastSeen",
+    "description": "Header for the date when the media item was last received by the workspace",
+    "defaultMessage": "Last submitted on {date}"
+  },
+  {
+    "id": "mediaCardLarge.requests",
+    "description": "Number of times a request has been sent about this media",
+    "defaultMessage": "{count, plural, one {# request} other {# requests}}"
   }
 ]
