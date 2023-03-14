@@ -16,7 +16,6 @@ import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
-import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
@@ -357,7 +356,6 @@ const MediaRelationship = ({
         key={relationship.id}
         title={relationship?.target?.title}
         details={[
-          <MediaTypeDisplayName mediaType={relationship?.target?.type} />,
           (
             <FormattedMessage
               id="mediaRelationship.lastSubmitted"

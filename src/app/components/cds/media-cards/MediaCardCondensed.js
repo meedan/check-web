@@ -61,6 +61,7 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
+    fontSize: 15,
     maxWidth: '33vw', // 1/3 of the viewport width
   },
   oneLineDescription: {

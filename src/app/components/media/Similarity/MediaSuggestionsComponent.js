@@ -29,7 +29,6 @@ import SelectProjectDialog from '../SelectProjectDialog';
 import { can } from '../../Can';
 import SuggestedMediaDialogComponent from '../../cds/menus-lists-dialogs/SuggestedMediaDialogComponent';
 import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
-import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import MediasLoading from '../MediasLoading';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -989,7 +988,6 @@ const MediaSuggestionsComponent = ({
                 <MediaCardCondensed
                   title={relationshipItem?.target?.title}
                   details={[
-                    <MediaTypeDisplayName mediaType={relationshipItem?.target?.type} />,
                     (
                       <FormattedMessage
                         id="mediaSuggestions.lastSubmitted"

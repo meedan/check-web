@@ -8,7 +8,6 @@ import {
 import ImportDialog from './ImportDialog';
 import FeedRequestedMediaDialog from './FeedRequestedMediaDialog'; // eslint-disable-line no-unused-vars
 import MediaCardCondensed from './MediaCardCondensed';
-import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
 
 const FeedRequestedMedia = ({ request }) => {
   const [selectedMediaIds, setSelectedMediaIds] = React.useState([]);
@@ -78,7 +77,6 @@ const FeedRequestedMedia = ({ request }) => {
             <MediaCardCondensed
               title={m.node.quote || `${request.request_type}-${request.feed.name.replace(' ', '-')}-${m.node.dbid}`}
               details={[
-                <MediaTypeDisplayName mediaType={m.node.type} />,
                 (<FormattedMessage
                   id="feedRequestedMedia.lastSubmitted"
                   defaultMessage="Last submitted {date}"
@@ -120,7 +118,6 @@ export default createFragmentContainer(FeedRequestedMedia, graphql`
       edges {
         node {
           dbid
-          type
           quote
           ...MediaCardCondensed_media
         }
