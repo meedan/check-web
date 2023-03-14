@@ -16,7 +16,7 @@ import { can } from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
-import { ContentColumn } from '../../styles/js/shared';
+import { ContentColumn, units } from '../../styles/js/shared';
 
 class UserComponent extends React.Component {
   constructor(props) {
@@ -52,6 +52,12 @@ class UserComponent extends React.Component {
     const context = this.getContext();
     const isUserSelf = (user.id === context.currentUser.id);
 
+    const StyledUserContent = {
+      height: '100%',
+      overflow: 'auto',
+      padding: `${units(2)} 0`,
+    };
+
     const HeaderContent = () => (
       <Box pt={3} pb={3}>
         { isEditing ?
@@ -63,7 +69,7 @@ class UserComponent extends React.Component {
 
     return (
       <PageTitle prefix={user.name}>
-        <div className="source">
+        <div className="source" style={StyledUserContent}>
           <ContentColumn>
             <HeaderContent />
             { isEditing ?

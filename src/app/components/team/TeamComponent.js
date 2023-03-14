@@ -44,7 +44,7 @@ const StyledTabs = styled(Tabs)`
 
 const StyledTeamContent = styled.div`
   flex: 1 1 auto;
-  overflow: scroll;
+  overflow: auto;
   padding: ${units(2)} 0;
 `;
 
