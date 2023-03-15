@@ -15,7 +15,6 @@ import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
 import MediaCardCondensed from '../cds/media-cards/MediaCardCondensed';
-import MediaTypeDisplayName from './MediaTypeDisplayName';
 import { grayBorderAccent, grayBackground } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -351,7 +350,6 @@ const AutoCompleteMediaItem = (props, context) => {
                     <MediaCardCondensed
                       title={projectMedia.title}
                       details={[
-                        <MediaTypeDisplayName mediaType={projectMedia.type} />,
                         (
                           <FormattedMessage
                             id="autoCompleteMediaItem.lastSubmitted"
