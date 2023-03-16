@@ -1,5 +1,5 @@
 import React from 'react';
-import { MediaPreview } from './MediaPreview';
+import MediaPreview from './MediaPreview';
 import MediaPlayerCard from '../media/MediaPlayerCard';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 

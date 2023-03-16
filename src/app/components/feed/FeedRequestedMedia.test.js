@@ -24,7 +24,7 @@ describe('<FeedRequestedMedia />', () => {
       },
     };
     const component = shallowWithIntl(<FeedRequestedMedia request={request} />);
-    expect(component.find(SmallMediaCard).props().title).toEqual('Hello Text Claim');
+    expect(component.find(SmallMediaCard).props().customTitle).toEqual('Hello Text Claim');
   });
 
   it('should display generated slug as title', () => {
@@ -46,6 +46,6 @@ describe('<FeedRequestedMedia />', () => {
       },
     };
     const component = shallowWithIntl(<FeedRequestedMedia request={request} />);
-    expect(component.find(SmallMediaCard).props().title).toEqual('audio-Test-Feed-1');
+    expect(component.find(SmallMediaCard).props().customTitle).toEqual('audio-Test-Feed-1');
   });
 });
