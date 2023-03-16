@@ -5,8 +5,8 @@
     "defaultMessage": "Import medias and requests"
   },
   {
-    "id": "feedRequestedMediaDialog.lastSubmitted",
-    "description": "Shows the last time a media was submitted (on feed request media card)",
+    "id": "feedRequestedMedia.lastSubmitted",
+    "description": "Header of medias list. Example: 3 medias",
     "defaultMessage": "Last submitted {date}"
   }
 ]
