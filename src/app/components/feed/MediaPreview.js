@@ -1,5 +1,4 @@
 import React from 'react';
-import { createFragmentContainer, graphql } from 'react-relay/compat';
 import MediaPlayerCard from '../media/MediaPlayerCard';
 import AspectRatio from '../layout/AspectRatio';
 
@@ -31,14 +30,4 @@ const MediaPreview = ({ media }) => {
   );
 };
 
-export { MediaPreview };
-export default createFragmentContainer(MediaPreview, graphql`
-  fragment MediaPreview_media on Media {
-    type
-    domain
-    picture
-    url
-    file_path
-    thumbnail_path
-  }
-`);
+export default MediaPreview;
