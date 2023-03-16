@@ -14,7 +14,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
-import MediaCardCondensed from '../cds/media-cards/MediaCardCondensed';
+import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import { grayBorderAccent, grayBackground } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -167,9 +167,12 @@ const AutoCompleteMediaItem = (props, context) => {
                     report_status
                     is_confirmed_similar_to_another_item
                     media {
+                      type
                       url
                       domain
-                      type
+                      quote
+                      picture
+                      metadata                     
                     }
                   }
                 }
@@ -347,8 +350,8 @@ const AutoCompleteMediaItem = (props, context) => {
                         </span>
                       </Tooltip> : null
                     }
-                    <MediaCardCondensed
-                      title={projectMedia.title}
+                    <SmallMediaCard
+                      customTitle={projectMedia.title}
                       details={[
                         (
                           <FormattedMessage
@@ -367,10 +370,8 @@ const AutoCompleteMediaItem = (props, context) => {
                           values={{ requestsCount: projectMedia.requests_count }}
                         />,
                       ]}
-                      media={projectMedia}
-                      type={projectMedia.media?.type}
+                      media={projectMedia.media}
                       description={projectMedia.description}
-                      url={projectMedia.url}
                       className={selectedDbid === projectMedia.dbid ? classes.selectedItem : null}
                       onClick={() => {
                         if (!props.multiple) {

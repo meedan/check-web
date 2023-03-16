@@ -28,7 +28,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SelectProjectDialog from '../SelectProjectDialog';
 import { can } from '../../Can';
 import SuggestedMediaDialogComponent from '../../cds/menus-lists-dialogs/SuggestedMediaDialogComponent';
-import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
+import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import MediasLoading from '../MediasLoading';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -985,8 +985,8 @@ const MediaSuggestionsComponent = ({
                 </Box>
               </Grid>
               <Grid item xs={10}>
-                <MediaCardCondensed
-                  title={relationshipItem?.target?.title}
+                <SmallMediaCard
+                  customTitle={relationshipItem?.target?.title}
                   details={[
                     (
                       <FormattedMessage
@@ -1005,10 +1005,8 @@ const MediaSuggestionsComponent = ({
                       values={{ requestsCount: relationshipItem?.target?.requests_count }}
                     />,
                   ]}
-                  media={relationshipItem?.target}
-                  type={relationshipItem?.target?.media?.type}
+                  media={relationshipItem?.target?.media}
                   description={relationshipItem?.target?.description}
-                  url={relationshipItem?.target?.url}
                   onClick={() => {
                     openSuggestedMediaDialog(relationshipItem);
                   }}

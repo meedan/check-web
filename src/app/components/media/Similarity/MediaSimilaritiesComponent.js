@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
 import MediaRelationship from './MediaRelationship';
-import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed'; // eslint-disable-line no-unused-vars
+import SmallMediaCard from '../../cds/media-cards/SmallMediaCard'; // eslint-disable-line no-unused-vars
 import { can } from '../../Can';
 import { brandLight } from '../../../styles/js/shared';
 
@@ -106,11 +106,8 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
             url
             quote
             media {
-              type
-              url
-              domain
+              ...SmallMediaCard_media
             }
-            ...MediaCardCondensed_projectMedia
           }
         }
       }
