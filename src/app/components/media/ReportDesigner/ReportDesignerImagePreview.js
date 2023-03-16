@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import escapeHtml from 'escape-html';
+import { escapeHtml } from '../../../helpers';
 
 function overwriteDocumentHtml(contentDocument, html) {
   contentDocument.open();
