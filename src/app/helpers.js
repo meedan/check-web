@@ -355,6 +355,16 @@ function getMediaType(media) {
   return type;
 }
 
+/**
+ * Safely escape some HTML characters.
+ */
+function escapeHtml(url) {
+  return url.replace(/>/g, '&gt;')
+    .replace(/</g, '&lt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -377,4 +387,5 @@ export { // eslint-disable-line import/no-unused-modules
   parseStringUnixTimestamp,
   botName,
   getMediaType,
+  escapeHtml,
 };
