@@ -15,8 +15,8 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
-import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
 import MediaSlug from '../MediaSlug';
+import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
@@ -369,20 +369,16 @@ const MediaRelationship = ({
           }
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
-          onPin={onPin}
           onUnmatch={() => setIsDialogOpen(true)}
+          onPin={onPin}
         /> : null }
-      <MediaCardCondensed
+      <SmallMediaCard
         key={relationship.id}
-        title={relationship?.target?.title}
+        customTitle={relationship?.target?.title}
         details={details}
-        media={relationship?.target}
-        type={relationship?.target?.media?.type}
+        media={relationship?.target?.media}
         description={relationship?.target?.description}
-        url={relationship?.target?.url}
-        onClick={() => {
-          setIsSelected(true);
-        }}
+        onClick={() => setIsSelected(true)}
       />
       <div className={`${classes.inner} media__relationship__menu`}>
         <RelationshipMenu

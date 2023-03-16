@@ -88,27 +88,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaCardCondensed = ({
-  title,
+const SmallMediaCard = ({
+  media, // { type, url, domain, quote, picture, metadata }
+  customTitle,
   details,
   description,
-  picture,
-  url,
-  media,
   onClick,
   menu,
   placeholder,
   className,
 }) => {
   const classes = useStyles();
-  const defaultImage = '/images/image_placeholder.svg';
-  const externalUrl = media?.url || url || media?.media?.url;
 
   if (placeholder) {
     return (
-      <Box
-        className={classes.placeholder}
-      >
+      <Box className={classes.placeholder}>
         {placeholder}
       </Box>
     );
@@ -126,16 +120,16 @@ const MediaCardCondensed = ({
         className={classes.innerBox}
       >
         {
-          media?.picture || picture ?
+          media.picture ?
             <img
               alt=""
               className={classes.image}
-              onError={(e) => { e.target.onerror = null; e.target.src = defaultImage; }}
-              src={media?.picture || picture}
+              onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }}
+              src={media.picture}
             /> : null
         }
         {
-          media?.media?.type === 'UploadedAudio' ?
+          media.type === 'UploadedAudio' ?
             <img
               alt=""
               className={classes.image}
@@ -143,15 +137,15 @@ const MediaCardCondensed = ({
             /> : null
         }
         <div className={classes.text}>
-          <div className={[classes.description, (externalUrl ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
+          <div className={[classes.description, (media.url ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
             <ParsedText text={media.metadata?.title || media.quote || description} />
           </div>
           <MediaSlug
-            mediaType={getMediaType({ type: media?.media?.type, url: media?.media?.url, domain: media?.media?.domain })}
-            slug={<div className={classes.title}>{title || media.title}</div>}
+            mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
+            slug={<div className={classes.title}>{customTitle || media.metadata?.title}</div>}
             details={details}
           />
-          { externalUrl ? <div className={classes.url}><ExternalLink url={externalUrl} maxUrlLength={60} readable /></div> : null }
+          { media.url ? <div className={classes.url}><ExternalLink url={media.url} maxUrlLength={60} readable /></div> : null }
         </div>
       </Box>
       <Box
@@ -165,41 +159,41 @@ const MediaCardCondensed = ({
   );
 };
 
-MediaCardCondensed.propTypes = {
-  title: PropTypes.string,
+SmallMediaCard.propTypes = {
+  media: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    url: PropTypes.string, // Mandatory for link
+    domain: PropTypes.string, // Mandatory for link
+    quote: PropTypes.string, // Mandatory for text claim
+    picture: PropTypes.string, // URL to an image
+    metadata: PropTypes.object,
+  }).isRequired,
+  customTitle: PropTypes.string,
   details: PropTypes.array,
   description: PropTypes.string,
-  picture: PropTypes.string,
-  url: PropTypes.string,
   onClick: PropTypes.func,
   menu: PropTypes.element,
   placeholder: PropTypes.element,
   className: PropTypes.string,
 };
 
-MediaCardCondensed.defaultProps = {
-  title: null,
+SmallMediaCard.defaultProps = {
+  customTitle: null,
   details: null,
   description: null,
-  picture: null,
-  url: null,
   onClick: () => {},
   menu: null,
   placeholder: null,
   className: '',
 };
 
-export default createFragmentContainer(MediaCardCondensed, graphql`
-  fragment MediaCardCondensed_projectMedia on ProjectMedia {
-    title
+export default createFragmentContainer(SmallMediaCard, graphql`
+  fragment SmallMediaCard_media on Media {
     type
     url
-    picture
+    domain
     quote
-    media {
-      type
-      url
-      domain
-    }
+    picture
+    metadata
   }
 `);

@@ -3,6 +3,7 @@ import React from 'react';
 import { createPaginationContainer, graphql } from 'react-relay/compat';
 import MediaSuggestionsComponent from './MediaSuggestionsComponent';
 import MediaSimilaritiesComponent from './MediaSimilaritiesComponent'; // eslint-disable-line no-unused-vars
+import SmallMediaCard from '../../cds/media-cards/SmallMediaCard'; // eslint-disable-line no-unused-vars
 
 // Query that is called for subsequent "load more" pagination calls
 // In theory this is the same as MediaSuggestionsQuery and is duplicate code
@@ -79,9 +80,7 @@ const PaginatedMediaSuggestions = createPaginationContainer(
                 domain
                 url
                 media {
-                  url
-                  domain
-                  type
+                  ...SmallMediaCard_media
                 }
               }
             }

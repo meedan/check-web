@@ -50,6 +50,26 @@
     "defaultMessage": "{total, plural, one {{total} suggestion} other {{total} suggestions}}"
   },
   {
+    "id": "mediaSuggestionsComponent.accept",
+    "description": "Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list.",
+    "defaultMessage": "Match media"
+  },
+  {
+    "id": "mediaSuggestionsComponent.reject",
+    "description": "Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list.",
+    "defaultMessage": "Reject media"
+  },
+  {
+    "id": "mediaSuggestionsComponent.spam",
+    "description": "Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list.",
+    "defaultMessage": "Mark media as spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.trash",
+    "description": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash folder, and removed from the suggested items list.",
+    "defaultMessage": "Send media to trash"
+  },
+  {
     "id": "mediaSuggestionsComponent.previous",
     "description": "Label for the 'go to previous page' button on paginated suggestions",
     "defaultMessage": "Previous"
@@ -145,16 +165,6 @@
     "defaultMessage": "Reject all"
   },
   {
-    "id": "mediaSuggestionsComponent.accept",
-    "description": "Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list.",
-    "defaultMessage": "Match media"
-  },
-  {
-    "id": "mediaSuggestionsComponent.reject",
-    "description": "Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list.",
-    "defaultMessage": "Reject media"
-  },
-  {
     "id": "mediaSuggestions.lastSubmitted",
     "description": "Shows the last time a media was submitted (on feed request media card)",
     "defaultMessage": "Last submitted {date}"
@@ -163,15 +173,5 @@
     "id": "mediaSuggestions.requestsCount",
     "description": "Header of requests list. Example: 26 requests",
     "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
-  },
-  {
-    "id": "mediaSuggestionsComponent.spam",
-    "description": "Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list.",
-    "defaultMessage": "Mark media as spam"
-  },
-  {
-    "id": "mediaSuggestionsComponent.trash",
-    "description": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash folder, and removed from the suggested items list.",
-    "defaultMessage": "Send media to trash"
   }
 ]

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FeedRequestedMedia } from './FeedRequestedMedia';
-import MediaCardCondensed from './MediaCardCondensed';
+import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<FeedRequestedMedia />', () => {
@@ -24,7 +24,7 @@ describe('<FeedRequestedMedia />', () => {
       },
     };
     const component = shallowWithIntl(<FeedRequestedMedia request={request} />);
-    expect(component.find(MediaCardCondensed).props().title).toEqual('Hello Text Claim');
+    expect(component.find(SmallMediaCard).props().customTitle).toEqual('Hello Text Claim');
   });
 
   it('should display generated slug as title', () => {
@@ -46,6 +46,6 @@ describe('<FeedRequestedMedia />', () => {
       },
     };
     const component = shallowWithIntl(<FeedRequestedMedia request={request} />);
-    expect(component.find(MediaCardCondensed).props().title).toEqual('audio-Test-Feed-1');
+    expect(component.find(SmallMediaCard).props().customTitle).toEqual('audio-Test-Feed-1');
   });
 });
