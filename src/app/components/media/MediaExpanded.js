@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import MediaRoute from '../../relay/MediaRoute';
-import MediasLoading from './MediasLoading';
 import MediaExpandedActions from './MediaExpandedActions';
 import MediaExpandedArchives from './MediaExpandedArchives';
 import MediaExpandedMetadata from './MediaExpandedMetadata';
@@ -205,97 +202,4 @@ MediaExpandedComponent.propTypes = {
   media: PropTypes.object.isRequired,
 };
 
-const MediaExpandedContainer = Relay.createContainer(MediaExpandedComponent, {
-  initialVariables: {
-    contextId: null,
-  },
-  fragments: {
-    media: () => Relay.QL`
-      fragment on ProjectMedia {
-        id
-        dbid
-        permissions
-        domain
-        created_at
-        last_seen
-        share_count
-        requests_count
-        picture
-        title
-        description
-        language_code
-        language
-        extracted_text: annotation(annotation_type: "extracted_text") {
-          data
-        }
-        transcription: annotation(annotation_type: "transcription") {
-          data
-        }
-        project_id
-        pusher_channel
-        full_url
-        dynamic_annotation_language {
-          id
-        }
-        last_status_obj {
-          data
-        }
-        show_warning_cover
-        dynamic_annotation_flag {
-          id
-          dbid
-          content
-          data
-          annotator {
-            name
-          }
-        }
-        ${MediaExpandedActions.getFragment('projectMedia')}
-        ${MediaExpandedArchives.getFragment('projectMedia')}
-        ${MediaExpandedMetadata.getFragment('projectMedia')}
-        media {
-          url
-          type
-          quote
-          thumbnail_path
-          file_path
-          embed_path
-          metadata
-        }
-        team {
-          id
-          dbid
-          slug
-          search_id
-          verification_statuses
-          get_languages
-          permissions
-          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
-            id
-          }
-        }
-      }
-    `,
-  },
-});
-
-const MediaExpanded = (props) => {
-  const projectId = props.media.project_id;
-  let ids = `${props.media.dbid},${projectId}`;
-  if (props.media.team && props.media.team.dbid) {
-    ids = `${props.media.dbid},${projectId},${props.media.team.dbid}`;
-  }
-  const route = new MediaRoute({ ids });
-
-  return (
-    <Relay.RootContainer
-      Component={MediaExpandedContainer}
-      renderLoading={() => <MediasLoading count={1} />}
-      renderFetched={data => <MediaExpandedContainer {...props} {...data} />}
-      route={route}
-    />
-  );
-};
-
-export default MediaExpanded;
-export { MediaExpandedComponent };
+export default MediaExpandedComponent;

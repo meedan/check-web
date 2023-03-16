@@ -10,6 +10,8 @@ import MediaCardLarge from './MediaCardLarge';
 import MediaSidebar from './MediaSidebar';
 import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
 import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
+import MediaSlug from './MediaSlug';
+import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
@@ -88,6 +90,7 @@ class MediaComponent extends Component {
 
     this.state = {
       showTab: initialTab,
+      openMediaDialog: false,
     };
   }
 
@@ -204,7 +207,25 @@ class MediaComponent extends Component {
             <React.Fragment>
               <Column className="media__column">
                 { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
-                <MediaCardLarge projectMedia={projectMedia} currentUserRole={currentUserRole} />
+                { this.state.openMediaDialog ?
+                  <MediaAndRequestsDialogComponent
+                    projectMediaId={projectMedia.dbid}
+                    mediaSlug={
+                      <MediaSlug
+                        mediaType={projectMedia.type}
+                        slug={projectMedia.title}
+                        details={[]}
+                      />
+                    }
+                    onClick={e => e.stopPropagation()}
+                    onClose={() => this.setState({ openMediaDialog: false })}
+                  />
+                  : null }
+                <MediaCardLarge
+                  projectMedia={projectMedia}
+                  currentUserRole={currentUserRole}
+                  onClickMore={() => this.setState({ openMediaDialog: true })}
+                />
                 { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} /> }
               </Column>
               <Column className="media__annotations-column" overflow="hidden">
@@ -241,6 +262,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     id
     dbid
     title
+    type
     read_by_someone: is_read
     read_by_me: is_read(by_me: true)
     permissions

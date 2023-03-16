@@ -15,7 +15,7 @@ import {
 import {
   HighlightOff as CloseIcon,
 } from '@material-ui/icons';
-import MediaExpanded from '../../media/MediaExpanded';
+import { MediaCardLargeQueryRenderer } from '../../media/MediaCardLarge';
 import MediaRequests from '../../media/MediaRequests';
 import MainButton from '../buttons-checkboxes-chips/MainButton';
 
@@ -88,10 +88,7 @@ const SuggestedMediaDialogComponent = ({
               variant="outlined"
               className={classes.innerBox}
             >
-              <MediaExpanded
-                media={{ dbid: projectMediaId }}
-                hideActions
-              />
+              <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
             </Paper>
           </Grid>
           <Grid item xs={6}>

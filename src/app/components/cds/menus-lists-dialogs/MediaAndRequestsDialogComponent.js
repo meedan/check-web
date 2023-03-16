@@ -10,15 +10,14 @@ import {
   DialogContent,
   Grid,
   IconButton,
-  Paper,
-  Typography,
 } from '@material-ui/core';
 import {
   HighlightOff as CloseIcon,
 } from '@material-ui/icons';
-import MediaExpanded from '../../media/MediaExpanded';
 import MediaRequests from '../../media/MediaRequests';
 import MainButton from '../buttons-checkboxes-chips/MainButton';
+import { MediaCardLargeQueryRenderer } from '../../media/MediaCardLarge';
+import { brandBorder } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   dialog: {
@@ -29,15 +28,14 @@ const useStyles = makeStyles(theme => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
   },
-  innerBox: {
-    borderRadius: theme.spacing(1),
-  },
-  dialogTitle: {
+  dialogContent: {
     paddingTop: 0,
+    paddingBottom: 0,
   },
 }));
 
 const MediaAndRequestsDialogComponent = ({
+  mediaSlug,
   projectMediaId,
   onClick,
   onClose,
@@ -56,82 +54,78 @@ const MediaAndRequestsDialogComponent = ({
       PaperProps={{ classes: { root: classes.dialog } }}
     >
       <DialogTitle>
-        <Typography variant="h6">
-          <FormattedMessage
-            id="cds.mediaAndRequestsDialog.matchedMedia"
-            defaultMessage="Media"
-            description="Plural. Heading for the number of media"
-          />
-        </Typography>
+        {mediaSlug}
         <IconButton className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent className={classes.dialogTitle} dividers py={0}>
-        <Grid container>
-          <Grid item xs={6}>
-            <Box my={1}>
-              <MainButton
-                className={classes.button}
-                variant="outlined"
-                label={
-                  <FormattedMessage
-                    id="cds.mediaAndRequestsDialog.openMedia"
-                    defaultMessage="Open media"
-                    description="Singular. Label for a button that opens the media item the user is currently viewing."
-                  />
-                }
-                onClick={() => {
-                  const url = window.location.pathname.replace(/\/media\/\d+/, `/media/${projectMediaId}`);
-                  browserHistory.push(url);
+      <DialogContent className={classes.dialogContent} dividers py={0}>
+        <Box maxHeight="800px">
+          <Grid container>
+            <Grid item xs={6}>
+              <Box
+                pr={2}
+                style={{
+                  height: '100%',
+                  overflowY: 'auto',
+                  borderRight: `1px solid ${brandBorder}`,
                 }}
-              />
-              <MainButton
-                variant="outlined"
-                className={classes.button}
-                label={
-                  <FormattedMessage
-                    id="cds.mediaAndRequestsDialog.pinAsMain"
-                    defaultMessage="Pin as main"
-                    description="Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places)."
+              >
+                <Box my={1}>
+                  <MainButton
+                    variant="outlined"
+                    label={
+                      <FormattedMessage
+                        id="cds.mediaAndRequestsDialog.openMedia"
+                        defaultMessage="Open media"
+                        description="Singular. Label for a button that opens the media item the user is currently viewing."
+                      />
+                    }
+                    onClick={() => {
+                      const url = window.location.pathname.replace(/\/media\/\d+/, `/media/${projectMediaId}`);
+                      browserHistory.push(url);
+                    }}
                   />
-                }
-                onClick={onPin}
-              />
-              <MainButton
-                variant="outlined"
-                className={classes.button}
-                label={
-                  <FormattedMessage
-                    id="cds.mediaAndRequestsDialog.unmatch"
-                    defaultMessage="Un-match"
-                    description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
+                  <MainButton
+                    variant="outlined"
+                    label={
+                      <FormattedMessage
+                        id="cds.mediaAndRequestsDialog.pinAsMain"
+                        defaultMessage="Pin as main"
+                        description="Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places)."
+                      />
+                    }
+                    onClick={onPin}
                   />
-                }
-                onClick={onUnmatch}
-              />
-            </Box>
-            <Paper
-              elevation={0}
-              variant="outlined"
-              className={classes.innerBox}
-            >
-              <MediaExpanded
-                media={{ dbid: projectMediaId }}
-                hideActions
-              />
-            </Paper>
+                  <MainButton
+                    variant="outlined"
+                    label={
+                      <FormattedMessage
+                        id="cds.mediaAndRequestsDialog.unmatch"
+                        defaultMessage="Un-match"
+                        description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
+                      />
+                    }
+                    onClick={onUnmatch}
+                  />
+                </Box>
+                <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
+              </Box>
+            </Grid>
+            <Grid item xs={6}>
+              <div style={{ maxHeight: '700px', overflowY: 'auto' }}>
+                <MediaRequests media={{ dbid: projectMediaId }} />
+              </div>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <MediaRequests media={{ dbid: projectMediaId }} />
-          </Grid>
-        </Grid>
+        </Box>
       </DialogContent>
     </Dialog>
   );
 };
 
 MediaAndRequestsDialogComponent.propTypes = {
+  mediaSlug: PropTypes.element.isRequired,
   projectMediaId: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,

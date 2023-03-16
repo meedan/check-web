@@ -1,12 +1,14 @@
 import React from 'react';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import { graphql, createFragmentContainer } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
+import { graphql, createFragmentContainer, QueryRenderer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import styled from 'styled-components';
 import BlankMediaButton from './BlankMediaButton';
 import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
 import MediaExpandedActions from './MediaExpandedActions';
+import MediasLoading from './MediasLoading';
 import MediaPlayerCard from './MediaPlayerCard';
 import MediaSlug from './MediaSlug';
 import QuoteMediaCard from './QuoteMediaCard';
@@ -18,14 +20,15 @@ import { getMediaType } from '../../helpers';
 
 const StyledCardBorder = styled.div`
   background: #fff;
-  border: 1px solid #D0D6EC;
-  border-radius: 0 0 16px 16px;
+  border: ${props => props.inModal ? 'none' : '1px solid #D0D6EC'};
+  border-radius: ${props => props.roundedTopCorners ? '8px' : ' 0 0 8px 8px'};
 `;
 
 const MediaCardLarge = ({
-  // inModal, TODO: tweak layout according to inModal prop
+  inModal,
   projectMedia,
   currentUserRole,
+  onClickMore,
 }) => {
   const { media } = projectMedia;
   const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
@@ -49,10 +52,16 @@ const MediaCardLarge = ({
 
   return (
     <div className="media-card-large">
-      <StyledCardBorder>
+      <StyledCardBorder
+        inModal={inModal}
+        roundedTopCorners={type === 'Claim' || isBlank || isWebPage || isPender}
+      >
         { type === 'Claim' ? (
           <Box mt={2} mx={2}>
-            <QuoteMediaCard quote={media.quote} />
+            <QuoteMediaCard
+              showAll={inModal}
+              quote={media.quote}
+            />
           </Box>
         ) : null }
         { type === 'UploadedImage' ? (
@@ -100,39 +109,44 @@ const MediaCardLarge = ({
         ) : null }
 
         <Box p={2}>
-          <Box mb={2}>
-            <MediaSlug
-              mediaType={type}
-              slug={projectMedia.title}
-              details={[(
-                <FormattedMessage
-                  id="mediaCardLarge.lastSeen"
-                  defaultMessage="Last submitted on {date}"
-                  description="Header for the date when the media item was last received by the workspace"
-                  values={{
-                    date: (
-                      <FormattedDate
-                        value={projectMedia.last_seen * 1000}
-                        year="numeric"
-                        month="short"
-                        day="numeric"
-                      />
-                    ),
-                  }}
-                />
-              ), (
-                <FormattedMessage
-                  id="mediaCardLarge.requests"
-                  defaultMessage="{count, plural, one {# request} other {# requests}}"
-                  description="Number of times a request has been sent about this media"
-                  values={{
-                    count: projectMedia.requests_count,
-                  }}
-                />
-              )]}
-            />
-          </Box>
-          <MediaExpandedActions projectMedia={projectMedia} />
+          { !inModal ?
+            <Box mb={2}>
+              <MediaSlug
+                mediaType={type}
+                slug={projectMedia.title}
+                details={[(
+                  <FormattedMessage
+                    id="mediaCardLarge.lastSeen"
+                    defaultMessage="Last submitted on {date}"
+                    description="Header for the date when the media item was last received by the workspace"
+                    values={{
+                      date: (
+                        <FormattedDate
+                          value={projectMedia.last_seen * 1000}
+                          year="numeric"
+                          month="short"
+                          day="numeric"
+                        />
+                      ),
+                    }}
+                  />
+                ), (
+                  <FormattedMessage
+                    id="mediaCardLarge.requests"
+                    defaultMessage="{count, plural, one {# request} other {# requests}}"
+                    description="Number of times a request has been sent about this media"
+                    values={{
+                      count: projectMedia.requests_count,
+                    }}
+                  />
+                )]}
+              />
+            </Box> : null }
+          <MediaExpandedActions
+            inModal={inModal}
+            projectMedia={projectMedia}
+            onClickMore={onClickMore}
+          />
           { footerBody ? (
             <Box mt={2}>
               <MediaCardLargeFooterContent
@@ -153,7 +167,7 @@ MediaCardLarge.propTypes = {
   }).isRequired,
 };
 
-export default createFragmentContainer(MediaCardLarge, graphql`
+const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`
   fragment MediaCardLarge_projectMedia on ProjectMedia {
     id
     title
@@ -180,3 +194,34 @@ export default createFragmentContainer(MediaCardLarge, graphql`
     }
   }
 `);
+
+const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
+  <QueryRenderer
+    environment={Relay.Store}
+    query={graphql`
+      query MediaCardLargeQuery($ids: String!) {
+        project_media(ids: $ids) {
+          ...MediaCardLarge_projectMedia
+        }
+      }
+    `}
+    variables={{
+      ids: `${projectMediaId},,`,
+    }}
+    render={({ error, props }) => {
+      if (!error && !props) {
+        return (<MediasLoading count={1} />);
+      }
+
+      if (!error && props) {
+        return <MediaCardLargeContainer inModal projectMedia={props.project_media} />;
+      }
+
+      // TODO: We need a better error handling in the future, standardized with other components
+      return null;
+    }}
+  />
+);
+
+export default MediaCardLargeContainer;
+export { MediaCardLargeQueryRenderer };

@@ -50,7 +50,7 @@ const LanguagePickerSelect = ({
   };
 
   return (
-    <div id="language-change">
+    <div id="language-change" style={{ minWidth: '230px' }}>
       <Autocomplete
         disabled={isDisabled}
         disableClearable

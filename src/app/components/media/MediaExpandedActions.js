@@ -15,6 +15,7 @@ import RefreshButton from './RefreshButton';
 import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
 import ExternalLink from '../ExternalLink';
+import LanguagePickerSelect from '../layout/LanguagePickerSelect';
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -86,6 +87,10 @@ const ExtraMediaActions = ({
   );
 };
 
+const handleLanguageSelect = (value) => {
+  console.log('value', value); // eslint-disable-line
+};
+
 class MediaExpandedActions extends React.Component {
   reverseImageSearchGoogle() {
     const imagePath = this.props.projectMedia.picture;
@@ -93,7 +98,7 @@ class MediaExpandedActions extends React.Component {
   }
 
   render() {
-    const { projectMedia } = this.props;
+    const { projectMedia, inModal, onClickMore } = this.props;
     const { media } = projectMedia;
 
     if (media.type === 'Claim' || media.type === 'Blank') return null;
@@ -101,17 +106,26 @@ class MediaExpandedActions extends React.Component {
     return (
       <Box display="flex" justifyContent="space-between" alignItems="center">
         { /* TODO: Implement More action to pop up media dialog */}
-        <Button
-          style={{ visibility: 'hidden' }}
-          variant="contained"
-          color="primary"
-        >
-          <FormattedMessage
-            id="mediaCardLarge.more"
-            description="Button to open an expanded view of the media"
-            defaultMessage="More"
-          />
-        </Button>
+        <div>
+          { !inModal ?
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={onClickMore}
+            >
+              <FormattedMessage
+                id="mediaCardLarge.more"
+                description="Button to open an expanded view of the media"
+                defaultMessage="More"
+              />
+            </Button> : null }
+          { inModal ?
+            <LanguagePickerSelect
+              selectedlanguage={projectMedia.language}
+              onSubmit={handleLanguageSelect}
+              team={projectMedia.team}
+            /> : null }
+        </div>
         <Box display="flex">
           <RefreshButton projectMediaId={projectMedia.id} />
           <ExtraMediaActions
@@ -139,6 +153,10 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
   # projectMedia: graphql
   fragment MediaExpandedActions_projectMedia on ProjectMedia {
     id
+    language
+    team {
+      get_languages
+    }
     picture
     transcription: annotation(annotation_type: "transcription") {
       data

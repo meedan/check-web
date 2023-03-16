@@ -30,7 +30,7 @@ import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutli
 import CloseIcon from '@material-ui/icons/Close';
 import MediaStatus from '../media/MediaStatus';
 import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
-import { MediaExpandedComponent } from '../media/MediaExpanded';
+import MediaExpandedComponent from '../media/MediaExpanded';
 import NextPreviousLinks from '../media/NextPreviousLinks';
 import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';
@@ -584,7 +584,6 @@ const FeedItemComponent = ({
               </Box>
               <MediaExpandedComponent
                 media={expandedMedia}
-                mediaUrl={null}
                 hideActions
               />
             </Card>
