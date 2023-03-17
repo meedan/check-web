@@ -12,7 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
 import SearchIcon from '@material-ui/icons/Search';
 import { Clear as ClearIcon } from '@material-ui/icons';
-import { MediaPreview } from '../feed/MediaPreview';
+import MediaPreview from '../feed/MediaPreview';
 import {
   grayBorderMain,
   borderWidthLarge,

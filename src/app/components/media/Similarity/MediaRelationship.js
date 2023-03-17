@@ -15,7 +15,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
-import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
+import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
@@ -352,9 +352,9 @@ const MediaRelationship = ({
           fullWidth
         />
         : null }
-      <MediaCardCondensed
+      <SmallMediaCard
         key={relationship.id}
-        title={relationship?.target?.title}
+        customTitle={relationship?.target?.title}
         details={[
           (
             <FormattedMessage
@@ -373,10 +373,8 @@ const MediaRelationship = ({
             values={{ requestsCount: relationship?.target?.requests_count }}
           />,
         ]}
-        media={relationship?.target}
-        type={relationship?.target?.media?.type}
+        media={relationship?.target?.media}
         description={relationship?.target?.description}
-        url={relationship?.target?.url}
         onClick={() => {
           setIsSelected(true);
         }}
