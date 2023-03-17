@@ -187,6 +187,8 @@ SmallMediaCard.defaultProps = {
   className: '',
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { SmallMediaCard }; // Used in unit test
 export default createFragmentContainer(SmallMediaCard, graphql`
   fragment SmallMediaCard_media on Media {
     type

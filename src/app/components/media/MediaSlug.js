@@ -35,7 +35,7 @@ const MediaSlug = ({
 
 MediaSlug.propTypes = {
   mediaType: PropTypes.string.isRequired,
-  slug: PropTypes.string.isRequired,
+  slug: PropTypes.any.isRequired,
   details: PropTypes.array.isRequired,
 };
 
