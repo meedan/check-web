@@ -111,9 +111,10 @@ const MediaVolume = ({
   };
 
   return (
-    <Box display="flex" className={classes.container}>
+    <Box display="flex" className={classes.container} id="media-volume">
       <CustomSlider
         className={classes.slider}
+        id="media-volume-slider"
         value={volume}
         step={0.01}
         min={0}

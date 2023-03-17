@@ -48,7 +48,7 @@ const MediaPlaybackSpeed = ({
   };
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} id="media-playback-speed">
       <IconButton className={classes.icon} onClick={handleClick} size="small">
         <SlowMotionVideoIcon />
       </IconButton>
