@@ -76,7 +76,7 @@ const LanguagePickerSelect = ({
                   ...params.InputProps,
                   startAdornment: (
                     <React.Fragment>
-                      <LanguageIcon />
+                      <LanguageIcon fontSize="small" />
                       {params.InputProps.startAdornment}
                     </React.Fragment>
                   ),

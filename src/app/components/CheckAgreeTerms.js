@@ -7,7 +7,7 @@ import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
 
 const CheckAgreeTerms = props => (
-  <Typography component="div" variant="body2">
+  <Typography component="div" variant="body1">
     <Box my={2} align="center">
       <FormattedMessage
         id="CheckAgreeTerms.agreeTerms"

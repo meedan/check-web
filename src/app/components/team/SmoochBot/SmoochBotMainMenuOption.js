@@ -118,7 +118,7 @@ const SmoochBotMainMenuOption = ({
             </Box> }
 
           <Box my={2}>
-            <Typography variant="body2" component="div">
+            <Typography variant="body1" component="div">
               <FormattedMessage
                 id="smoochBotMainMenuOption.send"
                 defaultMessage="If the button is clicked, then send:"

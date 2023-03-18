@@ -80,7 +80,7 @@ const TeamListsItem = ({
         justifyContent="space-between"
       >
         <Box>
-          <Typography title={label} variant="body2" className={classes.label}>
+          <Typography title={label} variant="body1" className={classes.label}>
             {label}
           </Typography>
           <Typography variant="caption">

@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
 import ContentCopyIcon from '@material-ui/icons/ContentCopy';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -107,9 +108,9 @@ const TitleText = ({
   viewMode,
 }) => (
   <div className={viewMode === 'longer' ? [classes.textBox, classes.cellViewModeLonger].join(' ') : [classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <h4 className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
+    <Typography variant="body1" className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
-    </h4>
+    </Typography>
     {description ? (
       <div className={classes.description}>{description}</div>
     ) : null}

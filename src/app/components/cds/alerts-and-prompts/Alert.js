@@ -117,7 +117,7 @@ function Alert({
         </Typography>
         { content ?
           <Typography
-            variant="body2"
+            variant="body1"
             className={[classes.content, 'alert-content'].join(' ')}
             style={{ color: secondaryColor }}
           >

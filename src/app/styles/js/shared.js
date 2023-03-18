@@ -132,6 +132,7 @@ export const MuiTheme = {
     },
   },
   typography: {
+    fontSize: 14,
     h1: {
       fontSize: '96px',
       fontWeight: 300,
@@ -195,7 +196,7 @@ export const MuiTheme = {
     },
     button: {
       color: 'currentcolor',
-      fontSize: '12px',
+      fontSize: '14px',
       fontWeight: 500,
       letterSpacing: '0.4px',
       lineHeight: '21px',
@@ -227,6 +228,9 @@ export const MuiTheme = {
         // We do need a color, though -- if we choose "transparent" the tbody
         // will show through.
         backgroundColor: otherWhite,
+      },
+      root: {
+        fontSize: 14,
       },
     },
     MuiTableSortLabel: {
@@ -280,11 +284,73 @@ export const MuiTheme = {
     MuiOutlinedInput: {
       root: {
         borderRadius: 8,
+        '&:hover $notchedOutline': {
+          borderColor: grayBorderAccent,
+        },
+        '&$focused $notchedOutline': {
+          borderColor: brandMain,
+        },
+        '&.Mui-disabled $notchedOutline': {
+          borderColor: grayBorderMain,
+        },
+      },
+      notchedOutline: {
+        borderWidth: 2,
+        borderColor: grayBorderMain,
+      },
+      multiline: {
+        padding: '6px 8px',
+      },
+      input: {
+        padding: '6px 8px',
       },
     },
     MuiFormControl: {
       root: {
         borderRadius: 8,
+      },
+    },
+    MuiInputLabel: {
+      outlined: {
+        transform: 'translate(6px, 9px) scale(1)',
+      },
+    },
+    MuiInputBase: {
+      input: {
+        color: textPrimary,
+        '&.Mui-disabled': {
+          color: textDisabled,
+        },
+        '&::placeholder': {
+          color: textPlaceholder,
+          opacity: 1,
+        },
+      },
+      inputMultiline: {
+        lineHeight: '1.5em',
+      },
+      root: {
+        '&.Mui-disabled': {
+          background: grayDisabledBackground,
+        },
+      },
+    },
+    MuiFormLabel: {
+      root: {
+        color: textSecondary,
+        '&.Mui-focused': {
+          color: textSecondary,
+        },
+      },
+    },
+    MuiAutocomplete: {
+      inputRoot: {
+        '&[class*="MuiOutlinedInput-root"]': {
+          padding: '0 6px',
+        },
+        '&[class*="MuiOutlinedInput-root"] $input': {
+          padding: '8px 6px !important', // This !important shouldn't be necessary, but for some reason the exact same selector was not taking precedence over the lib one
+        },
       },
     },
   },

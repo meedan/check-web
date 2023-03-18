@@ -169,7 +169,7 @@ const SmoochBotMainMenuSection = ({
           {/* Title */}
           { readOnly ?
             <Box pt={1} pb={1}>
-              <Typography variant="body2" component="div" className={classes.title}>
+              <Typography variant="body1" component="div" className={classes.title}>
                 <strong>
                   {value.smooch_menu_title}
                 </strong>
@@ -177,7 +177,7 @@ const SmoochBotMainMenuSection = ({
             </Box> : null }
           { noTitleNoDescription ?
             <Box p={1}>
-              <Typography variant="body2" component="div" className={classes.title}>
+              <Typography variant="body1" component="div" className={classes.title}>
                 <strong>
                   <FormattedMessage
                     id="smoochBotMainMenuSection.defaultSectionTitle"
@@ -260,7 +260,7 @@ const SmoochBotMainMenuSection = ({
 
               <Box m={readOnly ? 1 : 0}>
                 {/* Menu option label */}
-                <Typography variant="body2" component="div">
+                <Typography variant="body1" component="div">
                   <strong>{formatOptionLabel(option)}</strong>
                 </Typography>
 

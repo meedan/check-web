@@ -145,7 +145,7 @@ class MediaExpandedComponent extends Component {
           <MediaExpandedSecondRow projectMedia={media} />
           { isImage ?
             <Box mb={2}>
-              <TypographyBlack54 variant="body2" color={textSecondary}>
+              <TypographyBlack54 variant="body1" color={textSecondary}>
                 { media.extracted_text ?
                   <FormattedMessage id="mediaExpanded.extractedText" defaultMessage="Text extracted from image:" description="Label for text extracted from the image below" /> :
                   <FormattedMessage id="mediaExpanded.noExtractedText" defaultMessage="No text extracted from this image" description="Label when text extracted from an image is not available" />
@@ -155,7 +155,7 @@ class MediaExpandedComponent extends Component {
           }
           { isMedia ?
             <Box mb={2}>
-              <TypographyBlack54 variant="body2" color={textSecondary}>
+              <TypographyBlack54 variant="body1" color={textSecondary}>
                 { media.transcription && media.transcription.data.last_response.job_status === 'COMPLETED' ?
                   <FormattedMessage id="mediaExpanded.transcriptionCompleted" defaultMessage="Audio transcribed from media:" description="Label for transcription from audio or video" /> : null }
                 { media.transcription && media.transcription.data.last_response.job_status === 'IN_PROGRESS' ?
@@ -167,7 +167,7 @@ class MediaExpandedComponent extends Component {
           }
           <Box mb={2}>
             <MoreLess>
-              <Typography variant="body2">
+              <Typography variant="body1">
                 <ParsedText text={description} />
               </Typography>
             </MoreLess>

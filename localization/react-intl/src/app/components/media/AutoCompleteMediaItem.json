@@ -1,9 +1,5 @@
 [
   {
-    "id": "autoCompleteMediaItem.searchItem",
-    "defaultMessage": "Search"
-  },
-  {
     "id": "autoCompleteMediaItem.searching",
     "defaultMessage": "Searching…"
   },
@@ -18,6 +14,11 @@
   {
     "id": "autoCompleteMediaItem.results",
     "defaultMessage": "{count, plural, one {# result} other {# results}}"
+  },
+  {
+    "id": "autoCompleteMediaItem.type",
+    "description": "Helper text displayed next to search field to look for items to be imported",
+    "defaultMessage": "Type above to search"
   },
   {
     "id": "autoCompleteMediaItem.cantSelectPublished",
