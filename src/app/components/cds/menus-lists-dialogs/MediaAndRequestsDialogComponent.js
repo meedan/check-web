@@ -41,6 +41,7 @@ const MediaAndRequestsDialogComponent = ({
   onClose,
   onUnmatch,
   onPin,
+  variant,
 }) => {
   const classes = useStyles();
 
@@ -72,42 +73,45 @@ const MediaAndRequestsDialogComponent = ({
                 }}
               >
                 <Box my={1}>
-                  <MainButton
-                    variant="outlined"
-                    label={
-                      <FormattedMessage
-                        id="cds.mediaAndRequestsDialog.openMedia"
-                        defaultMessage="Open media"
-                        description="Singular. Label for a button that opens the media item the user is currently viewing."
-                      />
-                    }
-                    onClick={() => {
-                      const url = window.location.pathname.replace(/\/media\/\d+/, `/media/${projectMediaId}`);
-                      browserHistory.push(url);
-                    }}
-                  />
-                  <MainButton
-                    variant="outlined"
-                    label={
-                      <FormattedMessage
-                        id="cds.mediaAndRequestsDialog.pinAsMain"
-                        defaultMessage="Pin as main"
-                        description="Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places)."
-                      />
-                    }
-                    onClick={onPin}
-                  />
-                  <MainButton
-                    variant="outlined"
-                    label={
-                      <FormattedMessage
-                        id="cds.mediaAndRequestsDialog.unmatch"
-                        defaultMessage="Un-match"
-                        description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
-                      />
-                    }
-                    onClick={onUnmatch}
-                  />
+                  { variant !== 'pinned' ?
+                    <MainButton
+                      variant="outlined"
+                      label={
+                        <FormattedMessage
+                          id="cds.mediaAndRequestsDialog.openMedia"
+                          defaultMessage="Open media"
+                          description="Singular. Label for a button that opens the media item the user is currently viewing."
+                        />
+                      }
+                      onClick={() => {
+                        const url = window.location.pathname.replace(/\/media\/\d+/, `/media/${projectMediaId}`);
+                        browserHistory.push(url);
+                      }}
+                    /> : null }
+                  { variant === 'confirmed' ?
+                    <MainButton
+                      variant="outlined"
+                      label={
+                        <FormattedMessage
+                          id="cds.mediaAndRequestsDialog.pinAsMain"
+                          defaultMessage="Pin as main"
+                          description="Label for a button that lets the user set the media item they are clicking to be the 'main' one, conceptually. It replaces whatever the current main item is, and that main item becomes a child (like this one they are clicking, effectively swapping places)."
+                        />
+                      }
+                      onClick={onPin}
+                    /> : null }
+                  { variant === 'confirmed' ?
+                    <MainButton
+                      variant="outlined"
+                      label={
+                        <FormattedMessage
+                          id="cds.mediaAndRequestsDialog.unmatch"
+                          defaultMessage="Un-match"
+                          description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
+                        />
+                      }
+                      onClick={onUnmatch}
+                    /> : null }
                 </Box>
                 <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
               </Box>
@@ -131,6 +135,7 @@ MediaAndRequestsDialogComponent.propTypes = {
   onClose: PropTypes.func.isRequired,
   onUnmatch: PropTypes.func.isRequired,
   onPin: PropTypes.func.isRequired,
+  variant: PropTypes.oneOf(['pinned', 'confirmed', 'suggested']).isRequired,
 };
 
 export default MediaAndRequestsDialogComponent;

@@ -33,6 +33,8 @@ const ExtraMediaActions = ({
     setAnchorEl(null);
   };
 
+  if (projectMedia.media.type === 'Claim') return null;
+
   return (
     <div className="media-expanded-actions">
       <IconButton
@@ -88,6 +90,7 @@ const ExtraMediaActions = ({
 };
 
 const handleLanguageSelect = (value) => {
+  // TODO implement language mutation
   console.log('value', value); // eslint-disable-line
 };
 
@@ -101,11 +104,10 @@ class MediaExpandedActions extends React.Component {
     const { projectMedia, inModal, onClickMore } = this.props;
     const { media } = projectMedia;
 
-    if (media.type === 'Claim' || media.type === 'Blank') return null;
+    if (media.type === 'Blank') return null;
 
     return (
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        { /* TODO: Implement More action to pop up media dialog */}
         <div>
           { !inModal ?
             <Button
@@ -127,7 +129,8 @@ class MediaExpandedActions extends React.Component {
             /> : null }
         </div>
         <Box display="flex">
-          <RefreshButton projectMediaId={projectMedia.id} />
+          { media.type === 'Link' ?
+            <RefreshButton projectMediaId={projectMedia.id} /> : null }
           <ExtraMediaActions
             projectMedia={projectMedia}
             reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
@@ -150,8 +153,7 @@ MediaExpandedActions.propTypes = {
 };
 
 export default createFragmentContainer(MediaExpandedActions, graphql`
-  # projectMedia: graphql
-  fragment MediaExpandedActions_projectMedia on ProjectMedia {
+  fragment MediaCardLargeActions_projectMedia on ProjectMedia {
     id
     language
     team {

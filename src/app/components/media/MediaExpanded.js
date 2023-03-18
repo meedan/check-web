@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import MediaExpandedActions from './MediaExpandedActions';
+import MediaCardLargeActions from './MediaCardLargeActions';
 import MediaExpandedArchives from './MediaExpandedArchives';
 import MediaExpandedMetadata from './MediaExpandedMetadata';
 import MediaExpandedSecondRow from './MediaExpandedSecondRow';
@@ -19,7 +19,6 @@ import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
 import BlankMediaButton from './BlankMediaButton';
-import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { units, textSecondary } from '../../styles/js/shared';
 
@@ -46,13 +45,6 @@ class MediaExpandedComponent extends Component {
 
   render() {
     const { media, hideActions } = this.props;
-
-    const currentTeam = this.getContext().team || this.getContext().currentUser.current_team;
-
-    const currentUserRole = UserUtil.myRole(
-      this.getContext().currentUser,
-      currentTeam.slug,
-    );
 
     const data = typeof media.media.metadata === 'string' ? JSON.parse(media.media.metadata) : media.media.metadata;
     const isImage = media.media.type === 'UploadedImage';
@@ -177,10 +169,7 @@ class MediaExpandedComponent extends Component {
         {
           hideActions ? null : (
             <CardActions>
-              <MediaExpandedActions
-                currentUserRole={currentUserRole}
-                projectMedia={media}
-              />
+              <MediaCardLargeActions projectMedia={media} />
             </CardActions>
           )
         }

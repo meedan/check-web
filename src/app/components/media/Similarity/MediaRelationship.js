@@ -367,6 +367,7 @@ const MediaRelationship = ({
               details={details}
             />
           }
+          variant="confirmed"
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
           onUnmatch={() => setIsDialogOpen(true)}

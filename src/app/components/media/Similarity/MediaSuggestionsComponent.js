@@ -717,6 +717,7 @@ const MediaSuggestionsComponent = ({
                 details={details}
               />
             }
+            variant="suggested"
             projectMediaId={selectedItemId}
             onClick={swallowClick}
             onClose={() => setIsSuggestedMediaDialogOpen(false)}

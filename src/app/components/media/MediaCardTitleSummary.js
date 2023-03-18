@@ -8,16 +8,18 @@ const MediaCardTitleSummary = ({
 }) => (
   <>
     <Box p={2}>
-      <div>
-        <Typography variant="subtitle2" className="media-card-large__title">
-          {title}
-        </Typography>
-      </div>
-      <div>
-        <Typography variant="body1">
-          {summary}
-        </Typography>
-      </div>
+      { title ?
+        <div>
+          <Typography variant="subtitle2" className="media-card-large__title">
+            {title}
+          </Typography>
+        </div> : null }
+      { summary ?
+        <div>
+          <Typography variant="body1">
+            {summary}
+          </Typography>
+        </div> : null }
     </Box>
   </>
 );

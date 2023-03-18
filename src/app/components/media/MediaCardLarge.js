@@ -1,16 +1,13 @@
 import React from 'react';
-import { FormattedMessage, FormattedDate } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { graphql, createFragmentContainer, QueryRenderer } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import styled from 'styled-components';
+import MediaCardLargeFooter from './MediaCardLargeFooter';
 import BlankMediaButton from './BlankMediaButton';
-import MediaCardLargeFooterContent from './MediaCardLargeFooterContent';
-import MediaExpandedActions from './MediaExpandedActions';
 import MediasLoading from './MediasLoading';
 import MediaPlayerCard from './MediaPlayerCard';
-import MediaSlug from './MediaSlug';
 import QuoteMediaCard from './QuoteMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
@@ -42,21 +39,13 @@ const MediaCardLarge = ({
 
   const coverImage = media.thumbnail_path || '/images/player_cover.svg';
 
-  const extractedText = projectMedia.extracted_text?.data?.text;
-  const transcription = projectMedia.transcription?.data.text;
-
-  let footerType = null;
-  if (extractedText) footerType = 'ExtractedText';
-  if (transcription) footerType = 'Transcription';
-  const footerBody = extractedText || transcription || null;
-
   return (
     <div className="media-card-large">
       <StyledCardBorder
         inModal={inModal}
         roundedTopCorners={type === 'Claim' || isBlank || isWebPage || isPender}
       >
-        { type === 'Claim' ? (
+        { type === 'Claim' && !inModal ? (
           <Box mt={2} mx={2}>
             <QuoteMediaCard
               showAll={inModal}
@@ -84,6 +73,7 @@ const MediaCardLarge = ({
           <WebPageMediaCard
             projectMedia={projectMedia}
             data={data}
+            inModal={inModal}
           />
         ) : null }
         { isPender ? (
@@ -108,80 +98,33 @@ const MediaCardLarge = ({
           </Box>
         ) : null }
 
-        <Box p={2}>
-          { !inModal ?
-            <Box mb={2}>
-              <MediaSlug
-                mediaType={type}
-                slug={projectMedia.title}
-                details={[(
-                  <FormattedMessage
-                    id="mediaCardLarge.lastSeen"
-                    defaultMessage="Last submitted on {date}"
-                    description="Header for the date when the media item was last received by the workspace"
-                    values={{
-                      date: (
-                        <FormattedDate
-                          value={projectMedia.last_seen * 1000}
-                          year="numeric"
-                          month="short"
-                          day="numeric"
-                        />
-                      ),
-                    }}
-                  />
-                ), (
-                  <FormattedMessage
-                    id="mediaCardLarge.requests"
-                    defaultMessage="{count, plural, one {# request} other {# requests}}"
-                    description="Number of times a request has been sent about this media"
-                    values={{
-                      count: projectMedia.requests_count,
-                    }}
-                  />
-                )]}
-              />
-            </Box> : null }
-          <MediaExpandedActions
+        { !isBlank ?
+          <MediaCardLargeFooter
             inModal={inModal}
             projectMedia={projectMedia}
             onClickMore={onClickMore}
-          />
-          { footerBody ? (
-            <Box mt={2}>
-              <MediaCardLargeFooterContent
-                type={footerType}
-                body={footerBody}
-              />
-            </Box>
-          ) : null }
-        </Box>
+            mediaType={type}
+            data={data}
+          /> : null }
       </StyledCardBorder>
     </div>
   );
 };
 
 MediaCardLarge.propTypes = {
-  projectMedia: PropTypes.shape({
+  projectMedia: PropTypes.object.isRequired, // Specifying a shape isn't needed now that we have a fragmentContainer ensuring all necessary fields are retrieved
+  inModal: PropTypes.bool,
+  currentUserRole: PropTypes.string.isRequired,
+  onClickMore: PropTypes.func.isRequired,
+};
 
-  }).isRequired,
+MediaCardLarge.defaultProps = {
+  inModal: false,
 };
 
 const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`
   fragment MediaCardLarge_projectMedia on ProjectMedia {
     id
-    title
-    ...AspectRatio_projectMedia
-    ...WebPageMediaCard_projectMedia
-    ...MediaExpandedActions_projectMedia
-    last_seen
-    requests_count
-    extracted_text: annotation(annotation_type: "extracted_text") {
-      data
-    }
-    transcription: annotation(annotation_type: "transcription") {
-      data
-    }
     media {
       type
       domain
@@ -192,6 +135,9 @@ const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`
       file_path
       thumbnail_path
     }
+    ...AspectRatio_projectMedia
+    ...WebPageMediaCard_projectMedia
+    ...MediaCardLargeFooter_projectMedia
   }
 `);
 
