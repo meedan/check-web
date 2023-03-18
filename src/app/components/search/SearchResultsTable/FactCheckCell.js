@@ -75,7 +75,7 @@ const TitleText = ({
       {title}
     </Typography>
     {description ? (
-      <div className={classes.description}>{description}</div>
+      <div className={[classes.description, 'fact-check-cell__description'].join(' ')}>{description}</div>
     ) : null}
   </div>
 );
