@@ -26,7 +26,7 @@ import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
 
 const StyledListHeader = styled.div`
-  margin: ${units(2)};
+  margin: ${units(2)} ${units(2)} 0;
 
   .search__list-header-filter-row {
     justify-content: space-between;
@@ -42,15 +42,17 @@ const StyledListHeader = styled.div`
   }
 
   .project__description {
-    max-width: 30%;
     padding-top: ${units(0.5)};
-    height: ${units(4)};
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 `;
 
 const StyledSearchResultsWrapper = styled.div`
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
   .search__results-heading {
     color: ${textPrimary};
     font-size: larger;
@@ -465,11 +467,11 @@ function SearchResultsComponent({
             handleSubmit={handleSubmit}
           />
         </Row>
-        <Row className="project__description">
+        <>
           {listDescription && listDescription.trim().length ?
-            <ParsedText text={listDescription} />
+            <Row className="project__description"><ParsedText text={listDescription} /></Row>
             : null}
-        </Row>
+        </>
       </StyledListHeader>
       { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
       <Box m={2}>

@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import Box from '@material-ui/core/Box';
+import { grayDisabledBackground, textPlaceholder } from '../../styles/js/shared';
 
 // FIXME: Get rid of styled-components
 // Based on example from material-ui doc: https://material-ui.com/components/autocomplete/#useautocomplete
 const InputWrapper = styled('div')`
-  background-color: #eee;
+  background-color: ${grayDisabledBackground};
   border-radius: 4px;
   padding-right: 4px;
   display: flex;
@@ -16,7 +17,7 @@ const InputWrapper = styled('div')`
   min-height: 36px;
 
   &.focused {
-    background-color: #ccc;
+    background-color: ${textPlaceholder};
   }
 
   .multi-select-filter__remove {
