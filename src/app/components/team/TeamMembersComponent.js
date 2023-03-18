@@ -219,7 +219,7 @@ const TeamMembersComponent = ({
                     }
                   </TableCell>
                   <TableCell>
-                    <Box display="flex" className={classes.actionsCell}>
+                    <Box display="flex" className={classes.actionsCell} alignItems="center">
                       <ChangeUserRole teamUser={tu.node} />
                       <TeamMemberActions team={team} teamUser={tu.node} />
                     </Box>

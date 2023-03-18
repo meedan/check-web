@@ -14,8 +14,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     margin: theme.spacing(-2),
-    marginBottom: theme.spacing(2),
-    borderBottom: `1px solid ${brandBorder}`,
     borderTop: `1px solid ${brandBorder}`,
     position: 'sticky',
     top: theme.spacing(-2),

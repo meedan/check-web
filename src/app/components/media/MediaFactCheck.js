@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import TimeBefore from '../TimeBefore';
 import LanguagePickerSelect from '../layout/LanguagePickerSelect';
 import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
@@ -15,14 +14,7 @@ import { can } from '../Can';
 import MediaFactCheckField from './MediaFactCheckField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 
-const useStyles = makeStyles(() => ({
-  title: {
-    fontSize: '16px',
-  },
-}));
-
 const MediaFactCheck = ({ projectMedia }) => {
-  const classes = useStyles();
   const claimDescription = projectMedia.suggested_main_item ? projectMedia.suggested_main_item.claim_description : projectMedia.claim_description;
   const factCheck = claimDescription ? claimDescription.fact_check : null;
   const { team } = projectMedia;
@@ -173,10 +165,8 @@ const MediaFactCheck = ({ projectMedia }) => {
   return (
     <Box id="media__fact-check">
       <Box id="media__fact-check-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <Typography className={classes.title} variant="body1" component="div">
-          <strong>
-            <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
-          </strong>
+        <Typography variant="subtitle2" component="div">
+          <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
         </Typography>
         {' '}
         <Typography variant="caption" component="div">

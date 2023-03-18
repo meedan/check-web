@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import MediaCreatedBy from './MediaCreatedBy';
 import MediaClaim from './MediaClaim';
 import MediaTags from './MediaTags';
 import MediaFactCheck from './MediaFactCheck';
@@ -12,13 +11,14 @@ const MediaSidebar = ({ projectMedia }) => (
   <Box id="media__sidebar">
     <Box my={2}>
       { projectMedia.suggested_main_item || projectMedia.confirmed_main_item || projectMedia.is_confirmed_similar_to_another_item ? <MediaSuggestionReview projectMedia={projectMedia} /> : null }
-      <MediaCreatedBy projectMedia={projectMedia} />
     </Box>
     <Box>
       <Box mt={2}>
         <MediaClaim projectMedia={projectMedia} />
       </Box>
-      <MediaTags projectMedia={projectMedia} />
+      <Box mt={1}>
+        <MediaTags projectMedia={projectMedia} />
+      </Box>
       <Box my={2}>
         <MediaFactCheck projectMedia={projectMedia} />
       </Box>
