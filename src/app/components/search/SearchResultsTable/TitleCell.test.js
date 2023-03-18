@@ -22,7 +22,7 @@ describe('<TitleCell>', () => {
         title: 'Title of item',
       }}
     />);
-    expect(cell.find('h4').text()).toEqual('Title of item');
+    expect(cell.find('p').text()).toEqual('Title of item');
   });
 
   it('should render appropriate similarity icons', () => {

@@ -43,10 +43,5 @@
     "id": "mediaActionsBar.assignmentNotesTitle",
     "description": "Helper text to field for adding details about the assignment",
     "defaultMessage": "Add a note to the email"
-  },
-  {
-    "id": "mediaActionsBar.assignmentNotes",
-    "description": "Label to field for adding details about the assignment",
-    "defaultMessage": "Notes"
   }
 ]

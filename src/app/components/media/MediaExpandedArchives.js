@@ -46,7 +46,7 @@ const MediaExpandedArchives = ({ projectMedia }) => {
         </Grid>
         { activeArchivers.map(f => (
           <Grid key={f.field_name} item xs={2}>
-            <Typography className={classes.url} variant="body2">
+            <Typography className={classes.url} variant="body1">
               <ExternalLink url={f.value_json.location}>
                 {archivers[f.field_name]}
               </ExternalLink>

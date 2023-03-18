@@ -385,13 +385,6 @@ class MediaActionsBarComponent extends Component {
                   />
                 </Typography>
                 <TextField
-                  label={
-                    <FormattedMessage
-                      id="mediaActionsBar.assignmentNotes"
-                      defaultMessage="Notes"
-                      description="Label to field for adding details about the assignment"
-                    />
-                  }
                   variant="outlined"
                   inputRef={(element) => {
                     this.assignmentMessageRef = element;

@@ -79,7 +79,7 @@ const SmoochBotMainMenu = ({
 
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
         <Box display="flex" alignItems="center" mb={1}>
-          <Typography component="div" variant="body2">
+          <Typography component="div" variant="body1">
             <FormattedMessage
               id="smoochBotMainMenu.subtitle2"
               defaultMessage="Please note that some messaging services have different menu display options than others."

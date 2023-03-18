@@ -16,7 +16,7 @@ import {
 } from '../styles/js/shared';
 
 const LoginContainer = props => (
-  <Typography component="div" variant="body2" gutterBottom>
+  <Typography component="div" variant="body1" gutterBottom>
     <PageTitle>
       <ContentColumn center id="login-container" className="login-container">
         <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />

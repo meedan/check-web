@@ -168,7 +168,7 @@ const CustomFiltersManagerComponent = ({
           { errorMessage ?
             <Box alignItems="center" color="red" display="flex">
               <Box pr={1}><ErrorOutlineIcon /></Box>
-              <Typography component="span" variant="body2">
+              <Typography component="span" variant="body1">
                 { errorMessage }
               </Typography>
             </Box> : null }

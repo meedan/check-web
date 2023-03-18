@@ -27,7 +27,7 @@ const MediaExpandedUrl = ({ url }) => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="body2">
+      <Typography variant="body1">
         <ExternalLink url={url}>
           {url}
         </ExternalLink>

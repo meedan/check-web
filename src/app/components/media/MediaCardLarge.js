@@ -14,10 +14,11 @@ import WebPageMediaCard from './WebPageMediaCard';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import { getMediaType } from '../../helpers';
+import { otherWhite, brandBorder } from '../../styles/js/shared';
 
 const StyledCardBorder = styled.div`
-  background: #fff;
-  border: ${props => props.inModal ? 'none' : '1px solid #D0D6EC'};
+  background: ${otherWhite};
+  border: ${props => props.inModal ? 'none' : `1px solid ${brandBorder}`};
   border-radius: ${props => props.roundedTopCorners ? '8px' : ' 0 0 8px 8px'};
 `;
 

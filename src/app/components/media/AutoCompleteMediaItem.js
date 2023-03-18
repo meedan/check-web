@@ -15,26 +15,22 @@ import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
-import { grayBorderAccent, grayBackground } from '../../styles/js/shared';
+import { grayBackground } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   searchSettingsTitle: {
     fontWeight: 'bold',
   },
   searchSettingsBox: {
-    borderLeft: `1px solid ${grayBorderAccent}`,
     marginLeft: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    width: 300,
+    paddingLeft: theme.spacing(1),
+    width: 250,
   },
   autocompleteResults: {
     overflow: 'auto',
     maxHeight: 400,
     paddingRight: theme.spacing(1),
     marginTop: 12,
-  },
-  searchSettingsButton: {
-    marginTop: theme.spacing(0.5),
   },
   selectedItem: {
     background: grayBackground,
@@ -281,15 +277,12 @@ const AutoCompleteMediaItem = (props, context) => {
   }, [searchText, setSearchResult, props.dbid, keywordFields]);
 
   return (
-    <Box display="flex" alignItems="flex-start" className="autocomplete-media-item">
+    <Box display="flex" alignItems="center" className="autocomplete-media-item">
       <Box flexGrow="1" width={1}>
-        <Box display="flex" alignItems="flex-start" flexGrow="1">
+        <Box display="flex" alignItems="center" flexGrow="1">
           <TextField
             id="autocomplete-media-item"
             name="autocomplete-media-item"
-            label={
-              <FormattedMessage id="autoCompleteMediaItem.searchItem" defaultMessage="Search" />
-            }
             onKeyPress={handleKeyPress}
             onChange={handleChangeSearchText}
             helperText={
@@ -303,7 +296,7 @@ const AutoCompleteMediaItem = (props, context) => {
                     <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
                   { searchResult.items && searchResult.items.length > 0 ?
                     <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {# result} other {# results}}" values={{ count: searchResult.items.length }} /> : null }
-                </React.Fragment> : null
+                </React.Fragment> : <FormattedMessage id="autoCompleteMediaItem.type" defaultMessage="Type above to search" description="Helper text displayed next to search field to look for items to be imported" />
             }
             variant="outlined"
             fullWidth
@@ -311,7 +304,6 @@ const AutoCompleteMediaItem = (props, context) => {
           { props.showFilters ?
             <IconButton
               onClick={handleSettingsButton}
-              className={classes.searchSettingsButton}
             >
               <SettingsIcon />
             </IconButton> : null }

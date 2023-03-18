@@ -211,7 +211,7 @@ const SmoochBotNewsletterEditor = ({
       <Box>
         { newsletterInformation && showAlert ?
           <Box mb={1}>
-            <Typography component="div" variant="body2">
+            <Typography component="div" variant="body1">
               { newsletterInformation.paused ?
                 <Alert
                   type="warning"
@@ -240,7 +240,7 @@ const SmoochBotNewsletterEditor = ({
             </Typography>
           </Box> :
           <Box p={1} mt={1} mb={2} className={classes.none}>
-            <Typography component="div" variant="body2">
+            <Typography component="div" variant="body1">
               <FormattedMessage
                 id="smoochBotNewsletterEditor.none"
                 defaultMessage="Please complete the steps below to send a weekly newsletter"
@@ -264,7 +264,7 @@ const SmoochBotNewsletterEditor = ({
           onChange={(event) => { onChange('smooch_newsletter_day', event.target.value); }}
           startAdornment={
             <InputAdornment position="start">
-              <EventIcon />
+              <EventIcon fontSize="small" />
             </InputAdornment>
           }
         >
@@ -292,7 +292,7 @@ const SmoochBotNewsletterEditor = ({
           onChange={(event) => { onChange('smooch_newsletter_time', event.target.value); }}
           startAdornment={
             <InputAdornment position="start">
-              <ScheduleIcon />
+              <ScheduleIcon fontSize="small" />
             </InputAdornment>
           }
         >
@@ -450,7 +450,7 @@ const SmoochBotNewsletterEditor = ({
               fullWidth
             />
 
-            <Button variant="contained" color="primary" onClick={handleLoad} disabled={loading || !newsletter.smooch_newsletter_feed_url}>
+            <Button variant="contained" color="primary" onClick={handleLoad} size="small" disabled={loading || !newsletter.smooch_newsletter_feed_url}>
               <FormattedMessage
                 id="smoochBotNewsletterEditor.load"
                 defaultMessage="Load"

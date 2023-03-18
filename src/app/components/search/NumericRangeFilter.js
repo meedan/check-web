@@ -85,7 +85,7 @@ const NumericRangeFilter = ({
       <RemoveableWrapper icon={<NumberIcon />} readOnly={readOnly} onRemove={onRemove} boxProps={{ px: 0.5 }}>
         <Box display="flex" alignItems="center">
           <Box pr={1}>
-            <Typography component="span" variant="body2">
+            <Typography component="span" variant="body1">
               { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
             </Typography>
           </Box>
@@ -105,7 +105,7 @@ const NumericRangeFilter = ({
             )}
           </FormattedMessage>
           <Box px={1}>
-            <Typography component="span" variant="body2">
+            <Typography component="span" variant="body1">
               <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" />
             </Typography>
           </Box>
@@ -129,7 +129,7 @@ const NumericRangeFilter = ({
       { showErrorMsg ?
         <Box alignItems="center" color="red" display="flex">
           <Box pr={1}><ErrorOutlineIcon /></Box>
-          <Typography component="span" variant="body2">
+          <Typography component="span" variant="body1">
             <FormattedMessage
               id="numericRangeFilter.errorMessage"
               defaultMessage="First number should be less than second number"

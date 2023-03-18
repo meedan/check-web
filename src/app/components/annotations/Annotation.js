@@ -141,11 +141,11 @@ const StyledAnnotationWrapper = styled.section`
 
   .annotation__card-activity-move-to-trash {
     background: ${brandMain};
-    color: #fff;
+    color: ${otherWhite};
     border-radius: ${defaultBorderRadius};
 
     .annotation__timestamp {
-      color: #fff;
+      color: ${otherWhite};
     }
   }
 
