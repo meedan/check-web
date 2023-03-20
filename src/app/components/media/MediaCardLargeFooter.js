@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { Box } from '@material-ui/core';
@@ -14,12 +15,42 @@ const MediaCardLargeFooter = ({
   mediaType,
   data,
 }) => {
-  const extractedText = projectMedia.extracted_text?.data?.text;
-  const transcription = projectMedia.transcription?.data.text;
+  let footerTitle = null;
 
-  let footerType = null;
-  if (extractedText) footerType = 'ExtractedText';
-  if (transcription) footerType = 'Transcription';
+  const extractedText = projectMedia.extracted_text?.data?.text;
+  if (extractedText) {
+    footerTitle = (
+      <FormattedMessage
+        id="mediaCardLargeFooter.extractedText"
+        defaultMessage="Extracted text"
+        description="Header for the OCR extracted text content of an image"
+      />
+    );
+  }
+
+  let transcription = null;
+  if (projectMedia.transcription?.data?.last_response.job_status === 'COMPLETED') {
+    transcription = projectMedia.transcription?.data?.text;
+  } else if (projectMedia.transcription?.data?.last_response.job_status === 'IN_PROGRESS') {
+    transcription = (
+      <FormattedMessage
+        id="mediaExpanded.transcriptionInProgress"
+        defaultMessage="Audio transcription in progress…"
+        description="Label when transcription is in progress"
+      />
+    );
+  }
+
+  if (transcription) {
+    footerTitle = (
+      <FormattedMessage
+        id="mediaCardLargeFooter.transcription"
+        defaultMessage="Transcription"
+        description="Header for the transcription content of an audio or video"
+      />
+    );
+  }
+
   let footerBody = extractedText || transcription || null;
   if (projectMedia.type === 'Link' && inModal) footerBody = data.description;
   if (projectMedia.type === 'Claim' && inModal) footerBody = projectMedia.media.quote;
@@ -94,7 +125,7 @@ const MediaCardLargeFooter = ({
           { /* 2nd MediaLargeFooterContent displays full-length textual content below MediaCardLargeActions:
             OCR, Extracted text, Text, etc */}
           <MediaCardLargeFooterContent
-            type={footerType}
+            title={footerTitle}
             body={footerBody}
             inModal={inModal}
           />
@@ -102,6 +133,18 @@ const MediaCardLargeFooter = ({
       ) : null }
     </Box>
   );
+};
+
+MediaCardLargeFooter.propTypes = {
+  inModal: PropTypes.bool.isRequired,
+  projectMedia: PropTypes.object.isRequired,
+  onClickMore: PropTypes.func,
+  mediaType: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+};
+
+MediaCardLargeFooter.defaultProps = {
+  onClickMore: null,
 };
 
 export default createFragmentContainer(MediaCardLargeFooter, graphql`
