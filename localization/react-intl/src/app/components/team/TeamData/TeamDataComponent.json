@@ -2,7 +2,7 @@
   {
     "id": "teamDataComponent.conversations",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Starts when a user interacts with the bot and ends after 15 minutes of inactivity."
+    "defaultMessage": "Starts with any outgoing or incoming message for a user, and ends after 24 hours. This information began collection on April 1, 2023."
   },
   {
     "id": "teamDataComponent.averageMessagesPerDay",
