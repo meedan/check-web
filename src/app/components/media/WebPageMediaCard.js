@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
+import { Box } from '@material-ui/core';
 import AspectRatio from '../layout/AspectRatio';
 import MediaCardTitleSummary from './MediaCardTitleSummary';
 
@@ -28,13 +29,14 @@ class WebPageMediaCard extends Component {
       contentWarning,
       warningCreator,
       warningCategory,
+      inModal,
     } = this.props;
 
     return (
       <article className="web-page-media-card">
         <MediaCardTitleSummary
           title={data.title}
-          summary={data.description}
+          summary={inModal ? null : data.description}
         />
         {this.canEmbedHtml() ?
           <div
@@ -55,14 +57,15 @@ class WebPageMediaCard extends Component {
                 <img src={projectMedia.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
               </AspectRatio> : null
             }
-            <p />
             { data.error ?
               <div className="web-page-media-card__error">
-                <FormattedMessage
-                  id="webPageMediaCard.Error"
-                  defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
-                  description="Error message displayed when link data is unavailable"
-                />
+                <Box mt={2}>
+                  <FormattedMessage
+                    id="webPageMediaCard.Error"
+                    defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
+                    description="Error message displayed when link data is unavailable"
+                  />
+                </Box>
               </div> : null
             }
           </div>

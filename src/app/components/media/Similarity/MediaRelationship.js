@@ -15,6 +15,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
+import MediaSlug from '../MediaSlug';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import globalStrings from '../../../globalStrings';
@@ -337,47 +338,48 @@ const MediaRelationship = ({
     });
   };
 
+  const details = [
+    <FormattedMessage
+      id="mediaRelationship.lastSubmitted"
+      defaultMessage="Last submitted {date}"
+      description="Shows the last time a media was submitted"
+      values={{
+        date: intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+      }}
+    />,
+    <FormattedMessage
+      id="mediaSuggestions.requestsCount"
+      defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
+      description="Header of requests list. Example: 26 requests"
+      values={{ requestsCount: relationship?.target?.requests_count }}
+    />,
+  ];
+
   return (
     <div className={`${classes.outer} media__relationship`} >
       { isSelected ?
         <MediaAndRequestsDialogComponent
           projectMediaId={relationship.target_id}
+          mediaSlug={
+            <MediaSlug
+              mediaType={relationship?.target?.type}
+              slug={relationship.target?.title}
+              details={details}
+            />
+          }
+          variant="confirmed"
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
+          onUnmatch={() => setIsDialogOpen(true)}
           onPin={onPin}
-          onUnmatch={() => {
-            setIsDialogOpen(true);
-          }}
-          maxWidth="sm"
-          fullWidth
-        />
-        : null }
+        /> : null }
       <SmallMediaCard
         key={relationship.id}
         customTitle={relationship?.target?.title}
-        details={[
-          (
-            <FormattedMessage
-              id="mediaRelationship.lastSubmitted"
-              defaultMessage="Last submitted {date}"
-              description="Shows the last time a media was submitted"
-              values={{
-                date: intl.formatDate(+relationship?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-              }}
-            />
-          ),
-          <FormattedMessage
-            id="mediaSuggestions.requestsCount"
-            defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-            description="Header of requests list. Example: 26 requests"
-            values={{ requestsCount: relationship?.target?.requests_count }}
-          />,
-        ]}
+        details={details}
         media={relationship?.target?.media}
         description={relationship?.target?.description}
-        onClick={() => {
-          setIsSelected(true);
-        }}
+        onClick={() => setIsSelected(true)}
       />
       <div className={`${classes.inner} media__relationship__menu`}>
         <RelationshipMenu

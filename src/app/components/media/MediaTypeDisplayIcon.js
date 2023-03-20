@@ -40,9 +40,7 @@ export default function MediaTypeDisplayIcon({ mediaType }) {
     return null;
   }
 }
-MediaTypeDisplayIcon.MediaTypeShape = PropTypes.oneOf([
-  'Claim', 'Link', 'UploadedImage', 'UploadedVideo', 'UploadedAudio', 'Blank', '-',
-]);
+
 MediaTypeDisplayIcon.propTypes = {
-  mediaType: MediaTypeDisplayIcon.MediaTypeShape.isRequired,
+  mediaType: PropTypes.string.isRequired,
 };

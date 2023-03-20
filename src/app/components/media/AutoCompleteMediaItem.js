@@ -168,7 +168,7 @@ const AutoCompleteMediaItem = (props, context) => {
                       domain
                       quote
                       picture
-                      metadata                     
+                      metadata
                     }
                   }
                 }
