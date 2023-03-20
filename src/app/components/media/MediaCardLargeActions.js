@@ -16,6 +16,7 @@ import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
 import ExternalLink from '../ExternalLink';
 import LanguagePickerSelect from '../layout/LanguagePickerSelect';
+import { brandBorder } from '../../styles/js/shared';
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -101,42 +102,54 @@ class MediaExpandedActions extends React.Component {
   }
 
   render() {
-    const { projectMedia, inModal, onClickMore } = this.props;
+    const {
+      projectMedia,
+      inModal,
+      onClickMore,
+      bottomSeparator,
+    } = this.props;
     const { media } = projectMedia;
 
     if (media.type === 'Blank') return null;
 
     return (
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <div>
-          { !inModal ?
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={onClickMore}
-            >
-              <FormattedMessage
-                id="mediaCardLarge.more"
-                description="Button to open an expanded view of the media"
-                defaultMessage="More"
-              />
-            </Button> : null }
-          { inModal ?
-            <LanguagePickerSelect
-              selectedlanguage={projectMedia.language}
-              onSubmit={handleLanguageSelect}
-              team={projectMedia.team}
-            /> : null }
-        </div>
-        <Box display="flex">
-          { media.type === 'Link' ?
-            <RefreshButton projectMediaId={projectMedia.id} /> : null }
-          <ExtraMediaActions
-            projectMedia={projectMedia}
-            reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
-          />
+      <div
+        style={{
+          borderBottom: bottomSeparator ? `1px solid ${brandBorder}` : null,
+          paddingBottom: '8px',
+        }}
+      >
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <div>
+            { !inModal ?
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={onClickMore}
+              >
+                <FormattedMessage
+                  id="mediaCardLarge.more"
+                  description="Button to open an expanded view of the media"
+                  defaultMessage="More"
+                />
+              </Button> : null }
+            { inModal ?
+              <LanguagePickerSelect
+                selectedlanguage={projectMedia.language}
+                onSubmit={handleLanguageSelect}
+                team={projectMedia.team}
+              /> : null }
+          </div>
+          <Box display="flex">
+            { media.type === 'Link' ?
+              <RefreshButton projectMediaId={projectMedia.id} /> : null }
+            <ExtraMediaActions
+              projectMedia={projectMedia}
+              reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+            />
+          </Box>
         </Box>
-      </Box>
+      </div>
     );
   }
 }

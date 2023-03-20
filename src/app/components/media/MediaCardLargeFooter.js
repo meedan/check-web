@@ -24,6 +24,10 @@ const MediaCardLargeFooter = ({
   if (projectMedia.type === 'Link' && inModal) footerBody = data.description;
   if (projectMedia.type === 'Claim' && inModal) footerBody = projectMedia.media.quote;
 
+  console.log('projectMedia', projectMedia); // eslint-disable-line
+  console.log('data', data); // eslint-disable-line
+
+
   return (
     <Box p={2}>
       { !inModal ?
@@ -68,7 +72,16 @@ const MediaCardLargeFooter = ({
                 id="mediaCardLarge.publishedOn"
                 defaultMessage="Published on {date}"
                 description="Publication date and time of a web article"
-                values={{ date: 'bli' }}
+                values={{
+                  date: (
+                    <FormattedDate
+                      value={data.published_at}
+                      year="numeric"
+                      month="short"
+                      day="numeric"
+                    />
+                  ),
+                }}
               />
             }
             body={<ExternalLink url={data.url} />}
@@ -78,6 +91,7 @@ const MediaCardLargeFooter = ({
         inModal={inModal}
         projectMedia={projectMedia}
         onClickMore={onClickMore}
+        bottomSeparator={inModal && footerBody}
       />
       { footerBody ? (
         <Box mt={2}>
