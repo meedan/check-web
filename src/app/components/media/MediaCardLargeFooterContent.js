@@ -3,11 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { textPrimary, textSecondary } from '../../styles/js/shared';
+import LongShort from '../layout/LongShort';
 
 const MediaCardLargeFooterContent = ({
   body,
   title,
   type,
+  inModal,
 }) => {
   if (!body) return null;
 
@@ -39,7 +41,9 @@ const MediaCardLargeFooterContent = ({
             {label}
           </Box>
           <Box color={textPrimary}>
-            {body}
+            <LongShort showAll={inModal}>
+              {body}
+            </LongShort>
           </Box>
         </Typography>
       </div>

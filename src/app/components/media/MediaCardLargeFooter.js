@@ -100,6 +100,7 @@ const MediaCardLargeFooter = ({
           <MediaCardLargeFooterContent
             type={footerType}
             body={footerBody}
+            inModal={inModal}
           />
         </Box>
       ) : null }
