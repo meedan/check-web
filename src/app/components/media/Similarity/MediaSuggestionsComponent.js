@@ -157,7 +157,6 @@ const MediaSuggestionsComponent = ({
   const [isBulkSpamDialogOpen, setIsBulkSpamDialogOpen] = React.useState(false);
   const [isBulkTrashDialogOpen, setIsBulkTrashDialogOpen] = React.useState(false);
   const [isBulkAcceptDialogOpen, setIsBulkAcceptDialogOpen] = React.useState(false);
-  const [isSuggestedMediaDialogOpen, setIsSuggestedMediaDialogOpen] = React.useState(false);
   const [isMutationPending, setIsMutationPending] = React.useState(false);
   const [selectedRelationship, setSelectedRelationship] = React.useState(0);
   const [cursor, setCursor] = React.useState(0);
@@ -644,11 +643,6 @@ const MediaSuggestionsComponent = ({
     window.open('http://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions');
   };
 
-  const openSuggestedMediaDialog = (relationshipItem) => {
-    setSelectedItemId(relationshipItem.target?.dbid);
-    setIsSuggestedMediaDialogOpen(true);
-  };
-
   const disableAcceptRejectButtons = totalCount === 0 || !can(team.permissions, 'update Relationship') || isMutationPending;
 
   if (totalCount === 0) {
@@ -706,9 +700,9 @@ const MediaSuggestionsComponent = ({
           details={details}
           media={relationshipItem?.target?.media}
           description={relationshipItem?.target?.description}
-          onClick={() => openSuggestedMediaDialog(relationshipItem)}
+          onClick={() => setSelectedItemId(relationshipItem.target?.dbid)}
         />
-        { isSuggestedMediaDialogOpen ?
+        { selectedItemId === relationshipItem?.target_id ?
           <MediaAndRequestsDialogComponent
             mediaSlug={
               <MediaSlug
@@ -720,7 +714,7 @@ const MediaSuggestionsComponent = ({
             variant="suggested"
             projectMediaId={selectedItemId}
             onClick={swallowClick}
-            onClose={() => setIsSuggestedMediaDialogOpen(false)}
+            onClose={() => setSelectedItemId(null)}
           />
           : null }
       </Grid>
@@ -1027,31 +1021,28 @@ const MediaSuggestionsComponent = ({
             <MediasLoading count={pageSize} /> :
             relationships
               .slice(cursor, cursor + pageSize)
-              .map((relationshipItem) => {
-                console.log('relationshipItem', relationshipItem); // eslint-disable-line
-                return (
-                  <RelationshipItem
-                    key={relationshipItem.target_id}
-                    relationshipItem={relationshipItem}
-                    details={[
-                      <FormattedMessage
-                        id="mediaSuggestions.lastSubmitted"
-                        defaultMessage="Last submitted {date}"
-                        description="Shows the last time a media was submitted (on feed request media card)"
-                        values={{
-                          date: intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                        }}
-                      />,
-                      <FormattedMessage
-                        id="mediaSuggestions.requestsCount"
-                        defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                        description="Header of requests list. Example: 26 requests"
-                        values={{ requestsCount: relationshipItem?.target?.requests_count }}
-                      />,
-                    ]}
-                  />
-                );
-              })}
+              .map(relationshipItem => (
+                <RelationshipItem
+                  key={relationshipItem.target_id}
+                  relationshipItem={relationshipItem}
+                  details={[
+                    <FormattedMessage
+                      id="mediaSuggestions.lastSubmitted"
+                      defaultMessage="Last submitted {date}"
+                      description="Shows the last time a media was submitted (on feed request media card)"
+                      values={{
+                        date: intl.formatDate(+relationshipItem?.target?.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                      }}
+                    />,
+                    <FormattedMessage
+                      id="mediaSuggestions.requestsCount"
+                      defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
+                      description="Header of requests list. Example: 26 requests"
+                      values={{ requestsCount: relationshipItem?.target?.requests_count }}
+                    />,
+                  ]}
+                />
+              ))}
         </div>
       </Column>
     </React.Fragment>
