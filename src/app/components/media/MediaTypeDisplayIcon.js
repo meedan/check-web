@@ -13,25 +13,26 @@ import {
 } from '@material-ui/icons';
 
 export default function MediaTypeDisplayIcon({ mediaType }) {
+  const props = { fontSize: 'small' };
   switch (mediaType) {
   case 'Claim':
-    return <DescriptionOutlined />;
+    return <DescriptionOutlined {...props} />;
   case 'Link':
-    return <PublicOutlined />;
+    return <PublicOutlined {...props} />;
   case 'UploadedImage':
-    return <ImageOutlined />;
+    return <ImageOutlined {...props} />;
   case 'UploadedVideo':
-    return <MovieOutlined />;
+    return <MovieOutlined {...props} />;
   case 'UploadedAudio':
-    return <AudiotrackOutlined />;
+    return <AudiotrackOutlined {...props} />;
   case 'Facebook':
-    return <Facebook />;
+    return <Facebook {...props} />;
   case 'Instagram':
-    return <Instagram />;
+    return <Instagram {...props} />;
   case 'Twitter':
-    return <Twitter />;
+    return <Twitter {...props} />;
   case 'Youtube':
-    return <YouTube />;
+    return <YouTube {...props} />;
   case 'Blank':
     return null;
   case '-':

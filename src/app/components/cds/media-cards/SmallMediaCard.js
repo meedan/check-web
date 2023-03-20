@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -9,7 +10,7 @@ import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
 import { getMediaType } from '../../../helpers';
-import { brandBorder, grayBorderAccent, otherWhite, textPrimary } from '../../../styles/js/shared';
+import { brandBorder, otherWhite, textPrimary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,45 +25,31 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     overflow: 'hidden',
     height: theme.spacing(14),
-  },
-  innerBox: {
     cursor: 'pointer',
-    width: 'inherit',
-    maxWidth: 'calc(100% - 48px)', // 48px is the width of a menu icon
+  },
+  inner: {
+    width: 'calc(100% - 48px)',
   },
   image: {
     height: 96,
     width: 96,
     objectFit: 'cover',
-    border: `1px solid ${brandBorder}`,
-    marginRight: theme.spacing(1.5),
+    marginRight: theme.spacing(1),
     alignSelf: 'center',
+  },
+  row: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   text: {
-    overflow: 'hidden',
     alignSelf: 'center',
+    minWidth: 0,
   },
-  url: {
-    lineHeight: '143%',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    maxWidth: '33vw', // 1/3 of the viewport width
-  },
-  title: {
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    fontWeight: 'normal',
-    maxWidth: '33vw', // 1/3 of the viewport width
-  },
-  description: {
-    lineHeight: '143%',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    fontSize: 15,
-    maxWidth: '33vw', // 1/3 of the viewport width
+  titleAndUrl: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2px',
   },
   oneLineDescription: {
     maxHeight: '20px',
@@ -72,16 +59,6 @@ const useStyles = makeStyles(theme => ({
     '-webkit-line-clamp': 2,
     '-webkit-box-orient': 'vertical',
     whiteSpace: 'pre-line',
-  },
-  placeholder: {
-    border: `1px solid ${grayBorderAccent}`,
-    borderRadius: theme.spacing(1),
-    color: textPrimary,
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    overflow: 'hidden',
   },
   menuBox: {
     marginTop: theme.spacing(-1),
@@ -95,18 +72,9 @@ const SmallMediaCard = ({
   description,
   onClick,
   menu,
-  placeholder,
   className,
 }) => {
   const classes = useStyles();
-
-  if (placeholder) {
-    return (
-      <Box className={classes.placeholder}>
-        {placeholder}
-      </Box>
-    );
-  }
 
   return (
     <Box
@@ -115,9 +83,9 @@ const SmallMediaCard = ({
       alignItems="center"
     >
       <Box
+        className={classes.inner}
         display="flex"
         onClick={onClick}
-        className={classes.innerBox}
       >
         {
           media.picture ?
@@ -137,15 +105,33 @@ const SmallMediaCard = ({
             /> : null
         }
         <div className={classes.text}>
-          <div className={[classes.description, (media.url ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
-            <ParsedText text={media.metadata?.title || media.quote || description} />
-          </div>
-          <MediaSlug
-            mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
-            slug={<div className={classes.title}>{customTitle || media.metadata?.title}</div>}
-            details={details}
-          />
-          { media.url ? <div className={classes.url}><ExternalLink url={media.url} maxUrlLength={60} readable /></div> : null }
+          <Box className={classes.titleAndUrl}>
+            <Typography variant="subtitle2" component="div">
+              <div className={[classes.row, (media.url ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
+                <ParsedText text={media.metadata?.title || media.quote || description} />
+              </div>
+            </Typography>
+            { media.url ?
+              <Typography variant="body1" component="div">
+                <div className={classes.row}>
+                  <ExternalLink url={media.url} maxUrlLength={60} readable />
+                </div>
+              </Typography> : null
+            }
+          </Box>
+          <Box mt={1}>
+            <MediaSlug
+              mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
+              slug={
+                <Typography variant="body1" component="div">
+                  <div className={classes.row}>
+                    {customTitle || media.metadata?.title}
+                  </div>
+                </Typography>
+              }
+              details={details}
+            />
+          </Box>
         </div>
       </Box>
       <Box
@@ -173,7 +159,6 @@ SmallMediaCard.propTypes = {
   description: PropTypes.string,
   onClick: PropTypes.func,
   menu: PropTypes.element,
-  placeholder: PropTypes.element,
   className: PropTypes.string,
 };
 
@@ -183,7 +168,6 @@ SmallMediaCard.defaultProps = {
   description: null,
   onClick: () => {},
   menu: null,
-  placeholder: null,
   className: '',
 };
 

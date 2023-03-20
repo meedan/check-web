@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { truncateLength } from '../helpers';
+import { textLink } from '../styles/js/shared';
 
 const ExternalLink = ({
   children,
@@ -16,7 +17,7 @@ const ExternalLink = ({
   displayUrl = maxUrlLength ? truncateLength(displayUrl, maxUrlLength) : displayUrl;
 
   return (
-    <a href={url} style={style} target="_blank" rel="noopener noreferrer">
+    <a href={url} style={{ color: textLink, ...style }} target="_blank" rel="noopener noreferrer">
       {children || displayUrl}
     </a>
   );
