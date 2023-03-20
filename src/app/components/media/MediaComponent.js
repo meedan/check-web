@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import styled from 'styled-components';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
@@ -214,7 +215,32 @@ class MediaComponent extends Component {
                       <MediaSlug
                         mediaType={projectMedia.type}
                         slug={projectMedia.title}
-                        details={[]}
+                        details={[(
+                          <FormattedMessage
+                            id="mediaComponent.lastSeen"
+                            defaultMessage="Last submitted on {date}"
+                            description="Header for the date when the media item was last received by the workspace"
+                            values={{
+                              date: (
+                                <FormattedDate
+                                  value={projectMedia.last_seen * 1000}
+                                  year="numeric"
+                                  month="short"
+                                  day="numeric"
+                                />
+                              ),
+                            }}
+                          />
+                        ), (
+                          <FormattedMessage
+                            id="mediaComponent.requests"
+                            defaultMessage="{count, plural, one {# request} other {# requests}}"
+                            description="Number of times a request has been sent about this media"
+                            values={{
+                              count: projectMedia.requests_count,
+                            }}
+                          />
+                        )]}
                       />
                     }
                     variant="pinned"
@@ -269,6 +295,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     permissions
     pusher_channel
     project_id
+    last_seen
     requests_count
     picture
     show_warning_cover

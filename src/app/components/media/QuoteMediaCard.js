@@ -5,26 +5,27 @@ import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import ParsedText from '../ParsedText';
 import { breakWordStyles } from '../../styles/js/shared';
+import LongShort from '../layout/LongShort';
 
 const StyledQuoteText = styled.div`
   ${breakWordStyles}
   text-align: start;
-  max-height: ${props => props.showAll ? 'none' : '120px'}; // 6 (max-lines) x 20px (line-height)
   overflow: hidden;
 `;
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 const QuoteMediaCard = ({ quote, languageCode, showAll }) => (
-  <div>
-    <StyledQuoteText
-      showAll={showAll}
-      dir={rtlDetect.isRtlLang(languageCode) ? 'rtl' : 'ltr'}
-      lang={languageCode}
-    >
-      <Typography variant="body1">
-        <ParsedText text={quote} />
-      </Typography>
-    </StyledQuoteText>
+  <div className="quote-media-card">
+    <LongShort showAll={showAll}>
+      <StyledQuoteText
+        dir={rtlDetect.isRtlLang(languageCode) ? 'rtl' : 'ltr'}
+        lang={languageCode}
+      >
+        <Typography variant="body1">
+          <ParsedText text={quote} />
+        </Typography>
+      </StyledQuoteText>
+    </LongShort>
   </div>
 );
 QuoteMediaCard.propTypes = {

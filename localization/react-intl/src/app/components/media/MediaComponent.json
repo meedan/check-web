@@ -1,6 +1,12 @@
 [
   {
-    "id": "mediaComponent.timelineTab",
-    "defaultMessage": "Timeline"
+    "id": "mediaComponent.lastSeen",
+    "description": "Header for the date when the media item was last received by the workspace",
+    "defaultMessage": "Last submitted on {date}"
+  },
+  {
+    "id": "mediaComponent.requests",
+    "description": "Number of times a request has been sent about this media",
+    "defaultMessage": "{count, plural, one {# request} other {# requests}}"
   }
 ]
