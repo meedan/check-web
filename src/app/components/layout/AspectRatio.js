@@ -188,9 +188,7 @@ const AspectRatio = ({
     sortable = sortable.concat([...Object.entries(filteredFlags)]);
     sortable.sort((a, b) => b[1] - a[1]);
     const type = sortable[0];
-    console.log('type', type); // eslint-disable-line
     [warningType] = type;
-    console.log('warningType', warningType); // eslint-disable-line
   }
 
   const warningCategory = warningType;

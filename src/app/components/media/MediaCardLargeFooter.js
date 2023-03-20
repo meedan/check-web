@@ -24,10 +24,6 @@ const MediaCardLargeFooter = ({
   if (projectMedia.type === 'Link' && inModal) footerBody = data.description;
   if (projectMedia.type === 'Claim' && inModal) footerBody = projectMedia.media.quote;
 
-  console.log('projectMedia', projectMedia); // eslint-disable-line
-  console.log('data', data); // eslint-disable-line
-
-
   return (
     <Box p={2}>
       { !inModal ?
