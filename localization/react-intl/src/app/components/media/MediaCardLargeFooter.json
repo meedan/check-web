@@ -1,5 +1,20 @@
 [
   {
+    "id": "mediaCardLargeFooter.extractedText",
+    "description": "Header for the OCR extracted text content of an image",
+    "defaultMessage": "Extracted text"
+  },
+  {
+    "id": "mediaExpanded.transcriptionInProgress",
+    "description": "Label when transcription is in progress",
+    "defaultMessage": "Audio transcription in progress…"
+  },
+  {
+    "id": "mediaCardLargeFooter.transcription",
+    "description": "Header for the transcription content of an audio or video",
+    "defaultMessage": "Transcription"
+  },
+  {
     "id": "mediaCardLarge.lastSeen",
     "description": "Header for the date when the media item was last received by the workspace",
     "defaultMessage": "Last submitted on {date}"
