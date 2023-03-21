@@ -10,13 +10,16 @@ import { otherWhite, textPrimary, units, Row, FlexRow } from '../../styles/js/sh
 const StyledToolbar = styled.div`
   background-color: ${otherWhite};
   min-height: ${units(5)};
-  /* max-width: calc(100vw - ${units(34)}); Seems unecessary */
-  padding: 0 ${units(2)} ${units(2)} ${units(2)};
+  padding: 0;
   margin: 0;
 
   .toolbar__title {
     color: ${textPrimary};
     margin: ${units(2)};
+  }
+
+  .toolbar__row {
+    height: 100%;
   }
 `;
 
@@ -46,7 +49,7 @@ const Toolbar = ({
 
   return (
     <StyledToolbar className="toolbar">
-      <FlexRow>
+      <FlexRow className="toolbar__row">
         <Row>
           {similarAction}
           <span className="toolbar__title">{title}</span>

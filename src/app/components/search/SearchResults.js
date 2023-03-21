@@ -5,8 +5,9 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import NextIcon from '@material-ui/icons/KeyboardArrowRight';
-import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
+import NextIcon from '@material-ui/icons/ChevronRightRounded';
+import PrevIcon from '@material-ui/icons/ChevronLeftRounded';
+import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -20,7 +21,7 @@ import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { textPrimary, textSecondary, headline, units, Row } from '../../styles/js/shared';
+import { brandMain, textPrimary, textSecondary, textPlaceholder, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
@@ -55,26 +56,25 @@ const StyledSearchResultsWrapper = styled.div`
 
   .search__results-heading {
     color: ${textPrimary};
-    font-size: larger;
-    font-weight: bolder;
     text-align: center;
     display: flex;
     align-items: center;
 
+    .search__selected {
+      color: ${brandMain};
+      margin: 0 0 0 ${units(1)};
+    }
+
     .search__nav {
-      padding: 0 ${units(1)};
+      padding: 0 ${units(1)} 0 0;
       display: flex;
       cursor: pointer;
       color: ${textPrimary};
-
-      &:first-child {
-        padding-left: 0;
-      }
     }
 
     .search__button-disabled {
-      color: ${textSecondary};
-      cursor: default;
+      color: ${textPlaceholder};
+      cursor: not-allowed;
     }
   }
 `;
@@ -497,28 +497,6 @@ function SearchResultsComponent({
           team={team}
           viewMode={viewMode}
           onChangeViewMode={handleChangeViewMode}
-          similarAction={team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled && page !== 'feed' ?
-            <FormControlLabel
-              classes={{ labelPlacementStart: classes.similarSwitch }}
-              control={
-                <Switch
-                  className="search-show-similar__switch"
-                  classes={{ colorSecondary: classes.inactiveColor }}
-                  checked={showSimilar}
-                  onClick={handleShowSimilarSwitch}
-                  color="secondary"
-                />
-              }
-              label={
-                <FormattedMessage
-                  id="search.showSimilar"
-                  defaultMessage="Show all media"
-                  description="Allow user to show/hide secondary items"
-                />
-              }
-              labelPlacement="end"
-            />
-            : null}
           actions={projectMedias.length && selectedProjectMedia.length ?
             <BulkActions
               team={team}
@@ -547,7 +525,7 @@ function SearchResultsComponent({
                   </span>
                 )}
               </Tooltip>
-              <span className="search__count">
+              <Typography variant="button" component="span">
                 <FormattedMessage
                   id="searchResults.itemsCount"
                   defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
@@ -558,18 +536,17 @@ function SearchResultsComponent({
                   }}
                 />
                 {filteredSelectedProjectMediaIds.length ?
-                  <span>&nbsp;
-                    <FormattedMessage
-                      id="searchResults.withSelection"
-                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                      description="Label for number of selected items"
-                      values={{
-                        selectedCount: filteredSelectedProjectMediaIds.length,
-                      }}
-                    />
-                  </span> : null
+                  <FormattedMessage
+                    id="searchResults.withSelection"
+                    defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                    description="Label for number of selected items"
+                    values={{
+                      selectedCount: filteredSelectedProjectMediaIds.length,
+                    }}
+                    >{txt => <span class="search__selected">{txt}</span>}</FormattedMessage>
+                    : null
                 }
-              </span>
+              </Typography>
               <Tooltip title={
                 <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
               }

@@ -222,6 +222,11 @@ export const MuiTheme = {
     },
   },
   overrides: { // Override of all material UI components. Information at https://material-ui.com/api/{component}
+    MuiTableContainer: {
+      root: {
+        borderTop: `solid 1px ${grayBorderMain}`,
+      }
+    },
     MuiTableCell: {
       stickyHeader: {
         // @material-ui/core sets #fafafa, only for sticky header. Undo that.
