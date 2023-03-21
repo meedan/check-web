@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import Typography from '@material-ui/core/Typography';
 import TimeBefore from '../TimeBefore';
-import LanguagePickerSelect from '../layout/LanguagePickerSelect';
+import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
 import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
 import { can } from '../Can';
 import MediaFactCheckField from './MediaFactCheckField';
@@ -248,7 +248,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             isDisabled={(!hasPermission || isDisabled)}
             selectedlanguage={language}
             onSubmit={handleLanguageSubmit}
-            team={team}
+            languages={JSON.parse(team.get_languages || '[]')}
           />
         </Box> : null
       }

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "LanguagePickerSelect.optionLabel",
+    "defaultMessage": "{languageName} ({languageCode})"
+  },
+  {
+    "id": "LanguagePickerSelect.unknownLanguage",
+    "defaultMessage": "Unknown language"
+  }
+]
