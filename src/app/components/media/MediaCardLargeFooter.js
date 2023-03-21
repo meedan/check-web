@@ -93,9 +93,9 @@ const MediaCardLargeFooter = ({
       { projectMedia.type === 'Link' ?
         <Box my={2}>
           { /* 1st MediaLargeFooterContent, exclusive for Link, always displays URL above MediaCardLargeActions */}
-          { data.published_at ?
-            <MediaCardLargeFooterContent
-              title={
+          <MediaCardLargeFooterContent
+            title={
+              data.published_at ? (
                 <FormattedMessage
                   id="mediaCardLarge.publishedOn"
                   defaultMessage="Published on {date}"
@@ -111,9 +111,10 @@ const MediaCardLargeFooter = ({
                     ),
                   }}
                 />
-              }
-              body={<ExternalLink url={data.url} />}
-            /> : null }
+              ) : null
+            }
+            body={<ExternalLink url={data.url} />}
+          />
         </Box> : null }
       <MediaCardLargeActions
         inModal={inModal}

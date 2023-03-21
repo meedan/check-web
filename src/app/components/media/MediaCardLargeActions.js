@@ -158,26 +158,19 @@ MediaExpandedActions.propTypes = {
 export default createFragmentContainer(MediaExpandedActions, graphql`
   fragment MediaCardLargeActions_projectMedia on ProjectMedia {
     id
-    language_code
-    team {
-      get_languages
+    media {
+      url
+      type
+      metadata
     }
     picture
+    url
     transcription: annotation(annotation_type: "transcription") {
       data
     }
     extracted_text: annotation(annotation_type: "extracted_text") {
       data
     }
-    language: annotation(annotation_type: "language") {
-      id
-    }
-    url
-    media {
-      url
-      type
-      metadata
-      file_path
-    }
+    ...MediaLanguageSwitcher_projectMedia
   }
 `);

@@ -246,9 +246,9 @@ const MediaFactCheck = ({ projectMedia }) => {
         <Box my={2} >
           <LanguagePickerSelect
             isDisabled={(!hasPermission || isDisabled)}
-            selectedlanguage={language}
+            selectedLanguage={language}
             onSubmit={handleLanguageSubmit}
-            languages={JSON.parse(team.get_languages || '[]')}
+            languages={safelyParseJSON(team.get_languages)}
           />
         </Box> : null
       }
