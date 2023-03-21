@@ -10,7 +10,7 @@ import { otherWhite, textPrimary, units, Row, FlexRow } from '../../styles/js/sh
 const StyledToolbar = styled.div`
   background-color: ${otherWhite};
   min-height: ${units(5)};
-  padding: 0;
+  padding: 0 ${units(2)} 0 0;
   margin: 0;
 
   .toolbar__title {
