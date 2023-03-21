@@ -15,7 +15,7 @@ import RefreshButton from './RefreshButton';
 import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
 import ExternalLink from '../ExternalLink';
-import LanguagePickerSelect from '../layout/LanguagePickerSelect';
+import MediaLanguageSwitcher from './MediaLanguageSwitcher';
 import { brandBorder } from '../../styles/js/shared';
 
 const ExtraMediaActions = ({
@@ -90,11 +90,6 @@ const ExtraMediaActions = ({
   );
 };
 
-const handleLanguageSelect = (value) => {
-  // TODO implement language mutation
-  console.log('value', value); // eslint-disable-line
-};
-
 class MediaExpandedActions extends React.Component {
   reverseImageSearchGoogle() {
     const imagePath = this.props.projectMedia.picture;
@@ -133,12 +128,7 @@ class MediaExpandedActions extends React.Component {
                   defaultMessage="More"
                 />
               </Button> : null }
-            { inModal ?
-              <LanguagePickerSelect
-                selectedlanguage={projectMedia.language}
-                onSubmit={handleLanguageSelect}
-                team={projectMedia.team}
-              /> : null }
+            { inModal ? <MediaLanguageSwitcher projectMedia={projectMedia} /> : null }
           </div>
           <Box display="flex">
             { media.type === 'Link' ?
@@ -168,7 +158,7 @@ MediaExpandedActions.propTypes = {
 export default createFragmentContainer(MediaExpandedActions, graphql`
   fragment MediaCardLargeActions_projectMedia on ProjectMedia {
     id
-    language
+    language_code
     team {
       get_languages
     }
@@ -178,6 +168,9 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
     }
     extracted_text: annotation(annotation_type: "extracted_text") {
       data
+    }
+    language: annotation(annotation_type: "language") {
+      id
     }
     url
     media {

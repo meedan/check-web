@@ -1,12 +1,10 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LanguageIcon from '@material-ui/icons/Language';
-import { safelyParseJSON } from '../../helpers';
-import LanguageRegistry, { languageLabel } from '../../LanguageRegistry';
+import LanguageRegistry, { languageLabel } from '../../../LanguageRegistry';
 
 const messages = defineMessages({
   optionLabel: {
@@ -21,13 +19,12 @@ const messages = defineMessages({
 
 const LanguagePickerSelect = ({
   intl,
-  isDisabled,
   selectedlanguage,
   onSubmit,
-  team,
+  languages,
+  isDisabled,
 }) => {
   const [value, setValue] = React.useState(selectedlanguage);
-  const languages = safelyParseJSON(team.get_languages) || [];
   languages.unshift('und');
 
   // intl.formatMessage needed here because Autocomplete
@@ -69,7 +66,7 @@ const LanguagePickerSelect = ({
               <TextField
                 {...params}
                 name="language-name"
-                label={placeholder}
+                label=""
                 placeholder={placeholder}
                 variant="outlined"
                 InputProps={{
@@ -91,18 +88,16 @@ const LanguagePickerSelect = ({
 };
 
 LanguagePickerSelect.defaultProps = {
+  languages: [],
   isDisabled: false,
 };
 
 LanguagePickerSelect.propTypes = {
   intl: intlShape.isRequired,
-  isDisabled: PropTypes.bool,
   selectedlanguage: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  team: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    get_languages: PropTypes.string.isRequired,
-  }).isRequired,
+  languages: PropTypes.arrayOf(PropTypes.string),
+  isDisabled: PropTypes.bool,
 };
 
 export default injectIntl(LanguagePickerSelect);

@@ -61,27 +61,28 @@ const MediaCardLargeFooter = ({
         </Box> : null }
       { projectMedia.type === 'Link' ?
         <Box my={2}>
-          { /* 1st MediaLargeFooterContent, exclusive for Link, aways displays URL above MediaCardLargeActions */}
-          <MediaCardLargeFooterContent
-            title={
-              <FormattedMessage
-                id="mediaCardLarge.publishedOn"
-                defaultMessage="Published on {date}"
-                description="Publication date and time of a web article"
-                values={{
-                  date: (
-                    <FormattedDate
-                      value={data.published_at}
-                      year="numeric"
-                      month="short"
-                      day="numeric"
-                    />
-                  ),
-                }}
-              />
-            }
-            body={<ExternalLink url={data.url} />}
-          />
+          { /* 1st MediaLargeFooterContent, exclusive for Link, always displays URL above MediaCardLargeActions */}
+          { data.published_at ?
+            <MediaCardLargeFooterContent
+              title={
+                <FormattedMessage
+                  id="mediaCardLarge.publishedOn"
+                  defaultMessage="Published on {date}"
+                  description="Publication date and time of a web article"
+                  values={{
+                    date: (
+                      <FormattedDate
+                        value={data.published_at}
+                        year="numeric"
+                        month="short"
+                        day="numeric"
+                      />
+                    ),
+                  }}
+                />
+              }
+              body={<ExternalLink url={data.url} />}
+            /> : null }
         </Box> : null }
       <MediaCardLargeActions
         inModal={inModal}

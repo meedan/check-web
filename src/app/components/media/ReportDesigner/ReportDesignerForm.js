@@ -14,7 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ReportDesignerFormSection from './ReportDesignerFormSection';
 import ColorPicker from '../../layout/ColorPicker';
 import UploadFile from '../../UploadFile';
-import LanguagePickerSelect from '../../layout/LanguagePickerSelect';
+import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import { formatDate } from './reportDesignerHelpers';
 import LimitedTextFieldWithCounter from '../../layout/LimitedTextFieldWithCounter';
 import { safelyParseJSON } from '../../../helpers';
@@ -108,8 +108,8 @@ const ReportDesignerForm = (props) => {
           <Box my={3} >
             <LanguagePickerSelect
               selectedlanguage={currentLanguage}
+              languages={JSON.parse(team.get_languages || '[]')}
               onSubmit={handleLanguageSubmit}
-              team={team}
             />
           </Box> : null
         }
