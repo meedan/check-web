@@ -53,7 +53,7 @@ const messagesDescription = 'Explanation on table header, when hovering the "hel
 const messages = defineMessages({
   conversations: {
     id: 'teamDataComponent.conversations',
-    defaultMessage: 'Starts when a user interacts with the bot and ends after 15 minutes of inactivity.',
+    defaultMessage: 'Starts with any outgoing or incoming message for a user, and ends after 24 hours. This information began collection on April 1, 2023.',
     description: messagesDescription,
   },
   averageMessagesPerDay: {
