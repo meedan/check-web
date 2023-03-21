@@ -78,7 +78,7 @@ const messages = defineMessages({
   },
   publishedNativeReports: {
     id: 'teamDataComponent.publishedNativeReports',
-    defaultMessage: 'Published reports created in Check (for all languages and platforms).',
+    defaultMessage: 'Published reports created in Check (for all platforms).',
     description: messagesDescription,
   },
   publishedImportedReports: {
@@ -205,7 +205,7 @@ const TeamDataComponent = ({
     'Returning users': intl.formatMessage(messages.returningUsers),
     'Valid new requests': intl.formatMessage(messages.validNewRequests),
     'Published native reports': intl.formatMessage(messages.publishedNativeReports),
-    'Published imported fact-checks': intl.formatMessage(messages.publishedImportedReports),
+    'Published imported reports': intl.formatMessage(messages.publishedImportedReports),
     'Requests answered with a report': intl.formatMessage(messages.requestsAnsweredWithReport),
     'Reports sent to users': intl.formatMessage(messages.reportsSent),
     'Unique users who received a report': intl.formatMessage(messages.uniqueUsersWhoReceivedReport),
