@@ -10,8 +10,6 @@ import PrevIcon from '@material-ui/icons/ChevronLeftRounded';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
@@ -136,7 +134,6 @@ function SearchResultsComponent({
   icon,
   listActions,
   listDescription,
-  classes,
   page,
   resultType,
   hideFields,
@@ -253,13 +250,6 @@ function SearchResultsComponent({
       delete cleanQuery.sort;
       delete cleanQuery.sort_type;
     }
-    navigateToQuery(cleanQuery);
-  };
-
-  const handleShowSimilarSwitch = () => {
-    const newQuery = { ...query };
-    newQuery.show_similar = !showSimilar;
-    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
     navigateToQuery(cleanQuery);
   };
 
@@ -543,8 +533,10 @@ function SearchResultsComponent({
                     values={{
                       selectedCount: filteredSelectedProjectMediaIds.length,
                     }}
-                    >{txt => <span class="search__selected">{txt}</span>}</FormattedMessage>
-                    : null
+                  >
+                    {txt => <span className="search__selected">{txt}</span>}
+                  </FormattedMessage>
+                  : null
                 }
               </Typography>
               <Tooltip title={
@@ -580,7 +572,6 @@ SearchResultsComponent.defaultProps = {
   icon: null,
   listDescription: undefined,
   listActions: undefined,
-  classes: {},
   page: undefined, // FIXME find a cleaner way to render Trash differently
   resultType: 'default',
   hideFields: [],
@@ -621,7 +612,6 @@ SearchResultsComponent.propTypes = {
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
   listDescription: PropTypes.string, // or undefined
-  classes: PropTypes.object,
   page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'feed']), // FIXME find a cleaner way to render Trash differently
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined

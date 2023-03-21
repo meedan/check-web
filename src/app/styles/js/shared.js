@@ -225,7 +225,7 @@ export const MuiTheme = {
     MuiTableContainer: {
       root: {
         borderTop: `solid 1px ${grayBorderMain}`,
-      }
+      },
     },
     MuiTableCell: {
       stickyHeader: {
