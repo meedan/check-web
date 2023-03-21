@@ -1,5 +1,4 @@
 import React from 'react';
-import { defineMessages } from 'react-intl';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import LanguagePickerSelect from './LanguagePickerSelect';
 
