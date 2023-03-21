@@ -22,7 +22,7 @@
   {
     "id": "mediaItem.detach",
     "description": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item.",
-    "defaultMessage": "Detatch media"
+    "defaultMessage": "Detach media"
   },
   {
     "id": "detachDialog.dialogdetachedToListTitle",

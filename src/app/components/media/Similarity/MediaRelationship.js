@@ -251,7 +251,7 @@ const RelationshipMenu = ({
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
-                  <FormattedMessage id="mediaItem.detach" defaultMessage="Detatch media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." />
+                  <FormattedMessage id="mediaItem.detach" defaultMessage="Detach media" description="Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item." />
                 }
               />
             </MenuItem>
