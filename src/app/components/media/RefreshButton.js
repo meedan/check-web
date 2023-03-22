@@ -70,7 +70,7 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
       onClick={handleClick}
       style={{ color: waitRequest ? null : textPrimary }}
     >
-      <RefreshIcon />
+      <RefreshIcon fontSize="small" />
     </IconButton>
   );
 };

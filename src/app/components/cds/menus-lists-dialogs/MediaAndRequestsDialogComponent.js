@@ -25,10 +25,6 @@ const useStyles = makeStyles(theme => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
   },
-  dialogContent: {
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
 }));
 
 const MediaAndRequestsDialogComponent = ({
@@ -54,7 +50,7 @@ const MediaAndRequestsDialogComponent = ({
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent className={classes.dialogContent} dividers py={0}>
+      <DialogContent dividers py={0}>
         <Box maxHeight="800px">
           <Grid container>
             <Grid item xs={6}>
