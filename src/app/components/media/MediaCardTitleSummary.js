@@ -5,9 +5,10 @@ import Typography from '@material-ui/core/Typography';
 const MediaCardTitleSummary = ({
   title,
   summary,
+  style,
 }) => (
   <>
-    <Box p={2}>
+    <Box p={2} style={style}>
       { title ?
         <div>
           <Typography variant="subtitle2" className="media-card-large__title">

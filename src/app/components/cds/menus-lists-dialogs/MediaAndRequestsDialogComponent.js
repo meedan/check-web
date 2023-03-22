@@ -25,15 +25,23 @@ const useStyles = makeStyles(theme => ({
     top: theme.spacing(1),
   },
   mediaColumn: {
+    height: '100%',
     maxHeight: '700px',
     overflowY: 'auto',
     borderRight: `1px solid ${brandBorder}`,
-    paddingRight: theme.spacing(2),
-    paddingTop: '1px', // overflowY: 'auto' is cutting one pixel from the top?
+    paddingRight: theme.spacing(3),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   requestsColumn: {
     maxHeight: '700px',
     overflowY: 'auto',
+  },
+  dialogContent: {
+    padding: `0 ${theme.spacing(3)}px`,
+  },
+  dialogTitle: {
+    maxWidth: 'calc(100% - 24px)',
   },
 }));
 
@@ -54,13 +62,13 @@ const MediaAndRequestsDialogComponent = ({
       fullWidth
       PaperProps={{ classes: { root: classes.dialog } }}
     >
-      <DialogTitle>
+      <DialogTitle className={classes.dialogTitle}>
         {mediaSlug}
         <IconButton className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent dividers py={0}>
+      <DialogContent dividers py={0} className={classes.dialogContent}>
         <Grid container>
           <Grid item xs={6}>
             <div className={classes.mediaColumn}>

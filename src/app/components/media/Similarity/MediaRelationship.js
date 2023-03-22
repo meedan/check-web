@@ -31,6 +31,9 @@ const useStyles = makeStyles(() => ({
     top: 0,
     right: 0,
   },
+  menuIcon: {
+    padding: '8px 19px',
+  },
 }));
 
 const commitPinMutation = (id, targetId, sourceId, onCompleted, onError) => {
@@ -69,6 +72,7 @@ const RelationshipMenu = ({
   targetId,
   mainProjectMedia,
 }) => {
+  const classes = useStyles();
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
@@ -225,9 +229,10 @@ const RelationshipMenu = ({
         <Box>
           <IconButton
             onClick={handleOpenMenu}
-            className="media-similarity__menu-icon"
+            className={`media-similarity__menu-icon ${classes.menuIcon}`}
+            size="small"
           >
-            <IconMoreVert />
+            <IconMoreVert fontSize="small" />
           </IconButton>
           <Menu
             anchorEl={anchorEl}
