@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     overflowY: 'auto',
     borderRight: `1px solid ${brandBorder}`,
     paddingRight: theme.spacing(2),
+    paddingTop: '1px', // overflowY: 'auto' is cutting one pixel from the top?
   },
   requestsColumn: {
     maxHeight: '700px',

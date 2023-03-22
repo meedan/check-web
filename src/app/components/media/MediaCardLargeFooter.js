@@ -90,31 +90,32 @@ const MediaCardLargeFooter = ({
             )]}
           />
         </Box> : null }
-      { projectMedia.type === 'Link' ?
+      { projectMedia.type !== 'Claim' ?
         <Box my={2}>
           { /* 1st MediaLargeFooterContent, exclusive for Link, always displays URL above MediaCardLargeActions */}
-          <MediaCardLargeFooterContent
-            title={
-              data.published_at ? (
-                <FormattedMessage
-                  id="mediaCardLarge.publishedOn"
-                  defaultMessage="Published on {date}"
-                  description="Publication date and time of a web article"
-                  values={{
-                    date: (
-                      <FormattedDate
-                        value={data.published_at}
-                        year="numeric"
-                        month="short"
-                        day="numeric"
-                      />
-                    ),
-                  }}
-                />
-              ) : null
-            }
-            body={<ExternalLink url={data.url} />}
-          />
+          { projectMedia.type === 'Link' ?
+            <MediaCardLargeFooterContent
+              title={
+                data.published_at ? (
+                  <FormattedMessage
+                    id="mediaCardLarge.publishedOn"
+                    defaultMessage="Published on {date}"
+                    description="Publication date and time of a web article"
+                    values={{
+                      date: (
+                        <FormattedDate
+                          value={data.published_at}
+                          year="numeric"
+                          month="short"
+                          day="numeric"
+                        />
+                      ),
+                    }}
+                  />
+                ) : null
+              }
+              body={<ExternalLink url={data.url} />}
+            /> : '' }
         </Box> : null }
       <MediaCardLargeActions
         inModal={inModal}

@@ -41,6 +41,7 @@ const ExtraMediaActions = ({
       <IconButton
         id="media-expanded-actions__menu"
         onClick={e => setAnchorEl(e.currentTarget)}
+        size="small"
       >
         <MoreVertIcon fontSize="small" />
       </IconButton>
@@ -113,12 +114,12 @@ class MediaExpandedActions extends React.Component {
           bottomSeparator ?
             {
               borderBottom: `1px solid ${brandBorder}`,
-              paddingBottom: '8px',
+              paddingBottom: '16px',
             } :
             {}
         }
       >
-        <Box display="flex" justifyContent="space-between" alignItems="center" minHeight={44}>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
           <div>
             { !inModal ?
               <Button
