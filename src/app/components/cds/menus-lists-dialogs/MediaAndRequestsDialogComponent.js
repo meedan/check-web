@@ -24,10 +24,6 @@ const useStyles = makeStyles(theme => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
   },
-  dialogContent: {
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
   mediaColumn: {
     maxHeight: '700px',
     overflowY: 'auto',
@@ -63,7 +59,7 @@ const MediaAndRequestsDialogComponent = ({
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent className={classes.dialogContent} dividers py={0}>
+      <DialogContent dividers py={0}>
         <Grid container>
           <Grid item xs={6}>
             <div className={classes.mediaColumn}>

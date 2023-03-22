@@ -29,6 +29,15 @@ const useStyles = makeStyles({
   moreThanZeroCount: {
     color: brandMain,
   },
+  noClick: {
+    cursor: 'default',
+    '&:hover': {
+      color: brandMain,
+    },
+    '&:active': {
+      color: brandMain,
+    },
+  },
 });
 
 const CounterButton = ({
@@ -38,7 +47,7 @@ const CounterButton = ({
   return (
     <Button
       onClick={onClick}
-      className={`counter-button ${classes.counterButton} ${count === 0 ? classes.zeroCount : classes.moreThanZeroCount}`}
+      className={`counter-button ${classes.counterButton} ${count === 0 ? classes.zeroCount : classes.moreThanZeroCount} ${onClick ? '' : classes.noClick}`}
       disableRipple
     >
       <Typography

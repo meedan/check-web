@@ -56,7 +56,7 @@ const MediaCardLargeFooter = ({
   if (projectMedia.type === 'Claim' && inModal) footerBody = projectMedia.media.quote;
 
   return (
-    <Box p={2}>
+    <Box p={inModal ? 0 : 2}>
       { !inModal ?
         <Box mb={2}>
           <MediaSlug
@@ -120,7 +120,7 @@ const MediaCardLargeFooter = ({
         inModal={inModal}
         projectMedia={projectMedia}
         onClickMore={onClickMore}
-        bottomSeparator={inModal && footerBody}
+        bottomSeparator={inModal && footerBody && mediaType !== 'Claim'}
       />
       { footerBody ? (
         <Box mt={2}>
