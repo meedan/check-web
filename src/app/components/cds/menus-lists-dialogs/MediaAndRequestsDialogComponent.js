@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Box,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -24,6 +23,16 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
+  },
+  mediaColumn: {
+    maxHeight: '700px',
+    overflowY: 'auto',
+    borderRight: `1px solid ${brandBorder}`,
+    paddingRight: theme.spacing(2),
+  },
+  requestsColumn: {
+    maxHeight: '700px',
+    overflowY: 'auto',
   },
 }));
 
@@ -51,27 +60,18 @@ const MediaAndRequestsDialogComponent = ({
         </IconButton>
       </DialogTitle>
       <DialogContent dividers py={0}>
-        <Box maxHeight="800px">
-          <Grid container>
-            <Grid item xs={6}>
-              <Box
-                pr={2}
-                style={{
-                  height: '100%',
-                  overflowY: 'auto',
-                  borderRight: `1px solid ${brandBorder}`,
-                }}
-              >
-                <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
-              </Box>
-            </Grid>
-            <Grid item xs={6}>
-              <div style={{ maxHeight: '700px', overflowY: 'auto' }}>
-                <MediaRequests media={{ dbid: projectMediaId }} />
-              </div>
-            </Grid>
+        <Grid container>
+          <Grid item xs={6}>
+            <div className={classes.mediaColumn}>
+              <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
+            </div>
           </Grid>
-        </Box>
+          <Grid item xs={6}>
+            <div className={classes.requestsColumn}>
+              <MediaRequests media={{ dbid: projectMediaId }} />
+            </div>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );
