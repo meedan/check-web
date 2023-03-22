@@ -303,7 +303,6 @@ const MediaRelationship = ({
   setFlashMessage,
   intl,
 }) => {
-  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const classes = useStyles();
   const [isSelected, setIsSelected] = React.useState(false);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -311,31 +310,6 @@ const MediaRelationship = ({
   const swallowClick = (ev) => {
     // Don't close Dialog when clicking on it
     ev.stopPropagation();
-  };
-
-  const handleError = () => {
-    // FIXME: Replace with `<GenericUnknownErrorMessage />`;
-    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" description="A generic error message" />, 'error');
-  };
-
-  const onPin = () => {
-    commitPinMutation(relationship.id, relationshipTargetId, relationshipSourceId, (response, error) => {
-      if (error) {
-        handleError();
-      } else {
-        setFlashMessage((
-          <FormattedMessage
-            id="mediaItem.doneRedirecting"
-            defaultMessage="Done, redirecting to new main item…"
-            description="A message that informs the user a 'pin' action is finished and a redirect is about to happen"
-          />
-        ), 'success');
-        browserHistory.push(`/${teamSlug}/media/${relationshipTargetId}`);
-      }
-    },
-    () => {
-      handleError();
-    });
   };
 
   const details = [
@@ -367,11 +341,8 @@ const MediaRelationship = ({
               details={details}
             />
           }
-          variant="confirmed"
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
-          onUnmatch={() => setIsDialogOpen(true)}
-          onPin={onPin}
         /> : null }
       <SmallMediaCard
         key={relationship.id}

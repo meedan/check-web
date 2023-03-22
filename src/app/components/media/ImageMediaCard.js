@@ -4,12 +4,14 @@ import AspectRatio from '../layout/AspectRatio';
 const ImageMediaCard = ({
   imagePath,
   projectMedia,
+  currentUserRole,
 }) => (
   <article className="image-media-card">
     <AspectRatio
       expandedImage={imagePath}
       downloadUrl={imagePath}
       projectMedia={projectMedia}
+      currentUserRole={currentUserRole}
     >
       <div className="aspect-ratio__overlay">
         <img

@@ -35,11 +35,6 @@
     "defaultMessage": "Move to folder"
   },
   {
-    "id": "mediaItem.error",
-    "description": "A generic error message",
-    "defaultMessage": "Error, please try again"
-  },
-  {
     "id": "mediaRelationship.lastSubmitted",
     "description": "Shows the last time a media was submitted",
     "defaultMessage": "Last submitted {date}"
