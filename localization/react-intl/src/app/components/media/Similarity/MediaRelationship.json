@@ -22,7 +22,7 @@
   {
     "id": "mediaItem.detach",
     "description": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item.",
-    "defaultMessage": "Detatch media"
+    "defaultMessage": "Detach media"
   },
   {
     "id": "detachDialog.dialogdetachedToListTitle",
@@ -33,11 +33,6 @@
     "id": "detachDialog.detached",
     "description": "Button to commit the action of moving item",
     "defaultMessage": "Move to folder"
-  },
-  {
-    "id": "mediaItem.error",
-    "description": "A generic error message",
-    "defaultMessage": "Error, please try again"
   },
   {
     "id": "mediaRelationship.lastSubmitted",

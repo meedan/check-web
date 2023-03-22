@@ -30,6 +30,7 @@ class WebPageMediaCard extends Component {
       warningCreator,
       warningCategory,
       inModal,
+      currentUserRole,
     } = this.props;
 
     return (
@@ -53,6 +54,7 @@ class WebPageMediaCard extends Component {
                 warningCreator={warningCreator}
                 warningCategory={warningCategory}
                 projectMedia={projectMedia}
+                currentUserRole={currentUserRole}
               >
                 <img src={projectMedia.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
               </AspectRatio> : null

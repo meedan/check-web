@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { commitMutation, graphql } from 'react-relay/compat';
+import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
 import { withSetFlashMessage } from '../FlashMessage';
+import { safelyParseJSON } from '../../helpers';
 
 const MediaLanguageSwitcher = ({ projectMedia, setFlashMessage }) => {
   const [saving, setSaving] = React.useState(false);
@@ -66,9 +67,9 @@ const MediaLanguageSwitcher = ({ projectMedia, setFlashMessage }) => {
 
   return (
     <LanguagePickerSelect
-      selectedlanguage={projectMedia.language_code || 'und'}
+      selectedLanguage={projectMedia.language_code}
       onSubmit={handleUpdate}
-      languages={JSON.parse(projectMedia.team?.get_languages || '[]')}
+      languages={safelyParseJSON(projectMedia.team?.get_languages)}
       isDisabled={saving}
     />
   );
@@ -86,4 +87,14 @@ MediaLanguageSwitcher.propTypes = {
   }).isRequired,
 };
 
-export default withSetFlashMessage(MediaLanguageSwitcher);
+export default createFragmentContainer(withSetFlashMessage(MediaLanguageSwitcher), graphql`
+  fragment MediaLanguageSwitcher_projectMedia on ProjectMedia {
+    language_code
+    team {
+      get_languages
+    }
+    language: annotation(annotation_type: "language") {
+      id
+    }
+  }
+`);

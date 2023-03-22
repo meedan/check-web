@@ -1,7 +1,0 @@
-[
-  {
-    "id": "mediaLanguageChip.error",
-    "description": "This message appears when a user tries to update the language on a media item and an error occurs.",
-    "defaultMessage": "Sorry, an error occurred while updating the language. Please try again and contact {supportEmail} if the condition persists."
-  }
-]

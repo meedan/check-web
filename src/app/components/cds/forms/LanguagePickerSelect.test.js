@@ -4,7 +4,7 @@ import LanguagePickerSelect from './LanguagePickerSelect';
 
 describe('<LanguagePickerSelect />', () => {
   const props = {
-    selectedlanguage: 'en',
+    selectedLanguage: 'en',
     onSubmit: jest.fn(),
     languages: ['en', 'fr'],
     isDisabled: false,

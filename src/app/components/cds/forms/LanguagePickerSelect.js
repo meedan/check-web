@@ -19,12 +19,12 @@ const messages = defineMessages({
 
 const LanguagePickerSelect = ({
   intl,
-  selectedlanguage,
+  selectedLanguage,
   onSubmit,
   languages,
   isDisabled,
 }) => {
-  const [value, setValue] = React.useState(selectedlanguage);
+  const [value, setValue] = React.useState(selectedLanguage);
   languages.unshift('und');
 
   // intl.formatMessage needed here because Autocomplete
@@ -90,11 +90,12 @@ const LanguagePickerSelect = ({
 LanguagePickerSelect.defaultProps = {
   languages: [],
   isDisabled: false,
+  selectedLanguage: 'und',
 };
 
 LanguagePickerSelect.propTypes = {
   intl: intlShape.isRequired,
-  selectedlanguage: PropTypes.string.isRequired,
+  selectedLanguage: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string),
   isDisabled: PropTypes.bool,

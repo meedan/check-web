@@ -243,7 +243,6 @@ class MediaComponent extends Component {
                         )]}
                       />
                     }
-                    variant="pinned"
                     onClick={e => e.stopPropagation()}
                     onClose={() => this.setState({ openMediaDialog: false })}
                   />

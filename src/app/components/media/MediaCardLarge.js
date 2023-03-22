@@ -58,6 +58,7 @@ const MediaCardLarge = ({
           <ImageMediaCard
             projectMedia={projectMedia}
             imagePath={media.embed_path}
+            currentUserRole={currentUserRole}
           />
         ) : null }
         { type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube ? (
@@ -73,6 +74,7 @@ const MediaCardLarge = ({
         { isWebPage ? (
           <WebPageMediaCard
             projectMedia={projectMedia}
+            currentUserRole={currentUserRole}
             data={data}
             inModal={inModal}
           />

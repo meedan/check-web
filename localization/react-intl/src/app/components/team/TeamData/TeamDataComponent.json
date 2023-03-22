@@ -27,7 +27,7 @@
   {
     "id": "teamDataComponent.publishedNativeReports",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Published reports created in Check (for all languages and platforms)."
+    "defaultMessage": "Published reports created in Check (for all platforms)."
   },
   {
     "id": "teamDataComponent.publishedImportedReports",
