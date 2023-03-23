@@ -10,7 +10,6 @@ const PenderCardContainer = styled.div`
   overflow-x: hidden;
   overflow-y: hidden;
   position: relative;
-  padding-top: ${units(2)};
 
   iframe {
     bottom: 0;

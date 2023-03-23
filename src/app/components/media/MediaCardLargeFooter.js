@@ -55,6 +55,14 @@ const MediaCardLargeFooter = ({
   if (projectMedia.type === 'Link' && inModal) footerBody = data.description;
   if (projectMedia.type === 'Claim' && inModal) footerBody = projectMedia.media.quote;
 
+  const transcriptionOrExtractedFooter = (
+    <MediaCardLargeFooterContent
+      title={footerTitle}
+      body={footerBody}
+      showAll={inModal}
+    />
+  );
+
   return (
     <Box p={inModal ? 0 : 2}>
       { !inModal ?
@@ -90,49 +98,43 @@ const MediaCardLargeFooter = ({
             )]}
           />
         </Box> : null }
-      { projectMedia.type === 'Link' ?
+      { projectMedia.type !== 'Claim' ?
         <Box my={2}>
           { /* 1st MediaLargeFooterContent, exclusive for Link, always displays URL above MediaCardLargeActions */}
-          <MediaCardLargeFooterContent
-            title={
-              data.published_at ? (
-                <FormattedMessage
-                  id="mediaCardLarge.publishedOn"
-                  defaultMessage="Published on {date}"
-                  description="Publication date and time of a web article"
-                  values={{
-                    date: (
-                      <FormattedDate
-                        value={data.published_at}
-                        year="numeric"
-                        month="short"
-                        day="numeric"
-                      />
-                    ),
-                  }}
-                />
-              ) : null
-            }
-            body={<ExternalLink url={data.url} />}
-          />
+          { projectMedia.type === 'Link' ?
+            <MediaCardLargeFooterContent
+              title={
+                data.published_at ? (
+                  <FormattedMessage
+                    id="mediaCardLarge.publishedOn"
+                    defaultMessage="Published on {date}"
+                    description="Publication date and time of a web article"
+                    values={{
+                      date: (
+                        <FormattedDate
+                          value={data.published_at}
+                          year="numeric"
+                          month="short"
+                          day="numeric"
+                        />
+                      ),
+                    }}
+                  />
+                ) : null
+              }
+              body={<ExternalLink url={data.url} />}
+            /> : '' }
         </Box> : null }
+      { /* This MediaLargeFooterContent displays short preview textual content above MediaCardLargeActions */}
+      { footerBody && !inModal ? <Box my={2}>{transcriptionOrExtractedFooter}</Box> : null }
       <MediaCardLargeActions
         inModal={inModal}
         projectMedia={projectMedia}
         onClickMore={onClickMore}
         bottomSeparator={inModal && footerBody && mediaType !== 'Claim'}
       />
-      { footerBody ? (
-        <Box mt={2}>
-          { /* 2nd MediaLargeFooterContent displays full-length textual content below MediaCardLargeActions:
-            OCR, Extracted text, Text, etc */}
-          <MediaCardLargeFooterContent
-            title={footerTitle}
-            body={footerBody}
-            inModal={inModal}
-          />
-        </Box>
-      ) : null }
+      { /* This MediaLargeFooterContent displays full-length textual content below MediaCardLargeActions */}
+      { footerBody && inModal ? <Box mt={2}>{transcriptionOrExtractedFooter}</Box> : null }
     </Box>
   );
 };
