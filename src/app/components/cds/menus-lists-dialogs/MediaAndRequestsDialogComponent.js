@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
-    top: theme.spacing(1),
+    top: theme.spacing(2),
   },
   mediaColumn: {
     height: '100%',
