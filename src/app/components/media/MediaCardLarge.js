@@ -18,8 +18,11 @@ import { otherWhite, brandBorder } from '../../styles/js/shared';
 
 const StyledCardBorder = styled.div`
   background: ${otherWhite};
-  border: ${props => props.inModal ? 'none' : `1px solid ${brandBorder}`};
   border-radius: ${props => props.roundedTopCorners ? '8px' : ' 0 0 8px 8px'};
+  // For rounded corners, the border should cover the content... otherwise, we want the player to cover the border
+  outline: ${props => props.inModal || props.roundedTopCorners ? 'none' : `1px solid ${brandBorder}`};
+  border: ${props => props.inModal || !props.roundedTopCorners ? 'none' : `1px solid ${brandBorder}`};
+  outline-offset: -1px;
 `;
 
 const MediaCardLarge = ({
@@ -47,7 +50,7 @@ const MediaCardLarge = ({
         roundedTopCorners={type === 'Claim' || isBlank || isWebPage || isPender}
       >
         { type === 'Claim' && !inModal ? (
-          <Box mt={2} mx={2}>
+          <Box pt={2} px={2}>
             <QuoteMediaCard
               showAll={inModal}
               quote={media.quote}

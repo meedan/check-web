@@ -7,7 +7,7 @@ import LongShort from '../layout/LongShort';
 const MediaCardLargeFooterContent = ({
   title,
   body,
-  inModal,
+  showAll,
 }) => {
   if (!body) return null;
 
@@ -18,7 +18,7 @@ const MediaCardLargeFooterContent = ({
           {title}
         </Box>
         <Box color={textPrimary}>
-          <LongShort showAll={inModal}>
+          <LongShort showAll={showAll} maxLines={2}>
             {body}
           </LongShort>
         </Box>

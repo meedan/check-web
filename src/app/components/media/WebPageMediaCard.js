@@ -38,6 +38,7 @@ class WebPageMediaCard extends Component {
         <MediaCardTitleSummary
           title={data.title}
           summary={inModal ? null : data.description}
+          style={inModal ? { padding: '0 0 16px 0' } : null}
         />
         {this.canEmbedHtml() ?
           <div

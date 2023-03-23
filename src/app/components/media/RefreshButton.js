@@ -69,8 +69,9 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
       disabled={waitRequest}
       onClick={handleClick}
       style={{ color: waitRequest ? null : textPrimary }}
+      size="small"
     >
-      <RefreshIcon />
+      <RefreshIcon fontSize="small" />
     </IconButton>
   );
 };

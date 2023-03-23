@@ -68,14 +68,7 @@ const MediaSimilarityBarComponent = ({
               description="Plural. Heading for the number of media"
             />
           }
-          onClick={() => {
-            document.getElementById('matched-media').scrollIntoView({ behavior: 'smooth' });
-            const overlayElement = document.getElementById('matched-overlay');
-            overlayElement.classList.remove(classes.animation);
-            // eslint-disable-next-line
-            overlayElement.offsetWidth; // accessing this getter triggers a reflow of the elment to reset animation
-            overlayElement.classList.add(classes.animation);
-          }}
+          onClick={null}
         />
         <CounterButton
           className="similarity-bar__suggestions-count"
