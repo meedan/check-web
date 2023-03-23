@@ -18,9 +18,9 @@ import {
   HighlightOff as RejectIcon,
 } from '@material-ui/icons';
 import {
-  brandSecondary,
-  completedGreen,
-  alertRed,
+  alertLight,
+  validationMain,
+  errorMain,
 } from '../../../styles/js/shared.js';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
@@ -29,8 +29,8 @@ import { can } from '../../Can';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    background: brandSecondary,
-    borderColor: brandSecondary,
+    background: alertLight,
+    borderColor: alertLight,
     borderRadius: '8px',
     marginBottom: `${theme.spacing(2)}px`,
     fontSize: '12px',
@@ -47,11 +47,11 @@ const useStyles = makeStyles(theme => ({
     float: 'right',
   },
   accept: {
-    color: completedGreen,
+    color: validationMain,
     padding: '4px',
   },
   reject: {
-    color: alertRed,
+    color: errorMain,
     padding: '4px',
   },
 }));
@@ -252,7 +252,7 @@ const MediaSuggestionReview = ({ projectMedia, setFlashMessage }) => {
           <Typography className={classes.title} variant="h5" component="h1">
             <FormattedMessage id="mediaSuggestionReview.matchTitle" defaultMessage="Matched claim" description="Title of a box that lets the user open a claim that this has been matched with." />
           </Typography>
-          <Typography className={classes.prompt} variant="body" component="p">
+          <Typography className={classes.prompt} variant="body1" component="p">
             <FormattedMessage
               id="mediaSuggestionReview.matchDescription"
               defaultMessage="This media has been matched to the claim and fact-check below."
@@ -289,7 +289,7 @@ const MediaSuggestionReview = ({ projectMedia, setFlashMessage }) => {
         <Typography className={classes.title} variant="h5" component="h1">
           <FormattedMessage id="mediaSuggestionReview.title" defaultMessage="Suggested Claim and Fact-check" description="Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)." />
         </Typography>
-        <Typography className={classes.prompt} variant="body" component="p">
+        <Typography className={classes.prompt} variant="body1" component="p">
           <FormattedMessage id="mediaSuggestionReview.prompt" defaultMessage="Is the Claim or Fact-check below a good match for this media?" description="Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)." />
         </Typography>
         <Grid container direction="row" justifyContent="center" alignItems="flex-end">

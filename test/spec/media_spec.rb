@@ -27,8 +27,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.projects-list')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading a').click
-    wait_for_selector('.media-search__actions-bar')
-    wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
+    wait_for_selector('#media-fact-check__title')
 
     # First item
     expect(page_source_body.include?('1 of 3')).to be(true)
@@ -42,7 +41,6 @@ shared_examples 'media' do |type|
     press_button('.media-search__next-item')
     wait_for_selector_none("//span[contains(text(), '1 of 3')]", :xpath)
     @driver.navigate.refresh
-    wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
     wait_for_selector('#media-search__current-item')
     wait_for_selector('#media-fact-check__title')
     wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
@@ -58,7 +56,6 @@ shared_examples 'media' do |type|
     wait_for_selector('#media-search__current-item')
     press_button('.media-search__next-item')
     wait_for_selector_none("//span[contains(text(), '2 of 3')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
 
     expect(page_source_body.include?('1 of 3')).to be(false)
     expect(page_source_body.include?('2 of 3')).to be(false)

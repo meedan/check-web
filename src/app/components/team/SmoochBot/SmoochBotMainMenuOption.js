@@ -13,20 +13,20 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import {
-  otherErrorMainCDS,
+  errorMain,
 } from '../../../styles/js/shared';
 
 const errorFieldStyles = {
   root: {
     '& .MuiFormHelperText-root.Mui-error': {
-      color: otherErrorMainCDS,
+      color: errorMain,
       marginLeft: 0,
       fontSize: 12,
       fontWeight: 400,
     },
     '& .MuiOutlinedInput-root': {
       '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: otherErrorMainCDS,
+        borderColor: errorMain,
         borderWidth: 2,
       },
     },
@@ -118,7 +118,7 @@ const SmoochBotMainMenuOption = ({
             </Box> }
 
           <Box my={2}>
-            <Typography variant="body2" component="div">
+            <Typography variant="body1" component="div">
               <FormattedMessage
                 id="smoochBotMainMenuOption.send"
                 defaultMessage="If the button is clicked, then send:"

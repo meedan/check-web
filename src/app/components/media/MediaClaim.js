@@ -6,20 +6,12 @@ import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 import TimeBefore from '../TimeBefore';
 import MediaContext from './MediaContext';
 import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
 
-const useStyles = makeStyles(() => ({
-  title: {
-    fontSize: '16px',
-  },
-}));
-
 const MediaClaim = ({ projectMedia }) => {
-  const classes = useStyles();
   // If the item we are viewing is being suggested to a main item, show the claim for the main item. Otherwise show the claim associated with this item
   const claimDescription = projectMedia.suggested_main_item ? projectMedia.suggested_main_item?.claim_description : projectMedia.claim_description;
 
@@ -123,10 +115,8 @@ const MediaClaim = ({ projectMedia }) => {
   return (
     <Box id="media__claim">
       <Box id="media__claim-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <Typography className={classes.title} variant="body" component="div">
-          <strong>
-            <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
-          </strong>
+        <Typography variant="subtitle2" component="div">
+          <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
         </Typography>
         {' '}
         <Typography variant="caption" component="div">

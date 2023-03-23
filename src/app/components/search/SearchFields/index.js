@@ -27,7 +27,7 @@ import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
 import { can } from '../../Can';
 import { languageLabel } from '../../../LanguageRegistry';
-import { Row, checkBlue } from '../../../styles/js/shared';
+import { Row, brandMain, textPrimary } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
@@ -43,11 +43,6 @@ const messages = defineMessages({
     defaultMessage: 'Text',
     description: 'Describes media type Text',
   },
-  link: {
-    id: 'search.showLinks',
-    defaultMessage: 'Link',
-    description: 'Describes media type Link',
-  },
   image: {
     id: 'search.showImages',
     defaultMessage: 'Image',
@@ -62,6 +57,41 @@ const messages = defineMessages({
     id: 'search.showAudios',
     defaultMessage: 'Audio',
     description: 'Describes media type Audio',
+  },
+  socialMedia: {
+    id: 'search.socialMedia',
+    defaultMessage: 'Social media',
+    description: 'Allow user to filter by social media links',
+  },
+  facebook: {
+    id: 'search.facebook',
+    defaultMessage: 'Facebook post',
+    description: 'Allow user to filter items by facebook posts',
+  },
+  twitter: {
+    id: 'search.twitter',
+    defaultMessage: 'Twitter post',
+    description: 'Allow user to filter items by twitter posts',
+  },
+  tiktok: {
+    id: 'search.tiktok',
+    defaultMessage: 'Tiktok post',
+    description: 'Allow user to filter items by tiktok posts',
+  },
+  youtube: {
+    id: 'search.youtube',
+    defaultMessage: 'Youtube video',
+    description: 'Allow user to filter items by youtube videos',
+  },
+  instagram: {
+    id: 'search.instagram',
+    defaultMessage: 'Instagram post',
+    description: 'Allow user to filter items by instagram posts',
+  },
+  webLink: {
+    id: 'search.webLink',
+    defaultMessage: 'webLink',
+    description: 'Allow user to filter items by links of type page',
   },
   read: {
     id: 'search.itemRead',
@@ -215,11 +245,19 @@ const SearchFields = ({
   const { statuses } = team.verification_statuses;
 
   const types = [
-    { value: 'claims', label: intl.formatMessage(messages.claim) },
-    { value: 'links', label: intl.formatMessage(messages.link) },
+    { value: 'audios', label: intl.formatMessage(messages.audio) },
     { value: 'images', label: intl.formatMessage(messages.image) },
     { value: 'videos', label: intl.formatMessage(messages.video) },
-    { value: 'audios', label: intl.formatMessage(messages.audio) },
+    { value: '', label: '' },
+    { value: 'social_media', label: intl.formatMessage(messages.socialMedia), hasChildren: true },
+    { value: 'facebook', label: intl.formatMessage(messages.facebook), parent: 'social_media' },
+    { value: 'instagram', label: intl.formatMessage(messages.instagram), parent: 'social_media' },
+    { value: 'tiktok', label: intl.formatMessage(messages.tiktok), parent: 'social_media' },
+    { value: 'twitter', label: intl.formatMessage(messages.twitter), parent: 'social_media' },
+    { value: 'youtube', label: intl.formatMessage(messages.youtube), parent: 'social_media' },
+    { value: '', label: '' },
+    { value: 'claims', label: intl.formatMessage(messages.claim) },
+    { value: 'weblink', label: intl.formatMessage(messages.webLink) },
   ];
 
   const readValues = [
@@ -258,9 +296,9 @@ const SearchFields = ({
   const hideChannel = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname) || readOnlyFields.includes('channels');
 
   const OperatorToggle = () => {
-    let operatorProps = { style: { minWidth: 0, color: checkBlue }, onClick: handleOperatorClick };
+    let operatorProps = { style: { minWidth: 0, color: brandMain }, onClick: handleOperatorClick };
     if (page === 'feed') {
-      operatorProps = { style: { minWidth: 0, color: 'black' }, disabled: true };
+      operatorProps = { style: { minWidth: 0, color: textPrimary }, disabled: true };
     }
     return (
       <Button {...operatorProps}>

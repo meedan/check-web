@@ -11,23 +11,23 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import { black05, black87, alertRed, completedGreen } from '../../../styles/js/shared';
+import { grayDisabledBackground, textPrimary, errorMain, validationMain, otherWhite } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
   smoochBotIntegrationButton: {
     margin: theme.spacing(1),
-    background: black05,
+    background: grayDisabledBackground,
     flex: '1 1 0px',
     minWidth: 250,
     justifyContent: 'space-between',
     '&:hover': {
-      background: black05,
+      background: grayDisabledBackground,
     },
   },
   smoochBotIntegrationButtonIcon: {
-    color: 'white',
+    color: otherWhite,
     padding: theme.spacing(0.5),
     display: 'flex',
     borderRadius: theme.spacing(1),
@@ -46,15 +46,15 @@ const useStyles = makeStyles(theme => ({
     minWidth: 80,
   },
   smoochBotIntegrationButtonConnected: {
-    color: 'white',
-    backgroundColor: completedGreen,
+    color: otherWhite,
+    backgroundColor: validationMain,
   },
   smoochBotIntegrationButtonDisconnected: {
-    color: black87,
-    borderColor: black87,
+    color: textPrimary,
+    borderColor: textPrimary,
   },
   smoochBotIntegrationButtonWarning: {
-    color: alertRed,
+    color: errorMain,
   },
   smoochBotIntegrationButtonHeader: {
     marginBottom: 0,

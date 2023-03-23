@@ -1,0 +1,7 @@
+[
+  {
+    "id": "media.normalSpeed",
+    "description": "Sets video playback rate to original 1x speed",
+    "defaultMessage": "Normal speed"
+  }
+]

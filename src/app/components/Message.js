@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
-  white,
-  black54,
+  otherWhite,
+  textSecondary,
   gutterSmall,
   gutterMedium,
   gutterLarge,
@@ -12,16 +12,16 @@ import {
 } from '../styles/js/shared';
 
 const StyledMessage = styled(FadeIn)`
-  background: ${black54};
+  background: ${textSecondary};
   border-radius: ${defaultBorderRadius};
-  color: ${white};
+  color: ${otherWhite};
   margin: ${gutterMedium} auto;
   padding: ${gutterSmall} ${gutterLarge};
   position: relative;
   text-align: center;
 
   a {
-    color: ${white} !important;
+    color: ${otherWhite} !important;
     text-decoration: underline;
   }
 `;

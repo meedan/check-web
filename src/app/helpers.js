@@ -5,7 +5,7 @@ import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
 import styled from 'styled-components';
 import CheckError from './CheckError';
-import { units } from './styles/js/shared';
+import { units, errorMain, otherWhite } from './styles/js/shared';
 
 /**
  * TODO
@@ -189,8 +189,8 @@ function createFriendlyErrorMessage(error) {
   const StyledButton = styled.span`
     & > .MuiButtonBase-root {
       text-transform: uppercase;
-      color: #d32f2f;
-      background-color: white;
+      color: ${errorMain};
+      background-color: ${otherWhite};
     }
   `;
   const friendlyMessage = CheckError.getMessageFromCode(error.code);
@@ -341,6 +341,30 @@ function botName(bot) {
   return bot.name === 'Smooch' ? 'Tipline' : bot.name;
 }
 
+/**
+ * Return a media type if it's a link
+ * Expect media object to have properties type, url and domain
+ */
+function getMediaType(media) {
+  let { type } = media;
+  if (media.url && media.domain === 'youtube.com') type = 'Youtube';
+  if (media.url && media.domain === 'twitter.com') type = 'Twitter';
+  if (media.url && media.domain === 'facebook.com') type = 'Facebook';
+  if (media.url && media.domain === 'instagram.com') type = 'Instagram';
+
+  return type;
+}
+
+/**
+ * Safely escape some HTML characters.
+ */
+function escapeHtml(url) {
+  return url.replace(/>/g, '&gt;')
+    .replace(/</g, '&lt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -362,4 +386,6 @@ export { // eslint-disable-line import/no-unused-modules
   emojify,
   parseStringUnixTimestamp,
   botName,
+  getMediaType,
+  escapeHtml,
 };

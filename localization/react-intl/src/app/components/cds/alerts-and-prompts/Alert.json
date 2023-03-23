@@ -1,0 +1,7 @@
+[
+  {
+    "id": "alert.closeButton",
+    "description": "Tooltip for close alert",
+    "defaultMessage": "Close alert"
+  }
+]

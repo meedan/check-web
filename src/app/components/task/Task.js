@@ -22,9 +22,12 @@ import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMuta
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import {
   units,
-  black16,
-  separationGray,
-  checkBlue,
+  errorMain,
+  grayBackground,
+  grayBorderMain,
+  brandMain,
+  textPrimary,
+  textDisabled,
 } from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
@@ -37,7 +40,7 @@ const StyledWordBreakDiv = styled.div`
   .task {
     box-shadow: none;
     border: 0;
-    border-bottom: 1px solid ${separationGray};
+    border-bottom: 1px solid ${grayBorderMain};
     border-radius: 0;
     margin-bottom: 0 !important;
 
@@ -65,7 +68,7 @@ const StyledWordBreakDiv = styled.div`
 
 const StyledTaskResponses = styled.div`
   .task__resolved {
-    border-bottom: 1px solid ${black16};
+    border-bottom: 1px solid ${grayBorderMain};
     padding-bottom: ${units(1)};
     margin-bottom: ${units(1)};
   }
@@ -75,12 +78,12 @@ const StyledAnnotatorInformation = styled.span`
   display: inline-block;
   p {
     font-size: 9px;
-    color: #979797;
+    color: ${textDisabled};
   }
 `;
 
 const StyledRequired = styled.span`
-  color: red;
+  color: ${errorMain};
 `;
 
 const StyledMapEditor = styled.div`
@@ -92,10 +95,10 @@ const StyledMapEditor = styled.div`
 
 const StyledMultiselect = styled.div`
   .Mui-checked + .MuiFormControlLabel-label.Mui-disabled {
-    color: black;
+    color: ${textPrimary};
   }
   .Mui-checked {
-    color: ${checkBlue} !important;
+    color: ${brandMain} !important;
   }
 `;
 
@@ -105,12 +108,12 @@ const StyledFieldInformation = styled.div`
 
 const StyledMetadataButton = styled.div`
   button {
-    background-color: #f4f4f4;
+    background-color: ${grayBackground};
     margin-top: ${units(1)};
     display: none;
   }
   button:hover {
-    background-color: #ddd;
+    background-color: ${grayBorderMain};;
   }
 `;
 

@@ -63,6 +63,13 @@ const SimilarityComponent = ({
     setSettings(newSettings);
   };
 
+  const handleModelSettingsChange = (key1, key2, value) => {
+    const newSettings = { ...settings };
+    newSettings[key1] = value;
+    newSettings[key2] = value;
+    setSettings(newSettings);
+  };
+
   const handleThresholdChange = (key, newValue) => {
     handleSettingsChange(key, newValue / 100);
   };
@@ -271,38 +278,11 @@ const SimilarityComponent = ({
                       explainer="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
                     />
                     <Box ml={7} mb={2}>
-                      <p><strong>Indexing model to use</strong></p>
+                      <p><strong>Model to use</strong></p>
                       <RadioGroup
                         name="indexing-vector-model"
                         value={settings.alegre_model_in_use}
-                        onChange={e => handleSettingsChange('alegre_model_in_use', e.target.value)}
-                      >
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={MEAN_TOKENS_MODEL}
-                          control={<Radio />}
-                          label="Means tokens - Covers all languages"
-                        />
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={INDIAN_MODEL}
-                          control={<Radio />}
-                          label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
-                        />
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={FILIPINO_MODEL}
-                          control={<Radio />}
-                          label="Filipino Paraphrase - Specialized in Filipino"
-                        />
-                      </RadioGroup>
-                    </Box>
-                    <Box ml={7} mb={2}>
-                      <p><strong>Matching model to use</strong></p>
-                      <RadioGroup
-                        name="vector-model"
-                        value={settings.text_similarity_model}
-                        onChange={e => handleSettingsChange('text_similarity_model', e.target.value)}
+                        onChange={e => handleModelSettingsChange('alegre_model_in_use', 'text_similarity_model', e.target.value)}
                       >
                         <FormControlLabel
                           disabled={!vectorModelToggle || !settings.text_similarity_enabled}

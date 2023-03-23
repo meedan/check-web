@@ -30,17 +30,19 @@ import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutli
 import CloseIcon from '@material-ui/icons/Close';
 import MediaStatus from '../media/MediaStatus';
 import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
-import { MediaExpandedComponent } from '../media/MediaExpanded';
+import MediaExpandedComponent from '../media/MediaExpanded';
 import NextPreviousLinks from '../media/NextPreviousLinks';
 import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 import {
-  backgroundMain,
+  brandBackground,
+  brandBorder,
   brandSecondary,
-  checkBlue,
-  opaqueBlack54,
-  opaqueBlack38,
+  brandMain,
+  textSecondary,
+  textDisabled,
   Column,
+  otherWhite,
 } from '../../styles/js/shared';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -48,18 +50,18 @@ import { withSetFlashMessage } from '../FlashMessage';
 const defaultImage = '/images/image_placeholder.svg';
 const useStyles = makeStyles(theme => ({
   main: {
-    backgroundColor: backgroundMain,
+    backgroundColor: brandBackground,
   },
   claimsColumn: {
-    backgroundColor: 'white',
-    borderRight: `1px solid ${brandSecondary}`,
+    backgroundColor: otherWhite,
+    borderRight: `1px solid ${brandBorder}`,
     width: 360,
     minWidth: 360,
     maxWidth: 360,
   },
   middleColumn: {
-    backgroundColor: 'white',
-    borderRight: `1px solid ${brandSecondary}`,
+    backgroundColor: otherWhite,
+    borderRight: `1px solid ${brandBorder}`,
   },
   mediasColumn: {
     width: 590,
@@ -73,13 +75,13 @@ const useStyles = makeStyles(theme => ({
     height: 80,
     width: 80,
     objectFit: 'cover',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     float: 'left',
     marginRight: theme.spacing(1),
   },
   cardMain: {
     boxShadow: 'none',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
@@ -87,7 +89,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardDetail: {
     boxShadow: 'none',
-    border: `1px solid ${brandSecondary}`,
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
@@ -120,7 +122,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: '150px',
   },
   cardSubhead: {
-    color: opaqueBlack54,
+    color: textSecondary,
     fontSize: '0.85em',
     fontWeight: 500,
   },
@@ -134,7 +136,7 @@ const useStyles = makeStyles(theme => ({
   },
   selected: {
     backgroundColor: brandSecondary,
-    border: '1px solid #ced3e2',
+    border: `1px solid ${brandBorder}`,
   },
   detailTitle: {
     overflow: 'hidden',
@@ -155,7 +157,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   teamName: {
-    color: checkBlue,
+    color: brandMain,
   },
   boxes: {
     gap: `${theme.spacing(1)}px`,
@@ -163,9 +165,9 @@ const useStyles = makeStyles(theme => ({
   },
   box: {
     textAlign: 'center',
-    backgroundColor: 'white',
+    backgroundColor: otherWhite,
     padding: theme.spacing(2),
-    border: '1px solid #ced3e2',
+    border: `1px solid ${brandBorder}`,
     borderRadius: theme.spacing(1),
     whiteSpace: 'nowrap',
   },
@@ -415,7 +417,7 @@ const FeedItemComponent = ({
                               date: (
                                 claim?.project_media?.report_status === 'published' ?
                                   <TimeBefore date={parseStringUnixTimestamp(claim.project_media.report?.data?.last_published)} /> :
-                                  <span style={{ color: opaqueBlack38 }}>
+                                  <span style={{ color: textDisabled }}>
                                     <FormattedMessage id="feedItem.notPublished" defaultMessage="Not published yet" />
                                   </span>
                               ),
@@ -441,7 +443,7 @@ const FeedItemComponent = ({
                     />
                     <CardContent>
                       <Box mt={2}>
-                        <span style={{ color: opaqueBlack38 }}>
+                        <span style={{ color: textDisabled }}>
                           <FormattedMessage
                             id="feedItem.noClaim"
                             defaultMessage="No claim added yet"
@@ -582,7 +584,6 @@ const FeedItemComponent = ({
               </Box>
               <MediaExpandedComponent
                 media={expandedMedia}
-                mediaUrl={null}
                 hideActions
               />
             </Card>

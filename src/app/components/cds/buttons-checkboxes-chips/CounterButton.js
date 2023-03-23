@@ -6,8 +6,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import {
-  brandSecondaryCDS,
-  brandMainCDS,
+  brandSecondary,
+  brandMain,
   textPrimary,
 } from '../../../styles/js/shared';
 
@@ -16,18 +16,27 @@ const useStyles = makeStyles({
     display: 'block',
     padding: '0 8px',
     '&:hover': {
-      color: brandSecondaryCDS,
+      color: brandSecondary,
       backgroundColor: 'inherit',
     },
     '&:active': {
-      color: brandMainCDS,
+      color: brandMain,
     },
   },
   zeroCount: {
     color: textPrimary,
   },
   moreThanZeroCount: {
-    color: brandMainCDS,
+    color: brandMain,
+  },
+  noClick: {
+    cursor: 'default',
+    '&:hover': {
+      color: brandMain,
+    },
+    '&:active': {
+      color: brandMain,
+    },
   },
 });
 
@@ -38,7 +47,7 @@ const CounterButton = ({
   return (
     <Button
       onClick={onClick}
-      className={`counter-button ${classes.counterButton} ${count === 0 ? classes.zeroCount : classes.moreThanZeroCount}`}
+      className={`counter-button ${classes.counterButton} ${count === 0 ? classes.zeroCount : classes.moreThanZeroCount} ${onClick ? '' : classes.noClick}`}
       disableRipple
     >
       <Typography

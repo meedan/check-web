@@ -7,17 +7,17 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Reorder from '../../layout/Reorder';
-import { black16 } from '../../../styles/js/shared';
+import { grayBorderMain, otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
-    border: `2px solid ${black16}`,
+    border: `2px solid ${grayBorderMain}`,
     borderRadius: '5px',
     padding: theme.spacing(1),
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     Minheight: theme.spacing(10),
-    background: 'white',
+    background: otherWhite,
   },
   label: {
     fontSize: 14,
@@ -80,7 +80,7 @@ const TeamListsItem = ({
         justifyContent="space-between"
       >
         <Box>
-          <Typography title={label} variant="body2" className={classes.label}>
+          <Typography title={label} variant="body1" className={classes.label}>
             {label}
           </Typography>
           <Typography variant="caption">

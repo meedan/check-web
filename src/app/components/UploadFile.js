@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import CircularProgress from './CircularProgress';
 import { unhumanizeSize } from '../helpers';
 import {
-  black38,
+  textDisabled,
   Row,
   units,
   borderWidthMedium,
@@ -27,8 +27,8 @@ const StyledUploader = styled.div`
     .with-file,
     .without-file {
       align-items: center;
-      border: ${borderWidthMedium} dashed ${black38};
-      color: ${black38};
+      border: ${borderWidthMedium} dashed ${textDisabled};
+      color: ${textDisabled};
       cursor: pointer;
       display: flex;
       height: auto;
@@ -39,7 +39,7 @@ const StyledUploader = styled.div`
     }
 
     #remove-image {
-      color: ${black38};
+      color: ${textDisabled};
       cursor: pointer;
       margin: 0;
     }

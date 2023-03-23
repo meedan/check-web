@@ -6,16 +6,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import Divider from '@material-ui/core/Divider';
 import { labels, labelsV2 } from './localizables';
-import { checkBlue, opaqueBlack54 } from '../../../styles/js/shared';
+import { brandMain, textSecondary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   selected: {
-    borderColor: checkBlue,
-    color: checkBlue,
+    borderColor: brandMain,
+    color: brandMain,
   },
   notSelected: {
-    borderColor: opaqueBlack54,
-    color: opaqueBlack54,
+    borderColor: textSecondary,
+    color: textSecondary,
   },
   root: {
     borderRadius: 4,
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   divider: {
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
-    backgroundColor: checkBlue,
+    backgroundColor: brandMain,
   },
 }));
 

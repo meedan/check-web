@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -17,8 +18,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     alignItems: 'center',
     color: textSecondary,
-    fontSize: '12px',
-    lineHeight: '24px',
+    lineHeight: '20px',
   },
   detailSpan: {
     display: 'flex',
@@ -44,12 +44,12 @@ const BulletSeparator = ({
   ));
 
   return (
-    <div>
+    <Typography variant="body1" component="div">
       <Box display="flex" alignItems="center" mb={compact ? 0 : 2} className={classes.details}>
         { icon ? <div className={classes.icon}>{icon}</div> : null }
         {subtitleDetails}
       </Box>
-    </div>
+    </Typography>
   );
 };
 

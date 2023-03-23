@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   units,
-  black87,
-  opaqueBlack54,
+  textPrimary,
+  textSecondary,
 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: {
-    color: black87,
+    color: textPrimary,
     fontWeight: 'bold',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
   },
   description: {
     maxHeight: units(5),
-    color: opaqueBlack54,
+    color: textSecondary,
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
@@ -70,11 +71,11 @@ const TitleText = ({
   viewMode,
 }) => (
   <div className={viewMode === 'longer' ? [classes.textBox, classes.cellViewModeLonger].join(' ') : [classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <h4 className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
+    <Typography variant="body1" className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
-    </h4>
+    </Typography>
     {description ? (
-      <div className={classes.description}>{description}</div>
+      <div className={[classes.description, 'fact-check-cell__description'].join(' ')}>{description}</div>
     ) : null}
   </div>
 );

@@ -5,17 +5,17 @@ import styled from 'styled-components';
 import CreateProjectMedia from '../media/CreateMedia';
 import ViewModeSwitcher from './ViewModeSwitcher';
 import Can from '../Can';
-import { black87, units, Row, FlexRow } from '../../styles/js/shared';
+import { otherWhite, textPrimary, units, Row, FlexRow } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
-  background-color: white;
+  background-color: ${otherWhite};
   min-height: ${units(5)};
   /* max-width: calc(100vw - ${units(34)}); Seems unecessary */
   padding: 0 ${units(2)} ${units(2)} ${units(2)};
   margin: 0;
 
   .toolbar__title {
-    color: ${black87};
+    color: ${textPrimary};
     margin: ${units(2)};
   }
 `;

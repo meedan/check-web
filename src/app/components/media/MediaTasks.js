@@ -14,10 +14,10 @@ import CheckContext from '../../CheckContext';
 import {
   subheading2,
   body1,
-  black87,
-  black54,
+  textPrimary,
+  textSecondary,
   units,
-  brandSecondary,
+  brandBorder,
 } from '../../styles/js/shared';
 
 const StyledAnnotationRow = styled.div`
@@ -26,16 +26,16 @@ const StyledAnnotationRow = styled.div`
   .annotation-header-row {
     padding: ${units(1)} ${units(3)};
     margin: 0;
-    border-bottom: 1px solid ${brandSecondary};
+    border-bottom: 1px solid ${brandBorder};
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: ${black54};
+    color: ${textSecondary};
     font: ${body1};
   }
 
   h2 {
-    color: ${black87};
+    color: ${textPrimary};
     flex: 1;
     font: ${subheading2};
     margin: 0;

@@ -199,7 +199,7 @@ DrawerNavigationComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const drawerStyles = theme => ({
+const drawerStyles = {
   paper: {
     width: units(32),
     minWidth: units(32),
@@ -212,9 +212,6 @@ const drawerStyles = theme => ({
     flexDirection: 'column',
     height: '100vh',
   },
-  listItemIconRoot: {
-    minWidth: theme.spacing(4),
-  },
-});
+};
 
 export default withStyles(drawerStyles)(withPusher(DrawerNavigationComponent));

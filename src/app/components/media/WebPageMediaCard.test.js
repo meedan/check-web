@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
-import WebPageMediaCard from './WebPageMediaCard.js';
+import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
+import { WebPageMediaCard } from './WebPageMediaCard.js';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 describe('<WebPageMediaCard />', () => {
@@ -102,29 +102,28 @@ describe('<WebPageMediaCard />', () => {
   };
 
   it('renders a picture if there is a good picture', () => {
-    const card = mountWithIntl(<WebPageMediaCard
-      media={webPageWithGoodPicture.media}
+    const card = shallowWithIntl(<WebPageMediaCard
+      projectMedia={webPageWithGoodPicture.media}
       data={webPageWithGoodPicture.data}
     />);
-
-    expect(card.find('img').html()).toMatch(`src="${webPageWithGoodPicture.data.picture}"`);
+    expect(card.find('img').prop('src')).toEqual(webPageWithGoodPicture.data.picture);
   });
 
   it('displays the embed html only if the domain is whitelisted', () => {
     const card1 = mountWithIntl(<WebPageMediaCard
-      media={webPageWithWhitelistedUrl.media}
+      projectMedia={webPageWithWhitelistedUrl.media}
       data={webPageWithWhitelistedUrl.data}
     />);
 
     webPageWithWhitelistedUrl.media.team.get_embed_whitelist = 'checkmedia.org';
     const card2 = mountWithIntl(<WebPageMediaCard
-      media={webPageWithWhitelistedUrl.media}
+      projectMedia={webPageWithWhitelistedUrl.media}
       data={webPageWithWhitelistedUrl.data}
     />);
 
     delete webPageWithWhitelistedUrl.media.team.get_embed_whitelist;
     const card3 = mountWithIntl(<WebPageMediaCard
-      media={webPageWithWhitelistedUrl.media}
+      projectMedia={webPageWithWhitelistedUrl.media}
       data={webPageWithWhitelistedUrl.data}
     />);
 
@@ -139,14 +138,14 @@ describe('<WebPageMediaCard />', () => {
       code: 14,
     };
 
-    const cardWithErrorMessage = mountWithIntl(<WebPageMediaCard
-      media={webPageWithGoodPicture.media}
+    const cardWithErrorMessage = shallowWithIntl(<WebPageMediaCard
+      projectMedia={webPageWithGoodPicture.media}
       data={webPageWithGoodPicture.data}
     />);
 
     delete webPageWithGoodPicture.data.error;
-    const cardWithoutErrorMessage = mountWithIntl(<WebPageMediaCard
-      media={webPageWithGoodPicture.media}
+    const cardWithoutErrorMessage = shallowWithIntl(<WebPageMediaCard
+      projectMedia={webPageWithGoodPicture.media}
       data={webPageWithGoodPicture.data}
     />);
 

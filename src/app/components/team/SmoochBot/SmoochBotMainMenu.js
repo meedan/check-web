@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import { languageLabel } from '../../../LanguageRegistry';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
-import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
-import { checkBlue } from '../../../styles/js/shared';
+import Alert from '../../cds/alerts-and-prompts/Alert';
+import { brandMain } from '../../../styles/js/shared';
 
 const messages = defineMessages({
   privacyStatement: {
@@ -79,7 +79,7 @@ const SmoochBotMainMenu = ({
 
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
         <Box display="flex" alignItems="center" mb={1}>
-          <Typography component="div" variant="body2">
+          <Typography component="div" variant="body1">
             <FormattedMessage
               id="smoochBotMainMenu.subtitle2"
               defaultMessage="Please note that some messaging services have different menu display options than others."
@@ -87,7 +87,7 @@ const SmoochBotMainMenu = ({
             />
           </Typography>
           <a href="https://help.checkmedia.org/en/articles/5982401-tipline-bot-settings" target="_blank" rel="noopener noreferrer">
-            <HelpIcon style={{ color: checkBlue }} />
+            <HelpIcon style={{ color: brandMain }} />
           </a>
         </Box> : null }
       <Typography component="div" variant="subtitle2" paragraph>
@@ -103,8 +103,9 @@ const SmoochBotMainMenu = ({
       </Typography>
 
       { collapseLanguages ?
-        <WarningAlert
-          title={
+        <Alert
+          type="warning"
+          content={
             <FormattedMessage
               id="smoochBotMainMenu.alertTitle"
               defaultMessage="There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option."

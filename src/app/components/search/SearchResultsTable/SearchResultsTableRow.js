@@ -4,7 +4,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
-import { opaqueBlack03 } from '../../../styles/js/shared';
+import { grayBackground } from '../../../styles/js/shared';
 
 const isFeedPage = /\/feed$/.test(window.location.pathname);
 
@@ -16,13 +16,13 @@ const swallowClick = (ev) => {
 const useStyles = makeStyles({
   root: ({ dbid, isRead }) => ({
     cursor: dbid ? 'pointer' : 'wait',
-    background: isRead || isFeedPage ? opaqueBlack03 : 'transparent',
+    background: isRead || isFeedPage ? grayBackground : 'transparent',
     textDecoration: 'none',
   }),
   hover: ({ isRead }) => ({
     '&$hover:hover': {
       boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
-      background: isRead || isFeedPage ? opaqueBlack03 : 'transparent',
+      background: isRead || isFeedPage ? grayBackground : 'transparent',
       transform: 'scale(1)',
     },
   }),

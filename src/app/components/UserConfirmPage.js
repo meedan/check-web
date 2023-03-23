@@ -18,13 +18,13 @@ import {
   units,
   mediaQuery,
   title1,
-  black54,
+  textSecondary,
 } from '../styles/js/shared';
 
 const StyledSubHeader = styled.h2`
   font: ${title1};
   font-weight: 600;
-  color: ${black54};
+  color: ${textSecondary};
   text-align: center;
   margin-top: ${units(2)};
 `;
@@ -48,7 +48,7 @@ function UserConfirmPage({ params }) {
 
   return (
     <ErrorBoundary component="UserConfirmPage">
-      <Typography component="div" variant="body2" gutterBottom>
+      <Typography component="div" variant="body1" gutterBottom>
         <PageTitle>
           <Box m={2} align="center">
             <FormattedHTMLMessage {...globalStrings.bestViewed} />

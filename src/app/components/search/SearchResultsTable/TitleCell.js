@@ -4,15 +4,16 @@ import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
 import ContentCopyIcon from '@material-ui/icons/ContentCopy';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   units,
-  black87,
-  checkBlue,
-  checkOrange,
-  opaqueBlack54,
-  opaqueBlack87,
+  brandMain,
+  alertMain,
+  textSecondary,
+  textPrimary,
+  otherWhite,
 } from '../../../styles/js/shared';
 
 const isFeedPage = () => (/\/feed/.test(window.location.pathname));
@@ -40,14 +41,14 @@ const useStyles = makeStyles({
     minHeight: units(10),
     height: units(10),
     marginRight: units(1),
-    backgroundColor: opaqueBlack87,
+    backgroundColor: textPrimary,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   icon: {
     fontSize: '40px',
-    color: 'white',
+    color: otherWhite,
   },
   textBox: {
     // This is a <div>, not a <th> with vertical-align center, because we need
@@ -64,7 +65,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: ({ isRead }) => ({
-    color: black87,
+    color: textPrimary,
     fontWeight: !isRead || isFeedPage() ? 'bold' : 'normal',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -72,7 +73,7 @@ const useStyles = makeStyles({
   }),
   description: {
     maxHeight: units(5),
-    color: opaqueBlack54,
+    color: textSecondary,
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
@@ -107,9 +108,9 @@ const TitleText = ({
   viewMode,
 }) => (
   <div className={viewMode === 'longer' ? [classes.textBox, classes.cellViewModeLonger].join(' ') : [classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <h4 className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
+    <Typography variant="body1" className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
-    </h4>
+    </Typography>
     {description ? (
       <div className={classes.description}>{description}</div>
     ) : null}
@@ -133,13 +134,13 @@ const IconOrNothing = ({
     return null;
   }
   if (isMain) {
-    return <ContentCopyIcon style={{ color: checkBlue }} className={`${className} similarity-is-main`} />;
+    return <ContentCopyIcon style={{ color: brandMain }} className={`${className} similarity-is-main`} />;
   }
   if (isConfirmed) {
     return <ContentCopyIcon style={{ transform: 'rotate(180deg)' }} className={`${className} similarity-is-confirmed`} />;
   }
   if (isSuggested) {
-    return <ContentCopyIcon style={{ color: checkOrange }} className={`${className} similarity-is-suggested`} />;
+    return <ContentCopyIcon style={{ color: alertMain }} className={`${className} similarity-is-suggested`} />;
   }
   return null;
 };

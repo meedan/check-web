@@ -5,11 +5,6 @@
     "defaultMessage": "Text"
   },
   {
-    "id": "search.showLinks",
-    "description": "Describes media type Link",
-    "defaultMessage": "Link"
-  },
-  {
     "id": "search.showImages",
     "description": "Describes media type Image",
     "defaultMessage": "Image"
@@ -23,6 +18,41 @@
     "id": "search.showAudios",
     "description": "Describes media type Audio",
     "defaultMessage": "Audio"
+  },
+  {
+    "id": "search.socialMedia",
+    "description": "Allow user to filter by social media links",
+    "defaultMessage": "Social media"
+  },
+  {
+    "id": "search.facebook",
+    "description": "Allow user to filter items by facebook posts",
+    "defaultMessage": "Facebook post"
+  },
+  {
+    "id": "search.twitter",
+    "description": "Allow user to filter items by twitter posts",
+    "defaultMessage": "Twitter post"
+  },
+  {
+    "id": "search.tiktok",
+    "description": "Allow user to filter items by tiktok posts",
+    "defaultMessage": "Tiktok post"
+  },
+  {
+    "id": "search.youtube",
+    "description": "Allow user to filter items by youtube videos",
+    "defaultMessage": "Youtube video"
+  },
+  {
+    "id": "search.instagram",
+    "description": "Allow user to filter items by instagram posts",
+    "defaultMessage": "Instagram post"
+  },
+  {
+    "id": "search.webLink",
+    "description": "Allow user to filter items by links of type page",
+    "defaultMessage": "webLink"
   },
   {
     "id": "search.itemRead",

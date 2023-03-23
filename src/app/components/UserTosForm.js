@@ -68,7 +68,7 @@ class UserTosForm extends Component {
               </p> : null
             }
             <Box my={4}>
-              <Typography component="div" variant="body2">
+              <Typography component="div" variant="body1">
                 <FormattedMessage
                   id="userTos.disclaimer"
                   defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"

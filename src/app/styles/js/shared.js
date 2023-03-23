@@ -3,58 +3,41 @@ import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 
 // Styles for overriding material UI
-// General colors
-//
-export const white = '#fff';
-export const black = '#000';
-export const alertRed = '#d0021b';
-export const checkBlue = '#2e77fc';
-export const checkOrange = '#f2994a';
-export const checkError = '#fa555f';
-export const inProgressYellow = '#efac51';
-export const completedGreen = '#5cae73';
-export const separationGray = '#E5E5E5';
-export const brandSecondary = '#DFE4F4';
-export const backgroundMain = '#F7F8FD';
 // Check Design System Colors
-export const textPrimary = '#1F1F1F';
+export const brandMain = '#567bff';
+export const brandSecondary = '#3b5cd0';
+export const brandLight = '#e7efff';
+export const brandAccent = '#293e86';
+export const brandBorder = '#d0d6ec';
+export const brandBackground = '#f1f5f6';
+export const brandHoverAccent = '#f2f8ff';// eslint-disable-line import/no-unused-modules
+
+export const textPrimary = '#1f1f1f';
 export const textSecondary = '#656565';
-export const brandMainCDS = '#567BFF';
-export const brandSecondaryCDS = '#3B5CD0';
-export const brandLightCDS = '#CFDFFF';
-export const alertLightCDS = '#FFF8ED';
-export const alertSecondaryCDS = '#A66300';
-export const alertMainCDS = '#E78A00';
-export const brandBackgroundCDS = '#F1F5F6';
-export const grayBorderCDS = '#CDD0D1';
-export const otherErrorMainCDS = '#F44336';
-export const validationLightCDS = '#F0FFF1';
-export const validationSecondaryCDS = '#237C27';
+export const textPlaceholder = '#b6b6b6';
+export const textDisabled = '#999';
+export const textLink = '#3b5cd0';
 
-// Material blacks
-// TODO make these opaque!
-// TODO change their names!
-// TODO https://material.io/design/color/the-color-system.html
-export const black87 = 'rgba(0, 0, 0, .87)';
-export const black54 = 'rgba(0, 0, 0, .54)';
-export const black38 = 'rgba(0, 0, 0, .38)';
-export const black32 = 'rgba(0, 0, 0, .32)';
-export const black16 = 'rgba(0, 0, 0, .16)';
-export const black05 = 'rgba(0, 0, 0, .05)';
-export const black02 = 'rgba(0, 0, 0, .02)'; // eslint-disable-line import/no-unused-modules
+export const validationMain = '#4caf50';
+export const validationSecondary = '#237c27';
+export const validationLight = '#f0fff1';
 
-// Material blacks, translated to opaque versions
-//
-export const opaqueBlack87 = '#212121';
-export const opaqueBlack54 = '#757575';
-export const opaqueBlack38 = '#9e9e9e';
-export const opaqueBlack23 = '#c4c4c4';
-export const opaqueBlack16 = '#d6d6d6';
-export const opaqueBlack10 = '#e5e5e5';
-export const opaqueBlack07 = '#eeeeee';
-export const opaqueBlack05 = '#f2f2f2'; // eslint-disable-line import/no-unused-modules
-export const opaqueBlack03 = '#f8f8f8';
-export const opaqueBlack02 = '#fafafa'; // eslint-disable-line import/no-unused-modules
+export const alertMain = '#e78a00';
+export const alertSecondary = '#a66300';
+export const alertLight = '#fff8ed';
+
+export const errorMain = '#f44336';
+export const errorSecondary = '#c9291d';// eslint-disable-line import/no-unused-modules
+export const errorLight = '#ffeeed';// eslint-disable-line import/no-unused-modules
+
+export const grayBackground = '#f7f7f7';
+export const grayDisabledBackground = '#efefef';
+export const grayBorderMain = '#e4e4e4';
+export const grayBorderAccent = '#b4b4b4';
+
+export const overlayLight = 'rgba(34, 34, 34, 0.7)';
+
+export const otherWhite = '#fff';
 
 // Social network colors
 //
@@ -135,10 +118,10 @@ export const MuiTheme = {
   palette: {
     type: 'light',
     primary: {
-      main: checkBlue,
+      main: brandMain,
     },
     secondary: {
-      main: checkBlue,
+      main: brandMain,
     },
     types: {
       light: {
@@ -149,6 +132,7 @@ export const MuiTheme = {
     },
   },
   typography: {
+    fontSize: 14,
     h1: {
       fontSize: '96px',
       fontWeight: 300,
@@ -187,25 +171,25 @@ export const MuiTheme = {
       lineHeight: '32px',
     },
     subtitle1: {
-      fontSize: '16px',
+      fontSize: '14px',
       fontWeight: 400,
       letterSpacing: '0.15px',
-      lineHeight: '28px',
+      lineHeight: '21px',
     },
     subtitle2: {
-      fontSize: '15px',
+      fontSize: '14px',
       fontWeight: 500,
       letterSpacing: '0.1px',
-      lineHeight: '24px',
+      lineHeight: '21px',
     },
     body1: {
-      fontSize: '16px',
+      fontSize: '14px',
       fontWeight: 400,
       letterSpacing: '0.15px',
       lineHeight: '20px',
     },
     body2: {
-      fontSize: '14px',
+      fontSize: '12px',
       fontWeight: 400,
       letterSpacing: '0.15px',
       lineHeight: '17px',
@@ -215,7 +199,7 @@ export const MuiTheme = {
       fontSize: '14px',
       fontWeight: 500,
       letterSpacing: '0.4px',
-      lineHeight: '24px',
+      lineHeight: '21px',
       textTransform: 'none',
     },
     caption: {
@@ -232,28 +216,36 @@ export const MuiTheme = {
       textTransform: 'uppercase',
     },
   },
+  props: {
+    MuiButtonBase: {
+      disableRipple: true,
+    },
+  },
   overrides: { // Override of all material UI components. Information at https://material-ui.com/api/{component}
     MuiTableCell: {
       stickyHeader: {
         // @material-ui/core sets #fafafa, only for sticky header. Undo that.
         // We do need a color, though -- if we choose "transparent" the tbody
         // will show through.
-        backgroundColor: white,
+        backgroundColor: otherWhite,
+      },
+      root: {
+        fontSize: 14,
       },
     },
     MuiTableSortLabel: {
       active: {
-        color: `${checkBlue} !important`,
+        color: `${brandMain} !important`,
       },
       icon: {
-        color: `${checkBlue} !important`,
+        color: `${brandMain} !important`,
       },
     },
     MuiIconButton: { // Buttons with Icons
       root: {
         '&:hover': {
           backgroundColor: 'transparent',
-          color: checkBlue,
+          color: brandMain,
         },
       },
     },
@@ -281,7 +273,7 @@ export const MuiTheme = {
     MuiPaper: {
       elevation1: {
         boxShadow: 'none',
-        border: `2px solid ${brandSecondary}`,
+        border: `2px solid ${brandBorder}`,
       },
     },
     MuiTabs: {
@@ -292,11 +284,73 @@ export const MuiTheme = {
     MuiOutlinedInput: {
       root: {
         borderRadius: 8,
+        '&:hover $notchedOutline': {
+          borderColor: grayBorderAccent,
+        },
+        '&$focused $notchedOutline': {
+          borderColor: brandMain,
+        },
+        '&.Mui-disabled $notchedOutline': {
+          borderColor: grayBorderMain,
+        },
+      },
+      notchedOutline: {
+        borderWidth: 2,
+        borderColor: grayBorderMain,
+      },
+      multiline: {
+        padding: '6px 8px',
+      },
+      input: {
+        padding: '6px 8px',
       },
     },
     MuiFormControl: {
       root: {
         borderRadius: 8,
+      },
+    },
+    MuiInputLabel: {
+      outlined: {
+        transform: 'translate(6px, 9px) scale(1)',
+      },
+    },
+    MuiInputBase: {
+      input: {
+        color: textPrimary,
+        '&.Mui-disabled': {
+          color: textDisabled,
+        },
+        '&::placeholder': {
+          color: textPlaceholder,
+          opacity: 1,
+        },
+      },
+      inputMultiline: {
+        lineHeight: '1.5em',
+      },
+      root: {
+        '&.Mui-disabled': {
+          background: grayDisabledBackground,
+        },
+      },
+    },
+    MuiFormLabel: {
+      root: {
+        color: textSecondary,
+        '&.Mui-focused': {
+          color: textSecondary,
+        },
+      },
+    },
+    MuiAutocomplete: {
+      inputRoot: {
+        '&[class*="MuiOutlinedInput-root"]': {
+          padding: '0 6px',
+        },
+        '&[class*="MuiOutlinedInput-root"] $input': {
+          padding: '8px 6px !important', // This !important shouldn't be necessary, but for some reason the exact same selector was not taking precedence over the lib one
+        },
       },
     },
   },
@@ -321,19 +375,19 @@ const shimmerKeyframes = keyframes`
 export const Shimmer = styled.div`
   animation: ${shimmerKeyframes} 1s ease-out infinite;
   animation-fill-mode: forwards;
-  background: linear-gradient(90deg, ${opaqueBlack05}, ${opaqueBlack05}, ${opaqueBlack02}, ${opaqueBlack02}, ${white}, ${opaqueBlack02}, ${opaqueBlack05}, ${opaqueBlack05});
+  background: linear-gradient(90deg, ${grayDisabledBackground}, ${grayDisabledBackground}, ${grayBackground}, ${grayBackground}, ${otherWhite}, ${grayBackground}, ${grayDisabledBackground}, ${grayDisabledBackground});
   background-size: 400%;
 `;
 
 const pulseKeyframes = keyframes`
   0% {
-    background-color: ${white};
+    background-color: ${otherWhite};
   }
   50% {
-    background-color: ${opaqueBlack02};
+    background-color: ${grayBackground};
   }
   100% {
-    background-color: ${white};
+    background-color: ${otherWhite};
   }
 `;
 
@@ -372,7 +426,7 @@ export const Text = styled.div`
 export const HeaderTitle = styled.h3`
   ${ellipsisStyles}
   font: ${subheading2};
-  color: ${black54};
+  color: ${textSecondary};
   max-width: 45vw;
   ${mediaQuery.tablet`
      max-width: 27vw;
@@ -386,7 +440,7 @@ export const HeaderTitle = styled.h3`
 export const StyledSubHeader = styled.h2`
   font: ${title1};
   font-weight: 600;
-  color: ${black54};
+  color: ${textSecondary};
   text-align: center;
   margin-top: ${units(2)};
 `;
@@ -479,7 +533,7 @@ export const AlignOpposite = styled.div`
 export const StyledIconButton = styled(IconButton)`
   font-size: 20px !important;
   svg {
-    color: ${black38} !important;
+    color: ${textDisabled} !important;
     margin: 0!important;
   }
 `;

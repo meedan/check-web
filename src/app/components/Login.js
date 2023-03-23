@@ -17,10 +17,11 @@ import { getErrorObjects } from '../helpers';
 import CheckError from '../CheckError';
 import {
   units,
-  black54,
+  textSecondary,
   StyledSubHeader,
   StyledCard,
-  checkBlue,
+  brandMain,
+  grayBorderMain,
 } from '../styles/js/shared';
 
 const styles = {
@@ -35,12 +36,12 @@ const styles = {
   },
   secondaryButton: {
     display: 'block',
-    color: black54,
+    color: textSecondary,
     maxWidth: units(26),
     margin: `${units(2)} auto`,
   },
   googleButton: {
-    border: '2px solid #D5D5D5',
+    border: `2px solid ${grayBorderMain}`,
   },
   orDivider: {
     padding: `${units(3)} 0`,
@@ -218,7 +219,7 @@ class Login extends React.Component {
             <Message
               message={this.state.message}
               style={this.state.registrationSubmitted ? {
-                backgroundColor: checkBlue,
+                backgroundColor: brandMain,
               } : null}
             />
             {this.state.registrationSubmitted ?

@@ -12,11 +12,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
 import SearchIcon from '@material-ui/icons/Search';
 import { Clear as ClearIcon } from '@material-ui/icons';
-import { MediaPreview } from '../feed/MediaPreview';
+import MediaPreview from '../feed/MediaPreview';
 import {
-  black16,
+  grayBorderMain,
   borderWidthLarge,
-  checkBlue,
+  brandMain,
+  otherWhite,
 } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -25,10 +26,10 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
   },
   inputInactive: {
-    border: `${borderWidthLarge} solid ${black16}`,
+    border: `${borderWidthLarge} solid ${grayBorderMain}`,
   },
   inputActive: {
-    border: `${borderWidthLarge} solid ${checkBlue}`,
+    border: `${borderWidthLarge} solid ${brandMain}`,
   },
   startAdornmentRoot: {
     display: 'flex',
@@ -55,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
   },
   closeButton: {
-    color: 'white',
+    color: otherWhite,
     zIndex: 1000,
     position: 'absolute',
     right: theme.spacing(1),

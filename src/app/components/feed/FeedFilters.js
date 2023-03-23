@@ -17,7 +17,7 @@ import NumericRangeFilter from '../search/NumericRangeFilter';
 import DateRangeFilter from '../search/DateRangeFilter';
 import MultiSelectFilter from '../search/MultiSelectFilter';
 import { withSetFlashMessage } from '../FlashMessage';
-import { checkBlue } from '../../styles/js/shared';
+import { brandMain } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   flex: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   saveButton: {
-    color: checkBlue,
+    color: brandMain,
   },
 }));
 

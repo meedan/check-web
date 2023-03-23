@@ -19,9 +19,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CreateTeamDialog from './CreateTeamDialog';
 import {
   defaultBorderRadius,
-  white,
-  black05,
-  black87,
+  otherWhite,
+  grayDisabledBackground,
+  textPrimary,
 } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
@@ -97,9 +97,9 @@ class SwitchTeamsComponent extends Component {
     const pendingTeams = [];
 
     const teamAvatarStyle = {
-      border: `1px solid ${black05}`,
+      border: `1px solid ${grayDisabledBackground}`,
       borderRadius: `${defaultBorderRadius}`,
-      backgroundColor: white,
+      backgroundColor: otherWhite,
     };
 
     teamUsers.forEach((teamUser) => {
@@ -152,7 +152,7 @@ class SwitchTeamsComponent extends Component {
                 </ListItemAvatar>
                 <ListItemText
                   primary={team.name}
-                  style={{ color: black87 }}
+                  style={{ color: textPrimary }}
                   secondary={
                     <FormattedMessage
                       id="switchTeams.member"

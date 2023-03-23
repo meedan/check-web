@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import { checkBlue, opaqueBlack23 } from '../../../styles/js/shared';
+import { brandMain, textPlaceholder } from '../../../styles/js/shared';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
 
@@ -19,23 +19,23 @@ const useStyles = makeStyles(theme => ({
     border: 0,
   },
   ifGroup: {
-    border: `2px solid ${checkBlue}`,
+    border: `2px solid ${brandMain}`,
   },
   thenGroup: {
-    border: `2px solid ${checkBlue}`,
+    border: `2px solid ${brandMain}`,
   },
   ifTitle: {
-    color: checkBlue,
+    color: brandMain,
   },
   thenTitle: {
-    color: checkBlue,
+    color: brandMain,
   },
   paper2: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   box: {
-    border: `2px solid ${opaqueBlack23}`,
+    border: `2px solid ${textPlaceholder}`,
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     borderRadius: 4,
@@ -89,8 +89,8 @@ const RuleBody = (props) => {
       <RuleOperatorWrapper
         allowRemove={Boolean(props.onResetRule)}
         center
-        color={checkBlue}
-        deleteIconColor={checkBlue}
+        color={brandMain}
+        deleteIconColor={brandMain}
         operator={rule.rules.operator}
         onSetOperator={(value) => {
           rule.rules.operator = value;
@@ -122,7 +122,7 @@ const RuleBody = (props) => {
               </Typography>
               <RuleOperatorWrapper
                 center={false}
-                color={checkBlue}
+                color={brandMain}
                 operator={group.operator}
                 onSetOperator={(value) => {
                   rule.rules.groups[i].operator = value;
@@ -180,7 +180,7 @@ const RuleBody = (props) => {
           </Typography>
           <RuleOperatorWrapper
             center={false}
-            color={checkBlue}
+            color={brandMain}
             operator="and"
             operators={['and']}
             onSetOperator={() => {}}

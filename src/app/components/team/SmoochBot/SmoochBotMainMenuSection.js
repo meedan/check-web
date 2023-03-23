@@ -16,16 +16,16 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import { opaqueBlack23, opaqueBlack54 } from '../../../styles/js/shared';
+import { textPlaceholder, textSecondary, grayBackground, otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
-    background: '#F6F6F6',
-    border: `1px solid ${opaqueBlack23}`,
+    background: grayBackground,
+    border: `1px solid ${textPlaceholder}`,
     borderRadius: theme.spacing(2),
   },
   textField: {
-    background: 'white',
+    background: otherWhite,
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0.25),
   },
   lock: {
-    color: opaqueBlack54,
+    color: textSecondary,
   },
   noDescription: {
     fontStyle: 'italic',
@@ -169,7 +169,7 @@ const SmoochBotMainMenuSection = ({
           {/* Title */}
           { readOnly ?
             <Box pt={1} pb={1}>
-              <Typography variant="body2" component="div" className={classes.title}>
+              <Typography variant="body1" component="div" className={classes.title}>
                 <strong>
                   {value.smooch_menu_title}
                 </strong>
@@ -177,7 +177,7 @@ const SmoochBotMainMenuSection = ({
             </Box> : null }
           { noTitleNoDescription ?
             <Box p={1}>
-              <Typography variant="body2" component="div" className={classes.title}>
+              <Typography variant="body1" component="div" className={classes.title}>
                 <strong>
                   <FormattedMessage
                     id="smoochBotMainMenuSection.defaultSectionTitle"
@@ -260,7 +260,7 @@ const SmoochBotMainMenuSection = ({
 
               <Box m={readOnly ? 1 : 0}>
                 {/* Menu option label */}
-                <Typography variant="body2" component="div">
+                <Typography variant="body1" component="div">
                   <strong>{formatOptionLabel(option)}</strong>
                 </Typography>
 

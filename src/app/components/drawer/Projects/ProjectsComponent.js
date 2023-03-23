@@ -23,6 +23,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Typography from '@material-ui/core/Typography';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import ForumIcon from '@material-ui/icons/Forum';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
@@ -30,7 +31,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import Can from '../../Can';
-import { brandSecondary } from '../../../styles/js/shared';
+import { brandLight, otherWhite } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const useStyles = makeStyles(theme => ({
@@ -45,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: 0,
   },
   projectsComponentCollectionExpanded: {
-    background: brandSecondary,
+    background: brandLight,
   },
   projectsComponentNestedList: {
     paddingLeft: theme.spacing(3),
@@ -62,7 +63,7 @@ const useStyles = makeStyles(theme => ({
     right: 0,
     top: 0,
     bottom: 0,
-    background: 'white',
+    background: otherWhite,
     opacity: 0.7,
     zIndex: 1,
   },
@@ -276,8 +277,10 @@ const ProjectsComponent = ({
           onClick={handleAllItems}
           className={activeItem.type === 'all-items' ? ['projects-list__all-items', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__all-items'}
         >
-          <ListItemText>
-            <FormattedMessage id="projectsComponent.allItems" defaultMessage="All items" description="Label for the 'All items' list displayed on the left sidebar" />
+          <ListItemText disableTypography>
+            <Typography variant="body1">
+              <FormattedMessage id="projectsComponent.allItems" defaultMessage="All items" description="Label for the 'All items' list displayed on the left sidebar" />
+            </Typography>
           </ListItemText>
           <ListItemSecondaryAction>
             {team.medias_count}
@@ -293,8 +296,10 @@ const ProjectsComponent = ({
             <ListItemIcon className={classes.listItemIconRoot}>
               <ForumIcon />
             </ListItemIcon>
-            <ListItemText>
-              <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Tipline inbox" description="Label for a list displayed on the left sidebar." />
+            <ListItemText disableTypography>
+              <Typography variant="body1">
+                <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Tipline inbox" description="Label for a list displayed on the left sidebar." />
+              </Typography>
             </ListItemText>
           </ListItem> : null }
 
@@ -307,8 +312,10 @@ const ProjectsComponent = ({
             <ListItemIcon className={classes.listItemIconRoot}>
               <GetAppIcon />
             </ListItemIcon>
-            <ListItemText>
-              <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported fact-checks" description="Label for a list displayed on the left sidebar." />
+            <ListItemText disableTypography>
+              <Typography variant="body1">
+                <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported fact-checks" description="Label for a list displayed on the left sidebar." />
+              </Typography>
             </ListItemText>
           </ListItem> : null }
 
@@ -321,8 +328,10 @@ const ProjectsComponent = ({
             <ListItemIcon className={classes.listItemIconRoot}>
               <NewReleasesIcon />
             </ListItemIcon>
-            <ListItemText>
-              <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
+            <ListItemText disableTypography>
+              <Typography variant="body1">
+                <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
+              </Typography>
             </ListItemText>
           </ListItem> : null }
 
@@ -331,42 +340,44 @@ const ProjectsComponent = ({
         {/* Folders: create new folder or collection */}
         <ListItem onClick={handleToggleFoldersExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
-          <ListItemText>
-            <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
-              <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
-              <Can permissions={team.permissions} permission="create Project">
-                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
-                  <AddIcon />
-                </IconButton>
-              </Can>
-              <Menu
-                anchorEl={folderMenuAnchor}
-                keepMounted
-                open={Boolean(folderMenuAnchor)}
-                onClose={() => { setFolderMenuAnchor(null); }}
-              >
-                <MenuItem
-                  onClick={(e) => {
-                    setFolderMenuAnchor(null);
-                    setShowNewFolderDialog(true);
-                    e.stopPropagation();
-                  }}
-                  className="projects-list__add-folder"
+          <ListItemText disableTypography>
+            <Typography variant="body1">
+              <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
+                <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
+                <Can permissions={team.permissions} permission="create Project">
+                  <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
+                    <AddIcon />
+                  </IconButton>
+                </Can>
+                <Menu
+                  anchorEl={folderMenuAnchor}
+                  keepMounted
+                  open={Boolean(folderMenuAnchor)}
+                  onClose={() => { setFolderMenuAnchor(null); }}
                 >
-                  <FormattedMessage id="projectsComponent.newFolderMenu" defaultMessage="New folder" description="Menu item for creating new folder" />
-                </MenuItem>
-                <MenuItem
-                  onClick={(e) => {
-                    setFolderMenuAnchor(null);
-                    setShowNewCollectionDialog(true);
-                    e.stopPropagation();
-                  }}
-                  className="projects-list__add-collection"
-                >
-                  <FormattedMessage id="projectsComponent.newCollectionMenu" defaultMessage="New collection" description="Menu item for creating new collection" />
-                </MenuItem>
-              </Menu>
-            </Box>
+                  <MenuItem
+                    onClick={(e) => {
+                      setFolderMenuAnchor(null);
+                      setShowNewFolderDialog(true);
+                      e.stopPropagation();
+                    }}
+                    className="projects-list__add-folder"
+                  >
+                    <FormattedMessage id="projectsComponent.newFolderMenu" defaultMessage="New folder" description="Menu item for creating new folder" />
+                  </MenuItem>
+                  <MenuItem
+                    onClick={(e) => {
+                      setFolderMenuAnchor(null);
+                      setShowNewCollectionDialog(true);
+                      e.stopPropagation();
+                    }}
+                    className="projects-list__add-collection"
+                  >
+                    <FormattedMessage id="projectsComponent.newCollectionMenu" defaultMessage="New collection" description="Menu item for creating new collection" />
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </Typography>
           </ListItemText>
         </ListItem>
 
@@ -404,8 +415,10 @@ const ProjectsComponent = ({
                       <List>
                         { childProjects.length === 0 ?
                           <ListItem disabled dense>
-                            <ListItemText>
-                              <FormattedMessage id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
+                            <ListItemText disableTypography>
+                              <Typography variant="body1">
+                                <FormattedMessage id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
+                              </Typography>
                             </ListItemText>
                           </ListItem> :
                           <React.Fragment>
@@ -456,15 +469,17 @@ const ProjectsComponent = ({
         {/* Lists: create new list */}
         <ListItem onClick={handleToggleListsExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { listsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
-          <ListItemText>
-            <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
-              <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
-              <Can permissions={team.permissions} permission="create Project">
-                <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={classes.projectsComponentButton}>
-                  <AddIcon id="projects-list__add-filtered-list" />
-                </IconButton>
-              </Can>
-            </Box>
+          <ListItemText disableTypography>
+            <Typography variant="body1">
+              <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
+                <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
+                <Can permissions={team.permissions} permission="create Project">
+                  <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={classes.projectsComponentButton}>
+                    <AddIcon id="projects-list__add-filtered-list" />
+                  </IconButton>
+                </Can>
+              </Box>
+            </Typography>
           </ListItemText>
         </ListItem>
 
@@ -492,9 +507,11 @@ const ProjectsComponent = ({
           <React.Fragment>
             <ListItem onClick={handleToggleFeedsExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
               { feedsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
-              <ListItemText>
+              <ListItemText disableTypography>
                 <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
-                  <FormattedMessage id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
+                  <Typography variant="body1">
+                    <FormattedMessage id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
+                  </Typography>
                 </Box>
               </ListItemText>
             </ListItem>

@@ -1,16 +1,19 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { graphql, commitMutation } from 'react-relay/compat';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Popover from '@material-ui/core/Popover';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Switch from '@material-ui/core/Switch';
-import TextField from '@material-ui/core/TextField';
+import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
+import {
+  Box,
+  Button,
+  IconButton,
+  FormControlLabel,
+  Popover,
+  Radio,
+  RadioGroup,
+  Switch,
+  TextField,
+} from '@material-ui/core';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -22,6 +25,7 @@ const SensitiveContentMenu = ({
   onDismiss,
   projectMedia,
   setFlashMessage,
+  container,
 }) => {
   let warningType = null;
   let warningTypeCustom = null;
@@ -203,6 +207,7 @@ const SensitiveContentMenu = ({
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
       onClose={onDismiss}
+      container={container}
     >
       <Box p={2}>
         <Box color={!enableSwitch && (formError === 'no_switch_enabled') ? 'red' : null}>
@@ -287,6 +292,7 @@ const SensitiveContentMenu = ({
         </RadioGroup>
         <Box mt={2} display="flex" justifyContent="flex-end">
           <Button onClick={onDismiss}>
+            { /* eslint-disable-next-line @calm/react-intl/missing-attribute */}
             <FormattedMessage {...globalStrings.cancel} />
           </Button>
           <Button
@@ -294,6 +300,7 @@ const SensitiveContentMenu = ({
             onClick={submitFlagAnnotation}
             variant="contained"
           >
+            { /* eslint-disable-next-line @calm/react-intl/missing-attribute */}
             <FormattedMessage {...globalStrings.save} />
           </Button>
         </Box>
@@ -306,37 +313,55 @@ const SensitiveContentMenuButton = ({
   currentUserRole,
   projectMedia,
   setFlashMessage,
+  iconButtonClasses,
 }) => {
   const { show_warning_cover } = projectMedia;
   const [anchorEl, setAnchorEl] = React.useState();
+  const containerRef = React.useRef(null);
 
   return (
-    <React.Fragment>
-      <Button
+    <div ref={containerRef}>
+      <IconButton
+        classes={iconButtonClasses}
         disabled={(
           show_warning_cover &&
           currentUserRole !== 'admin' &&
           currentUserRole !== 'editor'
         )}
-        startIcon={<VisibilityOffIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
+        size="small"
       >
-        <FormattedMessage
-          id="sensitiveContentMenuButton.contentWarning"
-          defaultMessage="Content warning"
-          description="Button that pops sensitive content screen settings"
-        />
-      </Button>
+        <VisibilityOffIcon />
+      </IconButton>
       <SensitiveContentMenu
         key={anchorEl}
         anchorEl={anchorEl}
         onDismiss={() => setAnchorEl(null)}
         projectMedia={projectMedia}
         setFlashMessage={setFlashMessage}
+        container={containerRef.current}
       />
-    </React.Fragment>
+    </div>
   );
 };
 
-// TODO createFragmentContainer
-export default withSetFlashMessage(SensitiveContentMenuButton);
+SensitiveContentMenuButton.propTypes = {
+  currentUserRole: PropTypes.object.isRequired,
+  projectMedia: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+    show_warning_cover: PropTypes.bool.isRequired,
+  }).isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
+  iconButtonClasses: PropTypes.object,
+};
+
+SensitiveContentMenuButton.defaultProps = {
+  iconButtonClasses: null,
+};
+
+export default createFragmentContainer(withSetFlashMessage(SensitiveContentMenuButton), graphql`
+  fragment SensitiveContentMenuButton_projectMedia on ProjectMedia {
+    dbid
+    show_warning_cover
+  }
+`);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import {
   Box,
   Dialog,
@@ -12,10 +12,9 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import { ImportButton } from './ImportDialog';
-import MediaCard from './MediaCard';
 import RequestCards from './RequestCards';
-import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
-import { separationGray, textPrimary } from '../../styles/js/shared';
+import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
+import { grayBorderMain, textPrimary } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   column: {
@@ -34,12 +33,11 @@ const useStyles = makeStyles(theme => ({
     minHeight: '500px',
   },
   dialogTitle: {
-    borderBottom: `1px solid ${separationGray}`,
+    borderBottom: `1px solid ${grayBorderMain}`,
   },
 }));
 
 const FeedRequestedMediaDialog = ({
-  intl,
   open,
   media,
   request,
@@ -72,22 +70,26 @@ const FeedRequestedMediaDialog = ({
         <Box display="flex" justifyContent="space-between">
           <div className={classes.column}>
             <ImportButton onClick={onImport} />
-            <MediaCard
-              title={media.quote || `${request.request_type}-${request.feed.name.replace(' ', '-')}-${media.dbid}`}
-              details={[
-                <MediaTypeDisplayName mediaType={media.type} />,
-                (
-                  <FormattedMessage
-                    id="feedRequestedMediaDialog.lastSubmitted"
-                    defaultMessage="Last submitted {date}"
-                    description="Shows the last time a media was submitted (on feed request media card)"
-                    values={{
-                      date: intl.formatDate(request.last_submitted_at, { year: 'numeric', month: 'short', day: '2-digit' }),
-                    }}
-                  />
-                ),
-              ]}
+            <SmallMediaCard
+              customTitle={media.quote || `${request.request_type}-${request.feed.name.replace(' ', '-')}-${media.dbid}`}
               media={media}
+              details={[
+                (<FormattedMessage
+                  id="feedRequestedMedia.lastSubmitted"
+                  defaultMessage="Last submitted {date}"
+                  description="Header of medias list. Example: 3 medias"
+                  values={{
+                    date: (
+                      <FormattedDate
+                        value={request.last_submitted_at * 1000}
+                        year="numeric"
+                        month="short"
+                        day="2-digit"
+                      />
+                    ),
+                  }}
+                />),
+              ]}
             />
           </div>
           <div className={classes.separator} />
@@ -105,11 +107,9 @@ FeedRequestedMediaDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default createFragmentContainer(injectIntl(FeedRequestedMediaDialog), graphql`
+export default createFragmentContainer(FeedRequestedMediaDialog, graphql`
   fragment FeedRequestedMediaDialog_media on Media {
     dbid
-    type
-    quote
-    ...MediaCard_media
+    ...SmallMediaCard_media
   }
 `);

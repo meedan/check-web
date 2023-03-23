@@ -56,7 +56,7 @@ shared_examples 'project' do
 
   it 'should create and set filters to a filtered list', bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page({ use_default_project: true })
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
     wait_for_selector('#projects-list__add-filtered-list').click
@@ -84,7 +84,7 @@ shared_examples 'project' do
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__media-type').click
     wait_for_selector('.custom-select-dropdown__select-button').click
-    wait_for_selector('#links').click
+    wait_for_selector('#weblink').click
     wait_for_selector('.multi__selector-save').click
     wait_for_selector('#search-fields__submit-button').click
     wait_for_selector_none('.medias__item')

@@ -9,21 +9,21 @@ import WarningIcon from '@material-ui/icons/Warning';
 import ParsedText from '../../ParsedText';
 import ReportDesignerImagePreview from './ReportDesignerImagePreview';
 import { formatDate } from './reportDesignerHelpers';
-import { alertRed, opaqueBlack87 } from '../../../styles/js/shared';
+import { errorMain, textPrimary, brandBorder, otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
     margin: '0 auto',
   },
   messagePreview: {
-    border: '2px solid #DFE4F4',
+    border: `2px solid ${brandBorder}`,
     borderRadius: '5px',
-    backgroundColor: 'white',
+    backgroundColor: otherWhite,
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
     width: 502,
-    color: 'black',
+    color: textPrimary,
     lineHeight: '1.5em',
   },
   visualCardPreview: {
@@ -34,19 +34,19 @@ const useStyles = makeStyles(theme => ({
     height: 500,
     top: 0,
     padding: '64px 40px 16px 40px',
-    backgroundColor: opaqueBlack87,
+    backgroundColor: textPrimary,
     zIndex: 100,
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    color: 'white',
+    color: otherWhite,
     textAlign: 'center',
   },
   icon: {
     fontSize: '80px',
-    color: alertRed,
+    color: errorMain,
   },
 }));
 

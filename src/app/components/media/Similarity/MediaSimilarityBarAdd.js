@@ -6,7 +6,6 @@ import { Store } from 'react-relay/classic';
 import Tooltip from '@material-ui/core/Tooltip';
 import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -14,9 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PublishIcon from '@material-ui/icons/Publish';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import { makeStyles } from '@material-ui/core/styles';
-import BlankMediaButton from '../BlankMediaButton';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
@@ -32,7 +29,6 @@ const MediaSimilarityBarAdd = ({
   setFlashMessage,
   canBeAddedToSimilar,
   similarCanBeAddedToIt,
-  canBeAddedToImported,
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -79,16 +75,10 @@ const MediaSimilarityBarAdd = ({
     setAnchorEl(null);
   };
 
-  const handleError = () => {
+  // Accepts a JS Error object
+  const handleError = (error) => {
     setSubmitting(false);
-    // FIXME: Get error message from backend
-    setFlashMessage((
-      <FormattedMessage
-        id="mediaSimilarityBarAdd.defaultErrorMessage"
-        defaultMessage="Could not add similar item"
-        description="Warning displayed if an error occurred when adding a similar item"
-      />
-    ), 'error');
+    setFlashMessage(error.message, 'error');
   };
 
   const handleSuccess = (response) => {
@@ -138,6 +128,12 @@ const MediaSimilarityBarAdd = ({
                 requests_count
                 linked_items_count
                 report_status
+                url
+                media {
+                  url
+                  domain
+                  type
+                }
               }
             }
           }
@@ -176,15 +172,17 @@ const MediaSimilarityBarAdd = ({
           rangeBehavior: 'prepend',
         }],
       }],
-      onCompleted: (response, error) => {
-        if (error) {
-          handleError();
+      onCompleted: (response, errors) => {
+        if (errors?.length > 0) {
+          for (let i = 0; i < errors.length; i += 1) {
+            handleError(errors[i]);
+          }
         } else {
           handleSuccess(response);
         }
       },
-      onError: () => {
-        handleError();
+      onError: (error) => {
+        handleError(error);
       },
     });
   };
@@ -257,33 +255,6 @@ const MediaSimilarityBarAdd = ({
             </MenuItem>
           </span>
         </Tooltip>
-        <Divider />
-        <BlankMediaButton
-          reverse
-          projectMediaId={projectMediaId}
-          ButtonComponent={({ onClick }) => (
-            <MenuItem
-              onClick={() => {
-                setAnchorEl(null);
-                onClick();
-              }}
-              disabled={!canBeAddedToImported}
-            >
-              <ListItemIcon>
-                <IconReport />
-              </ListItemIcon>
-              <ListItemText
-                primary={
-                  <FormattedMessage
-                    id="mediaSimilarityBarAdd.addToImportedReport"
-                    defaultMessage="Add media to an imported fact-check"
-                    description="Menu option for adding the current media to an imported fact-check"
-                  />
-                }
-              />
-            </MenuItem>
-          )}
-        />
       </Menu>
       <CreateRelatedMediaDialog
         title={label}
@@ -320,7 +291,6 @@ const MediaSimilarityBarAdd = ({
 MediaSimilarityBarAdd.defaultProps = {
   canBeAddedToSimilar: true,
   similarCanBeAddedToIt: true,
-  canBeAddedToImported: false,
 };
 
 MediaSimilarityBarAdd.propTypes = {
@@ -328,7 +298,6 @@ MediaSimilarityBarAdd.propTypes = {
   projectMediaDbid: PropTypes.number.isRequired,
   canBeAddedToSimilar: PropTypes.bool,
   similarCanBeAddedToIt: PropTypes.bool,
-  canBeAddedToImported: PropTypes.bool,
 };
 
 export default withSetFlashMessage(MediaSimilarityBarAdd);

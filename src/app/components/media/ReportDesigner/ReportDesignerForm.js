@@ -14,10 +14,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ReportDesignerFormSection from './ReportDesignerFormSection';
 import ColorPicker from '../../layout/ColorPicker';
 import UploadFile from '../../UploadFile';
-import LanguagePickerSelect from '../../layout/LanguagePickerSelect';
+import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import { formatDate } from './reportDesignerHelpers';
 import LimitedTextFieldWithCounter from '../../layout/LimitedTextFieldWithCounter';
 import { safelyParseJSON } from '../../../helpers';
+import { otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'white',
+    background: otherWhite,
     opacity: 0.5,
     cursor: 'not-allowed',
     zIndex: 2,
@@ -88,6 +89,10 @@ const ReportDesignerForm = (props) => {
     props.onUpdate(updates);
   };
 
+  const handleChangeColor = (event) => {
+    props.onUpdate('theme_color', event.target.value);
+  };
+
   const textFieldProps = {
     className: classes.textField,
     variant: 'outlined',
@@ -102,9 +107,9 @@ const ReportDesignerForm = (props) => {
         { languages.length > 1 ?
           <Box my={3} >
             <LanguagePickerSelect
-              selectedlanguage={currentLanguage}
+              selectedLanguage={currentLanguage}
+              languages={JSON.parse(team.get_languages || '[]')}
               onSubmit={handleLanguageSubmit}
-              team={team}
             />
           </Box> : null
         }
@@ -301,7 +306,7 @@ const ReportDesignerForm = (props) => {
               <Box display="flex">
                 <ColorPicker
                   color={data.theme_color}
-                  onChange={color => props.onUpdate('theme_color', color.hex)}
+                  onChange={handleChangeColor}
                 />
                 <div className={classes.spacer} />
                 <Box display="flex" flexWrap="wrap" flexGrow="1">

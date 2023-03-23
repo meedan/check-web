@@ -1,15 +1,12 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import MediaRelationship from './MediaRelationship';
-import MediaCardCondensed from '../../cds/media-cards/MediaCardCondensed';
-import MediaItem from './MediaItem'; // eslint-disable-line no-unused-vars
+import SmallMediaCard from '../../cds/media-cards/SmallMediaCard'; // eslint-disable-line no-unused-vars
 import { can } from '../../Can';
-import { brandLightCDS } from '../../../styles/js/shared';
+import { brandLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -20,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     top: -theme.spacing(2.5),
     left: -theme.spacing(2),
     opacity: 0,
-    background: brandLightCDS,
+    background: brandLight,
     height: 0,
     width: `calc(100% + ${theme.spacing(4)}px)`,
     display: 'block',
@@ -40,34 +37,8 @@ const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
 
   return (
     <div className="media__more-medias" id="matched-media">
-      <Box my={4}>
-        <Typography variant="body">
-          <strong>
-            <FormattedMessage
-              id="mediaSimilarities.moreMedias"
-              defaultMessage="Media"
-              description="Heading for a list of matched medias"
-            />
-          </strong>
-        </Typography>
-      </Box>
       <div className={classes.container}>
         <span className={`${classes.overlay} ${isHighlighting ? classes.animation : ''}`} id="matched-overlay" />
-        {
-          projectMedia.confirmed_similar_relationships?.edges?.length === 0 ? (
-            <MediaCardCondensed
-              placeholder={
-                <Typography variant="body2">
-                  <FormattedMessage
-                    id="mediaSimilarities.noMedia"
-                    defaultMessage="0 media"
-                    description="A message that shows when the matched media list is empty."
-                  />
-                </Typography>
-              }
-            />
-          ) : null
-        }
         { sort(projectMedia.confirmed_similar_relationships?.edges).map(relationship => (
           <MediaRelationship
             key={relationship.node.id}
@@ -119,8 +90,24 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
           source_id
           target_id
           target {
+            id
+            dbid
+            title
+            description
+            picture
+            type
+            last_seen
             requests_count
-            ...MediaItem_projectMedia
+            linked_items_count
+            report_status
+            added_as_similar_by_name
+            confirmed_as_similar_by_name
+            is_confirmed_similar_to_another_item
+            url
+            quote
+            media {
+              ...SmallMediaCard_media
+            }
           }
         }
       }

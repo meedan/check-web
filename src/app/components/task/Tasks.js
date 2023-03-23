@@ -13,7 +13,7 @@ import moment from 'moment';
 import Task from './Task';
 import NavigateAwayDialog from '../NavigateAwayDialog';
 import BlankState from '../layout/BlankState';
-import { units } from '../../styles/js/shared';
+import { units, validationMain, otherWhite, textDisabled } from '../../styles/js/shared';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const StyledMetadataContainer = styled.div`
@@ -33,7 +33,7 @@ const StyledFormControls = styled.div`
   position: sticky;
   top: 0px;
   z-index: 1001;
-  background-color: white;
+  background-color: ${otherWhite};
   box-shadow: 0 0 8px 4px rgba(170, 170, 170, 0.25);
   clip-path: polygon(0% 0%, 100% 0%, 100.94% 107.30%, 0% 120%);
 `;
@@ -42,7 +42,7 @@ const StyledAnnotatorInformation = styled.span`
   display: inline-block;
   p {
     font-size: 9px;
-    color: #979797;
+    color: ${textDisabled};
   }
 `;
 
@@ -285,7 +285,7 @@ const Tasks = ({
                   />
                 }
               />
-              <Button className="form-save" variant="contained" onClick={handleSaveAnnotations} style={{ backgroundColor: '#1BB157', color: 'white' }}>
+              <Button className="form-save" variant="contained" onClick={handleSaveAnnotations} style={{ backgroundColor: validationMain, color: otherWhite }}>
                 <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
               </Button>
               <Button className="form-cancel" onClick={handleCancelAnnotations}>

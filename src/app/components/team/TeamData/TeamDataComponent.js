@@ -53,7 +53,7 @@ const messagesDescription = 'Explanation on table header, when hovering the "hel
 const messages = defineMessages({
   conversations: {
     id: 'teamDataComponent.conversations',
-    defaultMessage: 'Starts when a user interacts with the bot and ends after 15 minutes of inactivity.',
+    defaultMessage: 'Starts with any outgoing or incoming message for a user, and ends after 24 hours. This information began collection on April 1, 2023.',
     description: messagesDescription,
   },
   averageMessagesPerDay: {
@@ -78,7 +78,7 @@ const messages = defineMessages({
   },
   publishedNativeReports: {
     id: 'teamDataComponent.publishedNativeReports',
-    defaultMessage: 'Published reports created in Check (for all languages and platforms).',
+    defaultMessage: 'Published reports created in Check (for all platforms).',
     description: messagesDescription,
   },
   publishedImportedReports: {
@@ -205,7 +205,7 @@ const TeamDataComponent = ({
     'Returning users': intl.formatMessage(messages.returningUsers),
     'Valid new requests': intl.formatMessage(messages.validNewRequests),
     'Published native reports': intl.formatMessage(messages.publishedNativeReports),
-    'Published imported fact-checks': intl.formatMessage(messages.publishedImportedReports),
+    'Published imported reports': intl.formatMessage(messages.publishedImportedReports),
     'Requests answered with a report': intl.formatMessage(messages.requestsAnsweredWithReport),
     'Reports sent to users': intl.formatMessage(messages.reportsSent),
     'Unique users who received a report': intl.formatMessage(messages.uniqueUsersWhoReceivedReport),

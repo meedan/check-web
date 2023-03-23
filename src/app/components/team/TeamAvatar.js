@@ -3,23 +3,23 @@ import styled from 'styled-components';
 import {
   avatarSize,
   backgroundCover,
-  black05,
+  grayDisabledBackground,
   borderWidthSmall,
   defaultBorderRadius,
-  separationGray,
-  white,
+  grayBorderMain,
+  otherWhite,
 } from '../../styles/js/shared';
 
 const StyledAvatarDiv = styled.div`
-  border: ${borderWidthSmall} solid ${black05};
+  border: ${borderWidthSmall} solid ${grayDisabledBackground};
   border-radius: ${defaultBorderRadius};
   flex: 0 0 auto;
   ${backgroundCover}
-  background-color: ${white};
+  background-color: ${otherWhite};
   width: ${props => (props.size ? props.size : avatarSize)};
   height: ${props => (props.size ? props.size : avatarSize)};
   border-radius: 5px;
-  border: 2px solid ${separationGray};
+  border: 2px solid ${grayBorderMain};
   position: relative;
 `;
 

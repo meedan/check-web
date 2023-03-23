@@ -1,17 +1,15 @@
 import {
-  checkBlue,
-  white,
+  otherWhite,
   body1,
-  black,
-  black87,
   title1,
   subheading1,
+  textLink,
   textPrimary,
 } from './shared';
-
+/* eslint-disable-next-line import/no-unused-modules */
 export const layout = `
   html {
-    background: ${white};
+    background: ${otherWhite};
   }
 
   // Layout default settings
@@ -26,21 +24,20 @@ export const layout = `
     margin: 0;
   }
 `;
-
+/* eslint-disable-next-line import/no-unused-modules */
 export const typography = `
   body {
     color: ${textPrimary};
     font: ${body1};
   }
 
-  h1,
-  .main-title {
-    color: ${black87};
+  h1 {
+    color: ${textPrimary};
     font: ${title1};
   }
 
   h2 {
-    color: ${black87};
+    color: ${textPrimary};
     font: ${subheading1};
   }
 
@@ -50,14 +47,14 @@ export const typography = `
   }
 
   a {
-    color: ${checkBlue};
+    color: ${textLink};
 
     &:hover {
-      color: ${checkBlue};
+      color: ${textLink};
     }
 
     &:visited {
-      color: ${checkBlue};
+      color: ${textLink};
     }
 
     &:not([href]) {
@@ -69,7 +66,7 @@ export const typography = `
   }
 
   a.link__internal {
-    color: ${black};
+    color: ${textPrimary};
     text-decoration: none;
   }
 
@@ -83,7 +80,7 @@ export const typography = `
     padding: 0;
   }
 `;
-
+/* eslint-disable-next-line import/no-unused-modules */
 export const localeAr = `
   [lang="ar"] {
     * {
@@ -116,6 +113,7 @@ export const localeAr = `
 // Remove Chrome's yellow autofill
 // https://blog.mariusschulz.com/2016/03/20/how-to-remove-webkits-banana-yellow-autofill-background
 // NOTE this means inputs all have to be on a white canvas unless you override this.
+/* eslint-disable-next-line import/no-unused-modules */
 export const removeYellowAutocomplete = `
   input:-webkit-autofill {
       -webkit-box-shadow: inset 0 0 0px 9999px white;

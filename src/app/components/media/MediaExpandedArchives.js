@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -7,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ExternalLink from '../ExternalLink';
-import { checkBlue } from '../../styles/js/shared';
+import { brandMain } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   url: {
@@ -16,7 +15,7 @@ const useStyles = makeStyles({
         TODO define with Pierre if all links are to be blue
         and style accordingly on the app theme instead of locally
       */
-      color: checkBlue,
+      color: brandMain,
       textDecoration: 'underline',
     },
   },
@@ -47,7 +46,7 @@ const MediaExpandedArchives = ({ projectMedia }) => {
         </Grid>
         { activeArchivers.map(f => (
           <Grid key={f.field_name} item xs={2}>
-            <Typography className={classes.url} variant="body2">
+            <Typography className={classes.url} variant="body1">
               <ExternalLink url={f.value_json.location}>
                 {archivers[f.field_name]}
               </ExternalLink>

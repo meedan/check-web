@@ -22,12 +22,12 @@ import SettingsHeader from './SettingsHeader';
 import TeamMemberActions from './TeamMemberActions';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { ContentColumn } from '../../styles/js/shared';
+import { ContentColumn, textPrimary } from '../../styles/js/shared';
 import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
 
 const useStyles = makeStyles(theme => ({
   pending: {
-    border: '1px solid black',
+    border: `1px solid ${textPrimary}`,
     padding: theme.spacing(0.5),
     marginTop: theme.spacing(0.5),
     borderRadius: '5px',
@@ -219,7 +219,7 @@ const TeamMembersComponent = ({
                     }
                   </TableCell>
                   <TableCell>
-                    <Box display="flex" className={classes.actionsCell}>
+                    <Box display="flex" className={classes.actionsCell} alignItems="center">
                       <ChangeUserRole teamUser={tu.node} />
                       <TeamMemberActions team={team} teamUser={tu.node} />
                     </Box>

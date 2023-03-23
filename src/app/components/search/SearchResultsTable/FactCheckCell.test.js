@@ -34,12 +34,12 @@ const projectMediaBlank = {
 describe('<FactCheckCell>', () => {
   it('should render title', () => {
     const cell = mountInTable(<FactCheckCell projectMedia={projectMedia} />);
-    expect(cell.find('h4').text()).toEqual('Fact-check title');
+    expect(cell.find('p').text()).toEqual('Fact-check title');
   });
 
   it('should render description', () => {
     const cell = mountInTable(<FactCheckCell projectMedia={projectMedia} />);
-    expect(cell.find('h4 + div').text()).toEqual('Fact-check summary');
+    expect(cell.find('.fact-check-cell__description').text()).toEqual('Fact-check summary');
   });
 
   it('should link to fact-check', () => {

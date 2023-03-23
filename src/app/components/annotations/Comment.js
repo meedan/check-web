@@ -29,14 +29,14 @@ import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import {
   units,
-  black38,
-  black54,
-  black87,
+  textDisabled,
+  textSecondary,
+  textPrimary,
   caption,
   breakWordStyles,
-  separationGray,
+  grayBorderMain,
   Row,
-  checkBlue,
+  brandMain,
 } from '../../styles/js/shared';
 
 const StyledAnnotationCardWrapper = styled.div`
@@ -71,7 +71,7 @@ const StyledAnnotationWrapper = styled.section`
   }
 
   .annotation__timestamp {
-    color: ${black38};
+    color: ${textDisabled};
     display: inline;
     flex: 1;
     white-space: pre;
@@ -80,12 +80,12 @@ const StyledAnnotationWrapper = styled.section`
 `;
 
 const StyledAnnotationMetadata = styled(Row)`
-  color: ${black54};
+  color: ${textSecondary};
   flex-flow: wrap row;
   font: ${caption};
 
   .annotation__card-author {
-    color: ${black87};
+    color: ${textPrimary};
     padding-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
   }
 `;
@@ -186,7 +186,7 @@ class Comment extends Component {
             <MenuItem>
               <a
                 href={`#annotation-${annotation.dbid}`}
-                style={{ textDecoration: 'none', color: black87 }}
+                style={{ textDecoration: 'none', color: textPrimary }}
               >
                 <FormattedMessage
                   id="annotation.permalink"
@@ -232,7 +232,7 @@ class Comment extends Component {
                 href={commentContent.file_path}
                 target="_blank"
                 rel="noreferrer noopener"
-                color={checkBlue}
+                color={brandMain}
                 className="annotation__card-file"
               >
                 {commentContent.file_name}
@@ -250,7 +250,7 @@ class Comment extends Component {
         <StyledAnnotationCardWrapper>
           <Box
             py={2}
-            borderBottom={`1px ${separationGray} solid`}
+            borderBottom={`1px ${grayBorderMain} solid`}
             className="annotation__card-text annotation__card-activity-comment"
           >
             { authorName ?

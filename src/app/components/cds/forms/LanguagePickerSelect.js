@@ -1,12 +1,10 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import LanguageIcon from '@material-ui/icons/Language';
-import { safelyParseJSON } from '../../helpers';
-import LanguageRegistry, { languageLabel } from '../../LanguageRegistry';
+import LanguageRegistry, { languageLabel } from '../../../LanguageRegistry';
 
 const messages = defineMessages({
   optionLabel: {
@@ -21,13 +19,12 @@ const messages = defineMessages({
 
 const LanguagePickerSelect = ({
   intl,
-  isDisabled,
-  selectedlanguage,
+  selectedLanguage,
   onSubmit,
-  team,
+  languages,
+  isDisabled,
 }) => {
-  const [value, setValue] = React.useState(selectedlanguage);
-  const languages = safelyParseJSON(team.get_languages) || [];
+  const [value, setValue] = React.useState(selectedLanguage);
   languages.unshift('und');
 
   // intl.formatMessage needed here because Autocomplete
@@ -50,7 +47,7 @@ const LanguagePickerSelect = ({
   };
 
   return (
-    <div id="language-change">
+    <div id="language-change" style={{ minWidth: '230px' }}>
       <Autocomplete
         disabled={isDisabled}
         disableClearable
@@ -69,14 +66,14 @@ const LanguagePickerSelect = ({
               <TextField
                 {...params}
                 name="language-name"
-                label={placeholder}
+                label=""
                 placeholder={placeholder}
                 variant="outlined"
                 InputProps={{
                   ...params.InputProps,
                   startAdornment: (
                     <React.Fragment>
-                      <LanguageIcon />
+                      <LanguageIcon fontSize="small" />
                       {params.InputProps.startAdornment}
                     </React.Fragment>
                   ),
@@ -91,18 +88,17 @@ const LanguagePickerSelect = ({
 };
 
 LanguagePickerSelect.defaultProps = {
+  languages: [],
   isDisabled: false,
+  selectedLanguage: 'und',
 };
 
 LanguagePickerSelect.propTypes = {
   intl: intlShape.isRequired,
-  isDisabled: PropTypes.bool,
-  selectedlanguage: PropTypes.string.isRequired,
+  selectedLanguage: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
-  team: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    get_languages: PropTypes.string.isRequired,
-  }).isRequired,
+  languages: PropTypes.arrayOf(PropTypes.string),
+  isDisabled: PropTypes.bool,
 };
 
 export default injectIntl(LanguagePickerSelect);
