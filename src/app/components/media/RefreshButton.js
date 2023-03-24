@@ -70,6 +70,7 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
       onClick={handleClick}
       style={{ color: waitRequest ? null : textPrimary }}
       size="small"
+      className="media-actions__refresh" // For integration test
     >
       <RefreshIcon fontSize="small" />
     </IconButton>
