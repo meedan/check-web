@@ -1,9 +1,5 @@
 [
   {
-    "id": "mediaActions.refresh",
-    "defaultMessage": "Refresh"
-  },
-  {
     "id": "mediaActions.assignOrUnassign",
     "defaultMessage": "Assign to…"
   },
