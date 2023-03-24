@@ -10,6 +10,7 @@ import {
   Instagram,
   Twitter,
   YouTube,
+  PlaylistAddCheck,
 } from '@material-ui/icons';
 
 export default function MediaTypeDisplayIcon({ mediaType }) {
@@ -34,7 +35,7 @@ export default function MediaTypeDisplayIcon({ mediaType }) {
   case 'Youtube':
     return <YouTube {...props} />;
   case 'Blank':
-    return null;
+    return <PlaylistAddCheck {...props} />;
   case '-':
   default:
     return null;

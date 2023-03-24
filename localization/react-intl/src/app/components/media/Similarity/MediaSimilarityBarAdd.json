@@ -35,6 +35,11 @@
     "defaultMessage": "Export media to another fact-check"
   },
   {
+    "id": "mediaSimilarityBarAdd.addToImportedReport",
+    "description": "Menu option for adding the current media to an imported fact-check",
+    "defaultMessage": "Add media to an imported fact-check"
+  },
+  {
     "id": "mediaSimilarityBarAdd.addAsSimilar",
     "description": "Button label to commit action of exporting media",
     "defaultMessage": "Export all media"
