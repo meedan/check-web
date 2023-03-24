@@ -24,7 +24,6 @@ class MediaActionsMenuButton extends React.PureComponent {
         url: PropTypes.string,
       }).isRequired,
     }).isRequired,
-    handleRefresh: PropTypes.func.isRequired,
     handleSendToTrash: PropTypes.func.isRequired,
     handleSendToSpam: PropTypes.func.isRequired,
     handleAssign: PropTypes.func.isRequired,
@@ -54,7 +53,6 @@ class MediaActionsMenuButton extends React.PureComponent {
     const {
       projectMedia,
       isParent,
-      handleRefresh,
       handleSendToTrash,
       handleSendToSpam,
       handleAssign,
@@ -64,24 +62,6 @@ class MediaActionsMenuButton extends React.PureComponent {
     const menuItems = [];
 
     if (isParent) {
-      if (can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived === CheckArchivedFlags.NONE) {
-        if (projectMedia.media.url) {
-          menuItems.push((
-            <MenuItem
-              key="mediaActions.refresh"
-              className="media-actions__refresh"
-              id="media-actions__refresh"
-              onClick={e => this.handleActionAndClose(e, handleRefresh)}
-            >
-              <ListItemText
-                primary={
-                  <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
-                }
-              />
-            </MenuItem>));
-        }
-      }
-
       if (can(projectMedia.permissions, 'update Status') && projectMedia.archived === CheckArchivedFlags.NONE) {
         menuItems.push((
           <MenuItem
