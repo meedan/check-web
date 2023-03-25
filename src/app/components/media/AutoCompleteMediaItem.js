@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import Checkbox from '@material-ui/core/Checkbox';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -34,6 +34,13 @@ const useStyles = makeStyles(theme => ({
   },
   selectedItem: {
     background: grayBackground,
+  },
+  link: {
+    textDecoration: 'none',
+    display: 'contents',
+  },
+  settingsButton: {
+    padding: 2,
   },
 }));
 
@@ -162,6 +169,7 @@ const AutoCompleteMediaItem = (props, context) => {
                     linked_items_count
                     report_status
                     is_confirmed_similar_to_another_item
+                    full_url
                     media {
                       type
                       url
@@ -279,7 +287,7 @@ const AutoCompleteMediaItem = (props, context) => {
   return (
     <Box display="flex" alignItems="center" className="autocomplete-media-item">
       <Box flexGrow="1" width={1}>
-        <Box display="flex" alignItems="center" flexGrow="1">
+        <Box display="flex" alignItems="flex-start" flexGrow="1">
           <TextField
             id="autocomplete-media-item"
             name="autocomplete-media-item"
@@ -303,6 +311,7 @@ const AutoCompleteMediaItem = (props, context) => {
           />
           { props.showFilters ?
             <IconButton
+              className={classes.settingsButton}
               onClick={handleSettingsButton}
             >
               <SettingsIcon />
@@ -342,55 +351,51 @@ const AutoCompleteMediaItem = (props, context) => {
                         </span>
                       </Tooltip> : null
                     }
-                    <SmallMediaCard
-                      customTitle={projectMedia.title}
-                      details={[
-                        (
+                    <Link to={projectMedia.full_url} className={classes.link}>
+                      <SmallMediaCard
+                        customTitle={projectMedia.title}
+                        details={[
+                          (
+                            <FormattedMessage
+                              id="autoCompleteMediaItem.lastSubmitted"
+                              defaultMessage="Last submitted {date}"
+                              description="Shows the last time a media was submitted"
+                              values={{
+                                date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
+                              }}
+                            />
+                          ),
                           <FormattedMessage
-                            id="autoCompleteMediaItem.lastSubmitted"
-                            defaultMessage="Last submitted {date}"
-                            description="Shows the last time a media was submitted"
-                            values={{
-                              date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                            }}
-                          />
-                        ),
-                        <FormattedMessage
-                          id="autoCompleteMediaItem.requestsCount"
-                          defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                          description="Header of requests list. Example: 26 requests"
-                          values={{ requestsCount: projectMedia.requests_count }}
-                        />,
-                      ]}
-                      media={projectMedia.media}
-                      description={projectMedia.description}
-                      className={selectedDbid === projectMedia.dbid ? classes.selectedItem : null}
-                      onClick={() => {
-                        if (!props.multiple) {
-                          handleSelectOne(projectMedia.dbid);
-                        }
-                      }}
-                    />
+                            id="autoCompleteMediaItem.requestsCount"
+                            defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
+                            description="Header of requests list. Example: 26 requests"
+                            values={{ requestsCount: projectMedia.requests_count }}
+                          />,
+                        ]}
+                        media={projectMedia.media}
+                        description={projectMedia.description}
+                        className={selectedDbid === projectMedia.dbid ? classes.selectedItem : null}
+                        onClick={(e) => {
+                          if (!props.multiple) {
+                            handleSelectOne(projectMedia.dbid);
+                          }
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }}
+                      />
+                    </Link>
                   </Box>
                 ))}
               </Box> : null }
           </Box> : null }
       </Box>
       { showFilters ?
-        <Box className={classes.searchSettingsBox}>
-          <Typography variant="subtitle1" className={classes.searchSettingsTitle}>
-            <FormattedMessage
-              id="autoCompleteMediaItem.searchSettings"
-              defaultMessage="Search settings"
-            />
-          </Typography>
-          <SearchKeywordContainer
-            anchorEl={anchorEl}
-            query={query}
-            onDismiss={handleCloseFilters}
-            onSubmit={handleChangeFilters}
-          />
-        </Box> : null }
+        <SearchKeywordContainer
+          anchorEl={anchorEl}
+          query={query}
+          onDismiss={handleCloseFilters}
+          onSubmit={handleChangeFilters}
+        /> : null }
     </Box>
   );
 };

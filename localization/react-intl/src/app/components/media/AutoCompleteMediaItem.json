@@ -33,9 +33,5 @@
     "id": "autoCompleteMediaItem.requestsCount",
     "description": "Header of requests list. Example: 26 requests",
     "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
-  },
-  {
-    "id": "autoCompleteMediaItem.searchSettings",
-    "defaultMessage": "Search settings"
   }
 ]
