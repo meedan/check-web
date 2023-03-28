@@ -142,7 +142,7 @@ shared_examples 'team' do
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(true)
     # be able to change the status of a media the user is not own
     wait_for_selector('.medias__item').click
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
     api_logout
 

@@ -7,10 +7,10 @@ import {
 } from '@material-ui/core';
 import ImportDialog from './ImportDialog';
 import FeedRequestedMediaDialog from './FeedRequestedMediaDialog'; // eslint-disable-line no-unused-vars
-import MediaCardCondensed from './MediaCardCondensed';
-import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
+import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 
 const FeedRequestedMedia = ({ request }) => {
+  const [expandedMedia, setExpandedMedia] = React.useState(null);
   const [selectedMediaIds, setSelectedMediaIds] = React.useState([]);
   const [importMediaId, setImportMediaId] = React.useState(null);
 
@@ -20,6 +20,11 @@ const FeedRequestedMedia = ({ request }) => {
       importButton?.click();
     }
   });
+
+  const handleClose = (e) => {
+    setExpandedMedia(null);
+    e.stopPropagation();
+  };
 
   const handleSelectAllCheckbox = () => {
     setImportMediaId(null);
@@ -45,6 +50,12 @@ const FeedRequestedMedia = ({ request }) => {
   const handleImportClickFromChild = (mediaId) => {
     setImportMediaId(mediaId);
     setSelectedMediaIds([mediaId]);
+  };
+
+  const handleImport = (e) => {
+    setExpandedMedia(null);
+    handleImportClickFromChild(expandedMedia.dbid);
+    e.stopPropagation();
   };
 
   return (
@@ -74,11 +85,10 @@ const FeedRequestedMedia = ({ request }) => {
               checked={selectedMediaIds.includes(m.node.dbid)}
               onChange={e => handleMediaCheckbox(e, m.node.dbid, index)}
             />
-            { /* FIXME: Find the optimal way of passing props to MediaCardCondensed for the sake of reusability  */ }
-            <MediaCardCondensed
-              title={m.node.quote || `${request.request_type}-${request.feed.name.replace(' ', '-')}-${m.node.dbid}`}
+            { /* FIXME: Find the optimal way of passing props to SmallMediaCard for the sake of reusability (details?) */ }
+            <SmallMediaCard
+              customTitle={m.node.quote || `${request.request_type}-${request.feed.name.replace(' ', '-')}-${m.node.dbid}`}
               details={[
-                <MediaTypeDisplayName mediaType={m.node.type} />,
                 (<FormattedMessage
                   id="feedRequestedMedia.lastSubmitted"
                   defaultMessage="Last submitted {date}"
@@ -96,12 +106,21 @@ const FeedRequestedMedia = ({ request }) => {
                 />),
               ]}
               media={m.node}
-              request={request}
-              onImport={handleImportClickFromChild}
+              onClick={() => { setExpandedMedia(m.node); }}
             />
           </Box>
         )) }
       </div>
+      { expandedMedia ?
+        <FeedRequestedMediaDialog
+          open={Boolean(expandedMedia)}
+          media={expandedMedia}
+          request={request}
+          onClose={handleClose}
+          onImport={handleImport}
+        />
+        : null
+      }
     </React.Fragment>
   );
 };
@@ -120,9 +139,8 @@ export default createFragmentContainer(FeedRequestedMedia, graphql`
       edges {
         node {
           dbid
-          type
-          quote
-          ...MediaCardCondensed_media
+          ...SmallMediaCard_media
+          ...FeedRequestedMediaDialog_media
         }
       }
     }

@@ -62,7 +62,7 @@ const AnnotationFilterNumber = ({
   return (
     <Box display="flex" alignItems="center">
       <Box px={1}>
-        <Typography component="span" variant="body2">
+        <Typography component="span" variant="body1">
           <FormattedMessage id="numericRangeFilter.between" defaultMessage="between" />
         </Typography>
       </Box>
@@ -82,7 +82,7 @@ const AnnotationFilterNumber = ({
         )}
       </FormattedMessage>
       <Box px={1}>
-        <Typography component="span" variant="body2">
+        <Typography component="span" variant="body1">
           <FormattedMessage id="numericRangeFilter.and" defaultMessage="and" />
         </Typography>
       </Box>

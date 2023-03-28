@@ -48,7 +48,7 @@ function UserConfirmPage({ params }) {
 
   return (
     <ErrorBoundary component="UserConfirmPage">
-      <Typography component="div" variant="body2" gutterBottom>
+      <Typography component="div" variant="body1" gutterBottom>
         <PageTitle>
           <Box m={2} align="center">
             <FormattedHTMLMessage {...globalStrings.bestViewed} />

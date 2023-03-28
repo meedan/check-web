@@ -22,8 +22,7 @@ import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import { placeholders } from './localizables';
 import { textDisabled, textPlaceholder, grayBackground, textPrimary, errorMain } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
-import WarningAlert from '../../cds/alerts-and-prompts/WarningAlert';
-import SuccessAlert from '../../cds/alerts-and-prompts/SuccessAlert';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -129,6 +128,7 @@ const SmoochBotNewsletterEditor = ({
   const bulletPoints = body.split(/\n+/);
   const [numberOfBulletPoints, setNumberOfBulletPoints] = React.useState(bulletPoints.length || 1);
   const [introduction, setIntroduction] = React.useState(newsletter.smooch_newsletter_introduction);
+  const [showAlert, setShowAlert] = React.useState(true);
 
   const maxCharacters = 1024;
   let charactersCount = 0;
@@ -209,20 +209,23 @@ const SmoochBotNewsletterEditor = ({
   return (
     <React.Fragment>
       <Box>
-        { newsletterInformation ?
+        { newsletterInformation && showAlert ?
           <Box mb={1}>
-            <Typography component="div" variant="body2">
+            <Typography component="div" variant="body1">
               { newsletterInformation.paused ?
-                <WarningAlert
-                  title={
+                <Alert
+                  type="warning"
+                  content={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.paused"
                       defaultMessage="To send your next newsletter, please add new content"
                     />
                   }
                 /> :
-                <SuccessAlert
-                  title={
+                <Alert
+                  type="success"
+                  onClose={() => setShowAlert(false)}
+                  content={
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.active"
                       defaultMessage="The newsletter will be sent to {count} users on {dateTime}"
@@ -237,7 +240,7 @@ const SmoochBotNewsletterEditor = ({
             </Typography>
           </Box> :
           <Box p={1} mt={1} mb={2} className={classes.none}>
-            <Typography component="div" variant="body2">
+            <Typography component="div" variant="body1">
               <FormattedMessage
                 id="smoochBotNewsletterEditor.none"
                 defaultMessage="Please complete the steps below to send a weekly newsletter"
@@ -261,7 +264,7 @@ const SmoochBotNewsletterEditor = ({
           onChange={(event) => { onChange('smooch_newsletter_day', event.target.value); }}
           startAdornment={
             <InputAdornment position="start">
-              <EventIcon />
+              <EventIcon fontSize="small" />
             </InputAdornment>
           }
         >
@@ -289,7 +292,7 @@ const SmoochBotNewsletterEditor = ({
           onChange={(event) => { onChange('smooch_newsletter_time', event.target.value); }}
           startAdornment={
             <InputAdornment position="start">
-              <ScheduleIcon />
+              <ScheduleIcon fontSize="small" />
             </InputAdornment>
           }
         >
@@ -447,7 +450,7 @@ const SmoochBotNewsletterEditor = ({
               fullWidth
             />
 
-            <Button variant="contained" color="primary" onClick={handleLoad} disabled={loading || !newsletter.smooch_newsletter_feed_url}>
+            <Button variant="contained" color="primary" onClick={handleLoad} size="small" disabled={loading || !newsletter.smooch_newsletter_feed_url}>
               <FormattedMessage
                 id="smoochBotNewsletterEditor.load"
                 defaultMessage="Load"

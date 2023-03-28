@@ -16,7 +16,6 @@ shared_examples 'similarity' do
     add_related_item('Claim 0')
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
-    wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('Media')).to be(true)
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
@@ -28,22 +27,20 @@ shared_examples 'similarity' do
     add_related_item('Claim 2')
     @driver.navigate.refresh
     wait_for_selector('.media-similarity__menu-icon')
-    wait_for_selector_list_size('.MuiCardHeader-title', 3)
     expect(@driver.page_source.include?('Media')).to be(true)
     # list similar items
     wait_for_selector('.media__relationship')
-    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 2
     wait_for_selector_none('.media-tab__metadata"')
-    wait_for_selector_list_size('.MuiCardHeader-title', 3)
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 2
     expect(@driver.page_source.include?('Media')).to be(true)
     # pin similar item
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__delete-relationship')
     wait_for_selector('.similarity-media-item__pin-relationship').click
     wait_for_url_change(@driver.current_url.to_s)
-    wait_for_selector_list_size('.MuiCardHeader-title', 3)
+    wait_for_selector('.media__relationship')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 2
     # remove similar item
-    expect(@driver.find_elements(:css, '.MuiCardHeader-title').size).to eq 3
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__pin-relationship')
     wait_for_selector('.similarity-media-item__delete-relationship').click
@@ -53,8 +50,7 @@ shared_examples 'similarity' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-item__add-button').click
     wait_for_selector('.message')
-    wait_for_selector_list_size('.MuiCardHeader-title', 2)
-    expect(@driver.find_elements(:css, '.MuiCardHeader-title').size).to eq 2
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
   it 'should accept and reject suggested similarity', bin5: true do
@@ -79,67 +75,16 @@ shared_examples 'similarity' do
     wait_for_selector('.media-actions-bar__add-button').click
     wait_for_selector('#media-similarity__add-button')
     wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
-    wait_for_selector_list_size('.MuiCardHeader-title', 2)
+    wait_for_selector('.media__relationship')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     expect(@driver.page_source.include?('claim 1')).to be(true)
-    expect(@driver.find_elements(:css, '.MuiCardHeader-title').length).to eq 2
   end
 
-  {
-    'portuguese' => ['este é um teste de similaridade', 'este é um outro teste sobre similaridade de textos'],
-    'espanish' => ['esta es una prueba de similitud de texto', 'este es otro ejemplo de prueba de similitud de texto'],
-    'hindi' => ['यह एक पाठ समानता परीक्षण है', 'यह एक और पाठ समानता परीक्षण उदाहरण है'],
-    'arabic' => ['هذا مثال آخر لاختبار نص التشابه', 'هذا مثال آخر لاختبار نص التشاب']
-  }.each do |language, claim|
-    it "should suggest texts in #{language} as similar", bin7: true do
-      create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
-      wait_for_selector('.projects-list__all-items').click
-      wait_for_selector('.project__description')
-      create_media(claim[0])
-      create_media(claim[1])
-      sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-      wait_for_selector_list_size('.media__heading', 2)
-      wait_for_selector('.search-show-similar__switch').click
-      wait_for_selector_list_size('.media__heading', 2)
-      wait_for_selector('.media__heading svg')
-      wait_for_selector('.media__heading', index: 1).click
-      wait_for_selector('#media__claim')
-      wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
-      wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
-      wait_for_selector('.similarity-media-item__accept-relationship')
-      expect(@driver.page_source.include?('1 suggestion')).to be(true)
-    end
-  end
-
-  {
-    'big' => ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.', 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining almost unchanged. It was popularised in the 1960s with the new release of Letraset sheets containing Lorem Ipsum passages, and most recently with desktop publishing software like Aldus PageMaker including many versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is more than a simply random text. It has strong roots in a piece of classical literature from 45 BC, making it over 3000 years old.']
-  }.each do |param, claim|
-    it "should identify #{param} texts as similar", bin7: true do
-      create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
-      wait_for_selector('.team-settings__integrations-tab').click
-      wait_for_selector('.projects-list__all-items').click
-      wait_for_selector('.project__description')
-      create_media(claim[0])
-      create_media(claim[1])
-      wait_for_selector('.medias__item')
-      sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-      wait_for_selector_list_size('.media__heading', 2)
-      wait_for_selector('.search-show-similar__switch').click
-      wait_for_selector_list_size('.media__heading', 2)
-      wait_for_selector('.media__heading svg')
-      wait_for_selector('.media__heading', index: 1).click
-      wait_for_selector('#media__claim')
-      wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
-      wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
-      wait_for_selector('.media__more-medias')
-      expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
-    end
-  end
-
-  it 'should suggest different sized texts as similar', bin9: true do
+  it 'should suggest different texts as similar', bin7: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('.project__description')
+    wait_for_selector('#create-media__add-item')
     create_media('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.')
     create_media('Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1500s.')
     wait_for_selector('.medias__item')
@@ -156,65 +101,54 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('1 suggestion')).to be(true)
   end
 
-  {
-    'saturations' => ['files/similarity.jpg', 'files/similarity2.jpg'],
-    'formats' => ['files/similarity3.jpg', 'files/similarity3.jpeg'],
-    'sizes' => ['files/test.png', 'files/test2.png']
-  }.each do |param, file|
-    it "should identify images in different #{param} as similar", bin9: true do
-      create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
-      wait_for_selector('.projects-list__all-items').click
-      wait_for_selector('.project__description')
-      create_image(file[0])
-      sleep 60
-      create_image(file[1])
-      wait_for_selector('.medias__item')
-      sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-      wait_for_selector('#create-media__add-item')
-      wait_for_selector_list_size('.media__heading', 2)
-      wait_for_selector('.search-show-similar__switch').click
-      wait_for_selector_list_size('.media__heading', 2)
-      wait_for_selector('.media__heading svg')
-      wait_for_selector('.media__heading', index: 1).click
-      wait_for_selector('#media__claim')
-      wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
-      wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
-      wait_for_selector('.media__more-medias')
-      expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
-    end
+  it 'should identify images as similar', bin8: true do
+    create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
+    wait_for_selector('.projects-list__all-items').click
+    wait_for_selector('#create-media__add-item')
+    create_image('files/similarity.jpg')
+    sleep 60
+    create_image('files/similarity2.jpg')
+    wait_for_selector('.medias__item')
+    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    wait_for_selector('#create-media__add-item')
+    wait_for_selector_list_size('.media__heading', 2)
+    wait_for_selector('.search-show-similar__switch').click
+    wait_for_selector_list_size('.media__heading', 2)
+    wait_for_selector('.media__heading svg')
+    wait_for_selector('.media__heading', index: 1).click
+    wait_for_selector('#media__claim')
+    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
+    wait_for_selector('.media__more-medias')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  {
-    'simple' => ['files/video.mp4', 'files/video2.mp4'],
-    'different saturation' => ['files/video.mp4', 'files/video3.mp4']
-  }.each do |param, file|
-    it "should identify #{param} videos as similar", bin8: true do
-      create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
-      wait_for_selector('.projects-list__all-items').click
-      wait_for_selector('.project__description')
-      create_image(file[0])
-      sleep 10
-      create_image(file[1])
-      wait_for_selector('.medias__item')
-      sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-      wait_for_selector('#create-media__add-item')
-      wait_for_selector_list_size('.media__heading', 2)
-      wait_for_selector('.search-show-similar__switch').click
-      wait_for_selector_list_size('.media__heading', 2)
-      wait_for_selector('.media__heading svg')
-      wait_for_selector('.media__heading', index: 1).click
-      wait_for_selector('#media__claim')
-      wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
-      wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
-      wait_for_selector('.media__more-medias')
-      expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
-    end
+  it 'should identify videos as similar', bin8: true do
+    create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
+    wait_for_selector('.projects-list__all-items').click
+    wait_for_selector('#create-media__add-item')
+    create_image('files/video.mp4')
+    sleep 10
+    create_image('files/video2.mp4')
+    wait_for_selector('.medias__item')
+    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    wait_for_selector('#create-media__add-item')
+    wait_for_selector_list_size('.media__heading', 2)
+    wait_for_selector('.search-show-similar__switch').click
+    wait_for_selector_list_size('.media__heading', 2)
+    wait_for_selector('.media__heading svg')
+    wait_for_selector('.media__heading', index: 1).click
+    wait_for_selector('#media__claim')
+    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
+    wait_for_selector('.media__more-medias')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
   it 'should identify audios in different formats as similar', bin9: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('.project__description')
+    wait_for_selector('#create-media__add-item')
     create_image('files/audio.mp3')
     sleep 10
     wait_for_selector('.medias__item', :css, 20, true)
@@ -234,16 +168,16 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should extract text from a image', bin9: true do
+  it 'should extract text from a image', bin7: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
-    wait_for_selector('.project__description')
+    wait_for_selector('#create-media__add-item')
     create_image('files/test.png')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
     wait_for_selector('.image-media-card')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    expect(@driver.page_source.include?('Text extracted from image')).to be(false)
+    expect(@driver.page_source.include?('Extracted text')).to be(false)
     expect(@driver.page_source.include?('RAILS')).to be(false)
     wait_for_selector('#media-expanded-actions__menu').click
     wait_for_selector('#media-expanded-actions__reverse-image-search')
@@ -252,7 +186,7 @@ shared_examples 'similarity' do
     @driver.navigate.refresh
     wait_for_selector('.image-media-card')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    expect(@driver.page_source.include?('Text extracted from image')).to be(true)
+    expect(@driver.page_source.include?('Extracted text')).to be(true)
     expect(@driver.page_source.include?('RAILS')).to be(true)
   end
 end

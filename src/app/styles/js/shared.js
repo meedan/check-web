@@ -35,6 +35,8 @@ export const grayDisabledBackground = '#efefef';
 export const grayBorderMain = '#e4e4e4';
 export const grayBorderAccent = '#b4b4b4';
 
+export const overlayLight = 'rgba(34, 34, 34, 0.7)';
+
 export const otherWhite = '#fff';
 
 // Social network colors
@@ -130,6 +132,7 @@ export const MuiTheme = {
     },
   },
   typography: {
+    fontSize: 14,
     h1: {
       fontSize: '96px',
       fontWeight: 300,
@@ -168,25 +171,25 @@ export const MuiTheme = {
       lineHeight: '32px',
     },
     subtitle1: {
-      fontSize: '16px',
+      fontSize: '14px',
       fontWeight: 400,
       letterSpacing: '0.15px',
-      lineHeight: '28px',
+      lineHeight: '21px',
     },
     subtitle2: {
-      fontSize: '15px',
+      fontSize: '14px',
       fontWeight: 500,
       letterSpacing: '0.1px',
-      lineHeight: '24px',
+      lineHeight: '21px',
     },
     body1: {
-      fontSize: '16px',
+      fontSize: '14px',
       fontWeight: 400,
       letterSpacing: '0.15px',
       lineHeight: '20px',
     },
     body2: {
-      fontSize: '14px',
+      fontSize: '12px',
       fontWeight: 400,
       letterSpacing: '0.15px',
       lineHeight: '17px',
@@ -196,7 +199,7 @@ export const MuiTheme = {
       fontSize: '14px',
       fontWeight: 500,
       letterSpacing: '0.4px',
-      lineHeight: '24px',
+      lineHeight: '21px',
       textTransform: 'none',
     },
     caption: {
@@ -219,12 +222,20 @@ export const MuiTheme = {
     },
   },
   overrides: { // Override of all material UI components. Information at https://material-ui.com/api/{component}
+    MuiTableContainer: {
+      root: {
+        borderTop: `solid 1px ${grayBorderMain}`,
+      },
+    },
     MuiTableCell: {
       stickyHeader: {
         // @material-ui/core sets #fafafa, only for sticky header. Undo that.
         // We do need a color, though -- if we choose "transparent" the tbody
         // will show through.
         backgroundColor: otherWhite,
+      },
+      root: {
+        fontSize: 14,
       },
     },
     MuiTableSortLabel: {
@@ -278,11 +289,73 @@ export const MuiTheme = {
     MuiOutlinedInput: {
       root: {
         borderRadius: 8,
+        '&:hover $notchedOutline': {
+          borderColor: grayBorderAccent,
+        },
+        '&$focused $notchedOutline': {
+          borderColor: brandMain,
+        },
+        '&.Mui-disabled $notchedOutline': {
+          borderColor: grayBorderMain,
+        },
+      },
+      notchedOutline: {
+        borderWidth: 2,
+        borderColor: grayBorderMain,
+      },
+      multiline: {
+        padding: '6px 8px',
+      },
+      input: {
+        padding: '6px 8px',
       },
     },
     MuiFormControl: {
       root: {
         borderRadius: 8,
+      },
+    },
+    MuiInputLabel: {
+      outlined: {
+        transform: 'translate(6px, 9px) scale(1)',
+      },
+    },
+    MuiInputBase: {
+      input: {
+        color: textPrimary,
+        '&.Mui-disabled': {
+          color: textDisabled,
+        },
+        '&::placeholder': {
+          color: textPlaceholder,
+          opacity: 1,
+        },
+      },
+      inputMultiline: {
+        lineHeight: '1.5em',
+      },
+      root: {
+        '&.Mui-disabled': {
+          background: grayDisabledBackground,
+        },
+      },
+    },
+    MuiFormLabel: {
+      root: {
+        color: textSecondary,
+        '&.Mui-focused': {
+          color: textSecondary,
+        },
+      },
+    },
+    MuiAutocomplete: {
+      inputRoot: {
+        '&[class*="MuiOutlinedInput-root"]': {
+          padding: '0 6px',
+        },
+        '&[class*="MuiOutlinedInput-root"] $input': {
+          padding: '8px 6px !important', // This !important shouldn't be necessary, but for some reason the exact same selector was not taking precedence over the lib one
+        },
       },
     },
   },

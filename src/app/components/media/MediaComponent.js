@@ -3,19 +3,21 @@ import React, { Component } from 'react';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import styled from 'styled-components';
-import qs from 'qs';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
-import MediaDetail from './MediaDetail';
+import MediaCardLarge from './MediaCardLarge';
 import MediaSidebar from './MediaSidebar';
 import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
 import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
+import MediaSlug from './MediaSlug';
+import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
+import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
-
 import {
   units,
   brandBorder,
@@ -73,26 +75,8 @@ const AnalysisColumn = styled.div`
 `;
 
 class MediaComponent extends Component {
-  static scrollToAnnotation() {
-    if (window.location.hash !== '') {
-      const id = window.location.hash.replace(/^#/, '');
-      const element = document.getElementById(id);
-      if (element && element.scrollIntoView !== undefined) {
-        element.scrollIntoView();
-      }
-    }
-  }
-
   constructor(props) {
     super(props);
-
-    // https://www.w3.org/TR/media-frags/
-    const { t: temporalInterval = '' } = qs.parse(document.location.hash.substring(1));
-    const [start, end] = temporalInterval.split(',').map(s => parseFloat(s));
-
-    const gaps = [];
-    if (start) gaps.push([0, start]);
-    if (end) gaps.push([end, Number.MAX_VALUE]);
 
     const { team_bots: teamBots } = this.props.projectMedia.team;
     const enabledBots = teamBots.edges.map(b => b.node.login);
@@ -106,25 +90,14 @@ class MediaComponent extends Component {
     }
 
     this.state = {
-      playerState: {
-        start,
-        end,
-        gaps,
-        playing: false,
-      },
       showTab: initialTab,
+      openMediaDialog: false,
     };
-
-    this.playerRef = React.createRef();
   }
 
   componentDidMount() {
-    // this.setCurrentContext();
-    MediaComponent.scrollToAnnotation();
     this.subscribe();
-    window.addEventListener('resize', this.updatePlayerRect);
-    window.addEventListener('scroll', this.updatePlayerRect);
-    this.setPlayerRect();
+
     if (!this.props.projectMedia.read_by_me) {
       commitMutation(Store, {
         mutation: graphql`
@@ -148,38 +121,6 @@ class MediaComponent extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const oldState = JSON.parse(JSON.stringify(this.state));
-    const newState = JSON.parse(JSON.stringify(nextState));
-    if (oldState.playerState) {
-      delete oldState.playerState;
-    }
-    if (newState.playerState) {
-      delete newState.playerState;
-    }
-    return JSON.stringify(newState) !== JSON.stringify(oldState) ||
-    JSON.stringify(this.props) !== JSON.stringify(nextProps);
-  }
-
-  // componentWillUpdate(nextProps) {
-  //   if (this.props.projectMedia.dbid !== nextProps.media.dbid) {
-  //     this.unsubscribe();
-  //   }
-  // }
-
-  // componentDidUpdate(prevProps) {
-  //   this.setCurrentContext();
-  //   MediaComponent.scrollToAnnotation();
-  //   if (this.props.projectMedia.dbid !== prevProps.media.dbid) {
-  //     this.subscribe();
-  //   }
-  // }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updatePlayerRect);
-    window.removeEventListener('scroll', this.updatePlayerRect);
-    // this.unsubscribe();
-  }
 
   setCurrentContext() {
     if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+/.test(window.location.pathname)) {
@@ -190,22 +131,8 @@ class MediaComponent extends Component {
     }
   }
 
-  setPlayerRect = () => {
-    // update player rect used to anchor video annotation drawer
-    if (this.playerRef && this.playerRef.current) {
-      this.setState({ playerRect: this.playerRef.current.getBoundingClientRect() });
-    }
-  }
-
   getContext() {
     return new CheckContext(this).getContextStore();
-  }
-
-  setPlayerState = payload =>
-    this.setState({ playerState: { ...this.state.playerState, ...payload } });
-
-  updatePlayerRect = () => {
-    this.setPlayerRect();
   }
 
   subscribe() {
@@ -259,21 +186,16 @@ class MediaComponent extends Component {
 
     const { projectMedia, view } = this.props;
 
-    const {
-      playerState: {
-        start,
-        end,
-        gaps,
-        playing,
-        scrubTo,
-        seekTo,
-      },
-    } = this.state;
-
     const setShowTab = value => this.setState({ showTab: value });
 
     const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
     const isSuggestedOrSimilar = (projectMedia.is_suggested || projectMedia.is_confirmed_similar_to_another_item);
+
+    const currentTeam = this.getContext().team || this.getContext().currentUser.current_team;
+    const currentUserRole = UserUtil.myRole(
+      this.getContext().currentUser,
+      currentTeam.slug,
+    );
 
     return (
       <div>
@@ -286,17 +208,49 @@ class MediaComponent extends Component {
             <React.Fragment>
               <Column className="media__column">
                 { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
-                <MediaDetail
-                  hideBorder
-                  hideRelated
-                  media={projectMedia}
-                  onPlayerReady={this.setPlayerRect}
-                  onReady={this.handleMediaDetailReady}
-                  playerRef={this.playerRef}
-                  setPlayerState={this.setPlayerState}
-                  {...{
-                    playing, start, end, gaps, seekTo, scrubTo,
-                  }}
+                { this.state.openMediaDialog ?
+                  <MediaAndRequestsDialogComponent
+                    projectMediaId={projectMedia.dbid}
+                    mediaSlug={
+                      <MediaSlug
+                        mediaType={projectMedia.type}
+                        slug={projectMedia.title}
+                        details={[(
+                          <FormattedMessage
+                            id="mediaComponent.lastSeen"
+                            defaultMessage="Last submitted on {date}"
+                            description="Header for the date when the media item was last received by the workspace"
+                            values={{
+                              date: (
+                                <FormattedDate
+                                  value={projectMedia.last_seen * 1000}
+                                  year="numeric"
+                                  month="short"
+                                  day="numeric"
+                                />
+                              ),
+                            }}
+                          />
+                        ), (
+                          <FormattedMessage
+                            id="mediaComponent.requests"
+                            defaultMessage="{count, plural, one {# request} other {# requests}}"
+                            description="Number of times a request has been sent about this media"
+                            values={{
+                              count: projectMedia.requests_count,
+                            }}
+                          />
+                        )]}
+                      />
+                    }
+                    onClick={e => e.stopPropagation()}
+                    onClose={() => this.setState({ openMediaDialog: false })}
+                  />
+                  : null }
+                <MediaCardLarge
+                  projectMedia={projectMedia}
+                  currentUserRole={currentUserRole}
+                  onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
                 { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} /> }
               </Column>
@@ -330,14 +284,17 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     ...MediaAnalysis_projectMedia
     ...MediaTags_projectMedia
     ...MediaSimilaritiesComponent_projectMedia
+    ...MediaCardLarge_projectMedia
     id
     dbid
     title
+    type
     read_by_someone: is_read
     read_by_me: is_read(by_me: true)
     permissions
     pusher_channel
     project_id
+    last_seen
     requests_count
     picture
     show_warning_cover
@@ -415,6 +372,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
       url
       quote
       embed_path
+      file_path
       metadata
       type
       picture
@@ -458,17 +416,6 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
                 }
               }
             }
-          }
-        }
-      }
-    }
-    clips: annotations(first: 10000, annotation_type: "clip") {
-      edges {
-        node {
-          ... on Dynamic {
-            id
-            data
-            parsed_fragment
           }
         }
       }

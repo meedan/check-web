@@ -4,8 +4,6 @@ import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const OcrButton = ({
@@ -83,9 +81,6 @@ const OcrButton = ({
       onClick={handleClick}
       disabled={pending}
     >
-      <ListItemIcon>
-        <DescriptionOutlinedIcon />
-      </ListItemIcon>
       { pending ?
         <FormattedMessage
           id="ocrButton.inProgress"
@@ -94,7 +89,7 @@ const OcrButton = ({
         /> :
         <FormattedMessage
           id="ocrButton.label"
-          defaultMessage="Image text extraction"
+          defaultMessage="Extract text"
           description="Button label - when this button is clicked, text is extracted from image"
         /> }
     </MenuItem>

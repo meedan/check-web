@@ -1,9 +1,5 @@
 [
   {
-    "id": "autoCompleteMediaItem.searchItem",
-    "defaultMessage": "Search"
-  },
-  {
     "id": "autoCompleteMediaItem.searching",
     "defaultMessage": "Searching…"
   },
@@ -20,11 +16,22 @@
     "defaultMessage": "{count, plural, one {# result} other {# results}}"
   },
   {
+    "id": "autoCompleteMediaItem.type",
+    "description": "Helper text displayed next to search field to look for items to be imported",
+    "defaultMessage": "Type above to search"
+  },
+  {
     "id": "autoCompleteMediaItem.cantSelectPublished",
     "defaultMessage": "Media cannot be imported from items that have their report published"
   },
   {
-    "id": "autoCompleteMediaItem.searchSettings",
-    "defaultMessage": "Search settings"
+    "id": "autoCompleteMediaItem.lastSubmitted",
+    "description": "Shows the last time a media was submitted",
+    "defaultMessage": "Last submitted {date}"
+  },
+  {
+    "id": "autoCompleteMediaItem.requestsCount",
+    "description": "Header of requests list. Example: 26 requests",
+    "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
   }
 ]

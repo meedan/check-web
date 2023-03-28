@@ -1,0 +1,32 @@
+[
+  {
+    "id": "mediaCardLargeFooter.extractedText",
+    "description": "Header for the OCR extracted text content of an image",
+    "defaultMessage": "Extracted text"
+  },
+  {
+    "id": "mediaExpanded.transcriptionInProgress",
+    "description": "Label when transcription is in progress",
+    "defaultMessage": "Audio transcription in progress…"
+  },
+  {
+    "id": "mediaCardLargeFooter.transcription",
+    "description": "Header for the transcription content of an audio or video",
+    "defaultMessage": "Transcription"
+  },
+  {
+    "id": "mediaCardLarge.lastSeen",
+    "description": "Header for the date when the media item was last received by the workspace",
+    "defaultMessage": "Last submitted on {date}"
+  },
+  {
+    "id": "mediaCardLarge.requests",
+    "description": "Number of times a request has been sent about this media",
+    "defaultMessage": "{count, plural, one {# request} other {# requests}}"
+  },
+  {
+    "id": "mediaCardLarge.publishedOn",
+    "description": "Publication date and time of a web article",
+    "defaultMessage": "Published on {date}"
+  }
+]

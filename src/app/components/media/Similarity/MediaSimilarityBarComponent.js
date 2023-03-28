@@ -14,8 +14,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     margin: theme.spacing(-2),
-    marginBottom: theme.spacing(2),
-    borderBottom: `1px solid ${brandBorder}`,
+    marginBottom: 0,
     borderTop: `1px solid ${brandBorder}`,
     position: 'sticky',
     top: theme.spacing(-2),
@@ -69,14 +68,7 @@ const MediaSimilarityBarComponent = ({
               description="Plural. Heading for the number of media"
             />
           }
-          onClick={() => {
-            document.getElementById('matched-media').scrollIntoView({ behavior: 'smooth' });
-            const overlayElement = document.getElementById('matched-overlay');
-            overlayElement.classList.remove(classes.animation);
-            // eslint-disable-next-line
-            overlayElement.offsetWidth; // accessing this getter triggers a reflow of the elment to reset animation
-            overlayElement.classList.add(classes.animation);
-          }}
+          onClick={null}
         />
         <CounterButton
           className="similarity-bar__suggestions-count"

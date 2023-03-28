@@ -109,7 +109,7 @@ const TiplineContentTranslation = ({
       <Typography variant="body1" className={classes.title}>
         {title}
       </Typography>
-      <Typography variant="body2" className={classes.description}>
+      <Typography variant="body1" className={classes.description}>
         {description}
       </Typography>
 

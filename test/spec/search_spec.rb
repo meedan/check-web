@@ -173,7 +173,7 @@ shared_examples 'search' do
   it 'should search for reverse images', bin2: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
-    wait_for_selector('.project__description')
+    wait_for_selector('#create-media__add-item')
     create_image('files/test.png')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
@@ -190,7 +190,7 @@ shared_examples 'search' do
 
   it 'should find all medias with an empty search', bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-detail')
+    wait_for_selector('.media-card-large')
     wait_for_selector('.project-header__back-button').click
     create_image('files/test.png')
     old = wait_for_selector_list('.medias__item').length

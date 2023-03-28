@@ -1,9 +1,10 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
 import MediaRelationship from './MediaRelationship';
-import MediaItem from './MediaItem'; // eslint-disable-line no-unused-vars
+import SmallMediaCard from '../../cds/media-cards/SmallMediaCard'; // eslint-disable-line no-unused-vars
 import { can } from '../../Can';
 import { brandLight } from '../../../styles/js/shared';
 
@@ -89,8 +90,24 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
           source_id
           target_id
           target {
+            id
+            dbid
+            title
+            description
+            picture
+            type
+            last_seen
             requests_count
-            ...MediaItem_projectMedia
+            linked_items_count
+            report_status
+            added_as_similar_by_name
+            confirmed_as_similar_by_name
+            is_confirmed_similar_to_another_item
+            url
+            quote
+            media {
+              ...SmallMediaCard_media
+            }
           }
         }
       }

@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import ViewModeShorter from '../../icons/ViewModeShorter';
 import ViewModeLonger from '../../icons/ViewModeLonger';
-import { units } from '../../styles/js/shared';
+import { units, textPlaceholder, textSecondary } from '../../styles/js/shared';
 
 const Styled = styled.div`
   .toolbar_view-mode {
@@ -15,11 +15,11 @@ const Styled = styled.div`
   }
 
   .view-mode-switcher__view-mode-active {
-    fill: #4F4F4F;
+    fill: ${textSecondary};
   }
 
   .view-mode-switcher__view-mode-inactive {
-    fill: #D5D5D5;
+    fill: ${textPlaceholder};
   }
 
   .view-mode-switcher__button {

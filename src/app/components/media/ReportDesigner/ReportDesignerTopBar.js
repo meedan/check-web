@@ -15,7 +15,7 @@ import IconPause from '@material-ui/icons/Pause';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import MediaStatus from '../MediaStatus';
-import { validationMain, alertMain, brandSecondary, brandMain, otherWhite } from '../../../styles/js/shared';
+import { validationMain, alertMain, brandBackground, brandMain, brandBorder, otherWhite } from '../../../styles/js/shared';
 import { getStatus } from '../../../helpers';
 import { languageLabel } from '../../../LanguageRegistry';
 
@@ -32,7 +32,8 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   reportHeader: {
-    backgroundColor: brandSecondary,
+    backgroundColor: brandBackground,
+    borderBottom: `1px solid ${brandBorder}`,
   },
   cell: {
     marginRight: theme.spacing(2),
@@ -154,7 +155,7 @@ const ReportDesignerTopBar = (props) => {
   return (
     <Toolbar className={classes.reportHeader}>
       <Box display="flex" justifyContent="space-between" width="1">
-        <Box>
+        <Box display="flex" alignItems="center">
           <Button startIcon={<IconArrowBack />} onClick={handleGoBack}>
             <FormattedMessage
               id="reportDesigner.back"
@@ -173,7 +174,7 @@ const ReportDesignerTopBar = (props) => {
                   description="Header for first publication date of report"
                 />
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body1">
                 {firstSent || '-'}
               </Typography>
             </Box>
@@ -185,7 +186,7 @@ const ReportDesignerTopBar = (props) => {
                   description="Header for last publication date of report"
                 />
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body1">
                 {lastSent || firstSent || '-'}
               </Typography>
             </Box>
@@ -197,7 +198,7 @@ const ReportDesignerTopBar = (props) => {
                   description="Header for reports sent count"
                 />
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body1">
                 { media.dynamic_annotation_report_design ?
                   media.dynamic_annotation_report_design.sent_count : 0 }
               </Typography>

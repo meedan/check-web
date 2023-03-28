@@ -10,11 +10,6 @@
     "defaultMessage": "Export all media to another item"
   },
   {
-    "id": "mediaSimilarityBarAdd.defaultErrorMessage",
-    "description": "Warning displayed if an error occurred when adding a similar item",
-    "defaultMessage": "Could not add similar item"
-  },
-  {
     "id": "mediaSimilarityBarAdd.savedSuccessfully",
     "description": "Banner displayed when similar item is added successfully",
     "defaultMessage": "Similar item added successfully"
@@ -38,6 +33,11 @@
     "id": "mediaSimilarityBarAdd.addThisToSimilar",
     "description": "Menu option for exporting media from this item to another",
     "defaultMessage": "Export media to another fact-check"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.addToImportedReport",
+    "description": "Menu option for adding the current media to an imported fact-check",
+    "defaultMessage": "Add media to an imported fact-check"
   },
   {
     "id": "mediaSimilarityBarAdd.addAsSimilar",

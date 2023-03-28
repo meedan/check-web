@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AspectRatio from '../layout/AspectRatio';
+import MediaControls from '../cds/media-cards/MediaControls.js';
 
 const useStyles = makeStyles(() => ({
   video: {
@@ -14,23 +15,21 @@ const useStyles = makeStyles(() => ({
 // from https://github.com/cookpete/react-player/blob/a110aaf2f3f4e23a3ba3889fe9e8e7b96b769f59/src/patterns.js#L3
 const youtubeRegex = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|watch\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//;
 
+const poster = '/images/audio_placeholder.svg';
+
 const MediaPlayerCard = ({
   contentWarning,
   coverImage,
+  currentUserRole,
   filePath,
+  isAudio,
   isYoutube,
-  playbackRate,
+  projectMedia,
   warningCategory,
   warningCreator,
 }) => {
   const classes = useStyles();
   const videoRef = React.useRef();
-
-  React.useEffect(() => {
-    if (!isYoutube) {
-      videoRef.current.playbackRate = playbackRate;
-    }
-  }, [playbackRate]);
 
   return (
     <article className="video-media-card" style={{ position: 'relative' }}>
@@ -39,11 +38,16 @@ const MediaPlayerCard = ({
         contentWarning={contentWarning}
         warningCreator={warningCreator}
         warningCategory={warningCategory}
+        projectMedia={projectMedia}
+        downloadUrl={isYoutube ? null : filePath}
+        isVideoFile
+        currentUserRole={currentUserRole}
       >
         { coverImage ? (
           <img
             src={coverImage}
             alt=""
+            onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }}
           />
         ) : null }
         <div className="aspect-ratio__overlay">
@@ -58,13 +62,16 @@ const MediaPlayerCard = ({
               frameBorder="0"
             />
           ) : (
-            <video
-              id="media-player-card__video"
-              ref={videoRef}
-              src={filePath}
-              className={classes.video}
-              controls
-            />
+            <>
+              <video
+                id="media-player-card__video"
+                ref={videoRef}
+                src={filePath}
+                className={classes.video}
+                poster={isAudio ? poster : ''}
+              />
+              <MediaControls videoRef={videoRef} />
+            </>
           )}
         </div>
       </AspectRatio>
@@ -77,7 +84,6 @@ MediaPlayerCard.propTypes = {
   coverImage: PropTypes.string,
   filePath: PropTypes.string.isRequired,
   isYoutube: PropTypes.bool,
-  playbackRate: PropTypes.number,
   warningCategory: PropTypes.string,
   warningCreator: PropTypes.string,
 };
@@ -86,7 +92,6 @@ MediaPlayerCard.defaultProps = {
   contentWarning: false,
   coverImage: '',
   isYoutube: false,
-  playbackRate: 1.0,
   warningCategory: '',
   warningCreator: '',
 };
