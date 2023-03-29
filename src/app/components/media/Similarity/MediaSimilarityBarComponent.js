@@ -60,7 +60,7 @@ const MediaSimilarityBarComponent = ({
       <Box className={classes.spacing}>
         <CounterButton
           className="similarity-bar__matches-count"
-          count={confirmedSimilarCount + 1}
+          count={confirmedSimilarCount}
           label={
             <FormattedMessage
               id="mediaSimilarityBarComponent.similarMedia"
