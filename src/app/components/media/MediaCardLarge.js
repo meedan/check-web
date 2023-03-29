@@ -36,7 +36,7 @@ const MediaCardLarge = ({
 
   let { type } = media;
   const isYoutube = media.url && media.domain === 'youtube.com';
-  const isYoutubeChannel = media.url.match(/youtube\.com\/(channel|c)\//);
+  const isYoutubeChannel = media.url?.match(/youtube\.com\/(channel|c)\//);
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
   const isBlank = media.type === 'Blank';
