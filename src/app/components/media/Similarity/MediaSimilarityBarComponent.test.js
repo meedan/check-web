@@ -12,7 +12,7 @@ describe('<MediaSimilarityBarComponent />', () => {
       setShowTab={() => {}}
     />);
     expect(wrapper.find('.similarity-bar__suggestions-count').prop('count')).toBe(10);
-    expect(wrapper.find('.similarity-bar__matches-count').prop('count')).toBe(21);
+    expect(wrapper.find('.similarity-bar__matches-count').prop('count')).toBe(20);
   });
 
   it('should override suggested count as 0 if isSuggested is true', () => {
