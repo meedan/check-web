@@ -17,6 +17,7 @@
     "@babel/plugin-proposal-optional-chaining",
     ["babel-plugin-styled-components", { "pure": true }],
     ["relay", { "compat": true, "schema": "relay.json" }],
+    ["react-css-modules"],
     ["react-intl", { "messagesDir": "localization/react-intl/" }],
 		["babel-plugin-import",
       {

@@ -22,6 +22,8 @@ import { PusherContext, getPusherContextValueForClientSessionId } from '../../ap
 import { ClientSessionIdContext, generateRandomClientSessionId } from '../../app/ClientSessionId';
 import rootReducer from '../../app/redux';
 import locales from '../../../localization/translations/locales';
+import ( /* webpackChunkName: "variables" */ '../../app/styles/css/mixins/variables.css');
+import ( /* webpackChunkName: "main" */ '../../app/styles/css/index.css');
 
 window.storage = {
   set(key, value) {
