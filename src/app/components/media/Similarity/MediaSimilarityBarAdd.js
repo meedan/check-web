@@ -145,7 +145,7 @@ const MediaSimilarityBarAdd = ({
             dbid
             hasMain: is_confirmed_similar_to_another_item
             suggestionsCount: suggested_similar_items_count
-            confirmedSimilarCount: confirmed_similar_items_count
+            confirmedSimilarCount: linked_items_count
             team {
               slug
             }
