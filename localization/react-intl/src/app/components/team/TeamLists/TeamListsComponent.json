@@ -25,6 +25,26 @@
     "defaultMessage": "Save"
   },
   {
+    "id": "foo",
+    "description": "delete this",
+    "defaultMessage": "a placeholder!"
+  },
+  {
+    "id": "labelbar",
+    "description": "delete this",
+    "defaultMessage": "My label"
+  },
+  {
+    "id": "testhelp",
+    "description": "delete this",
+    "defaultMessage": "This is some help text. It provides extra context around the text field in order to assist the user in filling in the information."
+  },
+  {
+    "id": "labelbar2",
+    "description": "delete this",
+    "defaultMessage": "My label but it is very, very long oh no"
+  },
+  {
     "id": "teamListsComponent.displayedColumns",
     "description": "Columns that are displayed for users in folders, collections and lists.",
     "defaultMessage": "Displayed columns"
