@@ -9,12 +9,9 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import TeamListsColumn from './TeamListsColumn';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
-import TextField from '../../cds/inputs/TextField';
 import { ContentColumn, grayBorderMain, grayBackground } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 
@@ -41,7 +38,6 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
   const classes = useStyles();
   const [columns, setColumns] = React.useState(clone(team.list_columns || []));
   const [saving, setSaving] = React.useState(false);
-  const [deleteVal, setDeleteVal] = React.useState('');
   const [showConfirmSaveDialog, setShowConfirmSaveDialog] = React.useState(false);
 
   const hasUnsavedChanges = (JSON.stringify(columns) !== JSON.stringify(team.list_columns));
@@ -189,120 +185,6 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
             </Button>
           }
         />
-        <div style={{ maxWidth: '220px' }}>
-          <FormattedMessage id="foo" defaultMessage="a placeholder!" description="delete this">
-            { placeholder => (
-              <div>
-                <TextField />
-                <TextField
-                  placeholder={placeholder}
-                  value={deleteVal}
-                  // eslint-disable-next-line
-                  onChange={(e) => { setDeleteVal(e.target.value); }}
-                  label={<FormattedMessage id="labelbar" defaultMessage="My label" description="delete this" />}
-                  required
-                  iconLeft={<VolumeUpIcon />}
-                  name="wow"
-                  textArea
-                />
-                <TextField
-                  label="Both icons"
-                  placeholder={placeholder}
-                  required
-                  iconLeft={<VolumeUpIcon />}
-                  iconRight={<VolumeOffIcon />}
-                  helpContent={<FormattedMessage id="testhelp" defaultMessage="This is some help text. It provides extra context around the text field in order to assist the user in filling in the information." description="delete this" />}
-                  textArea
-                />
-                <TextField
-                  label="Right icon only"
-                  placeholder={placeholder}
-                  required
-                  iconRight={<VolumeOffIcon />}
-                />
-                <TextField
-                  disabled
-                  placeholder={placeholder}
-                  value="this is a value"
-                />
-                <TextField
-                  disabled
-                  placeholder={placeholder}
-                />
-                <TextField
-                  placeholder={placeholder}
-                  label={<FormattedMessage id="labelbar2" defaultMessage="My label but it is very, very long oh no" description="delete this" />}
-                  required
-                  error
-                  helpContent={<FormattedMessage id="testhelp" defaultMessage="This is some help text. It provides extra context around the text field in order to assist the user in filling in the information." description="delete this" />}
-                />
-                <TextField
-                  placeholder={placeholder}
-                  value="this is a value"
-                  error
-                  iconLeft={<VolumeUpIcon />}
-                />
-                <TextField
-                  placeholder={placeholder}
-                  value="this is a value"
-                  disabled
-                  error
-                />
-                <TextField
-                  variant="outlined"
-                />
-                <TextField
-                  placeholder={placeholder}
-                  value="this is a value"
-                  variant="outlined"
-                  label={<FormattedMessage id="labelbar2" defaultMessage="My label but it is very, very long oh no" description="delete this" />}
-                  required
-                />
-                <TextField
-                  placeholder={placeholder}
-                  variant="outlined"
-                  iconLeft={<VolumeUpIcon />}
-                  iconRight={<VolumeOffIcon />}
-                />
-                <TextField
-                  disabled
-                  placeholder={placeholder}
-                  value="this is a value"
-                  variant="outlined"
-                />
-                <TextField
-                  disabled
-                  placeholder={placeholder}
-                  variant="outlined"
-                  iconLeft={<VolumeUpIcon />}
-                  iconRight={<VolumeOffIcon />}
-                  helpContent={<FormattedMessage id="testhelp" defaultMessage="This is some help text. It provides extra context around the text field in order to assist the user in filling in the information." description="delete this" />}
-                />
-                <TextField
-                  placeholder={placeholder}
-                  error
-                  variant="outlined"
-                />
-                <TextField
-                  placeholder={placeholder}
-                  value="this is a value"
-                  variant="outlined"
-                  error
-                />
-                <TextField
-                  placeholder={placeholder}
-                  value="this is a value"
-                  disabled
-                  variant="outlined"
-                  error
-                  iconLeft={<VolumeUpIcon />}
-                  iconRight={<VolumeOffIcon />}
-                  helpContent={<FormattedMessage id="testhelp" defaultMessage="This is some help text. It provides extra context around the text field in order to assist the user in filling in the information." description="delete this" />}
-                />
-              </div>
-            )}
-          </FormattedMessage>
-        </div>
         <Card>
           <CardContent>
             <Box display="flex" justifyContent="space-between">

@@ -22,6 +22,9 @@ import {
 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom: '8px',
+  },
   input: {
     ...MuiTheme.typography.body1,
     font: body1,
@@ -140,17 +143,15 @@ const TextField = ({
 }) => {
   const classes = useStyles();
   return (
-    <>
-      { (label || required) && (
-        <div className={`${classes.labelContainer} ${error && classes.errorLabel}`} >
-          <div className={classes.label} >
-            { label && <label htmlFor="name">{label}</label> }
-          </div>
-          <div className={classes.required} >
-            { required && <span>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
-          </div>
+    <div className={classes.root} >
+      <div className={`${classes.labelContainer} ${error && classes.errorLabel}`} >
+        <div className={classes.label} >
+          { label && <label htmlFor="name">{label}</label> }
         </div>
-      )}
+        <div className={classes.required} >
+          { required && <span>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
+        </div>
+      </div>
       <div className={classes.inputContainer}>
         { iconLeft && (
           <div className={classes.inputIconLeftIcon}>
@@ -183,12 +184,12 @@ const TextField = ({
         )}
       </div>
       { helpContent && (
-        <div className={`TextField-help ${classes.helpContainer} ${error && classes.errorLabel}`}>
+        <div className={`${classes.helpContainer} ${error && classes.errorLabel}`}>
           { error && <ErrorIcon className={classes.errorIcon} />}
           {helpContent}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
