@@ -14,8 +14,9 @@ export const brandHoverAccent = '#f2f8ff';// eslint-disable-line import/no-unuse
 
 export const textPrimary = '#1f1f1f';
 export const textSecondary = '#656565';
-export const textPlaceholder = '#b6b6b6';
+export const textPlaceholder = '#949494';
 export const textDisabled = '#999';
+export const textDisabledInput = '#4a4a4a';// eslint-disable-line import/no-unused-modules
 export const textLink = '#3b5cd0';
 
 export const validationMain = '#4caf50';
@@ -31,7 +32,7 @@ export const errorSecondary = '#c9291d';// eslint-disable-line import/no-unused-
 export const errorLight = '#ffeeed';// eslint-disable-line import/no-unused-modules
 
 export const grayBackground = '#f7f7f7';
-export const grayDisabledBackground = '#efefef';
+export const grayDisabledBackground = '#f3f3f3';
 export const grayBorderMain = '#e4e4e4';
 export const grayBorderAccent = '#b4b4b4';
 
