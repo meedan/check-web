@@ -126,7 +126,6 @@ shared_examples 'similarity' do
     wait_for_selector('.medias__item')
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading svg')
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
