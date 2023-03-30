@@ -200,14 +200,14 @@ export const MuiTheme = {
       fontSize: '14px',
       fontWeight: 500,
       letterSpacing: '0.4px',
-      lineHeight: '21px',
+      lineHeight: '24px',
       textTransform: 'none',
     },
     caption: {
       fontSize: '12px',
       fontWeight: 400,
       letterSpacing: '0.4px',
-      lineHeight: '20px',
+      lineHeight: '15px',
     },
     overline: {
       fontSize: '12px',
