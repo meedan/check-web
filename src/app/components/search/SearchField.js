@@ -116,10 +116,6 @@ const SearchField = ({
     <FormattedMessage id="search.inputHint" defaultMessage="Search" description="Placeholder for search keywords input">
       { placeholder => (
         <div>
-          <div className={styles.testPostcssClass}>
-            WHAT
-            <span>UP!</span>
-          </div>
           <InputBase
             classes={{
               root: (
