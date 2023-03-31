@@ -15,6 +15,7 @@ import {
   units,
 } from '../../styles/js/shared';
 import TextField from '../cds/inputs/TextField';
+import TextArea from '../cds/inputs/TextArea';
 
 const StyledHeader = styled.span`
   & > h6 {
@@ -194,10 +195,9 @@ class CreateMediaInput extends React.Component {
         </StyledHeader>
         <FormattedMessage id="createMedia.mediaClaim" defaultMessage="Type something">
           {placeholder => (
-            <TextField
+            <TextArea
               key="createMedia.media.claim"
               label={<FormattedMessage id="createMedia.mediaClaimDescriptionSubtitle" defaultMessage="A description of the claim that needs to be reviewed." />}
-              textArea
               placeholder={placeholder}
               name="claim"
               id="create-media-claim"
