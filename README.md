@@ -76,7 +76,7 @@ Then publish it to npm. Name the module `@meedan/name-of-my-module` (in its
 `package.json`) and then `npm publish`. After, you may
 `docker-compose exec web npm install [--save-dev] MODULE` to use it in `check-web`.
 
-### Integration tests
+#### Integration tests
 
 *Running*
 
