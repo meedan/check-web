@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import TextField from '@material-ui/core/TextField';
 import ListItemText from '@material-ui/core/ListItemText';
 import RoleSelect from './RoleSelect';
 import Message from '../Message';
@@ -17,7 +18,6 @@ import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import globalStrings from '../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import TextField from '../cds/inputs/TextField';
 
 const InviteDialog = ({
   open,
