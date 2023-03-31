@@ -32,7 +32,7 @@ export const removeYellowAutocomplete = `
     text-align: unset !important;
   }
 
-  // Flip all icons except logos
+/*  Flip all icons except logos*/
   svg:not(.logo) {
     transform: scale(-1, 1);
   }
