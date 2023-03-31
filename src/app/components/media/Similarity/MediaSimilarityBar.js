@@ -27,7 +27,7 @@ const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
               dbid
             }
             suggestionsCount: suggested_similar_items_count
-            confirmedSimilarCount: confirmed_similar_items_count
+            confirmedSimilarCount: linked_items_count
             suggested_similar_relationships(first: 10000) {
               edges {
                 node {

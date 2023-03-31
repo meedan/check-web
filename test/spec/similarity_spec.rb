@@ -90,9 +90,6 @@ shared_examples 'similarity' do
     wait_for_selector('.medias__item')
     sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.search-show-similar__switch').click
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading svg')
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
     wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
@@ -106,15 +103,11 @@ shared_examples 'similarity' do
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     create_image('files/similarity.jpg')
-    sleep 60
+    sleep 10
     create_image('files/similarity2.jpg')
     wait_for_selector('.medias__item')
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-    wait_for_selector('#create-media__add-item')
     wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.search-show-similar__switch').click
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading svg')
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
@@ -132,11 +125,7 @@ shared_examples 'similarity' do
     create_image('files/video2.mp4')
     wait_for_selector('.medias__item')
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-    wait_for_selector('#create-media__add-item')
     wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.search-show-similar__switch').click
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading svg')
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
@@ -155,11 +144,7 @@ shared_examples 'similarity' do
     create_image('files/audio.ogg')
     wait_for_selector('.medias__item')
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-    wait_for_selector('#create-media__add-item')
     wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.search-show-similar__switch').click
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading svg')
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)

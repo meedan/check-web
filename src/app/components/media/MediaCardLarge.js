@@ -36,6 +36,7 @@ const MediaCardLarge = ({
 
   let { type } = media;
   const isYoutube = media.url && media.domain === 'youtube.com';
+  const isYoutubeChannel = media.url?.match(/youtube\.com\/(channel|c)\//);
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
   const isBlank = media.type === 'Blank';
@@ -64,7 +65,7 @@ const MediaCardLarge = ({
             currentUserRole={currentUserRole}
           />
         ) : null }
-        { type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube ? (
+        { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
           <MediaPlayerCard
             projectMedia={projectMedia}
             isYoutube={isYoutube}
