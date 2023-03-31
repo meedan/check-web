@@ -1,7 +1,6 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -15,24 +14,12 @@ import {
   Row,
   units,
 } from '../../styles/js/shared';
+import TextField from '../cds/inputs/TextField';
 
 const StyledHeader = styled.span`
   & > h6 {
     font-size: 15px;
     margin-top: ${units(1)};
-  }
-`;
-
-const StyledSubtitle = styled.span`
-  & > h6 {
-    font-size: 11px;
-  }
-`;
-
-const StyledTextField = styled.span`
-  & > div > div {
-    font-size: 13px;
-    padding: ${units(1)};
   }
 `;
 
@@ -205,26 +192,20 @@ class CreateMediaInput extends React.Component {
             <FormattedMessage id="createMedia.mediaClaimDescription" defaultMessage="Claim description" />
           </Typography>
         </StyledHeader>
-        <StyledSubtitle>
-          <Typography variant="subtitle1">
-            <FormattedMessage id="createMedia.mediaClaimDescriptionSubtitle" defaultMessage="A description of the claim that needs to be reviewed." />
-          </Typography>
-        </StyledSubtitle>
         <FormattedMessage id="createMedia.mediaClaim" defaultMessage="Type something">
           {placeholder => (
-            <StyledTextField>
-              <TextField
-                key="createMedia.media.claim"
-                rows={3}
-                placeholder={placeholder}
-                name="claim"
-                id="create-media-claim"
-                value={this.state.claimText}
-                onChange={this.handleClaimChange}
-                autoFocus
-                {...defaultInputProps}
-              />
-            </StyledTextField>
+            <TextField
+              key="createMedia.media.claim"
+              label={<FormattedMessage id="createMedia.mediaClaimDescriptionSubtitle" defaultMessage="A description of the claim that needs to be reviewed." />}
+              textArea
+              placeholder={placeholder}
+              name="claim"
+              id="create-media-claim"
+              value={this.state.claimText}
+              onChange={this.handleClaimChange}
+              autoFocus
+              {...defaultInputProps}
+            />
           )}
         </FormattedMessage>
         <StyledHeader>
@@ -232,28 +213,22 @@ class CreateMediaInput extends React.Component {
             <FormattedMessage id="createMedia.media.media" defaultMessage="Media" />
           </Typography>
         </StyledHeader>
-        <StyledSubtitle>
-          <Typography variant="subtitle1">
-            <FormattedMessage id="createMedia.mediaMediaSubtitle" defaultMessage="The media that contains the claim." />
-          </Typography>
-        </StyledSubtitle>
         {
           this.state.mediaFile === null ? (
             <FormattedMessage id="createMedia.mediaInput" defaultMessage="Add a URL to a social media post or webpage, or a block of text.">
               {placeholder => (
-                <StyledTextField>
-                  <TextField
-                    key="createMedia.media.input"
-                    placeholder={placeholder}
-                    name="text"
-                    id="create-media-input"
-                    value={this.state.textValue}
-                    onChange={this.handleChange}
-                    onKeyPress={this.handleKeyPress}
-                    disabled={this.state.mediaFile}
-                    {...defaultInputProps}
-                  />
-                </StyledTextField>
+                <TextField
+                  key="createMedia.media.input"
+                  label={<FormattedMessage id="createMedia.mediaMediaSubtitle" defaultMessage="The media that contains the claim." />}
+                  placeholder={placeholder}
+                  name="text"
+                  id="create-media-input"
+                  value={this.state.textValue}
+                  onChange={this.handleChange}
+                  onKeyPress={this.handleKeyPress}
+                  disabled={this.state.mediaFile}
+                  {...defaultInputProps}
+                />
               )}
             </FormattedMessage>
           ) : null

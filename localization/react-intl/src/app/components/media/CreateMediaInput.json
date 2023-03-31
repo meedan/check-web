@@ -4,24 +4,24 @@
     "defaultMessage": "Claim description"
   },
   {
-    "id": "createMedia.mediaClaimDescriptionSubtitle",
-    "defaultMessage": "A description of the claim that needs to be reviewed."
-  },
-  {
     "id": "createMedia.mediaClaim",
     "defaultMessage": "Type something"
+  },
+  {
+    "id": "createMedia.mediaClaimDescriptionSubtitle",
+    "defaultMessage": "A description of the claim that needs to be reviewed."
   },
   {
     "id": "createMedia.media.media",
     "defaultMessage": "Media"
   },
   {
-    "id": "createMedia.mediaMediaSubtitle",
-    "defaultMessage": "The media that contains the claim."
-  },
-  {
     "id": "createMedia.mediaInput",
     "defaultMessage": "Add a URL to a social media post or webpage, or a block of text."
+  },
+  {
+    "id": "createMedia.mediaMediaSubtitle",
+    "defaultMessage": "The media that contains the claim."
   },
   {
     "id": "createMedia.or",
