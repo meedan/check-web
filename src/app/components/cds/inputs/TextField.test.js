@@ -7,8 +7,7 @@ import TextField from './TextField';
 
 describe('<TextField />', () => {
   it('should render bare TextField component', () => {
-    const textField = shallow(<TextField
-    />);
+    const textField = shallow(<TextField />);
     const input = textField.find('input');
     expect(input).toHaveLength(1);
     // If missing non-required props, it should not render any of those elements

@@ -133,7 +133,6 @@ const TextField = ({
   iconRight,
   label,
   required,
-  value,
   variant,
   textArea,
   ...inputProps
@@ -162,7 +161,6 @@ const TextField = ({
             className={`${classes.input} ${disabled && classes.disabled} ${error && classes.error} ${variant === 'outlined' && classes.outlined} ${iconLeft && classes.inputIconLeft} ${iconLeft && classes.inputIconLeft} ${iconRight && classes.inputIconRight}`}
             type="text"
             disabled={disabled}
-            value={value}
             error={error}
             {...inputProps}
           />
@@ -171,7 +169,6 @@ const TextField = ({
             className={`${classes.input} ${disabled && classes.disabled} ${error && classes.error} ${variant === 'outlined' && classes.outlined} ${iconLeft && classes.inputIconLeft} ${iconLeft && classes.inputIconLeft} ${iconRight && classes.inputIconRight}`}
             type="text"
             disabled={disabled}
-            value={value}
             error={error}
             {...inputProps}
           />
@@ -201,7 +198,6 @@ TextField.defaultProps = {
   label: '',
   required: false,
   textArea: false,
-  value: '',
   variant: 'contained',
 };
 
@@ -214,7 +210,6 @@ TextField.propTypes = {
   label: PropTypes.string,
   required: PropTypes.bool,
   textArea: PropTypes.bool,
-  value: PropTypes.string,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
 
