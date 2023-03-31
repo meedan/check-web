@@ -1,7 +1,20 @@
-@define-mixin bigBorder {
-    border: solid 30px var(--testGreen);
+@define-mixin position $positioning, $top, $right, $bottom, $left {
+  bottom: $(bottom);
+  left: $(left);
+  position: $(positioning);
+  right: $(right);
+  top: $(top);
 }
 
-@define-mixin goldBorder {
-    border: solid 20px gold;
+@define-mixin opacity $value: 1 {
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=' $(value) * 100 ')';
+  filter: alpha(opacity = $value * 100);
+  opacity: $(value);
+}
+
+@define-mixin text-truncate $display {
+    display: $(display);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

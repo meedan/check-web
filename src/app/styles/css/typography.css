@@ -1,0 +1,53 @@
+body {
+  color: var(--textPrimary);
+  font: 400 14px var(--fontStackSans);
+}
+
+h1 {
+  color: var(--textPrimary);
+  font: 500 20px/32px var(--fontStackSans);
+}
+
+h2 {
+  color: var(--textPrimary);
+  font: 400 15px/24px var(--fontStackSans);
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--textLink);
+
+  &:hover {
+    color: var(--textLink);
+  }
+
+  &:visited {
+    color: var(--textLink);
+  }
+
+  &:not([href]) {
+    &,
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+a.link__internal {
+  color: var(--textPrimary);
+  text-decoration: none;
+}
+
+p {
+  margin-top: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

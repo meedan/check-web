@@ -15,7 +15,6 @@ import {
   jssPreset,
 } from '@material-ui/core/styles';
 import Root from '../../app/components/Root';
-import { layout, typography, localeAr, removeYellowAutocomplete } from '../../app/styles/js/global';
 import { MuiTheme } from '../../app/styles/js/shared';
 import { FlashMessageProvider } from '../../app/components/FlashMessage';
 import { PusherContext, getPusherContextValueForClientSessionId } from '../../app/pusher';
