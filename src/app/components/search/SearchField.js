@@ -19,7 +19,6 @@ import {
   brandMain,
   otherWhite,
 } from '../../styles/js/shared';
-import styles from './search.module.css';
 
 const useStyles = makeStyles(theme => ({
   input: {

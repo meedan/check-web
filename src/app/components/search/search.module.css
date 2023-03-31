@@ -1,7 +1,0 @@
-.testPostcssClass {
-    @mixin goldBorder;
-
-    span {
-        background-color: var(--testGreen);
-    }
-}
