@@ -180,7 +180,7 @@ const TextField = ({
         )}
       </div>
       { helpContent && (
-        <div className={`TextField-help ${classes.helpContainer} ${error && classes.errorLabel}`}>
+        <div className={`${classes.helpContainer} ${error && classes.errorLabel}`}>
           { error && <ErrorIcon className={classes.errorIcon} />}
           {helpContent}
         </div>

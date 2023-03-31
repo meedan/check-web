@@ -66,7 +66,7 @@ describe('<TextField />', () => {
 
   it('should render help content', () => {
     const textField = shallow(<TextField
-      helpContent={<span>My help text</span>}
+      helpContent={<span className="TextField-help">My help text</span>}
     />);
     const input = textField.find('input');
     expect(input).toHaveLength(1);
@@ -123,7 +123,7 @@ describe('<TextField />', () => {
     const textField = shallow(<TextField
       disabled
       error
-      helpContent={<span>My help text</span>}
+      helpContent={<span className="TextField-help">My help text</span>}
       iconLeft={<VolumeUpIcon />}
       iconRight={<VolumeOffIcon />}
       label="My label"
