@@ -1,0 +1,7 @@
+@define-mixin bigBorder {
+    border: solid 30px var(--testGreen);
+}
+
+@define-mixin goldBorder {
+    border: solid 20px gold;
+}

@@ -30,8 +30,10 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   flex: 1 1 calc(100% - 256px);
-  height: 100vh;
   overflow: hidden;
+  @media (min-width: 1100px) { // On the item page on mobile, we don't have scrollbars per column, so the whole page should scroll
+    height: 100vh;
+  }
 `;
 
 const StyledContent = styled.div`

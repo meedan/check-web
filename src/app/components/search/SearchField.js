@@ -19,6 +19,7 @@ import {
   brandMain,
   otherWhite,
 } from '../../styles/js/shared';
+import styles from './search.module.css';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -116,6 +117,10 @@ const SearchField = ({
     <FormattedMessage id="search.inputHint" defaultMessage="Search" description="Placeholder for search keywords input">
       { placeholder => (
         <div>
+          <div className={styles.testPostcssClass}>
+            WHAT
+            <span>UP!</span>
+          </div>
           <InputBase
             classes={{
               root: (

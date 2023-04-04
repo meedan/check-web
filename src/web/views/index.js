@@ -85,6 +85,7 @@ module.exports = ({ config, metadata, url }) => {
           <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono" rel="stylesheet" type="text/css">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
           ${heapAnalytics(config)}
+          <link rel="stylesheet" href="/css/index.bundle${BUNDLE_PREFIX}.css" />
         </head>
         <body>
           <div id="root"></div>
