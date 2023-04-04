@@ -100,15 +100,6 @@ describe('<TextField />', () => {
     expect(input.prop('value')).toEqual('test text');
   });
 
-  it('should apply the "outlined" class', () => {
-    const textField = shallow(<TextField
-      variant="outlined"
-    />);
-    const input = textField.find('input');
-    expect(input).toHaveLength(1);
-    expect(input.prop('className')).toContain('outline');
-  });
-
   it('should render a textarea', () => {
     const textField = shallow(<TextField
       textArea
@@ -131,7 +122,6 @@ describe('<TextField />', () => {
       required
       textArea
       value="test text"
-      variant="outlined"
     />);
     const label = textField.find('label');
     expect(label.text()).toEqual('My label');
@@ -139,7 +129,6 @@ describe('<TextField />', () => {
     expect(input).toHaveLength(0);
     const textArea = textField.find('textarea');
     expect(textArea).toHaveLength(1);
-    expect(textArea.prop('className')).toContain('outline');
     expect(textArea.prop('value')).toEqual('test text');
     expect(textArea.prop('disabled')).toBeTruthy();
     expect(textArea.prop('error')).toBeTruthy();

@@ -2,128 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ErrorIcon from '@material-ui/icons/Error';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  MuiTheme,
-  body1,
-  body2,
-  brandMain,
-  caption,
-  errorMain,
-  errorSecondary,
-  grayBorderAccent,
-  grayBorderMain,
-  grayDisabledBackground,
-  otherWhite,
-  textDisabledInput,
-  textPlaceholder,
-  textPrimary,
-  textSecondary,
-} from '../../../styles/js/shared';
-
-const useStyles = makeStyles(theme => ({
-  input: {
-    ...MuiTheme.typography.body1,
-    font: body1,
-    width: '100%',
-    padding: theme.spacing(1.5, 1.25),
-    height: '100%',
-    color: textPrimary,
-    backgroundColor: otherWhite,
-    borderRadius: theme.spacing(1),
-    border: `${theme.spacing(0.25)}px solid ${grayBorderMain}`,
-    '&:hover': {
-      borderColor: grayBorderAccent,
-    },
-    '&:focus': {
-      outline: 'none',
-      borderColor: brandMain,
-      '&::placeholder': {
-        color: 'transparent',
-      },
-    },
-    '&::placeholder': {
-      color: textPlaceholder,
-    },
-  },
-  labelContainer: {
-    ...MuiTheme.typography.body2,
-    font: body2,
-    color: textSecondary,
-    display: 'grid',
-    gridTemplateColumns: '2fr 1fr',
-    gridGap: theme.spacing(1),
-    marginBottom: theme.spacing(0.5),
-  },
-  label: {
-    marginLeft: theme.spacing(1.25),
-    alignSelf: 'end',
-  },
-  required: {
-    textAlign: 'right',
-    marginRight: theme.spacing(0.5),
-    alignSelf: 'end',
-  },
-  disabled: {
-    color: textDisabledInput,
-    backgroundColor: grayDisabledBackground,
-  },
-  errorLabel: {
-    color: errorSecondary,
-  },
-  error: {
-    borderColor: errorMain,
-    '&:hover': {
-      borderColor: errorSecondary,
-    },
-    '&:focus': {
-      borderColor: errorMain,
-    },
-  },
-  outlined: {
-    backgroundColor: 'transparent',
-  },
-  inputContainer: {
-    position: 'relative',
-  },
-  inputIconLeftIcon: {
-    position: 'absolute',
-    color: textSecondary,
-    padding: '13.5px 0 13.5px 11.5px',
-    '& svg': {
-      width: '17.5px',
-      height: '17.5px',
-    },
-  },
-  inputIconLeft: {
-    paddingLeft: '34px',
-  },
-  inputIconRight: {
-    paddingRight: '34px',
-  },
-  inputIconRightIcon: {
-    position: 'absolute',
-    color: textSecondary,
-    right: '11.5px',
-    top: '13.5px',
-    '& svg': {
-      width: '17.5px',
-      height: '17.5px',
-    },
-  },
-  helpContainer: {
-    ...MuiTheme.typography.caption,
-    font: caption,
-    padding: theme.spacing(0, 0.5, 0, 1.25),
-  },
-  errorIcon: {
-    position: 'relative',
-    width: '12.5px',
-    height: '12.5px',
-    marginRight: theme.spacing(0.5),
-    top: '1.5px',
-  },
-}));
+import Typography from '@material-ui/core/Typography';
+import styles from './TextField.module.css';
 
 const TextField = ({
   disabled,
@@ -136,29 +16,30 @@ const TextField = ({
   variant,
   textArea,
   ...inputProps
-}) => {
-  const classes = useStyles();
-  return (
-    <>
-      { (label || required) && (
-        <div className={`${classes.labelContainer} ${error && classes.errorLabel}`} >
-          <div className={classes.label} >
+}) => (
+  <>
+    { (label || required) && (
+      <Typography variant="body2">
+        <div className={`${styles['label-container']} ${error && styles['error-label']}`} >
+          <div className={styles.label} >
             { label && <label htmlFor="name">{label}</label> }
           </div>
-          <div className={classes.required} >
+          <div className={styles.required} >
             { required && <span>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
           </div>
         </div>
+      </Typography>
+    )}
+    <div className={styles['input-container']}>
+      { iconLeft && (
+        <div className={styles['input-icon-left-icon']}>
+          {iconLeft}
+        </div>
       )}
-      <div className={classes.inputContainer}>
-        { iconLeft && (
-          <div className={classes.inputIconLeftIcon}>
-            {iconLeft}
-          </div>
-        )}
+      <Typography variant="body1">
         { textArea ? (
           <textarea
-            className={`${classes.input} ${disabled && classes.disabled} ${error && classes.error} ${variant === 'outlined' && classes.outlined} ${iconLeft && classes.inputIconLeft} ${iconLeft && classes.inputIconLeft} ${iconRight && classes.inputIconRight}`}
+            className={`${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
             type="text"
             disabled={disabled}
             error={error}
@@ -166,28 +47,30 @@ const TextField = ({
           />
         ) : (
           <input
-            className={`${classes.input} ${disabled && classes.disabled} ${error && classes.error} ${variant === 'outlined' && classes.outlined} ${iconLeft && classes.inputIconLeft} ${iconLeft && classes.inputIconLeft} ${iconRight && classes.inputIconRight}`}
+            className={`${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
             type="text"
             disabled={disabled}
             error={error}
             {...inputProps}
           />
         )}
-        { iconRight && (
-          <div className={classes.inputIconRightIcon}>
-            {iconRight}
-          </div>
-        )}
-      </div>
-      { helpContent && (
-        <div className={`${classes.helpContainer} ${error && classes.errorLabel}`}>
-          { error && <ErrorIcon className={classes.errorIcon} />}
-          {helpContent}
+      </Typography>
+      { iconRight && (
+        <div className={styles['input-icon-right-icon']}>
+          {iconRight}
         </div>
       )}
-    </>
-  );
-};
+    </div>
+    { helpContent && (
+      <Typography variant="caption">
+        <div className={`${styles['help-container']} ${error && styles['error-label']}`}>
+          { error && <ErrorIcon className={styles['error-icon']} />}
+          {helpContent}
+        </div>
+      </Typography>
+    )}
+  </>
+);
 
 TextField.defaultProps = {
   disabled: false,
