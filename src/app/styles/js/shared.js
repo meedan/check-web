@@ -354,6 +354,11 @@ export const MuiTheme = {
         },
       },
     },
+    MuiListItemIcon: {
+      root: {
+        fontSize: '1.5em',
+      },
+    }
   },
 };
 

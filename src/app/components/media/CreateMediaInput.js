@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import ClearIcon from '@material-ui/icons/Clear';
+import ClearIcon from '../../icons/clear.svg';
 import urlRegex from 'url-regex';
 import styled from 'styled-components';
 import MediaStatusCommon from './MediaStatusCommon';

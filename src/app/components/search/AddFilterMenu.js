@@ -24,12 +24,12 @@ import ErrorIcon from '@material-ui/icons/Error';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import CorporateFareIcon from '@material-ui/icons/CorporateFare';
-import NumberIcon from '../../icons/NumberIcon';
+import NumberIcon from '../../icons/numbers.svg';
 
 const StyledButton = withStyles({
   root: {
     height: '36px',
-  },
+  }
 })(Button);
 
 const AddFilterMenu = ({
