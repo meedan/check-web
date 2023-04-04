@@ -16,7 +16,6 @@ export const textPrimary = '#1f1f1f';
 export const textSecondary = '#656565';
 export const textPlaceholder = '#949494';
 export const textDisabled = '#999';
-export const textDisabledInput = '#4a4a4a';
 export const textLink = '#3b5cd0';
 
 export const validationMain = '#4caf50';
