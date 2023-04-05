@@ -57,7 +57,7 @@ const UserInfo = (props) => {
             </Row>
           </StyledName>
           <StyledDescription>
-            <p class="typography-subtitle1">
+            <p className="typography-subtitle1">
               <ParsedText text={truncateLength(props.user.source.description, 600)} />
             </p>
           </StyledDescription>
