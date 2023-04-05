@@ -107,7 +107,7 @@ module.exports = {
       failOnUnused: true,
       patterns: ['src/app/**/*.js'],
       globOptions: {
-        ignore: ['src/app/**/*.test.js'],
+        ignore: ['src/app/**/*.test.js', 'src/app/**/_*.js'],
       },
     }),
     new WarningsToErrorsPlugin(),
