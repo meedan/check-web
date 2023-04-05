@@ -17,7 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
-import NumberIcon from '../../icons/NumberIcon';
+import NumberIcon from '../../icons/numbers.svg';
 
 const messages = defineMessages({
   empty: {
@@ -93,7 +93,7 @@ const CustomFiltersManagerComponent = ({
     free_text: <ShortTextIcon />,
     single_choice: <RadioButtonCheckedIcon />,
     multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
-    number: <NumberIcon />,
+    number: <NumberIcon style={{ fontSize: '24px' }} />,
     geolocation: <LocationIcon />,
     datetime: <DateRangeIcon />,
     file_upload: <IconFileUpload />,
