@@ -7,8 +7,8 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import TelegramIcon from '@material-ui/icons/Telegram';
 import TimeBefore from '../TimeBefore';
 import RequestSubscription from '../feed/RequestSubscription';
-import ViberIcon from '../../icons/ViberIcon';
-import LineIcon from '../../icons/LineIcon';
+import ViberIcon from '../../icons/viber.svg';
+import LineIcon from '../../icons/line.svg';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -21,8 +21,6 @@ import {
   facebookBlue,
   whatsappGreen,
   telegramBlue,
-  viberPurple,
-  lineGreen,
   otherWhite,
 } from '../../styles/js/shared';
 
@@ -50,8 +48,8 @@ const SmoochIcon = ({ name }) => {
   case 'messenger': return <FacebookIcon style={{ color: facebookBlue }} />;
   case 'twitter': return <TwitterIcon style={{ color: twitterBlue }} />;
   case 'telegram': return <TelegramIcon style={{ color: telegramBlue }} />;
-  case 'viber': return <ViberIcon style={{ color: viberPurple }} />;
-  case 'line': return <LineIcon style={{ color: lineGreen }} />;
+  case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)' }} />;
+  case 'line': return <LineIcon style={{ color: 'var(--lineGreen)' }} />;
   default: return null;
   }
 };

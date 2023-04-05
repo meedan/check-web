@@ -16,11 +16,11 @@ import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
-import ViberIcon from '../../../icons/ViberIcon';
-import LineIcon from '../../../icons/LineIcon';
+import ViberIcon from '../../../icons/viber.svg';
+import LineIcon from '../../../icons/line.svg';
 import SettingsHeader from '../SettingsHeader';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
-import { whatsappGreen, twitterBlue, facebookBlue, telegramBlue, viberPurple, lineGreen } from '../../../styles/js/shared';
+import { whatsappGreen, twitterBlue, facebookBlue, telegramBlue } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(() => ({
   smoochBotIntegrationsTitle: {
@@ -300,7 +300,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="viber"
           label="Viber"
           icon={<ViberIcon />}
-          color={viberPurple}
+          color="var(--viberPurple)"
           online={isOnline('viber')}
           readOnly={!isSmoochSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_895bbda0a6"
@@ -327,7 +327,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="line"
           label="LINE"
           icon={<LineIcon />}
-          color={lineGreen}
+          color="var(--lineGreen)"
           online={isOnline('line')}
           readOnly={!isSmoochSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_351dd4f960"
