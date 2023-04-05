@@ -383,13 +383,13 @@ export const Shimmer = styled.div`
 
 const pulseKeyframes = keyframes`
   0% {
-    background-color: ${otherWhite};
+    background-color: var(--otherWhite);
   }
   50% {
-    background-color: ${grayBackground};
+    background-color: var(--grayBackground);
   }
   100% {
-    background-color: ${otherWhite};
+    background-color: var(--otherWhite);
   }
 `;
 
@@ -424,7 +424,7 @@ export const Text = styled.div`
   ${props => props.noShrink ? 'flex-shrink: 0;' : ''}
   ${props => props.maxWidth ? `max-width: ${props.maxWidth}` : ''}
 `;
-subheading2
+
 export const HeaderTitle = styled.h3`
   ${ellipsisStyles}
   font: 400 16px/28px var(--fontStackSans);
@@ -442,7 +442,7 @@ export const HeaderTitle = styled.h3`
 export const StyledSubHeader = styled.h2`
   font: ${title1};
   font-weight: 600;
-  color: ${textSecondary};
+  color: var(--textSecondary);
   text-align: center;
   margin-top: ${units(2)};
 `;
@@ -535,7 +535,7 @@ export const AlignOpposite = styled.div`
 export const StyledIconButton = styled(IconButton)`
   font-size: 20px !important;
   svg {
-    color: ${textDisabled} !important;
+    color: var(--textDisabled) !important;
     margin: 0!important;
   }
 `;
