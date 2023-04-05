@@ -54,6 +54,11 @@ add your Transifex user and password.
 Then you can use `npm run transifex:upload` and `npm run transifex:download` to
 upload and download translations, respectively.
 
+### Applying css styles
+
+#### Components
+Use locally scoped css styles for all components. Reference a css file with `[componentname].module.css` as the naming pattern to automatically enable [css module scoping](https://github.com/css-modules/css-modules).
+
 ### Maintaining `package-lock.json`
 
 Run `docker-compose exec web npm install [--save-dev] MODULE [...]`. This will

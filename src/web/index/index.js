@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { addLocaleData } from 'react-intl';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { Helmet } from 'react-helmet';
 import rtlDetect from 'rtl-detect';
 import thunk from 'redux-thunk';
@@ -15,13 +15,14 @@ import {
   jssPreset,
 } from '@material-ui/core/styles';
 import Root from '../../app/components/Root';
-import { layout, typography, localeAr, removeYellowAutocomplete } from '../../app/styles/js/global';
 import { MuiTheme } from '../../app/styles/js/shared';
 import { FlashMessageProvider } from '../../app/components/FlashMessage';
 import { PusherContext, getPusherContextValueForClientSessionId } from '../../app/pusher';
 import { ClientSessionIdContext, generateRandomClientSessionId } from '../../app/ClientSessionId';
 import rootReducer from '../../app/redux';
 import locales from '../../../localization/translations/locales';
+import ( /* webpackChunkName: "variables" */ '../../app/styles/css/mixins/variables.css');
+import ( /* webpackChunkName: "main" */ '../../app/styles/css/index.css');
 
 window.storage = {
   set(key, value) {
@@ -61,19 +62,10 @@ const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
 // See https://material-ui.com/guides/right-to-left/
 const jss = jssCreate({ plugins: [...jssPreset().plugins, rtl()] });
 
-// Global styles
-const GlobalStyle = createGlobalStyle([`
-  ${layout}
-  ${typography}
-  ${localeAr}
-  ${removeYellowAutocomplete}
-`]);
-
 const callback = (translations) => {
   render(
     (
       <React.Fragment>
-        <GlobalStyle />
         <Helmet><body dir={dir} /></Helmet>
         <ClientSessionIdContext.Provider value={clientSessionId}>
           <PusherContext.Provider value={pusherContextValue}>

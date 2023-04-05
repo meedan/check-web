@@ -1,0 +1,13 @@
+html {
+  background: var(--otherWhite);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
