@@ -16,6 +16,9 @@
   background-color: var(--otherWhite);
   border-radius: 8px;
   border: 2px solid var(--grayBorderMain);
+  font: 400 14px var(--fontStackSans);
+  letter-spacing: 0.15px;
+  line-height: 20px;
   &:hover {
     border-color: var(--grayBorderAccent);
   }
