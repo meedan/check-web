@@ -1,3 +1,13 @@
+html {
+  background: var(--otherWhite);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-    @mixin goldBorder;
+  margin: 0;
 }
