@@ -21,7 +21,7 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
-import NumberIcon from '../../icons/NumberIcon';
+import NumberIcon from '../../icons/numbers.svg';
 
 function submitMoveTeamTaskUp({
   task,
@@ -290,7 +290,7 @@ class TeamTasksListItem extends React.Component {
 
     const icon = {
       free_text: <ShortTextIcon />,
-      number: <NumberIcon />,
+      number: <NumberIcon style={{ fontSize: '24px' }} />,
       geolocation: <LocationIcon />,
       datetime: <DateRangeIcon />,
       single_choice: <RadioButtonCheckedIcon />,

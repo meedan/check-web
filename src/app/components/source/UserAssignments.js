@@ -25,7 +25,7 @@ import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
 import UserRoute from '../../relay/UserRoute';
 import { AlignOpposite } from '../../styles/js/shared';
-import NumberIcon from '../../icons/numbers';
+import NumberIcon from '../../icons/numbers.svg';
 
 const messages = defineMessages({
   filterByTeam: {
