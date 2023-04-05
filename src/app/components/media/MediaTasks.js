@@ -12,7 +12,6 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import {
-  subheading2,
   body1,
   units,
 } from '../../styles/js/shared';
@@ -34,7 +33,7 @@ const StyledAnnotationRow = styled.div`
   h2 {
     color: var(--textPrimary);
     flex: 1;
-    font: ${subheading2};
+    font: 400 16px/28px var(--fontStackSans);
     margin: 0;
   }
 `;
