@@ -424,11 +424,11 @@ export const Text = styled.div`
   ${props => props.noShrink ? 'flex-shrink: 0;' : ''}
   ${props => props.maxWidth ? `max-width: ${props.maxWidth}` : ''}
 `;
-
+subheading2
 export const HeaderTitle = styled.h3`
   ${ellipsisStyles}
-  font: ${subheading2};
-  color: ${textSecondary};
+  font: 400 16px/28px var(--fontStackSans);
+  color: var(--textSecondary);
   max-width: 45vw;
   ${mediaQuery.tablet`
      max-width: 27vw;
