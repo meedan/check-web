@@ -27,3 +27,4 @@ basic-auth.sh
 .yalc/
 yalc.lock
 .eslintcache
+.stylelintcache
