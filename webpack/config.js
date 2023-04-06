@@ -5,6 +5,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
 const WarningsToErrorsPlugin = require('warnings-to-errors-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 // TODO once we reach react-relay 8.0, uncomment for simpler build end.
 // (Also, delete the relay-compiler stuff form gulpfile.)
 // const RelayCompilerWebpackPlugin = require('relay-compiler-webpack-plugin');
@@ -79,6 +80,16 @@ module.exports = {
     //   schema: path.resolve(__dirname, '../relay.json'),
     //   src: path.resolve(__dirname, '../src/app'),
     // }),
+    new StylelintPlugin({
+      cache: true,
+      configFile: path.resolve(__dirname, '../.stylelintrc'),
+      context: path.join(__dirname, '../src'),
+      files: '**/*.css',
+      lintDirtyModulesOnly: false,
+      emitWarning: true,
+      failOnError: true,
+      failOnWarning: true,
+    }),
     new MiniCssExtractPlugin({
       filename: `../css/[name].bundle${BUNDLE_PREFIX}.css`,
       chunkFilename: `../css/[name].chunk${BUNDLE_PREFIX}.css`,

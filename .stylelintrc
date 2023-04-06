@@ -1,0 +1,51 @@
+{
+    "extends": [
+        "stylelint-config-standard",
+        "stylelint-config-css-modules",
+    ],
+    "ignoreFiles": ["node_modules/**"],
+    "defaultSeverity": "error",
+    "plugins": [
+        "stylelint-order",
+        "stylelint-declaration-strict-value"
+    ],
+    "rules": {
+        "at-rule-no-unknown": [true, {
+            "ignoreAtRules": [
+                "define-mixin",
+                "include",
+                "mixin",
+                "if",
+                "content",
+                "else",
+                "extend"
+            ]
+        }],
+        "color-named": "never",
+        "color-no-hex": true,
+        "color-no-invalid-hex": true,
+        "comment-empty-line-before": ["always", {
+            "ignore": ["stylelint-commands"]
+        }],
+        "custom-property-pattern": null,
+        "max-line-length": null,
+        "max-nesting-depth": 8,
+        "number-leading-zero": "never",
+        "order/properties-alphabetical-order": true,
+        "property-no-vendor-prefix": null,
+        "rule-empty-line-before": [
+            "always", {
+                "except": ["first-nested", "after-single-line-comment"]
+            }
+        ],
+        "scale-unlimited/declaration-strict-value": [
+            ["/color/", "fill", "stroke", "z-index", "font-size"],
+            {
+                "ignoreValues": ["transparent", "inherit", "currentColor", "none", "underline", "medium"]
+            }
+        ],
+        "selector-class-pattern": null,
+        "selector-type-case": null,
+        "string-quotes": "single",
+    }
+}

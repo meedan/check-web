@@ -20,8 +20,8 @@
 }
 
 @define-mixin text-truncate $display {
-    display: $(display);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  display: $(display);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
