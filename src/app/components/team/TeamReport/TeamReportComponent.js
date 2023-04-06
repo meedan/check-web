@@ -440,7 +440,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <ViberIcon style={{ color: "var(--viberPurple)", fontSize: '24px' }} />
+                        <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '24px' }} />
                       </InputAdornment>
                     ),
                   }}

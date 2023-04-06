@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import ClearIcon from '../../../icons/clear.svg';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,16 +11,16 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import ClearIcon from '../../../icons/clear.svg';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMenuOption from './SmoochBotMenuOption';
-import { brandMain } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   button: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   iconButton: {
-    color: brandMain,
+    color: 'var(--brandMain)',
     display: 'block',
   },
   content: {

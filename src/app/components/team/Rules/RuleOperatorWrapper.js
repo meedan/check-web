@@ -7,8 +7,8 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import ClearIcon from '../../../icons/clear.svg';
 import { makeStyles } from '@material-ui/core/styles';
+import ClearIcon from '../../../icons/clear.svg';
 import { textSecondary } from '../../../styles/js/shared';
 import RuleOperatorButton from './RuleOperatorButton';
 

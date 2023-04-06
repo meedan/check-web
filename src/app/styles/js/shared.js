@@ -354,7 +354,7 @@ export const MuiTheme = {
       root: {
         fontSize: '1.5em',
       },
-    }
+    },
   },
 };
 

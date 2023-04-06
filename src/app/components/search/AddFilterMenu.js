@@ -29,7 +29,7 @@ import NumberIcon from '../../icons/numbers.svg';
 const StyledButton = withStyles({
   root: {
     height: '36px',
-  }
+  },
 })(Button);
 
 const AddFilterMenu = ({
