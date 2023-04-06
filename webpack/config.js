@@ -81,7 +81,7 @@ module.exports = {
     //   src: path.resolve(__dirname, '../src/app'),
     // }),
     new StylelintPlugin({
-      cache: false,
+      cache: true,
       configFile: path.resolve(__dirname, '../.stylelintrc'),
       context: path.join(__dirname, '../src/app'),
       files: ['**/*.css'],
