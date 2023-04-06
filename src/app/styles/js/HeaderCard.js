@@ -7,7 +7,6 @@ import {
   textDisabled,
   textSecondary,
   caption,
-  subheading1,
   Row,
   avatarSizeLarge,
 } from './shared';
@@ -39,7 +38,6 @@ export const StyledName = styled.h1`
 
 export const StyledDescription = styled.div`
   color: ${textSecondary};
-  font: ${subheading1};
   margin-bottom: ${units(1)};
 `;
 

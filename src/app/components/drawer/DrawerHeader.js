@@ -10,8 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import TeamAvatar from '../team/TeamAvatar';
 import { stringHelper } from '../../customHelpers';
 import {
-  textPrimary,
-  subheading1,
   units,
   Text,
 } from '../../styles/js/shared';
@@ -35,9 +33,8 @@ const useStyles = makeStyles(theme => ({
   },
   name: {
     flex: '1 1 auto',
-    font: subheading1,
     fontWeight: 500,
-    color: textPrimary,
+    color: 'var(--textPrimary)',
     '&:hover': {
       textDecoration: 'underline',
     },
@@ -61,7 +58,7 @@ const DrawerHeader = ({ team, loggedIn, currentUserIsMember }) => {
   return (
     <div className={classes.root}>
       <Link
-        className={`team-header__drawer-team-link ${classes.link}`}
+        className={`typography-button team-header__drawer-team-link ${classes.link}`}
         to={`/${team.slug}/`}
       >
         <TeamAvatar className={classes.logo} size={units(5.5)} team={team} />

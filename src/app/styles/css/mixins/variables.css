@@ -1,6 +1,9 @@
 :root {
     --fontStackSans: "Roboto", -apple-system, BlinkMacSystemFont, "Corbel", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, "Verdana Ref", sans-serif;
 
+    --fontSizeDefault: 14px;
+    --fontSizeSmall: 12px;
+
     --brandMain: #567bff;
     --brandSecondary: #3b5cd0;
     --brandLight: #e7efff;

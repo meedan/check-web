@@ -12,12 +12,8 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import {
-  subheading2,
   body1,
-  textPrimary,
-  textSecondary,
   units,
-  brandBorder,
 } from '../../styles/js/shared';
 
 const StyledAnnotationRow = styled.div`
@@ -26,18 +22,18 @@ const StyledAnnotationRow = styled.div`
   .annotation-header-row {
     padding: ${units(1)} ${units(3)};
     margin: 0;
-    border-bottom: 1px solid ${brandBorder};
+    border-bottom: 1px solid var(--brandBorder);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: ${textSecondary};
+    color: var(--textSecondary);
     font: ${body1};
   }
 
   h2 {
-    color: ${textPrimary};
+    color: var(--textPrimary);
     flex: 1;
-    font: ${subheading2};
+    font: 400 16px/28px var(--fontStackSans);
     margin: 0;
   }
 `;
