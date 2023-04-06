@@ -48,8 +48,8 @@ const SmoochIcon = ({ name }) => {
   case 'messenger': return <FacebookIcon style={{ color: facebookBlue }} />;
   case 'twitter': return <TwitterIcon style={{ color: twitterBlue }} />;
   case 'telegram': return <TelegramIcon style={{ color: telegramBlue }} />;
-  case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)' }} />;
-  case 'line': return <LineIcon style={{ color: 'var(--lineGreen)' }} />;
+  case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '24px' }} />;
+  case 'line': return <LineIcon style={{ color: 'var(--lineGreen)', fontSize: '24px' }} />;
   default: return null;
   }
 };
