@@ -224,6 +224,7 @@ const SmoochBotNewsletterEditor = ({
                 /> :
                 <Alert
                   type="success"
+                  buttonLabel="whaas lskdjflk jsdfkj sdklfj"
                   onClose={() => setShowAlert(false)}
                   content={
                     <FormattedMessage

@@ -10,7 +10,6 @@ export const brandLight = '#e7efff';
 export const brandAccent = '#293e86';
 export const brandBorder = '#d0d6ec';
 export const brandBackground = '#f1f5f6';
-export const brandHoverAccent = '#f2f8ff';// eslint-disable-line import/no-unused-modules
 
 export const textPrimary = '#1f1f1f';
 export const textSecondary = '#656565';
@@ -19,16 +18,11 @@ export const textDisabled = '#999';
 export const textLink = '#3b5cd0';
 
 export const validationMain = '#4caf50';
-export const validationSecondary = '#237c27';
-export const validationLight = '#f0fff1';
 
 export const alertMain = '#e78a00';
-export const alertSecondary = '#a66300';
 export const alertLight = '#fff8ed';
 
 export const errorMain = '#f44336';
-export const errorSecondary = '#c9291d';// eslint-disable-line import/no-unused-modules
-export const errorLight = '#ffeeed';// eslint-disable-line import/no-unused-modules
 
 export const grayBackground = '#f7f7f7';
 export const grayDisabledBackground = '#f3f3f3';
