@@ -81,11 +81,11 @@ module.exports = {
     //   src: path.resolve(__dirname, '../src/app'),
     // }),
     new StylelintPlugin({
-      cache: true,
+      cache: false,
       configFile: path.resolve(__dirname, '../.stylelintrc'),
       context: path.join(__dirname, '../src'),
       files: '**/*.css',
-      lintDirtyModulesOnly: false,
+      lintDirtyModulesOnly: true,
       emitWarning: true,
       failOnError: true,
       failOnWarning: true,

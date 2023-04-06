@@ -37,7 +37,7 @@
   --grayBorderMain: #e4e4e4;
   --grayBorderAccent: #b4b4b4;
 
-  --overlayLight: rgba(34, 34, 34, .7);
+  --overlayLight: rgb(34 34 34 / .7);
 
   --otherWhite: #fff;
 
