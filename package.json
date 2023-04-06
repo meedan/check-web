@@ -58,6 +58,7 @@
     ],
     "moduleNameMapper": {
       "\\.(css|png)$": "<rootDir>/test/unit/__mocks__/fileMock.js",
+      "\\.svg": "<rootDir>/test/unit/__mocks__/svgrMock.js",
       "^config$": "<rootDir>/test/unit/__mocks__/config.json"
     },
     "roots": [
