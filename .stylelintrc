@@ -1,6 +1,7 @@
 {
     "extends": [
         "stylelint-config-standard",
+        "stylelint-config-css-modules",
     ],
     "ignoreFiles": ["node_modules/**"],
     "defaultSeverity": "error",
