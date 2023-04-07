@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import { brandMain, textPlaceholder } from '../../../styles/js/shared';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
 
@@ -19,23 +18,23 @@ const useStyles = makeStyles(theme => ({
     border: 0,
   },
   ifGroup: {
-    border: `2px solid ${brandMain}`,
+    border: '2px solid var(--brandMain)',
   },
   thenGroup: {
-    border: `2px solid ${brandMain}`,
+    border: '2px solid var(--brandMain)',
   },
   ifTitle: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   thenTitle: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   paper2: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   box: {
-    border: `2px solid ${textPlaceholder}`,
+    border: '2px solid var(--textPlaceholder)',
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     borderRadius: 4,
@@ -89,8 +88,8 @@ const RuleBody = (props) => {
       <RuleOperatorWrapper
         allowRemove={Boolean(props.onResetRule)}
         center
-        color={brandMain}
-        deleteIconColor={brandMain}
+        color="var(--brandMain)"
+        deleteIconColor="var(--brandMain)"
         operator={rule.rules.operator}
         onSetOperator={(value) => {
           rule.rules.operator = value;
@@ -122,7 +121,7 @@ const RuleBody = (props) => {
               </Typography>
               <RuleOperatorWrapper
                 center={false}
-                color={brandMain}
+                color="var(--brandMain)"
                 operator={group.operator}
                 onSetOperator={(value) => {
                   rule.rules.groups[i].operator = value;
@@ -180,7 +179,7 @@ const RuleBody = (props) => {
           </Typography>
           <RuleOperatorWrapper
             center={false}
-            color={brandMain}
+            color="var(--brandMain)"
             operator="and"
             operators={['and']}
             onSetOperator={() => {}}

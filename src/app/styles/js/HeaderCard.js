@@ -4,8 +4,6 @@ import {
   mediaQuery,
   units,
   headline,
-  textDisabled,
-  textSecondary,
   caption,
   Row,
   avatarSizeLarge,
@@ -37,12 +35,12 @@ export const StyledName = styled.h1`
 `;
 
 export const StyledDescription = styled.div`
-  color: ${textSecondary};
+  color: var(--extSecondary);
   margin-bottom: ${units(1)};
 `;
 
 export const StyledHelper = styled.div`
-  color: ${textDisabled};
+  color: var(--textDisabled);
   font: ${caption};
   margin-bottom: ${units(2)};
   ${mediaQuery.handheld`
@@ -51,7 +49,7 @@ export const StyledHelper = styled.div`
 `;
 
 export const StyledContactInfo = styled.div`
-  color: ${textSecondary};
+  color: var(--textSecondary);
   display: flex;
   flex-flow: wrap row;
   font: ${caption};

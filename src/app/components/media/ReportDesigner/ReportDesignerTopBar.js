@@ -15,25 +15,24 @@ import IconPause from '@material-ui/icons/Pause';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import MediaStatus from '../MediaStatus';
-import { validationMain, alertMain, brandBackground, brandMain, brandBorder, otherWhite } from '../../../styles/js/shared';
 import { getStatus } from '../../../helpers';
 import { languageLabel } from '../../../LanguageRegistry';
 
 const useStyles = makeStyles(theme => ({
   publish: {
-    background: validationMain,
-    color: otherWhite,
+    background: 'var(--validationMain)',
+    color: 'var(--otherWhite)',
   },
   pause: {
-    background: alertMain,
-    color: otherWhite,
+    background: 'var(--alertMain)',
+    color: 'var(--otherWhite)',
   },
   confirmation: {
     marginBottom: theme.spacing(2),
   },
   reportHeader: {
-    backgroundColor: brandBackground,
-    borderBottom: `1px solid ${brandBorder}`,
+    backgroundColor: 'var(--brandBackground)',
+    borderBottom: '1px solid var(--brandBorder)',
   },
   cell: {
     marginRight: theme.spacing(2),
@@ -42,9 +41,9 @@ const useStyles = makeStyles(theme => ({
   correctionLink: {
     display: 'inline-flex',
     gap: `${theme.spacing(0.5)}px`,
-    color: brandMain,
+    color: 'var(--brandMain)',
     '&:visited': {
-      color: brandMain,
+      color: 'var(--brandMain)',
     },
     '&:hover': {
       textDecoration: 'none',

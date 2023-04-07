@@ -34,34 +34,25 @@ import MediaExpandedComponent from '../media/MediaExpanded';
 import NextPreviousLinks from '../media/NextPreviousLinks';
 import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';
-import {
-  brandBackground,
-  brandBorder,
-  brandSecondary,
-  brandMain,
-  textSecondary,
-  textDisabled,
-  Column,
-  otherWhite,
-} from '../../styles/js/shared';
+import { Column } from '../../styles/js/shared';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const defaultImage = '/images/image_placeholder.svg';
 const useStyles = makeStyles(theme => ({
   main: {
-    backgroundColor: brandBackground,
+    backgroundColor: 'var(--brandBackground)',
   },
   claimsColumn: {
-    backgroundColor: otherWhite,
-    borderRight: `1px solid ${brandBorder}`,
+    backgroundColor: 'var(--otherWhite)',
+    borderRight: '1px solid var(--brandBorder)',
     width: 360,
     minWidth: 360,
     maxWidth: 360,
   },
   middleColumn: {
-    backgroundColor: otherWhite,
-    borderRight: `1px solid ${brandBorder}`,
+    backgroundColor: 'var(--otherWhite)',
+    borderRight: '1px solid var(--brandBorder)',
   },
   mediasColumn: {
     width: 590,
@@ -75,13 +66,13 @@ const useStyles = makeStyles(theme => ({
     height: 80,
     width: 80,
     objectFit: 'cover',
-    border: `1px solid ${brandBorder}`,
+    border: '1px solid var(--brandBorder)',
     float: 'left',
     marginRight: theme.spacing(1),
   },
   cardMain: {
     boxShadow: 'none',
-    border: `1px solid ${brandBorder}`,
+    border: '1px solid var(--brandBorder)',
     borderRadius: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
@@ -89,7 +80,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardDetail: {
     boxShadow: 'none',
-    border: `1px solid ${brandBorder}`,
+    border: '1px solid var(--brandBorder)',
     borderRadius: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
@@ -122,7 +113,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: '150px',
   },
   cardSubhead: {
-    color: textSecondary,
+    color: 'var(--textSecondary)',
     fontSize: '0.85em',
     fontWeight: 500,
   },
@@ -135,8 +126,8 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(0.5),
   },
   selected: {
-    backgroundColor: brandSecondary,
-    border: `1px solid ${brandBorder}`,
+    backgroundColor: 'var(--brandSecondary)',
+    border: '1px solid var(--brandBorder)',
   },
   detailTitle: {
     overflow: 'hidden',
@@ -157,7 +148,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   teamName: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   boxes: {
     gap: `${theme.spacing(1)}px`,
@@ -165,9 +156,9 @@ const useStyles = makeStyles(theme => ({
   },
   box: {
     textAlign: 'center',
-    backgroundColor: otherWhite,
+    backgroundColor: 'var(--otherWhite)',
     padding: theme.spacing(2),
-    border: `1px solid ${brandBorder}`,
+    border: '1px solid $var(--brandBorder)',
     borderRadius: theme.spacing(1),
     whiteSpace: 'nowrap',
   },
@@ -417,7 +408,7 @@ const FeedItemComponent = ({
                               date: (
                                 claim?.project_media?.report_status === 'published' ?
                                   <TimeBefore date={parseStringUnixTimestamp(claim.project_media.report?.data?.last_published)} /> :
-                                  <span style={{ color: textDisabled }}>
+                                  <span style={{ color: 'var(--textDisabled)' }}>
                                     <FormattedMessage id="feedItem.notPublished" defaultMessage="Not published yet" />
                                   </span>
                               ),
@@ -443,7 +434,7 @@ const FeedItemComponent = ({
                     />
                     <CardContent>
                       <Box mt={2}>
-                        <span style={{ color: textDisabled }}>
+                        <span style={{ color: 'var(--textDisabled)' }}>
                           <FormattedMessage
                             id="feedItem.noClaim"
                             defaultMessage="No claim added yet"

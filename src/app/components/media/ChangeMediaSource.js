@@ -7,7 +7,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { can } from '../Can';
-import { brandMain } from '../../styles/js/shared';
 
 function ChangeMediaSource({
   team,
@@ -45,7 +44,7 @@ function ChangeMediaSource({
   if (can(projectMediaPermissions, 'create Source')) {
     createNew = (
       <Button
-        style={{ color: brandMain }}
+        style={{ color: 'var(--brandMain)' }}
         onClick={() => { createNewClick(input); }}
         id="media-source__create-button"
       >

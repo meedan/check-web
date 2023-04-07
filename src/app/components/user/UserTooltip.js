@@ -12,8 +12,6 @@ import ParsedText from '../ParsedText';
 import SocialIcon from '../SocialIcon';
 import { truncateLength } from '../../helpers';
 import {
-  textDisabled,
-  textSecondary,
   body2,
   caption,
   units,
@@ -28,7 +26,7 @@ const StyledMdLaunch = styled.div`
   svg {
     min-width: 20px !important;
     min-height: 20px !important;
-    color: ${textDisabled};
+    color: var(--textDisabled);
   }
 `;
 
@@ -56,7 +54,7 @@ const StyledSmallColumnTooltip = styled.div`
 `;
 
 const StyledUserRole = styled.span`
-  color: ${textSecondary};
+  color: var(--textSecondary);
   font: ${caption};
   margin: ${units(1)};
 `;

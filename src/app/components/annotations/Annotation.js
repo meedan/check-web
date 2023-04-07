@@ -41,12 +41,6 @@ import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   units,
-  otherWhite,
-  grayBorderMain,
-  textDisabled,
-  textSecondary,
-  textPrimary,
-  brandMain,
   borderWidthLarge,
   caption,
   breakWordStyles,
@@ -59,7 +53,7 @@ const dotSize = borderWidthLarge;
 const dotOffset = stripUnit(units(4)) - stripUnit(dotSize);
 
 const StyledDefaultAnnotation = styled.div`
-  color: ${textPrimary};
+  color: var(--textPrimary);
   display: flex;
   font: ${caption};
   width: 100%;
@@ -122,11 +116,11 @@ const StyledAnnotationWrapper = styled.section`
   &:not(.annotation--card) {
     // The timeline dot
     &::before {
-      background-color: ${grayBorderMain};
+      background-color: var(--grayBorderMain);
       border-radius: 100%;
       content: '';
       height: ${units(1)};
-      outline: ${dotSize} solid ${otherWhite};
+      outline: ${dotSize} solid var(--otherWhite);
       position: absolute;
       top: ${units(2)};
       width: ${units(1)};
@@ -140,17 +134,17 @@ const StyledAnnotationWrapper = styled.section`
   }
 
   .annotation__card-activity-move-to-trash {
-    background: ${brandMain};
-    color: ${otherWhite};
+    background: var(--brandMain);
+    color: var(--otherWhite);
     border-radius: ${defaultBorderRadius};
 
     .annotation__timestamp {
-      color: ${otherWhite};
+      color: var(--otherWhite);
     }
   }
 
   .annotation__timestamp {
-    color: ${textDisabled};
+    color: var(--textDisabled);
     display: inline;
     flex: 1;
     white-space: pre;
@@ -194,13 +188,13 @@ const StyledAnnotationWrapper = styled.section`
 `;
 
 const StyledAnnotationMetadata = styled(Row)`
-  color: ${textSecondary};
+  color: var(--textSecondary);
   flex-flow: wrap row;
   font: ${caption};
   margin-top: ${units(3)};
 
   .annotation__card-author {
-    color: ${textPrimary};
+    color: var(--textPrimary);
     padding-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
   }
 `;
@@ -371,7 +365,7 @@ class Annotation extends Component {
             <MenuItem>
               <a
                 href={`#annotation-${activity.dbid}`}
-                style={{ textDecoration: 'none', color: textPrimary }}
+                style={{ textDecoration: 'none', color: 'var(--textPrimary)' }}
               >
                 <FormattedMessage
                   id="annotation.permalink"
@@ -694,7 +688,7 @@ class Annotation extends Component {
                     style={{
                       background: `transparent url('${botResponse.image_url}') top left no-repeat`,
                       backgroundSize: 'cover',
-                      border: `1px solid ${grayBorderMain}`,
+                      border: '1px solid var(--grayBorderMain)',
                       width: 80,
                       height: 80,
                       cursor: 'pointer',

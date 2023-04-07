@@ -7,17 +7,16 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Reorder from '../../layout/Reorder';
-import { grayBorderMain, otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
-    border: `2px solid ${grayBorderMain}`,
+    border: '2px solid var(--grayBorderMain)',
     borderRadius: '5px',
     padding: theme.spacing(1),
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     Minheight: theme.spacing(10),
-    background: otherWhite,
+    background: 'var(--otherWhite)',
   },
   label: {
     fontSize: 14,

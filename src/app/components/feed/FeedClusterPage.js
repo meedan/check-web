@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import FeedRequestedMedia from './FeedRequestedMedia';
 import RequestCards from './RequestCards';
 import ErrorBoundary from '../error/ErrorBoundary';
-import { Column, brandBackground, grayBorderMain } from '../../styles/js/shared';
+import { Column } from '../../styles/js/shared';
 
 const StyledTwoColumnLayout = styled.div`
   display: flex;
@@ -14,11 +14,11 @@ const StyledTwoColumnLayout = styled.div`
   max-width: 100vw;
 
   .media__column {
-    background-color: ${brandBackground};
+    background-color: var(--brandBackground);
   }
 
   .requests__column {
-    border-left: 1px solid ${grayBorderMain};
+    border-left: 1px solid var(--grayBorderMain);
   }
 `;
 

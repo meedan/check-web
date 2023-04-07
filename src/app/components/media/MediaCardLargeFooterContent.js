@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { textPrimary, textSecondary } from '../../styles/js/shared';
 import LongShort from '../layout/LongShort';
 
 const MediaCardLargeFooterContent = ({
@@ -14,10 +13,10 @@ const MediaCardLargeFooterContent = ({
   return (
     <div className="media-card-large-footer-content">
       <Typography variant="body1">
-        <Box color={textSecondary}>
+        <Box color="var(--textSecondary)">
           {title}
         </Box>
-        <Box color={textPrimary}>
+        <Box color="var(--textPrimary)">
           <LongShort showAll={showAll} maxLines={2}>
             {body}
           </LongShort>

@@ -3,13 +3,12 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import {
-  textDisabled,
   units,
   caption,
 } from '../styles/js/shared';
 
 const StyledFooter = styled.footer`
-  color: ${textDisabled};
+  color: var(--textDisabled);
   font: ${caption};
   margin: ${units(4)} 0;
   padding: ${units(1)} 0;

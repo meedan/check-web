@@ -13,7 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import CloseIcon from '@material-ui/icons/Close';
 import RemoveableWrapper from './RemoveableWrapper';
-import { FlexRow, units, grayDisabledBackground, brandMain, otherWhite } from '../../styles/js/shared';
+import { FlexRow, units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 const StyledCloseIcon = withStyles({
@@ -28,7 +28,7 @@ const StyledCloseIcon = withStyles({
 
 const StyledInputBaseDate = withStyles(theme => ({
   root: {
-    backgroundColor: grayDisabledBackground,
+    backgroundColor: 'var(--grayDisabledBackground)',
     padding: `0 ${theme.spacing(0.5)}px`,
     height: theme.spacing(4.5),
     fontSize: 14,
@@ -44,21 +44,21 @@ const StyledInputBaseDate = withStyles(theme => ({
 
 const StyledInputBaseDropdown = withStyles(theme => ({
   root: {
-    backgroundColor: grayDisabledBackground,
+    backgroundColor: 'var(--grayDisabledBackground)',
     padding: `0 ${theme.spacing(0.5)}px`,
     height: theme.spacing(4.5),
     fontSize: 14,
     borderRadius: '4px',
     '& .MuiSelect-icon': {
-      color: otherWhite,
+      color: 'var(--otherWhite)',
     },
   },
   input: {
-    backgroundColor: brandMain,
-    color: otherWhite,
+    backgroundColor: 'var(--brandMain)',
+    color: 'var(--otherWhite)',
     paddingLeft: theme.spacing(1),
     '&:focus': {
-      backgroundColor: brandMain,
+      backgroundColor: 'var(--brandMain)',
       borderRadius: 4,
     },
     padding: '4px 0 4px',
@@ -73,8 +73,8 @@ const Styles = {
     padding: '0 4px 0 0',
   },
   dateRangeFilterSelected: {
-    backgroundColor: brandMain,
-    color: otherWhite,
+    backgroundColor: 'var(--brandMain)',
+    color: 'var(--otherWhite)',
     height: 'auto',
     borderRadius: 4,
     paddingLeft: '8px',
@@ -91,7 +91,7 @@ const Styles = {
     paddingRight: '8px',
   },
   wrapper: {
-    backgroundColor: grayDisabledBackground,
+    backgroundColor: 'var(--grayDisabledBackground)',
     borderRadius: '4px',
   },
 };

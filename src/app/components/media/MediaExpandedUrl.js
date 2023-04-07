@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import ExternalLink from '../ExternalLink';
-import { brandMain } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,7 +13,7 @@ const useStyles = makeStyles(theme => ({
         TODO define with Pierre if all links are to be blue
         and style accordingly on the app theme instead of locally
       */
-      color: brandMain,
+      color: 'var(--brandMain)',
       textDecoration: 'underline',
     },
   },
