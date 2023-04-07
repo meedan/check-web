@@ -5,21 +5,20 @@ import Card from '@material-ui/core/Card';
 // Styles for overriding material UI
 // Check Design System Colors
 // These are deprecated and only used in this file, use css variables in other files
-export const brandMain = '#567bff';// eslint-disable-line import/no-unused-modules
-export const brandSecondary = '#3b5cd0';// eslint-disable-line import/no-unused-modules
-export const brandBorder = '#d0d6ec';// eslint-disable-line import/no-unused-modules
+const brandMain = '#567bff';
+const brandBorder = '#d0d6ec';
 
-export const textPrimary = '#1f1f1f';// eslint-disable-line import/no-unused-modules
-export const textSecondary = '#656565';// eslint-disable-line import/no-unused-modules
-export const textPlaceholder = '#949494';// eslint-disable-line import/no-unused-modules
-export const textDisabled = '#999';// eslint-disable-line import/no-unused-modules
+const textPrimary = '#1f1f1f';
+const textSecondary = '#656565';
+const textPlaceholder = '#949494';
+const textDisabled = '#999';
 
-export const grayBackground = '#f7f7f7';// eslint-disable-line import/no-unused-modules
-export const grayDisabledBackground = '#f3f3f3';// eslint-disable-line import/no-unused-modules
-export const grayBorderMain = '#e4e4e4';// eslint-disable-line import/no-unused-modules
-export const grayBorderAccent = '#b4b4b4';// eslint-disable-line import/no-unused-modules
+const grayBackground = '#f7f7f7';
+const grayDisabledBackground = '#f3f3f3';
+const grayBorderMain = '#e4e4e4';
+const grayBorderAccent = '#b4b4b4';
 
-export const otherWhite = '#fff';// eslint-disable-line import/no-unused-modules
+const otherWhite = '#fff';
 
 // Units
 export function units(unit) {
