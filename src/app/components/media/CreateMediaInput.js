@@ -4,14 +4,13 @@ import { FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import ClearIcon from '@material-ui/icons/Clear';
 import urlRegex from 'url-regex';
 import styled from 'styled-components';
+import ClearIcon from '../../icons/clear.svg';
 import MediaStatusCommon from './MediaStatusCommon';
 import Message from '../Message';
 import UploadFile from '../UploadFile';
 import {
-  textPrimary,
   Row,
   units,
 } from '../../styles/js/shared';
@@ -38,7 +37,7 @@ const StyledTextField = styled.span`
 
 const StyledButton = styled.span`
   & > .MuiButtonBase-root {
-    color: ${textPrimary};
+    color: var(--textPrimary);
     margin-top: ${units(-2)};
   }
   & > .MuiButtonBase-root > span > span {
