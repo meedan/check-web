@@ -16,8 +16,8 @@ import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import TelegramIcon from '@material-ui/icons/Telegram';
-import ViberIcon from '../../../icons/ViberIcon';
-import LineIcon from '../../../icons/LineIcon';
+import ViberIcon from '../../../icons/viber.svg';
+import LineIcon from '../../../icons/line.svg';
 
 import SettingsHeader from '../SettingsHeader';
 import LanguageSwitcher from '../../LanguageSwitcher';
@@ -29,8 +29,6 @@ import {
   facebookBlue,
   twitterBlue,
   telegramBlue,
-  viberPurple,
-  lineGreen,
 } from '../../../styles/js/shared';
 
 const TeamReportComponent = ({ team, setFlashMessage }) => {
@@ -442,7 +440,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <ViberIcon style={{ color: viberPurple }} />
+                        <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '24px' }} />
                       </InputAdornment>
                     ),
                   }}
@@ -467,7 +465,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LineIcon style={{ color: lineGreen }} />
+                        <LineIcon style={{ color: 'var(--lineGreen)', fontSize: '24px' }} />
                       </InputAdornment>
                     ),
                   }}

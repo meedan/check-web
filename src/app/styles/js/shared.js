@@ -53,10 +53,6 @@ export const youTubeRed = '#ff0000';
 export const whatsappGreen = '#25D366';
 // https://www.schemecolor.com/telegram-color.php
 export const telegramBlue = '#0088CC';
-// https://www.viber.com/en/brand-center/
-export const viberPurple = '#7360f2';
-// https://line.me/en/logo
-export const lineGreen = '#00b900';
 
 // Units
 export function units(unit) {
@@ -352,6 +348,11 @@ export const MuiTheme = {
         '&[class*="MuiOutlinedInput-root"] $input': {
           padding: '8px 6px !important', // This !important shouldn't be necessary, but for some reason the exact same selector was not taking precedence over the lib one
         },
+      },
+    },
+    MuiListItemIcon: {
+      root: {
+        fontSize: '1.5em',
       },
     },
   },

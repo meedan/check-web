@@ -58,6 +58,7 @@
     ],
     "moduleNameMapper": {
       "\\.(css|png)$": "<rootDir>/test/unit/__mocks__/fileMock.js",
+      "\\.svg": "<rootDir>/test/unit/__mocks__/svgrMock.js",
       "^config$": "<rootDir>/test/unit/__mocks__/config.json"
     },
     "roots": [
@@ -92,6 +93,7 @@
     "@material-ui/pickers": "^3.2.10",
     "@meedan/check-ui": "^0.1.61",
     "@react-google-maps/api": "1.8.7",
+    "@svgr/webpack": "^5.5.0",
     "@vvo/tzdb": "^6.39.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-import": "^1.13.5",

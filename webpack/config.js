@@ -144,8 +144,21 @@ module.exports = {
         },
       },
       {
-        test: /\.(gif|svg|jpg|png)$/,
+        test: /\.(gif|jpg|png)$/,
         loader: 'file-loader',
+      },
+      {
+        test: /\.svg$/i,
+        use: [{
+          loader: '@svgr/webpack',
+          options: {
+            icon: true,
+            expandProps: 'start',
+            svgProps: {
+              className: `{props.className ? props.className + ' check-icon' : 'check-icon'}`,
+            },
+          }
+        }],
       },
       {
           test: /\.css$/,

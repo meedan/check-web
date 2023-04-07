@@ -37,3 +37,15 @@ export const removeYellowAutocomplete = `
     transform: scale(-1, 1);
   }
 }
+
+.check-icon {
+  box-sizing: content-box;
+  display: inline-block;
+  flex-shrink: 0;
+  fill: currentColor;
+  height: 1em;
+  line-height: 1;
+  overflow: visible;
+  padding: 0;
+  width: 1em;
+}

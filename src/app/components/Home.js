@@ -26,6 +26,7 @@ import { otherWhite } from '../styles/js/shared';
 
 const Wrapper = styled.div`
   display: flex;
+  position: relative;
 `;
 
 const Main = styled.main`
