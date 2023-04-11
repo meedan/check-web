@@ -122,4 +122,5 @@ SwitchComponent.propTypes = {
   helperContent: PropTypes.string,
 };
 
+// eslint-disable-next-line import/no-unused-modules
 export default SwitchComponent;
