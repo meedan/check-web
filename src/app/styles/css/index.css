@@ -6,33 +6,35 @@ Remove Chrome's yellow autofill
 https://blog.mariusschulz.com/2016/03/20/how-to-remove-webkits-banana-yellow-autofill-background
 NOTE this means inputs all have to be on a white canvas unless you override this.
  */
-export const removeYellowAutocomplete = `
-  input:-webkit-autofill {
-      -webkit-box-shadow: inset 0 0 0px 9999px white;
-  }
 
-[lang="ar"] {
+input:-webkit-autofill {
+  -webkit-box-shadow: inset 0 0 0 9999px var(--otherWhite);
+}
+
+[lang='ar'] {
   * {
     letter-spacing: 0 !important;
   }
 
   body {
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     font-size: 16px;
   }
 
   .home__disclaimer > span {
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     font-size: 11px;
   }
 
   footer {
-    font-size: 14px;
+    font-size: var(--fontSizeDefault);
   }
 
   .rc-tooltip-inner {
     text-align: unset !important;
   }
 
-/*  Flip all icons except logos*/
+  /* Flip all icons except logos */
   svg:not(.logo) {
     transform: scale(-1, 1);
   }

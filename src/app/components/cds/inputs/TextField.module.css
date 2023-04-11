@@ -1,63 +1,69 @@
 .error {
   border-color: var(--errorMain);
+
   &:hover {
     border-color: var(--errorSecondary);
   }
+
   &:focus {
     border-color: var(--errorMain);
   }
 }
 
 .input {
-  width: 100%;
-  padding: 12px 10px;
-  height: 100%;
-  color: var(--textPrimary);
   background-color: var(--otherWhite);
-  border-radius: 8px;
   border: 2px solid var(--grayBorderMain);
+  border-radius: 8px;
+  color: var(--textPrimary);
   font: 400 14px var(--fontStackSans);
-  letter-spacing: 0.15px;
+  height: 100%;
+  letter-spacing: .15px;
   line-height: 20px;
+  padding: 12px 10px;
+  width: 100%;
+
   &:hover {
     border-color: var(--grayBorderAccent);
   }
+
+  &::placeholder {
+    font: 400 14px var(--fontStackSans);
+    letter-spacing: .15px;
+    line-height: 20px;
+  }
+
   &:focus {
-    outline: none;
     border-color: var(--brandMain);
+    outline: none;
+
     &::placeholder {
       color: transparent;
     }
-  }
-  &::placeholder {
-    font: 400 14px var(--fontStackSans);
-    letter-spacing: 0.15px;
-    line-height: 20px;
   }
 }
 
 .label-container {
   color: var(--textSecondary);
   display: grid;
-  grid-template-columns: 2fr 1fr;
   grid-gap: 8px;
+  grid-template-columns: 2fr 1fr;
   margin-bottom: 4px;
 }
 
 .label {
-  margin-left: 10px;
   align-self: end;
+  margin-left: 10px;
 }
 
 .required {
-  text-align: right;
-  margin-right: 4px;
   align-self: end;
+  margin-right: 4px;
+  text-align: right;
 }
 
 .disabled {
-  color: var(--textDisabledInput);
   background-color: var(--grayDisabledBackground);
+  color: var(--textDisabledInput);
 }
 
 .error-label {
@@ -73,12 +79,13 @@
 }
 
 .input-icon-left-icon {
-  position: absolute;
   color: var(--textSecondary);
   padding: 13.5px 0 13.5px 11.5px;
+  position: absolute;
+
   svg {
-    width: 17.5px;
     height: 17.5px;
+    width: 17.5px;
   }
 }
 
@@ -87,13 +94,14 @@
 }
 
 .input-icon-right-icon {
-  position: absolute;
   color: var(--textSecondary);
+  position: absolute;
   right: 11.5px;
   top: 13.5px;
+
   svg {
-    width: 17.5px;
     height: 17.5px;
+    width: 17.5px;
   }
 }
 
@@ -106,9 +114,9 @@
 }
 
 .error-icon {
-  position: relative;
-  width: 12.5px !important;
   height: 12.5px !important;
   margin-right: 4px;
+  position: relative;
   top: 1.5px;
+  width: 12.5px !important;
 }

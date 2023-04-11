@@ -1,4 +1,4 @@
-@define-mixin typography $size: 14px, $weight: 400, $spacing: 0.15px, $height: 20px {
+@define-mixin typography $size: 14px, $weight: 400, $spacing: .15px, $height: 20px {
   font-size: $(size);
   font-weight: $(weight);
   letter-spacing: $(spacing);
@@ -20,8 +20,8 @@
 }
 
 @define-mixin text-truncate $display {
-    display: $(display);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  display: $(display);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

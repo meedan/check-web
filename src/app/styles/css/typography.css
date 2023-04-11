@@ -1,16 +1,20 @@
 html {
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
   color: var(--textPrimary);
   font: 400 var(--fontSizeDefault) var(--fontStackSans);
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
   -webkit-text-size-adjust: none;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   margin: 0;
   padding: 0;
 }
@@ -28,8 +32,6 @@ h2 {
 a {
   color: var(--textLink);
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  tap-highlight-color: transparent;
   text-decoration: underline;
 
   &:hover {
@@ -66,53 +68,53 @@ ul {
 
 .typography-h1 {
   @mixin typography 96px, 300, -1.5px, 112px;
-},
+}
 
 .typography-h2 {
-  @mixin typography 60px, 300, -0.5px, 72px;
+  @mixin typography 60px, 300, -.5px, 72px;
 }
 
 .typography-h3 {
-  @mixin typography 48px, 400, 0px, 56px;
+  @mixin typography 48px, 400, 0, 56px;
 }
 
 .typography-h4 {
-  @mixin typography 34px, 400, 0.25px, 42px;
+  @mixin typography 34px, 400, .25px, 42px;
 }
 
 .typography-h5 {
-  @mixin typography 24px, 400, 0px, 32px;
+  @mixin typography 24px, 400, 0, 32px;
   color: currentcolor;
 }
 
 .typography-h6 {
-  @mixin typography 20px, 500, 0.15px, 32px;
+  @mixin typography 20px, 500, .15px, 32px;
 }
 
 .typography-subtitle1 {
-  @mixin typography var(--fontSizeDefault), 400, 0.15px, 21px;
+  @mixin typography var(--fontSizeDefault), 400, .15px, 21px;
 }
 
 .typography-subtitle2 {
-  @mixin typography var(--fontSizeDefault), 500, 0.1px, 21px;
+  @mixin typography var(--fontSizeDefault), 500, .1px, 21px;
 }
 
 .typography-body1 {
-  @mixin typography var(--fontSizeDefault), 400, 0.15px, 20px;
+  @mixin typography var(--fontSizeDefault), 400, .15px, 20px;
 }
 
 .typography-body2 {
-  @mixin typography var(--fontSizeSmall), 400, 0.15px, 17px;
+  @mixin typography var(--fontSizeSmall), 400, .15px, 17px;
 }
 
 .typography-button {
-  @mixin typography var(--fontSizeDefault), 500, 0.4px, 24px;
+  @mixin typography var(--fontSizeDefault), 500, .4px, 24px;
   color: currentcolor;
   text-transform: none;
 }
 
 .typography-caption {
-  @mixin typography var(--fontSizeSmall), 400, 0.4px, 15px;
+  @mixin typography var(--fontSizeSmall), 400, .4px, 15px;
 }
 
 .typography-overline {
