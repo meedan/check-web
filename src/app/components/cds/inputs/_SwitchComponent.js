@@ -5,7 +5,6 @@ import {
   Switch,
   Typography,
 } from '@material-ui/core';
-// import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {
   grayBorderMain,
@@ -26,15 +25,11 @@ const useStyles = makeStyles({
     padding: 0,
     '&$checked': {
       transform: 'translateX(26px)',
-      color: 'white',
       '& + $track': {
         backgroundColor: brandMain,
         opacity: 1,
         border: 'none',
       },
-    },
-    '&$focusVisible $thumb': {
-      color: otherWhite,
     },
   },
   thumb: disabled => ({
@@ -58,24 +53,7 @@ const useStyles = makeStyles({
     backgroundColor: grayBorderMain,
     opacity: 1,
   },
-  botton: {
-    color: textSecondary,
-    // position: 'absolute',
-    // bottom: 0,
-    // left: 0,
-  },
-
-  left: {
-
-  },
-  right: {
-
-  },
-  top: {
-
-  },
   checked: {},
-  focusVisible: {},
 });
 
 const SwitchComponent = ({
@@ -85,8 +63,7 @@ const SwitchComponent = ({
   helperContent,
 }) => {
   const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: false,
+    checked: false,
   });
   const classes = useStyles(disabled);
 
@@ -95,13 +72,13 @@ const SwitchComponent = ({
   };
 
   return (
-    <>
-      <FormControlLabel
-        control={
+    <FormControlLabel
+      control={
+        <div>
           <Switch
-            checked={state.checkedB}
+            checked={state.checked}
             onChange={handleChange}
-            name="checkedB"
+            name="checked"
             disabled={disabled}
             classes={{
               root: classes.root,
@@ -111,20 +88,23 @@ const SwitchComponent = ({
               checked: classes.checked,
             }}
           />
-        }
-        labelPlacement={labelPlacement}
-        value={labelPlacement}
-        label={
-          <Typography variant="body2" style={{ color: textSecondary }} >
-            {label}
-          </Typography>
-        }
-        color={textSecondary}
-      />
-      <Typography variant="body2" className={classes.botton}>
-        {helperContent}
-      </Typography>
-    </>
+          { helperContent ?
+            <Typography variant="body2" style={{ color: textSecondary }}>
+              <div>
+                {helperContent}
+              </div>
+            </Typography>
+            : null }
+        </div>
+      }
+      labelPlacement={labelPlacement}
+      value={labelPlacement}
+      label={
+        <Typography variant="caption" style={{ color: textSecondary }} >
+          {label}
+        </Typography>
+      }
+    />
   );
 };
 
@@ -133,15 +113,13 @@ SwitchComponent.defaultProps = {
   label: null,
   labelPlacement: '',
   helperContent: '',
-  // helperPlacement: '',
 };
 
 SwitchComponent.propTypes = {
   label: PropTypes.object,
   disabled: PropTypes.bool,
-  labelPlacement: String,
-  helperContent: String,
-  // helperPlacement: String,
+  labelPlacement: PropTypes.string,
+  helperContent: PropTypes.string,
 };
 
 export default SwitchComponent;
