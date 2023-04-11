@@ -4,9 +4,8 @@ const path = require('path');
 module.exports = (ctx) => ({
     map: ctx.env === 'production' ? false : true,
     plugins: {
+        'postcss-import': {},
         'autoprefixer': {
-        },
-        'postcss-import': {
         },
         'postcss-mixins': {
             mixinsDir: path.resolve(__dirname, './src/app/styles/css/mixins')

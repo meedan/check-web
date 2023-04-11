@@ -1,3 +1,4 @@
+/* stylelint-disable */
 .rc-tooltip.rc-tooltip-zoom-enter,
 .rc-tooltip.rc-tooltip-zoom-leave {
   display: block;
@@ -237,3 +238,4 @@
 .rc-tooltip-placement-bottomRight .rc-tooltip-arrow {
   right: 15%;
 }
+/* stylelint-enable */
