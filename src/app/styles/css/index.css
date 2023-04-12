@@ -43,8 +43,8 @@ input:-webkit-autofill {
 .check-icon {
   box-sizing: content-box;
   display: inline-block;
+  fill: currentcolor;
   flex-shrink: 0;
-  fill: currentColor;
   height: 1em;
   line-height: 1;
   overflow: visible;
