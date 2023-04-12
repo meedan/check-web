@@ -341,43 +341,41 @@ const ProjectsComponent = ({
         <ListItem onClick={handleToggleFoldersExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText disableTypography>
-            <Typography variant="body1">
-              <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
-                <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
-                <Can permissions={team.permissions} permission="create Project">
-                  <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
-                    <AddIcon />
-                  </IconButton>
-                </Can>
-                <Menu
-                  anchorEl={folderMenuAnchor}
-                  keepMounted
-                  open={Boolean(folderMenuAnchor)}
-                  onClose={() => { setFolderMenuAnchor(null); }}
+            <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
+              <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
+              <Can permissions={team.permissions} permission="create Project">
+                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
+                  <AddIcon />
+                </IconButton>
+              </Can>
+              <Menu
+                anchorEl={folderMenuAnchor}
+                keepMounted
+                open={Boolean(folderMenuAnchor)}
+                onClose={() => { setFolderMenuAnchor(null); }}
+              >
+                <MenuItem
+                  onClick={(e) => {
+                    setFolderMenuAnchor(null);
+                    setShowNewFolderDialog(true);
+                    e.stopPropagation();
+                  }}
+                  className="projects-list__add-folder"
                 >
-                  <MenuItem
-                    onClick={(e) => {
-                      setFolderMenuAnchor(null);
-                      setShowNewFolderDialog(true);
-                      e.stopPropagation();
-                    }}
-                    className="projects-list__add-folder"
-                  >
-                    <FormattedMessage id="projectsComponent.newFolderMenu" defaultMessage="New folder" description="Menu item for creating new folder" />
-                  </MenuItem>
-                  <MenuItem
-                    onClick={(e) => {
-                      setFolderMenuAnchor(null);
-                      setShowNewCollectionDialog(true);
-                      e.stopPropagation();
-                    }}
-                    className="projects-list__add-collection"
-                  >
-                    <FormattedMessage id="projectsComponent.newCollectionMenu" defaultMessage="New collection" description="Menu item for creating new collection" />
-                  </MenuItem>
-                </Menu>
-              </Box>
-            </Typography>
+                  <FormattedMessage id="projectsComponent.newFolderMenu" defaultMessage="New folder" description="Menu item for creating new folder" />
+                </MenuItem>
+                <MenuItem
+                  onClick={(e) => {
+                    setFolderMenuAnchor(null);
+                    setShowNewCollectionDialog(true);
+                    e.stopPropagation();
+                  }}
+                  className="projects-list__add-collection"
+                >
+                  <FormattedMessage id="projectsComponent.newCollectionMenu" defaultMessage="New collection" description="Menu item for creating new collection" />
+                </MenuItem>
+              </Menu>
+            </Box>
           </ListItemText>
         </ListItem>
 
@@ -470,16 +468,14 @@ const ProjectsComponent = ({
         <ListItem onClick={handleToggleListsExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { listsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText disableTypography>
-            <Typography variant="body1">
-              <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
-                <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
-                <Can permissions={team.permissions} permission="create Project">
-                  <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={classes.projectsComponentButton}>
-                    <AddIcon id="projects-list__add-filtered-list" />
-                  </IconButton>
-                </Can>
-              </Box>
-            </Typography>
+            <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
+              <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
+              <Can permissions={team.permissions} permission="create Project">
+                <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={classes.projectsComponentButton}>
+                  <AddIcon id="projects-list__add-filtered-list" />
+                </IconButton>
+              </Can>
+            </Box>
           </ListItemText>
         </ListItem>
 
@@ -509,9 +505,7 @@ const ProjectsComponent = ({
               { feedsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
               <ListItemText disableTypography>
                 <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
-                  <Typography variant="body1">
-                    <FormattedMessage id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
-                  </Typography>
+                  <FormattedMessage id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
                 </Box>
               </ListItemText>
             </ListItem>
