@@ -11,10 +11,7 @@ import { LocalizedRole } from './UserUtil';
 import ParsedText from '../ParsedText';
 import SocialIcon from '../SocialIcon';
 import { truncateLength } from '../../helpers';
-import {
-  body2,
-  units,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 import {
   StyledTwoColumns,
   StyledBigColumn,
@@ -103,7 +100,7 @@ function UserTooltipComponent({ teamUser }) {
 
         <StyledBigColumn>
           <div className="tooltip__primary-info">
-            <strong className="tooltip__name" style={{ font: body2, fontWeight: 500 }}>
+            <strong className="tooltip__name typography-body2" style={{ fontWeight: 500 }}>
               {user.name}
             </strong>
             <StyledUserRole className="typography-caption">{role ? <LocalizedRole role={role} /> : null}</StyledUserRole>

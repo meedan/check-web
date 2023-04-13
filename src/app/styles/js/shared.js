@@ -31,7 +31,6 @@ const columnWidthLarge = units(110);
 const columnWidthWide = units(152);
 
 // Typography
-export const body2 = `400 14px/${units(3)} var(--fontStackSans)`;
 export const body1 = '400 14px var(--fontStackSans)';
 
 // Layout
