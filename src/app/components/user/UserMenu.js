@@ -6,11 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { LocalizedRole, userRole } from './UserUtil';
 import UserMenuItems from '../UserMenuItems';
 import UserAvatar from '../UserAvatar';
-import {
-  Text,
-  units,
-  body1,
-} from '../../styles/js/shared';
+import styles from './user.module.css';
 
 export default class UserMenu extends React.Component {
   state = {
@@ -45,17 +41,15 @@ export default class UserMenu extends React.Component {
           </ListItemAvatar>
           <ListItemText
             primary={
-              <div>
-                <Text maxWidth="100%" font={body1} ellipsis>
-                  <span style={{ maxWidth: '80%' }}>
-                    {user ? user.name : null}
+              <div className={['typography-body1', styles.userNameRole].join(' ')}>
+                <span className={styles.userName}>
+                  {user ? user.name : null}
+                </span>
+                {role ? (
+                  <span className={['user-menu__role', styles.userRole].join(' ')}>
+                    <LocalizedRole role={role} />
                   </span>
-                  {role ? (
-                    <span className="user-menu__role" style={{ color: 'var(--textSecondary)', marginLeft: units(1) }}>
-                      <LocalizedRole role={role} />
-                    </span>
-                  ) : null}
-                </Text>
+                ) : null}
               </div>
             }
           />

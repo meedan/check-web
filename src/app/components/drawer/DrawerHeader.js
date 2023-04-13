@@ -9,10 +9,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles } from '@material-ui/core/styles';
 import TeamAvatar from '../team/TeamAvatar';
 import { stringHelper } from '../../customHelpers';
-import {
-  units,
-  Text,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
+import styles from './DrawerHeader.module.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,14 +28,6 @@ const useStyles = makeStyles(theme => ({
   logo: {
     flex: '0 0 auto',
     marginRight: theme.spacing(1),
-  },
-  name: {
-    flex: '1 1 auto',
-    fontWeight: 500,
-    color: 'var(--textPrimary)',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
   },
   settings: {
     flex: '0 0 auto',
@@ -62,9 +52,9 @@ const DrawerHeader = ({ team, loggedIn, currentUserIsMember }) => {
         to={`/${team.slug}/`}
       >
         <TeamAvatar className={classes.logo} size={units(5.5)} team={team} />
-        <Text ellipsis className={classes.name}>
+        <div className={styles.teamName}>
           {team.name}
-        </Text>
+        </div>
       </Link>
       {currentUserIsMember ? (
         <Tooltip title={

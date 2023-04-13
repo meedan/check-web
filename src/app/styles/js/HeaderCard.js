@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import {
   mediaQuery,
   units,
-  headline,
-  caption,
   Row,
   avatarSizeLarge,
 } from './shared';
@@ -30,7 +28,7 @@ export const StyledButtonGroup = styled.div`
 `;
 
 export const StyledName = styled.h1`
-  font: ${headline};
+  font: 500 ${units(3)}/${units(4)} var(--fontStackSans);
   margin-bottom: ${units(1)};
 `;
 
@@ -41,7 +39,7 @@ export const StyledDescription = styled.div`
 
 export const StyledHelper = styled.div`
   color: var(--textDisabled);
-  font: ${caption};
+  font: 400 ${units(1.5)}/${units(2.5)} var(--fontStackSans);
   margin-bottom: ${units(2)};
   ${mediaQuery.handheld`
     display: none;
@@ -52,7 +50,7 @@ export const StyledContactInfo = styled.div`
   color: var(--textSecondary);
   display: flex;
   flex-flow: wrap row;
-  font: ${caption};
+  font: 400 ${units(1.5)}/${units(2.5)} var(--fontStackSans);
   align-items: center;
 
   svg {

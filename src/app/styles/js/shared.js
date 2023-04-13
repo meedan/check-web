@@ -30,13 +30,6 @@ const columnWidthMedium = units(85);
 const columnWidthLarge = units(110);
 const columnWidthWide = units(152);
 
-// Typography
-export const headline = `500 ${units(3)}/${units(4)} var(--fontStackSans)`;
-export const title1 = `500 ${units(2.5)}/${units(4)} var(--fontStackSans)`;
-export const body2 = `400 14px/${units(3)} var(--fontStackSans)`;
-export const body1 = '400 14px var(--fontStackSans)';
-export const caption = `400 ${units(1.5)}/${units(2.5)} var(--fontStackSans)`;
-
 // Layout
 export const headerHeight = units(8);
 export const gutterLarge = units(5);
@@ -63,9 +56,6 @@ export const defaultBorderRadius = '2px';
 // And that parent (or any descendants) should not be display: flex
 // See: https://codepen.io/unthinkingly/pen/XMwJLG
 //
-const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
-
-export const backgroundCover = 'background-repeat: no-repeat; background-position: center; background-size: cover;';
 
 export const avatarSizeLarge = units(9);
 export const avatarSize = units(5);
@@ -372,27 +362,14 @@ export const breakWordStyles = `
 // ===================================================================
 // Styled Components
 //
-// Used as components, like: <Text />
+// Used as components, like: <HeaderTitle />
 //
 // ===================================================================
 
-// Text with optional ellipsis prop
-//
-// <Text ellipsis />
-//
-// deprecated: use @material-ui/core/Typography and theme
-export const Text = styled.div`
-  ${props => props.ellipsis ? ellipsisStyles : ''}
-  ${props => props.font ? `font: ${props.font};` : ''}
-  ${props => props.center ? 'text-align: center;' : ''}
-  ${props => props.color ? `color: ${props.color};` : ''}
-  ${props => props.breakWord ? breakWordStyles : ''}
-  ${props => props.noShrink ? 'flex-shrink: 0;' : ''}
-  ${props => props.maxWidth ? `max-width: ${props.maxWidth}` : ''}
-`;
-
 export const HeaderTitle = styled.h3`
-  ${ellipsisStyles}
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font: 400 16px/28px var(--fontStackSans);
   color: var(--textSecondary);
   max-width: 45vw;
@@ -406,7 +383,7 @@ export const HeaderTitle = styled.h3`
 
 // FIXME: use Typography and/or a dedicated component under components/layout
 export const StyledSubHeader = styled.h2`
-  font: ${title1};
+  font: 500 ${units(2.5)}/${units(4)} var(--fontStackSans);
   font-weight: 600;
   color: var(--textSecondary);
   text-align: center;
