@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
-import { units, title1, caption } from '../styles/js/shared';
+import { units, caption } from '../styles/js/shared';
 import { stringHelper } from '../customHelpers';
 
 class UserTosForm extends Component {
@@ -49,7 +49,7 @@ class UserTosForm extends Component {
         { !this.props.user.last_accepted_terms_at ?
           <div>
             { this.props.showTitle ?
-              <h2 style={{ font: title1 }}>
+              <h2 className="typography-h6">
                 <FormattedMessage
                   id="userTos.title"
                   defaultMessage="Terms of Service and Privacy Policy"

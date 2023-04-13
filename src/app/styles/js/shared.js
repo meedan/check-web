@@ -32,7 +32,6 @@ const columnWidthWide = units(152);
 
 // Typography
 export const headline = `500 ${units(3)}/${units(4)} var(--fontStackSans)`;
-export const title1 = `500 ${units(2.5)}/${units(4)} var(--fontStackSans)`;
 export const body2 = `400 14px/${units(3)} var(--fontStackSans)`;
 export const body1 = '400 14px var(--fontStackSans)';
 export const caption = `400 ${units(1.5)}/${units(2.5)} var(--fontStackSans)`;
@@ -404,7 +403,7 @@ export const HeaderTitle = styled.h3`
 
 // FIXME: use Typography and/or a dedicated component under components/layout
 export const StyledSubHeader = styled.h2`
-  font: ${title1};
+  font: 500 ${units(2.5)}/${units(4)} var(--fontStackSans);
   font-weight: 600;
   color: var(--textSecondary);
   text-align: center;

@@ -5,7 +5,6 @@ import CardContent from '@material-ui/core/CardContent';
 import { encodeSvgDataUri } from '../../helpers';
 
 import {
-  title1,
   units,
   breakpointMobile,
 } from '../../styles/js/shared';
@@ -42,7 +41,6 @@ const BackgroundImageRow = styled.div`
 `;
 
 const StyledMdCardTitle = styled.h2`
-  font: ${title1};
   color: var(--otherWhite);
   margin-bottom: ${units(1)};
 `;
@@ -54,7 +52,7 @@ const SpecialBlueCard = props => (
         {props.icon}
       </StyledCardIcon>
       <BackgroundImageRow>
-        <StyledMdCardTitle>
+        <StyledMdCardTitle className="typography-h6">
           {props.title ? props.title : null}
         </StyledMdCardTitle>
         <span>

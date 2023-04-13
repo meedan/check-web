@@ -106,7 +106,7 @@ function UserTooltipComponent({ teamUser }) {
         <StyledBigColumn>
           <div className="tooltip__primary-info">
             <strong className="tooltip__name" style={{ font: body2, fontWeight: 500 }}>
-              {user.name}
+              {user.name}BRIAN
             </strong>
             <StyledUserRole>{role ? <LocalizedRole role={role} /> : null}</StyledUserRole>
             <Link to={`/check/user/${user?.dbid}`} className="tooltip__profile-link" >
