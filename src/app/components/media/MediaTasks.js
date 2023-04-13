@@ -11,10 +11,7 @@ import Tasks from '../task/Tasks';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
-import {
-  body1,
-  units,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const StyledAnnotationRow = styled.div`
   /* Tasks and metadata tab have shared styles */
@@ -27,7 +24,6 @@ const StyledAnnotationRow = styled.div`
     justify-content: space-between;
     align-items: center;
     color: var(--textSecondary);
-    font: ${body1};
   }
 
   h2 {
@@ -143,7 +139,7 @@ class MediaTasksComponent extends Component {
     const itemTasks = media.item_metadata;
 
     return (
-      <StyledAnnotationRow>
+      <StyledAnnotationRow className="typography-body1">
         <Tasks tasks={itemTasks.edges} media={media} about={about} />
       </StyledAnnotationRow>
     );

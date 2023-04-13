@@ -9,7 +9,6 @@ import UserAvatar from '../UserAvatar';
 import {
   Text,
   units,
-  body1,
 } from '../../styles/js/shared';
 
 export default class UserMenu extends React.Component {
@@ -46,7 +45,7 @@ export default class UserMenu extends React.Component {
           <ListItemText
             primary={
               <div>
-                <Text maxWidth="100%" font={body1} ellipsis>
+                <Text maxWidth="100%" className="typography-body1" ellipsis>
                   <span style={{ maxWidth: '80%' }}>
                     {user ? user.name : null}
                   </span>

@@ -30,9 +30,6 @@ const columnWidthMedium = units(85);
 const columnWidthLarge = units(110);
 const columnWidthWide = units(152);
 
-// Typography
-export const body1 = '400 14px var(--fontStackSans)';
-
 // Layout
 export const headerHeight = units(8);
 export const gutterLarge = units(5);

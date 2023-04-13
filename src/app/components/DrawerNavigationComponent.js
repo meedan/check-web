@@ -20,7 +20,6 @@ import CheckContext from '../CheckContext';
 import {
   AlignOpposite,
   Row,
-  body1,
   units,
 } from '../styles/js/shared';
 
@@ -137,7 +136,7 @@ class DrawerNavigationComponent extends Component {
                     </ListItemIcon>
                     <ListItemText
                       primary={
-                        <Row style={{ font: body1 }}>
+                        <Row className="typography-body1">
                           <FormattedMessage id="projects.spam" defaultMessage="Spam" />
                           <AlignOpposite>
                             {String(team.spam_count)}
@@ -155,7 +154,7 @@ class DrawerNavigationComponent extends Component {
                     </ListItemIcon>
                     <ListItemText
                       primary={
-                        <Row style={{ font: body1 }}>
+                        <Row className="typography-body1">
                           <FormattedMessage id="projects.trash" defaultMessage="Trash" />
                           <AlignOpposite>
                             {String(team.trash_count)}
