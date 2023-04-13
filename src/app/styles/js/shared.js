@@ -65,8 +65,6 @@ export const defaultBorderRadius = '2px';
 //
 const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
 
-export const backgroundCover = 'background-repeat: no-repeat; background-position: center; background-size: cover;';
-
 export const avatarSizeLarge = units(9);
 export const avatarSize = units(5);
 export const avatarSizeSmall = units(4);

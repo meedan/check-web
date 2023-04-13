@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import {
   avatarSize,
-  backgroundCover,
   borderWidthSmall,
   defaultBorderRadius,
 } from '../../styles/js/shared';
@@ -11,7 +10,9 @@ const StyledAvatarDiv = styled.div`
   border: ${borderWidthSmall} solid var(--grayDisabledBackground);
   border-radius: ${defaultBorderRadius};
   flex: 0 0 auto;
-  ${backgroundCover}
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   background-color: var(--otherWhite);
   width: ${props => (props.size ? props.size : avatarSize)};
   height: ${props => (props.size ? props.size : avatarSize)};
