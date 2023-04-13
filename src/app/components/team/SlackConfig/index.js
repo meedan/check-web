@@ -12,7 +12,6 @@ import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 import Switch from '@material-ui/core/Switch';
 import SettingsIcon from '@material-ui/icons/Settings';
-import styled from 'styled-components';
 import UserUtil from '../../user/UserUtil';
 import Message from '../../Message';
 import SlackConfigDialog from './SlackConfigDialog';

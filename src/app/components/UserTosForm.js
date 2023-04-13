@@ -57,7 +57,7 @@ class UserTosForm extends Component {
               </h2> : null
             }
             { termsLastUpdatedAt ?
-              <p className="typography-caption" style={{ margin: `${units(1)} 0`}}>
+              <p className="typography-caption" style={{ margin: `${units(1)} 0` }}>
                 <FormattedMessage
                   id="userTos.termsLastUpdatedAt"
                   defaultMessage="Last updated {lastUpdated}"
