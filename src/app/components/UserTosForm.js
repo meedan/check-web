@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
-import { units, caption } from '../styles/js/shared';
+import { units } from '../styles/js/shared';
 import { stringHelper } from '../customHelpers';
 
 class UserTosForm extends Component {
@@ -57,7 +57,7 @@ class UserTosForm extends Component {
               </h2> : null
             }
             { termsLastUpdatedAt ?
-              <p style={{ margin: `${units(1)} 0`, font: caption }}>
+              <p className="typography-caption" style={{ margin: `${units(1)} 0`}}>
                 <FormattedMessage
                   id="userTos.termsLastUpdatedAt"
                   defaultMessage="Last updated {lastUpdated}"

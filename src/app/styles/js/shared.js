@@ -34,7 +34,6 @@ const columnWidthWide = units(152);
 export const headline = `500 ${units(3)}/${units(4)} var(--fontStackSans)`;
 export const body2 = `400 14px/${units(3)} var(--fontStackSans)`;
 export const body1 = '400 14px var(--fontStackSans)';
-export const caption = `400 ${units(1.5)}/${units(2.5)} var(--fontStackSans)`;
 
 // Layout
 export const headerHeight = units(8);

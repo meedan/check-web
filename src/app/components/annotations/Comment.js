@@ -29,7 +29,6 @@ import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import {
   units,
-  caption,
   breakWordStyles,
   Row,
 } from '../../styles/js/shared';
@@ -77,7 +76,6 @@ const StyledAnnotationWrapper = styled.section`
 const StyledAnnotationMetadata = styled(Row)`
   color: var(--textSecondary);
   flex-flow: wrap row;
-  font: ${caption};
 
   .annotation__card-author {
     color: var(--textPrimary);
@@ -260,7 +258,7 @@ class Comment extends Component {
               </RCTooltip> : null }
 
             <StyledPrimaryColumn>
-              <StyledAnnotationMetadata>
+              <StyledAnnotationMetadata className="typography-caption">
                 <span className="annotation__card-footer">
                   { authorName ?
                     <ProfileLink

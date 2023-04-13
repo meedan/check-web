@@ -42,7 +42,6 @@ import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   units,
   borderWidthLarge,
-  caption,
   breakWordStyles,
   Row,
   defaultBorderRadius,
@@ -55,7 +54,6 @@ const dotOffset = stripUnit(units(4)) - stripUnit(dotSize);
 const StyledDefaultAnnotation = styled.div`
   color: var(--textPrimary);
   display: flex;
-  font: ${caption};
   width: 100%;
   ${props => (props.theme.dir === 'rtl' ? 'padding-right' : 'padding-left')}: ${units(10)};
 
@@ -102,7 +100,6 @@ const StyledPrimaryColumn = styled.div`
   }
 
   .annotation__status {
-    font: ${caption};
     margin: 0 3px;
   }
 `;
@@ -190,7 +187,6 @@ const StyledAnnotationWrapper = styled.section`
 const StyledAnnotationMetadata = styled(Row)`
   color: var(--textSecondary);
   flex-flow: wrap row;
-  font: ${caption};
   margin-top: ${units(3)};
 
   .annotation__card-author {
@@ -659,7 +655,7 @@ class Annotation extends Component {
               values={{
                 status: (
                   <span
-                    className={`annotation__status annotation__status--${statusCode}`}
+                    className={`typography-caption annotation__status annotation__status--${statusCode}`}
                     style={{ color: getStatusStyle(status, 'color') }}
                   >
                     {status.label}
@@ -984,7 +980,7 @@ class Annotation extends Component {
                   <Typography variant="body1" component="div">
                     {contentTemplate}
                   </Typography>
-                  <StyledAnnotationMetadata>
+                  <StyledAnnotationMetadata className="typography-caption">
                     <span className="annotation__card-footer">
                       { authorName ?
                         <ProfileLink
@@ -1004,7 +1000,7 @@ class Annotation extends Component {
               </CardContent>
             </Card>
           </StyledAnnotationCardWrapper> :
-          <StyledDefaultAnnotation className="annotation__default">
+          <StyledDefaultAnnotation className="annotation__default typography-caption">
             <span>
               <span className="annotation__default-content">{contentTemplate}</span>
               {timestamp}
