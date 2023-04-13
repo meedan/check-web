@@ -56,7 +56,6 @@ export const defaultBorderRadius = '2px';
 // And that parent (or any descendants) should not be display: flex
 // See: https://codepen.io/unthinkingly/pen/XMwJLG
 //
-const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
 
 export const avatarSizeLarge = units(9);
 export const avatarSize = units(5);
@@ -363,27 +362,14 @@ export const breakWordStyles = `
 // ===================================================================
 // Styled Components
 //
-// Used as components, like: <Text />
+// Used as components, like: <HeaderTitle />
 //
 // ===================================================================
 
-// Text with optional ellipsis prop
-//
-// <Text ellipsis />
-//
-// deprecated: use @material-ui/core/Typography and theme
-export const Text = styled.div`
-  ${props => props.ellipsis ? ellipsisStyles : ''}
-  ${props => props.font ? `font: ${props.font};` : ''}
-  ${props => props.center ? 'text-align: center;' : ''}
-  ${props => props.color ? `color: ${props.color};` : ''}
-  ${props => props.breakWord ? breakWordStyles : ''}
-  ${props => props.noShrink ? 'flex-shrink: 0;' : ''}
-  ${props => props.maxWidth ? `max-width: ${props.maxWidth}` : ''}
-`;
-
 export const HeaderTitle = styled.h3`
-  ${ellipsisStyles}
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font: 400 16px/28px var(--fontStackSans);
   color: var(--textSecondary);
   max-width: 45vw;

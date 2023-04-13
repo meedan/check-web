@@ -1,0 +1,9 @@
+.teamName {
+  color: var(--textPrimary);
+  flex: 1 1 auto;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
