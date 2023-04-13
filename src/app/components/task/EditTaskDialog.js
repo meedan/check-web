@@ -34,7 +34,7 @@ import EditTaskAlert from './EditTaskAlert';
 import EditTaskOptions from './EditTaskOptions';
 import Message from '../Message';
 import NumberIcon from '../../icons/numbers.svg';
-import { units, errorMain } from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -56,7 +56,7 @@ const styles = {
     marginTop: units(2),
   },
   error: {
-    color: errorMain,
+    color: 'var(--errorMain)',
   },
 };
 

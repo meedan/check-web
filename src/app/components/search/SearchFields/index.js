@@ -27,7 +27,7 @@ import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
 import { can } from '../../Can';
 import { languageLabel } from '../../../LanguageRegistry';
-import { Row, brandMain, textPrimary } from '../../../styles/js/shared';
+import { Row } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
@@ -296,9 +296,9 @@ const SearchFields = ({
   const hideChannel = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname) || readOnlyFields.includes('channels');
 
   const OperatorToggle = () => {
-    let operatorProps = { style: { minWidth: 0, color: brandMain }, onClick: handleOperatorClick };
+    let operatorProps = { style: { minWidth: 0, color: 'var(--brandMain)' }, onClick: handleOperatorClick };
     if (page === 'feed') {
-      operatorProps = { style: { minWidth: 0, color: textPrimary }, disabled: true };
+      operatorProps = { style: { minWidth: 0, color: 'var(--textPrimary)' }, disabled: true };
     }
     return (
       <Button {...operatorProps}>

@@ -15,7 +15,6 @@ import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
-import { grayBackground } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   searchSettingsTitle: {
@@ -33,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: 12,
   },
   selectedItem: {
-    background: grayBackground,
+    background: 'var(--grayBackground)',
   },
   link: {
     textDecoration: 'none',

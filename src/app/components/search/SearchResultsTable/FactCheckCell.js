@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   units,
-  textPrimary,
-  textSecondary,
 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
@@ -34,7 +32,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: {
-    color: textPrimary,
+    color: 'var(--textPrimary)',
     fontWeight: 'bold',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -42,7 +40,7 @@ const useStyles = makeStyles({
   },
   description: {
     maxHeight: units(5),
-    color: textSecondary,
+    color: 'var(--textSecondary)',
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',

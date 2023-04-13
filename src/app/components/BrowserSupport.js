@@ -9,14 +9,12 @@ import { mapGlobalMessage } from './MappedMessage';
 import {
   ContentColumn,
   units,
-  textSecondary,
-  otherWhite,
 } from '../styles/js/shared';
 
 const Message = styled.div`
   padding: ${units(1)};
-  color: ${textSecondary};
-  background-color: ${otherWhite};
+  color: var(--textSecondary);
+  background-color: var(--otherWhite);
   > div {
     display: flex;
     align-items: center;
@@ -60,7 +58,7 @@ class BrowserSupport extends Component {
       return (
         <Message>
           <ContentColumn>
-            <IconButton style={{ fontSize: '20px', color: textSecondary }} onClick={this.close.bind(this)}>
+            <IconButton style={{ fontSize: '20px', color: 'var(--textSecondary)' }} onClick={this.close.bind(this)}>
               <ClearIcon />
             </IconButton>
             <div>

@@ -15,14 +15,7 @@ import {
   parseStringUnixTimestamp,
 } from '../../helpers';
 import Request from '../cds/requests-annotations/Request';
-import {
-  units,
-  twitterBlue,
-  facebookBlue,
-  whatsappGreen,
-  telegramBlue,
-  otherWhite,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   smoochNoMessage: {
@@ -38,16 +31,16 @@ const SmoochIcon = ({ name }) => {
     return (
       <WhatsAppIcon
         style={{
-          backgroundColor: whatsappGreen,
-          color: otherWhite,
+          backgroundColor: 'var(--whatsappGreen)',
+          color: 'var(--otherWhite)',
           borderRadius: 4,
           padding: 2,
         }}
       />
     );
-  case 'messenger': return <FacebookIcon style={{ color: facebookBlue }} />;
-  case 'twitter': return <TwitterIcon style={{ color: twitterBlue }} />;
-  case 'telegram': return <TelegramIcon style={{ color: telegramBlue }} />;
+  case 'messenger': return <FacebookIcon style={{ color: 'var(--facebookBlue)' }} />;
+  case 'twitter': return <TwitterIcon style={{ color: 'var(--twitterBlue)' }} />;
+  case 'telegram': return <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />;
   case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '24px' }} />;
   case 'line': return <LineIcon style={{ color: 'var(--lineGreen)', fontSize: '24px' }} />;
   default: return null;

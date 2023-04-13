@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import styled from 'styled-components';
 import FetchBot from './FetchBot';
 import KeepBot from './KeepBot';
-import { units, grayBorderAccent, otherWhite } from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const StyledSchemaForm = styled.div`
   div {
@@ -28,15 +28,15 @@ const StyledSchemaForm = styled.div`
   fieldset fieldset {
     padding: ${units(1)};
     margin-top: ${units(1)};
-    border: 1px solid ${grayBorderAccent};
+    border: 1px solid var(--grayBorderAccent);
   }
 
   fieldset fieldset button {
     display: block !important;
     width: 32px !important;
-    background: ${otherWhite} !important;
+    background: var(--otherWhite) !important;
     border-radius: 5px !important;
-    color: ${grayBorderAccent} !important;
+    color: var(--grayBorderAccent) !important;
   }
   
   #bot-fetch fieldset div {

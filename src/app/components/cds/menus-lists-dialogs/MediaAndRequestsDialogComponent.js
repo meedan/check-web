@@ -13,7 +13,6 @@ import {
 } from '@material-ui/icons';
 import MediaRequests from '../../media/MediaRequests';
 import { MediaCardLargeQueryRenderer } from '../../media/MediaCardLarge';
-import { brandBorder } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   dialog: {
@@ -28,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     maxHeight: '700px',
     overflowY: 'auto',
-    borderRight: `1px solid ${brandBorder}`,
+    borderRight: '1px solid var(--brandBorder)',
     paddingRight: theme.spacing(3),
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),

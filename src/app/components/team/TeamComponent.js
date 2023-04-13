@@ -25,18 +25,18 @@ import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
-import { units, grayBackground, brandBackground, grayBorderMain } from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const StyledTeamContainer = styled.div`
-  background-color: ${grayBackground};
+  background-color: var(--grayBackground);
   height: 100vh;
   display: flex;
   flex-direction: column;
 `;
 
 const StyledTabs = styled(Tabs)`
-  background-color: ${brandBackground};
-  border-bottom: solid 1px ${grayBorderMain};
+  background-color: var(--brandBackground);
+  border-bottom: solid 1px var(--grayBorderMain);
   box-shadow: none !important;
   padding-left: 32px;
   flex: 0 0 48px;
