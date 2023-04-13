@@ -1,11 +1,10 @@
-import styled from 'styled-components';
-import { units, headline } from '../../styles/js/shared';
+import React from 'react';
+import styles from './BlankState.module.css';
 
-const StyledBlankState = styled.div`
-  margin-top: ${units(5)};
-  font: ${headline};
-  color: var(--textDisabled);
-  text-align: center;
-`;
+export class StyledBlankState extends React.Component {
+    render() {
+        return <div className={['typography-h6', styles['blankState']].join(' ')}>{this.props.children}</div>
+    }
+}
 
 export default StyledBlankState;
