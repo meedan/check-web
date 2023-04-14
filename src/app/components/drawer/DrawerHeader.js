@@ -3,33 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { injectIntl, intlShape, defineMessages } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import TeamAvatar from '../team/TeamAvatar';
 import { stringHelper } from '../../customHelpers';
 import { units } from '../../styles/js/shared';
 import styles from './DrawerHeader.module.css';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(2, 1),
-    display: 'flex',
-    alignItems: 'center',
-  },
-  link: {
-    flex: '1 1 auto',
-    overflow: 'hidden', // shrink when team name is too long
-    display: 'flex',
-    alignItems: 'center',
-    textDecoration: 'none',
-  },
-  logo: {
-    flex: '0 0 auto',
-    marginRight: theme.spacing(1),
-  },
-  settings: {
-    flex: '0 0 auto',
-  },
-}));
 
 const messages = defineMessages({
   settingsDescription: {
@@ -40,28 +17,26 @@ const messages = defineMessages({
 });
 
 const DrawerHeader = (props) => {
-  const classes = useStyles();
-
   if (!props.team) {
     return props.loggedIn ? (
-      <div className={classes.root}>
+      <div className={styles.drawerHeader}>
         <img height={31 /* file's real height */} alt="Team Logo" src={stringHelper('LOGO_URL')} />
       </div>
     ) : null;
   }
 
   return (
-    <div className={classes.root}>
+    <div className={styles.drawerHeader}>
       {props.currentUserIsMember ? (
         <Link
-          className={`typography-button team-header__drawer-team-link ${classes.link}`}
+          className={`typography-button team-header__drawer-team-link ${styles.link}`}
           to={`/${props.team.slug}/settings/workspace`}
           title={props.intl.formatMessage(messages.settingsDescription)}
         >
-          <TeamAvatar className={classes.logo} size={units(5.5)} team={props.team} />
-          <div className={styles.teamName}>
+          <TeamAvatar className={styles.teamLogo} size={units(5.5)} team={props.team} />
+          <span className={styles.teamName}>
             {props.team.name}
-          </div>
+          </span>
         </Link>
       ) : null}
     </div>
