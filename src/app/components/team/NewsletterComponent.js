@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
@@ -8,12 +9,33 @@ import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import styles from './NewsletterComponent.module.css';
 import UploadFile from '../UploadFile';
 
-const NewsletterComponent = () => {
-  const [overlayText, setOverlayText] = React.useState('');
-  const [introductionText, setIntroductionText] = React.useState('');
+const NewsletterComponent = ({ newsletters, language }) => {
+  const newsletter = newsletters.find(item => item.node?.language === language).node;
+  const {
+    header_overlay_text,
+    first_article,
+    second_article,
+    third_article,
+    introduction,
+    number_of_articles,
+  } = newsletter;
+
+
+  const [overlayText, setOverlayText] = React.useState(header_overlay_text || '');
+  const [introductionText, setIntroductionText] = React.useState(introduction || '');
   const [footerText, setFooterText] = React.useState('');
-  const [articleNum, setArticleNum] = React.useState(0);
-  const [articles, setArticles] = React.useState(['', '', '']);
+  const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
+  const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
+
+  const getMaxChars = () => {
+    let maxChars = 694;
+    if (articleNum === 2) {
+      maxChars = 345;
+    } else if (articleNum === 3) {
+      maxChars = 230;
+    }
+    return maxChars;
+  };
 
   const handleArticleNumChange = (e, newValue) => {
     setArticleNum(newValue);
@@ -93,7 +115,7 @@ const NewsletterComponent = () => {
               { placeholder => (
                 <LimitedTextArea
                   key={x}
-                  maxChars={230}
+                  maxChars={getMaxChars()}
                   value={articles[i]}
                   onChange={e => handleArticleUpdate(e.target.value, i)}
                   placeholder={placeholder}
@@ -106,6 +128,11 @@ const NewsletterComponent = () => {
       </div>
     </div>
   );
+};
+
+NewsletterComponent.propTypes = {
+  newsletters: PropTypes.array.isRequired,
+  language: PropTypes.string.isRequired,
 };
 
 export default NewsletterComponent;

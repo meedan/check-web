@@ -5,24 +5,45 @@ import Relay from 'react-relay/classic';
 import NewsletterComponent from './NewsletterComponent';
 
 const Newsletter = () => {
-  // eslint-disable-next-line
-  console.log('~~~',);
+  const first = 10000;
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query NewsletterQuery {
-          root {
-            current_team {
-              id
+        query NewsletterQuery($first: Int!) {
+          team {
+            permissions
+            id
+            tipline_newsletters(first: $first) {
+              edges {
+                node {
+                  id
+                  number_of_articles
+                  introduction
+                  header_overlay_text
+                  first_article
+                  second_article
+                  third_article
+                  send_every
+                  timezone
+                  time
+                  language
+                  enabled
+                }
+              }
             }
           }
         }
       `}
-      variables={{}}
+      variables={{
+        first,
+      }}
       render={({ props }) => {
         if (props) {
-          return (<NewsletterComponent />);
+          return (<NewsletterComponent
+            newsletters={props.team.tipline_newsletters.edges}
+            language="en"
+          />);
         }
         return null;
       }}
