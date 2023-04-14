@@ -1,7 +1,7 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import { injectIntl, intlShape, defineMessages } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import TeamAvatar from '../team/TeamAvatar';
@@ -32,14 +32,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const messages = defineMessages({
-    settingsDescription: {
-        id: 'teamMenu.teamSettings',
-        defaultMessage: 'Workspace settings',
-        description: 'Tooltip for drawer navigation',
-    },
+  settingsDescription: {
+    id: 'teamMenu.teamSettings',
+    defaultMessage: 'Workspace settings',
+    description: 'Tooltip for drawer navigation',
+  },
 });
 
-const DrawerHeader = (props, { team, loggedIn, currentUserIsMember }) => {
+const DrawerHeader = (props) => {
   const classes = useStyles();
 
   if (!props.team) {
