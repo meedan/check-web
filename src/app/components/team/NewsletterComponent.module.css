@@ -1,0 +1,37 @@
+.container {
+  background: var(--otherWhite);
+  border-color: var(--grayBorderMain);
+  border-radius: 16px 16px 0;
+  border-style: solid;
+  border-width: 2px 2px 0;
+  padding: 16px;
+}
+
+.settings {
+  background: var(--brandBackground);
+  border-radius: 12px;
+  max-width: var(--columnWidthMedium);
+  padding: 16px;
+
+  > *:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.select {
+  width: 50%;
+}
+
+.newsletter-body {
+  background: var(--brandBackgroundAccent);
+  border-radius: 12px;
+  padding: 16px;
+
+  > *:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.text-secondary {
+  color: var(--textSecondary);
+}

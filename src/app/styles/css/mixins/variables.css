@@ -1,5 +1,7 @@
 /* stylelint-disable color-no-hex, custom-property-empty-line-before */
 :root {
+  --columnWidthMedium: 680px;
+  --columnWidthLarge: 880px;
   --fontStackSans: 'Roboto', -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
 
   --fontSizeDefault: 14px;
@@ -11,6 +13,7 @@
   --brandAccent: #293e86;
   --brandBorder: #d0d6ec;
   --brandBackground: #f1f5f6;
+  --brandBackgroundAccent: #eaeeef;
   --brandHoverAccent: #f2f8ff;
 
   --textPrimary: #1f1f1f;

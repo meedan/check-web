@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import styles from './TextField.module.css';
 
 const TextField = ({
+  className,
   disabled,
   error,
   helpContent,
@@ -17,7 +18,7 @@ const TextField = ({
   textArea,
   ...inputProps
 }) => (
-  <>
+  <div className={className}>
     { (label || required) && (
       <Typography variant="body2">
         <div className={`${styles['label-container']} ${error && styles['error-label']}`} >
@@ -69,10 +70,11 @@ const TextField = ({
         </div>
       </Typography>
     )}
-  </>
+  </div>
 );
 
 TextField.defaultProps = {
+  className: '',
   disabled: false,
   error: false,
   helpContent: null,
@@ -85,6 +87,7 @@ TextField.defaultProps = {
 };
 
 TextField.propTypes = {
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   error: PropTypes.bool,
   helpContent: PropTypes.element,
