@@ -121,7 +121,7 @@ class DrawerNavigationComponent extends Component {
 
     return (
       <Drawer open variant="persistent" anchor="left" classes={classes}>
-        <DrawerHeader team={this.props.team} loggedIn={this.props.loggedIn} currentUserIsMember={this.props.currentUserIsMember} />
+        <DrawerHeader team={team} loggedIn={loggedIn} currentUserIsMember={currentUserIsMember} />
         <Divider />
         {!!team && (currentUserIsMember || !team.private) ? (
           <React.Fragment>
