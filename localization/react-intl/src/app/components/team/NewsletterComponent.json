@@ -1,0 +1,22 @@
+[
+  {
+    "id": "newsletterComponent.overlayPlaceholder",
+    "description": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)",
+    "defaultMessage": "Add text on top of the image"
+  },
+  {
+    "id": "newsletterComponent.overlay",
+    "description": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)",
+    "defaultMessage": "Text overlay"
+  },
+  {
+    "id": "newsletterComponent.introduction",
+    "description": "Label for a field where the user inputs text for an introduction to a newsletter",
+    "defaultMessage": "Introduction"
+  },
+  {
+    "id": "newsletterComponent.articlePlaceholder",
+    "description": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article",
+    "defaultMessage": "Add text or link"
+  }
+]

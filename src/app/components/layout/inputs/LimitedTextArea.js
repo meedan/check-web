@@ -26,7 +26,6 @@ const LimitedTextArea = ({
 
   return (
     <TextArea
-      label="Text overlay"
       required
       helpContent={<FormattedMessage
         id="limitedTextAreaWithCounter.counter"

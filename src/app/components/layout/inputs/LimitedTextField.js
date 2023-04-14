@@ -23,7 +23,6 @@ const LimitedTextField = ({
 
   return (
     <TextField
-      label="Text overlay"
       required
       helpContent={<FormattedMessage
         id="limitedTextFieldWithCounter.counter"
