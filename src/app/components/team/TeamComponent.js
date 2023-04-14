@@ -72,7 +72,7 @@ class TeamComponent extends Component {
 
     if (!store.team || store.team.slug !== team.slug) {
       context.setContextStore({ team });
-      const path = `/${team.slug}`;
+      const path = `/${team.slug}/settings`;
       browserHistory.push(path);
     }
   }
@@ -83,9 +83,7 @@ class TeamComponent extends Component {
 
   handleTabChange = (e, tab) => {
     const { team } = this.props;
-    const path = tab === 'members' || tab === 'edit' ?
-      `/${team.slug}/${tab}` :
-      `/${team.slug}/settings/${tab}`;
+    const path = `/${team.slug}/settings/${tab}`;
     browserHistory.push(path);
   };
 
@@ -102,14 +100,12 @@ class TeamComponent extends Component {
 
     let { tab } = this.props.params;
 
-    if (!tab) {
-      tab = 'columns';
+    console.log(action);
+    console.log(tab);
 
-      if (action === 'main') {
-        tab = 'members';
-      } else if (!isAdminOrEditor) {
-        tab = 'tags';
-      }
+    if (!tab) {
+      tab = !isAdminOrEditor ? 'tags' : 'workspace';
+      browserHistory.push(`/${team.slug}/settings/${tab}`);
     }
 
     const TeamSettingsTabs = () => {
@@ -119,8 +115,27 @@ class TeamComponent extends Component {
             indicatorColor="primary"
             textColor="primary"
             value={tab}
-            onChange={this.handleTabChange}
-          >
+            onChange={this.handleTabChange}>
+            <Tab
+              className="team-settings__workspace-tab"
+              label={
+                <FormattedMessage
+                  id="teamSettings.workspace"
+                  defaultMessage="Workspace"
+                />
+              }
+              value="workspace"
+            />
+            <Tab
+              className="team-settings__members-tab"
+              label={
+                <FormattedMessage
+                  id="teamSettings.members"
+                  defaultMessage="Members"
+                />
+              }
+              value="members"
+            />
             { isAdminOrEditor ?
               <Tab
                 className="team-settings__lists-tab"
@@ -256,36 +271,6 @@ class TeamComponent extends Component {
           </StyledTabs>
         );
       }
-
-      return (
-        <StyledTabs
-          indicatorColor="primary"
-          textColor="primary"
-          value={tab}
-          onChange={this.handleTabChange}
-        >
-          <Tab
-            className="team-settings__members-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.members"
-                defaultMessage="Members"
-              />
-            }
-            value="members"
-          />
-          <Tab
-            className="team-settings__details-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.details"
-                defaultMessage="Workspace details"
-              />
-            }
-            value="edit"
-          />
-        </StyledTabs>
-      );
     };
 
     return (
@@ -293,11 +278,11 @@ class TeamComponent extends Component {
         <StyledTeamContainer className="team">
           <TeamSettingsTabs />
           <StyledTeamContent>
+            { tab === 'workspace'
+              ? <TeamDetails team={team} />
+              : null }
             { tab === 'members'
               ? <TeamMembers teamSlug={team.slug} />
-              : null }
-            { tab === 'edit'
-              ? <TeamDetails team={team} />
               : null }
             { isSettings && tab === 'columns'
               ? <TeamLists key={tab} />

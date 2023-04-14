@@ -32,7 +32,7 @@ describe('<TeamComponent />', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
-        pathname: '/team/settings/',
+        pathname: '/team/settings/workspace/',
       },
     });
     getStore().currentUser = currentUser;
@@ -50,7 +50,7 @@ describe('<TeamComponent />', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
-        pathname: '/team/settings/',
+        pathname: '/team/settings/workspace/',
       },
     });
     getStore().currentUser = currentUser;

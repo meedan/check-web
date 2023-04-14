@@ -2,10 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import SettingsIcon from '@material-ui/icons/Settings';
+import { injectIntl, intlShape, defineMessages } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import TeamAvatar from '../team/TeamAvatar';
 import { stringHelper } from '../../customHelpers';
@@ -34,11 +31,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DrawerHeader = ({ team, loggedIn, currentUserIsMember }) => {
+const messages = defineMessages({
+    settingsDescription: {
+        id: 'teamMenu.teamSettings',
+        defaultMessage: 'Workspace settings',
+        description: 'Tooltip for drawer navigation',
+    },
+});
+
+const DrawerHeader = (props, { team, loggedIn, currentUserIsMember }) => {
   const classes = useStyles();
 
-  if (!team) {
-    return loggedIn ? (
+  if (!props.team) {
+    return props.loggedIn ? (
       <div className={classes.root}>
         <img height={31 /* file's real height */} alt="Team Logo" src={stringHelper('LOGO_URL')} />
       </div>
@@ -47,28 +52,17 @@ const DrawerHeader = ({ team, loggedIn, currentUserIsMember }) => {
 
   return (
     <div className={classes.root}>
-      <Link
-        className={`typography-button team-header__drawer-team-link ${classes.link}`}
-        to={`/${team.slug}/`}
-      >
-        <TeamAvatar className={classes.logo} size={units(5.5)} team={team} />
-        <div className={styles.teamName}>
-          {team.name}
-        </div>
-      </Link>
-      {currentUserIsMember ? (
-        <Tooltip title={
-          <FormattedMessage id="teamMenu.teamSettings" defaultMessage="Workspace settings" />
-        }
+      {props.currentUserIsMember ? (
+        <Link
+          className={`typography-button team-header__drawer-team-link ${classes.link}`}
+          to={`/${props.team.slug}/settings/workspace`}
+          title={props.intl.formatMessage(messages.settingsDescription)}
         >
-          <IconButton
-            className={`team-menu__team-settings-button ${classes.settings}`}
-            onClick={() => browserHistory.push(`/${team.slug}/settings`)}
-            edge="end"
-          >
-            <SettingsIcon />
-          </IconButton>
-        </Tooltip>
+          <TeamAvatar className={classes.logo} size={units(5.5)} team={props.team} />
+          <div className={styles.teamName}>
+            {props.team.name}
+          </div>
+        </Link>
       ) : null}
     </div>
   );
@@ -84,5 +78,6 @@ DrawerHeader.propTypes = {
   }), // or null
   loggedIn: PropTypes.bool.isRequired,
   currentUserIsMember: PropTypes.bool.isRequired,
+  intl: intlShape.isRequired,
 };
-export default DrawerHeader;
+export default injectIntl(DrawerHeader);

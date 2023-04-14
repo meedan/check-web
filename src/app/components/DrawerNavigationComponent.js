@@ -36,6 +36,11 @@ const BigEmptySpaceInSidebar = () => {
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class DrawerNavigationComponent extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     this.subscribe();
     this.setContextTeam();
@@ -121,7 +126,7 @@ class DrawerNavigationComponent extends Component {
 
     return (
       <Drawer open variant="persistent" anchor="left" classes={classes}>
-        <DrawerHeader team={team} loggedIn={loggedIn} currentUserIsMember={currentUserIsMember} />
+        <DrawerHeader team={this.props.team} loggedIn={this.props.loggedIn} currentUserIsMember={this.props.currentUserIsMember} />
         <Divider />
         {!!team && (currentUserIsMember || !team.private) ? (
           <React.Fragment>
