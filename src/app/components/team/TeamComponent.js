@@ -100,9 +100,6 @@ class TeamComponent extends Component {
 
     let { tab } = this.props.params;
 
-    console.log(action);
-    console.log(tab);
-
     if (!tab) {
       tab = !isAdminOrEditor ? 'tags' : 'workspace';
       browserHistory.push(`/${team.slug}/settings/${tab}`);
