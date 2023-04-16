@@ -25,8 +25,13 @@
     "defaultMessage": "Templates settings"
   },
   {
-    "id": "smoochBotSettings.bspSettings",
-    "description": "Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated.",
-    "defaultMessage": "WhatsApp BSP settings"
+    "id": "smoochBotSettings.onpremSettings",
+    "description": "Title of 'WhatsApp On-Premises API' settings section in the tipline settings page. The words 'WhatsApp On-Premises API' do not need to be translated.",
+    "defaultMessage": "WhatsApp On-Premises API settings"
+  },
+  {
+    "id": "smoochBotSettings.capiSettings",
+    "description": "Title of 'WhatsApp Cloud API' settings section in the tipline settings page. The words 'WhatsApp Cloud API' do not need to be translated.",
+    "defaultMessage": "WhatsApp Cloud API settings"
   }
 ]

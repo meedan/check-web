@@ -36,7 +36,8 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
 
   const isWabaSet = settings.turnio_host && settings.turnio_secret && settings.turnio_token;
   const isSmoochSet = settings.smooch_app_id && settings.smooch_secret_key_key_id && settings.smooch_secret_key_secret && settings.smooch_webhook_secret;
-  const isEnabled = isWabaSet || isSmoochSet;
+  const isCapiSet = settings.capi_phone_number && settings.capi_phone_number_id && settings.capi_permanent_token && settings.capi_verify_token && settings.capi_whatsapp_business_account_id;
+  const isEnabled = isWabaSet || isSmoochSet || isCapiSet;
 
   const isOnline = name => Object.keys(enabledIntegrations).indexOf(name) > -1;
 
@@ -71,7 +72,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<WhatsAppIcon />}
           color="var(--whatsappGreen)"
           online={isOnline('whatsapp')}
-          readOnly={isWabaSet}
+          readOnly={isWabaSet || isCapiSet}
           info={
             isOnline('whatsapp') ?
               <Box>
