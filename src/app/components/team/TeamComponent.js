@@ -72,7 +72,7 @@ class TeamComponent extends Component {
 
     if (!store.team || store.team.slug !== team.slug) {
       context.setContextStore({ team });
-      const path = `/${team.slug}`;
+      const path = `/${team.slug}/settings`;
       browserHistory.push(path);
     }
   }
@@ -83,17 +83,12 @@ class TeamComponent extends Component {
 
   handleTabChange = (e, tab) => {
     const { team } = this.props;
-    const path = tab === 'members' || tab === 'edit' ?
-      `/${team.slug}/${tab}` :
-      `/${team.slug}/settings/${tab}`;
+    const path = `/${team.slug}/settings/${tab}`;
     browserHistory.push(path);
   };
 
   render() {
     const { team } = this.props;
-    const { action } = this.props.route;
-    const isSettings = (action === 'settings') && can(team.permissions, 'update Team');
-    const isReadOnly = (action === 'settings') && can(team.permissions, 'read Team');
 
     const userRole = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug);
     const isAdmin = userRole === 'admin';
@@ -103,24 +98,39 @@ class TeamComponent extends Component {
     let { tab } = this.props.params;
 
     if (!tab) {
-      tab = 'columns';
-
-      if (action === 'main') {
-        tab = 'members';
-      } else if (!isAdminOrEditor) {
-        tab = 'tags';
-      }
+      tab = !isAdminOrEditor ? 'tags' : 'workspace';
+      browserHistory.push(`/${team.slug}/settings/${tab}`);
     }
 
-    const TeamSettingsTabs = () => {
-      if (isSettings || isReadOnly) {
-        return (
+    return (
+      <PageTitle team={team}>
+        <StyledTeamContainer className="team">
           <StyledTabs
             indicatorColor="primary"
             textColor="primary"
             value={tab}
             onChange={this.handleTabChange}
           >
+            <Tab
+              className="team-settings__workspace-tab"
+              label={
+                <FormattedMessage
+                  id="teamSettings.workspace"
+                  defaultMessage="Workspace"
+                />
+              }
+              value="workspace"
+            />
+            <Tab
+              className="team-settings__members-tab"
+              label={
+                <FormattedMessage
+                  id="teamSettings.members"
+                  defaultMessage="Members"
+                />
+              }
+              value="members"
+            />
             { isAdminOrEditor ?
               <Tab
                 className="team-settings__lists-tab"
@@ -182,7 +192,7 @@ class TeamComponent extends Component {
                 value="rules"
               />
               : null }
-            { isSettings || isReadOnly ?
+            { isAdminOrEditor ?
               <Tab
                 className="team-settings__tags-tab"
                 label={
@@ -254,82 +264,44 @@ class TeamComponent extends Component {
               />
               : null }
           </StyledTabs>
-        );
-      }
-
-      return (
-        <StyledTabs
-          indicatorColor="primary"
-          textColor="primary"
-          value={tab}
-          onChange={this.handleTabChange}
-        >
-          <Tab
-            className="team-settings__members-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.members"
-                defaultMessage="Members"
-              />
-            }
-            value="members"
-          />
-          <Tab
-            className="team-settings__details-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.details"
-                defaultMessage="Workspace details"
-              />
-            }
-            value="edit"
-          />
-        </StyledTabs>
-      );
-    };
-
-    return (
-      <PageTitle team={team}>
-        <StyledTeamContainer className="team">
-          <TeamSettingsTabs />
           <StyledTeamContent>
+            { tab === 'workspace'
+              ? <TeamDetails team={team} />
+              : null }
             { tab === 'members'
               ? <TeamMembers teamSlug={team.slug} />
               : null }
-            { tab === 'edit'
-              ? <TeamDetails team={team} />
-              : null }
-            { isSettings && tab === 'columns'
+            { tab === 'columns'
               ? <TeamLists key={tab} />
               : null }
-            { isSettings && tab === 'annotation'
+            { tab === 'annotation'
               ? <TeamTasks key={tab} team={team} fieldset="metadata" />
               : null }
-            { isSettings && tab === 'tipline'
+            { tab === 'tipline'
               ? <SmoochBot currentUser={this.getCurrentUser()} />
               : null }
-            { isSettings && tab === 'data'
+            { tab === 'data'
               ? <TeamData teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'rules'
+            { tab === 'rules'
               ? <TeamRules teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'report'
+            { tab === 'report'
               ? <TeamReport team={team} />
               : null }
-            { isSettings && tab === 'integrations'
+            { tab === 'integrations'
               ? <TeamIntegrations />
               : null }
-            { isReadOnly && tab === 'tags'
+            { tab === 'tags'
               ? <TeamTags teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'statuses'
+            { tab === 'statuses'
               ? <TeamStatuses teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'languages'
+            { tab === 'languages'
               ? <TeamLanguages teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'similarity'
+            { tab === 'similarity'
               ? <TeamSimilarity teamSlug={team.slug} />
               : null }
           </StyledTeamContent>
@@ -345,10 +317,9 @@ TeamComponent.propTypes = {
     slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
   }).isRequired,
-  // TODO: Specify prop shapes
-  route: PropTypes.object.isRequired,
-  // TODO: Specify prop shapes
-  params: PropTypes.object.isRequired,
+  params: PropTypes.shape({
+    tab: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 // eslint-disable-next-line import/no-unused-modules

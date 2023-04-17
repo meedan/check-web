@@ -16,7 +16,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('duplicated-team')).to be(false)
     @driver.navigate.to "#{@config['self_url']}/#{team}"
     wait_for_selector('button#team-members__invite-button')
-    wait_for_selector('.team-settings__details-tab').click
+    wait_for_selector('.team-settings__workspace-tab').click
     wait_for_selector('#team-details__update-button')
     wait_for_selector('#team-details__duplicate-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
@@ -34,7 +34,7 @@ shared_examples 'team' do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}"
-    wait_for_selector('.team-settings__details-tab').click
+    wait_for_selector('.team-settings__workspace-tab').click
     expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(false)
     expect(@driver.page_source.include?(' - EDIT')).to be(false)
 
@@ -126,7 +126,7 @@ shared_examples 'team' do
     # do not be able to see member icon menu
     expect(@driver.find_elements(:css, '.team-members__icon-menu').empty?).to be(true)
     # do not be able to duplicate or edit workspace detail
-    wait_for_selector('.team-settings__details-tab').click
+    wait_for_selector('.team-settings__workspace-tab').click
     wait_for_selector('#team-details__name-input')
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length == 1)
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
@@ -165,7 +165,7 @@ shared_examples 'team' do
     # be able to invite a member
     expect(@driver.find_elements(:css, 'button#team-members__invite-button[disabled=""]').length.zero?).to be(true)
     # be able to edit workspace detail
-    wait_for_selector('.team-settings__details-tab').click
+    wait_for_selector('.team-settings__workspace-tab').click
     wait_for_selector('#team-details__name-input')
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length.zero?).to be(true)
     # do not be able to edit workspace detail
