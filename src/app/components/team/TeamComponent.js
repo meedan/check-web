@@ -89,9 +89,6 @@ class TeamComponent extends Component {
 
   render() {
     const { team } = this.props;
-    const { action } = this.props.route;
-    const isSettings = (action === 'settings') && can(team.permissions, 'update Team');
-    const isReadOnly = (action === 'settings') && can(team.permissions, 'read Team');
 
     const userRole = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug);
     const isAdmin = userRole === 'admin';
@@ -105,172 +102,168 @@ class TeamComponent extends Component {
       browserHistory.push(`/${team.slug}/settings/${tab}`);
     }
 
-    const TeamSettingsTabs = () => (
-      <StyledTabs
-        indicatorColor="primary"
-        textColor="primary"
-        value={tab}
-        onChange={this.handleTabChange}
-      >
-        <Tab
-          className="team-settings__workspace-tab"
-          label={
-            <FormattedMessage
-              id="teamSettings.workspace"
-              defaultMessage="Workspace"
-            />
-          }
-          value="workspace"
-        />
-        <Tab
-          className="team-settings__members-tab"
-          label={
-            <FormattedMessage
-              id="teamSettings.members"
-              defaultMessage="Members"
-            />
-          }
-          value="members"
-        />
-        { isAdminOrEditor ?
-          <Tab
-            className="team-settings__lists-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.lists"
-                defaultMessage="Columns"
-              />
-            }
-            value="columns"
-          /> : null
-        }
-        { can(team.permissions, 'manage TeamTask') ?
-          <Tab
-            className="team-settings__metadata-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.metadata"
-                defaultMessage="Annotation"
-                description="Label for annotation settings tab"
-              />
-            }
-            value="annotation"
-          /> : null
-        }
-        {isAdminOrEditor ?
-          <Tab
-            className="team-settings__tipline-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.tipline"
-                defaultMessage="Tipline"
-              />
-            }
-            value="tipline"
-          />
-          : null }
-        {isAdminOrEditor && Boolean(team.smooch_bot) ?
-          <Tab
-            className="team-settings__data-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.data"
-                defaultMessage="Data"
-              />
-            }
-            value="data"
-          />
-          : null }
-        {isAdminOrEditor ?
-          <Tab
-            className="team-settings__rules-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.rules"
-                defaultMessage="Rules"
-              />
-            }
-            value="rules"
-          />
-          : null }
-        { isSettings || isReadOnly ?
-          <Tab
-            className="team-settings__tags-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.Tags"
-                defaultMessage="Tags"
-              />
-            }
-            value="tags"
-          /> : null }
-        {isAdmin && isAlegreBotInstalled ?
-          <Tab
-            className="team-settings__similarity-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.similarity"
-                defaultMessage="Similarity"
-              />
-            }
-            value="similarity"
-          />
-          : null }
-        {isAdmin ?
-          <Tab
-            className="team-settings__languages-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.languages"
-                defaultMessage="Languages"
-              />
-            }
-            value="languages"
-          />
-          : null }
-        {isAdminOrEditor ?
-          <Tab
-            className="team-settings__statuses-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.statuses"
-                defaultMessage="Statuses"
-              />
-            }
-            value="statuses"
-          />
-          : null }
-        {isAdminOrEditor && Boolean(team.smooch_bot) ?
-          <Tab
-            className="team-settings__report-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.report"
-                defaultMessage="Report"
-              />
-            }
-            value="report"
-          />
-          : null }
-        {isAdmin ?
-          <Tab
-            className="team-settings__integrations-tab"
-            label={
-              <FormattedMessage
-                id="teamSettings.integrations"
-                defaultMessage="Integrations"
-              />
-            }
-            value="integrations"
-          />
-          : null }
-      </StyledTabs>
-    );
-
     return (
       <PageTitle team={team}>
         <StyledTeamContainer className="team">
-          <TeamSettingsTabs />
+          <StyledTabs
+            indicatorColor="primary"
+            textColor="primary"
+            value={tab}
+            onChange={this.handleTabChange}
+          >
+            <Tab
+              className="team-settings__workspace-tab"
+              label={
+                <FormattedMessage
+                  id="teamSettings.workspace"
+                  defaultMessage="Workspace"
+                />
+              }
+              value="workspace"
+            />
+            <Tab
+              className="team-settings__members-tab"
+              label={
+                <FormattedMessage
+                  id="teamSettings.members"
+                  defaultMessage="Members"
+                />
+              }
+              value="members"
+            />
+            { isAdminOrEditor ?
+              <Tab
+                className="team-settings__lists-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.lists"
+                    defaultMessage="Columns"
+                  />
+                }
+                value="columns"
+              /> : null
+            }
+            { can(team.permissions, 'manage TeamTask') ?
+              <Tab
+                className="team-settings__metadata-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.metadata"
+                    defaultMessage="Annotation"
+                    description="Label for annotation settings tab"
+                  />
+                }
+                value="annotation"
+              /> : null
+            }
+            {isAdminOrEditor ?
+              <Tab
+                className="team-settings__tipline-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.tipline"
+                    defaultMessage="Tipline"
+                  />
+                }
+                value="tipline"
+              />
+              : null }
+            {isAdminOrEditor && Boolean(team.smooch_bot) ?
+              <Tab
+                className="team-settings__data-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.data"
+                    defaultMessage="Data"
+                  />
+                }
+                value="data"
+              />
+              : null }
+            {isAdminOrEditor ?
+              <Tab
+                className="team-settings__rules-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.rules"
+                    defaultMessage="Rules"
+                  />
+                }
+                value="rules"
+              />
+              : null }
+            { isAdminOrEditor ?
+              <Tab
+                className="team-settings__tags-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.Tags"
+                    defaultMessage="Tags"
+                  />
+                }
+                value="tags"
+              /> : null }
+            {isAdmin && isAlegreBotInstalled ?
+              <Tab
+                className="team-settings__similarity-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.similarity"
+                    defaultMessage="Similarity"
+                  />
+                }
+                value="similarity"
+              />
+              : null }
+            {isAdmin ?
+              <Tab
+                className="team-settings__languages-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.languages"
+                    defaultMessage="Languages"
+                  />
+                }
+                value="languages"
+              />
+              : null }
+            {isAdminOrEditor ?
+              <Tab
+                className="team-settings__statuses-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.statuses"
+                    defaultMessage="Statuses"
+                  />
+                }
+                value="statuses"
+              />
+              : null }
+            {isAdminOrEditor && Boolean(team.smooch_bot) ?
+              <Tab
+                className="team-settings__report-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.report"
+                    defaultMessage="Report"
+                  />
+                }
+                value="report"
+              />
+              : null }
+            {isAdmin ?
+              <Tab
+                className="team-settings__integrations-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.integrations"
+                    defaultMessage="Integrations"
+                  />
+                }
+                value="integrations"
+              />
+              : null }
+          </StyledTabs>
           <StyledTeamContent>
             { tab === 'workspace'
               ? <TeamDetails team={team} />
@@ -278,37 +271,37 @@ class TeamComponent extends Component {
             { tab === 'members'
               ? <TeamMembers teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'columns'
+            { tab === 'columns'
               ? <TeamLists key={tab} />
               : null }
-            { isSettings && tab === 'annotation'
+            { tab === 'annotation'
               ? <TeamTasks key={tab} team={team} fieldset="metadata" />
               : null }
-            { isSettings && tab === 'tipline'
+            { tab === 'tipline'
               ? <SmoochBot currentUser={this.getCurrentUser()} />
               : null }
-            { isSettings && tab === 'data'
+            { tab === 'data'
               ? <TeamData teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'rules'
+            { tab === 'rules'
               ? <TeamRules teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'report'
+            { tab === 'report'
               ? <TeamReport team={team} />
               : null }
-            { isSettings && tab === 'integrations'
+            { tab === 'integrations'
               ? <TeamIntegrations />
               : null }
-            { isReadOnly && tab === 'tags'
+            { tab === 'tags'
               ? <TeamTags teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'statuses'
+            { tab === 'statuses'
               ? <TeamStatuses teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'languages'
+            { tab === 'languages'
               ? <TeamLanguages teamSlug={team.slug} />
               : null }
-            { isSettings && tab === 'similarity'
+            { tab === 'similarity'
               ? <TeamSimilarity teamSlug={team.slug} />
               : null }
           </StyledTeamContent>
@@ -324,10 +317,9 @@ TeamComponent.propTypes = {
     slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
   }).isRequired,
-  // TODO: Specify prop shapes
-  route: PropTypes.object.isRequired,
-  // TODO: Specify prop shapes
-  params: PropTypes.object.isRequired,
+  params: PropTypes.shape({
+    tab: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 // eslint-disable-next-line import/no-unused-modules

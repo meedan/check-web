@@ -74,7 +74,8 @@ class Root extends Component {
                   <Route path="check/me(/:tab)" component={Me} />
                   <Route path="check/feed/:feedId/cluster/:clusterId" component={FeedItem} />
                   <Route path="check/feed/:feedId/request/:requestId" component={FeedClusterPage} />
-                  <Route path=":team" action="settings" component={Team} />
+                  <Route path=":team" component={Team} />
+                  <Route path=":team/settings(/:tab)" component={Team} />
                   <Route path=":team/media/:mediaId" component={MediaPage} />
                   <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} />
                   <Route path=":team/list/:listId/media/:mediaId" component={MediaPage} />
@@ -103,7 +104,6 @@ class Root extends Component {
                   <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
-                  <Route path=":team/settings(/:tab)" action="settings" component={Team} />
                   <Route path="*" component={NotFound} public />
                 </Route>
               </Router>
