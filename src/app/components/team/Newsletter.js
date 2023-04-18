@@ -43,7 +43,6 @@ const Newsletter = () => {
         if (props) {
           return (<NewsletterComponent
             newsletters={props.team.tipline_newsletters.edges}
-            language="en"
           />);
         }
         return null;

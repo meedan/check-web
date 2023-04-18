@@ -12,8 +12,11 @@ import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import styles from './NewsletterComponent.module.css';
 import UploadFile from '../UploadFile';
 import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
+import LanguageRegistry from '../../LanguageRegistry';
 
-const NewsletterComponent = ({ newsletters, language }) => {
+const NewsletterComponent = ({ newsletters }) => {
+  const languages = newsletters.map(item => item.node?.language);
+  const [language, setLanguage] = React.useState(languages[0] || '');
   const newsletter = newsletters.find(item => item.node?.language === language).node;
   const {
     id,
@@ -29,11 +32,21 @@ const NewsletterComponent = ({ newsletters, language }) => {
   // eslint-disable-next-line
   console.log('~~~',newsletter, id);
 
+  const [saving, setSaving] = React.useState(false);
   const [overlayText, setOverlayText] = React.useState(header_overlay_text || '');
   const [introductionText, setIntroductionText] = React.useState(introduction || '');
   const [footerText, setFooterText] = React.useState(footer || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
+
+  React.useEffect(() => {
+    setOverlayText(header_overlay_text || '');
+    setIntroductionText(introduction || '');
+    setFooterText(footer || '');
+    setArticleNum(number_of_articles || 0);
+    setArticles([first_article || '', second_article || '', third_article || '']);
+  }, [language]);
+
 
   const getMaxChars = () => {
     let maxChars = 694;
@@ -53,11 +66,17 @@ const NewsletterComponent = ({ newsletters, language }) => {
     setArticles(prev => prev.map((el, i) => (i !== index ? el : newValue)));
   };
 
-  // for now this just updates the English newsletter
+  const handleLanguageChange = (e) => {
+    // eslint-disable-next-line
+    console.log('~~~',e.target.value);
+    setLanguage(e.target.value);
+  };
+
+  // TODO: still need to check permissions and make error state
   const handleSave = () => {
     // setError(false);
     // if (hasPermission) {
-    // setSaving(true);
+    setSaving(true);
     // eslint-disable-next-line
     console.log('~~~ SAVING', id);
     commitMutation(Relay.Store, {
@@ -66,6 +85,17 @@ const NewsletterComponent = ({ newsletters, language }) => {
           updateTiplineNewsletter(input: $input) {
             tipline_newsletter {
               id
+              introduction
+              language
+              header_overlay_text
+              first_article
+              second_article
+              third_article
+              number_of_articles
+              footer
+              send_every
+              timezone
+              time
             } 
           }
         }
@@ -88,7 +118,7 @@ const NewsletterComponent = ({ newsletters, language }) => {
         },
       },
       onCompleted: (response, err) => {
-        // setSaving(false);
+        setSaving(false);
         if (err) {
           // setError(true);
         } else {
@@ -96,7 +126,7 @@ const NewsletterComponent = ({ newsletters, language }) => {
         }
       },
       onError: () => {
-        // setSaving(false);
+        setSaving(false);
         // setError(true);
       },
     });
@@ -106,12 +136,15 @@ const NewsletterComponent = ({ newsletters, language }) => {
     <div className={styles.content}>
       <div className={styles['header-container']}>
         <p className="typography-h6">Newsletter</p>
-        <Select className={styles.select} variant="outlined">
-          <option value="image">Language 1</option>
-          <option value="none">Language 2</option>
+        <Select className={styles.select} variant="outlined" onChange={handleLanguageChange}>
+          { languages.map(languageCode => (
+            <option value={languageCode}>
+              {LanguageRegistry[languageCode].name} / {LanguageRegistry[languageCode].nativeName} ({languageCode})
+            </option>
+          ))}
         </Select>
         <div>
-          <Button className="save-button" variant="contained" color="primary" onClick={handleSave}>
+          <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={saving}>
             <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
           </Button>
         </div>
@@ -215,7 +248,6 @@ const NewsletterComponent = ({ newsletters, language }) => {
 
 NewsletterComponent.propTypes = {
   newsletters: PropTypes.array.isRequired,
-  language: PropTypes.string.isRequired,
 };
 
 export default NewsletterComponent;
