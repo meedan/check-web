@@ -13,7 +13,6 @@ import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import DownloadIcon from '@material-ui/icons/Download';
-import { textPrimary, brandMain, otherWhite } from '../../styles/js/shared.js';
 import SensitiveContentMenuButton from '../media/SensitiveContentMenuButton.js';
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     height: 0,
     paddingBottom: '56.25%',
     position: 'relative',
-    backgroundColor: textPrimary,
+    backgroundColor: 'var(--textPrimary)',
   },
   innerWrapper: {
     position: 'absolute',
@@ -60,30 +59,30 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: props.contentWarning ? textPrimary : 'transparent',
+    backgroundColor: props.contentWarning ? 'var(--textPrimary)' : 'transparent',
     zIndex: 100,
-    color: otherWhite,
+    color: 'var(--otherWhite)',
   }),
   visibilityIcon: props => ({
     fontSize: '40px',
     visibility: props.contentWarning ? 'visible' : 'hidden',
   }),
   iconButton: {
-    color: otherWhite,
-    backgroundColor: textPrimary,
+    color: 'var(--otherWhite)',
+    backgroundColor: 'var(--textPrimary)',
     margin: theme.spacing(0.5),
     '&:hover': {
-      color: `${otherWhite} !important`,
-      backgroundColor: `${textPrimary} !important`,
+      color: 'var(--otherWhite) !important',
+      backgroundColor: 'var(--textPrimary) !important',
     },
   },
   button: props => ({
     pointerEvents: 'auto',
     bottom: 0,
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     minWidth: theme.spacing(22),
-    backgroundColor: props.contentWarning ? textPrimary : brandMain,
-    border: `2px solid ${otherWhite}`,
+    backgroundColor: props.contentWarning ? 'var(--textPrimary)' : 'var(--brandMain)',
+    border: '2px solid var(--otherWhite)',
     '& :hover': {
       backgroundColor: 'unset',
     },

@@ -98,10 +98,26 @@ const SmoochBotSettings = (props) => {
 
           <Box mt={1}>
             <Typography variant="subtitle1" component="div">
-              <FormattedMessage id="smoochBotSettings.bspSettings" defaultMessage="WhatsApp BSP settings" description="Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated." />
+              <FormattedMessage id="smoochBotSettings.onpremSettings" defaultMessage="WhatsApp On-Premises API settings" description="Title of 'WhatsApp On-Premises API' settings section in the tipline settings page. The words 'WhatsApp On-Premises API' do not need to be translated." />
             </Typography>
 
             {Object.keys(fields).filter(f => /^turnio_/.test(f)).map(field => (
+              <SmoochBotSetting
+                field={field}
+                value={props.settings[field]}
+                schema={fields[field]}
+                onChange={props.onChange}
+                currentUser={props.currentUser}
+              />
+            ))}
+          </Box>
+
+          <Box mt={1}>
+            <Typography variant="subtitle1" component="div">
+              <FormattedMessage id="smoochBotSettings.capiSettings" defaultMessage="WhatsApp Cloud API settings" description="Title of 'WhatsApp Cloud API' settings section in the tipline settings page. The words 'WhatsApp Cloud API' do not need to be translated." />
+            </Typography>
+
+            {Object.keys(fields).filter(f => /^capi_/.test(f)).map(field => (
               <SmoochBotSetting
                 field={field}
                 value={props.settings[field]}

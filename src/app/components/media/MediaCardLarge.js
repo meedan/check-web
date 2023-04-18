@@ -14,14 +14,13 @@ import WebPageMediaCard from './WebPageMediaCard';
 import PenderCard from '../PenderCard';
 import AspectRatio from '../layout/AspectRatio'; // eslint-disable-line no-unused-vars
 import { getMediaType } from '../../helpers';
-import { otherWhite, brandBorder } from '../../styles/js/shared';
 
 const StyledCardBorder = styled.div`
-  background: ${otherWhite};
+  background: var(--otherWhite);
   border-radius: ${props => props.roundedTopCorners ? '8px' : ' 0 0 8px 8px'};
   // For rounded corners, the border should cover the content... otherwise, we want the player to cover the border
-  outline: ${props => props.inModal || props.roundedTopCorners ? 'none' : `1px solid ${brandBorder}`};
-  border: ${props => props.inModal || !props.roundedTopCorners ? 'none' : `1px solid ${brandBorder}`};
+  outline: ${props => props.inModal || props.roundedTopCorners ? 'none' : '1px solid var(--brandBorder)'};
+  border: ${props => props.inModal || !props.roundedTopCorners ? 'none' : '1px solid var(--brandBorder)'};
   outline-offset: -1px;
 `;
 

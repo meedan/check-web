@@ -7,7 +7,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import { FormattedMessage } from 'react-intl';
 import { getListUrlQueryAndIndex } from '../../urlHelpers';
-import { Row, Text, HeaderTitle } from '../../styles/js/shared';
+import { Row, HeaderTitle } from '../../styles/js/shared';
+import styles from './Project.module.css';
 
 class ProjectHeaderComponent extends React.PureComponent {
   render() {
@@ -90,9 +91,9 @@ class ProjectHeaderComponent extends React.PureComponent {
             <ArrowBackIcon />
           </IconButton>
           <HeaderTitle className="project-header__title" style={{ maxWidth: 300 }} title={pageTitle?.props?.defaultMessage || pageTitle}>
-            <Text ellipsis>
+            <div className={styles.pageTitle}>
               {pageTitle}
-            </Text>
+            </div>
           </HeaderTitle>
         </Row>
       </div>

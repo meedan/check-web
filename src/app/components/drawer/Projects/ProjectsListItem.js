@@ -9,7 +9,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import RootRef from '@material-ui/core/RootRef';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { brandLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   projectsListItemLabel: {
@@ -19,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     textOverflow: 'ellipsis',
   },
   projectsListItemActive: {
-    background: brandLight,
+    background: 'var(--brandLight)',
   },
   projectsListItemActiveText: {
     fontWeight: 'bold',

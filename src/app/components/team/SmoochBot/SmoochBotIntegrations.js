@@ -20,7 +20,6 @@ import ViberIcon from '../../../icons/viber.svg';
 import LineIcon from '../../../icons/line.svg';
 import SettingsHeader from '../SettingsHeader';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
-import { whatsappGreen, twitterBlue, facebookBlue, telegramBlue } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(() => ({
   smoochBotIntegrationsTitle: {
@@ -37,7 +36,8 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
 
   const isWabaSet = settings.turnio_host && settings.turnio_secret && settings.turnio_token;
   const isSmoochSet = settings.smooch_app_id && settings.smooch_secret_key_key_id && settings.smooch_secret_key_secret && settings.smooch_webhook_secret;
-  const isEnabled = isWabaSet || isSmoochSet;
+  const isCapiSet = settings.capi_phone_number && settings.capi_phone_number_id && settings.capi_permanent_token && settings.capi_verify_token && settings.capi_whatsapp_business_account_id;
+  const isEnabled = isWabaSet || isSmoochSet || isCapiSet;
 
   const isOnline = name => Object.keys(enabledIntegrations).indexOf(name) > -1;
 
@@ -70,9 +70,9 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7122ffbcd0"
           icon={<WhatsAppIcon />}
-          color={whatsappGreen}
+          color="var(--whatsappGreen)"
           online={isOnline('whatsapp')}
-          readOnly={isWabaSet}
+          readOnly={isWabaSet || isCapiSet}
           info={
             isOnline('whatsapp') ?
               <Box>
@@ -219,7 +219,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           url={settings.smooch_twitter_authorization_url}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_5cfcbe09c7"
           icon={<TwitterIcon />}
-          color={twitterBlue}
+          color="var(--twitterBlue)"
           online={isOnline('twitter')}
           readOnly={!isSmoochSet}
           info={
@@ -245,7 +245,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           url={settings.smooch_facebook_authorization_url}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7e76e39cac"
           icon={<FacebookIcon />}
-          color={facebookBlue}
+          color="var(--facebookBlue)"
           online={isOnline('messenger')}
           readOnly={!isSmoochSet}
           info={
@@ -269,7 +269,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="telegram"
           label="Telegram"
           icon={<TelegramIcon />}
-          color={telegramBlue}
+          color="var(--telegramBlue)"
           online={isOnline('telegram')}
           readOnly={!isSmoochSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_6aa3557c62"

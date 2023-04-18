@@ -14,18 +14,6 @@ import IconButton from '@material-ui/core/IconButton';
 import IconClose from '@material-ui/icons/Close';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
-import {
-  validationLight,
-  otherWhite,
-  validationSecondary,
-  alertLight,
-  alertSecondary,
-  errorLight,
-  errorSecondary,
-  brandSecondary,
-  brandBackground,
-  units,
-} from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -46,39 +34,38 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
   },
   smallButton: {
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     marginTop: theme.spacing(1.5),
     marginBottom: 0,
     borderRadius: theme.spacing(1),
-    width: units(15),
-    padding: 0,
+    padding: '4px 6px',
   },
 }));
 
 const alertTypes = {
   success: {
-    icon: <CheckCircleOutlineOutlinedIcon style={{ color: validationSecondary }} />,
-    primaryColor: validationLight,
-    secondaryColor: validationSecondary,
-    borderBox: `1px solid ${validationSecondary} `,
+    icon: <CheckCircleOutlineOutlinedIcon style={{ color: 'var(--validationSecondary)' }} />,
+    primaryColor: 'var(--validationLight)',
+    secondaryColor: 'var(--validationSecondary)',
+    borderBox: '1px solid var(--validationSecondary)',
   },
   warning: {
-    icon: <ReportProblemOutlinedIcon style={{ color: alertSecondary }} />,
-    primaryColor: alertLight,
-    secondaryColor: alertSecondary,
-    borderBox: `1px solid ${alertSecondary} `,
+    icon: <ReportProblemOutlinedIcon style={{ color: 'var(--alertSecondary)' }} />,
+    primaryColor: 'var(--alertLight)',
+    secondaryColor: 'var(--alertSecondary)',
+    borderBox: '1px solid var(--alertSecondary)',
   },
   info: {
-    icon: <InfoOutlinedIcon style={{ color: brandSecondary }} />,
-    primaryColor: brandBackground,
-    secondaryColor: brandSecondary,
-    borderBox: `1px solid ${brandSecondary} `,
+    icon: <InfoOutlinedIcon style={{ color: 'var(--brandSecondary)' }} />,
+    primaryColor: 'var(--brandBackground)',
+    secondaryColor: 'var(--brandSecondary)',
+    borderBox: '1px solid var(--brandSecondary)',
   },
   error: {
-    icon: <ErrorOutlineIcon style={{ color: errorSecondary }} />,
-    primaryColor: errorLight,
-    secondaryColor: errorSecondary,
-    borderBox: `1px solid ${errorSecondary} `,
+    icon: <ErrorOutlineIcon style={{ color: 'var(--errorSecondary)' }} />,
+    primaryColor: 'var(--errorLight)',
+    secondaryColor: 'var(--errorSecondary)',
+    borderBox: '1px solid var(--errorSecondary)',
   },
 };
 

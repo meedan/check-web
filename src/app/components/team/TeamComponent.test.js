@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntl, getStore } from '../../../../test/unit/helpers/intl-test';
+import { shallowWithIntl, getStore } from '../../../../test/unit/helpers/intl-test';
 import { TeamComponentTest } from './TeamComponent';
 
 describe('<TeamComponent />', () => {
@@ -32,35 +32,33 @@ describe('<TeamComponent />', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
-        pathname: '/team/settings/',
+        pathname: '/team/settings/workspace/',
       },
     });
     getStore().currentUser = currentUser;
     getStore().team = team;
-    const wrapper = mountWithIntl(<TeamComponentTest
+    const wrapper = shallowWithIntl(<TeamComponentTest
       team={team}
       params={{}}
-      route={{ action: 'settings' }}
     />);
-    expect(wrapper.find('.team-settings__report-tab').hostNodes()).toHaveLength(0);
-    expect(wrapper.find('.team-settings__data-tab').hostNodes()).toHaveLength(0);
+    expect(wrapper.find('.team-settings__report-tab')).toHaveLength(0);
+    expect(wrapper.find('.team-settings__data-tab')).toHaveLength(0);
   });
 
   it('Should render report tab and data tab when smooch is installed on the team', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
-        pathname: '/team/settings/',
+        pathname: '/team/settings/workspace/',
       },
     });
     getStore().currentUser = currentUser;
     getStore().team = team;
-    const wrapper = mountWithIntl(<TeamComponentTest
+    const wrapper = shallowWithIntl(<TeamComponentTest
       team={team2}
       params={{}}
-      route={{ action: 'settings' }}
     />);
-    expect(wrapper.find('.team-settings__report-tab').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.team-settings__data-tab').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.team-settings__report-tab')).toHaveLength(1);
+    expect(wrapper.find('.team-settings__data-tab')).toHaveLength(1);
   });
 });

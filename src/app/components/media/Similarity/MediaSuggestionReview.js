@@ -17,11 +17,6 @@ import {
   CheckCircleOutline as AcceptIcon,
   HighlightOff as RejectIcon,
 } from '@material-ui/icons';
-import {
-  alertLight,
-  validationMain,
-  errorMain,
-} from '../../../styles/js/shared.js';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -29,8 +24,8 @@ import { can } from '../../Can';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    background: alertLight,
-    borderColor: alertLight,
+    background: 'var(--alertLight)',
+    borderColor: 'var(--alertLight)',
     borderRadius: '8px',
     marginBottom: `${theme.spacing(2)}px`,
     fontSize: '12px',
@@ -47,11 +42,11 @@ const useStyles = makeStyles(theme => ({
     float: 'right',
   },
   accept: {
-    color: validationMain,
+    color: 'var(--validationMain)',
     padding: '4px',
   },
   reject: {
-    color: errorMain,
+    color: 'var(--errorMain)',
     padding: '4px',
   },
 }));

@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import { textSecondary } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   dot: {
@@ -17,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
-    color: textSecondary,
+    color: 'var(--textSecondary)',
     lineHeight: '20px',
   },
   detailSpan: {

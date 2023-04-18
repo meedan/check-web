@@ -7,11 +7,10 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import ExternalLink from './ExternalLink';
 import { logout } from '../redux/actions';
-import { textPrimary } from '../styles/js/shared';
 
 const StyledUserMenuItems = styled.div`
   a:link, a:visited, a:hover, a:active {
-    color: ${textPrimary};
+    color: var(--textPrimary);
     text-decoration: none;
   }
 `;

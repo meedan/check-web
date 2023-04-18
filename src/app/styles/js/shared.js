@@ -4,55 +4,21 @@ import Card from '@material-ui/core/Card';
 
 // Styles for overriding material UI
 // Check Design System Colors
-export const brandMain = '#567bff';
-export const brandSecondary = '#3b5cd0';
-export const brandLight = '#e7efff';
-export const brandAccent = '#293e86';
-export const brandBorder = '#d0d6ec';
-export const brandBackground = '#f1f5f6';
-export const brandHoverAccent = '#f2f8ff';// eslint-disable-line import/no-unused-modules
+// These are deprecated and only used in this file, use css variables in other files
+const brandMain = '#567bff';
+const brandBorder = '#d0d6ec';
 
-export const textPrimary = '#1f1f1f';
-export const textSecondary = '#656565';
-export const textPlaceholder = '#949494';
-export const textDisabled = '#999';
-export const textLink = '#3b5cd0';
+const textPrimary = '#1f1f1f';
+const textSecondary = '#656565';
+const textPlaceholder = '#949494';
+const textDisabled = '#999';
 
-export const validationMain = '#4caf50';
-export const validationSecondary = '#237c27';
-export const validationLight = '#f0fff1';
+const grayBackground = '#f7f7f7';
+const grayDisabledBackground = '#f3f3f3';
+const grayBorderMain = '#e4e4e4';
+const grayBorderAccent = '#b4b4b4';
 
-export const alertMain = '#e78a00';
-export const alertSecondary = '#a66300';
-export const alertLight = '#fff8ed';
-
-export const errorMain = '#f44336';
-export const errorSecondary = '#c9291d';// eslint-disable-line import/no-unused-modules
-export const errorLight = '#ffeeed';// eslint-disable-line import/no-unused-modules
-
-export const grayBackground = '#f7f7f7';
-export const grayDisabledBackground = '#f3f3f3';
-export const grayBorderMain = '#e4e4e4';
-export const grayBorderAccent = '#b4b4b4';
-
-export const overlayLight = 'rgba(34, 34, 34, 0.7)';
-
-export const otherWhite = '#fff';
-
-// Social network colors
-//
-// https://facebookbrand.com/facebookapp/advertisers-and-partners/
-export const facebookBlue = '#1877f2';
-// https://about.twitter.com/content/dam/about-twitter/company/brand-resources/en_us/Twitter_Brand_Guidelines_V2_0.pdf
-export const twitterBlue = '#1da1f2';
-// https://slack.com/intl/en-it/marketing/img/media-kit/slack_brand_guidelines_september2020.pdf
-export const slackGreen = '#2eb67d';
-// https://www.youtube.com/about/brand-resources/#logos-icons-colors
-export const youTubeRed = '#ff0000';
-// https://whatsappbrand.com/#color
-export const whatsappGreen = '#25D366';
-// https://www.schemecolor.com/telegram-color.php
-export const telegramBlue = '#0088CC';
+const otherWhite = '#fff';
 
 // Units
 export function units(unit) {
@@ -63,13 +29,6 @@ const columnWidthSmall = units(56);
 const columnWidthMedium = units(85);
 const columnWidthLarge = units(110);
 const columnWidthWide = units(152);
-
-// Typography
-export const headline = `500 ${units(3)}/${units(4)} var(--fontStackSans)`;
-export const title1 = `500 ${units(2.5)}/${units(4)} var(--fontStackSans)`;
-export const body2 = `400 14px/${units(3)} var(--fontStackSans)`;
-export const body1 = '400 14px var(--fontStackSans)';
-export const caption = `400 ${units(1.5)}/${units(2.5)} var(--fontStackSans)`;
 
 // Layout
 export const headerHeight = units(8);
@@ -97,9 +56,6 @@ export const defaultBorderRadius = '2px';
 // And that parent (or any descendants) should not be display: flex
 // See: https://codepen.io/unthinkingly/pen/XMwJLG
 //
-const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
-
-export const backgroundCover = 'background-repeat: no-repeat; background-position: center; background-size: cover;';
 
 export const avatarSizeLarge = units(9);
 export const avatarSize = units(5);
@@ -406,27 +362,14 @@ export const breakWordStyles = `
 // ===================================================================
 // Styled Components
 //
-// Used as components, like: <Text />
+// Used as components, like: <HeaderTitle />
 //
 // ===================================================================
 
-// Text with optional ellipsis prop
-//
-// <Text ellipsis />
-//
-// deprecated: use @material-ui/core/Typography and theme
-export const Text = styled.div`
-  ${props => props.ellipsis ? ellipsisStyles : ''}
-  ${props => props.font ? `font: ${props.font};` : ''}
-  ${props => props.center ? 'text-align: center;' : ''}
-  ${props => props.color ? `color: ${props.color};` : ''}
-  ${props => props.breakWord ? breakWordStyles : ''}
-  ${props => props.noShrink ? 'flex-shrink: 0;' : ''}
-  ${props => props.maxWidth ? `max-width: ${props.maxWidth}` : ''}
-`;
-
 export const HeaderTitle = styled.h3`
-  ${ellipsisStyles}
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font: 400 16px/28px var(--fontStackSans);
   color: var(--textSecondary);
   max-width: 45vw;
@@ -440,7 +383,7 @@ export const HeaderTitle = styled.h3`
 
 // FIXME: use Typography and/or a dedicated component under components/layout
 export const StyledSubHeader = styled.h2`
-  font: ${title1};
+  font: 500 ${units(2.5)}/${units(4)} var(--fontStackSans);
   font-weight: 600;
   color: var(--textSecondary);
   text-align: center;

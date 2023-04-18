@@ -6,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import { textPrimary } from '../../styles/js/shared';
 
 const submitRefresh = (projectMediaId, onSuccess, onFailure) => {
   commitMutation(Relay.Store, {
@@ -68,7 +67,7 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
     <IconButton
       disabled={waitRequest}
       onClick={handleClick}
-      style={{ color: waitRequest ? null : textPrimary }}
+      style={{ color: waitRequest ? null : 'var(--textPrimary)' }}
       size="small"
       className="media-actions__refresh" // For integration test
     >

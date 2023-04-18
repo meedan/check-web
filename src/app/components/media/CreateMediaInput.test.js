@@ -2,7 +2,6 @@ import React from 'react';
 import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 import CreateMediaInput from './CreateMediaInput';
 import UploadFile from '../UploadFile';
-import { brandMain } from '../../styles/js/shared';
 
 describe('<CreateMediaInput />', () => {
   const team = {
@@ -17,8 +16,8 @@ describe('<CreateMediaInput />', () => {
           id: 'undetermined',
           label: 'Unstarted',
           style: {
-            backgroundColor: brandMain,
-            color: brandMain,
+            backgroundColor: 'var(--brandMain)',
+            color: 'var(--brandMain)',
           },
         },
       ],

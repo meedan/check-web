@@ -10,15 +10,14 @@ import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
 import { getMediaType } from '../../../helpers';
-import { brandBorder, otherWhite, textPrimary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    border: `1px solid ${brandBorder}`,
+    border: '1px solid var(--brandBorder)',
     borderRadius: 8,
-    color: textPrimary,
-    backgroundColor: otherWhite,
+    color: 'var(--textPrimary)',
+    backgroundColor: 'var(--otherWhite)',
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     padding: theme.spacing(1),

@@ -4,15 +4,14 @@ import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import ValueListCell from './ValueListCell';
 import { truncateLength } from '../../../helpers';
-import { textDisabled, otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
   number: {
     textAlign: 'right',
   },
   urlChip: {
-    backgroundColor: textDisabled,
-    color: otherWhite,
+    backgroundColor: 'var(--textDisabled)',
+    color: 'var(--otherWhite)',
     marginTop: '4px',
   },
   link: {

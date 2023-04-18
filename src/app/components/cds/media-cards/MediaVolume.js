@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-import { otherWhite, overlayLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         opacity: 1,
         transition: '0.5s',
       },
-      backgroundColor: overlayLight,
+      backgroundColor: 'var(--overlayLight)',
     },
   },
   slider: {
@@ -34,10 +33,10 @@ const useStyles = makeStyles(theme => ({
     opacity: 0,
   },
   icon: {
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     '&:hover': {
-      color: otherWhite,
-      backgroundColor: overlayLight,
+      color: 'var(--otherWhite)',
+      backgroundColor: 'var(--overlayLight)',
     },
     marginRight: theme.spacing(-1),
   },
@@ -52,7 +51,7 @@ const CustomSlider = withStyles(theme => ({
     },
   },
   thumb: {
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     height: theme.spacing(1.5),
     width: theme.spacing(1.5),
     opacity: 0,
@@ -67,7 +66,7 @@ const CustomSlider = withStyles(theme => ({
   track: {
     height: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
-    color: otherWhite,
+    color: 'var(--otherWhite)',
   },
   rail: {
     height: theme.spacing(0.5),

@@ -11,7 +11,6 @@ import RequestSubscription from './RequestSubscription';
 import MediasLoading from '../media/MediasLoading';
 import ErrorBoundary from '../error/ErrorBoundary';
 import BulletSeparator from '../layout/BulletSeparator';
-import { whatsappGreen, alertMain, otherWhite } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   requestsHeader: {
@@ -22,7 +21,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   subscriptions: {
-    color: alertMain,
+    color: 'var(--alertMain)',
   },
 });
 
@@ -35,8 +34,8 @@ const RequestCards = ({ request, mediaDbid }) => {
   const whatsappIcon = (
     <WhatsAppIcon
       style={{
-        backgroundColor: whatsappGreen,
-        color: otherWhite,
+        backgroundColor: 'var(--whatsappGreen)',
+        color: 'var(--otherWhite)',
         borderRadius: 4,
         padding: 2,
       }}

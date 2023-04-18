@@ -9,7 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import RemoveableWrapper from './RemoveableWrapper';
 import NumberIcon from '../../icons/numbers.svg';
-import { brandMain } from '../../styles/js/shared';
 
 const messages = defineMessages({
   linkedItems: {
@@ -41,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   inputNotEmpty: {
     '& fieldset': {
-      border: `2px solid ${brandMain}`,
+      border: '2px solid var(--brandMain)',
     },
   },
 }));

@@ -5,7 +5,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TeamListsItem from './TeamListsItem';
-import { textSecondary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   column: {
@@ -16,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     border: '1px solid transparent', // To match column of teamListComponent.js
   },
   placeholder: {
-    color: textSecondary,
+    color: 'var(--textSecondary)',
     textAlign: 'center',
   },
   columnTitle: {
