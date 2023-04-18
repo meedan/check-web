@@ -1,5 +1,4 @@
 shared_examples 'team' do
-
   it 'should duplicate team', bin1: true do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
@@ -166,7 +165,7 @@ shared_examples 'team' do
 
     # Go to first team
     @driver.navigate.to "#{@config['self_url']}/#{t1.slug}/all-items"
-    wait_for_selector("#add-filter-menu__open-button")
+    wait_for_selector('#add-filter-menu__open-button')
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/settings/workspace\"]")
 
     # Navigate to second team
@@ -177,7 +176,7 @@ shared_examples 'team' do
     wait_for_selector('.source__primary-info')
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
-    wait_for_selector("#add-filter-menu__open-button")
+    wait_for_selector('#add-filter-menu__open-button')
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/settings/workspace\"]")
 
     # Navigate back to first team
