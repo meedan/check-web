@@ -67,57 +67,53 @@ ul {
 }
 
 .typography-h1 {
-  @mixin typography 96px, 300, -1.5px, 112px;
+  @mixin typography-h1;
 }
 
 .typography-h2 {
-  @mixin typography 60px, 300, -.5px, 72px;
+  @mixin typography-h2;
 }
 
 .typography-h3 {
-  @mixin typography 48px, 400, 0, 56px;
+  @mixin typography-h3;
 }
 
 .typography-h4 {
-  @mixin typography 34px, 400, .25px, 42px;
+  @mixin typography-h4;
 }
 
 .typography-h5 {
-  @mixin typography 24px, 400, 0, 32px;
-  color: currentcolor;
+  @mixin typography-h5;
 }
 
 .typography-h6 {
-  @mixin typography 20px, 500, .15px, 32px;
+  @mixin typography-h6;
 }
 
 .typography-subtitle1 {
-  @mixin typography var(--fontSizeDefault), 400, .15px, 21px;
+  @mixin typography-subtitle1;
 }
 
 .typography-subtitle2 {
-  @mixin typography var(--fontSizeDefault), 500, .1px, 21px;
+  @mixin typography-subtitle1;
 }
 
 .typography-body1 {
-  @mixin typography var(--fontSizeDefault), 400, .15px, 20px;
+  @mixin typography-body1;
 }
 
 .typography-body2 {
-  @mixin typography var(--fontSizeSmall), 400, .15px, 17px;
+  @mixin typography-body2;
 }
 
 .typography-button {
-  @mixin typography var(--fontSizeDefault), 500, .4px, 24px;
-  color: currentcolor;
-  text-transform: none;
+  @mixin typography-button;
 }
 
 .typography-caption {
-  @mixin typography var(--fontSizeSmall), 400, .4px, 15px;
+  @mixin typography-caption;
 }
 
 .typography-overline {
-  @mixin typography var(--fontSizeSmall), 400, 1px, 32px;
-  text-transform: uppercase;
+  @mixin typography-overline;
 }
