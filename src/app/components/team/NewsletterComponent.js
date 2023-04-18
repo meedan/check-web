@@ -1,29 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Select from '../cds/inputs/Select';
 import LimitedTextField from '../layout/inputs/LimitedTextField';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import styles from './NewsletterComponent.module.css';
 import UploadFile from '../UploadFile';
+import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
 
 const NewsletterComponent = ({ newsletters, language }) => {
   const newsletter = newsletters.find(item => item.node?.language === language).node;
   const {
+    id,
     header_overlay_text,
     first_article,
     second_article,
     third_article,
     introduction,
     number_of_articles,
+    footer,
   } = newsletter;
 
+  // eslint-disable-next-line
+  console.log('~~~',newsletter, id);
 
   const [overlayText, setOverlayText] = React.useState(header_overlay_text || '');
   const [introductionText, setIntroductionText] = React.useState(introduction || '');
-  const [footerText, setFooterText] = React.useState('');
+  const [footerText, setFooterText] = React.useState(footer || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
 
@@ -92,7 +95,19 @@ const NewsletterComponent = ({ newsletters, language }) => {
           <div className={`typography-body2 ${styles['text-secondary']}`}>
             Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS.
           </div>
-          <ToggleButtonGroup value={articleNum} onChange={handleArticleNumChange} exclusive>
+          <ToggleButtonGroup
+            label={
+              <FormattedMessage
+                id="newsletterComponent.numberOfArticles"
+                defaultMessage="Number of articles"
+                description="Label on an input where the user selects the number of articles to display in their newsletter"
+              />
+            }
+            variant="contained"
+            value={articleNum}
+            onChange={handleArticleNumChange}
+            exclusive
+          >
             <ToggleButton value={0}>
               0
             </ToggleButton>

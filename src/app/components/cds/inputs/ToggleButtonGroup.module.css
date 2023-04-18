@@ -1,0 +1,42 @@
+.root {
+  background-color: transparent !important;
+  border: 2px solid var(--grayBorderMain);
+  border-radius: 8px !important;
+
+  button {
+    @mixin typography var(--fontSizeDefault), 500, .4px, 24px;
+    border: none;
+    color: currentcolor;
+    text-transform: none;
+
+    &:hover {
+      background: inherit;
+    }
+  }
+
+  button[aria-pressed='true'] {
+    background: var(--brandMain);
+    color: var(--otherWhite);
+
+    &:hover {
+      background: var(--brandMain);
+    }
+  }
+
+  button:not(:first-child) {
+    border-left: 2px solid var(--grayBorderMain);
+  }
+}
+
+.contained {
+  background-color: var(--otherWhite) !important;
+
+  &:hover {
+    background-color: var(--otherWhite) !important;
+  }
+}
+
+.label {
+  color: var(--textSecondary);
+  margin-left: 10px;
+}

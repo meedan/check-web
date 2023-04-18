@@ -15,6 +15,11 @@
     "defaultMessage": "Introduction"
   },
   {
+    "id": "newsletterComponent.numberOfArticles",
+    "description": "Label on an input where the user selects the number of articles to display in their newsletter",
+    "defaultMessage": "Number of articles"
+  },
+  {
     "id": "newsletterComponent.articlePlaceholder",
     "description": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article",
     "defaultMessage": "Add text or link"

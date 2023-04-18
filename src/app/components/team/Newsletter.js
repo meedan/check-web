@@ -29,6 +29,7 @@ const Newsletter = () => {
                   time
                   language
                   enabled
+                  footer
                 }
               }
             }
