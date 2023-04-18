@@ -170,6 +170,12 @@ export const MuiTheme = {
     },
   },
   overrides: { // Override of all material UI components. Information at https://material-ui.com/api/{component}
+    MuiDrawer: {
+      paperAnchorDockedLeft: {
+        borderRight: `solid 2px ${grayBorderMain}`,
+        left: '70px',
+      },
+    },
     MuiTableContainer: {
       root: {
         borderTop: `solid 1px ${grayBorderMain}`,

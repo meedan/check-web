@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, withRouter } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -30,52 +28,10 @@ import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
+import CategoryIcon from '../../../icons/category.svg';
 import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
-
-const useStyles = makeStyles(theme => ({
-  projectsComponentList: {
-    padding: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    overflow: 'auto',
-  },
-  projectsComponentPlus: {
-    minWidth: 0,
-  },
-  projectsComponentCollectionExpanded: {
-    background: 'var(--brandLight)',
-  },
-  projectsComponentNestedList: {
-    paddingLeft: theme.spacing(3),
-  },
-  projectsComponentCollapse: {
-    minHeight: 'auto !important',
-  },
-  projectsComponentButton: {
-    padding: 0,
-  },
-  projectsComponentMask: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    background: 'var(--otherWhite)',
-    opacity: 0.7,
-    zIndex: 1,
-  },
-  projectsComponentHeader: {
-    cursor: 'pointer',
-  },
-  projectsComponentChevron: {
-    marginRight: theme.spacing(1),
-  },
-  listItemIconRoot: {
-    minWidth: theme.spacing(4),
-  },
-}));
+import styles from './Projects.module.css';
 
 const ProjectsComponent = ({
   team,
@@ -86,8 +42,6 @@ const ProjectsComponent = ({
   location,
   setFlashMessage,
 }) => {
-  const classes = useStyles();
-
   const [folderMenuAnchor, setFolderMenuAnchor] = React.useState(null);
   const [showNewFolderDialog, setShowNewFolderDialog] = React.useState(false);
   const [showNewCollectionDialog, setShowNewCollectionDialog] = React.useState(false);
@@ -267,18 +221,21 @@ const ProjectsComponent = ({
 
   return (
     <React.Fragment>
-      <List dense className={[classes.projectsComponentList, 'projects-list'].join(' ')}>
-        { saving ? <Box className={classes.projectsComponentMask} /> : null }
+      <List dense className={[styles.projectsComponentList, 'projects-list'].join(' ')}>
+        { saving ? <Box className={styles.projectsComponentMask} /> : null }
 
         {/* All items */}
         <ListItem
           button
           onClick={handleAllItems}
-          className={activeItem.type === 'all-items' ? ['projects-list__all-items', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__all-items'}
+          className={activeItem.type === 'all-items' ? ['projects-list__all-items', styles.projectsComponentCollectionExpanded].join(' ') : 'projects-list__all-items'}
         >
+          <ListItemIcon className={styles.listItemIconRoot}>
+            <CategoryIcon />
+          </ListItemIcon>
           <ListItemText disableTypography>
             <Typography variant="body1">
-              <FormattedMessage id="projectsComponent.allItems" defaultMessage="All items" description="Label for the 'All items' list displayed on the left sidebar" />
+              <FormattedMessage id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
             </Typography>
           </ListItemText>
           <ListItemSecondaryAction>
@@ -290,14 +247,14 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('tipline-inbox'); }}
-            className={activeItem.type === 'tipline-inbox' ? ['projects-list__tipline-inbox', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__tipline-inbox'}
+            className={activeItem.type === 'tipline-inbox' ? ['projects-list__tipline-inbox', styles.projectsComponentCollectionExpanded].join(' ') : 'projects-list__tipline-inbox'}
           >
-            <ListItemIcon className={classes.listItemIconRoot}>
+            <ListItemIcon className={styles.listItemIconRoot}>
               <ForumIcon />
             </ListItemIcon>
             <ListItemText disableTypography>
               <Typography variant="body1">
-                <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Tipline inbox" description="Label for a list displayed on the left sidebar." />
+                <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar." />
               </Typography>
             </ListItemText>
           </ListItem> : null }
@@ -306,14 +263,14 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('imported-fact-checks'); }}
-            className={activeItem.type === 'imported-reports' ? ['projects-list__imported-reports', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__imported-reports'}
+            className={activeItem.type === 'imported-reports' ? ['projects-list__imported-reports', styles.projectsComponentCollectionExpanded].join(' ') : 'projects-list__imported-reports'}
           >
-            <ListItemIcon className={classes.listItemIconRoot}>
+            <ListItemIcon className={styles.listItemIconRoot}>
               <GetAppIcon />
             </ListItemIcon>
             <ListItemText disableTypography>
               <Typography variant="body1">
-                <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported fact-checks" description="Label for a list displayed on the left sidebar." />
+                <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar." />
               </Typography>
             </ListItemText>
           </ListItem> : null }
@@ -322,9 +279,9 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('suggested-matches'); }}
-            className={activeItem.type === 'suggested-matches' ? ['projects-list__suggested-matches', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__suggested-matches'}
+            className={activeItem.type === 'suggested-matches' ? ['projects-list__suggested-matches', styles.projectsComponentCollectionExpanded].join(' ') : 'projects-list__suggested-matches'}
           >
-            <ListItemIcon className={classes.listItemIconRoot}>
+            <ListItemIcon className={styles.listItemIconRoot}>
               <NewReleasesIcon />
             </ListItemIcon>
             <ListItemText disableTypography>
@@ -334,16 +291,14 @@ const ProjectsComponent = ({
             </ListItemText>
           </ListItem> : null }
 
-        <Divider />
-
         {/* Folders: create new folder or collection */}
-        <ListItem onClick={handleToggleFoldersExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
-          { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
+        <ListItem onClick={handleToggleFoldersExpand} className={[styles.projectsComponentHeader, 'project-list__header'].join(' ')}>
+          { foldersExpanded ? <ExpandLess className={styles.projectsComponentChevron} /> : <ExpandMore className={styles.projectsComponentChevron} /> }
           <ListItemText disableTypography>
             <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
               <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
               <Can permissions={team.permissions} permission="create Project">
-                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
+                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[styles.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
                   <AddIcon />
                 </IconButton>
               </Can>
@@ -379,7 +334,7 @@ const ProjectsComponent = ({
         </ListItem>
 
         {/* Collections and their folders */}
-        <Collapse in={foldersExpanded} className={classes.projectsComponentCollapse}>
+        <Collapse in={foldersExpanded} className={styles.projectsComponentCollapse}>
           <DragDropContext onDragEnd={handleDropped} key={`${projectGroups.length}-${projects.length}`}>
             <Box>
               {projectGroups.sort((a, b) => (a.title.localeCompare(b.title))).map((projectGroup) => {
@@ -407,7 +362,7 @@ const ProjectsComponent = ({
                     (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
                   const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
                   return (
-                    <Box className={groupIsActive ? classes.projectsComponentCollectionExpanded : ''} key={projectGroup.id}>
+                    <Box className={groupIsActive ? styles.projectsComponentCollectionExpanded : ''} key={projectGroup.id}>
                       {groupComponent}
                       <List>
                         { childProjects.length === 0 ?
@@ -429,7 +384,7 @@ const ProjectsComponent = ({
                                 teamSlug={team.slug}
                                 onClick={handleClick}
                                 isActive={isActive('project', project.dbid)}
-                                className={classes.projectsComponentNestedList}
+                                className={styles.projectsComponentNestedList}
                                 isDraggable
                               />
                             ))}
@@ -461,16 +416,14 @@ const ProjectsComponent = ({
           </DragDropContext>
         </Collapse>
 
-        <Divider />
-
         {/* Lists: create new list */}
-        <ListItem onClick={handleToggleListsExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
-          { listsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
+        <ListItem onClick={handleToggleListsExpand} className={[styles.projectsComponentHeader, 'project-list__header'].join(' ')}>
+          { listsExpanded ? <ExpandLess className={styles.projectsComponentChevron} /> : <ExpandMore className={styles.projectsComponentChevron} /> }
           <ListItemText disableTypography>
             <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
               <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
               <Can permissions={team.permissions} permission="create Project">
-                <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={classes.projectsComponentButton}>
+                <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.projectsComponentButton}>
                   <AddIcon id="projects-list__add-filtered-list" />
                 </IconButton>
               </Can>
@@ -478,10 +431,8 @@ const ProjectsComponent = ({
           </ListItemText>
         </ListItem>
 
-        { listsExpanded ? null : <Divider /> }
-
         {/* Lists */}
-        <Collapse in={listsExpanded} className={classes.projectsComponentCollapse}>
+        <Collapse in={listsExpanded} className={styles.projectsComponentCollapse}>
           <Box>
             {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
               <ProjectsListItem
@@ -500,8 +451,8 @@ const ProjectsComponent = ({
         {/* Shared feeds */}
         { feeds.length > 0 ?
           <React.Fragment>
-            <ListItem onClick={handleToggleFeedsExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
-              { feedsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
+            <ListItem onClick={handleToggleFeedsExpand} className={[styles.projectsComponentHeader, 'project-list__header'].join(' ')}>
+              { feedsExpanded ? <ExpandLess className={styles.projectsComponentChevron} /> : <ExpandMore className={styles.projectsComponentChevron} /> }
               <ListItemText disableTypography>
                 <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
                   <FormattedMessage id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
@@ -509,10 +460,8 @@ const ProjectsComponent = ({
               </ListItemText>
             </ListItem>
 
-            { feedsExpanded ? null : <Divider /> }
-
             {/* Lists */}
-            <Collapse in={feedsExpanded} className={classes.projectsComponentCollapse}>
+            <Collapse in={feedsExpanded} className={styles.projectsComponentCollapse}>
               <Box>
                 {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
                   <ProjectsListItem

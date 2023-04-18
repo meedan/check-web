@@ -1,0 +1,12 @@
+.drawer {
+  outline: solid 10px var(--brandMain);
+}
+
+.bigEmptySpaceInSidebar {
+  background-color: var(--errorMain);
+  flex: 1 1 auto;
+}
+
+.drawerFooter {
+  background-color: var(--errorMain);
+}

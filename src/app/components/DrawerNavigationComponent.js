@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -127,7 +126,6 @@ class DrawerNavigationComponent extends Component {
             <DrawerProjects team={team.slug} />
             {currentUserIsMember ? (
               <div>
-                <Divider />
                 <Link to={`/${team.slug}/spam`} className="link__internal project-list__link-spam">
                   <MenuItem className="project-list__item-spam">
                     <ListItemIcon className={classes.listItemIconRoot}>
@@ -145,7 +143,6 @@ class DrawerNavigationComponent extends Component {
                     />
                   </MenuItem>
                 </Link>
-                <Divider />
                 <Link to={`/${team.slug}/trash`} className="link__internal project-list__link-trash">
                   <MenuItem className="project-list__item-trash">
                     <ListItemIcon className={classes.listItemIconRoot}>
@@ -167,7 +164,6 @@ class DrawerNavigationComponent extends Component {
             ) : null}
           </React.Fragment>
         ) : <BigEmptySpaceInSidebar />}
-        <Divider />
         <div className="drawer__footer">
           {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
             <Link to="/">
@@ -206,6 +202,8 @@ const drawerStyles = {
   },
   root: {
     width: units(32),
+    minWidth: units(32),
+    maxWidth: units(32),
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',

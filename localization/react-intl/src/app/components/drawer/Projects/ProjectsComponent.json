@@ -17,17 +17,17 @@
   {
     "id": "projectsComponent.allItems",
     "description": "Label for the 'All items' list displayed on the left sidebar",
-    "defaultMessage": "All items"
+    "defaultMessage": "All"
   },
   {
     "id": "projectsComponent.tiplineInbox",
     "description": "Label for a list displayed on the left sidebar.",
-    "defaultMessage": "Tipline inbox"
+    "defaultMessage": "Inbox"
   },
   {
     "id": "projectsComponent.importedReports",
     "description": "Label for a list displayed on the left sidebar.",
-    "defaultMessage": "Imported fact-checks"
+    "defaultMessage": "Imported"
   },
   {
     "id": "projectsComponent.suggestedMatches",

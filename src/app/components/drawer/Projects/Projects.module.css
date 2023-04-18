@@ -1,0 +1,44 @@
+/* stylelint-disable scale-unlimited/declaration-strict-value */
+.projectsComponentList {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: auto;
+  padding: 0;
+}
+
+.projectsComponentCollectionExpanded {
+  background-color: var(--brandLight);
+}
+
+.projectsComponentNestedList {
+  padding-left: 24px;
+}
+
+.projectsComponentCollapse {
+  min-height: auto !important;
+}
+
+.projectsComponentButton {
+  padding: 0;
+}
+
+.projectsComponentMask {
+  @mixin position absolute, 0, 0, 0, 0;
+  background-color: var(--otherWhite);
+  opacity: .7;
+  z-index: 1;
+}
+
+.projectsComponentHeader {
+  cursor: pointer;
+}
+
+.projectsComponentChevron {
+  margin-right: 8px;
+}
+
+.listItemIconRoot {
+  min-width: 32px;
+}
+/* stylelint-enable */
