@@ -1,0 +1,72 @@
+/* stylelint-disable no-descending-specificity */
+.switch {
+  .switchRoot {
+    height: 32px;
+    margin: 6px 0;
+    padding: 0;
+    width: 60px;
+
+    &:hover {
+      .thumb {
+        color: var(--brandHoverAccent);
+      }
+
+      :global(.Mui-disabled) {
+        .thumb {
+          color: var(--textDisabled);
+        }
+      }
+    }
+  }
+
+  .switchBase {
+    padding: 0;
+  }
+
+  .helper {
+    color: var(--textSecondary);
+  }
+
+  .track {
+    background-color: var(--grayBorderMain);
+    border: 1px solid var(--grayBorderMain);
+    border-radius: 8px;
+    opacity: 1;
+  }
+
+  .thumb {
+    align-items: center;
+    border-radius: 6px;
+    color: var(--otherWhite);
+    height: 26px;
+    margin: 3px;
+    padding: 0;
+    transition: color 150ms cubic-bezier(.4, 0, .2, 1) 0ms;
+    width: 26px;
+  }
+
+  :global(.Mui-checked) {
+    transform: translateX(28px);
+
+    + .track {
+      background-color: var(--brandMain);
+      border: none;
+      opacity: 1;
+    }
+  }
+
+  :global(+ .MuiFormControlLabel-label) {
+    margin: -1em 0 0 10px;
+
+    .label {
+      color: var(--textPrimary);
+    }
+  }
+
+  :global(.Mui-disabled) {
+    .thumb {
+      color: var(--textDisabled);
+    }
+  }
+}
+/* stylelint-enable */

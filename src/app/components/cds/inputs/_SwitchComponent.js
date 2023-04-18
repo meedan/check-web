@@ -1,60 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Switch,
-  Typography,
-} from '@material-ui/core';
+import { Switch } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import {
-  grayBorderMain,
-  brandMain,
-  otherWhite,
-  textDisabled,
-  brandHoverAccent,
-  textSecondary,
-} from '../../../styles/js/shared';
-
-const useStyles = makeStyles({
-  root: {
-    width: 60,
-    height: 32,
-    padding: 0,
-  },
-  switchBase: {
-    padding: 0,
-    '&$checked': {
-      transform: 'translateX(26px)',
-      '& + $track': {
-        backgroundColor: brandMain,
-        opacity: 1,
-        border: 'none',
-      },
-    },
-  },
-  thumb: disabled => ({
-    padding: 0,
-    width: 26,
-    height: 26,
-    borderRadius: 6,
-    color: disabled ? textDisabled : otherWhite,
-    alignItems: 'center',
-    marginTop: 3,
-    marginRight: 3,
-    marginLeft: 3,
-    marginBottom: 3,
-    '&:hover': {
-      color: brandHoverAccent,
-    },
-  }),
-  track: {
-    borderRadius: 8,
-    border: `1px solid ${grayBorderMain}`,
-    backgroundColor: grayBorderMain,
-    opacity: 1,
-  },
-  checked: {},
-});
+import styles from './Switch.module.css';
 
 const SwitchComponent = ({
   label,
@@ -65,7 +13,6 @@ const SwitchComponent = ({
   const [state, setState] = React.useState({
     checked: false,
   });
-  const classes = useStyles(disabled);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -74,35 +21,33 @@ const SwitchComponent = ({
   return (
     <FormControlLabel
       control={
-        <div>
+        <div className={styles.switch}>
           <Switch
             checked={state.checked}
             onChange={handleChange}
             name="checked"
             disabled={disabled}
             classes={{
-              root: classes.root,
-              switchBase: classes.switchBase,
-              thumb: classes.thumb,
-              track: classes.track,
-              checked: classes.checked,
+              root: styles.switchRoot,
+              switchBase: styles.switchBase,
+              thumb: styles.thumb,
+              track: styles.track,
+              checked: styles.checked,
             }}
           />
           { helperContent ?
-            <Typography variant="body2" style={{ color: textSecondary }}>
-              <div>
-                {helperContent}
-              </div>
-            </Typography>
+            <div className={['typography-caption', styles.helper].join(' ')}>
+              {helperContent}
+            </div>
             : null }
         </div>
       }
       labelPlacement={labelPlacement}
       value={labelPlacement}
       label={
-        <Typography variant="caption" style={{ color: textSecondary }} >
+        <span className={['typography-body2', styles.label].join(' ')}>
           {label}
-        </Typography>
+        </span>
       }
     />
   );

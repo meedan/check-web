@@ -71,7 +71,7 @@ const callback = (translations) => {
           <PusherContext.Provider value={pusherContextValue}>
             <FlashMessageProvider>
               <ThemeProvider theme={styledComponentsTheme}>
-                <StylesProvider jss={jss}>
+                <StylesProvider jss={jss} injectFirst>
                   <MuiThemeProvider theme={muiTheme}>
                     <Root store={store} translations={translations} locale={locale} />
                   </MuiThemeProvider>
