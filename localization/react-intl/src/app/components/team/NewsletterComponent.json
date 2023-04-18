@@ -1,5 +1,10 @@
 [
   {
+    "id": "newsletterComponent.save",
+    "description": "Label for a button to save settings for the newsletter",
+    "defaultMessage": "Save"
+  },
+  {
     "id": "newsletterComponent.overlayPlaceholder",
     "description": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)",
     "defaultMessage": "Add text on top of the image"

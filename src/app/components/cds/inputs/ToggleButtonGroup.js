@@ -24,9 +24,16 @@ const ToggleButtonGroup = ({
         { label && <label htmlFor="name">{label}</label> }
       </div>
     )}
-    <ToggleButtonGroupMui className={`${styles.root} ${variant === 'contained' && styles.contained}`} {...toggleButtonGroupProps} >
-      {children}
-    </ToggleButtonGroupMui>
+    <div className={`typography-button ${styles['toggle-button-group']}`}>
+      <ToggleButtonGroupMui
+        classes={{
+          root: styles.root,
+        }}
+        {...toggleButtonGroupProps}
+      >
+        {children}
+      </ToggleButtonGroupMui>
+    </div>
     { helpContent && (
       <div className={`typography-caption ${styles['help-container']}`}>
         {helpContent}

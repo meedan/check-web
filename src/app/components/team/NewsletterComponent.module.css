@@ -1,4 +1,20 @@
-.container {
+.content {
+  margin-top: 16px;
+  max-width: 1240px;
+  padding-left: 32px;
+}
+
+.header-container {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 1fr 2fr 1fr;
+
+  :global(.save-button) {
+    float: right;
+  }
+}
+
+.newsletter {
   background: var(--otherWhite);
   border-color: var(--grayBorderMain);
   border-radius: 16px 16px 0;

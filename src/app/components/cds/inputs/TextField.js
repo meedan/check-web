@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ErrorIcon from '@material-ui/icons/Error';
 import { FormattedMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
 import styles from './TextField.module.css';
 
 const TextField = ({
@@ -20,16 +19,14 @@ const TextField = ({
 }) => (
   <div className={className}>
     { (label || required) && (
-      <Typography variant="body2">
-        <div className={`${styles['label-container']} ${error && styles['error-label']}`} >
-          <div className={styles.label} >
-            { label && <label htmlFor="name">{label}</label> }
-          </div>
-          <div className={styles.required} >
-            { required && <span>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
-          </div>
+      <div className={`typography-body2 ${styles['label-container']} ${error && styles['error-label']}`} >
+        <div className={styles.label} >
+          { label && <label htmlFor="name">{label}</label> }
         </div>
-      </Typography>
+        <div className={styles.required} >
+          { required && <span>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
+        </div>
+      </div>
     )}
     <div className={styles['input-container']}>
       { iconLeft && (
@@ -37,25 +34,23 @@ const TextField = ({
           {iconLeft}
         </div>
       )}
-      <Typography variant="body1">
-        { textArea ? (
-          <textarea
-            className={`${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
-            type="text"
-            disabled={disabled}
-            error={error}
-            {...inputProps}
-          />
-        ) : (
-          <input
-            className={`${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
-            type="text"
-            disabled={disabled}
-            error={error}
-            {...inputProps}
-          />
-        )}
-      </Typography>
+      { textArea ? (
+        <textarea
+          className={`typography-body1 ${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
+          type="text"
+          disabled={disabled}
+          error={error}
+          {...inputProps}
+        />
+      ) : (
+        <input
+          className={`typography-body1 ${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
+          type="text"
+          disabled={disabled}
+          error={error}
+          {...inputProps}
+        />
+      )}
       { iconRight && (
         <div className={styles['input-icon-right-icon']}>
           {iconRight}
@@ -63,12 +58,10 @@ const TextField = ({
       )}
     </div>
     { helpContent && (
-      <Typography variant="caption">
-        <div className={`${styles['help-container']} ${error && styles['error-label']}`}>
-          { error && <ErrorIcon className={styles['error-icon']} />}
-          {helpContent}
-        </div>
-      </Typography>
+      <div className={`typography-caption ${styles['help-container']} ${error && styles['error-label']}`}>
+        { error && <ErrorIcon className={styles['error-icon']} />}
+        {helpContent}
+      </div>
     )}
   </div>
 );
