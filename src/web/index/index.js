@@ -60,7 +60,10 @@ const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
 // JSS and StylesProvider and <Helmet><body> are to make material-ui
 // support right-to-left (e.g., Arabic).
 // See https://material-ui.com/guides/right-to-left/
-const jss = jssCreate({ plugins: [...jssPreset().plugins, rtl()] });
+const jss = jssCreate({
+  plugins: [...jssPreset().plugins, rtl()],
+  insertionPoint: 'jss-insertion-point',
+});
 
 const callback = (translations) => {
   render(
@@ -71,7 +74,7 @@ const callback = (translations) => {
           <PusherContext.Provider value={pusherContextValue}>
             <FlashMessageProvider>
               <ThemeProvider theme={styledComponentsTheme}>
-                <StylesProvider jss={jss} injectFirst>
+                <StylesProvider jss={jss}>
                   <MuiThemeProvider theme={muiTheme}>
                     <Root store={store} translations={translations} locale={locale} />
                   </MuiThemeProvider>

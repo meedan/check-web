@@ -84,4 +84,18 @@
     color: var(--textSecondary);
   }
 }
+
+body[dir='rtl'] {
+  .switchWrapper {
+    .switch {
+      :global(.Mui-checked) {
+        transform: translateX(-28px);
+      }
+
+      :global(+ .MuiFormControlLabel-label) {
+        margin: 0 10px 0 0;
+      }
+    }
+  }
+}
 /* stylelint-enable */
