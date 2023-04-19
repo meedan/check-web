@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import {
@@ -12,25 +12,66 @@ import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import styles from './NewsletterComponent.module.css';
 import UploadFile from '../UploadFile';
 import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
-import LanguageRegistry from '../../LanguageRegistry';
+import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
+import SettingsHeader from './SettingsHeader';
+import { safelyParseJSON } from '../../helpers';
+import { can } from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
 
-const NewsletterComponent = ({ newsletters }) => {
-  const languages = newsletters.map(item => item.node?.language);
-  const [language, setLanguage] = React.useState(languages[0] || '');
-  const newsletter = newsletters.find(item => item.node?.language === language).node;
+const messages = defineMessages({
+  headerTypeNone: {
+    id: 'newsletter.headerTypeNone',
+    defaultMessage: 'None',
+    description: 'One of the options for a newsletter header type',
+  },
+  headerTypeLinkPreview: {
+    id: 'newsletter.headerTypeLinkPreview',
+    defaultMessage: 'Link preview',
+    description: 'One of the options for a newsletter header type',
+  },
+  headerTypeImage: {
+    id: 'newsletter.headerTypeImage',
+    defaultMessage: 'Image',
+    description: 'One of the options for a newsletter header type',
+  },
+  headerTypeVideo: {
+    id: 'newsletter.headerTypeVideo',
+    defaultMessage: 'Video',
+    description: 'One of the options for a newsletter header type',
+  },
+  headerTypeAudio: {
+    id: 'newsletter.headerTypeAudio',
+    defaultMessage: 'Audio',
+    description: 'One of the options for a newsletter header type',
+  },
+});
+
+const NewsletterComponent = ({
+  team,
+  newsletters,
+  intl,
+  setFlashMessage,
+}) => {
+  const { defaultLanguage } = team;
+  const languages = safelyParseJSON(team.languages);
+  const [language, setLanguage] = React.useState(defaultLanguage || languages[0] || 'en');
+  const newsletter = newsletters.find(item => item.language === language) || {};
   const {
     id,
+    number_of_articles,
+    introduction,
+    header_type,
     header_overlay_text,
     first_article,
     second_article,
     third_article,
-    introduction,
-    number_of_articles,
     footer,
+    // send_every,
+    // rss_feed_url,
+    // timezone,
+    // time,
+    // enabled,
   } = newsletter;
-
-  // eslint-disable-next-line
-  console.log('~~~',newsletter, id);
 
   const [saving, setSaving] = React.useState(false);
   const [overlayText, setOverlayText] = React.useState(header_overlay_text || '');
@@ -38,6 +79,7 @@ const NewsletterComponent = ({ newsletters }) => {
   const [footerText, setFooterText] = React.useState(footer || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
+  const [headerType, setHeaderType] = React.useState(header_type || 'none');
 
   React.useEffect(() => {
     setOverlayText(header_overlay_text || '');
@@ -66,97 +108,156 @@ const NewsletterComponent = ({ newsletters }) => {
     setArticles(prev => prev.map((el, i) => (i !== index ? el : newValue)));
   };
 
-  const handleLanguageChange = (e) => {
-    // eslint-disable-next-line
-    console.log('~~~',e.target.value);
-    setLanguage(e.target.value);
+  const handleLanguageChange = (value) => {
+    const { languageCode } = value;
+    setLanguage(languageCode);
   };
 
-  // TODO: still need to check permissions and make error state
-  const handleSave = () => {
-    // setError(false);
-    // if (hasPermission) {
-    setSaving(true);
-    // eslint-disable-next-line
-    console.log('~~~ SAVING', id);
-    commitMutation(Relay.Store, {
-      mutation: graphql`
-        mutation NewsletterComponentUpdateMutation($input: UpdateTiplineNewsletterInput!) {
-          updateTiplineNewsletter(input: $input) {
-            tipline_newsletter {
-              id
-              introduction
-              language
-              header_overlay_text
-              first_article
-              second_article
-              third_article
-              number_of_articles
-              footer
-              send_every
-              timezone
-              time
-            } 
-          }
+  const handleError = () => {
+    setSaving(false);
+    setFlashMessage((
+      <FormattedMessage
+        id="newsletter.error"
+        defaultMessage="Could not save newsletter, please try again."
+        description="Error message displayed when it's not possible to save a newsletter."
+      />
+    ), 'error');
+  };
+
+  const handleSuccess = () => {
+    setSaving(false);
+    setFlashMessage((
+      <FormattedMessage
+        id="newsletter.success"
+        defaultMessage="Newsletter saved successfully."
+        description="Success message displayed when a newsletter is saved."
+      />
+    ), 'success');
+  };
+
+  // FIXME: Is there a way to write the tipline_newsletter as a fragment and reuse it in the two mutation queries below?
+
+  const updateMutation = graphql`
+    mutation NewsletterComponentUpdateMutation($input: UpdateTiplineNewsletterInput!) {
+      updateTiplineNewsletter(input: $input) {
+        tipline_newsletter {
+          id
+          introduction
+          language
+          header_type
+          header_overlay_text
+          first_article
+          second_article
+          third_article
+          number_of_articles
+          footer
+          send_every
+          timezone
+          time
         }
-      `,
+      }
+    }
+  `;
+
+  const createMutation = graphql`
+    mutation NewsletterComponentCreateMutation($input: CreateTiplineNewsletterInput!) {
+      createTiplineNewsletter(input: $input) {
+        tipline_newsletter {
+          id
+          introduction
+          language
+          header_type
+          header_overlay_text
+          first_article
+          second_article
+          third_article
+          number_of_articles
+          footer
+          send_every
+          timezone
+          time
+        }
+      }
+    }
+  `;
+
+  const handleSave = () => {
+    setSaving(true);
+    const mutation = (id ? updateMutation : createMutation);
+    const input = {
+      introduction: introductionText,
+      language,
+      header_type: headerType,
+      header_overlay_text: overlayText,
+      first_article: articles[0],
+      second_article: articles[1],
+      third_article: articles[2],
+      number_of_articles: articleNum,
+      footer: footerText,
+      send_every: 'monday', // FIXME: Read this value from the scheduler component
+      timezone: 'America/Los_Angeles', // FIXME: Read this value from the scheduler component
+      time: '10:00', // FIXME: Read this value from the scheduler component
+    };
+    if (id) {
+      input.id = id;
+    }
+    commitMutation(Relay.Store, {
+      mutation,
       variables: {
-        input: {
-          id,
-          introduction: introductionText,
-          language,
-          // header_type,
-          header_overlay_text: overlayText,
-          first_article: articles[0],
-          second_article: articles[1],
-          third_article: articles[2],
-          number_of_articles: articleNum,
-          footer: footerText,
-          send_every: 'monday',
-          timezone: 'America/Los_Angeles',
-          time: '10:00',
-        },
+        input,
       },
       onCompleted: (response, err) => {
-        setSaving(false);
         if (err) {
-          // setError(true);
+          handleError();
         } else {
-          // setError(false);
+          handleSuccess();
         }
       },
       onError: () => {
-        setSaving(false);
-        // setError(true);
+        handleError();
       },
     });
   };
 
   return (
     <div className={styles.content}>
-      <div className={styles['header-container']}>
-        <p className="typography-h6">Newsletter</p>
-        <Select className={styles.select} variant="outlined" onChange={handleLanguageChange}>
-          { languages.map(languageCode => (
-            <option value={languageCode}>
-              {LanguageRegistry[languageCode].name} / {LanguageRegistry[languageCode].nativeName} ({languageCode})
-            </option>
-          ))}
-        </Select>
-        <div>
-          <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={saving}>
-            <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
-          </Button>
-        </div>
-      </div>
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="newsletter.title"
+            defaultMessage="Newsletter"
+            description="Title for newsletter settings page."
+          />
+        }
+        extra={
+          languages.length > 1 ?
+            <LanguagePickerSelect
+              selectedLanguage={language}
+              onSubmit={handleLanguageChange}
+              languages={languages}
+              isDisabled={saving}
+            /> : null
+        }
+        actionButton={
+          <div>
+            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={saving || !can(team.permissions, 'create TiplineNewsletter')}>
+              <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
+            </Button>
+          </div>
+        }
+        helpUrl="https://help.checkmedia.org/en/articles/123456" // FIXME: Add the real KB article URL here
+      />
       <div className={styles.newsletter}>
         <div className={styles.settings}>
           <div className="typography-subtitle2">
             Content
           </div>
-          <Select label="Header" className={styles.select}>
-            <option value="image">Image</option>
-            <option value="none">None</option>
+          <Select label="Header" className={styles.select} value={headerType} onChange={(e) => { setHeaderType(e.target.value); }}>
+            <option value="none">{intl.formatMessage(messages.headerTypeNone)}</option>
+            <option value="link_preview">{intl.formatMessage(messages.headerTypeLinkPreview)}</option>
+            <option value="image">{intl.formatMessage(messages.headerTypeImage)}</option>
+            <option value="video">{intl.formatMessage(messages.headerTypeVideo)}</option>
+            <option value="audio">{intl.formatMessage(messages.headerTypeAudio)}</option>
           </Select>
           <UploadFile
             type="image+video+audio"
@@ -247,7 +348,13 @@ const NewsletterComponent = ({ newsletters }) => {
 };
 
 NewsletterComponent.propTypes = {
-  newsletters: PropTypes.array.isRequired,
+  team: PropTypes.shape({
+    defaultLanguage: PropTypes.string.isRequired,
+    languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    permissions: PropTypes.string.isRequired,
+  }).isRequired,
+  newsletters: PropTypes.array.isRequired, // TODO: Declare the expected structure for each newsletter
+  intl: intlShape.isRequired,
 };
 
-export default NewsletterComponent;
+export default withSetFlashMessage(injectIntl(NewsletterComponent));

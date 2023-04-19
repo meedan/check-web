@@ -1,5 +1,45 @@
 [
   {
+    "id": "newsletter.headerTypeNone",
+    "description": "One of the options for a newsletter header type",
+    "defaultMessage": "None"
+  },
+  {
+    "id": "newsletter.headerTypeLinkPreview",
+    "description": "One of the options for a newsletter header type",
+    "defaultMessage": "Link preview"
+  },
+  {
+    "id": "newsletter.headerTypeImage",
+    "description": "One of the options for a newsletter header type",
+    "defaultMessage": "Image"
+  },
+  {
+    "id": "newsletter.headerTypeVideo",
+    "description": "One of the options for a newsletter header type",
+    "defaultMessage": "Video"
+  },
+  {
+    "id": "newsletter.headerTypeAudio",
+    "description": "One of the options for a newsletter header type",
+    "defaultMessage": "Audio"
+  },
+  {
+    "id": "newsletter.error",
+    "description": "Error message displayed when it's not possible to save a newsletter.",
+    "defaultMessage": "Could not save newsletter, please try again."
+  },
+  {
+    "id": "newsletter.success",
+    "description": "Success message displayed when a newsletter is saved.",
+    "defaultMessage": "Newsletter saved successfully."
+  },
+  {
+    "id": "newsletter.title",
+    "description": "Title for newsletter settings page.",
+    "defaultMessage": "Newsletter"
+  },
+  {
     "id": "newsletterComponent.save",
     "description": "Label for a button to save settings for the newsletter",
     "defaultMessage": "Save"
