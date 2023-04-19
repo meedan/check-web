@@ -74,6 +74,7 @@ module.exports = ({ config, metadata, url }) => {
       <!DOCTYPE html>
       <html>
         <head>
+          <!-- jss-insertion-point -->
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <title>${metadata ? metadata.title : capitalize(config.appName)}</title>
