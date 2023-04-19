@@ -5,7 +5,6 @@
   width: min-content;
 
   :global(.MuiButtonBase-root) {
-    @mixin typography var(--fontSizeDefault), 500, .4px, 24px;
     border: none;
     color: currentcolor;
     text-transform: none;
