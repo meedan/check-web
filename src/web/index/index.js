@@ -60,7 +60,10 @@ const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
 // JSS and StylesProvider and <Helmet><body> are to make material-ui
 // support right-to-left (e.g., Arabic).
 // See https://material-ui.com/guides/right-to-left/
-const jss = jssCreate({ plugins: [...jssPreset().plugins, rtl()] });
+const jss = jssCreate({
+  plugins: [...jssPreset().plugins, rtl()],
+  insertionPoint: 'jss-insertion-point',
+});
 
 const callback = (translations) => {
   render(

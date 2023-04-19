@@ -95,7 +95,7 @@ ul {
 }
 
 .typography-subtitle2 {
-  @mixin typography-subtitle1;
+  @mixin typography-subtitle2;
 }
 
 .typography-body1 {
