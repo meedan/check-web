@@ -7,21 +7,15 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import LinkIcon from '@material-ui/icons/Link';
-import {
-  slackGreen,
-  twitterBlue,
-  facebookBlue,
-  youTubeRed,
-} from '../styles/js/shared';
 
 const maybeColor = color => ({ inColor }) => inColor ? { color } : {};
 
 // Styles are either "{ color: facebookBlue }" or "{}", depending on the "inColor" prop
 const useStyles = makeStyles({
-  twitter: maybeColor(twitterBlue),
-  facebook: maybeColor(facebookBlue),
-  slack: maybeColor(slackGreen),
-  youtube: maybeColor(youTubeRed),
+  twitter: maybeColor('var(--twitterBlue)'),
+  facebook: maybeColor('var(--facebookBlue)'),
+  slack: maybeColor('var(--slackGreen)'),
+  youtube: maybeColor('var(--youTubeRed)'),
 });
 
 const SocialIcon = ({ domain, inColor }) => {

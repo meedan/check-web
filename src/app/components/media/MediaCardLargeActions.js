@@ -16,7 +16,6 @@ import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
 import ExternalLink from '../ExternalLink';
 import MediaLanguageSwitcher from './MediaLanguageSwitcher';
-import { brandBorder } from '../../styles/js/shared';
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -113,7 +112,7 @@ class MediaExpandedActions extends React.Component {
         style={
           bottomSeparator ?
             {
-              borderBottom: `1px solid ${brandBorder}`,
+              borderBottom: '1px solid var(--brandBorder)',
               paddingBottom: '16px',
             } :
             {}

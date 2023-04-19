@@ -22,7 +22,6 @@ import { withClientSessionId } from '../ClientSessionId';
 import { stringHelper } from '../customHelpers';
 import { bemClass } from '../helpers';
 import MeRoute from '../relay/MeRoute';
-import { otherWhite } from '../styles/js/shared';
 
 const Wrapper = styled.div`
   display: flex;
@@ -38,7 +37,7 @@ const Main = styled.main`
 `;
 
 const StyledContent = styled.div`
-  background-color: ${otherWhite};
+  background-color: var(--otherWhite);
   display: flex;
   flex-direction: column;
   height: 100%;

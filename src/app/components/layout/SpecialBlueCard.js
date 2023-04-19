@@ -5,9 +5,6 @@ import CardContent from '@material-ui/core/CardContent';
 import { encodeSvgDataUri } from '../../helpers';
 
 import {
-  brandMain,
-  otherWhite,
-  title1,
   units,
   breakpointMobile,
 } from '../../styles/js/shared';
@@ -22,7 +19,7 @@ const StyledCardIcon = styled.div`
 `;
 
 const StyledMdCard = styled(Card)`
-  background-color: ${brandMain} !important;
+  background-color: var(--brandMain) !important;
   ${props => props.svg ? `background-image: url("${encodeSvgDataUri(props.svg)}");` : null}
   background-repeat: no-repeat;
   background-size: auto;
@@ -35,7 +32,7 @@ const StyledMdCard = styled(Card)`
   margin-bottom: ${units(2)};
   padding-top: 0;
   span, p, a, svg {
-    color: ${otherWhite} !important;
+    color: var(--otherWhite) !important;
   }
 `;
 
@@ -44,8 +41,7 @@ const BackgroundImageRow = styled.div`
 `;
 
 const StyledMdCardTitle = styled.h2`
-  font: ${title1};
-  color: ${otherWhite};
+  color: var(--otherWhite);
   margin-bottom: ${units(1)};
 `;
 
@@ -56,7 +52,7 @@ const SpecialBlueCard = props => (
         {props.icon}
       </StyledCardIcon>
       <BackgroundImageRow>
-        <StyledMdCardTitle>
+        <StyledMdCardTitle className="typography-h6">
           {props.title ? props.title : null}
         </StyledMdCardTitle>
         <span>

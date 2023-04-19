@@ -8,17 +8,16 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
-import { brandBackground, otherWhite, overlayLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(() => ({
   active: {
-    backgroundColor: brandBackground,
+    backgroundColor: 'var(--brandBackground)',
   },
   icon: {
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     '&:hover': {
-      color: otherWhite,
-      backgroundColor: overlayLight,
+      color: 'var(--otherWhite)',
+      backgroundColor: 'var(--overlayLight)',
     },
   },
 }));

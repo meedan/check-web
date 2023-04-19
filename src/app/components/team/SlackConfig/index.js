@@ -12,7 +12,6 @@ import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 import Switch from '@material-ui/core/Switch';
 import SettingsIcon from '@material-ui/icons/Settings';
-import styled from 'styled-components';
 import UserUtil from '../../user/UserUtil';
 import Message from '../../Message';
 import SlackConfigDialog from './SlackConfigDialog';
@@ -21,9 +20,6 @@ import UpdateTeamMutation from '../../../relay/mutations/UpdateTeamMutation';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
-import {
-  title1,
-} from '../../../styles/js/shared';
 
 class SlackConfig extends React.Component {
   constructor(props) {
@@ -86,12 +82,6 @@ class SlackConfig extends React.Component {
       ? this.state.enabled
       : Boolean(parseInt(this.props.team.get_slack_notifications_enabled, 10));
 
-    const StyledCardHeader = styled(CardHeader)`
-      span {
-        font: ${title1} !important;
-      }
-    `;
-
     if (UserUtil.myRole(this.getCurrentUser(), team.slug) !== 'admin') {
       return null;
     }
@@ -99,12 +89,12 @@ class SlackConfig extends React.Component {
     return (
       <div>
         <Card>
-          <StyledCardHeader
+          <CardHeader
             avatar={
               <img src="/images/slack.svg" height="32" width="32" alt="Slack" />
             }
             title={
-              <span>Slack</span>
+              <span className="typography-h6">Slack</span>
             }
             action={
               <IconButton

@@ -1,0 +1,15 @@
+.userNameRole {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  .userName {
+    max-width: 80%;
+  }
+
+  .userRole {
+    color: var(--textSecondary);
+    margin-left: 8px;
+  }
+}

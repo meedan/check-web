@@ -1,7 +1,6 @@
 import React from 'react';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
-import { brandMain } from '../../../styles/js/shared';
 
 describe('<ReportDesignerTopBar />', () => {
   const team = {
@@ -16,8 +15,8 @@ describe('<ReportDesignerTopBar />', () => {
           id: 'undetermined',
           label: 'Unstarted',
           style: {
-            backgroundColor: brandMain,
-            color: brandMain,
+            backgroundColor: 'var(--brandMain)',
+            color: 'var(--brandMain)',
           },
         },
       ],

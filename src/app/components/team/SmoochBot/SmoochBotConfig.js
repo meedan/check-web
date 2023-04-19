@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { brandMain } from '../../../styles/js/shared';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -28,14 +27,14 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
   },
   helpIcon: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   box: {
     padding: theme.spacing(2),
     paddingTop: theme.spacing(1),
   },
   resource: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
 }));
 

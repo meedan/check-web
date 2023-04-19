@@ -7,40 +7,33 @@ import {
   Typography,
   TextField,
 } from '@material-ui/core';
-import {
-  brandBackground,
-  grayBorderMain,
-  textPrimary,
-  textSecondary,
-  errorMain,
-} from '../../../styles/js/shared';
 
 const StyledTextField = withStyles({
   root: {
     '& .MuiOutlinedInput-input::placeholder': {
-      color: textSecondary,
+      color: 'var(--textSecondary)',
       opacity: 1,
     },
     '& .MuiFormHelperText-root.Mui-error': {
-      color: errorMain,
+      color: 'var(--errorMain)',
       marginLeft: 0,
       fontSize: 12,
       fontWeight: 400,
     },
     '& .MuiOutlinedInput-root': {
       '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: errorMain,
+        borderColor: 'var(--errorMain)',
       },
       '& fieldset': {
-        borderColor: grayBorderMain,
+        borderColor: 'var(--grayBorderMain)',
         borderWidth: 1,
       },
       '&:hover fieldset': {
-        borderColor: grayBorderMain,
+        borderColor: 'var(--grayBorderMain)',
         borderWidth: 1,
       },
       '&.Mui-focused fieldset': {
-        borderColor: grayBorderMain,
+        borderColor: 'var(--grayBorderMain)',
         borderWidth: 1,
       },
     },
@@ -61,9 +54,9 @@ const useStyles = makeStyles(theme => ({
   defaultString: {
     borderTopLeftRadius: theme.spacing(1),
     borderTopRightRadius: theme.spacing(1),
-    border: `1px solid ${grayBorderMain}`,
+    border: '1px solid var(--grayBorderMain)',
     borderBottom: 0,
-    background: brandBackground,
+    background: 'var(--brandBackground)',
     padding: '12px 10px',
   },
   // FIXME: Once Typography is implemented according to specs from the design system, this custom style can be removed
@@ -78,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     borderTopRightRadius: 0,
     fontSize: 14,
     fontWeight: 400,
-    color: textPrimary,
+    color: 'var(--textPrimary)',
   },
 }));
 

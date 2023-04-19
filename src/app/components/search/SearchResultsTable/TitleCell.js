@@ -7,14 +7,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  units,
-  brandMain,
-  alertMain,
-  textSecondary,
-  textPrimary,
-  otherWhite,
-} from '../../../styles/js/shared';
+import { units } from '../../../styles/js/shared';
 
 const isFeedPage = () => (/\/feed/.test(window.location.pathname));
 
@@ -41,14 +34,14 @@ const useStyles = makeStyles({
     minHeight: units(10),
     height: units(10),
     marginRight: units(1),
-    backgroundColor: textPrimary,
+    backgroundColor: 'var(--textPrimary)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   icon: {
     fontSize: '40px',
-    color: otherWhite,
+    color: 'var(--otherWhite)',
   },
   textBox: {
     // This is a <div>, not a <th> with vertical-align center, because we need
@@ -65,7 +58,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: ({ isRead }) => ({
-    color: textPrimary,
+    color: 'var(--textPrimary)',
     fontWeight: !isRead || isFeedPage() ? 'bold' : 'normal',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -73,7 +66,7 @@ const useStyles = makeStyles({
   }),
   description: {
     maxHeight: units(5),
-    color: textSecondary,
+    color: 'var(--textSecondary)',
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
@@ -134,13 +127,13 @@ const IconOrNothing = ({
     return null;
   }
   if (isMain) {
-    return <ContentCopyIcon style={{ color: brandMain }} className={`${className} similarity-is-main`} />;
+    return <ContentCopyIcon style={{ color: 'var(--brandMain)' }} className={`${className} similarity-is-main`} />;
   }
   if (isConfirmed) {
     return <ContentCopyIcon style={{ transform: 'rotate(180deg)' }} className={`${className} similarity-is-confirmed`} />;
   }
   if (isSuggested) {
-    return <ContentCopyIcon style={{ color: alertMain }} className={`${className} similarity-is-suggested`} />;
+    return <ContentCopyIcon style={{ color: 'var(--alertMain)' }} className={`${className} similarity-is-suggested`} />;
   }
   return null;
 };

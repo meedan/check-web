@@ -16,7 +16,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import ColorPicker from '../../layout/ColorPicker';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import { textPrimary } from '../../../styles/js/shared';
 
 const maxLength = 35;
 
@@ -42,7 +41,7 @@ const EditStatusDialog = ({
   const classes = useStyles();
   const [statusLabel, setStatusLabel] = React.useState(status ? status.label : '');
   const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].description : '');
-  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : textPrimary);
+  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : 'var(--textPrimary)');
   const [statusMessage, setStatusMessage] = React.useState(status ? status.locales[defaultLanguage].message : '');
   const [statusMessageEnabled, setStatusMessageEnabled] = React.useState(status ? Boolean(status.should_send_message) : false);
   const [showSaveConfirmDialog, setShowSaveConfirmDialog] = React.useState(false);

@@ -28,7 +28,6 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
   StyledIconButton,
-  brandMain,
 } from '../../styles/js/shared';
 import {
   StyledTwoColumns,
@@ -51,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row-reverse',
   },
   linkedText: {
-    color: brandMain,
+    color: 'var(--brandMain)',
     textDecoration: 'underline',
   },
   sourceCardHeader: {

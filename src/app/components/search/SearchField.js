@@ -13,12 +13,7 @@ import Dialog from '@material-ui/core/Dialog';
 import SearchIcon from '@material-ui/icons/Search';
 import { Clear as ClearIcon } from '@material-ui/icons';
 import MediaPreview from '../feed/MediaPreview';
-import {
-  grayBorderMain,
-  borderWidthLarge,
-  brandMain,
-  otherWhite,
-} from '../../styles/js/shared';
+import { borderWidthLarge } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -26,10 +21,10 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
   },
   inputInactive: {
-    border: `${borderWidthLarge} solid ${grayBorderMain}`,
+    border: `${borderWidthLarge} solid var(--grayBorderMain)`,
   },
   inputActive: {
-    border: `${borderWidthLarge} solid ${brandMain}`,
+    border: `${borderWidthLarge} solid var(--brandMain)`,
   },
   startAdornmentRoot: {
     display: 'flex',
@@ -56,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
   },
   closeButton: {
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     zIndex: 1000,
     position: 'absolute',
     right: theme.spacing(1),

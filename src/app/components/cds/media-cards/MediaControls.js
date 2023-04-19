@@ -12,11 +12,10 @@ import PauseIcon from '@material-ui/icons/Pause';
 import MediaTimeline from './MediaTimeline';
 import MediaVolume from './MediaVolume';
 import MediaPlaybackSpeed from './MediaPlaybackSpeed';
-import { otherWhite, overlayLight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     background: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.31) 51.56%, rgba(0, 0, 0, 0.7) 100%)',
     position: 'absolute',
     bottom: 0,
@@ -24,11 +23,11 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1.5, 1, 0, 1),
   },
   icon: {
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     marginRight: theme.spacing(1),
     '&:hover': {
-      color: otherWhite,
-      backgroundColor: overlayLight,
+      color: 'var(--otherWhite)',
+      backgroundColor: 'var(--overlayLight)',
     },
   },
   overlay: {
