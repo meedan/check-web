@@ -19,37 +19,35 @@ const SwitchComponent = ({
   };
 
   return (
-    <FormControlLabel
-      control={
-        <div className={styles.switch}>
-          <Switch
-            checked={state.checked}
-            onChange={handleChange}
-            name="checked"
-            disabled={disabled}
-            classes={{
-              root: styles.switchRoot,
-              switchBase: styles.switchBase,
-              thumb: styles.thumb,
-              track: styles.track,
-              checked: styles.checked,
-            }}
-          />
-          { helperContent ?
-            <div className={['typography-caption', styles.helper].join(' ')}>
-              {helperContent}
-            </div>
-            : null }
+    <div className={styles.switchWrapper}>
+      <FormControlLabel
+        control={
+          <div className={styles.switch}>
+            <Switch
+              checked={state.checked}
+              onChange={handleChange}
+              name="checked"
+              disabled={disabled}
+              classes={{
+                root: styles.switchRoot,
+                switchBase: styles.switchBase,
+                thumb: styles.thumb,
+                track: styles.track,
+                checked: styles.checked,
+              }}
+            />
+          </div>
+        }
+        labelPlacement={labelPlacement}
+        value={labelPlacement}
+        label={label}
+      />
+      { helperContent ?
+        <div className={styles.helper}>
+          {helperContent}
         </div>
-      }
-      labelPlacement={labelPlacement}
-      value={labelPlacement}
-      label={
-        <span className={['typography-body2', styles.label].join(' ')}>
-          {label}
-        </span>
-      }
-    />
+        : null }
+    </div>
   );
 };
 
