@@ -94,8 +94,8 @@ const TiplineRequest = ({
   const smoochRequestLanguage = activity.smooch_user_request_language;
   const { locale, formatMessage } = intl;
 
-  const details = [emojify(objectValue.name)];
-  if (smoochExternalId) {
+  const details = objectValue.name === 'deleted' ? [(<FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" />)] : [emojify(objectValue.name)];
+  if (smoochExternalId && smoochExternalId !== 'deleted') {
     details.push(smoochExternalId);
   }
   if (smoochRequestLanguage) {
