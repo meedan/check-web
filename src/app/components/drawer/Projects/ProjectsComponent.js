@@ -13,7 +13,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
-import ListIcon from '@material-ui/icons/List';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -438,7 +437,6 @@ const ProjectsComponent = ({
               <ProjectsListItem
                 key={search.id}
                 routePrefix="list"
-                icon={<ListIcon />}
                 project={search}
                 teamSlug={team.slug}
                 onClick={handleClick}

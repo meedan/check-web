@@ -1,4 +1,5 @@
 .drawerRail {
   background-color: var(--brandBackground);
   width: 70px;
+  z-index: 100000000;
 }

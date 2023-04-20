@@ -1,5 +1,16 @@
 .drawer {
-  outline: solid 10px var(--brandMain);
+  --drawerWidth: 256px;
+
+  transition: width 225ms cubic-bezier(0, 0, .2, 1) 0ms;
+  width: var(--drawerWidth);
+
+  &.drawOpen {
+    background-color: var(--errorMain);
+  }
+
+  &.drawerClosed {
+    width: 0;
+  }
 }
 
 .bigEmptySpaceInSidebar {

@@ -3,9 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { injectIntl, intlShape, defineMessages } from 'react-intl';
-import TeamAvatar from '../team/TeamAvatar';
 import { stringHelper } from '../../customHelpers';
-import { units } from '../../styles/js/shared';
 import styles from './DrawerHeader.module.css';
 
 const messages = defineMessages({
@@ -33,7 +31,6 @@ const DrawerHeader = (props) => {
           to={`/${props.team.slug}/settings/workspace`}
           title={props.intl.formatMessage(messages.settingsDescription)}
         >
-          <TeamAvatar className={styles.teamLogo} size={units(5.5)} team={props.team} />
           <span className={styles.teamName}>
             {props.team.name}
           </span>
@@ -49,7 +46,6 @@ DrawerHeader.propTypes = {
   team: PropTypes.shape({
     slug: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired, // for <TeamAvatar>
   }), // or null
   loggedIn: PropTypes.bool.isRequired,
   currentUserIsMember: PropTypes.bool.isRequired,

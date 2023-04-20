@@ -1,7 +1,6 @@
 [
   {
-    "id": "teamMenu.teamSettings",
-    "description": "Tooltip for drawer navigation",
-    "defaultMessage": "Workspace settings"
+    "id": "headerActions.signIn",
+    "defaultMessage": "Sign In"
   }
 ]

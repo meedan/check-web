@@ -11,7 +11,15 @@ const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponen
   },
 });
 
+const DrawerRailContainer = Relay.createContainer(DrawerRail, {
+  fragments: {
+    team: () => teamPublicFragment,
+  },
+});
+
 const DrawerNavigation = (props) => {
+  const [drawerOpen, setDrawerOpen] = React.useState(true);
+
   if (props.teamSlug) {
     const { teamSlug } = props;
 
@@ -19,12 +27,24 @@ const DrawerNavigation = (props) => {
 
     return (
       <>
-        <DrawerRail />
+        <Relay.RootContainer
+          Component={DrawerRailContainer}
+          route={route}
+          renderFetched={
+            data => (<DrawerRailContainer
+              drawerOpen={drawerOpen}
+              onDrawerOpenChange={setDrawerOpen}
+              {...props}
+              {...data}
+            />)
+          }
+        />
         <Relay.RootContainer
           Component={DrawerNavigationContainer}
           route={route}
           renderFetched={
             data => (<DrawerNavigationContainer
+              drawerOpen={drawerOpen}
               {...props}
               {...data}
             />)
@@ -34,7 +54,7 @@ const DrawerNavigation = (props) => {
     );
   }
 
-  return <DrawerNavigationComponent {...props} />;
+  return <><DrawerRail {...props} /><DrawerNavigationComponent {...props} /></>;
 };
 
 export default DrawerNavigation;

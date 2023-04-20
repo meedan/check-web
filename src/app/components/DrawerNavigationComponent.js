@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
-import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -14,12 +13,11 @@ import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import DrawerHeader from './drawer/DrawerHeader';
-import UserMenuRelay from '../relay/containers/UserMenuRelay';
 import CheckContext from '../CheckContext';
+import styles from './drawer/Drawer.module.css';
 import {
   AlignOpposite,
   Row,
-  units,
 } from '../styles/js/shared';
 
 const useStylesBigEmptySpaceInSidebar = makeStyles({
@@ -27,6 +25,7 @@ const useStylesBigEmptySpaceInSidebar = makeStyles({
     flex: '1 1 auto',
   },
 });
+
 const BigEmptySpaceInSidebar = () => {
   const classes = useStylesBigEmptySpaceInSidebar();
   return <div className={classes.root} />;
@@ -102,7 +101,7 @@ class DrawerNavigationComponent extends Component {
 
   render() {
     const {
-      team, currentUserIsMember, loggedIn, classes,
+      team, currentUserIsMember, classes, drawerOpen,
     } = this.props;
 
     // This component now renders based on teamPublicFragment
@@ -112,15 +111,15 @@ class DrawerNavigationComponent extends Component {
     //
     // — @chris with @alex 2017-10-3
 
-    const saveCurrentPage = () => {
-      if (window.location.pathname !== '/') {
-        window.storage.set('previousPage', window.location.pathname);
-      }
-    };
-
     return (
-      <Drawer open variant="persistent" anchor="left" classes={classes}>
-        <DrawerHeader team={this.props.team} loggedIn={this.props.loggedIn} currentUserIsMember={this.props.currentUserIsMember} />
+      <Drawer
+        className={[styles.drawer, drawerOpen ? styles.drawerOpen : styles.drawerClosed].join(' ')}
+        open={Boolean(drawerOpen)}
+        variant="persistent"
+        anchor="left"
+        classes={classes}
+      >
+        <DrawerHeader team={this.props.team} currentUserIsMember={this.props.currentUserIsMember} />
         {!!team && (currentUserIsMember || !team.private) ? (
           <React.Fragment>
             <DrawerProjects team={team.slug} />
@@ -164,20 +163,6 @@ class DrawerNavigationComponent extends Component {
             ) : null}
           </React.Fragment>
         ) : <BigEmptySpaceInSidebar />}
-        <div className="drawer__footer">
-          {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
-            <Link to="/">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={saveCurrentPage}
-                style={{ width: '100%' }}
-              >
-                <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
-              </Button>
-            </Link>
-          )}
-        </div>
       </Drawer>
     );
   }
@@ -195,15 +180,9 @@ DrawerNavigationComponent.contextTypes = {
 
 const drawerStyles = {
   paper: {
-    width: units(32),
-    minWidth: units(32),
-    maxWidth: units(32),
     overflow: 'hidden',
   },
   root: {
-    width: units(32),
-    minWidth: units(32),
-    maxWidth: units(32),
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
