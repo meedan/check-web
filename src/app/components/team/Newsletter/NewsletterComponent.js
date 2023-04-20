@@ -6,17 +6,17 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import {
   Button,
 } from '@material-ui/core';
-import Select from '../cds/inputs/Select';
-import LimitedTextField from '../layout/inputs/LimitedTextField';
-import LimitedTextArea from '../layout/inputs/LimitedTextArea';
+import Select from '../../cds/inputs/Select';
+import LimitedTextField from '../../layout/inputs/LimitedTextField';
+import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import styles from './NewsletterComponent.module.css';
-import UploadFile from '../UploadFile';
-import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
-import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
-import SettingsHeader from './SettingsHeader';
-import { safelyParseJSON } from '../../helpers';
-import { can } from '../Can';
-import { withSetFlashMessage } from '../FlashMessage';
+import UploadFile from '../../UploadFile';
+import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
+import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
+import SettingsHeader from '../SettingsHeader';
+import { safelyParseJSON } from '../../../helpers';
+import { can } from '../../Can';
+import { withSetFlashMessage } from '../../FlashMessage';
 
 const messages = defineMessages({
   headerTypeNone: {
@@ -87,6 +87,7 @@ const NewsletterComponent = ({
     setFooterText(footer || '');
     setArticleNum(number_of_articles || 0);
     setArticles([first_article || '', second_article || '', third_article || '']);
+    setHeaderType(header_type || 'none');
   }, [language]);
 
 
