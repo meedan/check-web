@@ -1,41 +1,16 @@
 [
   {
-    "id": "newsletter.headerTypeNone",
-    "description": "One of the options for a newsletter header type",
-    "defaultMessage": "None"
-  },
-  {
-    "id": "newsletter.headerTypeLinkPreview",
-    "description": "One of the options for a newsletter header type",
-    "defaultMessage": "Link preview"
-  },
-  {
-    "id": "newsletter.headerTypeImage",
-    "description": "One of the options for a newsletter header type",
-    "defaultMessage": "Image"
-  },
-  {
-    "id": "newsletter.headerTypeVideo",
-    "description": "One of the options for a newsletter header type",
-    "defaultMessage": "Video"
-  },
-  {
-    "id": "newsletter.headerTypeAudio",
-    "description": "One of the options for a newsletter header type",
-    "defaultMessage": "Audio"
-  },
-  {
-    "id": "newsletter.error",
+    "id": "newsletterComponent.error",
     "description": "Error message displayed when it's not possible to save a newsletter.",
     "defaultMessage": "Could not save newsletter, please try again."
   },
   {
-    "id": "newsletter.success",
+    "id": "newsletterComponent.success",
     "description": "Success message displayed when a newsletter is saved.",
     "defaultMessage": "Newsletter saved successfully."
   },
   {
-    "id": "newsletter.title",
+    "id": "newsletterComponent.title",
     "description": "Title for newsletter settings page.",
     "defaultMessage": "Newsletter"
   },
@@ -45,14 +20,9 @@
     "defaultMessage": "Save"
   },
   {
-    "id": "newsletterComponent.overlayPlaceholder",
-    "description": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)",
-    "defaultMessage": "Add text on top of the image"
-  },
-  {
-    "id": "newsletterComponent.overlay",
-    "description": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)",
-    "defaultMessage": "Text overlay"
+    "id": "newsletterComponent.content",
+    "description": "Title for newsletter content section on newsletter settings page",
+    "defaultMessage": "Content"
   },
   {
     "id": "newsletterComponent.introduction",

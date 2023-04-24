@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import {
   Button,
 } from '@material-ui/core';
-import Select from '../../cds/inputs/Select';
+import NewsletterHeader from './NewsletterHeader';
 import LimitedTextField from '../../layout/inputs/LimitedTextField';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import styles from './NewsletterComponent.module.css';
-import UploadFile from '../../UploadFile';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import SettingsHeader from '../SettingsHeader';
@@ -18,38 +17,9 @@ import { safelyParseJSON } from '../../../helpers';
 import { can } from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 
-const messages = defineMessages({
-  headerTypeNone: {
-    id: 'newsletter.headerTypeNone',
-    defaultMessage: 'None',
-    description: 'One of the options for a newsletter header type',
-  },
-  headerTypeLinkPreview: {
-    id: 'newsletter.headerTypeLinkPreview',
-    defaultMessage: 'Link preview',
-    description: 'One of the options for a newsletter header type',
-  },
-  headerTypeImage: {
-    id: 'newsletter.headerTypeImage',
-    defaultMessage: 'Image',
-    description: 'One of the options for a newsletter header type',
-  },
-  headerTypeVideo: {
-    id: 'newsletter.headerTypeVideo',
-    defaultMessage: 'Video',
-    description: 'One of the options for a newsletter header type',
-  },
-  headerTypeAudio: {
-    id: 'newsletter.headerTypeAudio',
-    defaultMessage: 'Audio',
-    description: 'One of the options for a newsletter header type',
-  },
-});
-
 const NewsletterComponent = ({
   team,
   newsletters,
-  intl,
   setFlashMessage,
 }) => {
   const { defaultLanguage } = team;
@@ -118,7 +88,7 @@ const NewsletterComponent = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="newsletter.error"
+        id="newsletterComponent.error"
         defaultMessage="Could not save newsletter, please try again."
         description="Error message displayed when it's not possible to save a newsletter."
       />
@@ -129,7 +99,7 @@ const NewsletterComponent = ({
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
-        id="newsletter.success"
+        id="newsletterComponent.success"
         defaultMessage="Newsletter saved successfully."
         description="Success message displayed when a newsletter is saved."
       />
@@ -225,7 +195,7 @@ const NewsletterComponent = ({
       <SettingsHeader
         title={
           <FormattedMessage
-            id="newsletter.title"
+            id="newsletterComponent.title"
             defaultMessage="Newsletter"
             description="Title for newsletter settings page."
           />
@@ -251,37 +221,20 @@ const NewsletterComponent = ({
       <div className={styles.newsletter}>
         <div className={styles.settings}>
           <div className="typography-subtitle2">
-            Content
+            <FormattedMessage id="newsletterComponent.content" defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" />
           </div>
-          <Select label="Header" className={styles.select} value={headerType} onChange={(e) => { setHeaderType(e.target.value); }}>
-            <option value="none">{intl.formatMessage(messages.headerTypeNone)}</option>
-            <option value="link_preview">{intl.formatMessage(messages.headerTypeLinkPreview)}</option>
-            <option value="image">{intl.formatMessage(messages.headerTypeImage)}</option>
-            <option value="video">{intl.formatMessage(messages.headerTypeVideo)}</option>
-            <option value="audio">{intl.formatMessage(messages.headerTypeAudio)}</option>
-          </Select>
-          <UploadFile
-            type="image+video+audio"
+          <NewsletterHeader
+            key={`newsletter-header-${language}`}
+            headerType={headerType}
+            overlayText={overlayText}
+            onUpdateField={(fieldName, value) => {
+              if (fieldName === 'headerType') {
+                setHeaderType(value);
+              } else if (fieldName === 'overlayText') {
+                setOverlayText(value);
+              }
+            }}
           />
-          <FormattedMessage
-            id="newsletterComponent.overlayPlaceholder"
-            defaultMessage="Add text on top of the image"
-            description="Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
-          >
-            { placeholder => (
-              <LimitedTextField
-                maxChars={160}
-                value={overlayText}
-                placeholder={placeholder}
-                setValue={setOverlayText}
-                label={<FormattedMessage
-                  id="newsletterComponent.overlay"
-                  defaultMessage="Text overlay"
-                  description="Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
-                />}
-              />
-            )}
-          </FormattedMessage>
           <LimitedTextArea
             maxChars={180}
             value={introductionText}
@@ -355,7 +308,6 @@ NewsletterComponent.propTypes = {
     permissions: PropTypes.string.isRequired,
   }).isRequired,
   newsletters: PropTypes.array.isRequired, // TODO: Declare the expected structure for each newsletter
-  intl: intlShape.isRequired,
 };
 
-export default withSetFlashMessage(injectIntl(NewsletterComponent));
+export default withSetFlashMessage(NewsletterComponent);
