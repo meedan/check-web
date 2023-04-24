@@ -277,9 +277,6 @@ class HomeComponent extends Component {
       );
     }
 
-    const isMediaPage = /\/media\/[0-9]+/.test(window.location.pathname);
-    const isFeedPage = /\/feed\/[0-9]+\/(request|cluster)\/[0-9]+/.test(window.location.pathname);
-
     let userTiplines = '';
     if (user && user.current_team && user.current_team.team_bot_installation && user.current_team.team_bot_installation.smooch_enabled_integrations) {
       userTiplines = Object.keys(user.current_team.team_bot_installation.smooch_enabled_integrations).join(', ');
@@ -303,7 +300,7 @@ class HomeComponent extends Component {
           <BrowserSupport />
           <UserTos user={user} />
           <Wrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-            {!isMediaPage && !isFeedPage && loggedIn ? (
+            {loggedIn ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}

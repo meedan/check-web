@@ -136,7 +136,7 @@ ProjectsListItem.defaultProps = {
 
 ProjectsListItem.propTypes = {
   teamSlug: PropTypes.string.isRequired,
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.node,
   routePrefix: PropTypes.string.isRequired,
   routeSuffix: PropTypes.string,
   project: PropTypes.shape({

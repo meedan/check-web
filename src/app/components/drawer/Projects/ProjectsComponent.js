@@ -11,8 +11,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
-import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -22,12 +20,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import ForumIcon from '@material-ui/icons/Forum';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import CategoryIcon from '../../../icons/category.svg';
+import InboxIcon from '../../../icons/inbox.svg';
 import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import styles from './Projects.module.css';
@@ -249,7 +247,7 @@ const ProjectsComponent = ({
             className={activeItem.type === 'tipline-inbox' ? ['projects-list__tipline-inbox', styles.projectsComponentCollectionExpanded].join(' ') : 'projects-list__tipline-inbox'}
           >
             <ListItemIcon className={styles.listItemIconRoot}>
-              <ForumIcon />
+              <InboxIcon />
             </ListItemIcon>
             <ListItemText disableTypography>
               <Typography variant="body1">
@@ -342,7 +340,6 @@ const ProjectsComponent = ({
                   <ProjectsListItem
                     key={projectGroup.id}
                     routePrefix="collection"
-                    icon={<FolderSpecialIcon />}
                     project={projectGroup}
                     teamSlug={team.slug}
                     onClick={handleClick}
@@ -378,7 +375,6 @@ const ProjectsComponent = ({
                                 key={project.id}
                                 index={index}
                                 routePrefix="project"
-                                icon={<FolderOpenIcon />}
                                 project={project}
                                 teamSlug={team.slug}
                                 onClick={handleClick}
@@ -403,7 +399,6 @@ const ProjectsComponent = ({
                   key={project.id}
                   index={index}
                   routePrefix="project"
-                  icon={<FolderOpenIcon />}
                   project={project}
                   teamSlug={team.slug}
                   onClick={handleClick}

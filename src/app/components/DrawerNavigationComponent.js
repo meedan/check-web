@@ -8,12 +8,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import DeleteIcon from '@material-ui/icons/Delete';
 import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
-import DrawerHeader from './drawer/DrawerHeader';
 import CheckContext from '../CheckContext';
+import DeleteIcon from '../icons/delete.svg';
 import styles from './drawer/Drawer.module.css';
 import {
   AlignOpposite,
@@ -95,10 +94,6 @@ class DrawerNavigationComponent extends Component {
     }
   }
 
-  handleClickTeamSettings() {
-    browserHistory.push(`/${this.props.team.slug}/settings`);
-  }
-
   render() {
     const {
       team, currentUserIsMember, classes, drawerOpen,
@@ -119,7 +114,6 @@ class DrawerNavigationComponent extends Component {
         anchor="left"
         classes={classes}
       >
-        <DrawerHeader team={this.props.team} currentUserIsMember={this.props.currentUserIsMember} />
         {!!team && (currentUserIsMember || !team.private) ? (
           <React.Fragment>
             <DrawerProjects team={team.slug} />

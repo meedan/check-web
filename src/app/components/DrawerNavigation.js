@@ -17,8 +17,14 @@ const DrawerRailContainer = Relay.createContainer(DrawerRail, {
   },
 });
 
+const getBooleanPref = (key, fallback) => {
+  const inStore = window.storage.getValue(key);
+  if (inStore === null) return fallback;
+  return (inStore === 'true');
+};
+
 const DrawerNavigation = (props) => {
-  const [drawerOpen, setDrawerOpen] = React.useState(true);
+  const [drawerOpen, setDrawerOpen] = React.useState(getBooleanPref('drawer.isOpen', true));
 
   if (props.teamSlug) {
     const { teamSlug } = props;
