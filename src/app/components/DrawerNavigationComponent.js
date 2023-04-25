@@ -8,11 +8,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import CheckContext from '../CheckContext';
 import DeleteIcon from '../icons/delete.svg';
+import ReportIcon from '../icons/report.svg';
 import styles from './drawer/Drawer.module.css';
 import {
   AlignOpposite,
@@ -106,11 +106,11 @@ class DrawerNavigationComponent extends Component {
       >
         <React.Fragment>
           <DrawerProjects team={team.slug} />
-          <div>
+          <div className={styles.drawerFooter}>
             <Link to={`/${team.slug}/spam`} className="link__internal project-list__link-spam">
               <MenuItem className="project-list__item-spam">
                 <ListItemIcon className={classes.listItemIconRoot}>
-                  <ReportGmailerrorredIcon />
+                  <ReportIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary={

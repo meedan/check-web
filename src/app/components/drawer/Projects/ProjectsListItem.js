@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { injectIntl, intlShape } from 'react-intl';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import RootRef from '@material-ui/core/RootRef';
@@ -43,9 +42,9 @@ const ProjectsListItem = ({
         {...listItemProps}
       >
         {icon &&
-          <ListItemIcon className={styles.projectsListItemIcon}>
+          <div className={styles.projectsListItemIcon}>
             {icon}
-          </ListItemIcon>
+          </div>
         }
         <ListItemText classes={{ primary: styles.projectsListItemLabel }}>
           <span className={isActive ? styles.projectsListItemActiveText : ''}>

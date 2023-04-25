@@ -1,59 +1,68 @@
 /* stylelint-disable scale-unlimited/declaration-strict-value */
 .projectsComponentList {
+  --drawerListIconSize: 18px;
+
+  border: solid 1px var(--errorMain);
   display: flex;
   flex: 1;
   flex-direction: column;
   overflow: auto;
   padding: 0;
-}
 
-.projectsComponentCollectionExpanded {
-  background-color: var(--brandLight);
-}
+  .projectsListItemIcon {
+    background-color: var(--brandHoverAccent);
+    font-size: var(--drawerListIconSize);
+  }
 
-.projectsComponentNestedList {
-  padding-left: 24px;
-}
+  .projectsComponentCollectionExpanded,
+  .projectsComponentCollectionExpanded:hover {
+    background-color: var(--brandLight);
+  }
 
-.projectsComponentCollapse {
-  min-height: auto !important;
-}
+  .projectsComponentNestedList {
+    padding-left: 24px;
+  }
 
-.projectsComponentButton {
-  padding: 0;
-}
+  .projectsComponentCollapse {
+    min-height: auto !important;
+  }
 
-.projectsComponentMask {
-  @mixin position absolute, 0, 0, 0, 0;
-  background-color: var(--otherWhite);
-  opacity: .7;
-  z-index: 1;
-}
+  .projectsComponentButton {
+    padding: 0;
+  }
 
-.projectsComponentHeader {
-  cursor: pointer;
-}
+  .projectsComponentMask {
+    @mixin position absolute, 0, 0, 0, 0;
+    background-color: var(--otherWhite);
+    opacity: .7;
+    z-index: 1;
+  }
 
-.projectsComponentChevron {
-  margin-right: 8px;
-}
+  .projectsComponentHeader {
+    cursor: pointer;
+  }
 
-.listItemIconRoot {
-  min-width: 32px;
-}
+  .projectsComponentChevron {
+    margin-right: 8px;
+  }
 
-.projectsListItemLabel {
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+  .listItemIconRoot {
+    min-width: 32px;
+  }
 
-.projectsListItemActive {
-  background-color: var(--brandLight);
-}
+  .projectsListItemLabel {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-.projectsListItemActiveText {
-  font-weight: bold;
+  .projectsListItemActive {
+    background-color: var(--brandLight);
+  }
+
+  .projectsListItemActiveText {
+    font-weight: bold;
+  }
 }
 /* stylelint-enable */
