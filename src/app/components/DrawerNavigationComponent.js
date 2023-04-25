@@ -1,12 +1,12 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router';
 import Drawer from '@material-ui/core/Drawer';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
 import { withPusher, pusherShape } from '../pusher';
@@ -19,16 +19,6 @@ import {
   Row,
 } from '../styles/js/shared';
 
-const useStylesBigEmptySpaceInSidebar = makeStyles({
-  root: {
-    flex: '1 1 auto',
-  },
-});
-
-const BigEmptySpaceInSidebar = () => {
-  const classes = useStylesBigEmptySpaceInSidebar();
-  return <div className={classes.root} />;
-};
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -96,7 +86,7 @@ class DrawerNavigationComponent extends Component {
 
   render() {
     const {
-      team, currentUserIsMember, classes, drawerOpen,
+      team, classes, drawerOpen,
     } = this.props;
 
     // This component now renders based on teamPublicFragment
@@ -114,49 +104,45 @@ class DrawerNavigationComponent extends Component {
         anchor="left"
         classes={classes}
       >
-        {!!team && (currentUserIsMember || !team.private) ? (
-          <React.Fragment>
-            <DrawerProjects team={team.slug} />
-            {currentUserIsMember ? (
-              <div>
-                <Link to={`/${team.slug}/spam`} className="link__internal project-list__link-spam">
-                  <MenuItem className="project-list__item-spam">
-                    <ListItemIcon className={classes.listItemIconRoot}>
-                      <ReportGmailerrorredIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={
-                        <Row className="typography-body1">
-                          <FormattedMessage id="projects.spam" defaultMessage="Spam" />
-                          <AlignOpposite>
-                            {String(team.spam_count)}
-                          </AlignOpposite>
-                        </Row>
-                      }
-                    />
-                  </MenuItem>
-                </Link>
-                <Link to={`/${team.slug}/trash`} className="link__internal project-list__link-trash">
-                  <MenuItem className="project-list__item-trash">
-                    <ListItemIcon className={classes.listItemIconRoot}>
-                      <DeleteIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={
-                        <Row className="typography-body1">
-                          <FormattedMessage id="projects.trash" defaultMessage="Trash" />
-                          <AlignOpposite>
-                            {String(team.trash_count)}
-                          </AlignOpposite>
-                        </Row>
-                      }
-                    />
-                  </MenuItem>
-                </Link>
-              </div>
-            ) : null}
-          </React.Fragment>
-        ) : <BigEmptySpaceInSidebar />}
+        <React.Fragment>
+          <DrawerProjects team={team.slug} />
+          <div>
+            <Link to={`/${team.slug}/spam`} className="link__internal project-list__link-spam">
+              <MenuItem className="project-list__item-spam">
+                <ListItemIcon className={classes.listItemIconRoot}>
+                  <ReportGmailerrorredIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    <Row className="typography-body1">
+                      <FormattedMessage id="projects.spam" defaultMessage="Spam" />
+                      <AlignOpposite>
+                        {String(team.spam_count)}
+                      </AlignOpposite>
+                    </Row>
+                  }
+                />
+              </MenuItem>
+            </Link>
+            <Link to={`/${team.slug}/trash`} className="link__internal project-list__link-trash">
+              <MenuItem className="project-list__item-trash">
+                <ListItemIcon className={classes.listItemIconRoot}>
+                  <DeleteIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    <Row className="typography-body1">
+                      <FormattedMessage id="projects.trash" defaultMessage="Trash" />
+                      <AlignOpposite>
+                        {String(team.trash_count)}
+                      </AlignOpposite>
+                    </Row>
+                  }
+                />
+              </MenuItem>
+            </Link>
+          </div>
+        </React.Fragment>
       </Drawer>
     );
   }

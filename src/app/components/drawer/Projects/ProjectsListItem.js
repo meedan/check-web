@@ -2,31 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { injectIntl, intlShape } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import RootRef from '@material-ui/core/RootRef';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-
-const useStyles = makeStyles(theme => ({
-  projectsListItemLabel: {
-    fontSize: 14,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  projectsListItemActive: {
-    background: 'var(--brandLight)',
-  },
-  projectsListItemActiveText: {
-    fontWeight: 'bold',
-  },
-  projectsListItemIcon: {
-    minWidth: theme.spacing(4),
-  },
-}));
+import styles from './Projects.module.css';
 
 const ProjectsListItem = ({
   index,
@@ -42,8 +24,6 @@ const ProjectsListItem = ({
   routeSuffix,
   intl,
 }) => {
-  const classes = useStyles();
-
   const handleClick = () => {
     if (onClick) {
       onClick(routePrefix, project.dbid);
@@ -59,14 +39,16 @@ const ProjectsListItem = ({
         onClick={handleClick}
         title={project.title}
         key={`${project.id}-${project.title}`}
-        className={isActive ? [classes.projectsListItemActive, defaultClassName].join(' ') : defaultClassName}
+        className={isActive ? [styles.projectsListItemActive, defaultClassName].join(' ') : defaultClassName}
         {...listItemProps}
       >
-        <ListItemIcon className={classes.projectsListItemIcon}>
-          {icon}
-        </ListItemIcon>
-        <ListItemText classes={{ primary: classes.projectsListItemLabel }}>
-          <span className={isActive ? classes.projectsListItemActiveText : ''}>
+        {icon &&
+          <ListItemIcon className={styles.projectsListItemIcon}>
+            {icon}
+          </ListItemIcon>
+        }
+        <ListItemText classes={{ primary: styles.projectsListItemLabel }}>
+          <span className={isActive ? styles.projectsListItemActiveText : ''}>
             {project.title || project.name}
           </span>
         </ListItemText>
@@ -125,6 +107,7 @@ const ProjectsListItem = ({
 };
 
 ProjectsListItem.defaultProps = {
+  icon: null,
   index: null,
   onClick: null,
   isActive: false,

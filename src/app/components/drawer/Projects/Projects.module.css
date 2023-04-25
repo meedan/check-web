@@ -41,4 +41,19 @@
 .listItemIconRoot {
   min-width: 32px;
 }
+
+.projectsListItemLabel {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.projectsListItemActive {
+  background-color: var(--brandLight);
+}
+
+.projectsListItemActiveText {
+  font-weight: bold;
+}
 /* stylelint-enable */

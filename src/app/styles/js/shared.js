@@ -174,6 +174,8 @@ export const MuiTheme = {
       paperAnchorDockedLeft: {
         borderRight: `solid 2px ${grayBorderMain}`,
         left: '70px',
+        padding: '20px 6px',
+        width: 'var(--drawerWidth)',
       },
     },
     MuiTableContainer: {
@@ -341,22 +343,6 @@ export const Shimmer = styled.div`
   animation-fill-mode: forwards;
   background: linear-gradient(90deg, ${grayDisabledBackground}, ${grayDisabledBackground}, ${grayBackground}, ${grayBackground}, ${otherWhite}, ${grayBackground}, ${grayDisabledBackground}, ${grayDisabledBackground});
   background-size: 400%;
-`;
-
-const pulseKeyframes = keyframes`
-  0% {
-    background-color: var(--otherWhite);
-  }
-  50% {
-    background-color: var(--grayBackground);
-  }
-  100% {
-    background-color: var(--otherWhite);
-  }
-`;
-
-export const Pulse = styled.div`
-  animation: ${pulseKeyframes} 1s infinite;
 `;
 
 export const breakWordStyles = `

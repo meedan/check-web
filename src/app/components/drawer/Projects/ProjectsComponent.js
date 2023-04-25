@@ -415,7 +415,7 @@ const ProjectsComponent = ({
           { listsExpanded ? <ExpandLess className={styles.projectsComponentChevron} /> : <ExpandMore className={styles.projectsComponentChevron} /> }
           <ListItemText disableTypography>
             <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
-              <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
+              <FormattedMessage id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
               <Can permissions={team.permissions} permission="create Project">
                 <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.projectsComponentButton}>
                   <AddIcon id="projects-list__add-filtered-list" />

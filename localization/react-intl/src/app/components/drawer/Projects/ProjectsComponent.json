@@ -57,7 +57,7 @@
   {
     "id": "projectsComponent.lists",
     "description": "List of items with some filters applied",
-    "defaultMessage": "Filtered lists"
+    "defaultMessage": "Custom Lists"
   },
   {
     "id": "projectsComponent.sharedFeeds",

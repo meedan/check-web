@@ -3,6 +3,7 @@
 
   transition: width 225ms cubic-bezier(0, 0, .2, 1) 0ms;
   width: var(--drawerWidth);
+  z-index: 1;
 
   &.drawOpen {
     background-color: var(--errorMain);
@@ -11,11 +12,6 @@
   &.drawerClosed {
     width: 0;
   }
-}
-
-.bigEmptySpaceInSidebar {
-  background-color: var(--errorMain);
-  flex: 1 1 auto;
 }
 
 .drawerFooter {

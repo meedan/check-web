@@ -1,16 +1,37 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router';
-import { injectIntl, intlShape, defineMessages } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
+import Avatar from '@material-ui/core/Avatar';
 import TeamAvatar from '../team/TeamAvatar';
-import UserMenuRelay from '../../relay/containers/UserMenuRelay';
+import HelpIcon from '../../icons/help.svg';
+import InfoIcon from '../../icons/info.svg';
+import QuestionAnswerIcon from '../../icons/question_answer.svg';
+import SettingsIcon from '../../icons/settings.svg';
+import ChevronRightIcon from '../../icons/chevron_right.svg';
+import ChevronLeftIcon from '../../icons/chevron_left.svg';
 import styles from './DrawerRail.module.css';
 
 const messages = defineMessages({
   settingsDescription: {
-    id: 'teamMenu.teamSettings',
+    id: 'workspaceMenu.teamSettings',
     defaultMessage: 'Workspace settings',
-    description: 'Tooltip for drawer navigation',
+    description: 'Tooltip for drawer navigation to workspace settings',
+  },
+  tiplineDescription: {
+    id: 'workspaceMenu.teamTipline',
+    defaultMessage: 'Tipline',
+    description: 'Tooltip for drawer navigation to tipline',
+  },
+  trainingDescription: {
+    id: 'workspaceMenu.teamTraining',
+    defaultMessage: 'Training and documentation',
+    description: 'Help link tooltip in drawer rail navigation',
+  },
+  legalDescription: {
+    id: 'workspaceMenu.teamLegal',
+    defaultMessage: 'About',
+    description: 'Legal link tooltip in drawer rail navigation',
   },
 });
 
@@ -18,11 +39,14 @@ const DrawerRail = (props) => {
   const testPath = window.location.pathname;
   const isMediaPage = /\/media\/[0-9]+/.test(testPath);
   const isFeedPage = /\/feed\/[0-9]+\/(request|cluster)\/[0-9]+/.test(testPath);
+  const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
+  const teamSlug = teamRegex ? teamRegex[1] : null;
+  const pathParts = testPath.split('/');
+  const [activeItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
 
   const {
     drawerOpen,
     onDrawerOpenChange,
-    loggedIn,
   } = props;
 
   const setDrawerOpenChange = () => {
@@ -31,27 +55,70 @@ const DrawerRail = (props) => {
   };
 
   useEffect(() => {
-    if ((isMediaPage || isFeedPage) && props.drawerOpen) {
+    // console.log(props.user);
+    // console.log(activeItem);
+    // console.log('isMediaPage: ' + isMediaPage);
+    // console.log('isFeedPage: ' + isFeedPage);
+    // console.log('teamslug is check: ' + teamSlug === 'check');
+    // console.log('teamSlug: ' + teamSlug);
+    // console.log('drawerOpen: ' + props.drawerOpen);
+    if (isMediaPage || isFeedPage || teamSlug === 'check' || !teamSlug) {
       onDrawerOpenChange(false);
+    } else if (window.storage.getValue('drawer.isOpen')) {
+      onDrawerOpenChange(true);
     }
-    else {
-      if (window.storage.getValue('drawer.isOpen')) {
-        onDrawerOpenChange(true);
-      }
-    }
-  },[testPath]);
+  }, [testPath, teamSlug, activeItem]);
 
   return (
     <div className={styles.drawerRail}>
-      <Link
-        to={`/${props.team.slug}/settings/workspace`}
-        title={props.intl.formatMessage(messages.settingsDescription)}>
-        <TeamAvatar className={styles.teamLogo} size='44px' team={props.team} />
-      </Link>
-      <button onClick={setDrawerOpenChange}>{drawerOpen ? 'oo' : 'cc'}</button>
-      <br />
-      {window.storage.getValue('drawer.isOpen')}
-      {loggedIn ? <div><UserMenuRelay {...props} /></div> : null}
+      <div className={styles.drawerRailTop}>
+        <Link
+          to={`/${props.team.slug}/settings/workspace`}
+          title={props.intl.formatMessage(messages.settingsDescription)}
+        >
+          <TeamAvatar className={styles.teamLogo} size="44px" team={props.team} />
+        </Link>
+        <button type="button" className={styles.railIconButton} onClick={setDrawerOpenChange}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
+      </div>
+      <div className={styles.drawerRailMiddle}>
+        <Link
+          className={styles.railIconButton}
+          to={`/${props.team.slug}/all-items`}
+          title={props.intl.formatMessage(messages.tiplineDescription)}
+        >
+          <QuestionAnswerIcon />
+        </Link>
+        <Link
+          className={styles.railIconButton}
+          to={`/${props.team.slug}/settings`}
+          title={props.intl.formatMessage(messages.settingsDescription)}
+        >
+          <SettingsIcon />
+        </Link>
+      </div>
+      <div className={styles.drawerRailBottom}>
+        <a
+          href="https://help.checkmedia.org/"
+          className={styles.railIconButton}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={props.intl.formatMessage(messages.trainingDescription)}
+        >
+          <HelpIcon />
+        </a>
+        <a
+          href="https://meedan.com/legal"
+          className={styles.railIconButton}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={props.intl.formatMessage(messages.legalDescription)}
+        >
+          <InfoIcon />
+        </a>
+        <Link to="/check/me">
+          <Avatar alt={props.user.name} src={props.user.profile_image} />
+        </Link>
+      </div>
     </div>
   );
 };
