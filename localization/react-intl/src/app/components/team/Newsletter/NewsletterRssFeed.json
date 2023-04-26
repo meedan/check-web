@@ -1,0 +1,7 @@
+[
+  {
+    "id": "newsletterRssFeed.load",
+    "description": "Label for a button to load RSS feed entries",
+    "defaultMessage": "Load"
+  }
+]

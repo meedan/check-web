@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
-import {
-  Button,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import NewsletterHeader from './NewsletterHeader';
+import NewsletterStatic from './NewsletterStatic';
+import NewsletterRssFeed from './NewsletterRssFeed';
 import LimitedTextField from '../../layout/inputs/LimitedTextField';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
+import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import styles from './NewsletterComponent.module.css';
-import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import SettingsHeader from '../SettingsHeader';
 import { safelyParseJSON } from '../../../helpers';
@@ -37,7 +37,7 @@ const NewsletterComponent = ({
     third_article,
     footer,
     // send_every,
-    // rss_feed_url,
+    rss_feed_url,
     // timezone,
     // time,
     // enabled,
@@ -50,6 +50,8 @@ const NewsletterComponent = ({
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
   const [headerType, setHeaderType] = React.useState(header_type || 'none');
+  const [rssFeedUrl, setRssFeedUrl] = React.useState(rss_feed_url || '');
+  const [rssFeedEnabled, setRssFeedEnabled] = React.useState(Boolean(rssFeedUrl));
 
   React.useEffect(() => {
     setOverlayText(header_overlay_text || '');
@@ -58,26 +60,10 @@ const NewsletterComponent = ({
     setArticleNum(number_of_articles || 0);
     setArticles([first_article || '', second_article || '', third_article || '']);
     setHeaderType(header_type || 'none');
+    setRssFeedEnabled(Boolean(rss_feed_url));
+    setRssFeedUrl(rss_feed_url || '');
   }, [language]);
 
-
-  const getMaxChars = () => {
-    let maxChars = 694;
-    if (articleNum === 2) {
-      maxChars = 345;
-    } else if (articleNum === 3) {
-      maxChars = 230;
-    }
-    return maxChars;
-  };
-
-  const handleArticleNumChange = (e, newValue) => {
-    setArticleNum(newValue);
-  };
-
-  const handleArticleUpdate = (newValue, index) => {
-    setArticles(prev => prev.map((el, i) => (i !== index ? el : newValue)));
-  };
 
   const handleLanguageChange = (value) => {
     const { languageCode } = value;
@@ -120,6 +106,7 @@ const NewsletterComponent = ({
           first_article
           second_article
           third_article
+          rss_feed_url
           number_of_articles
           footer
           send_every
@@ -142,6 +129,7 @@ const NewsletterComponent = ({
           first_article
           second_article
           third_article
+          rss_feed_url
           number_of_articles
           footer
           send_every
@@ -163,6 +151,7 @@ const NewsletterComponent = ({
       first_article: articles[0],
       second_article: articles[1],
       third_article: articles[2],
+      rss_feed_url: rssFeedEnabled ? rssFeedUrl : null,
       number_of_articles: articleNum,
       footer: footerText,
       send_every: 'monday', // FIXME: Read this value from the scheduler component
@@ -246,53 +235,39 @@ const NewsletterComponent = ({
             />}
           />
           <div className={styles['newsletter-body']}>
-            <div>(RSS Switch goes here)</div>
-            <div className={`typography-body2 ${styles['text-secondary']}`}>
-              Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS.
+            <div className={styles.switcher}>
+              <SwitchComponent
+                key={`newsletter-rss-feed-enabled-${language}`}
+                label="RSS"
+                checked={rssFeedEnabled}
+                onChange={setRssFeedEnabled}
+              />
             </div>
-            <ToggleButtonGroup
-              label={
+            <div className={`typography-body2 ${styles['text-secondary']}`}>
+              <p>
                 <FormattedMessage
-                  id="newsletterComponent.numberOfArticles"
-                  defaultMessage="Number of articles"
-                  description="Label on an input where the user selects the number of articles to display in their newsletter"
+                  id="newsletterComponent.rssFeed"
+                  defaultMessage="Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS."
+                  description="Message on tipline newsletter settings page that explains how RSS feeds work there."
                 />
-              }
-              variant="contained"
-              value={articleNum}
-              onChange={handleArticleNumChange}
-              exclusive
-            >
-              <ToggleButton value={0}>
-                0
-              </ToggleButton>
-              <ToggleButton value={1}>
-                1
-              </ToggleButton>
-              <ToggleButton value={2}>
-                2
-              </ToggleButton>
-              <ToggleButton value={3}>
-                3
-              </ToggleButton>
-            </ToggleButtonGroup>
-            {[...Array(articleNum)].map((x, i) => (
-              <FormattedMessage
-                id="newsletterComponent.articlePlaceholder"
-                defaultMessage="Add text or link"
-                description="Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
-              >
-                { placeholder => (
-                  <LimitedTextArea
-                    key={x}
-                    maxChars={getMaxChars()}
-                    value={articles[i]}
-                    onChange={e => handleArticleUpdate(e.target.value, i)}
-                    placeholder={placeholder}
-                  />
-                )}
-              </FormattedMessage>
-            ))}
+              </p>
+            </div>
+            { rssFeedEnabled ?
+              <NewsletterRssFeed
+                key={language}
+                numberOfArticles={articleNum}
+                onUpdateNumberOfArticles={setArticleNum}
+                rssFeedUrl={rssFeedUrl}
+                onUpdateUrl={setRssFeedUrl}
+              /> :
+              <NewsletterStatic
+                key={language}
+                numberOfArticles={articleNum}
+                onUpdateNumberOfArticles={setArticleNum}
+                articles={articles}
+                onUpdateArticles={setArticles}
+              />
+            }
           </div>
           <LimitedTextField maxChars={60} value={footerText} setValue={setFooterText} />
         </div>

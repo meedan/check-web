@@ -1,0 +1,127 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
+import { FormattedMessage } from 'react-intl';
+import Button from '@material-ui/core/Button';
+import LinkIcon from '@material-ui/icons/Link';
+import AutorenewIcon from '@material-ui/icons/Autorenew';
+import styles from './NewsletterComponent.module.css';
+import TextField from '../../cds/inputs/TextField';
+import TextArea from '../../cds/inputs/TextArea';
+import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
+
+const NewsletterRssFeed = ({
+  numberOfArticles,
+  onUpdateNumberOfArticles,
+  rssFeedUrl,
+  onUpdateUrl,
+}) => {
+  const [localRssFeedUrl, setLocalRssFeedUrl] = React.useState(rssFeedUrl);
+  const [loadCount, setLoadCount] = React.useState(0); // Forces a re-fetch
+
+  React.useEffect(() => {
+    setLocalRssFeedUrl(rssFeedUrl);
+  }, [rssFeedUrl]);
+
+  const handleLoad = () => {
+    if (localRssFeedUrl !== rssFeedUrl) {
+      onUpdateUrl(localRssFeedUrl);
+    } else {
+      setLoadCount(loadCount + 1);
+    }
+  };
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query NewsletterRssFeedQuery($rssFeedUrl: String!, $numberOfArticles: Int!) {
+          root {
+            current_team {
+              smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+                smooch_bot_preview_rss_feed(rss_feed_url: $rssFeedUrl, number_of_articles: $numberOfArticles)
+              }
+            }
+          }
+        }
+      `}
+      variables={{
+        numberOfArticles,
+        rssFeedUrl,
+        loadCount,
+      }}
+      render={({ error, props }) => {
+        if (error) {
+          // FIXME: Implement error state
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
+        const loading = !props;
+        let articles = [];
+        if (!loading) {
+          const rssFeedContent = props.root.current_team.smooch_bot?.smooch_bot_preview_rss_feed;
+          if (rssFeedContent) {
+            articles = rssFeedContent.split('\n\n');
+          }
+        }
+        return (
+          <div>
+            <div className={styles['rss-feed-url']}>
+              <TextField
+                className={styles['rss-feed-url-field']}
+                onChange={(e) => { setLocalRssFeedUrl(e.target.value); }}
+                onBlur={(e) => {
+                  if (e.target.value === '') {
+                    onUpdateUrl(null);
+                  }
+                }}
+                value={localRssFeedUrl}
+                iconLeft={<LinkIcon />}
+              />
+              { (rssFeedUrl && loading) ?
+                <Button className={styles['loading-rss-feed-button']} variant="contained" color="primary">
+                  <AutorenewIcon />
+                </Button> :
+                <Button className="load-rss-feed-button" variant="contained" color="primary" onClick={handleLoad} disabled={!localRssFeedUrl}>
+                  <FormattedMessage id="newsletterRssFeed.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />
+                </Button> }
+            </div>
+            <NewsletterNumberOfArticles
+              number={numberOfArticles}
+              options={[1, 2, 3]}
+              onChangeNumber={onUpdateNumberOfArticles}
+            />
+            { rssFeedUrl ?
+              <div key={rssFeedUrl}>
+                {[...Array(numberOfArticles)].map((_, i) => (
+                  <TextArea
+                    disabled
+                    key={articles[i]}
+                    value={articles[i]}
+                    className={styles['two-spaced']}
+                    rows={3}
+                  />
+                ))}
+              </div> : null }
+          </div>
+        );
+      }}
+    />
+  );
+};
+
+NewsletterRssFeed.defaultProps = {
+  numberOfArticles: 3,
+  rssFeedUrl: null,
+  onUpdateUrl: () => {},
+};
+
+NewsletterRssFeed.propTypes = {
+  numberOfArticles: PropTypes.number,
+  onUpdateNumberOfArticles: PropTypes.func.isRequired,
+  rssFeedUrl: PropTypes.string,
+  onUpdateUrl: PropTypes.func,
+};
+
+export default NewsletterRssFeed;

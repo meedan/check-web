@@ -1,6 +1,6 @@
 .content {
   margin-top: 16px;
-  max-width: 1240px;
+  max-width: 880px;
   padding-left: 32px;
 }
 
@@ -26,7 +26,6 @@
 .settings {
   background: var(--brandBackground);
   border-radius: 12px;
-  max-width: var(--columnWidthMedium);
   padding: 16px;
 
   > *:not(:last-child) {
@@ -43,6 +42,27 @@
   border-radius: 12px;
   padding: 16px;
 
+  .rss-feed-url {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    .rss-feed-url-field {
+      flex-grow: 1;
+    }
+  }
+
+  .loading-rss-feed-button {
+    background: var(--alertMain);
+    min-width: 32px;
+    width: 32px;
+  }
+
+  .switcher {
+    margin-bottom: 16px;
+  }
+
   > *:not(:last-child) {
     margin-bottom: 16px;
   }
@@ -50,4 +70,9 @@
 
 .text-secondary {
   color: var(--textSecondary);
+}
+
+.two-spaced {
+  margin-bottom: 16px;
+  margin-top: 16px;
 }

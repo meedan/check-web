@@ -5,17 +5,17 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import styles from './Switch.module.css';
 
 const SwitchComponent = ({
-  label,
+  checked,
   disabled,
+  label,
   labelPlacement,
   helperContent,
+  onChange,
 }) => {
-  const [state, setState] = React.useState({
-    checked: false,
-  });
-
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    if (onChange) {
+      onChange(event.target.checked);
+    }
   };
 
   return (
@@ -24,7 +24,7 @@ const SwitchComponent = ({
         control={
           <div className={styles.switch}>
             <Switch
-              checked={state.checked}
+              checked={checked}
               onChange={handleChange}
               name="checked"
               disabled={disabled}
@@ -52,18 +52,21 @@ const SwitchComponent = ({
 };
 
 SwitchComponent.defaultProps = {
+  checked: false,
   disabled: false,
   label: null,
   labelPlacement: '',
   helperContent: '',
+  onChange: null,
 };
 
 SwitchComponent.propTypes = {
-  label: PropTypes.object,
+  checked: PropTypes.bool,
   disabled: PropTypes.bool,
+  label: PropTypes.object,
   labelPlacement: PropTypes.string,
   helperContent: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
-// eslint-disable-next-line import/no-unused-modules
 export default SwitchComponent;

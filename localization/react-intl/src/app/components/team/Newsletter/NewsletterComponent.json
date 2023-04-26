@@ -30,13 +30,8 @@
     "defaultMessage": "Introduction"
   },
   {
-    "id": "newsletterComponent.numberOfArticles",
-    "description": "Label on an input where the user selects the number of articles to display in their newsletter",
-    "defaultMessage": "Number of articles"
-  },
-  {
-    "id": "newsletterComponent.articlePlaceholder",
-    "description": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article",
-    "defaultMessage": "Add text or link"
+    "id": "newsletterComponent.rssFeed",
+    "description": "Message on tipline newsletter settings page that explains how RSS feeds work there.",
+    "defaultMessage": "Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS."
   }
 ]

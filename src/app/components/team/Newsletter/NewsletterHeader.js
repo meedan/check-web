@@ -82,6 +82,7 @@ NewsletterHeader.defaultProps = {
 NewsletterHeader.propTypes = {
   headerType: PropTypes.oneOf(['none', 'link_preview', 'image', 'video', 'audio']),
   overlayText: PropTypes.string,
+  onUpdateField: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
 };
 
