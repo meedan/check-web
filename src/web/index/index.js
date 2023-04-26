@@ -62,7 +62,6 @@ const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
 // See https://material-ui.com/guides/right-to-left/
 const jss = jssCreate({
   plugins: [...jssPreset().plugins, rtl()],
-  insertionPoint: 'jss-insertion-point',
 });
 
 const callback = (translations) => {
