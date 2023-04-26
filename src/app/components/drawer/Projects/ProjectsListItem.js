@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import { injectIntl, intlShape } from 'react-intl';
+import { browserHistory } from 'react-router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -26,37 +26,36 @@ const ProjectsListItem = ({
   const handleClick = () => {
     if (onClick) {
       onClick(routePrefix, project.dbid);
+      browserHistory.push(`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`);
     }
   };
 
   const defaultClassName = ['project-list__link', className].join(' ');
 
   const Item = listItemProps => (
-    <Link className="link__internal" to={`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`}>
-      <ListItem
-        button
-        onClick={handleClick}
-        title={project.title}
-        key={`${project.id}-${project.title}`}
-        className={isActive ? [styles.projectsListItemActive, defaultClassName].join(' ') : defaultClassName}
-        {...listItemProps}
-      >
-        {icon &&
-          <div className={styles.projectsListItemIcon}>
-            {icon}
-          </div>
-        }
-        <ListItemText classes={{ primary: styles.projectsListItemLabel }}>
-          <span className={isActive ? styles.projectsListItemActiveText : ''}>
-            {project.title || project.name}
-          </span>
-        </ListItemText>
-        <ListItemSecondaryAction title={project.medias_count}>
-          { !Number.isNaN(parseInt(project.medias_count, 10)) ?
-            new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
-        </ListItemSecondaryAction>
-      </ListItem>
-    </Link>
+    <ListItem
+      button
+      onClick={handleClick}
+      title={project.title}
+      key={`${project.id}-${project.title}`}
+      className={[defaultClassName, styles.projectsListItem, (isActive ? styles.projectsListItemActive : '')].join(' ')}
+      {...listItemProps}
+    >
+      {icon &&
+        <div className={styles.projectsListItemIcon}>
+          {icon}
+        </div>
+      }
+      <ListItemText disableTypography className={styles.projectsListItemLabel}>
+        <label>
+          {project.title || project.name}
+        </label>
+      </ListItemText>
+      <ListItemSecondaryAction disableTypography title={project.medias_count} className={styles.projectsListItemCount}>
+        { !Number.isNaN(parseInt(project.medias_count, 10)) ?
+          new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
+      </ListItemSecondaryAction>
+    </ListItem>
   );
 
   const droppableId = `droppable-${routePrefix}-${project.dbid}-${project.project_group_id}`;

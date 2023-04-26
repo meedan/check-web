@@ -1,11 +1,12 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import Drawer from '@material-ui/core/Drawer';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import { withPusher, pusherShape } from '../pusher';
@@ -14,11 +15,7 @@ import CheckContext from '../CheckContext';
 import DeleteIcon from '../icons/delete.svg';
 import ReportIcon from '../icons/report.svg';
 import styles from './drawer/Drawer.module.css';
-import {
-  AlignOpposite,
-  Row,
-} from '../styles/js/shared';
-
+import projectStyles from './drawer/Projects/Projects.module.css';
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -56,6 +53,16 @@ class DrawerNavigationComponent extends Component {
       team.id = team.team_graphql_id;
       context.setContextStore({ team });
     }
+  }
+
+  handleSpam = () => {
+    // setActiveItem({ type: 'spam', id: null });
+    browserHistory.push(`/${this.props.team.slug}/spam`);
+  }
+
+  handleTrash = () => {
+    // setActiveItem({ type: 'spam', id: null });
+    browserHistory.push(`/${this.props.team.slug}/trash`);
   }
 
   subscribe() {
@@ -106,42 +113,38 @@ class DrawerNavigationComponent extends Component {
       >
         <React.Fragment>
           <DrawerProjects team={team.slug} />
-          <div className={styles.drawerFooter}>
-            <Link to={`/${team.slug}/spam`} className="link__internal project-list__link-spam">
-              <MenuItem className="project-list__item-spam">
-                <ListItemIcon className={classes.listItemIconRoot}>
-                  <ReportIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Row className="typography-body1">
-                      <FormattedMessage id="projects.spam" defaultMessage="Spam" />
-                      <AlignOpposite>
-                        {String(team.spam_count)}
-                      </AlignOpposite>
-                    </Row>
-                  }
-                />
-              </MenuItem>
-            </Link>
-            <Link to={`/${team.slug}/trash`} className="link__internal project-list__link-trash">
-              <MenuItem className="project-list__item-trash">
-                <ListItemIcon className={classes.listItemIconRoot}>
-                  <DeleteIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Row className="typography-body1">
-                      <FormattedMessage id="projects.trash" defaultMessage="Trash" />
-                      <AlignOpposite>
-                        {String(team.trash_count)}
-                      </AlignOpposite>
-                    </Row>
-                  }
-                />
-              </MenuItem>
-            </Link>
-          </div>
+          <List dense className={[projectStyles.projectsComponentList, styles.drawerFooter].join(' ')}>
+            <ListItem
+              button
+              onClick={this.handleSpam}
+              className={['project-list__link-spam', projectStyles.projectsListItem].join(' ')}
+            >
+              <div className={projectStyles.projectsListItemIcon}>
+                <ReportIcon />
+              </div>
+              <ListItemText disableTypography className={projectStyles.projectsListItemLabel}>
+                <FormattedMessage tagName="label" id="projects.spam" defaultMessage="Spam" />
+              </ListItemText>
+              <ListItemSecondaryAction disableTypography title={team.medias_count} className={projectStyles.projectsListItemCount}>
+                {String(team.spam_count)}
+              </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem
+              button
+              onClick={this.handleTrash}
+              className={['project-list__link-trasn', projectStyles.projectsListItem].join(' ')}
+            >
+              <div className={projectStyles.projectsListItemIcon}>
+                <DeleteIcon />
+              </div>
+              <ListItemText disableTypography className={projectStyles.projectsListItemLabel}>
+                <FormattedMessage tagName="label" id="projects.trash" defaultMessage="Trash" />
+              </ListItemText>
+              <ListItemSecondaryAction disableTypography title={team.trash_count} className={projectStyles.projectsListItemCount}>
+                {String(team.trash_count)}
+              </ListItemSecondaryAction>
+            </ListItem>
+          </List>
         </React.Fragment>
       </Drawer>
     );

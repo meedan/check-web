@@ -1,12 +1,13 @@
 .drawer {
   --drawerWidth: 256px;
+  --drawerFooterHeight: 80px;
 
   transition: width 225ms cubic-bezier(0, 0, .2, 1) 0ms;
   width: var(--drawerWidth);
   z-index: 1;
 
   &.drawOpen {
-    background-color: var(--errorMain);
+    border: solid 1px  var(--errorMain);
   }
 
   &.drawerClosed {
@@ -15,5 +16,5 @@
 }
 
 .drawerFooter {
-  background-color: var(--errorMain);
+  flex: 0 0 var(--drawerFooterHeight);
 }

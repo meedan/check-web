@@ -1,34 +1,85 @@
 /* stylelint-disable scale-unlimited/declaration-strict-value */
 .projectsComponentList {
   --drawerListIconSize: 18px;
+  --drawerexpandIconSize: 16px;
 
-  border: solid 1px var(--errorMain);
   display: flex;
   flex: 1;
   flex-direction: column;
   overflow: auto;
   padding: 0;
 
-  .projectsListItemIcon {
-    background-color: var(--brandHoverAccent);
-    font-size: var(--drawerListIconSize);
+  .projectsListItem {
+    border-radius: 5px;
+    margin: 0;
+    padding: 10px 48px 10px 15px;
+
+    .projectsListItemIcon {
+      display: flex;
+      font-size: var(--drawerListIconSize);
+      margin: 0 10px 0 4px;
+    }
+
+    .projectsListItemLabel {
+      margin: 0;
+
+      label {
+        @mixin text-truncate block;
+        @mixin typography-body1;
+        cursor: pointer;
+      }
+    }
+
+    &.projectsComponentNestedList {
+      padding-left: 24px;
+    }
+
+    &:hover {
+      background-color: var(--brandHoverAccent);
+    }
+
+    &.projectsListItemActive,
+    &.projectsListItemActive:hover {
+      background-color: var(--brandLight);
+      color: var(--brandSecondary);
+    }
   }
 
-  .projectsComponentCollectionExpanded,
-  .projectsComponentCollectionExpanded:hover {
-    background-color: var(--brandLight);
+  .projectsListItemCount {
+    @mixin typography-body1;
   }
 
-  .projectsComponentNestedList {
-    padding-left: 24px;
+  .projectsComponentHeader {
+    @mixin typography-caption;
+    color: var(--brandSecondary);
+    cursor: pointer;
+    font-weight: 500;
+    margin: 10px 0 0;
+    padding: 0;
+    text-transform: uppercase;
+
+    :global(.MuiListItemText-root) {
+      margin: 0 12px 0 0;
+    }
+
+    .projectsComponentChevron {
+      font-size: var(--drawerexpandIconSize);
+      margin: 0 4px 0 0;
+    }
+
+    .projectsComponentButton {
+      background-color: var(--grayBackground);
+      border-radius: 8px;
+      color: var(--textSecondary);
+      font-size: 20px;
+      height: 26px;
+      padding: 0;
+      width: 26px;
+    }
   }
 
   .projectsComponentCollapse {
     min-height: auto !important;
-  }
-
-  .projectsComponentButton {
-    padding: 0;
   }
 
   .projectsComponentMask {
@@ -36,33 +87,6 @@
     background-color: var(--otherWhite);
     opacity: .7;
     z-index: 1;
-  }
-
-  .projectsComponentHeader {
-    cursor: pointer;
-  }
-
-  .projectsComponentChevron {
-    margin-right: 8px;
-  }
-
-  .listItemIconRoot {
-    min-width: 32px;
-  }
-
-  .projectsListItemLabel {
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .projectsListItemActive {
-    background-color: var(--brandLight);
-  }
-
-  .projectsListItemActiveText {
-    font-weight: bold;
   }
 }
 /* stylelint-enable */

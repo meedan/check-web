@@ -17,7 +17,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
-import AddIcon from '../../../icons/add.svg';
+import AddCircleIcon from '../../../icons/add_circle.svg';
 import CategoryIcon from '../../../icons/category.svg';
 import ExpandLessIcon from '../../../icons/expand_less.svg';
 import ExpandMoreIcon from '../../../icons/expand_more.svg';
@@ -223,17 +223,15 @@ const ProjectsComponent = ({
         <ListItem
           button
           onClick={handleAllItems}
-          className={activeItem.type === 'all-items' ? ['projects-list__all-items', styles.projectsComponentCollectionExpanded].join(' ') : 'projects-list__all-items'}
+          className={['projects-list__all-items', styles.projectsListItem, (activeItem.type === 'all-items' ? styles.projectsListItemActive : '')].join(' ')}
         >
           <div className={styles.projectsListItemIcon}>
             <CategoryIcon />
           </div>
-          <ListItemText disableTypography>
-            <span className="typography-body1">
-              <FormattedMessage id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
-            </span>
+          <ListItemText disableTypography className={styles.projectsListItemLabel}>
+            <FormattedMessage tagName="label" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
           </ListItemText>
-          <ListItemSecondaryAction>
+          <ListItemSecondaryAction disableTypography title={team.medias_count} className={styles.projectsListItemCount}>
             {team.medias_count}
           </ListItemSecondaryAction>
         </ListItem>
@@ -242,15 +240,13 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('tipline-inbox'); }}
-            className={activeItem.type === 'tipline-inbox' ? ['projects-list__tipline-inbox', styles.projectsComponentCollectionExpanded].join(' ') : 'projects-list__tipline-inbox'}
+            className={['projects-list__tipline-inbox', styles.projectsListItem, (activeItem.type === 'tipline-inbox' ? styles.projectsListItemActive : '')].join(' ')}
           >
             <div className={styles.projectsListItemIcon}>
               <InboxIcon />
             </div>
-            <ListItemText disableTypography>
-              <span className="typography-body1">
-                <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar." />
-              </span>
+            <ListItemText disableTypography className={styles.projectsListItemLabel}>
+              <FormattedMessage tagName="label" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -258,15 +254,13 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('imported-fact-checks'); }}
-            className={activeItem.type === 'imported-reports' ? ['projects-list__imported-reports', styles.projectsComponentCollectionExpanded].join(' ') : 'projects-list__imported-reports'}
+            className={['projects-list__imported-fact-checks', styles.projectsListItem, (activeItem.type === 'imported-fact-checks' ? styles.projectsListItemActive : '')].join(' ')}
           >
             <div className={styles.projectsListItemIcon}>
               <FileDownloadIcon />
             </div>
-            <ListItemText disableTypography>
-              <span className="typography-body1">
-                <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar." />
-              </span>
+            <ListItemText disableTypography className={styles.projectsListItemLabel}>
+              <FormattedMessage tagName="label" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -274,15 +268,13 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('suggested-matches'); }}
-            className={activeItem.type === 'suggested-matches' ? ['projects-list__suggested-matches', styles.projectsComponentCollectionExpanded].join(' ') : 'projects-list__suggested-matches'}
+            className={['projects-list__suggested-matches', styles.projectsListItem, (activeItem.type === 'suggested-matches' ? styles.projectsListItemActive : '')].join(' ')}
           >
             <div className={styles.projectsListItemIcon}>
               <LightbulbIcon />
             </div>
-            <ListItemText disableTypography>
-              <span className="typography-body1">
-                <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
-              </span>
+            <ListItemText disableTypography className={styles.projectsListItemLabel}>
+              <FormattedMessage tagName="label" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -290,11 +282,11 @@ const ProjectsComponent = ({
         <ListItem onClick={handleToggleFoldersExpand} className={[styles.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { foldersExpanded ? <ExpandLessIcon className={styles.projectsComponentChevron} /> : <ExpandMoreIcon className={styles.projectsComponentChevron} /> }
           <ListItemText disableTypography>
-            <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
+            <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
               <Can permissions={team.permissions} permission="create Project">
                 <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[styles.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
-                  <AddIcon />
+                  <AddCircleIcon />
                 </IconButton>
               </Can>
               <Menu
@@ -331,80 +323,78 @@ const ProjectsComponent = ({
         {/* Collections and their folders */}
         <Collapse in={foldersExpanded} className={styles.projectsComponentCollapse}>
           <DragDropContext onDragEnd={handleDropped} key={`${projectGroups.length}-${projects.length}`}>
-            <Box>
-              {projectGroups.sort((a, b) => (a.title.localeCompare(b.title))).map((projectGroup) => {
-                const groupIsActive = isActive('collection', projectGroup.dbid);
-                const groupComponent = (
-                  <ProjectsListItem
-                    key={projectGroup.id}
-                    routePrefix="collection"
-                    project={projectGroup}
-                    teamSlug={team.slug}
-                    onClick={handleClick}
-                    isActive={groupIsActive}
-                    isDroppable
-                  />
-                );
-
-                // We can stop here if this group should be collapsed
-                if (collapsed) {
-                  return groupComponent;
-                }
-
-                // Expand the project group if a project under it is currently active
-                if (groupIsActive ||
-                    (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
-                  const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
-                  return (
-                    <Box className={groupIsActive ? styles.projectsComponentCollectionExpanded : ''} key={projectGroup.id}>
-                      {groupComponent}
-                      <List>
-                        { childProjects.length === 0 ?
-                          <ListItem disabled dense>
-                            <ListItemText disableTypography>
-                              <span className="typography-body1">
-                                <FormattedMessage id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
-                              </span>
-                            </ListItemText>
-                          </ListItem> :
-                          <React.Fragment>
-                            {childProjects.sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
-                              <ProjectsListItem
-                                key={project.id}
-                                index={index}
-                                routePrefix="project"
-                                project={project}
-                                teamSlug={team.slug}
-                                onClick={handleClick}
-                                isActive={isActive('project', project.dbid)}
-                                className={styles.projectsComponentNestedList}
-                                isDraggable
-                              />
-                            ))}
-                          </React.Fragment>
-                        }
-                      </List>
-                    </Box>
-                  );
-                }
-
-                return groupComponent;
-              })}
-
-              {/* Folders that are not inside any collection */}
-              {projects.filter(p => !p.project_group_id).sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
+            {projectGroups.sort((a, b) => (a.title.localeCompare(b.title))).map((projectGroup) => {
+              const groupIsActive = isActive('collection', projectGroup.dbid);
+              const groupComponent = (
                 <ProjectsListItem
-                  key={project.id}
-                  index={index}
-                  routePrefix="project"
-                  project={project}
+                  key={projectGroup.id}
+                  routePrefix="collection"
+                  project={projectGroup}
                   teamSlug={team.slug}
                   onClick={handleClick}
-                  isActive={isActive('project', project.dbid)}
-                  isDraggable
+                  isActive={groupIsActive}
+                  isDroppable
                 />
-              ))}
-            </Box>
+              );
+
+              // We can stop here if this group should be collapsed
+              if (collapsed) {
+                return groupComponent;
+              }
+
+              // Expand the project group if a project under it is currently active
+              if (groupIsActive ||
+                  (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
+                const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
+                return (
+                  <Box className={groupIsActive ? styles.projectsComponentCollectionExpanded : ''} key={projectGroup.id}>
+                    {groupComponent}
+                    <List>
+                      { childProjects.length === 0 ?
+                        <ListItem disabled dense>
+                          <ListItemText disableTypography>
+                            <span className="typography-body1">
+                              <FormattedMessage id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
+                            </span>
+                          </ListItemText>
+                        </ListItem> :
+                        <React.Fragment>
+                          {childProjects.sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
+                            <ProjectsListItem
+                              key={project.id}
+                              index={index}
+                              routePrefix="project"
+                              project={project}
+                              teamSlug={team.slug}
+                              onClick={handleClick}
+                              isActive={isActive('project', project.dbid)}
+                              className={styles.projectsComponentNestedList}
+                              isDraggable
+                            />
+                          ))}
+                        </React.Fragment>
+                      }
+                    </List>
+                  </Box>
+                );
+              }
+
+              return groupComponent;
+            })}
+
+            {/* Folders that are not inside any collection */}
+            {projects.filter(p => !p.project_group_id).sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
+              <ProjectsListItem
+                key={project.id}
+                index={index}
+                routePrefix="project"
+                project={project}
+                teamSlug={team.slug}
+                onClick={handleClick}
+                isActive={isActive('project', project.dbid)}
+                isDraggable
+              />
+            ))}
           </DragDropContext>
         </Collapse>
 
@@ -412,11 +402,11 @@ const ProjectsComponent = ({
         <ListItem onClick={handleToggleListsExpand} className={[styles.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { listsExpanded ? <ExpandLessIcon className={styles.projectsComponentChevron} /> : <ExpandMoreIcon className={styles.projectsComponentChevron} /> }
           <ListItemText disableTypography>
-            <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
+            <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
               <Can permissions={team.permissions} permission="create Project">
                 <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.projectsComponentButton}>
-                  <AddIcon id="projects-list__add-filtered-list" />
+                  <AddCircleIcon id="projects-list__add-filtered-list" />
                 </IconButton>
               </Can>
             </Box>
@@ -425,18 +415,16 @@ const ProjectsComponent = ({
 
         {/* Lists */}
         <Collapse in={listsExpanded} className={styles.projectsComponentCollapse}>
-          <Box>
-            {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
-              <ProjectsListItem
-                key={search.id}
-                routePrefix="list"
-                project={search}
-                teamSlug={team.slug}
-                onClick={handleClick}
-                isActive={isActive('list', search.dbid)}
-              />
-            ))}
-          </Box>
+          {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
+            <ProjectsListItem
+              key={search.id}
+              routePrefix="list"
+              project={search}
+              teamSlug={team.slug}
+              onClick={handleClick}
+              isActive={isActive('list', search.dbid)}
+            />
+          ))}
         </Collapse>
 
         {/* Shared feeds */}
@@ -445,7 +433,7 @@ const ProjectsComponent = ({
             <ListItem onClick={handleToggleFeedsExpand} className={[styles.projectsComponentHeader, 'project-list__header'].join(' ')}>
               { feedsExpanded ? <ExpandLessIcon className={styles.projectsComponentChevron} /> : <ExpandMoreIcon className={styles.projectsComponentChevron} /> }
               <ListItemText disableTypography>
-                <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
+                <Box display="flex" alignItems="center" justifyContent="space-between">
                   <FormattedMessage id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
                 </Box>
               </ListItemText>
@@ -453,20 +441,18 @@ const ProjectsComponent = ({
 
             {/* Lists */}
             <Collapse in={feedsExpanded} className={styles.projectsComponentCollapse}>
-              <Box>
-                {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
-                  <ProjectsListItem
-                    key={feed.id}
-                    routePrefix="feed"
-                    routeSuffix="/shared"
-                    icon={<DynamicFeedIcon />}
-                    project={feed}
-                    teamSlug={team.slug}
-                    onClick={handleClick}
-                    isActive={isActive('feed', feed.dbid)}
-                  />
-                ))}
-              </Box>
+              {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
+                <ProjectsListItem
+                  key={feed.id}
+                  routePrefix="feed"
+                  routeSuffix="/shared"
+                  icon={<DynamicFeedIcon />}
+                  project={feed}
+                  teamSlug={team.slug}
+                  onClick={handleClick}
+                  isActive={isActive('feed', feed.dbid)}
+                />
+              ))}
             </Collapse>
           </React.Fragment> : null }
       </List>
