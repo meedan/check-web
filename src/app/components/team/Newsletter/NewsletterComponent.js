@@ -53,6 +53,8 @@ const NewsletterComponent = ({
   const [rssFeedUrl, setRssFeedUrl] = React.useState(rss_feed_url || '');
   const [rssFeedEnabled, setRssFeedEnabled] = React.useState(Boolean(rssFeedUrl));
 
+  const numberOfArticles = (rssFeedEnabled && articleNum === 0) ? 1 : articleNum;
+
   React.useEffect(() => {
     setOverlayText(header_overlay_text || '');
     setIntroductionText(introduction || '');
@@ -152,7 +154,7 @@ const NewsletterComponent = ({
       second_article: articles[1],
       third_article: articles[2],
       rss_feed_url: rssFeedEnabled ? rssFeedUrl : null,
-      number_of_articles: articleNum,
+      number_of_articles: numberOfArticles,
       footer: footerText,
       send_every: 'monday', // FIXME: Read this value from the scheduler component
       timezone: 'America/Los_Angeles', // FIXME: Read this value from the scheduler component
@@ -255,14 +257,14 @@ const NewsletterComponent = ({
             { rssFeedEnabled ?
               <NewsletterRssFeed
                 key={language}
-                numberOfArticles={articleNum}
+                numberOfArticles={numberOfArticles}
                 onUpdateNumberOfArticles={setArticleNum}
                 rssFeedUrl={rssFeedUrl}
                 onUpdateUrl={setRssFeedUrl}
               /> :
               <NewsletterStatic
                 key={language}
-                numberOfArticles={articleNum}
+                numberOfArticles={numberOfArticles}
                 onUpdateNumberOfArticles={setArticleNum}
                 articles={articles}
                 onUpdateArticles={setArticles}
