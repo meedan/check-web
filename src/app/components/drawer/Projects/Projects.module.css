@@ -19,7 +19,7 @@
     .projectsListItemIcon {
       display: flex;
       font-size: var(--drawerListIconSize);
-      margin: 0 10px 0 4px;
+      margin: 0 10px 0 0;
     }
 
     .projectsListItemLabel {
