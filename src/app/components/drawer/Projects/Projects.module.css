@@ -10,9 +10,11 @@
   padding: 0;
 
   .projectsListItem {
+    border: solid 1px var(--otherWhite);
     border-radius: 5px;
     margin: 0;
     padding: 10px 48px 10px 15px;
+    width: 100%;
 
     .projectsListItemIcon {
       display: flex;
@@ -23,15 +25,11 @@
     .projectsListItemLabel {
       margin: 0;
 
-      label {
+      span {
         @mixin text-truncate block;
         @mixin typography-body1;
         cursor: pointer;
       }
-    }
-
-    &.projectsComponentNestedList {
-      padding-left: 24px;
     }
 
     &:hover {
@@ -54,7 +52,7 @@
     color: var(--brandSecondary);
     cursor: pointer;
     font-weight: 500;
-    margin: 10px 0 0;
+    margin: 10px 0 2px;
     padding: 0;
     text-transform: uppercase;
 
@@ -78,8 +76,50 @@
     }
   }
 
+  .projectsComponentCollectionItems {
+    margin: -5px 1px 0 12px;
+    padding: 3px 2px;
+  }
+
   .projectsComponentCollapse {
     min-height: auto !important;
+
+    .projectsComponentCollectionExpanded {
+      background-color: var(--brandLight);
+      border-color: var(--brandLight);
+      border-radius: 5px;
+
+      .projectsListItem {
+        border-color: var(--brandLight);
+      }
+
+      &.projectsEmptyCollection {
+        border-radius: 0 0 5px 5px;
+        margin: -10px 1px 0;
+        padding: 0;
+
+        .projectsListItem {
+          border-color: var(--brandLight);
+          color: var(--textDisabled);
+          padding: 5px 15px;
+
+          .projectsListItemLabel {
+            span {
+              cursor: text;
+
+              em {
+                @mixin typography-caption;
+                font-style: italic;
+              }
+            }
+          }
+
+          &:hover {
+            background-color: var(--brandLight);
+          }
+        }
+      }
+    }
   }
 
   .projectsComponentMask {
@@ -87,6 +127,10 @@
     background-color: var(--otherWhite);
     opacity: .7;
     z-index: 1;
+  }
+
+  &.projectsComponentListFooer {
+    flex: 0 0 var(--drawerFooterHeight);
   }
 }
 /* stylelint-enable */

@@ -229,7 +229,7 @@ const ProjectsComponent = ({
             <CategoryIcon />
           </div>
           <ListItemText disableTypography className={styles.projectsListItemLabel}>
-            <FormattedMessage tagName="label" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
+            <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
           </ListItemText>
           <ListItemSecondaryAction disableTypography title={team.medias_count} className={styles.projectsListItemCount}>
             {team.medias_count}
@@ -246,7 +246,7 @@ const ProjectsComponent = ({
               <InboxIcon />
             </div>
             <ListItemText disableTypography className={styles.projectsListItemLabel}>
-              <FormattedMessage tagName="label" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar." />
+              <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -260,7 +260,7 @@ const ProjectsComponent = ({
               <FileDownloadIcon />
             </div>
             <ListItemText disableTypography className={styles.projectsListItemLabel}>
-              <FormattedMessage tagName="label" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar." />
+              <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -274,7 +274,7 @@ const ProjectsComponent = ({
               <LightbulbIcon />
             </div>
             <ListItemText disableTypography className={styles.projectsListItemLabel}>
-              <FormattedMessage tagName="label" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
+              <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -347,14 +347,21 @@ const ProjectsComponent = ({
                   (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
                 const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
                 return (
-                  <Box className={groupIsActive ? styles.projectsComponentCollectionExpanded : ''} key={projectGroup.id}>
+                  <>
                     {groupComponent}
-                    <List>
+                    <List
+                      dense
+                      className={[
+                        groupIsActive ? styles.projectsComponentCollectionExpanded : '',
+                        childProjects.length === 0 ? styles.projectsEmptyCollection : styles.projectsComponentCollectionItems,
+                      ].join(' ')}
+                      key={projectGroup.id}
+                    >
                       { childProjects.length === 0 ?
-                        <ListItem disabled dense>
-                          <ListItemText disableTypography>
-                            <span className="typography-body1">
-                              <FormattedMessage id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
+                        <ListItem className={styles.projectsListItem}>
+                          <ListItemText disableTypography className={styles.projectsListItemLabel}>
+                            <span>
+                              <FormattedMessage tagName="em" id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
                             </span>
                           </ListItemText>
                         </ListItem> :
@@ -368,14 +375,14 @@ const ProjectsComponent = ({
                               teamSlug={team.slug}
                               onClick={handleClick}
                               isActive={isActive('project', project.dbid)}
-                              className={styles.projectsComponentNestedList}
+                              className={styles.projectsComponentCollectionItem}
                               isDraggable
                             />
                           ))}
                         </React.Fragment>
                       }
                     </List>
-                  </Box>
+                  </>
                 );
               }
 
