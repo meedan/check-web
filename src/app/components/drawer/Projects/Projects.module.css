@@ -1,4 +1,4 @@
-/* stylelint-disable scale-unlimited/declaration-strict-value */
+/* stylelint-disable scale-unlimited/declaration-strict-value,  */
 .projectsComponentList {
   --drawerListIconSize: 18px;
   --drawerexpandIconSize: 16px;
@@ -13,7 +13,7 @@
     border: solid 1px var(--otherWhite);
     border-radius: 5px;
     margin: 0;
-    padding: 10px 48px 10px 15px;
+    padding: 10px 15px;
     width: 100%;
 
     .projectsListItemIcon {
@@ -36,6 +36,10 @@
       background-color: var(--brandHoverAccent);
     }
 
+    &.projectsListItemWithCount {
+      padding: 10px 48px 10px 15px;
+    }
+
     &.projectsListItemActive,
     &.projectsListItemActive:hover {
       background-color: var(--brandLight);
@@ -56,23 +60,31 @@
     padding: 0;
     text-transform: uppercase;
 
-    :global(.MuiListItemText-root) {
-      margin: 0 12px 0 0;
+    .projectsComponentHeaderLabel {
+      align-items: center;
+      display: flex;
+      margin: 0;
+
+      > span {
+        flex: 1 1 auto;
+        margin: 0 12px 0 -4px;
+      }
+
+      .projectsComponentButton {
+        background-color: var(--grayBackground);
+        border-radius: 8px;
+        color: var(--textSecondary);
+        flex: 0 0 26px;
+        font-size: 20px;
+        height: 26px;
+        padding: 0;
+        width: 26px;
+      }
     }
 
     .projectsComponentChevron {
       font-size: var(--drawerexpandIconSize);
       margin: 0 4px 0 0;
-    }
-
-    .projectsComponentButton {
-      background-color: var(--grayBackground);
-      border-radius: 8px;
-      color: var(--textSecondary);
-      font-size: 20px;
-      height: 26px;
-      padding: 0;
-      width: 26px;
     }
   }
 

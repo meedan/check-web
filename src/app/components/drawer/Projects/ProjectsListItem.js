@@ -38,7 +38,12 @@ const ProjectsListItem = ({
       onClick={handleClick}
       title={project.title}
       key={`${project.id}-${project.title}`}
-      className={[defaultClassName, styles.projectsListItem, (isActive ? styles.projectsListItemActive : '')].join(' ')}
+      className={[
+        defaultClassName,
+        styles.projectsListItem,
+        project.medias_count > 0 ? styles.projectsListItemWithCount : '',
+        isActive ? styles.projectsListItemActive : '',
+      ].join(' ')}
       {...listItemProps}
     >
       {icon &&
