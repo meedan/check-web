@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import GetAppIcon from '@material-ui/icons/GetApp';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
 import CheckChannels from '../../CheckChannels';
+import FileDownloadIcon from '../../icons/file_download.svg';
 
 export default function ImportedReports({ routeParams }) {
   const query = {
@@ -20,7 +20,7 @@ export default function ImportedReports({ routeParams }) {
         searchUrlPrefix={`/${routeParams.team}/imported-fact-checks`}
         mediaUrlPrefix={`/${routeParams.team}/media`}
         title={<FormattedMessage id="ImportedReports.title" defaultMessage="Imported fact-checks" />}
-        icon={<GetAppIcon />}
+        icon={<FileDownloadIcon />}
         teamSlug={routeParams.team}
         query={query}
         hideFields={['feed_fact_checked_by', 'channels', 'cluster_teams', 'cluster_published_reports']}
