@@ -142,7 +142,8 @@
   }
 
   &.projectsComponentListFooer {
-    flex: 0 0 var(--drawerFooterHeight);
+    flex: 0 0 auto;
+    justify-content: end;
   }
 }
 /* stylelint-enable */
