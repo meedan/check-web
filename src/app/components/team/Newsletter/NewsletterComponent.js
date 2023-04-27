@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import Button from '@material-ui/core/Button';
 import NewsletterHeader from './NewsletterHeader';
 import NewsletterStatic from './NewsletterStatic';
@@ -19,13 +19,13 @@ import { withSetFlashMessage } from '../../FlashMessage';
 
 const NewsletterComponent = ({
   team,
-  newsletters,
   setFlashMessage,
 }) => {
+  const newsletters = team.tipline_newsletters?.edges;
   const { defaultLanguage } = team;
   const languages = safelyParseJSON(team.languages);
   const [language, setLanguage] = React.useState(defaultLanguage || languages[0] || 'en');
-  const newsletter = newsletters.find(item => item.language === language) || {};
+  const newsletter = newsletters.find(item => item.node.language === language).node || {};
   const {
     id,
     number_of_articles,
@@ -283,8 +283,33 @@ NewsletterComponent.propTypes = {
     defaultLanguage: PropTypes.string.isRequired,
     languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     permissions: PropTypes.string.isRequired,
+    tipline_newsletters: PropTypes.array.isRequired, // TODO: Declare the expected structure for each newsletter
   }).isRequired,
-  newsletters: PropTypes.array.isRequired, // TODO: Declare the expected structure for each newsletter
 };
 
-export default withSetFlashMessage(NewsletterComponent);
+// TODO: reintroduce send_every, time, timezone, enabled
+export default createFragmentContainer(withSetFlashMessage(NewsletterComponent), graphql`
+  fragment NewsletterComponent_team on Team {
+    permissions
+    id
+    defaultLanguage: get_language
+    languages: get_languages
+    tipline_newsletters(first: 1000) {
+      edges {
+        node {
+          id
+          number_of_articles
+          introduction
+          header_type
+          header_overlay_text
+          first_article
+          second_article
+          third_article
+          rss_feed_url
+          language
+          footer
+        }
+      }
+    }
+  }
+`);
