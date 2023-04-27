@@ -17,13 +17,13 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 32px;
     width: var(--drawerRailWidth);
   }
 
   .drawerRailTop,
   .drawerRailBottom {
-    gap: 15px;
+    gap: 16px;
   }
 
   .drawerRailMiddle {
@@ -32,9 +32,36 @@
     justify-content: center;
   }
 
-  .railIconButton {
+  .railIconButton,
+  .railIconLink {
+    background-color: var(--brandBackgroundAccent);
+    border: 0;
+    border-radius: 8px;
     color: var(--textSecondary);
+    cursor: pointer;
     display: block;
     font-size: var(--drawerRailIcon);
+    height: 40px;
+    position: relative;
+    transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+    width: 40px;
+
+    :global(.check-icon) {
+      @mixin position absolute, 50%, auto, auto, 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+
+    &:hover {
+      color: var(--textLink);
+    }
   }
+  /* stylelint-disable no-descending-specificity */
+  .railIconLink {
+    background-color: var(--brandBackground);
+
+    &:hover {
+      background-color: var(--brandBackgroundAccent);
+    }
+  }
+  /* stylelint-enable no-descending-specificity */
 }

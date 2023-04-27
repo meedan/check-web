@@ -82,14 +82,14 @@ const DrawerRail = (props) => {
       </div>
       <div className={styles.drawerRailMiddle}>
         <Link
-          className={styles.railIconButton}
+          className={styles.railIconLink}
           to={`/${props.team.slug}/all-items`}
           title={props.intl.formatMessage(messages.tiplineDescription)}
         >
           <QuestionAnswerIcon />
         </Link>
         <Link
-          className={styles.railIconButton}
+          className={styles.railIconLink}
           to={`/${props.team.slug}/settings`}
           title={props.intl.formatMessage(messages.settingsDescription)}
         >
@@ -99,7 +99,7 @@ const DrawerRail = (props) => {
       <div className={styles.drawerRailBottom}>
         <a
           href="https://help.checkmedia.org/"
-          className={styles.railIconButton}
+          className={styles.railIconLink}
           target="_blank"
           rel="noopener noreferrer"
           title={props.intl.formatMessage(messages.trainingDescription)}
@@ -108,7 +108,7 @@ const DrawerRail = (props) => {
         </a>
         <a
           href="https://meedan.com/legal"
-          className={styles.railIconButton}
+          className={styles.railIconLink}
           target="_blank"
           rel="noopener noreferrer"
           title={props.intl.formatMessage(messages.legalDescription)}
