@@ -113,7 +113,7 @@ class DrawerNavigationComponent extends Component {
       >
         <React.Fragment>
           <DrawerProjects team={team.slug} />
-          <List dense className={[projectStyles.projectsComponentList, projectStyles.projectsComponentListFooer].join(' ')}>
+          <List dense disablePadding className={[projectStyles.projectsComponentList, projectStyles.projectsComponentListFooer].join(' ')}>
             <ListItem
               button
               onClick={this.handleSpam}

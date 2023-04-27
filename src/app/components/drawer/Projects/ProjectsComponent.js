@@ -216,7 +216,7 @@ const ProjectsComponent = ({
 
   return (
     <React.Fragment>
-      <List dense className={[styles.projectsComponentList, 'projects-list'].join(' ')}>
+      <List dense disablePadding className={[styles.projectsComponentList, 'projects-list'].join(' ')}>
         { saving && <Box className={styles.projectsComponentMask} /> }
         {/* All items */}
         <ListItem
@@ -358,7 +358,7 @@ const ProjectsComponent = ({
                       key={projectGroup.id}
                     >
                       { childProjects.length === 0 ?
-                        <ListItem className={styles.projectsListItem}>
+                        <ListItem className={[styles.projectsListItem, styles.projectsListItemEmpty].join(' ')}>
                           <ListItemText disableTypography className={styles.projectsListItemLabel}>
                             <span>
                               <FormattedMessage tagName="em" id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
@@ -419,18 +419,31 @@ const ProjectsComponent = ({
         </ListItem>
 
         {/* Lists */}
-        <Collapse in={listsExpanded} className={styles.projectsComponentCollapse}>
-          {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
-            <ProjectsListItem
-              key={search.id}
-              routePrefix="list"
-              project={search}
-              teamSlug={team.slug}
-              onClick={handleClick}
-              isActive={isActive('list', search.dbid)}
-            />
-          ))}
-        </Collapse>
+        <React.Fragment>
+          <Collapse in={listsExpanded} className={styles.projectsComponentCollapse}>
+            { savedSearches.length === 0 ?
+              <ListItem className={[styles.projectsListItem, styles.projectsListItemEmpty].join(' ')}>
+                <ListItemText disableTypography className={styles.projectsListItemLabel}>
+                  <span>
+                    <FormattedMessage tagName="em" id="projectsComponent.noCustomLists" defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" />
+                  </span>
+                </ListItemText>
+              </ListItem> :
+              <>
+                {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
+                  <ProjectsListItem
+                    key={search.id}
+                    routePrefix="list"
+                    project={search}
+                    teamSlug={team.slug}
+                    onClick={handleClick}
+                    isActive={isActive('list', search.dbid)}
+                  />
+                ))}
+              </>
+            }
+          </Collapse>
+        </React.Fragment>
 
         {/* Shared feeds */}
         { feeds.length > 0 &&
@@ -441,8 +454,6 @@ const ProjectsComponent = ({
                 <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
               </ListItemText>
             </ListItem>
-
-            {/* Lists */}
             <Collapse in={feedsExpanded} className={styles.projectsComponentCollapse}>
               {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
                 <ProjectsListItem

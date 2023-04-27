@@ -5,6 +5,13 @@
   width: var(--drawerWidth);
   z-index: 1;
 
+  :global(.MuiDrawer-paperAnchorLeft) {
+    border-right: solid 2px var(--grayBorderMain);
+    left: 70px;
+    padding: 0;
+    width: var(--drawerWidth);
+  }
+
   &.drawerClosed {
     width: 0;
   }

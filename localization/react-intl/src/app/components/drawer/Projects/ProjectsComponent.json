@@ -60,6 +60,11 @@
     "defaultMessage": "Custom Lists"
   },
   {
+    "id": "projectsComponent.noCustomLists",
+    "description": "Displayed under the custom list header when there are no lists in it",
+    "defaultMessage": "No custom lists"
+  },
+  {
     "id": "projectsComponent.sharedFeeds",
     "description": "Feeds of content shared across workspaces",
     "defaultMessage": "Shared feeds"
