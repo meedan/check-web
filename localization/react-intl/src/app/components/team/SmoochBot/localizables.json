@@ -24,10 +24,6 @@
     "defaultMessage": "Subscription opt-in"
   },
   {
-    "id": "smoochBot.labelNewsletter",
-    "defaultMessage": "Newsletter"
-  },
-  {
     "id": "smoochBot.labelOptionNotAvailable",
     "defaultMessage": "Option not available"
   },
@@ -53,10 +49,6 @@
     "defaultMessage": "Content & translation"
   },
   {
-    "id": "smoochBot.labelNewsletterV2",
-    "defaultMessage": "Newsletter"
-  },
-  {
     "id": "smoochBot.descriptionGreeting",
     "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot."
   },
@@ -79,18 +71,6 @@
   {
     "id": "smoochBot.descriptionSubscription",
     "defaultMessage": "Present the value of your newsletter to users. All users who opt-in will receive any future newsletter."
-  },
-  {
-    "id": "smoochBot.descriptionNewsletter1",
-    "defaultMessage": "Please complete the steps below to send a weekly newsletter:"
-  },
-  {
-    "id": "smoochBot.descriptionNewsletter2",
-    "defaultMessage": "1. Compose your newsletter"
-  },
-  {
-    "id": "smoochBot.descriptionNewsletter3",
-    "defaultMessage": "2. Select a day and time of the week"
   },
   {
     "id": "smoochBot.descriptionOptionNotAvailable",
@@ -153,14 +133,6 @@
     "defaultMessage": "Type to compose your prompt for newsletter opt-in."
   },
   {
-    "id": "smoochBot.placeholderNewsletter",
-    "defaultMessage": "Type to compose your newsletter. You can add content from the RSS below."
-  },
-  {
-    "id": "smoochBot.placeholderNewsletterBulletPoint",
-    "defaultMessage": "Add an article"
-  },
-  {
     "id": "smoochBot.placeholderOptionNotAvailable",
     "defaultMessage": "🤖I'm sorry, I didn't understand your message. Please try again!"
   },
@@ -187,9 +159,5 @@
   {
     "id": "smoochBot.tos",
     "defaultMessage": "Terms of Service ({language})"
-  },
-  {
-    "id": "smoochBot.placeholderNewsletterIntroduction",
-    "defaultMessage": "Type something"
   }
 ]
