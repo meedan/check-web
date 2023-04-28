@@ -40,23 +40,23 @@ const ProjectsListItem = ({
       key={`${project.id}-${project.title}`}
       className={[
         defaultClassName,
-        styles.projectsListItem,
-        project.medias_count > 0 ? styles.projectsListItemWithCount : '',
-        isActive ? styles.projectsListItemActive : '',
+        styles.listItem,
+        project.medias_count > 0 ? styles.listItem_containsCount : '',
+        isActive ? styles.listItem_active : '',
       ].join(' ')}
       {...listItemProps}
     >
       {icon &&
-        <div className={styles.projectsListItemIcon}>
+        <div className={styles.listIcon}>
           {icon}
         </div>
       }
-      <ListItemText disableTypography className={styles.projectsListItemLabel}>
+      <ListItemText disableTypography className={styles.listLabel}>
         <span>
           {project.title || project.name}
         </span>
       </ListItemText>
-      <ListItemSecondaryAction disableTypography title={project.medias_count} className={styles.projectsListItemCount}>
+      <ListItemSecondaryAction disableTypography title={project.medias_count} className={styles.listItemCount}>
         { !Number.isNaN(parseInt(project.medias_count, 10)) ?
           new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
       </ListItemSecondaryAction>

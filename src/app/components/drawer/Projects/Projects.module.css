@@ -1,5 +1,5 @@
 /* stylelint-disable scale-unlimited/declaration-strict-value */
-.projectsComponentList {
+.listWrapper {
   --drawerListIconSize: 18px;
   --drawerexpandIconSize: 16px;
 
@@ -12,7 +12,24 @@
     padding: 20px 6px;
   }
 
-  .projectsComponentHeader {
+  &.listFooter {
+    flex: 0 0 auto;
+    justify-content: end;
+    padding: 20px 6px;
+  }
+
+  .listCollapseWrapper {
+    min-height: auto !important;
+  }
+
+  .listMask {
+    @mixin position absolute, 0, 0, 0, 0;
+    background-color: var(--otherWhite);
+    opacity: .7;
+    z-index: 1;
+  }
+
+  .listHeader {
     @mixin typography-caption;
     color: var(--brandSecondary);
     cursor: pointer;
@@ -21,7 +38,7 @@
     padding: 0;
     text-transform: uppercase;
 
-    .projectsComponentHeaderLabel {
+    .listHeaderLabel {
       align-items: center;
       display: flex;
       margin: 0;
@@ -31,7 +48,7 @@
         margin: 0 12px 0 -4px;
       }
 
-      .projectsComponentButton {
+      .listHeaderLabelButton {
         background-color: var(--grayBackground);
         border-radius: 8px;
         color: var(--textSecondary);
@@ -43,26 +60,26 @@
       }
     }
 
-    .projectsComponentChevron {
+    .listChevron {
       font-size: var(--drawerexpandIconSize);
       margin: 0 4px 0 0;
     }
   }
 
-  .projectsListItem {
+  .listItem {
     border: solid 1px var(--otherWhite);
     border-radius: 5px;
     margin: 0;
     padding: 10px 5px;
     position: relative;
 
-    .projectsListItemIcon {
+    .listIcon {
       display: flex;
       font-size: var(--drawerListIconSize);
       margin: 0 10px 0 0;
     }
 
-    .projectsListItemLabel {
+    .listLabel {
       margin: 0;
 
       span {
@@ -72,50 +89,55 @@
       }
     }
 
+    .listItemCount {
+      @mixin typography-body1;
+      color: var(--textSecondary);
+    }
+
     &:hover {
       background-color: var(--brandHoverAccent);
     }
 
-    &.projectsListItemWithCount {
+    &.listItem_containsCount {
       padding: 10px 48px 10px 5px;
     }
 
-    &.projectsComponentCollection {
+    &.listItem_group {
       margin: 0 1px;
 
-      &.projectsComponentCollectionExpanded {
+      &.listItem_group_expanded {
         border-color: var(--brandLight);
         border-radius: 5px 5px 0 0;
       }
 
-      &.projectsComponentCollectionLightExpanded {
+      &.listItem_group_expanded_slim {
         border: solid 1px var(--brandLight);
         border-radius: 5px 5px 0 0;
         border-width: 1px 1px 0;
       }
 
-      .projectsListItemIcon {
+      .listIcon {
         font-size: var(--drawerexpandIconSize);
         margin: 0 4px 0 0;
       }
 
-      .projectsListItemLabel {
+      .listLabel {
         span {
           margin: 0 12px 0 -4px;
         }
       }
     }
 
-    &.projectsListItemActive,
-    &.projectsListItemActive:hover {
+    &.listItem_active,
+    &.listItem_active:hover {
       background-color: var(--brandLight);
       color: var(--brandSecondary);
     }
 
-    &.projectsListItemEmpty {
+    &.listItem_empty {
       padding: 5px 5px 5px 15px;
 
-      .projectsListItemLabel {
+      .listLabel {
         color: var(--textDisabled);
 
         span {
@@ -134,34 +156,13 @@
     }
   }
 
-  .projectsListItemCount {
-    @mixin typography-body1;
-  }
-
-  .projectsComponentCollectionItems {
+  .groupList {
     border: solid 1px var(--brandLight);
     border-radius: 0 0 5px 5px;
     border-width: 0 1px 1px;
     margin: 0 0 0 1px;
     padding: 3px 2px;
     width: 100%;
-  }
-
-  .projectsComponentCollapse {
-    min-height: auto !important;
-  }
-
-  .projectsComponentMask {
-    @mixin position absolute, 0, 0, 0, 0;
-    background-color: var(--otherWhite);
-    opacity: .7;
-    z-index: 1;
-  }
-
-  &.projectsComponentListFooer {
-    flex: 0 0 auto;
-    justify-content: end;
-    padding: 20px 6px;
   }
 }
 

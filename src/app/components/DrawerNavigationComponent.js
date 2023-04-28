@@ -113,34 +113,34 @@ class DrawerNavigationComponent extends Component {
       >
         <React.Fragment>
           <DrawerProjects team={team.slug} />
-          <List dense disablePadding className={[projectStyles.projectsComponentList, projectStyles.projectsComponentListFooer].join(' ')}>
+          <List dense disablePadding className={[projectStyles.listWrapper, projectStyles.listFooter].join(' ')}>
             <ListItem
               button
               onClick={this.handleSpam}
-              className={['project-list__link-spam', projectStyles.projectsListItem].join(' ')}
+              className={['project-list__link-spam', projectStyles.listItem].join(' ')}
             >
-              <div className={projectStyles.projectsListItemIcon}>
+              <div className={projectStyles.listIcon}>
                 <ReportIcon />
               </div>
-              <ListItemText disableTypography className={projectStyles.projectsListItemLabel}>
+              <ListItemText disableTypography className={projectStyles.listLabel}>
                 <FormattedMessage tagName="label" id="projects.spam" defaultMessage="Spam" />
               </ListItemText>
-              <ListItemSecondaryAction disableTypography title={team.medias_count} className={projectStyles.projectsListItemCount}>
+              <ListItemSecondaryAction disableTypography title={team.medias_count} className={projectStyles.listItemCount}>
                 {String(team.spam_count)}
               </ListItemSecondaryAction>
             </ListItem>
             <ListItem
               button
               onClick={this.handleTrash}
-              className={['project-list__link-trasn', projectStyles.projectsListItem].join(' ')}
+              className={['project-list__link-trash', projectStyles.listItem].join(' ')}
             >
-              <div className={projectStyles.projectsListItemIcon}>
+              <div className={projectStyles.listIcon}>
                 <DeleteIcon />
               </div>
-              <ListItemText disableTypography className={projectStyles.projectsListItemLabel}>
+              <ListItemText disableTypography className={projectStyles.listLabel}>
                 <FormattedMessage tagName="label" id="projects.trash" defaultMessage="Trash" />
               </ListItemText>
-              <ListItemSecondaryAction disableTypography title={team.trash_count} className={projectStyles.projectsListItemCount}>
+              <ListItemSecondaryAction disableTypography title={team.trash_count} className={projectStyles.listItemCount}>
                 {String(team.trash_count)}
               </ListItemSecondaryAction>
             </ListItem>
