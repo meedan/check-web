@@ -325,6 +325,9 @@ const ProjectsComponent = ({
           <DragDropContext onDragEnd={handleDropped} key={`${projectGroups.length}-${projects.length}`}>
             {projectGroups.sort((a, b) => (a.title.localeCompare(b.title))).map((projectGroup) => {
               const groupIsActive = isActive('collection', projectGroup.dbid);
+              const groupProjectActive = (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid);
+              const groupIsExpanded = (!collapsed && groupIsActive) || groupProjectActive;
+
               const groupComponent = (
                 <ProjectsListItem
                   key={projectGroup.id}
@@ -332,29 +335,32 @@ const ProjectsComponent = ({
                   project={projectGroup}
                   teamSlug={team.slug}
                   onClick={handleClick}
+                  icon={groupIsExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                   isActive={groupIsActive}
+                  className={[
+                    styles.projectsComponentCollection,
+                    groupIsExpanded ? styles.projectsComponentCollectionExpanded : '',
+                    !groupIsActive && groupIsExpanded ? styles.projectsComponentCollectionLightExpanded : '',
+                  ].join(' ')}
                   isDroppable
                 />
               );
 
-              // We can stop here if this group should be collapsed
+              // We can stop here if groups are collapsed, only one group is open at a time
               if (collapsed) {
                 return groupComponent;
               }
 
               // Expand the project group if a project under it is currently active
-              if (groupIsActive ||
-                  (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
+              if (groupIsActive || groupProjectActive) {
                 const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
                 return (
                   <>
                     {groupComponent}
                     <List
                       dense
-                      className={[
-                        groupIsActive ? styles.projectsComponentCollectionExpanded : '',
-                        childProjects.length === 0 ? styles.projectsEmptyCollection : styles.projectsComponentCollectionItems,
-                      ].join(' ')}
+                      disablePadding
+                      className={styles.projectsComponentCollectionItems}
                       key={projectGroup.id}
                     >
                       { childProjects.length === 0 ?
