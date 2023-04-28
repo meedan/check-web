@@ -70,7 +70,7 @@ class MediaExpandedComponent extends Component {
             imagePath={media.media.embed_path}
           />
         );
-      } else if (isMedia || isYoutube && !isYoutubeChannel) {
+      } else if (isMedia || (isYoutube && !isYoutubeChannel)) {
         return (
           <MediaPlayerCard
             key={media.dynamic_annotation_flag}
