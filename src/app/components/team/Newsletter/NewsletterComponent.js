@@ -56,7 +56,7 @@ const NewsletterComponent = ({
   const [footerText, setFooterText] = React.useState(footer || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
-  const [headerType, setHeaderType] = React.useState(header_type || 'none');
+  const [headerType, setHeaderType] = React.useState(header_type || '');
   const [rssFeedUrl, setRssFeedUrl] = React.useState(rss_feed_url || '');
   const [contentType, setContentType] = React.useState(content_type || 'static');
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
@@ -72,7 +72,7 @@ const NewsletterComponent = ({
     setFooterText(footer || '');
     setArticleNum(number_of_articles || 0);
     setArticles([first_article || '', second_article || '', third_article || '']);
-    setHeaderType(header_type || 'none');
+    setHeaderType(header_type || '');
     setContentType(content_type || 'static');
     setRssFeedUrl(rss_feed_url || '');
     setSendEvery(send_every || ['wednesday']);
@@ -280,6 +280,7 @@ const NewsletterComponent = ({
             className="newsletter-component-header"
             key={`newsletter-header-${language}`}
             disabled={scheduled}
+            availableHeaderTypes={team.available_newsletter_header_types || []}
             headerType={headerType}
             overlayText={overlayText}
             onUpdateField={(fieldName, value) => {
@@ -290,17 +291,26 @@ const NewsletterComponent = ({
               }
             }}
           />
-          <LimitedTextArea
-            maxChars={180}
-            disabled={scheduled}
-            value={introductionText}
-            setValue={setIntroductionText}
-            label={<FormattedMessage
-              id="newsletterComponent.introduction"
-              defaultMessage="Introduction"
-              description="Label for a field where the user inputs text for an introduction to a newsletter"
-            />}
-          />
+          <FormattedMessage
+            id="newsletterComponent.placeholder"
+            defaultMessage="Add text"
+            description="Placeholder text for newsletter field"
+          >
+            { placeholder => (
+              <LimitedTextArea
+                maxChars={180}
+                disabled={scheduled}
+                value={introductionText}
+                setValue={setIntroductionText}
+                placeholder={placeholder}
+                label={<FormattedMessage
+                  id="newsletterComponent.introduction"
+                  defaultMessage="Introduction"
+                  description="Label for a field where the user inputs text for an introduction to a newsletter"
+                />}
+              />
+            )}
+          </FormattedMessage>
           <div className={styles['newsletter-body']}>
             <div className={styles.switcher}>
               <SwitchComponent
@@ -346,7 +356,15 @@ const NewsletterComponent = ({
                 articles={articles}
                 onUpdateArticles={setArticles}
               /> : null }
-            <LimitedTextField className="newsletter-component-footer" maxChars={60} value={footerText} setValue={setFooterText} disabled={scheduled} />
+            <FormattedMessage
+              id="newsletterComponent.placeholder"
+              defaultMessage="Add text"
+              description="Placeholder text for newsletter field"
+            >
+              { placeholder => (
+                <LimitedTextField placeholder={placeholder} className="newsletter-component-footer" maxChars={60} value={footerText} setValue={setFooterText} disabled={scheduled} />
+              )}
+            </FormattedMessage>
           </div>
           <NewsletterScheduler
             type={contentType}
@@ -403,6 +421,7 @@ export default createFragmentContainer(withSetFlashMessage(NewsletterComponent),
     id
     defaultLanguage: get_language
     languages: get_languages
+    available_newsletter_header_types
     tipline_newsletters(first: 1000) {
       edges {
         node {

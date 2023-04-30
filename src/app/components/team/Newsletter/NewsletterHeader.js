@@ -36,6 +36,7 @@ const messages = defineMessages({
 
 const NewsletterHeader = ({
   disabled,
+  availableHeaderTypes,
   headerType,
   overlayText,
   onUpdateField,
@@ -43,11 +44,12 @@ const NewsletterHeader = ({
 }) => (
   <div>
     <Select label={<FormattedMessage id="newsletterHeader.header" defaultMessage="Header" description="Label for the newsletter header type field" />} className={styles.select} value={headerType} onChange={(e) => { onUpdateField('headerType', e.target.value); }} disabled={disabled}>
-      <option value="none">{intl.formatMessage(messages.headerTypeNone)}</option>
-      <option value="link_preview">{intl.formatMessage(messages.headerTypeLinkPreview)}</option>
-      <option value="image">{intl.formatMessage(messages.headerTypeImage)}</option>
-      <option value="video">{intl.formatMessage(messages.headerTypeVideo)}</option>
-      <option value="audio">{intl.formatMessage(messages.headerTypeAudio)}</option>
+      <option />
+      <option disabled={!availableHeaderTypes.includes('none')} value="none">{intl.formatMessage(messages.headerTypeNone)}</option>
+      <option disabled={!availableHeaderTypes.includes('link_preview')} value="link_preview">{intl.formatMessage(messages.headerTypeLinkPreview)}</option>
+      <option disabled={!availableHeaderTypes.includes('image')} value="image">{intl.formatMessage(messages.headerTypeImage)}</option>
+      <option disabled={!availableHeaderTypes.includes('video')} value="video">{intl.formatMessage(messages.headerTypeVideo)}</option>
+      <option disabled={!availableHeaderTypes.includes('audio')} value="audio">{intl.formatMessage(messages.headerTypeAudio)}</option>
     </Select>
 
     { (headerType === 'image' || headerType === 'video' || headerType === 'audio') ?
@@ -78,13 +80,15 @@ const NewsletterHeader = ({
 
 NewsletterHeader.defaultProps = {
   disabled: false,
-  headerType: 'none',
+  availableHeaderTypes: [],
+  headerType: '',
   overlayText: null,
 };
 
 NewsletterHeader.propTypes = {
   disabled: PropTypes.bool,
-  headerType: PropTypes.oneOf(['none', 'link_preview', 'image', 'video', 'audio']),
+  availableHeaderTypes: PropTypes.arrayOf(PropTypes.string),
+  headerType: PropTypes.oneOf(['', 'none', 'link_preview', 'image', 'video', 'audio']),
   overlayText: PropTypes.string,
   onUpdateField: PropTypes.func.isRequired,
   intl: intlShape.isRequired,

@@ -25,6 +25,11 @@
     "defaultMessage": "Content"
   },
   {
+    "id": "newsletterComponent.placeholder",
+    "description": "Placeholder text for newsletter field",
+    "defaultMessage": "Add text"
+  },
+  {
     "id": "newsletterComponent.introduction",
     "description": "Label for a field where the user inputs text for an introduction to a newsletter",
     "defaultMessage": "Introduction"

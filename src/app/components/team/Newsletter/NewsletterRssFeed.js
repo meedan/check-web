@@ -69,18 +69,27 @@ const NewsletterRssFeed = ({
         return (
           <div className="newsletter-rss">
             <div className={styles['rss-feed-url']}>
-              <TextField
-                disabled={disabled}
-                className={styles['rss-feed-url-field']}
-                onChange={(e) => { setLocalRssFeedUrl(e.target.value); }}
-                onBlur={(e) => {
-                  if (e.target.value === '') {
-                    onUpdateUrl(null);
-                  }
-                }}
-                value={localRssFeedUrl}
-                iconLeft={<LinkIcon />}
-              />
+              <FormattedMessage
+                id="newsletterRssFeed.urlPlaceholder"
+                defaultMessage="https://example.com/rss.xml"
+                description="Placeholder text for newsletter RSS field"
+              >
+                { placeholder => (
+                  <TextField
+                    placeholder={placeholder}
+                    disabled={disabled}
+                    className={styles['rss-feed-url-field']}
+                    onChange={(e) => { setLocalRssFeedUrl(e.target.value); }}
+                    onBlur={(e) => {
+                      if (e.target.value === '') {
+                        onUpdateUrl(null);
+                      }
+                    }}
+                    value={localRssFeedUrl}
+                    iconLeft={<LinkIcon />}
+                  />
+                )}
+              </FormattedMessage>
               { (rssFeedUrl && loading) ?
                 <Button className={styles['loading-rss-feed-button']} variant="contained" color="primary" disabled={disabled}>
                   <AutorenewIcon />
