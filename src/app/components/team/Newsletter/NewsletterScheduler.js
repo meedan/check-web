@@ -9,6 +9,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { getTimeZones } from '@vvo/tzdb';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import Select from '../../cds/inputs/Select';
+import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
 import styles from './NewsletterComponent.module.css';
 
@@ -29,8 +30,10 @@ const NewsletterScheduler = ({
   timezone,
   onUpdate,
   sendEvery,
+  sendOn,
   time,
   subscribersCount,
+  lastSentAt,
   lastScheduledAt,
   lastScheduledBy,
   scheduled,
@@ -46,7 +49,7 @@ const NewsletterScheduler = ({
       <div className={`typography-subtitle2 ${styles['newsletter-scheduler-title']}`}>
         <FormattedMessage id="newsletterScheduler.title" defaultMessage="Schedule" description="Title for newsletter schedule component" />
         {' '}
-        { (lastScheduledBy && lastScheduledAt) ?
+        { (scheduled && lastScheduledBy && lastScheduledAt) ?
           <Tooltip
             classes={{
               tooltip: styles.tooltip,
@@ -54,11 +57,34 @@ const NewsletterScheduler = ({
             placement="right"
             title={
               <FormattedMessage
-                id="newsletterScheduler.tooltip"
+                id="newsletterScheduler.tooltipScheduled"
                 defaultMessage="Scheduled by {name} on {date}"
                 values={{
                   name: lastScheduledBy,
                   date: <FormattedDate value={lastScheduledAt * 1000} year="numeric" month="long" day="numeric" />,
+                }}
+                description="Tooltip message displayed on newsletter scheduler."
+              />
+            }
+            arrow
+          >
+            <InfoOutlinedIcon className={styles['tooltip-icon']} />
+          </Tooltip> :
+          null
+        }
+        { (!scheduled && lastSentAt) ?
+          <Tooltip
+            classes={{
+              tooltip: styles.tooltip,
+            }}
+            placement="right"
+            title={
+              <FormattedMessage
+                id="newsletterScheduler.tooltipSent"
+                defaultMessage="Last sent on {date}"
+                values={{
+                  name: lastSentAt,
+                  date: <FormattedDate value={lastSentAt * 1000} year="numeric" month="long" day="numeric" />,
                 }}
                 description="Tooltip message displayed on newsletter scheduler."
               />
@@ -91,6 +117,18 @@ const NewsletterScheduler = ({
               </ToggleButton>
             ))}
           </ToggleButtonGroup>
+          : null
+        }
+
+        { type === 'static' ?
+          <DatePicker
+            label={<FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on:" description="Label on a input where the user selects a date to send a newsletter" />}
+            value={sendOn}
+            onChange={(e) => { onUpdate('sendOn', e.target.value); }}
+            disabled={scheduled}
+            error={!sendOn}
+            required
+          />
           : null
         }
 
@@ -146,8 +184,10 @@ const NewsletterScheduler = ({
 
 NewsletterScheduler.defaultProps = {
   sendEvery: ['wednesday'],
-  time: '9:00',
+  sendOn: '',
+  time: '09:00',
   subscribersCount: 0,
+  lastSentAt: null,
   lastScheduledAt: null,
   lastScheduledBy: null,
   scheduled: false,
@@ -159,8 +199,10 @@ NewsletterScheduler.propTypes = {
   timezone: PropTypes.string.isRequired,
   onUpdate: PropTypes.func.isRequired,
   sendEvery: PropTypes.string,
+  sendOn: PropTypes.number, // Timestamp
   time: PropTypes.string,
   subscribersCount: PropTypes.number,
+  lastSentAt: PropTypes.number, // Timestamp
   lastScheduledAt: PropTypes.number, // Timestamp
   lastScheduledBy: PropTypes.string, // User name
   scheduled: PropTypes.bool,

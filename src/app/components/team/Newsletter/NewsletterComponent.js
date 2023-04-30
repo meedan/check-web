@@ -33,16 +33,19 @@ const NewsletterComponent = ({
     introduction,
     header_type,
     header_overlay_text,
+    content_type,
     first_article,
     second_article,
     third_article,
     footer,
     rss_feed_url,
     send_every,
+    send_on,
     timezone: send_timezone,
     time: send_time,
     enabled: scheduled,
     subscribers_count,
+    last_sent_at,
     last_scheduled_at,
     last_scheduled_by,
   } = newsletter;
@@ -55,12 +58,13 @@ const NewsletterComponent = ({
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
   const [headerType, setHeaderType] = React.useState(header_type || 'none');
   const [rssFeedUrl, setRssFeedUrl] = React.useState(rss_feed_url || '');
-  const [rssFeedEnabled, setRssFeedEnabled] = React.useState(Boolean(rssFeedUrl));
+  const [contentType, setContentType] = React.useState(content_type || 'static');
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
+  const [sendOn, setSendOn] = React.useState(send_on || null);
   const [timezone, setTimezone] = React.useState(send_timezone || '');
   const [time, setTime] = React.useState(send_time || '9:00');
 
-  const numberOfArticles = (rssFeedEnabled && articleNum === 0) ? 1 : articleNum;
+  const numberOfArticles = (contentType === 'rss' && articleNum === 0) ? 1 : articleNum;
 
   React.useEffect(() => {
     setOverlayText(header_overlay_text || '');
@@ -69,11 +73,12 @@ const NewsletterComponent = ({
     setArticleNum(number_of_articles || 0);
     setArticles([first_article || '', second_article || '', third_article || '']);
     setHeaderType(header_type || 'none');
-    setRssFeedEnabled(Boolean(rss_feed_url));
+    setContentType(content_type || 'static');
     setRssFeedUrl(rss_feed_url || '');
     setSendEvery(send_every || ['wednesday']);
+    setSendOn(send_on || '');
     setTimezone(send_timezone || '');
-    setTime(send_time || '9:00');
+    setTime(send_time || '09:00');
   }, [language]);
 
 
@@ -115,6 +120,7 @@ const NewsletterComponent = ({
           language
           header_type
           header_overlay_text
+          content_type
           first_article
           second_article
           third_article
@@ -122,6 +128,7 @@ const NewsletterComponent = ({
           number_of_articles
           footer
           send_every
+          send_on
           timezone
           time
           enabled
@@ -143,6 +150,7 @@ const NewsletterComponent = ({
           language
           header_type
           header_overlay_text
+          content_type
           first_article
           second_article
           third_article
@@ -150,6 +158,7 @@ const NewsletterComponent = ({
           number_of_articles
           footer
           send_every
+          send_on
           timezone
           time
           enabled
@@ -170,10 +179,11 @@ const NewsletterComponent = ({
       language,
       header_type: headerType,
       header_overlay_text: overlayText,
+      content_type: contentType,
       first_article: articles[0],
       second_article: articles[1],
       third_article: articles[2],
-      rss_feed_url: rssFeedEnabled ? rssFeedUrl : null,
+      rss_feed_url: rssFeedUrl,
       number_of_articles: numberOfArticles,
       footer: footerText,
       send_every: sendEvery,
@@ -182,6 +192,9 @@ const NewsletterComponent = ({
     };
     if (id) {
       input.id = id;
+    }
+    if (sendOn) {
+      input.send_on = sendOn;
     }
     if (scheduledOrPaused === 'paused' || scheduledOrPaused === 'scheduled') {
       input.enabled = (scheduledOrPaused === 'scheduled');
@@ -208,6 +221,9 @@ const NewsletterComponent = ({
     switch (field) {
     case 'sendEvery':
       setSendEvery(value);
+      break;
+    case 'sendOn':
+      setSendOn(value);
       break;
     case 'timezone':
       setTimezone(value);
@@ -294,9 +310,15 @@ const NewsletterComponent = ({
                   defaultMessage="RSS"
                   description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
                 />}
-                checked={rssFeedEnabled}
+                checked={contentType === 'rss'}
                 disabled={scheduled}
-                onChange={setRssFeedEnabled}
+                onChange={(checked) => {
+                  if (checked) {
+                    setContentType('rss');
+                  } else {
+                    setContentType('static');
+                  }
+                }}
               />
             </div>
             <div className={`typography-body2 ${styles['text-secondary']}`}>
@@ -308,32 +330,34 @@ const NewsletterComponent = ({
                 />
               </p>
             </div>
-            { rssFeedEnabled ?
+            { contentType === 'rss' ?
               <NewsletterRssFeed
                 disabled={scheduled}
                 numberOfArticles={numberOfArticles}
                 onUpdateNumberOfArticles={setArticleNum}
                 rssFeedUrl={rssFeedUrl}
                 onUpdateUrl={setRssFeedUrl}
-              /> :
+              /> : null }
+            { contentType === 'static' ?
               <NewsletterStatic
                 disabled={scheduled}
                 numberOfArticles={numberOfArticles}
                 onUpdateNumberOfArticles={setArticleNum}
                 articles={articles}
                 onUpdateArticles={setArticles}
-              />
-            }
+              /> : null }
             <LimitedTextField className="newsletter-component-footer" maxChars={60} value={footerText} setValue={setFooterText} disabled={scheduled} />
           </div>
           <NewsletterScheduler
-            type={rssFeedEnabled ? 'rss' : 'static'}
+            type={contentType}
             sendEvery={sendEvery}
+            sendOn={sendOn}
             timezone={timezone}
             time={time}
             scheduled={scheduled}
             disabled={saving}
             subscribersCount={subscribers_count}
+            lastSentAt={last_sent_at}
             lastScheduledAt={last_scheduled_at}
             lastScheduledBy={last_scheduled_by?.name}
             onUpdate={handleUpdateSchedule}
@@ -357,6 +381,7 @@ NewsletterComponent.propTypes = {
           introduction: PropTypes.string,
           header_type: PropTypes.string,
           header_overlay_text: PropTypes.string,
+          content_type: PropTypes.string,
           first_article: PropTypes.string,
           second_article: PropTypes.string,
           third_article: PropTypes.string,
@@ -386,14 +411,17 @@ export default createFragmentContainer(withSetFlashMessage(NewsletterComponent),
           introduction
           header_type
           header_overlay_text
+          content_type
           first_article
           second_article
           third_article
           rss_feed_url
           send_every
+          send_on
           time
           timezone
           subscribers_count
+          last_sent_at
           last_scheduled_at
           last_scheduled_by {
             name

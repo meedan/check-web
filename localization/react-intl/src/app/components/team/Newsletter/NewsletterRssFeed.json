@@ -3,5 +3,10 @@
     "id": "newsletterRssFeed.load",
     "description": "Label for a button to load RSS feed entries",
     "defaultMessage": "Load"
+  },
+  {
+    "id": "newsletterRssFeed.noArticle",
+    "description": "Message displayed when RSS feed has less entries than requested",
+    "defaultMessage": "No article retrieved from RSS at this time"
   }
 ]
