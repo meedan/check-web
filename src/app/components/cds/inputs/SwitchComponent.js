@@ -34,6 +34,7 @@ const SwitchComponent = ({
                 thumb: styles.thumb,
                 track: styles.track,
                 checked: styles.checked,
+                disabled: styles.disabled,
               }}
             />
           </div>

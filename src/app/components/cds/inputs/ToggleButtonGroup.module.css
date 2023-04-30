@@ -24,6 +24,17 @@
     }
   }
 
+  :global(.MuiButtonBase-root.Mui-disabled) {
+    background-color: var(--grayDisabledBackground);
+    color: var(--textDisabled);
+    opacity: 1;
+  }
+
+  :global(.MuiButtonBase-root.Mui-disabled.Mui-selected) {
+    background-color: var(--textDisabled);
+    color: var(--otherWhite);
+  }
+
   button:not(:first-child) {
     border-left: 2px solid var(--grayBorderMain);
   }

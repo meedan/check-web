@@ -5,6 +5,7 @@ import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 
 const NewsletterStatic = ({
+  disabled,
   numberOfArticles,
   onUpdateNumberOfArticles,
   articles,
@@ -29,6 +30,7 @@ const NewsletterStatic = ({
   return (
     <div>
       <NewsletterNumberOfArticles
+        disabled={disabled}
         number={numberOfArticles}
         options={[0, 1, 2, 3]}
         onChangeNumber={onUpdateNumberOfArticles}
@@ -42,6 +44,7 @@ const NewsletterStatic = ({
           { placeholder => (
             <LimitedTextArea
               key={x}
+              disabled={disabled}
               maxChars={getMaxChars()}
               value={articles[i]}
               onChange={e => handleArticleUpdate(e.target.value, i)}
@@ -55,11 +58,13 @@ const NewsletterStatic = ({
 };
 
 NewsletterStatic.defaultProps = {
+  disabled: false,
   numberOfArticles: 0,
   articles: [],
 };
 
 NewsletterStatic.propTypes = {
+  disabled: PropTypes.bool,
   numberOfArticles: PropTypes.number,
   onUpdateNumberOfArticles: PropTypes.func.isRequired,
   articles: PropTypes.arrayOf(PropTypes.string),

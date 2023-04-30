@@ -35,13 +35,14 @@ const messages = defineMessages({
 });
 
 const NewsletterHeader = ({
+  disabled,
   headerType,
   overlayText,
   onUpdateField,
   intl,
 }) => (
   <div>
-    <Select label="Header" className={styles.select} value={headerType} onChange={(e) => { onUpdateField('headerType', e.target.value); }}>
+    <Select label={<FormattedMessage id="newsletterHeader.header" defaultMessage="Header" description="Label for the newsletter header type field" />} className={styles.select} value={headerType} onChange={(e) => { onUpdateField('headerType', e.target.value); }} disabled={disabled}>
       <option value="none">{intl.formatMessage(messages.headerTypeNone)}</option>
       <option value="link_preview">{intl.formatMessage(messages.headerTypeLinkPreview)}</option>
       <option value="image">{intl.formatMessage(messages.headerTypeImage)}</option>
@@ -50,7 +51,7 @@ const NewsletterHeader = ({
     </Select>
 
     { (headerType === 'image' || headerType === 'video' || headerType === 'audio') ?
-      <UploadFile type="image+video+audio" /> : null }
+      <UploadFile type="image+video+audio" disabled={disabled} /> : null }
     { headerType === 'image' ?
       <FormattedMessage
         id="newsletterHeader.overlayPlaceholder"
@@ -59,6 +60,7 @@ const NewsletterHeader = ({
       >
         { placeholder => (
           <LimitedTextField
+            disabled={disabled}
             maxChars={160}
             value={overlayText}
             placeholder={placeholder}
@@ -75,11 +77,13 @@ const NewsletterHeader = ({
 );
 
 NewsletterHeader.defaultProps = {
+  disabled: false,
   headerType: 'none',
   overlayText: null,
 };
 
 NewsletterHeader.propTypes = {
+  disabled: PropTypes.bool,
   headerType: PropTypes.oneOf(['none', 'link_preview', 'image', 'video', 'audio']),
   overlayText: PropTypes.string,
   onUpdateField: PropTypes.func.isRequired,

@@ -25,6 +25,11 @@
     "defaultMessage": "Audio"
   },
   {
+    "id": "newsletterHeader.header",
+    "description": "Label for the newsletter header type field",
+    "defaultMessage": "Header"
+  },
+  {
     "id": "newsletterHeader.overlayPlaceholder",
     "description": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)",
     "defaultMessage": "Add text on top of the image"

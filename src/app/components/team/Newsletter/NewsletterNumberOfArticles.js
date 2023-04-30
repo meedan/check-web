@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 
 const NewsletterNumberOfArticles = ({
+  disabled,
   number,
   options,
   onChangeNumber,
@@ -22,14 +23,19 @@ const NewsletterNumberOfArticles = ({
     exclusive
   >
     {options.map(option => (
-      <ToggleButton value={option} key={option}>
+      <ToggleButton value={option} key={option} disabled={disabled}>
         {option}
       </ToggleButton>
     ))}
   </ToggleButtonGroup>
 );
 
+NewsletterNumberOfArticles.defaultProps = {
+  disabled: false,
+};
+
 NewsletterNumberOfArticles.propTypes = {
+  disabled: PropTypes.bool,
   number: PropTypes.number.isRequired,
   options: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   onChangeNumber: PropTypes.func.isRequired,

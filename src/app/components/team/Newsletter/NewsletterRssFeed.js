@@ -12,6 +12,7 @@ import TextArea from '../../cds/inputs/TextArea';
 import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
 
 const NewsletterRssFeed = ({
+  disabled,
   numberOfArticles,
   onUpdateNumberOfArticles,
   rssFeedUrl,
@@ -69,6 +70,7 @@ const NewsletterRssFeed = ({
           <div>
             <div className={styles['rss-feed-url']}>
               <TextField
+                disabled={disabled}
                 className={styles['rss-feed-url-field']}
                 onChange={(e) => { setLocalRssFeedUrl(e.target.value); }}
                 onBlur={(e) => {
@@ -80,14 +82,15 @@ const NewsletterRssFeed = ({
                 iconLeft={<LinkIcon />}
               />
               { (rssFeedUrl && loading) ?
-                <Button className={styles['loading-rss-feed-button']} variant="contained" color="primary">
+                <Button className={styles['loading-rss-feed-button']} variant="contained" color="primary" disabled={disabled}>
                   <AutorenewIcon />
                 </Button> :
-                <Button className="load-rss-feed-button" variant="contained" color="primary" onClick={handleLoad} disabled={!localRssFeedUrl}>
+                <Button className="load-rss-feed-button" variant="contained" color="primary" onClick={handleLoad} disabled={!localRssFeedUrl || disabled}>
                   <FormattedMessage id="newsletterRssFeed.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />
                 </Button> }
             </div>
             <NewsletterNumberOfArticles
+              disabled={disabled}
               number={numberOfArticles}
               options={[1, 2, 3]}
               onChangeNumber={onUpdateNumberOfArticles}
@@ -112,12 +115,14 @@ const NewsletterRssFeed = ({
 };
 
 NewsletterRssFeed.defaultProps = {
+  disabled: false,
   numberOfArticles: 3,
   rssFeedUrl: null,
   onUpdateUrl: () => {},
 };
 
 NewsletterRssFeed.propTypes = {
+  disabled: PropTypes.bool,
   numberOfArticles: PropTypes.number,
   onUpdateNumberOfArticles: PropTypes.func.isRequired,
   rssFeedUrl: PropTypes.string,

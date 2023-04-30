@@ -41,6 +41,7 @@ const Select = ({
       <Typography variant="body1">
         <select
           className={`${styles.input} ${variant === 'outlined' && styles.outlined}`}
+          disabled={disabled}
           {...inputProps}
         >
           {children}

@@ -61,9 +61,11 @@
   text-align: right;
 }
 
+.input:disabled,
 .disabled {
   background-color: var(--grayDisabledBackground);
   color: var(--textDisabledInput);
+  opacity: 1;
 }
 
 .error-label {
