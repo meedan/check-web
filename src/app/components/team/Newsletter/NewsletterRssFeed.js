@@ -67,7 +67,7 @@ const NewsletterRssFeed = ({
           }
         }
         return (
-          <div>
+          <div className="newsletter-rss">
             <div className={styles['rss-feed-url']}>
               <TextField
                 disabled={disabled}

@@ -228,7 +228,7 @@ const NewsletterComponent = ({
   };
 
   return (
-    <div className={styles.content}>
+    <div className={`newsletter-component ${styles.content}`}>
       <SettingsHeader
         title={
           <FormattedMessage
@@ -261,6 +261,7 @@ const NewsletterComponent = ({
             <FormattedMessage id="newsletterComponent.content" defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" />
           </div>
           <NewsletterHeader
+            className="newsletter-component-header"
             key={`newsletter-header-${language}`}
             disabled={scheduled}
             headerType={headerType}
@@ -288,7 +289,11 @@ const NewsletterComponent = ({
             <div className={styles.switcher}>
               <SwitchComponent
                 key={`newsletter-rss-feed-enabled-${language}`}
-                label="RSS"
+                label={<FormattedMessage
+                  id="newsletterComponent.rss"
+                  defaultMessage="RSS"
+                  description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
+                />}
                 checked={rssFeedEnabled}
                 disabled={scheduled}
                 onChange={setRssFeedEnabled}
@@ -319,7 +324,7 @@ const NewsletterComponent = ({
                 onUpdateArticles={setArticles}
               />
             }
-            <LimitedTextField maxChars={60} value={footerText} setValue={setFooterText} disabled={scheduled} />
+            <LimitedTextField className="newsletter-component-footer" maxChars={60} value={footerText} setValue={setFooterText} disabled={scheduled} />
           </div>
           <NewsletterScheduler
             type={rssFeedEnabled ? 'rss' : 'static'}
@@ -342,11 +347,30 @@ const NewsletterComponent = ({
 NewsletterComponent.propTypes = {
   team: PropTypes.shape({
     defaultLanguage: PropTypes.string.isRequired,
-    languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    languages: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
-    tipline_newsletters: PropTypes.array.isRequired, // TODO: Declare the expected structure for each newsletter
+    tipline_newsletters: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          language: PropTypes.string.isRequired,
+          number_of_articles: PropTypes.number.isRequired,
+          introduction: PropTypes.string,
+          header_type: PropTypes.string,
+          header_overlay_text: PropTypes.string,
+          first_article: PropTypes.string,
+          second_article: PropTypes.string,
+          third_article: PropTypes.string,
+          rss_feed_url: PropTypes.string,
+          footer: PropTypes.string,
+        }),
+      }).isRequired,
+      ),
+    }),
   }).isRequired,
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { NewsletterComponent as NewsletterComponentTest };
 
 export default createFragmentContainer(withSetFlashMessage(NewsletterComponent), graphql`
   fragment NewsletterComponent_team on Team {

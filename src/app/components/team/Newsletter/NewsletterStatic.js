@@ -28,7 +28,7 @@ const NewsletterStatic = ({
   };
 
   return (
-    <div>
+    <div className="newsletter-static">
       <NewsletterNumberOfArticles
         disabled={disabled}
         number={numberOfArticles}
@@ -38,8 +38,10 @@ const NewsletterStatic = ({
       {[...Array(numberOfArticles)].map((x, i) => (
         <FormattedMessage
           id="newsletterStatic.articlePlaceholder"
+          className="newsletter-article"
           defaultMessage="Add text or link"
           description="Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
+          key={`${x}fm`}
         >
           { placeholder => (
             <LimitedTextArea
