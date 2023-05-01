@@ -74,10 +74,12 @@ const ProjectsListItem = ({
       <Droppable droppableId={droppableId}>
         {provided => (
           <RootRef rootRef={provided.innerRef}>
-            <Item />
-            <div style={{ display: 'none' }}>
-              {provided.placeholder}
-            </div>
+            <>
+              <Item />
+              <div style={{ display: 'none' }}>
+                {provided.placeholder}
+              </div>
+            </>
           </RootRef>
         )}
       </Droppable>
@@ -89,17 +91,19 @@ const ProjectsListItem = ({
       <Droppable droppableId={droppableId}>
         {provided => (
           <RootRef rootRef={provided.innerRef}>
-            <Draggable key={project.dbid} draggableId={`draggable-${routePrefix}-${project.id}-${project.project_group_id}`} index={index}>
-              {provided2 => (
-                <Item
-                  ContainerComponent="li"
-                  ContainerProps={{ ref: provided2.innerRef }}
-                  {...provided2.draggableProps}
-                  {...provided2.dragHandleProps}
-                />
-              )}
-            </Draggable>
-            {provided.placeholder}
+            <>
+              <Draggable key={project.dbid} draggableId={`draggable-${routePrefix}-${project.id}-${project.project_group_id}`} index={index}>
+                {provided2 => (
+                  <Item
+                    ContainerComponent="li"
+                    ContainerProps={{ ref: provided2.innerRef }}
+                    {...provided2.draggableProps}
+                    {...provided2.dragHandleProps}
+                  />
+                )}
+              </Draggable>
+              {provided.placeholder}
+            </>
           </RootRef>
         )}
       </Droppable>
