@@ -11,11 +11,10 @@ import {
   mediaQuery,
   headerHeight,
   Row,
-  brandBackground,
 } from '../styles/js/shared';
 
 const HeaderBar = styled.div`
-  background-color: ${brandBackground};
+  background-color: var(--brandBackground);
   display: flex;
   align-items: center;
   padding: 0 ${units(2)};

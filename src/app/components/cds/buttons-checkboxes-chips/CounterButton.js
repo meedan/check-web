@@ -5,37 +5,32 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
-import {
-  brandSecondary,
-  brandMain,
-  textPrimary,
-} from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
   counterButton: {
     display: 'block',
     padding: '0 8px',
     '&:hover': {
-      color: brandSecondary,
+      color: 'var(--brandSecondary)',
       backgroundColor: 'inherit',
     },
     '&:active': {
-      color: brandMain,
+      color: 'var(--brandMain)',
     },
   },
   zeroCount: {
-    color: textPrimary,
+    color: 'var(--textPrimary)',
   },
   moreThanZeroCount: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   noClick: {
     cursor: 'default',
     '&:hover': {
-      color: brandMain,
+      color: 'var(--brandMain)',
     },
     '&:active': {
-      color: brandMain,
+      color: 'var(--brandMain)',
     },
   },
 });

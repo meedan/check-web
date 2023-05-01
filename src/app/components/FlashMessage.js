@@ -9,7 +9,6 @@ import reactStringReplace from 'react-string-replace';
 import Message from './Message';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
-import { brandMain, textSecondary, otherWhite } from '../styles/js/shared';
 
 /**
  * A global message, already translated for the user.
@@ -68,14 +67,14 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
 
 const useSnackBarStyles = makeStyles({
   info: {
-    backgroundColor: `${brandMain} !important`,
+    backgroundColor: 'var(--brandMain) !important',
   },
   icon: {
-    color: `${otherWhite} !important`,
+    color: 'var(--otherWhite) !important',
     marginTop: '8px !important',
     paddingTop: '0px !important',
     '&:hover': {
-      color: `${otherWhite} !important`,
+      color: 'var(--otherWhite) !important',
     },
   },
   root: {
@@ -83,21 +82,21 @@ const useSnackBarStyles = makeStyles({
       alignItems: 'flex-start',
     },
     '& a': {
-      color: otherWhite,
+      color: 'var(--otherWhite)',
       textDecoration: 'underline',
       cursor: 'pointer',
       '&:not([href])': {
         textDecoration: 'underline',
       },
       '&:not([href]):hover': {
-        color: textSecondary,
+        color: 'var(--textSecondary)',
         textDecoration: 'underline',
       },
       '&:visited': {
-        color: otherWhite,
+        color: 'var(--otherWhite)',
       },
       '&:hover': {
-        color: textSecondary,
+        color: 'var(--textSecondary)',
       },
     },
   },
@@ -147,10 +146,10 @@ const useStyles = makeStyles({
     zIndex: '1000',
   },
   link: {
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     textDecoration: 'underline',
     '&:visited': {
-      color: otherWhite,
+      color: 'var(--otherWhite)',
     },
   },
 });

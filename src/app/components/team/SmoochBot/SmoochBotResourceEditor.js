@@ -15,7 +15,6 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import ParsedText from '../../ParsedText';
-import { textDisabled, errorMain } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   spaced: {
@@ -38,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   icon: {
-    color: textDisabled,
+    color: 'var(--textDisabled)',
   },
   load: {
     height: theme.spacing(4),
@@ -155,7 +154,7 @@ const SmoochBotResourceEditor = ({
               />
             </strong>
           </Typography>
-          <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: errorMain } : {}}>
+          <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: 'var(--errorMain)' } : {}}>
             <FormattedMessage
               id="smoochBotResourceEditor.charsCounter"
               defaultMessage="{count}/{max} characters available"

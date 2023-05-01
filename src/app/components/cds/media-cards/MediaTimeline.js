@@ -4,7 +4,6 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   Slider,
 } from '@material-ui/core';
-import { otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +23,7 @@ const CustomSlider = withStyles(theme => ({
     },
   },
   thumb: {
-    color: otherWhite,
+    color: 'var(--otherWhite)',
     height: theme.spacing(1.5),
     width: theme.spacing(1.5),
     opacity: 0,
@@ -38,7 +37,7 @@ const CustomSlider = withStyles(theme => ({
   track: {
     height: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
-    color: otherWhite,
+    color: 'var(--otherWhite)',
   },
   rail: {
     height: theme.spacing(0.5),

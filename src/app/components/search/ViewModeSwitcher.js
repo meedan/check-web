@@ -5,9 +5,9 @@ import Box from '@material-ui/core/Box';
 import styled from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import ViewModeShorter from '../../icons/ViewModeShorter';
-import ViewModeLonger from '../../icons/ViewModeLonger';
-import { units, textPlaceholder, textSecondary } from '../../styles/js/shared';
+import ViewModeShorter from '../../icons/reorder.svg';
+import ViewModeLonger from '../../icons/table_rows.svg';
+import { units } from '../../styles/js/shared';
 
 const Styled = styled.div`
   .toolbar_view-mode {
@@ -15,11 +15,11 @@ const Styled = styled.div`
   }
 
   .view-mode-switcher__view-mode-active {
-    fill: ${textSecondary};
+    color: var(--textSecondary);
   }
 
   .view-mode-switcher__view-mode-inactive {
-    fill: ${textPlaceholder};
+    color: var(--textPlaceholder);
   }
 
   .view-mode-switcher__button {

@@ -5,16 +5,16 @@ import styled from 'styled-components';
 import CreateProjectMedia from '../media/CreateMedia';
 import ViewModeSwitcher from './ViewModeSwitcher';
 import Can from '../Can';
-import { otherWhite, textPrimary, units, Row, FlexRow } from '../../styles/js/shared';
+import { units, Row, FlexRow } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
-  background-color: ${otherWhite};
+  background-color: var(--otherWhite);
   min-height: ${units(5)};
   padding: 0 ${units(2)} 0 0;
   margin: 0;
 
   .toolbar__title {
-    color: ${textPrimary};
+    color: var(--textPrimary);
     margin: ${units(2)};
   }
 

@@ -5,15 +5,14 @@ import Box from '@material-ui/core/Box';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import CheckIcon from '@material-ui/icons/Check';
 import { FormattedDate } from 'react-intl';
-import { validationMain, alertMain } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   bellIcon: {
-    color: alertMain,
+    color: 'var(--alertMain)',
     display: 'inline-block',
   },
   checkIcon: {
-    color: validationMain,
+    color: 'var(--validationMain)',
     fontWeight: 700,
     fontSize: 12,
   },

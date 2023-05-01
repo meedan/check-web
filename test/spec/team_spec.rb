@@ -1,32 +1,17 @@
 shared_examples 'team' do
-  it 'should show teams at /check/teams', bin1: true do
-    api_create_team
-    @driver.navigate.to "#{@config['self_url']}/check/teams"
-    wait_for_selector('teams', :class)
-    expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
-  end
-
   it 'should duplicate team', bin1: true do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
-    @driver.navigate.to "#{@config['self_url']}/check/teams"
-    wait_for_selector('.teams')
-    # check that there is just on time
-    expect(@driver.find_elements(:css, '.switch-teams__joined-team').length).to eq 1
+    @driver.navigate.to "#{@config['self_url']}/#{team}/settings/workspace"
+    wait_for_selector('#team-details__name-input-label')
     expect(@driver.page_source.include?('duplicated-team')).to be(false)
-    @driver.navigate.to "#{@config['self_url']}/#{team}"
-    wait_for_selector('button#team-members__invite-button')
-    wait_for_selector('.team-settings__details-tab').click
     wait_for_selector('#team-details__update-button')
     wait_for_selector('#team-details__duplicate-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
     update_field('#create-team-dialog__name-input', "duplicated-team#{Time.now.to_i}")
     wait_for_selector('.create-team-dialog__confirm-button').click
     wait_for_selector_none('.create-team-dialog__confirm-button')
-    @driver.navigate.to "#{@config['self_url']}/check/teams"
-    wait_for_selector('.teams')
-    # check that there are two times
-    expect(@driver.find_elements(:css, '.switch-teams__joined-team').length).to eq 2
+    wait_for_selector('#team-details__name-input-label')
     expect(@driver.page_source.include?('duplicated-team')).to be(true)
   end
 
@@ -34,7 +19,7 @@ shared_examples 'team' do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}"
-    wait_for_selector('.team-settings__details-tab').click
+    wait_for_selector('.team-settings__workspace-tab').click
     expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(false)
     expect(@driver.page_source.include?(' - EDIT')).to be(false)
 
@@ -119,63 +104,52 @@ shared_examples 'team' do
 
     # log in as colaborator
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}/settings/members")
     wait_for_selector('button#team-members__invite-button')
     # do not be able to invite a member
     expect(@driver.find_elements(:css, 'button#team-members__invite-button[disabled=""]').length == 1)
     # do not be able to see member icon menu
     expect(@driver.find_elements(:css, '.team-members__icon-menu').empty?).to be(true)
     # do not be able to duplicate or edit workspace detail
-    wait_for_selector('.team-settings__details-tab').click
+    wait_for_selector('.team-settings__workspace-tab').click
     wait_for_selector('#team-details__name-input')
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length == 1)
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
-    # be able to see just the tab config tab
-    wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector('.team-settings__tags-tab')
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 1
+    # be able to see just the members tab
+    wait_for_selector('.team-header__drawer-team-link').click
+    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 2
     # do not be able to add, remove or edit a new folder
     expect(@driver.find_elements(:css, '.projects-list__add-folder-or-collection').empty?).to be(true)
     # do not be able to see project actions button
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(true)
-    # be able to change the status of a media the user is not own
-    wait_for_selector('.medias__item').click
-    wait_for_selector('.media-card-large')
-    expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
     api_logout
 
     # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.role-select')
     # see all the team config tabs
-    wait_for_selector('.team-menu__team-settings-button').click
+    wait_for_selector('.team-header__drawer-team-link')
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector('.team-bots__alegre-uninstalled').click
     wait_for_selector('.team-settings__similarity-tab')
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 9
+    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 11
     api_logout
 
     # log in as editor
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{user_editor.email}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}/settings/members")
     wait_for_selector('button#team-members__invite-button')
     # be able to invite a member
     expect(@driver.find_elements(:css, 'button#team-members__invite-button[disabled=""]').length.zero?).to be(true)
     # be able to edit workspace detail
-    wait_for_selector('.team-settings__details-tab').click
+    wait_for_selector('.team-settings__workspace-tab').click
     wait_for_selector('#team-details__name-input')
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length.zero?).to be(true)
-    # do not be able to edit workspace detail
+    # do not be able to duplicate team
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
-    # do not be able to see language and integration config tabs
-    wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector('.team-settings__rules-tab')
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to be == 6
-    expect(@driver.find_elements(:css, '.team-settings__languages-tab').empty?).to be(true)
-    expect(@driver.find_elements(:css, '.team-settings__integrations-tab').empty?).to be(true)
+    wait_for_selector('.team-header__drawer-team-link').click
     # be able to see folder actions icon
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
@@ -191,7 +165,8 @@ shared_examples 'team' do
 
     # Go to first team
     @driver.navigate.to "#{@config['self_url']}/#{t1.slug}/all-items"
-    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")
+    wait_for_selector('#add-filter-menu__open-button')
+    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/settings/workspace\"]")
 
     # Navigate to second team
     wait_for_selector('.header__user-menu')
@@ -201,7 +176,8 @@ shared_examples 'team' do
     wait_for_selector('.source__primary-info')
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
-    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/\"]")
+    wait_for_selector('#add-filter-menu__open-button')
+    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/settings/workspace\"]")
 
     # Navigate back to first team
     wait_for_selector('.header__user-menu')
@@ -211,7 +187,7 @@ shared_examples 'team' do
     wait_for_selector('.source__primary-info')
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
-    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")
+    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/settings/workspace\"]")
   end
 
   it 'should manage folder access', bin1: true do

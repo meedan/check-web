@@ -36,22 +36,12 @@ import { withSetFlashMessage } from '../../FlashMessage';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
-import {
-  Column,
-  brandMain,
-  validationMain,
-  errorMain,
-  brandBorder,
-  textSecondary,
-  brandBackground,
-  otherWhite,
-  textPrimary,
-} from '../../../styles/js/shared';
+import { Column } from '../../../styles/js/shared';
 import BulkArchiveProjectMediaMutation from '../../../relay/mutations/BulkArchiveProjectMediaMutation';
 
 const useStyles = makeStyles(theme => ({
   containerBox: {
-    backgroundColor: brandBackground,
+    backgroundColor: 'var(--brandBackground)',
     borderRadius: theme.spacing(2),
     position: 'relative',
   },
@@ -73,44 +63,44 @@ const useStyles = makeStyles(theme => ({
     right: 0,
   },
   helpIcon: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   disabled: {
     opacity: 0.5,
   },
   accept: {
-    color: validationMain,
+    color: 'var(--validationMain)',
     padding: theme.spacing(0.5),
   },
   reject: {
-    color: errorMain,
+    color: 'var(--errorMain)',
     padding: theme.spacing(0.5),
   },
   spamTrash: {
     padding: theme.spacing(0.5),
   },
   media: {
-    border: `1px solid ${brandBorder}`,
+    border: '1px solid var(--brandBorder)',
     borderRadius: 8,
-    color: textPrimary,
-    backgroundColor: otherWhite,
+    color: 'var(--textPrimary)',
+    backgroundColor: 'var(--otherWhite)',
   },
   noMedia: {
-    color: textPrimary,
+    color: 'var(--textPrimary)',
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 14,
-    backgroundColor: otherWhite,
+    backgroundColor: 'var(--otherWhite)',
   },
   spaced: {
     padding: theme.spacing(1),
   },
   suggestionsBackButton: {
     padding: 0,
-    color: textSecondary,
+    color: 'var(--textSecondary)',
   },
   suggestionsNoMediaBox: {
-    border: `1px solid ${brandBorder}`,
+    border: '1px solid var(--brandBorder)',
     borderRadius: theme.spacing(1),
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),
@@ -120,10 +110,10 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'right',
   },
   card: {
-    border: `1px solid ${brandBorder}`,
+    border: '1px solid var(--brandBorder)',
     borderRadius: theme.spacing(2),
-    color: textPrimary,
-    backgroundColor: otherWhite,
+    color: 'var(--textPrimary)',
+    backgroundColor: 'var(--otherWhite)',
     margin: theme.spacing(2, 1, 1, 1),
     padding: theme.spacing(2),
     display: 'flex',

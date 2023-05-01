@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import RemoveableWrapper from './RemoveableWrapper';
-import NumberIcon from '../../icons/NumberIcon';
-import { brandMain } from '../../styles/js/shared';
+import NumberIcon from '../../icons/numbers.svg';
 
 const messages = defineMessages({
   linkedItems: {
@@ -41,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   inputNotEmpty: {
     '& fieldset': {
-      border: `2px solid ${brandMain}`,
+      border: '2px solid var(--brandMain)',
     },
   },
 }));
@@ -82,7 +81,7 @@ const NumericRangeFilter = ({
 
   return (
     <div>
-      <RemoveableWrapper icon={<NumberIcon />} readOnly={readOnly} onRemove={onRemove} boxProps={{ px: 0.5 }}>
+      <RemoveableWrapper icon={<NumberIcon style={{ fontSize: '24px' }} />} readOnly={readOnly} onRemove={onRemove} boxProps={{ px: 0.5 }}>
         <Box display="flex" alignItems="center">
           <Box pr={1}>
             <Typography component="span" variant="body1">

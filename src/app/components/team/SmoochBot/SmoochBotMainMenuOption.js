@@ -12,21 +12,18 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import {
-  errorMain,
-} from '../../../styles/js/shared';
 
 const errorFieldStyles = {
   root: {
     '& .MuiFormHelperText-root.Mui-error': {
-      color: errorMain,
+      color: 'var(--errorMain)',
       marginLeft: 0,
       fontSize: 12,
       fontWeight: 400,
     },
     '& .MuiOutlinedInput-root': {
       '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: errorMain,
+        borderColor: 'var(--errorMain)',
         borderWidth: 2,
       },
     },

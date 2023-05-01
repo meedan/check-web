@@ -19,7 +19,7 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import UploadFile from '../UploadFile';
 import globalStrings from '../../globalStrings';
 import { getErrorMessage } from '../../helpers';
-import { ContentColumn, avatarSizeLarge, brandMain } from '../../styles/js/shared';
+import { ContentColumn, avatarSizeLarge } from '../../styles/js/shared';
 import {
   StyledTwoColumns,
   StyledBigColumn,
@@ -204,7 +204,7 @@ const TeamDetails = ({
           />
         </Button>
         <IconButton onClick={handleHelp}>
-          <Box clone color={brandMain}>
+          <Box clone color="var(--brandMain)">
             <HelpIcon />
           </Box>
         </IconButton>

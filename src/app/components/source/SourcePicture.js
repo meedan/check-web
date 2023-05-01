@@ -10,8 +10,6 @@ import {
   avatarSizeSmall,
   avatarSizeExtraSmall,
   defaultBorderRadius,
-  grayDisabledBackground,
-  otherWhite,
 } from '../../styles/js/shared';
 
 // Sources are square. If the image is not square,
@@ -27,8 +25,8 @@ const StyledImage = styled.div`
   background-position: center;
   background-size: ${props => props.type === 'source' ? 'contain' : 'cover'};
   background-image: url('${props => props.avatarUrl}');
-  background-color: ${otherWhite};
-  ${props => props.type === 'source' ? `border: 1px solid ${grayDisabledBackground};` : null}
+  background-color: var(--otherWhite);
+  ${props => props.type === 'source' ? 'border: 1px solid var(--grayDisabledBackground);' : null}
 
   ${props => (() => {
     if (props.size === 'large') {

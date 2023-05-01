@@ -33,8 +33,8 @@ import { getTimeZones } from '@vvo/tzdb';
 import EditTaskAlert from './EditTaskAlert';
 import EditTaskOptions from './EditTaskOptions';
 import Message from '../Message';
-import NumberIcon from '../../icons/NumberIcon';
-import { units, errorMain } from '../../styles/js/shared';
+import NumberIcon from '../../icons/numbers.svg';
+import { units } from '../../styles/js/shared';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -56,7 +56,7 @@ const styles = {
     marginTop: units(2),
   },
   error: {
-    color: errorMain,
+    color: 'var(--errorMain)',
   },
 };
 
@@ -217,7 +217,7 @@ class EditTaskDialog extends React.Component {
           />
         ),
         value: 'number',
-        icon: <NumberIcon />,
+        icon: <NumberIcon style={{ fontSize: '24px' }} />,
         description: (
           <FormattedMessage
             id="tasks.numberDescription"

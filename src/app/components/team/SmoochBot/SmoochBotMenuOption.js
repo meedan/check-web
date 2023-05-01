@@ -8,17 +8,16 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import ClearIcon from '../../../icons/clear.svg';
 import { placeholders } from './localizables';
 import { languageLabel } from '../../../LanguageRegistry';
-import { brandMain } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     boxShadow: 'none',
-    border: `2px solid ${brandMain}`,
+    border: '2px solid var(--brandMain)',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
@@ -26,10 +25,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
   },
   ifTitle: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   thenTitle: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   caption: {
     margin: `0 ${theme.spacing(1)}px`,

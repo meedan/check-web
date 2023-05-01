@@ -17,14 +17,11 @@ import {
   ContentColumn,
   units,
   mediaQuery,
-  title1,
-  textSecondary,
 } from '../styles/js/shared';
 
 const StyledSubHeader = styled.h2`
-  font: ${title1};
   font-weight: 600;
-  color: ${textSecondary};
+  color: var(--textSecondary);
   text-align: center;
   margin-top: ${units(2)};
 `;
@@ -65,7 +62,7 @@ function UserConfirmPage({ params }) {
                   />
                 )}
               </FormattedGlobalMessage>
-              <StyledSubHeader className="confirm__heading">
+              <StyledSubHeader className="confirm__heading typography-h6">
                 { params.confirmType === 'confirmed' ?
                   (<FormattedMessage
                     id="UserConfirmPage.confirmed"

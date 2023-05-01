@@ -16,7 +16,6 @@ import CheckContext from '../../CheckContext';
 import { getStatus, getErrorMessage, bemClass } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
-import { otherWhite } from '../../styles/js/shared';
 
 const StyledMediaStatus = styled.div`
   display: flex;
@@ -101,7 +100,7 @@ class MediaStatusCommon extends Component {
       <StyledMediaStatus className="media-status">
         <Button
           className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status || this.props.currentStatus)}`}
-          style={{ backgroundColor: currentStatus.style.color, color: otherWhite, minHeight: 41 }}
+          style={{ backgroundColor: currentStatus.style.color, color: 'var(--otherWhite)', minHeight: 41 }}
           variant="contained"
           disableElevation
           onClick={e => this.setState({ anchorEl: e.currentTarget })}

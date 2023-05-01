@@ -20,7 +20,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { getTimeZones } from '@vvo/tzdb';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import { placeholders } from './localizables';
-import { textDisabled, textPlaceholder, grayBackground, textPrimary, errorMain } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
 import Alert from '../../cds/alerts-and-prompts/Alert';
 
@@ -56,7 +55,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   icon: {
-    color: textDisabled,
+    color: 'var(--textDisabled)',
   },
   load: {
     height: theme.spacing(4),
@@ -69,11 +68,11 @@ const useStyles = makeStyles(theme => ({
     gap: '8px',
   },
   none: {
-    background: grayBackground,
-    color: textPrimary,
+    background: 'var(--grayBackground)',
+    color: 'var(--textPrimary)',
   },
   bullet: {
-    color: textDisabled,
+    color: 'var(--textDisabled)',
     fontSize: theme.spacing(2),
     marginRight: theme.spacing(1),
     height: theme.spacing(7),
@@ -81,12 +80,12 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   bulletRss: {
-    color: textDisabled,
+    color: 'var(--textDisabled)',
     fontSize: theme.spacing(2),
     marginRight: theme.spacing(1),
   },
   textField: {
-    border: `1px solid ${textPlaceholder}`,
+    border: '1px solid var(--textPlaceholder)',
     borderRadius: theme.spacing(0.5),
   },
   bulletPoints: {
@@ -324,7 +323,7 @@ const SmoochBotNewsletterEditor = ({
         <Typography paragraph>
           <FormattedMessage id="smoochBotNewsletterEditor.secondStep2" defaultMessage="If the content is not changed between two scheduled sendouts, the newsletter will not be sent." description="Explanation about tipline newsletter delivery, in tipline newsletter settings page" />
         </Typography>
-        <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: errorMain } : {}}>
+        <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: 'var(--errorMain)' } : {}}>
           <FormattedMessage
             id="smoochBotNewsletterEditor.charsCounter"
             defaultMessage="{count}/{max} characters available"

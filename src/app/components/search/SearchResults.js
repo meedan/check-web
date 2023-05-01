@@ -19,7 +19,7 @@ import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { brandMain, textPrimary, textSecondary, textPlaceholder, headline, units, Row } from '../../styles/js/shared';
+import { units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
@@ -53,13 +53,13 @@ const StyledSearchResultsWrapper = styled.div`
   flex-direction: column;
 
   .search__results-heading {
-    color: ${textPrimary};
+    color: var(--textPrimary);
     text-align: center;
     display: flex;
     align-items: center;
 
     .search__selected {
-      color: ${brandMain};
+      color: var(--brandMain);
       margin: 0 0 0 ${units(1)};
     }
 
@@ -67,11 +67,11 @@ const StyledSearchResultsWrapper = styled.div`
       padding: 0 ${units(1)} 0 0;
       display: flex;
       cursor: pointer;
-      color: ${textPrimary};
+      color: var(--textPrimary);
     }
 
     .search__button-disabled {
-      color: ${textPlaceholder};
+      color: var(--textPlaceholder);
       cursor: not-allowed;
     }
   }
@@ -429,11 +429,10 @@ function SearchResultsComponent({
       <StyledListHeader>
         <Row className="search__list-header-filter-row">
           <div
-            className="project__title"
+            className="project__title typography-h5"
             title={title?.props?.defaultMessage || title}
             style={{
-              font: headline,
-              color: textSecondary,
+              color: 'var(--textSecondary)',
               display: 'flex',
               alignItems: 'center',
             }}

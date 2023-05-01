@@ -6,7 +6,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import { brandMain } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   settingsHeaderRoot: {
@@ -23,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   settingsHeaderHelpIcon: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   settingsHeaderExtra: {
     marginLeft: theme.spacing(5),

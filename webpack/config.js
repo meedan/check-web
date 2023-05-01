@@ -2,8 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
 const WarningsToErrorsPlugin = require('warnings-to-errors-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 // TODO once we reach react-relay 8.0, uncomment for simpler build end.
 // (Also, delete the relay-compiler stuff form gulpfile.)
 // const RelayCompilerWebpackPlugin = require('relay-compiler-webpack-plugin');
@@ -36,7 +38,7 @@ module.exports = {
     path: path.join(__dirname, '../build/web/js'),
     filename: `[name].bundle${BUNDLE_PREFIX}.js`,
     chunkFilename: `[name].chunk${BUNDLE_PREFIX}.js`,
-		publicPath: '/js/',
+		publicPath: '/',
   },
   watchOptions: {
     // ignore all node_modules except for those in the @meedan organization, but do ignore any node_modules that are children of the @meedan organization
@@ -78,6 +80,21 @@ module.exports = {
     //   schema: path.resolve(__dirname, '../relay.json'),
     //   src: path.resolve(__dirname, '../src/app'),
     // }),
+    new StylelintPlugin({
+      cache: true,
+      configFile: path.resolve(__dirname, '../.stylelintrc'),
+      context: path.join(__dirname, '../src/app'),
+      files: ['**/*.css'],
+      lintDirtyModulesOnly: true,
+      emitWarning: true,
+      failOnError: true,
+      failOnWarning: true,
+    }),
+    new MiniCssExtractPlugin({
+      filename: `../css/[name].bundle${BUNDLE_PREFIX}.css`,
+      chunkFilename: `../css/[name].chunk${BUNDLE_PREFIX}.css`,
+      ignoreOrder: false, // Enable if there are warnings about conflicting order
+    }),
     new webpack.ContextReplacementPlugin(
       /react-intl\/locale-data/,
       localesRegExp,
@@ -101,14 +118,14 @@ module.exports = {
       failOnUnused: true,
       patterns: ['src/app/**/*.js'],
       globOptions: {
-        ignore: ['src/app/**/*.test.js'],
+        ignore: ['src/app/**/*.test.js', 'src/app/**/_*.js'],
       },
     }),
     new WarningsToErrorsPlugin(),
   ],
   resolve: {
     alias: { app: path.join(__dirname, '../src/app') },
-    extensions: ['.js', '.json'],
+    extensions: ['.js', '.json', '.css'],
   },
   module: {
     rules: [
@@ -138,12 +155,46 @@ module.exports = {
         },
       },
       {
-        test: /\.(gif|svg|jpg|png)$/,
+        test: /\.(gif|jpg|png)$/,
         loader: 'file-loader',
       },
       {
-        test: /\.css?$/,
-        use: ['style-loader', 'raw-loader'],
+        test: /\.svg$/i,
+        use: [{
+          loader: '@svgr/webpack',
+          options: {
+            icon: true,
+            expandProps: 'start',
+            svgProps: {
+              className: `{props.className ? props.className + ' check-icon' : 'check-icon'}`,
+            },
+          }
+        }],
+      },
+      {
+          test: /\.css$/,
+          use: [
+              {
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                  publicPath: '/css/',
+                },
+              },
+              {
+                  loader: 'css-loader',
+                  options: {
+                      importLoaders: 1,
+                      modules: {
+                        auto: true,
+                        localIdentName: NODE_ENV === 'production' ? '[hash:base64]' : '[path]___[name]__[local]___[hash:base64:5]',
+                      },
+                      url: false,
+                  }
+              },
+              {
+                  loader: 'postcss-loader',
+              },
+          ]
       },
     ],
   },
