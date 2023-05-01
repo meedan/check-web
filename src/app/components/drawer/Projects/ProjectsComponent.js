@@ -230,7 +230,7 @@ const ProjectsComponent = ({
           <ListItemText disableTypography className={styles.listLabel}>
             <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
           </ListItemText>
-          <ListItemSecondaryAction disableTypography className={styles.listItemCount}>
+          <ListItemSecondaryAction className={styles.listItemCount}>
             <small>
               {team.medias_count}
             </small>
@@ -247,7 +247,7 @@ const ProjectsComponent = ({
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
-            <ListItemSecondaryAction disableTypography className={styles.listItemCount} />
+            <ListItemSecondaryAction className={styles.listItemCount} />
           </ListItem>
         }
 
@@ -261,7 +261,7 @@ const ProjectsComponent = ({
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
-            <ListItemSecondaryAction disableTypography className={styles.listItemCount} />
+            <ListItemSecondaryAction className={styles.listItemCount} />
           </ListItem>
         }
 
@@ -275,7 +275,7 @@ const ProjectsComponent = ({
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
-            <ListItemSecondaryAction disableTypography className={styles.listItemCount} />
+            <ListItemSecondaryAction className={styles.listItemCount} />
           </ListItem>
         }
 

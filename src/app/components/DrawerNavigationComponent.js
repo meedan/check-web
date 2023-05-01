@@ -123,7 +123,7 @@ class DrawerNavigationComponent extends Component {
               <ListItemText disableTypography className={projectStyles.listLabel}>
                 <FormattedMessage tagName="span" id="projects.spam" defaultMessage="Spam" />
               </ListItemText>
-              <ListItemSecondaryAction disableTypography title={team.medias_count} className={projectStyles.listItemCount}>
+              <ListItemSecondaryAction title={team.medias_count} className={projectStyles.listItemCount}>
                 <small>{String(team.spam_count)}</small>
               </ListItemSecondaryAction>
             </ListItem>
@@ -136,7 +136,7 @@ class DrawerNavigationComponent extends Component {
               <ListItemText disableTypography className={projectStyles.listLabel}>
                 <FormattedMessage tagName="span" id="projects.trash" defaultMessage="Trash" />
               </ListItemText>
-              <ListItemSecondaryAction disableTypography title={team.trash_count} className={projectStyles.listItemCount}>
+              <ListItemSecondaryAction title={team.trash_count} className={projectStyles.listItemCount}>
                 <small>{String(team.trash_count)}</small>
               </ListItemSecondaryAction>
             </ListItem>

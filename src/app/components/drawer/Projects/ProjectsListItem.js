@@ -58,7 +58,7 @@ const ProjectsListItem = ({
           {project.title || project.name}
         </span>
       </ListItemText>
-      <ListItemSecondaryAction disableTypography title={project.medias_count} className={styles.listItemCount}>
+      <ListItemSecondaryAction title={project.medias_count} className={styles.listItemCount}>
         <small>
           { !Number.isNaN(parseInt(project.medias_count, 10)) ?
             new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
