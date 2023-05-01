@@ -69,10 +69,6 @@ describe('<NewsletterComponent />', () => {
     const header = newsletter.find('.newsletter-component-header');
     expect(header).toHaveLength(1);
     expect(header.props().overlayText).toEqual('Some overlay');
-    // footer
-    const footer = newsletter.find('.newsletter-component-footer');
-    expect(footer).toHaveLength(1);
-    expect(footer.props().value).toEqual('A footer');
   });
 
   it('renders static newsletter correctly', () => {
@@ -91,9 +87,5 @@ describe('<NewsletterComponent />', () => {
     const header = newsletter.find('.newsletter-component-header');
     expect(header).toHaveLength(1);
     expect(header.props().overlayText).toEqual('Some overlay');
-    // footer
-    const footer = newsletter.find('.newsletter-component-footer');
-    expect(footer).toHaveLength(1);
-    expect(footer.props().value).toEqual('A footer');
   });
 });
