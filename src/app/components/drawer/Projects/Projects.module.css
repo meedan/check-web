@@ -1,7 +1,14 @@
 /* stylelint-disable scale-unlimited/declaration-strict-value */
+.listTitle {
+  @mixin typography-subtitle2;
+  color: var(--textPrimary);
+  padding: 16px 20px 0 18px;
+  text-transform: uppercase;
+}
+
 .listWrapper {
   --drawerListIconSize: 18px;
-  --drawerexpandIconSize: 16px;
+  --drawerexpandIconSize: 14px;
 
   display: flex;
   flex: 1;
@@ -9,7 +16,7 @@
   overflow: auto;
 
   &:global(.MuiList-root) {
-    padding: 20px 6px;
+    padding: 16px 6px;
   }
 
   &.listFooter {
@@ -29,14 +36,22 @@
     z-index: 1;
   }
 
+  .listChevron {
+    font-size: var(--drawerexpandIconSize);
+    margin: 0 4px 0 1px;
+  }
+
   .listHeader {
     @mixin typography-caption;
-    color: var(--brandSecondary);
+    border: solid 1px var(--otherWhite);
+    color: var(--textPlaceholder);
     cursor: pointer;
     font-weight: 500;
-    margin: 10px 0 2px;
-    padding: 0;
+    height: 30px;
+    margin: 0;
+    padding: 0 0 0 7px;
     text-transform: uppercase;
+    width: auto;
 
     .listHeaderLabel {
       align-items: center;
@@ -45,7 +60,7 @@
 
       > span {
         flex: 1 1 auto;
-        margin: 0 12px 0 -4px;
+        margin: 0 6px 0 0;
       }
 
       .listHeaderLabelButton {
@@ -56,19 +71,21 @@
         font-size: 20px;
         height: 26px;
         padding: 0;
+        transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
         width: 26px;
-      }
-    }
 
-    .listChevron {
-      font-size: var(--drawerexpandIconSize);
-      margin: 0 4px 0 0;
+        &:hover {
+          background-color: var(--brandHoverAccent);
+          color: var(--textLink);
+        }
+      }
     }
   }
 
   .listItem {
     border: solid 1px var(--otherWhite);
     border-radius: 5px;
+    height: 42px;
     margin: 0;
     padding: 10px 5px;
     position: relative;
@@ -87,11 +104,10 @@
         @mixin typography-body1;
         cursor: pointer;
       }
-    }
 
-    .listItemCount {
-      @mixin typography-body1;
-      color: var(--textSecondary);
+      &.listLabel_plainText {
+        padding: 0 0 0 4px;
+      }
     }
 
     &:hover {
@@ -99,7 +115,7 @@
     }
 
     &.listItem_containsCount {
-      padding: 10px 48px 10px 5px;
+      padding: 10px 48px 10px 6px;
     }
 
     &.listItem_group {
@@ -116,14 +132,9 @@
         border-width: 1px 1px 0;
       }
 
-      .listIcon {
-        font-size: var(--drawerexpandIconSize);
-        margin: 0 4px 0 0;
-      }
-
       .listLabel {
         span {
-          margin: 0 12px 0 -4px;
+          margin: 0;
         }
       }
     }
@@ -156,12 +167,18 @@
     }
   }
 
+  .listItemCount {
+    @mixin typography-body1;
+    color: var(--textSecondary);
+    right: 10px;
+  }
+
   .groupList {
     border: solid 1px var(--brandLight);
     border-radius: 0 0 5px 5px;
     border-width: 0 1px 1px;
     margin: 0 0 0 1px;
-    padding: 3px 2px;
+    padding: 6px;
     width: 100%;
   }
 }

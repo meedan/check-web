@@ -117,31 +117,27 @@ class DrawerNavigationComponent extends Component {
             <ListItem
               button
               onClick={this.handleSpam}
-              className={['project-list__link-spam', projectStyles.listItem].join(' ')}
+              className={['project-list__link-spam', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
             >
-              <div className={projectStyles.listIcon}>
-                <ReportIcon />
-              </div>
+              <ReportIcon className={projectStyles.listIcon} />
               <ListItemText disableTypography className={projectStyles.listLabel}>
-                <FormattedMessage tagName="label" id="projects.spam" defaultMessage="Spam" />
+                <FormattedMessage tagName="span" id="projects.spam" defaultMessage="Spam" />
               </ListItemText>
               <ListItemSecondaryAction disableTypography title={team.medias_count} className={projectStyles.listItemCount}>
-                {String(team.spam_count)}
+                <small>{String(team.spam_count)}</small>
               </ListItemSecondaryAction>
             </ListItem>
             <ListItem
               button
               onClick={this.handleTrash}
-              className={['project-list__link-trash', projectStyles.listItem].join(' ')}
+              className={['project-list__link-trash', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
             >
-              <div className={projectStyles.listIcon}>
-                <DeleteIcon />
-              </div>
+              <DeleteIcon className={projectStyles.listIcon} />
               <ListItemText disableTypography className={projectStyles.listLabel}>
-                <FormattedMessage tagName="label" id="projects.trash" defaultMessage="Trash" />
+                <FormattedMessage tagName="span" id="projects.trash" defaultMessage="Trash" />
               </ListItemText>
               <ListItemSecondaryAction disableTypography title={team.trash_count} className={projectStyles.listItemCount}>
-                {String(team.trash_count)}
+                <small>{String(team.trash_count)}</small>
               </ListItemSecondaryAction>
             </ListItem>
           </List>

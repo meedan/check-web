@@ -41,24 +41,28 @@ const ProjectsListItem = ({
       className={[
         defaultClassName,
         styles.listItem,
-        project.medias_count > 0 ? styles.listItem_containsCount : '',
+        styles.listItem_containsCount,
         isActive ? styles.listItem_active : '',
       ].join(' ')}
       {...listItemProps}
     >
-      {icon &&
-        <div className={styles.listIcon}>
-          {icon}
-        </div>
-      }
-      <ListItemText disableTypography className={styles.listLabel}>
+      {icon}
+      <ListItemText
+        disableTypography
+        className={[
+          styles.listLabel,
+          !icon ? styles.listLabel_plainText : '',
+        ].join(' ')}
+      >
         <span>
           {project.title || project.name}
         </span>
       </ListItemText>
       <ListItemSecondaryAction disableTypography title={project.medias_count} className={styles.listItemCount}>
-        { !Number.isNaN(parseInt(project.medias_count, 10)) ?
-          new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
+        <small>
+          { !Number.isNaN(parseInt(project.medias_count, 10)) ?
+            new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
+        </small>
       </ListItemSecondaryAction>
     </ListItem>
   );

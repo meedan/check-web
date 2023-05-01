@@ -35,6 +35,21 @@
     "defaultMessage": "Suggestions"
   },
   {
+    "id": "projectsComponent.lists",
+    "description": "List of items with some filters applied",
+    "defaultMessage": "Custom Lists"
+  },
+  {
+    "id": "projectsComponent.noCustomLists",
+    "description": "Displayed under the custom list header when there are no lists in it",
+    "defaultMessage": "No custom lists"
+  },
+  {
+    "id": "projectsComponent.sharedFeeds",
+    "description": "Feeds of content shared across workspaces",
+    "defaultMessage": "Shared feeds"
+  },
+  {
     "id": "projectsComponent.folders",
     "description": "Label for a collapsable panel displayed on the left sidebar.",
     "defaultMessage": "Folders"
@@ -53,21 +68,6 @@
     "id": "projectsComponent.noFolders",
     "description": "Displayed under a collection when there are no folders in it",
     "defaultMessage": "No folders in this collection"
-  },
-  {
-    "id": "projectsComponent.lists",
-    "description": "List of items with some filters applied",
-    "defaultMessage": "Custom Lists"
-  },
-  {
-    "id": "projectsComponent.noCustomLists",
-    "description": "Displayed under the custom list header when there are no lists in it",
-    "defaultMessage": "No custom lists"
-  },
-  {
-    "id": "projectsComponent.sharedFeeds",
-    "description": "Feeds of content shared across workspaces",
-    "defaultMessage": "Shared feeds"
   },
   {
     "id": "projectsComponent.newFolder",

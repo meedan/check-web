@@ -37,6 +37,7 @@ const messages = defineMessages({
 
 const DrawerRail = (props) => {
   const testPath = window.location.pathname;
+  const isSettingsPage = /\/welch-feil-and-rippin\/settings\/[a-zA-Z0-9]+/.test(testPath);
   const isMediaPage = /\/media\/[0-9]+/.test(testPath);
   const isFeedPage = /\/feed\/[0-9]+\/(request|cluster)\/[0-9]+/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
@@ -55,14 +56,7 @@ const DrawerRail = (props) => {
   };
 
   useEffect(() => {
-    // console.log(props.user);
-    // console.log(activeItem);
-    // console.log('isMediaPage: ' + isMediaPage);
-    // console.log('isFeedPage: ' + isFeedPage);
-    // console.log('teamslug is check: ' + teamSlug === 'check');
-    // console.log('teamSlug: ' + teamSlug);
-    // console.log('drawerOpen: ' + props.drawerOpen);
-    if (isMediaPage || isFeedPage || teamSlug === 'check' || !teamSlug) {
+    if (isMediaPage || isFeedPage || isSettingsPage || teamSlug === 'check' || !teamSlug) {
       onDrawerOpenChange(false);
     } else if (window.storage.getValue('drawer.isOpen')) {
       onDrawerOpenChange(true);

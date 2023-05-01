@@ -42,7 +42,7 @@ const ProjectsComponent = ({
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
-
+  console.log(team); // eslint-disable-line no-console
   const getBooleanPref = (key, fallback) => {
     const inStore = window.storage.getValue(key);
     if (inStore === null) return fallback;
@@ -215,22 +215,25 @@ const ProjectsComponent = ({
 
   return (
     <React.Fragment>
+      <div className={styles.listTitle}>
+        Tipline
+      </div>
       <List dense disablePadding className={[styles.listWrapper, 'projects-list'].join(' ')}>
         { saving && <div className={styles.listMask} /> }
         {/* All items */}
         <ListItem
           button
           onClick={handleAllItems}
-          className={['projects-list__all-items', styles.listItem, (activeItem.type === 'all-items' ? styles.listItem_active : '')].join(' ')}
+          className={['projects-list__all-items', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'all-items' ? styles.listItem_active : '')].join(' ')}
         >
-          <div className={styles.listIcon}>
-            <CategoryIcon />
-          </div>
+          <CategoryIcon className={styles.listIcon} />
           <ListItemText disableTypography className={styles.listLabel}>
             <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
           </ListItemText>
-          <ListItemSecondaryAction disableTypography title={team.medias_count} className={styles.listItemCount}>
-            {team.medias_count}
+          <ListItemSecondaryAction disableTypography className={styles.listItemCount}>
+            <small>
+              {team.medias_count}
+            </small>
           </ListItemSecondaryAction>
         </ListItem>
 
@@ -238,14 +241,13 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('tipline-inbox'); }}
-            className={['projects-list__tipline-inbox', styles.listItem, (activeItem.type === 'tipline-inbox' ? styles.listItem_active : '')].join(' ')}
+            className={['projects-list__tipline-inbox', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'tipline-inbox' ? styles.listItem_active : '')].join(' ')}
           >
-            <div className={styles.listIcon}>
-              <InboxIcon />
-            </div>
+            <InboxIcon className={styles.listIcon} />
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
+            <ListItemSecondaryAction disableTypography className={styles.listItemCount} />
           </ListItem>
         }
 
@@ -253,14 +255,13 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('imported-fact-checks'); }}
-            className={['projects-list__imported-fact-checks', styles.listItem, (activeItem.type === 'imported-fact-checks' ? styles.listItem_active : '')].join(' ')}
+            className={['projects-list__imported-fact-checks', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'imported-fact-checks' ? styles.listItem_active : '')].join(' ')}
           >
-            <div className={styles.listIcon}>
-              <FileDownloadIcon />
-            </div>
+            <FileDownloadIcon className={styles.listIcon} />
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
+            <ListItemSecondaryAction disableTypography className={styles.listItemCount} />
           </ListItem>
         }
 
@@ -268,15 +269,80 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('suggested-matches'); }}
-            className={['projects-list__suggested-matches', styles.listItem, (activeItem.type === 'suggested-matches' ? styles.listItem_active : '')].join(' ')}
+            className={['projects-list__suggested-matches', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'suggested-matches' ? styles.listItem_active : '')].join(' ')}
           >
-            <div className={styles.listIcon}>
-              <LightbulbIcon />
-            </div>
+            <LightbulbIcon className={styles.listIcon} />
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
+            <ListItemSecondaryAction disableTypography className={styles.listItemCount} />
           </ListItem>
+        }
+
+        {/* Lists Header */}
+        <ListItem onClick={handleToggleListsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
+          { listsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
+          <ListItemText disableTypography className={styles.listHeaderLabel}>
+            <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
+            <Can permissions={team.permissions} permission="create Project">
+              <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
+                <AddCircleIcon id="projects-list__add-filtered-list" />
+              </IconButton>
+            </Can>
+          </ListItemText>
+        </ListItem>
+
+        {/* Lists */}
+        <React.Fragment>
+          <Collapse in={listsExpanded} className={styles.listCollapseWrapper}>
+            { savedSearches.length === 0 ?
+              <ListItem className={[styles.listItem, styles.listItem_containsCount, styles.listItem_empty].join(' ')}>
+                <ListItemText disableTypography className={styles.listLabel}>
+                  <span>
+                    <FormattedMessage tagName="em" id="projectsComponent.noCustomLists" defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" />
+                  </span>
+                </ListItemText>
+              </ListItem> :
+              <>
+                {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
+                  <ProjectsListItem
+                    key={search.id}
+                    routePrefix="list"
+                    project={search}
+                    teamSlug={team.slug}
+                    onClick={handleClick}
+                    isActive={isActive('list', search.dbid)}
+                  />
+                ))}
+              </>
+            }
+          </Collapse>
+        </React.Fragment>
+
+        {/* Shared feeds */}
+        { feeds.length > 0 &&
+          <React.Fragment>
+            <ListItem onClick={handleToggleFeedsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
+              { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
+              <ListItemText disableTypography className={styles.listHeaderLabel}>
+                <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
+              </ListItemText>
+            </ListItem>
+            <Collapse in={feedsExpanded} className={styles.listCollapseWrapper}>
+              {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
+                <ProjectsListItem
+                  key={feed.id}
+                  routePrefix="feed"
+                  routeSuffix="/shared"
+                  icon={<DynamicFeedIcon />}
+                  project={feed}
+                  teamSlug={team.slug}
+                  onClick={handleClick}
+                  isActive={isActive('feed', feed.dbid)}
+                />
+              ))}
+            </Collapse>
+          </React.Fragment>
         }
 
         {/* Folders: create new folder or collection */}
@@ -334,7 +400,7 @@ const ProjectsComponent = ({
                   project={projectGroup}
                   teamSlug={team.slug}
                   onClick={handleClick}
-                  icon={groupIsExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                  icon={groupIsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} />}
                   isActive={groupIsActive}
                   className={[
                     styles.listItem_group,
@@ -408,72 +474,6 @@ const ProjectsComponent = ({
             ))}
           </DragDropContext>
         </Collapse>
-
-        {/* Lists Header */}
-        <ListItem onClick={handleToggleListsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
-          { listsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-          <ListItemText disableTypography className={styles.listHeaderLabel}>
-            <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
-            <Can permissions={team.permissions} permission="create Project">
-              <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
-                <AddCircleIcon id="projects-list__add-filtered-list" />
-              </IconButton>
-            </Can>
-          </ListItemText>
-        </ListItem>
-
-        {/* Lists */}
-        <React.Fragment>
-          <Collapse in={listsExpanded} className={styles.listCollapseWrapper}>
-            { savedSearches.length === 0 ?
-              <ListItem className={[styles.listItem, styles.listItem_empty].join(' ')}>
-                <ListItemText disableTypography className={styles.listLabel}>
-                  <span>
-                    <FormattedMessage tagName="em" id="projectsComponent.noCustomLists" defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" />
-                  </span>
-                </ListItemText>
-              </ListItem> :
-              <>
-                {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
-                  <ProjectsListItem
-                    key={search.id}
-                    routePrefix="list"
-                    project={search}
-                    teamSlug={team.slug}
-                    onClick={handleClick}
-                    isActive={isActive('list', search.dbid)}
-                  />
-                ))}
-              </>
-            }
-          </Collapse>
-        </React.Fragment>
-
-        {/* Shared feeds */}
-        { feeds.length > 0 &&
-          <React.Fragment>
-            <ListItem onClick={handleToggleFeedsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
-              { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-              <ListItemText disableTypography className={styles.listHeaderLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
-              </ListItemText>
-            </ListItem>
-            <Collapse in={feedsExpanded} className={styles.listCollapseWrapper}>
-              {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
-                <ProjectsListItem
-                  key={feed.id}
-                  routePrefix="feed"
-                  routeSuffix="/shared"
-                  icon={<DynamicFeedIcon />}
-                  project={feed}
-                  teamSlug={team.slug}
-                  onClick={handleClick}
-                  isActive={isActive('feed', feed.dbid)}
-                />
-              ))}
-            </Collapse>
-          </React.Fragment>
-        }
       </List>
 
       {/* Dialogs to create new folder, collection or list */}
