@@ -63,19 +63,21 @@ const NumericRangeFilter = ({
   const filterKeysMapping = { linked_items_count: 'linkedItems', suggestions_count: 'suggestedItems', demand: 'tiplineRequests' };
 
   const handleFieldChange = (key, keyValue) => {
-    const range = { min: minNumber, max: maxNumber };
-    if (key === 'min') {
-      setMinNumber(keyValue);
-      range.min = keyValue;
-    } else if (key === 'max') {
-      setMaxNumber(keyValue);
-      range.max = keyValue;
-    }
-    if (range.max !== '' && parseInt(range.min, 10) > parseInt(range.max, 10)) {
-      setShowErrorMsg(true);
-    } else {
-      setShowErrorMsg(false);
-      onChange(filterKey, range);
+    if (keyValue >= 0) {
+      const range = { min: minNumber, max: maxNumber };
+      if (key === 'min') {
+        setMinNumber(keyValue);
+        range.min = keyValue;
+      } else if (key === 'max') {
+        setMaxNumber(keyValue);
+        range.max = keyValue;
+      }
+      if (range.max !== '' && parseInt(range.min, 10) > parseInt(range.max, 10)) {
+        setShowErrorMsg(true);
+      } else {
+        setShowErrorMsg(false);
+        onChange(filterKey, range);
+      }
     }
   };
 
