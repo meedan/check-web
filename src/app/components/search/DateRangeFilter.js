@@ -344,13 +344,15 @@ const DateRangeFilter = ({
   };
 
   const handleChangeRelativeQuantity = (e) => {
-    const valueRelativeQuantity = e.target.value;
-    setRelativeQuantity(valueRelativeQuantity);
-    onChange(buildValueRelative(
-      getValueType(),
-      valueRelativeQuantity,
-      relativeRange,
-    ));
+    if (e.target.value >= 0) {
+      const valueRelativeQuantity = e.target.value;
+      setRelativeQuantity(valueRelativeQuantity);
+      onChange(buildValueRelative(
+        getValueType(),
+        valueRelativeQuantity,
+        relativeRange,
+      ));
+    }
   };
 
   const handleClearDate = (event, field) => {
