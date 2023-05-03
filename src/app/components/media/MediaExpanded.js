@@ -50,6 +50,7 @@ class MediaExpandedComponent extends Component {
     const isImage = media.media.type === 'UploadedImage';
     const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
     const isYoutube = media.media.url && media.domain === 'youtube.com';
+    const isYoutubeChannel = isYoutube && media.media.url.match(/youtube\.com\/(channel|c)\//);
     let filePath = media.media.file_path;
     if (isYoutube) {
       filePath = media.media.url;
@@ -69,7 +70,7 @@ class MediaExpandedComponent extends Component {
             imagePath={media.media.embed_path}
           />
         );
-      } else if (isMedia || isYoutube) {
+      } else if (isMedia || (isYoutube && !isYoutubeChannel)) {
         return (
           <MediaPlayerCard
             key={media.dynamic_annotation_flag}
@@ -85,7 +86,7 @@ class MediaExpandedComponent extends Component {
             languageCode={media.language_code}
           />
         );
-      } else if (isWebPage || !data.html) {
+      } else if (isWebPage || isYoutubeChannel || !data.html) {
         return (
           <WebPageMediaCard
             key={media.dynamic_annotation_flag}
