@@ -102,8 +102,24 @@ ul {
   @mixin typography-body1;
 }
 
+.typography-body1-bold {
+  @mixin typography-body1-bold;
+}
+
+.typography-body1-italic {
+  @mixin typography-body1-bold;
+}
+
 .typography-body2 {
   @mixin typography-body2;
+}
+
+.typography-body2-bold {
+  @mixin typography-body2-bold;
+}
+
+.typography-body2-italic {
+  @mixin typography-body2-italic;
 }
 
 .typography-button {
