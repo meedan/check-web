@@ -42,8 +42,26 @@
   @mixin typography-definition var(--fontSizeDefault), 400, .15px, 20px;
 }
 
+@define-mixin typography-body1-bold {
+  @mixin typography-definition var(--fontSizeDefault), 700, .15px, 20px;
+}
+
+@define-mixin typography-body1-italic {
+  @mixin typography-definition var(--fontSizeDefault), 400, .15px, 20px;
+  font-style: italic;
+}
+
 @define-mixin typography-body2 {
   @mixin typography-definition var(--fontSizeSmall), 400, .15px, 17px;
+}
+
+@define-mixin typography-body2-bold {
+  @mixin typography-definition var(--fontSizeSmall), 700, .15px, 17px;
+}
+
+@define-mixin typography-body2-italic {
+  @mixin typography-definition var(--fontSizeSmall), 400, .15px, 17px;
+  font-style: italic;
 }
 
 @define-mixin typography-button {
