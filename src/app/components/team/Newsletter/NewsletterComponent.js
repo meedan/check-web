@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Relay from 'react-relay/classic';
-import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
+import { graphql, createFragmentContainer } from 'react-relay/compat';
+import { commitMutation } from 'react-relay';
 import Button from '@material-ui/core/Button';
 import NewsletterHeader from './NewsletterHeader';
 import NewsletterStatic from './NewsletterStatic';
@@ -19,6 +19,7 @@ import { can } from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const NewsletterComponent = ({
+  environment,
   team,
   setFlashMessage,
 }) => {
@@ -27,12 +28,19 @@ const NewsletterComponent = ({
   const languages = safelyParseJSON(team.languages);
   const [language, setLanguage] = React.useState(defaultLanguage || languages[0] || 'en');
   const newsletter = newsletters.find(item => item.node.language === language)?.node || {};
+  const [file, setFile] = React.useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const {
     id,
     number_of_articles,
     introduction,
     header_type,
     header_overlay_text,
+    header_file_url,
     content_type,
     first_article,
     second_article,
@@ -57,6 +65,7 @@ const NewsletterComponent = ({
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
   const [headerType, setHeaderType] = React.useState(header_type || '');
+  const [headerFileUrl, setHeaderFileUrl] = React.useState(header_file_url || '');
   const [rssFeedUrl, setRssFeedUrl] = React.useState(rss_feed_url || '');
   const [contentType, setContentType] = React.useState(content_type || 'static');
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
@@ -66,6 +75,7 @@ const NewsletterComponent = ({
 
   const numberOfArticles = (contentType === 'rss' && articleNum === 0) ? 1 : articleNum;
 
+  // This triggers when language is selected, and rerenders all data fields with their defaults
   React.useEffect(() => {
     setOverlayText(header_overlay_text || '');
     setIntroductionText(introduction || '');
@@ -73,6 +83,7 @@ const NewsletterComponent = ({
     setArticleNum(number_of_articles || 0);
     setArticles([first_article || '', second_article || '', third_article || '']);
     setHeaderType(header_type || '');
+    setHeaderFileUrl(header_file_url || '');
     setContentType(content_type || 'static');
     setRssFeedUrl(rss_feed_url || '');
     setSendEvery(send_every || ['wednesday']);
@@ -199,22 +210,26 @@ const NewsletterComponent = ({
     if (scheduledOrPaused === 'paused' || scheduledOrPaused === 'scheduled') {
       input.enabled = (scheduledOrPaused === 'scheduled');
     }
-    commitMutation(Relay.Store, {
-      mutation,
-      variables: {
-        input,
-      },
-      onCompleted: (response, err) => {
-        if (err) {
+    commitMutation(
+      environment,
+      {
+        mutation,
+        variables: {
+          input,
+        },
+        uploadables: { 'file[]': file },
+        onCompleted: (response, err) => {
+          if (err) {
+            handleError();
+          } else {
+            handleSuccess();
+          }
+        },
+        onError: () => {
           handleError();
-        } else {
-          handleSuccess();
-        }
+        },
       },
-      onError: () => {
-        handleError();
-      },
-    });
+    );
   };
 
   const handleUpdateSchedule = (field, value) => {
@@ -280,8 +295,11 @@ const NewsletterComponent = ({
             className="newsletter-component-header"
             key={`newsletter-header-${language}`}
             disabled={scheduled}
+            file={file}
+            handleFileChange={handleFileChange}
             availableHeaderTypes={team.available_newsletter_header_types || []}
             headerType={headerType}
+            headerFileUrl={headerFileUrl}
             overlayText={overlayText}
             onUpdateField={(fieldName, value) => {
               if (fieldName === 'headerType') {
@@ -429,6 +447,7 @@ export default createFragmentContainer(withSetFlashMessage(NewsletterComponent),
           number_of_articles
           introduction
           header_type
+          header_file_url
           header_overlay_text
           content_type
           first_article

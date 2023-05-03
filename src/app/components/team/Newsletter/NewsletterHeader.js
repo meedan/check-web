@@ -4,7 +4,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import styles from './NewsletterComponent.module.css';
 import Select from '../../cds/inputs/Select';
 import LimitedTextField from '../../layout/inputs/LimitedTextField';
-import UploadFile from '../../UploadFile';
+import Upload from '../../cds/inputs/Upload';
 
 const messages = defineMessages({
   headerTypeNone: {
@@ -38,6 +38,9 @@ const NewsletterHeader = ({
   disabled,
   availableHeaderTypes,
   headerType,
+  headerFileUrl,
+  handleFileChange,
+  file,
   overlayText,
   onUpdateField,
   intl,
@@ -53,7 +56,13 @@ const NewsletterHeader = ({
     </Select>
 
     { (headerType === 'image' || headerType === 'video' || headerType === 'audio') ?
-      <UploadFile type="image+video+audio" disabled={disabled} /> : null }
+      <Upload
+        type="image+video+audio"
+        disabled={disabled}
+        handleFileChange={handleFileChange}
+        headerFileUrl={headerFileUrl}
+        value={file}
+      /> : null }
     { headerType === 'image' ?
       <FormattedMessage
         id="newsletterHeader.overlayPlaceholder"
