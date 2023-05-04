@@ -40,7 +40,7 @@ const ProjectGroup = ({ routeParams }) => (
           };
 
           return (
-            <div className="search-results-wrapper">
+            <div className="project-group search-results-wrapper">
               <Search
                 searchUrlPrefix={`/${routeParams.team}/collection/${routeParams.projectGroupId}`}
                 mediaUrlPrefix={`/${routeParams.team}/media`}
