@@ -22,6 +22,8 @@ import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { ContentColumn } from '../../../styles/js/shared';
+import { getErrorObjectsForRelayModernProblem } from '../../../helpers';
+import CheckError from '../../../CheckError';
 
 const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
@@ -85,9 +87,11 @@ const SimilarityComponent = ({
 
   const [saving, setSaving] = React.useState(false);
 
-  const handleError = () => {
+  const handleError = (error) => {
     setSaving(false);
-    setFlashMessage((<GenericUnknownErrorMessage />), 'error');
+    const errors = getErrorObjectsForRelayModernProblem(error);
+    const message = errors && errors.length > 0 ? CheckError.getMessageFromCode(errors[0].code) : <GenericUnknownErrorMessage />;
+    setFlashMessage(message, 'error');
   };
 
   const handleSuccess = () => {
@@ -110,11 +114,13 @@ const SimilarityComponent = ({
           team_bot_installation {
             id
             json_settings
+            lock_version
             team {
               id
               alegre_bot: team_bot_installation(bot_identifier: "alegre") {
                 id
                 alegre_settings
+                lock_version
               }
             }
           }
@@ -128,6 +134,7 @@ const SimilarityComponent = ({
         input: {
           id: team.alegre_bot.id,
           json_settings: JSON.stringify(settings),
+          lock_version: team.alegre_bot.lock_version,
         },
       },
       onCompleted: handleSuccess,
@@ -503,6 +510,7 @@ export default createFragmentContainer(withSetFlashMessage(SimilarityComponent),
     permissions
     alegre_bot: team_bot_installation(bot_identifier: "alegre") {
       id
+      lock_version
       alegre_settings
     }
   }
