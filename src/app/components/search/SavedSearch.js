@@ -43,7 +43,7 @@ const SavedSearch = ({ routeParams }) => (
             safelyParseJSON(savedQuery, {});
 
           return (
-            <div className="saved-search">
+            <div className="search-results-wrapper">
               <Search
                 searchUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}`}
                 mediaUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}/media`}

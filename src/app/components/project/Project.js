@@ -83,7 +83,7 @@ class ProjectComponent extends React.PureComponent {
     const privacyLabel = privacyLabels[project.privacy];
 
     return (
-      <div className="project">
+      <div className="search-results-wrapper">
         <Search
           searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
