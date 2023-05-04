@@ -17,7 +17,6 @@ import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import AddCircleIcon from '../../../icons/add_circle.svg';
 import CategoryIcon from '../../../icons/category.svg';
-import DynamicFeedIcon from '../../../icons/dynamic_feed.svg';
 import ExpandLessIcon from '../../../icons/expand_less.svg';
 import ExpandMoreIcon from '../../../icons/expand_more.svg';
 import FileDownloadIcon from '../../../icons/file_download.svg';
@@ -334,7 +333,6 @@ const ProjectsComponent = ({
                   key={feed.id}
                   routePrefix="feed"
                   routeSuffix="/shared"
-                  icon={<DynamicFeedIcon />}
                   project={feed}
                   teamSlug={team.slug}
                   onClick={handleClick}
