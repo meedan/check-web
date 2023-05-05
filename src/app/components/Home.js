@@ -288,7 +288,7 @@ class HomeComponent extends Component {
                 {...this.props}
               />
             ) : null}
-            <div className={styles.main}>
+            <main className={styles.main}>
               <Header
                 loggedIn={loggedIn}
                 pageType={routeSlug}
@@ -300,7 +300,7 @@ class HomeComponent extends Component {
               <div className={styles.mainContentWrapper}>
                 {children}
               </div>
-            </div>
+            </main>
           </div>
         </MuiPickersUtilsProvider>
       </React.Fragment>
