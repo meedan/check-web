@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import CreateProjectMedia from '../media/CreateMedia';
-import ViewModeSwitcher from './ViewModeSwitcher';
 import Can from '../Can';
 import { units, Row, FlexRow } from '../../styles/js/shared';
 
@@ -54,7 +53,6 @@ const Toolbar = ({
           {similarAction}
           <span className="toolbar__title">{title}</span>
           {actions}
-          <ViewModeSwitcher viewMode={viewMode} onChangeViewMode={onChangeViewMode} />
         </Row>
         {['trash', 'collection', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed'].indexOf(page) === -1 && resultType !== 'feed' ? (
           <Can {...perms}>
