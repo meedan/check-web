@@ -8,7 +8,6 @@ import NewsletterHeader from './NewsletterHeader';
 import NewsletterStatic from './NewsletterStatic';
 import NewsletterRssFeed from './NewsletterRssFeed';
 import NewsletterScheduler from './NewsletterScheduler';
-import LimitedTextField from '../../layout/inputs/LimitedTextField';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import styles from './NewsletterComponent.module.css';
@@ -45,7 +44,6 @@ const NewsletterComponent = ({
     first_article,
     second_article,
     third_article,
-    footer,
     rss_feed_url,
     send_every,
     send_on,
@@ -61,7 +59,6 @@ const NewsletterComponent = ({
   const [saving, setSaving] = React.useState(false);
   const [overlayText, setOverlayText] = React.useState(header_overlay_text || '');
   const [introductionText, setIntroductionText] = React.useState(introduction || '');
-  const [footerText, setFooterText] = React.useState(footer || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
   const [headerType, setHeaderType] = React.useState(header_type || '');
@@ -79,7 +76,6 @@ const NewsletterComponent = ({
   React.useEffect(() => {
     setOverlayText(header_overlay_text || '');
     setIntroductionText(introduction || '');
-    setFooterText(footer || '');
     setArticleNum(number_of_articles || 0);
     setArticles([first_article || '', second_article || '', third_article || '']);
     setHeaderType(header_type || '');
@@ -137,7 +133,6 @@ const NewsletterComponent = ({
           third_article
           rss_feed_url
           number_of_articles
-          footer
           send_every
           send_on
           timezone
@@ -167,7 +162,6 @@ const NewsletterComponent = ({
           third_article
           rss_feed_url
           number_of_articles
-          footer
           send_every
           send_on
           timezone
@@ -196,7 +190,6 @@ const NewsletterComponent = ({
       third_article: articles[2],
       rss_feed_url: rssFeedUrl,
       number_of_articles: numberOfArticles,
-      footer: footerText,
       send_every: sendEvery,
       timezone,
       time,
@@ -374,15 +367,6 @@ const NewsletterComponent = ({
                 articles={articles}
                 onUpdateArticles={setArticles}
               /> : null }
-            <FormattedMessage
-              id="newsletterComponent.placeholder"
-              defaultMessage="Add text"
-              description="Placeholder text for newsletter field"
-            >
-              { placeholder => (
-                <LimitedTextField placeholder={placeholder} className="newsletter-component-footer" maxChars={60} value={footerText} setValue={setFooterText} disabled={scheduled} />
-              )}
-            </FormattedMessage>
           </div>
           <NewsletterScheduler
             type={contentType}
@@ -422,7 +406,6 @@ NewsletterComponent.propTypes = {
           second_article: PropTypes.string,
           third_article: PropTypes.string,
           rss_feed_url: PropTypes.string,
-          footer: PropTypes.string,
         }),
       }).isRequired,
       ),
@@ -466,7 +449,6 @@ export default createFragmentContainer(withSetFlashMessage(NewsletterComponent),
           }
           enabled
           language
-          footer
         }
       }
     }
