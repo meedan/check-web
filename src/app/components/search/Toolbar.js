@@ -36,8 +36,6 @@ const Toolbar = ({
   team,
   search,
   resultType,
-  viewMode,
-  onChangeViewMode,
 }) => {
   let perms = { permissions: {}, permission: '' };
   if (project) {
@@ -68,13 +66,10 @@ const Toolbar = ({
 
 Toolbar.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
-  viewMode: 'shorter',
 };
 
 Toolbar.propTypes = {
   page: PropTypes.oneOf(['trash', 'collection', 'folder', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed']), // FIXME find a cleaner way to render Trash differently
-  viewMode: PropTypes.oneOf(['shorter', 'longer']),
-  onChangeViewMode: PropTypes.func.isRequired,
   // FIXME: Define other PropTypes
 };
 
