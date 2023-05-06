@@ -14,7 +14,7 @@ const messages = defineMessages({
   },
   headerTypeLinkPreview: {
     id: 'newsletterHeader.headerTypeLinkPreview',
-    defaultMessage: 'Link preview',
+    defaultMessage: 'Link preview (requires a verified account on WhatsApp)',
     description: 'One of the options for a newsletter header type',
   },
   headerTypeImage: {

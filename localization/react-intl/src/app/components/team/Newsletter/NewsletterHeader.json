@@ -7,7 +7,7 @@
   {
     "id": "newsletterHeader.headerTypeLinkPreview",
     "description": "One of the options for a newsletter header type",
-    "defaultMessage": "Link preview"
+    "defaultMessage": "Link preview (requires a verified account on WhatsApp)"
   },
   {
     "id": "newsletterHeader.headerTypeImage",
