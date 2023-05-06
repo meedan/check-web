@@ -71,7 +71,7 @@ const NewsletterHeader = ({
       >
         { placeholder => (
           <LimitedTextField
-            disabled={disabled}
+            disabled={disabled || (!file && !headerFileUrl)}
             maxChars={160}
             value={overlayText}
             placeholder={placeholder}
