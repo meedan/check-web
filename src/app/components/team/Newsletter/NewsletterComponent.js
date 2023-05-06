@@ -203,6 +203,10 @@ const NewsletterComponent = ({
     if (scheduledOrPaused === 'paused' || scheduledOrPaused === 'scheduled') {
       input.enabled = (scheduledOrPaused === 'scheduled');
     }
+    const uploadables = {};
+    if (file) {
+      uploadables['file[]'] = file;
+    }
     commitMutation(
       environment,
       {
@@ -210,7 +214,7 @@ const NewsletterComponent = ({
         variables: {
           input,
         },
-        uploadables: { 'file[]': file },
+        uploadables,
         onCompleted: (response, err) => {
           if (err) {
             handleError();
