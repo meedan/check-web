@@ -43,6 +43,6 @@
   until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
   # Uncomment to debug Check API and Alegre. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
   tail -f check-api/log/test.log &
-  docker-compose logs -f api &
+  # docker-compose logs -f api &
   docker-compose logs -f alegre &
 # fi
