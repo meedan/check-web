@@ -57,7 +57,8 @@ const SimilarityComponent = ({
   const [vectorModelToggle, setVectorModelToggle] = React.useState((
     alegre_settings.text_similarity_model === MEAN_TOKENS_MODEL ||
     alegre_settings.text_similarity_model === INDIAN_MODEL ||
-    alegre_settings.text_similarity_model === FILIPINO_MODEL
+    alegre_settings.text_similarity_model === FILIPINO_MODEL ||
+    alegre_settings.text_similarity_model === OPENAI_ADA_MODEL
   ));
 
   const handleSettingsChange = (key, value) => {
