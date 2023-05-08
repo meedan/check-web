@@ -1,5 +1,5 @@
 shared_examples 'tag' do
-  it 'should manage and search team tags', bin6: true do
+  it 'should manage and search team tags', bin2: true do
     # Create team and go to team page that should not contain any tag
     team = "team#{Time.now.to_i}-#{rand(99_999)}"
     create_team_and_go_to_settings_page(team)

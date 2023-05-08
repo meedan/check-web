@@ -59,7 +59,7 @@ shared_examples 'source' do
     expect(@driver.page_source.include?('Brasil')).to be(true)
   end
 
-  it 'should add a new source for a media, answer and edit the source annotation', bin6: true do
+  it 'should add a new source for a media, answer and edit the source annotation', bin3: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
