@@ -29,6 +29,7 @@ const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
 const ELASTICSEARCH_MODEL = 'elasticsearch';
 const FILIPINO_MODEL = 'paraphrase-filipino-mpnet-base-v2';
+const OPENAI_ADA_MODEL = 'openai-text-embedding-ada-002';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -308,6 +309,12 @@ const SimilarityComponent = ({
                           value={FILIPINO_MODEL}
                           control={<Radio />}
                           label="Filipino Paraphrase - Specialized in Filipino"
+                        />
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={OPENAI_ADA_MODEL}
+                          control={<Radio />}
+                          label="OpenAI ada model - Experimental, pay-per-use model"
                         />
                       </RadioGroup>
                     </Box>
