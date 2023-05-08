@@ -9,7 +9,7 @@ networks:
   dev:
 services:
   elasticsearch:
-    build: check-api/elasticsearch
+    build: alegre/elasticsearch
     environment:
       discovery.type: single-node
       transport.host: 127.0.0.1
