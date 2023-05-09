@@ -88,7 +88,7 @@ shared_examples 'similarity' do
     create_media('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.')
     create_media('Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1500s.')
     wait_for_selector('.medias__item')
-    sleep 90 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    sleep 120 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
@@ -103,10 +103,10 @@ shared_examples 'similarity' do
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     create_image('files/similarity.jpg')
-    sleep 10
+    sleep 120
     create_image('files/similarity2.jpg')
     wait_for_selector('.medias__item')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    sleep 120 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
@@ -121,10 +121,10 @@ shared_examples 'similarity' do
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     create_image('files/video.mp4')
-    sleep 10
+    sleep 120
     create_image('files/video2.mp4')
     wait_for_selector('.medias__item')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    sleep 120 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
@@ -139,11 +139,11 @@ shared_examples 'similarity' do
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     create_image('files/audio.mp3')
-    sleep 10
-    wait_for_selector('.medias__item', :css, 20, true)
+    sleep 120
+    wait_for_selector('.medias__item', :css, 60, true)
     create_image('files/audio.ogg')
     wait_for_selector('.medias__item')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    sleep 120 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
