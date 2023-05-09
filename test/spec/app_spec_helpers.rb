@@ -21,11 +21,11 @@ module AppSpecHelpers
     false
   end
 
-  def wait_for_selector(selector, type = :css, timeout = 180, reload = false, index: 0)
+  def wait_for_selector(selector, type = :css, timeout = 20, reload = false, index: 0)
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
 
-  def wait_for_selector_list(selector, type = :css, timeout = 180, _test = 'unknown', reload = false)
+  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false)
     elements = []
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
@@ -54,7 +54,7 @@ module AppSpecHelpers
     elements
   end
 
-  def wait_for_selector_list_size(selector, size, type = :css, timeout = 180, retries = 10, test = 'unknown', reload = false)
+  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false)
     elements = []
     attempts = 0
     start = Time.now.to_i

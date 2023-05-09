@@ -71,7 +71,7 @@ shared_examples 'tag' do
     # create a media
     wait_for_selector('.projects-list__all-items').click
     create_media('new media')
-    sleep 30 # wait for the items to be indexed in the Elasticsearch
+    sleep 90 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-tags__tag')
     expect(@driver.page_source.include?('tag added automatically')).to be(true)

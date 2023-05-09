@@ -18,6 +18,7 @@ shared_examples 'search' do
 
   it 'should filter by status and search by keywords', bin5: true, quick: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
+    sleep 90 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click
     change_the_status_to('.media-status__menu-item--false', false)
@@ -80,6 +81,7 @@ shared_examples 'search' do
 
   it 'should search and change sort criteria', bin5: true do
     api_create_claim_and_go_to_search_page
+    sleep 90 # wait for the items to be indexed in Elasticsearch
     expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/related/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/recent_added/).nil?).to be(true)
@@ -154,6 +156,7 @@ shared_examples 'search' do
   end
   it 'should change search sort and search criteria through URL', bin5: true do
     api_create_claim_and_go_to_search_page
+    sleep 90
     wait_for_selector('.media__heading', :css, 20, true)
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022related\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
     wait_for_selector('#search-input')
