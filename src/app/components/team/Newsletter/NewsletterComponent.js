@@ -49,7 +49,7 @@ const NewsletterComponent = ({
     send_on,
     timezone: send_timezone,
     time: send_time,
-    enabled: scheduled,
+    enabled,
     subscribers_count,
     last_sent_at,
     last_scheduled_at,
@@ -69,6 +69,7 @@ const NewsletterComponent = ({
   const [sendOn, setSendOn] = React.useState(send_on || null);
   const [timezone, setTimezone] = React.useState(send_timezone || '');
   const [time, setTime] = React.useState(send_time || '9:00');
+  const [scheduled, setScheduled] = React.useState(enabled || false);
 
   const numberOfArticles = (contentType === 'rss' && articleNum === 0) ? 1 : articleNum;
 
@@ -105,7 +106,8 @@ const NewsletterComponent = ({
     ), 'error');
   };
 
-  const handleSuccess = () => {
+  const handleSuccess = (response) => {
+    setScheduled(response?.updateTiplineNewsletter?.tipline_newsletter?.enabled);
     setSaving(false);
     setFlashMessage((
       <FormattedMessage
@@ -219,7 +221,7 @@ const NewsletterComponent = ({
           if (err) {
             handleError();
           } else {
-            handleSuccess();
+            handleSuccess(response);
           }
         },
         onError: () => {
