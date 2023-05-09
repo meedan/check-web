@@ -1,0 +1,12 @@
+[
+  {
+    "id": "upload.dropFile",
+    "description": "A label that appears when a user drags a file over a valid file drop area",
+    "defaultMessage": "Drop file here"
+  },
+  {
+    "id": "upload.dragMessage",
+    "description": "A label that appears when a user drags a file over a valid file drop area",
+    "defaultMessage": "Drag a video, image, PDF, or audio file here or"
+  }
+]

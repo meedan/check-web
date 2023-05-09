@@ -38,9 +38,11 @@ const NewsletterHeader = ({
   disabled,
   availableHeaderTypes,
   headerType,
-  headerFileUrl,
   handleFileChange,
   file,
+  fileName,
+  setFile,
+  setFileName,
   overlayText,
   onUpdateField,
   intl,
@@ -60,7 +62,9 @@ const NewsletterHeader = ({
         type="image+video+audio"
         disabled={disabled}
         handleFileChange={handleFileChange}
-        headerFileUrl={headerFileUrl}
+        fileName={fileName}
+        setFile={setFile}
+        setFileName={setFileName}
         value={file}
       /> : null }
     { headerType === 'image' ?
@@ -71,7 +75,7 @@ const NewsletterHeader = ({
       >
         { placeholder => (
           <LimitedTextField
-            disabled={disabled || (!file && !headerFileUrl)}
+            disabled={disabled || (!file && !fileName)}
             maxChars={160}
             value={overlayText}
             placeholder={placeholder}
@@ -92,12 +96,16 @@ NewsletterHeader.defaultProps = {
   availableHeaderTypes: [],
   headerType: '',
   overlayText: null,
+  fileName: '',
 };
 
 NewsletterHeader.propTypes = {
   disabled: PropTypes.bool,
   availableHeaderTypes: PropTypes.arrayOf(PropTypes.string),
   headerType: PropTypes.oneOf(['', 'none', 'link_preview', 'image', 'video', 'audio']),
+  setFile: PropTypes.func.isRequired,
+  setFileName: PropTypes.func.isRequired,
+  fileName: PropTypes.string,
   overlayText: PropTypes.string,
   onUpdateField: PropTypes.func.isRequired,
   intl: intlShape.isRequired,

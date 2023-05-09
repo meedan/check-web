@@ -1,0 +1,48 @@
+.container {
+  background-color: var(--otherWhite);
+  border: 2px dashed var(--grayBorderMain);
+  border-radius: 8px;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.input {
+  display: none;
+}
+
+.dropping {
+  background-color: var(--brandHoverAccent);
+  border-color: var(--brandMain);
+}
+
+.drop-text {
+  color: var(--brandSecondary) !important;
+  pointer-events: none;
+}
+
+.file-name {
+  color: var(--brandSecondary) !important;
+  padding: 0 !important;
+  text-align: left;
+}
+
+.file-name-container {
+  background-color: var(--brandLight);
+  border: none;
+}
+
+.file-name-grid {
+  align-items: center;
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: 5fr 1fr;
+  grid-template-rows: 1fr;
+
+  :last-child {
+    justify-self: end;
+  }
+}
+
+.icon-label {
+  vertical-align: middle;
+}

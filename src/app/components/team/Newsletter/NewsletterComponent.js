@@ -62,7 +62,8 @@ const NewsletterComponent = ({
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
   const [headerType, setHeaderType] = React.useState(header_type || '');
-  const [headerFileUrl, setHeaderFileUrl] = React.useState(header_file_url || '');
+  const fileNameFromUrl = new RegExp(/[^/\\&?]+\.\w{3,4}(?=([?&].*$|$))/);
+  const [fileName, setFileName] = React.useState((header_file_url && header_file_url.match(fileNameFromUrl) && header_file_url.match(fileNameFromUrl)[0]) || '');
   const [rssFeedUrl, setRssFeedUrl] = React.useState(rss_feed_url || '');
   const [contentType, setContentType] = React.useState(content_type || 'static');
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
@@ -80,7 +81,6 @@ const NewsletterComponent = ({
     setArticleNum(number_of_articles || 0);
     setArticles([first_article || '', second_article || '', third_article || '']);
     setHeaderType(header_type || '');
-    setHeaderFileUrl(header_file_url || '');
     setContentType(content_type || 'static');
     setRssFeedUrl(rss_feed_url || '');
     setSendEvery(send_every || ['wednesday']);
@@ -89,6 +89,12 @@ const NewsletterComponent = ({
     setTime(send_time || '09:00');
   }, [language]);
 
+  // This triggers when a file is changed, rerenders the file name
+  React.useEffect(() => {
+    if (file) {
+      setFileName(file.name);
+    }
+  }, [file]);
 
   const handleLanguageChange = (value) => {
     const { languageCode } = value;
@@ -296,9 +302,11 @@ const NewsletterComponent = ({
             disabled={scheduled}
             file={file}
             handleFileChange={handleFileChange}
+            setFile={setFile}
+            setFileName={setFileName}
             availableHeaderTypes={team.available_newsletter_header_types || []}
             headerType={headerType}
-            headerFileUrl={headerFileUrl}
+            fileName={fileName}
             overlayText={overlayText}
             onUpdateField={(fieldName, value) => {
               if (fieldName === 'headerType') {
