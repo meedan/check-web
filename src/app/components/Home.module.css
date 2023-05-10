@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  position: relative;
+}
+
+.main {
+  flex: 1 1 calc(100% - 256px);
+  overflow: hidden;
+
+  /* On the item page on mobile, we don't have scrollbars per column, so the whole page should scroll */
+  @media (min-width: 1100px) {
+    height: 100vh;
+  }
+}
+
+.mainContentWrapper {
+  background-color: var(--otherWhite);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  :global(.search-results-wrapper) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}

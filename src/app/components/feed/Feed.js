@@ -100,7 +100,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     <React.Fragment>
       {/* The "Shared" tab just shows content from that workspace */}
       { tab === 'shared' ?
-        <div id="feed__from-workspace">
+        <div id="feed__from-workspace" className="search-results-wrapper">
           <Search
             mediaUrlPrefix="media"
             result
@@ -125,7 +125,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
       {/* For a "published" feed, it's just all the fact-checks from the workspaces */}
       { tab === 'feed' && feed.published ?
-        <div id="feed__fact-checks">
+        <div id="feed__fact-checks" className="search-results-wrapper">
           <Search
             mediaUrlPrefix="media"
             query={{
@@ -168,7 +168,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
       {/* If it's not a "published" feed, then it's a clustered view from workspace data */}
       { tab === 'feed' && !feed.published ?
-        <div id="feed__clusters">
+        <div id="feed__clusters" className="search-results-wrapper">
           <Search
             mediaUrlPrefix={`/check/feed/${feed.dbid}`}
             query={{
