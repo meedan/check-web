@@ -2,22 +2,17 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import {
-  textDisabled,
-  units,
-  caption,
-} from '../styles/js/shared';
+import { units } from '../styles/js/shared';
 
 const StyledFooter = styled.footer`
-  color: ${textDisabled};
-  font: ${caption};
+  color: var(--textDisabled);
   margin: ${units(4)} 0;
   padding: ${units(1)} 0;
   text-align: center;
 `;
 
 const Footer = () => (
-  <StyledFooter>
+  <StyledFooter className="typography-caption">
     <FormattedMessage
       id="footer.madeBy"
       defaultMessage="Check: Verify breaking news online. Made with ✨ by {meedan}"

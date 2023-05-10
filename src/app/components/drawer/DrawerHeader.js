@@ -1,87 +1,43 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router';
+import { injectIntl, intlShape, defineMessages } from 'react-intl';
 import TeamAvatar from '../team/TeamAvatar';
 import { stringHelper } from '../../customHelpers';
-import {
-  textPrimary,
-  subheading1,
-  units,
-  Text,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
+import styles from './DrawerHeader.module.css';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(2, 1),
-    display: 'flex',
-    alignItems: 'center',
+const messages = defineMessages({
+  settingsDescription: {
+    id: 'teamMenu.teamSettings',
+    defaultMessage: 'Workspace settings',
+    description: 'Tooltip for drawer navigation',
   },
-  link: {
-    flex: '1 1 auto',
-    overflow: 'hidden', // shrink when team name is too long
-    display: 'flex',
-    alignItems: 'center',
-    textDecoration: 'none',
-  },
-  logo: {
-    flex: '0 0 auto',
-    marginRight: theme.spacing(1),
-  },
-  name: {
-    flex: '1 1 auto',
-    font: subheading1,
-    fontWeight: 500,
-    color: textPrimary,
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
-  settings: {
-    flex: '0 0 auto',
-  },
-}));
+});
 
-const DrawerHeader = ({ team, loggedIn, currentUserIsMember }) => {
-  const classes = useStyles();
-
-  if (!team) {
-    return loggedIn ? (
-      <div className={classes.root}>
+const DrawerHeader = (props) => {
+  if (!props.team) {
+    return props.loggedIn ? (
+      <div className={styles.drawerHeader}>
         <img height={31 /* file's real height */} alt="Team Logo" src={stringHelper('LOGO_URL')} />
       </div>
     ) : null;
   }
 
   return (
-    <div className={classes.root}>
-      <Link
-        className={`team-header__drawer-team-link ${classes.link}`}
-        to={`/${team.slug}/`}
-      >
-        <TeamAvatar className={classes.logo} size={units(5.5)} team={team} />
-        <Text ellipsis className={classes.name}>
-          {team.name}
-        </Text>
-      </Link>
-      {currentUserIsMember ? (
-        <Tooltip title={
-          <FormattedMessage id="teamMenu.teamSettings" defaultMessage="Workspace settings" />
-        }
+    <div className={styles.drawerHeader}>
+      {props.currentUserIsMember ? (
+        <Link
+          className={`typography-button team-header__drawer-team-link ${styles.link}`}
+          to={`/${props.team.slug}/settings/workspace`}
+          title={props.intl.formatMessage(messages.settingsDescription)}
         >
-          <IconButton
-            className={`team-menu__team-settings-button ${classes.settings}`}
-            onClick={() => browserHistory.push(`/${team.slug}/settings`)}
-            edge="end"
-          >
-            <SettingsIcon />
-          </IconButton>
-        </Tooltip>
+          <TeamAvatar className={styles.teamLogo} size={units(5.5)} team={props.team} />
+          <span className={styles.teamName}>
+            {props.team.name}
+          </span>
+        </Link>
       ) : null}
     </div>
   );
@@ -97,5 +53,6 @@ DrawerHeader.propTypes = {
   }), // or null
   loggedIn: PropTypes.bool.isRequired,
   currentUserIsMember: PropTypes.bool.isRequired,
+  intl: intlShape.isRequired,
 };
-export default DrawerHeader;
+export default injectIntl(DrawerHeader);

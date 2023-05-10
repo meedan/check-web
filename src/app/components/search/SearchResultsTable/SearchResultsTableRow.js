@@ -4,7 +4,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
-import { grayBackground } from '../../../styles/js/shared';
 
 const isFeedPage = /\/feed$/.test(window.location.pathname);
 
@@ -16,20 +15,20 @@ const swallowClick = (ev) => {
 const useStyles = makeStyles({
   root: ({ dbid, isRead }) => ({
     cursor: dbid ? 'pointer' : 'wait',
-    background: isRead || isFeedPage ? grayBackground : 'transparent',
+    background: isRead || isFeedPage ? 'var(--grayBackground)' : 'transparent',
     textDecoration: 'none',
   }),
   hover: ({ isRead }) => ({
     '&$hover:hover': {
       boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
-      background: isRead || isFeedPage ? grayBackground : 'transparent',
+      background: isRead || isFeedPage ? 'var(--grayBackground)' : 'transparent',
       transform: 'scale(1)',
     },
   }),
 });
 
 export default function SearchResultsTableRow({
-  projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked, resultType, viewMode,
+  projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked, resultType,
 }) {
   const { dbid, is_read: isRead } = projectMedia;
   const classes = useStyles({ dbid, isRead });
@@ -76,7 +75,6 @@ export default function SearchResultsTableRow({
           type={type}
           projectMedia={projectMedia}
           projectMediaUrl={projectMediaOrFeedUrl}
-          viewMode={viewMode}
         />
       ))}
     </TableRow>
@@ -85,7 +83,6 @@ export default function SearchResultsTableRow({
 SearchResultsTableRow.defaultProps = {
   projectMediaUrl: null,
   resultType: 'default',
-  viewMode: 'shorter',
 };
 SearchResultsTableRow.propTypes = {
   columnDefs: PropTypes.arrayOf(PropTypes.shape({
@@ -99,6 +96,5 @@ SearchResultsTableRow.propTypes = {
   projectMediaUrl: PropTypes.string, // or null
   checked: PropTypes.bool.isRequired,
   onChangeChecked: PropTypes.func.isRequired, // onChangeChecked(ev, projectMedia) => undefined
-  viewMode: PropTypes.oneOf(['shorter', 'longer']),
   resultType: PropTypes.string,
 };

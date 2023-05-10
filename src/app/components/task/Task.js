@@ -20,15 +20,7 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
-import {
-  units,
-  errorMain,
-  grayBackground,
-  grayBorderMain,
-  brandMain,
-  textPrimary,
-  textDisabled,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const StyledWordBreakDiv = styled.div`
@@ -40,7 +32,7 @@ const StyledWordBreakDiv = styled.div`
   .task {
     box-shadow: none;
     border: 0;
-    border-bottom: 1px solid ${grayBorderMain};
+    border-bottom: 1px solid var(--grayBorderMain);
     border-radius: 0;
     margin-bottom: 0 !important;
 
@@ -68,7 +60,7 @@ const StyledWordBreakDiv = styled.div`
 
 const StyledTaskResponses = styled.div`
   .task__resolved {
-    border-bottom: 1px solid ${grayBorderMain};
+    border-bottom: 1px solid var(--grayBorderMain);
     padding-bottom: ${units(1)};
     margin-bottom: ${units(1)};
   }
@@ -78,12 +70,12 @@ const StyledAnnotatorInformation = styled.span`
   display: inline-block;
   p {
     font-size: 9px;
-    color: ${textDisabled};
+    color: var(--textDisabled);
   }
 `;
 
 const StyledRequired = styled.span`
-  color: ${errorMain};
+  color: var(--errorMain);
 `;
 
 const StyledMapEditor = styled.div`
@@ -95,10 +87,10 @@ const StyledMapEditor = styled.div`
 
 const StyledMultiselect = styled.div`
   .Mui-checked + .MuiFormControlLabel-label.Mui-disabled {
-    color: ${textPrimary};
+    color: var(--textPrimary);
   }
   .Mui-checked {
-    color: ${brandMain} !important;
+    color: var(--brandMain) !important;
   }
 `;
 
@@ -108,12 +100,12 @@ const StyledFieldInformation = styled.div`
 
 const StyledMetadataButton = styled.div`
   button {
-    background-color: ${grayBackground};
+    background-color: var(--grayBackground);
     margin-top: ${units(1)};
     display: none;
   }
   button:hover {
-    background-color: ${grayBorderMain};;
+    background-color: var(--grayBorderMain);
   }
 `;
 

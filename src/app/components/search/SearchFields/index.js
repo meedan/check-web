@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import ClearIcon from '@material-ui/icons/Clear';
 import DescriptionIcon from '@material-ui/icons/Description';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
@@ -19,6 +18,7 @@ import MarkunreadIcon from '@material-ui/icons/Markunread';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import ErrorIcon from '@material-ui/icons/Error';
 import CorporateFareIcon from '@material-ui/icons/CorporateFare';
+import ClearIcon from '../../../icons/clear.svg';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -27,7 +27,7 @@ import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
 import { can } from '../../Can';
 import { languageLabel } from '../../../LanguageRegistry';
-import { Row, brandMain, textPrimary } from '../../../styles/js/shared';
+import { Row } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
@@ -296,9 +296,9 @@ const SearchFields = ({
   const hideChannel = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname) || readOnlyFields.includes('channels');
 
   const OperatorToggle = () => {
-    let operatorProps = { style: { minWidth: 0, color: brandMain }, onClick: handleOperatorClick };
+    let operatorProps = { style: { minWidth: 0, color: 'var(--brandMain)' }, onClick: handleOperatorClick };
     if (page === 'feed') {
-      operatorProps = { style: { minWidth: 0, color: textPrimary }, disabled: true };
+      operatorProps = { style: { minWidth: 0, color: 'var(--textPrimary)' }, disabled: true };
     }
     return (
       <Button {...operatorProps}>

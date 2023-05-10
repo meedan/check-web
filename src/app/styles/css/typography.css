@@ -1,0 +1,135 @@
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  color: var(--textPrimary);
+  font: 400 var(--fontSizeDefault) var(--fontStackSans);
+  text-rendering: optimizelegibility;
+  -webkit-text-size-adjust: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: var(--textPrimary);
+  font: 500 20px/32px var(--fontStackSans);
+}
+
+h2 {
+  color: var(--textPrimary);
+  font: 400 15px/24px var(--fontStackSans);
+}
+
+a {
+  color: var(--textLink);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--textLink);
+    text-decoration: none;
+  }
+
+  &:visited {
+    color: var(--textLink);
+  }
+
+  &:not([href]) {
+    &,
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &.link__internal {
+    color: var(--textPrimary);
+    text-decoration: none;
+  }
+}
+
+p {
+  margin-top: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.typography-h1 {
+  @mixin typography-h1;
+}
+
+.typography-h2 {
+  @mixin typography-h2;
+}
+
+.typography-h3 {
+  @mixin typography-h3;
+}
+
+.typography-h4 {
+  @mixin typography-h4;
+}
+
+.typography-h5 {
+  @mixin typography-h5;
+}
+
+.typography-h6 {
+  @mixin typography-h6;
+}
+
+.typography-subtitle1 {
+  @mixin typography-subtitle1;
+}
+
+.typography-subtitle2 {
+  @mixin typography-subtitle2;
+}
+
+.typography-body1 {
+  @mixin typography-body1;
+}
+
+.typography-body1-bold {
+  @mixin typography-body1-bold;
+}
+
+.typography-body1-italic {
+  @mixin typography-body1-bold;
+}
+
+.typography-body2 {
+  @mixin typography-body2;
+}
+
+.typography-body2-bold {
+  @mixin typography-body2-bold;
+}
+
+.typography-body2-italic {
+  @mixin typography-body2-italic;
+}
+
+.typography-button {
+  @mixin typography-button;
+}
+
+.typography-caption {
+  @mixin typography-caption;
+}
+
+.typography-overline {
+  @mixin typography-overline;
+}

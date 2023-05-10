@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import RemoveableWrapper from './RemoveableWrapper';
-import NumberIcon from '../../icons/NumberIcon';
-import { brandMain } from '../../styles/js/shared';
+import NumberIcon from '../../icons/numbers.svg';
 
 const messages = defineMessages({
   linkedItems: {
@@ -41,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   inputNotEmpty: {
     '& fieldset': {
-      border: `2px solid ${brandMain}`,
+      border: '2px solid var(--brandMain)',
     },
   },
 }));
@@ -64,25 +63,27 @@ const NumericRangeFilter = ({
   const filterKeysMapping = { linked_items_count: 'linkedItems', suggestions_count: 'suggestedItems', demand: 'tiplineRequests' };
 
   const handleFieldChange = (key, keyValue) => {
-    const range = { min: minNumber, max: maxNumber };
-    if (key === 'min') {
-      setMinNumber(keyValue);
-      range.min = keyValue;
-    } else if (key === 'max') {
-      setMaxNumber(keyValue);
-      range.max = keyValue;
-    }
-    if (range.max !== '' && parseInt(range.min, 10) > parseInt(range.max, 10)) {
-      setShowErrorMsg(true);
-    } else {
-      setShowErrorMsg(false);
-      onChange(filterKey, range);
+    if (keyValue >= 0) {
+      const range = { min: minNumber, max: maxNumber };
+      if (key === 'min') {
+        setMinNumber(keyValue);
+        range.min = keyValue;
+      } else if (key === 'max') {
+        setMaxNumber(keyValue);
+        range.max = keyValue;
+      }
+      if (range.max !== '' && parseInt(range.min, 10) > parseInt(range.max, 10)) {
+        setShowErrorMsg(true);
+      } else {
+        setShowErrorMsg(false);
+        onChange(filterKey, range);
+      }
     }
   };
 
   return (
     <div>
-      <RemoveableWrapper icon={<NumberIcon />} readOnly={readOnly} onRemove={onRemove} boxProps={{ px: 0.5 }}>
+      <RemoveableWrapper icon={<NumberIcon style={{ fontSize: '24px' }} />} readOnly={readOnly} onRemove={onRemove} boxProps={{ px: 0.5 }}>
         <Box display="flex" alignItems="center">
           <Box pr={1}>
             <Typography component="span" variant="body1">

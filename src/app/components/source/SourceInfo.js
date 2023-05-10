@@ -36,7 +36,6 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
   StyledIconButton,
-  textLink,
 } from '../../styles/js/shared';
 import {
   StyledTwoColumns,
@@ -53,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   linkedText: {
-    color: textLink,
+    color: 'var(--textLink)',
     textDecoration: 'underline',
   },
   sourceInfoRight: {

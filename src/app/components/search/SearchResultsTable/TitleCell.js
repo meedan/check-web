@@ -7,14 +7,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  units,
-  brandMain,
-  alertMain,
-  textSecondary,
-  textPrimary,
-  otherWhite,
-} from '../../../styles/js/shared';
+import { units } from '../../../styles/js/shared';
 
 const isFeedPage = () => (/\/feed/.test(window.location.pathname));
 
@@ -41,14 +34,14 @@ const useStyles = makeStyles({
     minHeight: units(10),
     height: units(10),
     marginRight: units(1),
-    backgroundColor: textPrimary,
+    backgroundColor: 'var(--textPrimary)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   icon: {
     fontSize: '40px',
-    color: otherWhite,
+    color: 'var(--otherWhite)',
   },
   textBox: {
     // This is a <div>, not a <th> with vertical-align center, because we need
@@ -65,7 +58,7 @@ const useStyles = makeStyles({
     minWidth: 470,
   },
   title: ({ isRead }) => ({
-    color: textPrimary,
+    color: 'var(--textPrimary)',
     fontWeight: !isRead || isFeedPage() ? 'bold' : 'normal',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -73,7 +66,7 @@ const useStyles = makeStyles({
   }),
   description: {
     maxHeight: units(5),
-    color: textSecondary,
+    color: 'var(--textSecondary)',
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
@@ -85,16 +78,9 @@ const useStyles = makeStyles({
     verticalAlign: 'middle',
     fontSize: 18,
   },
-  titleViewModeLonger: {
-    maxHeight: units(22),
-    '-webkit-line-clamp': 4,
-  },
   titleViewModeShorter: {
     maxHeight: units(5),
     '-webkit-line-clamp': 2,
-  },
-  cellViewModeLonger: {
-    height: units(15),
   },
   cellViewModeShorter: {
     height: units(10),
@@ -105,10 +91,9 @@ const TitleText = ({
   classes,
   title,
   description,
-  viewMode,
 }) => (
-  <div className={viewMode === 'longer' ? [classes.textBox, classes.cellViewModeLonger].join(' ') : [classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <Typography variant="body1" className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
+  <div className={[classes.textBox, classes.cellViewModeShorter].join(' ')}>
+    <Typography variant="body1" className={[classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
     </Typography>
     {description ? (
@@ -134,18 +119,18 @@ const IconOrNothing = ({
     return null;
   }
   if (isMain) {
-    return <ContentCopyIcon style={{ color: brandMain }} className={`${className} similarity-is-main`} />;
+    return <ContentCopyIcon style={{ color: 'var(--brandMain)' }} className={`${className} similarity-is-main`} />;
   }
   if (isConfirmed) {
     return <ContentCopyIcon style={{ transform: 'rotate(180deg)' }} className={`${className} similarity-is-confirmed`} />;
   }
   if (isSuggested) {
-    return <ContentCopyIcon style={{ color: alertMain }} className={`${className} similarity-is-suggested`} />;
+    return <ContentCopyIcon style={{ color: 'var(--alertMain)' }} className={`${className} similarity-is-suggested`} />;
   }
   return null;
 };
 
-const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
+const TitleCell = ({ projectMedia, projectMediaUrl }) => {
   const {
     picture,
     title,
@@ -177,7 +162,6 @@ const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
               </React.Fragment>
             }
             description={description === title ? '' : description}
-            viewMode={viewMode}
           />
         </Box>
       </MaybeLink>
@@ -186,7 +170,6 @@ const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
 };
 TitleCell.defaultProps = {
   projectMediaUrl: null,
-  viewMode: 'shorter',
 };
 TitleCell.propTypes = {
   projectMedia: PropTypes.shape({
@@ -199,7 +182,6 @@ TitleCell.propTypes = {
     is_suggested: PropTypes.bool, // or null
   }).isRequired,
   projectMediaUrl: PropTypes.string, // or null
-  viewMode: PropTypes.oneOf(['shorter', 'longer']),
 };
 
 export default TitleCell;

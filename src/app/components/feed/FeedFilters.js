@@ -9,15 +9,14 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import ClearIcon from '@material-ui/icons/Clear';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import ListIcon from '@material-ui/icons/List';
+import ClearIcon from '../../icons/clear.svg';
 import AddFilterMenu from '../search/AddFilterMenu';
 import NumericRangeFilter from '../search/NumericRangeFilter';
 import DateRangeFilter from '../search/DateRangeFilter';
 import MultiSelectFilter from '../search/MultiSelectFilter';
 import { withSetFlashMessage } from '../FlashMessage';
-import { brandMain } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   flex: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   saveButton: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
 }));
 

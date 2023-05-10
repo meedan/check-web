@@ -1,0 +1,69 @@
+/* stylelint-disable color-no-hex, custom-property-empty-line-before */
+:root {
+  --fontStackSans: 'Roboto', -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
+
+  --fontSizeDefault: 14px;
+  --fontSizeSmall: 12px;
+
+  --brandMain: #567bff;
+  --brandSecondary: #3b5cd0;
+  --brandLight: #e7efff;
+  --brandAccent: #293e86;
+  --brandBorder: #d0d6ec;
+  --brandBackground: #f1f5f6;
+  --brandBackgroundAccent: #eaeeef;
+  --brandHoverAccent: #f2f8ff;
+
+  --textPrimary: #1f1f1f;
+  --textSecondary: #656565;
+  --textPlaceholder: #949494;
+  --textDisabled: #999;
+  --textDisabledInput: #4a4a4a;
+  --textLink: #3b5cd0;
+
+  --validationMain: #4caf50;
+  --validationSecondary: #237c27;
+  --validationLight: #f0fff1;
+
+  --alertMain: #e78a00;
+  --alertSecondary: #a66300;
+  --alertLight: #fff8ed;
+
+  --errorMain: #f44336;
+  --errorSecondary: #c9291d;
+  --errorLight: #ffeeed;
+
+  --grayBackground: #f7f7f7;
+  --grayDisabledBackground: #f3f3f3;
+  --grayBorderMain: #e4e4e4;
+  --grayBorderAccent: #b4b4b4;
+
+  --overlayLight: rgb(34 34 34 / .7);
+
+  --otherWhite: #fff;
+
+  /* https://facebookbrand.com/facebookapp/advertisers-and-partners/ */
+  --facebookBlue: #1877f2;
+
+  /* https://about.twitter.com/content/dam/about-twitter/company/brand-resources/en_us/Twitter_Brand_Guidelines_V2_0.pdf */
+  --twitterBlue: #1da1f2;
+
+  /* https://slack.com/intl/en-it/marketing/img/media-kit/slack_brand_guidelines_september2020.pdf */
+  --slackGreen: #2eb67d;
+
+  /* https://www.youtube.com/about/brand-resources/#logos-icons-colors */
+  --youTubeRed: #f00;
+
+  /* https://whatsappbrand.com/#color */
+  --whatsappGreen: #25d366;
+
+  /* https://www.schemecolor.com/telegram-color.php */
+  --telegramBlue: #08c;
+
+  /* https://www.viber.com/en/brand-center/ */
+  --viberPurple: #7360f2;
+
+  /* https://line.me/en/logo */
+  --lineGreen: #00b900;
+}
+/* stylelint-enable */

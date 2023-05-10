@@ -11,13 +11,7 @@ import { LocalizedRole } from './UserUtil';
 import ParsedText from '../ParsedText';
 import SocialIcon from '../SocialIcon';
 import { truncateLength } from '../../helpers';
-import {
-  textDisabled,
-  textSecondary,
-  body2,
-  caption,
-  units,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 import {
   StyledTwoColumns,
   StyledBigColumn,
@@ -28,7 +22,7 @@ const StyledMdLaunch = styled.div`
   svg {
     min-width: 20px !important;
     min-height: 20px !important;
-    color: ${textDisabled};
+    color: var(--textDisabled);
   }
 `;
 
@@ -56,8 +50,7 @@ const StyledSmallColumnTooltip = styled.div`
 `;
 
 const StyledUserRole = styled.span`
-  color: ${textSecondary};
-  font: ${caption};
+  color: var(--textSecondary);
   margin: ${units(1)};
 `;
 
@@ -107,10 +100,10 @@ function UserTooltipComponent({ teamUser }) {
 
         <StyledBigColumn>
           <div className="tooltip__primary-info">
-            <strong className="tooltip__name" style={{ font: body2, fontWeight: 500 }}>
+            <strong className="tooltip__name typography-body2" style={{ fontWeight: 500 }}>
               {user.name}
             </strong>
-            <StyledUserRole>{role ? <LocalizedRole role={role} /> : null}</StyledUserRole>
+            <StyledUserRole className="typography-caption">{role ? <LocalizedRole role={role} /> : null}</StyledUserRole>
             <Link to={`/check/user/${user?.dbid}`} className="tooltip__profile-link" >
               <StyledMdLaunch>
                 <LaunchIcon />
@@ -118,7 +111,7 @@ function UserTooltipComponent({ teamUser }) {
             </Link>
 
             <div className="tooltip__description">
-              <p className="tooltip__description-text" style={{ font: caption }}>
+              <p className="tooltip__description-text typography-caption">
                 <ParsedText text={truncateLength(source?.description, 600)} />
               </p>
             </div>

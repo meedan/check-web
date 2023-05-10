@@ -3,10 +3,10 @@ import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import MeRoute from '../MeRoute';
 import UserMenu from '../../components/user/UserMenu';
-import { Pulse, otherWhite, avatarSize } from '../../styles/js/shared';
+import { Pulse, avatarSize } from '../../styles/js/shared';
 
 const StyledAvatarLoader = styled(Pulse)`
-  background-color: ${otherWhite};
+  background-color: var(--otherWhite);
   width: ${avatarSize}px;
   height: ${avatarSize}px;
   border-radius: 50%;

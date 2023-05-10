@@ -14,7 +14,6 @@ import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import { ImportButton } from './ImportDialog';
 import RequestCards from './RequestCards';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
-import { grayBorderMain, textPrimary } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   column: {
@@ -27,13 +26,13 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: textPrimary,
+    color: 'var(--textPrimary)',
   },
   dialog: {
     minHeight: '500px',
   },
   dialogTitle: {
-    borderBottom: `1px solid ${grayBorderMain}`,
+    borderBottom: '1px solid var(--grayBorderMain)',
   },
 }));
 

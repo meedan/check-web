@@ -28,22 +28,21 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import SearchKeyword from '../search/SearchKeyword';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { grayBackground, textPrimary, otherWhite, alertMain } from '../../styles/js/shared';
 
 const useStyles = makeStyles({
   root: {
     cursor: 'pointer',
-    background: grayBackground,
+    background: 'var(--grayBackground)',
     textDecoration: 'none',
     height: '96px',
     '&:hover': {
       boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
-      background: grayBackground,
+      background: 'var(--grayBackground)',
       transform: 'scale(1)',
     },
   },
   pager: {
-    color: textPrimary,
+    color: 'var(--textPrimary)',
     fontSize: 'larger',
     fontWeight: 'bolder',
     textAlign: 'center',
@@ -51,8 +50,8 @@ const useStyles = makeStyles({
   noFactCheck: {
     fontSize: 12,
     fontWeight: 400,
-    color: otherWhite,
-    background: alertMain,
+    color: 'var(--otherWhite)',
+    background: 'var(--alertMain)',
     display: 'inline-block',
     borderRadius: '50px',
     padding: '3px 10px',

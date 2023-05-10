@@ -16,16 +16,15 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import { textPlaceholder, textSecondary, grayBackground, otherWhite } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
-    background: grayBackground,
-    border: `1px solid ${textPlaceholder}`,
+    background: 'var(--grayBackground)',
+    border: '1px solid var(--textPlaceholder)',
     borderRadius: theme.spacing(2),
   },
   textField: {
-    background: otherWhite,
+    background: 'var(--otherWhite)',
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
@@ -41,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0.25),
   },
   lock: {
-    color: textSecondary,
+    color: 'var(--textSecondary)',
   },
   noDescription: {
     fontStyle: 'italic',

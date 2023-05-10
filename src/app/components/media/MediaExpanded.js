@@ -20,11 +20,11 @@ import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
 import BlankMediaButton from './BlankMediaButton';
 import CheckContext from '../../CheckContext';
-import { units, textSecondary } from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const TypographyBlack54 = withStyles({
   root: {
-    color: textSecondary,
+    color: 'var(--textSecondary)',
   },
 })(Typography);
 
@@ -50,6 +50,7 @@ class MediaExpandedComponent extends Component {
     const isImage = media.media.type === 'UploadedImage';
     const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
     const isYoutube = media.media.url && media.domain === 'youtube.com';
+    const isYoutubeChannel = isYoutube && media.media.url.match(/youtube\.com\/(channel|c)\//);
     let filePath = media.media.file_path;
     if (isYoutube) {
       filePath = media.media.url;
@@ -69,7 +70,7 @@ class MediaExpandedComponent extends Component {
             imagePath={media.media.embed_path}
           />
         );
-      } else if (isMedia || isYoutube) {
+      } else if (isMedia || (isYoutube && !isYoutubeChannel)) {
         return (
           <MediaPlayerCard
             key={media.dynamic_annotation_flag}
@@ -85,7 +86,7 @@ class MediaExpandedComponent extends Component {
             languageCode={media.language_code}
           />
         );
-      } else if (isWebPage || !data.html) {
+      } else if (isWebPage || isYoutubeChannel || !data.html) {
         return (
           <WebPageMediaCard
             key={media.dynamic_annotation_flag}
@@ -134,7 +135,7 @@ class MediaExpandedComponent extends Component {
           <MediaExpandedSecondRow projectMedia={media} />
           { isImage ?
             <Box mb={2}>
-              <TypographyBlack54 variant="body1" color={textSecondary}>
+              <TypographyBlack54 variant="body1" color="var(--textSecondary)">
                 { media.extracted_text ?
                   <FormattedMessage id="mediaExpanded.extractedText" defaultMessage="Text extracted from image:" description="Label for text extracted from the image below" /> :
                   <FormattedMessage id="mediaExpanded.noExtractedText" defaultMessage="No text extracted from this image" description="Label when text extracted from an image is not available" />
@@ -144,7 +145,7 @@ class MediaExpandedComponent extends Component {
           }
           { isMedia ?
             <Box mb={2}>
-              <TypographyBlack54 variant="body1" color={textSecondary}>
+              <TypographyBlack54 variant="body1" color="var(--textSecondary">
                 { media.transcription && media.transcription.data.last_response.job_status === 'COMPLETED' ?
                   <FormattedMessage id="mediaExpanded.transcriptionCompleted" defaultMessage="Audio transcribed from media:" description="Label for transcription from audio or video" /> : null }
                 { media.transcription && media.transcription.data.last_response.job_status === 'IN_PROGRESS' ?

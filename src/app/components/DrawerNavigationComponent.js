@@ -20,7 +20,6 @@ import CheckContext from '../CheckContext';
 import {
   AlignOpposite,
   Row,
-  body1,
   units,
 } from '../styles/js/shared';
 
@@ -122,8 +121,7 @@ class DrawerNavigationComponent extends Component {
 
     return (
       <Drawer open variant="persistent" anchor="left" classes={classes}>
-        <DrawerHeader team={team} loggedIn={loggedIn} currentUserIsMember={currentUserIsMember} />
-        <Divider />
+        <DrawerHeader team={this.props.team} loggedIn={this.props.loggedIn} currentUserIsMember={this.props.currentUserIsMember} />
         {!!team && (currentUserIsMember || !team.private) ? (
           <React.Fragment>
             <DrawerProjects team={team.slug} />
@@ -137,7 +135,7 @@ class DrawerNavigationComponent extends Component {
                     </ListItemIcon>
                     <ListItemText
                       primary={
-                        <Row style={{ font: body1 }}>
+                        <Row className="typography-body1">
                           <FormattedMessage id="projects.spam" defaultMessage="Spam" />
                           <AlignOpposite>
                             {String(team.spam_count)}
@@ -155,7 +153,7 @@ class DrawerNavigationComponent extends Component {
                     </ListItemIcon>
                     <ListItemText
                       primary={
-                        <Row style={{ font: body1 }}>
+                        <Row className="typography-body1">
                           <FormattedMessage id="projects.trash" defaultMessage="Trash" />
                           <AlignOpposite>
                             {String(team.trash_count)}

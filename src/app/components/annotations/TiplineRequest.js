@@ -7,24 +7,15 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import TelegramIcon from '@material-ui/icons/Telegram';
 import TimeBefore from '../TimeBefore';
 import RequestSubscription from '../feed/RequestSubscription';
-import ViberIcon from '../../icons/ViberIcon';
-import LineIcon from '../../icons/LineIcon';
+import ViberIcon from '../../icons/viber.svg';
+import LineIcon from '../../icons/line.svg';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
   parseStringUnixTimestamp,
 } from '../../helpers';
 import Request from '../cds/requests-annotations/Request';
-import {
-  units,
-  twitterBlue,
-  facebookBlue,
-  whatsappGreen,
-  telegramBlue,
-  viberPurple,
-  lineGreen,
-  otherWhite,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   smoochNoMessage: {
@@ -40,18 +31,18 @@ const SmoochIcon = ({ name }) => {
     return (
       <WhatsAppIcon
         style={{
-          backgroundColor: whatsappGreen,
-          color: otherWhite,
+          backgroundColor: 'var(--whatsappGreen)',
+          color: 'var(--otherWhite)',
           borderRadius: 4,
           padding: 2,
         }}
       />
     );
-  case 'messenger': return <FacebookIcon style={{ color: facebookBlue }} />;
-  case 'twitter': return <TwitterIcon style={{ color: twitterBlue }} />;
-  case 'telegram': return <TelegramIcon style={{ color: telegramBlue }} />;
-  case 'viber': return <ViberIcon style={{ color: viberPurple }} />;
-  case 'line': return <LineIcon style={{ color: lineGreen }} />;
+  case 'messenger': return <FacebookIcon style={{ color: 'var(--facebookBlue)' }} />;
+  case 'twitter': return <TwitterIcon style={{ color: 'var(--twitterBlue)' }} />;
+  case 'telegram': return <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />;
+  case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '24px' }} />;
+  case 'line': return <LineIcon style={{ color: 'var(--lineGreen)', fontSize: '24px' }} />;
   default: return null;
   }
 };

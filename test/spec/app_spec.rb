@@ -169,7 +169,7 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it 'should redirect to login screen if not logged in', bin5: true do
-      @driver.navigate.to "#{@config['self_url']}/check/teams"
+      @driver.navigate.to "#{@config['self_url']}/check/me"
       title = wait_for_selector('.login__heading')
       expect(title.text == 'Sign in').to be(true)
     end
@@ -194,17 +194,6 @@ shared_examples 'app' do |webdriver_url|
       title = wait_for_selector('.not-found__component')
       expect(title.text).to match(/page does not exist/)
       expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
-    end
-
-    it 'should give 404 when trying to access a media that is not related to the project on the URL', bin1: true do
-      t1 = api_create_team_and_project
-      data = api_create_team_project_and_link({ url: @media_url })
-      url = data.full_url
-      url = url[0..data.full_url.index('project') + 7] + t1[:project].dbid.to_s + url[url.index('/media')..url.length - 1]
-      @driver.navigate.to url
-      wait_for_selector('not-found__component', :class)
-      title = wait_for_selector('.not-found__component')
-      expect(title.text).to match(/page does not exist/)
     end
 
     it 'should go back to the right url from the item page', bin3: true do

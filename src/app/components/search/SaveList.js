@@ -17,7 +17,6 @@ import { FormattedMessage } from 'react-intl';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../FlashMessage';
 import CheckChannels from '../../CheckChannels';
-import { brandMain } from '../../styles/js/shared';
 
 const createMutation = graphql`
   mutation SaveListCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
@@ -69,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
   saveListButton: {
-    color: brandMain,
+    color: 'var(--brandMain)',
   },
   saveListCreateLabel: {
     marginRight: 0,

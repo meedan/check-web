@@ -3,20 +3,22 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import CreateProjectMedia from '../media/CreateMedia';
-import ViewModeSwitcher from './ViewModeSwitcher';
 import Can from '../Can';
-import { otherWhite, textPrimary, units, Row, FlexRow } from '../../styles/js/shared';
+import { units, Row, FlexRow } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
-  background-color: ${otherWhite};
+  background-color: var(--otherWhite);
   min-height: ${units(5)};
-  /* max-width: calc(100vw - ${units(34)}); Seems unecessary */
-  padding: 0 ${units(2)} ${units(2)} ${units(2)};
+  padding: 0 ${units(2)} 0 0;
   margin: 0;
 
   .toolbar__title {
-    color: ${textPrimary};
+    color: var(--textPrimary);
     margin: ${units(2)};
+  }
+
+  .toolbar__row {
+    height: 100%;
   }
 `;
 
@@ -34,8 +36,6 @@ const Toolbar = ({
   team,
   search,
   resultType,
-  viewMode,
-  onChangeViewMode,
 }) => {
   let perms = { permissions: {}, permission: '' };
   if (project) {
@@ -46,12 +46,11 @@ const Toolbar = ({
 
   return (
     <StyledToolbar className="toolbar">
-      <FlexRow>
+      <FlexRow className="toolbar__row">
         <Row>
           {similarAction}
           <span className="toolbar__title">{title}</span>
           {actions}
-          <ViewModeSwitcher viewMode={viewMode} onChangeViewMode={onChangeViewMode} />
         </Row>
         {['trash', 'collection', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed'].indexOf(page) === -1 && resultType !== 'feed' ? (
           <Can {...perms}>
@@ -67,13 +66,10 @@ const Toolbar = ({
 
 Toolbar.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
-  viewMode: 'shorter',
 };
 
 Toolbar.propTypes = {
   page: PropTypes.oneOf(['trash', 'collection', 'folder', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed']), // FIXME find a cleaner way to render Trash differently
-  viewMode: PropTypes.oneOf(['shorter', 'longer']),
-  onChangeViewMode: PropTypes.func.isRequired,
   // FIXME: Define other PropTypes
 };
 
