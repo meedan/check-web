@@ -276,7 +276,7 @@ class HomeComponent extends Component {
               bemClass('home', routeSlug, `--${routeSlug}`),
             ].join(' ')}
           >
-            {!isMediaPage && !isFeedPage && loggedIn ? (
+            {loggedIn ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}
