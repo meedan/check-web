@@ -265,7 +265,6 @@ export default function SearchResultsTable({
   onChangeSelectedIds,
   onChangeSortParams,
   resultType,
-  viewMode,
   count,
 }) {
   const columnDefs = React.useMemo(() => buildColumnDefs(team, resultType), [team]);
@@ -316,7 +315,6 @@ export default function SearchResultsTable({
               checked={selectedIds.includes(projectMedia.id)}
               onChangeChecked={handleChangeProjectMediaChecked}
               resultType={resultType}
-              viewMode={viewMode}
               mediaNavList={mediaNavList}
               count={count}
             />
@@ -329,7 +327,6 @@ export default function SearchResultsTable({
 SearchResultsTable.defaultProps = {
   sortParams: null,
   resultType: 'default',
-  viewMode: 'shorter',
 };
 SearchResultsTable.propTypes = {
   team: PropTypes.object.isRequired,
@@ -342,6 +339,5 @@ SearchResultsTable.propTypes = {
   }), // or null for unsorted
   onChangeSelectedIds: PropTypes.func.isRequired, // func([1, 2, 3]) => undefined
   onChangeSortParams: PropTypes.func.isRequired, // func({ key, ascending }) => undefined
-  viewMode: PropTypes.oneOf(['shorter', 'longer']),
   resultType: PropTypes.string,
 };
