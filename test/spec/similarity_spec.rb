@@ -85,17 +85,16 @@ shared_examples 'similarity' do
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
-    create_media('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.')
+    create_media('Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')
+    sleep 60 # wait for the items to be indexed in the Elasticsearch
     create_media('Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1500s.')
     wait_for_selector('.medias__item')
-    sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
-    wait_for_selector('#media__claim')
+    wait_for_selector('.media__more-medias')
     wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
-    wait_for_selector('.similarity-media-item__accept-relationship')
-    expect(@driver.page_source.include?('1 suggestion')).to be(true)
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
   it 'should identify images as similar', bin8: true do
@@ -103,7 +102,8 @@ shared_examples 'similarity' do
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     create_image('files/similarity.jpg')
-    sleep 10
+    sleep 60 # Wait for the item to be indexed by Alegre
+    wait_for_selector('.medias__item')
     create_image('files/similarity2.jpg')
     wait_for_selector('.medias__item')
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
@@ -121,7 +121,8 @@ shared_examples 'similarity' do
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     create_image('files/video.mp4')
-    sleep 10
+    sleep 60 # Wait for the item to be indexed by Alegre
+    wait_for_selector('.medias__item')
     create_image('files/video2.mp4')
     wait_for_selector('.medias__item')
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
@@ -134,13 +135,13 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify audios in different formats as similar', bin9: true do
+  it 'should identify audios as similar', bin8: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     create_image('files/audio.mp3')
-    sleep 10
-    wait_for_selector('.medias__item', :css, 20, true)
+    sleep 60 # Wait for the item to be indexed by Alegre
+    wait_for_selector('.medias__item')
     create_image('files/audio.ogg')
     wait_for_selector('.medias__item')
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar

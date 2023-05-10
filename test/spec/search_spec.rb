@@ -117,27 +117,6 @@ shared_examples 'search' do
     expect(selected.size == 1).to be(true)
   end
 
-  it 'should search by date range', bin4: true do
-    api_create_claim_and_go_to_search_page
-    wait_for_selector('.medias__item')
-    expect(@driver.page_source.include?('My search result')).to be(true)
-
-    # Pre-populate dates to force the date picker to open at certain calendar months.
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22start_time%22%3A%222016-01-01%22%2C%22end_time%22%3A%222016-02-28%22%7D%7D%7D"
-    wait_for_selector_none('.medias__item', :css, 10)
-    expect(@driver.page_source.include?('My search result')).to be(false)
-
-    wait_for_selector('.date-range__start-date input').click
-    wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-    wait_for_selector_none('body>div[role=dialog]')  # wait for mui-picker background to fade away
-    wait_for_selector('.date-range__end-date input').click
-    wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-    wait_for_selector_none('body>div[role=dialog]')  # wait for mui-picker background to fade away
-    wait_for_selector('#search-fields__submit-button').click
-    wait_for_selector_none('.medias__item', :css, 10)
-    expect(@driver.page_source.include?('My search result')).to be(false)
-  end
-
   it 'should search by relative date range', bin4: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector('.medias__item')

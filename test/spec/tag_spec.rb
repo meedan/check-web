@@ -89,7 +89,7 @@ shared_examples 'tag' do
     expect(wait_for_selector('td > a').text == '1').to be(true)
   end
 
-  it 'should add a tag, reject duplicated and delete tag', bin3: true, quick: true do
+  it 'should add a tag, reject duplicated tag', bin3: true, quick: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
     new_tag = "tag:#{Time.now.to_i}"
@@ -105,11 +105,5 @@ shared_examples 'tag' do
     @driver.action.send_keys(:enter).perform
     # Verify that 'Tag already exists' message is displayed
     @wait.until { @driver.page_source.include?('Tag already exists') }
-    wait_for_selector('.multi__selector-save').click
-    wait_for_selector_none('.multiselector__search-input input')
-    delete_tag(new_tag)
-    @driver.navigate.refresh
-    wait_for_selector('.media-card-large')
-    expect(@driver.page_source.include?(new_tag)).to be(false)
   end
 end

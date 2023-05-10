@@ -17,7 +17,7 @@ shared_examples 'login' do
     expect(displayed_name == 'User With Email').to be(true)
   end
 
-  it 'should invite a user by e-mail to join team', bin6: true do
+  it 'should invite a user by e-mail to join team', bin3: true do
     team = "team#{Time.now.to_i}-#{rand(99_999)}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}/settings/members"

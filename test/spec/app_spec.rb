@@ -127,7 +127,7 @@ shared_examples 'app' do |webdriver_url|
       expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
     end
 
-    it 'should localize interface based on browser language', bin6: true do
+    it 'should localize interface based on browser language', bin2: true do
       @driver.quit
       @driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'fr' })
       @driver.navigate.to @config['self_url']
