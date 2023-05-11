@@ -289,7 +289,7 @@ function CreateMediaSource({
               <FormattedMessage
                 id="sourceInfo.mainName"
                 defaultMessage="Main name"
-                description="souce name"
+                description="Source name"
               />
             }
             id="source-create__label"
