@@ -1,5 +1,5 @@
 shared_examples 'similarity' do
-  it 'should import, export, list, pin and remove similarity items', bin4: true do
+  it 'should import and export items', bin4: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 3 })
     sleep 90 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
@@ -33,24 +33,37 @@ shared_examples 'similarity' do
     wait_for_selector_none('.media-tab__metadata"')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 2
     expect(@driver.page_source.include?('Media')).to be(true)
+  end
+
+  it 'should pin and remove similarity items', bin4: true do
+    data = api_create_team_and_project
+    pm1 = api_create_claim(data: data, quote: 'claim 1')
+    pm2 = api_create_claim(data: data, quote: 'claim 2')
+    api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm2.id)
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}/media/#{pm1.id}"
+    wait_for_selector('#media-similarity__add-button')
+    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
+    wait_for_selector('.similarity-media-item__accept-relationship').click
+    wait_for_selector('.media__relationship')
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     # pin similar item
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__delete-relationship')
     wait_for_selector('.similarity-media-item__pin-relationship').click
     wait_for_url_change(@driver.current_url.to_s)
     wait_for_selector('.media__relationship')
-    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 2
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     # remove similar item
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__pin-relationship')
     wait_for_selector('.similarity-media-item__delete-relationship').click
     wait_for_selector('.media-item__add-button')
     wait_for_selector('input[name=project-title]').click
-    wait_for_selector('input[name=project-title]').send_keys('list')
+    wait_for_selector('input[name=project-title]').send_keys('test')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-item__add-button').click
     wait_for_selector('.message')
-    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
+    expect(@driver.find_elements(:css, '.media__relationship').size).to eq 0
   end
 
   it 'should accept and reject suggested similarity', bin1: true do
@@ -78,6 +91,28 @@ shared_examples 'similarity' do
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     expect(@driver.page_source.include?('claim 1')).to be(true)
+  end
+
+  it 'should extract text from a image', bin7: true do
+    api_create_team_and_project
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('#create-media__add-item')
+    create_image('files/test.png')
+    wait_for_selector('.medias__item')
+    wait_for_selector('.media__heading').click
+    wait_for_selector('.image-media-card')
+    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
+    expect(@driver.page_source.include?('Extracted text')).to be(false)
+    expect(@driver.page_source.include?('RAILS')).to be(false)
+    wait_for_selector('#media-expanded-actions__menu').click
+    wait_for_selector('#media-expanded-actions__reverse-image-search')
+    wait_for_selector('#ocr-button__extract-text').click
+    sleep 60 # wait for the text extraction
+    @driver.navigate.refresh
+    wait_for_selector('.image-media-card')
+    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
+    expect(@driver.page_source.include?('Extracted text')).to be(true)
+    expect(@driver.page_source.include?('RAILS')).to be(true)
   end
 
   it 'should suggest different texts as similar', bin7: true do
@@ -151,27 +186,5 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
-  end
-
-  it 'should extract text from a image', bin7: true do
-    api_create_team_and_project
-    @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item')
-    create_image('files/test.png')
-    wait_for_selector('.medias__item')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.image-media-card')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    expect(@driver.page_source.include?('Extracted text')).to be(false)
-    expect(@driver.page_source.include?('RAILS')).to be(false)
-    wait_for_selector('#media-expanded-actions__menu').click
-    wait_for_selector('#media-expanded-actions__reverse-image-search')
-    wait_for_selector('#ocr-button__extract-text').click
-    sleep 60 # wait for the text extraction
-    @driver.navigate.refresh
-    wait_for_selector('.image-media-card')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    expect(@driver.page_source.include?('Extracted text')).to be(true)
-    expect(@driver.page_source.include?('RAILS')).to be(true)
   end
 end

@@ -36,10 +36,10 @@ before_install:
 - cp config/sidekiq.yml.example config/sidekiq.yml
 - cd -
 # Alegre
-# - export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
-# - echo "Using branch $ALEGRE_BRANCH for Alegre"
-- export alegre_branch=master
-- git clone --branch=$alegre_branch https://github.com/meedan/alegre.git
+- export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
+- echo "Using branch $ALEGRE_BRANCH for Alegre"
+# - export alegre_branch=master
+- git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
 - cd alegre
 - cp .env_file.test .env_file
 - cp ../test/google_credentials.json google_credentials.json
