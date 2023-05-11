@@ -20,7 +20,7 @@ const DrawerRailContainer = Relay.createContainer(DrawerRail, {
 const getBooleanPref = (key, fallback) => {
   const inStore = window.storage.getValue(key);
   if (inStore === null) return fallback;
-  return (inStore === 'true');
+  return (inStore === 'true'); // we are testing against the string value of 'true' because `localStorage` only stores string values, and casts `true` as `'true'`
 };
 
 const DrawerNavigation = (props) => {
