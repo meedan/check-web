@@ -274,6 +274,23 @@ const SimilarityComponent = ({
                     label="Elasticsearch suggestion threshold"
                     error={(settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold)}
                   />
+                  <Box ml={7}>
+                    <Typography component="span" style={{ fontWeight: 'bold' }} className={classes.transactionMargin}>
+                      <FormattedMessage
+                        id="similarityComponent.textLength"
+                        defaultMessage="Minimum words required for a confirmed match"
+                      />
+                    </Typography>
+                    <TextField
+                      classes={{ root: classes.root }}
+                      variant="outlined"
+                      size="small"
+                      value={settings.text_length_matching_threshold}
+                      onChange={(e) => { handleSettingsChange('text_length_matching_threshold', e.target.value); }}
+                      type="number"
+                      disabled={!settings.text_similarity_enabled}
+                    />
+                  </Box>
                 </Box>
                 <Box mb={4}>
                   <Box ml={6}>
