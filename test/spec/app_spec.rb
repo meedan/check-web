@@ -143,19 +143,19 @@ shared_examples 'app' do |webdriver_url|
       expect(@driver.find_element(:css, '.login__heading span').text == 'Iniciar sessão').to be(true)
     end
 
-    it 'should access user confirmed page', bin5: true do
+    it 'should access user confirmed page', bin1: true do
       @driver.navigate.to "#{@config['self_url']}/check/user/confirm/confirmed"
       title = wait_for_selector('.confirm__heading')
       expect(title.text == 'Account Confirmed').to be(true)
     end
 
-    it 'should access user unconfirmed page', bin5: true do
+    it 'should access user unconfirmed page', bin1: true do
       @driver.navigate.to "#{@config['self_url']}/check/user/confirm/unconfirmed"
       unconfirmed_msg = wait_for_selector('.confirm_content').text
       expect(unconfirmed_msg.include?('Sorry, an error occurred while confirming your account')).to be(true)
     end
 
-    it 'should access user already confirmed page', bin5: true do
+    it 'should access user already confirmed page', bin1: true do
       @driver.navigate.to "#{@config['self_url']}/check/user/confirm/already-confirmed"
       title = wait_for_selector('.confirm__heading')
       expect(title.text == 'Account Already Confirmed').to be(true)
@@ -168,7 +168,7 @@ shared_examples 'app' do |webdriver_url|
       expect(title.text).to match(/page does not exist/)
     end
 
-    it 'should redirect to login screen if not logged in', bin5: true do
+    it 'should redirect to login screen if not logged in', bin1: true do
       @driver.navigate.to "#{@config['self_url']}/check/me"
       title = wait_for_selector('.login__heading')
       expect(title.text == 'Sign in').to be(true)

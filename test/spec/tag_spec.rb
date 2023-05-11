@@ -45,7 +45,7 @@ shared_examples 'tag' do
     expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(true)
   end
 
-  it 'should add a tag rule and use tag filter', bin5: true, quick: true do
+  it 'should add a tag rule and use tag filter', bin4: true, quick: true do
     team = "team#{Time.now.to_i}-#{rand(99_999)}"
     create_team_and_go_to_settings_page(team)
     # create a tag

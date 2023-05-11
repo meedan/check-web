@@ -16,7 +16,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should filter by status and search by keywords', bin5: true, quick: true do
+  it 'should filter by status and search by keywords', bin4: true, quick: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
     sleep 90 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('#search-input')
@@ -49,7 +49,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('Claim 0')).to be(true)
   end
 
-  it 'should filter item by status on trash page', bin5: true do
+  it 'should filter item by status on trash page', bin4: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click
@@ -79,7 +79,7 @@ shared_examples 'search' do
     expect(page_source_body.include?('My search result')).to be(true)
   end
 
-  it 'should search and change sort criteria', bin5: true do
+  it 'should search and change sort criteria', bin4: true do
     api_create_claim_and_go_to_search_page
     sleep 90 # wait for the items to be indexed in Elasticsearch
     expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
@@ -105,7 +105,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should search by status through URL', bin1: true do
+  it 'should search by status through URL', bin4: true do
     api_create_claim_and_go_to_search_page
     expect((@driver.title =~ /False/).nil?).to be(true)
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022verification_status\u0022%3A%5B\u0022false\u0022%5D%7D"
@@ -133,7 +133,7 @@ shared_examples 'search' do
     wait_for_selector('.medias__item', :css, 10)
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
-  it 'should change search sort and search criteria through URL', bin5: true do
+  it 'should change search sort and search criteria through URL', bin4: true do
     api_create_claim_and_go_to_search_page
     sleep 90
     wait_for_selector('.media__heading', :css, 20, true)
@@ -170,7 +170,7 @@ shared_examples 'search' do
     @driver.switch_to.window(current_window)
   end
 
-  it 'should find all medias with an empty search', bin1: true do
+  it 'should find all medias with an empty search', bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
     wait_for_selector('.project-header__back-button').click

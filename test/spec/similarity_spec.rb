@@ -1,5 +1,5 @@
 shared_examples 'similarity' do
-  it 'should import, export, list, pin and remove similarity items', bin5: true do
+  it 'should import, export, list, pin and remove similarity items', bin4: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 3 })
     sleep 90 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
@@ -53,7 +53,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should accept and reject suggested similarity', bin5: true do
+  it 'should accept and reject suggested similarity', bin1: true do
     data = api_create_team_and_project
     pm1 = api_create_claim(data: data, quote: 'claim 1')
     pm2 = api_create_claim(data: data, quote: 'claim 2')
@@ -97,7 +97,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify images as similar', bin8: true do
+  it 'should identify images as similar', bin7: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
@@ -116,7 +116,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify videos as similar', bin8: true do
+  it 'should identify videos as similar', bin7: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
@@ -135,7 +135,7 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should identify audios as similar', bin8: true do
+  it 'should identify audios as similar', bin7: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
@@ -143,7 +143,6 @@ shared_examples 'similarity' do
     sleep 60 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
     create_image('files/audio.ogg')
-    wait_for_selector('.medias__item')
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click

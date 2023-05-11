@@ -5,7 +5,6 @@ echo 'Starting tests...'
 FAIL=0
 
 bundle exec rspec --tag bin7 spec/integration_spec.rb &
-bundle exec rspec --tag bin8 spec/integration_spec.rb &
 
 for job in `jobs -p`
 do

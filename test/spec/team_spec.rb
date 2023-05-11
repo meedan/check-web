@@ -64,7 +64,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('Report settings saved successfully')).to be(true)
   end
 
-  it 'should enable the Slack notifications', bin5: true do
+  it 'should enable the Slack notifications', bin1: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     @driver.execute_script('window.scrollTo(10, 10000)')
@@ -90,7 +90,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
-  it 'should manage user permissions', bin5: true do
+  it 'should manage user permissions', bin3: true do
     utp = api_create_team_project_and_two_users
     user_editor = api_create_and_confirm_user
     api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
