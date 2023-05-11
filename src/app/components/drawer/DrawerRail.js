@@ -37,7 +37,7 @@ const messages = defineMessages({
 
 const DrawerRail = (props) => {
   const testPath = window.location.pathname;
-  const isSettingsPage = /\/welch-feil-and-rippin\/settings\/[a-zA-Z0-9]+/.test(testPath);
+  const isSettingsPage = /\/settings\/[a-zA-Z0-9]+/.test(testPath);
   const isMediaPage = /\/media\/[0-9]+/.test(testPath);
   const isFeedPage = /\/feed\/[0-9]+\/(request|cluster)\/[0-9]+/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
