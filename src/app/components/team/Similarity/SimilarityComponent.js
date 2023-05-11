@@ -279,6 +279,7 @@ const SimilarityComponent = ({
                       <FormattedMessage
                         id="similarityComponent.textLength"
                         defaultMessage="Minimum words required for a confirmed match"
+                        description="A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
                       />
                     </Typography>
                     <TextField
