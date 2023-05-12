@@ -115,7 +115,7 @@ shared_examples 'similarity' do
     data = api_create_team_and_project(bot: 'alegre')
     pm1 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1502s.')
     sleep 60 # wait for the items to be indexed in the Elasticsearch
-    pm2 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')
+    api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')
     sleep 60 # wait for the items to be indexed in the Elasticsearch
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}/media/#{pm1.id}"
     wait_for_selector('.media__more-medias')
@@ -123,7 +123,7 @@ shared_examples 'similarity' do
   end
 
   it 'should identify images as similar', bin7: true do
-    data = api_create_team_and_project(bot: 'alegre')
+    api_create_team_and_project(bot: 'alegre')
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item')
     create_image('files/similarity.jpg')
@@ -139,7 +139,7 @@ shared_examples 'similarity' do
   end
 
   it 'should identify videos as similar', bin7: true do
-    data = api_create_team_and_project(bot: 'alegre')
+    api_create_team_and_project(bot: 'alegre')
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item')
     create_image('files/video.mp4')
@@ -155,7 +155,7 @@ shared_examples 'similarity' do
   end
 
   it 'should identify audios as similar', bin7: true do
-    data = api_create_team_and_project(bot: 'alegre')
+    api_create_team_and_project(bot: 'alegre')
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item')
     create_image('files/audio.mp3')
