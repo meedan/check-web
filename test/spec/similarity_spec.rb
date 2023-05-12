@@ -73,10 +73,6 @@ shared_examples 'similarity' do
     pm3 = api_create_claim(data: data, quote: 'claim 3')
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm2.id)
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm3.id)
-    wait_for_selector('#create-media__add-item')
-    wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('.medias__item')
-    wait_for_selector_list_size('.media__heading', 3)
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}/media/#{pm1.id}"
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.page_source.include?('claim 2')).to be(false)
@@ -116,25 +112,19 @@ shared_examples 'similarity' do
   end
 
   it 'should suggest different texts as similar', bin7: true do
-    create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
-    wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('#create-media__add-item')
-    create_media('Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')
+    data = api_create_team_and_project(bot: 'alegre')
+    pm1 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1502s.')
     sleep 60 # wait for the items to be indexed in the Elasticsearch
-    create_media('Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1500s.')
-    wait_for_selector('.medias__item')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading', index: 1).click
+    pm2 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')
+    sleep 60 # wait for the items to be indexed in the Elasticsearch
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}/media/#{pm1.id}"
     wait_for_selector('.media__more-medias')
-    wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
   it 'should identify images as similar', bin7: true do
-    create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
-    wait_for_selector('.projects-list__all-items').click
+    data = api_create_team_and_project(bot: 'alegre')
+    @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item')
     create_image('files/similarity.jpg')
     sleep 60 # Wait for the item to be indexed by Alegre
@@ -144,16 +134,13 @@ shared_examples 'similarity' do
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
-    wait_for_selector('#media__claim')
-    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
   it 'should identify videos as similar', bin7: true do
-    create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
-    wait_for_selector('.projects-list__all-items').click
+    data = api_create_team_and_project(bot: 'alegre')
+    @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item')
     create_image('files/video.mp4')
     sleep 60 # Wait for the item to be indexed by Alegre
@@ -163,16 +150,13 @@ shared_examples 'similarity' do
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
-    wait_for_selector('#media__claim')
-    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
   it 'should identify audios as similar', bin7: true do
-    create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
-    wait_for_selector('.projects-list__all-items').click
+    data = api_create_team_and_project(bot: 'alegre')
+    @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item')
     create_image('files/audio.mp3')
     sleep 60 # Wait for the item to be indexed by Alegre
@@ -181,9 +165,6 @@ shared_examples 'similarity' do
     sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
-    wait_for_selector('#media__claim')
-    wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
