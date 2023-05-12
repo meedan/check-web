@@ -90,7 +90,7 @@ shared_examples 'similarity' do
   end
 
   it 'should extract text from a image', bin7: true do
-    api_create_team_and_project
+    api_create_team_and_project(bot: 'alegre')
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item')
     create_image('files/test.png')
