@@ -306,7 +306,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Number of media",
+		"string": "Nombre de médias",
 		"developer_comment": "Menu option to enable searching items by matched medias"
 	},
 	"addFilterMenu.source": {
@@ -314,7 +314,7 @@
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Number of suggestions",
+		"string": "Nombre de suggestions",
 		"developer_comment": "Menu option to enable searching items by suggestions"
 	},
 	"addFilterMenu.tag": {
@@ -348,6 +348,10 @@
 	"addLanguageAction.title": {
 		"string": "Choisir une nouvelle langue",
 		"developer_comment": "Title of language picker dialog"
+	},
+	"alert.closeButton": {
+		"string": "Fermer l'alerte",
+		"developer_comment": "Tooltip for close alert"
 	},
 	"annotation.addLanguage": {
 		"string": "La langue {value} a été ajoutée par {author}",
@@ -391,6 +395,10 @@
 	"annotation.deleteButton": {
 		"string": "Supprimer",
 		"developer_comment": "Menu item for deleting an annotation"
+	},
+	"annotation.deletedUser": {
+		"string": "Utilisateur supprimé",
+		"developer_comment": "Label for deleted user"
 	},
 	"annotation.editButton": {
 		"string": "Modifier"
@@ -570,20 +578,26 @@
 	"autoCompleteMediaItem.error": {
 		"string": "Désolé, une erreur est survenue lors de la recherche. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste."
 	},
+	"autoCompleteMediaItem.lastSubmitted": {
+		"string": "Dernier envoi le {date}",
+		"developer_comment": "Shows the last time a media was submitted"
+	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "Aucun élément correspondant n’a été trouvé"
+	},
+	"autoCompleteMediaItem.requestsCount": {
+		"string": "{requestsCount, plural, one {# demande} many {# de demandes} other {# demandes}}",
+		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
 	"autoCompleteMediaItem.results": {
 		"string": "{count, plural, one {# résultat} many {# résultats} other {# résultats}}"
 	},
-	"autoCompleteMediaItem.searchItem": {
-		"string": "Recherche"
-	},
-	"autoCompleteMediaItem.searchSettings": {
-		"string": "Paramètres de recherche"
-	},
 	"autoCompleteMediaItem.searching": {
 		"string": "Recherche…"
+	},
+	"autoCompleteMediaItem.type": {
+		"string": "Saisissez le texte à chercher ci-dessus",
+		"developer_comment": "Helper text displayed next to search field to look for items to be imported"
 	},
 	"blankMediaButton.addItem": {
 		"string": "Ajouter un élément"
@@ -738,8 +752,8 @@
 		"developer_comment": "Success message for bulk tagging actions"
 	},
 	"cds.mediaAndRequestsDialog.matchedMedia": {
-		"string": "Médias correspondants",
-		"developer_comment": "Plural. Heading for the number of matched media"
+		"string": "Média",
+		"developer_comment": "Plural. Heading for the number of media"
 	},
 	"cds.mediaAndRequestsDialog.openMedia": {
 		"string": "Ouvrir le média",
@@ -1303,10 +1317,6 @@
 		"string": "{subscriptionsCount, plural, one {# abonnement} many {# d’abonnements} other {# abonnements}}",
 		"developer_comment": "Part of the header of requests list. Example: 12 subscriptions"
 	},
-	"feedRequestedMediaDialog.lastSubmitted": {
-		"string": "Dernier envoi le {date}",
-		"developer_comment": "Shows the last time a media was submitted (on feed request media card)"
-	},
 	"feedRequestedMediaDialog.title": {
 		"string": "Importer médias et demandes",
 		"developer_comment": "Dialog title for importing medias and requests"
@@ -1815,9 +1825,6 @@
 	"mediaActions.lockStatus": {
 		"string": "Verrouiller l’état"
 	},
-	"mediaActions.refresh": {
-		"string": "Actualiser"
-	},
 	"mediaActions.sendToSpam": {
 		"string": "Marquer comme indésirable"
 	},
@@ -1829,10 +1836,6 @@
 	},
 	"mediaActions.unlockStatus": {
 		"string": "Déverrouiller l’état"
-	},
-	"mediaActionsBar.assignmentNotes": {
-		"string": "Notes",
-		"developer_comment": "Label to field for adding details about the assignment"
 	},
 	"mediaActionsBar.assignmentNotesTitle": {
 		"string": "Ajouter un note au courriel",
@@ -1936,6 +1939,38 @@
 		"string": "Copier le texte",
 		"developer_comment": "Link text that once clicked copies text to clipboard."
 	},
+	"mediaCardLarge.lastSeen": {
+		"string": "Dernier envoi le {date}",
+		"developer_comment": "Header for the date when the media item was last received by the workspace"
+	},
+	"mediaCardLarge.more": {
+		"string": "Plus",
+		"developer_comment": "Button to open an expanded view of the media"
+	},
+	"mediaCardLarge.publishedOn": {
+		"string": "Publié le {date}",
+		"developer_comment": "Publication date and time of a web article"
+	},
+	"mediaCardLarge.requests": {
+		"string": "{count, plural, one {# demande} many {# de demandes} other {# demandes}}",
+		"developer_comment": "Number of times a request has been sent about this media"
+	},
+	"mediaCardLargeFooter.extractedText": {
+		"string": "Texte extrait",
+		"developer_comment": "Header for the OCR extracted text content of an image"
+	},
+	"mediaCardLargeFooter.transcription": {
+		"string": "Transcription",
+		"developer_comment": "Header for the transcription content of an audio or video"
+	},
+	"mediaCardLargeFooterContent.extractedText": {
+		"string": "Texte extrait",
+		"developer_comment": "Header for the OCR extracted text content of an image"
+	},
+	"mediaCardLargeFooterContent.transcription": {
+		"string": "Transcription",
+		"developer_comment": "Header for the transcription content of an audio or video"
+	},
 	"mediaClaim.claim": {
 		"string": "Affirmation",
 		"developer_comment": "Title of the media claim section."
@@ -1966,6 +2001,10 @@
 	"mediaComponent.answered": {
 		"string": "terminées"
 	},
+	"mediaComponent.lastSeen": {
+		"string": "Dernier envoi le {date}",
+		"developer_comment": "Header for the date when the media item was last received by the workspace"
+	},
 	"mediaComponent.notes": {
 		"string": "Notes",
 		"developer_comment": "Label for the Notes tab, as in text notes"
@@ -1980,10 +2019,7 @@
 	},
 	"mediaComponent.suggestedMedia": {
 		"string": "Suggestions",
-		"developer_comment": "Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
-	},
-	"mediaComponent.timelineTab": {
-		"string": "Chronologie"
+		"developer_comment": "Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
 	},
 	"mediaComponent.verificationTasks": {
 		"string": "Tâches de l’élément"
@@ -2099,14 +2135,8 @@
 		"string": "Ajoutez une affirmation pour accéder à la vérification de faits",
 		"developer_comment": "Placeholder for fact-check field when there is no claim description filled."
 	},
-	"mediaItem.addedBy": {
-		"string": "Ajouté par {name}"
-	},
-	"mediaItem.confirmedBy": {
-		"string": "Confirmé par {name}"
-	},
 	"mediaItem.detach": {
-		"string": "Ne plus faire correspondre le média",
+		"string": "Détacher le média",
 		"developer_comment": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
 	},
 	"mediaItem.detachedSuccessfully": {
@@ -2117,64 +2147,29 @@
 		"string": "Terminé, redirection vers le nouvel élément principal…",
 		"developer_comment": "A message that informs the user a 'pin' action is finished and a redirect is about to happen"
 	},
-	"mediaItem.error": {
-		"string": "Une erreur s’est produite, veuillez réessayer",
-		"developer_comment": "A generic error message"
-	},
-	"mediaItem.lastSubmitted": {
-		"string": "Dernier envoi {timeAgo}",
-		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
-	},
 	"mediaItem.pinAsMain": {
-		"string": "Épingler en tant que principal",
+		"string": "Épingler en haut",
 		"developer_comment": "Menu option for pinning an item as the main item"
 	},
 	"mediaItem.pinning": {
 		"string": "Épinglage…",
 		"developer_comment": "Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item"
 	},
-	"mediaItem.reportPaused": {
-		"string": "Interrompu"
+	"mediaLanguageSwitcher.error": {
+		"string": "Impossible de changer la langue, veuillez réessayer",
+		"developer_comment": "Error message displayed when it's not possible to change an item language"
 	},
-	"mediaItem.reportPublished": {
-		"string": "Publié"
-	},
-	"mediaItem.reportUnpublished": {
-		"string": "Non publié"
-	},
-	"mediaItem.requests": {
-		"string": "{count, plural, one {# demande} many {# demandes} other {# demandes}}"
-	},
-	"mediaItem.similarMedia": {
-		"string": "{count, plural, one {# média correspondant} many {# de médias correspondants} other {# médias correspondants}}"
-	},
-	"mediaLanguageChip.error": {
-		"string": "Désolé, une erreur est survenue lors de la mise à jour de la langue. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste.",
-		"developer_comment": "This message appears when a user tries to update the language on a media item and an error occurs."
+	"mediaLanguageSwitcher.success": {
+		"string": "La langue a été mise à jour",
+		"developer_comment": "Success message displayed when an item language is changed"
 	},
 	"mediaMetadata.ImageSearch": {
 		"string": "Recherche inversée d’image",
 		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
 	},
-	"mediaMetadata.audioActions": {
-		"string": "Actions sur des contenus sonores",
-		"developer_comment": "Actions menu for item of type Audio"
-	},
-	"mediaMetadata.download": {
-		"string": "Télécharger",
-		"developer_comment": "Menu option for downloading the original file of current item"
-	},
-	"mediaMetadata.imageActions": {
-		"string": "Actions sur des images",
-		"developer_comment": "Actions menu for item of type Image"
-	},
-	"mediaMetadata.playbackSpeed": {
-		"string": "Vitesse de lecture",
-		"developer_comment": "Menu option for altering playback speed of video/audio clip"
-	},
-	"mediaMetadata.videoActions": {
-		"string": "Actions sur des vidéos",
-		"developer_comment": "Actions menu for item of type Video"
+	"mediaMetadata.openLink": {
+		"string": "Ouvrir le lien",
+		"developer_comment": "Menu option for navigating to the original media url"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Ajouter une association"
@@ -2194,9 +2189,9 @@
 	"mediaRelatedComponent.submitButton": {
 		"string": "{count, plural, one {Ajouter une association pour un élément} many {Ajouter une association pour # éléments} other {Ajouter une association pour # éléments}}"
 	},
-	"mediaRelationship.openMedia": {
-		"string": "Ouvrir le média",
-		"developer_comment": "Singular 'media'. Label for a button that opens the media item the user is currently viewing."
+	"mediaRelationship.lastSubmitted": {
+		"string": "Dernier envoi le {date}",
+		"developer_comment": "Shows the last time a media was submitted"
 	},
 	"mediaRequests.allRequests": {
 		"string": "{count, plural, one {# demande pour tous les médias} many {# demandes pour tous les médias} other {# demandes pour tous les médias}}"
@@ -2222,12 +2217,8 @@
 	"mediaSearch.xOfY": {
 		"string": "{current} sur {total}"
 	},
-	"mediaSimilarities.moreMedias": {
-		"string": "Média",
-		"developer_comment": "Heading for a list of matched medias"
-	},
 	"mediaSimilarities.noMedia": {
-		"string": "0 media",
+		"string": "0 média",
 		"developer_comment": "A message that shows when the matched media list is empty."
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
@@ -2247,7 +2238,7 @@
 		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Importer les médias correspondants d’autres éléments",
+		"string": "Importer les médias d’autres éléments",
 		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
@@ -2261,10 +2252,6 @@
 	"mediaSimilarityBarAdd.addToImportedReport": {
 		"string": "Ajouter le média à une vérification de faits importée",
 		"developer_comment": "Menu option for adding the current media to an imported fact-check"
-	},
-	"mediaSimilarityBarAdd.defaultErrorMessage": {
-		"string": "Impossible d’ajouter l’élément semblable",
-		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
 		"string": "Les médias de cet élément ne peuvent pas être exportés si cet élément est joint à un élément principal ou si son rapport est publié.",
@@ -2318,43 +2305,43 @@
 		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
 	"mediaSuggestionsComponent.accept": {
-		"string": "Match media",
+		"string": "Faire correspondre ce média",
 		"developer_comment": "Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list."
 	},
 	"mediaSuggestionsComponent.bulkAccept": {
-		"string": "Match all medias on this page",
+		"string": "Faire correspondre tous les médias de cette page",
 		"developer_comment": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media."
 	},
 	"mediaSuggestionsComponent.bulkEdit": {
-		"string": "Bulk edit",
+		"string": "Édition groupée",
 		"developer_comment": "A header that tells the user the buttons to follow are for bulk editing items (editing more than one item at a time, like marking all as spam)"
 	},
 	"mediaSuggestionsComponent.bulkReject": {
-		"string": "Reject all medias on this page",
+		"string": "Refuser tous les médias de cette page",
 		"developer_comment": "Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list."
 	},
 	"mediaSuggestionsComponent.bulkRejectConfirm": {
-		"string": "Reject all",
+		"string": "Tout refuser",
 		"developer_comment": "Label for an action button that causes all selected items to be rejected"
 	},
 	"mediaSuggestionsComponent.bulkSpam": {
-		"string": "Mark all medias on this page as spam",
+		"string": "Marquer tous les médias de cette page comme indésirables",
 		"developer_comment": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list."
 	},
 	"mediaSuggestionsComponent.bulkTrash": {
-		"string": "Send all medias on this page to trash",
+		"string": "Déplacer tous les médias de cette page vers la corbeille",
 		"developer_comment": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' folder and removed from the suggestions list."
 	},
 	"mediaSuggestionsComponent.dialogBulkAcceptConfirm": {
-		"string": "Match all",
+		"string": "Tout faire correspondre",
 		"developer_comment": "Button that a user presses to confirm that they are going to match all visible suggested media"
 	},
 	"mediaSuggestionsComponent.dialogBulkAcceptTitle": {
-		"string": "Are you sure you want to match {number} suggested media?",
+		"string": "Voulez-vous vraiment faire correspondre {number} suggestions ?",
 		"developer_comment": "Prompt to a user when they choose to match media as a bulk action"
 	},
 	"mediaSuggestionsComponent.dialogBulkRejectTitle": {
-		"string": "Choose a destination folder for the {number} rejected medias",
+		"string": "Choisissez un dossier de destination pour les {number} médias refusés",
 		"developer_comment": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
 	},
 	"mediaSuggestionsComponent.dialogBulkSpamConfirm": {
@@ -2362,7 +2349,7 @@
 		"developer_comment": "Button that a user presses to confirm that they are going to mark all visible suggested media as spam"
 	},
 	"mediaSuggestionsComponent.dialogBulkSpamTitle": {
-		"string": "Are you sure you want to mark {number} suggested media as spam?",
+		"string": "Voulez-vous vraiment marquer les {number} médias suggérés comme indésirables ?",
 		"developer_comment": "Prompt to a user when they choose to mark media as spam in bulk"
 	},
 	"mediaSuggestionsComponent.dialogBulkTrashConfirm": {
@@ -2370,7 +2357,7 @@
 		"developer_comment": "Button that a user presses to confirm that they are going to send all visible suggested media to trash"
 	},
 	"mediaSuggestionsComponent.dialogBulkTrashTitle": {
-		"string": "Are you sure you want to send {number} suggested media to the trash?",
+		"string": "Voulez-vous vraiment déplacer {number} suggestions vers la corbeille ?",
 		"developer_comment": "Prompt to a user when they choose to send media to trash in bulk"
 	},
 	"mediaSuggestionsComponent.dialogRejectTitle": {
@@ -2378,23 +2365,23 @@
 		"developer_comment": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
 	},
 	"mediaSuggestionsComponent.flashBulkConfirmTitle": {
-		"string": "{number} suggested media matched",
+		"string": "Une concordance a été établie pour {number} médias suggérés",
 		"developer_comment": "Title that appears in a popup to confirm that a 'bulk accept' action was successful"
 	},
 	"mediaSuggestionsComponent.flashBulkReject": {
-		"string": "Added to the list \"{folder}\"",
+		"string": "Ont été ajoutés à la liste « {folder} »",
 		"developer_comment": "Text that appears in a popup to confirm that a 'bulk reject' action was successful"
 	},
 	"mediaSuggestionsComponent.flashBulkRejectTitle": {
-		"string": "{number} media rejected",
+		"string": "{number} medias refusés",
 		"developer_comment": "Title that appears in a popup to confirm that a 'bulk reject' action was successful"
 	},
 	"mediaSuggestionsComponent.flashBulkSpam": {
-		"string": "{number} media marked as spam",
+		"string": "{number} médias ont été marqués comme indésirables",
 		"developer_comment": "Text that appears in a popup to confirm that a 'bulk move to spam' action was successful"
 	},
 	"mediaSuggestionsComponent.flashBulkTrash": {
-		"string": "{number} media sent to the trash",
+		"string": "{number} médias ont été envoyés vers la corbeille",
 		"developer_comment": "Text that appears in a popup to confirm that a 'bulk move to trash' action was successful"
 	},
 	"mediaSuggestionsComponent.moveItem": {
@@ -2410,31 +2397,31 @@
 		"developer_comment": "Text that appears in a popup to confirmt hat a 'move to trash' action was successful"
 	},
 	"mediaSuggestionsComponent.next": {
-		"string": "Next",
+		"string": "Suivante",
 		"developer_comment": "Label for the 'go to next page' button on paginated suggestions"
 	},
 	"mediaSuggestionsComponent.noItems": {
-		"string": "{total, plural, one {{total} média suggéré} many {{total} de médias suggérés} other {{total} médias suggérés}}",
+		"string": "{total, plural, one {{total} suggestion} many {{total} de suggestions} other {{total} suggestions}}",
 		"developer_comment": "A header that tells the user there are no items in the list"
 	},
 	"mediaSuggestionsComponent.previous": {
-		"string": "Previous",
+		"string": "Précédente",
 		"developer_comment": "Label for the 'go to previous page' button on paginated suggestions"
 	},
 	"mediaSuggestionsComponent.reject": {
-		"string": "Reject media",
+		"string": "Refuser le média",
 		"developer_comment": "Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list."
 	},
 	"mediaSuggestionsComponent.spam": {
-		"string": "Mark media as spam",
+		"string": "Marquer le média comme indésirable",
 		"developer_comment": "Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list."
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{start} to {end} of {total, plural, one {{total} suggested media} other {{total} suggested medias}}",
-		"developer_comment": "A header that tells the user how many suggested media items are in the list to follow"
+		"string": "{start} à {end} de {total, plural, one {{total} média suggéré} other {{total} médias suggérés}}",
+		"developer_comment": "A header that tells the user how many suggestions items are in the list to follow"
 	},
 	"mediaSuggestionsComponent.trash": {
-		"string": "Send media to trash",
+		"string": "Déplacer le média vers la corbeille",
 		"developer_comment": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash folder, and removed from the suggested items list."
 	},
 	"metadata.cancel": {
@@ -2574,11 +2561,11 @@
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "Number of media is between",
+		"string": "Le nombre de médias est entre",
 		"developer_comment": "Filter option that refers to number of media"
 	},
 	"numericRangeFilter.suggestedItems": {
-		"string": "Number of suggestions is between",
+		"string": "Le nombre de médias est entre",
 		"developer_comment": "Filter option that refers to number of suggestions"
 	},
 	"numericRangeFilter.tiplineRequests": {
@@ -2594,7 +2581,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Extraction du texte de l’image",
+		"string": "Extraire le texte",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -2929,6 +2916,10 @@
 	"projectsComponent.title": {
 		"string": "Titre"
 	},
+	"refreshButton.success": {
+		"string": "Les médias ont été actualisés",
+		"developer_comment": "Notification displayed when refresh action (re-parsing) of media is completed"
+	},
 	"reportDesigner.addIntro": {
 		"string": "Ajouter du contenu à l’introduction"
 	},
@@ -2984,7 +2975,7 @@
 		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPublishText2": {
-		"string": "Future users who request this item will receive this version of the report while it remains published.",
+		"string": "À l’avenir, les utilisateurs qui demanderont cet élément recevront cette version du rapport tant qu’il est publié.",
 		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPublishTitle": {
@@ -3080,7 +3071,7 @@
 		"developer_comment": "Helper message to publishing report correction action"
 	},
 	"reportDesigner.republishAndResendSingleLanguage": {
-		"string": "Also send this updated report only to users who requested this item in {reportLanguage}.",
+		"string": "N’envoyer aussi ce rapport mis à jour qu’aux utilisateurs qui ont demandé cet élément en {reportLanguage}.",
 		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.sentCount": {
@@ -3407,6 +3398,10 @@
 		"string": "Non attribué",
 		"developer_comment": "Allow filtering by assigned_to with no value set"
 	},
+	"search.facebook": {
+		"string": "Publication Facebook",
+		"developer_comment": "Allow user to filter items by facebook posts"
+	},
 	"search.fieldAnd": {
 		"string": "et",
 		"developer_comment": "Logical operator 'AND' to be applied when filtering by multiple fields"
@@ -3426,6 +3421,10 @@
 	"search.inputHint": {
 		"string": "Recherche",
 		"developer_comment": "Placeholder for search keywords input"
+	},
+	"search.instagram": {
+		"string": "Publication Instagram",
+		"developer_comment": "Allow user to filter items by instagram posts"
 	},
 	"search.itemRead": {
 		"string": "Lu",
@@ -3529,17 +3528,25 @@
 		"string": "Lien",
 		"developer_comment": "Describes media type Link"
 	},
-	"search.showSimilar": {
-		"string": "Show all media",
-		"developer_comment": "Allow user to show/hide secondary items"
-	},
 	"search.showVideos": {
 		"string": "Vidéo",
 		"developer_comment": "Describes media type Video"
 	},
+	"search.socialMedia": {
+		"string": "Médias sociaux",
+		"developer_comment": "Allow user to filter by social media links"
+	},
 	"search.statusHeading": {
 		"string": "Le état de l’élément est",
 		"developer_comment": "Prefix label for field to filter by status"
+	},
+	"search.tiktok": {
+		"string": "Publication TikTok",
+		"developer_comment": "Allow user to filter items by tiktok posts"
+	},
+	"search.twitter": {
+		"string": "Publication Twitter",
+		"developer_comment": "Allow user to filter items by twitter posts"
 	},
 	"search.unconfirmed": {
 		"string": "Non confirmés",
@@ -3548,6 +3555,14 @@
 	"search.userHeading": {
 		"string": "Créé par",
 		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"search.webLink": {
+		"string": "webLink",
+		"developer_comment": "Allow user to filter items by links of type page"
+	},
+	"search.youtube": {
+		"string": "Vidéo YouTube",
+		"developer_comment": "Allow user to filter items by youtube videos"
 	},
 	"searchFieldChannel.anyTipline": {
 		"string": "N’importe quelle ligne info Tipline",
@@ -3594,7 +3609,7 @@
 		"developer_comment": "Label for checkbox to toggle searching for keyword across claims"
 	},
 	"searchKeywordConfig.claimDescriptionContext": {
-		"string": "Context",
+		"string": "Contexte",
 		"developer_comment": "Label for checkbox to toggle searching for keyword across context data"
 	},
 	"searchKeywordConfig.factCheck": {
@@ -3610,7 +3625,7 @@
 		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-check titles"
 	},
 	"searchKeywordConfig.factCheckUrl": {
-		"string": "URLs",
+		"string": "URL",
 		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-checks urls"
 	},
 	"searchKeywordConfig.media": {
@@ -3646,7 +3661,7 @@
 		"developer_comment": "Label for checkbox to toggle searching for keyword across tags"
 	},
 	"searchKeywordConfig.userNamePhoneNumber": {
-		"string": "Username / phone number",
+		"string": "Nom d’utilisateur/numéro de téléphone",
 		"developer_comment": "Label for checkbox to toggle searching for keyword across usernames and phone numbers in Requests"
 	},
 	"searchResults.itemsCount": {
@@ -3659,10 +3674,6 @@
 	"sensitiveContentMenuButton.adult": {
 		"string": "Adulte (nudité, pornographie)",
 		"developer_comment": "Label for adult content type"
-	},
-	"sensitiveContentMenuButton.contentWarning": {
-		"string": "Avertissement sur le contenu",
-		"developer_comment": "Button that pops sensitive content screen settings"
 	},
 	"sensitiveContentMenuButton.enableSwitch": {
 		"string": "Activer l’avertissement sur le contenu",
@@ -3767,7 +3778,7 @@
 		"developer_comment": "Banner displayed when similarity settings are saved successfully"
 	},
 	"similarityComponent.singleLanguageFactChecksEnabled": {
-		"string": "Only send fact-checks in the same language as the conversation language",
+		"string": "N’envoyer des vérifications de langues que dans la langue de la conversation",
 		"developer_comment": "Label displayed when similarity setting for single language fact-checks is enabled"
 	},
 	"similarityComponent.title": {
@@ -4206,7 +4217,7 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.timeoutDescription": {
-		"string": "After 15 minutes of inactivity, this message is sent to users to close the conversation.",
+		"string": "Après 15 minutes d’inactivité, ce message est envoyé aux utilisateurs pour clore la conversation.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.timeoutTitle": {
@@ -4328,7 +4339,7 @@
 		"string": "Jeton du compte public Viber"
 	},
 	"smoochBotMainMenu.alertTitle": {
-		"string": "There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option.",
+		"string": "Il y a {numberOfOptions} options, dont toutes les langues sur cet espace de travail. Seulement {numberOfLanguages} langues seront envoyées aux utilisateurs s’ils sélectionnent l’option « Langues ».",
 		"developer_comment": "Title of an alert box displayed on tipline main menu settings page when there are more than 10 options."
 	},
 	"smoochBotMainMenu.languages": {
@@ -4420,7 +4431,7 @@
 		"developer_comment": "Text field label on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.labelError": {
-		"string": "Please add text to label the button",
+		"string": "Veuillez saisir une étiquette pour ce bouton",
 		"developer_comment": "Error message displayed when user tries to save tipline menu option with a blank label"
 	},
 	"smoochBotMainMenuOption.main": {
@@ -4440,7 +4451,7 @@
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.responseError": {
-		"string": "Please choose a response",
+		"string": "Veuillez sélectionner une réponse",
 		"developer_comment": "Error message displayed when user tries to save tipline option with empty response"
 	},
 	"smoochBotMainMenuOption.save": {
@@ -4681,9 +4692,9 @@
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
 	},
-	"smoochBotSettings.bspSettings": {
-		"string": "Paramètres WhatsApp BSP",
-		"developer_comment": "Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated."
+	"smoochBotSettings.capiSettings": {
+		"string": "Paramètres de l’API WhatsApp Cloud",
+		"developer_comment": "Title of 'WhatsApp Cloud API' settings section in the tipline settings page. The words 'WhatsApp Cloud API' do not need to be translated."
 	},
 	"smoochBotSettings.internalSettings": {
 		"string": "Paramètres internes",
@@ -4692,6 +4703,10 @@
 	"smoochBotSettings.internalSettingsDescription": {
 		"string": "Les employés de Meedan voient ces paramètres, mais les utilisateurs ne les voient pas.",
 		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.onpremSettings": {
+		"string": "Paramètres de l’API WhatsApp On-Premises",
+		"developer_comment": "Title of 'WhatsApp On-Premises API' settings section in the tipline settings page. The words 'WhatsApp On-Premises API' do not need to be translated."
 	},
 	"smoochBotSettings.searchSettings": {
 		"string": "Paramètres de recherche",
@@ -4725,7 +4740,7 @@
 	},
 	"sourceInfo.addLink": {
 		"string": "Ajouter une URL secondaire",
-		"developer_comment": "Allow user to relate a new link to media source"
+		"developer_comment": "allow user to relate a new link to media source"
 	},
 	"sourceInfo.addSecondaryLink": {
 		"string": "Ajouter une URL secondaire",
@@ -4745,7 +4760,7 @@
 	},
 	"sourceInfo.mainName": {
 		"string": "Nom principal",
-		"developer_comment": "Source name"
+		"developer_comment": "souce name"
 	},
 	"sourceInfo.mediasCount": {
 		"string": "{mediasCount, plural, one {un élément} many {# éléments} other {# éléments}}",
@@ -5160,7 +5175,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
-		"string": "Commence quand un utilisateur interagit avec le robot et se termine après 15 minutes d’inactivité.",
+		"string": "Commence par n’importe quel message sortant ou entrant pour un utilisateur et se termine après 24 heures. La collecte de données a commencé le 1er avril 2023.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.currentSubscribers": {
@@ -5187,7 +5202,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.publishedNativeReports": {
-		"string": "Rapports publiés créés dans Check (pour toutes les langues et plateformes)",
+		"string": "Rapports publiés créés dans Check (pour toutes les plates-formes).",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
@@ -5377,7 +5392,8 @@
 		"string": "Gérer le membre"
 	},
 	"teamMenu.teamSettings": {
-		"string": "Paramètres de l’espace de travail"
+		"string": "Paramètres de l’espace de travail",
+		"developer_comment": "Tooltip for drawer navigation"
 	},
 	"teamMetadataRender.blankAnnotations": {
 		"string": "Il n’y a aucun champ d’annotation",
@@ -5408,7 +5424,7 @@
 		"developer_comment": "Label to facebook page field"
 	},
 	"teamReportComponent.facebookFieldError": {
-		"string": "Please use the page name instead of the full URL",
+		"string": "Veuillez utiliser le nom de la page et non l’URL complète",
 		"developer_comment": "Error message displayed when facebook profile is filled incorrectly"
 	},
 	"teamReportComponent.introduction": {
@@ -5444,7 +5460,7 @@
 		"developer_comment": "Label to Telegram username field"
 	},
 	"teamReportComponent.telegramFieldError": {
-		"string": "Please use the bot username instead of the full URL",
+		"string": "Veuillez utiliser le nom d’utilisateur du robot et non l’URL complète",
 		"developer_comment": "Error message displayed when telegram username is filled incorrectly"
 	},
 	"teamReportComponent.title": {
@@ -5456,7 +5472,7 @@
 		"developer_comment": "Label to twitter username field"
 	},
 	"teamReportComponent.twitterFieldError": {
-		"string": "Please use the account name instead of the full URL",
+		"string": "Veuillez utiliser le nom du compte et non l’URL complète",
 		"developer_comment": "Error message displayed when twitter profile is filled incorrectly"
 	},
 	"teamReportComponent.url": {
@@ -5480,9 +5496,6 @@
 	},
 	"teamSettings.data": {
 		"string": "Données"
-	},
-	"teamSettings.details": {
-		"string": "Détails de l’espace de travail"
 	},
 	"teamSettings.integrations": {
 		"string": "Intégrations"
@@ -5514,6 +5527,9 @@
 	},
 	"teamSettings.tipline": {
 		"string": "Service Tipline"
+	},
+	"teamSettings.workspace": {
+		"string": "Espace de travail"
 	},
 	"teamTags.addTag": {
 		"string": "Ajouter une étiquette"
@@ -5707,6 +5723,10 @@
 	},
 	"teams.yourTeams": {
 		"string": "Espaces de travail"
+	},
+	"textfield.required": {
+		"string": "Requis",
+		"developer_comment": "A label to indicate that a form field must be filled out"
 	},
 	"thresholdControl.matchingExplainer": {
 		"string": "Si la note de confiance dépasse ce ratio, les éléments seront considérés comme semblables et les rapports seront envoyés automatiquement aux utilisateurs."
@@ -6165,6 +6185,7 @@
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {
-		"string": "Cet élément n’a pas pu être identifié. Il a peut-être été supprimé ou n’est visible que pour les utilisateurs connectés. Cliquez sur le lien ci-dessus pour y accéder."
+		"string": "Cet élément n’a pas pu être identifié. Il a peut-être été supprimé ou n’est visible que pour les utilisateurs connectés. Cliquez sur le lien ci-dessus pour y accéder.",
+		"developer_comment": "Error message displayed when link data is unavailable"
 	}
 }
