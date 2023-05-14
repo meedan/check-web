@@ -101,15 +101,19 @@ const NewsletterComponent = ({
     setLanguage(languageCode);
   };
 
-  const handleError = () => {
+  const handleError = (err) => {
     setSaving(false);
-    setFlashMessage((
-      <FormattedMessage
-        id="newsletterComponent.error"
-        defaultMessage="Could not save newsletter, please try again."
-        description="Error message displayed when it's not possible to save a newsletter."
-      />
-    ), 'error');
+    if (err.length && err[0]?.message) {
+      setFlashMessage(err[0].message, 'error');
+    } else {
+      setFlashMessage((
+        <FormattedMessage
+          id="newsletterComponent.error"
+          defaultMessage="Could not save newsletter, please try again."
+          description="Error message displayed when it's not possible to save a newsletter."
+        />
+      ), 'error');
+    }
   };
 
   const handleSuccess = (response) => {
@@ -225,13 +229,13 @@ const NewsletterComponent = ({
         uploadables,
         onCompleted: (response, err) => {
           if (err) {
-            handleError();
+            handleError(err);
           } else {
             handleSuccess(response);
           }
         },
-        onError: () => {
-          handleError();
+        onError: (err) => {
+          handleError(err);
         },
       },
     );

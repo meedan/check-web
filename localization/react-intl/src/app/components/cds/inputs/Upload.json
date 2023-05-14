@@ -1,5 +1,15 @@
 [
   {
+    "id": "metadata.file.tooManyFiles",
+    "description": "This message appears when a user tries to add two or more files at once to the file upload widget.",
+    "defaultMessage": "You can only upload one file here. Please try uploading one file."
+  },
+  {
+    "id": "metadata.file.invalidFile",
+    "description": "This message appears when a user tries to add a file that the browser cannot read for some reason to the file upload widget.",
+    "defaultMessage": "This is not a valid file. Please try again with a different file."
+  },
+  {
     "id": "upload.dropFile",
     "description": "A label that appears when a user drags a file over a valid file drop area",
     "defaultMessage": "Drop file here"
