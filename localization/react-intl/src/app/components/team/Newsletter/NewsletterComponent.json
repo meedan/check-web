@@ -10,6 +10,11 @@
     "defaultMessage": "Newsletter saved successfully."
   },
   {
+    "id": "newsletterComponent.emptyFieldHelp",
+    "description": "Helper text that appears when a user tries to save a form and there is an empty field that needs content",
+    "defaultMessage": "Field cannot be empty"
+  },
+  {
     "id": "newsletterComponent.title",
     "description": "Title for newsletter settings page.",
     "defaultMessage": "Newsletter"

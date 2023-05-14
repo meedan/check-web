@@ -41,8 +41,14 @@ const LimitedTextArea = ({
   );
 };
 
+LimitedTextArea.defaultProps = {
+  value: '',
+};
+
 LimitedTextArea.propTypes = {
   maxChars: PropTypes.number.isRequired,
+  value: PropTypes.string,
+  setValue: PropTypes.func.isRequired,
 };
 
 export default LimitedTextArea;

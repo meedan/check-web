@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ErrorIcon from '@material-ui/icons/Error';
 import { FormattedMessage } from 'react-intl';
+import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 import styles from './TextField.module.css';
 
 const TextField = ({
@@ -59,7 +59,7 @@ const TextField = ({
     </div>
     { helpContent && (
       <div className={`typography-caption ${styles['help-container']} ${error && styles['error-label']}`}>
-        { error && <ErrorIcon className={styles['error-icon']} />}
+        { error && <ErrorOutlineIcon className={styles['error-icon']} />}
         {helpContent}
       </div>
     )}
