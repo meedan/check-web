@@ -51,6 +51,7 @@ const NewsletterStatic = ({
               value={articles[i]}
               onChange={e => handleArticleUpdate(e.target.value, i)}
               placeholder={placeholder}
+              rows={4}
             />
           )}
         </FormattedMessage>

@@ -293,7 +293,7 @@ const NewsletterComponent = ({
             </Button>
           </div>
         }
-        helpUrl="https://help.checkmedia.org/en/articles/123456" // FIXME: Add the real KB article URL here
+        // helpUrl="https://help.checkmedia.org/en/articles/123456" // FIXME: Add the real KB article URL here
       />
       <div className={styles.newsletter}>
         <div className={styles.settings}>

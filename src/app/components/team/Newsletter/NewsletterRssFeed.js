@@ -112,7 +112,7 @@ const NewsletterRssFeed = ({
                     key={articles[i]}
                     value={articles[i]}
                     className={styles['two-spaced']}
-                    rows={3}
+                    rows={4}
                     helpContent={!loading && !articles[i] && <FormattedMessage id="newsletterRssFeed.noArticle" defaultMessage="No article retrieved from RSS at this time" description="Message displayed when RSS feed has less entries than requested" />}
                   />
                 ))}
