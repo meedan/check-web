@@ -111,8 +111,8 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('RAILS')).to be(true)
   end
 
-  it 'should suggest different texts as similar', bin7: true do
-    data = api_create_team_and_project(bot: 'alegre')
+  it 'should identify texts as similar', bin7: true do
+    data = api_create_team_and_project(bot: 'alegre', score: { min_es_score: 0 })
     pm1 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1502s.')
     sleep 60 # wait for the items to be indexed in the Elasticsearch
     api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')

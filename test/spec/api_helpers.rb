@@ -47,9 +47,8 @@ module ApiHelpers
     user = params[:user] || api_register_and_login_with_email
     team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(10_000).to_i}", email: user.email }
     team_id = team.dbid
-    api_install_bot(params[:bot], team[:slug]) if params[:bot]
-    puts 'Alegre installed' if params[:bot]
-    sleep 10
+    api_install_bot(params[:bot], team[:slug], params[:score]) if params[:bot]
+    sleep 5
     project = request_api 'project', { title: "Test Project #{Time.now.to_i}", team_id: team_id, use_default_project: params[:use_default_project] }
     { project: project, user: user, team: team }
   end
@@ -214,10 +213,10 @@ module ApiHelpers
     @driver.navigate.to @config['self_url']
   end
 
-  def api_install_bot(bot, slug = '')
+  def api_install_bot(bot, slug = nil, settings = {})
     url = @driver.current_url.to_s
     team_slug = slug || url.match(%r{^https?://[^/]+/([^/]+)})[1]
-    request_api 'install_bot', { bot: bot, slug: team_slug }
+    request_api 'install_bot', { bot: bot, slug: team_slug, settings: settings.to_json }
     @driver.navigate.to url
   end
 end
