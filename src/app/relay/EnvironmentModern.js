@@ -3,8 +3,6 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 
 function createFetchQuery(token, teamSlug) {
   return function fetchQuery(operation, variables, cacheConfig, uploadables) {
-    // eslint-disable-next-line
-    console.log('~~~fetch',variables,uploadables);
     let body = JSON.stringify({
       query: operation.text,
       variables,

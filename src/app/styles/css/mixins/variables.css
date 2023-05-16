@@ -41,6 +41,7 @@
   --grayDisabledBackground: #f3f3f3;
   --grayBorderMain: #e4e4e4;
   --grayBorderAccent: #b4b4b4;
+  --grayShadow: rgb(0 0 0 / .15);
 
   --overlayLight: rgb(34 34 34 / .7);
 
