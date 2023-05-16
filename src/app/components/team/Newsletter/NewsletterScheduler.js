@@ -138,6 +138,7 @@ const NewsletterScheduler = ({
           </span>
           <Time value={time} onChange={(e) => { onUpdate('time', e.target.value); }} disabled={scheduled} required />
           <Select className={styles.select} value={timezone} onChange={(e) => { onUpdate('timezone', e.target.value); }} disabled={scheduled}>
+            <option value="" />
             { timezones.map(tz => <option key={tz.code} value={tz.value}>{tz.label}</option>) }
           </Select>
         </div>
