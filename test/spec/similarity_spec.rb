@@ -90,23 +90,14 @@ shared_examples 'similarity' do
   end
 
   it 'should extract text from a image', bin7: true do
-    api_create_team_and_project(bot: 'alegre')
+    api_create_team_and_project(bot: 'alegre', score:{})
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item')
     create_image('files/test.png')
+    sleep 60 # wait for the text extraction
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
     wait_for_selector('.image-media-card')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    expect(@driver.page_source.include?('Extracted text')).to be(false)
-    expect(@driver.page_source.include?('RAILS')).to be(false)
-    wait_for_selector('#media-expanded-actions__menu').click
-    wait_for_selector('#media-expanded-actions__reverse-image-search')
-    wait_for_selector('#ocr-button__extract-text').click
-    sleep 60 # wait for the text extraction
-    @driver.navigate.refresh
-    wait_for_selector('.image-media-card')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
     expect(@driver.page_source.include?('Extracted text')).to be(true)
     expect(@driver.page_source.include?('RAILS')).to be(true)
   end
