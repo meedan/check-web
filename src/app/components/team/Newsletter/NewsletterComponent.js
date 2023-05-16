@@ -87,6 +87,7 @@ const NewsletterComponent = ({
     setSendOn(send_on || '');
     setTimezone(send_timezone || '');
     setTime(send_time || '09:00');
+    setScheduled(enabled || false);
   }, [language]);
 
   // This triggers when a file is changed, rerenders the file name
