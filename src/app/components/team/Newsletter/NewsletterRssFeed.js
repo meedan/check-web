@@ -83,7 +83,7 @@ const NewsletterRssFeed = ({
                     }}
                     value={localRssFeedUrl}
                     iconLeft={<LinkIcon />}
-                    error={invalid}
+                    error={invalid || !localRssFeedUrl}
                     helpContent={invalid ? <FormattedMessage id="newsletterRssFeed.invalid" defaultMessage="Invalid RSS" description="Error message displayed on RSS field when URL is invalid" /> : null}
                   />
                 )}

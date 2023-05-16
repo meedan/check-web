@@ -55,6 +55,7 @@ const NewsletterComponent = ({
     last_sent_at,
     last_scheduled_at,
     last_scheduled_by,
+    last_delivery_error,
   } = newsletter;
 
   const [saving, setSaving] = React.useState(false);
@@ -159,6 +160,7 @@ const NewsletterComponent = ({
           timezone
           time
           enabled
+          last_delivery_error
           last_scheduled_at
           last_scheduled_by {
             name
@@ -188,6 +190,7 @@ const NewsletterComponent = ({
           timezone
           time
           enabled
+          last_delivery_error
           last_scheduled_at
           last_scheduled_by {
             name
@@ -414,6 +417,7 @@ const NewsletterComponent = ({
               lastSentAt={last_sent_at}
               lastScheduledAt={last_scheduled_at}
               lastScheduledBy={last_scheduled_by?.name}
+              lastDeliveryError={last_delivery_error}
               onUpdate={handleUpdateSchedule}
             />
           </div>
@@ -477,6 +481,7 @@ export default createFragmentContainer(withSetFlashMessage(NewsletterComponent),
           time
           timezone
           subscribers_count
+          last_delivery_error
           last_sent_at
           last_scheduled_at
           last_scheduled_by {

@@ -8,6 +8,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { getTimeZones } from '@vvo/tzdb';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import Select from '../../cds/inputs/Select';
 import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
@@ -33,6 +34,7 @@ const NewsletterScheduler = ({
   sendOn,
   time,
   subscribersCount,
+  lastDeliveryError,
   lastSentAt,
   lastScheduledAt,
   lastScheduledBy,
@@ -96,6 +98,34 @@ const NewsletterScheduler = ({
           null
         }
       </div>
+
+      { lastDeliveryError === 'CONTENT_HASNT_CHANGED' ?
+        <Alert
+          hasBorder
+          type="error"
+          title={
+            <FormattedMessage
+              id="newsletterScheduler.errorContentHasntChanged"
+              defaultMessage="The newsletter was unpublished because its content has not been updated since it was last sent."
+              description="Text displayed in an error box on newsletter settings page when RSS content has not changed"
+            />
+          }
+        /> : null
+      }
+
+      { lastDeliveryError === 'RSS_ERROR' ?
+        <Alert
+          hasBorder
+          type="error"
+          title={
+            <FormattedMessage
+              id="newsletterScheduler.errorRss"
+              defaultMessage="The newsletter was unpublished because no content could be retrieved from the RSS feed."
+              description="Text displayed in an error box on newsletter settings page when RSS feed could not be loaded"
+            />
+          }
+        /> : null
+      }
 
       <div className={styles['newsletter-scheduler-schedule']}>
         { type === 'rss' ?
@@ -188,6 +218,7 @@ NewsletterScheduler.defaultProps = {
   sendOn: '',
   time: '09:00',
   subscribersCount: 0,
+  lastDeliveryError: null,
   lastSentAt: null,
   lastScheduledAt: null,
   lastScheduledBy: null,
@@ -203,6 +234,7 @@ NewsletterScheduler.propTypes = {
   sendOn: PropTypes.number, // Timestamp
   time: PropTypes.string,
   subscribersCount: PropTypes.number,
+  lastDeliveryError: PropTypes.oneOf(['CONTENT_HASNT_CHANGED', 'RSS_ERROR']),
   lastSentAt: PropTypes.number, // Timestamp
   lastScheduledAt: PropTypes.number, // Timestamp
   lastScheduledBy: PropTypes.string, // User name

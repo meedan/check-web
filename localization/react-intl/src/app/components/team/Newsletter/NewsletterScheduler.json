@@ -15,6 +15,16 @@
     "defaultMessage": "Last sent on {date}"
   },
   {
+    "id": "newsletterScheduler.errorContentHasntChanged",
+    "description": "Text displayed in an error box on newsletter settings page when RSS content has not changed",
+    "defaultMessage": "The newsletter was unpublished because its content has not been updated since it was last sent."
+  },
+  {
+    "id": "newsletterScheduler.errorRss",
+    "description": "Text displayed in an error box on newsletter settings page when RSS feed could not be loaded",
+    "defaultMessage": "The newsletter was unpublished because no content could be retrieved from the RSS feed."
+  },
+  {
     "id": "newsletterScheduler.sendEvery",
     "description": "Label on an input where the user selects in which days of the week to send an RSS newsletter",
     "defaultMessage": "Send every:"

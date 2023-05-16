@@ -146,6 +146,7 @@
     }
   }
 
+  .newsletter-schedule-button,
   .newsletter-schedule-button:hover {
     background: var(--validationMain);
     color: var(--otherWhite);
