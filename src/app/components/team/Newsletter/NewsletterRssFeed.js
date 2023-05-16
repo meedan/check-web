@@ -53,14 +53,10 @@ const NewsletterRssFeed = ({
         loadCount,
       }}
       render={({ error, props }) => {
-        if (error) {
-          // FIXME: Implement error state
-          // eslint-disable-next-line no-console
-          console.log(error);
-        }
-        const loading = !props;
+        const invalid = (error && localRssFeedUrl && localRssFeedUrl === rssFeedUrl);
+        const loading = (!props && !invalid);
         let articles = [];
-        if (!loading) {
+        if (!loading && !error) {
           const rssFeedContent = props.root.current_team.smooch_bot?.smooch_bot_preview_rss_feed;
           if (rssFeedContent) {
             articles = rssFeedContent.split('\n\n');
@@ -87,6 +83,8 @@ const NewsletterRssFeed = ({
                     }}
                     value={localRssFeedUrl}
                     iconLeft={<LinkIcon />}
+                    error={invalid}
+                    helpContent={invalid ? <FormattedMessage id="newsletterRssFeed.invalid" defaultMessage="Invalid RSS" description="Error message displayed on RSS field when URL is invalid" /> : null}
                   />
                 )}
               </FormattedMessage>
@@ -94,7 +92,7 @@ const NewsletterRssFeed = ({
                 <Button className={styles['loading-rss-feed-button']} variant="contained" color="primary" disabled={disabled}>
                   <AutorenewIcon />
                 </Button> :
-                <Button className="load-rss-feed-button" variant="contained" color="primary" onClick={handleLoad} disabled={!localRssFeedUrl || disabled}>
+                <Button className={styles['load-rss-feed-button']} variant="contained" color="primary" onClick={handleLoad} disabled={!localRssFeedUrl || disabled}>
                   <FormattedMessage id="newsletterRssFeed.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />
                 </Button> }
             </div>
@@ -113,6 +111,7 @@ const NewsletterRssFeed = ({
                     value={articles[i]}
                     className={styles['two-spaced']}
                     rows={4}
+                    error={invalid}
                     helpContent={!loading && !articles[i] && <FormattedMessage id="newsletterRssFeed.noArticle" defaultMessage="No article retrieved from RSS at this time" description="Message displayed when RSS feed has less entries than requested" />}
                   />
                 ))}
