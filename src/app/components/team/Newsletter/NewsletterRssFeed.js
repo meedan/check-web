@@ -130,12 +130,14 @@ NewsletterRssFeed.defaultProps = {
   numberOfArticles: 3,
   rssFeedUrl: null,
   onUpdateUrl: () => {},
+  parentErrors: {},
 };
 
 NewsletterRssFeed.propTypes = {
   disabled: PropTypes.bool,
   numberOfArticles: PropTypes.number,
   onUpdateNumberOfArticles: PropTypes.func.isRequired,
+  parentErrors: PropTypes.object,
   rssFeedUrl: PropTypes.string,
   onUpdateUrl: PropTypes.func,
 };

@@ -49,12 +49,14 @@ const LimitedTextArea = ({
 
 LimitedTextArea.defaultProps = {
   value: '',
+  helpContent: null,
 };
 
 LimitedTextArea.propTypes = {
   maxChars: PropTypes.number.isRequired,
   value: PropTypes.string,
   setValue: PropTypes.func.isRequired,
+  helpContent: PropTypes.element,
 };
 
 export default LimitedTextArea;

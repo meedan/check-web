@@ -67,6 +67,7 @@ NewsletterStatic.defaultProps = {
   disabled: false,
   numberOfArticles: 0,
   articles: [],
+  articleErrors: [],
 };
 
 NewsletterStatic.propTypes = {
@@ -74,6 +75,7 @@ NewsletterStatic.propTypes = {
   numberOfArticles: PropTypes.number,
   onUpdateNumberOfArticles: PropTypes.func.isRequired,
   articles: PropTypes.arrayOf(PropTypes.string),
+  articleErrors: PropTypes.arrayOf(PropTypes.element),
   onUpdateArticles: PropTypes.func.isRequired,
 };
 
