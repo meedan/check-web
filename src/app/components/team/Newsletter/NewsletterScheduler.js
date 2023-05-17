@@ -33,6 +33,7 @@ const NewsletterScheduler = ({
   sendEvery,
   sendOn,
   time,
+  parentErrors,
   subscribersCount,
   lastDeliveryError,
   lastSentAt,
@@ -156,7 +157,8 @@ const NewsletterScheduler = ({
             value={sendOn}
             onChange={(e) => { onUpdate('sendOn', e.target.value); }}
             disabled={scheduled}
-            error={!sendOn}
+            error={parentErrors.send_on}
+            helpContent={parentErrors.send_on && parentErrors.send_on}
             required
           />
           : null
@@ -167,7 +169,14 @@ const NewsletterScheduler = ({
             <FormattedMessage id="newsletterScheduler.at" defaultMessage="at" description="This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'" />
           </span>
           <Time value={time} onChange={(e) => { onUpdate('time', e.target.value); }} disabled={scheduled} required />
-          <Select className={styles.select} value={timezone} onChange={(e) => { onUpdate('timezone', e.target.value); }} disabled={scheduled}>
+          <Select
+            className={styles.select}
+            value={timezone}
+            onChange={(e) => { onUpdate('timezone', e.target.value); }}
+            error={parentErrors.timezone}
+            helpContent={parentErrors.timezone && parentErrors.timezone}
+            disabled={scheduled}
+          >
             <option value="" />
             { timezones.map(tz => <option key={tz.code} value={tz.value}>{tz.label}</option>) }
           </Select>
@@ -218,6 +227,7 @@ NewsletterScheduler.defaultProps = {
   sendOn: '',
   time: '09:00',
   subscribersCount: 0,
+  parentErrors: {},
   lastDeliveryError: null,
   lastSentAt: null,
   lastScheduledAt: null,
@@ -234,6 +244,7 @@ NewsletterScheduler.propTypes = {
   sendOn: PropTypes.number, // Timestamp
   time: PropTypes.string,
   subscribersCount: PropTypes.number,
+  parentErrors: PropTypes.object,
   lastDeliveryError: PropTypes.oneOf(['CONTENT_HASNT_CHANGED', 'RSS_ERROR']),
   lastSentAt: PropTypes.number, // Timestamp
   lastScheduledAt: PropTypes.number, // Timestamp

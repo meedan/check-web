@@ -1,5 +1,30 @@
 [
   {
+    "id": "newsletterComponent.errorTimezone",
+    "description": "Error message displayed when a user submits a form with a blank time zone field.",
+    "defaultMessage": "Time zone cannot be blank."
+  },
+  {
+    "id": "newsletterComponent.errorIntroduction",
+    "description": "Error message displayed when a user submits a form with a blank introduction field.",
+    "defaultMessage": "Introduction cannot be blank."
+  },
+  {
+    "id": "newsletterComponent.errorRssFeedUrl",
+    "description": "Error message displayed when a user submits a form with a URL that the server does not recognize.",
+    "defaultMessage": "RSS feed URL is invalid."
+  },
+  {
+    "id": "newsletterComponent.errorSendOn",
+    "description": "Error message displayed when a user submits a form with a blank scheduled date field.",
+    "defaultMessage": "Scheduled date cannot be blank."
+  },
+  {
+    "id": "newsletterComponent.errorHeaderTye",
+    "description": "Error message displayed when a user submits a form with a blank header type field (this is chosen from a list).",
+    "defaultMessage": "Header type must be supplied from the list."
+  },
+  {
     "id": "newsletterComponent.error",
     "description": "Error message displayed when it's not possible to save a newsletter.",
     "defaultMessage": "Could not save newsletter, please try again."
@@ -8,6 +33,11 @@
     "id": "newsletterComponent.success",
     "description": "Success message displayed when a newsletter is saved.",
     "defaultMessage": "Newsletter saved successfully."
+  },
+  {
+    "id": "newsletterComponent.articleBlank",
+    "description": "Message displayed on the article text field when it is empty and a user tries to save",
+    "defaultMessage": "Article field cannot be blank"
   },
   {
     "id": "newsletterComponent.title",

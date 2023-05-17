@@ -1,3 +1,15 @@
+.error {
+  border-color: var(--errorMain) !important;
+
+  &:hover {
+    border-color: var(--errorSecondary) !important;
+  }
+
+  &:focus {
+    border-color: var(--errorMain) !important;
+  }
+}
+
 .input {
   background-color: var(--otherWhite);
   border: 2px solid var(--grayBorderMain);
@@ -43,4 +55,16 @@
 
 .outlined {
   background-color: transparent;
+}
+
+.error-icon {
+  height: 12.5px !important;
+  margin-right: 4px;
+  position: relative;
+  top: 1.5px;
+  width: 12.5px !important;
+}
+
+.error-label {
+  color: var(--errorSecondary);
 }

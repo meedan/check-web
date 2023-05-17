@@ -13,6 +13,8 @@ import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
 
 const NewsletterRssFeed = ({
   disabled,
+  parentErrors,
+  helpContent,
   numberOfArticles,
   onUpdateNumberOfArticles,
   rssFeedUrl,
@@ -53,7 +55,7 @@ const NewsletterRssFeed = ({
         loadCount,
       }}
       render={({ error, props }) => {
-        const invalid = (error && localRssFeedUrl && localRssFeedUrl === rssFeedUrl);
+        const invalid = (!!parentErrors?.rss_feed_url || (!!error && localRssFeedUrl && localRssFeedUrl === rssFeedUrl));
         const loading = (!props && !invalid);
         let articles = [];
         if (!loading && !error) {
@@ -83,8 +85,8 @@ const NewsletterRssFeed = ({
                     }}
                     value={localRssFeedUrl}
                     iconLeft={<LinkIcon />}
-                    error={invalid || !localRssFeedUrl}
-                    helpContent={invalid ? <FormattedMessage id="newsletterRssFeed.invalid" defaultMessage="Invalid RSS" description="Error message displayed on RSS field when URL is invalid" /> : null}
+                    error={invalid}
+                    helpContent={helpContent}
                   />
                 )}
               </FormattedMessage>

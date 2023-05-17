@@ -29,6 +29,8 @@ const NewsletterComponent = ({
   const [language, setLanguage] = React.useState(defaultLanguage || languages[0] || 'en');
   const newsletter = newsletters.find(item => item.node.language === language)?.node || {};
   const [file, setFile] = React.useState(null);
+  const [errors, setErrors] = React.useState({});
+  const [articleErrors, setArticleErrors] = React.useState([]);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -113,7 +115,65 @@ const NewsletterComponent = ({
 
   const handleError = (err) => {
     setSaving(false);
-    if (err.length && err[0]?.message) {
+    if (
+      err.length &&
+      err[0]?.data &&
+      (
+        err[0]?.data.timezone ||
+        err[0]?.data.introduction ||
+        err[0]?.data.rss_feed_url ||
+        err[0]?.data.send_on ||
+        err[0]?.data.header_type
+      )
+    ) {
+      const { data } = err[0];
+      if (data.timezone && data.timezone[0] === 'can\'t be blank') {
+        data.timezone = (
+          <FormattedMessage
+            id="newsletterComponent.errorTimezone"
+            defaultMessage="Time zone cannot be blank."
+            description="Error message displayed when a user submits a form with a blank time zone field."
+          />
+        );
+      }
+      if (data.introduction && data.introduction[0] === 'can\'t be blank') {
+        data.introduction = (
+          <FormattedMessage
+            id="newsletterComponent.errorIntroduction"
+            defaultMessage="Introduction cannot be blank."
+            description="Error message displayed when a user submits a form with a blank introduction field."
+          />
+        );
+      }
+      if (data.rss_feed_url && data.rss_feed_url[0] === 'is invalid') {
+        data.rss_feed_url = (
+          <FormattedMessage
+            id="newsletterComponent.errorRssFeedUrl"
+            defaultMessage="RSS feed URL is invalid."
+            description="Error message displayed when a user submits a form with a URL that the server does not recognize."
+          />
+        );
+      }
+      if (data.send_on && data.send_on[0] === 'can\'t be blank') {
+        data.send_on = (
+          <FormattedMessage
+            id="newsletterComponent.errorSendOn"
+            defaultMessage="Scheduled date cannot be blank."
+            description="Error message displayed when a user submits a form with a blank scheduled date field."
+          />
+        );
+      }
+      if (data.header_type && data.header_type[0] === 'is not included in the list') {
+        data.header_type = (
+          <FormattedMessage
+            id="newsletterComponent.errorHeaderTye"
+            defaultMessage="Header type must be supplied from the list."
+            description="Error message displayed when a user submits a form with a blank header type field (this is chosen from a list)."
+          />
+        );
+      }
+      setErrors(data);
+    } else if (err.length && err[0]?.message) {
       setFlashMessage(err[0].message, 'error');
     } else {
       setFlashMessage((
@@ -200,6 +260,32 @@ const NewsletterComponent = ({
     }
   `;
 
+  const validateArticles = () => {
+    // skip validation if RSS
+    if (contentType === 'rss') return true;
+    let isValidated = true;
+    const errorArr = [];
+    const blankArticleError = (<FormattedMessage
+      id="newsletterComponent.articleBlank"
+      defaultMessage="Article field cannot be blank"
+      description="Message displayed on the article text field when it is empty and a user tries to save"
+    />);
+    if (numberOfArticles >= 1 && articles[0].length === 0) {
+      isValidated = false;
+      errorArr[0] = blankArticleError;
+    }
+    if (numberOfArticles >= 2 && articles[1].length === 0) {
+      isValidated = false;
+      errorArr[1] = blankArticleError;
+    }
+    if (numberOfArticles >= 3 && articles[2].length === 0) {
+      isValidated = false;
+      errorArr[2] = blankArticleError;
+    }
+    setArticleErrors(errorArr);
+    return isValidated;
+  };
+
   const handleSave = (scheduledOrPaused) => {
     setSaving(true);
     const mutation = (id ? updateMutation : createMutation);
@@ -231,26 +317,30 @@ const NewsletterComponent = ({
     if (file) {
       uploadables['file[]'] = file;
     }
-    commitMutation(
-      environment,
-      {
-        mutation,
-        variables: {
-          input,
-        },
-        uploadables,
-        onCompleted: (response, err) => {
-          if (err) {
+    if (validateArticles()) {
+      commitMutation(
+        environment,
+        {
+          mutation,
+          variables: {
+            input,
+          },
+          uploadables,
+          onCompleted: (response, err) => {
+            if (err) {
+              handleError(err);
+            } else {
+              handleSuccess(response);
+            }
+          },
+          onError: (err) => {
             handleError(err);
-          } else {
-            handleSuccess(response);
-          }
+          },
         },
-        onError: (err) => {
-          handleError(err);
-        },
-      },
-    );
+      );
+    } else {
+      setSaving(false);
+    }
   };
 
   const handleUpdateSchedule = (field, value) => {
@@ -316,6 +406,8 @@ const NewsletterComponent = ({
             className="newsletter-component-header"
             key={`newsletter-header-${language}`}
             disabled={scheduled}
+            error={errors.header_type}
+            helpContent={errors.header_type}
             file={file}
             handleFileChange={handleFileChange}
             setFile={setFile}
@@ -344,6 +436,8 @@ const NewsletterComponent = ({
                 value={introductionText}
                 setValue={setIntroductionText}
                 placeholder={placeholder}
+                error={errors.introduction}
+                helpContent={errors.introduction}
                 label={<FormattedMessage
                   id="newsletterComponent.introduction"
                   defaultMessage="Introduction"
@@ -384,6 +478,8 @@ const NewsletterComponent = ({
             { contentType === 'rss' ?
               <NewsletterRssFeed
                 disabled={scheduled}
+                parentErrors={errors}
+                helpContent={errors.rss_feed_url}
                 numberOfArticles={numberOfArticles}
                 onUpdateNumberOfArticles={setArticleNum}
                 rssFeedUrl={rssFeedUrl}
@@ -392,6 +488,7 @@ const NewsletterComponent = ({
             { contentType === 'static' ?
               <NewsletterStatic
                 disabled={scheduled}
+                articleErrors={articleErrors}
                 numberOfArticles={numberOfArticles}
                 onUpdateNumberOfArticles={setArticleNum}
                 articles={articles}
@@ -411,6 +508,7 @@ const NewsletterComponent = ({
               sendOn={sendOn}
               timezone={timezone}
               time={time}
+              parentErrors={errors}
               scheduled={scheduled}
               disabled={saving}
               subscribersCount={subscribers_count}

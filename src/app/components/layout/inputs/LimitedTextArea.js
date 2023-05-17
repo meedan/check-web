@@ -8,6 +8,7 @@ const LimitedTextArea = ({
   value,
   setValue,
   onChange,
+  helpContent,
   ...textFieldProps
 }) => {
   const [error, setError] = React.useState(false);
@@ -27,12 +28,17 @@ const LimitedTextArea = ({
   return (
     <TextArea
       required
-      helpContent={<FormattedMessage
-        id="limitedTextAreaWithCounter.counter"
-        defaultMessage="{remaining, plural, one {# character left} other {# characters left}}"
-        description="Label that displays how many characters more can be typed"
-        values={{ remaining: maxChars - (value?.length || 0) }}
-      />}
+      helpContent={(
+        <>
+          {helpContent && (<>{helpContent}<br /></>)}
+          <FormattedMessage
+            id="limitedTextAreaWithCounter.counter"
+            defaultMessage="{remaining, plural, one {# character left} other {# characters left}}"
+            description="Label that displays how many characters more can be typed"
+            values={{ remaining: maxChars - (value?.length || 0) }}
+          />
+        </>
+      )}
       onChange={onChange || handleChange}
       value={value}
       error={error}

@@ -37,6 +37,8 @@ const messages = defineMessages({
 const NewsletterHeader = ({
   disabled,
   availableHeaderTypes,
+  error,
+  helpContent,
   headerType,
   handleFileChange,
   file,
@@ -48,7 +50,15 @@ const NewsletterHeader = ({
   intl,
 }) => (
   <div>
-    <Select label={<FormattedMessage id="newsletterHeader.header" defaultMessage="Header" description="Label for the newsletter header type field" />} className={styles.select} value={headerType} onChange={(e) => { onUpdateField('headerType', e.target.value); }} disabled={disabled}>
+    <Select
+      label={<FormattedMessage id="newsletterHeader.header" defaultMessage="Header" description="Label for the newsletter header type field" />}
+      className={styles.select}
+      value={headerType}
+      onChange={(e) => { onUpdateField('headerType', e.target.value); }}
+      disabled={disabled}
+      error={error}
+      helpContent={helpContent}
+    >
       <option />
       <option disabled={!availableHeaderTypes.includes('none')} value="none">{intl.formatMessage(messages.headerTypeNone)}</option>
       <option disabled={!availableHeaderTypes.includes('link_preview')} value="link_preview">{intl.formatMessage(messages.headerTypeLinkPreview)}</option>
@@ -97,6 +107,7 @@ NewsletterHeader.defaultProps = {
   headerType: '',
   overlayText: null,
   fileName: '',
+  error: false,
 };
 
 NewsletterHeader.propTypes = {
@@ -109,6 +120,7 @@ NewsletterHeader.propTypes = {
   overlayText: PropTypes.string,
   onUpdateField: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
+  error: PropTypes.bool,
 };
 
 export default injectIntl(NewsletterHeader);

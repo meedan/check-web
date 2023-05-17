@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ErrorIcon from '@material-ui/icons/Error';
 import Typography from '@material-ui/core/Typography';
+import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 import styles from './DatePicker.module.css';
 
 const DatePicker = ({
@@ -24,13 +24,13 @@ const DatePicker = ({
     )}
     <input
       type="date"
-      className={`${styles.input} ${variant === 'outlined' && styles.outlined}`}
+      className={`${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error}`}
       {...inputProps}
     />
     { helpContent && (
       <Typography variant="caption">
         <div className={`${styles['help-container']} ${error && styles['error-label']}`}>
-          { error && <ErrorIcon className={styles['error-icon']} />}
+          { error && <ErrorOutlineIcon className={styles['error-icon']} />}
           {helpContent}
         </div>
       </Typography>

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ErrorIcon from '@material-ui/icons/Error';
 import { FormattedMessage } from 'react-intl';
 import Typography from '@material-ui/core/Typography';
+import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 import styles from './Select.module.css';
 
 const Select = ({
@@ -40,7 +40,7 @@ const Select = ({
       )}
       <Typography variant="body1">
         <select
-          className={`${styles.input} ${variant === 'outlined' && styles.outlined}`}
+          className={`${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error}`}
           disabled={disabled}
           {...inputProps}
         >
@@ -56,7 +56,7 @@ const Select = ({
     { helpContent && (
       <Typography variant="caption">
         <div className={`${styles['help-container']} ${error && styles['error-label']}`}>
-          { error && <ErrorIcon className={styles['error-icon']} />}
+          { error && <ErrorOutlineIcon className={styles['error-icon']} />}
           {helpContent}
         </div>
       </Typography>

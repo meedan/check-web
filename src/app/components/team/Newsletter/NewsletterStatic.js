@@ -6,6 +6,7 @@ import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 
 const NewsletterStatic = ({
   disabled,
+  articleErrors,
   numberOfArticles,
   onUpdateNumberOfArticles,
   articles,
@@ -47,6 +48,8 @@ const NewsletterStatic = ({
             <LimitedTextArea
               key={x}
               disabled={disabled}
+              error={!!articleErrors[i]}
+              helpContent={articleErrors[i]}
               maxChars={getMaxChars()}
               value={articles[i]}
               onChange={e => handleArticleUpdate(e.target.value, i)}

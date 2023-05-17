@@ -1,12 +1,12 @@
 .error {
-  border-color: var(--errorMain);
+  border-color: var(--errorMain) !important;
 
   &:hover {
-    border-color: var(--errorSecondary);
+    border-color: var(--errorSecondary) !important;
   }
 
   &:focus {
-    border-color: var(--errorMain);
+    border-color: var(--errorMain) !important;
   }
 }
 
