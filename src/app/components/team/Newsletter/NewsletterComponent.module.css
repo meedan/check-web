@@ -130,10 +130,14 @@
   }
 
   .newsletter-scheduler-time {
-    align-items: center;
+    align-items: start;
     display: flex;
     gap: 8px;
     padding: 8px;
+
+    > span {
+      align-self: center;
+    }
   }
 
   .newsletter-scheduler-subscribers {
