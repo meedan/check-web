@@ -68,15 +68,18 @@ const NewsletterHeader = ({
     </Select>
 
     { (headerType === 'image' || headerType === 'video' || headerType === 'audio') ?
-      <Upload
-        type="image+video+audio"
-        disabled={disabled}
-        handleFileChange={handleFileChange}
-        fileName={fileName}
-        setFile={setFile}
-        setFileName={setFileName}
-        value={file}
-      /> : null }
+      <div className={styles.uploader}>
+        <Upload
+          type="image+video+audio"
+          disabled={disabled}
+          handleFileChange={handleFileChange}
+          fileName={fileName}
+          setFile={setFile}
+          setFileName={setFileName}
+          value={file}
+        />
+      </div> : null
+    }
     { headerType === 'image' ?
       <FormattedMessage
         id="newsletterHeader.overlayPlaceholder"

@@ -37,6 +37,10 @@
   width: 50%;
 }
 
+.uploader {
+  margin: 16px 0;
+}
+
 .newsletter-body {
   background: var(--brandBackgroundAccent);
   border-radius: 12px;
