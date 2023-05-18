@@ -21,6 +21,11 @@
     "defaultMessage": "Tipline"
   },
   {
+    "id": "teamSettings.newsletter",
+    "description": "Label for a tab that takes the user to settings for their newsletter.",
+    "defaultMessage": "Newsletter"
+  },
+  {
     "id": "teamSettings.data",
     "defaultMessage": "Data"
   },

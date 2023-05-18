@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ErrorIcon from '@material-ui/icons/Error';
 import { FormattedMessage } from 'react-intl';
 import Typography from '@material-ui/core/Typography';
-import styles from './TextField.module.css';
+import ErrorOutlineIcon from '../../../icons/error_outline.svg';
+import styles from './Select.module.css';
 
-const TextField = ({
+const Select = ({
+  className,
   disabled,
   error,
   helpContent,
@@ -15,9 +16,10 @@ const TextField = ({
   required,
   variant,
   textArea,
+  children,
   ...inputProps
 }) => (
-  <>
+  <div className={className}>
     { (label || required) && (
       <Typography variant="body2">
         <div className={`${styles['label-container']} ${error && styles['error-label']}`} >
@@ -37,23 +39,13 @@ const TextField = ({
         </div>
       )}
       <Typography variant="body1">
-        { textArea ? (
-          <textarea
-            className={`${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
-            type="text"
-            disabled={disabled}
-            error={error}
-            {...inputProps}
-          />
-        ) : (
-          <input
-            className={`${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
-            type="text"
-            disabled={disabled}
-            error={error}
-            {...inputProps}
-          />
-        )}
+        <select
+          className={`${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error}`}
+          disabled={disabled}
+          {...inputProps}
+        >
+          {children}
+        </select>
       </Typography>
       { iconRight && (
         <div className={styles['input-icon-right-icon']}>
@@ -64,15 +56,16 @@ const TextField = ({
     { helpContent && (
       <Typography variant="caption">
         <div className={`${styles['help-container']} ${error && styles['error-label']}`}>
-          { error && <ErrorIcon className={styles['error-icon']} />}
+          { error && <ErrorOutlineIcon className={styles['error-icon']} />}
           {helpContent}
         </div>
       </Typography>
     )}
-  </>
+  </div>
 );
 
-TextField.defaultProps = {
+Select.defaultProps = {
+  className: '',
   disabled: false,
   error: false,
   helpContent: null,
@@ -84,8 +77,9 @@ TextField.defaultProps = {
   variant: 'contained',
 };
 
-TextField.propTypes = {
+Select.propTypes = {
   disabled: PropTypes.bool,
+  className: PropTypes.string,
   error: PropTypes.bool,
   helpContent: PropTypes.element,
   iconLeft: PropTypes.element,
@@ -96,4 +90,5 @@ TextField.propTypes = {
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
 
-export default TextField;
+export default Select;
+

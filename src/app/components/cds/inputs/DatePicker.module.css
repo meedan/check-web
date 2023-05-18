@@ -19,8 +19,7 @@
   height: 100%;
   letter-spacing: .15px;
   line-height: 20px;
-  padding: 12px 10px;
-  width: 100%;
+  padding: 10px;
 
   &:hover {
     border-color: var(--grayBorderAccent);
@@ -42,79 +41,20 @@
   }
 }
 
-.label-container {
-  color: var(--textSecondary);
-  display: grid;
-  grid-gap: 8px;
-  grid-template-columns: 2fr 1fr;
-  margin-bottom: 4px;
-}
-
-.label {
-  align-self: end;
-  margin-left: 10px;
-}
-
 .required {
   align-self: end;
   margin-right: 4px;
   text-align: right;
 }
 
+.input:disabled,
 .disabled {
   background-color: var(--grayDisabledBackground);
   color: var(--textDisabledInput);
 }
 
-.error-label {
-  color: var(--errorSecondary);
-}
-
 .outlined {
   background-color: transparent;
-}
-
-.input-container {
-  position: relative;
-
-  textarea {
-    margin-bottom: -4px;
-  }
-}
-
-.input-icon-left-icon {
-  color: var(--textSecondary);
-  padding: 13.5px 0 13.5px 11.5px;
-  position: absolute;
-
-  svg {
-    height: 17.5px;
-    width: 17.5px;
-  }
-}
-
-.input-icon-left {
-  padding-left: 34px;
-}
-
-.input-icon-right-icon {
-  color: var(--textSecondary);
-  position: absolute;
-  right: 11.5px;
-  top: 13.5px;
-
-  svg {
-    height: 17.5px;
-    width: 17.5px;
-  }
-}
-
-.input-icon-right {
-  padding-right: 34px;
-}
-
-.help-container {
-  padding: 4px 4px 0 10px;
 }
 
 .error-icon {
@@ -123,4 +63,8 @@
   position: relative;
   top: 1.5px;
   width: 12.5px !important;
+}
+
+.error-label {
+  color: var(--errorSecondary);
 }

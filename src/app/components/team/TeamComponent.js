@@ -21,6 +21,7 @@ import TeamMembers from './TeamMembers';
 import TeamLists from './TeamLists';
 import TeamIntegrations from './TeamIntegrations';
 import TeamSimilarity from './Similarity';
+import Newsletter from './Newsletter';
 import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
@@ -168,6 +169,19 @@ class TeamComponent extends Component {
                 value="tipline"
               />
               : null }
+            {isAdminOrEditor ?
+              <Tab
+                className="team-settings__newsletter-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.newsletter"
+                    defaultMessage="Newsletter"
+                    description="Label for a tab that takes the user to settings for their newsletter."
+                  />
+                }
+                value="newsletter"
+              />
+              : null }
             {isAdminOrEditor && Boolean(team.smooch_bot) ?
               <Tab
                 className="team-settings__data-tab"
@@ -279,6 +293,9 @@ class TeamComponent extends Component {
               : null }
             { tab === 'tipline'
               ? <SmoochBot currentUser={this.getCurrentUser()} />
+              : null }
+            { tab === 'newsletter'
+              ? <Newsletter />
               : null }
             { tab === 'data'
               ? <TeamData teamSlug={team.slug} />
