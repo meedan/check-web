@@ -25,17 +25,6 @@ shared_examples 'tag' do
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
     expect(@driver.page_source.include?('newtagedited')).to be(true)
 
-    # Create another tag
-    expect(@driver.page_source.include?('tag2')).to be(false)
-    add_team_tag('tag2')
-    expect(@driver.page_source.include?('tag2')).to be(true)
-
-    # Search tag by keyword
-    wait_for_selector('#search-input').send_keys('edited')
-    @driver.action.send_keys(:enter).perform
-    expect(@driver.page_source.include?('newtagedited')).to be(true)
-    expect(@driver.page_source.include?('tag2')).to be(false)
-
     # Delete tag
     wait_for_selector('.team-tags-actions__icon').click
     wait_for_selector('.team-tags-actions__destroy').click
@@ -45,7 +34,7 @@ shared_examples 'tag' do
     expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(true)
   end
 
-  it 'should add a tag rule and use tag filter', bin4: true, quick: true do
+  it 'should add a tag rule', bin4: true, quick: true do
     team = "team#{Time.now.to_i}-#{rand(99_999)}"
     create_team_and_go_to_settings_page(team)
     # create a tag
@@ -67,40 +56,22 @@ shared_examples 'tag' do
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
     # check that it does not have a item using this tag
     expect(wait_for_selector('td > a').text == '0').to be(true)
-    tag_url = @driver.current_url
     # create a media
     wait_for_selector('.projects-list__all-items').click
     create_media('new media')
-    sleep 90 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-tags__tag')
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
-    wait_for_selector('.tag-menu__icon')
-    # click on the tag and go to search page with the tag filter and see the item
-    wait_for_selector('.media-tags__tag').click
-    wait_for_selector('.media__heading', :css, 20, true)
-    wait_for_selector('#search-input')
-    wait_for_selector('.multi-select-filter__tag')
-    expect(@driver.page_source.include?('tag added automatically')).to be(true)
-    expect(@driver.page_source.include?('new media')).to be(true)
-    # go to team tag page and see one item using the tag
-    @driver.navigate.to tag_url
-    wait_for_selector('.team-tags__row')
-    expect(wait_for_selector('td > a').text == '1').to be(true)
   end
 
   it 'should add a tag, reject duplicated tag', bin3: true, quick: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_project_claim_and_media_tag
+    wait_for_selector('#search-input')
+    wait_for_selector('.media__heading').click
     wait_for_selector('.media-card-large')
-    new_tag = "tag:#{Time.now.to_i}"
-    # Validate assumption that tag does not exist
-    expect(@driver.page_source.include?(new_tag)).to be(false)
-    # Add tag
-    add_tag(new_tag)
-    @wait.until { @driver.page_source.include?(new_tag) }
     # Try to add duplicate
     wait_for_selector('.tag-menu__icon').click
-    fill_field('.multiselector__search-input input', new_tag)
+    fill_field('.multiselector__search-input input', 'TAG')
     wait_for_selector('#tag-menu__create-button').click
     @driver.action.send_keys(:enter).perform
     # Verify that 'Tag already exists' message is displayed

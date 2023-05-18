@@ -129,12 +129,10 @@ module ApiHelpers
     media = api_create_team_project_and_claim({ quit: false, quote: 'My search result' })
     @driver.navigate.to media.full_url
 
-    sleep 10 # wait for Sidekiq
+    sleep 30 # wait for Sidekiq
 
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
-
-    sleep 20
-
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
@@ -218,5 +216,21 @@ module ApiHelpers
     team_slug = slug || url.match(%r{^https?://[^/]+/([^/]+)})[1]
     request_api 'install_bot', { bot: bot, slug: team_slug, settings: settings.to_json }
     @driver.navigate.to url
+  end
+
+  def api_change_media_status(pm_id = nil, status = 'false')
+    url = @driver.current_url.to_s
+    pm_id ||= url.match(%r{media/(\d+)})[1]
+    puts "media #{pm_id}"
+    puts request_api 'media_status', { pm_id: pm_id, status: status }
+    sleep 5
+  end
+
+  def api_create_team_project_claim_and_media_tag(params = {})
+    data = params[:data] || api_create_team_and_project(params)
+    quote = params[:quote] || 'Claim'
+    claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    request_api 'new_media_tag', { pm_id: claim[:id], email: data[:user].email, tag: 'TAG' }
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
   end
 end
