@@ -85,6 +85,7 @@ const NewsletterComponent = ({
     setArticleNum(number_of_articles || 0);
     setArticles([first_article || '', second_article || '', third_article || '']);
     setHeaderType(header_type || '');
+    setFileName((header_file_url && header_file_url.match(fileNameFromUrl) && header_file_url.match(fileNameFromUrl)[0]) || '');
     setContentType(content_type || 'static');
     setRssFeedUrl(rss_feed_url || '');
     setSendEvery(send_every || ['wednesday']);
@@ -235,28 +236,8 @@ const NewsletterComponent = ({
   const createMutation = graphql`
     mutation NewsletterComponentCreateMutation($input: CreateTiplineNewsletterInput!) {
       createTiplineNewsletter(input: $input) {
-        tipline_newsletter {
+        team {
           id
-          introduction
-          language
-          header_type
-          header_overlay_text
-          content_type
-          first_article
-          second_article
-          third_article
-          rss_feed_url
-          number_of_articles
-          send_every
-          send_on
-          timezone
-          time
-          enabled
-          last_delivery_error
-          last_scheduled_at
-          last_scheduled_by {
-            name
-          }
         }
       }
     }
@@ -333,6 +314,10 @@ const NewsletterComponent = ({
               handleError(err);
             } else {
               handleSuccess(response);
+              // FIXME: Find a better way to refresh the local store when a newsletter is created
+              if (!input.id) {
+                window.location.assign(`/${team.slug}/settings/newsletter`);
+              }
             }
           },
           onError: (err) => {
@@ -557,8 +542,9 @@ export { NewsletterComponent as NewsletterComponentTest };
 
 export default createFragmentContainer(withSetFlashMessage(NewsletterComponent), graphql`
   fragment NewsletterComponent_team on Team {
-    permissions
     id
+    slug
+    permissions
     defaultLanguage: get_language
     languages: get_languages
     available_newsletter_header_types
