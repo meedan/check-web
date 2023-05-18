@@ -124,7 +124,9 @@ const NewsletterComponent = ({
         err[0]?.data.introduction ||
         err[0]?.data.rss_feed_url ||
         err[0]?.data.send_on ||
-        err[0]?.data.header_type
+        err[0]?.data.header_type ||
+        err[0]?.data.header_file ||
+        err[0]?.data.base
       )
     ) {
       const { data } = err[0];
@@ -167,11 +169,27 @@ const NewsletterComponent = ({
       if (data.header_type && data.header_type[0] === 'is not included in the list') {
         data.header_type = (
           <FormattedMessage
-            id="newsletterComponent.errorHeaderTye"
+            id="newsletterComponent.errorHeaderType"
             defaultMessage="Header type must be supplied from the list."
             description="Error message displayed when a user submits a form with a blank header type field (this is chosen from a list)."
           />
         );
+      }
+      if (data.header_file && data.header_file[0].includes('cannot be of type')) {
+        data.header_file = (
+          <FormattedMessage
+            id="newsletterComponent.errorHeaderFile"
+            defaultMessage="File must be of the following allowed types: {fileTypes}"
+            description="Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
+            values={{
+              fileTypes: data.header_file[0].split(':')[1],
+            }}
+          />
+        );
+      }
+      if (data.base && data.base[0].includes('Sorry, we don\'t support')) {
+        // FIXME: We are not going to internationalize this string for now, it's too unstructured and variable to make work
+        data.base = data.base[0]; // eslint-disable-line prefer-destructuring
       }
       setErrors(data);
     } else if (err.length && err[0]?.message) {
@@ -408,13 +426,12 @@ const NewsletterComponent = ({
             className="newsletter-component-header"
             key={`newsletter-header-${language}`}
             disabled={scheduled}
-            error={errors.header_type}
-            helpContent={errors.header_type}
+            parentErrors={errors}
             file={file}
             handleFileChange={handleFileChange}
             setFile={setFile}
             setFileName={setFileName}
-            availableHeaderTypes={team.available_newsletter_header_types || []}
+            availableHeaderTypes={['image', 'none'] || team.available_newsletter_header_types || []}
             headerType={headerType}
             fileName={fileName}
             overlayText={overlayText}
