@@ -1,12 +1,13 @@
 [
   {
     "id": "teamDetails.savedSuccessfully",
+    "description": "Success message displayed when workspace settings are saved",
     "defaultMessage": "Workspace details saved successfully"
   },
   {
     "id": "teamDetails.title",
     "description": "Title for details page of current workspace",
-    "defaultMessage": "Workspace details"
+    "defaultMessage": "Workspace"
   },
   {
     "id": "teamDetails.subtitle",
@@ -14,19 +15,63 @@
     "defaultMessage": "Add details to your Check workspace."
   },
   {
+    "id": "teamDetails.duplicateWorkspace",
+    "description": "Label of a button to duplicate a workspace",
+    "defaultMessage": "Duplicate workspace"
+  },
+  {
     "id": "teamDetails.update",
+    "description": "Label of the button that saves workspace details",
     "defaultMessage": "Update"
   },
   {
+    "id": "teamDetails.edit",
+    "description": "Label for a button to change a workspace image",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "teamDetails.profile",
+    "description": "Title of the profile section in team details page",
+    "defaultMessage": "Profile"
+  },
+  {
     "id": "teamDetails.workspaceName",
+    "description": "Label for workspace name field",
     "defaultMessage": "Workspace name"
   },
   {
-    "id": "teamDetails.description",
-    "defaultMessage": "Description"
+    "id": "teamDetails.linkManagement",
+    "description": "Title of the link management section in team details page",
+    "defaultMessage": "Link management"
   },
   {
-    "id": "teamDetails.duplicateWorkspace",
-    "defaultMessage": "Duplicate workspace"
+    "id": "teamDetails.linkManagementSwitcher",
+    "description": "Label for a switch where the user toggles link management in team details page",
+    "defaultMessage": "Enable link shortening and analytics"
+  },
+  {
+    "id": "teamDetails.linkManagementRss",
+    "description": "Helper text for link management switcher when workspace has RSS newsletters configured",
+    "defaultMessage": "The link service cannot be disabled while RSS newsletters are configured in this workspace"
+  },
+  {
+    "id": "teamDetails.utmCode",
+    "description": "Label for 'UTM code' field",
+    "defaultMessage": "UTM code"
+  },
+  {
+    "id": "teamDetails.utmCodeHelp",
+    "description": "Helper text for UTM code field",
+    "defaultMessage": "Customize the UTM code appended to links. Leave blank to disable UTM codes."
+  },
+  {
+    "id": "teamDetails.warnTitle",
+    "description": "Text displayed in a warning box on team details page when link shortening is on",
+    "defaultMessage": "All links sent via Check are managed"
+  },
+  {
+    "id": "teamDetails.warnContent",
+    "description": "Text displayed in a warning box on team details page when link shortening is on",
+    "defaultMessage": "Links processed in the Check platform will be rewritten to match this example: https://chck.media/x1y2z3w4?utm_source=utm_code. The unique code in each link will redirect your users to the original final destination."
   }
 ]

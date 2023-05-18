@@ -61,9 +61,11 @@
   text-align: right;
 }
 
+.input:disabled,
 .disabled {
   background-color: var(--grayDisabledBackground);
   color: var(--textDisabledInput);
+  opacity: 1;
 }
 
 .error-label {
@@ -76,10 +78,6 @@
 
 .input-container {
   position: relative;
-
-  textarea {
-    margin-bottom: -4px;
-  }
 }
 
 .input-icon-left-icon {
@@ -114,7 +112,7 @@
 }
 
 .help-container {
-  padding: 4px 4px 0 10px;
+  padding: 0 4px 0 10px;
 }
 
 .error-icon {

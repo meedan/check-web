@@ -10,7 +10,6 @@ const labels = {
   smooch_state_query: <FormattedMessage id="smoochBot.labelQueryPrompt" defaultMessage="Query prompt" />,
   smooch_message_smooch_bot_message_confirmed: <FormattedMessage id="smoochBot.labelQueryReceived" defaultMessage="Query received" />,
   smooch_state_subscription: <FormattedMessage id="smoochBot.labelSubscription" defaultMessage="Subscription opt-in" />,
-  smooch_newsletter: <FormattedMessage id="smoochBot.labelNewsletter" defaultMessage="Newsletter" />,
   smooch_message_smooch_bot_option_not_available: <FormattedMessage id="smoochBot.labelOptionNotAvailable" defaultMessage="Option not available" />,
   smooch_message_smooch_bot_result_changed: <FormattedMessage id="smoochBot.labelReportUpdated" defaultMessage="Report updated" />,
   smooch_message_smooch_bot_message_type_unsupported: <FormattedMessage id="smoochBot.labelInvalidFormat" defaultMessage="Invalid format" />,
@@ -21,7 +20,6 @@ const labels = {
 const labelsV2 = {
   smooch_content: <FormattedMessage id="smoochBot.labelContent" defaultMessage="Content & translation" description="Button label in tipline settings page" />,
   smooch_main_menu: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main menu" />,
-  smooch_newsletter: <FormattedMessage id="smoochBot.labelNewsletterV2" defaultMessage="Newsletter" />,
 };
 
 const descriptions = {
@@ -31,15 +29,6 @@ const descriptions = {
   smooch_state_query: <FormattedMessage id="smoochBot.descriptionQueryPrompt" defaultMessage="The message asking the user to submit content for a fact-check." />,
   smooch_message_smooch_bot_message_confirmed: <FormattedMessage id="smoochBot.descriptionQueryReceived" defaultMessage="The confirmation sent to the user after a valid query from the user has been received." />,
   smooch_state_subscription: <FormattedMessage id="smoochBot.descriptionSubscription" defaultMessage="Present the value of your newsletter to users. All users who opt-in will receive any future newsletter." />,
-  smooch_newsletter: (
-    <React.Fragment>
-      <FormattedMessage id="smoochBot.descriptionNewsletter1" defaultMessage="Please complete the steps below to send a weekly newsletter:" />
-      <br />
-      <FormattedMessage id="smoochBot.descriptionNewsletter2" defaultMessage="1. Compose your newsletter" />
-      <br />
-      <FormattedMessage id="smoochBot.descriptionNewsletter3" defaultMessage="2. Select a day and time of the week" />
-    </React.Fragment>
-  ),
   smooch_message_smooch_bot_option_not_available: <FormattedMessage id="smoochBot.descriptionOptionNotAvailable" defaultMessage="The message sent if the user response to a menu is not a valid menu scenario." />,
   smooch_message_smooch_bot_result_changed: <FormattedMessage id="smoochBot.descriptionReportUpdated" defaultMessage="The message sent to the user when status of a report has changed. The report must be completed for this message to be sent." />,
   smooch_message_smooch_bot_message_type_unsupported: <FormattedMessage id="smoochBot.descriptionInvalidFormat" defaultMessage="An automatic message sent to the user when they have sent a file that is not supported by Check." />,
@@ -111,14 +100,6 @@ const placeholders = defineMessages({
     id: 'smoochBot.placeholderSubscription',
     defaultMessage: 'Type to compose your prompt for newsletter opt-in.',
   },
-  smooch_newsletter: {
-    id: 'smoochBot.placeholderNewsletter',
-    defaultMessage: 'Type to compose your newsletter. You can add content from the RSS below.',
-  },
-  smooch_newsletter_bullet_point: {
-    id: 'smoochBot.placeholderNewsletterBulletPoint',
-    defaultMessage: 'Add an article',
-  },
   smooch_message_smooch_bot_option_not_available: {
     id: 'smoochBot.placeholderOptionNotAvailable',
     defaultMessage: "🤖I'm sorry, I didn't understand your message. Please try again!",
@@ -150,10 +131,6 @@ Contact us at *[email or other contact]* for further inquiries.`,
   tos: {
     id: 'smoochBot.tos',
     defaultMessage: 'Terms of Service ({language})',
-  },
-  smooch_newsletter_introduction: {
-    id: 'smoochBot.placeholderNewsletterIntroduction',
-    defaultMessage: 'Type something',
   },
 });
 
