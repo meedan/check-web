@@ -17,9 +17,9 @@
 .newsletter {
   background: var(--otherWhite);
   border-color: var(--grayBorderMain);
-  border-radius: 16px 16px 0;
+  border-radius: 16px;
   border-style: solid;
-  border-width: 2px 2px 0;
+  border-width: 2px;
   padding: 16px;
 }
 
@@ -134,7 +134,7 @@
   }
 
   .newsletter-scheduler-time {
-    align-items: start;
+    align-items: flex-start;
     display: flex;
     gap: 8px;
     padding: 8px;
