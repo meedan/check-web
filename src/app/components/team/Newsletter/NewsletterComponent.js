@@ -92,6 +92,7 @@ const NewsletterComponent = ({
     setTimezone(send_timezone || '');
     setTime(send_time || '09:00');
     setScheduled(enabled || false);
+    setErrors({});
   }, [language]);
 
   // This triggers when a file is changed, rerenders the file name
@@ -189,6 +190,7 @@ const NewsletterComponent = ({
   const handleSuccess = (response) => {
     setScheduled(response?.updateTiplineNewsletter?.tipline_newsletter?.enabled);
     setSaving(false);
+    setErrors({});
     setFlashMessage((
       <FormattedMessage
         id="newsletterComponent.success"
