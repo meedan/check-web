@@ -14,19 +14,18 @@ import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import styles from './NewsletterComponent.module.css';
 import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import SettingsHeader from '../SettingsHeader';
-import { safelyParseJSON } from '../../../helpers';
 import { can } from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const NewsletterComponent = ({
   environment,
   team,
+  language,
+  languages,
+  onChangeLanguage,
   setFlashMessage,
 }) => {
   const newsletters = team.tipline_newsletters?.edges;
-  const { defaultLanguage } = team;
-  const languages = safelyParseJSON(team.languages);
-  const [language, setLanguage] = React.useState(defaultLanguage || languages[0] || 'en');
   const newsletter = newsletters.find(item => item.node.language === language)?.node || {};
   const [file, setFile] = React.useState(null);
   const [errors, setErrors] = React.useState({});
@@ -73,28 +72,10 @@ const NewsletterComponent = ({
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
   const [sendOn, setSendOn] = React.useState(send_on || null);
   const [timezone, setTimezone] = React.useState(send_timezone || '');
-  const [time, setTime] = React.useState(send_time || '9:00');
+  const [time, setTime] = React.useState(send_time || '09:00');
   const [scheduled, setScheduled] = React.useState(enabled || false);
 
   const numberOfArticles = (contentType === 'rss' && articleNum === 0) ? 1 : articleNum;
-
-  // This triggers when language is selected, and rerenders all data fields with their defaults
-  React.useEffect(() => {
-    setOverlayText(header_overlay_text || '');
-    setIntroductionText(introduction || '');
-    setArticleNum(number_of_articles || 0);
-    setArticles([first_article || '', second_article || '', third_article || '']);
-    setHeaderType(header_type || '');
-    setFileName((header_file_url && header_file_url.match(fileNameFromUrl) && header_file_url.match(fileNameFromUrl)[0]) || '');
-    setContentType(content_type || 'static');
-    setRssFeedUrl(rss_feed_url || '');
-    setSendEvery(send_every || ['wednesday']);
-    setSendOn(send_on || '');
-    setTimezone(send_timezone || '');
-    setTime(send_time || '09:00');
-    setScheduled(enabled || false);
-    setErrors({});
-  }, [language]);
 
   // This triggers when a file is changed, rerenders the file name
   React.useEffect(() => {
@@ -112,7 +93,7 @@ const NewsletterComponent = ({
 
   const handleLanguageChange = (value) => {
     const { languageCode } = value;
-    setLanguage(languageCode);
+    onChangeLanguage(languageCode);
   };
 
   const handleError = (err) => {
@@ -514,8 +495,6 @@ const NewsletterComponent = ({
 
 NewsletterComponent.propTypes = {
   team: PropTypes.shape({
-    defaultLanguage: PropTypes.string.isRequired,
-    languages: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
     tipline_newsletters: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({
@@ -535,6 +514,9 @@ NewsletterComponent.propTypes = {
       ),
     }),
   }).isRequired,
+  language: PropTypes.string.isRequired,
+  languages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onChangeLanguage: PropTypes.func.isRequired,
 };
 
 // eslint-disable-next-line import/no-unused-modules
@@ -545,8 +527,6 @@ export default createFragmentContainer(withSetFlashMessage(NewsletterComponent),
     id
     slug
     permissions
-    defaultLanguage: get_language
-    languages: get_languages
     available_newsletter_header_types
     tipline_newsletters(first: 1000) {
       edges {
