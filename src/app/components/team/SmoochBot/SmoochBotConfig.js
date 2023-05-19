@@ -14,7 +14,6 @@ import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
 import SmoochBotMenuEditor from './SmoochBotMenuEditor';
 import SmoochBotResourceEditor from './SmoochBotResourceEditor';
-import SmoochBotNewsletterEditor from './SmoochBotNewsletterEditor';
 import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
@@ -190,15 +189,6 @@ const SmoochBotConfig = (props) => {
     }
   };
 
-  const handleChangeNewsletter = (key, newValue) => {
-    const updatedValue = JSON.parse(JSON.stringify(value));
-    if (!updatedValue.smooch_workflows[currentWorkflowIndex].smooch_newsletter) {
-      updatedValue.smooch_workflows[currentWorkflowIndex].smooch_newsletter = {};
-    }
-    updatedValue.smooch_workflows[currentWorkflowIndex].smooch_newsletter[key] = newValue;
-    setValue(updatedValue);
-  };
-
   return (
     <React.Fragment>
       <Tabs value={currentTab} onChange={handleChangeTab} variant="fullWidth">
@@ -290,15 +280,6 @@ const SmoochBotConfig = (props) => {
                   onChange={handleChangeResource}
                   onDelete={handleDeleteResource}
                 /> : null }
-              { currentOption === 'smooch_newsletter' ?
-                <SmoochBotNewsletterEditor
-                  key={currentLanguage}
-                  language={currentLanguage}
-                  installationId={props.installationId}
-                  newsletter={value.smooch_workflows[currentWorkflowIndex].smooch_newsletter || {}}
-                  newsletterInformation={props.newsletterInformation[currentLanguage]}
-                  onChange={handleChangeNewsletter}
-                /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation
                   key={currentLanguage}
@@ -339,7 +320,6 @@ SmoochBotConfig.propTypes = {
   currentUser: PropTypes.object.isRequired,
   userRole: PropTypes.string.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
-  newsletterInformation: PropTypes.object.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,

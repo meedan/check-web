@@ -1,0 +1,75 @@
+.container {
+  align-items: center;
+  background-color: var(--otherWhite);
+  border: 2px dashed var(--grayBorderMain);
+  border-radius: 8px;
+  display: grid;
+  min-height: 100px;
+  padding: 10px;
+  text-align: center;
+}
+
+.container-error {
+  border-color: var(--errorMain);
+}
+
+.input {
+  display: none;
+}
+
+.dropping {
+  background-color: var(--brandHoverAccent);
+  border-color: var(--brandMain);
+}
+
+.drag-text {
+  margin: 10px 0;
+}
+
+.drop-text {
+  color: var(--brandSecondary) !important;
+  pointer-events: none; /* suppress drag and drop events, default to parent */
+}
+
+.file-name {
+  color: var(--brandSecondary) !important;
+  padding: 8px;
+  text-align: left;
+}
+
+.file-name-container {
+  background-color: var(--brandLight);
+  border: none;
+}
+
+.file-name-grid {
+  align-items: center;
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: 5fr 1fr;
+  grid-template-rows: 1fr;
+
+  :last-child {
+    justify-self: end;
+  }
+}
+
+.icon-label {
+  font-size: var(--iconSizeSmall);
+  vertical-align: middle;
+}
+
+.error {
+  background-color: var(--errorLight);
+  border-radius: 5px;
+  color: var(--errorSecondary) !important;
+  font-size: var(--iconSizeSmall);
+  padding: 5px;
+  pointer-events: none; /* suppress drag and drop events, default to parent */
+}
+
+.delete-button {
+  color: var(--brandSecondary) !important;
+  font-size: var(--iconSizeSmall) !important;
+  padding: 0 !important;
+}
