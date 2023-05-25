@@ -38,11 +38,11 @@ const NewsletterHeader = ({
   disabled,
   availableHeaderTypes,
   error,
-  helpContent,
   headerType,
   handleFileChange,
   file,
   fileName,
+  parentErrors,
   setFile,
   setFileName,
   overlayText,
@@ -56,8 +56,8 @@ const NewsletterHeader = ({
       value={headerType}
       onChange={(e) => { onUpdateField('headerType', e.target.value); }}
       disabled={disabled}
-      error={error}
-      helpContent={helpContent}
+      error={parentErrors.header_type || error}
+      helpContent={parentErrors.header_type}
     >
       <option />
       <option disabled={!availableHeaderTypes.includes('none')} value="none">{intl.formatMessage(messages.headerTypeNone)}</option>
@@ -71,6 +71,8 @@ const NewsletterHeader = ({
       <div className={styles.uploader}>
         <Upload
           type="image+video+audio"
+          error={parentErrors.header_file || parentErrors.base}
+          helpContent={parentErrors.header_file || parentErrors.base}
           disabled={disabled}
           handleFileChange={handleFileChange}
           fileName={fileName}
