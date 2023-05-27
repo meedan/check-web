@@ -20,9 +20,14 @@
     "defaultMessage": "Scheduled date cannot be blank."
   },
   {
-    "id": "newsletterComponent.errorHeaderTye",
+    "id": "newsletterComponent.errorHeaderType",
     "description": "Error message displayed when a user submits a form with a blank header type field (this is chosen from a list).",
     "defaultMessage": "Header type must be supplied from the list."
+  },
+  {
+    "id": "newsletterComponent.errorHeaderFile",
+    "description": "Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'.",
+    "defaultMessage": "File must be of the following allowed types: {fileTypes}"
   },
   {
     "id": "newsletterComponent.error",
