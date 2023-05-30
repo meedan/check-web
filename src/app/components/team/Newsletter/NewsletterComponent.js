@@ -358,6 +358,7 @@ const NewsletterComponent = ({
   return (
     <div className={`newsletter-component ${styles.content}`}>
       <SettingsHeader
+        helpUrl="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters"
         title={
           <FormattedMessage
             id="newsletterComponent.title"
