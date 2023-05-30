@@ -89,6 +89,8 @@
   &.textarea-container {
     textarea {
       margin-bottom: -4px;
+      min-height: 3.5em;
+      max-width: 100%;
     }
 
     + .help-container {
