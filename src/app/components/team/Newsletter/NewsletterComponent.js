@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
 import Button from '@material-ui/core/Button';
-import useElementOnScreen from '../../../hooks/useElementOnScreen';
 import NewsletterHeader from './NewsletterHeader';
 import NewsletterStatic from './NewsletterStatic';
 import NewsletterRssFeed from './NewsletterRssFeed';
@@ -83,13 +82,6 @@ const NewsletterComponent = ({
       setFileName(file.name);
     }
   }, [file]);
-
-  // This triggers when the sticky scheduler is fully visible on the screen
-  const [containerRef, isVisible] = useElementOnScreen({
-    root: null,
-    rootMargin: '0px',
-    threshold: 1.0,
-  });
 
   const handleLanguageChange = (value) => {
     const { languageCode } = value;
@@ -480,13 +472,7 @@ const NewsletterComponent = ({
                 onUpdateArticles={setArticles}
               /> : null }
           </div>
-          <div
-            ref={containerRef}
-            className={[
-              styles['newsletter-scheduler-container'],
-              (isVisible ? styles['newsletter-scheduler-not-sticky'] : styles['newsletter-scheduler-sticky']),
-            ].join(' ')}
-          >
+          <div className={styles['newsletter-scheduler-container']}>
             <NewsletterScheduler
               type={contentType}
               sendEvery={sendEvery}
