@@ -70,6 +70,10 @@
   color: var(--errorSecondary);
 }
 
+.help-container {
+  padding: 4px 4px 0 10px;
+}
+
 .outlined {
   background-color: transparent;
 }
@@ -77,8 +81,14 @@
 .input-container {
   position: relative;
 
-  textarea {
-    margin-bottom: -4px;
+  &.textarea-container {
+    textarea {
+      margin-bottom: -4px;
+    }
+
+    + .help-container {
+      margin-top: 4px;
+    }
   }
 }
 
@@ -111,10 +121,6 @@
 
 .input-icon-right {
   padding-right: 34px;
-}
-
-.help-container {
-  padding: 4px 4px 0 10px;
 }
 
 .error-icon {
