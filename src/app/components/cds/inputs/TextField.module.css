@@ -64,6 +64,11 @@
 .disabled {
   background-color: var(--grayDisabledBackground);
   color: var(--textDisabledInput);
+  cursor: not-allowed;
+
+  &:hover {
+    border-color: var(--grayBorderMain);
+  }
 }
 
 .error-label {
