@@ -71,7 +71,7 @@ const NewsletterComponent = ({
   const [contentType, setContentType] = React.useState(content_type || 'static');
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
   const [sendOn, setSendOn] = React.useState(send_on || null);
-  const [timezone, setTimezone] = React.useState(send_timezone || '');
+  const [timezone, setTimezone] = React.useState(send_timezone || Intl.DateTimeFormat().resolvedOptions().timeZone);
   const [time, setTime] = React.useState(send_time || '09:00');
   const [scheduled, setScheduled] = React.useState(enabled || false);
 
