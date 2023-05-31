@@ -77,7 +77,13 @@ const NewsletterRssFeed = ({
                     placeholder={placeholder}
                     disabled={disabled}
                     className={styles['rss-feed-url-field']}
-                    onChange={(e) => { setLocalRssFeedUrl(e.target.value); }}
+                    onChange={(e) => {
+                      let { value } = e.target;
+                      if (!/^https?:\/\//.test(value)) {
+                        value = `https://${value}`;
+                      }
+                      setLocalRssFeedUrl(value);
+                    }}
                     onBlur={(e) => {
                       if (e.target.value === '') {
                         onUpdateUrl(null);

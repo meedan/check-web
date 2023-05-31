@@ -11,13 +11,13 @@ const LimitedTextArea = ({
   helpContent,
   ...textFieldProps
 }) => {
-  const [error, setError] = React.useState(false);
+  const [localError, setLocalError] = React.useState(false);
 
   React.useEffect(() => {
     if ((value?.length || 0) > maxChars) {
-      setError(true);
+      setLocalError(true);
     } else {
-      setError(false);
+      setLocalError(false);
     }
   });
 
@@ -41,8 +41,8 @@ const LimitedTextArea = ({
       )}
       onChange={onChange || handleChange}
       value={value}
-      error={error}
       {...textFieldProps}
+      error={localError || textFieldProps.error}
     />
   );
 };
@@ -50,6 +50,7 @@ const LimitedTextArea = ({
 LimitedTextArea.defaultProps = {
   value: '',
   helpContent: null,
+  textFieldProps: {},
 };
 
 LimitedTextArea.propTypes = {
@@ -57,6 +58,7 @@ LimitedTextArea.propTypes = {
   value: PropTypes.string,
   setValue: PropTypes.func.isRequired,
   helpContent: PropTypes.element,
+  textFieldProps: PropTypes.object,
 };
 
 export default LimitedTextArea;

@@ -59,7 +59,6 @@ const NewsletterHeader = ({
       error={parentErrors.header_type || error}
       helpContent={parentErrors.header_type}
     >
-      <option />
       <option disabled={!availableHeaderTypes.includes('none')} value="none">{intl.formatMessage(messages.headerTypeNone)}</option>
       <option disabled={!availableHeaderTypes.includes('link_preview')} value="link_preview">{intl.formatMessage(messages.headerTypeLinkPreview)}</option>
       <option disabled={!availableHeaderTypes.includes('image')} value="image">{intl.formatMessage(messages.headerTypeImage)}</option>
@@ -109,7 +108,7 @@ const NewsletterHeader = ({
 NewsletterHeader.defaultProps = {
   disabled: false,
   availableHeaderTypes: [],
-  headerType: '',
+  headerType: 'link_preview',
   overlayText: null,
   fileName: '',
   error: false,
