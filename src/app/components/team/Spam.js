@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import DeleteIcon from '@material-ui/icons/Delete';
+import SpamIcon from '../../icons/report.svg';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
@@ -29,7 +29,7 @@ export default function Spam({ routeParams }) {
             description="Spam, as in junk, unsolicited content"
           />
         }
-        icon={<DeleteIcon />}
+        icon={<SpamIcon />}
         teamSlug={routeParams.team}
         query={query}
         hideFields={['feed_fact_checked_by', 'user', 'cluster_teams', 'cluster_published_reports', 'archived']}
