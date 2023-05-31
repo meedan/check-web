@@ -170,3 +170,7 @@
 .newsletter-scheduler-container {
   bottom: -32px;
 }
+
+.error-label {
+  color: var(--errorSecondary);
+}

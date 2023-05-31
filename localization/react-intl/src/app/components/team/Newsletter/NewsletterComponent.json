@@ -1,5 +1,10 @@
 [
   {
+    "id": "newsletterComponent.errorDatetimePast",
+    "description": "Error message displayed when a user tries to schedule sending a newsletter on a past date.",
+    "defaultMessage": "Scheduled newsletter date cannot be in the past."
+  },
+  {
     "id": "newsletterComponent.errorTimezone",
     "description": "Error message displayed when a user submits a form with a blank time zone field.",
     "defaultMessage": "Time zone cannot be blank."
