@@ -74,6 +74,7 @@ const NewsletterComponent = ({
   const [timezone, setTimezone] = React.useState(send_timezone || Intl.DateTimeFormat().resolvedOptions().timeZone);
   const [time, setTime] = React.useState(send_time || '09:00');
   const [scheduled, setScheduled] = React.useState(enabled || false);
+  const [datetimeIsPast, setDatetimeIsPast] = React.useState(false);
 
   const numberOfArticles = (contentType === 'rss' && articleNum === 0) ? 1 : articleNum;
 
@@ -95,6 +96,31 @@ const NewsletterComponent = ({
       setFileName(file.name);
     }
   }, [file]);
+
+  // This triggers when time or scheduled date changes. if it's a static newsletter, then we check to see if the date is in the past and set the datetimeIsPast to enable or disable scheduling.
+  React.useEffect(() => {
+    const errorsCopy = errors;
+    if (contentType === 'static') {
+      // We have to do `new Date` twice here -- the `Date.parse` gives us a date object with no timezone associated. We wrap that in `new Date` to turn it from a string to a Date object. That object then uses `toLocaleString` to localize it to a string with the correct time derived from our `timezone` which is either `'Region/Zone'` or `'Region/Zone (GMT+xx:xx)'`, which we extract via regex. This gives us a second string, which we then convert back to Date object so we can compare it to the current unix epoch time.
+      const scheduledDateTime = new Date(new Date(Date.parse(`${sendOn} ${time}`)).toLocaleString(undefined, { timeZone: timezone && timezone.match(/^\w*\/\w*/) && timezone.match(/^\w*\/\w*/)[1] }));
+      const currentDateTime = new Date();
+      if (scheduledDateTime < currentDateTime) {
+        setDatetimeIsPast(true);
+        errorsCopy.datetime_past = (<FormattedMessage
+          id="newsletterComponent.errorDatetimePast"
+          defaultMessage="Scheduled newsletter date cannot be in the past."
+          description="Error message displayed when a user tries to schedule sending a newsletter on a past date."
+        />);
+      } else {
+        setDatetimeIsPast(false);
+        errorsCopy.datetime_past = null;
+      }
+    } else {
+      setDatetimeIsPast(false);
+      errorsCopy.datetime_past = null;
+    }
+    setErrors(errorsCopy);
+  }, [sendOn, time, timezone]);
 
   const handleLanguageChange = (value) => {
     const { languageCode } = value;
@@ -382,7 +408,7 @@ const NewsletterComponent = ({
         }
         actionButton={
           <div>
-            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || disableSaveNoFile || !can(team.permissions, 'create TiplineNewsletter')}>
+            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || !can(team.permissions, 'create TiplineNewsletter')}>
               <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
             </Button>
           </div>
@@ -495,7 +521,7 @@ const NewsletterComponent = ({
               time={time}
               parentErrors={errors}
               scheduled={scheduled}
-              disabled={saving || disableSaveNoFile}
+              disabled={saving || disableSaveNoFile || datetimeIsPast}
               subscribersCount={subscribers_count}
               lastSentAt={last_sent_at}
               lastScheduledAt={last_scheduled_at}

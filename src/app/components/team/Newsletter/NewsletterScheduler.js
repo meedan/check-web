@@ -13,6 +13,7 @@ import Select from '../../cds/inputs/Select';
 import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
 import styles from './NewsletterComponent.module.css';
+import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -182,6 +183,12 @@ const NewsletterScheduler = ({
             { timezones.map(tz => <option key={tz.code} value={tz.value}>{tz.label}</option>) }
           </Select>
         </div>
+        { parentErrors.datetime_past && (
+          <div className={`typography-caption ${styles['help-container']} ${styles['error-label']}`}>
+            <ErrorOutlineIcon className={styles['error-icon']} />
+            &nbsp;{parentErrors.datetime_past}
+          </div>
+        )}
 
         <div className={styles['newsletter-scheduler-subscribers']}>
           <div className="typography-overline">
