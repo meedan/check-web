@@ -167,16 +167,6 @@
   }
 }
 
-.newsletter-scheduler-sticky .newsletter-scheduler {
-  box-shadow: 0 -2px 16px var(--grayShadow);
-
-  .newsletter-schedule-button,
-  .newsletter-pause-button {
-    margin-bottom: 16px;
-  }
-}
-
 .newsletter-scheduler-container {
   bottom: -32px;
-  position: sticky;
 }
