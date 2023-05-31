@@ -102,7 +102,7 @@ function Upload({
 
   const RenderFile = () => (
     <div className={`typography-button ${styles['file-name']} ${styles['file-name-grid']}`}>
-      <div><CheckCircleIcon className={styles['icon-label']} />&nbsp;{fileName}</div>
+      <div className={styles['file-name-added']}><CheckCircleIcon className={styles['icon-label']} />&nbsp;{fileName}</div>
       <IconButton
         onClick={handleRemove}
         className={styles['delete-button']}

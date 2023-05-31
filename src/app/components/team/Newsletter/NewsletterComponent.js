@@ -60,6 +60,7 @@ const NewsletterComponent = ({
   } = newsletter;
 
   const [saving, setSaving] = React.useState(false);
+  const [disableSaveNoFile, setDisableSaveNoFile] = React.useState(false);
   const [overlayText, setOverlayText] = React.useState(header_overlay_text || '');
   const [introductionText, setIntroductionText] = React.useState(introduction || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
@@ -71,16 +72,28 @@ const NewsletterComponent = ({
   const [contentType, setContentType] = React.useState(content_type || 'static');
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
   const [sendOn, setSendOn] = React.useState(send_on || null);
-  const [timezone, setTimezone] = React.useState(send_timezone || '');
+  const [timezone, setTimezone] = React.useState(send_timezone || Intl.DateTimeFormat().resolvedOptions().timeZone);
   const [time, setTime] = React.useState(send_time || '09:00');
   const [scheduled, setScheduled] = React.useState(enabled || false);
   const [datetimeIsPast, setDatetimeIsPast] = React.useState(false);
 
   const numberOfArticles = (contentType === 'rss' && articleNum === 0) ? 1 : articleNum;
 
-  // This triggers when a file is changed, rerenders the file name
+  // This triggers when a file or file name or header type is changed. If the header is an attachment type, it disables saving if there is no file attached.
   React.useEffect(() => {
-    if (file) {
+    const fileRequired = headerType === 'image' || headerType === 'audio' || headerType === 'video';
+    if (file && fileRequired) {
+      setDisableSaveNoFile(false);
+    } else if (!file && !fileName && fileRequired) {
+      setDisableSaveNoFile(true);
+    } else if (!fileRequired) {
+      setDisableSaveNoFile(false);
+    }
+  }, [file, fileName, headerType]);
+
+  // This triggers when a file is changed. It rerenders the file name if a new file was attached.
+  React.useEffect(() => {
+    if (file && !fileName) {
       setFileName(file.name);
     }
   }, [file]);
@@ -375,6 +388,7 @@ const NewsletterComponent = ({
   return (
     <div className={`newsletter-component ${styles.content}`}>
       <SettingsHeader
+        helpUrl="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters"
         title={
           <FormattedMessage
             id="newsletterComponent.title"
@@ -393,7 +407,7 @@ const NewsletterComponent = ({
         }
         actionButton={
           <div>
-            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || datetimeIsPast || !can(team.permissions, 'create TiplineNewsletter')}>
+            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || !can(team.permissions, 'create TiplineNewsletter')}>
               <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
             </Button>
           </div>
@@ -512,7 +526,7 @@ const NewsletterComponent = ({
               time={time}
               parentErrors={errors}
               scheduled={scheduled}
-              disabled={saving || datetimeIsPast}
+              disabled={saving || disableSaveNoFile || datetimeIsPast}
               subscribersCount={subscribers_count}
               lastSentAt={last_sent_at}
               lastScheduledAt={last_scheduled_at}

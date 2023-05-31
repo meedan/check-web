@@ -8,6 +8,7 @@
     @mixin typography-button var(--fontSizeDefault), 500, .4px, 24px;
     border: none;
     color: currentcolor;
+    min-width: 4em;
     text-transform: none;
 
     &:hover {

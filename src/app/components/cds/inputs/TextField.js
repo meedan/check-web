@@ -28,7 +28,7 @@ const TextField = ({
         </div>
       </div>
     )}
-    <div className={styles['input-container']}>
+    <div className={`${styles['input-container']} ${textArea && styles['textarea-container']}`}>
       { iconLeft && (
         <div className={styles['input-icon-left-icon']}>
           {iconLeft}

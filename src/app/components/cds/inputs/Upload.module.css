@@ -4,7 +4,7 @@
   border: 2px dashed var(--grayBorderMain);
   border-radius: 8px;
   display: grid;
-  min-height: 100px;
+  min-height: 84px;
   padding: 10px;
   text-align: center;
 }
@@ -35,11 +35,17 @@
   color: var(--brandSecondary) !important;
   padding: 8px;
   text-align: left;
+
+  .file-name-added {
+    align-items: center;
+    display: flex;
+  }
 }
 
 .file-name-container {
   background-color: var(--brandLight);
   border: none;
+  min-height: 60px;
 }
 
 .file-name-grid {

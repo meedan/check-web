@@ -64,10 +64,19 @@
 .disabled {
   background-color: var(--grayDisabledBackground);
   color: var(--textDisabledInput);
+  cursor: not-allowed;
+
+  &:hover {
+    border-color: var(--grayBorderMain);
+  }
 }
 
 .error-label {
   color: var(--errorSecondary);
+}
+
+.help-container {
+  padding: 4px 4px 0 10px;
 }
 
 .outlined {
@@ -77,8 +86,16 @@
 .input-container {
   position: relative;
 
-  textarea {
-    margin-bottom: -4px;
+  &.textarea-container {
+    textarea {
+      margin-bottom: -4px;
+      max-width: 100%;
+      min-height: 3.5em;
+    }
+
+    + .help-container {
+      margin-top: 4px;
+    }
   }
 }
 
@@ -111,10 +128,6 @@
 
 .input-icon-right {
   padding-right: 34px;
-}
-
-.help-container {
-  padding: 4px 4px 0 10px;
 }
 
 .error-icon {
