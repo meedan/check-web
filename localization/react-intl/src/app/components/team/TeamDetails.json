@@ -72,6 +72,6 @@
   {
     "id": "teamDetails.warnContent",
     "description": "Text displayed in a warning box on team details page when link shortening is on",
-    "defaultMessage": "Links processed in the Check platform will be rewritten to match this example: https://chck.media/x1y2z3w4?utm_source=utm_code. The unique code in each link will redirect your users to the original final destination."
+    "defaultMessage": "Links processed in the Check platform will be rewritten to match this example: https://chck.media/x1y2z3w4. The unique code in each link will redirect your users to the original final destination."
   }
 ]

@@ -34,6 +34,7 @@ const TeamDetails = ({
 
   const canEditTeam = can(team.permissions, 'update Team');
   const hasRssNewsletters = Boolean(team.tipline_newsletters.edges.find(tn => tn.node.content_type === 'rss'));
+  const hasScheduledNewsletters = Boolean(team.tipline_newsletters.edges.find(tn => tn.node.enabled));
 
   const handleImageChange = (file) => {
     setAvatar(file);
@@ -192,7 +193,7 @@ const TeamDetails = ({
                 description="Label for a switch where the user toggles link management in team details page"
               />}
               checked={shortenOutgoingUrls || hasRssNewsletters}
-              disabled={hasRssNewsletters}
+              disabled={hasRssNewsletters || hasScheduledNewsletters}
               helperContent={
                 hasRssNewsletters ?
                   <FormattedMessage id="teamDetails.linkManagementRss" defaultMessage="The link service cannot be disabled while RSS newsletters are configured in this workspace" description="Helper text for link management switcher when workspace has RSS newsletters configured" /> :
@@ -216,14 +217,14 @@ const TeamDetails = ({
                 onChange={e => setUtmCode(e.target.value)}
                 helperText={<FormattedMessage id="teamDetails.utmCodeHelp" defaultMessage="Customize the UTM code appended to links. Leave blank to disable UTM codes." description="Helper text for UTM code field" />}
                 variant="outlined"
-                required
+                disabled={hasScheduledNewsletters}
               /> : null
             }
             { shortenOutgoingUrls ?
               <Alert
                 type="warning"
                 title={<FormattedMessage id="teamDetails.warnTitle" defaultMessage="All links sent via Check are managed" description="Text displayed in a warning box on team details page when link shortening is on" />}
-                content={<FormattedMessage id="teamDetails.warnContent" defaultMessage="Links processed in the Check platform will be rewritten to match this example: https://chck.media/x1y2z3w4?utm_source=utm_code. The unique code in each link will redirect your users to the original final destination." description="Text displayed in a warning box on team details page when link shortening is on" />}
+                content={<FormattedMessage id="teamDetails.warnContent" defaultMessage="Links processed in the Check platform will be rewritten to match this example: https://chck.media/x1y2z3w4. The unique code in each link will redirect your users to the original final destination." description="Text displayed in a warning box on team details page when link shortening is on" />}
               /> : null
             }
           </div>
@@ -252,6 +253,7 @@ export default createFragmentContainer(withSetFlashMessage(TeamDetails), graphql
       edges {
         node {
           content_type
+          enabled
         }
       }
     }
