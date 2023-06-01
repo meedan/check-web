@@ -122,7 +122,7 @@ const NewsletterComponent = ({
       errorsCopy.datetime_past = null;
     }
     setErrors(errorsCopy);
-  }, [sendOn, time, timezone]);
+  }, [contentType, sendOn, time, timezone]);
 
   const handleLanguageChange = (value) => {
     const { languageCode } = value;
