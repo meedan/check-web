@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' ]]
-then
-  docker-compose build web
-  docker-compose -f docker-compose.yml -f docker-test.yml up -d web
-  until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
-else
+# if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' ]]
+# then
+#   docker-compose build web
+#   docker-compose -f docker-compose.yml -f docker-test.yml up -d web
+#   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
+# else
   if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]
   then
     docker-compose build web api api-background pender pender-background
@@ -38,11 +38,15 @@ else
     docker-compose build
     docker-compose -f docker-compose.yml -f docker-test.yml up -d
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
+    echo "Alegre is up"
+    docker ps
   fi
   until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
+  echo "Pender is up"
   until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
+  echo "Check API is up"
   # Uncomment to debug Check API and Alegre. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
   # tail -f check-api/log/test.log &
   # docker-compose logs -f api &
   # docker-compose logs -f alegre &
-fi
+# fi
