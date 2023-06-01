@@ -41,7 +41,6 @@ const ProjectsComponent = ({
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
-  console.log(team); // eslint-disable-line no-console
   const getBooleanPref = (key, fallback) => {
     const inStore = window.storage.getValue(key);
     if (inStore === null) return fallback;
