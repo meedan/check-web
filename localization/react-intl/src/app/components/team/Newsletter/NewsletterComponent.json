@@ -15,6 +15,11 @@
     "defaultMessage": "Introduction cannot be blank."
   },
   {
+    "id": "newsletterComponent.errorIntroductionTooLong",
+    "description": "Error message displayed when a user submits a form with an introduction field that is too long.",
+    "defaultMessage": "Introduction is too long"
+  },
+  {
     "id": "newsletterComponent.errorRssFeedUrl",
     "description": "Error message displayed when a user submits a form with a URL that the server does not recognize.",
     "defaultMessage": "RSS feed URL is invalid."
