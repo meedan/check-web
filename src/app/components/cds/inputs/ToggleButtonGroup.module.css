@@ -12,16 +12,20 @@
     text-transform: none;
 
     &:hover {
-      background: inherit;
+      background-color: var(--brandHoverAccent);
+      color: var(--textLink);
+      transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
     }
   }
 
   :global(.MuiButtonBase-root.Mui-selected) {
     background-color: var(--brandMain);
+    border-color: var(--brandMain);
     color: var(--otherWhite);
 
     &:hover {
       background-color: var(--brandMain);
+      border-color: var(--brandMain);
     }
   }
 
@@ -38,6 +42,11 @@
 
   button:not(:first-child) {
     border-left: 2px solid var(--grayBorderMain);
+  }
+
+  :global(.MuiToggleButton-root.Mui-selected + .MuiToggleButton-root.Mui-selected) {
+    border-left: 2px solid var(--brandMain);
+    margin-left: -1px;
   }
 }
 
