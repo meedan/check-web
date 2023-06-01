@@ -1,12 +1,12 @@
 .error {
-  border-color: var(--errorMain);
+  border-color: var(--errorMain) !important;
 
   &:hover {
-    border-color: var(--errorSecondary);
+    border-color: var(--errorSecondary) !important;
   }
 
   &:focus {
-    border-color: var(--errorMain);
+    border-color: var(--errorMain) !important;
   }
 }
 
@@ -64,10 +64,19 @@
 .disabled {
   background-color: var(--grayDisabledBackground);
   color: var(--textDisabledInput);
+  cursor: not-allowed;
+
+  &:hover {
+    border-color: var(--grayBorderMain);
+  }
 }
 
 .error-label {
   color: var(--errorSecondary);
+}
+
+.help-container {
+  padding: 4px 4px 0 10px;
 }
 
 .outlined {
@@ -76,6 +85,18 @@
 
 .input-container {
   position: relative;
+
+  &.textarea-container {
+    textarea {
+      margin-bottom: -4px;
+      max-width: 100%;
+      min-height: 3.5em;
+    }
+
+    + .help-container {
+      margin-top: 4px;
+    }
+  }
 }
 
 .input-icon-left-icon {
@@ -107,10 +128,6 @@
 
 .input-icon-right {
   padding-right: 34px;
-}
-
-.help-container {
-  padding: 0 4px 0 10px;
 }
 
 .error-icon {
