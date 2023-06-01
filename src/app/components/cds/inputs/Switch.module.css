@@ -76,6 +76,10 @@
       .thumb {
         color: var(--textDisabled);
       }
+
+      + .track {
+        background-color: var(--grayBorderMain);
+      }
     }
   }
 

@@ -36,7 +36,7 @@ const TeamTags = props => (
           permissions
           get_rules
           rules_json_schema
-          tag_texts(first: 100) {
+          tag_texts(last: 100) {
             edges {
               node {
                 id

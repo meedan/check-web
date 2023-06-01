@@ -78,16 +78,9 @@ const useStyles = makeStyles({
     verticalAlign: 'middle',
     fontSize: 18,
   },
-  titleViewModeLonger: {
-    maxHeight: units(22),
-    '-webkit-line-clamp': 4,
-  },
   titleViewModeShorter: {
     maxHeight: units(5),
     '-webkit-line-clamp': 2,
-  },
-  cellViewModeLonger: {
-    height: units(15),
   },
   cellViewModeShorter: {
     height: units(10),
@@ -98,10 +91,9 @@ const TitleText = ({
   classes,
   title,
   description,
-  viewMode,
 }) => (
-  <div className={viewMode === 'longer' ? [classes.textBox, classes.cellViewModeLonger].join(' ') : [classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <Typography variant="body1" className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
+  <div className={[classes.textBox, classes.cellViewModeShorter].join(' ')}>
+    <Typography variant="body1" className={[classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
     </Typography>
     {description ? (
@@ -138,7 +130,7 @@ const IconOrNothing = ({
   return null;
 };
 
-const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
+const TitleCell = ({ projectMedia, projectMediaUrl }) => {
   const {
     picture,
     title,
@@ -170,7 +162,6 @@ const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
               </React.Fragment>
             }
             description={description === title ? '' : description}
-            viewMode={viewMode}
           />
         </Box>
       </MaybeLink>
@@ -179,7 +170,6 @@ const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
 };
 TitleCell.defaultProps = {
   projectMediaUrl: null,
-  viewMode: 'shorter',
 };
 TitleCell.propTypes = {
   projectMedia: PropTypes.shape({
@@ -192,7 +182,6 @@ TitleCell.propTypes = {
     is_suggested: PropTypes.bool, // or null
   }).isRequired,
   projectMediaUrl: PropTypes.string, // or null
-  viewMode: PropTypes.oneOf(['shorter', 'longer']),
 };
 
 export default TitleCell;

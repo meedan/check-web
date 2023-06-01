@@ -22,11 +22,14 @@ import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { ContentColumn } from '../../../styles/js/shared';
+import { getErrorObjectsForRelayModernProblem } from '../../../helpers';
+import CheckError from '../../../CheckError';
 
 const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
 const ELASTICSEARCH_MODEL = 'elasticsearch';
 const FILIPINO_MODEL = 'paraphrase-filipino-mpnet-base-v2';
+const OPENAI_ADA_MODEL = 'openai-text-embedding-ada-002';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,7 +57,8 @@ const SimilarityComponent = ({
   const [vectorModelToggle, setVectorModelToggle] = React.useState((
     alegre_settings.text_similarity_model === MEAN_TOKENS_MODEL ||
     alegre_settings.text_similarity_model === INDIAN_MODEL ||
-    alegre_settings.text_similarity_model === FILIPINO_MODEL
+    alegre_settings.text_similarity_model === FILIPINO_MODEL ||
+    alegre_settings.text_similarity_model === OPENAI_ADA_MODEL
   ));
 
   const handleSettingsChange = (key, value) => {
@@ -85,9 +89,11 @@ const SimilarityComponent = ({
 
   const [saving, setSaving] = React.useState(false);
 
-  const handleError = () => {
+  const handleError = (error) => {
     setSaving(false);
-    setFlashMessage((<GenericUnknownErrorMessage />), 'error');
+    const errors = getErrorObjectsForRelayModernProblem(error);
+    const message = errors && errors.length > 0 ? CheckError.getMessageFromCode(errors[0].code) : <GenericUnknownErrorMessage />;
+    setFlashMessage(message, 'error');
   };
 
   const handleSuccess = () => {
@@ -110,11 +116,13 @@ const SimilarityComponent = ({
           team_bot_installation {
             id
             json_settings
+            lock_version
             team {
               id
               alegre_bot: team_bot_installation(bot_identifier: "alegre") {
                 id
                 alegre_settings
+                lock_version
               }
             }
           }
@@ -128,6 +136,7 @@ const SimilarityComponent = ({
         input: {
           id: team.alegre_bot.id,
           json_settings: JSON.stringify(settings),
+          lock_version: team.alegre_bot.lock_version,
         },
       },
       onCompleted: handleSuccess,
@@ -267,6 +276,24 @@ const SimilarityComponent = ({
                     label="Elasticsearch suggestion threshold"
                     error={(settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold)}
                   />
+                  <Box ml={7}>
+                    <Typography component="span" style={{ fontWeight: 'bold' }} className={classes.transactionMargin}>
+                      <FormattedMessage
+                        id="similarityComponent.textLength"
+                        defaultMessage="Minimum words required for a confirmed match"
+                        description="A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
+                      />
+                    </Typography>
+                    <TextField
+                      classes={{ root: classes.root }}
+                      variant="outlined"
+                      size="small"
+                      value={settings.text_length_matching_threshold}
+                      onChange={(e) => { handleSettingsChange('text_length_matching_threshold', e.target.value); }}
+                      type="number"
+                      disabled={!settings.text_similarity_enabled}
+                    />
+                  </Box>
                 </Box>
                 <Box mb={4}>
                   <Box ml={6}>
@@ -301,6 +328,12 @@ const SimilarityComponent = ({
                           value={FILIPINO_MODEL}
                           control={<Radio />}
                           label="Filipino Paraphrase - Specialized in Filipino"
+                        />
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={OPENAI_ADA_MODEL}
+                          control={<Radio />}
+                          label="OpenAI ada model - Experimental, pay-per-use model"
                         />
                       </RadioGroup>
                     </Box>
@@ -503,6 +536,7 @@ export default createFragmentContainer(withSetFlashMessage(SimilarityComponent),
     permissions
     alegre_bot: team_bot_installation(bot_identifier: "alegre") {
       id
+      lock_version
       alegre_settings
     }
   }

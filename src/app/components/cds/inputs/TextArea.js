@@ -1,5 +1,5 @@
 import React from 'react';
-import TextField from './_TextField';
+import TextField from './TextField';
 
 const TextArea = ({
   ...inputProps
