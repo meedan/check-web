@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
 import Button from '@material-ui/core/Button';
-import useElementOnScreen from '../../../hooks/useElementOnScreen';
 import NewsletterHeader from './NewsletterHeader';
 import NewsletterStatic from './NewsletterStatic';
 import NewsletterRssFeed from './NewsletterRssFeed';
@@ -60,36 +59,68 @@ const NewsletterComponent = ({
   } = newsletter;
 
   const [saving, setSaving] = React.useState(false);
+  const [disableSaveNoFile, setDisableSaveNoFile] = React.useState(false);
   const [overlayText, setOverlayText] = React.useState(header_overlay_text || '');
   const [introductionText, setIntroductionText] = React.useState(introduction || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
-  const [headerType, setHeaderType] = React.useState(header_type || '');
+  const [headerType, setHeaderType] = React.useState(header_type || 'link_preview');
   const fileNameFromUrl = new RegExp(/[^/\\&?]+\.\w{3,4}(?=([?&].*$|$))/);
   const [fileName, setFileName] = React.useState((header_file_url && header_file_url.match(fileNameFromUrl) && header_file_url.match(fileNameFromUrl)[0]) || '');
   const [rssFeedUrl, setRssFeedUrl] = React.useState(rss_feed_url || '');
   const [contentType, setContentType] = React.useState(content_type || 'static');
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
   const [sendOn, setSendOn] = React.useState(send_on || null);
-  const [timezone, setTimezone] = React.useState(send_timezone || '');
+  const [timezone, setTimezone] = React.useState(send_timezone || Intl.DateTimeFormat().resolvedOptions().timeZone);
   const [time, setTime] = React.useState(send_time || '09:00');
   const [scheduled, setScheduled] = React.useState(enabled || false);
+  const [datetimeIsPast, setDatetimeIsPast] = React.useState(false);
 
   const numberOfArticles = (contentType === 'rss' && articleNum === 0) ? 1 : articleNum;
 
-  // This triggers when a file is changed, rerenders the file name
+  // This triggers when a file or file name or header type is changed. If the header is an attachment type, it disables saving if there is no file attached.
   React.useEffect(() => {
-    if (file) {
+    const fileRequired = headerType === 'image' || headerType === 'audio' || headerType === 'video';
+    if (file && fileRequired) {
+      setDisableSaveNoFile(false);
+    } else if (!file && !fileName && fileRequired) {
+      setDisableSaveNoFile(true);
+    } else if (!fileRequired) {
+      setDisableSaveNoFile(false);
+    }
+  }, [file, fileName, headerType]);
+
+  // This triggers when a file is changed. It rerenders the file name if a new file was attached.
+  React.useEffect(() => {
+    if (file && !fileName) {
       setFileName(file.name);
     }
   }, [file]);
 
-  // This triggers when the sticky scheduler is fully visible on the screen
-  const [containerRef, isVisible] = useElementOnScreen({
-    root: null,
-    rootMargin: '0px',
-    threshold: 1.0,
-  });
+  // This triggers when time or scheduled date changes. if it's a static newsletter, then we check to see if the date is in the past and set the datetimeIsPast to enable or disable scheduling.
+  React.useEffect(() => {
+    const errorsCopy = errors;
+    if (contentType === 'static') {
+      // We have to do `new Date` twice here -- the `Date.parse` gives us a date object with no timezone associated. We wrap that in `new Date` to turn it from a string to a Date object. That object then uses `toLocaleString` to localize it to a string with the correct time derived from our `timezone` which is either `'Region/Zone'` or `'Region/Zone (GMT+xx:xx)'`, which we extract via regex. This gives us a second string, which we then convert back to Date object so we can compare it to the current unix epoch time.
+      const scheduledDateTime = new Date(new Date(Date.parse(`${sendOn} ${time}`)).toLocaleString(undefined, { timeZone: timezone && timezone.match(/^\w*\/\w*/) && timezone.match(/^\w*\/\w*/)[1] }));
+      const currentDateTime = new Date();
+      if (scheduledDateTime < currentDateTime) {
+        setDatetimeIsPast(true);
+        errorsCopy.datetime_past = (<FormattedMessage
+          id="newsletterComponent.errorDatetimePast"
+          defaultMessage="Scheduled newsletter date cannot be in the past."
+          description="Error message displayed when a user tries to schedule sending a newsletter on a past date."
+        />);
+      } else {
+        setDatetimeIsPast(false);
+        errorsCopy.datetime_past = null;
+      }
+    } else {
+      setDatetimeIsPast(false);
+      errorsCopy.datetime_past = null;
+    }
+    setErrors(errorsCopy);
+  }, [sendOn, time, timezone]);
 
   const handleLanguageChange = (value) => {
     const { languageCode } = value;
@@ -106,7 +137,9 @@ const NewsletterComponent = ({
         err[0]?.data.introduction ||
         err[0]?.data.rss_feed_url ||
         err[0]?.data.send_on ||
-        err[0]?.data.header_type
+        err[0]?.data.header_type ||
+        err[0]?.data.header_file ||
+        err[0]?.data.base
       )
     ) {
       const { data } = err[0];
@@ -149,11 +182,27 @@ const NewsletterComponent = ({
       if (data.header_type && data.header_type[0] === 'is not included in the list') {
         data.header_type = (
           <FormattedMessage
-            id="newsletterComponent.errorHeaderTye"
+            id="newsletterComponent.errorHeaderType"
             defaultMessage="Header type must be supplied from the list."
             description="Error message displayed when a user submits a form with a blank header type field (this is chosen from a list)."
           />
         );
+      }
+      if (data.header_file && data.header_file[0].includes('cannot be of type')) {
+        data.header_file = (
+          <FormattedMessage
+            id="newsletterComponent.errorHeaderFile"
+            defaultMessage="File must be of the following allowed types: {fileTypes}"
+            description="Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
+            values={{
+              fileTypes: data.header_file[0].split(':')[1],
+            }}
+          />
+        );
+      }
+      if (data.base && data.base[0].includes('Sorry, we don\'t support')) {
+        // FIXME: We are not going to internationalize this string for now, it's too unstructured and variable to make work
+        data.base = data.base[0]; // eslint-disable-line prefer-destructuring
       }
       setErrors(data);
     } else if (err.length && err[0]?.message) {
@@ -340,6 +389,7 @@ const NewsletterComponent = ({
   return (
     <div className={`newsletter-component ${styles.content}`}>
       <SettingsHeader
+        helpUrl="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters"
         title={
           <FormattedMessage
             id="newsletterComponent.title"
@@ -358,7 +408,7 @@ const NewsletterComponent = ({
         }
         actionButton={
           <div>
-            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || !can(team.permissions, 'create TiplineNewsletter')}>
+            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || !can(team.permissions, 'create TiplineNewsletter')}>
               <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
             </Button>
           </div>
@@ -374,8 +424,7 @@ const NewsletterComponent = ({
             className="newsletter-component-header"
             key={`newsletter-header-${language}`}
             disabled={scheduled}
-            error={errors.header_type}
-            helpContent={errors.header_type}
+            parentErrors={errors}
             file={file}
             handleFileChange={handleFileChange}
             setFile={setFile}
@@ -463,13 +512,7 @@ const NewsletterComponent = ({
                 onUpdateArticles={setArticles}
               /> : null }
           </div>
-          <div
-            ref={containerRef}
-            className={[
-              styles['newsletter-scheduler-container'],
-              (isVisible ? styles['newsletter-scheduler-not-sticky'] : styles['newsletter-scheduler-sticky']),
-            ].join(' ')}
-          >
+          <div className={styles['newsletter-scheduler-container']}>
             <NewsletterScheduler
               type={contentType}
               sendEvery={sendEvery}
@@ -478,7 +521,7 @@ const NewsletterComponent = ({
               time={time}
               parentErrors={errors}
               scheduled={scheduled}
-              disabled={saving}
+              disabled={saving || disableSaveNoFile || datetimeIsPast}
               subscribersCount={subscribers_count}
               lastSentAt={last_sent_at}
               lastScheduledAt={last_scheduled_at}

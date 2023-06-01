@@ -9,6 +9,8 @@ import styles from './Upload.module.css';
 
 function Upload({
   fileName,
+  error,
+  helpContent,
   handleFileChange,
   setFile,
   setFileName,
@@ -33,7 +35,7 @@ function Upload({
 
   const handleClick = (e) => {
     // We use :scope to scope the query to just children of the parent element, in case there is more than one Upload component on the page
-    const inputElement = e.target.parentElement.querySelector(':scope .upload-input');
+    const inputElement = e.target.parentElement.parentElement.querySelector(':scope .upload-input');
     if (inputElement) {
       inputElement.click();
     }
@@ -88,16 +90,19 @@ function Upload({
           <input className={`upload-input ${styles.input}`} type="file" onChange={handleFileChange} />
         </form>
         <span className={`typography-button ${styles['drag-text']}`}>
-          <FormattedMessage id="upload.dragMessage" defaultMessage="Drag a video, image, PDF, or audio file here or" description="A label that appears when a user drags a file over a valid file drop area" />
+          <FormattedMessage id="upload.dragMessage" defaultMessage="Drag a file here or" description="A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'." />
         </span>
-        &nbsp;<a className="typography-button" href="#!" onClick={handleClick}>Select a local file</a>.
+        &nbsp;
+        <a className="typography-button" href="#!" onClick={handleClick}>
+          <FormattedMessage id="upload.selectFile" defaultMessage="Select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." />
+        </a>.
       </div>
     );
   };
 
   const RenderFile = () => (
     <div className={`typography-button ${styles['file-name']} ${styles['file-name-grid']}`}>
-      <div><CheckCircleIcon className={styles['icon-label']} />&nbsp;{fileName}</div>
+      <div className={styles['file-name-added']}><CheckCircleIcon className={styles['icon-label']} />&nbsp;{fileName}</div>
       <IconButton
         onClick={handleRemove}
         className={styles['delete-button']}
@@ -109,8 +114,8 @@ function Upload({
 
   const RenderError = () => (
     <div className={`${styles.error}`}>
-      <div><ErrorOutlineIcon className={styles['error-icon']} />&nbsp;{fileName}</div>
-      <div className="typography-caption">{ errorInternal }</div>
+      <div><ErrorOutlineIcon className={styles['error-icon']} />&nbsp;<span>{fileName}</span></div>
+      <div className="typography-caption">{ errorInternal || helpContent }</div>
     </div>
   );
 
@@ -122,7 +127,7 @@ function Upload({
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
     >
-      { errorInternal && <RenderError /> }
+      { (errorInternal || error) && <RenderError /> }
       { fileName ? <RenderFile /> : <RenderDropZone /> }
     </div>
   );

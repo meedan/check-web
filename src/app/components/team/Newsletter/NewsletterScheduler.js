@@ -13,6 +13,7 @@ import Select from '../../cds/inputs/Select';
 import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
 import styles from './NewsletterComponent.module.css';
+import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -171,7 +172,8 @@ const NewsletterScheduler = ({
           <Time value={time} onChange={(e) => { onUpdate('time', e.target.value); }} disabled={scheduled} required />
           <Select
             className={styles.select}
-            value={timezone}
+            // We check for both code ('Europe/London') and value ('Europe/London (GMT+1:00)') because default values in the browser will only guarantee the first, but if it's saved, the timezone is returned from the API with the offset appended. Doing it this way means we don't have to recalculate the offset in the parent NewsletterComponent)
+            value={timezones.find(item => item.code === timezone || item.value === timezone)?.value}
             onChange={(e) => { onUpdate('timezone', e.target.value); }}
             error={parentErrors.timezone}
             helpContent={parentErrors.timezone && parentErrors.timezone}
@@ -181,6 +183,12 @@ const NewsletterScheduler = ({
             { timezones.map(tz => <option key={tz.code} value={tz.value}>{tz.label}</option>) }
           </Select>
         </div>
+        { parentErrors.datetime_past && (
+          <div className={`typography-caption ${styles['help-container']} ${styles['error-label']}`}>
+            <ErrorOutlineIcon className={styles['error-icon']} />
+            &nbsp;{parentErrors.datetime_past}
+          </div>
+        )}
 
         <div className={styles['newsletter-scheduler-subscribers']}>
           <div className="typography-overline">

@@ -56,6 +56,9 @@ describe('<NewsletterComponent />', () => {
       team={teamStatic}
       setFlashMessage={() => {}}
       className="newsletter"
+      language="en"
+      languages={['en', 'es']}
+      onChangeLanguage={() => {}}
     />);
     expect(newsletter.find('.newsletter-component')).toHaveLength(1);
     expect(newsletter.find('NewsletterStatic')).toHaveLength(1);
@@ -74,6 +77,9 @@ describe('<NewsletterComponent />', () => {
       team={teamRss}
       setFlashMessage={() => {}}
       className="newsletter"
+      language="en"
+      languages={['en', 'es']}
+      onChangeLanguage={() => {}}
     />);
     expect(newsletter.find('.newsletter-component')).toHaveLength(1);
     expect(newsletter.find('NewsletterRssFeed')).toHaveLength(1);
