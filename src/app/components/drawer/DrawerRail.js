@@ -42,6 +42,8 @@ const DrawerRail = (props) => {
   const isFeedPage = /\/feed\/[0-9]+\/(request|cluster)\/[0-9]+/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
+  const isUserSettingsPage = teamSlug === 'check';
+  const isTipline = !isUserSettingsPage && !isSettingsPage;
   const pathParts = testPath.split('/');
   const [activeItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
 
@@ -76,14 +78,14 @@ const DrawerRail = (props) => {
       </div>
       <div className={styles.drawerRailMiddle}>
         <Link
-          className={styles.railIconLink}
+          className={[styles.railIconLink, isTipline ? styles.railIconLinkActive : ''].join(' ')}
           to={`/${props.team.slug}/all-items`}
           title={props.intl.formatMessage(messages.tiplineDescription)}
         >
           <QuestionAnswerIcon />
         </Link>
         <Link
-          className={styles.railIconLink}
+          className={[styles.railIconLink, isSettingsPage ? styles.railIconLinkActive : ''].join(' ')}
           to={`/${props.team.slug}/settings`}
           title={props.intl.formatMessage(messages.settingsDescription)}
         >
@@ -109,7 +111,10 @@ const DrawerRail = (props) => {
         >
           <InfoIcon />
         </a>
-        <Link to="/check/me">
+        <Link
+          className={[styles.railUserSettings, isUserSettingsPage ? styles.railUserSettingsActive : ''].join(' ')}
+          to="/check/me"
+        >
           <Avatar alt={props.user.name} src={props.user.profile_image} />
         </Link>
       </div>

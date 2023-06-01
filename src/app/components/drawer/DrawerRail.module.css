@@ -54,6 +54,11 @@
     &:hover {
       color: var(--textLink);
     }
+
+    &.railIconLinkActive {
+      background-color: var(--brandBackgroundAccent);
+      color: var(--textLink);
+    }
   }
   /* stylelint-disable no-descending-specificity */
   .railIconLink {
@@ -64,4 +69,25 @@
     }
   }
   /* stylelint-enable no-descending-specificity */
+  .railUserSettings {
+    background-color: var(--brandBackground);
+    border-radius: 100%;
+    outline: solid 2px var(--brandBackground);
+    padding: 4px;
+    transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s, outline-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+
+    :global(.MuiAvatar-root) {
+      height: 36px;
+      width: 36px;
+    }
+
+    &:hover {
+      background-color: var(--brandBackgroundAccent);
+    }
+
+    &.railUserSettingsActive {
+      background-color: var(--brandBackgroundAccent);
+      outline-color: var(--textLink);
+    }
+  }
 }
