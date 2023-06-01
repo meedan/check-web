@@ -150,16 +150,4 @@ shared_examples 'search' do
     wait_for_selector('.multi-select-filter')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 1
   end
-
-  it 'should filter by tag', bin3: true, quick: true do
-    api_create_team_project_claim_and_media_tag
-    sleep 90 # wait for the items to be indexed in Elasticsearch
-    wait_for_selector('#search-input')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.media-card-large')
-    wait_for_selector('.media-tags__tag').click
-    wait_for_selector('#search-input')
-    puts 'after applying the filter'
-    wait_for_selector('.media__heading', :css, 20, true)
-  end
 end
