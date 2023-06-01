@@ -103,8 +103,8 @@ const NewsletterComponent = ({
   React.useEffect(() => {
     const errorsCopy = errors;
     if (contentType === 'static') {
-      // We have to do `new Date` twice here -- the `Date.parse` gives us a date object with no timezone associated. We wrap that in `new Date` to turn it from a string to a Date object. That object then uses `toLocaleString` to localize it to a string with the correct time derived from our `timezone` which is either `'Region/Zone'` or `'Region/Zone (GMT+xx:xx)'`, which we extract via regex. This gives us a second string, which we then convert back to Date object so we can compare it to the current unix epoch time.
-      const scheduledDateTime = new Date(new Date(Date.parse(`${sendOn} ${time}`)).toLocaleString(undefined, { timeZone: timezone && timezone.match(/^\w*\/\w*/) && timezone.match(/^\w*\/\w*/)[1] }));
+      // We have to do `new Date` twice here -- the `Date.parse` gives us a date object with no timezone associated. We wrap that in `new Date` to turn it from a string to a Date object. That object then uses `toLocaleString` to localize it to a string with the correct time derived from our `timezone` which is either `'Region/Zone'` or `'Region/Zone (GMT+xx:xx)'`, which we extract via regex. This gives us a second string, which we then convert back to Date object so we can compare it to the current unix epoch time. We specify 'en-US' for the localeString conversion since that is how the database is storing the datetime.
+      const scheduledDateTime = new Date(new Date(Date.parse(`${sendOn} ${time}`)).toLocaleString('en-US', { timeZone: timezone && timezone.match(/^\w*\/\w*/) && timezone.match(/^\w*\/\w*/)[1] }));
       const currentDateTime = new Date();
       if (scheduledDateTime < currentDateTime) {
         setDatetimeIsPast(true);
