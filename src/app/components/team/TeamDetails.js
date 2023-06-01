@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '../cds/inputs/TextField';
@@ -223,8 +223,15 @@ const TeamDetails = ({
             { shortenOutgoingUrls ?
               <Alert
                 type="warning"
-                title={<FormattedMessage id="teamDetails.warnTitle" defaultMessage="All links sent via Check are managed" description="Text displayed in a warning box on team details page when link shortening is on" />}
-                content={<FormattedMessage id="teamDetails.warnContent" defaultMessage="Links processed in the Check platform will be rewritten to match this example: https://chck.media/x1y2z3w4. The unique code in each link will redirect your users to the original final destination." description="Text displayed in a warning box on team details page when link shortening is on" />}
+                title={<FormattedMessage id="teamDetails.warnTitle" defaultMessage="All links sent via Check will be rewritten." description="Text displayed in the title of a warning box on team details page when link shortening is on" />}
+                content={
+                  <FormattedHTMLMessage
+                    id="teamDetails.warnContent"
+                    defaultMessage="The rewritten links will also include the UTM code if provided. The UTM code does not change the destination URL.<br /><br /><strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
+                    values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
+                    description="Text displayed in the content of a warning box on team details page when link shortening is on"
+                  />
+                }
               /> : null
             }
           </div>
