@@ -10,6 +10,7 @@ const NewsletterStatic = ({
   numberOfArticles,
   onUpdateNumberOfArticles,
   articles,
+  setTextfieldOverLength,
   onUpdateArticles,
 }) => {
   const getMaxChars = () => {
@@ -49,6 +50,9 @@ const NewsletterStatic = ({
               key={x}
               disabled={disabled}
               error={!!articleErrors[i]}
+              onErrorTooLong={(error) => {
+                setTextfieldOverLength(error);
+              }}
               helpContent={articleErrors[i]}
               maxChars={getMaxChars()}
               value={articles[i]}
@@ -77,6 +81,7 @@ NewsletterStatic.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.string),
   articleErrors: PropTypes.arrayOf(PropTypes.element),
   onUpdateArticles: PropTypes.func.isRequired,
+  setTextfieldOverLength: PropTypes.func.isRequired,
 };
 
 export default NewsletterStatic;
