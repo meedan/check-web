@@ -60,6 +60,7 @@ const NewsletterComponent = ({
 
   const [saving, setSaving] = React.useState(false);
   const [disableSaveNoFile, setDisableSaveNoFile] = React.useState(false);
+  const [textfieldOverLength, setTextfieldOverLength] = React.useState(false);
   const [overlayText, setOverlayText] = React.useState(header_overlay_text || '');
   const [introductionText, setIntroductionText] = React.useState(introduction || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
@@ -77,6 +78,7 @@ const NewsletterComponent = ({
   const [datetimeIsPast, setDatetimeIsPast] = React.useState(false);
 
   const numberOfArticles = (contentType === 'rss' && articleNum === 0) ? 1 : articleNum;
+  const introductionTextMaxChars = 180;
 
   // This triggers when a file or file name or header type is changed. If the header is an attachment type, it disables saving if there is no file attached.
   React.useEffect(() => {
@@ -417,7 +419,7 @@ const NewsletterComponent = ({
         }
         actionButton={
           <div>
-            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || !can(team.permissions, 'create TiplineNewsletter')}>
+            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || textfieldOverLength || !can(team.permissions, 'create TiplineNewsletter')}>
               <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
             </Button>
           </div>
@@ -457,8 +459,11 @@ const NewsletterComponent = ({
           >
             { placeholder => (
               <LimitedTextArea
-                maxChars={180}
+                maxChars={introductionTextMaxChars}
                 disabled={scheduled}
+                onErrorTooLong={(error) => {
+                  setTextfieldOverLength(error);
+                }}
                 value={introductionText}
                 setValue={setIntroductionText}
                 placeholder={placeholder}
@@ -518,6 +523,7 @@ const NewsletterComponent = ({
                 numberOfArticles={numberOfArticles}
                 onUpdateNumberOfArticles={setArticleNum}
                 articles={articles}
+                setTextfieldOverLength={setTextfieldOverLength}
                 onUpdateArticles={setArticles}
               /> : null }
           </div>
@@ -530,7 +536,7 @@ const NewsletterComponent = ({
               time={time}
               parentErrors={errors}
               scheduled={scheduled}
-              disabled={saving || disableSaveNoFile || datetimeIsPast}
+              disabled={saving || disableSaveNoFile || datetimeIsPast || textfieldOverLength}
               subscribersCount={subscribers_count}
               lastSentAt={last_sent_at}
               lastScheduledAt={last_scheduled_at}
