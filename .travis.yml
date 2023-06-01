@@ -11,9 +11,8 @@ before_install:
 # Needed to fix error when installing Pender gems
 # Error: `There was an error while loading `rswag.gemspec`: Illformed requirement`
 # https://github.com/jetpackworkflow/rswag/blob/master/rswag/rswag.gemspec#L18
+# Ngrok
 - curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null && echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | sudo tee /etc/apt/sources.list.d/ngrok.list && sudo apt update && sudo apt install ngrok
-# - unzip ngrok-stable-linux-amd64.zip
-# - chmod +x ngrok
 - export TRAVIS_TAG=0.0.0
 # Docker
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -58,7 +57,7 @@ before_script:
 jobs:
   include:
     - stage: tests
-      # if: branch = develop OR branch = master
+      if: branch = develop OR branch = master
       name: integration-and-unit-tests
       script:
       - docker-compose exec
@@ -72,7 +71,7 @@ jobs:
         web npm run tests
     - stage: tests
       name: similarity-tests
-      # if: branch = develop OR branch = master
+      if: branch = develop OR branch = master
       script:
       - docker-compose exec
         -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
@@ -85,8 +84,7 @@ jobs:
         web npm run tests
     - stage: tests
       name: unit-tests
-      if: branch = develop OR branch = master
-      # if: branch != develop AND branch != master
+      if: branch != develop AND branch != master
       script:
       - docker-compose exec -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME web npm run tests
 after_script:

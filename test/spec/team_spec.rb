@@ -3,13 +3,15 @@ shared_examples 'team' do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}/settings/workspace"
-    wait_for_selector('#team-details__update-button')
+    wait_for_selector('#team-details__name-input-label')
     expect(@driver.page_source.include?('duplicated-team')).to be(false)
+    wait_for_selector('#team-details__update-button')
     wait_for_selector('#team-details__duplicate-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
     update_field('#create-team-dialog__name-input', "duplicated-team#{Time.now.to_i}")
     wait_for_selector('.create-team-dialog__confirm-button').click
     wait_for_selector_none('.create-team-dialog__confirm-button')
+    wait_for_selector('#team-details__name-input-label')
     expect(@driver.page_source.include?('duplicated-team')).to be(true)
   end
 
@@ -17,10 +19,13 @@ shared_examples 'team' do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}"
-    wait_for_selector('#team-details__update-button')
     wait_for_selector('.team-settings__workspace-tab').click
+    expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(false)
     expect(@driver.page_source.include?(' - EDIT')).to be(false)
+
     wait_for_selector('#team-details__name-input').send_keys(' - EDIT')
+
+    wait_for_selector('#team-details__description-input').send_keys 'EDIT DESCRIPTION'
 
     # Logo
     wait_for_selector('#team-details__edit-avatar-button').click
@@ -34,6 +39,7 @@ shared_examples 'team' do
 
     @driver.navigate.refresh
     wait_for_selector('#team-details__update-button')
+    expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(true)
     expect(@driver.page_source.include?(' - EDIT')).to be(true)
   end
 
@@ -102,17 +108,33 @@ shared_examples 'team' do
     wait_for_selector('button#team-members__invite-button')
     # do not be able to invite a member
     expect(@driver.find_elements(:css, 'button#team-members__invite-button[disabled=""]').length == 1)
+    # do not be able to see member icon menu
+    expect(@driver.find_elements(:css, '.team-members__icon-menu').empty?).to be(true)
     # do not be able to duplicate or edit workspace detail
     wait_for_selector('.team-settings__workspace-tab').click
     wait_for_selector('#team-details__name-input')
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length == 1)
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
+    # be able to see just the members tab
+    wait_for_selector('.team-header__drawer-team-link').click
+    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 2
     # do not be able to add, remove or edit a new folder
     expect(@driver.find_elements(:css, '.projects-list__add-folder-or-collection').empty?).to be(true)
     # do not be able to see project actions button
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(true)
+    api_logout
+
+    # log in as admin
+    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    # see all the team config tabs
+    wait_for_selector('.team-header__drawer-team-link')
+    wait_for_selector('.team-settings__integrations-tab').click
+    wait_for_selector('.team-bots__alegre-uninstalled').click
+    wait_for_selector('.team-settings__similarity-tab')
+    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 11
     api_logout
 
     # log in as editor
