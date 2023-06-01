@@ -161,6 +161,15 @@ const NewsletterComponent = ({
           />
         );
       }
+      if (data.introduction && /is too long/.test(data.introduction[0])) {
+        data.introduction = (
+          <FormattedMessage
+            id="newsletterComponent.errorIntroductionTooLong"
+            defaultMessage="Introduction is too long"
+            description="Error message displayed when a user submits a form with an introduction field that is too long."
+          />
+        );
+      }
       if (data.rss_feed_url && data.rss_feed_url[0] === 'is invalid') {
         data.rss_feed_url = (
           <FormattedMessage
