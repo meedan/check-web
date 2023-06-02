@@ -28,7 +28,7 @@
 
         :global(.Mui-disabled) {
           .thumb {
-            color: var(--textDisabled);
+            color: var(--grayBorderAccent);
           }
         }
       }
@@ -67,15 +67,15 @@
 
       :global(.Mui-disabled) {
         .thumb {
-          color: var(--textDisabled);
+          color: var(--grayBorderAccent);
           cursor: not-allowed;
-          opacity: .5;
+          opacity: .6;
         }
 
         + .track {
           background-color: var(--grayBorderMain);
           cursor: not-allowed;
-          opacity: .5;
+          opacity: .6;
         }
 
         &.checked {
