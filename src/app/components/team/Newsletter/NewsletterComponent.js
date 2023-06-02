@@ -72,7 +72,7 @@ const NewsletterComponent = ({
   const [contentType, setContentType] = React.useState(content_type || 'static');
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
   const [sendOn, setSendOn] = React.useState(send_on || null);
-  const [timezone, setTimezone] = React.useState(send_timezone || Intl.DateTimeFormat().resolvedOptions().timeZone);
+  const [timezone, setTimezone] = React.useState(send_timezone || null);
   const [time, setTime] = React.useState(send_time || '09:00');
   const [scheduled, setScheduled] = React.useState(enabled || false);
   const [datetimeIsPast, setDatetimeIsPast] = React.useState(false);
@@ -102,11 +102,16 @@ const NewsletterComponent = ({
   // This triggers when time or scheduled date changes. if it's a static newsletter, then we check to see if the date is in the past and set the datetimeIsPast to enable or disable scheduling.
   React.useEffect(() => {
     const errorsCopy = errors;
-    if (contentType === 'static') {
+    if (contentType === 'static' && timezone) {
       // We have to do `new Date` twice here -- the `Date.parse` gives us a date object with no timezone associated. We wrap that in `new Date` to turn it from a string to a Date object. That object then uses `toLocaleString` to localize it to a string with the correct time derived from our `timezone` which is either `'Region/Zone'` or `'Region/Zone (GMT+xx:xx)'`, which we extract via regex. This gives us a second string, which we then convert back to Date object so we can compare it to the current unix epoch time. We specify 'en-US' for the localeString conversion since that is how the database is storing the datetime.
-      const scheduledDateTime = new Date(new Date(Date.parse(`${sendOn} ${time}`)).toLocaleString('en-US', { timeZone: timezone && timezone.match(/^\w*\/\w*/) && timezone.match(/^\w*\/\w*/)[1] }));
+      const date = new Date(Date.parse(`${sendOn} ${time} +0000`));
+      const utcDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
+      const tzDate = new Date(date.toLocaleString('en-US', { timeZone: timezone.match(/^\w*\/\w*/) && timezone.match(/^\w*\/\w*/)[0] }));
+      const offset = utcDate.getTime() - tzDate.getTime();
+      date.setTime(date.getTime() + offset);
+      const scheduledDateTime = date;
       const currentDateTime = new Date();
-      if (scheduledDateTime < currentDateTime) {
+      if (scheduledDateTime.getTime() < currentDateTime.getTime()) {
         setDatetimeIsPast(true);
         errorsCopy.datetime_past = (<FormattedMessage
           id="newsletterComponent.errorDatetimePast"
@@ -532,11 +537,11 @@ const NewsletterComponent = ({
               type={contentType}
               sendEvery={sendEvery}
               sendOn={sendOn}
-              timezone={timezone}
+              timezone={timezone || Intl.DateTimeFormat().resolvedOptions().timeZone}
               time={time}
               parentErrors={errors}
               scheduled={scheduled}
-              disabled={saving || disableSaveNoFile || datetimeIsPast || textfieldOverLength}
+              disabled={saving || (!scheduled && (disableSaveNoFile || datetimeIsPast || textfieldOverLength))}
               subscribersCount={subscribers_count}
               lastSentAt={last_sent_at}
               lastScheduledAt={last_scheduled_at}
