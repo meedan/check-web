@@ -37,7 +37,6 @@ before_install:
 # Alegre
 - export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $ALEGRE_BRANCH for Alegre"
-# - export alegre_branch=master
 - git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
 - cd alegre
 - cp .env_file.test .env_file
