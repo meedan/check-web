@@ -34,6 +34,7 @@ function Upload({
   />);
 
   const handleClick = (e) => {
+    e.preventDefault();
     // We use :scope to scope the query to just children of the parent element, in case there is more than one Upload component on the page
     const inputElement = e.target.parentElement.parentElement.querySelector(':scope .upload-input');
     if (inputElement) {
