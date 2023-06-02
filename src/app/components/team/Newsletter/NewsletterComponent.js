@@ -454,7 +454,7 @@ const NewsletterComponent = ({
           />
           <FormattedMessage
             id="newsletterComponent.placeholder"
-            defaultMessage="Add text"
+            defaultMessage="Example: Hello! Welcome to our newsletter. Here are the most popular fact-checks you should read now:"
             description="Placeholder text for newsletter field"
           >
             { placeholder => (
