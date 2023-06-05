@@ -65,7 +65,7 @@ shared_examples 'media' do |type|
     expect(page_source_body.include?('Claim 0')).to be(true)
   end
 
-  it 'should restore item from trash from item page', bin6: true do
+  it 'should restore item from trash from item page', bin3: true do
     create_media_depending_on_type
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
