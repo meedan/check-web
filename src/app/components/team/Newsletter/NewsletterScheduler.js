@@ -135,7 +135,7 @@ const NewsletterScheduler = ({
             label={
               <FormattedMessage
                 id="newsletterScheduler.sendEvery"
-                defaultMessage="Send every:"
+                defaultMessage="Send every"
                 description="Label on an input where the user selects in which days of the week to send an RSS newsletter"
               />
             }

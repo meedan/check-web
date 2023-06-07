@@ -23,7 +23,6 @@
 }
 
 .input-container {
-  border: solid 1px var(--validationMain);
   position: relative;
 
   .input-icon-left-icon,

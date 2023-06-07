@@ -27,7 +27,7 @@
   {
     "id": "newsletterScheduler.sendEvery",
     "description": "Label on an input where the user selects in which days of the week to send an RSS newsletter",
-    "defaultMessage": "Send every:"
+    "defaultMessage": "Send every"
   },
   {
     "id": "newsletterScheduler.sendOn",
