@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import ErrorOutlineIcon from '../../../icons/error_outline.svg';
+import ErrorIcon from '../../../icons/error.svg';
+import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './TextField.module.css';
 
 const TextField = ({
@@ -19,24 +20,20 @@ const TextField = ({
 }) => (
   <div className={className}>
     { (label || required) && (
-      <div className={`typography-body2 ${styles['label-container']} ${error && styles['error-label']}`} >
-        <div className={styles.label} >
-          { label && <label htmlFor="name">{label}</label> }
-        </div>
-        <div className={styles.required} >
-          { required && <span>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
-        </div>
+      <div className={`${inputStyles['label-container']} ${error && inputStyles['error-label']}`} >
+        { label && <label htmlFor="name">{label}</label> }
+        { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
       </div>
     )}
-    <div className={`${styles['input-container']} ${textArea && styles['textarea-container']}`}>
+    <div className={`${inputStyles['input-container']} ${styles['textfield-container']} ${textArea && styles['textarea-container']}`}>
       { iconLeft && (
-        <div className={styles['input-icon-left-icon']}>
+        <div className={inputStyles['input-icon-left-icon']}>
           {iconLeft}
         </div>
       )}
       { textArea ? (
         <textarea
-          className={`typography-body1 ${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
+          className={`typography-body1 ${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
           type="text"
           disabled={disabled}
           error={error}
@@ -44,7 +41,7 @@ const TextField = ({
         />
       ) : (
         <input
-          className={`typography-body1 ${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
+          className={`typography-body1 ${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
           type="text"
           disabled={disabled}
           error={error}
@@ -52,14 +49,14 @@ const TextField = ({
         />
       )}
       { iconRight && (
-        <div className={styles['input-icon-right-icon']}>
+        <div className={inputStyles['input-icon-right-icon']}>
           {iconRight}
         </div>
       )}
     </div>
     { helpContent && (
-      <div className={`typography-caption ${styles['help-container']} ${error && styles['error-label']}`}>
-        { error && <ErrorOutlineIcon className={styles['error-icon']} />}
+      <div className={`${inputStyles['help-container']} ${error && inputStyles['error-label']}`}>
+        { error && <ErrorIcon className={inputStyles['error-icon']} />}
         {helpContent}
       </div>
     )}

@@ -54,6 +54,7 @@ const NewsletterStatic = ({
                 setTextfieldOverLength(error);
               }}
               helpContent={articleErrors[i]}
+              label="&nbsp;"
               maxChars={getMaxChars()}
               value={articles[i]}
               onChange={e => handleArticleUpdate(e.target.value, i)}

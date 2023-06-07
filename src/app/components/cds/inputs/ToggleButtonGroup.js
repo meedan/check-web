@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ToggleButtonMui from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroupMui from '@material-ui/lab/ToggleButtonGroup';
+import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './ToggleButtonGroup.module.css';
 
 const ToggleButton = ({ children, ...toggleButtonProps }) => (
@@ -20,22 +21,24 @@ const ToggleButtonGroup = ({
 }) => (
   <div className={className}>
     { (label) && (
-      <div className={`typography-body2 ${styles.label}`}>
+      <div className={`${inputStyles['label-container']}`} >
         { label && <label htmlFor="name">{label}</label> }
       </div>
     )}
-    <div className={`typography-button ${styles['toggle-button-group']}`}>
-      <ToggleButtonGroupMui
-        classes={{
-          root: styles.root,
-        }}
-        {...toggleButtonGroupProps}
-      >
-        {children}
-      </ToggleButtonGroupMui>
+    <div className={`${inputStyles['input-container']}`}>
+      <div className={`typography-button ${styles['toggle-button-group']}`}>
+        <ToggleButtonGroupMui
+          classes={{
+            root: styles.root,
+          }}
+          {...toggleButtonGroupProps}
+        >
+          {children}
+        </ToggleButtonGroupMui>
+      </div>
     </div>
     { helpContent && (
-      <div className={`typography-caption ${styles['help-container']}`}>
+      <div className={`${inputStyles['help-container']}`}>
         {helpContent}
       </div>
     )}

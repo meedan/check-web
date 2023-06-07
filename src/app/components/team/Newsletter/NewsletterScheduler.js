@@ -135,7 +135,7 @@ const NewsletterScheduler = ({
             label={
               <FormattedMessage
                 id="newsletterScheduler.sendEvery"
-                defaultMessage="Send every:"
+                defaultMessage="Send every"
                 description="Label on an input where the user selects in which days of the week to send an RSS newsletter"
               />
             }
@@ -154,7 +154,7 @@ const NewsletterScheduler = ({
 
         { type === 'static' ?
           <DatePicker
-            label={<FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on:" description="Label on a input where the user selects a date to send a newsletter" />}
+            label={<FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on" description="Label on a input where the user selects a date to send a newsletter" />}
             value={sendOn}
             onChange={(e) => { onUpdate('sendOn', e.target.value); }}
             disabled={scheduled}
