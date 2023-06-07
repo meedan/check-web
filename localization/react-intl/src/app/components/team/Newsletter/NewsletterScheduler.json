@@ -32,7 +32,7 @@
   {
     "id": "newsletterScheduler.sendOn",
     "description": "Label on a input where the user selects a date to send a newsletter",
-    "defaultMessage": "Send on:"
+    "defaultMessage": "Send on"
   },
   {
     "id": "newsletterScheduler.at",

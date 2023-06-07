@@ -154,7 +154,7 @@ const NewsletterScheduler = ({
 
         { type === 'static' ?
           <DatePicker
-            label={<FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on:" description="Label on a input where the user selects a date to send a newsletter" />}
+            label={<FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on" description="Label on a input where the user selects a date to send a newsletter" />}
             value={sendOn}
             onChange={(e) => { onUpdate('sendOn', e.target.value); }}
             disabled={scheduled}
