@@ -144,6 +144,7 @@ const NewsletterComponent = ({
         err[0]?.data.introduction ||
         err[0]?.data.rss_feed_url ||
         err[0]?.data.send_on ||
+        err[0]?.data.time ||
         err[0]?.data.header_type ||
         err[0]?.data.header_file ||
         err[0]?.data.base
