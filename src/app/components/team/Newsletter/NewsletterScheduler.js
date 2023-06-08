@@ -159,7 +159,14 @@ const NewsletterScheduler = ({
           <span className="typography-caption">
             <FormattedMessage id="newsletterScheduler.at" defaultMessage="at" description="This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'" />
           </span>
-          <Time value={time} onChange={(e) => { onUpdate('time', e.target.value); }} disabled={scheduled} required />
+          <Time
+            value={time}
+            onChange={(e) => { onUpdate('time', e.target.value); }}
+            disabled={scheduled}
+            error={parentErrors.time}
+            helpContent={parentErrors.time && parentErrors.time}
+            required
+          />
           <Select
             className={styles.select}
             // We check for both code ('Europe/London') and value ('Europe/London (GMT+1:00)') because default values in the browser will only guarantee the first, but if it's saved, the timezone is returned from the API with the offset appended. Doing it this way means we don't have to recalculate the offset in the parent NewsletterComponent)
