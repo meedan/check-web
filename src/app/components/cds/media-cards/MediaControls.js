@@ -52,10 +52,10 @@ const MediaControls = ({
   React.useEffect(() => {
     const video = videoRef.current;
     video.addEventListener('loadedmetadata', () => {
-      setDuration(videoRef.current.duration);
+      setDuration(videoRef.current?.duration);
     });
     video.addEventListener('timeupdate', () => {
-      setCurrentTime(videoRef.current.currentTime);
+      setCurrentTime(videoRef.current?.currentTime);
     });
     video.addEventListener('ended', () => {
       setIsPlaying(false);
