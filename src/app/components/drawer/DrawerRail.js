@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router';
 import { injectIntl, defineMessages } from 'react-intl';
