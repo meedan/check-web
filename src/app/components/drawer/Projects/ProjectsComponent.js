@@ -243,7 +243,7 @@ const ProjectsComponent = ({
           >
             <InboxIcon className={styles.listIcon} />
             <ListItemText disableTypography className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar." />
+              <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted" />
             </ListItemText>
             <ListItemSecondaryAction className={styles.listItemCount} />
           </ListItem>
@@ -257,7 +257,7 @@ const ProjectsComponent = ({
           >
             <FileDownloadIcon className={styles.listIcon} />
             <ListItemText disableTypography className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar." />
+              <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
             </ListItemText>
             <ListItemSecondaryAction className={styles.listItemCount} />
           </ListItem>
@@ -271,7 +271,7 @@ const ProjectsComponent = ({
           >
             <LightbulbIcon className={styles.listIcon} />
             <ListItemText disableTypography className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar." />
+              <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1" />
             </ListItemText>
             <ListItemSecondaryAction className={styles.listItemCount} />
           </ListItem>
