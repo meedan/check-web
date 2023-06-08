@@ -8,6 +8,7 @@
     height: 100%;
     letter-spacing: .15px;
     line-height: 20px;
+    min-height: 48px;
     padding: 12px 10px;
     width: 100%;
 

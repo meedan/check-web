@@ -25,16 +25,12 @@
 
 .settings {
   background: var(--brandBackground);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 16px;
 
   > *:not(:last-child) {
     margin-bottom: 16px;
   }
-}
-
-.select {
-  width: 50%;
 }
 
 .uploader {
@@ -43,7 +39,7 @@
 
 .newsletter-body {
   background: var(--brandBackgroundAccent);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 16px;
 
   .rss-feed-url {
@@ -101,74 +97,98 @@
   }
 }
 
-.newsletter-scheduler {
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 16px;
-
-  &.newsletter-scheduled {
-    background: var(--validationLight);
-    border: 2px solid var(--validationBorder);
-  }
-
-  &.newsletter-paused {
-    background: var(--brandLight);
-    border: 2px solid var(--brandBorder);
-  }
-
-  .newsletter-scheduler-title {
-    align-items: center;
-    display: flex;
-
-    .tooltip-icon {
-      color: var(--textSecondary);
-      display: inline-block;
-      margin: 6px;
-    }
-  }
-
-  .newsletter-scheduler-schedule {
-    color: var(--textSecondary);
-  }
-
-  .newsletter-scheduler-time {
-    align-items: flex-start;
-    display: flex;
-    gap: 8px;
-    padding: 8px;
-
-    > span {
-      align-self: center;
-    }
-  }
-
-  .newsletter-scheduler-subscribers {
-    display: inline-block;
-    padding: 8px;
-    text-align: center;
-
-    div + div {
-      color: var(--textPrimary);
-    }
-  }
-
-  .newsletter-schedule-button,
-  .newsletter-schedule-button:hover {
-    background: var(--validationMain);
-    color: var(--otherWhite);
-  }
-
-  .newsletter-pause-button,
-  .newsletter-pause-button:hover {
-    background: var(--secondaryOrange);
-    color: var(--otherWhite);
-  }
-}
-
 .newsletter-scheduler-container {
-  bottom: -32px;
+  .newsletter-scheduler {
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+
+    &.newsletter-scheduled {
+      background: var(--validationLight);
+    }
+
+    &.newsletter-paused {
+      background: var(--brandLight);
+    }
+
+    .newsletter-scheduler-title {
+      align-items: center;
+      display: flex;
+
+      .tooltip-icon {
+        color: var(--textSecondary);
+        display: inline-block;
+        margin: 6px;
+      }
+    }
+
+    .newsletter-scheduler-schedule {
+      align-items: center;
+      color: var(--textSecondary);
+      display: flex;
+    }
+
+    .newsletter-scheduler-send-on,
+    .newsletter-scheduler-send-every {
+      display: inline-block;
+    }
+
+    .newsletter-scheduler-time {
+      align-items: flex-end;
+      display: inline-flex;
+      flex: 1 1 auto;
+      gap: 2px;
+      padding: 0 0 0 8px;
+
+      > span {
+        align-self: center;
+        flex: 0 0 auto;
+        margin: 0 6px 0 0;
+      }
+
+      .newsletter-scheduler-time-input {
+        flex: 0 0 105px;
+      }
+
+      .select {
+        flex: 1 1 auto;
+      }
+    }
+
+    .newsletter-schedule-actions {
+      align-items: center;
+      display: flex;
+      padding: 0 0 0 2px;
+
+      .newsletter-schedule-button,
+      .newsletter-schedule-button:hover {
+        background: var(--validationMain);
+        color: var(--otherWhite);
+      }
+
+      .newsletter-pause-button,
+      .newsletter-pause-button:hover {
+        background: var(--alertMain);
+        color: var(--otherWhite);
+      }
+
+      .newsletter-schedule-meta {
+        align-items: center;
+        color: var(--textPrimary);
+        display: flex;
+        margin: 0 0 0 10px;
+
+        :global(.check-icon) {
+          color: var(--textSecondary);
+          /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+          font-size: 10px;
+          margin: 0 2px;
+        }
+      }
+    }
+  }
 }
 
 .error-label {
