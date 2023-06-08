@@ -1,45 +1,41 @@
-.input {
-  background-color: var(--otherWhite);
-  border: 2px solid var(--grayBorderMain);
-  border-radius: 8px;
-  color: var(--textPrimary);
-  font: 400 14px var(--fontStackSans);
-  letter-spacing: .15px;
-  line-height: 20px;
-  padding: 10px;
-
-  &:hover {
-    border-color: var(--grayBorderAccent);
-  }
-
-  &::placeholder {
+.time-container {
+  .input {
+    background-color: var(--otherWhite);
+    border: 2px solid var(--grayBorderMain);
+    border-radius: 8px;
+    color: var(--textPrimary);
     font: 400 14px var(--fontStackSans);
     letter-spacing: .15px;
     line-height: 20px;
-  }
+    padding: 10px;
 
-  &:focus {
-    border-color: var(--brandMain);
-    outline: none;
+    &.outlined {
+      background-color: transparent;
+    }
+
+    &:hover {
+      border-color: var(--grayBorderAccent);
+    }
 
     &::placeholder {
-      color: transparent;
+      font: 400 14px var(--fontStackSans);
+      letter-spacing: .15px;
+      line-height: 20px;
+    }
+
+    &:focus {
+      border-color: var(--brandMain);
+      outline: none;
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    &:disabled,
+    &.disabled {
+      background-color: var(--grayDisabledBackground);
+      color: var(--textDisabledInput);
     }
   }
-}
-
-.required {
-  align-self: end;
-  margin-right: 4px;
-  text-align: right;
-}
-
-.input:disabled,
-.disabled {
-  background-color: var(--grayDisabledBackground);
-  color: var(--textDisabledInput);
-}
-
-.outlined {
-  background-color: transparent;
 }

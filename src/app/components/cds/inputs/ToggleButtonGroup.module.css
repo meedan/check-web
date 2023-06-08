@@ -37,7 +37,12 @@
 
   :global(.MuiButtonBase-root.Mui-disabled.Mui-selected) {
     background-color: var(--textDisabled);
+    border-color: var(--textDisabled);
     color: var(--otherWhite);
+
+    + :global(.MuiButtonBase-root.Mui-disabled.Mui-selected) {
+      border-color: var(--textDisabled);
+    }
   }
 
   button:not(:first-child) {

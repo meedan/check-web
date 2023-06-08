@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
-import ErrorOutlineIcon from '../../../icons/error_outline.svg';
+import ErrorIcon from '../../../icons/error.svg';
+import ChevronDownIcon from '../../../icons/chevron_down.svg';
+import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './Select.module.css';
 
 const Select = ({
@@ -11,7 +12,6 @@ const Select = ({
   error,
   helpContent,
   iconLeft,
-  iconRight,
   label,
   required,
   variant,
@@ -21,45 +21,33 @@ const Select = ({
 }) => (
   <div className={className}>
     { (label || required) && (
-      <Typography variant="body2">
-        <div className={`${styles['label-container']} ${error && styles['error-label']}`} >
-          <div className={styles.label} >
-            { label && <label htmlFor="name">{label}</label> }
-          </div>
-          <div className={styles.required} >
-            { required && <span>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
-          </div>
-        </div>
-      </Typography>
+      <div className={`${inputStyles['label-container']} ${error && inputStyles['error-label']}`}>
+        { label && <label htmlFor="name">{label}</label> }
+        { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
+      </div>
     )}
-    <div className={styles['input-container']}>
+    <div className={`${inputStyles['input-container']} ${styles['select-container']}`}>
       { iconLeft && (
-        <div className={styles['input-icon-left-icon']}>
+        <div className={inputStyles['input-icon-left-icon']}>
           {iconLeft}
         </div>
       )}
-      <Typography variant="body1">
-        <select
-          className={`${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error}`}
-          disabled={disabled}
-          {...inputProps}
-        >
-          {children}
-        </select>
-      </Typography>
-      { iconRight && (
-        <div className={styles['input-icon-right-icon']}>
-          {iconRight}
-        </div>
-      )}
+      <select
+        className={`typography-body1 ${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error} ${iconLeft && styles['input-icon-left']}`}
+        disabled={disabled}
+        {...inputProps}
+      >
+        {children}
+      </select>
+      <div className={inputStyles['input-icon-right-icon']}>
+        <ChevronDownIcon />
+      </div>
     </div>
     { helpContent && (
-      <Typography variant="caption">
-        <div className={`${styles['help-container']} ${error && styles['error-label']}`}>
-          { error && <ErrorOutlineIcon className={styles['error-icon']} />}
-          {helpContent}
-        </div>
-      </Typography>
+      <div className={`${inputStyles['help-container']} ${error && inputStyles['error-label']}`}>
+        { error && <ErrorIcon className={inputStyles['error-icon']} />}
+        {helpContent}
+      </div>
     )}
   </div>
 );
@@ -70,7 +58,6 @@ Select.defaultProps = {
   error: false,
   helpContent: null,
   iconLeft: null,
-  iconRight: null,
   label: '',
   required: false,
   textArea: false,
@@ -83,7 +70,6 @@ Select.propTypes = {
   error: PropTypes.bool,
   helpContent: PropTypes.element,
   iconLeft: PropTypes.element,
-  iconRight: PropTypes.element,
   label: PropTypes.string,
   required: PropTypes.bool,
   textArea: PropTypes.bool,
