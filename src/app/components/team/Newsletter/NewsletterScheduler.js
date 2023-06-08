@@ -6,8 +6,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import { getTimeZones } from '@vvo/tzdb';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
+import { getTimeZoneOptions } from '../../../helpers';
 import Alert from '../../cds/alerts-and-prompts/Alert';
 import Select from '../../cds/inputs/Select';
 import DatePicker from '../../cds/inputs/DatePicker';
@@ -15,17 +15,7 @@ import Time from '../../cds/inputs/Time';
 import styles from './NewsletterComponent.module.css';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 
-const timezones = getTimeZones({ includeUtc: true }).map((option) => {
-  const offset = option.currentTimeOffsetInMinutes / 60;
-  const fullOffset = option.currentTimeFormat.split(' ')[0];
-  const sign = offset < 0 ? '' : '+';
-  const newOption = {
-    code: option.name,
-    label: `${option.name} (GMT${sign}${offset})`,
-    value: `${option.name} (GMT${fullOffset})`,
-  };
-  return newOption;
-});
+const timezones = getTimeZoneOptions();
 
 const NewsletterScheduler = ({
   type,
