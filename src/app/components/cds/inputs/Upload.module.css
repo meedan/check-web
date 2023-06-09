@@ -79,3 +79,22 @@
   font-size: var(--iconSizeSmall) !important;
   padding: 0 !important;
 }
+
+.tooltip {
+  &:global(.MuiTooltip-tooltip) {
+    @mixin typography-body2;
+    background-color: var(--otherWhite);
+    border: 1px solid var(--brandBorder);
+    color: var(--textPrimary);
+    padding: 4px 8px;
+  }
+
+  :global(.MuiTooltip-arrow) {
+    color: var(--otherWhite);
+
+    &::before {
+      border: 1px solid var(--brandBorder);
+      margin-top: -1px;
+    }
+  }
+}

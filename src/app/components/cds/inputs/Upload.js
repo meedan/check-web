@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import { FormattedMessage } from 'react-intl';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 import CheckCircleIcon from '../../../icons/check_circle.svg';
@@ -104,12 +105,25 @@ function Upload({
   const RenderFile = () => (
     <div className={`typography-button ${styles['file-name']} ${styles['file-name-grid']}`}>
       <div className={styles['file-name-added']}><CheckCircleIcon className={styles['icon-label']} />&nbsp;{fileName}</div>
-      <IconButton
-        onClick={handleRemove}
-        className={styles['delete-button']}
+      <Tooltip
+        classes={{ tooltip: styles.tooltip }}
+        placement="right"
+        title={
+          <FormattedMessage
+            id="upload.removeUpload"
+            defaultMessage="Remove upload"
+            description="Tooltip message displayed on upload component. Cancel file selected for upload"
+          />
+        }
+        arrow
       >
-        <CancelIcon />
-      </IconButton>
+        <IconButton
+          onClick={handleRemove}
+          className={styles['delete-button']}
+        >
+          <CancelIcon />
+        </IconButton>
+      </Tooltip>
     </div>
   );
 
