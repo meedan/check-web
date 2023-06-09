@@ -106,7 +106,6 @@ function Upload({
     <div className={`typography-button ${styles['file-name']} ${styles['file-name-grid']}`}>
       <div className={styles['file-name-added']}><CheckCircleIcon className={styles['icon-label']} />&nbsp;{fileName}</div>
       <Tooltip
-        classes={{ tooltip: styles.tooltip }}
         placement="right"
         title={
           <FormattedMessage
