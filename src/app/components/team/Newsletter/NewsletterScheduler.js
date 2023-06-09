@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import { getTimeZoneOptions } from '../../../helpers';
 import Alert from '../../cds/alerts-and-prompts/Alert';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import Select from '../../cds/inputs/Select';
 import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
@@ -45,9 +45,6 @@ const NewsletterScheduler = ({
         {' '}
         { (scheduled && lastScheduledBy && lastScheduledAt) ?
           <Tooltip
-            classes={{
-              tooltip: styles.tooltip,
-            }}
             placement="right"
             title={
               <FormattedMessage
@@ -68,9 +65,6 @@ const NewsletterScheduler = ({
         }
         { (!scheduled && lastSentAt) ?
           <Tooltip
-            classes={{
-              tooltip: styles.tooltip,
-            }}
             placement="right"
             title={
               <FormattedMessage
