@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import { FormattedMessage } from 'react-intl';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 import CheckCircleIcon from '../../../icons/check_circle.svg';
 import CancelIcon from '../../../icons/cancel.svg';
