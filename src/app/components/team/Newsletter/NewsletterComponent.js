@@ -77,8 +77,9 @@ const NewsletterComponent = ({
   // Just use the local timezone if it's one of the options
   const localTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   let defaultTimezone = null;
-  if (getTimeZoneOptions().find(item => item.code === localTimezone || item.value === localTimezone)) {
-    defaultTimezone = localTimezone;
+  const timezoneOption = getTimeZoneOptions().find(item => item.code === localTimezone || item.value === localTimezone);
+  if (timezoneOption) {
+    defaultTimezone = timezoneOption.value;
   }
   const [timezone, setTimezone] = React.useState(send_timezone || defaultTimezone);
 
