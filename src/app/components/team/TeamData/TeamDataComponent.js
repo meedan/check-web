@@ -178,7 +178,7 @@ const TeamDataComponent = ({
 }) => {
   const classes = useStyles();
   const defaultOrder = 'Month';
-  const [order, setOrder] = React.useState('asc');
+  const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState(defaultOrder);
 
   const headers = data ? Object.keys(data[0]).filter(header => !['ID', 'Org', 'Language', 'Platform'].includes(header)) : null;
