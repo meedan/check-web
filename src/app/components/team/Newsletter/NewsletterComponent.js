@@ -100,6 +100,9 @@ const NewsletterComponent = ({
     } else if (!fileRequired) {
       setDisableSaveNoFile(false);
     }
+
+    // Reset any errors returned by the backend related to the previously uploaded file
+    setErrors({ ...errors, header_file: null, base: null });
   }, [file, fileName, headerType]);
 
   // This triggers when a file is changed. It rerenders the file name if a new file was attached.
