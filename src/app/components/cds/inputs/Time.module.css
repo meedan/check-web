@@ -39,5 +39,17 @@
       background-color: var(--grayDisabledBackground);
       color: var(--textDisabledInput);
     }
+
+    &.error {
+      border-color: var(--errorMain) !important;
+
+      &:hover {
+        border-color: var(--errorSecondary) !important;
+      }
+
+      &:focus {
+        border-color: var(--errorMain) !important;
+      }
+    }
   }
 }
