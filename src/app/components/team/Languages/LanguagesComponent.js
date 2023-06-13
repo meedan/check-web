@@ -1,7 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat'; // eslint-disable-line
+import Relay from 'react-relay/classic';
 import List from '@material-ui/core/List';
 import AddLanguageAction from './AddLanguageAction';
 import LanguageListItem from './LanguageListItem';
@@ -12,11 +13,57 @@ import { compareLanguages } from '../../../LanguageRegistry';
 import { ContentColumn } from '../../../styles/js/shared';
 import styles from './LanguagesComponent.module.css';
 
+const submitToggleLanguageDetection = ({
+  team,
+  value,
+  onSuccess,
+  onFailure,
+}) => {
+  console.log('value', value); // eslint-disable-line
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation LanguagesComponentToggleLanguageDetectionMutation($input: UpdateTeamInput!) {
+        updateTeam(input: $input) {
+          team {
+            id
+            get_language_detection
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: team.id,
+        language_detection: value,
+      },
+    },
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+};
+
 const LanguagesComponent = ({ team }) => {
   const defaultCode = team.get_language || 'en';
 
   let languages = safelyParseJSON(team.get_languages) || [];
   languages = languages.sort((a, b) => compareLanguages(defaultCode, a, b));
+
+  const toggleLanguageDetection = (value) => {
+    const onSuccess = () => { console.log('success'); }; // eslint-disable-line
+    const onFailure = () => { console.log('failure'); }; // eslint-disable-line
+
+    submitToggleLanguageDetection({
+      team,
+      value,
+      onSuccess,
+      onFailure,
+    });
+  };
 
   return (
     <React.Fragment>
@@ -60,10 +107,8 @@ const LanguagesComponent = ({ team }) => {
                   description="Label for a switch where the user toggles auto language detection"
                 />
               }
-              checked
-              onChange={() => {
-
-              }}
+              checked={team.get_language_detection}
+              onChange={toggleLanguageDetection}
             />
           </div>
         </div>
@@ -99,6 +144,7 @@ LanguagesComponent.propTypes = {
 
 export default createFragmentContainer(LanguagesComponent, graphql`
   fragment LanguagesComponent_team on Team {
+    id
     get_language
     get_languages
     get_language_detection
