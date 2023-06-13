@@ -34,8 +34,8 @@ const TextField = ({
     )}
     <div className={cx(
       styles['textfield-container'],
+      inputStyles['input-container'],
       {
-        [inputStyles['input-container']]: textArea,
         [styles['textarea-container']]: textArea,
       })
     }
