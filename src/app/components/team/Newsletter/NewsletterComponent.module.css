@@ -120,6 +120,7 @@
       .tooltip-icon {
         color: var(--textSecondary);
         display: inline-block;
+        font-size: var(--iconSizeSmall);
         margin: 6px;
       }
     }

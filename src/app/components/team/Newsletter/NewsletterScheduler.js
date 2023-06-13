@@ -4,7 +4,7 @@ import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-in
 import Button from '@material-ui/core/Button';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
-import { getTimeZones } from '@vvo/tzdb';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import { getTimeZoneOptions } from '../../../helpers';
 import Alert from '../../cds/alerts-and-prompts/Alert';
@@ -13,7 +13,6 @@ import Select from '../../cds/inputs/Select';
 import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
 import styles from './NewsletterComponent.module.css';
-import EllipseIcon from '../../../icons/ellipse.svg';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 
 const timezones = getTimeZoneOptions();
@@ -42,15 +41,54 @@ const NewsletterScheduler = ({
   return (
     <div className={`${styles['newsletter-scheduler']} ${scheduled ? styles['newsletter-scheduled'] : styles['newsletter-paused']}`}>
       <div className={`typography-subtitle2 ${styles['newsletter-scheduler-title']}`}>
-        { type === 'rss' &&
-          <FormattedMessage
-            id="newsletterScheduler.sendEvery"
-            defaultMessage="Send every"
-            description="Label on an input where the user selects in which days of the week to send an RSS newsletter"
-          />
-        }
-        { type === 'static' &&
+        { type === 'static' ?
           <FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on" description="Label on a input where the user selects a date to send a newsletter" />
+          : null
+        }
+        { type === 'rss' ?
+          <FormattedMessage id="newsletterScheduler.sendEvery" defaultMessage="Send every" description="Label on an input where the user selects in which days of the week to send an RSS newsletter" />
+          : null
+        }
+        {' '}
+        { (scheduled && lastScheduledBy && lastScheduledAt) ?
+          <Tooltip
+            placement="right"
+            title={
+              <FormattedMessage
+                id="newsletterScheduler.tooltipScheduled"
+                defaultMessage="Scheduled by {name} on {date}"
+                values={{
+                  name: lastScheduledBy,
+                  date: <FormattedDate value={lastScheduledAt * 1000} year="numeric" month="long" day="numeric" />,
+                }}
+                description="Tooltip message displayed on newsletter scheduler."
+              />
+            }
+            arrow
+          >
+            <InfoOutlinedIcon className={styles['tooltip-icon']} />
+          </Tooltip> :
+          null
+        }
+        { (!scheduled && lastSentAt) ?
+          <Tooltip
+            placement="right"
+            title={
+              <FormattedMessage
+                id="newsletterScheduler.tooltipSent"
+                defaultMessage="Last sent on {date}"
+                values={{
+                  name: lastSentAt,
+                  date: <FormattedDate value={lastSentAt * 1000} year="numeric" month="long" day="numeric" />,
+                }}
+                description="Tooltip message displayed on newsletter scheduler."
+              />
+            }
+            arrow
+          >
+            <InfoOutlinedIcon className={styles['tooltip-icon']} />
+          </Tooltip> :
+          null
         }
       </div>
 
@@ -83,9 +121,8 @@ const NewsletterScheduler = ({
       }
 
       <div className={styles['newsletter-scheduler-schedule']}>
-        { type === 'rss' &&
+        { type === 'rss' ?
           <ToggleButtonGroup
-            className={styles['newsletter-scheduler-send-every']}
             variant="contained"
             value={sendEvery}
             onChange={(e, newValue) => { onUpdate('sendEvery', newValue); }}
@@ -96,11 +133,11 @@ const NewsletterScheduler = ({
               </ToggleButton>
             ))}
           </ToggleButtonGroup>
+          : null
         }
 
-        { type === 'static' &&
+        { type === 'static' ?
           <DatePicker
-            className={styles['newsletter-scheduler-send-on']}
             value={sendOn}
             onChange={(e) => { onUpdate('sendOn', e.target.value); }}
             disabled={scheduled}
@@ -108,14 +145,14 @@ const NewsletterScheduler = ({
             helpContent={parentErrors.send_on && parentErrors.send_on}
             required
           />
+          : null
         }
 
         <div className={styles['newsletter-scheduler-time']}>
-          <FormattedMessage id="newsletterScheduler.at" defaultMessage="at" description="This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'">
-            {txt => <span className="typography-caption">{txt}</span>}
-          </FormattedMessage>
+          <span className="typography-caption">
+            <FormattedMessage id="newsletterScheduler.at" defaultMessage="at" description="This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'" />
+          </span>
           <Time
-            className={styles['newsletter-scheduler-time-input']}
             value={time}
             onChange={(e) => { onUpdate('time', e.target.value); }}
             disabled={scheduled}
@@ -169,42 +206,17 @@ const NewsletterScheduler = ({
             <FormattedMessage id="newsletterScheduler.schedule" defaultMessage="Schedule" description="Label for a button to schedule a newsletter" />
           </Button>
         }
-        <div className={styles['newsletter-schedule-meta']}>
-          { (scheduled && lastScheduledBy && lastScheduledAt) &&
-            <FormattedMessage
-              id="newsletterScheduler.tooltipScheduled"
-              defaultMessage="Scheduled by {name} on {date}"
-              values={{
-                name: lastScheduledBy,
-                date: <FormattedDate value={lastScheduledAt * 1000} year="numeric" month="long" day="numeric" />,
-              }}
-              tagName="small"
-              description="Tooltip message displayed on newsletter scheduler."
-            />
-          }
-          { (!scheduled && lastSentAt) &&
-            <FormattedMessage
-              id="newsletterScheduler.tooltipSent"
-              defaultMessage="Last sent on {date}"
-              values={{
-                name: lastSentAt,
-                date: <FormattedDate value={lastSentAt * 1000} year="numeric" month="long" day="numeric" />,
-              }}
-              tagName="small"
-              description="Tooltip message displayed on newsletter scheduler."
-            />
-          }
-          { subscribersCount !== null &&
+        { subscribersCount !== null &&
+          <div className={styles['newsletter-schedule-meta']}>
             <small className={styles['newsletter-scheduler-subscribers']}>
-              { (scheduled || (scheduled && lastScheduledBy && lastScheduledAt)) && <EllipseIcon /> }
               <FormattedMessage id="newsletterScheduler.subscribers" defaultMessage="Subscribers:" description="Label related to the number of subscribers of a newsletter" />
               &nbsp;
               <strong>
                 {subscribersCount}
               </strong>
             </small>
-          }
-        </div>
+          </div>
+        }
       </div>
     </div>
   );
