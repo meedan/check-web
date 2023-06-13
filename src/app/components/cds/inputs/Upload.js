@@ -110,7 +110,7 @@ function Upload({
         title={
           <FormattedMessage
             id="upload.removeUpload"
-            defaultMessage="Remove upload"
+            defaultMessage="Remove file"
             description="Tooltip message displayed on upload component. Cancel file selected for upload"
           />
         }
