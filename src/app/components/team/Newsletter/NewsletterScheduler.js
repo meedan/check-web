@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import { getTimeZoneOptions } from '../../../helpers';
 import Alert from '../../cds/alerts-and-prompts/Alert';
@@ -14,6 +11,9 @@ import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
 import styles from './NewsletterComponent.module.css';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
+import InfoOutlinedIcon from '../../../icons/info.svg';
+import PlayArrowIcon from '../../../icons/play_arrow.svg';
+import PauseIcon from '../../../icons/pause.svg';
 
 const timezones = getTimeZoneOptions();
 
@@ -66,7 +66,9 @@ const NewsletterScheduler = ({
             }
             arrow
           >
-            <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            <span>
+              <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            </span>
           </Tooltip> :
           null
         }
@@ -86,7 +88,9 @@ const NewsletterScheduler = ({
             }
             arrow
           >
-            <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            <span>
+              <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            </span>
           </Tooltip> :
           null
         }
