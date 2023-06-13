@@ -133,7 +133,6 @@ const LanguageListItem = ({ code, team, intl }) => {
     const onFailure = (errors) => {
       setIsSaving(false);
       setDeleteDialogOpen(false);
-      console.error(errors); // eslint-disable-line no-console
       setFlashMessage((
         getErrorMessageForRelayModernProblem(errors)
         || <GenericUnknownErrorMessage />
@@ -164,7 +163,6 @@ const LanguageListItem = ({ code, team, intl }) => {
     const onFailure = (errors) => {
       setIsSaving(false);
       setDefaultDialogOpen(false);
-      console.error(errors); // eslint-disable-line no-console
       setFlashMessage((
         getErrorMessageForRelayModernProblem(errors)
         || <GenericUnknownErrorMessage />
