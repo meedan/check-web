@@ -15,7 +15,8 @@ const Time = ({
     <div className={`${inputStyles['input-container']} ${styles['time-container']}`}>
       <input
         type="time"
-        className={`${styles.input} ${variant === 'outlined' && styles.outlined}`}
+        error={error}
+        className={`${styles.input} ${error && styles.error} ${variant === 'outlined' && styles.outlined}`}
         {...inputProps}
       />
     </div>
