@@ -13,6 +13,7 @@ import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import styles from './NewsletterComponent.module.css';
 import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import SettingsHeader from '../SettingsHeader';
+import { getTimeZoneOptions } from '../../../helpers';
 import { can } from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 
@@ -72,7 +73,16 @@ const NewsletterComponent = ({
   const [contentType, setContentType] = React.useState(content_type || 'static');
   const [sendEvery, setSendEvery] = React.useState(send_every || ['wednesday']);
   const [sendOn, setSendOn] = React.useState(send_on || null);
-  const [timezone, setTimezone] = React.useState(send_timezone || null);
+
+  // Just use the local timezone if it's one of the options
+  const localTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  let defaultTimezone = null;
+  const timezoneOption = getTimeZoneOptions().find(item => item.code === localTimezone || item.value === localTimezone);
+  if (timezoneOption) {
+    defaultTimezone = timezoneOption.value;
+  }
+  const [timezone, setTimezone] = React.useState(send_timezone || defaultTimezone);
+
   const [time, setTime] = React.useState(send_time || '09:00');
   const [scheduled, setScheduled] = React.useState(enabled || false);
   const [datetimeIsPast, setDatetimeIsPast] = React.useState(false);
@@ -90,6 +100,9 @@ const NewsletterComponent = ({
     } else if (!fileRequired) {
       setDisableSaveNoFile(false);
     }
+
+    // Reset any errors returned by the backend related to the previously uploaded file
+    setErrors({ ...errors, header_file: null, base: null });
   }, [file, fileName, headerType]);
 
   // This triggers when a file is changed. It rerenders the file name if a new file was attached.
@@ -144,6 +157,7 @@ const NewsletterComponent = ({
         err[0]?.data.introduction ||
         err[0]?.data.rss_feed_url ||
         err[0]?.data.send_on ||
+        err[0]?.data.time ||
         err[0]?.data.header_type ||
         err[0]?.data.header_file ||
         err[0]?.data.base
@@ -459,7 +473,7 @@ const NewsletterComponent = ({
           />
           <FormattedMessage
             id="newsletterComponent.placeholder"
-            defaultMessage="Add text"
+            defaultMessage="Example: Hello! Welcome to our newsletter. Here are the most popular fact-checks you should read now:"
             description="Placeholder text for newsletter field"
           >
             { placeholder => (
@@ -537,7 +551,7 @@ const NewsletterComponent = ({
               type={contentType}
               sendEvery={sendEvery}
               sendOn={sendOn}
-              timezone={timezone || Intl.DateTimeFormat().resolvedOptions().timeZone}
+              timezone={timezone}
               time={time}
               parentErrors={errors}
               scheduled={scheduled}

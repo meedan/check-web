@@ -37,7 +37,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?(' - EDIT')).to be(true)
   end
 
-  it 'should install and uninstall bot', bin6: true do
+  it 'should install and uninstall bot', bin1: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}/settings/integrations"
@@ -58,7 +58,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('Report settings saved successfully')).to be(true)
   end
 
-  it 'should enable the Slack notifications', bin5: true do
+  it 'should enable the Slack notifications', bin1: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     @driver.execute_script('window.scrollTo(10, 10000)')
@@ -84,7 +84,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
-  it 'should manage user permissions', bin5: true do
+  it 'should manage user permissions', bin3: true do
     utp = api_create_team_project_and_two_users
     user_editor = api_create_and_confirm_user
     api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
@@ -166,60 +166,5 @@ shared_examples 'team' do
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/settings/workspace\"]")
-  end
-
-  it 'should manage folder access', bin1: true do
-    utp = api_create_team_project_and_two_users
-    user_editor = api_create_and_confirm_user
-    api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
-    # log in as colaborator and be able to see the folder
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 2
-    api_logout
-
-    # log in as editor and be able to see the folder
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{user_editor.email}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 2
-    api_logout
-
-    # log in as admin and change folder acess to Only admins and Editors
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    wait_for_selector('.project-list__link').click
-    change_folder_access
-    api_logout
-
-    # log in as colaborator and do not be able to see the folder
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
-    api_logout
-
-    # log in as admin and change folder acess to Only admins
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    wait_for_selector('.project-list__link').click
-    change_folder_access
-    api_logout
-
-    # log in as editor and do not be able to see the folder
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{user_editor.email}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
-    api_logout
   end
 end

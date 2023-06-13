@@ -23,5 +23,10 @@
     "id": "upload.selectFile",
     "description": "Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system.",
     "defaultMessage": "Select a local file"
+  },
+  {
+    "id": "upload.removeUpload",
+    "description": "Tooltip message displayed on upload component. Cancel file selected for upload",
+    "defaultMessage": "Remove upload"
   }
 ]

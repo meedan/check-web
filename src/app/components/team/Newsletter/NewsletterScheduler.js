@@ -2,30 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import { getTimeZones } from '@vvo/tzdb';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
+import { getTimeZoneOptions } from '../../../helpers';
 import Alert from '../../cds/alerts-and-prompts/Alert';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import Select from '../../cds/inputs/Select';
 import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
 import styles from './NewsletterComponent.module.css';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 
-const timezones = getTimeZones({ includeUtc: true }).map((option) => {
-  const offset = option.currentTimeOffsetInMinutes / 60;
-  const fullOffset = option.currentTimeFormat.split(' ')[0];
-  const sign = offset < 0 ? '' : '+';
-  const newOption = {
-    code: option.name,
-    label: `${option.name} (GMT${sign}${offset})`,
-    value: `${option.name} (GMT${fullOffset})`,
-  };
-  return newOption;
-});
+const timezones = getTimeZoneOptions();
 
 const NewsletterScheduler = ({
   type,
@@ -55,9 +45,6 @@ const NewsletterScheduler = ({
         {' '}
         { (scheduled && lastScheduledBy && lastScheduledAt) ?
           <Tooltip
-            classes={{
-              tooltip: styles.tooltip,
-            }}
             placement="right"
             title={
               <FormattedMessage
@@ -78,9 +65,6 @@ const NewsletterScheduler = ({
         }
         { (!scheduled && lastSentAt) ?
           <Tooltip
-            classes={{
-              tooltip: styles.tooltip,
-            }}
             placement="right"
             title={
               <FormattedMessage
@@ -135,7 +119,7 @@ const NewsletterScheduler = ({
             label={
               <FormattedMessage
                 id="newsletterScheduler.sendEvery"
-                defaultMessage="Send every:"
+                defaultMessage="Send every"
                 description="Label on an input where the user selects in which days of the week to send an RSS newsletter"
               />
             }
@@ -154,7 +138,7 @@ const NewsletterScheduler = ({
 
         { type === 'static' ?
           <DatePicker
-            label={<FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on:" description="Label on a input where the user selects a date to send a newsletter" />}
+            label={<FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on" description="Label on a input where the user selects a date to send a newsletter" />}
             value={sendOn}
             onChange={(e) => { onUpdate('sendOn', e.target.value); }}
             disabled={scheduled}
@@ -169,7 +153,14 @@ const NewsletterScheduler = ({
           <span className="typography-caption">
             <FormattedMessage id="newsletterScheduler.at" defaultMessage="at" description="This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'" />
           </span>
-          <Time value={time} onChange={(e) => { onUpdate('time', e.target.value); }} disabled={scheduled} required />
+          <Time
+            value={time}
+            onChange={(e) => { onUpdate('time', e.target.value); }}
+            disabled={scheduled}
+            error={parentErrors.time}
+            helpContent={parentErrors.time && parentErrors.time}
+            required
+          />
           <Select
             className={styles.select}
             // We check for both code ('Europe/London') and value ('Europe/London (GMT+1:00)') because default values in the browser will only guarantee the first, but if it's saved, the timezone is returned from the API with the offset appended. Doing it this way means we don't have to recalculate the offset in the parent NewsletterComponent)
