@@ -1,15 +1,17 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat'; // eslint-disable-line
+import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import List from '@material-ui/core/List';
 import AddLanguageAction from './AddLanguageAction';
 import LanguageListItem from './LanguageListItem';
 import SettingsHeader from '../SettingsHeader';
+import { FlashMessageSetterContext } from '../../FlashMessage';
+import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
-import { safelyParseJSON } from '../../../helpers';
-import { compareLanguages } from '../../../LanguageRegistry';
+import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
+import { compareLanguages, languageLabelFull } from '../../../LanguageRegistry';
 import { ContentColumn } from '../../../styles/js/shared';
 import styles from './LanguagesComponent.module.css';
 
@@ -19,7 +21,6 @@ const submitToggleLanguageDetection = ({
   onSuccess,
   onFailure,
 }) => {
-  console.log('value', value); // eslint-disable-line
   commitMutation(Relay.Store, {
     mutation: graphql`
       mutation LanguagesComponentToggleLanguageDetectionMutation($input: UpdateTeamInput!) {
@@ -49,18 +50,23 @@ const submitToggleLanguageDetection = ({
 
 const LanguagesComponent = ({ team }) => {
   const defaultCode = team.get_language || 'en';
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   let languages = safelyParseJSON(team.get_languages) || [];
   languages = languages.sort((a, b) => compareLanguages(defaultCode, a, b));
 
   const toggleLanguageDetection = (value) => {
-    const onSuccess = () => { console.log('success'); }; // eslint-disable-line
-    const onFailure = () => { console.log('failure'); }; // eslint-disable-line
+    const onFailure = (errors) => {
+      setFlashMessage((
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
+      ), 'error');
+    };
 
     submitToggleLanguageDetection({
       team,
       value,
-      onSuccess,
+      onSuccess: () => {},
       onFailure,
     });
   };
@@ -95,7 +101,7 @@ const LanguagesComponent = ({ team }) => {
               defaultMessage="If language detection is <strong>enabled</strong>, the Check Tipline bot will automatically recognize and respond in the language of your user's request.
               If <strong>disabled</strong>, the Check Tipline bot will respond in the workspace default language: <strong>{defaultLanguage}</strong>"
               description="Instructions for the language detection toggle switch"
-              values={{ defaultLanguage: team.get_language }}
+              values={{ defaultLanguage: languageLabelFull(team.get_language) }}
             />
           </div>
           <div>
