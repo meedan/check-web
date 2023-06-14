@@ -1,37 +1,21 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory, Link } from 'react-router';
-import Button from '@material-ui/core/Button';
+import { browserHistory } from 'react-router';
 import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import { withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
-import DrawerHeader from './drawer/DrawerHeader';
-import UserMenuRelay from '../relay/containers/UserMenuRelay';
 import CheckContext from '../CheckContext';
-import {
-  AlignOpposite,
-  Row,
-  units,
-} from '../styles/js/shared';
-
-const useStylesBigEmptySpaceInSidebar = makeStyles({
-  root: {
-    flex: '1 1 auto',
-  },
-});
-const BigEmptySpaceInSidebar = () => {
-  const classes = useStylesBigEmptySpaceInSidebar();
-  return <div className={classes.root} />;
-};
+import DeleteIcon from '../icons/delete.svg';
+import ReportIcon from '../icons/report.svg';
+import styles from './drawer/Drawer.module.css';
+import projectStyles from './drawer/Projects/Projects.module.css';
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -71,6 +55,16 @@ class DrawerNavigationComponent extends Component {
     }
   }
 
+  handleSpam = () => {
+    // setActiveItem({ type: 'spam', id: null });
+    browserHistory.push(`/${this.props.team.slug}/spam`);
+  }
+
+  handleTrash = () => {
+    // setActiveItem({ type: 'spam', id: null });
+    browserHistory.push(`/${this.props.team.slug}/trash`);
+  }
+
   subscribe() {
     const { pusher, clientSessionId, team } = this.props;
     if (pusher && team) {
@@ -97,13 +91,9 @@ class DrawerNavigationComponent extends Component {
     }
   }
 
-  handleClickTeamSettings() {
-    browserHistory.push(`/${this.props.team.slug}/settings`);
-  }
-
   render() {
     const {
-      team, currentUserIsMember, loggedIn, classes,
+      team, classes, drawerOpen,
     } = this.props;
 
     // This component now renders based on teamPublicFragment
@@ -113,75 +103,45 @@ class DrawerNavigationComponent extends Component {
     //
     // — @chris with @alex 2017-10-3
 
-    const saveCurrentPage = () => {
-      if (window.location.pathname !== '/') {
-        window.storage.set('previousPage', window.location.pathname);
-      }
-    };
-
     return (
-      <Drawer open variant="persistent" anchor="left" classes={classes}>
-        <DrawerHeader team={this.props.team} loggedIn={this.props.loggedIn} currentUserIsMember={this.props.currentUserIsMember} />
-        {!!team && (currentUserIsMember || !team.private) ? (
-          <React.Fragment>
-            <DrawerProjects team={team.slug} />
-            {currentUserIsMember ? (
-              <div>
-                <Divider />
-                <Link to={`/${team.slug}/spam`} className="link__internal project-list__link-spam">
-                  <MenuItem className="project-list__item-spam">
-                    <ListItemIcon className={classes.listItemIconRoot}>
-                      <ReportGmailerrorredIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={
-                        <Row className="typography-body1">
-                          <FormattedMessage id="projects.spam" defaultMessage="Spam" />
-                          <AlignOpposite>
-                            {String(team.spam_count)}
-                          </AlignOpposite>
-                        </Row>
-                      }
-                    />
-                  </MenuItem>
-                </Link>
-                <Divider />
-                <Link to={`/${team.slug}/trash`} className="link__internal project-list__link-trash">
-                  <MenuItem className="project-list__item-trash">
-                    <ListItemIcon className={classes.listItemIconRoot}>
-                      <DeleteIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={
-                        <Row className="typography-body1">
-                          <FormattedMessage id="projects.trash" defaultMessage="Trash" />
-                          <AlignOpposite>
-                            {String(team.trash_count)}
-                          </AlignOpposite>
-                        </Row>
-                      }
-                    />
-                  </MenuItem>
-                </Link>
-              </div>
-            ) : null}
-          </React.Fragment>
-        ) : <BigEmptySpaceInSidebar />}
-        <Divider />
-        <div className="drawer__footer">
-          {loggedIn ? <div><UserMenuRelay {...this.props} /></div> : (
-            <Link to="/">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={saveCurrentPage}
-                style={{ width: '100%' }}
-              >
-                <FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />
-              </Button>
-            </Link>
-          )}
-        </div>
+      <Drawer
+        className={[styles.drawer, drawerOpen ? styles.drawerOpen : styles.drawerClosed].join(' ')}
+        open={Boolean(drawerOpen)}
+        variant="persistent"
+        anchor="left"
+        classes={classes}
+      >
+        <React.Fragment>
+          <DrawerProjects team={team.slug} />
+          <List dense disablePadding className={[projectStyles.listWrapper, projectStyles.listFooter].join(' ')}>
+            <ListItem
+              button
+              onClick={this.handleSpam}
+              className={['project-list__link-spam', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
+            >
+              <ReportIcon className={projectStyles.listIcon} />
+              <ListItemText disableTypography className={projectStyles.listLabel}>
+                <FormattedMessage tagName="span" id="projects.spam" defaultMessage="Spam" />
+              </ListItemText>
+              <ListItemSecondaryAction title={team.medias_count} className={projectStyles.listItemCount}>
+                <small>{String(team.spam_count)}</small>
+              </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem
+              button
+              onClick={this.handleTrash}
+              className={['project-list__link-trash', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
+            >
+              <DeleteIcon className={projectStyles.listIcon} />
+              <ListItemText disableTypography className={projectStyles.listLabel}>
+                <FormattedMessage tagName="span" id="projects.trash" defaultMessage="Trash" />
+              </ListItemText>
+              <ListItemSecondaryAction title={team.trash_count} className={projectStyles.listItemCount}>
+                <small>{String(team.trash_count)}</small>
+              </ListItemSecondaryAction>
+            </ListItem>
+          </List>
+        </React.Fragment>
       </Drawer>
     );
   }
@@ -199,13 +159,9 @@ DrawerNavigationComponent.contextTypes = {
 
 const drawerStyles = {
   paper: {
-    width: units(32),
-    minWidth: units(32),
-    maxWidth: units(32),
     overflow: 'hidden',
   },
   root: {
-    width: units(32),
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',

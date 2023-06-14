@@ -6,9 +6,5 @@
   {
     "id": "projects.trash",
     "defaultMessage": "Trash"
-  },
-  {
-    "id": "headerActions.signIn",
-    "defaultMessage": "Sign In"
   }
 ]

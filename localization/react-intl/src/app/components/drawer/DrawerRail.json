@@ -1,0 +1,22 @@
+[
+  {
+    "id": "workspaceMenu.teamSettings",
+    "description": "Tooltip for drawer navigation to workspace settings",
+    "defaultMessage": "Workspace settings"
+  },
+  {
+    "id": "workspaceMenu.teamTipline",
+    "description": "Tooltip for drawer navigation to tipline",
+    "defaultMessage": "Tipline"
+  },
+  {
+    "id": "workspaceMenu.teamTraining",
+    "description": "Help link tooltip in drawer rail navigation",
+    "defaultMessage": "Training and documentation"
+  },
+  {
+    "id": "workspaceMenu.teamLegal",
+    "description": "Legal link tooltip in drawer rail navigation",
+    "defaultMessage": "About"
+  }
+]

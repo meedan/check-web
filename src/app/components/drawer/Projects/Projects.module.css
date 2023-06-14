@@ -1,0 +1,186 @@
+/* stylelint-disable scale-unlimited/declaration-strict-value */
+.listTitle {
+  @mixin typography-subtitle2;
+  color: var(--textPrimary);
+  padding: 16px 20px 0 18px;
+  text-transform: uppercase;
+}
+
+.listWrapper {
+  --drawerListIconSize: 18px;
+  --drawerexpandIconSize: 14px;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: auto;
+
+  &:global(.MuiList-root) {
+    padding: 16px 6px;
+  }
+
+  &.listFooter {
+    flex: 0 0 auto;
+    justify-content: end;
+    padding: 20px 6px;
+  }
+
+  .listCollapseWrapper {
+    min-height: auto !important;
+  }
+
+  .listMask {
+    @mixin position absolute, 0, 0, 0, 0;
+    background-color: var(--otherWhite);
+    opacity: .7;
+    z-index: 1;
+  }
+
+  .listChevron {
+    font-size: var(--drawerexpandIconSize);
+    margin: 0 4px 0 1px;
+  }
+
+  .listHeader {
+    @mixin typography-caption;
+    border: solid 1px var(--otherWhite);
+    color: var(--textPlaceholder);
+    cursor: pointer;
+    font-weight: 500;
+    height: 30px;
+    margin: 0;
+    padding: 0 0 0 7px;
+    text-transform: uppercase;
+    width: auto;
+
+    .listHeaderLabel {
+      align-items: center;
+      display: flex;
+      margin: 0;
+
+      > span {
+        flex: 1 1 auto;
+        margin: 0 6px 0 0;
+      }
+
+      .listHeaderLabelButton {
+        background-color: var(--grayBackground);
+        border-radius: 8px;
+        color: var(--textSecondary);
+        flex: 0 0 26px;
+        font-size: 20px;
+        height: 26px;
+        padding: 0;
+        transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+        width: 26px;
+
+        &:hover {
+          background-color: var(--brandHoverAccent);
+          color: var(--textLink);
+        }
+      }
+    }
+  }
+
+  .listItem {
+    border: solid 1px var(--otherWhite);
+    border-radius: 5px;
+    height: 42px;
+    margin: 0;
+    padding: 10px 5px;
+    position: relative;
+
+    .listIcon {
+      display: flex;
+      font-size: var(--drawerListIconSize);
+      margin: 0 10px 0 0;
+    }
+
+    .listLabel {
+      margin: 0;
+
+      span {
+        @mixin text-truncate block;
+        @mixin typography-body1;
+        cursor: pointer;
+      }
+
+      &.listLabel_plainText {
+        padding: 0 0 0 4px;
+      }
+    }
+
+    &:hover {
+      background-color: var(--brandHoverAccent);
+    }
+
+    &.listItem_containsCount {
+      padding: 10px 48px 10px 6px;
+    }
+
+    &.listItem_group {
+      margin: 0 1px;
+
+      &.listItem_group_expanded {
+        border-color: var(--brandLight);
+        border-radius: 5px 5px 0 0;
+      }
+
+      &.listItem_group_expanded_slim {
+        border: solid 1px var(--brandLight);
+        border-radius: 5px 5px 0 0;
+        border-width: 1px 1px 0;
+      }
+
+      .listLabel {
+        span {
+          margin: 0;
+        }
+      }
+    }
+
+    &.listItem_active,
+    &.listItem_active:hover {
+      background-color: var(--brandLight);
+      color: var(--brandSecondary);
+    }
+
+    &.listItem_empty {
+      padding: 5px 5px 5px 15px;
+
+      .listLabel {
+        color: var(--textDisabled);
+
+        span {
+          cursor: text;
+
+          em {
+            @mixin typography-caption;
+            font-style: italic;
+          }
+        }
+      }
+
+      &:hover {
+        background-color: var(--otherWhite);
+      }
+    }
+  }
+
+  .listItemCount {
+    @mixin typography-body1;
+    color: var(--textSecondary);
+    right: 10px;
+  }
+
+  .groupList {
+    border: solid 1px var(--brandLight);
+    border-radius: 0 0 5px 5px;
+    border-width: 0 1px 1px;
+    margin: 0 0 0 1px;
+    padding: 6px;
+    width: 100%;
+  }
+}
+
+/* stylelint-enable */

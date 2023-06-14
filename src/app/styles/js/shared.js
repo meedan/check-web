@@ -337,22 +337,6 @@ export const Shimmer = styled.div`
   background-size: 400%;
 `;
 
-const pulseKeyframes = keyframes`
-  0% {
-    background-color: var(--otherWhite);
-  }
-  50% {
-    background-color: var(--grayBackground);
-  }
-  100% {
-    background-color: var(--otherWhite);
-  }
-`;
-
-export const Pulse = styled.div`
-  animation: ${pulseKeyframes} 1s infinite;
-`;
-
 export const breakWordStyles = `
   hyphens: auto;
   overflow-wrap: break-word;

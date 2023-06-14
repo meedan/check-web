@@ -1,0 +1,93 @@
+.drawerRail {
+  --drawerRailWidth: 70px;
+  --drawerRailIcon: 26px;
+
+  align-items: center;
+  background-color: var(--brandBackground);
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+  text-align: center;
+  width: var(--drawerRailWidth);
+  z-index: 2;
+
+  .drawerRailTop,
+  .drawerRailMiddle,
+  .drawerRailBottom {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: var(--drawerRailWidth);
+  }
+
+  .drawerRailTop,
+  .drawerRailBottom {
+    gap: 16px;
+  }
+
+  .drawerRailMiddle {
+    align-self: center;
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .railIconButton,
+  .railIconLink {
+    background-color: var(--brandBackgroundAccent);
+    border: 0;
+    border-radius: 8px;
+    color: var(--textSecondary);
+    cursor: pointer;
+    display: block;
+    font-size: var(--drawerRailIcon);
+    height: 40px;
+    position: relative;
+    transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+    width: 40px;
+
+    :global(.check-icon) {
+      @mixin position absolute, 50%, auto, auto, 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+
+    &:hover {
+      color: var(--textLink);
+    }
+
+    &.railIconLinkActive {
+      background-color: var(--brandBackgroundAccent);
+      color: var(--textLink);
+    }
+  }
+  /* stylelint-disable no-descending-specificity */
+  .railIconLink {
+    background-color: var(--brandBackground);
+
+    &:hover {
+      background-color: var(--brandBackgroundAccent);
+    }
+  }
+  /* stylelint-enable no-descending-specificity */
+  .railUserSettings {
+    background-color: var(--brandBackground);
+    border-radius: 100%;
+    outline: solid 2px var(--brandBackground);
+    padding: 4px;
+    transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s, outline-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+
+    :global(.MuiAvatar-root) {
+      height: 36px;
+      width: 36px;
+    }
+
+    &:hover {
+      background-color: var(--brandBackgroundAccent);
+    }
+
+    &.railUserSettingsActive {
+      background-color: var(--brandBackgroundAccent);
+      outline-color: var(--textLink);
+    }
+  }
+}
