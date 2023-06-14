@@ -5,7 +5,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import Favicon from 'react-favicon';
 import isEqual from 'lodash.isequal';
-import styled from 'styled-components';
 import Intercom from 'react-intercom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
@@ -22,35 +21,7 @@ import { withClientSessionId } from '../ClientSessionId';
 import { stringHelper } from '../customHelpers';
 import { bemClass } from '../helpers';
 import MeRoute from '../relay/MeRoute';
-
-const Wrapper = styled.div`
-  display: flex;
-  position: relative;
-`;
-
-const Main = styled.main`
-  flex: 1 1 calc(100% - 256px);
-  overflow: hidden;
-  @media (min-width: 1100px) { // On the item page on mobile, we don't have scrollbars per column, so the whole page should scroll
-    height: 100vh;
-  }
-`;
-
-const StyledContent = styled.div`
-  background-color: var(--otherWhite);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-
-  .project,
-  .project-group,
-  .saved-search {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-`;
+import styles from './Home.module.css';
 
 function buildLoginContainerMessage(flashMessage, error, childRoute, queryString) {
   let message = null;
@@ -302,7 +273,12 @@ class HomeComponent extends Component {
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
           <UserTos user={user} />
-          <Wrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
+          <div
+            className={[
+              styles.wrapper,
+              bemClass('home', routeSlug, `--${routeSlug}`),
+            ].join(' ')}
+          >
             {!isMediaPage && !isFeedPage && loggedIn ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
@@ -312,7 +288,7 @@ class HomeComponent extends Component {
                 {...this.props}
               />
             ) : null}
-            <Main>
+            <main className={styles.main}>
               <Header
                 loggedIn={loggedIn}
                 pageType={routeSlug}
@@ -321,11 +297,11 @@ class HomeComponent extends Component {
                 {...this.props}
               />
               <FlashMessage />
-              <StyledContent className="content-wrapper">
+              <div className={styles.mainContentWrapper}>
                 {children}
-              </StyledContent>
-            </Main>
-          </Wrapper>
+              </div>
+            </main>
+          </div>
         </MuiPickersUtilsProvider>
       </React.Fragment>
     );

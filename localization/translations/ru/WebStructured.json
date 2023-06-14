@@ -349,6 +349,10 @@
 		"string": "Выберите новый язык",
 		"developer_comment": "Title of language picker dialog"
 	},
+	"alert.closeButton": {
+		"string": "Close alert",
+		"developer_comment": "Tooltip for close alert"
+	},
 	"annotation.addLanguage": {
 		"string": "Language {value} added by {author}",
 		"developer_comment": "Log entry indicating an item language has been set. {value} receives language name"
@@ -391,6 +395,10 @@
 	"annotation.deleteButton": {
 		"string": "Удалить",
 		"developer_comment": "Menu item for deleting an annotation"
+	},
+	"annotation.deletedUser": {
+		"string": "Deleted User",
+		"developer_comment": "Label for deleted user"
 	},
 	"annotation.editButton": {
 		"string": "Редактировать"
@@ -570,20 +578,26 @@
 	"autoCompleteMediaItem.error": {
 		"string": "В процессе поиска произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 	},
+	"autoCompleteMediaItem.lastSubmitted": {
+		"string": "Last submitted {date}",
+		"developer_comment": "Shows the last time a media was submitted"
+	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "Нет результатов"
+	},
+	"autoCompleteMediaItem.requestsCount": {
+		"string": "{requestsCount, plural, one {# request} other {# requests}}",
+		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
 	"autoCompleteMediaItem.results": {
 		"string": "{count, plural, one {# result} other {# results}}"
 	},
-	"autoCompleteMediaItem.searchItem": {
-		"string": "Искать"
-	},
-	"autoCompleteMediaItem.searchSettings": {
-		"string": "Search settings"
-	},
 	"autoCompleteMediaItem.searching": {
 		"string": "Поиск..."
+	},
+	"autoCompleteMediaItem.type": {
+		"string": "Type above to search",
+		"developer_comment": "Helper text displayed next to search field to look for items to be imported"
 	},
 	"blankMediaButton.addItem": {
 		"string": "Добавить материал"
@@ -738,8 +752,8 @@
 		"developer_comment": "Success message for bulk tagging actions"
 	},
 	"cds.mediaAndRequestsDialog.matchedMedia": {
-		"string": "Matched media",
-		"developer_comment": "Plural. Heading for the number of matched media"
+		"string": "Медиа",
+		"developer_comment": "Plural. Heading for the number of media"
 	},
 	"cds.mediaAndRequestsDialog.openMedia": {
 		"string": "Open media",
@@ -1303,10 +1317,6 @@
 		"string": "{subscriptionsCount, plural, one {# subscription} other {# subscriptions}}",
 		"developer_comment": "Part of the header of requests list. Example: 12 subscriptions"
 	},
-	"feedRequestedMediaDialog.lastSubmitted": {
-		"string": "Last submitted {date}",
-		"developer_comment": "Shows the last time a media was submitted (on feed request media card)"
-	},
 	"feedRequestedMediaDialog.title": {
 		"string": "Import medias and requests",
 		"developer_comment": "Dialog title for importing medias and requests"
@@ -1815,9 +1825,6 @@
 	"mediaActions.lockStatus": {
 		"string": "Заблокировать статус"
 	},
-	"mediaActions.refresh": {
-		"string": "Обновить"
-	},
 	"mediaActions.sendToSpam": {
 		"string": "Mark as Spam"
 	},
@@ -1829,10 +1836,6 @@
 	},
 	"mediaActions.unlockStatus": {
 		"string": "Разблокировать статус"
-	},
-	"mediaActionsBar.assignmentNotes": {
-		"string": "Заметки",
-		"developer_comment": "Label to field for adding details about the assignment"
 	},
 	"mediaActionsBar.assignmentNotesTitle": {
 		"string": "Add a note to the email",
@@ -1936,6 +1939,38 @@
 		"string": "Copy text",
 		"developer_comment": "Link text that once clicked copies text to clipboard."
 	},
+	"mediaCardLarge.lastSeen": {
+		"string": "Last submitted on {date}",
+		"developer_comment": "Header for the date when the media item was last received by the workspace"
+	},
+	"mediaCardLarge.more": {
+		"string": "Ещё",
+		"developer_comment": "Button to open an expanded view of the media"
+	},
+	"mediaCardLarge.publishedOn": {
+		"string": "Published on {date}",
+		"developer_comment": "Publication date and time of a web article"
+	},
+	"mediaCardLarge.requests": {
+		"string": "{count, plural, one {# request} other {# requests}}",
+		"developer_comment": "Number of times a request has been sent about this media"
+	},
+	"mediaCardLargeFooter.extractedText": {
+		"string": "Extracted text",
+		"developer_comment": "Header for the OCR extracted text content of an image"
+	},
+	"mediaCardLargeFooter.transcription": {
+		"string": "Transcription",
+		"developer_comment": "Header for the transcription content of an audio or video"
+	},
+	"mediaCardLargeFooterContent.extractedText": {
+		"string": "Extracted text",
+		"developer_comment": "Header for the OCR extracted text content of an image"
+	},
+	"mediaCardLargeFooterContent.transcription": {
+		"string": "Transcription",
+		"developer_comment": "Header for the transcription content of an audio or video"
+	},
 	"mediaClaim.claim": {
 		"string": "Высказывание",
 		"developer_comment": "Title of the media claim section."
@@ -1966,6 +2001,10 @@
 	"mediaComponent.answered": {
 		"string": "завершено"
 	},
+	"mediaComponent.lastSeen": {
+		"string": "Last submitted on {date}",
+		"developer_comment": "Header for the date when the media item was last received by the workspace"
+	},
 	"mediaComponent.notes": {
 		"string": "Заметки",
 		"developer_comment": "Label for the Notes tab, as in text notes"
@@ -1980,10 +2019,7 @@
 	},
 	"mediaComponent.suggestedMedia": {
 		"string": "Suggestions",
-		"developer_comment": "Label for the 'Suggested media' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
-	},
-	"mediaComponent.timelineTab": {
-		"string": "Таймлайн"
+		"developer_comment": "Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
 	},
 	"mediaComponent.verificationTasks": {
 		"string": "Вопросы по материалу"
@@ -2099,14 +2135,8 @@
 		"string": "Add a claim to access the fact-check",
 		"developer_comment": "Placeholder for fact-check field when there is no claim description filled."
 	},
-	"mediaItem.addedBy": {
-		"string": "Added by {name}"
-	},
-	"mediaItem.confirmedBy": {
-		"string": "Confirmed by {name}"
-	},
 	"mediaItem.detach": {
-		"string": "Un-match media",
+		"string": "Detach media",
 		"developer_comment": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
 	},
 	"mediaItem.detachedSuccessfully": {
@@ -2117,64 +2147,29 @@
 		"string": "Готово, перенаправляем на новый основной материал...",
 		"developer_comment": "A message that informs the user a 'pin' action is finished and a redirect is about to happen"
 	},
-	"mediaItem.error": {
-		"string": "Ошибка. Пожалуйста, попробуйте ещё раз",
-		"developer_comment": "A generic error message"
-	},
-	"mediaItem.lastSubmitted": {
-		"string": "Last submitted {timeAgo}",
-		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
-	},
 	"mediaItem.pinAsMain": {
-		"string": "Закрепить как основной",
+		"string": "Pin to the top",
 		"developer_comment": "Menu option for pinning an item as the main item"
 	},
 	"mediaItem.pinning": {
 		"string": "Закрепляется...",
 		"developer_comment": "Message displayed while action of pinning an item is being processed by the server. Same as defining an item as the main item"
 	},
-	"mediaItem.reportPaused": {
-		"string": "Приостановлен"
+	"mediaLanguageSwitcher.error": {
+		"string": "Could not change language, please try again",
+		"developer_comment": "Error message displayed when it's not possible to change an item language"
 	},
-	"mediaItem.reportPublished": {
-		"string": "Опубликован"
-	},
-	"mediaItem.reportUnpublished": {
-		"string": "Неопубликован"
-	},
-	"mediaItem.requests": {
-		"string": "{count, plural, one {# request} other {# requests}}"
-	},
-	"mediaItem.similarMedia": {
-		"string": "{count, plural, one {# matched media} other {# matched media}}"
-	},
-	"mediaLanguageChip.error": {
-		"string": "В процессе обновления языка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
-		"developer_comment": "This message appears when a user tries to update the language on a media item and an error occurs."
+	"mediaLanguageSwitcher.success": {
+		"string": "Language updated",
+		"developer_comment": "Success message displayed when an item language is changed"
 	},
 	"mediaMetadata.ImageSearch": {
 		"string": "Reverse image search",
 		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
 	},
-	"mediaMetadata.audioActions": {
-		"string": "Audio actions",
-		"developer_comment": "Actions menu for item of type Audio"
-	},
-	"mediaMetadata.download": {
-		"string": "Скачать",
-		"developer_comment": "Menu option for downloading the original file of current item"
-	},
-	"mediaMetadata.imageActions": {
-		"string": "Image actions",
-		"developer_comment": "Actions menu for item of type Image"
-	},
-	"mediaMetadata.playbackSpeed": {
-		"string": "Playback speed",
-		"developer_comment": "Menu option for altering playback speed of video/audio clip"
-	},
-	"mediaMetadata.videoActions": {
-		"string": "Video actions",
-		"developer_comment": "Actions menu for item of type Video"
+	"mediaMetadata.openLink": {
+		"string": "Open link",
+		"developer_comment": "Menu option for navigating to the original media url"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Add relation"
@@ -2194,9 +2189,9 @@
 	"mediaRelatedComponent.submitButton": {
 		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
 	},
-	"mediaRelationship.openMedia": {
-		"string": "Open media",
-		"developer_comment": "Singular 'media'. Label for a button that opens the media item the user is currently viewing."
+	"mediaRelationship.lastSubmitted": {
+		"string": "Last submitted {date}",
+		"developer_comment": "Shows the last time a media was submitted"
 	},
 	"mediaRequests.allRequests": {
 		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
@@ -2222,10 +2217,6 @@
 	"mediaSearch.xOfY": {
 		"string": "{current} из {total}"
 	},
-	"mediaSimilarities.moreMedias": {
-		"string": "Медиа",
-		"developer_comment": "Heading for a list of matched medias"
-	},
 	"mediaSimilarities.noMedia": {
 		"string": "0 media",
 		"developer_comment": "A message that shows when the matched media list is empty."
@@ -2247,7 +2238,7 @@
 		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import matched media from other items",
+		"string": "Import media from other items",
 		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
@@ -2261,10 +2252,6 @@
 	"mediaSimilarityBarAdd.addToImportedReport": {
 		"string": "Add media to an imported fact-check",
 		"developer_comment": "Menu option for adding the current media to an imported fact-check"
-	},
-	"mediaSimilarityBarAdd.defaultErrorMessage": {
-		"string": "Не удалось добавить похожий материал",
-		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
 		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published",
@@ -2322,7 +2309,7 @@
 		"developer_comment": "Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list."
 	},
 	"mediaSuggestionsComponent.bulkAccept": {
-		"string": "Match all medias on this page",
+		"string": "Match all media on this page",
 		"developer_comment": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media."
 	},
 	"mediaSuggestionsComponent.bulkEdit": {
@@ -2350,7 +2337,7 @@
 		"developer_comment": "Button that a user presses to confirm that they are going to match all visible suggested media"
 	},
 	"mediaSuggestionsComponent.dialogBulkAcceptTitle": {
-		"string": "Are you sure you want to match {number} suggested media?",
+		"string": "Are you sure you want to match {number} suggestions?",
 		"developer_comment": "Prompt to a user when they choose to match media as a bulk action"
 	},
 	"mediaSuggestionsComponent.dialogBulkRejectTitle": {
@@ -2370,7 +2357,7 @@
 		"developer_comment": "Button that a user presses to confirm that they are going to send all visible suggested media to trash"
 	},
 	"mediaSuggestionsComponent.dialogBulkTrashTitle": {
-		"string": "Are you sure you want to send {number} suggested media to the trash?",
+		"string": "Are you sure you want to send {number} suggestions to the trash?",
 		"developer_comment": "Prompt to a user when they choose to send media to trash in bulk"
 	},
 	"mediaSuggestionsComponent.dialogRejectTitle": {
@@ -2414,7 +2401,7 @@
 		"developer_comment": "Label for the 'go to next page' button on paginated suggestions"
 	},
 	"mediaSuggestionsComponent.noItems": {
-		"string": "{total, plural, one {{total} suggested media} other {{total} suggested medias}}",
+		"string": "{total, plural, one {{total} suggestion} other {{total} suggestions}}",
 		"developer_comment": "A header that tells the user there are no items in the list"
 	},
 	"mediaSuggestionsComponent.previous": {
@@ -2430,8 +2417,8 @@
 		"developer_comment": "Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list."
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{start} to {end} of {total, plural, one {{total} suggested media} other {{total} suggested medias}}",
-		"developer_comment": "A header that tells the user how many suggested media items are in the list to follow"
+		"string": "{start} to {end} of {total, plural, one {{total} suggestion} other {{total} suggestions}}",
+		"developer_comment": "A header that tells the user how many suggestions items are in the list to follow"
 	},
 	"mediaSuggestionsComponent.trash": {
 		"string": "Send media to trash",
@@ -2594,7 +2581,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Image text extraction",
+		"string": "Extract text",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -2928,6 +2915,10 @@
 	},
 	"projectsComponent.title": {
 		"string": "Заголовок"
+	},
+	"refreshButton.success": {
+		"string": "Media refreshed sucessfully",
+		"developer_comment": "Notification displayed when refresh action (re-parsing) of media is completed"
 	},
 	"reportDesigner.addIntro": {
 		"string": "Добавить контент ко вступлению"
@@ -3407,6 +3398,10 @@
 		"string": "Не назначен",
 		"developer_comment": "Allow filtering by assigned_to with no value set"
 	},
+	"search.facebook": {
+		"string": "Пост в Facebook",
+		"developer_comment": "Allow user to filter items by facebook posts"
+	},
 	"search.fieldAnd": {
 		"string": "и",
 		"developer_comment": "Logical operator 'AND' to be applied when filtering by multiple fields"
@@ -3426,6 +3421,10 @@
 	"search.inputHint": {
 		"string": "Искать",
 		"developer_comment": "Placeholder for search keywords input"
+	},
+	"search.instagram": {
+		"string": "Instagram post",
+		"developer_comment": "Allow user to filter items by instagram posts"
 	},
 	"search.itemRead": {
 		"string": "Прочитано",
@@ -3529,17 +3528,25 @@
 		"string": "Ссылка",
 		"developer_comment": "Describes media type Link"
 	},
-	"search.showSimilar": {
-		"string": "Show all media",
-		"developer_comment": "Allow user to show/hide secondary items"
-	},
 	"search.showVideos": {
 		"string": "Видео",
 		"developer_comment": "Describes media type Video"
 	},
+	"search.socialMedia": {
+		"string": "Social media",
+		"developer_comment": "Allow user to filter by social media links"
+	},
 	"search.statusHeading": {
 		"string": "Статус материала совпадает с указанным",
 		"developer_comment": "Prefix label for field to filter by status"
+	},
+	"search.tiktok": {
+		"string": "Tiktok post",
+		"developer_comment": "Allow user to filter items by tiktok posts"
+	},
+	"search.twitter": {
+		"string": "Twitter post",
+		"developer_comment": "Allow user to filter items by twitter posts"
 	},
 	"search.unconfirmed": {
 		"string": "Unconfirmed",
@@ -3548,6 +3555,14 @@
 	"search.userHeading": {
 		"string": "Автор",
 		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"search.webLink": {
+		"string": "webLink",
+		"developer_comment": "Allow user to filter items by links of type page"
+	},
+	"search.youtube": {
+		"string": "Youtube video",
+		"developer_comment": "Allow user to filter items by youtube videos"
 	},
 	"searchFieldChannel.anyTipline": {
 		"string": "Any tipline",
@@ -3659,10 +3674,6 @@
 	"sensitiveContentMenuButton.adult": {
 		"string": "Adult (nudity, pornographic)",
 		"developer_comment": "Label for adult content type"
-	},
-	"sensitiveContentMenuButton.contentWarning": {
-		"string": "Content warning",
-		"developer_comment": "Button that pops sensitive content screen settings"
 	},
 	"sensitiveContentMenuButton.enableSwitch": {
 		"string": "Enable content warning",
@@ -4681,9 +4692,9 @@
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
 	},
-	"smoochBotSettings.bspSettings": {
-		"string": "WhatsApp BSP settings",
-		"developer_comment": "Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated."
+	"smoochBotSettings.capiSettings": {
+		"string": "WhatsApp Cloud API settings",
+		"developer_comment": "Title of 'WhatsApp Cloud API' settings section in the tipline settings page. The words 'WhatsApp Cloud API' do not need to be translated."
 	},
 	"smoochBotSettings.internalSettings": {
 		"string": "Internal settings",
@@ -4692,6 +4703,10 @@
 	"smoochBotSettings.internalSettingsDescription": {
 		"string": "Meedan employees see these settings, but users don't.",
 		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.onpremSettings": {
+		"string": "WhatsApp On-Premises API settings",
+		"developer_comment": "Title of 'WhatsApp On-Premises API' settings section in the tipline settings page. The words 'WhatsApp On-Premises API' do not need to be translated."
 	},
 	"smoochBotSettings.searchSettings": {
 		"string": "Search settings",
@@ -4725,7 +4740,7 @@
 	},
 	"sourceInfo.addLink": {
 		"string": "Add a secondary URL",
-		"developer_comment": "Allow user to relate a new link to media source"
+		"developer_comment": "allow user to relate a new link to media source"
 	},
 	"sourceInfo.addSecondaryLink": {
 		"string": "Add a secondary URL",
@@ -4745,7 +4760,7 @@
 	},
 	"sourceInfo.mainName": {
 		"string": "Main name",
-		"developer_comment": "Source name"
+		"developer_comment": "souce name"
 	},
 	"sourceInfo.mediasCount": {
 		"string": "{mediasCount, plural, one {1 item} other {# items}}",
@@ -5160,7 +5175,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
-		"string": "Starts when a user interacts with the bot and ends after 15 minutes of inactivity.",
+		"string": "Starts with any outgoing or incoming message for a user, and ends after 24 hours. This information began collection on April 1, 2023.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.currentSubscribers": {
@@ -5187,7 +5202,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.publishedNativeReports": {
-		"string": "Published reports created in Check (for all languages and platforms).",
+		"string": "Published reports created in Check (for all platforms).",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
@@ -5377,7 +5392,8 @@
 		"string": "Manage member"
 	},
 	"teamMenu.teamSettings": {
-		"string": "Настройки проекта"
+		"string": "Настройки проекта",
+		"developer_comment": "Tooltip for drawer navigation"
 	},
 	"teamMetadataRender.blankAnnotations": {
 		"string": "No annotation fields",
@@ -5481,9 +5497,6 @@
 	"teamSettings.data": {
 		"string": "Data"
 	},
-	"teamSettings.details": {
-		"string": "Workspace details"
-	},
 	"teamSettings.integrations": {
 		"string": "Интеграция"
 	},
@@ -5514,6 +5527,9 @@
 	},
 	"teamSettings.tipline": {
 		"string": "Tipline"
+	},
+	"teamSettings.workspace": {
+		"string": "Группа"
 	},
 	"teamTags.addTag": {
 		"string": "Добавить тэг"
@@ -5707,6 +5723,10 @@
 	},
 	"teams.yourTeams": {
 		"string": "Проекты"
+	},
+	"textfield.required": {
+		"string": "Обязательно",
+		"developer_comment": "A label to indicate that a form field must be filled out"
 	},
 	"thresholdControl.matchingExplainer": {
 		"string": "If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
@@ -6165,6 +6185,7 @@
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {
-		"string": "Не удалось идентифицировать этот материал. Возможно, он удалён или доступен только авторизованным пользователям. Нажмите выше, чтобы открыть его."
+		"string": "Не удалось идентифицировать этот материал. Возможно, он удалён или доступен только авторизованным пользователям. Нажмите выше, чтобы открыть его.",
+		"developer_comment": "Error message displayed when link data is unavailable"
 	}
 }

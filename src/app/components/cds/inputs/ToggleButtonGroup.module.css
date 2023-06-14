@@ -1,0 +1,75 @@
+.toggle-button-group {
+  background-color: transparent !important;
+  border: 2px solid var(--grayBorderMain);
+  border-radius: 8px !important;
+  width: min-content;
+
+  :global(.MuiButtonBase-root) {
+    @mixin typography-button var(--fontSizeDefault), 500, .4px, 24px;
+    border: none;
+    color: currentcolor;
+    min-width: 4em;
+    text-transform: none;
+
+    &:hover {
+      background-color: var(--brandHoverAccent);
+      color: var(--textLink);
+      transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+    }
+  }
+
+  :global(.MuiButtonBase-root.Mui-selected) {
+    background-color: var(--brandMain);
+    border-color: var(--brandMain);
+    color: var(--otherWhite);
+
+    &:hover {
+      background-color: var(--brandMain);
+      border-color: var(--brandMain);
+    }
+  }
+
+  :global(.MuiButtonBase-root.Mui-disabled) {
+    background-color: var(--grayDisabledBackground);
+    color: var(--textDisabled);
+    opacity: 1;
+  }
+
+  :global(.MuiButtonBase-root.Mui-disabled.Mui-selected) {
+    background-color: var(--textDisabled);
+    border-color: var(--textDisabled);
+    color: var(--otherWhite);
+
+    + :global(.MuiButtonBase-root.Mui-disabled.Mui-selected) {
+      border-color: var(--textDisabled);
+    }
+  }
+
+  button:not(:first-child) {
+    border-left: 2px solid var(--grayBorderMain);
+  }
+
+  :global(.MuiToggleButton-root.Mui-selected + .MuiToggleButton-root.Mui-selected) {
+    border-left: 2px solid var(--brandMain);
+    margin-left: -1px;
+  }
+}
+
+.contained {
+  background-color: var(--otherWhite) !important;
+
+  &:hover {
+    background-color: var(--otherWhite) !important;
+  }
+}
+
+.label {
+  color: var(--textSecondary);
+  margin-left: 10px;
+}
+
+.help-container {
+  color: var(--textSecondary);
+  margin-left: 10px;
+  margin-top: 4px;
+}

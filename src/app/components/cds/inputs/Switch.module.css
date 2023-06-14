@@ -28,41 +28,67 @@
 
         :global(.Mui-disabled) {
           .thumb {
-            color: var(--textDisabled);
+            color: var(--grayBorderAccent);
           }
         }
       }
-    }
 
-    .switchBase {
-      padding: 0;
-    }
+      .switchBase {
+        padding: 0;
+      }
 
-    .track {
-      background-color: var(--grayBorderMain);
-      border: 1px solid var(--grayBorderMain);
-      border-radius: 8px;
-      opacity: 1;
-    }
-
-    .thumb {
-      align-items: center;
-      border-radius: 6px;
-      color: var(--otherWhite);
-      height: 26px;
-      margin: 3px;
-      padding: 0;
-      transition: color 150ms cubic-bezier(.4, 0, .2, 1) 0ms;
-      width: 26px;
-    }
-
-    :global(.Mui-checked) {
-      transform: translateX(28px);
-
-      + .track {
-        background-color: var(--brandMain);
-        border: none;
+      .track {
+        background-color: var(--grayBorderMain);
+        border: 1px solid var(--grayBorderMain);
+        border-radius: 8px;
         opacity: 1;
+      }
+
+      .thumb {
+        align-items: center;
+        border-radius: 6px;
+        color: var(--otherWhite);
+        height: 26px;
+        margin: 3px;
+        padding: 0;
+        transition: color 150ms cubic-bezier(.4, 0, .2, 1) 0ms;
+        width: 26px;
+      }
+
+      :global(.Mui-checked) {
+        transform: translateX(28px);
+
+        + .track {
+          background-color: var(--brandMain);
+          border: none;
+          opacity: 1;
+        }
+      }
+
+      :global(.Mui-disabled) {
+        .thumb {
+          color: var(--grayBorderAccent);
+          cursor: not-allowed;
+          opacity: .6;
+        }
+
+        + .track {
+          background-color: var(--grayBorderMain);
+          cursor: not-allowed;
+          opacity: .6;
+        }
+
+        &.checked {
+          .thumb {
+            color: var(--otherWhite);
+            opacity: .9;
+          }
+
+          + .track {
+            background-color: var(--brandMain);
+            opacity: .4;
+          }
+        }
       }
     }
 
@@ -70,12 +96,6 @@
       @mixin typography-body2;
       color: var(--textPrimary);
       margin: 0 0 0 10px;
-    }
-
-    :global(.Mui-disabled) {
-      .thumb {
-        color: var(--textDisabled);
-      }
     }
   }
 

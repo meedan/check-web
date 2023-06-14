@@ -15,7 +15,7 @@ else
     NGROK_URL=""
     while [ -z "$NGROK_URL" -a $i -lt 5 ]; do
       i=$(($i + 1))
-      ./ngrok http 9000 >/dev/null &
+      ngrok http 9000 >/dev/null &
       until curl --silent -I -f --fail http://localhost:4040; do printf .; sleep 1; done
       curl -I -v http://localhost:4040
       curl localhost:4040/api/tunnels > ngrok.json

@@ -42,7 +42,7 @@ shared_examples 'annotation' do
     expect(@driver.page_source.include?('my date time metadata')).to be(false)
   end
 
-  it 'should add, edit and delete a annotation response', bin5: true do
+  it 'should add, edit and delete a annotation response', bin1: true do
     api_create_team_project_metadata_and_media
     wait_for_selector('#search-input')
     wait_for_selector('.medias__item').click
@@ -90,7 +90,7 @@ shared_examples 'annotation' do
     expect(@driver.page_source.include?('Saved a few')).to be(true)
   end
 
-  it 'should add, and answer a single choice annotation', bin5: true do
+  it 'should add, and answer a single choice annotation', bin2: true do
     api_create_team_project_metadata_and_claim({ quote: 'item item', type: 'single_choice', options: '[{"label": "Foo"}, {"label": "Bar"}]' })
     wait_for_selector('#search-input')
     wait_for_selector('.medias__item').click

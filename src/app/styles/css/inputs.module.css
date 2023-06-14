@@ -1,0 +1,64 @@
+.label-container {
+  @mixin typography-body2;
+  color: var(--textSecondary);
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 2fr 1fr;
+  margin-bottom: 4px;
+
+  label {
+    align-self: end;
+    margin-left: 10px;
+  }
+
+  .required {
+    align-self: end;
+    margin-right: 4px;
+    text-align: right;
+  }
+
+  &.error-label {
+    color: var(--errorSecondary);
+  }
+}
+
+.input-container {
+  position: relative;
+
+  .input-icon-left-icon,
+  .input-icon-right-icon {
+    color: var(--textSecondary);
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    font-size: 24px;
+    height: 24px;
+    position: absolute;
+    pointer-events: none;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+  }
+
+  .input-icon-left-icon {
+    left: 10px;
+    right: auto;
+  }
+}
+
+.help-container {
+  @mixin typography-caption;
+  margin: 4px 0 0;
+  padding: 0 4px 0 10px;
+
+  .error-icon {
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    font-size: 15px;
+    margin-right: 4px;
+    position: relative;
+    top: 3px;
+  }
+
+  &.error-label {
+    color: var(--errorSecondary);
+  }
+}

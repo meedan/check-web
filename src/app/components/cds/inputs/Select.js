@@ -1,0 +1,80 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import ErrorIcon from '../../../icons/error.svg';
+import ChevronDownIcon from '../../../icons/chevron_down.svg';
+import inputStyles from '../../../styles/css/inputs.module.css';
+import styles from './Select.module.css';
+
+const Select = ({
+  className,
+  disabled,
+  error,
+  helpContent,
+  iconLeft,
+  label,
+  required,
+  variant,
+  textArea,
+  children,
+  ...inputProps
+}) => (
+  <div className={className}>
+    { (label || required) && (
+      <div className={`${inputStyles['label-container']} ${error && inputStyles['error-label']}`}>
+        { label && <label htmlFor="name">{label}</label> }
+        { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
+      </div>
+    )}
+    <div className={`${inputStyles['input-container']} ${styles['select-container']}`}>
+      { iconLeft && (
+        <div className={inputStyles['input-icon-left-icon']}>
+          {iconLeft}
+        </div>
+      )}
+      <select
+        className={`typography-body1 ${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error} ${iconLeft && styles['input-icon-left']}`}
+        disabled={disabled}
+        {...inputProps}
+      >
+        {children}
+      </select>
+      <div className={inputStyles['input-icon-right-icon']}>
+        <ChevronDownIcon />
+      </div>
+    </div>
+    { helpContent && (
+      <div className={`${inputStyles['help-container']} ${error && inputStyles['error-label']}`}>
+        { error && <ErrorIcon className={inputStyles['error-icon']} />}
+        {helpContent}
+      </div>
+    )}
+  </div>
+);
+
+Select.defaultProps = {
+  className: '',
+  disabled: false,
+  error: false,
+  helpContent: null,
+  iconLeft: null,
+  label: '',
+  required: false,
+  textArea: false,
+  variant: 'contained',
+};
+
+Select.propTypes = {
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
+  error: PropTypes.bool,
+  helpContent: PropTypes.element,
+  iconLeft: PropTypes.element,
+  label: PropTypes.string,
+  required: PropTypes.bool,
+  textArea: PropTypes.bool,
+  variant: PropTypes.oneOf(['contained', 'outlined']),
+};
+
+export default Select;
+

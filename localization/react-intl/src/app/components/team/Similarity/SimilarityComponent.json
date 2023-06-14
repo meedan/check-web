@@ -41,6 +41,11 @@
     "defaultMessage": "Only send fact-checks in the same language as the conversation language"
   },
   {
+    "id": "similarityComponent.textLength",
+    "description": "A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed",
+    "defaultMessage": "Minimum words required for a confirmed match"
+  },
+  {
     "id": "similarityComponent.minimumDuration",
     "defaultMessage": "Minimum duration in seconds"
   },
