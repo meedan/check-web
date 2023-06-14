@@ -1,6 +1,7 @@
 .select-container {
   .input {
     appearance: none;
+    background-color: var(--otherWhite);
     border: 2px solid var(--grayBorderMain);
     border-radius: 8px;
     color: var(--textPrimary);
@@ -58,6 +59,10 @@
       color: var(--textDisabledInput);
       cursor: not-allowed;
       opacity: 1;
+
+      &.outlined {
+        background-color: transparent;
+      }
 
       &:hover {
         border-color: var(--grayBorderMain);

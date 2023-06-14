@@ -5,6 +5,11 @@
     "defaultMessage": "https://example.com/rss.xml"
   },
   {
+    "id": "newsletterRssFeed.error",
+    "description": "Error message displayed under RSS feed URL field",
+    "defaultMessage": "A valid RSS URL is required to load articles."
+  },
+  {
     "id": "newsletterRssFeed.load",
     "description": "Label for a button to load RSS feed entries",
     "defaultMessage": "Load"

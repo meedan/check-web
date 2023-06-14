@@ -82,25 +82,6 @@
   margin-top: 16px;
 }
 
-.tooltip {
-  &:global(.MuiTooltip-tooltip) {
-    @mixin typography-body2;
-    background-color: var(--otherWhite);
-    border: 1px solid var(--brandBorder);
-    color: var(--textPrimary);
-    padding: 4px 8px;
-  }
-
-  :global(.MuiTooltip-arrow) {
-    color: var(--otherWhite);
-
-    &::before {
-      border: 1px solid var(--brandBorder);
-      margin-top: -1px;
-    }
-  }
-}
-
 .newsletter-scheduler {
   border-radius: 16px;
   display: flex;
