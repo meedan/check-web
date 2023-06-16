@@ -49,6 +49,8 @@ const DrawerRail = (props) => {
   const {
     drawerOpen,
     onDrawerOpenChange,
+    team,
+    currentUserIsMember,
   } = props;
 
   const setDrawerOpenChange = () => {
@@ -58,39 +60,54 @@ const DrawerRail = (props) => {
 
   useEffect(() => {
     if (isMediaPage || isFeedPage || isSettingsPage || teamSlug === 'check' || !teamSlug) {
-      onDrawerOpenChange(false);
+      // onDrawerOpenChange(false);
+      console.log('ht'); // eslint-disable-line no-console
     } else if (window.storage.getValue('drawer.isOpen')) {
-      onDrawerOpenChange(true);
+      // onDrawerOpenChange(true);
+      console.log('ht'); // eslint-disable-line no-console
     }
   }, [testPath, teamSlug, activeItem]);
 
   return (
     <div className={styles.drawerRail}>
-      <div className={styles.drawerRailTop}>
-        <Link
-          to={`/${props.team.slug}/settings/workspace`}
-          title={props.intl.formatMessage(messages.settingsDescription)}
-        >
-          <TeamAvatar className={styles.teamLogo} size="44px" team={props.team} />
-        </Link>
-        <button type="button" className={styles.railIconButton} onClick={setDrawerOpenChange}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
-      </div>
-      <div className={styles.drawerRailMiddle}>
-        <Link
-          className={[styles.railIconLink, isTipline ? styles.railIconLinkActive : ''].join(' ')}
-          to={`/${props.team.slug}/all-items`}
-          title={props.intl.formatMessage(messages.tiplineDescription)}
-        >
-          <QuestionAnswerIcon />
-        </Link>
-        <Link
-          className={[styles.railIconLink, isSettingsPage ? styles.railIconLinkActive : ''].join(' ')}
-          to={`/${props.team.slug}/settings`}
-          title={props.intl.formatMessage(messages.settingsDescription)}
-        >
-          <SettingsIcon />
-        </Link>
-      </div>
+      {!!team && (currentUserIsMember || !team.private) ? (
+        <>
+          <div className={styles.drawerRailTop}>
+            <Link
+              to={`/${props.team.slug}/settings/workspace`}
+              title={props.intl.formatMessage(messages.settingsDescription)}
+            >
+              <TeamAvatar className={styles.teamLogo} size="44px" team={props.team} />
+            </Link>
+            <button type="button" className={styles.railIconButton} onClick={setDrawerOpenChange}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
+          </div>
+          <div className={styles.drawerRailMiddle}>
+            <Link
+              className={[styles.railIconLink, isTipline ? styles.railIconLinkActive : ''].join(' ')}
+              to={`/${props.team.slug}/all-items`}
+              title={props.intl.formatMessage(messages.tiplineDescription)}
+            >
+              <QuestionAnswerIcon />
+            </Link>
+            <Link
+              className={[styles.railIconLink, isSettingsPage ? styles.railIconLinkActive : ''].join(' ')}
+              to={`/${props.team.slug}/settings`}
+              title={props.intl.formatMessage(messages.settingsDescription)}
+            >
+              <SettingsIcon />
+            </Link>
+          </div>
+        </>
+      ) :
+        <>
+          <div className={styles.drawerRailTop}>
+            &nbsp;
+          </div>
+          <div className={styles.drawerRailMiddle}>
+            &nbsp;
+          </div>
+        </>
+      }
       <div className={styles.drawerRailBottom}>
         <a
           href="https://help.checkmedia.org/"
