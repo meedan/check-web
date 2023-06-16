@@ -74,6 +74,7 @@ const DrawerRail = (props) => {
         <>
           <div className={styles.drawerRailTop}>
             <Link
+              className="team-header__drawer-team-link"
               to={`/${props.team.slug}/settings/workspace`}
               title={props.intl.formatMessage(messages.settingsDescription)}
             >
