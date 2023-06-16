@@ -59,12 +59,12 @@ const DrawerRail = (props) => {
   };
 
   useEffect(() => {
-    if (isMediaPage || isFeedPage || isSettingsPage || teamSlug === 'check' || !teamSlug) {
-      // onDrawerOpenChange(false);
-      console.log('ht'); // eslint-disable-line no-console
-    } else if (window.storage.getValue('drawer.isOpen')) {
-      // onDrawerOpenChange(true);
-      console.log('ht'); // eslint-disable-line no-console
+    if (!!team && (currentUserIsMember || !team.private)) {
+      if (isMediaPage || isFeedPage || isSettingsPage || teamSlug === 'check' || !teamSlug) {
+        onDrawerOpenChange(false);
+      } else if (window.storage.getValue('drawer.isOpen')) {
+        onDrawerOpenChange(true);
+      }
     }
   }, [testPath, teamSlug, activeItem]);
 
