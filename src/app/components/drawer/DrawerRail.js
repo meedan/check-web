@@ -129,7 +129,7 @@ const DrawerRail = (props) => {
           <InfoIcon />
         </a>
         <Link
-          className={[styles.railUserSettings, isUserSettingsPage ? styles.railUserSettingsActive : ''].join(' ')}
+          className={['avatar', styles.railUserSettings, isUserSettingsPage ? styles.railUserSettingsActive : ''].join(' ')}
           to="/check/me"
         >
           <Avatar alt={props.user.name} src={props.user.profile_image} />
