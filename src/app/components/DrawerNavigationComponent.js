@@ -119,7 +119,7 @@ class DrawerNavigationComponent extends Component {
                 <ListItem
                   button
                   onClick={this.handleSpam}
-                  className={['project-list__link-spam', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
+                  className={['project-list__link-spam', 'project-list__item-spam', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
                 >
                   <ReportIcon className={projectStyles.listIcon} />
                   <ListItemText disableTypography className={projectStyles.listLabel}>
@@ -132,7 +132,7 @@ class DrawerNavigationComponent extends Component {
                 <ListItem
                   button
                   onClick={this.handleTrash}
-                  className={['project-list__link-trash', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
+                  className={['project-list__link-trash', 'project-list__item-trash', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
                 >
                   <DeleteIcon className={projectStyles.listIcon} />
                   <ListItemText disableTypography className={projectStyles.listLabel}>
