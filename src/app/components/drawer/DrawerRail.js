@@ -60,7 +60,7 @@ const DrawerRail = (props) => {
 
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
-      if (isMediaPage || isFeedPage || isSettingsPage || teamSlug === 'check' || !teamSlug) {
+      if (isMediaPage || isFeedPage) {
         onDrawerOpenChange(false);
       } else if (window.storage.getValue('drawer.isOpen')) {
         onDrawerOpenChange(true);
@@ -129,7 +129,7 @@ const DrawerRail = (props) => {
           <InfoIcon />
         </a>
         <Link
-          className={['avatar', styles.railUserSettings, isUserSettingsPage ? styles.railUserSettingsActive : ''].join(' ')}
+          className={['user-menu__avatar', styles.railUserSettings, isUserSettingsPage ? styles.railUserSettingsActive : ''].join(' ')}
           to="/check/me"
         >
           <Avatar alt={props.user.name} src={props.user.profile_image} />

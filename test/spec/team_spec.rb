@@ -147,9 +147,8 @@ shared_examples 'team' do
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/settings/workspace\"]")
 
     # Navigate to second team
-    wait_for_selector('.header__user-menu')
-    wait_for_selector('.user-menu__role').click
-    wait_for_selector('.user-menu__logout')
+    wait_for_selector('.user-menu__avatar').click
+    wait_for_selector('.user-menu__logout').click
     wait_for_selector('a[href="/check/me"]').click
     wait_for_selector('.source__primary-info')
     wait_for_selector('#teams-tab').click
@@ -158,9 +157,8 @@ shared_examples 'team' do
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/settings/workspace\"]")
 
     # Navigate back to first team
-    wait_for_selector('.header__user-menu')
-    wait_for_selector('.user-menu__role').click
-    wait_for_selector('.user-menu__logout')
+    wait_for_selector('.user-menu__avatar').click
+    wait_for_selector('.user-menu__logout').click
     wait_for_selector('a[href="/check/me"]').click
     wait_for_selector('.source__primary-info')
     wait_for_selector('#teams-tab').click
