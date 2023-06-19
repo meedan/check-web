@@ -80,7 +80,7 @@ const DrawerRail = (props) => {
             >
               <TeamAvatar className={styles.teamLogo} size="44px" team={props.team} />
             </Link>
-            <button type="button" className={styles.railIconButton} onClick={setDrawerOpenChange}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
+            <button type="button" className={styles.railIconButton} id="side-navigation__toggle" onClick={setDrawerOpenChange}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
           </div>
           <div className={styles.drawerRailMiddle}>
             <Link

@@ -218,6 +218,8 @@ shared_examples 'media actions' do
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('My search result')).to be(true)
+    wait_for_selector('#search-input')
+    wait_for_selector('#side-navigation__toggle').click
     wait_for_selector('.project-list__link', index: 1)
     wait_for_selector('.project-list__link', index: 1).click
     wait_for_selector_none('.media__heading', :css, 10)
