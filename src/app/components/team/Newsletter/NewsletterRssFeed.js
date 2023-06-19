@@ -56,7 +56,7 @@ const NewsletterRssFeed = ({
       }}
       render={({ error, props }) => {
         const invalid = (!!parentErrors?.rss_feed_url || (!!error && localRssFeedUrl && localRssFeedUrl === rssFeedUrl));
-        const loading = (!props && !invalid);
+        const loading = (!props && !invalid && !error);
         let articles = [];
         if (!loading && !error) {
           const rssFeedContent = props.root.current_team.smooch_bot?.smooch_bot_preview_rss_feed;
@@ -79,7 +79,7 @@ const NewsletterRssFeed = ({
                     className={styles['rss-feed-url-field']}
                     onChange={(e) => {
                       let { value } = e.target;
-                      if (!/^https?:\/\//.test(value)) {
+                      if (value && !/^https?:\/\//.test(value)) {
                         value = `https://${value}`;
                       }
                       setLocalRssFeedUrl(value);
