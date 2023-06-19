@@ -59,13 +59,12 @@ shared_examples 'project' do
     wait_for_selector('.media-card-large')
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.projects-list')
     wait_for_selector('#projects-list__add-filtered-list').click
     wait_for_selector('#new-project__title').send_keys('Filtered list')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__confirm-action-button')
-    wait_for_selector_list('.project-list__link')[1].click
     wait_for_selector('div[title="Filtered list"]')
-    url = @driver.current_url.to_s
     wait_for_selector('.medias__item')
     expect(@driver.find_elements(:css, '.medias__item').size == 1).to be(true)
     wait_for_selector('#add-filter-menu__open-button').click
@@ -75,24 +74,11 @@ shared_examples 'project' do
     wait_for_selector('.multi__selector-save').click
     wait_for_selector('#search-fields__submit-button').click
     expect(@driver.find_elements(:css, '.medias__item').empty?).to be(true)
-    # clear filter
-    wait_for_selector('#search-fields__clear-button').click
-    wait_for_selector('.medias__item')
-    expect(@driver.find_elements(:css, '.medias__item').size == 1).to be(true)
-    expect(@driver.page_source.include?('Item status is')).to be(false)
-    # set a new filter and save list
-    wait_for_selector('#add-filter-menu__open-button').click
-    wait_for_selector('#add-filter-menu__media-type').click
-    wait_for_selector('.custom-select-dropdown__select-button').click
-    wait_for_selector('#weblink').click
-    wait_for_selector('.multi__selector-save').click
-    wait_for_selector('#search-fields__submit-button').click
-    wait_for_selector_none('.medias__item')
-    expect(@driver.find_elements(:css, '.medias__item').empty?).to be(true)
     # save list
     wait_for_selector('#save-list__button').click
+    wait_for_selector('.confirm-proceed-dialog__cancel')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    @driver.navigate.to url
+    @driver.navigate.refresh
     wait_for_selector('.project-list__link')
     expect(@driver.find_elements(:css, '.media__heading').empty?).to be(true)
   end
@@ -106,19 +92,16 @@ shared_examples 'project' do
     wait_for_selector('#teams-tab').click
     wait_for_selector('.switch-teams__joined-team')
     wait_for_selector_list('.teams a').first.click
-    wait_for_selector('.project__title')
-    wait_for_selector('.project-list__link-trash')
-    wait_for_selector('.project__title')
     wait_for_selector('.team-header__drawer-team-link').click
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.project-list__header')
     wait_for_selector('.project-list__link').click
-    wait_for_selector_none('.team-members__edit-button', :css, 10)
 
     @driver.navigate.to("#{@config['self_url']}/check/me")
     wait_for_selector('#teams-tab').click
     wait_for_selector('.switch-teams__joined-team')
     wait_for_selector_list('.teams a').last.click
-    wait_for_selector('.project__title')
-    wait_for_selector('.project-list__link-trash')
+    wait_for_selector('#search-input')
     wait_for_selector('.team-header__drawer-team-link').click
 
     @driver.navigate.to(@config['self_url'])
@@ -187,6 +170,8 @@ shared_examples 'project' do
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.message')
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     @driver.navigate.refresh

@@ -283,8 +283,8 @@ const ProjectsComponent = ({
           <ListItemText disableTypography className={styles.listHeaderLabel}>
             <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
             <Can permissions={team.permissions} permission="create Project">
-              <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
-                <AddCircleIcon id="projects-list__add-filtered-list" />
+              <IconButton id="projects-list__add-filtered-list" onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
+                <AddCircleIcon />
               </IconButton>
             </Can>
           </ListItemText>

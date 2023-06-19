@@ -90,6 +90,7 @@ const UserInfo = (props) => {
         </StyledContactInfo>
         <div>
           <Button
+            className="user-menu__logout"
             variant="contained"
             onClick={logout}
           >

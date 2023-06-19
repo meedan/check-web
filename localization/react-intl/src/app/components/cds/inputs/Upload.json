@@ -27,6 +27,6 @@
   {
     "id": "upload.removeUpload",
     "description": "Tooltip message displayed on upload component. Cancel file selected for upload",
-    "defaultMessage": "Remove upload"
+    "defaultMessage": "Remove file"
   }
 ]

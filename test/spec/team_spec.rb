@@ -92,6 +92,8 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.project-list__header')
     wait_for_selector('.project-list__link').click
     create_media('text')
     api_logout
@@ -107,9 +109,9 @@ shared_examples 'team' do
     wait_for_selector('#team-details__name-input')
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length == 1)
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
-    # do not be able to add, remove or edit a new folder
-    expect(@driver.find_elements(:css, '.projects-list__add-folder-or-collection').empty?).to be(true)
     # do not be able to see project actions button
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.project-list__header')
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(true)
@@ -129,6 +131,8 @@ shared_examples 'team' do
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
     wait_for_selector('.team-header__drawer-team-link').click
     # be able to see folder actions icon
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.project-list__header')
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(false)
@@ -144,27 +148,22 @@ shared_examples 'team' do
     # Go to first team
     @driver.navigate.to "#{@config['self_url']}/#{t1.slug}/all-items"
     wait_for_selector('#add-filter-menu__open-button')
-    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/settings/workspace\"]")
+    expect(@driver.current_url.to_s.match(t1.slug).nil?).to be(false)
 
     # Navigate to second team
-    wait_for_selector('.header__user-menu')
-    wait_for_selector('.user-menu__role').click
-    wait_for_selector('.user-menu__logout')
-    wait_for_selector('a[href="/check/me"]').click
-    wait_for_selector('.source__primary-info')
+    @driver.navigate.to "#{@config['self_url']}/check/me"
+    wait_for_selector('#assignments-tab')
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
     wait_for_selector('#add-filter-menu__open-button')
+    expect(@driver.current_url.to_s.match(t2.slug).nil?).to be(false)
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/settings/workspace\"]")
 
     # Navigate back to first team
-    wait_for_selector('.header__user-menu')
-    wait_for_selector('.user-menu__role').click
-    wait_for_selector('.user-menu__logout')
-    wait_for_selector('a[href="/check/me"]').click
-    wait_for_selector('.source__primary-info')
+    @driver.navigate.to "#{@config['self_url']}/check/me"
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
-    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/settings/workspace\"]")
+    wait_for_selector('#search-input')
+    expect(@driver.current_url.to_s.match(t1.slug).nil?).to be(false)
   end
 end

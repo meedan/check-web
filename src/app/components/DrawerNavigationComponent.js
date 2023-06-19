@@ -93,7 +93,7 @@ class DrawerNavigationComponent extends Component {
 
   render() {
     const {
-      team, classes, drawerOpen,
+      team, currentUserIsMember, classes, drawerOpen,
     } = this.props;
 
     // This component now renders based on teamPublicFragment
@@ -112,35 +112,39 @@ class DrawerNavigationComponent extends Component {
         classes={classes}
       >
         <React.Fragment>
-          <DrawerProjects team={team.slug} />
-          <List dense disablePadding className={[projectStyles.listWrapper, projectStyles.listFooter].join(' ')}>
-            <ListItem
-              button
-              onClick={this.handleSpam}
-              className={['project-list__link-spam', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
-            >
-              <ReportIcon className={projectStyles.listIcon} />
-              <ListItemText disableTypography className={projectStyles.listLabel}>
-                <FormattedMessage tagName="span" id="projects.spam" defaultMessage="Spam" />
-              </ListItemText>
-              <ListItemSecondaryAction title={team.medias_count} className={projectStyles.listItemCount}>
-                <small>{String(team.spam_count)}</small>
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem
-              button
-              onClick={this.handleTrash}
-              className={['project-list__link-trash', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
-            >
-              <DeleteIcon className={projectStyles.listIcon} />
-              <ListItemText disableTypography className={projectStyles.listLabel}>
-                <FormattedMessage tagName="span" id="projects.trash" defaultMessage="Trash" />
-              </ListItemText>
-              <ListItemSecondaryAction title={team.trash_count} className={projectStyles.listItemCount}>
-                <small>{String(team.trash_count)}</small>
-              </ListItemSecondaryAction>
-            </ListItem>
-          </List>
+          {!!team && (currentUserIsMember || !team.private) ? (
+            <>
+              <DrawerProjects team={team.slug} />
+              <List dense disablePadding className={[projectStyles.listWrapper, projectStyles.listFooter].join(' ')}>
+                <ListItem
+                  button
+                  onClick={this.handleSpam}
+                  className={['project-list__link-spam', 'project-list__item-spam', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
+                >
+                  <ReportIcon className={projectStyles.listIcon} />
+                  <ListItemText disableTypography className={projectStyles.listLabel}>
+                    <FormattedMessage tagName="span" id="projects.spam" defaultMessage="Spam" />
+                  </ListItemText>
+                  <ListItemSecondaryAction title={team.medias_count} className={projectStyles.listItemCount}>
+                    <small>{String(team.spam_count)}</small>
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem
+                  button
+                  onClick={this.handleTrash}
+                  className={['project-list__link-trash', 'project-list__item-trash', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
+                >
+                  <DeleteIcon className={projectStyles.listIcon} />
+                  <ListItemText disableTypography className={projectStyles.listLabel}>
+                    <FormattedMessage tagName="span" id="projects.trash" defaultMessage="Trash" />
+                  </ListItemText>
+                  <ListItemSecondaryAction title={team.trash_count} className={projectStyles.listItemCount}>
+                    <small>{String(team.trash_count)}</small>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
+            </>
+          ) : null }
         </React.Fragment>
       </Drawer>
     );
