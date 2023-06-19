@@ -60,7 +60,7 @@ const DrawerRail = (props) => {
 
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
-      if (isMediaPage || isFeedPage) {
+      if (isMediaPage || isFeedPage || isSettingsPage || teamSlug === 'check' || !teamSlug) {
         onDrawerOpenChange(false);
       } else if (window.storage.getValue('drawer.isOpen')) {
         onDrawerOpenChange(true);
