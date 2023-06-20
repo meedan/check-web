@@ -20,6 +20,7 @@ import ImportedReports from './team/ImportedReports';
 import SuggestedMatches from './team/SuggestedMatches';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
+import CreateFeed from './feed/CreateFeed';
 import Feed from './feed/Feed';
 import FeedItem from './feed/FeedItem';
 import FeedClusterPage from './feed/FeedClusterPage';
@@ -102,6 +103,7 @@ class Root extends Component {
                   <Route path=":team/imported-fact-checks(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
+                  <Route path=":team/feed/create" component={CreateFeed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
                   <Route path="*" component={NotFound} public />
