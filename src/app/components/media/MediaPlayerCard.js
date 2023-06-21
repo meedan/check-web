@@ -51,7 +51,7 @@ const MediaPlayerCard = ({
           />
         ) : null }
         <div className="aspect-ratio__overlay">
-          { isYoutube ? (
+          { isYoutube && filePath.match(youtubeRegex) ? (
             <iframe
               id="ytplayer"
               title="ytplayer"
