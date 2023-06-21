@@ -1,0 +1,25 @@
+.chip-container {
+  background-color: var(--brandMain);
+  border-radius: 50px;
+  color: var(--otherWhite);
+  height: 26px;
+  padding: 3px 8px;
+  width: fit-content;
+
+  span {
+    line-height: 20px;
+  }
+}
+
+/* !important declarations needed to override material-ui IconButton */
+.delete-button {
+  color: var(--otherWhite) !important;
+  display: none !important;
+  font-size: var(--iconSizeSmall) !important;
+  margin-left: 4px !important;
+  padding: 0 !important;
+}
+
+.chip-container:hover .delete-button {
+  display: inline-block !important;
+}
