@@ -21,6 +21,15 @@ const SavedSearch = ({ routeParams }) => (
             dbid
             title
             filters
+            feeds(first: 100) {
+              edges {
+                node {
+                  name
+                  id
+                }
+              }
+            }
+            is_part_of_feeds
             team {
               id
               slug
@@ -41,6 +50,9 @@ const SavedSearch = ({ routeParams }) => (
           const query = routeParams.query ?
             safelyParseJSON(routeParams.query, {}) :
             safelyParseJSON(savedQuery, {});
+
+          // eslint-disable-next-line
+          console.log("team.savead_Searchs:", props.saved_search);
 
           return (
             <div className="saved-search search-results-wrapper">

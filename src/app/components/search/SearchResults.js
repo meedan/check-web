@@ -9,11 +9,13 @@ import NextIcon from '@material-ui/icons/ChevronRightRounded';
 import PrevIcon from '@material-ui/icons/ChevronLeftRounded';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
+import FeedIcon from '../../icons/dynamic_feed.svg';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
 import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
@@ -416,13 +418,18 @@ function SearchResultsComponent({
     );
   }
 
+  // eslint-disable-next-line
+  const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
+  // const feeds2 = ['aaa', 'bbb'];
+  // eslint-disable-next-line
+  // console.log('feeds:', feeds);
+
   return (
     <React.Fragment>
       <StyledListHeader>
         <Row className="search__list-header-filter-row">
           <div
             className="project__title typography-h5"
-            title={title?.props?.defaultMessage || title}
             style={{
               color: 'var(--textSecondary)',
               display: 'flex',
@@ -433,6 +440,24 @@ function SearchResultsComponent({
             <span className="project__title-text">
               {title}
             </span>
+            { savedSearch?.is_part_of_feeds ?
+              <Tooltip
+                title={
+                  <>
+                    <FormattedMessage id="sharedFeedIcon.sharedFeed" defaultMessage="Included in Shared Feed:" />
+                    <ul>
+                      {feeds.map(feed => (
+                        <li key={feed.id}>&bull; {feed}</li>
+                      ))}
+                    </ul>
+                  </>
+                }
+                className={styles['tooltip-icon']}
+              >
+                <Box display="flex" alignItems="center" ml={2} ><FeedIcon /></Box>
+              </Tooltip>
+              :
+              null }
             {listActions}
           </div>
           <SearchKeyword

@@ -37,6 +37,11 @@
     "defaultMessage": "Save changes to the list \"{listName}\""
   },
   {
+    "id": "saveList.warningAlert",
+    "description": "Text displayed in the title of a warning box on team details page when link shortening is on",
+    "defaultMessage": "Saving changes will update shared feeds:"
+  },
+  {
     "id": "saveList.updateSpecialPage",
     "description": "'Save' here is an infinitive verb",
     "defaultMessage": "Save changes to the list"
