@@ -9,4 +9,8 @@
     margin: auto;
     width: 242px;
   }
+
+  svg {
+    font-size: var(--iconSizeBig);
+  }
 }
