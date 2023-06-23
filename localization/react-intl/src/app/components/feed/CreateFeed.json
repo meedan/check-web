@@ -1,6 +1,6 @@
 [
   {
-    "id": "createFeed.learnMore",
+    "id": "createFeed.licenseDetails",
     "description": "Link to external page with license details",
     "defaultMessage": "License details"
   },
@@ -60,14 +60,14 @@
     "defaultMessage": "<strong>Note:</strong> Your list must contain <strong>published fact-checks</strong> in order to be part of this shared feed."
   },
   {
-    "id": "createFeed.select",
-    "description": "Label for shared feed list selector",
-    "defaultMessage": "Select list…"
-  },
-  {
     "id": "createFeed.selectHelper",
     "description": "Helper text for shared feed list selector",
-    "defaultMessage": "Fact-check title, summary,  and URL will be shared with the feed. Learn more"
+    "defaultMessage": "Fact-check title, summary, and URL will be shared with the feed."
+  },
+  {
+    "id": "createFeed.learnMore",
+    "description": "Link to external page with more details about shared feeds",
+    "defaultMessage": "Learn more."
   },
   {
     "id": "createFeed.publishTitle",
@@ -77,7 +77,12 @@
   {
     "id": "createFeed.publishBlurb",
     "description": "Helper text for the publish feed section",
-    "defaultMessage": "Make this shared feed discoverable by publishing it to the Marketplace. Learn more about the marketplace."
+    "defaultMessage": "Make this shared feed discoverable by publishing it to the Marketplace."
+  },
+  {
+    "id": "createFeed.learnMoreMarketplace",
+    "description": "Link to and external page with more information about the marketplace",
+    "defaultMessage": "Learn more about the marketplace."
   },
   {
     "id": "createFeed.publishSwitch",
@@ -92,7 +97,12 @@
   {
     "id": "createFeed.licenseBlurb",
     "description": "Helper text for the license section",
-    "defaultMessage": "A license tells others what they can and can't do with your code. Learn more about licenses."
+    "defaultMessage": "A license tells others what they can and can't do with your code."
+  },
+  {
+    "id": "createFeed.learnMoreLicenses",
+    "description": "Link to and external page with more information about the data licenses",
+    "defaultMessage": "Learn more about licenses."
   },
   {
     "id": "createFeed.licenseAcademic",
@@ -108,5 +118,10 @@
     "id": "createFeed.licenseOpenSource",
     "description": "Label for the academic licensing of shared feed data",
     "defaultMessage": "Open source"
+  },
+  {
+    "id": "createFeed.createSaveButton",
+    "description": "Label to the save button of the shared feed creation form",
+    "defaultMessage": "Create shared feed"
   }
 ]
