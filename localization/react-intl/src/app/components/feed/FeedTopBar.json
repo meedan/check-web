@@ -1,0 +1,7 @@
+[
+  {
+    "id": "feedTopBar.noListSelected",
+    "description": "Message displayed on feed top bar when there is no list associated with the feed.",
+    "defaultMessage": "no list selected"
+  }
+]

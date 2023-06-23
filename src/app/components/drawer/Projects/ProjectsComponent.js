@@ -331,7 +331,7 @@ const ProjectsComponent = ({
                 <ProjectsListItem
                   key={feed.id}
                   routePrefix="feed"
-                  routeSuffix="/shared"
+                  routeSuffix="/feed"
                   project={feed}
                   teamSlug={team.slug}
                   onClick={handleClick}

@@ -1,0 +1,12 @@
+.feedBlankState {
+  text-align: center;
+
+  h6 {
+    margin: 16px;
+  }
+
+  p {
+    margin: auto;
+    width: 242px;
+  }
+}

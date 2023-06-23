@@ -1,0 +1,8 @@
+.buttonMain {
+  :global(.MuiButtonBase-root) {
+    background: var(--grayBackground);
+    border-radius: 8px;
+    height: 32px;
+    padding: 4px 8px;
+  }
+}

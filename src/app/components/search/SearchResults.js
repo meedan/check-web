@@ -19,6 +19,7 @@ import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
+import FeedBlankState from '../feed/FeedBlankState';
 import { units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
@@ -126,6 +127,7 @@ function SearchResultsComponent({
   project,
   projectGroup,
   feedTeam,
+  feed,
   searchUrlPrefix,
   mediaUrlPrefix,
   showExpand,
@@ -366,7 +368,7 @@ function SearchResultsComponent({
     ? search.medias.edges.map(({ node }) => node)
     : [];
 
-  const count = search.number_of_results;
+  let count = search.number_of_results;
   const { team } = search;
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
@@ -389,6 +391,11 @@ function SearchResultsComponent({
 
   let content = null;
 
+  // Return nothing if feed doesn't have a list
+  if (resultType === 'factCheck' && !feed.saved_search_id) {
+    count = 0;
+  }
+
   if (count === 0) {
     content = (
       <ProjectBlankState
@@ -400,6 +407,15 @@ function SearchResultsComponent({
         }
       />
     );
+    if (resultType === 'factCheck') {
+      content = (
+        <FeedBlankState
+          teamSlug={team.slug}
+          feedDbid={feed.dbid}
+          listDbid={feed.saved_search_id}
+        />
+      );
+    }
   } else {
     content = (
       <SearchResultsTable
@@ -422,7 +438,6 @@ function SearchResultsComponent({
         <Row className="search__list-header-filter-row">
           <div
             className="project__title typography-h5"
-            title={title?.props?.defaultMessage || title}
             style={{
               color: 'var(--textSecondary)',
               display: 'flex',
@@ -435,17 +450,18 @@ function SearchResultsComponent({
             </span>
             {listActions}
           </div>
-          <SearchKeyword
-            query={query}
-            setQuery={setQuery}
-            project={project}
-            hideFields={hideFields}
-            title={title}
-            team={team}
-            showExpand={showExpand}
-            cleanupQuery={cleanupQuery}
-            handleSubmit={handleSubmit}
-          />
+          { resultType !== 'factCheck' ?
+            <SearchKeyword
+              query={query}
+              setQuery={setQuery}
+              project={project}
+              hideFields={hideFields}
+              title={title}
+              team={team}
+              showExpand={showExpand}
+              cleanupQuery={cleanupQuery}
+              handleSubmit={handleSubmit}
+            /> : null }
         </Row>
         <>
           {listDescription && listDescription.trim().length ?
@@ -462,6 +478,7 @@ function SearchResultsComponent({
           project={project}
           projectGroup={projectGroup}
           feedTeam={feedTeam}
+          feed={feed}
           savedSearch={savedSearch}
           hideFields={hideFields}
           readOnlyFields={readOnlyFields}
@@ -566,6 +583,7 @@ SearchResultsComponent.defaultProps = {
   readOnlyFields: [],
   savedSearch: null,
   feedTeam: null,
+  feed: null,
   extra: null,
 };
 
@@ -591,6 +609,11 @@ SearchResultsComponent.propTypes = {
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
     feedFilters: PropTypes.object,
+  }), // may be null
+  feed: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    saved_search_id: PropTypes.number,
   }), // may be null
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,

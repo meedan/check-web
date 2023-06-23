@@ -78,6 +78,7 @@ export default function Search({
   teamSlug,
   project,
   projectGroup,
+  feed,
   feedTeam,
   savedSearch,
   query,
@@ -100,6 +101,7 @@ export default function Search({
       teamSlug={teamSlug}
       project={project}
       projectGroup={projectGroup}
+      feed={feed}
       feedTeam={feedTeam}
       savedSearch={savedSearch}
       listActions={listActions}
@@ -116,10 +118,12 @@ export default function Search({
     />
   );
 }
+
 Search.defaultProps = {
   project: null,
   projectGroup: null,
   feedTeam: null,
+  feed: null,
   savedSearch: null,
   page: undefined, // FIXME find a cleaner way to render Trash differently
   hideFields: [],
@@ -131,6 +135,7 @@ Search.defaultProps = {
   icon: null,
   extra: null,
 };
+
 Search.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,
@@ -139,6 +144,7 @@ Search.propTypes = {
   project: PropTypes.object, // or null
   projectGroup: PropTypes.object, // or null
   feedTeam: PropTypes.object, // or null
+  feed: PropTypes.object, // or null
   savedSearch: PropTypes.object, // or null
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,
