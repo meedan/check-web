@@ -22,6 +22,7 @@ import ProjectBlankState from '../project/ProjectBlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import { units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
+import SearchResultsCards from './SearchResultsCards';
 import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
 
@@ -430,6 +431,14 @@ function SearchResultsComponent({
         count={count}
       />
     );
+    if (resultType === 'factCheck') {
+      content = (
+        <SearchResultsCards
+          team={team}
+          projectMedias={projectMedias}
+        />
+      );
+    }
   }
 
   return (

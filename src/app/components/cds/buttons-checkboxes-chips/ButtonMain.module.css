@@ -1,8 +1,25 @@
 .buttonMain {
+  .buttonMainLabel {
+    display: inline-block;
+    max-width: 125px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   :global(.MuiButtonBase-root) {
     background: var(--grayBackground);
     border-radius: 8px;
     height: 32px;
     padding: 4px 8px;
+
+    &:hover {
+      background: var(--grayBackground);
+    }
+  }
+
+  :global(.MuiButton-outlined) {
+    border: 2px solid var(--grayBorderMain);
   }
 }
