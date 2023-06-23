@@ -38,7 +38,7 @@
   },
   {
     "id": "saveList.warningAlert",
-    "description": "Text displayed in the title of a warning box on team details page when link shortening is on",
+    "description": "Text displayed in the title of a warning box when saving a list related to shared feeds",
     "defaultMessage": "Saving changes will update shared feeds:"
   },
   {

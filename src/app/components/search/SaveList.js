@@ -300,7 +300,6 @@ const SaveList = ({
   };
 
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
-  // const feeds2 = ['aaa', 'bbb'];
 
   return (
     <React.Fragment>
@@ -374,7 +373,7 @@ const SaveList = ({
                       <Alert
                         type="warning"
                         title={
-                          <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box on team details page when link shortening is on" />
+                          <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
                         }
                         content={
                           <ul>

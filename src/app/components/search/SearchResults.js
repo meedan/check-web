@@ -418,11 +418,7 @@ function SearchResultsComponent({
     );
   }
 
-  // eslint-disable-next-line
   const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
-  // const feeds2 = ['aaa', 'bbb'];
-  // eslint-disable-next-line
-  // console.log('feeds:', feeds);
 
   return (
     <React.Fragment>
@@ -444,7 +440,11 @@ function SearchResultsComponent({
               <Tooltip
                 title={
                   <>
-                    <FormattedMessage id="sharedFeedIcon.sharedFeed" defaultMessage="Included in Shared Feed:" />
+                    <FormattedMessage
+                      id="sharedFeedIcon.Tooltip"
+                      defaultMessage="Included in Shared Feed:"
+                      description="Tooltip for shared feeds icon"
+                    />
                     <ul>
                       {feeds.map(feed => (
                         <li key={feed.id}>&bull; {feed}</li>
@@ -454,7 +454,7 @@ function SearchResultsComponent({
                 }
                 className={styles['tooltip-icon']}
               >
-                <Box display="flex" alignItems="center" ml={2} ><FeedIcon /></Box>
+                <Box display="flex" alignItems="center" ml={2} ><FeedIcon id="shared-feed__icon" /></Box>
               </Tooltip>
               :
               null }
@@ -632,6 +632,9 @@ SearchResultsComponent.propTypes = {
   savedSearch: PropTypes.object, // or null
   extra: PropTypes.node, // or null
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { SearchResultsComponent as SearchResultsComponentTest };
 
 const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
   initialVariables: {
