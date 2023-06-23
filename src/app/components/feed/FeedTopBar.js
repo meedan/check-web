@@ -16,6 +16,10 @@ const FeedTopBar = ({ team, feed }) => {
     browserHistory.push(`/${team.slug}/list/${feed.saved_search.dbid}`);
   };
 
+  if (!feed.published) {
+    return null;
+  }
+
   return (
     <div className={styles.feedTopBar}>
       <TeamAvatar team={{ avatar: team.avatar, slug: team.slug }} size="24px" />
@@ -57,6 +61,7 @@ export default createFragmentContainer(FeedTopBar, graphql`
     avatar
   }
   fragment FeedTopBar_feed on Feed {
+    published
     permissions
     saved_search {
       dbid
