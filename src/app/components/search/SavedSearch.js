@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -62,7 +62,7 @@ const SavedSearch = ({ routeParams }) => (
                     noDescription
                     object={props.saved_search}
                     objectType="SavedSearch"
-                    name={<FormattedMessage id="savedSearch.name" defaultMessage="list" />}
+                    name="list"
                     updateMutation={graphql`
                       mutation SavedSearchUpdateSavedSearchMutation($input: UpdateSavedSearchInput!) {
                         updateSavedSearch(input: $input) {
@@ -77,6 +77,7 @@ const SavedSearch = ({ routeParams }) => (
                       <FormattedMessage
                         id="savedSearch.deleteMessage"
                         defaultMessage="Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+                        description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
                         values={{ teamName: props.saved_search.team ? props.saved_search.team.name : '' }}
                       />
                     }
