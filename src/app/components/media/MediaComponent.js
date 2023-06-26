@@ -16,6 +16,7 @@ import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAnd
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
+import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { units, Column } from '../../styles/js/shared';
@@ -258,6 +259,7 @@ class MediaComponent extends Component {
               </Column>
             </React.Fragment> : null }
         </StyledThreeColumnLayout>
+        { this.getContext().currentUser.is_admin ? <SuperAdminControls /> : null }
       </div>
     );
   }
