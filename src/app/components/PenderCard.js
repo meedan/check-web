@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import deepEqual from 'deep-equal';
 import CircularProgress from './CircularProgress';
+import AspectRatio from './layout/AspectRatio';
 import { units } from '../styles/js/shared';
 
 const PenderCardContainer = styled.div`
@@ -36,7 +38,7 @@ class PenderCard extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.url !== this.props.url || nextProps.mediaVersion !== this.props.mediaVersion;
+    return nextProps.url !== this.props.url || nextProps.mediaVersion !== this.props.mediaVersion || deepEqual(nextProps, this.props);
   }
 
   componentDidUpdate(prevProps) {
@@ -75,27 +77,36 @@ class PenderCard extends Component {
   }
 
   render() {
+    const {
+      projectMedia,
+      currentUserRole,
+    } = this.props;
+
     return (
       <div>
-        <PenderCardContainer
-          id={this.props.domId}
-          className="pender-card"
-          style={{ maxHeight: 'none' }}
-        />
-
-        <PenderCardLoader
-          id={`pender-card-loader-${this.props.domId}`}
-          className="pender-card__loader"
+        <AspectRatio
+          projectMedia={projectMedia}
+          currentUserRole={currentUserRole}
         >
-          {(() => {
-            if (this.props.fallback) {
-              return this.props.fallback;
-            }
-            return (
-              <div><CircularProgress thickness={1} /></div>
-            );
-          })()}
-        </PenderCardLoader>
+          <PenderCardContainer
+            id={this.props.domId}
+            className="pender-card"
+            style={{ maxHeight: 'none' }}
+          />
+          <PenderCardLoader
+            id={`pender-card-loader-${this.props.domId}`}
+            className="pender-card__loader"
+          >
+            {(() => {
+              if (this.props.fallback) {
+                return this.props.fallback;
+              }
+              return (
+                <div><CircularProgress thickness={1} /></div>
+              );
+            })()}
+          </PenderCardLoader>
+        </AspectRatio>
       </div>
     );
   }

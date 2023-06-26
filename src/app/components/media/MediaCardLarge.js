@@ -87,6 +87,8 @@ const MediaCardLarge = ({
         ) : null }
         { isPender ? (
           <PenderCard
+            projectMedia={projectMedia}
+            currentUserRole={currentUserRole}
             url={media.url}
             fallback={null}
             domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
