@@ -70,6 +70,10 @@ const ProjectsComponent = ({
     browserHistory.push(`/${team.slug}/all-items`);
   };
 
+  const handleCreateFeed = () => {
+    browserHistory.push(`/${team.slug}/feed/create`);
+  };
+
   const handleSpecialLists = (listId) => {
     setActiveItem({ type: listId, id: null });
     browserHistory.push(`/${team.slug}/${listId}`);
@@ -324,6 +328,11 @@ const ProjectsComponent = ({
               { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
               <ListItemText disableTypography className={styles.listHeaderLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
+                <Can permissions={team.permissions} permission="create Feed">
+                  <IconButton onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-feed'].join(' ')}>
+                    <AddCircleIcon />
+                  </IconButton>
+                </Can>
               </ListItemText>
             </ListItem>
             <Collapse in={feedsExpanded} className={styles.listCollapseWrapper}>
