@@ -328,7 +328,7 @@ const ProjectsComponent = ({
               { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
               <ListItemText disableTypography className={styles.listHeaderLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
-                <Can permissions={team.permissions} permission="create Project">
+                <Can permissions={team.permissions} permission="create Feed">
                   <IconButton onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-feed'].join(' ')}>
                     <AddCircleIcon />
                   </IconButton>

@@ -64,12 +64,20 @@ const submitCreateFeed = ({
   onSuccess,
 }) => {
   commitMutation(Relay.Store, {
-    // TODO: Fix mutation to append newly created feed to relay storage so it shows in sidebar
     mutation: graphql`
       mutation CreateFeedCreateFeedMutation($input: CreateFeedInput!) {
         createFeed(input: $input) {
           feed {
             dbid
+          }
+          team {
+            feeds(first: 10000) {
+              edges {
+                node {
+                  name
+                }
+              }
+            }
           }
         }
       }
