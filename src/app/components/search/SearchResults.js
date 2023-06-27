@@ -5,7 +5,6 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
 import { withStyles } from '@material-ui/core/styles';
@@ -69,6 +68,7 @@ const StyledSearchResultsWrapper = styled.div`
     .search__nav {
       padding: 0 ${units(1)} 0 0;
       display: flex;
+      font-size: 24px;
       cursor: pointer;
       color: var(--textPrimary);
     }
@@ -524,7 +524,7 @@ function SearchResultsComponent({
                   </span>
                 )}
               </Tooltip>
-              <Typography variant="button" component="span">
+              <span className="typography-button">
                 <FormattedMessage
                   id="searchResults.itemsCount"
                   defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
@@ -547,7 +547,7 @@ function SearchResultsComponent({
                   </FormattedMessage>
                   : null
                 }
-              </Typography>
+              </span>
               <Tooltip title={
                 <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
               }
