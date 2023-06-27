@@ -14,6 +14,7 @@ import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
+import TagList from '../cds/menus-lists-dialogs/TagList';
 import SchoolIcon from '../../icons/school.svg';
 import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import OpenSourceIcon from '../../icons/open_source.svg';
@@ -60,6 +61,7 @@ const submitCreateFeed = ({
   description,
   licenses,
   selectedListId,
+  tags,
   onFailure,
   onSuccess,
 }) => {
@@ -87,6 +89,7 @@ const submitCreateFeed = ({
         name: title,
         description,
         saved_search_id: selectedListId,
+        tags,
         licenses,
         published: true,
       },
@@ -103,6 +106,7 @@ const CreateFeed = () => {
   const [academicLicense, setAcademicLicense] = React.useState(false);
   const [commercialLicense, setCommercialLicense] = React.useState(false);
   const [openSourceLicense, setOpenSourceLicense] = React.useState(false);
+  const [tags, setTags] = React.useState([]);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const onSuccess = (response) => {
@@ -124,6 +128,7 @@ const CreateFeed = () => {
       description,
       licenses,
       selectedListId,
+      tags,
       onSuccess,
       onFailure,
     });
@@ -203,6 +208,10 @@ const CreateFeed = () => {
               />
             )}
           </FormattedMessage>
+          <TagList
+            tags={tags}
+            setTags={setTags}
+          />
         </div>
         <div className={styles.createFeedCard}>
           <div className="typography-subtitle2">
@@ -224,7 +233,7 @@ const CreateFeed = () => {
           />
           <SelectListQueryRenderer
             value={selectedListId}
-            onChange={e => setSelectedListId(e.target.value)}
+            onChange={e => setSelectedListId(+e.target.value)}
             helperText={(
               <span>
                 <FormattedMessage id="createFeed.selectHelper" defaultMessage="Fact-check title, summary, and URL will be shared with the feed." description="Helper text for shared feed list selector" />
