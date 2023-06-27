@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import { MultiSelector } from '@meedan/check-ui';
 import styles from './TagList.module.css';
 import Chip from '../buttons-checkboxes-chips/Chip';
+import Tooltip from '../alerts-and-prompts/Tooltip';
 import LocalOfferIcon from '../../../icons/local_offer.svg';
 import AddCircleIcon from '../../../icons/add_circle.svg';
 
@@ -115,9 +116,13 @@ const TagList = ({
         )).slice(0, maxTags)}
         {
           (tags.length > maxTags) && (
-            <Chip
-              label={`+${tags.length - maxTags}`}
-            />
+            <Tooltip title={tags.slice(maxTags).join(', ')}>
+              <div className={styles['tooltip-container']}>
+                <Chip
+                  label={`+${tags.length - maxTags}`}
+                />
+              </div>
+            </Tooltip>
           )
         }
         {

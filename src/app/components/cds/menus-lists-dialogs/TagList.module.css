@@ -61,3 +61,7 @@
   align-self: center;
   color: var(--textPlaceholder);
 }
+
+.tooltip-container {
+  border-radius: 50px;
+}
