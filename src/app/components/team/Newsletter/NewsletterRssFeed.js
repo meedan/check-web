@@ -58,7 +58,7 @@ const NewsletterRssFeed = ({
         const invalid = (!!parentErrors?.rss_feed_url || (!!error && localRssFeedUrl && localRssFeedUrl === rssFeedUrl));
         const loading = (!props && !invalid && !error);
         let articles = [];
-        if (!loading && !error) {
+        if (!loading && !error && props) {
           const rssFeedContent = props.root.current_team.smooch_bot?.smooch_bot_preview_rss_feed;
           if (rssFeedContent) {
             articles = rssFeedContent.split('\n\n');

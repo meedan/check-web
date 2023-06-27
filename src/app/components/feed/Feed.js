@@ -4,7 +4,6 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -12,6 +11,7 @@ import FeedRequestsTable from './FeedRequestsTable';
 import FeedSharingSwitch from './FeedSharingSwitch';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
+import DynamicFeedIcon from '../../icons/dynamic_feed.svg';
 
 export const FeedComponent = ({ routeParams, ...props }) => {
   const { team } = props;

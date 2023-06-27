@@ -1,0 +1,35 @@
+.search-results-header-icon,
+:global(.MuiIconButton-root).search-results-header-icon {
+  border: solid 2px var(--grayBorderMain);
+  border-radius: 8px;
+  color: var(--textSecondary);
+  display: inline-block;
+  font-size: var(--iconSizeSmall);
+  height: 32px;
+  line-height: 50%;
+  margin: 0 0 0 12px;
+  padding: 4px;
+  transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+  width: 32px;
+
+  &:hover {
+    background: var(--brandHoverAccent);
+    border-color: var(--brandBorder);
+    color: var(--textLink);
+  }
+}
+
+.project-title-icon {
+  color: var(--textSecondary);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+  font-size: 24px;
+  height: 1em;
+  margin: 0 12px 0 0;
+  width: 1em;
+}
+
+.project-title {
+  align-items: center;
+  color: var(--textSecondary);
+  display: flex;
+}
