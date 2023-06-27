@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import ProjectActions from '../drawer/Projects/ProjectActions';
+import FolderSpecialIcon from '../../icons/folder_special.svg';
 
 const ProjectGroup = ({ routeParams }) => (
   <ErrorBoundary component="ProjectGroup">

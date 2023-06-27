@@ -5,15 +5,17 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import NextIcon from '@material-ui/icons/ChevronRightRounded';
-import PrevIcon from '@material-ui/icons/ChevronLeftRounded';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Tooltip from '@material-ui/core/Tooltip';
+import cx from 'classnames/bind';
 import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
+import NextIcon from '../../icons/chevron_right.svg';
+import PrevIcon from '../../icons/chevron_left.svg';
+import FeedIcon from '../../icons/dynamic_feed.svg';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
 import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
@@ -66,6 +68,7 @@ const StyledSearchResultsWrapper = styled.div`
     .search__nav {
       padding: 0 ${units(1)} 0 0;
       display: flex;
+      font-size: 24px;
       cursor: pointer;
       color: var(--textPrimary);
     }
@@ -416,23 +419,41 @@ function SearchResultsComponent({
     );
   }
 
+  const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
+
   return (
     <React.Fragment>
       <StyledListHeader>
         <Row className="search__list-header-filter-row">
-          <div
-            className="project__title typography-h5"
-            title={title?.props?.defaultMessage || title}
-            style={{
-              color: 'var(--textSecondary)',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }
-            <span className="project__title-text">
+          <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
+            { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
+            <span className={cx('project__title-text', styles['project-title'])}>
               {title}
             </span>
+            { savedSearch?.is_part_of_feeds ?
+              <Tooltip
+                title={
+                  <>
+                    <FormattedMessage
+                      id="sharedFeedIcon.Tooltip"
+                      defaultMessage="Included in Shared Feed:"
+                      description="Tooltip for shared feeds icon"
+                    />
+                    <ul>
+                      {feeds.map(feed => (
+                        <li key={feed.id}>&bull; {feed}</li>
+                      ))}
+                    </ul>
+                  </>
+                }
+                className={styles['tooltip-icon']}
+              >
+                <div className={styles['search-results-header-icon']}>
+                  <FeedIcon id="shared-feed__icon" />
+                </div>
+              </Tooltip>
+              :
+              null }
             {listActions}
           </div>
           <SearchKeyword
@@ -503,7 +524,7 @@ function SearchResultsComponent({
                   </span>
                 )}
               </Tooltip>
-              <Typography variant="button" component="span">
+              <span className="typography-button">
                 <FormattedMessage
                   id="searchResults.itemsCount"
                   defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
@@ -526,7 +547,7 @@ function SearchResultsComponent({
                   </FormattedMessage>
                   : null
                 }
-              </Typography>
+              </span>
               <Tooltip title={
                 <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
               }
@@ -607,6 +628,9 @@ SearchResultsComponent.propTypes = {
   savedSearch: PropTypes.object, // or null
   extra: PropTypes.node, // or null
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { SearchResultsComponent as SearchResultsComponentTest };
 
 const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
   initialVariables: {

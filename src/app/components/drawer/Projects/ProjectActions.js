@@ -8,13 +8,13 @@ import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import IconMoreVert from '@material-ui/icons/MoreVert';
 import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
+import cx from 'classnames/bind';
 import ProjectMoveDialog from '../../project/ProjectMoveDialog';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import SettingsHeader from '../../team/SettingsHeader';
@@ -24,6 +24,8 @@ import { can } from '../../Can'; // eslint-disable-line import/no-duplicates
 import SelectProjectDialog from '../../media/SelectProjectDialog';
 import { units } from '../../../styles/js/shared';
 import globalStrings from '../../../globalStrings';
+import searchResultsStyles from '../../search/SearchResults.module.css';
+import IconMoreVert from '../../../icons/more_vert.svg';
 
 const ProjectActions = ({
   name,
@@ -266,7 +268,7 @@ const ProjectActions = ({
   return (
     <Can permissions={team.permissions} permission="create Project">
       <IconButton
-        className="project-actions"
+        className={cx('project-actions', searchResultsStyles['search-results-header-icon'])}
         tooltip={
           <FormattedMessage id="projectActions.tooltip" defaultMessage="Actions" />
         }
