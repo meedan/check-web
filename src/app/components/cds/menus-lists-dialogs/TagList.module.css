@@ -33,7 +33,9 @@
   font-size: var(--iconSizeSmall);
   margin-right: 4px;
   padding: 3px !important;
+}
 
+.tag-icon-editable {
   &:hover {
     background: var(--brandHoverAccent);
     color: var(--textSecondary);

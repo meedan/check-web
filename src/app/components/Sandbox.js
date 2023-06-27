@@ -37,8 +37,16 @@ const SandboxComponent = ({ admin }) => {
         />
       </div>
       <div style={{ width: '300px' }}>
-        <p className="typography-subtitle2">Basic Tags</p>
+        <p className="typography-subtitle2">Tag List</p>
         <TagList
+          tags={tags}
+          setTags={setTags}
+        />
+      </div>
+      <div style={{ width: '300px' }}>
+        <p className="typography-subtitle2">Read-Only Tag List</p>
+        <TagList
+          readOnly
           tags={tags}
           setTags={setTags}
         />

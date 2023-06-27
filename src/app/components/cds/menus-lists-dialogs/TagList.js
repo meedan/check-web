@@ -10,6 +10,7 @@ import LocalOfferIcon from '../../../icons/local_offer.svg';
 import AddCircleIcon from '../../../icons/add_circle.svg';
 
 const TagList = ({
+  readOnly,
   tags,
   setTags,
 }) => {
@@ -63,7 +64,7 @@ const TagList = ({
 
   return (
     <div className={`${styles['grid-wrapper']}`} >
-      <LocalOfferIcon className={`${styles['tag-icon']}`} onClick={handleOpenMenu} />
+      { readOnly ? <LocalOfferIcon className={`${styles['tag-icon']}`} /> : <LocalOfferIcon className={`${styles['tag-icon']} ${styles['tag-icon-editable']}`} onClick={handleOpenMenu} /> }
       <Popover
         anchorEl={anchorEl}
         open={menuOpen}
@@ -108,7 +109,7 @@ const TagList = ({
             onRemove={() => {
               deleteTag(tag);
             }}
-            removable
+            removable={readOnly}
           />
         ))}
         {
@@ -123,15 +124,17 @@ const TagList = ({
           )
         }
       </div>
-      <AddCircleIcon className={`${styles['circle-icon']}`} />
+      { !readOnly && <AddCircleIcon className={`${styles['circle-icon']}`} onClick={handleOpenMenu} /> }
     </div>
   );
 };
 
 TagList.defaultProps = {
+  readOnly: false,
 };
 
 TagList.propTypes = {
+  readOnly: PropTypes.bool,
   setTags: PropTypes.func.isRequired,
   tags: PropTypes.array.isRequired,
 };
