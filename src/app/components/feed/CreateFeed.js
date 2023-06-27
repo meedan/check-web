@@ -96,7 +96,7 @@ const CreateFeed = () => {
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [selectedListId, setSelectedListId] = React.useState(null);
-  const [published, setPublished] = React.useState(false);
+  const [published, setPublished] = React.useState(true);
   const [academicLicense, setAcademicLicense] = React.useState(false);
   const [commercialLicense, setCommercialLicense] = React.useState(false);
   const [openSourceLicense, setOpenSourceLicense] = React.useState(false);
