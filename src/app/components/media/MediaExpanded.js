@@ -45,12 +45,14 @@ class MediaExpandedComponent extends Component {
 
   render() {
     const { media, hideActions } = this.props;
+    // from https://github.com/cookpete/react-player/blob/a110aaf2f3f4e23a3ba3889fe9e8e7b96b769f59/src/patterns.js#L3
+    const youtubeRegex = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|watch\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//;
 
     const data = typeof media.media.metadata === 'string' ? JSON.parse(media.media.metadata) : media.media.metadata;
     const isImage = media.media.type === 'UploadedImage';
     const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
-    const isYoutube = media.media.url && media.domain === 'youtube.com';
-    const isYoutubeChannel = isYoutube && media.media.url.match(/youtube\.com\/(channel|c)\//);
+    const isYoutube = media.media.url && !!media.media.url.match(youtubeRegex);
+    const isYoutubeChannel = !!media.media.url?.match(/youtube\.com\/(channel|c)\//);
     let filePath = media.media.file_path;
     if (isYoutube) {
       filePath = media.media.url;
