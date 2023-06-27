@@ -13,6 +13,7 @@ const TagList = ({
   readOnly,
   tags,
   setTags,
+  maxTags,
 }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -109,9 +110,16 @@ const TagList = ({
             onRemove={() => {
               deleteTag(tag);
             }}
-            removable={readOnly}
+            removable={!readOnly}
           />
-        ))}
+        )).slice(0, maxTags)}
+        {
+          (tags.length > maxTags) && (
+            <Chip
+              label={`+${tags.length - maxTags}`}
+            />
+          )
+        }
         {
           tags.length === 0 && (
             <span className={`typography-body2-italic ${styles['empty-list']}`}>
@@ -131,12 +139,14 @@ const TagList = ({
 
 TagList.defaultProps = {
   readOnly: false,
+  maxTags: Infinity,
 };
 
 TagList.propTypes = {
   readOnly: PropTypes.bool,
   setTags: PropTypes.func.isRequired,
   tags: PropTypes.array.isRequired,
+  maxTags: PropTypes.number,
 };
 
 export default TagList;
