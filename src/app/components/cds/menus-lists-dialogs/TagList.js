@@ -108,10 +108,9 @@ const TagList = ({
           <Chip
             label={tag}
             key={tag}
-            onRemove={() => {
+            onRemove={!readOnly ? () => {
               deleteTag(tag);
-            }}
-            removable={!readOnly}
+            } : null}
           />
         )).slice(0, maxTags)}
         {

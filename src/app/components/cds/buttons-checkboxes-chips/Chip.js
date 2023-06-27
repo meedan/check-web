@@ -7,7 +7,6 @@ import CancelFillIcon from '../../../icons/cancel_fill.svg';
 const Chip = ({
   label,
   onRemove,
-  removable,
 }) => {
   const handleRemove = () => {
     onRemove();
@@ -18,7 +17,7 @@ const Chip = ({
       className={`${styles['chip-container']} typography-body2`}
     >
       <span>{label}</span>
-      { removable && (
+      { onRemove && (
         <IconButton
           onClick={handleRemove}
           className={styles['delete-button']}
@@ -31,13 +30,11 @@ const Chip = ({
 };
 
 Chip.defaultProps = {
-  removable: false,
-  onRemove: () => {},
+  onRemove: null,
 };
 
 Chip.propTypes = {
   onRemove: PropTypes.func,
-  removable: PropTypes.bool,
   label: PropTypes.string.isRequired,
 };
 

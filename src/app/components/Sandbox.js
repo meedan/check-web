@@ -33,7 +33,7 @@ const SandboxComponent = ({ admin }) => {
         <p className="typography-subtitle2">Removable Chip</p>
         <Chip
           label="Tag Name"
-          removable
+          onRemove={() => {}}
         />
       </div>
       <div style={{ width: '300px' }}>
