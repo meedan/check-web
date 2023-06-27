@@ -19,6 +19,15 @@
   }
 }
 
+.project-title-icon {
+  color: var(--textSecondary);
+  /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+  font-size: 24px;
+  height: 1em;
+  margin: 0 12px 0 0;
+  width: 1em;
+}
+
 .project-title {
   align-items: center;
   color: var(--textSecondary);

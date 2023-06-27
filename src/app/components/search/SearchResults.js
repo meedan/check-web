@@ -426,7 +426,7 @@ function SearchResultsComponent({
       <StyledListHeader>
         <Row className="search__list-header-filter-row">
           <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
-            { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }
+            { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
             <span className={cx('project__title-text', styles['project-title'])}>
               {title}
             </span>

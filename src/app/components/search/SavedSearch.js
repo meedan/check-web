@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import ListIcon from '@material-ui/icons/List';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import ProjectActions from '../drawer/Projects/ProjectActions';
+import ListIcon from '../../icons/list.svg';
 
 const SavedSearch = ({ routeParams }) => (
   <ErrorBoundary component="SavedSearch">
