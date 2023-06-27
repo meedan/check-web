@@ -1,12 +1,26 @@
-.tooltip-icon {
+.search-results-header-icon,
+:global(.MuiIconButton-root).search-results-header-icon {
+  border: solid 2px var(--grayBorderMain);
+  border-radius: 8px;
   color: var(--textSecondary);
   display: inline-block;
   font-size: var(--iconSizeSmall);
-  margin: 0 0 1px 6px;
-  vertical-align: middle;
+  height: 32px;
+  line-height: 50%;
+  margin: 0 0 0 12px;
+  padding: 4px;
+  transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+  width: 32px;
+
+  &:hover {
+    background: var(--brandHoverAccent);
+    border-color: var(--brandBorder);
+    color: var(--textLink);
+  }
 }
 
-.tooltip-icon:hover {
-  background: var(--brandHoverAccent);
-  color: var(--brandSecondary);
+.project-title {
+  align-items: center;
+  color: var(--textSecondary);
+  display: flex;
 }

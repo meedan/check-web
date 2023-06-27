@@ -5,14 +5,15 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import NextIcon from '@material-ui/icons/ChevronRightRounded';
-import PrevIcon from '@material-ui/icons/ChevronLeftRounded';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import cx from 'classnames/bind';
 import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
+import NextIcon from '../../icons/chevron_right.svg';
+import PrevIcon from '../../icons/chevron_left.svg';
 import FeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './SearchResults.module.css';
@@ -424,16 +425,9 @@ function SearchResultsComponent({
     <React.Fragment>
       <StyledListHeader>
         <Row className="search__list-header-filter-row">
-          <div
-            className="project__title typography-h5"
-            style={{
-              color: 'var(--textSecondary)',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
+          <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
             { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }
-            <span className="project__title-text">
+            <span className={cx('project__title-text', styles['project-title'])}>
               {title}
             </span>
             { savedSearch?.is_part_of_feeds ?
@@ -454,7 +448,9 @@ function SearchResultsComponent({
                 }
                 className={styles['tooltip-icon']}
               >
-                <Box display="flex" alignItems="center" ml={2} ><FeedIcon id="shared-feed__icon" /></Box>
+                <div className={styles['search-results-header-icon']}>
+                  <FeedIcon id="shared-feed__icon" />
+                </div>
               </Tooltip>
               :
               null }
