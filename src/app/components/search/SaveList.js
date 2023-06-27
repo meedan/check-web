@@ -16,6 +16,7 @@ import ListIcon from '@material-ui/icons/List';
 import { FormattedMessage } from 'react-intl';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../FlashMessage';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import CheckChannels from '../../CheckChannels';
 
 const createMutation = graphql`
@@ -298,6 +299,8 @@ const SaveList = ({
     }
   };
 
+  const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
+
   return (
     <React.Fragment>
 
@@ -359,12 +362,30 @@ const SaveList = ({
           body={
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
-                { savedSearch ?
-                  <FormControlLabel
-                    value="UPDATE"
-                    control={<Radio />}
-                    label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
-                  /> :
+                { savedSearch?.is_part_of_feeds ?
+                  <>
+                    <FormControlLabel
+                      value="UPDATE"
+                      control={<Radio />}
+                      label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
+                    />
+                    { savedSearch?.is_part_of_feeds ?
+                      <Alert
+                        type="warning"
+                        title={
+                          <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
+                        }
+                        content={
+                          <ul>
+                            {feeds.map(feed => (
+                              <li key={feed?.id}>&bull; {feed}</li>
+                            ))}
+                          </ul>
+                        }
+                      />
+                      : null}
+                  </>
+                  :
                   <FormControlLabel
                     value="UPDATE_SPECIAL_PAGE"
                     control={<Radio />}
