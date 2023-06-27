@@ -18,13 +18,6 @@ import SchoolIcon from '../../icons/school.svg';
 import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import OpenSourceIcon from '../../icons/open_source.svg';
 
-/*
-  TODO
-  - Review with Brian
-    - Verify proper casing
-      - Review copy? (license ... can do with your code)
-*/
-
 const LicenseOption = ({
   icon,
   title,
@@ -42,15 +35,17 @@ const LicenseOption = ({
       <div className={`typography-subtitle2 ${checked ? null : styles.licenseOptionDisabled}`}>
         {title}
       </div>
-      <span className={checked ? styles.licenseOptionDescription : styles.licenseOptionDisabled}>{description}</span>
-      {url && (
-        <>
-          &nbsp;
-          <ExternalLink url={url}>
-            <FormattedMessage id="createFeed.licenseDetails" defaultMessage="License details" description="Link to external page with license details" />
-          </ExternalLink>
-        </>
-      )}
+      <span className={`typography-body2 ${checked ? styles.licenseOptionDescription : styles.licenseOptionDisabled}`}>
+        {description}
+        {url && (
+          <>
+            &nbsp;
+            <ExternalLink url={url}>
+              <FormattedMessage id="createFeed.licenseDetails" defaultMessage="License details" description="Link to external page with license details" />
+            </ExternalLink>
+          </>
+        )}
+      </span>
     </div>
   </div>
 );
@@ -62,6 +57,7 @@ const submitCreateFeed = ({
   selectedListId,
   onFailure,
   onSuccess,
+  published,
 }) => {
   commitMutation(Relay.Store, {
     mutation: graphql`
@@ -88,7 +84,7 @@ const submitCreateFeed = ({
         description,
         saved_search_id: selectedListId,
         licenses,
-        published: true,
+        published,
       },
     },
     onCompleted: onSuccess,
@@ -100,6 +96,7 @@ const CreateFeed = () => {
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [selectedListId, setSelectedListId] = React.useState(null);
+  const [published, setPublished] = React.useState(false);
   const [academicLicense, setAcademicLicense] = React.useState(false);
   const [commercialLicense, setCommercialLicense] = React.useState(false);
   const [openSourceLicense, setOpenSourceLicense] = React.useState(false);
@@ -124,6 +121,7 @@ const CreateFeed = () => {
       description,
       licenses,
       selectedListId,
+      published,
       onSuccess,
       onFailure,
     });
@@ -212,19 +210,23 @@ const CreateFeed = () => {
               description="Title of section where a list can be selected as the content of the feed"
             />
           </div>
-          <FormattedMessage
-            id="createFeed.feedContentBlurb"
-            defaultMessage="Select a filtered list of fact-checks from your workspace to contribute to this shared feed. You will be able to update this list at any time."
-            description="Helper text for the feed content section"
-          />
-          <FormattedHTMLMessage
-            id="createFeed.feedContentBlurb2"
-            defaultMessage="<strong>Note:</strong> Your list must contain <strong>published fact-checks</strong> in order to be part of this shared feed."
-            description="Helper text for the feed content section"
-          />
+          <div className="typography-body2">
+            <FormattedMessage
+              id="createFeed.feedContentBlurb"
+              defaultMessage="Select a filtered list of fact-checks from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+              description="Helper text for the feed content section"
+            />
+          </div>
+          <div className="typography-body2">
+            <FormattedHTMLMessage
+              id="createFeed.feedContentBlurb2"
+              defaultMessage="<strong>Note:</strong> Your list must contain <strong>published fact-checks</strong> in order to be part of this shared feed."
+              description="Helper text for the feed content section"
+            />
+          </div>
           <SelectListQueryRenderer
             value={selectedListId}
-            onChange={e => setSelectedListId(e.target.value)}
+            onChange={e => setSelectedListId(+e.target.value)}
             helperText={(
               <span>
                 <FormattedMessage id="createFeed.selectHelper" defaultMessage="Fact-check title, summary, and URL will be shared with the feed." description="Helper text for shared feed list selector" />
@@ -244,7 +246,7 @@ const CreateFeed = () => {
               description="Title of the section where the publishing preferences are set"
             />
           </div>
-          <span>
+          <span className="typography-body2">
             <FormattedMessage
               id="createFeed.publishBlurb"
               defaultMessage="Make this shared feed discoverable by publishing it to the Marketplace."
@@ -267,67 +269,71 @@ const CreateFeed = () => {
                 description="Label for a switch where the user publishes a feed"
               />
             }
-            checked
-            onChange={() => {}}
+            checked={published}
+            onChange={() => setPublished(!published)}
           />
-          <div className="typography-subtitle2">
-            <FormattedMessage
-              id="createFeed.licenseTitle"
-              defaultMessage="License"
-              description="Title of the section where the publishing preferences such as licenses are selected"
-            />
-          </div>
-          <span>
-            <FormattedMessage
-              id="createFeed.licenseBlurb"
-              defaultMessage="A license tells others what they can and can't do with your code."
-              description="Helper text for the license section"
-            />
-            &nbsp;
-            <ExternalLink url="http://www.meedan.com">{ /* FIXME: Update url */}
-              <FormattedMessage
-                id="createFeed.learnMoreLicenses"
-                defaultMessage="Learn more about licenses."
-                description="Link to and external page with more information about the data licenses"
+          { published ?
+            <div className={styles.licenseSection}>
+              <div className="typography-subtitle2">
+                <FormattedMessage
+                  id="createFeed.licenseTitle"
+                  defaultMessage="License"
+                  description="Title of the section where the publishing preferences such as licenses are selected"
+                />
+              </div>
+              <span className="typography-body2">
+                <FormattedMessage
+                  id="createFeed.licenseBlurb"
+                  defaultMessage="A license tells others what they can and can't do with your code."
+                  description="Helper text for the license section"
+                />
+                &nbsp;
+                <ExternalLink url="http://www.meedan.com">{ /* FIXME: Update url */}
+                  <FormattedMessage
+                    id="createFeed.learnMoreLicenses"
+                    defaultMessage="Learn more about licenses."
+                    description="Link to and external page with more information about the data licenses"
+                  />
+                </ExternalLink>
+              </span>
+              <LicenseOption
+                icon={<SchoolIcon />}
+                title={<FormattedMessage
+                  id="createFeed.licenseAcademic"
+                  defaultMessage="Academic"
+                  description="Label for the academic licensing of shared feed data"
+                />}
+                checked={academicLicense}
+                onChange={() => setAcademicLicense(!academicLicense)}
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
+                url="http://www.meedan.com"
               />
-            </ExternalLink>
-          </span>
-          <LicenseOption
-            icon={<SchoolIcon />}
-            title={<FormattedMessage
-              id="createFeed.licenseAcademic"
-              defaultMessage="Academic"
-              description="Label for the academic licensing of shared feed data"
-            />}
-            checked={academicLicense}
-            onChange={() => setAcademicLicense(!academicLicense)}
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
-            url="http://www.meedan.com"
-          />
-          <LicenseOption
-            icon={<CorporateFareIcon />}
-            title={<FormattedMessage
-              id="createFeed.licenseCommercial"
-              defaultMessage="Commercial"
-              description="Label for the academic licensing of shared feed data"
-            />}
-            checked={commercialLicense}
-            onChange={() => setCommercialLicense(!commercialLicense)}
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
-            url="http://www.meedan.com"
-          />
-          <LicenseOption
-            icon={<OpenSourceIcon />}
-            title={<FormattedMessage
-              id="createFeed.licenseOpenSource"
-              defaultMessage="Open source"
-              description="Label for the academic licensing of shared feed data"
-            />}
-            checked={openSourceLicense}
-            onChange={() => setOpenSourceLicense(!openSourceLicense)}
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
-            url="http://www.meedan.com"
-          />
+              <LicenseOption
+                icon={<CorporateFareIcon />}
+                title={<FormattedMessage
+                  id="createFeed.licenseCommercial"
+                  defaultMessage="Commercial"
+                  description="Label for the academic licensing of shared feed data"
+                />}
+                checked={commercialLicense}
+                onChange={() => setCommercialLicense(!commercialLicense)}
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
+                url="http://www.meedan.com"
+              />
+              <LicenseOption
+                icon={<OpenSourceIcon />}
+                title={<FormattedMessage
+                  id="createFeed.licenseOpenSource"
+                  defaultMessage="Open source"
+                  description="Label for the academic licensing of shared feed data"
+                />}
+                checked={openSourceLicense}
+                onChange={() => setOpenSourceLicense(!openSourceLicense)}
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
+                url="http://www.meedan.com"
+              />
+            </div>
+            : null }
         </div>
       </div>
       <div className={styles.createFeedContentNarrow}>

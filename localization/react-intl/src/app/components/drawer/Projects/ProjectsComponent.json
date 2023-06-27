@@ -40,6 +40,11 @@
     "defaultMessage": "Custom Lists"
   },
   {
+    "id": "projectsComponent.newListButton",
+    "description": "Tooltip for button that opens list creation dialog",
+    "defaultMessage": "New list"
+  },
+  {
     "id": "projectsComponent.noCustomLists",
     "description": "Displayed under the custom list header when there are no lists in it",
     "defaultMessage": "No custom lists"
@@ -50,9 +55,19 @@
     "defaultMessage": "Shared feeds"
   },
   {
+    "id": "projectsComponent.newSharedFeed",
+    "description": "Tooltip for the button that navigates to shared feed creation page",
+    "defaultMessage": "New shared feed"
+  },
+  {
     "id": "projectsComponent.folders",
     "description": "Label for a collapsable panel displayed on the left sidebar.",
     "defaultMessage": "Folders"
+  },
+  {
+    "id": "projectsComponent.newFolderOrCollection",
+    "description": "Tooltip for the button opens the new folder or collection menu",
+    "defaultMessage": "New folder or collection"
   },
   {
     "id": "projectsComponent.newFolderMenu",
