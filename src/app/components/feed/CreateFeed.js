@@ -14,6 +14,7 @@ import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
+import TagList from '../cds/menus-lists-dialogs/TagList';
 import SchoolIcon from '../../icons/school.svg';
 import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import OpenSourceIcon from '../../icons/open_source.svg';
@@ -55,6 +56,7 @@ const submitCreateFeed = ({
   description,
   licenses,
   selectedListId,
+  tags,
   onFailure,
   onSuccess,
   published,
@@ -83,6 +85,7 @@ const submitCreateFeed = ({
         name: title,
         description,
         saved_search_id: selectedListId,
+        tags,
         licenses,
         published,
       },
@@ -100,6 +103,7 @@ const CreateFeed = () => {
   const [academicLicense, setAcademicLicense] = React.useState(false);
   const [commercialLicense, setCommercialLicense] = React.useState(false);
   const [openSourceLicense, setOpenSourceLicense] = React.useState(false);
+  const [tags, setTags] = React.useState([]);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const onSuccess = (response) => {
@@ -121,6 +125,7 @@ const CreateFeed = () => {
       description,
       licenses,
       selectedListId,
+      tags,
       published,
       onSuccess,
       onFailure,
@@ -201,6 +206,10 @@ const CreateFeed = () => {
               />
             )}
           </FormattedMessage>
+          <TagList
+            tags={tags}
+            setTags={setTags}
+          />
         </div>
         <div className={styles.createFeedCard}>
           <div className="typography-subtitle2">
