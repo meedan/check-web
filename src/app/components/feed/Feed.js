@@ -71,7 +71,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
       {/* For a "published" feed, it's just all the fact-checks from the workspaces */}
       { tab === 'feed' && feed.published ?
-        <div id="feed__fact-checks" className="search-results-wrapper">
+        <div id="feed__fact-checks" className="feed__fact-checks search-results-wrapper">
           <Search
             mediaUrlPrefix="media"
             query={{

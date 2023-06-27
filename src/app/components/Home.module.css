@@ -20,9 +20,21 @@
   height: 100%;
   width: 100%;
 
+  &:global(.route__feed) {
+    overflow: auto;
+  }
+
   :global(.search-results-wrapper) {
     display: flex;
     flex-direction: column;
     height: 100%;
+  }
+
+  :global(.feed__fact-checks) {
+    height: auto;
+
+    :global(.search__results) {
+      overflow: visible;
+    }
   }
 }

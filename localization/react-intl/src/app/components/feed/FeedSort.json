@@ -1,0 +1,17 @@
+[
+  {
+    "id": "feedSort.sort",
+    "description": "Label for sort criteria drop-down field displayed on fact-checks page.",
+    "defaultMessage": "Sort"
+  },
+  {
+    "id": "feedSort.date",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Date updated"
+  },
+  {
+    "id": "feedSort.status",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Rating"
+  }
+]

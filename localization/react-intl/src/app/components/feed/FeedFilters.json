@@ -27,7 +27,7 @@
   {
     "id": "feedFilters.applyFilters",
     "description": "Button to perform query with specified filters",
-    "defaultMessage": "Apply filters"
+    "defaultMessage": "Apply filter"
   },
   {
     "id": "feedFilters.clear",

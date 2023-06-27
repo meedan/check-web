@@ -20,6 +20,7 @@ import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
 import FeedBlankState from '../feed/FeedBlankState';
+import ListSort from '../cds/inputs/ListSort';
 import { units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchResultsCards from './SearchResultsCards';
@@ -59,6 +60,7 @@ const StyledSearchResultsWrapper = styled.div`
     text-align: center;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     .search__selected {
       color: var(--brandMain);
@@ -75,6 +77,11 @@ const StyledSearchResultsWrapper = styled.div`
     .search__button-disabled {
       color: var(--textPlaceholder);
       cursor: not-allowed;
+    }
+
+    .search__pagination {
+      display: flex;
+      align-items: center;
     }
   }
 `;
@@ -501,72 +508,83 @@ function SearchResultsComponent({
         <Toolbar
           resultType={resultType}
           team={team}
-          actions={projectMedias.length && selectedProjectMedia.length ?
-            <BulkActions
-              team={team}
-              page={page}
-              project={project}
-              selectedProjectMedia={selectedProjectMedia}
-              selectedMedia={filteredSelectedProjectMediaIds}
-              onUnselectAll={onUnselectAll}
-            /> : null}
+          actions={
+            projectMedias.length && selectedProjectMedia.length ?
+              <BulkActions
+                team={team}
+                page={page}
+                project={project}
+                selectedProjectMedia={selectedProjectMedia}
+                selectedMedia={filteredSelectedProjectMediaIds}
+                onUnselectAll={onUnselectAll}
+              /> : null
+          }
           title={count ?
             <span className="search__results-heading">
-              <Tooltip title={
-                <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
+              { resultType === 'factCheck' && feed ?
+                <ListSort
+                  sort={query.sort}
+                  sortType={query.sort_type}
+                  onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
+                /> : null
               }
-              >
-                {getPreviousPageLocation() ? (
-                  <Link
-                    className="search__previous-page search__nav"
-                    to={getPreviousPageLocation()}
-                  >
-                    <PrevIcon />
-                  </Link>
-                ) : (
-                  <span className="search__previous-page search__nav search__button-disabled">
-                    <PrevIcon />
-                  </span>
-                )}
-              </Tooltip>
-              <Typography variant="button" component="span">
-                <FormattedMessage
-                  id="searchResults.itemsCount"
-                  defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                  values={{
-                    from: getBeginIndex() + 1,
-                    to: getEndIndex(),
-                    count,
-                  }}
-                />
-                {filteredSelectedProjectMediaIds.length ?
-                  <FormattedMessage
-                    id="searchResults.withSelection"
-                    defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                    description="Label for number of selected items"
-                    values={{
-                      selectedCount: filteredSelectedProjectMediaIds.length,
-                    }}
-                  >
-                    {txt => <span className="search__selected">{txt}</span>}
-                  </FormattedMessage>
-                  : null
+              <span className="search__pagination">
+                <Tooltip title={
+                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
                 }
-              </Typography>
-              <Tooltip title={
-                <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
-              }
-              >
-                {getNextPageLocation() ? (
-                  <Link className="search__next-page search__nav" to={getNextPageLocation()}>
-                    <NextIcon />
-                  </Link>
-                ) : (
-                  <span className="search__next-page search__nav search__button-disabled">
-                    <NextIcon />
-                  </span>
-                )}
-              </Tooltip>
+                >
+                  {getPreviousPageLocation() ? (
+                    <Link
+                      className="search__previous-page search__nav"
+                      to={getPreviousPageLocation()}
+                    >
+                      <PrevIcon />
+                    </Link>
+                  ) : (
+                    <span className="search__previous-page search__nav search__button-disabled">
+                      <PrevIcon />
+                    </span>
+                  )}
+                </Tooltip>
+                <Typography variant="button" component="span">
+                  <FormattedMessage
+                    id="searchResults.itemsCount"
+                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                    values={{
+                      from: getBeginIndex() + 1,
+                      to: getEndIndex(),
+                      count,
+                    }}
+                  />
+                  {filteredSelectedProjectMediaIds.length ?
+                    <FormattedMessage
+                      id="searchResults.withSelection"
+                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                      description="Label for number of selected items"
+                      values={{
+                        selectedCount: filteredSelectedProjectMediaIds.length,
+                      }}
+                    >
+                      {txt => <span className="search__selected">{txt}</span>}
+                    </FormattedMessage>
+                    : null
+                  }
+                </Typography>
+                <Tooltip title={
+                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
+                }
+                >
+                  {getNextPageLocation() ? (
+                    <Link className="search__next-page search__nav" to={getNextPageLocation()}>
+                      <NextIcon />
+                    </Link>
+                  ) : (
+                    <span className="search__next-page search__nav search__button-disabled">
+                      <NextIcon />
+                    </span>
+                  )}
+                </Tooltip>
+              </span>
             </span> : null
           }
           project={project}
