@@ -507,25 +507,27 @@ function SearchResultsComponent({
             : null}
         </>
       </StyledListHeader>
-      { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
-      <Box m={2}>
-        <SearchFields
-          query={query}
-          setQuery={setQuery}
-          onChange={handleChangeQuery}
-          project={project}
-          projectGroup={projectGroup}
-          feedTeam={feedTeam}
-          feed={feed}
-          savedSearch={savedSearch}
-          hideFields={hideFields}
-          readOnlyFields={readOnlyFields}
-          title={title}
-          team={team}
-          page={page}
-          handleSubmit={handleSubmit}
-        />
-      </Box>
+      <div className="search__results-top">
+        { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
+        <Box m={2}>
+          <SearchFields
+            query={query}
+            setQuery={setQuery}
+            onChange={handleChangeQuery}
+            project={project}
+            projectGroup={projectGroup}
+            feedTeam={feedTeam}
+            feed={feed}
+            savedSearch={savedSearch}
+            hideFields={hideFields}
+            readOnlyFields={readOnlyFields}
+            title={title}
+            team={team}
+            page={page}
+            handleSubmit={handleSubmit}
+          />
+        </Box>
+      </div>
       <StyledSearchResultsWrapper className="search__results results">
         <Toolbar
           resultType={resultType}

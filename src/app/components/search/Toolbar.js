@@ -22,6 +22,7 @@ const StyledToolbar = styled.div`
   }
 
   &.toolbar__factCheck {
+    border-radius: 8px 8px 0 0;
     min-height: auto;
     position: sticky;
     top: 0;

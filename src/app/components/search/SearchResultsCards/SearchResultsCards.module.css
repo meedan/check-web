@@ -1,8 +1,12 @@
 .searchResultsCards {
+  background: var(--otherWhite);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 16px;
+  min-height: calc(100vh - 317px);
   overflow: auto;
   padding: 0 16px;
+
+  :global(.fact-check-card-wrapper) {
+    margin-bottom: 16px;
+  }
 }
