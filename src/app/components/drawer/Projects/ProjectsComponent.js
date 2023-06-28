@@ -327,22 +327,29 @@ const ProjectsComponent = ({
         </React.Fragment>
 
         {/* Shared feeds */}
-        { feeds.length > 0 &&
-          <React.Fragment>
-            <ListItem onClick={handleToggleFeedsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
-              { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-              <ListItemText disableTypography className={styles.listHeaderLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
-                <Can permissions={team.permissions} permission="create Feed">
-                  <Tooltip title={<FormattedMessage id="projectsComponent.newSharedFeed" defaultMessage="New shared feed" description="Tooltip for the button that navigates to shared feed creation page" />}>
-                    <IconButton onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-feed'].join(' ')}>
-                      <AddCircleIcon />
-                    </IconButton>
-                  </Tooltip>
-                </Can>
+        <ListItem onClick={handleToggleFeedsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
+          { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
+          <ListItemText disableTypography className={styles.listHeaderLabel}>
+            <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
+            <Can permissions={team.permissions} permission="create Feed">
+              <Tooltip title={<FormattedMessage id="projectsComponent.newSharedFeed" defaultMessage="New shared feed" description="Tooltip for the button that navigates to shared feed creation page" />}>
+                <IconButton onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-feed'].join(' ')}>
+                  <AddCircleIcon />
+                </IconButton>
+              </Tooltip>
+            </Can>
+          </ListItemText>
+        </ListItem>
+        <Collapse in={feedsExpanded} className={styles.listCollapseWrapper}>
+          { feeds.length === 0 ?
+            <ListItem className={[styles.listItem, styles.listItem_containsCount, styles.listItem_empty].join(' ')}>
+              <ListItemText disableTypography className={styles.listLabel}>
+                <span>
+                  <FormattedMessage tagName="em" id="projectsComponent.noSharedFeeds" defaultMessage="No shared feeds" description="Displayed under the shared feed header when there are no feeds in it" />
+                </span>
               </ListItemText>
-            </ListItem>
-            <Collapse in={feedsExpanded} className={styles.listCollapseWrapper}>
+            </ListItem> :
+            <>
               {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
                 <ProjectsListItem
                   key={feed.id}
@@ -354,9 +361,9 @@ const ProjectsComponent = ({
                   isActive={isActive('feed', feed.dbid)}
                 />
               ))}
-            </Collapse>
-          </React.Fragment>
-        }
+            </>
+          }
+        </Collapse>
 
         {/* Folders: create new folder or collection */}
         <ListItem onClick={handleToggleFoldersExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
