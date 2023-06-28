@@ -4,39 +4,13 @@ import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import CheckFeedLicenses from '../../CheckFeedLicenses';
+import SettingsIcon from '../../icons/settings.svg';
+import { getLicenseIcon, getLicenseTranslatedName, getLicenseName } from '../../CheckFeedLicenses';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
-import SchoolIcon from '../../icons/school.svg';
-import CorporateFareIcon from '../../icons/corporate_fare.svg';
-import OpenSourceIcon from '../../icons/open_source.svg';
 import Can from '../Can';
 import styles from './FeedHeader.module.css';
 
-// Returns 'ACADEMIC', 'COMMERCIAL', 'OPEN_SOURCE' or 'UNKNOWN'
-function getLicenseName(licenseId) {
-  let name = 'UNKNOWN';
-  Object.keys(CheckFeedLicenses).forEach((licenseName) => {
-    if (licenseId === CheckFeedLicenses[licenseName]) {
-      name = licenseName;
-    }
-  });
-  return name;
-}
-
 const FeedHeader = ({ feed }) => {
-  const getLicenseIcon = licenseName => ({
-    ACADEMIC: <SchoolIcon />,
-    COMMERCIAL: <CorporateFareIcon />,
-    OPEN_SOURCE: <OpenSourceIcon />,
-  }[licenseName]);
-
-  const getLicenseTranslatedName = licenseName => ({
-    ACADEMIC: <FormattedMessage id="feedHeader.licenseNameAcademic" defaultMessage="Academic" description="Feed license" />,
-    COMMERCIAL: <FormattedMessage id="feedHeader.licenseNameCommercial" defaultMessage="Commercial" description="Feed license" />,
-    OPEN_SOURCE: <FormattedMessage id="feedHeader.licenseNameOpenSource" defaultMessage="Open Source" description="Feed license" />,
-  }[licenseName]);
-
   const handleClickLicense = () => {
     window.open('https://meedan.com'); // FIXME: Open page about the license
   };
@@ -94,7 +68,7 @@ const FeedHeader = ({ feed }) => {
               arrow
             >
               <IconButton onClick={handleClickSettings} className={styles.feedHeaderIcon}>
-                <SettingsOutlinedIcon />
+                <SettingsIcon />
               </IconButton>
             </Tooltip>
           </Can>

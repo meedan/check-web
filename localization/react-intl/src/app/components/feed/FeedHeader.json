@@ -1,20 +1,5 @@
 [
   {
-    "id": "feedHeader.licenseNameAcademic",
-    "description": "Feed license",
-    "defaultMessage": "Academic"
-  },
-  {
-    "id": "feedHeader.licenseNameCommercial",
-    "description": "Feed license",
-    "defaultMessage": "Commercial"
-  },
-  {
-    "id": "feedHeader.licenseNameOpenSource",
-    "description": "Feed license",
-    "defaultMessage": "Open Source"
-  },
-  {
     "id": "feedHeader.sharedFeed",
     "description": "Displayed on top of the feed title on the feed page.",
     "defaultMessage": "Shared Feed"

@@ -29,7 +29,7 @@ const FeedTopBar = ({ team, feed }) => {
             <div className="feed-top-bar-list">
               <span className={styles.feedListTitle}>{feed.saved_search.title}</span>
               <Can permissions={feed.permissions} permission="update Feed">
-                <IconButton size="small" onClick={handleClick} className={styles.feedListIcon}><ShareOutlinedIcon style={{ fontSize: 12 }} /></IconButton>
+                <IconButton size="small" onClick={handleClick} className={styles.feedListIcon}><ShareOutlinedIcon style={{ fontSize: 16 }} /></IconButton>
               </Can>
             </div> :
             <span className={styles.feedNoListTitle}><FormattedMessage id="feedTopBar.noListSelected" defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." /></span>

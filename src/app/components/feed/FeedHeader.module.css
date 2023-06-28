@@ -27,6 +27,7 @@
     border: 2px solid var(--grayBorderMain);
     border-radius: 8px;
     color: var(--textSecondary);
+    font-size: var(--iconSizeSmall);
     height: 32px;
     width: 32px;
 
