@@ -20,6 +20,7 @@ import ImportedReports from './team/ImportedReports';
 import SuggestedMatches from './team/SuggestedMatches';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
+import CreateFeed from './feed/CreateFeed';
 import Feed from './feed/Feed';
 import FeedItem from './feed/FeedItem';
 import FeedClusterPage from './feed/FeedClusterPage';
@@ -31,6 +32,7 @@ import ProjectGroup from './project/ProjectGroup';
 import SavedSearch from './search/SavedSearch';
 import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
+import Sandbox from './Sandbox';
 
 class Root extends Component {
   static logPageView() {
@@ -71,6 +73,7 @@ class Root extends Component {
                   <Route path="check/user/:userId/edit" isEditing component={User} />
                   <Route path="check/user/:userId(/:tab)" component={User} />
                   <Route path="check/me/edit" isEditing component={Me} />
+                  <Route path="check/me/ui-sandbox" component={Sandbox} />
                   <Route path="check/me(/:tab)" component={Me} />
                   <Route path="check/feed/:feedId/cluster/:clusterId" component={FeedItem} />
                   <Route path="check/feed/:feedId/request/:requestId" component={FeedClusterPage} />
@@ -102,6 +105,7 @@ class Root extends Component {
                   <Route path=":team/imported-fact-checks(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
+                  <Route path=":team/feed/create" component={CreateFeed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
                   <Route path="*" component={NotFound} public />
