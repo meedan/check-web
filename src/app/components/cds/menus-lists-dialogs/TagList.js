@@ -66,7 +66,7 @@ const TagList = ({
 
   return (
     <div className={`${styles['grid-wrapper']}`} >
-      { readOnly ? <LocalOfferIcon className={`${styles['tag-icon']}`} /> : <LocalOfferIcon className={`${styles['tag-icon']} ${styles['tag-icon-editable']}`} onClick={handleOpenMenu} /> }
+      { readOnly ? <LocalOfferIcon id="tag-list__tag-icon" className={`${styles['tag-icon']}`} /> : <LocalOfferIcon id="tag-list__tag-icon" className={`${styles['tag-icon']} ${styles['tag-icon-editable']}`} onClick={handleOpenMenu} /> }
       <Popover
         anchorEl={anchorEl}
         open={menuOpen}
@@ -116,7 +116,7 @@ const TagList = ({
         {
           (tags.length > maxTags) && (
             <Tooltip title={tags.slice(maxTags).join(', ')}>
-              <div className={styles['tooltip-container']}>
+              <div id="hidden-tags" className={styles['tooltip-container']}>
                 <Chip
                   label={`+${tags.length - maxTags}`}
                 />
@@ -126,7 +126,7 @@ const TagList = ({
         }
         {
           tags.length === 0 && (
-            <span className={`typography-body2-italic ${styles['empty-list']}`}>
+            <span id="empty-list" className={`typography-body2-italic ${styles['empty-list']}`}>
               <FormattedMessage
                 id="tagList.empty"
                 defaultMessage="0 tags"
@@ -136,7 +136,7 @@ const TagList = ({
           )
         }
       </div>
-      { !readOnly && <AddCircleIcon className={`${styles['circle-icon']}`} onClick={handleOpenMenu} /> }
+      { !readOnly && <AddCircleIcon id="tag-list__add-icon" className={`${styles['circle-icon']}`} onClick={handleOpenMenu} /> }
     </div>
   );
 };
