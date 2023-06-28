@@ -17,8 +17,21 @@ const StyledToolbar = styled.div`
     margin: ${units(2)};
   }
 
-  .toolbar__row {
+  .toolbar__flex-row {
     height: 100%;
+  }
+
+  &.toolbar__factCheck {
+    border-radius: 8px 8px 0 0;
+    min-height: auto;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
+
+    .toolbar__row, .toolbar__title {
+      width: 100%;
+    }
   }
 `;
 
@@ -45,9 +58,9 @@ const Toolbar = ({
   }
 
   return (
-    <StyledToolbar className="toolbar">
-      <FlexRow className="toolbar__row">
-        <Row>
+    <StyledToolbar className={`toolbar toolbar__${resultType}`}>
+      <FlexRow className="toolbar__flex-row">
+        <Row className="toolbar__row">
           {similarAction}
           <span className="toolbar__title">{title}</span>
           {actions}

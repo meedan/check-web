@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { withStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
 import FolderIcon from '@material-ui/icons/Folder';
@@ -25,12 +22,7 @@ import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import NumberIcon from '../../icons/numbers.svg';
-
-const StyledButton = withStyles({
-  root: {
-    height: '36px',
-  },
-})(Button);
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 const AddFilterMenu = ({
   team,
@@ -137,7 +129,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.itemStatus"
-        defaultMessage="Item status"
+        defaultMessage="Rating"
         description="Menu option to enable searching items by item status"
       />
     ),
@@ -342,18 +334,19 @@ const AddFilterMenu = ({
 
   return (
     <React.Fragment>
-      <StyledButton
-        id="add-filter-menu__open-button"
-        startIcon={<AddIcon />}
+      <ButtonMain
         onClick={e => setAnchorEl(e.currentTarget)}
-        size="small"
-      >
-        <FormattedMessage
-          id="addFilterMenu.addFilter"
-          defaultMessage="Add filter"
-          description="Button that opens menu with filter field options"
-        />
-      </StyledButton>
+        label={
+          <FormattedMessage
+            id="addFilterMenu.addFilter"
+            defaultMessage="Add filter"
+            description="Button that opens menu with filter field options"
+          />
+        }
+        buttonProps={{
+          id: 'add-filter-menu__open-button',
+        }}
+      />
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

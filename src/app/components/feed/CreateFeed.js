@@ -109,7 +109,7 @@ const CreateFeed = () => {
   const onSuccess = (response) => {
     const { dbid } = response.createFeed.feed;
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-    browserHistory.push(`/${teamSlug}/feed/${dbid}/shared`);
+    browserHistory.push(`/${teamSlug}/feed/${dbid}/feed`);
   };
   const onFailure = (error) => {
     const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
