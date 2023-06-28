@@ -60,6 +60,11 @@
     "defaultMessage": "New shared feed"
   },
   {
+    "id": "projectsComponent.noSharedFeeds",
+    "description": "Displayed under the shared feed header when there are no feeds in it",
+    "defaultMessage": "No shared feeds"
+  },
+  {
     "id": "projectsComponent.folders",
     "description": "Label for a collapsable panel displayed on the left sidebar.",
     "defaultMessage": "Folders"
