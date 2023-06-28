@@ -59,6 +59,13 @@ const SandboxComponent = ({ admin }) => {
           maxTags={5}
         />
       </div>
+      <div>
+        <p className="typography-subtitle2">Tag List no fixed width</p>
+        <TagList
+          tags={tags}
+          setTags={setTags}
+        />
+      </div>
     </div>
   );
 };

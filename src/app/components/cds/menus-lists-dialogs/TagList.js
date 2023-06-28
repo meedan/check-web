@@ -48,6 +48,9 @@ const TagList = ({
   const selected = tags;
 
   const handleAddNew = (value) => {
+    if (value.trim() === '') {
+      return;
+    }
     tags.push(value);
     // silently merge non-unique items
     setTags([...new Set(tags)]);
