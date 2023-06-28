@@ -19,7 +19,7 @@ const projectMedias = [
       updated_at_timestamp: 1687921388,
       status: 'test',
       fact_check_summary: 'This is a test.',
-      fact_check_url: 'https://test.test/1'
+      fact_check_url: 'https://test.test/1',
     },
   },
   {
@@ -28,7 +28,7 @@ const projectMedias = [
       updated_at_timestamp: 1687921389,
       status: 'test',
       fact_check_summary: 'This is another test.',
-      fact_check_url: 'https://test.test/2'
+      fact_check_url: 'https://test.test/2',
     },
   },
 ];
