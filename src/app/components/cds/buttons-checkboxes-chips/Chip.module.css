@@ -1,0 +1,35 @@
+.chip-container {
+  background-color: var(--brandMain);
+  border-radius: 50px;
+  color: var(--otherWhite);
+  cursor: pointer;
+  display: inline-flex;
+  height: 26px;
+  padding: 3px 12px;
+
+  span {
+    line-height: 20px;
+  }
+}
+
+/* !important declarations needed to override material-ui IconButton */
+.delete-button {
+  color: var(--otherWhite) !important;
+  display: none !important;
+  font-size: var(--iconSizeSmall) !important;
+  padding: 0 !important;
+  right: -10px;
+  width: 0;
+
+  svg {
+    background-color: var(--brandMain);
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    height: 26px;
+    margin-top: -3px;
+  }
+}
+
+.chip-container:hover .delete-button {
+  display: inline-block !important;
+}
