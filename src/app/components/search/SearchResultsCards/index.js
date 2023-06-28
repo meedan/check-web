@@ -4,20 +4,22 @@ import FactCheckCard from './FactCheckCard';
 import styles from './SearchResultsCards.module.css';
 
 const SearchResultsCards = ({ projectMedias, team }) => (
-  <div className={styles.searchResultsCards}>
+  <div className={`${styles.searchResultsCards} search-results-cards`}>
     { projectMedias.map((projectMedia) => {
       const values = projectMedia.feed_columns_values;
       const status = team.verification_statuses.statuses.find(s => s.id === values.status) || {};
 
       return (
-        <FactCheckCard
-          title={values.fact_check_title}
-          summary={values.fact_check_summary}
-          date={values.updated_at_timestamp}
-          statusLabel={status.label || values.status}
-          statusColor={status.style?.color}
-          url={values.fact_check_url}
-        />
+        <div className="fact-check-card-wrapper" key={values.fact_check_title}>
+          <FactCheckCard
+            title={values.fact_check_title}
+            summary={values.fact_check_summary}
+            date={values.updated_at_timestamp}
+            statusLabel={status.label || values.status}
+            statusColor={status.style?.color}
+            url={values.fact_check_url}
+          />
+        </div>
       );
     })}
   </div>

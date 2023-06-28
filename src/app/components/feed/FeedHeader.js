@@ -46,7 +46,7 @@ const FeedHeader = ({ feed }) => {
   };
 
   return (
-    <div className={styles.feedHeader}>
+    <div className={`${styles.feedHeader} feed-header`}>
       <div className={['typography-caption', styles.feedHeaderSubtitle].join(' ')}>
         <FormattedMessage id="feedHeader.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />
       </div>
@@ -59,6 +59,7 @@ const FeedHeader = ({ feed }) => {
         <div className={styles.feedHeaderIcons}>
           {feed.licenses.map(licenseId => (
             <Tooltip
+              key={licenseId}
               placement="right"
               title={
                 <FormattedMessage
@@ -72,9 +73,11 @@ const FeedHeader = ({ feed }) => {
               }
               arrow
             >
-              <IconButton onClick={handleClickLicense} className={styles.feedHeaderIcon}>
-                {getLicenseIcon(getLicenseName(licenseId))}
-              </IconButton>
+              <div className="feed-header-icon">
+                <IconButton onClick={handleClickLicense} className={styles.feedHeaderIcon}>
+                  {getLicenseIcon(getLicenseName(licenseId))}
+                </IconButton>
+              </div>
             </Tooltip>
           ))}
 
@@ -114,6 +117,10 @@ FeedHeader.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { FeedHeader };
 
 export default createFragmentContainer(FeedHeader, graphql`
   fragment FeedHeader_feed on Feed {

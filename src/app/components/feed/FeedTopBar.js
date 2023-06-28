@@ -21,12 +21,12 @@ const FeedTopBar = ({ team, feed }) => {
   }
 
   return (
-    <div className={styles.feedTopBar}>
+    <div className={`${styles.feedTopBar} feed-top-bar`}>
       <TeamAvatar team={{ avatar: team.avatar, slug: team.slug }} size="24px" />
       <div className="typography-body2">
         {
           hasList ?
-            <div>
+            <div className="feed-top-bar-list">
               <span className={styles.feedListTitle}>{feed.saved_search.title}</span>
               <Can permissions={feed.permissions} permission="update Feed">
                 <IconButton size="small" onClick={handleClick} className={styles.feedListIcon}><ShareOutlinedIcon style={{ fontSize: 12 }} /></IconButton>
@@ -47,6 +47,7 @@ FeedTopBar.propTypes = {
     avatar: PropTypes.string,
   }).isRequired,
   feed: PropTypes.shape({
+    published: PropTypes.bool.isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
     saved_search: PropTypes.shape({
       dbid: PropTypes.number.isRequired,
@@ -54,6 +55,10 @@ FeedTopBar.propTypes = {
     }),
   }).isRequired,
 };
+
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { FeedTopBar };
 
 export default createFragmentContainer(FeedTopBar, graphql`
   fragment FeedTopBar_team on Team {

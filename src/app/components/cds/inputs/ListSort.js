@@ -16,7 +16,7 @@ const ListSort = ({ sort, sortType, onChange }) => {
   };
 
   return (
-    <div className={styles.listSort}>
+    <div className={`${styles.listSort} list-sort`}>
       <FormattedMessage id="listSort.sort" defaultMessage="Sort" description="Label for sort criteria drop-down field displayed on fact-checks page." />
       <Select onChange={handleChangeSortCriteria} value={sort}>
         <FormattedMessage id="listSort.date" defaultMessage="Date updated" description="Label for sort criteria option displayed in a drop-down in the fact-checks page.">
@@ -26,7 +26,7 @@ const ListSort = ({ sort, sortType, onChange }) => {
           { label => (<option value="status_index">{label}</option>) }
         </FormattedMessage>
       </Select>
-      <button onClick={handleChangeSortDirection} className={`${styles.listSortDirectionButton} ${sortType === 'ASC' ? styles.listSortAsc : styles.listSortDesc}`}>
+      <button onClick={handleChangeSortDirection} className={`${styles.listSortDirectionButton} ${sortType === 'ASC' ? styles.listSortAsc : styles.listSortDesc} ${sortType === 'ASC' ? 'list-sort-asc' : 'list-sort-desc'}`}>
         <ArrowDropUpIcon />
         <ArrowDropDownIcon />
       </button>

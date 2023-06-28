@@ -12,7 +12,7 @@ const FactCheckCard = ({
   summary,
   url,
 }) => (
-  <div className={styles.factCheckCard}>
+  <div className={`${styles.factCheckCard} fact-check-card`}>
     <Card
       title={title}
       description={summary}

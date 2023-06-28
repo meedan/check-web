@@ -22,7 +22,7 @@ const Card = ({
   tagColor,
   footer,
 }) => (
-  <div className={styles.card}>
+  <div className={`${styles.card} card`}>
     <MaybeLink to={url}>
       <div className={styles.cardContent}>
         <div className={styles.cardLeft}>
