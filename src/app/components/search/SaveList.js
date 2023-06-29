@@ -313,13 +313,17 @@ const SaveList = ({
             id="saveList.saveFeed"
             defaultMessage="Save and share"
             description="'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters."
-          />
+          >
+            {(...content) => content}
+          </FormattedMessage>
           :
           <FormattedMessage
             id="saveList.saveList"
             defaultMessage="Save"
             description="'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
-          />
+          >
+            {(...content) => content}
+          </FormattedMessage>
         }
       />
 

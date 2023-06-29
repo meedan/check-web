@@ -10,25 +10,24 @@ const ButtonMain = ({
   buttonProps,
   onClick,
 }) => (
-  <div className={styles.buttonMain}>
-    <Button
-      classes={{
-        root: styles.root,
-      }}
-      style={customStyle}
-      onClick={onClick}
-      size="small"
-      variant={variant}
-      disableRipple
-      disableFocusRipple
-      disableElevation
-      {...buttonProps}
-    >
-      <span className={`typography-button ${styles.buttonMainLabel}`}>
-        {label}
-      </span>
-    </Button>
-  </div>
+  <Button
+    className={styles.buttonMain}
+    classes={{
+      root: styles.root,
+    }}
+    style={customStyle}
+    onClick={onClick}
+    size="small"
+    variant={variant}
+    disableRipple
+    disableFocusRipple
+    disableElevation
+    {...buttonProps}
+  >
+    <span className={`typography-button ${styles.buttonMainLabel}`}>
+      {label}
+    </span>
+  </Button>
 );
 
 ButtonMain.defaultProps = {

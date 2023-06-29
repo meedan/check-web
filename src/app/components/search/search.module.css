@@ -20,6 +20,6 @@
   :global(.multi-select-filter__tag-remove) {
     color: var(--otherWhite);
     cursor: pointer;
-    margin: 0 4px;
+    margin: 0 0 0 4px;
   }
 }
