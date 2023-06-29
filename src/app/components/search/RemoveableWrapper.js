@@ -1,34 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import Box from '@material-ui/core/Box';
+import searchStyles from './search.module.css';
 import CloseIcon from '../../icons/clear.svg';
-
-// FIXME: Get rid of styled-components
-// Based on example from material-ui doc: https://material-ui.com/components/autocomplete/#useautocomplete
-const InputWrapper = styled('div')`
-  background-color: var(--grayDisabledBackground);
-  border-radius: 4px;
-  padding-right: 4px;
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  min-height: 36px;
-
-  &.focused {
-    background-color: var(--textPlaceholder);
-  }
-
-  .check-icon {
-    color: var(--textSecondary);
-    font-size: 20px;
-  },
-
-  .multi-select-filter__remove {
-    color: var(--errorMain);
-    cursor: pointer;
-  }
-`;
 
 const RemoveableWrapper = ({
   icon,
@@ -45,7 +19,8 @@ const RemoveableWrapper = ({
   };
 
   return (
-    <InputWrapper
+    <div
+      className={searchStyles.inputWrapper}
       onMouseEnter={() => setShowDeleteIcon(true)}
       onMouseLeave={() => setShowDeleteIcon(false)}
     >
@@ -53,7 +28,7 @@ const RemoveableWrapper = ({
         { showDeleteIcon && !readOnly ? <CloseIcon className="multi-select-filter__remove" onClick={handleClick} /> : icon }
       </Box>
       {children}
-    </InputWrapper>
+    </div>
   );
 };
 
