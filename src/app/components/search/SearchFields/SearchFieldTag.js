@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import LocalOfferIcon from '../../../icons/local_offer.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
 
 const SearchFieldTag = ({

@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import styles from './CreateFeed.module.css';
+import styles from './SaveFeed.module.css';
 import SelectListQueryRenderer from './SelectList';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ExternalLink from '../ExternalLink';
@@ -42,7 +43,7 @@ const LicenseOption = ({
           <>
             &nbsp;
             <ExternalLink url={url}>
-              <FormattedMessage id="createFeed.licenseDetails" defaultMessage="License details" description="Link to external page with license details" />
+              <FormattedMessage id="saveFeed.licenseDetails" defaultMessage="License details" description="Link to external page with license details" />
             </ExternalLink>
           </>
         )}
@@ -51,119 +52,130 @@ const LicenseOption = ({
   </div>
 );
 
-const submitCreateFeed = ({
-  title,
-  description,
-  licenses,
-  selectedListId,
-  tags,
-  onFailure,
-  onSuccess,
-  published,
-}) => {
-  commitMutation(Relay.Store, {
-    mutation: graphql`
-      mutation CreateFeedCreateFeedMutation($input: CreateFeedInput!) {
-        createFeed(input: $input) {
-          feed {
-            dbid
-          }
-          team {
-            feeds(first: 10000) {
-              edges {
-                node {
-                  name
-                }
-              }
+const createMutation = graphql`
+  mutation SaveFeedCreateFeedMutation($input: CreateFeedInput!) {
+    createFeed(input: $input) {
+      feed {
+        dbid
+      }
+      team {
+        feeds(first: 10000) {
+          edges {
+            node {
+              name
             }
           }
         }
       }
-    `,
-    variables: {
-      input: {
-        name: title,
-        description,
-        saved_search_id: selectedListId,
-        tags,
-        licenses,
-        published,
-      },
-    },
-    onCompleted: onSuccess,
-    onError: onFailure,
-  });
-};
+    }
+  }
+`;
 
-const CreateFeed = () => {
-  const [title, setTitle] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [selectedListId, setSelectedListId] = React.useState(null);
-  const [published, setPublished] = React.useState(true);
-  const [academicLicense, setAcademicLicense] = React.useState(false);
-  const [commercialLicense, setCommercialLicense] = React.useState(false);
-  const [openSourceLicense, setOpenSourceLicense] = React.useState(false);
-  const [tags, setTags] = React.useState([]);
+const updateMutation = graphql`
+  mutation SaveFeedUpdateFeedMutation($input: UpdateFeedInput!) {
+    updateFeed(input: $input) {
+      feed {
+        dbid
+      }
+      team {
+        feeds(first: 10000) {
+          edges {
+            node {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const SaveFeed = (props) => {
+  const feed = props.feed || {}; // Editing a feed or creating a new feed
+  const [title, setTitle] = React.useState(feed.name || '');
+  const [description, setDescription] = React.useState(feed.description || '');
+  const [selectedListId, setSelectedListId] = React.useState(feed.saved_search_id);
+  const [discoverable, setDiscoverable] = React.useState(Boolean(feed.discoverable));
+  const feedLicenses = feed.licenses || [];
+  const [academicLicense, setAcademicLicense] = React.useState(feedLicenses.includes(1));
+  const [commercialLicense, setCommercialLicense] = React.useState(feedLicenses.includes(2));
+  const [openSourceLicense, setOpenSourceLicense] = React.useState(feedLicenses.includes(3));
+  const [tags, setTags] = React.useState(feed.tags || []);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const onSuccess = (response) => {
-    const { dbid } = response.createFeed.feed;
+    const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     browserHistory.push(`/${teamSlug}/feed/${dbid}/feed`);
   };
+
   const onFailure = (error) => {
     const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
     setFlashMessage(message, 'error');
   };
+
   const handleSaveButton = () => {
     const licenses = [];
     if (academicLicense) licenses.push(1);
     if (commercialLicense) licenses.push(2);
     if (openSourceLicense) licenses.push(3);
-    submitCreateFeed({
-      title,
+    const input = {
+      name: title,
       description,
-      licenses,
-      selectedListId,
+      saved_search_id: selectedListId,
       tags,
-      published,
-      onSuccess,
-      onFailure,
+      licenses,
+      discoverable,
+      published: true,
+    };
+    if (feed.id) {
+      input.id = feed.id;
+      delete input.licenses;
+    }
+    commitMutation(Relay.Store, {
+      mutation: (feed.id ? updateMutation : createMutation),
+      variables: { input },
+      onCompleted: onSuccess,
+      onError: onFailure,
     });
   };
 
   return (
-    <div className={styles.createFeedContainer}>
-      <div className={styles.createFeedContent}>
+    <div className={styles.saveFeedContainer}>
+      <div className={styles.saveFeedContent}>
         <div>
           <div className={`typography-caption ${styles.sharedFeedTitle}`}>
             <FormattedMessage
-              id="createFeed.sharedFeedPageTitle"
+              id="saveFeed.sharedFeedPageTitle"
               defaultMessage="Shared feed"
               description="Title of the shared feed creation page"
             />
           </div>
           <div className="typography-h6">
             <FormattedMessage
-              id="createFeed.sharedFeedPageSubtitle"
+              id="saveFeed.sharedFeedPageSubtitle"
               defaultMessage="Create a new shared feed"
               description="Subtitle of the shared feed creation page"
             />
           </div>
           <div className="typography-body1">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            <FormattedMessage
+              id="createFeed.sharedFeedPageDescription"
+              defaultMessage="Share data feeds with other organizations to unlock new insights across audiences and languages."
+              description="Description of the shared feed creation page"
+            />
           </div>
         </div>
-        <div className={styles.createFeedCard}>
+        <div className={styles.saveFeedCard}>
           <div className="typography-subtitle2">
             <FormattedMessage
-              id="createFeed.feedDetailsTitle"
+              id="saveFeed.feedDetailsTitle"
               defaultMessage="Feed details"
               description="Title of section where the details of the feed are filled. e.g.: title, description"
             />
           </div>
           <FormattedMessage
-            id="createFeed.titlePlaceholder"
+            id="saveFeed.titlePlaceholder"
             defaultMessage="Memorable feed title"
             description="Placeholder text for feed title field"
           >
@@ -172,12 +184,12 @@ const CreateFeed = () => {
                 id="create-feed__title"
                 placeholder={placeholder}
                 label={<FormattedMessage
-                  id="createFeed.titleLabel"
+                  id="saveFeed.titleLabel"
                   defaultMessage="Title"
                   description="Label for the shared feed title input"
                 />}
                 helpContent={<FormattedMessage
-                  id="createFeed.titleHelper"
+                  id="saveFeed.titleHelper"
                   defaultMessage="Great shared feed names are short, memorable, and tell your audience the focus of the media"
                   description="Title input helper text"
                 />}
@@ -188,7 +200,7 @@ const CreateFeed = () => {
             )}
           </FormattedMessage>
           <FormattedMessage
-            id="createFeed.descriptionPlaceholder"
+            id="saveFeed.descriptionPlaceholder"
             defaultMessage="Give this shared feed an optional description."
             description="Placeholder text for feed description field"
           >
@@ -197,7 +209,7 @@ const CreateFeed = () => {
                 id="create-feed__description"
                 placeholder={placeholder}
                 label={<FormattedMessage
-                  id="createFeed.descriptionLabel"
+                  id="saveFeed.descriptionLabel"
                   defaultMessage="Description"
                   description="Label for a field where the user inputs text for a description to a shared feed"
                 />}
@@ -211,24 +223,24 @@ const CreateFeed = () => {
             setTags={setTags}
           />
         </div>
-        <div className={styles.createFeedCard}>
+        <div className={styles.saveFeedCard}>
           <div className="typography-subtitle2">
             <FormattedMessage
-              id="createFeed.feedContentTitle"
+              id="saveFeed.feedContentTitle"
               defaultMessage="Feed content"
               description="Title of section where a list can be selected as the content of the feed"
             />
           </div>
           <div className="typography-body2">
             <FormattedMessage
-              id="createFeed.feedContentBlurb"
+              id="saveFeed.feedContentBlurb"
               defaultMessage="Select a filtered list of fact-checks from your workspace to contribute to this shared feed. You will be able to update this list at any time."
               description="Helper text for the feed content section"
             />
           </div>
           <div className="typography-body2">
             <FormattedHTMLMessage
-              id="createFeed.feedContentBlurb2"
+              id="saveFeed.feedContentBlurb2"
               defaultMessage="<strong>Note:</strong> Your list must contain <strong>published fact-checks</strong> in order to be part of this shared feed."
               description="Helper text for the feed content section"
             />
@@ -239,68 +251,61 @@ const CreateFeed = () => {
             onRemove={() => setSelectedListId(null)}
             helperText={(
               <span>
-                <FormattedMessage id="createFeed.selectHelper" defaultMessage="Fact-check title, summary, and URL will be shared with the feed." description="Helper text for shared feed list selector" />
+                <FormattedMessage id="saveFeed.selectHelper" defaultMessage="Fact-check title, summary, and URL will be shared with the feed." description="Helper text for shared feed list selector" />
                 &nbsp;
-                <ExternalLink url="http://www.meedan.com">{ /* FIXME update url */}
-                  <FormattedMessage id="createFeed.learnMore" defaultMessage="Learn more." description="Link to external page with more details about shared feeds" />
+                <ExternalLink url="https://www.meedan.com">{ /* FIXME update url */}
+                  <FormattedMessage id="saveFeed.learnMore" defaultMessage="Learn more." description="Link to external page with more details about shared feeds" />
                 </ExternalLink>
               </span>
             )}
           />
         </div>
-        <div className={styles.createFeedCard}>
+        <div className={styles.saveFeedCard}>
           <div className="typography-subtitle2">
-            <FormattedMessage
-              id="createFeed.publishTitle"
-              defaultMessage="Publish"
+            <FormattedHTMLMessage
+              id="saveFeed.publishTitle"
+              defaultMessage="Publish to Marketplace <small>(coming soon)</small>"
               description="Title of the section where the publishing preferences are set"
             />
           </div>
           <span className="typography-body2">
             <FormattedMessage
-              id="createFeed.publishBlurb"
-              defaultMessage="Make this shared feed discoverable by publishing it to the Marketplace."
+              id="saveFeed.publishBlurb"
+              defaultMessage="Publish your feed to the marketplace to make it discoverable to third-party organizations, while keeping precise control over your assets."
               description="Helper text for the publish feed section"
             />
-            &nbsp;
-            <ExternalLink url="http://www.meedan.com">{ /* FIXME: Update url */}
-              <FormattedMessage
-                id="createFeed.learnMoreMarketplace"
-                defaultMessage="Learn more about the marketplace."
-                description="Link to and external page with more information about the marketplace"
-              />
-            </ExternalLink>
           </span>
           <SwitchComponent
             label={
               <FormattedMessage
-                id="createFeed.publishSwitch"
+                id="saveFeed.publishSwitch"
                 defaultMessage="Publish shared feed to Marketplace"
                 description="Label for a switch where the user publishes a feed"
               />
             }
-            checked={published}
-            onChange={() => setPublished(!published)}
+            checked={discoverable}
+            onChange={() => setDiscoverable(!discoverable)}
+            disabled
           />
-          { published ?
+          { discoverable ?
             <div className={styles.licenseSection}>
               <div className="typography-subtitle2">
                 <FormattedMessage
-                  id="createFeed.licenseTitle"
+                  id="saveFeed.licenseTitle"
                   defaultMessage="License"
                   description="Title of the section where the publishing preferences such as licenses are selected"
                 />
               </div>
               <span className="typography-body2">
                 <FormattedMessage
-                  id="createFeed.licenseBlurb"
+                  id="saveFeed.licenseBlurb"
                   defaultMessage="A license tells others what they can and can't do with your code."
                   description="Helper text for the license section"
                 />
                 &nbsp;
-                <ExternalLink url="http://www.meedan.com">{ /* FIXME: Update url */}
+                <ExternalLink url="https://www.meedan.com">{ /* FIXME: Update url */}
                   <FormattedMessage
-                    id="createFeed.learnMoreLicenses"
+                    id="saveFeed.learnMoreLicenses"
                     defaultMessage="Learn more about licenses."
                     description="Link to and external page with more information about the data licenses"
                   />
@@ -309,58 +314,94 @@ const CreateFeed = () => {
               <LicenseOption
                 icon={<SchoolIcon />}
                 title={<FormattedMessage
-                  id="createFeed.licenseAcademic"
+                  id="saveFeed.licenseAcademic"
                   defaultMessage="Academic"
                   description="Label for the academic licensing of shared feed data"
                 />}
                 checked={academicLicense}
                 onChange={() => setAcademicLicense(!academicLicense)}
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
-                url="http://www.meedan.com"
+                description="Permit the exploration of the data for noncommercial research intended for publication in an academic or other scholarly setting."
               />
               <LicenseOption
                 icon={<CorporateFareIcon />}
                 title={<FormattedMessage
-                  id="createFeed.licenseCommercial"
+                  id="saveFeed.licenseCommercial"
                   defaultMessage="Commercial"
                   description="Label for the academic licensing of shared feed data"
                 />}
                 checked={commercialLicense}
                 onChange={() => setCommercialLicense(!commercialLicense)}
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
-                url="http://www.meedan.com"
+                description="Permit the use of the data for internal 3rd party business operations, internal research, and development efforts. "
               />
               <LicenseOption
                 icon={<OpenSourceIcon />}
                 title={<FormattedMessage
-                  id="createFeed.licenseOpenSource"
+                  id="saveFeed.licenseOpenSource"
                   defaultMessage="Open source"
                   description="Label for the academic licensing of shared feed data"
                 />}
                 checked={openSourceLicense}
                 onChange={() => setOpenSourceLicense(!openSourceLicense)}
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
-                url="http://www.meedan.com"
+                description="Permits free use and distribution of the data. Enables collaboration and adaptation for various purposes, including commercial uses."
               />
             </div>
             : null }
         </div>
       </div>
-      <div className={styles.createFeedContentNarrow}>
+      <div className={styles.saveFeedContentNarrow}>
         <Button
           color="primary"
           variant="contained"
           onClick={handleSaveButton}
         >
-          <FormattedMessage
-            id="createFeed.createSaveButton"
-            defaultMessage="Create shared feed"
-            description="Label to the save button of the shared feed creation form"
-          />
+          { feed.id ?
+            <FormattedMessage
+              id="saveFeed.updateSaveButton"
+              defaultMessage="Save"
+              description="Label to the save button of the shared feed update form"
+            /> :
+            <FormattedMessage
+              id="saveFeed.createSaveButton"
+              defaultMessage="Create shared feed"
+              description="Label to the save button of the shared feed creation form"
+            />
+          }
         </Button>
       </div>
     </div>
   );
 };
 
-export default CreateFeed;
+SaveFeed.defaultProps = {
+  feed: {},
+};
+
+SaveFeed.propTypes = {
+  feed: PropTypes.shape({
+    id: PropTypes.string,
+    dbid: PropTypes.number,
+    name: PropTypes.string,
+    discoverable: PropTypes.bool,
+    description: PropTypes.string,
+    saved_search_id: PropTypes.number,
+    licenses: PropTypes.arrayOf(PropTypes.number),
+    tags: PropTypes.arrayOf(PropTypes.string),
+  }),
+};
+
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { SaveFeed };
+
+export default createFragmentContainer(SaveFeed, graphql`
+  fragment SaveFeed_feed on Feed {
+    id
+    dbid
+    name
+    discoverable
+    description
+    saved_search_id
+    licenses
+    tags
+  }
+`);
