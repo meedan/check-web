@@ -11,5 +11,12 @@ describe('<SaveFeed />', () => {
   it('should render license checkboxes when discoverable', () => {
     const component = shallowWithIntl(<SaveFeed feed={{ discoverable: true }} />);
     expect(component.find('LicenseOption').length).toEqual(3);
+    expect(component.find('#save-feed__no-license-error').length).toEqual(1);
+  });
+
+  it('should render license checkboxes and no error when discoverable and licenses selected', () => {
+    const component = shallowWithIntl(<SaveFeed feed={{ discoverable: true, licenses: [1] }} />);
+    expect(component.find('LicenseOption').length).toEqual(3);
+    expect(component.find('#save-feed__no-license-error').length).toEqual(0);
   });
 });

@@ -310,6 +310,7 @@ const SaveFeed = (props) => {
               {
                 discoverableNoLicense && (
                   <Alert
+                    id="save-feed__no-license-error"
                     title={<span>Select a license in order to create and publish this shared feed.</span>}
                     content={
                       <ExternalLink
