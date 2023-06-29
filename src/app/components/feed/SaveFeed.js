@@ -11,8 +11,10 @@ import SelectListQueryRenderer from './SelectList';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ExternalLink from '../ExternalLink';
 import { FlashMessageSetterContext } from '../FlashMessage';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import TagList from '../cds/menus-lists-dialogs/TagList';
@@ -96,6 +98,8 @@ const SaveFeed = (props) => {
   const [description, setDescription] = React.useState(feed.description || '');
   const [selectedListId, setSelectedListId] = React.useState(feed.saved_search_id);
   const [discoverable, setDiscoverable] = React.useState(Boolean(feed.discoverable));
+  const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
+  const [saving, setSaving] = React.useState(false);
   const feedLicenses = feed.licenses || [];
   const [academicLicense, setAcademicLicense] = React.useState(feedLicenses.includes(1));
   const [commercialLicense, setCommercialLicense] = React.useState(feedLicenses.includes(2));
@@ -103,18 +107,25 @@ const SaveFeed = (props) => {
   const [tags, setTags] = React.useState(feed.tags || []);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
+  const handleViewFeed = (feedId) => {
+    const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+    browserHistory.push(`/${teamSlug}/feed/${feedId}/feed`);
+  };
+
   const onSuccess = (response) => {
     const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
-    const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-    browserHistory.push(`/${teamSlug}/feed/${dbid}/feed`);
+    handleViewFeed(dbid);
+    setSaving(false);
   };
 
   const onFailure = (error) => {
     const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
     setFlashMessage(message, 'error');
+    setSaving(false);
   };
 
-  const handleSaveButton = () => {
+  const handleSave = () => {
+    setSaving(true);
     const licenses = [];
     if (academicLicense) licenses.push(1);
     if (commercialLicense) licenses.push(2);
@@ -129,6 +140,7 @@ const SaveFeed = (props) => {
       published: true,
     };
     if (feed.id) {
+      setShowConfirmationDialog(false);
       input.id = feed.id;
       delete input.licenses;
     }
@@ -140,9 +152,31 @@ const SaveFeed = (props) => {
     });
   };
 
+  const handleConfirmOrSave = () => {
+    if (feed.id) {
+      setShowConfirmationDialog(true);
+    } else {
+      handleSave();
+    }
+  };
+
   return (
     <div className={styles.saveFeedContainer}>
       <div className={styles.saveFeedContent}>
+        { feed ?
+          <div>
+            <ButtonMain
+              variant="outlined"
+              onClick={() => { handleViewFeed(feed.dbid); }}
+              label={
+                <FormattedMessage
+                  id="saveFeed.viewSharedFeed"
+                  defaultMessage="View Shared Feed"
+                  description="Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page."
+                />
+              }
+            />
+          </div> : null }
         <div>
           <div className={`typography-caption ${styles.sharedFeedTitle}`}>
             <FormattedMessage
@@ -351,7 +385,8 @@ const SaveFeed = (props) => {
         <Button
           color="primary"
           variant="contained"
-          onClick={handleSaveButton}
+          disabled={saving}
+          onClick={handleConfirmOrSave}
         >
           { feed.id ?
             <FormattedMessage
@@ -367,6 +402,28 @@ const SaveFeed = (props) => {
           }
         </Button>
       </div>
+
+      <ConfirmProceedDialog
+        open={showConfirmationDialog}
+        title={
+          <FormattedMessage
+            id="saveFeed.confirmationDialogTitle"
+            defaultMessage="Are you sure you want to update this shared feed?"
+            description="Confirmation dialog title when saving a feed."
+          />
+        }
+        body={
+          <FormattedMessage
+            id="saveFeed.confirmationDialogBody"
+            defaultMessage="Are you sure you want to update this shared feed?"
+            description="Confirmation dialog message when saving a feed."
+          />
+        }
+        proceedLabel={<FormattedMessage id="saveFeed.confirmationDialogButton" defaultMessage="Update Shared Feed" description="Button label to confirm updating a feed." />}
+        onProceed={handleSave}
+        onCancel={() => { setShowConfirmationDialog(false); }}
+        isSaving={saving}
+      />
     </div>
   );
 };

@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import styles from './ButtonMain.module.css';
 
+// FIXME: Refactor using native button instead of MUI Button
 const ButtonMain = ({
   label,
   variant,
+  disabled,
   customStyle,
   buttonProps,
   onClick,
@@ -18,6 +20,7 @@ const ButtonMain = ({
       style={customStyle}
       onClick={onClick}
       size="small"
+      disabled={disabled}
       variant={variant}
       disableRipple
       disableFocusRipple
@@ -33,6 +36,7 @@ const ButtonMain = ({
 
 ButtonMain.defaultProps = {
   variant: 'contained',
+  disabled: false,
   customStyle: {},
   buttonProps: {},
   onClick: () => {},
@@ -41,6 +45,7 @@ ButtonMain.defaultProps = {
 ButtonMain.propTypes = {
   label: PropTypes.object.isRequired,
   variant: PropTypes.oneOf(['contained', 'outlined']),
+  disabled: PropTypes.bool,
   customStyle: PropTypes.object,
   buttonProps: PropTypes.object,
   onClick: PropTypes.func,
