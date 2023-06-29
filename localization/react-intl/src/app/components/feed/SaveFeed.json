@@ -77,7 +77,7 @@
   {
     "id": "saveFeed.publishTitle",
     "description": "Title of the section where the publishing preferences are set",
-    "defaultMessage": "Publish"
+    "defaultMessage": "Publish to Marketplace <small>(coming soon)</small>"
   },
   {
     "id": "saveFeed.publishBlurb",

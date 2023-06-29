@@ -264,7 +264,7 @@ const SaveFeed = (props) => {
               <span>
                 <FormattedMessage id="saveFeed.selectHelper" defaultMessage="Fact-check title, summary, and URL will be shared with the feed." description="Helper text for shared feed list selector" />
                 &nbsp;
-                <ExternalLink url="http://www.meedan.com">{ /* FIXME update url */}
+                <ExternalLink url="https://www.meedan.com">{ /* FIXME update url */}
                   <FormattedMessage id="saveFeed.learnMore" defaultMessage="Learn more." description="Link to external page with more details about shared feeds" />
                 </ExternalLink>
               </span>
@@ -273,9 +273,9 @@ const SaveFeed = (props) => {
         </div>
         <div className={styles.saveFeedCard}>
           <div className="typography-subtitle2">
-            <FormattedMessage
+            <FormattedHTMLMessage
               id="saveFeed.publishTitle"
-              defaultMessage="Publish"
+              defaultMessage="Publish to Marketplace <small>(coming soon)</small>"
               description="Title of the section where the publishing preferences are set"
             />
           </div>
@@ -304,6 +304,7 @@ const SaveFeed = (props) => {
             }
             checked={discoverable}
             onChange={() => setDiscoverable(!discoverable)}
+            disabled
           />
           { discoverable ?
             <div className={styles.licenseSection}>

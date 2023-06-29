@@ -5,12 +5,12 @@ import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
-import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { MultiSelector } from '@meedan/check-ui';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
+import AddIcon from '../../icons/add.svg';
+import CloseIcon from '../../icons/clear.svg';
 
 const NoHoverButton = withStyles({
   root: {
@@ -65,13 +65,6 @@ const useTagStyles = makeStyles({
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
-    },
-    '& svg': {
-      fontSize: '12px',
-      cursor: 'pointer',
-      padding: '4px',
-      width: '24px',
-      height: '24px',
     },
   },
   missingProperty: {
@@ -166,7 +159,7 @@ const MultiSelectFilter = ({
   return (
     <div>
       <div className="multi-select-filter">
-        <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version} boxProps={{ px: 0.5 }}>
+        <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version}>
           <Box px={0.5} height={4.5} display="flex" alignItems="center" whiteSpace="nowrap">
             {label}
           </Box>
