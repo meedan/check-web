@@ -163,7 +163,7 @@ const SaveFeed = (props) => {
   return (
     <div className={styles.saveFeedContainer}>
       <div className={styles.saveFeedContent}>
-        { feed ?
+        { feed.id ?
           <div>
             <ButtonMain
               variant="outlined"
@@ -280,6 +280,7 @@ const SaveFeed = (props) => {
             />
           </div>
           <SelectListQueryRenderer
+            required={Boolean(feed.id)}
             value={selectedListId}
             onChange={e => setSelectedListId(+e.target.value)}
             helperText={(
