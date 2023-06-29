@@ -6,18 +6,17 @@ import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import { browserHistory } from 'react-router';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
-import ListIcon from '@material-ui/icons/List';
 import { FormattedMessage } from 'react-intl';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../FlashMessage';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import CheckChannels from '../../CheckChannels';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 const createMutation = graphql`
   mutation SaveListCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
@@ -303,27 +302,30 @@ const SaveList = ({
 
   return (
     <React.Fragment>
-
       {/* The "Save" button */}
-      <Button
+      <ButtonMain
         id="save-list__button"
+        customStyle={{ color: 'var(--brandSecondary)', cursor: 'pointer', background: 'var(--brandLight)' }}
         className={classes.saveListButton}
-        startIcon={<ListIcon />}
         onClick={handleClick}
-      >
-        { feedTeam && feedTeam.shared ?
+        label={feedTeam && feedTeam.shared ?
           <FormattedMessage
             id="saveList.saveFeed"
             defaultMessage="Save and share"
             description="'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters."
-          /> :
+          >
+            {(...content) => content}
+          </FormattedMessage>
+          :
           <FormattedMessage
             id="saveList.saveList"
             defaultMessage="Save"
             description="'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
-          />
+          >
+            {(...content) => content}
+          </FormattedMessage>
         }
-      </Button>
+      />
 
       {/* Create a new list */}
       <ConfirmProceedDialog

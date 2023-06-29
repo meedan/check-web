@@ -5,17 +5,7 @@ import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-i
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import DescriptionIcon from '@material-ui/icons/Description';
 import Divider from '@material-ui/core/Divider';
-import LabelIcon from '@material-ui/icons/Label';
-import LanguageIcon from '@material-ui/icons/Language';
-import PersonIcon from '@material-ui/icons/Person';
-import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
-import RuleIcon from '@material-ui/icons//Rule';
-import MarkunreadIcon from '@material-ui/icons/Markunread';
-import HowToRegIcon from '@material-ui/icons/HowToReg';
-import ErrorIcon from '@material-ui/icons/Error';
-import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -34,6 +24,15 @@ import SearchFieldUser from './SearchFieldUser';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import CorporateFareIcon from '../../../icons/corporate_fare.svg';
+import DescriptionIcon from '../../../icons/description.svg';
+import ErrorIcon from '../../../icons/error_outline.svg';
+import HowToRegIcon from '../../../icons/person_check.svg';
+import LabelIcon from '../../../icons/label.svg';
+import LanguageIcon from '../../../icons/language.svg';
+import PersonIcon from '../../../icons/person.svg';
+import ReportIcon from '../../../icons/playlist_add_check.svg';
+import MarkunreadIcon from '../../../icons/mail.svg';
 
 const messages = defineMessages({
   claim: {
@@ -324,7 +323,7 @@ const SearchFields = ({
         { label => (
           <MultiSelectFilter
             label={label}
-            icon={<RuleIcon />}
+            icon={<LabelIcon />}
             allowSearch={false}
             selected={query.has_claim}
             options={hasClaimOptions}
