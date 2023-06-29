@@ -1,0 +1,25 @@
+.inputWrapper {
+  align-items: center;
+  background-color: var(--grayDisabledBackground);
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: nowrap;
+  min-height: 36px;
+  padding: 0 4px;
+
+  :global(.check-icon) {
+    color: var(--textSecondary);
+    font-size: var(--iconSizeSmall);
+  }
+
+  :global(.multi-select-filter__remove) {
+    color: var(--errorMain);
+    cursor: pointer;
+  }
+
+  :global(.multi-select-filter__tag-remove) {
+    color: var(--otherWhite);
+    cursor: pointer;
+    margin: 0 0 0 4px;
+  }
+}

@@ -4,7 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ForwardIcon from '@material-ui/icons/Forward';
+import ForwardIcon from '../../../icons/forward.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
 import CheckChannels from '../../../CheckChannels';
 
