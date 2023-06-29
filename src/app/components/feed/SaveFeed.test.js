@@ -1,10 +1,10 @@
 import React from 'react';
-import CreateFeed from './CreateFeed';
+import { SaveFeed } from './SaveFeed';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
-describe('<CreateFeed />', () => {
+describe('<SaveFeed />', () => {
   it('should render license checkboxes', () => {
-    const component = shallowWithIntl(<CreateFeed />);
+    const component = shallowWithIntl(<SaveFeed feed={{ discoverable: true }} />);
     expect(component.find('LicenseOption').length).toEqual(3);
   });
 });
