@@ -1,11 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import ListIcon from '@material-ui/icons/List';
 import Select from '../cds/inputs/Select';
 
-const SelectListQueryRenderer = ({ value, onChange, helperText }) => (
+const SelectListQueryRenderer = ({
+  helperText,
+  onChange,
+  onRemove,
+  value,
+}) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
@@ -34,6 +40,7 @@ const SelectListQueryRenderer = ({ value, onChange, helperText }) => (
                 iconLeft={<ListIcon />}
                 value={value}
                 onChange={onChange}
+                onRemove={onRemove}
                 helpContent={helperText}
               >
                 <option value={null}>{selectLabel}</option>
@@ -50,5 +57,23 @@ const SelectListQueryRenderer = ({ value, onChange, helperText }) => (
     }}
   />
 );
+
+SelectListQueryRenderer.defaultProps = {
+  helperText: null,
+  onChange: null,
+  onRemove: null,
+  value: null,
+};
+
+SelectListQueryRenderer.propTypes = {
+  helperText: PropTypes.node,
+  onChange: PropTypes.func,
+  onRemove: PropTypes.func,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+};
+
 
 export default SelectListQueryRenderer;

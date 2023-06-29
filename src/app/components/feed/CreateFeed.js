@@ -236,6 +236,7 @@ const CreateFeed = () => {
           <SelectListQueryRenderer
             value={selectedListId}
             onChange={e => setSelectedListId(+e.target.value)}
+            onRemove={() => setSelectedListId(null)}
             helperText={(
               <span>
                 <FormattedMessage id="createFeed.selectHelper" defaultMessage="Fact-check title, summary, and URL will be shared with the feed." description="Helper text for shared feed list selector" />
