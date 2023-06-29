@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
+import FolderSpecialIcon from '../../../icons/folder_special.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
 
 const SearchFieldProjectGroup = ({

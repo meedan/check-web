@@ -83,7 +83,7 @@ const NumericRangeFilter = ({
 
   return (
     <div>
-      <RemoveableWrapper icon={<NumberIcon style={{ fontSize: '24px' }} />} readOnly={readOnly} onRemove={onRemove}>
+      <RemoveableWrapper icon={<NumberIcon />} readOnly={readOnly} onRemove={onRemove}>
         <Box display="flex" alignItems="center">
           <Box pr={1}>
             <Typography component="span" variant="body1">

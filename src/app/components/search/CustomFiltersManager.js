@@ -5,7 +5,6 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import NoteAltOutlinedIcon from '@material-ui/icons/NoteAltOutlined';
 import ShortTextIcon from '@material-ui/icons/ShortText';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
@@ -17,6 +16,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
+import NoteAltOutlinedIcon from '../../icons/note_alt.svg';
 import NumberIcon from '../../icons/numbers.svg';
 
 const messages = defineMessages({
