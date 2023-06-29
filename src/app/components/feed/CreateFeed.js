@@ -99,7 +99,7 @@ const CreateFeed = () => {
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [selectedListId, setSelectedListId] = React.useState(null);
-  const [published, setPublished] = React.useState(true);
+  const [published, setPublished] = React.useState(false);
   const [academicLicense, setAcademicLicense] = React.useState(false);
   const [commercialLicense, setCommercialLicense] = React.useState(false);
   const [openSourceLicense, setOpenSourceLicense] = React.useState(false);
@@ -151,7 +151,11 @@ const CreateFeed = () => {
             />
           </div>
           <div className="typography-body1">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            <FormattedMessage
+              id="createFeed.sharedFeedPageDescription"
+              defaultMessage="Share data feeds with other organizations to unlock new insights across audiences and languages."
+              description="Description of the shared feed creation page"
+            />
           </div>
         </div>
         <div className={styles.createFeedCard}>
@@ -240,7 +244,7 @@ const CreateFeed = () => {
               <span>
                 <FormattedMessage id="createFeed.selectHelper" defaultMessage="Fact-check title, summary, and URL will be shared with the feed." description="Helper text for shared feed list selector" />
                 &nbsp;
-                <ExternalLink url="http://www.meedan.com">{ /* FIXME update url */}
+                <ExternalLink url="https://www.meedan.com">{ /* FIXME update url */}
                   <FormattedMessage id="createFeed.learnMore" defaultMessage="Learn more." description="Link to external page with more details about shared feeds" />
                 </ExternalLink>
               </span>
@@ -249,26 +253,18 @@ const CreateFeed = () => {
         </div>
         <div className={styles.createFeedCard}>
           <div className="typography-subtitle2">
-            <FormattedMessage
+            <FormattedHTMLMessage
               id="createFeed.publishTitle"
-              defaultMessage="Publish"
+              defaultMessage="Publish to Marketplace <small>(coming soon)</small>"
               description="Title of the section where the publishing preferences are set"
             />
           </div>
           <span className="typography-body2">
             <FormattedMessage
               id="createFeed.publishBlurb"
-              defaultMessage="Make this shared feed discoverable by publishing it to the Marketplace."
+              defaultMessage="Publish your feed to the marketplace to make it discoverable to third-party organizations, while keeping precise control over your assets."
               description="Helper text for the publish feed section"
             />
-            &nbsp;
-            <ExternalLink url="http://www.meedan.com">{ /* FIXME: Update url */}
-              <FormattedMessage
-                id="createFeed.learnMoreMarketplace"
-                defaultMessage="Learn more about the marketplace."
-                description="Link to and external page with more information about the marketplace"
-              />
-            </ExternalLink>
           </span>
           <SwitchComponent
             label={
@@ -279,6 +275,7 @@ const CreateFeed = () => {
               />
             }
             checked={published}
+            disabled
             onChange={() => setPublished(!published)}
           />
           { published ?
@@ -297,7 +294,7 @@ const CreateFeed = () => {
                   description="Helper text for the license section"
                 />
                 &nbsp;
-                <ExternalLink url="http://www.meedan.com">{ /* FIXME: Update url */}
+                <ExternalLink url="https://www.meedan.com">{ /* FIXME: Update url */}
                   <FormattedMessage
                     id="createFeed.learnMoreLicenses"
                     defaultMessage="Learn more about licenses."
@@ -314,8 +311,7 @@ const CreateFeed = () => {
                 />}
                 checked={academicLicense}
                 onChange={() => setAcademicLicense(!academicLicense)}
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
-                url="http://www.meedan.com"
+                description="Permit the exploration of the data for noncommercial research intended for publication in an academic or other scholarly setting."
               />
               <LicenseOption
                 icon={<CorporateFareIcon />}
@@ -326,8 +322,7 @@ const CreateFeed = () => {
                 />}
                 checked={commercialLicense}
                 onChange={() => setCommercialLicense(!commercialLicense)}
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
-                url="http://www.meedan.com"
+                description="Permit the use of the data for internal 3rd party business operations, internal research, and development efforts. "
               />
               <LicenseOption
                 icon={<OpenSourceIcon />}
@@ -338,8 +333,7 @@ const CreateFeed = () => {
                 />}
                 checked={openSourceLicense}
                 onChange={() => setOpenSourceLicense(!openSourceLicense)}
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis ultrices lorem sit amet rhoncus."
-                url="http://www.meedan.com"
+                description="Permits free use and distribution of the data. Enables collaboration and adaptation for various purposes, including commercial uses."
               />
             </div>
             : null }
