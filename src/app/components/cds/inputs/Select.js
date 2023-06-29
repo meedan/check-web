@@ -25,10 +25,8 @@ const Select = ({
   ...inputProps
 }) => {
   const inputRef = React.useRef(null);
-
   return (
     <div className={className}>
-      { console.log('inputProps', inputProps) /* eslint-disable-line */ }
       { (label || required) && (
         <div className={`${inputStyles['label-container']} ${error && inputStyles['error-label']}`}>
           { label && <label htmlFor="name">{label}</label> }
