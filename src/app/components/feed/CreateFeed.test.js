@@ -3,8 +3,8 @@ import CreateFeed from './CreateFeed';
 import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 
 describe('<CreateFeed />', () => {
-  it('should render license checkboxes', () => {
+  it('should not render license checkboxes', () => {
     const component = shallowWithIntl(<CreateFeed />);
-    expect(component.find('LicenseOption').length).toEqual(3);
+    expect(component.find('LicenseOption').length).toEqual(0);
   });
 });

@@ -15,6 +15,11 @@
     "defaultMessage": "Create a new shared feed"
   },
   {
+    "id": "createFeed.sharedFeedPageDescription",
+    "description": "Description of the shared feed creation page",
+    "defaultMessage": "Share data feeds with other organizations to unlock new insights across audiences and languages."
+  },
+  {
     "id": "createFeed.feedDetailsTitle",
     "description": "Title of section where the details of the feed are filled. e.g.: title, description",
     "defaultMessage": "Feed details"
@@ -72,17 +77,12 @@
   {
     "id": "createFeed.publishTitle",
     "description": "Title of the section where the publishing preferences are set",
-    "defaultMessage": "Publish"
+    "defaultMessage": "Publish to Marketplace <small>(coming soon)</small>"
   },
   {
     "id": "createFeed.publishBlurb",
     "description": "Helper text for the publish feed section",
-    "defaultMessage": "Make this shared feed discoverable by publishing it to the Marketplace."
-  },
-  {
-    "id": "createFeed.learnMoreMarketplace",
-    "description": "Link to and external page with more information about the marketplace",
-    "defaultMessage": "Learn more about the marketplace."
+    "defaultMessage": "Publish your feed to the marketplace to make it discoverable to third-party organizations, while keeping precise control over your assets."
   },
   {
     "id": "createFeed.publishSwitch",
