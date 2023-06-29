@@ -82,12 +82,7 @@
   {
     "id": "saveFeed.publishBlurb",
     "description": "Helper text for the publish feed section",
-    "defaultMessage": "Make this shared feed discoverable by publishing it to the Marketplace."
-  },
-  {
-    "id": "saveFeed.learnMoreMarketplace",
-    "description": "Link to and external page with more information about the marketplace",
-    "defaultMessage": "Learn more about the marketplace."
+    "defaultMessage": "Publish your feed to the marketplace to make it discoverable to third-party organizations, while keeping precise control over your assets."
   },
   {
     "id": "saveFeed.publishSwitch",

@@ -282,17 +282,9 @@ const SaveFeed = (props) => {
           <span className="typography-body2">
             <FormattedMessage
               id="saveFeed.publishBlurb"
-              defaultMessage="Make this shared feed discoverable by publishing it to the Marketplace."
+              defaultMessage="Publish your feed to the marketplace to make it discoverable to third-party organizations, while keeping precise control over your assets."
               description="Helper text for the publish feed section"
             />
-            &nbsp;
-            <ExternalLink url="http://www.meedan.com">{ /* FIXME: Update url */}
-              <FormattedMessage
-                id="saveFeed.learnMoreMarketplace"
-                defaultMessage="Learn more about the marketplace."
-                description="Link to and external page with more information about the marketplace"
-              />
-            </ExternalLink>
           </span>
           <SwitchComponent
             label={
