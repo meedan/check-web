@@ -3,7 +3,7 @@
   text-transform: uppercase;
 }
 
-.createFeedContainer {
+.saveFeedContainer {
   background: var(--grayBackground);
   display: flex;
   gap: 32px;
@@ -12,7 +12,7 @@
   padding: 16px 32px 32px;
 }
 
-.createFeedContent {
+.saveFeedContent {
   --iconSize: 36px;
   display: flex;
   flex-direction: column;
@@ -21,11 +21,11 @@
   max-width: 650px;
 }
 
-.createFeedContentNarrow {
+.saveFeedContentNarrow {
   padding-top: 16px;
 }
 
-.createFeedCard {
+.saveFeedCard {
   background: var(--otherWhite);
   border-radius: 8px;
   display: flex;
@@ -34,10 +34,14 @@
   padding: 16px;
 }
 
+.licenseSection {
+  display: grid;
+  grid-gap: 16px;
+}
+
 .licenseOption {
   align-items: center;
   display: flex;
-  padding: 8px;
 }
 
 .licenseOptionIcon {
