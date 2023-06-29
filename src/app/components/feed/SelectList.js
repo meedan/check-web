@@ -34,7 +34,7 @@ const SelectListQueryRenderer = ({
     render={({ error, props }) => {
       if (!error && props) {
         return (
-          <FormattedMessage id="selectList.select" defaultMessage="Select list…" description="Label for list selector">
+          <FormattedMessage id="selectList.select" defaultMessage="Select a custom filtered list…" description="Label for list selector">
             { selectLabel => (
               <Select
                 iconLeft={<ListIcon />}

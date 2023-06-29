@@ -2,6 +2,6 @@
   {
     "id": "selectList.select",
     "description": "Label for list selector",
-    "defaultMessage": "Select list…"
+    "defaultMessage": "Select a custom filtered list…"
   }
 ]

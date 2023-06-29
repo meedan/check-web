@@ -23,55 +23,62 @@ const Select = ({
   textArea,
   variant,
   ...inputProps
-}) => (
-  <div className={className}>
-    { (label || required) && (
-      <div className={`${inputStyles['label-container']} ${error && inputStyles['error-label']}`}>
-        { label && <label htmlFor="name">{label}</label> }
-        { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
-      </div>
-    )}
-    <div className={styles['input-wrapper']}>
-      <div className={`${inputStyles['input-container']} ${styles['select-container']}`}>
-        { iconLeft && (
-          <div className={inputStyles['input-icon-left-icon']}>
-            {iconLeft}
-          </div>
-        )}
-        <select
-          id="check-select__input"
-          className={`typography-body1 ${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error} ${iconLeft && styles['input-icon-left']}`}
-          disabled={disabled}
-          {...inputProps}
-        >
-          {children}
-        </select>
-        <div className={inputStyles['input-icon-right-icon']}>
-          <ChevronDownIcon />
+}) => {
+  const inputRef = React.useRef(null);
+
+  return (
+    <div className={className}>
+      { console.log('inputProps', inputProps) /* eslint-disable-line */ }
+      { (label || required) && (
+        <div className={`${inputStyles['label-container']} ${error && inputStyles['error-label']}`}>
+          { label && <label htmlFor="name">{label}</label> }
+          { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
         </div>
-      </div>
-      { onRemove ?
-        <Tooltip title={<FormattedMessage id="select.removeSelection" defaultMessage="Undo selection" description="Tooltip for button on Select component to remove current selection" />}>
-          <IconButton
-            className={cx('select__clear-button', styles['select-clear-button'])}
-            onClick={() => {
-              document.getElementById('check-select__input').value = null;
-              onRemove();
-            }}
+      )}
+      <div className={styles['input-wrapper']}>
+        <div className={`${inputStyles['input-container']} ${styles['select-container']}`}>
+          { iconLeft && (
+            <div className={inputStyles['input-icon-left-icon']}>
+              {iconLeft}
+            </div>
+          )}
+          <select
+            id="check-select__input"
+            className={`typography-body1 ${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error} ${iconLeft && styles['input-icon-left']}`}
+            disabled={disabled}
+            ref={inputRef}
+            {...inputProps}
           >
-            <ClearIcon />
-          </IconButton>
-        </Tooltip>
-        : null }
-    </div>
-    { helpContent && (
-      <div className={`${inputStyles['help-container']} ${error && inputStyles['error-label']}`}>
-        { error && <ErrorIcon className={inputStyles['error-icon']} />}
-        {helpContent}
+            {children}
+          </select>
+          <div className={inputStyles['input-icon-right-icon']}>
+            <ChevronDownIcon />
+          </div>
+        </div>
+        { onRemove ?
+          <Tooltip title={<FormattedMessage id="select.removeSelection" defaultMessage="Undo selection" description="Tooltip for button on Select component to remove current selection" />}>
+            <IconButton
+              className={cx('select__clear-button', styles['select-clear-button'])}
+              onClick={() => {
+                inputRef.current.value = null;
+                inputRef.current.selectedIndex = 0;
+                onRemove();
+              }}
+            >
+              <ClearIcon />
+            </IconButton>
+          </Tooltip>
+          : null }
       </div>
-    )}
-  </div>
-);
+      { helpContent && (
+        <div className={`${inputStyles['help-container']} ${error && inputStyles['error-label']}`}>
+          { error && <ErrorIcon className={inputStyles['error-icon']} />}
+          {helpContent}
+        </div>
+      )}
+    </div>
+  );
+};
 
 Select.defaultProps = {
   className: '',
