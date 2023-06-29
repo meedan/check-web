@@ -5,7 +5,7 @@
   display: flex;
   flex-wrap: nowrap;
   min-height: 36px;
-  padding: 0 4px 0 0;
+  padding: 0 4px;
 
   :global(.check-icon) {
     color: var(--textSecondary);
