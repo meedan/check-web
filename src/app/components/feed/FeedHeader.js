@@ -16,7 +16,7 @@ const FeedHeader = ({ feed }) => {
   };
 
   const handleClickSettings = () => {
-    browserHistory.push(`/${feed.team.slug}/feed/${feed.dbid}/feed`); // FIXME: Open the feed edit page
+    browserHistory.push(`/${feed.team.slug}/feed/${feed.dbid}/edit`);
   };
 
   return (

@@ -1,16 +1,16 @@
 [
   {
-    "id": "createFeed.licenseDetails",
+    "id": "saveFeed.licenseDetails",
     "description": "Link to external page with license details",
     "defaultMessage": "License details"
   },
   {
-    "id": "createFeed.sharedFeedPageTitle",
+    "id": "saveFeed.sharedFeedPageTitle",
     "description": "Title of the shared feed creation page",
     "defaultMessage": "Shared feed"
   },
   {
-    "id": "createFeed.sharedFeedPageSubtitle",
+    "id": "saveFeed.sharedFeedPageSubtitle",
     "description": "Subtitle of the shared feed creation page",
     "defaultMessage": "Create a new shared feed"
   },
@@ -20,107 +20,112 @@
     "defaultMessage": "Share data feeds with other organizations to unlock new insights across audiences and languages."
   },
   {
-    "id": "createFeed.feedDetailsTitle",
+    "id": "saveFeed.feedDetailsTitle",
     "description": "Title of section where the details of the feed are filled. e.g.: title, description",
     "defaultMessage": "Feed details"
   },
   {
-    "id": "createFeed.titlePlaceholder",
+    "id": "saveFeed.titlePlaceholder",
     "description": "Placeholder text for feed title field",
     "defaultMessage": "Memorable feed title"
   },
   {
-    "id": "createFeed.titleLabel",
+    "id": "saveFeed.titleLabel",
     "description": "Label for the shared feed title input",
     "defaultMessage": "Title"
   },
   {
-    "id": "createFeed.titleHelper",
+    "id": "saveFeed.titleHelper",
     "description": "Title input helper text",
     "defaultMessage": "Great shared feed names are short, memorable, and tell your audience the focus of the media"
   },
   {
-    "id": "createFeed.descriptionPlaceholder",
+    "id": "saveFeed.descriptionPlaceholder",
     "description": "Placeholder text for feed description field",
     "defaultMessage": "Give this shared feed an optional description."
   },
   {
-    "id": "createFeed.descriptionLabel",
+    "id": "saveFeed.descriptionLabel",
     "description": "Label for a field where the user inputs text for a description to a shared feed",
     "defaultMessage": "Description"
   },
   {
-    "id": "createFeed.feedContentTitle",
+    "id": "saveFeed.feedContentTitle",
     "description": "Title of section where a list can be selected as the content of the feed",
     "defaultMessage": "Feed content"
   },
   {
-    "id": "createFeed.feedContentBlurb",
+    "id": "saveFeed.feedContentBlurb",
     "description": "Helper text for the feed content section",
     "defaultMessage": "Select a filtered list of fact-checks from your workspace to contribute to this shared feed. You will be able to update this list at any time."
   },
   {
-    "id": "createFeed.feedContentBlurb2",
+    "id": "saveFeed.feedContentBlurb2",
     "description": "Helper text for the feed content section",
     "defaultMessage": "<strong>Note:</strong> Your list must contain <strong>published fact-checks</strong> in order to be part of this shared feed."
   },
   {
-    "id": "createFeed.selectHelper",
+    "id": "saveFeed.selectHelper",
     "description": "Helper text for shared feed list selector",
     "defaultMessage": "Fact-check title, summary, and URL will be shared with the feed."
   },
   {
-    "id": "createFeed.learnMore",
+    "id": "saveFeed.learnMore",
     "description": "Link to external page with more details about shared feeds",
     "defaultMessage": "Learn more."
   },
   {
-    "id": "createFeed.publishTitle",
+    "id": "saveFeed.publishTitle",
     "description": "Title of the section where the publishing preferences are set",
     "defaultMessage": "Publish to Marketplace <small>(coming soon)</small>"
   },
   {
-    "id": "createFeed.publishBlurb",
+    "id": "saveFeed.publishBlurb",
     "description": "Helper text for the publish feed section",
     "defaultMessage": "Publish your feed to the marketplace to make it discoverable to third-party organizations, while keeping precise control over your assets."
   },
   {
-    "id": "createFeed.publishSwitch",
+    "id": "saveFeed.publishSwitch",
     "description": "Label for a switch where the user publishes a feed",
     "defaultMessage": "Publish shared feed to Marketplace"
   },
   {
-    "id": "createFeed.licenseTitle",
+    "id": "saveFeed.licenseTitle",
     "description": "Title of the section where the publishing preferences such as licenses are selected",
     "defaultMessage": "License"
   },
   {
-    "id": "createFeed.licenseBlurb",
+    "id": "saveFeed.licenseBlurb",
     "description": "Helper text for the license section",
     "defaultMessage": "A license tells others what they can and can't do with your code."
   },
   {
-    "id": "createFeed.learnMoreLicenses",
+    "id": "saveFeed.learnMoreLicenses",
     "description": "Link to and external page with more information about the data licenses",
     "defaultMessage": "Learn more about licenses."
   },
   {
-    "id": "createFeed.licenseAcademic",
+    "id": "saveFeed.licenseAcademic",
     "description": "Label for the academic licensing of shared feed data",
     "defaultMessage": "Academic"
   },
   {
-    "id": "createFeed.licenseCommercial",
+    "id": "saveFeed.licenseCommercial",
     "description": "Label for the academic licensing of shared feed data",
     "defaultMessage": "Commercial"
   },
   {
-    "id": "createFeed.licenseOpenSource",
+    "id": "saveFeed.licenseOpenSource",
     "description": "Label for the academic licensing of shared feed data",
     "defaultMessage": "Open source"
   },
   {
-    "id": "createFeed.createSaveButton",
+    "id": "saveFeed.updateSaveButton",
+    "description": "Label to the save button of the shared feed update form",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "saveFeed.createSaveButton",
     "description": "Label to the save button of the shared feed creation form",
     "defaultMessage": "Create shared feed"
   }
