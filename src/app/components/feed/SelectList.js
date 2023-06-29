@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import ListIcon from '@material-ui/icons/List';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Select from '../cds/inputs/Select';
+import styles from './SelectList.module.css';
 
 const SelectListQueryRenderer = ({
   required,
@@ -65,9 +66,9 @@ const SelectListQueryRenderer = ({
           );
         }
         return (
-          <div>
+          <div className={styles['select-list-container']}>
             { (required && !value) ?
-              <div style={{ marginBottom: 16 }}>
+              <div>
                 <Alert
                   type="warning"
                   title={
