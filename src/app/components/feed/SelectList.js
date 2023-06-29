@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
@@ -7,10 +8,11 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import Select from '../cds/inputs/Select';
 
 const SelectListQueryRenderer = ({
-  value,
-  onChange,
-  helperText,
   required,
+  helperText,
+  onChange,
+  onRemove,
+  value,
 }) => (
   <QueryRenderer
     environment={Relay.Store}
@@ -83,6 +85,7 @@ const SelectListQueryRenderer = ({
                   iconLeft={<ListIcon />}
                   value={value}
                   onChange={onChange}
+                  onRemove={onRemove}
                   helpContent={helperText}
                 >
                   <option value={null}>{selectLabel}</option>
@@ -100,5 +103,23 @@ const SelectListQueryRenderer = ({
     }}
   />
 );
+
+SelectListQueryRenderer.defaultProps = {
+  helperText: null,
+  onChange: null,
+  onRemove: null,
+  value: null,
+};
+
+SelectListQueryRenderer.propTypes = {
+  helperText: PropTypes.node,
+  onChange: PropTypes.func,
+  onRemove: PropTypes.func,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+};
+
 
 export default SelectListQueryRenderer;

@@ -1,4 +1,12 @@
+.input-wrapper {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
 .select-container {
+  width: 100%;
+
   .input {
     appearance: none;
     background-color: var(--otherWhite);
@@ -70,4 +78,13 @@
       }
     }
   }
+}
+
+.select-clear-button {
+  background-color: var(--brandBackgroundAccent) !important;
+  border-radius: 8px !important;
+  color: var(--textPlaceholder) !important;
+  font-size: var(--iconSizeSmall) !important;
+  height: 32px !important;
+  width: 32px !important;
 }
