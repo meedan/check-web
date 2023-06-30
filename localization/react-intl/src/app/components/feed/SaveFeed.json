@@ -5,6 +5,11 @@
     "defaultMessage": "License details"
   },
   {
+    "id": "saveFeed.viewSharedFeed",
+    "description": "Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page.",
+    "defaultMessage": "View Shared Feed"
+  },
+  {
     "id": "saveFeed.sharedFeedPageTitle",
     "description": "Title of the shared feed creation page",
     "defaultMessage": "Shared feed"
@@ -95,14 +100,19 @@
     "defaultMessage": "License"
   },
   {
-    "id": "saveFeed.licenseBlurb",
-    "description": "Helper text for the license section",
-    "defaultMessage": "A license tells others what they can and can't do with your code."
+    "id": "saveFeed.selectLicense",
+    "description": "Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data.",
+    "defaultMessage": "Select a license in order to create and publish this shared feed."
   },
   {
     "id": "saveFeed.learnMoreLicenses",
-    "description": "Link to and external page with more information about the data licenses",
+    "description": "Link to an external page with more information about the data licenses",
     "defaultMessage": "Learn more about licenses."
+  },
+  {
+    "id": "saveFeed.licenseBlurb",
+    "description": "Helper text for the license section",
+    "defaultMessage": "A license tells others what they can and can't do with your code."
   },
   {
     "id": "saveFeed.licenseAcademic",
@@ -128,5 +138,30 @@
     "id": "saveFeed.createSaveButton",
     "description": "Label to the save button of the shared feed creation form",
     "defaultMessage": "Create shared feed"
+  },
+  {
+    "id": "saveFeed.createdBy",
+    "description": "Metadata field displayed on feed edit page.",
+    "defaultMessage": "Created by {teamName}"
+  },
+  {
+    "id": "saveFeed.lastUpdated",
+    "description": "On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'.",
+    "defaultMessage": "Last updated {timeAgo}"
+  },
+  {
+    "id": "saveFeed.confirmationDialogTitle",
+    "description": "Confirmation dialog title when saving a feed.",
+    "defaultMessage": "Are you sure you want to update this shared feed?"
+  },
+  {
+    "id": "saveFeed.confirmationDialogBody",
+    "description": "Confirmation dialog message when saving a feed.",
+    "defaultMessage": "Are you sure you want to update this shared feed?"
+  },
+  {
+    "id": "saveFeed.confirmationDialogButton",
+    "description": "Button label to confirm updating a feed.",
+    "defaultMessage": "Update Shared Feed"
   }
 ]
