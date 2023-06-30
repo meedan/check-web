@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
-import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
+import ShareIcon from '../../icons/share.svg';
 import TeamAvatar from '../team/TeamAvatar';
 import Can from '../Can';
 import styles from './FeedTopBar.module.css';
@@ -26,10 +26,10 @@ const FeedTopBar = ({ team, feed }) => {
       <div className="typography-body2">
         {
           hasList ?
-            <div className="feed-top-bar-list">
+            <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
               <span className={styles.feedListTitle}>{feed.saved_search.title}</span>
               <Can permissions={feed.permissions} permission="update Feed">
-                <IconButton size="small" onClick={handleClick} className={styles.feedListIcon}><ShareOutlinedIcon style={{ fontSize: 16 }} /></IconButton>
+                <IconButton size="small" onClick={handleClick} className={styles.feedListIcon}><ShareIcon /></IconButton>
               </Can>
             </div> :
             <span className={styles.feedNoListTitle}><FormattedMessage id="feedTopBar.noListSelected" defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." /></span>
