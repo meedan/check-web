@@ -33,9 +33,12 @@ const MediaCardLarge = ({
   const { media } = projectMedia;
   const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
 
+  // from https://github.com/cookpete/react-player/blob/a110aaf2f3f4e23a3ba3889fe9e8e7b96b769f59/src/patterns.js#L3
+  const youtubeRegex = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|watch\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//;
+
   let { type } = media;
-  const isYoutube = media.url && media.domain === 'youtube.com';
-  const isYoutubeChannel = media.url?.match(/youtube\.com\/(channel|c)\//);
+  const isYoutube = media.url && !!media.url.match(youtubeRegex);
+  const isYoutubeChannel = !!media.url?.match(/youtube\.com\/(channel|c)\//);
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
   const isBlank = media.type === 'Blank';
@@ -133,7 +136,6 @@ const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`
     id
     media {
       type
-      domain
       url
       quote
       metadata

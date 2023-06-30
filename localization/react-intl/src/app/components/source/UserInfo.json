@@ -6,5 +6,10 @@
   {
     "id": "userInfo.teamsCount",
     "defaultMessage": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
+  },
+  {
+    "id": "UserMenu.signOut",
+    "description": "This is the sign out button on the user profile page",
+    "defaultMessage": "Sign Out"
   }
 ]

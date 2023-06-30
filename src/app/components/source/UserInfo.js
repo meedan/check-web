@@ -2,6 +2,7 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import IconEdit from '@material-ui/icons/Edit';
 import AccountChips from './AccountChips';
@@ -9,6 +10,7 @@ import Can from '../Can';
 import ParsedText from '../ParsedText';
 import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
+import { logout } from '../../redux/actions.js';
 import {
   StyledContactInfo,
   StyledTwoColumns,
@@ -86,6 +88,19 @@ const UserInfo = (props) => {
             }}
           />
         </StyledContactInfo>
+        <div>
+          <Button
+            className="user-menu__logout"
+            variant="contained"
+            onClick={logout}
+          >
+            <FormattedMessage
+              id="UserMenu.signOut"
+              defaultMessage="Sign Out"
+              description="This is the sign out button on the user profile page"
+            />
+          </Button>
+        </div>
       </StyledBigColumn>
     </StyledTwoColumns>
   );

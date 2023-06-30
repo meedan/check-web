@@ -1,14 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 import ErrorIcon from '../../../icons/error.svg';
 import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './TextField.module.css';
 
+// A hook that is like useEffect but does not trigger on first input
+// https://stackoverflow.com/questions/53179075/with-useeffect-how-can-i-skip-applying-an-effect-upon-the-initial-render
+function useEffectSkipFirst(fn, inputs) {
+  const didMountRef = React.useRef(false);
+
+  React.useEffect(() => {
+    if (didMountRef.current) {
+      return fn();
+    }
+    didMountRef.current = true;
+    return null;
+  }, inputs);
+}
+
 const TextField = ({
   className,
   disabled,
   error,
+  suppressInitialError,
   helpContent,
   iconLeft,
   iconRight,
@@ -17,51 +33,98 @@ const TextField = ({
   variant,
   textArea,
   ...inputProps
-}) => (
-  <div className={className}>
-    { (label || required) && (
-      <div className={`${inputStyles['label-container']} ${error && inputStyles['error-label']}`} >
-        { label && <label htmlFor="name">{label}</label> }
-        { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
-      </div>
-    )}
-    <div className={`${inputStyles['input-container']} ${styles['textfield-container']} ${textArea && styles['textarea-container']}`}>
-      { iconLeft && (
-        <div className={inputStyles['input-icon-left-icon']}>
-          {iconLeft}
+}) => {
+  const [internalError, setInternalError] = React.useState(suppressInitialError ? false : error);
+
+  useEffectSkipFirst(() => {
+    setInternalError(error);
+  });
+
+  return (
+    <div className={className}>
+      { (label || required) && (
+        <div className={cx(
+          [inputStyles['label-container']],
+          {
+            [inputStyles['error-label']]: internalError,
+          })
+        }
+        >
+          { label && <label htmlFor="name">{label}</label> }
+          { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
         </div>
       )}
-      { textArea ? (
-        <textarea
-          className={`typography-body1 ${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
-          type="text"
-          disabled={disabled}
-          error={error}
-          {...inputProps}
-        />
-      ) : (
-        <input
-          className={`typography-body1 ${styles.input} ${disabled && styles.disabled} ${error && styles.error} ${variant === 'outlined' && styles.outlined} ${iconLeft && styles['input-icon-left']} ${iconRight && styles['input-icon-right']}`}
-          type="text"
-          disabled={disabled}
-          error={error}
-          {...inputProps}
-        />
-      )}
-      { iconRight && (
-        <div className={inputStyles['input-icon-right-icon']}>
-          {iconRight}
+      <div className={cx(
+        styles['textfield-container'],
+        inputStyles['input-container'],
+        {
+          [styles['textarea-container']]: textArea,
+        })
+      }
+      >
+        { iconLeft && (
+          <div className={inputStyles['input-icon-left-icon']}>
+            {iconLeft}
+          </div>
+        )}
+        { textArea ? (
+          <textarea
+            className={cx(
+              'typography-body1',
+              [styles.input],
+              {
+                [styles.disabled]: disabled,
+                [styles.error]: internalError,
+                [styles.outlined]: variant === 'outlined',
+                [styles['input-icon-left']]: iconLeft,
+                [styles['input-icon-right']]: iconRight,
+              })
+            }
+            type="text"
+            disabled={disabled}
+            error={internalError}
+            {...inputProps}
+          />
+        ) : (
+          <input
+            className={cx(
+              'typography-body1',
+              [styles.input],
+              {
+                [styles.disabled]: disabled,
+                [styles.error]: internalError,
+                [styles.outlined]: variant === 'outlined',
+                [styles['input-icon-left']]: iconLeft,
+                [styles['input-icon-right']]: iconRight,
+              })
+            }
+            type="text"
+            disabled={disabled}
+            error={internalError}
+            {...inputProps}
+          />
+        )}
+        { iconRight && (
+          <div className={inputStyles['input-icon-right-icon']}>
+            {iconRight}
+          </div>
+        )}
+      </div>
+      { helpContent && (
+        <div className={cx(
+          [inputStyles['help-container']],
+          {
+            [inputStyles['error-label']]: internalError,
+          })
+        }
+        >
+          { internalError && <ErrorIcon className={inputStyles['error-icon']} />}
+          {helpContent}
         </div>
       )}
     </div>
-    { helpContent && (
-      <div className={`${inputStyles['help-container']} ${error && inputStyles['error-label']}`}>
-        { error && <ErrorIcon className={inputStyles['error-icon']} />}
-        {helpContent}
-      </div>
-    )}
-  </div>
-);
+  );
+};
 
 TextField.defaultProps = {
   className: '',
@@ -72,6 +135,7 @@ TextField.defaultProps = {
   iconRight: null,
   label: '',
   required: false,
+  suppressInitialError: false,
   textArea: false,
   variant: 'contained',
 };
@@ -85,6 +149,7 @@ TextField.propTypes = {
   iconRight: PropTypes.element,
   label: PropTypes.string,
   required: PropTypes.bool,
+  suppressInitialError: PropTypes.bool,
   textArea: PropTypes.bool,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };

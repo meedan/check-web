@@ -106,6 +106,9 @@ class HomeComponent extends Component {
     if (/\/feed\/:feedId\/cluster\/:clusterId/.test(children.props.route.path)) {
       return 'feed-item';
     }
+    if (/\/feed\/[0-9]+\/feed/.test(window.location.pathname)) {
+      return 'feed';
+    }
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media';
     }
@@ -248,9 +251,6 @@ class HomeComponent extends Component {
       );
     }
 
-    const isMediaPage = /\/media\/[0-9]+/.test(window.location.pathname);
-    const isFeedPage = /\/feed\/[0-9]+\/(request|cluster)\/[0-9]+/.test(window.location.pathname);
-
     let userTiplines = '';
     if (user && user.current_team && user.current_team.team_bot_installation && user.current_team.team_bot_installation.smooch_enabled_integrations) {
       userTiplines = Object.keys(user.current_team.team_bot_installation.smooch_enabled_integrations).join(', ');
@@ -279,7 +279,7 @@ class HomeComponent extends Component {
               bemClass('home', routeSlug, `--${routeSlug}`),
             ].join(' ')}
           >
-            {!isMediaPage && !isFeedPage && loggedIn ? (
+            {loggedIn ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}
@@ -297,7 +297,7 @@ class HomeComponent extends Component {
                 {...this.props}
               />
               <FlashMessage />
-              <div className={styles.mainContentWrapper}>
+              <div className={`${styles.mainContentWrapper} route__${routeSlug}`}>
                 {children}
               </div>
             </main>

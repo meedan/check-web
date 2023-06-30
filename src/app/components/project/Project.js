@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import { graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ErrorBoundary from '../error/ErrorBoundary';
 import ProjectRoute from '../../relay/ProjectRoute';
@@ -16,6 +15,7 @@ import { safelyParseJSON } from '../../helpers';
 import NotFound from '../NotFound';
 import ProjectActions from '../drawer/Projects/ProjectActions';
 import { units } from '../../styles/js/shared';
+import FolderIcon from '../../icons/folder.svg';
 
 class ProjectComponent extends React.PureComponent {
   componentDidMount() {
@@ -88,7 +88,7 @@ class ProjectComponent extends React.PureComponent {
           searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
-          icon={<FolderOpenIcon />}
+          icon={<FolderIcon />}
           listDescription={project.description}
           listActions={
             <React.Fragment>

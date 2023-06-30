@@ -1,0 +1,5 @@
+.select-list-container {
+  display: grid;
+  gap: 16px;
+  grid-gap: 16px;
+}

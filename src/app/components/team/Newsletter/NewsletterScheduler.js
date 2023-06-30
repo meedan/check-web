@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import { getTimeZoneOptions } from '../../../helpers';
 import Alert from '../../cds/alerts-and-prompts/Alert';
@@ -14,6 +11,9 @@ import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
 import styles from './NewsletterComponent.module.css';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
+import InfoOutlinedIcon from '../../../icons/info.svg';
+import PlayArrowIcon from '../../../icons/play_arrow.svg';
+import PauseIcon from '../../../icons/pause.svg';
 
 const timezones = getTimeZoneOptions();
 
@@ -41,7 +41,14 @@ const NewsletterScheduler = ({
   return (
     <div className={`${styles['newsletter-scheduler']} ${scheduled ? styles['newsletter-scheduled'] : styles['newsletter-paused']}`}>
       <div className={`typography-subtitle2 ${styles['newsletter-scheduler-title']}`}>
-        <FormattedMessage id="newsletterScheduler.title" defaultMessage="Schedule" description="Title for newsletter schedule component" />
+        { type === 'static' ?
+          <FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on" description="Label on a input where the user selects a date to send a newsletter" />
+          : null
+        }
+        { type === 'rss' ?
+          <FormattedMessage id="newsletterScheduler.sendEvery" defaultMessage="Send every" description="Label on an input where the user selects in which days of the week to send an RSS newsletter" />
+          : null
+        }
         {' '}
         { (scheduled && lastScheduledBy && lastScheduledAt) ?
           <Tooltip
@@ -59,7 +66,9 @@ const NewsletterScheduler = ({
             }
             arrow
           >
-            <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            <span>
+              <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            </span>
           </Tooltip> :
           null
         }
@@ -79,7 +88,9 @@ const NewsletterScheduler = ({
             }
             arrow
           >
-            <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            <span>
+              <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            </span>
           </Tooltip> :
           null
         }
@@ -116,13 +127,6 @@ const NewsletterScheduler = ({
       <div className={styles['newsletter-scheduler-schedule']}>
         { type === 'rss' ?
           <ToggleButtonGroup
-            label={
-              <FormattedMessage
-                id="newsletterScheduler.sendEvery"
-                defaultMessage="Send every"
-                description="Label on an input where the user selects in which days of the week to send an RSS newsletter"
-              />
-            }
             variant="contained"
             value={sendEvery}
             onChange={(e, newValue) => { onUpdate('sendEvery', newValue); }}
@@ -138,7 +142,6 @@ const NewsletterScheduler = ({
 
         { type === 'static' ?
           <DatePicker
-            label={<FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on" description="Label on a input where the user selects a date to send a newsletter" />}
             value={sendOn}
             onChange={(e) => { onUpdate('sendOn', e.target.value); }}
             disabled={scheduled}
@@ -180,19 +183,9 @@ const NewsletterScheduler = ({
             &nbsp;{parentErrors.datetime_past}
           </div>
         )}
-
-        { subscribersCount !== null ?
-          <div className={styles['newsletter-scheduler-subscribers']}>
-            <div className="typography-overline">
-              <FormattedMessage id="newsletterScheduler.subscribers" defaultMessage="Subscribers" description="Label related to the number of subscribers of a newsletter" />
-            </div>
-            <div className="typography-subtitle2">
-              {subscribersCount}
-            </div>
-          </div> : null }
       </div>
 
-      <div className={styles['newsletter-schedule']}>
+      <div className={styles['newsletter-schedule-actions']}>
         { scheduled ?
           <Button
             variant="contained"
@@ -216,6 +209,17 @@ const NewsletterScheduler = ({
           >
             <FormattedMessage id="newsletterScheduler.schedule" defaultMessage="Schedule" description="Label for a button to schedule a newsletter" />
           </Button>
+        }
+        { subscribersCount !== null &&
+          <div className={styles['newsletter-schedule-meta']}>
+            <small className={styles['newsletter-scheduler-subscribers']}>
+              <FormattedMessage id="newsletterScheduler.subscribers" defaultMessage="Subscribers:" description="Label related to the number of subscribers of a newsletter" />
+              &nbsp;
+              <strong>
+                {subscribersCount}
+              </strong>
+            </small>
+          </div>
         }
       </div>
     </div>

@@ -1,36 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { withStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import DescriptionIcon from '@material-ui/icons/Description';
-import FolderIcon from '@material-ui/icons/Folder';
-import RuleIcon from '@material-ui/icons//Rule';
-import LabelIcon from '@material-ui/icons/Label';
-import LanguageIcon from '@material-ui/icons/Language';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import PersonIcon from '@material-ui/icons/Person';
-import NoteAltOutlinedIcon from '@material-ui/icons/NoteAltOutlined';
-import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
-import HowToRegIcon from '@material-ui/icons/HowToReg';
-import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
-import ForwardIcon from '@material-ui/icons/Forward';
-import ErrorIcon from '@material-ui/icons/Error';
-import MarkunreadIcon from '@material-ui/icons/Markunread';
-import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
-import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import NumberIcon from '../../icons/numbers.svg';
-
-const StyledButton = withStyles({
-  root: {
-    height: '36px',
-  },
-})(Button);
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import CorporateFareIcon from '../../icons/corporate_fare.svg';
+import DateRangeIcon from '../../icons/calendar_month.svg';
+import DescriptionIcon from '../../icons/description.svg';
+import ErrorIcon from '../../icons/error_outline.svg';
+import FolderIcon from '../../icons/folder.svg';
+import FolderSpecialIcon from '../../icons/folder_special.svg';
+import ForwardIcon from '../../icons/forward.svg';
+import HowToRegIcon from '../../icons/person_check.svg';
+import LabelIcon from '../../icons/label.svg';
+import LanguageIcon from '../../icons/language.svg';
+import LocalOfferIcon from '../../icons/local_offer.svg';
+import MarkunreadIcon from '../../icons/mail.svg';
+import NoteAltIcon from '../../icons/note_alt.svg';
+import PersonIcon from '../../icons/person.svg';
+import ReportIcon from '../../icons/playlist_add_check.svg';
+import SettingsInputAntennaIcon from '../../icons/settings_input_antenna.svg';
 
 const AddFilterMenu = ({
   team,
@@ -61,7 +52,7 @@ const AddFilterMenu = ({
   {
     id: 'add-filter-menu__claim',
     key: 'has_claim',
-    icon: <RuleIcon />,
+    icon: <LabelIcon />,
     label: (
       <FormattedMessage
         id="addFilterMenu.claim"
@@ -137,7 +128,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.itemStatus"
-        defaultMessage="Item status"
+        defaultMessage="Rating"
         description="Menu option to enable searching items by item status"
       />
     ),
@@ -293,7 +284,7 @@ const AddFilterMenu = ({
     {
       id: 'add-filter-menu__team-tasks',
       key: 'team_tasks',
-      icon: <NoteAltOutlinedIcon />,
+      icon: <NoteAltIcon />,
       label: (
         <FormattedMessage
           id="addFilterMenu.annotation"
@@ -342,18 +333,19 @@ const AddFilterMenu = ({
 
   return (
     <React.Fragment>
-      <StyledButton
-        id="add-filter-menu__open-button"
-        startIcon={<AddIcon />}
+      <ButtonMain
         onClick={e => setAnchorEl(e.currentTarget)}
-        size="small"
-      >
-        <FormattedMessage
-          id="addFilterMenu.addFilter"
-          defaultMessage="Add filter"
-          description="Button that opens menu with filter field options"
-        />
-      </StyledButton>
+        label={
+          <FormattedMessage
+            id="addFilterMenu.addFilter"
+            defaultMessage="Add filter"
+            description="Button that opens menu with filter field options"
+          />
+        }
+        buttonProps={{
+          id: 'add-filter-menu__open-button',
+        }}
+      />
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

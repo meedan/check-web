@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import ForumIcon from '@material-ui/icons/Forum';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
 import CheckChannels from '../../CheckChannels';
+import InboxIcon from '../../icons/inbox.svg';
 
 const TiplineInbox = ({ routeParams }) => (
   <ErrorBoundary component="TiplineInbox">
@@ -52,7 +52,7 @@ const TiplineInbox = ({ routeParams }) => (
               searchUrlPrefix={`/${routeParams.team}/tipline-inbox`}
               mediaUrlPrefix={`/${routeParams.team}/media`}
               title={<FormattedMessage id="tiplineInbox.title" defaultMessage="Tipline inbox" />}
-              icon={<ForumIcon />}
+              icon={<InboxIcon />}
               teamSlug={routeParams.team}
               query={query}
               hideFields={['feed_fact_checked_by', 'channels', 'cluster_teams', 'cluster_published_reports']}

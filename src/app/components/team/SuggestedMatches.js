@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import NewReleasesIcon from '@material-ui/icons/NewReleases';
+import LightbulbIcon from '../../icons/lightbulb.svg';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
@@ -50,7 +50,7 @@ const SuggestedMatches = ({ routeParams }) => (
                   description="Header for suggested media page"
                 />
               }
-              icon={<NewReleasesIcon />}
+              icon={<LightbulbIcon />}
               teamSlug={routeParams.team}
               query={query}
               hideFields={['feed_fact_checked_by', 'suggestions_count', 'cluster_teams', 'cluster_published_reports']}

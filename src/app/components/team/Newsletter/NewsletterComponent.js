@@ -505,6 +505,7 @@ const NewsletterComponent = ({
                   defaultMessage="RSS"
                   description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
                 />}
+                helperContent={<FormattedMessage id="newsletterComponent.rssFeed" defaultMessage="Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS." description="Message on tipline newsletter settings page that explains how RSS feeds work there." />}
                 checked={contentType === 'rss'}
                 disabled={scheduled}
                 onChange={(checked) => {
@@ -515,15 +516,6 @@ const NewsletterComponent = ({
                   }
                 }}
               />
-            </div>
-            <div className={`typography-body2 ${styles['text-secondary']}`}>
-              <p>
-                <FormattedMessage
-                  id="newsletterComponent.rssFeed"
-                  defaultMessage="Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS."
-                  description="Message on tipline newsletter settings page that explains how RSS feeds work there."
-                />
-              </p>
             </div>
             { contentType === 'rss' ?
               <NewsletterRssFeed

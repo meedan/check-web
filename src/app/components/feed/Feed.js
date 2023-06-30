@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import ErrorBoundary from '../error/ErrorBoundary';
 import FeedRequestsTable from './FeedRequestsTable';
-import FeedSharingSwitch from './FeedSharingSwitch';
+import FeedTopBar from './FeedTopBar';
+import FeedHeader from './FeedHeader';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
@@ -25,70 +22,19 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
   const feedTeam = feed.current_feed_team;
 
-  // This component is displayed on top of the search filters
-  const topBar = (query) => {
-    const currentFeedTeamFilters = {};
-    Object.keys(query).forEach((key) => {
-      if (!Object.keys(feed.filters).includes(key) && key !== 'timestamp') {
-        currentFeedTeamFilters[key] = query[key];
-      }
-    });
-    const readOnlySwitcher = (!feedTeam.shared && (JSON.stringify(currentFeedTeamFilters) !== JSON.stringify(feedTeam.filters)));
-    return (
-      <React.Fragment>
-        <Tabs
-          indicatorColor="primary"
-          textColor="primary"
-          value={tab}
-          onChange={(e, newTab) => { browserHistory.push(`/${routeParams.team}/feed/${feed.dbid}/${newTab}`); }} /* This way filters are easily reset */
-        >
-          <Tab
-            label={
-              <FormattedMessage
-                id="feed.shared"
-                defaultMessage="Shared"
-                description="Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
-              />
-            }
-            value="shared"
-          />
-          { feedTeam.shared ?
-            <Tab
-              label={
-                <FormattedMessage
-                  id="feed.feed"
-                  defaultMessage="Fact-checks"
-                  description="Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
-                />
-              }
-              value="feed"
-            /> : null }
-          { (feed.published && feedTeam.shared) ?
-            <Tab
-              label={
-                <FormattedMessage
-                  id="feed.requests"
-                  defaultMessage="Requests"
-                  description="Tab with label 'Requests' displayed on a feed page. It references all requests submitted to that feed."
-                />
-              }
-              value="requests"
-            /> : null }
-        </Tabs>
-        { tab === 'shared' ? <FeedSharingSwitch enabled={feedTeam.shared} feedTeamId={feedTeam.id} readOnly={readOnlySwitcher} numberOfWorkspaces={feed.teams_count} feedName={feed.name} /> : null }
-      </React.Fragment>
-    );
-  };
-
   const commonSearchProps = {
     searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
     title: feed.name,
-    extra: topBar,
-    icon: <DynamicFeedIcon />,
+    extra: () => (<FeedTopBar team={team} feed={feed} />),
+    icon: null,
     teamSlug: routeParams.team,
     readOnlyFields: Object.keys(feed.filters),
     showExpand: true,
     page: 'feed',
+    feed: {
+      dbid: feed.dbid,
+      saved_search_id: feed.saved_search_id,
+    },
   };
 
   let routeQuery = safelyParseJSON(routeParams.query, {});
@@ -125,7 +71,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
       {/* For a "published" feed, it's just all the fact-checks from the workspaces */}
       { tab === 'feed' && feed.published ?
-        <div id="feed__fact-checks" className="search-results-wrapper">
+        <div id="feed__fact-checks" className="feed__fact-checks search-results-wrapper">
           <Search
             mediaUrlPrefix="media"
             query={{
@@ -140,7 +86,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'projects',
               'project_group_id',
               'tags',
-              'verification_status',
               'users',
               'assigned_to',
               'published_by',
@@ -159,8 +104,13 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'cluster_teams',
               'archived',
               'read',
+              'report_status',
+              'show',
             ]}
             {...commonSearchProps}
+            title={
+              <FeedHeader feed={feed} />
+            }
           />
         </div>
         : null
@@ -214,7 +164,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
       { tab === 'requests' && feed.published ?
         <div id="feed__requests">
           <FeedRequestsTable
-            tabs={topBar}
+            tabs={null}
             teamSlug={routeParams.team}
             feedId={parseInt(routeParams.feedId, 10)}
             feedTeam={{
@@ -270,14 +220,17 @@ const Feed = ({ routeParams }) => (
               name
               published
               filters
-              teams_count
+              saved_search_id
               current_feed_team {
                 id
                 filters
                 shared
                 requests_filters
               }
+              ...FeedTopBar_feed
+              ...FeedHeader_feed
             }
+            ...FeedTopBar_team
           }
         }
       `}

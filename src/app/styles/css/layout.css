@@ -10,4 +10,8 @@ html {
 
 body {
   margin: 0;
+
+  main:first-of-type {
+    border-left: solid 2px var(--grayBorderMain);
+  }
 }

@@ -117,6 +117,7 @@ shared_examples 'app' do |webdriver_url|
       api_logout
       api_register_and_login_with_email
       @driver.navigate.to("#{@config['self_url']}/check/me")
+      wait_for_selector('#assignments-tab')
       wait_for_selector('#teams-tab').click
       wait_for_selector("//span[contains(text(), 'Create')]", :xpath)
       expect(@driver.page_source.include?('page does not exist')).to be(false)
@@ -216,6 +217,8 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('.media__heading').click
       wait_for_selector('.media-actions__icon')
       wait_for_selector('.project-header__back-button').click
+      wait_for_selector('#search-input')
+      wait_for_selector('#side-navigation__toggle').click
       all = wait_for_selector('.projects-list__all-items')
       expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
       # item created from "all items" page
