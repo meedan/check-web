@@ -2,8 +2,11 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
+import { FormattedMessage } from 'react-intl';
+import styles from './sandbox.module.css';
 import Chip from './cds/buttons-checkboxes-chips/Chip';
 import TagList from './cds/menus-lists-dialogs/TagList';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -21,51 +24,82 @@ const SandboxComponent = ({ admin }) => {
   ]);
 
   return (
-    <div>
-      <p className="typography-h2">UI Sandbox 🏖️</p>
-      <div>
-        <p className="typography-subtitle2">Chip</p>
-        <Chip
-          label="Tag Name"
-        />
-      </div>
-      <div>
-        <p className="typography-subtitle2">Removable Chip</p>
-        <Chip
-          label="Tag Name"
-          onRemove={() => {}}
-        />
-      </div>
-      <div style={{ width: '300px' }}>
-        <p className="typography-subtitle2">Tag List</p>
-        <TagList
-          tags={tags}
-          setTags={setTags}
-        />
-      </div>
-      <div style={{ width: '300px' }}>
-        <p className="typography-subtitle2">Read-Only Tag List</p>
-        <TagList
-          readOnly
-          tags={tags}
-          setTags={setTags}
-        />
-      </div>
-      <div style={{ width: '300px' }}>
-        <p className="typography-subtitle2">Tag List Limit 5</p>
-        <TagList
-          tags={tags}
-          setTags={setTags}
-          maxTags={5}
-        />
-      </div>
-      <div>
-        <p className="typography-subtitle2">Tag List no fixed width</p>
-        <TagList
-          tags={tags}
-          setTags={setTags}
-        />
-      </div>
+    <div className={styles.sandbox}>
+      <h5>
+        UI Sandbox&nbsp;<span role="img" aria-label="Beach">🏖️</span>
+      </h5>
+      <section>
+        <h6>Buttons</h6>
+        <div>
+          <span className="typography-subtitle1">ButtonMain</span>
+          <ButtonMain
+            label={
+              <FormattedMessage
+                id="saveList.saveList"
+                defaultMessage="Save"
+                description="'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
+              >
+                {(...content) => content}
+              </FormattedMessage>
+            }
+          />
+        </div>
+      </section>
+      <section>
+        <h6>Inputs</h6>
+        <div>
+          <span className="typography-subtitle1">TextField</span>
+        </div>
+      </section>
+      <section>
+        <h6>Chips</h6>
+        <div>
+          <span className="typography-subtitle1">Chip</span>
+          <Chip
+            label="Tag Name"
+          />
+        </div>
+        <div>
+          <span className="typography-subtitle1">Chip (removable)</span>
+          <Chip
+            label="Tag Name"
+            onRemove={() => {}}
+          />
+        </div>
+      </section>
+      <section>
+        <h6>Tags</h6>
+        <div style={{ width: '300px' }}>
+          <span className="typography-subtitle1">Tag List</span>
+          <TagList
+            tags={tags}
+            setTags={setTags}
+          />
+        </div>
+        <div style={{ width: '300px' }}>
+          <span className="typography-subtitle1">Tag List (read-only)</span>
+          <TagList
+            readOnly
+            tags={tags}
+            setTags={setTags}
+          />
+        </div>
+        <div style={{ width: '300px' }}>
+          <span className="typography-subtitle1">Tag List (maxTags: 5)</span>
+          <TagList
+            tags={tags}
+            setTags={setTags}
+            maxTags={5}
+          />
+        </div>
+        <div>
+          <span className="typography-subtitle1">Tag List (no fixed width)</span>
+          <TagList
+            tags={tags}
+            setTags={setTags}
+          />
+        </div>
+      </section>
     </div>
   );
 };

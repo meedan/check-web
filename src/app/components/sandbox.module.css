@@ -1,0 +1,13 @@
+.sandbox {
+  background-color: var(--grayBackground);
+  height: 100%;
+  overflow: auto;
+  padding: 16px 32px;
+
+  section {
+    background-color: var(--otherWhite);
+    border-radius: 8px;
+    margin: 0 0 16px;
+    padding: 16px;
+  }
+}
