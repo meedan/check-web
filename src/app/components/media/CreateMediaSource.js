@@ -378,7 +378,7 @@ function CreateMediaSource({
               <Box mb={2}>
                 { links.length === 0 ?
                   null :
-                  <h2>
+                  <h2 className="typography-subtitle2">
                     <FormattedMessage
                       id="sourceInfo.secondaryAccounts"
                       defaultMessage="Secondary source URLs"

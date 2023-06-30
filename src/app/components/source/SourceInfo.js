@@ -520,7 +520,7 @@ function SourceInfo({
               <Box mb={2}>
                 { secondaryAccounts.length === 0 ?
                   null :
-                  <h2>
+                  <h2 className="typography-subtitle2">
                     <FormattedMessage
                       id="sourceInfo.secondaryAccounts"
                       defaultMessage="Secondary source URLs"
