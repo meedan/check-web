@@ -34,10 +34,14 @@
   padding: 16px;
 }
 
+.licenseSection {
+  display: grid;
+  grid-gap: 16px;
+}
+
 .licenseOption {
   align-items: center;
   display: flex;
-  padding: 8px;
 }
 
 .licenseOptionIcon {
