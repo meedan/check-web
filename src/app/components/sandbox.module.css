@@ -4,10 +4,35 @@
   overflow: auto;
   padding: 16px 32px;
 
+  .sandboxNav {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    list-style: none;
+    margin: 20px 0 40px;
+    padding: 0;
+  }
+
+  h6 {
+    margin: 0 0 1em;
+  }
+
   section {
     background-color: var(--otherWhite);
     border-radius: 8px;
     margin: 0 0 16px;
     padding: 16px;
+
+    .componentWrapper {
+      margin: 0 0 40px;
+
+      &:last-of-type {
+        margin: 0;
+      }
+
+      .componentName {
+        margin: 0 0 10px;
+      }
+    }
   }
 }

@@ -1,7 +1,0 @@
-[
-  {
-    "id": "saveList.saveList",
-    "description": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list.",
-    "defaultMessage": "Save"
-  }
-]
