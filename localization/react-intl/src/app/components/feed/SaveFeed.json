@@ -140,6 +140,16 @@
     "defaultMessage": "Create shared feed"
   },
   {
+    "id": "saveFeed.createdBy",
+    "description": "Metadata field displayed on feed edit page.",
+    "defaultMessage": "Created by {teamName}"
+  },
+  {
+    "id": "saveFeed.lastUpdated",
+    "description": "On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'.",
+    "defaultMessage": "Last updated {timeAgo}"
+  },
+  {
     "id": "saveFeed.confirmationDialogTitle",
     "description": "Confirmation dialog title when saving a feed.",
     "defaultMessage": "Are you sure you want to update this shared feed?"
