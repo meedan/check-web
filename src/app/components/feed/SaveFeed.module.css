@@ -58,3 +58,22 @@
 .licenseOptionDisabled {
   color: var(--textDisabled);
 }
+
+.saveFeedMetadata {
+  margin-top: 8px;
+
+  span {
+    color: var(--textSecondary);
+    font-size: var(--fontSizeSmall);
+  }
+}
+
+.saveFeedLastUpdated {
+  align-items: center;
+  display: flex;
+
+  svg {
+    color: var(--brandMain);
+    font-size: var(--iconSizeSmall);
+  }
+}
