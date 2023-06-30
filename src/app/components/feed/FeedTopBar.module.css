@@ -6,18 +6,28 @@
   gap: 12px;
   padding: 6px;
 
-  .feedListTitle {
-    color: var(--textPrimary);
+  .feedTopBarList {
+    align-items: center;
+    display: flex;
+
+    .feedListTitle {
+      @mixin text-truncate inline-block;
+      color: var(--textPrimary);
+      max-width: 250px;
+    }
+
+    .feedListIcon {
+      background-color: var(--grayBackground);
+      border-radius: 8px;
+      color: var(--textSecondary);
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 16px;
+      margin-left: 8px;
+    }
   }
 
   .feedNoListTitle {
     color: var(--textPlaceholder);
     font-style: italic;
-  }
-
-  .feedListIcon {
-    background: var(--grayBackground);
-    color: var(--textSecondary);
-    margin-left: 8px;
   }
 }
