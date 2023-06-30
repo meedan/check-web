@@ -4,9 +4,12 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import ListIcon from '@material-ui/icons/List';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import Select from '../cds/inputs/Select';
+import styles from './SelectList.module.css';
 
 const SelectListQueryRenderer = ({
+  required,
   helperText,
   onChange,
   onRemove,
@@ -33,23 +36,67 @@ const SelectListQueryRenderer = ({
     }}
     render={({ error, props }) => {
       if (!error && props) {
+        if (required && props.team.saved_searches.edges.length === 0) {
+          return (
+            <Alert
+              type="warning"
+              title={
+                <FormattedMessage
+                  id="selectList.noListTitle"
+                  defaultMessage="Your workspace needs a Custom Filtered List to contribute."
+                  description="Title of a warning displayed on edit feed page when the workspace has no lists."
+                />
+              }
+              content={
+                <FormattedMessage
+                  id="selectList.noListDescription"
+                  defaultMessage="Create a list and set up filters in order to select the fact-checks you would like to contribute to this shared feed."
+                  description="Content of a warning displayed on edit feed page when the workspace has no lists."
+                />
+              }
+              buttonLabel={
+                <FormattedMessage
+                  id="selectList.noListButtonLabel"
+                  defaultMessage="How to create lists"
+                  description="Helper link in a warning displayed on edit feed page when the workspace has no lists."
+                />
+              }
+              onButtonClick={() => { window.open('https://help.checkmedia.org/en/articles/5229474-filtered-lists#h_0ab5b97e97'); }}
+            />
+          );
+        }
         return (
-          <FormattedMessage id="selectList.select" defaultMessage="Select a custom filtered list…" description="Label for list selector">
-            { selectLabel => (
-              <Select
-                iconLeft={<ListIcon />}
-                value={value}
-                onChange={onChange}
-                onRemove={onRemove}
-                helpContent={helperText}
-              >
-                <option value={null}>{selectLabel}</option>
-                { props.team.saved_searches.edges.map(l => (
-                  <option value={l.node.dbid}>{l.node.title}</option>
-                )) }
-              </Select>
-            )}
-          </FormattedMessage>
+          <div className={styles['select-list-container']}>
+            { (required && !value) ?
+              <div>
+                <Alert
+                  type="warning"
+                  title={
+                    <FormattedMessage
+                      id="saveFeed.noListSelected"
+                      defaultMessage="Your workspace is not contributing to this shared feed. Select a list below to contribute."
+                      description="Warning displayed on edit feed page when no list is selected."
+                    />
+                  }
+                />
+              </div> : null }
+            <FormattedMessage id="selectList.select" defaultMessage="Select list…" description="Label for list selector">
+              { selectLabel => (
+                <Select
+                  iconLeft={<ListIcon />}
+                  value={value}
+                  onChange={onChange}
+                  onRemove={onRemove}
+                  helpContent={helperText}
+                >
+                  <option value={null}>{selectLabel}</option>
+                  { props.team.saved_searches.edges.map(l => (
+                    <option value={l.node.dbid}>{l.node.title}</option>
+                  )) }
+                </Select>
+              )}
+            </FormattedMessage>
+          </div>
         );
       }
 

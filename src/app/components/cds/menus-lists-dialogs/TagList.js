@@ -48,12 +48,15 @@ const TagList = ({
   const selected = tags;
 
   const handleAddNew = (value) => {
+    // eslint-disable-next-line
+    console.log('~~~tags',tags);
     if (value.trim() === '') {
       return;
     }
-    tags.push(value);
+    const newTags = [...tags];
+    newTags.push(value);
     // silently merge non-unique items
-    setTags([...new Set(tags)]);
+    setTags([...new Set(newTags)]);
     handleCloseMenu();
   };
 

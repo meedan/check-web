@@ -5,6 +5,11 @@
     "defaultMessage": "License details"
   },
   {
+    "id": "saveFeed.viewSharedFeed",
+    "description": "Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page.",
+    "defaultMessage": "View Shared Feed"
+  },
+  {
     "id": "saveFeed.sharedFeedPageTitle",
     "description": "Title of the shared feed creation page",
     "defaultMessage": "Shared feed"
@@ -133,5 +138,20 @@
     "id": "saveFeed.createSaveButton",
     "description": "Label to the save button of the shared feed creation form",
     "defaultMessage": "Create shared feed"
+  },
+  {
+    "id": "saveFeed.confirmationDialogTitle",
+    "description": "Confirmation dialog title when saving a feed.",
+    "defaultMessage": "Are you sure you want to update this shared feed?"
+  },
+  {
+    "id": "saveFeed.confirmationDialogBody",
+    "description": "Confirmation dialog message when saving a feed.",
+    "defaultMessage": "Are you sure you want to update this shared feed?"
+  },
+  {
+    "id": "saveFeed.confirmationDialogButton",
+    "description": "Button label to confirm updating a feed.",
+    "defaultMessage": "Update Shared Feed"
   }
 ]
