@@ -311,7 +311,13 @@ const SaveFeed = (props) => {
                 discoverableNoLicense && (
                   <Alert
                     id="save-feed__no-license-error"
-                    title={<span>Select a license in order to create and publish this shared feed.</span>}
+                    title={
+                      <FormattedMessage
+                        id="saveFeed.selectLicense"
+                        defaultMessage="Select a license in order to create and publish this shared feed."
+                        description="Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data."
+                      />
+                    }
                     content={
                       <ExternalLink
                         url="https://www.meedan.com" /* FIXME: Update url */
@@ -320,7 +326,7 @@ const SaveFeed = (props) => {
                         <FormattedMessage
                           id="saveFeed.learnMoreLicenses"
                           defaultMessage="Learn more about licenses."
-                          description="Link to and external page with more information about the data licenses"
+                          description="Link to an external page with more information about the data licenses"
                         />
                       </ExternalLink>
                     }
@@ -339,7 +345,7 @@ const SaveFeed = (props) => {
                   <FormattedMessage
                     id="saveFeed.learnMoreLicenses"
                     defaultMessage="Learn more about licenses."
-                    description="Link to and external page with more information about the data licenses"
+                    description="Link to an external page with more information about the data licenses"
                   />
                 </ExternalLink>
               </span>

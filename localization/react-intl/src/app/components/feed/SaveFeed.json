@@ -95,8 +95,13 @@
     "defaultMessage": "License"
   },
   {
+    "id": "saveFeed.selectLicense",
+    "description": "Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data.",
+    "defaultMessage": "Select a license in order to create and publish this shared feed."
+  },
+  {
     "id": "saveFeed.learnMoreLicenses",
-    "description": "Link to and external page with more information about the data licenses",
+    "description": "Link to an external page with more information about the data licenses",
     "defaultMessage": "Learn more about licenses."
   },
   {
