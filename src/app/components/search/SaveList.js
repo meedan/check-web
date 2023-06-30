@@ -304,10 +304,12 @@ const SaveList = ({
     <React.Fragment>
       {/* The "Save" button */}
       <ButtonMain
-        id="save-list__button"
         customStyle={{ color: 'var(--brandSecondary)', cursor: 'pointer', background: 'var(--brandLight)' }}
         className={classes.saveListButton}
         onClick={handleClick}
+        buttonProps={{
+          id: 'save-list__button',
+        }}
         label={feedTeam && feedTeam.shared ?
           <FormattedMessage
             id="saveList.saveFeed"
