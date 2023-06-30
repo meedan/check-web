@@ -12,6 +12,7 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ExternalLink from '../ExternalLink';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
@@ -114,6 +115,15 @@ const SaveFeed = (props) => {
     setFlashMessage(message, 'error');
   };
 
+  // Error states that cause the save/edit button to disable
+  const discoverableNoLicense = discoverable && (
+    !academicLicense &&
+    !commercialLicense &&
+    !openSourceLicense
+  );
+  const noTitle = title.length === 0;
+  const disableSaveButton = discoverableNoLicense || noTitle;
+
   const handleSaveButton = () => {
     const licenses = [];
     if (academicLicense) licenses.push(1);
@@ -193,6 +203,8 @@ const SaveFeed = (props) => {
                   defaultMessage="Great shared feed names are short, memorable, and tell your audience the focus of the media"
                   description="Title input helper text"
                 />}
+                error={noTitle}
+                suppressInitialError
                 value={title}
                 onChange={e => setTitle(e.target.value)}
                 required
@@ -296,6 +308,33 @@ const SaveFeed = (props) => {
                   description="Title of the section where the publishing preferences such as licenses are selected"
                 />
               </div>
+              {
+                discoverableNoLicense && (
+                  <Alert
+                    id="save-feed__no-license-error"
+                    title={
+                      <FormattedMessage
+                        id="saveFeed.selectLicense"
+                        defaultMessage="Select a license in order to create and publish this shared feed."
+                        description="Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data."
+                      />
+                    }
+                    content={
+                      <ExternalLink
+                        url="https://www.meedan.com" /* FIXME: Update url */
+                        style={{ color: 'var(--errorSecondary)' }}
+                      >
+                        <FormattedMessage
+                          id="saveFeed.learnMoreLicenses"
+                          defaultMessage="Learn more about licenses."
+                          description="Link to an external page with more information about the data licenses"
+                        />
+                      </ExternalLink>
+                    }
+                    type="error"
+                  />
+                )
+              }
               <span className="typography-body2">
                 <FormattedMessage
                   id="saveFeed.licenseBlurb"
@@ -307,7 +346,7 @@ const SaveFeed = (props) => {
                   <FormattedMessage
                     id="saveFeed.learnMoreLicenses"
                     defaultMessage="Learn more about licenses."
-                    description="Link to and external page with more information about the data licenses"
+                    description="Link to an external page with more information about the data licenses"
                   />
                 </ExternalLink>
               </span>
@@ -352,6 +391,7 @@ const SaveFeed = (props) => {
         <Button
           color="primary"
           variant="contained"
+          disabled={disableSaveButton}
           onClick={handleSaveButton}
         >
           { feed.id ?
