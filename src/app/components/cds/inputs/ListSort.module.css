@@ -14,11 +14,16 @@
   flex-direction: column;
   justify-content: center;
   padding: 3px 8px;
+  transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
   width: 32px;
 
   svg {
     color: var(--textPlaceholder);
     font-size: var(--iconSizeSmall);
+  }
+
+  &:hover {
+    background-color: var(--brandHoverAccent);
   }
 }
 
