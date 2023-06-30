@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '../../../icons/arrow_drop_up.svg';
+import ArrowDropDownIcon from '../../../icons/arrow_drop_down.svg';
+import Tooltip from '../alerts-and-prompts/Tooltip';
 import Select from './Select';
 import styles from './ListSort.module.css';
 
@@ -26,10 +27,15 @@ const ListSort = ({ sort, sortType, onChange }) => {
           { label => (<option value="status_index">{label}</option>) }
         </FormattedMessage>
       </Select>
-      <button onClick={handleChangeSortDirection} className={`${styles.listSortDirectionButton} ${sortType === 'ASC' ? styles.listSortAsc : styles.listSortDesc} ${sortType === 'ASC' ? 'list-sort-asc' : 'list-sort-desc'}`}>
-        <ArrowDropUpIcon />
-        <ArrowDropDownIcon />
-      </button>
+      <Tooltip title={
+        <FormattedMessage id="listSort.changeDirection" defaultMessage="Change list sorting direction" description="Tooltip to tell the user they can change the direction of the list sort" />
+      }
+      >
+        <button onClick={handleChangeSortDirection} className={`${styles.listSortDirectionButton} ${sortType === 'ASC' ? styles.listSortAsc : styles.listSortDesc} ${sortType === 'ASC' ? 'list-sort-asc' : 'list-sort-desc'}`}>
+          <ArrowDropUpIcon />
+          <ArrowDropDownIcon />
+        </button>
+      </Tooltip>
     </div>
   );
 };
