@@ -31,7 +31,7 @@ const ListSort = ({ sort, sortType, onChange }) => {
         <FormattedMessage id="listSort.changeDirection" defaultMessage="Change list sorting direction" description="Tooltip to tell the user they can change the direction of the list sort" />
       }
       >
-        <button onClick={handleChangeSortDirection} className={`${styles.listSortDirectionButton} ${sortType === 'ASC' ? styles.listSortAsc : styles.listSortDesc} ${sortType === 'ASC' ? 'list-sort-asc' : 'list-sort-desc'}`}>
+        <button type="button" onClick={handleChangeSortDirection} className={`${styles.listSortDirectionButton} ${sortType === 'ASC' ? styles.listSortAsc : styles.listSortDesc} ${sortType === 'ASC' ? 'list-sort-asc' : 'list-sort-desc'}`}>
           <ArrowDropUpIcon />
           <ArrowDropDownIcon />
         </button>
