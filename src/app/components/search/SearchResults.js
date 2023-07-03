@@ -459,9 +459,9 @@ function SearchResultsComponent({
         <Row className="search__list-header-filter-row">
           <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
             { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
-            <span className={cx('project__title-text', styles['project-title'])}>
+            <div className={cx('project__title-text', styles['project-title'])}>
               {title}
-            </span>
+            </div>
             { savedSearch?.is_part_of_feeds ?
               <Tooltip
                 title={
