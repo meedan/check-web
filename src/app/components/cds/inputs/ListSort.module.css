@@ -1,0 +1,36 @@
+.listSort {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
+
+.listSortDirectionButton {
+  align-items: center;
+  background: var(--grayBackground);
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3px 8px;
+  transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+  width: 32px;
+
+  svg {
+    color: var(--textPlaceholder);
+    font-size: var(--iconSizeSmall);
+  }
+
+  &:hover {
+    background-color: var(--brandHoverAccent);
+  }
+}
+
+.listSortDesc svg + svg {
+  color: var(--brandMain);
+}
+
+.listSortAsc svg:first-child {
+  color: var(--brandMain);
+}

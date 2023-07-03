@@ -5,22 +5,27 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
-import NextIcon from '@material-ui/icons/ChevronRightRounded';
-import PrevIcon from '@material-ui/icons/ChevronLeftRounded';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Tooltip from '@material-ui/core/Tooltip';
+import cx from 'classnames/bind';
 import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
+import NextIcon from '../../icons/chevron_right.svg';
+import PrevIcon from '../../icons/chevron_left.svg';
+import FeedIcon from '../../icons/dynamic_feed.svg';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
 import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
+import FeedBlankState from '../feed/FeedBlankState';
+import ListSort from '../cds/inputs/ListSort';
 import { units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
+import SearchResultsCards from './SearchResultsCards';
 import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
 
@@ -57,6 +62,7 @@ const StyledSearchResultsWrapper = styled.div`
     text-align: center;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     .search__selected {
       color: var(--brandMain);
@@ -66,6 +72,7 @@ const StyledSearchResultsWrapper = styled.div`
     .search__nav {
       padding: 0 ${units(1)} 0 0;
       display: flex;
+      font-size: 24px;
       cursor: pointer;
       color: var(--textPrimary);
     }
@@ -73,6 +80,11 @@ const StyledSearchResultsWrapper = styled.div`
     .search__button-disabled {
       color: var(--textPlaceholder);
       cursor: not-allowed;
+    }
+
+    .search__pagination {
+      display: flex;
+      align-items: center;
     }
   }
 `;
@@ -126,6 +138,7 @@ function SearchResultsComponent({
   project,
   projectGroup,
   feedTeam,
+  feed,
   searchUrlPrefix,
   mediaUrlPrefix,
   showExpand,
@@ -366,7 +379,7 @@ function SearchResultsComponent({
     ? search.medias.edges.map(({ node }) => node)
     : [];
 
-  const count = search.number_of_results;
+  let count = search.number_of_results;
   const { team } = search;
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
@@ -389,6 +402,11 @@ function SearchResultsComponent({
 
   let content = null;
 
+  // Return nothing if feed doesn't have a list
+  if (resultType === 'factCheck' && !feed.saved_search_id) {
+    count = 0;
+  }
+
   if (count === 0) {
     content = (
       <ProjectBlankState
@@ -400,6 +418,15 @@ function SearchResultsComponent({
         }
       />
     );
+    if (resultType === 'factCheck') {
+      content = (
+        <FeedBlankState
+          teamSlug={team.slug}
+          feedDbid={feed.dbid}
+          listDbid={feed.saved_search_id}
+        />
+      );
+    }
   } else {
     content = (
       <SearchResultsTable
@@ -414,38 +441,65 @@ function SearchResultsComponent({
         count={count}
       />
     );
+    if (resultType === 'factCheck') {
+      content = (
+        <SearchResultsCards
+          team={team}
+          projectMedias={projectMedias}
+        />
+      );
+    }
   }
+
+  const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
 
   return (
     <React.Fragment>
       <StyledListHeader>
         <Row className="search__list-header-filter-row">
-          <div
-            className="project__title typography-h5"
-            title={title?.props?.defaultMessage || title}
-            style={{
-              color: 'var(--textSecondary)',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }
-            <span className="project__title-text">
+          <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
+            { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
+            <div className={cx('project__title-text', styles['project-title'])}>
               {title}
-            </span>
+            </div>
+            { savedSearch?.is_part_of_feeds ?
+              <Tooltip
+                title={
+                  <>
+                    <FormattedMessage
+                      id="sharedFeedIcon.Tooltip"
+                      defaultMessage="Included in Shared Feed:"
+                      description="Tooltip for shared feeds icon"
+                    />
+                    <ul>
+                      {feeds.map(feedObj => (
+                        <li key={feedObj.id}>&bull; {feedObj}</li>
+                      ))}
+                    </ul>
+                  </>
+                }
+                className={styles['tooltip-icon']}
+              >
+                <div className={styles['search-results-header-icon']}>
+                  <FeedIcon id="shared-feed__icon" />
+                </div>
+              </Tooltip>
+              :
+              null }
             {listActions}
           </div>
-          <SearchKeyword
-            query={query}
-            setQuery={setQuery}
-            project={project}
-            hideFields={hideFields}
-            title={title}
-            team={team}
-            showExpand={showExpand}
-            cleanupQuery={cleanupQuery}
-            handleSubmit={handleSubmit}
-          />
+          { resultType !== 'factCheck' ?
+            <SearchKeyword
+              query={query}
+              setQuery={setQuery}
+              project={project}
+              hideFields={hideFields}
+              title={title}
+              team={team}
+              showExpand={showExpand}
+              cleanupQuery={cleanupQuery}
+              handleSubmit={handleSubmit}
+            /> : null }
         </Row>
         <>
           {listDescription && listDescription.trim().length ?
@@ -453,94 +507,108 @@ function SearchResultsComponent({
             : null}
         </>
       </StyledListHeader>
-      { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
-      <Box m={2}>
-        <SearchFields
-          query={query}
-          setQuery={setQuery}
-          onChange={handleChangeQuery}
-          project={project}
-          projectGroup={projectGroup}
-          feedTeam={feedTeam}
-          savedSearch={savedSearch}
-          hideFields={hideFields}
-          readOnlyFields={readOnlyFields}
-          title={title}
-          team={team}
-          page={page}
-          handleSubmit={handleSubmit}
-        />
-      </Box>
+      <div className="search__results-top">
+        { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
+        <Box m={2}>
+          <SearchFields
+            query={query}
+            setQuery={setQuery}
+            onChange={handleChangeQuery}
+            project={project}
+            projectGroup={projectGroup}
+            feedTeam={feedTeam}
+            feed={feed}
+            savedSearch={savedSearch}
+            hideFields={hideFields}
+            readOnlyFields={readOnlyFields}
+            title={title}
+            team={team}
+            page={page}
+            handleSubmit={handleSubmit}
+          />
+        </Box>
+      </div>
       <StyledSearchResultsWrapper className="search__results results">
         <Toolbar
           resultType={resultType}
           team={team}
-          actions={projectMedias.length && selectedProjectMedia.length ?
-            <BulkActions
-              team={team}
-              page={page}
-              project={project}
-              selectedProjectMedia={selectedProjectMedia}
-              selectedMedia={filteredSelectedProjectMediaIds}
-              onUnselectAll={onUnselectAll}
-            /> : null}
+          actions={
+            projectMedias.length && selectedProjectMedia.length ?
+              <BulkActions
+                team={team}
+                page={page}
+                project={project}
+                selectedProjectMedia={selectedProjectMedia}
+                selectedMedia={filteredSelectedProjectMediaIds}
+                onUnselectAll={onUnselectAll}
+              /> : null
+          }
           title={count ?
             <span className="search__results-heading">
-              <Tooltip title={
-                <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
+              { resultType === 'factCheck' && feed ?
+                <ListSort
+                  sort={query.sort}
+                  sortType={query.sort_type}
+                  onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
+                /> : null
               }
-              >
-                {getPreviousPageLocation() ? (
-                  <Link
-                    className="search__previous-page search__nav"
-                    to={getPreviousPageLocation()}
-                  >
-                    <PrevIcon />
-                  </Link>
-                ) : (
-                  <span className="search__previous-page search__nav search__button-disabled">
-                    <PrevIcon />
-                  </span>
-                )}
-              </Tooltip>
-              <Typography variant="button" component="span">
-                <FormattedMessage
-                  id="searchResults.itemsCount"
-                  defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                  values={{
-                    from: getBeginIndex() + 1,
-                    to: getEndIndex(),
-                    count,
-                  }}
-                />
-                {filteredSelectedProjectMediaIds.length ?
-                  <FormattedMessage
-                    id="searchResults.withSelection"
-                    defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                    description="Label for number of selected items"
-                    values={{
-                      selectedCount: filteredSelectedProjectMediaIds.length,
-                    }}
-                  >
-                    {txt => <span className="search__selected">{txt}</span>}
-                  </FormattedMessage>
-                  : null
+              <span className="search__pagination">
+                <Tooltip title={
+                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
                 }
-              </Typography>
-              <Tooltip title={
-                <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
-              }
-              >
-                {getNextPageLocation() ? (
-                  <Link className="search__next-page search__nav" to={getNextPageLocation()}>
-                    <NextIcon />
-                  </Link>
-                ) : (
-                  <span className="search__next-page search__nav search__button-disabled">
-                    <NextIcon />
-                  </span>
-                )}
-              </Tooltip>
+                >
+                  {getPreviousPageLocation() ? (
+                    <Link
+                      className="search__previous-page search__nav"
+                      to={getPreviousPageLocation()}
+                    >
+                      <PrevIcon />
+                    </Link>
+                  ) : (
+                    <span className="search__previous-page search__nav search__button-disabled">
+                      <PrevIcon />
+                    </span>
+                  )}
+                </Tooltip>
+                <span className="typography-button">
+                  <FormattedMessage
+                    id="searchResults.itemsCount"
+                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                    values={{
+                      from: getBeginIndex() + 1,
+                      to: getEndIndex(),
+                      count,
+                    }}
+                  />
+                  {filteredSelectedProjectMediaIds.length ?
+                    <FormattedMessage
+                      id="searchResults.withSelection"
+                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                      description="Label for number of selected items"
+                      values={{
+                        selectedCount: filteredSelectedProjectMediaIds.length,
+                      }}
+                    >
+                      {txt => <span className="search__selected">{txt}</span>}
+                    </FormattedMessage>
+                    : null
+                  }
+                </span>
+                <Tooltip title={
+                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
+                }
+                >
+                  {getNextPageLocation() ? (
+                    <Link className="search__next-page search__nav" to={getNextPageLocation()}>
+                      <NextIcon />
+                    </Link>
+                  ) : (
+                    <span className="search__next-page search__nav search__button-disabled">
+                      <NextIcon />
+                    </span>
+                  )}
+                </Tooltip>
+              </span>
             </span> : null
           }
           project={project}
@@ -566,6 +634,7 @@ SearchResultsComponent.defaultProps = {
   readOnlyFields: [],
   savedSearch: null,
   feedTeam: null,
+  feed: null,
   extra: null,
 };
 
@@ -592,6 +661,11 @@ SearchResultsComponent.propTypes = {
     filters: PropTypes.object,
     feedFilters: PropTypes.object,
   }), // may be null
+  feed: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    saved_search_id: PropTypes.number,
+  }), // may be null
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,
   showExpand: PropTypes.bool,
@@ -607,6 +681,9 @@ SearchResultsComponent.propTypes = {
   savedSearch: PropTypes.object, // or null
   extra: PropTypes.node, // or null
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { SearchResultsComponent as SearchResultsComponentTest };
 
 const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
   initialVariables: {

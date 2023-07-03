@@ -106,6 +106,9 @@ class HomeComponent extends Component {
     if (/\/feed\/:feedId\/cluster\/:clusterId/.test(children.props.route.path)) {
       return 'feed-item';
     }
+    if (/\/feed\/[0-9]+\/feed/.test(window.location.pathname)) {
+      return 'feed';
+    }
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media';
     }
@@ -294,7 +297,7 @@ class HomeComponent extends Component {
                 {...this.props}
               />
               <FlashMessage />
-              <div className={styles.mainContentWrapper}>
+              <div className={`${styles.mainContentWrapper} route__${routeSlug}`}>
                 {children}
               </div>
             </main>

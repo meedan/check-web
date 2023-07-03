@@ -78,6 +78,7 @@ const Projects = () => {
                   dbid
                   title
                   filters
+                  is_part_of_feeds
                 }
               }
             }

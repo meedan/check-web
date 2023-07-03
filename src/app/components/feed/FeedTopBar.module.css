@@ -1,0 +1,33 @@
+.feedTopBar {
+  align-items: center;
+  border: 2px solid var(--brandMain);
+  border-radius: 6px;
+  display: inline-flex;
+  gap: 12px;
+  padding: 6px;
+
+  .feedTopBarList {
+    align-items: center;
+    display: flex;
+
+    .feedListTitle {
+      @mixin text-truncate inline-block;
+      color: var(--textPrimary);
+      max-width: 250px;
+    }
+
+    .feedListIcon {
+      background-color: var(--grayBackground);
+      border-radius: 8px;
+      color: var(--textSecondary);
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 16px;
+      margin-left: 8px;
+    }
+  }
+
+  .feedNoListTitle {
+    color: var(--textPlaceholder);
+    font-style: italic;
+  }
+}

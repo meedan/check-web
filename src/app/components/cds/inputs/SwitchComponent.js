@@ -56,7 +56,7 @@ SwitchComponent.defaultProps = {
   checked: false,
   disabled: false,
   label: null,
-  labelPlacement: '',
+  labelPlacement: 'end',
   helperContent: '',
   onChange: null,
 };
@@ -65,7 +65,7 @@ SwitchComponent.propTypes = {
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
   label: PropTypes.object,
-  labelPlacement: PropTypes.string,
+  labelPlacement: PropTypes.oneOf(['bottom', 'end', 'start', 'top']),
   helperContent: PropTypes.string,
   onChange: PropTypes.func,
 };

@@ -15,10 +15,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import AddCircleIcon from '../../../icons/add_circle.svg';
 import CategoryIcon from '../../../icons/category.svg';
 import ExpandLessIcon from '../../../icons/expand_less.svg';
 import ExpandMoreIcon from '../../../icons/expand_more.svg';
+import FeedIcon from '../../../icons/dynamic_feed.svg';
 import FileDownloadIcon from '../../../icons/file_download.svg';
 import InboxIcon from '../../../icons/inbox.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
@@ -68,6 +70,10 @@ const ProjectsComponent = ({
   const handleAllItems = () => {
     setActiveItem({ type: 'all-items', id: null });
     browserHistory.push(`/${team.slug}/all-items`);
+  };
+
+  const handleCreateFeed = () => {
+    browserHistory.push(`/${team.slug}/feed/create`);
   };
 
   const handleSpecialLists = (listId) => {
@@ -283,9 +289,11 @@ const ProjectsComponent = ({
           <ListItemText disableTypography className={styles.listHeaderLabel}>
             <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
             <Can permissions={team.permissions} permission="create Project">
-              <IconButton id="projects-list__add-filtered-list" onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
-                <AddCircleIcon />
-              </IconButton>
+              <Tooltip title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
+                <IconButton id="projects-list__add-filtered-list" onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
+                  <AddCircleIcon />
+                </IconButton>
+              </Tooltip>
             </Can>
           </ListItemText>
         </ListItem>
@@ -309,6 +317,7 @@ const ProjectsComponent = ({
                     project={search}
                     teamSlug={team.slug}
                     onClick={handleClick}
+                    icon={search.is_part_of_feeds && <FeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} />}
                     isActive={isActive('list', search.dbid)}
                   />
                 ))}
@@ -318,29 +327,43 @@ const ProjectsComponent = ({
         </React.Fragment>
 
         {/* Shared feeds */}
-        { feeds.length > 0 &&
-          <React.Fragment>
-            <ListItem onClick={handleToggleFeedsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
-              { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-              <ListItemText disableTypography className={styles.listHeaderLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
+        <ListItem onClick={handleToggleFeedsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
+          { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
+          <ListItemText disableTypography className={styles.listHeaderLabel}>
+            <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
+            <Can permissions={team.permissions} permission="create Feed">
+              <Tooltip title={<FormattedMessage id="projectsComponent.newSharedFeed" defaultMessage="New shared feed" description="Tooltip for the button that navigates to shared feed creation page" />}>
+                <IconButton onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-feed'].join(' ')}>
+                  <AddCircleIcon />
+                </IconButton>
+              </Tooltip>
+            </Can>
+          </ListItemText>
+        </ListItem>
+        <Collapse in={feedsExpanded} className={styles.listCollapseWrapper}>
+          { feeds.length === 0 ?
+            <ListItem className={[styles.listItem, styles.listItem_containsCount, styles.listItem_empty].join(' ')}>
+              <ListItemText disableTypography className={styles.listLabel}>
+                <span>
+                  <FormattedMessage tagName="em" id="projectsComponent.noSharedFeeds" defaultMessage="No shared feeds" description="Displayed under the shared feed header when there are no feeds in it" />
+                </span>
               </ListItemText>
-            </ListItem>
-            <Collapse in={feedsExpanded} className={styles.listCollapseWrapper}>
+            </ListItem> :
+            <>
               {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
                 <ProjectsListItem
                   key={feed.id}
                   routePrefix="feed"
-                  routeSuffix="/shared"
+                  routeSuffix="/feed"
                   project={feed}
                   teamSlug={team.slug}
                   onClick={handleClick}
                   isActive={isActive('feed', feed.dbid)}
                 />
               ))}
-            </Collapse>
-          </React.Fragment>
-        }
+            </>
+          }
+        </Collapse>
 
         {/* Folders: create new folder or collection */}
         <ListItem onClick={handleToggleFoldersExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
@@ -348,9 +371,11 @@ const ProjectsComponent = ({
           <ListItemText disableTypography className={styles.listHeaderLabel}>
             <FormattedMessage tagName="span" id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
             <Can permissions={team.permissions} permission="create Project">
-              <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-folder-or-collection'].join(' ')}>
-                <AddCircleIcon />
-              </IconButton>
+              <Tooltip title={<FormattedMessage id="projectsComponent.newFolderOrCollection" defaultMessage="New folder or collection" description="Tooltip for the button opens the new folder or collection menu" />}>
+                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-folder-or-collection'].join(' ')}>
+                  <AddCircleIcon />
+                </IconButton>
+              </Tooltip>
             </Can>
             <Menu
               anchorEl={folderMenuAnchor}

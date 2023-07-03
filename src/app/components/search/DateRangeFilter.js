@@ -401,7 +401,7 @@ const DateRangeFilter = ({
             input={
               <StyledInputBaseDropdown
                 startAdornment={
-                  <RemoveableWrapper icon={<DateRangeIcon style={{ fontSize: '24px' }} />} onRemove={onRemove} boxProps={{ pr: 1 }} />
+                  <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} />
                 }
               />
             }

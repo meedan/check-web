@@ -37,7 +37,7 @@
   {
     "id": "addFilterMenu.itemStatus",
     "description": "Menu option to enable searching items by item status",
-    "defaultMessage": "Item status"
+    "defaultMessage": "Rating"
   },
   {
     "id": "addFilterMenu.reportStatus",
