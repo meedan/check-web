@@ -50,7 +50,9 @@ module.exports = {
       // Override with "enforce" (`vendor` chunk below) or comments above
       // import() directives (`react-intl/locale-data/*.js` and
       // `localization/translations/*.js`).
-      minSize: 999999999,
+      minSize: 1024,
+      maxSize: 1024000,
+      hidePathInfo: true,
       // do not auto-name chunks.
       // Recommended in Webpack docs so names in dev/prod stay predictable.
       // https://webpack.js.org/plugins/split-chunks-plugin/#splitchunksname
@@ -62,6 +64,7 @@ module.exports = {
           filename: `vendor.bundle${BUNDLE_PREFIX}.js`, // we link to it directly in our HTML
           chunks: 'all',
           enforce: true,
+          reuseExistingChunk: true,
           test({ resource }) {
             return (
               resource &&
@@ -69,6 +72,12 @@ module.exports = {
               !resource.startsWith(reactIntlLocaleDataPrefix)
             );
           },
+        },
+        default: {
+          minChunks: 2,
+          enforce: true,
+          priority: -20,
+          reuseExistingChunk: true,
         },
       },
     },
