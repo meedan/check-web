@@ -366,7 +366,7 @@ const SaveList = ({
           body={
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
-                { savedSearch?.is_part_of_feeds ?
+                { savedSearch ?
                   <>
                     <FormControlLabel
                       value="UPDATE"
@@ -387,7 +387,7 @@ const SaveList = ({
                           </ul>
                         }
                       />
-                      : null}
+                      : null }
                   </>
                   :
                   <FormControlLabel
