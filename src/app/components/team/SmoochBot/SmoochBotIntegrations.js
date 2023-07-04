@@ -212,29 +212,22 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           skipUrlConfirmation
         />
         <SmoochBotIntegrationButton
+          disabled={false}
+          readOnly={false}
+          online={false}
           installationId={installationId}
-          disabled={!isEnabled}
           type="twitter"
           label="Twitter"
-          url={settings.smooch_twitter_authorization_url}
+          url={null}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_5cfcbe09c7"
           icon={<TwitterIcon />}
           color="var(--twitterBlue)"
-          online={isOnline('twitter')}
-          readOnly={!isSmoochSet}
-          info={
-            isOnline('twitter') ?
-              <FormattedMessage
-                id="smoochBotIntegrations.account"
-                defaultMessage="Connected account: {link}"
-                values={{
-                  link: (
-                    <a href={`https://twitter.com/messages/compose?recipient_id=${enabledIntegrations.twitter.userId}`} target="_blank" rel="noopener noreferrer">
-                      {enabledIntegrations.twitter.username}
-                    </a>
-                  ),
-                }}
-              /> : null
+          deprecationNotice={
+            <FormattedMessage
+              id="smoochBotIntegrations.twitterDisabled"
+              defaultMessage="The integration with Twitter is currently not available, following changes to the Twitter API on April 21, 2023. "
+              description="Disclaimer displayed on Twitter tipline settings page."
+            />
           }
         />
         <SmoochBotIntegrationButton
