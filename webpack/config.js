@@ -36,7 +36,7 @@ module.exports = {
     NODE_ENV === 'production' ? 'source-map' : 'eval-cheap-module-source-map',
   output: {
     path: path.join(__dirname, '../build/web/js'),
-    filename: `[name].bundle${BUNDLE_PREFIX}.js`,
+    filename: `[name].${BUNDLE_PREFIX}.[contenthash].js`,
     chunkFilename: `[name].chunk${BUNDLE_PREFIX}.[contenthash].js`,
 		publicPath: '/',
   },
@@ -63,7 +63,7 @@ module.exports = {
           name: 'vendor',
           filename: `vendor.bundle${BUNDLE_PREFIX}.js`, // we link to it directly in our HTML
           chunks: 'all',
-          enforce: true,
+          //enforce: true,
           reuseExistingChunk: true,
           test({ resource }) {
             return (
