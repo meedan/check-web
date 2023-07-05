@@ -6,8 +6,8 @@
   },
   {
     "id": "newsletterRssFeed.error",
-    "description": "Error message displayed under RSS feed URL field. The placeholder 'helpLink' is a link to a help article, and the text is something like 'Learn more'.",
-    "defaultMessage": "This URL is not a valid RSS URL. {helpLink}."
+    "description": "Error message displayed under RSS feed URL field.",
+    "defaultMessage": "This URL is not a valid RSS URL."
   },
   {
     "id": "newsletterRssFeed.learnMore",

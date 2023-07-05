@@ -97,22 +97,22 @@ const NewsletterRssFeed = ({
                     helpContent={
                       helpContent ||
                       (invalid &&
-                        <FormattedMessage
-                          id="newsletterRssFeed.error"
-                          defaultMessage="This URL is not a valid RSS URL. {helpLink}."
-                          description="Error message displayed under RSS feed URL field. The placeholder 'helpLink' is a link to a help article, and the text is something like 'Learn more'."
-                          values={{
-                            helpLink: (
-                              <a href="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters#h_03610322d5" target="_blank" rel="noopener noreferrer" className={styles['error-label']}>
-                                <FormattedMessage
-                                  id="newsletterRssFeed.learnMore"
-                                  defaultMessage="Learn more"
-                                  description="This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'"
-                                />
-                              </a>
-                            ),
-                          }}
-                        />
+                        <span>
+                          <FormattedMessage
+                            id="newsletterRssFeed.error"
+                            defaultMessage="This URL is not a valid RSS URL."
+                            description="Error message displayed under RSS feed URL field."
+                          />
+                          {' '}
+                          <a href="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters#h_03610322d5" target="_blank" rel="noopener noreferrer" className={styles['error-label']}>
+                            <FormattedMessage
+                              id="newsletterRssFeed.learnMore"
+                              defaultMessage="Learn more"
+                              description="This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'"
+                            />
+                          </a>
+                          .
+                        </span>
                       )
                     }
                   />
