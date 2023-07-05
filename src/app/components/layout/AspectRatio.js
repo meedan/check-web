@@ -114,11 +114,11 @@ const AspectRatio = ({
   children,
   projectMedia,
   isVideoFile,
+  superAdminMask,
   intl,
 }) => {
-  const contentWarning = projectMedia?.show_warning_cover;
+  const contentWarning = projectMedia?.show_warning_cover && superAdminMask;
   const warningCreator = projectMedia?.dynamic_annotation_flag?.annotator?.name;
-
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
@@ -203,7 +203,7 @@ const AspectRatio = ({
         : null }
       <div className={classes.innerWrapper}>
         <ButtonsContainer />
-        { !maskContent ? children : null }
+        { !maskContent || !superAdminMask ? children : null }
         { contentWarning ?
           <div className={classes.sensitiveScreen}>
             <Box
@@ -247,7 +247,7 @@ const AspectRatio = ({
                   color="primary"
                   variant="contained"
                 >
-                  { maskContent ? (
+                  { maskContent && superAdminMask ? (
                     <FormattedMessage
                       id="contentScreen.viewContentButton"
                       defaultMessage="Temporarily view content"
@@ -274,11 +274,13 @@ AspectRatio.propTypes = {
   children: PropTypes.node.isRequired,
   downloadUrl: PropTypes.string,
   isVideoFile: PropTypes.bool,
+  superAdminMask: PropTypes.bool,
 };
 
 AspectRatio.defaultProps = {
   downloadUrl: '',
   isVideoFile: false,
+  superAdminMask: false,
 };
 
 export default createFragmentContainer(injectIntl(AspectRatio), graphql`

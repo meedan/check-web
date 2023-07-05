@@ -251,6 +251,7 @@ class MediaComponent extends Component {
                 <MediaCardLarge
                   projectMedia={projectMedia}
                   currentUserRole={currentUserRole}
+                  superAdminMask={this.state.superAdminMask}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
                 { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={this.state.superAdminMask} /> }
