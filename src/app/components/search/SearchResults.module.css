@@ -24,12 +24,37 @@
   /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
   font-size: 24px;
   height: 1em;
-  margin: 0 12px 0 0;
+  margin: 3px 12px 0 0;
   width: 1em;
 }
 
 .project-title {
-  align-items: center;
+  align-items: flex-start;
   color: var(--textSecondary);
   display: flex;
+  margin: 0 16px 0 0;
+}
+
+.StyledListHeader {
+  margin: 16px 16px 0;
+
+  :global(.search__list-header-filter-row) {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  :global(.project__title-text) {
+    display: -webkit-box; /* stylelint-disable */
+    max-height: 3em;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    white-space: pre-line;
+    word-break: break-all;
+  }
+
+  :global(.project__description) {
+    padding-top: 4px;
+  }
 }

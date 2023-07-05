@@ -29,27 +29,6 @@ import SearchResultsCards from './SearchResultsCards';
 import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
 
-const StyledListHeader = styled.div`
-  margin: ${units(2)} ${units(2)} 0;
-
-  .search__list-header-filter-row {
-    justify-content: space-between;
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .project__title-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 500px;
-  }
-
-  .project__description {
-    padding-top: ${units(0.5)};
-  }
-`;
-
 const StyledSearchResultsWrapper = styled.div`
   height: 100%;
   overflow: hidden;
@@ -455,7 +434,7 @@ function SearchResultsComponent({
 
   return (
     <React.Fragment>
-      <StyledListHeader>
+      <div className={styles.StyledListHeader}>
         <Row className="search__list-header-filter-row">
           <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
             { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
@@ -506,7 +485,7 @@ function SearchResultsComponent({
             <Row className="project__description"><ParsedText text={listDescription} /></Row>
             : null}
         </>
-      </StyledListHeader>
+      </div>
       <div className="search__results-top">
         { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
         <Box m={2}>
