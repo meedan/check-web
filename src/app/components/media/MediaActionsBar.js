@@ -84,7 +84,7 @@ class MediaActionsBarComponent extends Component {
       />
     );
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.props.setFlashMessage(message, 'error');
+    this?.props.setFlashMessage(message, 'error');
   }
 
   canSubmit = () => {
