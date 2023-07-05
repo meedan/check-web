@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
@@ -6,24 +7,34 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   remove: {
-    color: 'red',
-    borderColor: 'red',
+    color: '#F44336',
+    borderColor: '#F44336',
+    border: '2px solid',
   },
   apply: {
-    color: 'green',
-    borderColor: 'green',
+    color: '#4CAF50',
+    borderColor: '#4CAF50',
+    border: '2px solid',
   },
 });
 
-const SuperAdminControls = () => {
+const SuperAdminControls = ({
+  superAdminMask,
+  handleSuperAdminMask,
+  handlesuperAdminMaskSession,
+}) => {
   const classes = useStyles();
-  const [superAdminmaskContent, setSuperAdminMaskContent] = React.useState(false);
+  const [superAdminmaskContent, setSuperAdminMaskContent] = React.useState(superAdminMask);
 
-  const handleSuperAdminClick = () => {
+  const handleSuperAdminClickPage = () => {
     const newValue = !superAdminmaskContent;
     setSuperAdminMaskContent(newValue);
-    // TODO: save value in memory
-    // window.storage.set('superAdminMask', newValue);
+    handleSuperAdminMask(newValue);
+  };
+
+  const handleSuperAdminClickSession = () => {
+    // TODO: fix the logic
+    handlesuperAdminMaskSession(!superAdminmaskContent);
   };
 
   return (
@@ -34,38 +45,39 @@ const SuperAdminControls = () => {
         px={2}
         py={1}
         justifyContent="space-between"
-        bgcolor="lightgray"
+        bgcolor="#F7F7F7"
         position="fixed"
         style={{ bottom: 0, gap: 16 }}
       >
         {
           superAdminmaskContent ?
             <Button
-              className={['super-admin-controls_apply', classes.apply].join(' ')}
-              variant="outlined"
-              onClick={handleSuperAdminClick}
-            >
-              <FormattedMessage
-                id="superAdminControls.apply"
-                defaultMessage="Apply admin screen on this page"
-                description="A label on a button that apply admin screen."
-              />
-            </Button> :
-            <Button
               className={['super-admin-controls_remove', classes.remove].join(' ')}
               variant="outlined"
-              onClick={handleSuperAdminClick}
+              onClick={handleSuperAdminClickPage}
             >
               <FormattedMessage
                 id="superAdminControls.remove"
                 defaultMessage="Remove admin screen on this page"
                 description="A label on a button that remove admin screen."
               />
+            </Button> :
+            <Button
+              className={['super-admin-controls_apply', classes.apply].join(' ')}
+              variant="outlined"
+              onClick={handleSuperAdminClickPage}
+            >
+              <FormattedMessage
+                id="superAdminControls.apply"
+                defaultMessage="Apply admin screen on this page"
+                description="A label on a button that apply admin screen."
+              />
             </Button>
         }
         <Button
           className={['super-admin-controls_pause', classes.remove].join(' ')}
           variant="outlined"
+          onClick={handleSuperAdminClickSession}
         >
           <FormattedMessage
             id="superAdminControls.pause"
@@ -76,6 +88,16 @@ const SuperAdminControls = () => {
       </Box>
     </React.Fragment>
   );
+};
+
+SuperAdminControls.propTypes = {
+  superAdminMask: PropTypes.bool,
+  handleSuperAdminMask: PropTypes.func.isRequired,
+  handlesuperAdminMaskSession: PropTypes.func.isRequired,
+};
+
+SuperAdminControls.defaultProps = {
+  superAdminMask: false,
 };
 
 export default SuperAdminControls;

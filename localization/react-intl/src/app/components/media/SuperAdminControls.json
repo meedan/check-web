@@ -1,13 +1,13 @@
 [
   {
-    "id": "superAdminControls.apply",
-    "description": "A label on a button that apply admin screen.",
-    "defaultMessage": "Apply admin screen on this page"
-  },
-  {
     "id": "superAdminControls.remove",
     "description": "A label on a button that remove admin screen.",
     "defaultMessage": "Remove admin screen on this page"
+  },
+  {
+    "id": "superAdminControls.apply",
+    "description": "A label on a button that apply admin screen.",
+    "defaultMessage": "Apply admin screen on this page"
   },
   {
     "id": "superAdminControls.pause",

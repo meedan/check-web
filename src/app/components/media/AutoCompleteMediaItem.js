@@ -169,6 +169,7 @@ const AutoCompleteMediaItem = (props, context) => {
                     report_status
                     is_confirmed_similar_to_another_item
                     full_url
+                    show_warning_cover
                     media {
                       type
                       url
@@ -372,6 +373,7 @@ const AutoCompleteMediaItem = (props, context) => {
                           />,
                         ]}
                         media={projectMedia.media}
+                        maskContent={projectMedia.show_warning_cover}
                         description={projectMedia.description}
                         className={selectedDbid === projectMedia.dbid ? classes.selectedItem : null}
                         onClick={(e) => {

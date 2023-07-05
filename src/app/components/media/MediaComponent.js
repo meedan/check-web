@@ -88,6 +88,7 @@ class MediaComponent extends Component {
     this.state = {
       showTab: initialTab,
       openMediaDialog: false,
+      superAdminMask: true,
     };
   }
 
@@ -173,6 +174,10 @@ class MediaComponent extends Component {
     pusher.unsubscribe(projectMedia.pusher_channel);
   }
 
+  handlesuperAdminMask(value) {
+    this.setState({ superAdminMask: value });
+  }
+
   render() {
     // if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
     //   return null;
@@ -248,18 +253,26 @@ class MediaComponent extends Component {
                   currentUserRole={currentUserRole}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
-                { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} /> }
+                { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={this.state.superAdminMask} /> }
               </Column>
               <Column className="media__annotations-column" overflow="hidden">
                 <MediaComponentRightPanel
                   projectMedia={projectMedia}
                   showTab={this.state.showTab}
                   setShowTab={setShowTab}
+                  superAdminMask={this.state.superAdminMask}
                 />
               </Column>
             </React.Fragment> : null }
         </StyledThreeColumnLayout>
-        { this.getContext().currentUser.is_admin ? <SuperAdminControls /> : null }
+        {
+          this.getContext().currentUser.is_admin ?
+            <SuperAdminControls
+              superAdminMask={this.state.superAdminMask}
+              handleSuperAdminMask={this.handlesuperAdminMask.bind(this)}
+              handlesuperAdminMaskSession={this.handlesuperAdminMask.bind(this)}
+            /> : null
+        }
       </div>
     );
   }
