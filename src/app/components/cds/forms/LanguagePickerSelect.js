@@ -25,7 +25,7 @@ const LanguagePickerSelect = ({
   isDisabled,
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
-  const options = languages.slice();
+  const options = (languages || []).slice();
   options.unshift('und');
 
   // intl.formatMessage needed here because Autocomplete
