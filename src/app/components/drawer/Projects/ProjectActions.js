@@ -34,13 +34,11 @@ const ProjectActions = ({
   updateMutation,
   deleteMutation,
   deleteMessage,
-  noDescription,
   isMoveable,
   hasPrivacySettings,
   setFlashMessage,
 }) => {
   const [newTitle, setNewTitle] = React.useState('');
-  const [newDescription, setNewDescription] = React.useState('');
   const [saving, setSaving] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showEditDialog, setShowEditDialog] = React.useState(false);
@@ -102,10 +100,6 @@ const ProjectActions = ({
     const input = {
       id: object.id,
     };
-
-    if (!noDescription && newDescription) {
-      input.description = newDescription;
-    }
 
     if (newTitle) {
       input.title = newTitle;
@@ -382,22 +376,6 @@ const ProjectActions = ({
               className="project-actions__edit-title"
               fullWidth
             />
-            { !noDescription ?
-              <TextField
-                id="project-actions__edit-description-input"
-                label={
-                  <FormattedMessage
-                    id="projectsComponent.description"
-                    defaultMessage="Description"
-                  />
-                }
-                defaultValue={object.description}
-                onChange={(e) => { setNewDescription(e.target.value); }}
-                variant="outlined"
-                margin="normal"
-                className="project-actions__edit-description"
-                fullWidth
-              /> : null }
           </Box>
         }
         proceedDisabled={!newTitle && !object.title}
@@ -540,7 +518,6 @@ const ProjectActions = ({
 };
 
 ProjectActions.defaultProps = {
-  noDescription: false,
   isMoveable: false,
   hasPrivacySettings: false,
 };
@@ -551,7 +528,6 @@ ProjectActions.propTypes = {
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    description: PropTypes.string,
     project_group_id: PropTypes.number,
     privacy: PropTypes.number,
     team: PropTypes.shape({
@@ -564,7 +540,6 @@ ProjectActions.propTypes = {
   updateMutation: PropTypes.object.isRequired,
   deleteMutation: PropTypes.object.isRequired,
   deleteMessage: PropTypes.object.isRequired,
-  noDescription: PropTypes.bool,
   isMoveable: PropTypes.bool,
   hasPrivacySettings: PropTypes.bool,
 };

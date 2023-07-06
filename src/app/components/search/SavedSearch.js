@@ -59,7 +59,6 @@ const SavedSearch = ({ routeParams }) => (
                 icon={<ListIcon />}
                 listActions={
                   <ProjectActions
-                    noDescription
                     object={props.saved_search}
                     objectType="SavedSearch"
                     name="list"
