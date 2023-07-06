@@ -96,7 +96,7 @@ function Upload({
         </span>
         &nbsp;
         <a className="typography-button" href="#!" onClick={handleClick}>
-          <FormattedMessage id="upload.selectFile" defaultMessage="Select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." />
+          <FormattedMessage id="upload.selectFile" defaultMessage="select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." />
         </a>.
       </div>
     );
