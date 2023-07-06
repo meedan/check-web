@@ -51,3 +51,37 @@
     text-decoration: none;
   }
 }
+
+.toggleCollapse {
+  align-items: center;
+  background-color: var(--brandHoverAccent);
+  border: 1px solid var(--grayBorderMain);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2px 2px;
+  width: 28px;
+  height: 28px;
+  margin-top: 8px;
+  color: var(--textSecondary);
+
+  svg {
+    font-size: var(--iconSizeSmall);
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    background-color: var(--brandHoverAccent);
+    color: var(--brandMain);
+  }
+}
+
+.textEllipsis {
+  /* text-overflow: ellipsis; */
+  /* overflow: 'hidden'; */
+  background:red;
+}
+
