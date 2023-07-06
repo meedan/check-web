@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import {
   IconButton,
 } from '@material-ui/core';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import VolumeUpIcon from '../../../icons/volume_up.svg';
+import VolumeOffIcon from '../../../icons/volume_off.svg';
 import MediaVolume from './MediaVolume';
 
 describe('MediaVolume', () => {
