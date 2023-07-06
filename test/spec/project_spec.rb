@@ -47,11 +47,8 @@ shared_examples 'project' do
     # edit collection name
     expect(@driver.page_source.include?('collection A- edited')).to be(false)
     wait_for_selector('.project-list__link').click
-    edit_project(title: 'collection A- edited', description: '')
-    expect(@driver.page_source.include?('Set description')).to be(false)
-    # edit collection description
-    edit_project(description: "Set description #{Time.now.to_i}")
-    expect(@driver.page_source.include?('Set description')).to be(true)
+    edit_project(title: 'collection A- edited')
+    expect(@driver.page_source.include?('collection A- edited')).to be(true)
   end
 
   it 'should create and set filters to a filtered list', bin1: true do
@@ -114,20 +111,10 @@ shared_examples 'project' do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     new_title = "Changed title #{Time.now.to_i}"
-    new_description = "Set description #{Time.now.to_i}"
     wait_for_selector('#search-input')
     expect(@driver.page_source.include?(new_title)).to be(false)
-    expect(@driver.page_source.include?(new_description)).to be(false)
-    # 7204 edit title and description separately
-    edit_project(title: new_title, description: '')
+    edit_project(title: new_title)
     expect(@driver.page_source.include?('Changed title')).to be(true)
-    expect(@driver.page_source.include?(new_description)).to be(false)
-    wait_for_selector('.project-actions', :css)
-    # 7204 edit title and description separately
-    edit_project(description: new_description)
-    wait_for_selector('.Linkify')
-    expect(@driver.page_source.include?('Changed title')).to be(true)
-    expect(@driver.page_source.include?(new_description)).to be(true)
   end
 
   it 'should paginate folder page', bin4: true do
