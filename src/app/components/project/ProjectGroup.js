@@ -20,7 +20,6 @@ const ProjectGroup = ({ routeParams }) => (
             id
             dbid
             title
-            description
             team {
               id
               slug
@@ -46,7 +45,6 @@ const ProjectGroup = ({ routeParams }) => (
                 mediaUrlPrefix={`/${routeParams.team}/media`}
                 icon={<FolderSpecialIcon />}
                 title={props.project_group.title}
-                listDescription={props.project_group.description}
                 listActions={
                   <ProjectActions
                     object={props.project_group}
@@ -58,7 +56,6 @@ const ProjectGroup = ({ routeParams }) => (
                           project_group {
                             id
                             title
-                            description
                           }
                         }
                       }
