@@ -37,7 +37,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../build/web/js'),
     filename: `[name].bundle${BUNDLE_PREFIX}.js`,
-    chunkFilename: `[name].chunk${BUNDLE_PREFIX}.js`,
+    chunkFilename: `[name].chunk${BUNDLE_PREFIX}.[contenthash].js`,
 		publicPath: '/',
   },
   watchOptions: {
