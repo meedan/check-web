@@ -12,7 +12,7 @@
   {
     "id": "newsletterRssFeed.learnMore",
     "description": "This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'",
-    "defaultMessage": "Learn more"
+    "defaultMessage": "Learn more."
   },
   {
     "id": "newsletterRssFeed.load",

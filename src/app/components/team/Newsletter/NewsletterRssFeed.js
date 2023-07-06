@@ -107,11 +107,10 @@ const NewsletterRssFeed = ({
                           <a href="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters#h_03610322d5" target="_blank" rel="noopener noreferrer" className={styles['error-label']}>
                             <FormattedMessage
                               id="newsletterRssFeed.learnMore"
-                              defaultMessage="Learn more"
+                              defaultMessage="Learn more."
                               description="This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'"
                             />
                           </a>
-                          .
                         </span>
                       )
                     }
