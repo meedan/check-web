@@ -89,7 +89,6 @@ class ProjectComponent extends React.PureComponent {
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
           icon={<FolderIcon />}
-          listDescription={project.description}
           listActions={
             <React.Fragment>
               { project.privacy > 0 ?
@@ -117,7 +116,6 @@ class ProjectComponent extends React.PureComponent {
                       project {
                         id
                         title
-                        description
                       }
                     }
                   }
@@ -170,7 +168,6 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         id,
         dbid,
         title,
-        description,
         permissions,
         search_id,
         medias_count,

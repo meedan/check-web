@@ -13,4 +13,15 @@ describe('<LanguagePickerSelect />', () => {
   it('renders without crashing', () => {
     mountWithIntl(<LanguagePickerSelect {...props} />);
   });
+
+  const nullProps = {
+    selectedLanguage: null,
+    onSubmit: jest.fn(),
+    languages: null,
+    isDisabled: false,
+  };
+
+  it('renders without crashing if languages is null', () => {
+    mountWithIntl(<LanguagePickerSelect {...nullProps} />);
+  });
 });
