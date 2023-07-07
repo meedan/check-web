@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
 import TextField from './TextField';
 import VolumeUpIcon from '../../../icons/volume_up.svg';
-import VolumeOffIcon from '../../../icons/volume_down.svg';
+import VolumeOffIcon from '../../../icons/volume_off.svg';
 
 describe('<TextField />', () => {
   it('should render bare TextField component', () => {
