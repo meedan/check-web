@@ -26,6 +26,7 @@ import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import MultiSelectFilter from '../../search/MultiSelectFilter';
 import { safelyParseJSON } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
+import SlackColorIcon from '../../../icons/slack_color.svg';
 
 const messages = defineMessages({
   defaultLabel: {
@@ -236,7 +237,7 @@ const SlackConfigDialogComponent = ({
   return (
     <Box className={classes.root}>
       <Box display="flex" alignItems="center" className={[classes.header, classes.box].join(' ')}>
-        <img src="/images/slack.svg" height="64" width="64" alt="Slack" />
+        <SlackColorIcon style={{ fontSize: '64px' }} />
         <Box className={classes.title}>
           <Typography variant="h6" component="div">Slack</Typography>
           <Typography variant="body1" component="div">

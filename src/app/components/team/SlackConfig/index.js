@@ -20,6 +20,7 @@ import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
 import SettingsIcon from '../../../icons/settings.svg';
+import SlackColorIcon from '../../../icons/slack_color.svg';
 
 class SlackConfig extends React.Component {
   constructor(props) {
@@ -91,7 +92,7 @@ class SlackConfig extends React.Component {
         <Card>
           <CardHeader
             avatar={
-              <img src="/images/slack.svg" height="32" width="32" alt="Slack" />
+              <SlackColorIcon style={{ fontSize: '32px' }} />
             }
             title={
               <span className="typography-h6">Slack</span>

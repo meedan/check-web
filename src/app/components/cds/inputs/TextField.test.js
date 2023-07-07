@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ChevronUpIcon from '../../../icons/chevron_up.svg';
-import ChevronDownIcon from '../../../icons/chevron_down.svg';
 import { FormattedMessage } from 'react-intl';
 import TextField from './TextField';
+import ChevronUpIcon from '../../../icons/chevron_up.svg';
+import ChevronDownIcon from '../../../icons/chevron_down.svg';
 
 describe('<TextField />', () => {
   it('should render bare TextField component', () => {
