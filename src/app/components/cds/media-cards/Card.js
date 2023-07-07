@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import styles from './Card.module.css';
-// import { truncateLength } from '../../../helpers';
 // import ArrowDropUpIcon from '../../../icons/arrow_drop_up.svg';
 // import ArrowDropDownIcon from '../../../icons/arrow_drop_down.svg';
 import ExpandLessIcon from '../../../icons/expand_less.svg';
@@ -65,16 +64,17 @@ const Card = ({
           <div className={`${isCollapsed ? styles.cardLeft : ''}`}>
             <h6 className={`typography-button ${styles.cardTitle} ${isCollapsed ? styles.textEllipsis : ''}`}>{title}</h6>
             { description ?
-              <p className={`typography-body2 ${styles.cardDescription} ${styles.cardDescription}`} >{description}</p>
+              <p className={`typography-body2 ${styles.cardDescription} ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} >{description}</p>
               : null }
 
           </div>
           { isHovered ?
-            <div className={styles.cardRight}>
+            <div className={styles.toggleIcon}>
               <button type="button" onClick={toggleCollapse} className={`${styles.toggleCollapse}`}>
                 {buttonContent}
               </button>
-            </div> : null
+            </div>
+            : null
           }
           { (tag || footer) ?
             <div className={styles.cardRight}>

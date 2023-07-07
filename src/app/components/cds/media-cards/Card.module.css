@@ -28,11 +28,14 @@
 
   .cardDescription {
     -webkit-box-orient: vertical;
-    color: var(--textSecondary);
     display: -webkit-box; /* stylelint-disable */
-    -webkit-line-clamp: 2;
-    max-height: 24px;
+    color: var(--textSecondary);
     white-space: pre-line;
+  }
+
+  .cardDescriptionCollapse {
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 
   .cardRight {
@@ -78,10 +81,3 @@
     color: var(--brandMain);
   }
 }
-
-.textEllipsis {
-  /* text-overflow: ellipsis; */
-  /* overflow: 'hidden'; */
-  background:red;
-}
-
