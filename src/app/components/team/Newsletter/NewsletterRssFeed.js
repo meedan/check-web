@@ -87,12 +87,33 @@ const NewsletterRssFeed = ({
                     onBlur={(e) => {
                       if (e.target.value === '') {
                         onUpdateUrl(null);
+                      } else {
+                        handleLoad();
                       }
                     }}
                     value={localRssFeedUrl}
                     iconLeft={<LinkIcon />}
                     error={invalid}
-                    helpContent={helpContent || (invalid && <FormattedMessage id="newsletterRssFeed.error" defaultMessage="A valid RSS URL is required to load articles." description="Error message displayed under RSS feed URL field" />)}
+                    helpContent={
+                      helpContent ||
+                      (invalid &&
+                        <span>
+                          <FormattedMessage
+                            id="newsletterRssFeed.error"
+                            defaultMessage="This URL is not a valid RSS URL."
+                            description="Error message displayed under RSS feed URL field."
+                          />
+                          {' '}
+                          <a href="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters#h_03610322d5" target="_blank" rel="noopener noreferrer" className={styles['error-label']}>
+                            <FormattedMessage
+                              id="newsletterRssFeed.learnMore"
+                              defaultMessage="Learn more."
+                              description="This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'"
+                            />
+                          </a>
+                        </span>
+                      )
+                    }
                   />
                 )}
               </FormattedMessage>
@@ -119,8 +140,8 @@ const NewsletterRssFeed = ({
                     value={articles[i]}
                     className={styles['two-spaced']}
                     rows={4}
-                    error={invalid}
-                    helpContent={!loading && !articles[i] && <FormattedMessage id="newsletterRssFeed.noArticle" defaultMessage="No article retrieved from RSS at this time" description="Message displayed when RSS feed has less entries than requested" />}
+                    error={!invalid && !articles[i] && !loading}
+                    helpContent={!loading && !articles[i] && !invalid && <FormattedMessage id="newsletterRssFeed.noArticle" defaultMessage="No article retrieved from RSS at this time" description="Message displayed when RSS feed has less entries than requested" />}
                   />
                 ))}
               </div> : null }
