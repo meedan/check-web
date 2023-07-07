@@ -93,6 +93,7 @@ const NewsletterHeader = ({
             maxChars={160}
             value={overlayText}
             placeholder={placeholder}
+            required={false}
             setValue={(value) => { onUpdateField('overlayText', value); }}
             label={<FormattedMessage
               id="newsletterHeader.overlay"

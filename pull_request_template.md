@@ -26,6 +26,7 @@ Please describe parts of the change that require extra attention during code rev
 ## Checklist
 
 - [ ] I have performed a self-review of my own code
+- [ ] I've made sure my branch is runnable and given good testing steps in the PR description
 - [ ] I have commented my code in hard-to-understand areas, if any
 - [ ] I have made needed changes to the README
 - [ ] My changes generate no new warnings

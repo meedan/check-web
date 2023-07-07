@@ -534,7 +534,6 @@ const ProjectsComponent = ({
         helpUrl="https://help.checkmedia.org/en/articles/5229474-filtered-lists"
         errorMessage={<FormattedMessage id="projectsComponent.newListErrorMessage" defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" />}
         successMessage={<FormattedMessage id="projectsComponent.newListSuccessMessage" defaultMessage="List created successfully" description="Success message when new list is created" />}
-        noDescription
       />
     </React.Fragment>
   );
