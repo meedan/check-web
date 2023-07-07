@@ -39,13 +39,9 @@ const Card = ({
   };
 
   const buttonContent = isCollapsed ? (
-    <>
-      <UnfoldMoreIcon />
-    </>
+    <UnfoldMoreIcon />
   ) : (
-    <>
-      <UnfoldLessIcon />
-    </>
+    <UnfoldLessIcon />
   );
 
   return (
