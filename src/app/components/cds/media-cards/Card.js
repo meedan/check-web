@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import styles from './Card.module.css';
-// import ArrowDropUpIcon from '../../../icons/arrow_drop_up.svg';
-// import ArrowDropDownIcon from '../../../icons/arrow_drop_down.svg';
-import ExpandLessIcon from '../../../icons/expand_less.svg';
-import ExpandMoreIcon from '../../../icons/expand_more.svg';
+import UnfoldLessIcon from '../../../icons/unfold_less.svg';
+import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
 
 const MaybeLink = ({ to, children }) => {
   if (to) {
@@ -42,17 +40,14 @@ const Card = ({
 
   const buttonContent = isCollapsed ? (
     <>
-      <ExpandLessIcon />
-      <ExpandMoreIcon />
+      <UnfoldMoreIcon />
     </>
   ) : (
     <>
-      <ExpandMoreIcon />
-      <ExpandLessIcon />
+      <UnfoldLessIcon />
     </>
   );
-  // eslint-disable-next-line
-  (console.log(isHovered))
+
   return (
     <div
       className={`${styles.card} card`}
@@ -69,7 +64,7 @@ const Card = ({
 
           </div>
           { isHovered ?
-            <div className={styles.toggleIcon}>
+            <div>
               <button type="button" onClick={toggleCollapse} className={`${styles.toggleCollapse}`}>
                 {buttonContent}
               </button>
