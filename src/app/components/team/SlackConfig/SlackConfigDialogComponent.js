@@ -19,13 +19,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import EditIcon from '@material-ui/icons/Edit';
-import LabelIcon from '@material-ui/icons/Label';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import MultiSelectFilter from '../../search/MultiSelectFilter';
 import { safelyParseJSON } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
+import DeleteIcon from '../../../icons/delete.svg';
+import EditIcon from '../../../icons/edit.svg';
+import FolderOpenIcon from '../../../icons/folder.svg';
+import LabelIcon from '../../../icons/label.svg';
 import SlackColorIcon from '../../../icons/slack_color.svg';
 
 const messages = defineMessages({
