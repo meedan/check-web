@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl';
 import TextField from './TextField';
-import ChevronUpIcon from '../../../icons/chevron_up.svg';
-import ChevronDownIcon from '../../../icons/chevron_down.svg';
+import VolumeUpIcon from '../../../icons/volume_up.svg';
+import VolumeOffIcon from '../../../icons/volume_down.svg';
 
 describe('<TextField />', () => {
   it('should render bare TextField component', () => {
@@ -14,8 +14,8 @@ describe('<TextField />', () => {
     const label = textField.find('label');
     expect(label).toHaveLength(0);
     expect(textField.find(FormattedMessage)).toHaveLength(0);
-    expect(textField.find(ChevronUpIcon)).toHaveLength(0);
-    expect(textField.find(ChevronDownIcon)).toHaveLength(0);
+    expect(textField.find(VolumeUpIcon)).toHaveLength(0);
+    expect(textField.find(VolumeOffIcon)).toHaveLength(0);
     expect(textField.find('.TextField-help')).toHaveLength(0);
     expect(input.prop('placeholder')).toBeFalsy();
     expect(input.prop('error')).toBeFalsy();
@@ -36,13 +36,13 @@ describe('<TextField />', () => {
 
   it('should render icons', () => {
     const textField = shallow(<TextField
-      iconLeft={<ChevronUpIcon />}
-      iconRight={<ChevronDownIcon />}
+      iconLeft={<VolumeUpIcon />}
+      iconRight={<VolumeOffIcon />}
     />);
     const input = textField.find('input');
     expect(input).toHaveLength(1);
-    expect(textField.find(ChevronUpIcon)).toHaveLength(1);
-    expect(textField.find(ChevronDownIcon)).toHaveLength(1);
+    expect(textField.find(VolumeUpIcon)).toHaveLength(1);
+    expect(textField.find(VolumeOffIcon)).toHaveLength(1);
   });
 
   it('should render placeholder text', () => {
@@ -115,8 +115,8 @@ describe('<TextField />', () => {
       disabled
       error
       helpContent={<span className="TextField-help">My help text</span>}
-      iconLeft={<ChevronUpIcon />}
-      iconRight={<ChevronDownIcon />}
+      iconLeft={<VolumeUpIcon />}
+      iconRight={<VolumeOffIcon />}
       label="My label"
       placeholder="placeholder text"
       required
@@ -135,7 +135,7 @@ describe('<TextField />', () => {
     expect(textField.find('.TextField-help').text()).toContain('My help text');
     expect(textField.find(FormattedMessage).prop('defaultMessage'))
       .toEqual('Required');
-    expect(textField.find(ChevronUpIcon)).toHaveLength(1);
-    expect(textField.find(ChevronDownIcon)).toHaveLength(1);
+    expect(textField.find(VolumeUpIcon)).toHaveLength(1);
+    expect(textField.find(VolumeOffIcon)).toHaveLength(1);
   });
 });
