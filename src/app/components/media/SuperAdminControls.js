@@ -19,12 +19,14 @@ const useStyles = makeStyles({
 });
 
 const SuperAdminControls = ({
-  superAdminMask,
   handleSuperAdminMask,
   handlesuperAdminMaskSession,
 }) => {
   const classes = useStyles();
-  const [superAdminmaskContent, setSuperAdminMaskContent] = React.useState(superAdminMask);
+  const superAdminMaskSession = sessionStorage.getItem('superAdminMaskSession');
+  const maskSession = superAdminMaskSession === null || superAdminMaskSession === 'true';
+  const [superAdminmaskContent, setSuperAdminMaskContent] = React.useState(maskSession);
+  const [superAdminmaskContentSession, setSuperAdminMaskContentSession] = React.useState(maskSession);
 
   const handleSuperAdminClickPage = () => {
     const newValue = !superAdminmaskContent;
@@ -34,7 +36,9 @@ const SuperAdminControls = ({
 
   const handleSuperAdminClickSession = () => {
     // TODO: fix the logic
-    handlesuperAdminMaskSession(!superAdminmaskContent);
+    const newValue = !superAdminmaskContentSession;
+    setSuperAdminMaskContentSession(newValue);
+    handlesuperAdminMaskSession(newValue);
   };
 
   return (
@@ -74,30 +78,39 @@ const SuperAdminControls = ({
               />
             </Button>
         }
-        <Button
-          className={['super-admin-controls_pause', classes.remove].join(' ')}
-          variant="outlined"
-          onClick={handleSuperAdminClickSession}
-        >
-          <FormattedMessage
-            id="superAdminControls.pause"
-            defaultMessage="Pause admin screen for this session"
-            description="A label on a button that pause admin screen for current session."
-          />
-        </Button>
+        {
+          superAdminmaskContentSession ?
+            <Button
+              className={['super-admin-controls_pause', classes.remove].join(' ')}
+              variant="outlined"
+              onClick={handleSuperAdminClickSession}
+            >
+              <FormattedMessage
+                id="superAdminControls.pause"
+                defaultMessage="Pause admin screen for this session"
+                description="A label on a button that pause admin screen for current session."
+              />
+            </Button> :
+            <Button
+              className={['super-admin-controls_resume', classes.apply].join(' ')}
+              variant="outlined"
+              onClick={handleSuperAdminClickSession}
+            >
+              <FormattedMessage
+                id="superAdminControls.play"
+                defaultMessage="Resume admin screen for this session"
+                description="A label on a button that pause admin screen for current session."
+              />
+            </Button>
+        }
       </Box>
     </React.Fragment>
   );
 };
 
 SuperAdminControls.propTypes = {
-  superAdminMask: PropTypes.bool,
   handleSuperAdminMask: PropTypes.func.isRequired,
   handlesuperAdminMaskSession: PropTypes.func.isRequired,
-};
-
-SuperAdminControls.defaultProps = {
-  superAdminMask: false,
 };
 
 export default SuperAdminControls;

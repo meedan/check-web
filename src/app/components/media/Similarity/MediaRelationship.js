@@ -312,8 +312,6 @@ const MediaRelationship = ({
   const classes = useStyles();
   const [isSelected, setIsSelected] = React.useState(false);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  // eslint-disable-next-line no-console
-  console.log('MediaRelationship', superAdminMask);
 
   const swallowClick = (ev) => {
     // Don't close Dialog when clicking on it
@@ -360,7 +358,8 @@ const MediaRelationship = ({
         details={details}
         media={relationship?.target?.media}
         description={relationship?.target?.description}
-        maskContent={maskContent && superAdminMask}
+        maskContent={maskContent}
+        superAdminMask={superAdminMask}
         onClick={() => setIsSelected(true)}
       />
       <div className={`${classes.inner} media__relationship__menu`}>

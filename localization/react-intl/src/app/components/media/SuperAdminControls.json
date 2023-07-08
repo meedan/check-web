@@ -13,5 +13,10 @@
     "id": "superAdminControls.pause",
     "description": "A label on a button that pause admin screen for current session.",
     "defaultMessage": "Pause admin screen for this session"
+  },
+  {
+    "id": "superAdminControls.play",
+    "description": "A label on a button that pause admin screen for current session.",
+    "defaultMessage": "Resume admin screen for this session"
   }
 ]

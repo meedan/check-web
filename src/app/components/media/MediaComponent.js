@@ -19,6 +19,7 @@ import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent'
 import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
+import { getSuperAdminMask } from '../../helpers';
 import { units, Column } from '../../styles/js/shared';
 
 const StyledThreeColumnLayout = styled.div`
@@ -89,6 +90,7 @@ class MediaComponent extends Component {
       showTab: initialTab,
       openMediaDialog: false,
       superAdminMask: true,
+      superAdminMaskAction: 'session',
     };
   }
 
@@ -175,7 +177,13 @@ class MediaComponent extends Component {
   }
 
   handlesuperAdminMask(value) {
-    this.setState({ superAdminMask: value });
+    this.setState({ superAdminMask: value, superAdminMaskAction: 'page' });
+  }
+
+  handlesuperAdminMaskSession(value) {
+    sessionStorage.setItem('superAdminMaskSession', value);
+    // eslint-disable-next-line no-console
+    console.log('handlesuperAdminMaskSession', sessionStorage.getItem('superAdminMaskSession'), this.state);
   }
 
   render() {
@@ -251,17 +259,17 @@ class MediaComponent extends Component {
                 <MediaCardLarge
                   projectMedia={projectMedia}
                   currentUserRole={currentUserRole}
-                  superAdminMask={this.state.superAdminMask}
+                  superAdminMask={getSuperAdminMask(this.state)}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
-                { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={this.state.superAdminMask} /> }
+                { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={getSuperAdminMask(this.state)} /> }
               </Column>
               <Column className="media__annotations-column" overflow="hidden">
                 <MediaComponentRightPanel
                   projectMedia={projectMedia}
                   showTab={this.state.showTab}
                   setShowTab={setShowTab}
-                  superAdminMask={this.state.superAdminMask}
+                  superAdminMask={getSuperAdminMask(this.state)}
                 />
               </Column>
             </React.Fragment> : null }
@@ -269,9 +277,8 @@ class MediaComponent extends Component {
         {
           this.getContext().currentUser.is_admin ?
             <SuperAdminControls
-              superAdminMask={this.state.superAdminMask}
               handleSuperAdminMask={this.handlesuperAdminMask.bind(this)}
-              handlesuperAdminMaskSession={this.handlesuperAdminMask.bind(this)}
+              handlesuperAdminMaskSession={this.handlesuperAdminMaskSession.bind(this)}
             /> : null
         }
       </div>

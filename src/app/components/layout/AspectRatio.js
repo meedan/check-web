@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   }),
   visibilityIcon: props => ({
     fontSize: '40px',
-    visibility: props.contentWarning ? 'visible' : 'hidden',
+    visibility: props.contentWarning || props.superAdminMask ? 'visible' : 'hidden',
   }),
   iconButton: {
     color: 'var(--otherWhite)',
@@ -117,12 +117,12 @@ const AspectRatio = ({
   superAdminMask,
   intl,
 }) => {
-  const contentWarning = projectMedia?.show_warning_cover && superAdminMask;
+  const contentWarning = projectMedia?.show_warning_cover;
   const warningCreator = projectMedia?.dynamic_annotation_flag?.annotator?.name;
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
-  const classes = useStyles({ contentWarning: contentWarning && maskContent });
+  const classes = useStyles({ contentWarning: contentWarning && maskContent, superAdminMask });
 
   const handleOnExpand = () => {
     // If this is video, use the button to enter or exit fullscreen for the container div depending on whether we are already in fullscreen
@@ -202,9 +202,9 @@ const AspectRatio = ({
         />
         : null }
       <div className={classes.innerWrapper}>
-        <ButtonsContainer />
-        { !maskContent || !superAdminMask ? children : null }
-        { contentWarning ?
+        { !superAdminMask ? <ButtonsContainer /> : null }
+        { !maskContent && !superAdminMask ? children : null }
+        { contentWarning || superAdminMask ?
           <div className={classes.sensitiveScreen}>
             <Box
               display="flex"
@@ -216,6 +216,15 @@ const AspectRatio = ({
               pb={4}
             >
               <VisibilityOffIcon className={classes.visibilityIcon} />
+              <div style={{ visibility: superAdminMask ? 'visible' : 'hidden' }}>
+                <Typography variant="body1">
+                  <FormattedMessage
+                    id="contentScreen.superAdminMaskMessage"
+                    defaultMessage="Super admin screen is on"
+                    description="Text to show that admin screen is on"
+                  />
+                </Typography>
+              </div>
               <div style={{ visibility: contentWarning && maskContent ? 'visible' : 'hidden' }}>
                 <Typography variant="body1">
                   { warningCreator !== 'Alegre' ? (
@@ -247,7 +256,7 @@ const AspectRatio = ({
                   color="primary"
                   variant="contained"
                 >
-                  { maskContent && superAdminMask ? (
+                  { maskContent ? (
                     <FormattedMessage
                       id="contentScreen.viewContentButton"
                       defaultMessage="Temporarily view content"
