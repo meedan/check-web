@@ -1,3 +1,10 @@
+/* eslint-disable relay/unused-fields */
+/*
+  FIXME: had to skip this relay/unused-fields rule unfortunately because of the team fragment that is needed
+  for MediaStatusCommon (some 4 levels up the component tree) and is very difficult to
+  make a proper chain of fragmentContainers at this moment because the BlankMediaButton
+  is entangled in a few different places.
+*/
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, createFragmentContainer, QueryRenderer } from 'react-relay/compat';
@@ -140,6 +147,12 @@ MediaCardLarge.defaultProps = {
 const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`
   fragment MediaCardLarge_projectMedia on ProjectMedia {
     id
+    team {
+      id
+      dbid
+      slug
+      verification_statuses
+    }
     media {
       type
       url

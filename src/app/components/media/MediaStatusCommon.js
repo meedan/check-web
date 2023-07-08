@@ -1,8 +1,6 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -56,13 +54,6 @@ class MediaStatusCommon extends Component {
     this.setState({ anchorEl: null });
   };
 
-  handleEdit() {
-    const { media } = this.props;
-    const projectId = media.project_id;
-    const projectPart = projectId ? `/project/${projectId}` : '';
-    browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
-  }
-
   handleStatusClick = (clickedStatus) => {
     const { media } = this.props;
     const store = new CheckContext(this).getContextStore();
@@ -79,6 +70,7 @@ class MediaStatusCommon extends Component {
       <FormattedMessage
         id="mediaStatus.error"
         defaultMessage="Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists."
+        description="Error message displayed when a status change fails"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
