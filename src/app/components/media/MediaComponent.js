@@ -72,6 +72,10 @@ const AnalysisColumn = styled.div`
 `;
 
 class MediaComponent extends Component {
+  static handlesuperAdminMaskSession(value) {
+    sessionStorage.setItem('superAdminMaskSession', value);
+  }
+
   constructor(props) {
     super(props);
 
@@ -180,12 +184,6 @@ class MediaComponent extends Component {
     this.setState({ superAdminMask: value, superAdminMaskAction: 'page' });
   }
 
-  handlesuperAdminMaskSession(value) {
-    sessionStorage.setItem('superAdminMaskSession', value);
-    // eslint-disable-next-line no-console
-    console.log('handlesuperAdminMaskSession', sessionStorage.getItem('superAdminMaskSession'), this.state);
-  }
-
   render() {
     // if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
     //   return null;
@@ -278,7 +276,7 @@ class MediaComponent extends Component {
           this.getContext().currentUser.is_admin ?
             <SuperAdminControls
               handleSuperAdminMask={this.handlesuperAdminMask.bind(this)}
-              handlesuperAdminMaskSession={this.handlesuperAdminMaskSession.bind(this)}
+              handlesuperAdminMaskSession={MediaComponent.handlesuperAdminMaskSession.bind(this)}
             /> : null
         }
       </div>

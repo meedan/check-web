@@ -35,7 +35,6 @@ const SuperAdminControls = ({
   };
 
   const handleSuperAdminClickSession = () => {
-    // TODO: fix the logic
     const newValue = !superAdminmaskContentSession;
     setSuperAdminMaskContentSession(newValue);
     handlesuperAdminMaskSession(newValue);

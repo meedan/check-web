@@ -216,16 +216,18 @@ const AspectRatio = ({
               pb={4}
             >
               <VisibilityOffIcon className={classes.visibilityIcon} />
-              <div style={{ visibility: superAdminMask ? 'visible' : 'hidden' }}>
-                <Typography variant="body1">
-                  <FormattedMessage
-                    id="contentScreen.superAdminMaskMessage"
-                    defaultMessage="Super admin screen is on"
-                    description="Text to show that admin screen is on"
-                  />
-                </Typography>
-              </div>
-              <div style={{ visibility: contentWarning && maskContent ? 'visible' : 'hidden' }}>
+              { superAdminMask ? (
+                <div >
+                  <Typography variant="body1">
+                    <FormattedMessage
+                      id="contentScreen.superAdminMaskMessage"
+                      defaultMessage="Super admin screen is on"
+                      description="Text to show that admin screen is on"
+                    />
+                  </Typography>
+                </div>
+              ) : null }
+              <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
                 <Typography variant="body1">
                   { warningCreator !== 'Alegre' ? (
                     <FormattedHTMLMessage
@@ -249,7 +251,7 @@ const AspectRatio = ({
                   )}
                 </Typography>
               </div>
-              { contentWarning ? (
+              { contentWarning && !superAdminMask ? (
                 <Button
                   className={classes.button}
                   onClick={() => setMaskContent(!maskContent)}
