@@ -114,7 +114,6 @@ class CreateRelatedMediaDialog extends React.Component {
                 isSubmitting={this.props.isSubmitting}
                 onSubmit={this.props.onSubmit}
                 team={this.props.team}
-                noSource
               />
             }
             { mode === 'existing' &&
