@@ -28,7 +28,7 @@ const MediaAnalysis = ({ projectMedia }) => {
   const title = getValue('title');
   const content = getValue('content');
 
-  if ((!title && !content) || title === projectMedia.media.quote || projectMedia.user.login === 'smooch') {
+  if ((!title && !content) || title === projectMedia.media.quote || projectMedia.user?.login === 'smooch') {
     return null;
   }
 
