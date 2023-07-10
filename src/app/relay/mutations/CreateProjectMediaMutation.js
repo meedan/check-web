@@ -26,6 +26,8 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   }
 
   getOptimisticResponse() {
+    if (this.props.skipOptimisticResponse) return null;
+
     const optimisticResponse =
       optimisticProjectMedia(
         this.props.title,
