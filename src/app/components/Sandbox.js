@@ -7,6 +7,8 @@ import styles from './sandbox.module.css';
 import Chip from './cds/buttons-checkboxes-chips/Chip';
 import TagList from './cds/menus-lists-dialogs/TagList';
 import TextField from './cds/inputs/TextField';
+import TextArea from './cds/inputs/TextArea';
+import { ToggleButton, ToggleButtonGroup } from './cds/inputs/ToggleButtonGroup';
 import Select from './cds/inputs/Select';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import ListIcon from '../icons/list.svg';
@@ -51,6 +53,26 @@ const SandboxComponent = ({ admin }) => {
           <div className={cx('typography-subtitle2', [styles.componentName])}>ButtonMain</div>
           <ButtonMain label="Save" />
         </div>
+        <div className={styles.componentWrapper}>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>ToggleButtonGroup</div>
+          <ToggleButtonGroup
+            label="I am a label"
+            variant="contained"
+            helpContent="I can be of help"
+            value="1"
+            exclusive
+          >
+            <ToggleButton value="1">
+              One
+            </ToggleButton>
+            <ToggleButton value="2">
+              Two
+            </ToggleButton>
+            <ToggleButton value="3">
+              Three
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </div>
       </section>
       <section id="sandbox-inputs">
         <h6>Inputs</h6>
@@ -59,7 +81,16 @@ const SandboxComponent = ({ admin }) => {
           <TextField
             placeholder="I am a placeholder"
             label="I am a textfield title"
-            helpContent="I can be of help"
+            helpContent="I can be of help to textfield"
+            required
+          />
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>TextArea</div>
+          <TextArea
+            placeholder="I am a placeholder for textarea"
+            label="I am a textarea title"
+            helpContent="I can be of help to textarea"
             required
           />
         </div>
@@ -67,7 +98,7 @@ const SandboxComponent = ({ admin }) => {
           <div className={cx('typography-subtitle2', [styles.componentName])}>Select</div>
           <Select
             iconLeft={<ListIcon />}
-            helpContent="I can be of help"
+            helpContent="I can be of help to select"
             label="I am a select title"
             required
           >
