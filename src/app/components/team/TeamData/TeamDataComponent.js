@@ -126,6 +126,11 @@ const messages = defineMessages({
     defaultMessage: 'Current number of newsletter subscriptions.',
     description: messagesDescription,
   },
+  newslettersDelivered: {
+    id: 'teamDataComponent.newslettersDelivered',
+    defaultMessage: 'Number of newsletters effectively delivered, accounting for user errors for each platform.',
+    description: messagesDescription,
+  },
 });
 
 function descendingComparator(a, b, orderBy) {
@@ -214,6 +219,7 @@ const TeamDataComponent = ({
     'New newsletter subscriptions': intl.formatMessage(messages.newNewsletterSubscriptions),
     'Newsletter cancellations': intl.formatMessage(messages.newsletterCancellations),
     'Current subscribers': intl.formatMessage(messages.currentSubscribers),
+    'Newsletters delivered': intl.formatMessage(messages.newslettersDelivered),
   };
 
   const handleRequestSort = (event, property) => {
