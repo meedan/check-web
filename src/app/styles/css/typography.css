@@ -14,19 +14,11 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
+  color: var(--textPrimary);
   margin: 0;
   padding: 0;
-}
-
-h1 {
-  color: var(--textPrimary);
-  font: 500 20px/32px var(--fontStackSans);
-}
-
-h2 {
-  color: var(--textPrimary);
-  font: 400 15px/24px var(--fontStackSans);
 }
 
 a {
@@ -66,26 +58,32 @@ ul {
   padding: 0;
 }
 
+h1,
 .typography-h1 {
   @mixin typography-h1;
 }
 
+h2,
 .typography-h2 {
   @mixin typography-h2;
 }
 
+h3,
 .typography-h3 {
   @mixin typography-h3;
 }
 
+h4,
 .typography-h4 {
   @mixin typography-h4;
 }
 
+h5,
 .typography-h5 {
   @mixin typography-h5;
 }
 
+h6,
 .typography-h6 {
   @mixin typography-h6;
 }
