@@ -10,7 +10,9 @@ import TextField from './cds/inputs/TextField';
 import TextArea from './cds/inputs/TextArea';
 import { ToggleButton, ToggleButtonGroup } from './cds/inputs/ToggleButtonGroup';
 import Select from './cds/inputs/Select';
+import SwitchComponent from './cds/inputs/SwitchComponent';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import AddIcon from '../icons/settings.svg';
 import ListIcon from '../icons/list.svg';
 
 const SandboxComponent = ({ admin }) => {
@@ -27,6 +29,22 @@ const SandboxComponent = ({ admin }) => {
     'fifth!',
     'This is Six',
   ]);
+
+  const [buttonDisabled, setMainButtonDisabled] = React.useState(Boolean(false));
+  const [buttonVariant, setButtonVariant] = React.useState('contained');
+  const onChangeButtonVariant = (event) => {
+    setButtonVariant(event.target.value);
+  };
+
+  const [buttonSize, setButtonSize] = React.useState('default');
+  const onChangeButtonSize = (event) => {
+    setButtonSize(event.target.value);
+  };
+
+  const [buttonTheme, setButtonTheme] = React.useState('brand');
+  const onChangeButtonTheme = (event) => {
+    setButtonTheme(event.target.value);
+  };
 
   return (
     <div className={styles.sandbox}>
@@ -50,8 +68,71 @@ const SandboxComponent = ({ admin }) => {
       <section id="sandbox-buttons">
         <h6>Buttons</h6>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>ButtonMain</div>
-          <ButtonMain label="Save" />
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>ButtonMain</div>
+            <ul>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={onChangeButtonVariant}
+                >
+                  <option value="contained">contained (default)</option>
+                  <option value="outlined">outlined</option>
+                  <option value="text">text</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Size"
+                  onChange={onChangeButtonSize}
+                >
+                  <option value="default">default</option>
+                  <option value="small">small</option>
+                  <option value="large">large</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Theme"
+                  onChange={onChangeButtonTheme}
+                >
+                  <optgroup label="brand">
+                    <option value="brand">brand (default)</option>
+                    <option value="lightBrand">lightBrand</option>
+                  </optgroup>
+                  <optgroup label="text">
+                    <option value="text">text</option>
+                  </optgroup>
+                  <optgroup label="error">
+                    <option value="error">error</option>
+                    <option value="lightError">lightError</option>
+                  </optgroup>
+                  <optgroup label="validation">
+                    <option value="validation">validation</option>
+                    <option value="lightValidation">lightValidation</option>
+                  </optgroup>
+                  <optgroup label="alert">
+                    <option value="alert">alert</option>
+                    <option value="lightAlert">lightAlert</option>
+                  </optgroup>
+                </Select>
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled?"
+                  labelPlacement="top"
+                  checked={buttonDisabled}
+                  onChange={() => setMainButtonDisabled(!buttonDisabled)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentInlineVariants}>
+            <ButtonMain label="Default" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+            <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+            <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+            <ButtonMain iconCenter={<AddIcon />} label="Center" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+          </div>
         </div>
         <div className={styles.componentWrapper}>
           <div className={cx('typography-subtitle2', [styles.componentName])}>ToggleButtonGroup</div>

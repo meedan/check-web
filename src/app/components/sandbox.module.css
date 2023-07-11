@@ -33,6 +33,30 @@
       .componentName {
         margin: 0 0 10px;
       }
+
+      .componentControls {
+        background-color: var(--brandBackground);
+        border-radius: 8px;
+        margin: 0 0 20px;
+        padding: 8px;
+
+        ul {
+          display: flex;
+          flex-direction: row;
+          gap: 16px;
+          list-style: none;
+
+          li {
+            flex: 1 1 auto;
+          }
+        }
+      }
+
+      .componentInlineVariants {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+      }
     }
   }
 }

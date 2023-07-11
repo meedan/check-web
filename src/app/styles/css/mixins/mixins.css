@@ -1,3 +1,34 @@
+/* Button mixin used only for building out ButtonMain component */
+@define-mixin main-button-contained-theme $primary-color: var(--brandMain), $secondary-color: var(--brandSecondary), $text-color: var(--otherWhite), $text-secondary: var(--otherWhite) {
+  background-color: $primary-color;
+  border: solid 2px $primary-color;
+  color: $text-color;
+
+  &:hover {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+    color: $text-secondary;
+  }
+}
+
+@define-mixin main-button-outlined-theme $border-primary: var(--grayBorderMain), $border-secondary: var(--grayBorderMain), $text-primary: var(--brandMain), $text-secondary: var(--brandSecondary) {
+  border: solid 2px $border-primary;
+  color: $text-primary;
+
+  &:hover {
+    color: $text-secondary;
+    border-color: $border-secondary;
+  }
+}
+
+@define-mixin main-button-text-theme $text-primary: var(--brandMain), $text-secondary: var(--brandSecondary) {
+  color: $text-primary;
+
+  &:hover {
+    color: $text-secondary;
+  }
+}
+
 @define-mixin typography-definition $size: 14px, $weight: 400, $spacing: .15px, $height: 20px {
   font-size: $(size);
   font-weight: $(weight);
