@@ -30,18 +30,20 @@ describe('MediaVolume', () => {
   it('toggles icon state when clicking volume icon', () => {
     const wrapper = shallow(<MediaVolume {...defaultProps} />);
     expect(wrapper.find(IconButton)).toHaveLength(1);
-    expect(wrapper.find(VolumeUpIcon)).toHaveLength(1);
+    expect(wrapper.find('.icon__vol-up')).toHaveLength(1);
+    expect(wrapper.find('.icon__vol-off')).toHaveLength(0);
     wrapper.find(IconButton).at(0).simulate('click');
-    expect(wrapper.find(VolumeOffIcon)).toHaveLength(1);
+    expect(wrapper.find('.icon__vol-off')).toHaveLength(1);
+    expect(wrapper.find('.icon__vol-up')).toHaveLength(0);
   });
 
   it('toggles volume icon state when setting volume to 0 via slider', () => {
     const wrapper = shallow(<MediaVolume {...defaultProps} />);
-    expect(wrapper.find(VolumeUpIcon)).toHaveLength(1);
-    expect(wrapper.find(VolumeOffIcon)).toHaveLength(0);
+    expect(wrapper.find('.icon__vol-up')).toHaveLength(1);
+    expect(wrapper.find('.icon__vol-off')).toHaveLength(0);
     wrapper.find('#media-volume-slider').at(0).simulate('change', {}, 0);
-    expect(wrapper.find(VolumeUpIcon)).toHaveLength(0);
-    expect(wrapper.find(VolumeOffIcon)).toHaveLength(1);
+    expect(wrapper.find('.icon__vol-up')).toHaveLength(0);
+    expect(wrapper.find('.icon__vol-off')).toHaveLength(1);
   });
 
   it('returns volume to prior state when toggling volume icon', () => {
