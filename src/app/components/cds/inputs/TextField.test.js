@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import { FormattedMessage } from 'react-intl';
 import TextField from './TextField';
+import VolumeUpIcon from '../../../icons/volume_up.svg';
+import VolumeOffIcon from '../../../icons/volume_off.svg';
 
 describe('<TextField />', () => {
   it('should render bare TextField component', () => {

@@ -14,11 +14,11 @@ import {
   Switch,
   TextField,
 } from '@material-ui/core';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
 import globalStrings from '../../globalStrings';
+import VisibilityOffIcon from '../../icons/visibility_off.svg';
 
 const SensitiveContentMenu = ({
   anchorEl,
