@@ -122,7 +122,7 @@ const MediaVolume = ({
         onChange={handleChange}
       />
       <IconButton className={classes.icon} onClick={handleMute} size="small">
-        { isVolumeOff ? <VolumeOffIcon className="icon__vol-off"/> : <VolumeUpIcon className="icon__vol-up"/> }
+        { isVolumeOff ? <VolumeOffIcon className="icon__vol-off" /> : <VolumeUpIcon className="icon__vol-up" /> }
       </IconButton>
     </Box>
   );

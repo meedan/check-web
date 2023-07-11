@@ -35,8 +35,8 @@ describe('<TextField />', () => {
 
   it('should render icons', () => {
     const textField = shallow(<TextField
-      iconLeft={<VolumeUpIcon className="icon__vol-up"/>}
-      iconRight={<VolumeOffIcon className="icon__vol-off"/>}
+      iconLeft={<VolumeUpIcon className="icon__vol-up" />}
+      iconRight={<VolumeOffIcon className="icon__vol-off" />}
     />);
     const input = textField.find('input');
     expect(input).toHaveLength(1);
@@ -114,8 +114,8 @@ describe('<TextField />', () => {
       disabled
       error
       helpContent={<span className="TextField-help">My help text</span>}
-      iconLeft={<VolumeUpIcon className="icon__vol-up"/>}
-      iconRight={<VolumeOffIcon className="icon__vol-off"/>}
+      iconLeft={<VolumeUpIcon className="icon__vol-up" />}
+      iconRight={<VolumeOffIcon className="icon__vol-off" />}
       label="My label"
       placeholder="placeholder text"
       required
