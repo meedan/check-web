@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { makeStyles } from '@material-ui/core/styles';
+import ArrowUpwardIcon from '../../icons/arrow_upward.svg';
+import ArrowDownwardIcon from '../../icons/arrow_downward.svg';
 
 const useStyles = makeStyles(() => ({
   reorderArrow: {
@@ -27,14 +27,14 @@ const Reorder = ({
         onClick={onMoveUp}
         disabled={disableUp}
       >
-        <ArrowUpwardIcon />
+        <ArrowUpwardIcon style={{ fontSize: '20px' }} />
       </IconButton>
       <IconButton
         className={['reorder__button-down', classes.reorderArrow].join(' ')}
         onClick={onMoveDown}
         disabled={disableDown}
       >
-        <ArrowDownwardIcon />
+        <ArrowDownwardIcon style={{ fontSize: '20px' }} />
       </IconButton>
     </Box>
   );

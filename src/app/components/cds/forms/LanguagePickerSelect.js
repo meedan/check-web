@@ -3,8 +3,8 @@ import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import LanguageIcon from '@material-ui/icons/Language';
 import LanguageRegistry, { languageLabel } from '../../../LanguageRegistry';
+import LanguageIcon from '../../../icons/language.svg';
 
 const messages = defineMessages({
   optionLabel: {

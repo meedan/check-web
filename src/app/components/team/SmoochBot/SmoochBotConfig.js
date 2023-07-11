@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import SmoochBotSidebar from './SmoochBotSidebar';
@@ -18,6 +17,7 @@ import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
 import { labels, descriptions, placeholders } from './localizables';
+import AddCircleIcon from '../../../icons/add_circle.svg';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -209,7 +209,7 @@ const SmoochBotConfig = (props) => {
                 onClick={handleSelectOption}
               />
               <Button
-                startIcon={<AddCircleOutlineIcon />}
+                startIcon={<AddCircleIcon />}
                 className={classes.resource}
                 onClick={() => {
                   const updatedValue = handleAddResource(value);
