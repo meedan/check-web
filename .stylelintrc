@@ -1,7 +1,7 @@
 {
     "extends": [
         "stylelint-config-standard",
-        "stylelint-config-css-modules",
+        "stylelint-config-css-modules"
     ],
     "ignoreFiles": ["node_modules/**"],
     "defaultSeverity": "error",
@@ -48,6 +48,6 @@
         ],
         "selector-class-pattern": null,
         "selector-type-case": null,
-        "string-quotes": "single",
+        "string-quotes": "single"
     }
 }
