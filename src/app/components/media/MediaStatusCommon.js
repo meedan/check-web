@@ -5,15 +5,15 @@ import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import LockIcon from '@material-ui/icons/Lock';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import styled from 'styled-components';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getErrorMessage, bemClass } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
+import ChatBubbleIcon from '../../icons/chat_bubble.svg';
+import ChevronDownIcon from '../../icons/chevron_down.svg';
+import LockIcon from '../../icons/lock.svg';
 
 const StyledMediaStatus = styled.div`
   display: flex;
@@ -97,8 +97,8 @@ class MediaStatusCommon extends Component {
           disableElevation
           onClick={e => this.setState({ anchorEl: e.currentTarget })}
           disabled={!this.canUpdate()}
-          startIcon={currentStatus.should_send_message ? <ChatBubbleOutlineIcon /> : null}
-          endIcon={this.canUpdate() ? <KeyboardArrowDownIcon /> : <LockIcon />}
+          startIcon={currentStatus.should_send_message ? <ChatBubbleIcon /> : null}
+          endIcon={this.canUpdate() ? <ChevronDownIcon /> : <LockIcon />}
         >
           {currentStatus.label}
         </Button>
@@ -121,7 +121,7 @@ class MediaStatusCommon extends Component {
               <StatusLabel color={status.style.color}>
                 <StyledMediaStatus>
                   {status.label}
-                  {status.should_send_message ? <ChatBubbleOutlineIcon /> : null}
+                  {status.should_send_message ? <ChatBubbleIcon /> : null}
                 </StyledMediaStatus>
               </StatusLabel>
             </MenuItem>

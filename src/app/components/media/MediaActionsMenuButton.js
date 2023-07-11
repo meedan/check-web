@@ -3,13 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { can } from '../Can';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import IconMoreVert from '../../icons/more_vert.svg';
 
 class MediaActionsMenuButton extends React.PureComponent {
   static propTypes = {
