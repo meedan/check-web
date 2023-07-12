@@ -80,7 +80,7 @@ ButtonMain.defaultProps = {
 ButtonMain.propTypes = {
   label: PropTypes.object.isRequired,
   size: PropTypes.oneOf(['default', 'small', 'large']),
-  theme: PropTypes.oneOf(['brand', 'lightValidation']),
+  theme: PropTypes.oneOf(['brand', 'lightBrand', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert']),
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
   iconCenter: PropTypes.element,

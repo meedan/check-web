@@ -85,7 +85,7 @@
     :global(+ .MuiFormControlLabel-label) {
       @mixin typography-body2;
       color: var(--textPrimary);
-      margin: 0 0 0 10px;
+      margin: 0 0 8px 10px;
     }
   }
 

@@ -190,6 +190,20 @@
     }
   }
 
+  &.theme-lightText:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--grayBackground), var(--grayBorderMain), var(--textSecondary), var(--textSecondary);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--grayBorderMain), var(--grayBorderAccent), var(--textSecondary), var(--textSecondary), var(--grayDisabledBackground);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--textSecondary), var(--textPrimary), var(--grayDisabledBackground);
+    }
+  }
+
   &.theme-error:not(:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--errorMain), var(--errorSecondary), var(--otherWhite), var(--otherWhite);

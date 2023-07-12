@@ -31,7 +31,15 @@ const SandboxComponent = ({ admin }) => {
   ]);
 
   const [buttonDisabled, setMainButtonDisabled] = React.useState(Boolean(false));
+  const [switchesDisabled, setSwitchesDisabled] = React.useState(Boolean(false));
+  const [switchesHelp, setSwitchesHelp] = React.useState(Boolean(false));
   const [switched, setSwitchExample] = React.useState(Boolean(false));
+
+  const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
+  const onChangeSwitchLabelPlacement = (event) => {
+    setSwitchLabelPlacement(event.target.value);
+  };
+
   const [buttonVariant, setButtonVariant] = React.useState('contained');
   const onChangeButtonVariant = (event) => {
     setButtonVariant(event.target.value);
@@ -103,6 +111,7 @@ const SandboxComponent = ({ admin }) => {
                   </optgroup>
                   <optgroup label="text">
                     <option value="text">text</option>
+                    <option value="lightText">lightText</option>
                   </optgroup>
                   <optgroup label="error">
                     <option value="error">error</option>
@@ -120,7 +129,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
-                  label="Disabled?"
+                  label="Disabled"
                   labelPlacement="top"
                   checked={buttonDisabled}
                   onChange={() => setMainButtonDisabled(!buttonDisabled)}
@@ -191,34 +200,45 @@ const SandboxComponent = ({ admin }) => {
           </Select>
         </div>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>Switch</div>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>Switch</div>
+            <ul>
+              <li>
+                <Select
+                  label="Label Placement"
+                  onChange={onChangeSwitchLabelPlacement}
+                >
+                  <option value="top">top (default)</option>
+                  <option value="bottom">bottom</option>
+                  <option value="start">start</option>
+                  <option value="end">end</option>
+                </Select>
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={switchesDisabled}
+                  onChange={() => setSwitchesDisabled(!switchesDisabled)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Help"
+                  labelPlacement="top"
+                  checked={switchesHelp}
+                  onChange={() => setSwitchesHelp(!switchesHelp)}
+                />
+              </li>
+            </ul>
+          </div>
           <div className={styles.componentInlineVariants}>
             <SwitchComponent
-              label="Label on top"
-              labelPlacement="top"
-              helperContent="I can help top switches"
+              label="I am a switch label"
+              labelPlacement={switchLabelPlacement}
+              helperContent={switchesHelp ? 'I can help switches' : null}
               checked={switched}
-              onChange={() => setSwitchExample(!switched)}
-            />
-            <SwitchComponent
-              label="Label on bottom"
-              labelPlacement="bottom"
-              helperContent="I can help bottom switches"
-              checked={switched}
-              onChange={() => setSwitchExample(!switched)}
-            />
-            <SwitchComponent
-              label="Label start"
-              labelPlacement="start"
-              helperContent="I can help start switches"
-              checked={switched}
-              onChange={() => setSwitchExample(!switched)}
-            />
-            <SwitchComponent
-              label="Label end"
-              labelPlacement="end"
-              helperContent="I can help end switches"
-              checked={switched}
+              disabled={switchesDisabled}
               onChange={() => setSwitchExample(!switched)}
             />
           </div>
