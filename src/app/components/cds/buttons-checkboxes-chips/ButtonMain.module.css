@@ -107,10 +107,6 @@
     &.outlined {
       background-color: transparent;
 
-      &:hover {
-        background-color: transparent;
-      }
-
       &:disabled {
         border: solid 2px var(--grayBorderMain);
       }
@@ -121,7 +117,6 @@
       border: solid 2px transparent;
 
       &:hover {
-        background-color: transparent;
         border-color: transparent;
       }
     }
@@ -130,14 +125,40 @@
   &.theme-brand:not(:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--brandMain), var(--brandSecondary), var(--otherWhite), var(--otherWhite);
+
+      &:active {
+        background-color: var(--brandAccent);
+        border-color: var(--brandAccent);
+      }
+
+      &:focus {
+        background-color: var(--textLink);
+        border-color: var(--textLink);
+      }
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--brandMain), var(--brandSecondary), var(--brandMain), var(--brandSecondary);
+      @mixin main-button-outlined-theme var(--brandMain), var(--brandSecondary), var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+
+      &:active {
+        border-color: var(--brandAccent);
+      }
+
+      &:focus {
+        border-color: var(--textLink);
+      }
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary);
+      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+
+      &:active {
+        color: var(--brandAccent);
+      }
+
+      &:focus {
+        color: var(--textLink);
+      }
     }
   }
 
@@ -147,21 +168,25 @@
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--brandLight), var(--brandMaine), var(--brandMain), var(--brandSecondary);
+      @mixin main-button-outlined-theme var(--brandLight), var(--brandMaine), var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary);
+      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary, var(--brandHoverAccent));
     }
   }
 
   &.theme-text:not(:disabled) {
     &.contained {
-      @mixin main-button-contained-theme var(--grayBackground), var(--grayBorderMain), var(--textPrimary), var(--textPrimary);
+      @mixin main-button-contained-theme var(--grayBackground), var(--grayBorderMain), var(--textPrimary), var(--textSecondary);
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--grayBorderMain), var(--grayBorderAccent), var(--textPrimary), var(--textSecondary);
+      @mixin main-button-outlined-theme var(--grayBorderMain), var(--grayBorderAccent), var(--textPrimary), var(--textSecondary), var(--grayDisabledBackground);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--textPrimary), var(--textSecondary), var(--grayDisabledBackground);
     }
   }
 
@@ -171,11 +196,11 @@
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--errorMain), var(--errorSecondary), var(--errorMain), var(--errorSecondary);
+      @mixin main-button-outlined-theme var(--errorMain), var(--errorSecondary), var(--errorMain), var(--errorSecondary), var(--errorLight);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary);
+      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary), var(--errorLight);
     }
   }
 
@@ -185,11 +210,11 @@
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--errorLight), var(--errorMain), var(--errorMain), var(--errorSecondary);
+      @mixin main-button-outlined-theme var(--errorLight), var(--errorMain), var(--errorMain), var(--errorSecondary), var(--errorLight);
     }
 
     &.textVariant {
-      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary);
+      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary), var(--errorLight);
     }
   }
 
@@ -199,7 +224,11 @@
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--validationMain), var(--validationSecondary), var(--validationMain), var(--validationSecondary);
+      @mixin main-button-outlined-theme var(--validationMain), var(--validationSecondary), var(--validationMain), var(--validationSecondary), var(--validationLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--validationMain), var(--validationSecondary), var(--validationLight);
     }
   }
 
@@ -209,7 +238,11 @@
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--validationLight), var(--validationMain), var(--validationMain), var(--validationSecondary);
+      @mixin main-button-outlined-theme var(--validationLight), var(--validationMain), var(--validationMain), var(--validationSecondary), var(--validationLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--validationMain), var(--validationSecondary), var(--validationLight);
     }
   }
 
@@ -219,7 +252,11 @@
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--alertMain), var(--alertSecondary), var(--alertMain), var(--alertSecondary);
+      @mixin main-button-outlined-theme var(--alertMain), var(--alertSecondary), var(--alertMain), var(--alertSecondary), var(--alertLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
     }
   }
 
@@ -229,7 +266,11 @@
     }
 
     &.outlined {
-      @mixin main-button-outlined-theme var(--alertLight), var(--alertMain), var(--alertMain), var(--alertSecondary);
+      @mixin main-button-outlined-theme var(--alertLight), var(--alertMain), var(--alertMain), var(--alertSecondary), var(--alertLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
     }
   }
 }

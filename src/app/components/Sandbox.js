@@ -31,6 +31,7 @@ const SandboxComponent = ({ admin }) => {
   ]);
 
   const [buttonDisabled, setMainButtonDisabled] = React.useState(Boolean(false));
+  const [switched, setSwitchExample] = React.useState(Boolean(false));
   const [buttonVariant, setButtonVariant] = React.useState('contained');
   const onChangeButtonVariant = (event) => {
     setButtonVariant(event.target.value);
@@ -195,22 +196,30 @@ const SandboxComponent = ({ admin }) => {
             <SwitchComponent
               label="Label on top"
               labelPlacement="top"
-              helperContent="I can help switches"
+              helperContent="I can help top switches"
+              checked={switched}
+              onChange={() => setSwitchExample(!switched)}
             />
             <SwitchComponent
               label="Label on bottom"
               labelPlacement="bottom"
-              helperContent="I can help switches"
+              helperContent="I can help bottom switches"
+              checked={switched}
+              onChange={() => setSwitchExample(!switched)}
             />
             <SwitchComponent
               label="Label start"
               labelPlacement="start"
-              helperContent="I can help switches"
+              helperContent="I can help start switches"
+              checked={switched}
+              onChange={() => setSwitchExample(!switched)}
             />
             <SwitchComponent
               label="Label end"
               labelPlacement="end"
-              helperContent="I can help switches"
+              helperContent="I can help end switches"
+              checked={switched}
+              onChange={() => setSwitchExample(!switched)}
             />
           </div>
         </div>

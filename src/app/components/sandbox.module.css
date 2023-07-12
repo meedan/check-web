@@ -36,8 +36,7 @@
 
       .componentControls {
         background-color: var(--brandBackground);
-        border-radius: 8px;
-        margin: 0 0 20px;
+        border-radius: 5px 5px 0 0;
         padding: 8px;
 
         ul {
@@ -49,6 +48,12 @@
           li {
             flex: 1 1 auto;
           }
+        }
+
+        + .componentInlineVariants {
+          border: solid 4px var(--brandBackground);
+          border-radius: 0 0 5px 5px;
+          padding: 20px;
         }
       }
 

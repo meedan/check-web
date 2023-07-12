@@ -11,20 +11,22 @@
   }
 }
 
-@define-mixin main-button-outlined-theme $border-primary: var(--grayBorderMain), $border-secondary: var(--grayBorderMain), $text-primary: var(--brandMain), $text-secondary: var(--brandSecondary) {
+@define-mixin main-button-outlined-theme $border-primary: var(--grayBorderMain), $border-secondary: var(--grayBorderMain), $text-primary: var(--brandMain), $text-secondary: var(--brandSecondary), $background-hover: var(--brandHoverAccent) {
   border: solid 2px $border-primary;
   color: $text-primary;
 
   &:hover {
-    color: $text-secondary;
+    background-color: $background-hover;
     border-color: $border-secondary;
+    color: $text-secondary;
   }
 }
 
-@define-mixin main-button-text-theme $text-primary: var(--brandMain), $text-secondary: var(--brandSecondary) {
+@define-mixin main-button-text-theme $text-primary: var(--brandMain), $text-secondary: var(--brandSecondary), $background-hover: var(--brandHoverAccent) {
   color: $text-primary;
 
   &:hover {
+    background-color: $background-hover;
     color: $text-secondary;
   }
 }
