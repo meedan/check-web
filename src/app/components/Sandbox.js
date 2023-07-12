@@ -14,6 +14,7 @@ import SwitchComponent from './cds/inputs/SwitchComponent';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../icons/settings.svg';
 import ListIcon from '../icons/list.svg';
+import Card from './cds/media-cards/Card.js';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -257,6 +258,17 @@ const SandboxComponent = ({ admin }) => {
           <Chip
             label="Tag Name"
             onRemove={() => {}}
+          />
+        </div>
+      </section>
+      <section id="sandbox-media-cards">
+        <h6>Media Cards</h6>
+        <div className={styles.componentWrapper}>
+          <Card
+            title="Moby-Dick; or, The Whale."
+            description="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
+            footer="I still haven't finished this"
+            tag="Novel"
           />
         </div>
       </section>
