@@ -189,6 +189,31 @@ const SandboxComponent = ({ admin }) => {
             <option value="3">three</option>
           </Select>
         </div>
+        <div className={styles.componentWrapper}>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>Switch</div>
+          <div className={styles.componentInlineVariants}>
+            <SwitchComponent
+              label="Label on top"
+              labelPlacement="top"
+              helperContent="I can help switches"
+            />
+            <SwitchComponent
+              label="Label on bottom"
+              labelPlacement="bottom"
+              helperContent="I can help switches"
+            />
+            <SwitchComponent
+              label="Label start"
+              labelPlacement="start"
+              helperContent="I can help switches"
+            />
+            <SwitchComponent
+              label="Label end"
+              labelPlacement="end"
+              helperContent="I can help switches"
+            />
+          </div>
+        </div>
       </section>
       <section id="sandbox-chips">
         <h6>Chips</h6>

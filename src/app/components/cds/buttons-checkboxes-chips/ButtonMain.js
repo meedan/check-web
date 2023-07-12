@@ -29,9 +29,6 @@ const ButtonMain = ({
         [styles.contained]: variant === 'contained',
         [styles.outlined]: variant === 'outlined',
         [styles.textVariant]: variant === 'text',
-        [styles['input-icon-left']]: iconLeft,
-        [styles['input-icon-right']]: iconRight,
-        [styles['input-icon-center']]: iconCenter,
       })
     }
     classes={{

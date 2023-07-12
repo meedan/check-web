@@ -4,20 +4,10 @@
     margin: 0;
   }
 
-  :global(.MuiFormControlLabel-labelPlacementTop) {
-    align-items: start;
-
-    .switch {
-      :global(+ .MuiFormControlLabel-label) {
-        margin: 0;
-      }
-    }
-  }
-
   .switch {
     .switchRoot {
       height: 32px;
-      margin: 6px 0;
+      margin: 0 0 6px;
       padding: 0;
       width: 60px;
 
@@ -99,9 +89,48 @@
     }
   }
 
-  .helper {
-    @mixin typography-caption;
-    color: var(--textSecondary);
+  :global(.MuiFormControlLabel-labelPlacementTop) {
+    align-items: start;
+
+    .switch {
+      :global(+ .MuiFormControlLabel-label) {
+        margin: 0 0 0 10px;
+      }
+
+      .switchRoot {
+        margin: 12px 0 8px;
+      }
+    }
+  }
+
+  :global(.MuiFormControlLabel-labelPlacementStart) {
+    .switch {
+      :global(+ .MuiFormControlLabel-label) {
+        margin: 0 10px 8px 0;
+      }
+
+      .switchRoot {
+        margin: 0 0 8px;
+      }
+    }
+
+    + .switch-help-container {
+      padding: 0 4px 0 0;
+    }
+  }
+
+  :global(.MuiFormControlLabel-labelPlacementBottom) {
+    align-items: flex-start;
+
+    .switch {
+      :global(+ .MuiFormControlLabel-label) {
+        margin: 0 0 0 10px;
+      }
+
+      .switchRoot {
+        margin: 0 0 8px;
+      }
+    }
   }
 }
 
