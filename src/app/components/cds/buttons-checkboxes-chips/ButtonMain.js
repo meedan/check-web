@@ -49,7 +49,7 @@ const ButtonMain = ({
         {iconLeft}
       </div>
     )}
-    <span className={styles.buttonMainLabel}>
+    <span className={`test-label__button ${styles.buttonMainLabel}`}>
       {label}
     </span>
     { iconCenter && (
