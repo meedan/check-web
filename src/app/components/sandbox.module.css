@@ -33,6 +33,35 @@
       .componentName {
         margin: 0 0 10px;
       }
+
+      .componentControls {
+        background-color: var(--brandBackground);
+        border-radius: 5px 5px 0 0;
+        padding: 8px;
+
+        ul {
+          display: flex;
+          flex-direction: row;
+          gap: 16px;
+          list-style: none;
+
+          li {
+            flex: 1 1 auto;
+          }
+        }
+
+        + .componentInlineVariants {
+          border: solid 4px var(--brandBackground);
+          border-radius: 0 0 5px 5px;
+          padding: 20px;
+        }
+      }
+
+      .componentInlineVariants {
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+      }
     }
   }
 }
