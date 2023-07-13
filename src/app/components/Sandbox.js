@@ -97,97 +97,6 @@ const SandboxComponent = ({ admin }) => {
           <a href="#sandbox-alerts-prompts" title="Alerts & Prompts">Alerts &amp; Prompts</a>
         </li>
       </ul>
-      <section id="sandbox-alerts-prompts">
-        <h6>Alerts &amp; Prompts</h6>
-        <div className={styles.componentWrapper}>
-          <div className={styles.componentControls}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>
-              Alert
-              <a
-                href="https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=4-45716&mode=design&t=G3fBIdgR6AWtOlNu-4"
-                rel="noopener noreferrer"
-                target="_blank"
-                title="Figma Designs"
-                className={styles.figmaLink}
-              >
-                <FigmaColorLogo />
-              </a>
-            </div>
-            <ul>
-              <li>
-                <Select
-                  label="Variant"
-                  onChange={onChangeAlertVariant}
-                >
-                  <option value="info">info</option>
-                  <option value="success">success</option>
-                  <option value="warning">warning</option>
-                  <option value="error">error</option>
-                </Select>
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Title"
-                  labelPlacement="top"
-                  checked={alertTitle}
-                  onChange={() => setAlertTitle(!alertTitle)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Content"
-                  labelPlacement="top"
-                  checked={alertContent}
-                  onChange={() => setAlertContent(!alertContent)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Icon"
-                  labelPlacement="top"
-                  checked={alertIcon}
-                  onChange={() => setAlertIcon(!alertIcon)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Button"
-                  labelPlacement="top"
-                  checked={alertButton}
-                  onChange={() => setAlertButton(!alertButton)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Floating"
-                  labelPlacement="top"
-                  checked={alertFloating}
-                  onChange={() => setAlertFloating(!alertFloating)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Closable"
-                  labelPlacement="top"
-                  checked={alertClosable}
-                  onChange={() => setAlertClosable(!alertClosable)}
-                />
-              </li>
-            </ul>
-          </div>
-          <div className={styles.componentInlineVariants}>
-            <Alert
-              title={alertTitle && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>}
-              floating={alertFloating}
-              icon={alertIcon}
-              buttonLabel={alertButton && <span>alert action</span>}
-              content={alertContent && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>}
-              variant={alertVariant}
-              onClose={alertClosable ? () => {} : null}
-            />
-          </div>
-        </div>
-      </section>
       <section id="sandbox-buttons">
         <h6>Buttons</h6>
         <div className={styles.componentWrapper}>
@@ -527,6 +436,97 @@ const SandboxComponent = ({ admin }) => {
                 maxTags={maxTags ? 5 : undefined}
               />
             </div>
+          </div>
+        </div>
+      </section>
+      <section id="sandbox-alerts-prompts">
+        <h6>Alerts &amp; Prompts</h6>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Alert
+              <a
+                href="https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=4-45716&mode=design&t=G3fBIdgR6AWtOlNu-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={onChangeAlertVariant}
+                >
+                  <option value="info">info</option>
+                  <option value="success">success</option>
+                  <option value="warning">warning</option>
+                  <option value="error">error</option>
+                </Select>
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Title"
+                  labelPlacement="top"
+                  checked={alertTitle}
+                  onChange={() => setAlertTitle(!alertTitle)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Content"
+                  labelPlacement="top"
+                  checked={alertContent}
+                  onChange={() => setAlertContent(!alertContent)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Icon"
+                  labelPlacement="top"
+                  checked={alertIcon}
+                  onChange={() => setAlertIcon(!alertIcon)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Button"
+                  labelPlacement="top"
+                  checked={alertButton}
+                  onChange={() => setAlertButton(!alertButton)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Floating"
+                  labelPlacement="top"
+                  checked={alertFloating}
+                  onChange={() => setAlertFloating(!alertFloating)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Closable"
+                  labelPlacement="top"
+                  checked={alertClosable}
+                  onChange={() => setAlertClosable(!alertClosable)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentInlineVariants}>
+            <Alert
+              title={alertTitle && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>}
+              floating={alertFloating}
+              icon={alertIcon}
+              buttonLabel={alertButton && <span>alert action</span>}
+              content={alertContent && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>}
+              variant={alertVariant}
+              onClose={alertClosable ? () => {} : null}
+            />
           </div>
         </div>
       </section>
