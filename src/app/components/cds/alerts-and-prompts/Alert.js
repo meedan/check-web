@@ -58,7 +58,7 @@ const Alert = ({
         </span>
       }
       { content &&
-        <div className={cx('typography-body1', styles.content)}>
+        <div className={cx('test__alert-content', 'typography-body1', styles.content)}>
           {content}
         </div>
       }
