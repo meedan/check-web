@@ -81,7 +81,7 @@ class UserTosForm extends Component {
             </Box>
           </div> :
           <div>
-            <h2>
+            <h2 className="typography-subtitle2">
               <FormattedMessage
                 id="userTos.titleUpdated"
                 defaultMessage="Updated Terms and Privacy Policy"

@@ -58,7 +58,7 @@
 .toggleCollapse {
   align-items: center;
   background-color: var(--brandHoverAccent);
-  border: 1px solid var(--grayBorderMain);
+  border: 0px solid var(--grayBorderMain);
   border-radius: 8px;
   cursor: pointer;
   display: flex;

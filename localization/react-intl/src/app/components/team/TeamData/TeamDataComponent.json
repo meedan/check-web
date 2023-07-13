@@ -75,6 +75,11 @@
     "defaultMessage": "Current number of newsletter subscriptions."
   },
   {
+    "id": "teamDataComponent.newslettersDelivered",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of newsletters effectively delivered, accounting for user errors for each platform."
+  },
+  {
     "id": "teamDataComponent.title",
     "description": "Header for the stored data page of the current team",
     "defaultMessage": "Tipline engagement data"

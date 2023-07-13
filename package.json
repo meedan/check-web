@@ -115,7 +115,7 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^3.0.3",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-relay": "^1.8.3",
     "eslint-plugin-require-path-exists": "1.1.7",

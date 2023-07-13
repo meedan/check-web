@@ -4,7 +4,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import IconEdit from '@material-ui/icons/Edit';
 import AccountChips from './AccountChips';
 import Can from '../Can';
 import ParsedText from '../ParsedText';
@@ -21,6 +20,7 @@ import {
 } from '../../styles/js/HeaderCard';
 import { Row } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
+import IconEdit from '../../icons/edit.svg';
 
 const UserInfo = (props) => {
   if (props.user.source === null) return null;
