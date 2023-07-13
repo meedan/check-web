@@ -14,6 +14,7 @@ import SwitchComponent from './cds/inputs/SwitchComponent';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../icons/settings.svg';
 import ListIcon from '../icons/list.svg';
+import FigmaColorLogo from '../icons/figma_color.svg';
 import Card from './cds/media-cards/Card.js';
 
 const SandboxComponent = ({ admin }) => {
@@ -31,6 +32,10 @@ const SandboxComponent = ({ admin }) => {
     'This is Six',
   ]);
 
+  const [tagsFixedWidth, setTagsFixedWidth] = React.useState(Boolean(false));
+  const [maxTags, setMaxTags] = React.useState(Boolean(false));
+  const [tagsReadOnly, setTagsReadOnly] = React.useState(Boolean(false));
+  const [chipRemovable, setChipRemovable] = React.useState(Boolean(false));
   const [buttonDisabled, setMainButtonDisabled] = React.useState(Boolean(false));
   const [switchesDisabled, setSwitchesDisabled] = React.useState(Boolean(false));
   const [switchesHelp, setSwitchesHelp] = React.useState(Boolean(false));
@@ -72,6 +77,9 @@ const SandboxComponent = ({ admin }) => {
           <a href="#sandbox-chips" title="Chips">Chips</a>
         </li>
         <li>
+          <a href="#sandbox-cards" title="Cards">Cards</a>
+        </li>
+        <li>
           <a href="#sandbox-tags" title="Tags">Tags</a>
         </li>
       </ul>
@@ -79,7 +87,18 @@ const SandboxComponent = ({ admin }) => {
         <h6>Buttons</h6>
         <div className={styles.componentWrapper}>
           <div className={styles.componentControls}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>ButtonMain</div>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              ButtonMain
+              <a
+                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=139-6525&mode=design&t=ZVq51pKdIKdWZicO-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
             <ul>
               <li>
                 <Select
@@ -146,7 +165,18 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </div>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>ToggleButtonGroup</div>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>
+            ToggleButtonGroup
+            <a
+              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3703-28265&mode=design&t=ZVq51pKdIKdWZicO-4"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="Figma Designs"
+              className={styles.figmaLink}
+            >
+              <FigmaColorLogo />
+            </a>
+          </div>
           <ToggleButtonGroup
             label="I am a label"
             variant="contained"
@@ -169,7 +199,18 @@ const SandboxComponent = ({ admin }) => {
       <section id="sandbox-inputs">
         <h6>Inputs</h6>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>TextField</div>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>
+            TextField
+            <a
+              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=623-12029&mode=design&t=ZVq51pKdIKdWZicO-4"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="Figma Designs"
+              className={styles.figmaLink}
+            >
+              <FigmaColorLogo />
+            </a>
+          </div>
           <TextField
             placeholder="I am a placeholder"
             label="I am a textfield title"
@@ -178,7 +219,18 @@ const SandboxComponent = ({ admin }) => {
           />
         </div>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>TextArea</div>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>
+            TextArea
+            <a
+              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3606-26274&mode=design&t=ZVq51pKdIKdWZicO-4"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="Figma Designs"
+              className={styles.figmaLink}
+            >
+              <FigmaColorLogo />
+            </a>
+          </div>
           <TextArea
             placeholder="I am a placeholder for textarea"
             label="I am a textarea title"
@@ -187,7 +239,18 @@ const SandboxComponent = ({ admin }) => {
           />
         </div>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>Select</div>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>
+            Select
+            <a
+              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=34-5720&mode=design&t=ZVq51pKdIKdWZicO-4"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="Figma Designs"
+              className={styles.figmaLink}
+            >
+              <FigmaColorLogo />
+            </a>
+          </div>
           <Select
             iconLeft={<ListIcon />}
             helpContent="I can be of help to select"
@@ -202,7 +265,18 @@ const SandboxComponent = ({ admin }) => {
         </div>
         <div className={styles.componentWrapper}>
           <div className={styles.componentControls}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>Switch</div>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Switch
+              <a
+                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
             <ul>
               <li>
                 <Select
@@ -248,20 +322,45 @@ const SandboxComponent = ({ admin }) => {
       <section id="sandbox-chips">
         <h6>Chips</h6>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>Chip</div>
-          <Chip
-            label="Tag Name"
-          />
-        </div>
-        <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>Chip (removable)</div>
-          <Chip
-            label="Tag Name"
-            onRemove={() => {}}
-          />
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Chip
+              <a
+                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=157-5443&mode=design&t=ZVq51pKdIKdWZicO-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Removable"
+                  labelPlacement="top"
+                  checked={chipRemovable}
+                  onChange={() => setChipRemovable(!chipRemovable)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentInlineVariants}>
+            {chipRemovable ? (
+              <Chip
+                label="Tag Name"
+                onRemove={() => {}}
+              />
+            ) :
+              <Chip
+                label="Tag Name"
+              />
+            }
+          </div>
         </div>
       </section>
-      <section id="sandbox-media-cards">
+      <section id="sandbox-cards">
         <h6>Media Cards</h6>
         <div className={styles.componentWrapper}>
           <Card
@@ -274,35 +373,62 @@ const SandboxComponent = ({ admin }) => {
       </section>
       <section id="sandbox-tags">
         <h6>Tags</h6>
-        <div className={styles.componentWrapper} style={{ width: '300px' }}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>Tag List</div>
-          <TagList
-            tags={tags}
-            setTags={setTags}
-          />
-        </div>
-        <div className={styles.componentWrapper} style={{ width: '300px' }}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>Tag List <small>(read-only)</small></div>
-          <TagList
-            readOnly
-            tags={tags}
-            setTags={setTags}
-          />
-        </div>
-        <div className={styles.componentWrapper} style={{ width: '300px' }}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>Tag List <small>(maxTags: 5)</small></div>
-          <TagList
-            tags={tags}
-            setTags={setTags}
-            maxTags={5}
-          />
-        </div>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>Tag List <small>(no fixed width)</small></div>
-          <TagList
-            tags={tags}
-            setTags={setTags}
-          />
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              TagList
+              <a
+                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=4295-43910&mode=design&t=ZVq51pKdIKdWZicO-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Read Only"
+                  labelPlacement="top"
+                  checked={tagsReadOnly}
+                  onChange={() => setTagsReadOnly(!tagsReadOnly)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Max 5 Tags"
+                  labelPlacement="top"
+                  checked={maxTags}
+                  onChange={() => setMaxTags(!maxTags)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fixed Width (300px)"
+                  labelPlacement="top"
+                  checked={tagsFixedWidth}
+                  onChange={() => setTagsFixedWidth(!tagsFixedWidth)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentInlineVariants}>
+            <div className={cx(
+              {
+                [styles['fixed-width-tags']]: tagsFixedWidth,
+              })
+            }
+            >
+              <TagList
+                readOnly={tagsReadOnly}
+                tags={tags}
+                setTags={setTags}
+                maxTags={maxTags ? 5 : undefined}
+              />
+            </div>
+          </div>
         </div>
       </section>
     </div>
