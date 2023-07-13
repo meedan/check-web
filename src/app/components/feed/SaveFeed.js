@@ -371,7 +371,7 @@ const SaveFeed = (props) => {
                         />
                       </ExternalLink>
                     }
-                    type="error"
+                    variant="error"
                   />
                 )
               }
