@@ -4,6 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
 import styles from './sandbox.module.css';
+import Alert from './cds/alerts-and-prompts/Alert';
 import Chip from './cds/buttons-checkboxes-chips/Chip';
 import TagList from './cds/menus-lists-dialogs/TagList';
 import TextField from './cds/inputs/TextField';
@@ -32,6 +33,12 @@ const SandboxComponent = ({ admin }) => {
     'This is Six',
   ]);
 
+  const [alertFloating, setAlertFloating] = React.useState(Boolean(false));
+  const [alertIcon, setAlertIcon] = React.useState(Boolean(true));
+  const [alertButton, setAlertButton] = React.useState(Boolean(true));
+  const [alertTitle, setAlertTitle] = React.useState(Boolean(true));
+  const [alertContent, setAlertContent] = React.useState(Boolean(true));
+  const [alertClosable, setAlertClosable] = React.useState(Boolean(true));
   const [tagsFixedWidth, setTagsFixedWidth] = React.useState(Boolean(false));
   const [maxTags, setMaxTags] = React.useState(Boolean(false));
   const [tagsReadOnly, setTagsReadOnly] = React.useState(Boolean(false));
@@ -44,6 +51,11 @@ const SandboxComponent = ({ admin }) => {
   const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
   const onChangeSwitchLabelPlacement = (event) => {
     setSwitchLabelPlacement(event.target.value);
+  };
+
+  const [alertVariant, setAlertVariant] = React.useState('info');
+  const onChangeAlertVariant = (event) => {
+    setAlertVariant(event.target.value);
   };
 
   const [buttonVariant, setButtonVariant] = React.useState('contained');
@@ -60,7 +72,6 @@ const SandboxComponent = ({ admin }) => {
   const onChangeButtonTheme = (event) => {
     setButtonTheme(event.target.value);
   };
-
   return (
     <div className={styles.sandbox}>
       <h5>
@@ -82,7 +93,101 @@ const SandboxComponent = ({ admin }) => {
         <li>
           <a href="#sandbox-tags" title="Tags">Tags</a>
         </li>
+        <li>
+          <a href="#sandbox-alerts-prompts" title="Alerts & Prompts">Alerts &amp; Prompts</a>
+        </li>
       </ul>
+      <section id="sandbox-alerts-prompts">
+        <h6>Alerts &amp; Prompts</h6>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Alert
+              <a
+                href="https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=4-45716&mode=design&t=G3fBIdgR6AWtOlNu-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={onChangeAlertVariant}
+                >
+                  <option value="info">info</option>
+                  <option value="success">success</option>
+                  <option value="warning">warning</option>
+                  <option value="error">error</option>
+                </Select>
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Title"
+                  labelPlacement="top"
+                  checked={alertTitle}
+                  onChange={() => setAlertTitle(!alertTitle)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Content"
+                  labelPlacement="top"
+                  checked={alertContent}
+                  onChange={() => setAlertContent(!alertContent)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Icon"
+                  labelPlacement="top"
+                  checked={alertIcon}
+                  onChange={() => setAlertIcon(!alertIcon)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Button"
+                  labelPlacement="top"
+                  checked={alertButton}
+                  onChange={() => setAlertButton(!alertButton)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Floating"
+                  labelPlacement="top"
+                  checked={alertFloating}
+                  onChange={() => setAlertFloating(!alertFloating)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Closable"
+                  labelPlacement="top"
+                  checked={alertClosable}
+                  onChange={() => setAlertClosable(!alertClosable)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentInlineVariants}>
+            <Alert
+              title={alertTitle && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>}
+              floating={alertFloating}
+              icon={alertIcon}
+              buttonLabel={alertButton && <span>alert action</span>}
+              content={alertContent && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>}
+              variant={alertVariant}
+              onClose={alertClosable ? () => {} : null}
+            />
+          </div>
+        </div>
+      </section>
       <section id="sandbox-buttons">
         <h6>Buttons</h6>
         <div className={styles.componentWrapper}>
@@ -347,16 +452,10 @@ const SandboxComponent = ({ admin }) => {
             </ul>
           </div>
           <div className={styles.componentInlineVariants}>
-            {chipRemovable ? (
-              <Chip
-                label="Tag Name"
-                onRemove={() => {}}
-              />
-            ) :
-              <Chip
-                label="Tag Name"
-              />
-            }
+            <Chip
+              label="Tag Name"
+              onRemove={chipRemovable ? () => {} : null}
+            />
           </div>
         </div>
       </section>

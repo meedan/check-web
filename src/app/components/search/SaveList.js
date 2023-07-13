@@ -373,7 +373,7 @@ const SaveList = ({
                     />
                     { savedSearch?.is_part_of_feeds ?
                       <Alert
-                        type="warning"
+                        variant="warning"
                         title={
                           <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
                         }

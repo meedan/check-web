@@ -39,7 +39,7 @@ const SelectListQueryRenderer = ({
         if (required && props.team.saved_searches.edges.length === 0) {
           return (
             <Alert
-              type="warning"
+              variant="warning"
               title={
                 <FormattedMessage
                   id="selectList.noListTitle"
@@ -70,7 +70,7 @@ const SelectListQueryRenderer = ({
             { (required && !value) ?
               <div>
                 <Alert
-                  type="warning"
+                  variant="warning"
                   title={
                     <FormattedMessage
                       id="saveFeed.noListSelected"

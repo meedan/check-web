@@ -98,8 +98,8 @@ const NewsletterScheduler = ({
 
       { lastDeliveryError === 'CONTENT_HASNT_CHANGED' ?
         <Alert
-          hasBorder
-          type="error"
+          floating
+          variant="error"
           title={
             <FormattedMessage
               id="newsletterScheduler.errorContentHasntChanged"
@@ -112,8 +112,8 @@ const NewsletterScheduler = ({
 
       { lastDeliveryError === 'RSS_ERROR' ?
         <Alert
-          hasBorder
-          type="error"
+          floating
+          variant="error"
           title={
             <FormattedMessage
               id="newsletterScheduler.errorRss"

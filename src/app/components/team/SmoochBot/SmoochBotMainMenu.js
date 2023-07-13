@@ -103,7 +103,7 @@ const SmoochBotMainMenu = ({
 
       { collapseLanguages ?
         <Alert
-          type="warning"
+          variant="warning"
           content={
             <FormattedMessage
               id="smoochBotMainMenu.alertTitle"
