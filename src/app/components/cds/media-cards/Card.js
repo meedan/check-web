@@ -26,8 +26,11 @@ const Card = ({
 }) => {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isHovered, setIsHovered] = React.useState(false);
+  const [isTextOverflowing, setIsTextOverflowing] = React.useState(false);
+  const descriptionRef = React.useRef(null);
+
   const toggleCollapse = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
     setIsCollapsed(!isCollapsed);
   };
 
@@ -39,11 +42,17 @@ const Card = ({
     setIsHovered(false);
   };
 
-  const buttonContent = isCollapsed ? (
-    <UnfoldMoreIcon />
-  ) : (
-    <UnfoldLessIcon />
-  );
+  React.useEffect(() => {
+    const descriptionElement = descriptionRef.current;
+    if (descriptionElement) {
+      if (descriptionElement.offsetHeight < descriptionElement.scrollHeight ||
+        descriptionElement.offsetWidth < descriptionElement.scrollWidth) {
+        setIsTextOverflowing(true);
+      }
+    }
+  }, [description]);
+
+  const shouldShowButton = isHovered && (!isCollapsed || (isCollapsed && isTextOverflowing));
 
   return (
     <div
@@ -53,17 +62,17 @@ const Card = ({
     >
       <MaybeLink to={url}>
         <div className={styles.cardContent}>
-          <div className={`${isCollapsed ? styles.cardLeft : ''}`}>
-            <h6 className={`typography-button ${styles.cardTitle} ${isCollapsed ? styles.textEllipsis : ''}`}>{title}</h6>
+          <div className={styles.cardLeft}>
+            <h6 className={`typography-button ${styles.cardTitle}`}>{title}</h6>
             { description ?
-              <p className={`typography-body2 ${styles.cardDescription} ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} >{description}</p>
+              <p className={`typography-body2 description-text ${styles.cardDescription} ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} ref={descriptionRef}>{description}</p>
               : null }
 
           </div>
-          { isHovered ?
+          { shouldShowButton ?
             <div>
               <button type="button" onClick={toggleCollapse} className={`${styles.toggleCollapse}`}>
-                {buttonContent}
+                { isCollapsed ? <UnfoldMoreIcon /> : <UnfoldLessIcon /> }
               </button>
             </div>
             : null
@@ -79,6 +88,7 @@ const Card = ({
     </div>
   );
 };
+
 Card.defaultProps = {
   description: null,
   url: null,
