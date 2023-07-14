@@ -31,7 +31,15 @@
       }
 
       .componentName {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
         margin: 0 0 10px;
+
+        .figmaLink {
+          font-size: var(--iconSizeSmall);
+        }
       }
 
       .componentControls {
@@ -42,6 +50,7 @@
         ul {
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
           gap: 16px;
           list-style: none;
 
@@ -61,6 +70,11 @@
         display: flex;
         flex-direction: row;
         gap: 32px;
+      }
+
+      .fixed-width-tags {
+        background-color: var(--validationLight);
+        width: 300px;
       }
     }
   }
