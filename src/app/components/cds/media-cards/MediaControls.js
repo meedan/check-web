@@ -7,11 +7,11 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
 import MediaTimeline from './MediaTimeline';
 import MediaVolume from './MediaVolume';
 import MediaPlaybackSpeed from './MediaPlaybackSpeed';
+import PauseIcon from '../../../icons/pause.svg';
+import PlayArrowIcon from '../../../icons/play_arrow.svg';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     color: 'var(--otherWhite)',
+    fontSize: '24px',
     marginRight: theme.spacing(1),
     '&:hover': {
       color: 'var(--otherWhite)',

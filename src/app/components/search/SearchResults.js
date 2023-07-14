@@ -17,7 +17,6 @@ import FeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
-import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
@@ -125,7 +124,6 @@ function SearchResultsComponent({
   title,
   icon,
   listActions,
-  listDescription,
   page,
   resultType,
   hideFields,
@@ -605,7 +603,6 @@ SearchResultsComponent.defaultProps = {
   projectGroup: null,
   showExpand: false,
   icon: null,
-  listDescription: undefined,
   listActions: undefined,
   page: undefined, // FIXME find a cleaner way to render Trash differently
   resultType: 'default',
@@ -652,7 +649,6 @@ SearchResultsComponent.propTypes = {
   title: PropTypes.node.isRequired,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  listDescription: PropTypes.string, // or undefined
   page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'feed']), // FIXME find a cleaner way to render Trash differently
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined

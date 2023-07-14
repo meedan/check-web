@@ -10,12 +10,12 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import AddIcon from '@material-ui/icons/Add';
 import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import AddIcon from '../../../icons/add.svg';
+import ArrowUpwardIcon from '../../../icons/arrow_upward.svg';
+import ArrowDownwardIcon from '../../../icons/arrow_downward.svg';
 
 const useStyles = makeStyles(theme => ({
   box: {

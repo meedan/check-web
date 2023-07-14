@@ -1,3 +1,4 @@
+// DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=531-31202&mode=design&t=G3fBIdgR6AWtOlNu-4
 import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
@@ -96,7 +97,7 @@ function Upload({
         </span>
         &nbsp;
         <a className="typography-button" href="#!" onClick={handleClick}>
-          <FormattedMessage id="upload.selectFile" defaultMessage="Select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." />
+          <FormattedMessage id="upload.selectFile" defaultMessage="select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." />
         </a>.
       </div>
     );

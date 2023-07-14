@@ -180,6 +180,8 @@ const SaveFeed = (props) => {
           <div>
             <ButtonMain
               variant="outlined"
+              size="default"
+              theme="brand"
               onClick={() => { handleViewFeed(feed.dbid); }}
               label={
                 <FormattedMessage
@@ -369,7 +371,7 @@ const SaveFeed = (props) => {
                         />
                       </ExternalLink>
                     }
-                    type="error"
+                    variant="error"
                   />
                 )
               }

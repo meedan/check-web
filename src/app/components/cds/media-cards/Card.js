@@ -31,7 +31,7 @@ const Card = ({
         </div>
         { (tag || footer) ?
           <div className={styles.cardRight}>
-            { tag ? <div title={tag}><ButtonMain customStyle={{ color: tagColor, cursor: 'default', background: 'white' }} label={tag} variant="outlined" /></div> : null }
+            { tag ? <div title={tag}><ButtonMain variant="outlined" size="default" theme="text" disabled customStyle={{ color: tagColor }} label={tag} /></div> : null }
             { footer ? <div className={`typography-body2 ${styles.cardFooter}`}>{footer}</div> : null }
           </div> : null
         }

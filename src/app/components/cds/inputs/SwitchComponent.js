@@ -1,7 +1,10 @@
+// DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import { Switch } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './Switch.module.css';
 
 const SwitchComponent = ({
@@ -44,7 +47,7 @@ const SwitchComponent = ({
         label={label}
       />
       { helperContent ?
-        <div className={styles.helper}>
+        <div className={cx([inputStyles['help-container'], styles['switch-help-container']])}>
           {helperContent}
         </div>
         : null }
