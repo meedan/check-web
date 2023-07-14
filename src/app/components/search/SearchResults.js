@@ -478,11 +478,6 @@ function SearchResultsComponent({
               handleSubmit={handleSubmit}
             /> : null }
         </Row>
-        <>
-          {listDescription && listDescription.trim().length ?
-            <Row className="project__description"><ParsedText text={listDescription} /></Row>
-            : null}
-        </>
       </div>
       <div className="search__results-top">
         { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
