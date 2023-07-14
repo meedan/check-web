@@ -49,8 +49,6 @@ const SandboxComponent = ({ admin }) => {
   const [switchesHelp, setSwitchesHelp] = React.useState(Boolean(false));
   const [switched, setSwitchExample] = React.useState(Boolean(false));
   const [limitedText, setLimitedText] = React.useState('Hello this is the initial limited text state');
-  // eslint-disable-next-line
-  console.log('~~~RENDER');
 
   const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
   const onChangeSwitchLabelPlacement = (event) => {
