@@ -21,7 +21,7 @@ function useEffectSkipFirst(fn, inputs) {
   }, inputs);
 }
 
-const TextField = ({
+const TextField = React.forwardRef(({
   className,
   disabled,
   error,
@@ -34,7 +34,7 @@ const TextField = ({
   variant,
   textArea,
   ...inputProps
-}) => {
+}, ref) => {
   const [internalError, setInternalError] = React.useState(suppressInitialError ? false : error);
 
   useEffectSkipFirst(() => {
@@ -81,6 +81,7 @@ const TextField = ({
                 [styles['input-icon-right']]: iconRight,
               })
             }
+            ref={ref}
             type="text"
             disabled={disabled}
             error={internalError}
@@ -99,6 +100,7 @@ const TextField = ({
                 [styles['input-icon-right']]: iconRight,
               })
             }
+            ref={ref}
             type="text"
             disabled={disabled}
             error={internalError}
@@ -125,7 +127,7 @@ const TextField = ({
       )}
     </div>
   );
-};
+});
 
 TextField.defaultProps = {
   className: '',

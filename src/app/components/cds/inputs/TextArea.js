@@ -2,11 +2,11 @@
 import React from 'react';
 import TextField from './TextField';
 
-const TextArea = ({
+const TextArea = React.forwardRef(({
   ...inputProps
-}) => (
-  <TextField textArea {...inputProps} />
-);
+}, ref) => (
+  <TextField textArea ref={ref} {...inputProps} />
+));
 
 // eslint-disable-next-line import/no-unused-modules
 export default TextArea;
