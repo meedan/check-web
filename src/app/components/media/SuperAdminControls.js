@@ -3,26 +3,12 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-  remove: {
-    color: '#F44336',
-    borderColor: '#F44336',
-    border: '2px solid',
-  },
-  apply: {
-    color: '#4CAF50',
-    borderColor: '#4CAF50',
-    border: '2px solid',
-  },
-});
+import styles from './SuperAdminControls.module.css';
 
 const SuperAdminControls = ({
   handleSuperAdminMask,
-  handlesuperAdminMaskSession,
+  handleSuperAdminMaskSession,
 }) => {
-  const classes = useStyles();
   const superAdminMaskSession = sessionStorage.getItem('superAdminMaskSession');
   const maskSession = superAdminMaskSession === null || superAdminMaskSession === 'true';
   const [superAdminmaskContent, setSuperAdminMaskContent] = React.useState(maskSession);
@@ -37,7 +23,7 @@ const SuperAdminControls = ({
   const handleSuperAdminClickSession = () => {
     const newValue = !superAdminmaskContentSession;
     setSuperAdminMaskContentSession(newValue);
-    handlesuperAdminMaskSession(newValue);
+    handleSuperAdminMaskSession(newValue);
   };
 
   return (
@@ -48,14 +34,14 @@ const SuperAdminControls = ({
         px={2}
         py={1}
         justifyContent="space-between"
-        bgcolor="#F7F7F7"
+        bgcolor="var(--grayBackground)"
         position="fixed"
-        style={{ bottom: 0, gap: 16 }}
+        className={styles.superAdminBox}
       >
         {
           superAdminmaskContent ?
             <Button
-              className={['super-admin-controls_remove', classes.remove].join(' ')}
+              className={styles.superAdminRemoveButton}
               variant="outlined"
               onClick={handleSuperAdminClickPage}
             >
@@ -66,7 +52,7 @@ const SuperAdminControls = ({
               />
             </Button> :
             <Button
-              className={['super-admin-controls_apply', classes.apply].join(' ')}
+              className={styles.superAdminApplyButton}
               variant="outlined"
               onClick={handleSuperAdminClickPage}
             >
@@ -80,7 +66,7 @@ const SuperAdminControls = ({
         {
           superAdminmaskContentSession ?
             <Button
-              className={['super-admin-controls_pause', classes.remove].join(' ')}
+              className={styles.superAdminRemoveButton}
               variant="outlined"
               onClick={handleSuperAdminClickSession}
             >
@@ -91,7 +77,7 @@ const SuperAdminControls = ({
               />
             </Button> :
             <Button
-              className={['super-admin-controls_resume', classes.apply].join(' ')}
+              className={styles.superAdminApplyButton}
               variant="outlined"
               onClick={handleSuperAdminClickSession}
             >
@@ -109,7 +95,7 @@ const SuperAdminControls = ({
 
 SuperAdminControls.propTypes = {
   handleSuperAdminMask: PropTypes.func.isRequired,
-  handlesuperAdminMaskSession: PropTypes.func.isRequired,
+  handleSuperAdminMaskSession: PropTypes.func.isRequired,
 };
 
 export default SuperAdminControls;

@@ -72,7 +72,7 @@ const AnalysisColumn = styled.div`
 `;
 
 class MediaComponent extends Component {
-  static handlesuperAdminMaskSession(value) {
+  static handleSuperAdminMaskSession(value) {
     sessionStorage.setItem('superAdminMaskSession', value);
   }
 
@@ -276,7 +276,7 @@ class MediaComponent extends Component {
           this.getContext().currentUser.is_admin ?
             <SuperAdminControls
               handleSuperAdminMask={this.handlesuperAdminMask.bind(this)}
-              handlesuperAdminMaskSession={MediaComponent.handlesuperAdminMaskSession.bind(this)}
+              handleSuperAdminMaskSession={MediaComponent.handleSuperAdminMaskSession.bind(this)}
             /> : null
         }
       </div>

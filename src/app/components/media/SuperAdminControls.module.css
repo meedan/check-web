@@ -1,0 +1,16 @@
+.superAdminRemoveButton {
+  color: 'var(--errorMain)';
+  border-color: 'var(--errorMain)';
+  border: '2px solid';
+}
+
+.superAdminApplyButton {
+  color: 'var(--validationMain)';
+  border-color: 'var(--validationMain)';
+  border: '2px solid';
+}
+
+.superAdminBox {
+  bottom: 0px;
+  gap: 16px;
+}
