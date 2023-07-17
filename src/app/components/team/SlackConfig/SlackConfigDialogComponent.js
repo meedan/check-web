@@ -19,13 +19,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import EditIcon from '@material-ui/icons/Edit';
-import LabelIcon from '@material-ui/icons/Label';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import MultiSelectFilter from '../../search/MultiSelectFilter';
 import { safelyParseJSON } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
+import DeleteIcon from '../../../icons/delete.svg';
+import EditIcon from '../../../icons/edit.svg';
+import FolderOpenIcon from '../../../icons/folder.svg';
+import LabelIcon from '../../../icons/label.svg';
+import SlackColorIcon from '../../../icons/slack_color.svg';
 
 const messages = defineMessages({
   defaultLabel: {
@@ -236,7 +237,7 @@ const SlackConfigDialogComponent = ({
   return (
     <Box className={classes.root}>
       <Box display="flex" alignItems="center" className={[classes.header, classes.box].join(' ')}>
-        <img src="/images/slack.svg" height="64" width="64" alt="Slack" />
+        <SlackColorIcon style={{ fontSize: '64px' }} />
         <Box className={classes.title}>
           <Typography variant="h6" component="div">Slack</Typography>
           <Typography variant="body1" component="div">

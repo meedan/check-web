@@ -9,11 +9,11 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import FullscreenIcon from '@material-ui/icons/Fullscreen';
-import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import DownloadIcon from '@material-ui/icons/Download';
 import SensitiveContentMenuButton from '../media/SensitiveContentMenuButton.js';
+import FullscreenIcon from '../../icons/fullscreen.svg';
+import FullscreenExitIcon from '../../icons/fullscreen_exit.svg';
+import VisibilityOffIcon from '../../icons/visibility_off.svg';
+import DownloadIcon from '../../icons/download.svg';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -64,12 +64,13 @@ const useStyles = makeStyles(theme => ({
     color: 'var(--otherWhite)',
   }),
   visibilityIcon: props => ({
-    fontSize: '40px',
+    fontSize: '24px',
     visibility: props.contentWarning || props.superAdminMask ? 'visible' : 'hidden',
   }),
   iconButton: {
     color: 'var(--otherWhite)',
     backgroundColor: 'var(--textPrimary)',
+    fontSize: '24px',
     margin: theme.spacing(0.5),
     '&:hover': {
       color: 'var(--otherWhite) !important',

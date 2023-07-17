@@ -135,9 +135,9 @@ class UserPrivacy extends Component {
 
     return (
       <div id="user__privacy">
-        <h2 className={classes.style}>
+        <div className={`typography-subtitle2 ${classes.style}`}>
           <FormattedMessage id="userPrivacy.title" defaultMessage="Your information" />
-        </h2>
+        </div>
         <p className={classes.style}>
           <FormattedMessage
             id="userPrivacy.description"
@@ -182,9 +182,9 @@ class UserPrivacy extends Component {
             </Button>
           </CardContent>
         </Card>
-        <h2 className={classes.style}>
+        <div className={`typography-subtitle2 ${classes.style}`}>
           <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" />
-        </h2>
+        </div>
         <Card className={classes.cardStyle}>
           <CardContent className={classes.cardTextStyle}>
             <List>
@@ -198,9 +198,9 @@ class UserPrivacy extends Component {
             </List>
           </CardContent>
         </Card>
-        <h2 className={classes.headerStyle}>
+        <div className={`typography-subtitle2 ${classes.headerStyle}`}>
           <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" />
-        </h2>
+        </div>
         <Card className={classes.cardStyle}>
           <CardContent className={classes.cardTextStyle}>
             <FormattedMessage

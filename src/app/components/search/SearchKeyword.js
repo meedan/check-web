@@ -8,12 +8,12 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import PermMediaOutlinedIcon from '@material-ui/icons/PermMediaOutlined';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
+import PermMediaIcon from '../../icons/perm_media.svg';
 
 const styles = {
   input: {
@@ -306,7 +306,7 @@ class SearchKeyword extends React.Component {
                           onChange={this.handleUpload}
                         />
                         <Button
-                          startIcon={this.state.isSaving ? <CircularProgress size={24} /> : <PermMediaOutlinedIcon />}
+                          startIcon={this.state.isSaving ? <CircularProgress size={24} /> : <PermMediaIcon style={{ fontSize: '16px' }} />}
                           component="span"
                           className={classes.button}
                         >

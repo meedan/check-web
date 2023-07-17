@@ -7,7 +7,7 @@ describe('<ButtonMain />', () => {
     const buttonMain = shallow(<ButtonMain
       label={<span>Test</span>}
     />);
-    const button = buttonMain.find('.typography-button');
+    const button = buttonMain.find('.test-label__button');
     expect(button).toHaveLength(1);
     expect(button.text()).toContain('Test');
   });

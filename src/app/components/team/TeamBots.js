@@ -11,12 +11,12 @@ import Collapse from '@material-ui/core/Collapse';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import SettingsIcon from '@material-ui/icons/Settings';
 import TeamBot from './TeamBot';
 import CreateTeamBotInstallationMutation from '../../relay/mutations/CreateTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import { botName } from '../../helpers';
+import SettingsIcon from '../../icons/settings.svg';
 
 class TeamBots extends Component {
   constructor(props) {

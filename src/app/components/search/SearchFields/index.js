@@ -650,27 +650,26 @@ const SearchFields = ({
         <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
         { filterIsActive() ? (
           <ButtonMain
+            variant="contained"
+            size="default"
+            theme="lightText"
             onClick={handleClickClear}
             label={
               <FormattedMessage id="search.resetFilter" defaultMessage="Reset" description="Button label to reset search filters." />
             }
-            customStyle={{
-              color: 'var(--textSecondary)',
-            }}
             buttonProps={{
               id: 'search-fields__clear-button',
             }}
           />
         ) : null }
         <ButtonMain
+          variant="contained"
+          size="default"
+          theme="lightValidation"
           onClick={handleSubmit}
           label={
             <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
           }
-          customStyle={{
-            background: 'var(--validationLight)',
-            color: 'var(--validationSecondary)',
-          }}
           buttonProps={{
             id: 'search-fields__submit-button',
           }}
