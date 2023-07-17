@@ -42,14 +42,25 @@ const Card = ({
     setIsHovered(false);
   };
 
-  React.useEffect(() => {
+  const checkTextOverflow = () => {
     const descriptionElement = descriptionRef.current;
     if (descriptionElement) {
       if (descriptionElement.offsetHeight < descriptionElement.scrollHeight ||
         descriptionElement.offsetWidth < descriptionElement.scrollWidth) {
         setIsTextOverflowing(true);
+      } else {
+        setIsTextOverflowing(false);
       }
     }
+  };
+
+  React.useEffect(() => {
+    checkTextOverflow();
+    window.addEventListener('resize', checkTextOverflow);
+
+    return () => {
+      window.removeEventListener('resize', checkTextOverflow);
+    };
   }, [description]);
 
   const shouldShowButton = isHovered && (!isCollapsed || (isCollapsed && isTextOverflowing));
