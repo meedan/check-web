@@ -69,7 +69,7 @@ SwitchComponent.propTypes = {
   disabled: PropTypes.bool,
   label: PropTypes.object,
   labelPlacement: PropTypes.oneOf(['bottom', 'end', 'start', 'top']),
-  helperContent: PropTypes.string,
+  helperContent: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onChange: PropTypes.func,
 };
 

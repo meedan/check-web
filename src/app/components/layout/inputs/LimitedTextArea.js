@@ -1,3 +1,4 @@
+// DESIGNS: https://www.figma.com/file/bQWUXJItRRX8xO3uQ9FWdg/Multimedia-Newsletter-%2B-Report?type=design&node-id=656-50446&mode=design&t=PjtorENpol0lp5QG-4
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -8,29 +9,47 @@ const LimitedTextArea = ({
   value,
   setValue,
   onChange,
+  onBlur,
   helpContent,
   onErrorTooLong,
   ...textFieldProps
 }) => {
   const [localError, setLocalError] = React.useState(false);
+  const [localText, setLocalText] = React.useState(value);
+
+  const inputRef = React.useRef();
 
   React.useEffect(() => {
-    if ((value?.length || 0) > maxChars) {
+    if ((localText.length || 0) > maxChars) {
       setLocalError(true);
       onErrorTooLong(true);
-    } else {
+    } else if (localError) { // only trigger this when we *transition* to an error state - this way it only rerenders the parent component when an error triggers, rather than transitioning from error=false to error=false
       setLocalError(false);
       onErrorTooLong(false);
     }
   });
 
   const handleChange = (e) => {
-    setValue(e.target.value);
+    setLocalText(inputRef.current.value);
+    if (onChange) {
+      onChange(e);
+    }
+  };
+
+  const handleBlur = (e) => {
+    if (setValue) {
+      setValue(inputRef.current?.value);
+    }
+    if (onBlur) {
+      onBlur(e);
+    }
   };
 
   return (
     <TextArea
       required
+      ref={inputRef}
+      value={localText}
       helpContent={(
         <>
           {helpContent && (<>{helpContent}<br /></>)}
@@ -38,12 +57,12 @@ const LimitedTextArea = ({
             id="limitedTextAreaWithCounter.counter"
             defaultMessage="{remaining, plural, one {# character left} other {# characters left}}"
             description="Label that displays how many characters more can be typed"
-            values={{ remaining: maxChars - (value?.length || 0) }}
+            values={{ remaining: maxChars - (localText.length || 0) }}
           />
         </>
       )}
-      onChange={onChange || handleChange}
-      value={value}
+      onChange={handleChange}
+      onBlur={handleBlur}
       {...textFieldProps}
       error={localError || textFieldProps.error}
     />
