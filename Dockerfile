@@ -22,6 +22,9 @@ RUN true \
     && gem install bundler:1.17.1 \
     && rm -rf /var/lib/apt/lists/*
 
+# tx client
+RUN curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+
 # /app will be "." mounted as a volume mount from the host
 WORKDIR /app
 
