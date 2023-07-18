@@ -77,7 +77,7 @@
   {
     "id": "teamDataComponent.newslettersDelivered",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Number of newsletters effectively delivered, accounting for user errors for each platform."
+    "defaultMessage": "Number of newsletters successfully delivered to subscribers, accounting for user errors."
   },
   {
     "id": "teamDataComponent.title",

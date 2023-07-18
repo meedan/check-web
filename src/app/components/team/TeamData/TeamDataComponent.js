@@ -128,7 +128,7 @@ const messages = defineMessages({
   },
   newslettersDelivered: {
     id: 'teamDataComponent.newslettersDelivered',
-    defaultMessage: 'Number of newsletters effectively delivered, accounting for user errors for each platform.',
+    defaultMessage: 'Number of newsletters successfully delivered to subscribers, accounting for user errors.',
     description: messagesDescription,
   },
 });
