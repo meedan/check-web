@@ -219,7 +219,7 @@ const TeamDataComponent = ({
     'New newsletter subscriptions': intl.formatMessage(messages.newNewsletterSubscriptions),
     'Newsletter cancellations': intl.formatMessage(messages.newsletterCancellations),
     'Current subscribers': intl.formatMessage(messages.currentSubscribers),
-    'Newsletters delivered': intl.formatMessage(messages.newslettersDelivered),
+    'Total newsletter received': intl.formatMessage(messages.newslettersDelivered),
   };
 
   const handleRequestSort = (event, property) => {
