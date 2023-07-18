@@ -81,7 +81,6 @@ const SmoochBotIntegrationButton = ({
   params,
   info,
   icon,
-  color,
   online,
   disabled,
   permanentDisconnection,
@@ -234,7 +233,7 @@ const SmoochBotIntegrationButton = ({
       <Button
         variant="contained"
         startIcon={
-          <Box className={classes.smoochBotIntegrationButtonIcon} style={{ backgroundColor: color }}>
+          <Box className={classes.smoochBotIntegrationButtonIcon}>
             {icon}
           </Box>
         }
@@ -430,7 +429,6 @@ SmoochBotIntegrationButton.propTypes = {
   deprecationNotice: PropTypes.node, // or null
   disabled: PropTypes.bool.isRequired,
   icon: PropTypes.node.isRequired,
-  color: PropTypes.string.isRequired,
   permanentDisconnection: PropTypes.bool,
   helpUrl: PropTypes.string.isRequired,
   intl: intlShape.isRequired,

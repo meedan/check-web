@@ -239,9 +239,9 @@ class UserSecurity extends Component {
 
     return (
       <div id="user__security">
-        <h2 style={style}>
+        <div className="typography-subtitle2" style={style}>
           <FormattedMessage id="userSecurity.notification" defaultMessage="Notification" />
-        </h2>
+        </div>
         <Card style={style}>
           <CardContent style={cardTextStyle}>
             <span style={{ minWidth: units(64), padding: '0px' }}>
@@ -274,9 +274,9 @@ class UserSecurity extends Component {
             />
           </CardContent>
         </Card>
-        <h2 style={style}>
+        <div className="typography-subtitle2" style={style}>
           <FormattedMessage id="userSecurity.twoFactorAuthentication" defaultMessage="Two factor authentication" />
-        </h2>
+        </div>
         {can_enable_otp === false ?
           <Card style={style}>
             <CardContent style={cardTextStyle}>
@@ -492,9 +492,9 @@ class UserSecurity extends Component {
             </div>
           </Card>
         }
-        <h2 style={style}>
+        <div className="typography-subtitle2" style={style}>
           <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" />
-        </h2>
+        </div>
         <ContentColumn center className="user-password-reset__component">
           <Card>
             <CardContent>

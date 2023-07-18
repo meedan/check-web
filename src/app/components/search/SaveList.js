@@ -67,9 +67,6 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     marginRight: theme.spacing(1),
   },
-  saveListButton: {
-    color: 'var(--brandMain)',
-  },
   saveListCreateLabel: {
     marginRight: 0,
     flexGrow: 1,
@@ -304,8 +301,9 @@ const SaveList = ({
     <React.Fragment>
       {/* The "Save" button */}
       <ButtonMain
-        customStyle={{ color: 'var(--brandSecondary)', cursor: 'pointer', background: 'var(--brandLight)' }}
-        className={classes.saveListButton}
+        variant="contained"
+        size="default"
+        theme="lightBrand"
         onClick={handleClick}
         buttonProps={{
           id: 'save-list__button',
@@ -375,7 +373,7 @@ const SaveList = ({
                     />
                     { savedSearch?.is_part_of_feeds ?
                       <Alert
-                        type="warning"
+                        variant="warning"
                         title={
                           <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
                         }

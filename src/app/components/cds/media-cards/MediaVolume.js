@@ -6,8 +6,8 @@ import {
   IconButton,
   Slider,
 } from '@material-ui/core';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import VolumeUpIcon from '../../../icons/volume_up.svg';
+import VolumeOffIcon from '../../../icons/volume_off.svg';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -34,6 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     color: 'var(--otherWhite)',
+    fontSize: '24px',
     '&:hover': {
       color: 'var(--otherWhite)',
       backgroundColor: 'var(--overlayLight)',
@@ -121,7 +122,7 @@ const MediaVolume = ({
         onChange={handleChange}
       />
       <IconButton className={classes.icon} onClick={handleMute} size="small">
-        { isVolumeOff ? <VolumeOffIcon /> : <VolumeUpIcon /> }
+        { isVolumeOff ? <VolumeOffIcon className="icon__vol-off" /> : <VolumeUpIcon className="icon__vol-up" /> }
       </IconButton>
     </Box>
   );

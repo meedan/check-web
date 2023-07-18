@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
-import CancelIcon from '@material-ui/icons/Cancel';
 import LinkifyIt from 'linkify-it';
 import SourcePicture from './SourcePicture';
 import Message from '../Message';
@@ -32,6 +31,7 @@ import {
   StyledHelper,
 } from '../../styles/js/HeaderCard';
 import { stringHelper } from '../../customHelpers';
+import CancelIcon from '../../icons/cancel.svg';
 
 const messages = defineMessages({
   sourceName: {
@@ -410,7 +410,7 @@ class UserInfoEdit extends React.Component {
                 className="source__remove-link-button"
                 onClick={() => this.handleRemoveLink(as.node.id)}
               >
-                <CancelIcon />
+                <CancelIcon style={{ fontSize: '24px' }} />
               </StyledIconButton>
             </Row>
           </div>))}
@@ -432,7 +432,7 @@ class UserInfoEdit extends React.Component {
                 className="source__remove-link-button"
                 onClick={() => this.handleRemoveNewLink(index)}
               >
-                <CancelIcon />
+                <CancelIcon style={{ fontSize: '24px' }} />
               </StyledIconButton>
             </Row>
             {link.error ?
