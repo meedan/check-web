@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git://github.com/meedan/check-web.git"
   },
+  "engines": {
+    "node": "~12"
+  },
   "nyc": {
     "include": [
       "src/**/*.js"
