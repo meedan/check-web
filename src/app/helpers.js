@@ -393,7 +393,7 @@ function getSuperAdminMask(state) {
     return superAdminMask;
   }
   const superAdminMaskSession = sessionStorage.getItem('superAdminMaskSession');
-  return superAdminMaskSession === null || superAdminMaskSession === 'true';
+  return superAdminMaskSession !== 'false';
 }
 
 export { // eslint-disable-line import/no-unused-modules

@@ -10,7 +10,7 @@ const SuperAdminControls = ({
   handleSuperAdminMaskSession,
 }) => {
   const superAdminMaskSession = sessionStorage.getItem('superAdminMaskSession');
-  const maskSession = superAdminMaskSession === null || superAdminMaskSession === 'true';
+  const maskSession = superAdminMaskSession !== 'false';
   const [superAdminmaskContent, setSuperAdminMaskContent] = React.useState(maskSession);
   const [superAdminmaskContentSession, setSuperAdminMaskContentSession] = React.useState(maskSession);
 
