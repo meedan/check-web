@@ -30,63 +30,61 @@ const SuperAdminControls = ({
     <React.Fragment>
       <Box
         id="super-admin__controls"
-        display="flex"
-        px={2}
-        py={1}
-        justifyContent="space-between"
-        bgcolor="var(--grayBackground)"
-        position="fixed"
         className={styles.superAdminBox}
       >
         {
           superAdminmaskContent ?
-            <Button
-              className={styles.superAdminRemoveButton}
-              variant="outlined"
-              onClick={handleSuperAdminClickPage}
-            >
-              <FormattedMessage
-                id="superAdminControls.remove"
-                defaultMessage="Remove admin screen on this page"
-                description="A label on a button that remove admin screen."
-              />
-            </Button> :
-            <Button
-              className={styles.superAdminApplyButton}
-              variant="outlined"
-              onClick={handleSuperAdminClickPage}
-            >
-              <FormattedMessage
-                id="superAdminControls.apply"
-                defaultMessage="Apply admin screen on this page"
-                description="A label on a button that apply admin screen."
-              />
-            </Button>
+            <div className={styles.superAdminRemoveButton}>
+              <Button
+                variant="outlined"
+                onClick={handleSuperAdminClickPage}
+              >
+                <FormattedMessage
+                  id="superAdminControls.remove"
+                  defaultMessage="Remove admin screen on this page"
+                  description="A label on a button that remove admin screen."
+                />
+              </Button>
+            </div> :
+            <div className={styles.superAdminApplyButton}>
+              <Button
+                variant="outlined"
+                onClick={handleSuperAdminClickPage}
+              >
+                <FormattedMessage
+                  id="superAdminControls.apply"
+                  defaultMessage="Apply admin screen on this page"
+                  description="A label on a button that apply admin screen."
+                />
+              </Button>
+            </div>
         }
         {
           superAdminmaskContentSession ?
-            <Button
-              className={styles.superAdminRemoveButton}
-              variant="outlined"
-              onClick={handleSuperAdminClickSession}
-            >
-              <FormattedMessage
-                id="superAdminControls.pause"
-                defaultMessage="Pause admin screen for this session"
-                description="A label on a button that pause admin screen for current session."
-              />
-            </Button> :
-            <Button
-              className={styles.superAdminApplyButton}
-              variant="outlined"
-              onClick={handleSuperAdminClickSession}
-            >
-              <FormattedMessage
-                id="superAdminControls.play"
-                defaultMessage="Resume admin screen for this session"
-                description="A label on a button that pause admin screen for current session."
-              />
-            </Button>
+            <div className={styles.superAdminRemoveButton}>
+              <Button
+                variant="outlined"
+                onClick={handleSuperAdminClickSession}
+              >
+                <FormattedMessage
+                  id="superAdminControls.pause"
+                  defaultMessage="Pause admin screen for this session"
+                  description="A label on a button that pause admin screen for current session."
+                />
+              </Button>
+            </div> :
+            <div className={styles.superAdminApplyButton}>
+              <Button
+                variant="outlined"
+                onClick={handleSuperAdminClickSession}
+              >
+                <FormattedMessage
+                  id="superAdminControls.play"
+                  defaultMessage="Resume admin screen for this session"
+                  description="A label on a button that pause admin screen for current session."
+                />
+              </Button>
+            </div>
         }
       </Box>
     </React.Fragment>

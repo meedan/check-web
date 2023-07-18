@@ -1,16 +1,23 @@
-.superAdminRemoveButton {
-  color: 'var(--errorMain)';
-  border-color: 'var(--errorMain)';
-  border: '2px solid';
+.superAdminRemoveButton button {
+  color: var(--errorMain);
+  border-color: var(--errorMain);
+  border: 2px solid;
+  width: 290px;
 }
 
-.superAdminApplyButton {
-  color: 'var(--validationMain)';
-  border-color: 'var(--validationMain)';
-  border: '2px solid';
+.superAdminApplyButton button {
+  color: var(--validationMain);
+  border-color: var(--validationMain);
+  border: 2px solid;
+  width: 290px;
 }
 
 .superAdminBox {
+  display: flex;
+  position: fixed;
+  padding: 4px 8px;
+  justify-content: space-between;
+  background-color: var(--grayBackground);
   bottom: 0px;
   gap: 16px;
 }
