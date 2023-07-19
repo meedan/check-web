@@ -3,7 +3,7 @@
   background-color: var(--grayDisabledBackground);
   border-radius: 4px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   min-height: 36px;
   padding: 0 4px;
 

@@ -8,7 +8,7 @@ import Card from '@material-ui/core/Card';
 const brandMain = '#567bff';
 const brandBorder = '#d0d6ec';
 
-const textPrimary = '#1f1f1f';
+const textPrimary = '#262626';
 const textSecondary = '#656565';
 const textPlaceholder = '#949494';
 const textDisabled = '#999';
