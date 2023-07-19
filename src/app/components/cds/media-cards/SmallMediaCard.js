@@ -119,7 +119,7 @@ const SmallMediaCard = ({
               src="/images/audio_placeholder.svg#svgView(viewBox(398,170,160,160))"
             /> : null
         }
-        { maskContent || superAdminMask || !(media.picture || media.type === 'UploadedAudio') ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null }
+        { (media.picture || media.type === 'UploadedAudio') && (maskContent || superAdminMask) ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null }
         <div className={classes.text}>
           <Box className={classes.titleAndUrl}>
             <Typography variant="subtitle2" component="div">
