@@ -24,6 +24,9 @@ const SuperAdminControls = ({
     const newValue = !superAdminmaskContentSession;
     setSuperAdminMaskContentSession(newValue);
     handleSuperAdminMaskSession(newValue);
+    // Call methods for apply admin screen on this page to apply session action to current page
+    setSuperAdminMaskContent(newValue);
+    handleSuperAdminMask(newValue);
   };
 
   return (
