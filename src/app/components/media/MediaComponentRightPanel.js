@@ -11,12 +11,7 @@ import MediaSource from './MediaSource';
 import MediaSuggestions from './Similarity/MediaSuggestions';
 import ErrorBoundary from '../error/ErrorBoundary';
 
-const MediaComponentRightPanel = ({
-  projectMedia,
-  setShowTab,
-  showTab,
-  superAdminMask,
-}) => {
+const MediaComponentRightPanel = ({ projectMedia, setShowTab, showTab }) => {
   const { team_bots: teamBots } = projectMedia.team;
   const enabledBots = teamBots.edges.map(b => b.node.login);
   const showRequests = (enabledBots.indexOf('smooch') > -1 || projectMedia.requests_count > 0);
@@ -95,7 +90,7 @@ const MediaComponentRightPanel = ({
       { /* Set maxHeight to screen height - (media bar + tabs) */ }
       <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
         { showTab === 'requests' ? <MediaRequests media={projectMedia} all={!projectMedia.is_confirmed_similar_to_another_item} /> : null }
-        { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} superAdminMask={superAdminMask} /> : null }
+        { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} /> : null }
         { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
         { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
         { showTab === 'notes' ? <MediaComments media={projectMedia} /> : null }
@@ -108,11 +103,6 @@ MediaComponentRightPanel.propTypes = {
   projectMedia: PropTypes.object.isRequired, // FIXME: Detail which fields are expected
   setShowTab: PropTypes.func.isRequired, // React useState setter
   showTab: PropTypes.string.isRequired, // React useState state
-  superAdminMask: PropTypes.bool,
-};
-
-MediaComponentRightPanel.defaultProps = {
-  superAdminMask: false,
 };
 
 export default MediaComponentRightPanel;
