@@ -72,6 +72,7 @@ MediaFactCheckField.defaultProps = {
   rows: 3,
   required: false,
   limit: null,
+  value: '',
 };
 
 MediaFactCheckField.propTypes = {
@@ -80,7 +81,7 @@ MediaFactCheckField.propTypes = {
   hasPermission: PropTypes.bool.isRequired,
   label: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   disabled: PropTypes.bool,
   rows: PropTypes.number,
   onBlur: PropTypes.func.isRequired,

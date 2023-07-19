@@ -146,7 +146,7 @@ BlankMediaButton.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
   team: PropTypes.object, // Only if wants to be able to create a new item
   reverse: PropTypes.bool, // When "reverse" is true, the selected report is the source
-  ButtonComponent: PropTypes.node,
+  ButtonComponent: PropTypes.func,
 };
 
 export default BlankMediaButton;
