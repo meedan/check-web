@@ -52,7 +52,6 @@ const PaginatedMediaSuggestions = createPaginationContainer(
       team={props.parentProps.project_media.team}
       project={props.parentProps.project_media.project}
       relationships={props.root.suggested_similar_relationships ? props.root.suggested_similar_relationships?.edges.map(r => r.node) : []}
-      superAdminMask={props.superAdminMask}
       pageSize={props.pageSize}
       totalCount={props.root.suggested_similar_relationships?.totalCount}
       relay={props.relay}
@@ -80,7 +79,6 @@ const PaginatedMediaSuggestions = createPaginationContainer(
                 report_status
                 domain
                 url
-                show_warning_cover
                 media {
                   ...SmallMediaCard_media
                 }

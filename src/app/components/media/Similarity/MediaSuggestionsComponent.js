@@ -134,7 +134,6 @@ const MediaSuggestionsComponent = ({
   relationships,
   team,
   project,
-  superAdminMask,
   setFlashMessage,
   relay,
   totalCount,
@@ -691,8 +690,6 @@ const MediaSuggestionsComponent = ({
           details={details}
           media={relationshipItem?.target?.media}
           description={relationshipItem?.target?.description}
-          maskContent={relationshipItem?.target?.show_warning_cover}
-          superAdminMask={superAdminMask}
           onClick={() => setSelectedItemId(relationshipItem.target?.dbid)}
         />
         { selectedItemId === relationshipItem?.target_id ?
@@ -1060,11 +1057,6 @@ MediaSuggestionsComponent.propTypes = {
     }),
   }).isRequired,
   project: PropTypes.object.isRequired,
-  superAdminMask: PropTypes.bool,
-};
-
-MediaSuggestionsComponent.defaultProps = {
-  superAdminMask: false,
 };
 
 // eslint-disable-next-line

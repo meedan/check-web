@@ -27,7 +27,6 @@ const MediaPlayerCard = ({
   projectMedia,
   warningCategory,
   warningCreator,
-  superAdminMask,
 }) => {
   const classes = useStyles();
   const videoRef = React.useRef();
@@ -43,7 +42,6 @@ const MediaPlayerCard = ({
         downloadUrl={isYoutube ? null : filePath}
         isVideoFile
         currentUserRole={currentUserRole}
-        superAdminMask={superAdminMask}
       >
         { coverImage ? (
           <img
@@ -88,7 +86,6 @@ MediaPlayerCard.propTypes = {
   isYoutube: PropTypes.bool,
   warningCategory: PropTypes.string,
   warningCreator: PropTypes.string,
-  superAdminMask: PropTypes.bool,
 };
 
 MediaPlayerCard.defaultProps = {
@@ -97,7 +94,6 @@ MediaPlayerCard.defaultProps = {
   isYoutube: false,
   warningCategory: '',
   warningCreator: '',
-  superAdminMask: false,
 };
 
 export default MediaPlayerCard;
