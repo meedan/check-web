@@ -72,7 +72,6 @@ export default function Search({
   hideFields,
   readOnlyFields,
   listActions,
-  listDescription,
   mediaUrlPrefix,
   page,
   teamSlug,
@@ -105,7 +104,6 @@ export default function Search({
       feedTeam={feedTeam}
       savedSearch={savedSearch}
       listActions={listActions}
-      listDescription={listDescription}
       page={page}
       hideFields={hideFields}
       readOnlyFields={readOnlyFields}
@@ -128,7 +126,6 @@ Search.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
   hideFields: [],
   readOnlyFields: [],
-  listDescription: undefined,
   listActions: undefined,
   showExpand: true,
   resultType: 'default',
@@ -139,7 +136,6 @@ Search.defaultProps = {
 Search.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,
-  listDescription: PropTypes.string, // or undefined
   listActions: PropTypes.node, // or undefined
   project: PropTypes.object, // or null
   projectGroup: PropTypes.object, // or null

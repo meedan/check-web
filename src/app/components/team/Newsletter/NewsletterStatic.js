@@ -43,11 +43,14 @@ const NewsletterStatic = ({
           className="newsletter-article"
           defaultMessage="Add text or link"
           description="Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
-          key={`${x}fm`}
+          // Initial values here are `undefined` on first render due to the fetch from the API -- since we only mutate this array by appending items and taking items off the end (rather than sorting), using an index for the key is fine here and in the child element
+          // eslint-disable-next-line react/no-array-index-key
+          key={`${i}fm`}
         >
           { placeholder => (
             <LimitedTextArea
-              key={x}
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
               disabled={disabled}
               error={!!articleErrors[i]}
               onErrorTooLong={(error) => {
@@ -57,7 +60,9 @@ const NewsletterStatic = ({
               label="&nbsp;"
               maxChars={getMaxChars()}
               value={articles[i]}
-              onChange={e => handleArticleUpdate(e.target.value, i)}
+              onBlur={(e) => {
+                handleArticleUpdate(e.target.value, i);
+              }}
               placeholder={placeholder}
               rows={4}
             />

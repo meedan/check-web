@@ -334,6 +334,9 @@ const AddFilterMenu = ({
   return (
     <React.Fragment>
       <ButtonMain
+        variant="contained"
+        size="default"
+        theme="text"
         onClick={e => setAnchorEl(e.currentTarget)}
         label={
           <FormattedMessage

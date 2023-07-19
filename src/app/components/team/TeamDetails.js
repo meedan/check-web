@@ -222,7 +222,7 @@ const TeamDetails = ({
             }
             { shortenOutgoingUrls ?
               <Alert
-                type="warning"
+                variant="warning"
                 title={<FormattedMessage id="teamDetails.warnTitle" defaultMessage="All links sent via Check will be rewritten." description="Text displayed in the title of a warning box on team details page when link shortening is on" />}
                 content={
                   <FormattedHTMLMessage

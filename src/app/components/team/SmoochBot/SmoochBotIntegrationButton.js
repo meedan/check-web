@@ -81,13 +81,13 @@ const SmoochBotIntegrationButton = ({
   params,
   info,
   icon,
-  color,
   online,
   disabled,
   permanentDisconnection,
   skipUrlConfirmation,
   helpUrl,
   readOnly,
+  deprecationNotice,
   intl,
   setFlashMessage,
 }) => {
@@ -233,7 +233,7 @@ const SmoochBotIntegrationButton = ({
       <Button
         variant="contained"
         startIcon={
-          <Box className={classes.smoochBotIntegrationButtonIcon} style={{ backgroundColor: color }}>
+          <Box className={classes.smoochBotIntegrationButtonIcon}>
             {icon}
           </Box>
         }
@@ -317,39 +317,41 @@ const SmoochBotIntegrationButton = ({
           />
         }
         body={
-          <Box>
-            {params.map(param => (
-              <Box key={param.key}>
-                <TextField
-                  key={param.key}
-                  label={param.label}
-                  id={`smooch-bot-integration-button__${type}-${param.key}`}
-                  onChange={(e) => { handleParam(param.key, e.target.value); }}
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                />
-              </Box>
-            ))}
+          deprecationNotice ?
+            <Box>{deprecationNotice}</Box> :
             <Box>
-              <Typography variant="body1" component="p" paragraph>
-                { url ?
-                  <FormattedMessage
-                    id="smoochBotIntegrationButton.disclaimerForUrl"
-                    defaultMessage="Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline."
-                    values={{ platform: label }}
-                    description="The platform here can be Twitter, Facebook, etc."
-                  /> :
-                  <FormattedMessage
-                    id="smoochBotIntegrationButton.disclaimer"
-                    defaultMessage="We don't store this information. This is just used to configure the integration."
+              {params.map(param => (
+                <Box key={param.key}>
+                  <TextField
+                    key={param.key}
+                    label={param.label}
+                    id={`smooch-bot-integration-button__${type}-${param.key}`}
+                    onChange={(e) => { handleParam(param.key, e.target.value); }}
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
                   />
-                }
-              </Typography>
+                </Box>
+              ))}
+              <Box>
+                <Typography variant="body1" component="p" paragraph>
+                  { url ?
+                    <FormattedMessage
+                      id="smoochBotIntegrationButton.disclaimerForUrl"
+                      defaultMessage="Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline."
+                      values={{ platform: label }}
+                      description="The platform here can be Twitter, Facebook, etc."
+                    /> :
+                    <FormattedMessage
+                      id="smoochBotIntegrationButton.disclaimer"
+                      defaultMessage="We don't store this information. This is just used to configure the integration."
+                    />
+                  }
+                </Typography>
+              </Box>
             </Box>
-          </Box>
         }
-        proceedDisabled={Object.keys(paramValues).sort().join(',') !== params.map(p => p.key).sort().join(',')}
+        proceedDisabled={deprecationNotice || Object.keys(paramValues).sort().join(',') !== params.map(p => p.key).sort().join(',')}
         proceedLabel={
           url ?
             <FormattedMessage id="smoochBotIntegrationButton.readyToConnect" defaultMessage="I'm ready to connect" /> :
@@ -403,6 +405,7 @@ const SmoochBotIntegrationButton = ({
 };
 
 SmoochBotIntegrationButton.defaultProps = {
+  deprecationNotice: null,
   url: null,
   params: [],
   info: null,
@@ -423,9 +426,9 @@ SmoochBotIntegrationButton.propTypes = {
   })), // if null, "url" must be provided
   online: PropTypes.bool.isRequired,
   info: PropTypes.node, // or null
+  deprecationNotice: PropTypes.node, // or null
   disabled: PropTypes.bool.isRequired,
   icon: PropTypes.node.isRequired,
-  color: PropTypes.string.isRequired,
   permanentDisconnection: PropTypes.bool,
   helpUrl: PropTypes.string.isRequired,
   intl: intlShape.isRequired,

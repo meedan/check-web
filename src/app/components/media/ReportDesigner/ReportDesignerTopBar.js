@@ -9,14 +9,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import IconArrowBack from '@material-ui/icons/ArrowBack';
-import IconPlay from '@material-ui/icons/PlayArrow';
-import IconPause from '@material-ui/icons/Pause';
-import HelpIcon from '@material-ui/icons/HelpOutline';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import MediaStatus from '../MediaStatus';
 import { getStatus } from '../../../helpers';
 import { languageLabel } from '../../../LanguageRegistry';
+import IconArrowBack from '../../../icons/arrow_back.svg';
+import IconPlay from '../../../icons/play_arrow.svg';
+import IconPause from '../../../icons/pause.svg';
+import HelpIcon from '../../../icons/help.svg';
 
 const useStyles = makeStyles(theme => ({
   publish: {

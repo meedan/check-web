@@ -26,7 +26,7 @@ const FeedHeader = ({ feed }) => {
       </div>
 
       <div className={styles.feedHeaderRow}>
-        <h6 className={['typography-h6', styles.feedHeaderTitle].join(' ')}>
+        <h6 className={['typography-h6', styles.feedHeaderTitle].join(' ')} title={feed.name}>
           {feed.name}
         </h6>
 

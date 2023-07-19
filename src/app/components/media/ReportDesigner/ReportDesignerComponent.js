@@ -4,7 +4,6 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/HelpOutline';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,6 +22,7 @@ import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDes
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import { getListUrlQueryAndIndex } from '../../../urlHelpers';
+import HelpIcon from '../../../icons/help.svg';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -42,7 +42,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   helpIcon: {
-    color: 'var(--brandMain)',
+    color: 'var(--textPlaceholder)',
+    fontSize: '24px',
   },
 }));
 

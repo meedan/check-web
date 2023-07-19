@@ -1,5 +1,5 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
@@ -20,7 +20,7 @@ const BlankMediaButton = ({
   const [pending, setPending] = React.useState(false);
 
   const handleError = (error) => {
-    let errorMessage = <FormattedMessage id="blankMediaButton.defaultErrorMessage" defaultMessage="Could not save item" />;
+    let errorMessage = <FormattedMessage id="blankMediaButton.defaultErrorMessage" defaultMessage="Could not save item" description="Error message displayed when saving an item fails" />;
     const json = safelyParseJSON(error.source);
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
@@ -40,7 +40,7 @@ const BlankMediaButton = ({
   const handleSuccess = (projectMediaDbid) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     const newPath = `/${teamSlug}/media/${projectMediaDbid}`;
-    window.location.href = window.location.href.replace(window.location.pathname, newPath);
+    browserHistory.push(newPath);
   };
 
   const handleSubmitExisting = (projectMedia) => {
@@ -82,6 +82,7 @@ const BlankMediaButton = ({
       new CreateProjectMediaMutation({
         ...value,
         team,
+        skipOptimisticResponse: true,
       }),
       {
         onSuccess: (response) => {
@@ -102,6 +103,7 @@ const BlankMediaButton = ({
             <FormattedMessage
               id="blankMediaButton.addToImportedReport"
               defaultMessage="Add to imported fact-check"
+              description="Header to dialog in which the user adds media to already existing (imported) fact-checks"
             /> : null
         }
         team={team}
@@ -117,6 +119,7 @@ const BlankMediaButton = ({
           <FormattedMessage
             id="blankMediaButton.addToReport"
             defaultMessage="Add to report"
+            description="Submit button label to dialog in which the user adds media to already existing (imported) fact-check report"
           />
         )}
         showFilters
@@ -133,6 +136,7 @@ BlankMediaButton.defaultProps = {
       <FormattedMessage
         id="blankMediaButton.addItem"
         defaultMessage="Add item"
+        description="Button label that opens dialog in which the user can add a media item to an existing fact-check"
       />
     </Button>
   ),

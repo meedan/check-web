@@ -17,7 +17,6 @@ import FeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
-import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
@@ -146,7 +145,6 @@ function SearchResultsComponent({
   title,
   icon,
   listActions,
-  listDescription,
   page,
   resultType,
   hideFields,
@@ -459,9 +457,9 @@ function SearchResultsComponent({
         <Row className="search__list-header-filter-row">
           <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
             { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
-            <span className={cx('project__title-text', styles['project-title'])}>
+            <div className={cx('project__title-text', styles['project-title'])}>
               {title}
-            </span>
+            </div>
             { savedSearch?.is_part_of_feeds ?
               <Tooltip
                 title={
@@ -501,11 +499,6 @@ function SearchResultsComponent({
               handleSubmit={handleSubmit}
             /> : null }
         </Row>
-        <>
-          {listDescription && listDescription.trim().length ?
-            <Row className="project__description"><ParsedText text={listDescription} /></Row>
-            : null}
-        </>
       </StyledListHeader>
       <div className="search__results-top">
         { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
@@ -626,7 +619,6 @@ SearchResultsComponent.defaultProps = {
   projectGroup: null,
   showExpand: false,
   icon: null,
-  listDescription: undefined,
   listActions: undefined,
   page: undefined, // FIXME find a cleaner way to render Trash differently
   resultType: 'default',
@@ -673,7 +665,6 @@ SearchResultsComponent.propTypes = {
   title: PropTypes.node.isRequired,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  listDescription: PropTypes.string, // or undefined
   page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'feed']), // FIXME find a cleaner way to render Trash differently
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined

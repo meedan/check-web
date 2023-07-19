@@ -10,7 +10,7 @@ describe('<Alert />', () => {
       type="success"
     />);
     expect(wrapper.html()).toMatch('Foo');
-    const content = wrapper.find('.alert-content');
+    const content = wrapper.find('.test__alert-content');
     expect(content).toHaveLength(1);
     expect(content.text()).toContain('Bar');
   });

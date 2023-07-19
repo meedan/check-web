@@ -3,8 +3,8 @@ import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import LanguageIcon from '@material-ui/icons/Language';
 import LanguageRegistry, { languageLabel } from '../../../LanguageRegistry';
+import LanguageIcon from '../../../icons/language.svg';
 
 const messages = defineMessages({
   optionLabel: {
@@ -25,7 +25,7 @@ const LanguagePickerSelect = ({
   isDisabled,
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
-  const options = languages.slice();
+  const options = (languages || []).slice();
   options.unshift('und');
 
   // intl.formatMessage needed here because Autocomplete

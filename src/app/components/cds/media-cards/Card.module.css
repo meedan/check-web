@@ -28,11 +28,14 @@
 
   .cardDescription {
     -webkit-box-orient: vertical;
-    color: var(--textSecondary);
     display: -webkit-box; /* stylelint-disable */
-    -webkit-line-clamp: 2;
-    max-height: 24px;
+    color: var(--textSecondary);
     white-space: pre-line;
+  }
+
+  .cardDescriptionCollapse {
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 
   .cardRight {
@@ -49,5 +52,32 @@
     color: inherit;
     cursor: pointer;
     text-decoration: none;
+  }
+}
+
+.toggleCollapse {
+  align-items: center;
+  background-color: var(--brandHoverAccent);
+  border: 0px solid var(--grayBorderMain);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2px 2px;
+  width: 28px;
+  height: 28px;
+  margin-top: 8px;
+  color: var(--textSecondary);
+
+  svg {
+    font-size: var(--iconSizeSmall);
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    background-color: var(--brandHoverAccent);
+    color: var(--brandMain);
   }
 }

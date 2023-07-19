@@ -9,6 +9,7 @@ describe('<NewsletterStatic />', () => {
       onUpdateNumberOfArticles={() => {}}
       articles={['first', 'second', 'third']}
       onUpdateArticles={() => {}}
+      setTextfieldOverLength={() => {}}
     />);
     expect(newsletterStatic.find('.newsletter-static')).toHaveLength(1);
     expect(newsletterStatic.find('.newsletter-article')).toHaveLength(1);
@@ -20,6 +21,7 @@ describe('<NewsletterStatic />', () => {
       onUpdateNumberOfArticles={() => {}}
       articles={['first', 'second', 'third']}
       onUpdateArticles={() => {}}
+      setTextfieldOverLength={() => {}}
     />);
     expect(newsletterStatic.find('.newsletter-static')).toHaveLength(1);
     expect(newsletterStatic.find('.newsletter-article')).toHaveLength(3);
