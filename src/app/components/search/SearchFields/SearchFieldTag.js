@@ -68,12 +68,16 @@ const SearchFieldTag = ({
   );
 };
 
+SearchFieldTag.defaultProps = {
+  operator: 'or',
+};
+
 SearchFieldTag.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
   onRemove: PropTypes.func.isRequired,
   onToggleOperator: PropTypes.func.isRequired,
-  operator: PropTypes.string.isRequired,
+  operator: PropTypes.string,
   readOnly: PropTypes.bool.isRequired,
 };
 
