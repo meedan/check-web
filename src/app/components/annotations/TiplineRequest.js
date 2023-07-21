@@ -87,7 +87,7 @@ const TiplineRequest = ({
   const updatedAt = parseStringUnixTimestamp(activity.created_at);
   const smoochSlackUrl = activity.smooch_user_slack_channel_url;
   let smoochExternalId = activity.smooch_user_external_identifier;
-  if (messageType === 'whatsapp') {
+  if (smoochExternalId && messageType === 'whatsapp') {
     smoochExternalId = smoochExternalId.replace(/^[^:]+:/, '');
   }
   const smoochReportReceivedAt = activity.smooch_report_received_at ?
