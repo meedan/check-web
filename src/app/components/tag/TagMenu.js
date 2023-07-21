@@ -182,7 +182,7 @@ TagMenuComponent.propTypes = {
   media: PropTypes.shape({
     id: PropTypes.string,
     dbid: PropTypes.number,
-    archived: PropTypes.bool,
+    archived: PropTypes.number,
     permissions: PropTypes.string.isRequired,
     tags: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({

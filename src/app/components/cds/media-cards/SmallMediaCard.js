@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,
 } from '@material-ui/core';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
@@ -63,19 +62,6 @@ const useStyles = makeStyles(theme => ({
   menuBox: {
     marginTop: theme.spacing(-1),
   },
-  contentScreen: {
-    height: 96,
-    width: 96,
-    marginRight: theme.spacing(1),
-    backgroundColor: 'var(--textPrimary)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  icon: {
-    fontSize: '40px',
-    color: 'var(--otherWhite)',
-  },
 }));
 
 const SmallMediaCard = ({
@@ -83,8 +69,6 @@ const SmallMediaCard = ({
   customTitle,
   details,
   description,
-  maskContent,
-  superAdminMask,
   onClick,
   menu,
   className,
@@ -103,7 +87,7 @@ const SmallMediaCard = ({
         onClick={onClick}
       >
         {
-          media.picture && !(maskContent || superAdminMask) ?
+          media.picture ?
             <img
               alt=""
               className={classes.image}
@@ -112,14 +96,13 @@ const SmallMediaCard = ({
             /> : null
         }
         {
-          media.type === 'UploadedAudio' && !(maskContent || superAdminMask) ?
+          media.type === 'UploadedAudio' ?
             <img
               alt=""
               className={classes.image}
               src="/images/audio_placeholder.svg#svgView(viewBox(398,170,160,160))"
             /> : null
         }
-        { (media.picture || media.type === 'UploadedAudio') && (maskContent || superAdminMask) ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null }
         <div className={classes.text}>
           <Box className={classes.titleAndUrl}>
             <Typography variant="subtitle2" component="div">
@@ -173,8 +156,6 @@ SmallMediaCard.propTypes = {
   customTitle: PropTypes.string,
   details: PropTypes.array,
   description: PropTypes.string,
-  maskContent: PropTypes.bool,
-  superAdminMask: PropTypes.bool,
   onClick: PropTypes.func,
   menu: PropTypes.element,
   className: PropTypes.string,
@@ -184,8 +165,6 @@ SmallMediaCard.defaultProps = {
   customTitle: null,
   details: null,
   description: null,
-  maskContent: false,
-  superAdminMask: false,
   onClick: () => {},
   menu: null,
   className: '',

@@ -356,10 +356,14 @@ class BulkActions extends React.Component {
   }
 }
 
+BulkActions.defaultProps = {
+  page: null,
+};
+
 BulkActions.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
   team: PropTypes.object.isRequired,
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
   project: PropTypes.object.isRequired,
   selectedMedia: PropTypes.array.isRequired,
   selectedProjectMedia: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
