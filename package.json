@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git://github.com/meedan/check-web.git"
   },
+  "engines": {
+    "node": "~12"
+  },
   "nyc": {
     "include": [
       "src/**/*.js"
@@ -20,11 +23,8 @@
     "build:dev": "NODE_ENV=development gulp build:web:dev",
     "link:ui": "yalc link @meedan/check-ui",
     "serve:dev": "NODE_ENV=development yalc link @meedan/check-ui && gulp serve:dev",
-    "transifex:download": "gulp transifex:download && gulp transifex:translations",
-    "transifex:upload": "gulp transifex:prepare && gulp transifex:upload",
-    "transifex:merge-translated": "gulp transifex:translations",
     "transifex:merge-source": "gulp transifex:prepare",
-    "transifex:export-chrome": "gulp transifex:export-chrome",
+    "transifex:merge-translated": "gulp transifex:translations",
     "publish": "node scripts/server.js",
     "test": "npm run test:unit && npm run test:integration && npm run test:quick",
     "test:unit": "jest",
@@ -125,7 +125,6 @@
     "gulp": "^4.0.2",
     "gulp-json-editor": "^2.2.1",
     "gulp-merge-json": "^2.1.1",
-    "gulp-transifex": "^0.1.17",
     "gulp-util": "^3.0.6",
     "ifvisible.js": "^1.0.6",
     "intl": "^1.2.5",
@@ -187,7 +186,7 @@
     "stacktrace-js": "^2.0.2",
     "style-loader": "^1.2.1",
     "styled-components": "^5.0.1",
-    "stylelint": "^15.10.1",
+    "stylelint": "^14.0.0",
     "stylelint-config-css-modules": "^2.3.0",
     "stylelint-config-standard": "^23.0.0",
     "stylelint-declaration-strict-value": "^1.8.0",

@@ -17,6 +17,7 @@ import AddIcon from '../icons/settings.svg';
 import ListIcon from '../icons/list.svg';
 import FigmaColorLogo from '../icons/figma_color.svg';
 import Card from './cds/media-cards/Card.js';
+import LimitedTextArea from './layout/inputs/LimitedTextArea';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -47,6 +48,7 @@ const SandboxComponent = ({ admin }) => {
   const [switchesDisabled, setSwitchesDisabled] = React.useState(Boolean(false));
   const [switchesHelp, setSwitchesHelp] = React.useState(Boolean(false));
   const [switched, setSwitchExample] = React.useState(Boolean(false));
+  const [limitedText, setLimitedText] = React.useState('Hello this is the initial limited text state');
 
   const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
   const onChangeSwitchLabelPlacement = (event) => {
@@ -72,6 +74,7 @@ const SandboxComponent = ({ admin }) => {
   const onChangeButtonTheme = (event) => {
     setButtonTheme(event.target.value);
   };
+
   return (
     <div className={styles.sandbox}>
       <h5>
@@ -250,6 +253,26 @@ const SandboxComponent = ({ admin }) => {
             label="I am a textarea title"
             helpContent="I can be of help to textarea"
             required
+          />
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>
+            LimitedTextArea
+            <a
+              href="https://www.figma.com/file/bQWUXJItRRX8xO3uQ9FWdg/Multimedia-Newsletter-%2B-Report?type=design&node-id=656-50446&mode=design&t=PjtorENpol0lp5QG-4"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="Figma Designs"
+              className={styles.figmaLink}
+            >
+              <FigmaColorLogo />
+            </a>
+          </div>
+          <LimitedTextArea
+            maxChars={500}
+            label="Limited text area"
+            value={limitedText}
+            setValue={setLimitedText}
           />
         </div>
         <div className={styles.componentWrapper}>
