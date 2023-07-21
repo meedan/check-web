@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -9,8 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Dialog from '@material-ui/core/Dialog';
-import IconButton from '@material-ui/core/IconButton';
-import Switch from '@material-ui/core/Switch';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import UserUtil from '../../user/UserUtil';
 import Message from '../../Message';
 import SlackConfigDialog from './SlackConfigDialog';
@@ -98,13 +97,15 @@ class SlackConfig extends React.Component {
               <span className="typography-h6">Slack</span>
             }
             action={
-              <IconButton
-                className="slack-config__settings"
-                onClick={this.handleOpenDialog.bind(this)}
+              <ButtonMain
+                variant="text"
+                size="default"
+                theme="text"
                 disabled={!enabled}
-              >
-                <SettingsIcon />
-              </IconButton>
+                onClick={this.handleOpenDialog.bind(this)}
+                className="slack-config__settings"
+                iconCenter={<SettingsIcon />}
+              />
             }
           />
           <Message message={this.state.message} />
@@ -113,11 +114,12 @@ class SlackConfig extends React.Component {
               <FormattedMessage
                 id="slackConfig.text"
                 defaultMessage="Send notifications to Slack channels when items are added to specific folders"
+                description="Description of the slack integration"
               />
-              <Switch
+              <SwitchComponent
                 className="slack-config__switch"
                 checked={enabled}
-                onClick={this.handleToggleSwitch}
+                onChange={this.handleToggleSwitch}
               />
             </Box>
           </CardContent>
