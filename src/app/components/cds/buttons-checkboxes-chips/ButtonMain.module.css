@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 :global(.MuiButton-root).buttonMain {
   @mixin typography-button;
   border-radius: 8px;
@@ -99,8 +100,8 @@
 
     &.contained {
       &:disabled {
-        border: solid 2px var(--grayDisabledBackground);
         background-color: var(--grayDisabledBackground);
+        border: solid 2px var(--grayDisabledBackground);
       }
     }
 
@@ -288,3 +289,4 @@
     }
   }
 }
+/* stylelint-enable */
