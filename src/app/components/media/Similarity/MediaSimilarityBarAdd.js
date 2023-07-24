@@ -5,26 +5,19 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Tooltip from '@material-ui/core/Tooltip';
 import { browserHistory } from 'react-router';
-import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import PublishIcon from '@material-ui/icons/Publish';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import IconReport from '@material-ui/icons/PlaylistAddCheck';
-import { makeStyles } from '@material-ui/core/styles';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import BlankMediaButton from '../BlankMediaButton';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
-
-const useStyles = makeStyles(() => ({
-  button: {
-    whiteSpace: 'nowrap',
-  },
-}));
+import ExpandMoreIcon from '../../../icons/expand_more.svg';
+import IconFileDownload from '../../../icons/file_download.svg';
+import IconFileUpload from '../../../icons/file_upload.svg';
+import IconReport from '../../../icons/playlist_add_check.svg';
 
 const MediaSimilarityBarAdd = ({
   projectMediaId,
@@ -34,7 +27,6 @@ const MediaSimilarityBarAdd = ({
   similarCanBeAddedToIt,
   canBeAddedToImported,
 }) => {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [action, setAction] = React.useState(null);
   const [submitting, setSubmitting] = React.useState(false);
@@ -193,21 +185,16 @@ const MediaSimilarityBarAdd = ({
 
   return (
     <React.Fragment>
-      <Button
-        onClick={handleClick}
-        variant="outlined"
-        color="primary"
-        endIcon={<ExpandMoreIcon />}
-        disabled={!canBeAddedToSimilar && !similarCanBeAddedToIt}
-        className={classes.button}
+      <ButtonMain
         id="media-similarity__add-button"
-      >
-        <FormattedMessage
-          id="mediaSimilarityBarAdd.addSimilar"
-          defaultMessage="Manage media"
-          description="Label to the similarity menu that allows importing and exporting media"
-        />
-      </Button>
+        iconRight={<ExpandMoreIcon />}
+        label={<FormattedMessage id="mediaSimilarityBarAdd.addSimilar"defaultMessage="Manage media"description="Label to the similarity menu that allows importing and exporting media" />}
+        variant="outlined"
+        size="default"
+        theme="brand"
+        onClick={handleClick}
+        disabled={!canBeAddedToSimilar && !similarCanBeAddedToIt}
+      />
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -216,7 +203,7 @@ const MediaSimilarityBarAdd = ({
       >
         <MenuItem onClick={handleAddSimilarToThis} disabled={!similarCanBeAddedToIt}>
           <ListItemIcon>
-            <GetAppIcon />
+            <IconFileDownload />
           </ListItemIcon>
           <ListItemText
             id="import-fact-check__button"
@@ -244,7 +231,7 @@ const MediaSimilarityBarAdd = ({
           <span>
             <MenuItem onClick={handleAddThisToSimilar} disabled={!canBeAddedToSimilar}>
               <ListItemIcon>
-                <PublishIcon />
+                <IconFileUpload />
               </ListItemIcon>
               <ListItemText
                 id="export-fact-check__button"
