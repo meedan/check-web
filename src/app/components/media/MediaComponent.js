@@ -204,6 +204,8 @@ class MediaComponent extends Component {
       currentTeam.slug,
     );
 
+    const isAdmin = this.getContext().currentUser.is_admin;
+
     return (
       <div>
         <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
@@ -257,23 +259,23 @@ class MediaComponent extends Component {
                 <MediaCardLarge
                   projectMedia={projectMedia}
                   currentUserRole={currentUserRole}
-                  superAdminMask={getSuperAdminMask(this.state)}
+                  superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
-                { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={getSuperAdminMask(this.state)} /> }
+                { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} /> }
               </Column>
               <Column className="media__annotations-column" overflow="hidden">
                 <MediaComponentRightPanel
                   projectMedia={projectMedia}
                   showTab={this.state.showTab}
                   setShowTab={setShowTab}
-                  superAdminMask={getSuperAdminMask(this.state)}
+                  superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
                 />
               </Column>
             </React.Fragment> : null }
         </StyledThreeColumnLayout>
         {
-          this.getContext().currentUser.is_admin ?
+          isAdmin ?
             <SuperAdminControls
               handleSuperAdminMask={this.handlesuperAdminMask.bind(this)}
               handleSuperAdminMaskSession={MediaComponent.handleSuperAdminMaskSession.bind(this)}
