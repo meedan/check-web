@@ -48,7 +48,7 @@ const SettingsHeader = ({
         <Box display="flex" justifyContent="center" className={classes.settingsHeaderTitle}>
           <h6 className="component__settings-header typography-h6">{title}</h6>
           { helpUrl &&
-            <ButtonMain className="status-actions__menu" iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
+            <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
           }
           <Box className={classes.settingsHeaderExtra}>
             {extra}
