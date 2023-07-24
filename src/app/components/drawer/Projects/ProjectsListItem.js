@@ -132,7 +132,8 @@ ProjectsListItem.propTypes = {
   project: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    name: PropTypes.string,
     medias_count: PropTypes.number,
     project_group_id: PropTypes.number,
   }).isRequired,

@@ -14,6 +14,7 @@ const SwitchComponent = ({
   labelPlacement,
   helperContent,
   onChange,
+  className,
 }) => {
   const handleChange = (event) => {
     if (onChange) {
@@ -22,7 +23,7 @@ const SwitchComponent = ({
   };
 
   return (
-    <div className={styles.switchWrapper}>
+    <div className={cx(styles.switchWrapper, className)}>
       <FormControlLabel
         control={
           <div className={styles.switch}>
@@ -62,12 +63,14 @@ SwitchComponent.defaultProps = {
   labelPlacement: 'end',
   helperContent: '',
   onChange: null,
+  className: '',
 };
 
 SwitchComponent.propTypes = {
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
   label: PropTypes.object,
+  className: PropTypes.string,
   labelPlacement: PropTypes.oneOf(['bottom', 'end', 'start', 'top']),
   helperContent: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onChange: PropTypes.func,

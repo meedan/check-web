@@ -283,10 +283,8 @@ const SearchFields = ({
   const reportStatusOptions = [
     { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
     { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
+    { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
   ];
-  if (!/feed/.test(window.location.pathname)) {
-    reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
-  }
 
   const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
@@ -683,6 +681,7 @@ const SearchFields = ({
 };
 
 SearchFields.defaultProps = {
+  page: null,
   project: null,
   projectGroup: null,
   savedSearch: null,
@@ -720,7 +719,7 @@ SearchFields.propTypes = {
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
 };
 
 SearchFields.contextTypes = {
