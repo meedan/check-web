@@ -334,6 +334,7 @@ const AddFilterMenu = ({
   return (
     <React.Fragment>
       <ButtonMain
+        id="add-filter-menu__open-button"
         variant="contained"
         size="default"
         theme="text"
@@ -345,9 +346,6 @@ const AddFilterMenu = ({
             description="Button that opens menu with filter field options"
           />
         }
-        buttonProps={{
-          id: 'add-filter-menu__open-button',
-        }}
       />
       <Menu
         anchorEl={anchorEl}

@@ -648,6 +648,7 @@ const SearchFields = ({
         <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
         { filterIsActive() ? (
           <ButtonMain
+            id="search-fields__clear-button"
             variant="contained"
             size="default"
             theme="lightText"
@@ -655,12 +656,10 @@ const SearchFields = ({
             label={
               <FormattedMessage id="search.resetFilter" defaultMessage="Reset" description="Button label to reset search filters." />
             }
-            buttonProps={{
-              id: 'search-fields__clear-button',
-            }}
           />
         ) : null }
         <ButtonMain
+          id="search-fields__submit-button"
           variant="contained"
           size="default"
           theme="lightValidation"
@@ -668,9 +667,6 @@ const SearchFields = ({
           label={
             <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
           }
-          buttonProps={{
-            id: 'search-fields__submit-button',
-          }}
         />
         { can(team.permissions, 'update Team') ?
           <SaveList team={team} query={query} project={project} projectGroup={projectGroup} savedSearch={savedSearch} feedTeam={feedTeam} />

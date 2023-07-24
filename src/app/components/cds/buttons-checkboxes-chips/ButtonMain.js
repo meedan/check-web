@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import Button from '@material-ui/core/Button';
 import styles from './ButtonMain.module.css';
 
 // FIXME: Refactor using native button instead of MUI Button
@@ -22,7 +21,7 @@ const ButtonMain = ({
   variant,
   title,
 }) => (
-  <Button
+  <button
     className={cx(
       [styles.buttonMain],
       styles[`theme-${theme}`],
@@ -46,9 +45,7 @@ const ButtonMain = ({
     variant={variant}
     id={id}
     title={title}
-    disableRipple
-    disableFocusRipple
-    disableElevation
+    type="button"
     {...buttonProps}
   >
     { iconLeft && (
@@ -69,7 +66,7 @@ const ButtonMain = ({
         {iconRight}
       </div>
     )}
-  </Button>
+  </button>
 );
 
 ButtonMain.defaultProps = {
