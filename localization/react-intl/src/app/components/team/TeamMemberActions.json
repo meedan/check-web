@@ -1,6 +1,7 @@
 [
   {
     "id": "teamMemberActions.userRemoved",
+    "description": "Success message when a user is removed from the workspace",
     "defaultMessage": "The user has been removed"
   },
   {
@@ -15,26 +16,37 @@
   },
   {
     "id": "teamMemberActions.copiedToClipboard",
+    "description": "success message fro when an email address has been copied to the clipboard",
     "defaultMessage": "The email has been copied to the clipboard"
   },
   {
     "id": "teamMembers.copyEmail",
+    "description": "Menu item for copying email address to the clipboard",
     "defaultMessage": "Copy email"
   },
   {
     "id": "teamMembers.remove",
+    "description": "Menu item for removing a team member from the workspace",
     "defaultMessage": "Remove"
   },
   {
     "id": "teamMembers.resendInvite",
+    "description": "Menu item text to initiate an invitation email sent to the selected user",
     "defaultMessage": "Resend invite"
   },
   {
     "id": "teamMembers.removeDialogTitle",
+    "description": "Confirmation title for removing a team member",
     "defaultMessage": "Remove {userLabel}"
   },
   {
     "id": "teamMembers.removeDialogBody",
+    "description": "explanation text about what will happen when a team member is removed from the workspace",
     "defaultMessage": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
+  },
+  {
+    "id": "teamMembers.removeConfrm",
+    "description": "Confirmation label action for removing team member",
+    "defaultMessage": "Remove"
   }
 ]

@@ -11,22 +11,27 @@
   },
   {
     "id": "teamTagsActions.edit",
+    "description": "Menu item to edit a tag",
     "defaultMessage": "Edit"
   },
   {
     "id": "teamTagsActions.delete",
+    "description": "Menu item to delete a tag",
     "defaultMessage": "Delete"
   },
   {
     "id": "teamTagsActions.removeDialogTitle",
+    "description": "Title for the dialog box when deleting a tag",
     "defaultMessage": "Delete tag \"{tag}\""
   },
   {
     "id": "teamTagsActions.removeDialogBody",
+    "description": "Description of what will happen when a tag is deleted",
     "defaultMessage": "Tag \"{tag}\" will be removed from {count} items."
   },
   {
     "id": "teamTagsActions.remove",
+    "description": "Dialog action text for continuing with the delete tag action",
     "defaultMessage": "Delete tag"
   }
 ]

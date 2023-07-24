@@ -74,6 +74,7 @@ const ButtonMain = ({
 
 ButtonMain.defaultProps = {
   id: null,
+  label: null,
   title: null,
   size: 'default',
   theme: 'brand',
@@ -91,7 +92,7 @@ ButtonMain.defaultProps = {
 ButtonMain.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
-  label: PropTypes.object.isRequired,
+  label: PropTypes.object,
   size: PropTypes.oneOf(['default', 'small', 'large']),
   theme: PropTypes.oneOf(['brand', 'lightBrand', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert']),
   iconLeft: PropTypes.element,
