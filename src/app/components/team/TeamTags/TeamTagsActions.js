@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import IconMoreVert from '@material-ui/icons/MoreVert';
-import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import SaveTag from './SaveTag';
 import { withSetFlashMessage } from '../../FlashMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import IconMoreVert from '../../../icons/more_vert.svg';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 
 const TeamTagsActions = ({
   tag,
@@ -92,14 +92,7 @@ const TeamTagsActions = ({
 
   return (
     <React.Fragment>
-      <IconButton
-        tooltip={<FormattedMessage id="teamTagsActions.tooltip" defaultMessage="Manage tag" />}
-        onClick={e => setAnchorEl(e.currentTarget)}
-        style={{ padding: 0 }}
-        className="team-tags-actions__icon"
-      >
-        <IconMoreVert />
-      </IconButton>
+      <ButtonMain className="team-tags-actions__icon" iconCenter={<IconMoreVert />} variant="outlined" size="default" theme="text" onClick={e => setAnchorEl(e.currentTarget)} />
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

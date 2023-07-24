@@ -10,10 +10,6 @@
     "defaultMessage": "Tag deleted successfully"
   },
   {
-    "id": "teamTagsActions.tooltip",
-    "defaultMessage": "Manage tag"
-  },
-  {
     "id": "teamTagsActions.edit",
     "defaultMessage": "Edit"
   },

@@ -18,10 +18,6 @@
     "defaultMessage": "The email has been copied to the clipboard"
   },
   {
-    "id": "teamMembers.tooltip",
-    "defaultMessage": "Manage member"
-  },
-  {
     "id": "teamMembers.copyEmail",
     "defaultMessage": "Copy email"
   },

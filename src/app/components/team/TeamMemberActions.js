@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import IconMoreVert from '@material-ui/icons/MoreVert';
-import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -14,6 +12,8 @@ import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import IconMoreVert from '../../icons/more_vert.svg';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 const TeamMemberActions = ({
   setFlashMessage,
@@ -200,12 +200,7 @@ const TeamMemberActions = ({
 
   return (
     <React.Fragment>
-      <IconButton
-        tooltip={<FormattedMessage id="teamMembers.tooltip" defaultMessage="Manage member" />}
-        onClick={e => setAnchorEl(e.currentTarget)}
-      >
-        <IconMoreVert className="team-members__icon-menu" />
-      </IconButton>
+      <ButtonMain iconCenter={<IconMoreVert className="team-members__icon-menu" />} variant="outlined" size="default" theme="text" onClick={e => setAnchorEl(e.currentTarget)} />
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
