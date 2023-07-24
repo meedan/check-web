@@ -19,6 +19,7 @@ const ButtonMain = ({
   size,
   theme,
   variant,
+  title,
 }) => (
   <Button
     className={cx(
@@ -42,6 +43,7 @@ const ButtonMain = ({
     onClick={onClick}
     disabled={disabled}
     variant={variant}
+    title={title}
     disableRipple
     disableFocusRipple
     disableElevation
@@ -69,6 +71,7 @@ const ButtonMain = ({
 );
 
 ButtonMain.defaultProps = {
+  title: {},
   size: 'default',
   theme: 'brand',
   variant: 'contained',
@@ -90,6 +93,7 @@ ButtonMain.propTypes = {
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
   iconCenter: PropTypes.element,
+  title: PropTypes.object,
   variant: PropTypes.oneOf(['contained', 'outlined', 'text']),
   disabled: PropTypes.bool,
   customStyle: PropTypes.object,

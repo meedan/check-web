@@ -2,14 +2,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
-import IconButton from '@material-ui/core/IconButton';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { can } from '../Can';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import IconMoreVert from '../../icons/more_vert.svg';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 class MediaActionsMenuButton extends React.PureComponent {
   static propTypes = {
@@ -133,14 +133,17 @@ class MediaActionsMenuButton extends React.PureComponent {
     ));
 
     return menuItems.length ? (
-      <div>
-        <IconButton
+      <>
+        &nbsp;
+        <ButtonMain
           id="media-actions-menu-button__icon-button"
-          tooltip={<FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />}
+          title={this.props.intl.formatMessage({ id: 'mediaActions.tooltip', defaultMessage: 'Item actions' })}
+          iconCenter={<IconMoreVert className="media-actions__icon" />}
+          variant="outlined"
+          size="default"
+          theme="text"
           onClick={this.handleOpenMenu}
-        >
-          <IconMoreVert className="media-actions__icon" />
-        </IconButton>
+        />
         <Menu
           className="media-actions"
           anchorEl={this.state.anchorEl}
@@ -149,14 +152,14 @@ class MediaActionsMenuButton extends React.PureComponent {
         >
           {menuItems}
         </Menu>
-      </div>
+      </>
     ) : null;
   }
 }
 
 // eslint-disable-next-line import/no-unused-modules
 export { MediaActionsMenuButton };
-export default createFragmentContainer(MediaActionsMenuButton, {
+export default createFragmentContainer(injectIntl(MediaActionsMenuButton), {
   projectMedia: graphql`
     fragment MediaActionsMenuButton_projectMedia on ProjectMedia {
       id

@@ -22,9 +22,5 @@
   {
     "id": "mediaActions.history",
     "defaultMessage": "Item history"
-  },
-  {
-    "id": "mediaActions.tooltip",
-    "defaultMessage": "Item actions"
   }
 ]
