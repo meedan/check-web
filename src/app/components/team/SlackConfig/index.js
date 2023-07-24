@@ -103,8 +103,10 @@ class SlackConfig extends React.Component {
                 theme="text"
                 disabled={!enabled}
                 onClick={this.handleOpenDialog.bind(this)}
-                className="slack-config__settings"
                 iconCenter={<SettingsIcon />}
+                buttonProps={{
+                  className: 'slack-config__settings',
+                }}
               />
             }
           />
