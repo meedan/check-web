@@ -5,6 +5,7 @@ const ImageMediaCard = ({
   imagePath,
   projectMedia,
   currentUserRole,
+  superAdminMask,
 }) => (
   <article className="image-media-card">
     <AspectRatio
@@ -12,6 +13,7 @@ const ImageMediaCard = ({
       downloadUrl={imagePath}
       projectMedia={projectMedia}
       currentUserRole={currentUserRole}
+      superAdminMask={superAdminMask}
     >
       <div className="aspect-ratio__overlay">
         <img

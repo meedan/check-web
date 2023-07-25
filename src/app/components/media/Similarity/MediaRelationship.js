@@ -305,6 +305,7 @@ const MediaRelationship = ({
   mainProjectMediaId,
   mainProjectMediaDemand,
   mainProjectMediaConfirmedSimilarCount,
+  superAdminMask,
   setFlashMessage,
   intl,
 }) => {
@@ -334,6 +335,8 @@ const MediaRelationship = ({
     />,
   ];
 
+  const maskContent = relationship?.target?.show_warning_cover;
+
   return (
     <div className={`${classes.outer} media__relationship`} >
       { isSelected ?
@@ -355,6 +358,8 @@ const MediaRelationship = ({
         details={details}
         media={relationship?.target?.media}
         description={relationship?.target?.description}
+        maskContent={maskContent}
+        superAdminMask={superAdminMask}
         onClick={() => setIsSelected(true)}
       />
       <div className={`${classes.inner} media__relationship__menu`}>
@@ -387,6 +392,11 @@ MediaRelationship.propTypes = {
   mainProjectMediaId: PropTypes.string.isRequired,
   mainProjectMediaDemand: PropTypes.number.isRequired,
   mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
+  superAdminMask: PropTypes.bool,
+};
+
+MediaRelationship.defaultProps = {
+  superAdminMask: false,
 };
 
 export default withSetFlashMessage(injectIntl(MediaRelationship));

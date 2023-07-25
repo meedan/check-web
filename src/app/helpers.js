@@ -384,6 +384,18 @@ function getTimeZoneOptions() {
   return timezones;
 }
 
+/**
+ * Return a boolean for super admin screen page
+ */
+function getSuperAdminMask(state) {
+  const { superAdminMask, superAdminMaskAction } = state;
+  if (superAdminMaskAction === 'page') {
+    return superAdminMask;
+  }
+  const superAdminMaskSession = sessionStorage.getItem('superAdminMaskSession');
+  return superAdminMaskSession !== 'false';
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -408,4 +420,5 @@ export { // eslint-disable-line import/no-unused-modules
   getMediaType,
   escapeHtml,
   getTimeZoneOptions,
+  getSuperAdminMask,
 };
