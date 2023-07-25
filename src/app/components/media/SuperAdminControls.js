@@ -12,7 +12,7 @@ const SuperAdminControls = ({
   const superAdminMaskSession = sessionStorage.getItem('superAdminMaskSession');
   const maskSession = superAdminMaskSession !== 'false';
   const [superAdminmaskContent, setSuperAdminMaskContent] = React.useState(maskSession);
-  const [superAdminmaskContentSession, setSuperAdminMaskContentSession] = React.useState(maskSession);
+  const [superAdminMaskContentSession, setSuperAdminMaskContentSession] = React.useState(maskSession);
 
   const handleSuperAdminClickPage = () => {
     const newValue = !superAdminmaskContent;
@@ -21,7 +21,7 @@ const SuperAdminControls = ({
   };
 
   const handleSuperAdminClickSession = () => {
-    const newValue = !superAdminmaskContentSession;
+    const newValue = !superAdminMaskContentSession;
     setSuperAdminMaskContentSession(newValue);
     handleSuperAdminMaskSession(newValue);
     // Call methods for apply admin screen on this page to apply session action to current page
@@ -63,7 +63,7 @@ const SuperAdminControls = ({
             </div>
         }
         {
-          superAdminmaskContentSession ?
+          superAdminMaskContentSession ?
             <div className={styles.superAdminRemoveButton}>
               <Button
                 variant="outlined"
