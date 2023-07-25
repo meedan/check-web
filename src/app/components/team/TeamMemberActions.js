@@ -208,7 +208,7 @@ const TeamMemberActions = ({
         size="default"
         theme="text"
         onClick={e => setAnchorEl(e.currentTarget)}
-        title={intl.formatMessage({ id: 'teamMembers.tooltip', defaultMessage: 'Manage member', description: 'Tooltip to call menu for actions to perform on a single user' })}
+        title={intl.formatMessage({ id: 'teamMembers.tooltip', defaultMessage: 'Manage member', description: 'Tooltip to call the menu for actions to perform on a single user' })}
       />
       <Menu
         anchorEl={anchorEl}
