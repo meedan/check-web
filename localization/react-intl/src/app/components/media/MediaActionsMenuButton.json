@@ -1,5 +1,10 @@
 [
   {
+    "id": "mediaActions.tooltip",
+    "description": "Button to call of the menu of actions that can be performed on an item",
+    "defaultMessage": "Item actions"
+  },
+  {
     "id": "mediaActions.assignOrUnassign",
     "description": "Menu item to select a team to assign item",
     "defaultMessage": "Assign to…"

@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,6 +10,14 @@ import { can } from '../Can';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import IconMoreVert from '../../icons/more_vert.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+
+const messages = defineMessages({
+  tooltip: {
+    id: 'mediaActions.tooltip',
+    defaultMessage: 'Item actions',
+    description: 'Button to call of the menu of actions that can be performed on an item',
+  },
+});
 
 class MediaActionsMenuButton extends React.PureComponent {
   static propTypes = {
@@ -131,13 +139,12 @@ class MediaActionsMenuButton extends React.PureComponent {
         />
       </MenuItem>
     ));
-
     return menuItems.length ? (
       <>
         &nbsp;
         <ButtonMain
           id="media-actions-menu-button__icon-button"
-          title={this.props.intl.formatMessage({ id: 'mediaActions.tooltip', defaultMessage: 'Item actions', description: 'Button to call of the menu of actions that can be performed on an item' })}
+          title={this.props.intl.formatMessage(messages.tooltip)}
           iconCenter={<IconMoreVert className="media-actions__icon" />}
           variant="outlined"
           size="default"

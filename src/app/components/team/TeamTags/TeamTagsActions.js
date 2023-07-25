@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import SaveTag from './SaveTag';
@@ -10,6 +10,14 @@ import { withSetFlashMessage } from '../../FlashMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import IconMoreVert from '../../../icons/more_vert.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+
+const messages = defineMessages({
+  tooltip: {
+    id: 'teamTagsActions.tooltip',
+    defaultMessage: 'Manage tag',
+    description: 'Tooltip to call menu for actions to perform on a tag',
+  },
+});
 
 const TeamTagsActions = ({
   tag,
@@ -99,7 +107,7 @@ const TeamTagsActions = ({
         size="default"
         theme="text"
         onClick={e => setAnchorEl(e.currentTarget)}
-        title={intl.formatMessage({ id: 'teamTagsActions.tooltip', defaultMessage: 'Manage tag', description: 'Tooltip to call menu for actions to perform on a tag' })}
+        title={intl.formatMessage(messages.tooltip)}
       />
       <Menu
         anchorEl={anchorEl}

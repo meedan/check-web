@@ -1,5 +1,10 @@
 [
   {
+    "id": "teamTagsActions.tooltip",
+    "description": "Tooltip to call menu for actions to perform on a tag",
+    "defaultMessage": "Manage tag"
+  },
+  {
     "id": "teamTagsActions.couldNotDelete",
     "description": "Error message displayed when it's not possible to delete a team tag",
     "defaultMessage": "Could not delete tag"
