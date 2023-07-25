@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -9,6 +8,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { MultiSelector } from '@meedan/check-ui';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
+import CircularProgress from '../CircularProgress';
 import AddIcon from '../../icons/add.svg';
 import CloseIcon from '../../icons/clear.svg';
 
@@ -124,6 +124,7 @@ const MultiSelectFilter = ({
   selected,
   icon,
   label,
+  loading,
   options,
   onChange,
   onRemove,
@@ -187,6 +188,7 @@ const MultiSelectFilter = ({
           { (selectedArray.length === 0 || showSelect) && !readOnly ? (
             <CustomSelectDropdown
               allowSearch={allowSearch}
+              loading={loading}
               options={options}
               selected={selectedArray}
               onSubmit={handleSelect}
@@ -210,6 +212,7 @@ const MultiSelectFilter = ({
 
 const CustomSelectDropdown = ({
   allowSearch,
+  loading,
   options,
   selected,
   single,
@@ -233,11 +236,12 @@ const CustomSelectDropdown = ({
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <FormattedMessage id="multiSelector.search" defaultMessage="Search…">
+        <FormattedMessage id="multiSelector.search" defaultMessage="Search…" description="Placeholder text for search input">
           {placeholder => (
             <MultiSelector
               allowSearch={allowSearch}
               inputPlaceholder={inputPlaceholder || placeholder}
+              loadingIcon={loading && <CircularProgress />}
               options={options}
               selected={selected}
               onSubmit={handleSubmit}
@@ -262,6 +266,7 @@ const CustomSelectDropdown = ({
 MultiSelectFilter.defaultProps = {
   allowSearch: true,
   extraInputs: null,
+  loading: false,
   selected: [],
   onToggleOperator: null,
   readOnly: false,
@@ -278,6 +283,7 @@ MultiSelectFilter.propTypes = {
   ])).isRequired,
   label: PropTypes.node.isRequired,
   icon: PropTypes.element.isRequired,
+  loading: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   selected: PropTypes.oneOfType([

@@ -16,6 +16,7 @@
   },
   {
     "id": "multiSelector.search",
+    "description": "Placeholder text for search input",
     "defaultMessage": "Search…"
   },
   {
