@@ -43,7 +43,7 @@ shared_examples 'source' do
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__name')
     expect(@driver.page_source.include?('Brasil')).to be(true)
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     wait_for_selector_list_size('.medias__item', 1)
     # create another media and add a existing source

@@ -121,7 +121,7 @@ shared_examples 'search' do
   it 'should find all medias with an empty search', bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     create_image('files/test.png')
     old = wait_for_selector_list('.medias__item').length
     wait_for_selector('#search-input').click
@@ -138,7 +138,7 @@ shared_examples 'search' do
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-card-large')
     api_change_media_status
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 2
     wait_for_selector('#add-filter-menu__open-button').click
