@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Relay from 'react-relay/classic';
 import TeamPublicHeader from './team/TeamPublicHeader';
-import ProjectHeader from './project/ProjectHeader';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
 
@@ -47,21 +46,11 @@ function HeaderComponent(props) {
 
   const reallyInTeamContext = team || feedPage ? inTeamContext : false;
 
-  const teamPrivateContentShouldShow =
-    (reallyInTeamContext && currentUserIsMember) || (reallyInTeamContext && !team.private);
-
   const teamPublicContentShouldShow =
     reallyInTeamContext && !currentUserIsMember && team.private;
 
   const primary = (() => {
-    if (teamPrivateContentShouldShow) {
-      // TODO write props explicitly
-      return (
-        <Row containsEllipsis>
-          <div><ProjectHeader {...props} /></div>
-        </Row>
-      );
-    } else if (teamPublicContentShouldShow) {
+    if (teamPublicContentShouldShow) {
       // TODO write props explicitly
       return (
         <Row containsEllipsis>
