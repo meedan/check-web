@@ -301,11 +301,13 @@ const SaveList = ({
     <React.Fragment>
       {/* The "Save" button */}
       <ButtonMain
-        id="save-list__button"
         variant="contained"
         size="default"
         theme="lightBrand"
         onClick={handleClick}
+        buttonProps={{
+          id: 'save-list__button',
+        }}
         label={feedTeam && feedTeam.shared ?
           <FormattedMessage
             id="saveList.saveFeed"

@@ -6,7 +6,6 @@ import styles from './ButtonMain.module.css';
 
 // FIXME: Refactor using native button instead of MUI Button
 const ButtonMain = ({
-  id,
   className,
   buttonProps,
   customStyle,
@@ -43,7 +42,6 @@ const ButtonMain = ({
     onClick={onClick}
     disabled={disabled}
     variant={variant}
-    id={id}
     title={title}
     type="button"
     {...buttonProps}
@@ -70,7 +68,6 @@ const ButtonMain = ({
 );
 
 ButtonMain.defaultProps = {
-  id: null,
   label: null,
   title: null,
   size: 'default',
@@ -87,7 +84,6 @@ ButtonMain.defaultProps = {
 };
 
 ButtonMain.propTypes = {
-  id: PropTypes.string,
   className: PropTypes.string,
   label: PropTypes.object,
   size: PropTypes.oneOf(['default', 'small', 'large']),
