@@ -186,7 +186,6 @@ const MediaSimilarityBarAdd = ({
   return (
     <React.Fragment>
       <ButtonMain
-        id="media-similarity__add-button"
         iconRight={<ExpandMoreIcon />}
         label={<FormattedMessage id="mediaSimilarityBarAdd.addSimilar"defaultMessage="Manage media"description="Label to the similarity menu that allows importing and exporting media" />}
         variant="outlined"
@@ -194,6 +193,9 @@ const MediaSimilarityBarAdd = ({
         theme="brand"
         onClick={handleClick}
         disabled={!canBeAddedToSimilar && !similarCanBeAddedToIt}
+        buttonProps={{
+          id: 'media-similarity__add-button',
+        }}
       />
       <Menu
         anchorEl={anchorEl}

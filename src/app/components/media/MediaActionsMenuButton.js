@@ -143,13 +143,15 @@ class MediaActionsMenuButton extends React.PureComponent {
       <>
         &nbsp;
         <ButtonMain
-          id="media-actions-menu-button__icon-button"
           title={this.props.intl.formatMessage(messages.tooltip)}
           iconCenter={<IconMoreVert className="media-actions__icon" />}
           variant="outlined"
           size="default"
           theme="text"
           onClick={this.handleOpenMenu}
+          buttonProps={{
+            id: 'media-actions-menu-button__icon-button',
+          }}
         />
         <Menu
           className="media-actions"

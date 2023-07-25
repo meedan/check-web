@@ -1,5 +1,10 @@
 [
   {
+    "id": "teamMembers.tooltip",
+    "description": "Tooltip to call the menu for actions to perform on a single user",
+    "defaultMessage": "Manage member"
+  },
+  {
     "id": "teamMemberActions.userRemoved",
     "description": "Success message when a user is removed from the workspace",
     "defaultMessage": "The user has been removed"

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -13,6 +13,14 @@ import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import IconMoreVert from '../../icons/more_vert.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+
+const messages = defineMessages({
+  tooltip: {
+    id: 'teamMembers.tooltip',
+    defaultMessage: 'Manage member',
+    description: 'Tooltip to call the menu for actions to perform on a single user',
+  },
+});
 
 const TeamMemberActions = ({
   setFlashMessage,
@@ -208,7 +216,7 @@ const TeamMemberActions = ({
         size="default"
         theme="text"
         onClick={e => setAnchorEl(e.currentTarget)}
-        title={intl.formatMessage({ id: 'teamMembers.tooltip', defaultMessage: 'Manage member', description: 'Tooltip to call the menu for actions to perform on a single user' })}
+        title={intl.formatMessage(messages.tooltip)}
       />
       <Menu
         anchorEl={anchorEl}
