@@ -21,7 +21,6 @@ class CreateDynamicMutation extends Relay.Mutation {
         dynamicEdge,
         project_media {
           log,
-          log_count
         }
       }`;
     default:
