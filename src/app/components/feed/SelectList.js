@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import ListIcon from '@material-ui/icons/List';
+import ListIcon from '../../icons/list.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Select from '../cds/inputs/Select';
 import styles from './SelectList.module.css';
