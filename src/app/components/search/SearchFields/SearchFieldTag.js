@@ -17,12 +17,10 @@ const SearchFieldTag = ({
   operator,
   readOnly,
 }) => {
-  const [keyword, setKeyword] = React.useState('');
   // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
   const [random] = React.useState(String(Math.random()));
-
-  // Maximum number of options to be displayed
-  const max = 2; // Set to 2 for not needing lots of tags to test feature
+  const [keyword, setKeyword] = React.useState('');
+  const [pageSize, setPageSize] = React.useState(50);
 
   const handleType = (value) => {
     lastTypedValue = value;
@@ -33,14 +31,20 @@ const SearchFieldTag = ({
     }, 1500);
   };
 
+  const handleScrollBottom = (hasMore) => {
+    if (hasMore) {
+      setPageSize(pageSize + 50);
+    }
+  };
+
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query SearchFieldTagQuery($teamSlug: String!, $keyword: String, $max: Int, $random: String!) {
+        query SearchFieldTagQuery($teamSlug: String!, $keyword: String, $pageSize: Int, $random: String!) {
           team(slug: $teamSlug, random: $random) {
             tag_texts_count(keyword: $keyword)
-            tag_texts(first: $max, keyword: $keyword) {
+            tag_texts(first: $pageSize, keyword: $keyword) {
               edges {
                 node {
                   text
@@ -53,17 +57,18 @@ const SearchFieldTag = ({
       variables={{
         teamSlug,
         keyword,
-        max,
+        pageSize,
         random,
       }}
       render={({ error, props }) => {
-        const loading = !error && !props;
+        const loading = Boolean(!error && !props);
         let plainTagsTexts = [];
         let total = 0;
         if (!error && props) {
           plainTagsTexts = props.team.tag_texts ? props.team.tag_texts.edges.map(t => t.node.text) : [];
           total = props.team.tag_texts_count;
         }
+        const hasMore = total > pageSize;
         return (
           <FormattedMessage id="SearchFieldTag.label" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
             { label => (
@@ -74,12 +79,13 @@ const SearchFieldTag = ({
                 selected={query.tags}
                 options={plainTagsTexts.map(t => ({ label: t, value: t }))}
                 onChange={onChange}
+                onScrollBottom={() => handleScrollBottom(hasMore)}
                 onToggleOperator={onToggleOperator}
                 operator={operator}
                 readOnly={readOnly}
                 onRemove={onRemove}
-                onType={total > max ? handleType : null}
-                inputPlaceholder={total > max ? keyword : null}
+                onType={handleType}
+                inputPlaceholder={hasMore ? keyword : null}
               />
             )}
           </FormattedMessage>

@@ -128,6 +128,7 @@ const MultiSelectFilter = ({
   options,
   onChange,
   onRemove,
+  onScrollBottom,
   onSelectChange,
   onToggleOperator,
   operator,
@@ -188,14 +189,15 @@ const MultiSelectFilter = ({
           { (selectedArray.length === 0 || showSelect) && !readOnly ? (
             <CustomSelectDropdown
               allowSearch={allowSearch}
+              inputPlaceholder={inputPlaceholder}
               loading={loading}
               options={options}
-              selected={selectedArray}
-              onSubmit={handleSelect}
-              single={single}
+              onScrollBottom={onScrollBottom}
               onSelectChange={onSelectChange}
+              onSubmit={handleSelect}
               onType={onType}
-              inputPlaceholder={inputPlaceholder}
+              selected={selectedArray}
+              single={single}
             />
           ) : null }
           { extraInputs }
@@ -216,6 +218,7 @@ const CustomSelectDropdown = ({
   options,
   selected,
   single,
+  onScrollBottom,
   onSubmit,
   onSelectChange,
   onType,
@@ -246,6 +249,7 @@ const CustomSelectDropdown = ({
               selected={selected}
               onSubmit={handleSubmit}
               single={single}
+              onScrollBottom={onScrollBottom}
               onSelectChange={onSelectChange}
               onSearchChange={onType}
               submitLabel={
@@ -268,6 +272,7 @@ MultiSelectFilter.defaultProps = {
   extraInputs: null,
   loading: false,
   selected: [],
+  onScrollBottom: null,
   onToggleOperator: null,
   readOnly: false,
   onType: null,
@@ -290,6 +295,7 @@ MultiSelectFilter.propTypes = {
     PropTypes.array,
     PropTypes.string,
   ]),
+  onScrollBottom: PropTypes.func,
   onToggleOperator: PropTypes.func,
   readOnly: PropTypes.bool,
   onType: PropTypes.func,
