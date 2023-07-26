@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import styles from './ButtonMain.module.css';
 
-// FIXME: Refactor using native button instead of MUI Button
 const ButtonMain = ({
   className,
   buttonProps,
@@ -35,9 +34,6 @@ const ButtonMain = ({
         [styles['input-icon-center']]: iconCenter,
       })
     }
-    classes={{
-      root: styles.root,
-    }}
     style={customStyle}
     onClick={onClick}
     disabled={disabled}
