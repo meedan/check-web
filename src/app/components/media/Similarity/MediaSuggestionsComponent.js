@@ -301,7 +301,6 @@ const MediaSuggestionsComponent = ({
         rejection: true,
         input: {
           ids: visibleItemIds,
-          add_to_project_id: targetProject.dbid,
           source_id: mainItem.dbid,
         },
       },
@@ -318,17 +317,6 @@ const MediaSuggestionsComponent = ({
                 description="Title that appears in a popup to confirm that a 'bulk reject' action was successful"
                 values={{
                   number: visibleItemIds.length,
-                }}
-              />
-            </Typography>
-            <div className={classes.break} />
-            <Typography variant="body1">
-              <FormattedMessage
-                id="mediaSuggestionsComponent.flashBulkReject"
-                defaultMessage='Added to the list "{folder}"'
-                description="Text that appears in a popup to confirm that a 'bulk reject' action was successful"
-                values={{
-                  folder: targetProject.title,
                 }}
               />
             </Typography>
@@ -510,7 +498,7 @@ const MediaSuggestionsComponent = ({
     });
   };
 
-  const handleReject = (targetProject) => {
+  const handleReject = () => {
     setIsDialogOpen(false);
 
     commitMutation(Store, {
@@ -520,7 +508,6 @@ const MediaSuggestionsComponent = ({
         rejection: true,
         input: {
           id: selectedRelationship.id,
-          add_to_project_id: targetProject.dbid,
         },
       },
       onCompleted: ({ response, error }) => {

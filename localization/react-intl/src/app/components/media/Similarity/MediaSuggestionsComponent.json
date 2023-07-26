@@ -5,11 +5,6 @@
     "defaultMessage": "{number} media rejected"
   },
   {
-    "id": "mediaSuggestionsComponent.flashBulkReject",
-    "description": "Text that appears in a popup to confirm that a 'bulk reject' action was successful",
-    "defaultMessage": "Added to the list \"{folder}\""
-  },
-  {
     "id": "mediaSuggestionsComponent.flashBulkConfirmTitle",
     "description": "Title that appears in a popup to confirm that a 'bulk accept' action was successful",
     "defaultMessage": "{number} suggested media matched"
