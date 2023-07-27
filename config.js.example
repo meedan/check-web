@@ -42,4 +42,12 @@ window.config = {
   //
   errbitApiKey: null,
   errbitHost: null,
+
+  // Sentry is used to capture exceptions that happen in the browser
+  //
+  // OPTIONAL
+  //
+  sentryAuthToken: null,
+  sentryOrg: null,
+  sentryProject: null,
 }

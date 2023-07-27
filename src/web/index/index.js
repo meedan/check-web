@@ -14,6 +14,7 @@ import {
   createMuiTheme,
   jssPreset,
 } from '@material-ui/core/styles';
+import * as Sentry from '@sentry/react';
 import Root from '../../app/components/Root';
 import { MuiTheme } from '../../app/styles/js/shared';
 import { FlashMessageProvider } from '../../app/components/FlashMessage';
@@ -62,6 +63,15 @@ const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
 // See https://material-ui.com/guides/right-to-left/
 const jss = jssCreate({
   plugins: [...jssPreset().plugins, rtl()],
+});
+
+Sentry.init({
+  dsn: "https://92683fff6e8f499cbd5576802452ebbf@o361350.ingest.sentry.io/4504691041763328",
+  integrations: [
+    new Sentry.Replay(),
+  ],
+  // Session Replay
+  replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
 });
 
 const callback = (translations) => {
