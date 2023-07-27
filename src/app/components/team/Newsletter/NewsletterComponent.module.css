@@ -55,9 +55,6 @@
 
   .loading-rss-feed-button {
     align-self: center;
-    background: var(--alertMain);
-    min-width: 32px;
-    width: 32px;
   }
 
   .switcher {

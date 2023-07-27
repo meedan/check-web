@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import HelpIcon from '../../icons/help.svg';
 
 const useStyles = makeStyles(theme => ({
@@ -22,9 +22,6 @@ const useStyles = makeStyles(theme => ({
     '& h6': {
       margin: 0,
     },
-  },
-  settingsHeaderHelpIcon: {
-    color: 'var(--textPlaceholder)',
   },
   settingsHeaderExtra: {
     marginLeft: theme.spacing(5),
@@ -51,9 +48,7 @@ const SettingsHeader = ({
         <Box display="flex" justifyContent="center" className={classes.settingsHeaderTitle}>
           <h6 className="component__settings-header typography-h6">{title}</h6>
           { helpUrl &&
-            <IconButton onClick={handleHelp}>
-              <HelpIcon className={classes.settingsHeaderHelpIcon} />
-            </IconButton>
+            <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
           }
           <Box className={classes.settingsHeaderExtra}>
             {extra}
