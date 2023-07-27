@@ -16,7 +16,7 @@ class DeleteVersionMutation extends Relay.Mutation {
     case 'source':
       return Relay.QL`fragment on DestroyVersionPayload { deletedId, source { id } }`;
     case 'project_media':
-      return Relay.QL`fragment on DestroyVersionPayload { deletedId, project_media { log, log_count, last_status, last_status_obj { id } } }`;
+      return Relay.QL`fragment on DestroyVersionPayload { deletedId, project_media { log, last_status, last_status_obj { id } } }`;
     default:
       return '';
     }

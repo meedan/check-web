@@ -23,7 +23,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           linked_items_count
           dbid,
           log,
-          log_count,
           archived,
           permissions,
           project_id,
