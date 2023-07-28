@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../layout/MultiSelector';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
 import CircularProgress from '../CircularProgress';
@@ -252,6 +252,14 @@ const CustomSelectDropdown = ({
               onScrollBottom={onScrollBottom}
               onSelectChange={onSelectChange}
               onSearchChange={onType}
+              notFoundLabel={!loading && inputPlaceholder ? (
+                <FormattedMessage
+                  id="multiSelectFilter.noResultsMatching"
+                  defaultMessage="No results matching {keyword}."
+                  description="Label displayed on filter component when no results are found"
+                  values={{ keyword: inputPlaceholder }}
+                />) : null
+              }
               submitLabel={
                 <FormattedMessage
                   id="customAutocomplete.done"

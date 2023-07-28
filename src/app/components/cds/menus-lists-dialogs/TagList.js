@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../../layout/MultiSelector';
 import styles from './TagList.module.css';
 import Chip from '../buttons-checkboxes-chips/Chip';
 import Tooltip from '../alerts-and-prompts/Tooltip';

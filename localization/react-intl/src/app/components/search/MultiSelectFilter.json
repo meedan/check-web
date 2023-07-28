@@ -20,6 +20,11 @@
     "defaultMessage": "Search…"
   },
   {
+    "id": "multiSelectFilter.noResultsMatching",
+    "description": "Label displayed on filter component when no results are found",
+    "defaultMessage": "No results matching {keyword}."
+  },
+  {
     "id": "customAutocomplete.done",
     "description": "Label for closing dropdown when user is done selecting tags",
     "defaultMessage": "Done"

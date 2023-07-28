@@ -6,6 +6,8 @@ import { FormattedMessage } from 'react-intl';
 import LocalOfferIcon from '../../../icons/local_offer.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
 
+const FILTER_PAGE_SIZE = 8;
+
 let lastTypedValue = '';
 
 const SearchFieldTag = ({
@@ -20,7 +22,7 @@ const SearchFieldTag = ({
   // Keep random argument in state so it's generated only once when component is mounted (CHECK-2366)
   const [random] = React.useState(String(Math.random()));
   const [keyword, setKeyword] = React.useState('');
-  const [pageSize, setPageSize] = React.useState(50);
+  const [pageSize, setPageSize] = React.useState(FILTER_PAGE_SIZE);
 
   const handleType = (value) => {
     lastTypedValue = value;
@@ -33,7 +35,7 @@ const SearchFieldTag = ({
 
   const handleScrollBottom = (hasMore) => {
     if (hasMore) {
-      setPageSize(pageSize + 50);
+      setPageSize(pageSize + FILTER_PAGE_SIZE);
     }
   };
 
@@ -85,7 +87,7 @@ const SearchFieldTag = ({
                 readOnly={readOnly}
                 onRemove={onRemove}
                 onType={handleType}
-                inputPlaceholder={hasMore ? keyword : null}
+                inputPlaceholder={keyword}
               />
             )}
           </FormattedMessage>
