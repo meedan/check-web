@@ -127,7 +127,7 @@ const RelationshipMenu = ({
     });
   };
 
-  const handleDelete = (project) => {
+  const handleDelete = () => {
     setIsDialogOpen(false);
     const mutation = graphql`
       mutation MediaRelationshipDestroyRelationshipMutation($input: DestroyRelationshipInput!) {
@@ -169,7 +169,6 @@ const RelationshipMenu = ({
       variables: {
         input: {
           id,
-          add_to_project_id: project.dbid,
         },
       },
       configs: [
@@ -200,20 +199,11 @@ const RelationshipMenu = ({
         if (error) {
           handleError(error);
         } else {
-          const { title: projectTitle, dbid: projectId } = project;
           const message = (
             <FormattedMessage
               id="mediaItem.detachedSuccessfully"
-              defaultMessage="Item detached to '{toProject}'"
+              defaultMessage="Item detached"
               description="Banner displayed after items are detached successfully"
-              values={{
-                toProject: (
-                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-                  <a onClick={() => browserHistory.push(`/${teamSlug}/project/${projectId}`)}>
-                    {projectTitle}
-                  </a>
-                ),
-              }}
             />
           );
           setFlashMessage(message, 'success');

@@ -12,7 +12,7 @@
   {
     "id": "mediaItem.detachedSuccessfully",
     "description": "Banner displayed after items are detached successfully",
-    "defaultMessage": "Item detached to '{toProject}'"
+    "defaultMessage": "Item detached"
   },
   {
     "id": "mediaItem.pinAsMain",
