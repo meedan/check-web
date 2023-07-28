@@ -7,14 +7,14 @@ import { Link } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
-import SettingsIcon from '@material-ui/icons/Settings';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import SettingsIcon from '../../icons/settings.svg';
 
 const useStyles = makeStyles(theme => ({
   searchSettingsTitle: {
@@ -37,9 +37,6 @@ const useStyles = makeStyles(theme => ({
   link: {
     textDecoration: 'none',
     display: 'contents',
-  },
-  settingsButton: {
-    padding: 2,
   },
 }));
 
@@ -310,12 +307,13 @@ const AutoCompleteMediaItem = (props, context) => {
             fullWidth
           />
           { props.showFilters ?
-            <IconButton
-              className={classes.settingsButton}
+            <ButtonMain
+              iconCenter={<SettingsIcon />}
+              variant="outlined"
+              size="small"
+              theme="text"
               onClick={handleSettingsButton}
-            >
-              <SettingsIcon />
-            </IconButton> : null }
+            /> : null }
         </Box>
         { searchResult ?
           <Box>
