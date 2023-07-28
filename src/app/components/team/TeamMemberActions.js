@@ -1,11 +1,8 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
-import IconMoreVert from '@material-ui/icons/MoreVert';
-import IconButton from '@material-ui/core/IconButton';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -14,11 +11,22 @@ import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import IconMoreVert from '../../icons/more_vert.svg';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+
+const messages = defineMessages({
+  tooltip: {
+    id: 'teamMembers.tooltip',
+    defaultMessage: 'Manage member',
+    description: 'Tooltip to call the menu for actions to perform on a single user',
+  },
+});
 
 const TeamMemberActions = ({
   setFlashMessage,
   teamUser,
   team,
+  intl,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [removeUserId, setRemoveUserId] = React.useState(null);
@@ -42,6 +50,7 @@ const TeamMemberActions = ({
         <FormattedMessage
           id="teamMemberActions.userRemoved"
           defaultMessage="The user has been removed"
+          description="Success message when a user is removed from the workspace"
         />
       ), 'success');
     };
@@ -190,6 +199,7 @@ const TeamMemberActions = ({
       <FormattedMessage
         id="teamMemberActions.copiedToClipboard"
         defaultMessage="The email has been copied to the clipboard"
+        description="success message fro when an email address has been copied to the clipboard"
       />
     ), 'success');
   };
@@ -200,12 +210,14 @@ const TeamMemberActions = ({
 
   return (
     <React.Fragment>
-      <IconButton
-        tooltip={<FormattedMessage id="teamMembers.tooltip" defaultMessage="Manage member" />}
+      <ButtonMain
+        iconCenter={<IconMoreVert className="team-members__icon-menu" />}
+        variant="outlined"
+        size="default"
+        theme="text"
         onClick={e => setAnchorEl(e.currentTarget)}
-      >
-        <IconMoreVert className="team-members__icon-menu" />
-      </IconButton>
+        title={intl.formatMessage(messages.tooltip)}
+      />
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -217,6 +229,7 @@ const TeamMemberActions = ({
               <FormattedMessage
                 id="teamMembers.copyEmail"
                 defaultMessage="Copy email"
+                description="Menu item for copying email address to the clipboard"
               />
             </MenuItem>
           </CopyToClipboard>
@@ -230,6 +243,7 @@ const TeamMemberActions = ({
           <FormattedMessage
             id="teamMembers.remove"
             defaultMessage="Remove"
+            description="Menu item for removing a team member from the workspace"
           />
         </MenuItem>
         { teamUser.status === 'invited' ? (
@@ -237,6 +251,7 @@ const TeamMemberActions = ({
             <FormattedMessage
               id="teamMembers.resendInvite"
               defaultMessage="Resend invite"
+              description="Menu item text to initiate an invitation email sent to the selected user"
             />
           </MenuItem>
         ) : null }
@@ -247,6 +262,7 @@ const TeamMemberActions = ({
           <FormattedMessage
             id="teamMembers.removeDialogTitle"
             defaultMessage="Remove {userLabel}"
+            description="Confirmation title for removing a team member"
             values={{ userLabel: teamUser.user.name || teamUser.user.email }}
           />
         }
@@ -254,6 +270,7 @@ const TeamMemberActions = ({
           <FormattedMessage
             id="teamMembers.removeDialogBody"
             defaultMessage="{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
+            description="explanation text about what will happen when a team member is removed from the workspace"
             values={{ userLabel: teamUser.user.name || teamUser.user.email, teamName: team.name }}
           />
         }
@@ -261,8 +278,9 @@ const TeamMemberActions = ({
         onProceed={() => handleRemoveUser(removeUserId)}
         proceedLabel={
           <FormattedMessage
-            id="teamMembers.remove"
+            id="teamMembers.removeConfrm"
             defaultMessage="Remove"
+            description="Confirmation label action for removing team member"
           />
         }
       />
@@ -287,7 +305,7 @@ TeamMemberActions.propTypes = {
   }).isRequired,
 };
 
-export default createFragmentContainer(withSetFlashMessage(TeamMemberActions), {
+export default createFragmentContainer(withSetFlashMessage(injectIntl(TeamMemberActions)), {
   teamUser: graphql`
     fragment TeamMemberActions_teamUser on TeamUser {
       id
