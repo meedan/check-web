@@ -45,4 +45,4 @@
   # tail -f check-api/log/test.log &
   # docker-compose logs -f api &
   # docker-compose logs -f alegre &
-fi
+#fi
