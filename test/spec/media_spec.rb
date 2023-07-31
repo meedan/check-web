@@ -28,9 +28,8 @@ shared_examples 'media' do |type|
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
     wait_for_selector('.message').click
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
-    wait_for_selector('#side-navigation__toggle').click
     expect(@driver.find_elements(:css, '.medias__item').empty?)
     # Go to the trash page and restore the item
     wait_for_selector('.project-list__item-trash').click
@@ -43,7 +42,7 @@ shared_examples 'media' do |type|
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__add-button').click
     wait_for_selector_none('input[name=project-title]') # wait for dialog to disappear
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     wait_for_selector('.project-list__link', index: 0).click # Go to target project
     wait_for_selector_list_size('.medias__item', 1, :css)

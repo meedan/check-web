@@ -2,16 +2,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import IconMoreVert from '@material-ui/icons/MoreVert';
 import StatusLabel from './StatusLabel';
 import StatusMessage from './StatusMessage';
 import { FormattedGlobalMessage } from '../../MappedMessage';
+import IconMoreVert from '../../../icons/more_vert.svg';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 
 const StatusListItem = ({
   defaultLanguage,
@@ -85,9 +85,7 @@ const StatusListItem = ({
         }
       />
       <ListItemSecondaryAction>
-        <IconButton className="status-actions__menu" onClick={e => setAnchorEl(e.target)}>
-          <IconMoreVert />
-        </IconButton>
+        <ButtonMain className="status-actions__menu" iconCenter={<IconMoreVert />} variant="outlined" size="default" theme="text" onClick={e => setAnchorEl(e.target)} />
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}

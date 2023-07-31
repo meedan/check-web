@@ -35,6 +35,7 @@ const MediaCardLarge = ({
   inModal,
   projectMedia,
   currentUserRole,
+  superAdminMask,
   onClickMore,
 }) => {
   const { media } = projectMedia;
@@ -72,6 +73,7 @@ const MediaCardLarge = ({
             projectMedia={projectMedia}
             imagePath={media.embed_path}
             currentUserRole={currentUserRole}
+            superAdminMask={superAdminMask}
           />
         ) : null }
         { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
@@ -82,6 +84,7 @@ const MediaCardLarge = ({
             currentUserRole={currentUserRole}
             isAudio={type === 'UploadedAudio'}
             coverImage={coverImage}
+            superAdminMask={superAdminMask}
           />
         ) : null }
         { isWebPage ? (
@@ -90,6 +93,7 @@ const MediaCardLarge = ({
             currentUserRole={currentUserRole}
             data={data}
             inModal={inModal}
+            superAdminMask={superAdminMask}
           />
         ) : null }
         { isPender ? (
@@ -132,10 +136,12 @@ MediaCardLarge.propTypes = {
   inModal: PropTypes.bool,
   currentUserRole: PropTypes.string.isRequired,
   onClickMore: PropTypes.func.isRequired,
+  superAdminMask: PropTypes.bool,
 };
 
 MediaCardLarge.defaultProps = {
   inModal: false,
+  superAdminMask: false,
 };
 
 const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`

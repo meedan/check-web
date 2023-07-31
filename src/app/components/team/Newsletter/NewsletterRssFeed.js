@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
-import LinkIcon from '@material-ui/icons/Link';
-import AutorenewIcon from '@material-ui/icons/Autorenew';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from './NewsletterComponent.module.css';
 import TextField from '../../cds/inputs/TextField';
 import TextArea from '../../cds/inputs/TextArea';
 import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
+import LinkIcon from '../../../icons/link.svg';
+import AutorenewIcon from '../../../icons/autorenew.svg';
 
 const NewsletterRssFeed = ({
   disabled,
@@ -118,12 +118,25 @@ const NewsletterRssFeed = ({
                 )}
               </FormattedMessage>
               { (rssFeedUrl && loading) ?
-                <Button className={styles['loading-rss-feed-button']} variant="contained" color="primary" disabled={disabled}>
-                  <AutorenewIcon />
-                </Button> :
-                <Button className={styles['load-rss-feed-button']} variant="contained" color="primary" onClick={handleLoad} disabled={!localRssFeedUrl || disabled}>
-                  <FormattedMessage id="newsletterRssFeed.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />
-                </Button> }
+                <ButtonMain
+                  iconCenter={<AutorenewIcon />}
+                  className={styles['loading-rss-feed-button']}
+                  variant="contained"
+                  size="large"
+                  theme="alert"
+                  disabled={disabled}
+                /> :
+                <ButtonMain
+                  label={<FormattedMessage id="newsletterRssFeed.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />}
+                  variant="contained"
+                  size="large"
+                  theme="brand"
+                  onClick={handleLoad}
+                  disabled={!localRssFeedUrl || disabled}
+                  buttonProps={{
+                    id: 'media-similarity__add-button',
+                  }}
+                />}
             </div>
             <NewsletterNumberOfArticles
               disabled={disabled}

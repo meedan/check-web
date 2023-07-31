@@ -31,7 +31,6 @@ describe('<ReportDesignerTopBar />', () => {
     last_status_obj: {
       locked: false,
     },
-    log_count: 0,
     permissions: JSON.stringify({}),
     project_id: 1,
     media: {

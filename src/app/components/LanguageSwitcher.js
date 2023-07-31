@@ -5,14 +5,14 @@ import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { compareLanguages, languageLabelFull } from '../LanguageRegistry';
+import MoreVertIcon from '../icons/more_vert.svg';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 
 const useStyles = makeStyles(theme => ({
   verticalLanguageSwitcher: {
@@ -93,9 +93,7 @@ const LanguageSwitcher = (props) => {
                 </div>
                 { props.onSetDefault && languageCode !== primaryLanguage ?
                   <div>
-                    <IconButton onClick={handleClick}>
-                      <MoreVertIcon />
-                    </IconButton>
+                    <ButtonMain iconCenter={<MoreVertIcon />} variant="outlined" size="default" theme="text" onClick={handleClick} />
                     <Menu
                       anchorEl={anchorEl}
                       keepMounted

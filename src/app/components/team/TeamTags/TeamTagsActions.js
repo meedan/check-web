@@ -1,16 +1,23 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
-import IconMoreVert from '@material-ui/icons/MoreVert';
-import IconButton from '@material-ui/core/IconButton';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import SaveTag from './SaveTag';
 import { withSetFlashMessage } from '../../FlashMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import IconMoreVert from '../../../icons/more_vert.svg';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+
+const messages = defineMessages({
+  tooltip: {
+    id: 'teamTagsActions.tooltip',
+    defaultMessage: 'Manage tag',
+    description: 'Tooltip to call menu for actions to perform on a tag',
+  },
+});
 
 const TeamTagsActions = ({
   tag,
@@ -19,6 +26,7 @@ const TeamTagsActions = ({
   rules,
   rulesSchema,
   setFlashMessage,
+  intl,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
@@ -92,14 +100,15 @@ const TeamTagsActions = ({
 
   return (
     <React.Fragment>
-      <IconButton
-        tooltip={<FormattedMessage id="teamTagsActions.tooltip" defaultMessage="Manage tag" />}
-        onClick={e => setAnchorEl(e.currentTarget)}
-        style={{ padding: 0 }}
+      <ButtonMain
         className="team-tags-actions__icon"
-      >
-        <IconMoreVert />
-      </IconButton>
+        iconCenter={<IconMoreVert />}
+        variant="outlined"
+        size="default"
+        theme="text"
+        onClick={e => setAnchorEl(e.currentTarget)}
+        title={intl.formatMessage(messages.tooltip)}
+      />
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -109,12 +118,14 @@ const TeamTagsActions = ({
           <FormattedMessage
             id="teamTagsActions.edit"
             defaultMessage="Edit"
+            description="Menu item to edit a tag"
           />
         </MenuItem>
         <MenuItem className="team-tags-actions__destroy" onClick={() => { setAnchorEl(null); setShowDeleteDialog(true); }}>
           <FormattedMessage
             id="teamTagsActions.delete"
             defaultMessage="Delete"
+            description="Menu item to delete a tag"
           />
         </MenuItem>
       </Menu>
@@ -124,6 +135,7 @@ const TeamTagsActions = ({
           <FormattedMessage
             id="teamTagsActions.removeDialogTitle"
             defaultMessage='Delete tag "{tag}"'
+            description="Title for the dialog box when deleting a tag"
             values={{ tag: tag.text }}
           />
         }
@@ -131,6 +143,7 @@ const TeamTagsActions = ({
           <FormattedMessage
             id="teamTagsActions.removeDialogBody"
             defaultMessage='Tag "{tag}" will be removed from {count} items.'
+            description="Description of what will happen when a tag is deleted"
             values={{ tag: tag.text, count: tag.tags_count }}
           />
         }
@@ -140,6 +153,7 @@ const TeamTagsActions = ({
         proceedLabel={
           <FormattedMessage
             id="teamTagsActions.remove"
+            description="Dialog action text for continuing with the delete tag action"
             defaultMessage="Delete tag"
           />
         }
@@ -173,4 +187,4 @@ TeamTagsActions.propTypes = {
   rulesSchema: PropTypes.object.isRequired,
 };
 
-export default withSetFlashMessage(TeamTagsActions);
+export default withSetFlashMessage(injectIntl(TeamTagsActions));
