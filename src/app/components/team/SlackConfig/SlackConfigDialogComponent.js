@@ -24,7 +24,6 @@ import { safelyParseJSON } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
 import DeleteIcon from '../../../icons/delete.svg';
 import EditIcon from '../../../icons/edit.svg';
-import FolderOpenIcon from '../../../icons/folder.svg';
 import LabelIcon from '../../../icons/label.svg';
 import SlackColorIcon from '../../../icons/slack_color.svg';
 
@@ -92,17 +91,6 @@ const AddEventButton = ({
             }
           />
         </MenuItem>
-        <MenuItem className="add-event__item-added" onClick={() => onSelect('item_added')}>
-          <ListItemText
-            primary={
-              <FormattedMessage
-                id="slackConfigDialogComponent.itemAdded"
-                defaultMessage="Item is added to folder"
-                description="Selecting this event will trigger notification whenever an item is added to or moved to a folder"
-              />
-            }
-          />
-        </MenuItem>
         <MenuItem className="add-event__status-changed" onClick={() => onSelect('status_changed')}>
           <ListItemText
             primary={
@@ -125,7 +113,6 @@ const SlackConfigDialogComponent = ({
   onCancel,
   setFlashMessage,
 }) => {
-  const projects = team.projects.edges.map(project => project.node);
   const { statuses } = team.verification_statuses;
 
   const classes = useStyles();
@@ -243,7 +230,8 @@ const SlackConfigDialogComponent = ({
           <Typography variant="body1" component="div">
             <FormattedMessage
               id="slackConfigDialogComponent.title"
-              defaultMessage="Send notifications to Slack channels when items are added to specific folders"
+              defaultMessage="Send notifications to Slack channels"
+              description="Description of the slack integration"
             />
           </Typography>
         </Box>
@@ -336,27 +324,6 @@ const SlackConfigDialogComponent = ({
                         description="Header to event selector. E.g.: If 'Item is added to' ..."
                       />
                       <span style={{ width: '16px' }} />
-                      { event.event_type === 'item_added' ?
-                        <FormattedMessage
-                          id="slackConfigDialogComponent.itemIsAddedTo"
-                          defaultMessage="Item is added to"
-                          description="Label to folder selector component"
-                        >
-                          { label => (
-                            <MultiSelectFilter
-                              label={label}
-                              icon={<FolderOpenIcon />}
-                              selected={event.values}
-                              options={projects
-                                .sort((a, b) => (a.title.localeCompare(b.title)))
-                                .map(p => ({ label: p.title, value: p.dbid.toString() }))
-                              }
-                              onChange={val => handleSetField(i, 'values', val)}
-                              onRemove={() => handleRemoveType(i)}
-                            />
-                          )}
-                        </FormattedMessage>
-                        : null }
                       { event.event_type === 'any_activity' ?
                         <FormattedMessage
                           id="slackConfigDialogComponent.anyActivity"
@@ -451,13 +418,6 @@ SlackConfigDialogComponent.propTypes = {
     slackWebhook: PropTypes.string,
     slackNotifications: PropTypes.array.isRequired,
     verification_statuses: PropTypes.object.isRequired,
-    projects: PropTypes.shape({
-      edges: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        dbid: PropTypes.number,
-        title: PropTypes.string,
-      })),
-    }),
   }).isRequired,
   onCancel: PropTypes.func.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
@@ -469,14 +429,5 @@ export default createFragmentContainer(withSetFlashMessage(injectIntl(SlackConfi
     slackWebhook: get_slack_webhook
     slackNotifications: get_slack_notifications
     verification_statuses
-    projects(first: 10000) {
-      edges {
-        node {
-          id
-          dbid
-          title
-        }
-      }
-    }
   }
 `);

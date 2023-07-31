@@ -6,7 +6,7 @@ import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
 import memoize from 'memoize-one';
 import styled from 'styled-components';
-import Chip from '@material-ui/core/Chip';
+import Chip from '../cds/buttons-checkboxes-chips/Chip';
 import TagMenu from '../tag/TagMenu';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import { units } from '../../styles/js/shared';
