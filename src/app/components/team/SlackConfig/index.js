@@ -115,7 +115,7 @@ class SlackConfig extends React.Component {
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage
                 id="slackConfig.text"
-                defaultMessage="Send notifications to Slack channels when items are added to specific folders"
+                defaultMessage="Send notifications to Slack channels"
                 description="Description of the slack integration"
               />
               <SwitchComponent
