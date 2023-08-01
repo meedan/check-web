@@ -6,7 +6,6 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import {
   Box,
-  Button,
   Dialog,
   DialogActions,
   DialogTitle,
@@ -864,26 +863,35 @@ const MediaSuggestionsComponent = ({
                     />
                   </DialogTitle>
                   <DialogActions>
-                    <Button color="primary" onClick={closeBulkAcceptDialog}>
-                      <FormattedMessage
-                        id="global.cancel"
-                        defaultMessage="Cancel"
-                        description="Regular Cancel action label"
-                      />
-                    </Button>
-                    <Button
-                      color="primary"
+                    <ButtonMain
+                      variant="text"
+                      size="default"
+                      theme="text"
+                      onClick={closeBulkAcceptDialog}
+                      label={
+                        <FormattedMessage
+                          id="global.cancel"
+                          defaultMessage="Cancel"
+                          description="Regular Cancel action label"
+                        />
+                      }
+                    />
+                    <ButtonMain
+                      variant="contained"
+                      size="default"
+                      theme="brand"
                       onClick={handleBulkConfirm}
-                    >
-                      <FormattedMessage
-                        id="mediaSuggestionsComponent.dialogBulkAcceptConfirm"
-                        defaultMessage="Match all"
-                        description="Button that a user presses to confirm that they are going to match all visible suggested media"
-                        values={{
-                          number: relationships.slice(cursor, cursor + pageSize).length,
-                        }}
-                      />
-                    </Button>
+                      label={
+                        <FormattedMessage
+                          id="mediaSuggestionsComponent.dialogBulkAcceptConfirm"
+                          defaultMessage="Match all"
+                          description="Button that a user presses to confirm that they are going to match all visible suggested media"
+                          values={{
+                            number: relationships.slice(cursor, cursor + pageSize).length,
+                          }}
+                        />
+                      }
+                    />
                   </DialogActions>
                 </Dialog>
                 <Dialog
@@ -903,26 +911,35 @@ const MediaSuggestionsComponent = ({
                     />
                   </DialogTitle>
                   <DialogActions>
-                    <Button color="primary" onClick={closeBulkSpamDialog}>
-                      <FormattedMessage
-                        id="global.cancel"
-                        defaultMessage="Cancel"
-                        description="Regular Cancel action label"
-                      />
-                    </Button>
-                    <Button
-                      color="primary"
+                    <ButtonMain
+                      variant="text"
+                      size="default"
+                      theme="text"
+                      onClick={closeBulkSpamDialog}
+                      label={
+                        <FormattedMessage
+                          id="global.cancel"
+                          defaultMessage="Cancel"
+                          description="Regular Cancel action label"
+                        />
+                      }
+                    />
+                    <ButtonMain
+                      variant="contained"
+                      size="default"
+                      theme="brand"
                       onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.SPAM)}
-                    >
-                      <FormattedMessage
-                        id="mediaSuggestionsComponent.dialogBulkSpamConfirm"
-                        defaultMessage="Mark as spam"
-                        description="Button that a user presses to confirm that they are going to mark all visible suggested media as spam"
-                        values={{
-                          number: relationships.slice(cursor, cursor + pageSize).length,
-                        }}
-                      />
-                    </Button>
+                      label={
+                        <FormattedMessage
+                          id="mediaSuggestionsComponent.dialogBulkSpamConfirm"
+                          defaultMessage="Mark as spam"
+                          description="Button that a user presses to confirm that they are going to mark all visible suggested media as spam"
+                          values={{
+                            number: relationships.slice(cursor, cursor + pageSize).length,
+                          }}
+                        />
+                      }
+                    />
                   </DialogActions>
                 </Dialog>
                 <Dialog
@@ -942,26 +959,35 @@ const MediaSuggestionsComponent = ({
                     />
                   </DialogTitle>
                   <DialogActions>
-                    <Button color="primary" onClick={closeBulkTrashDialog}>
-                      <FormattedMessage
-                        id="global.cancel"
-                        defaultMessage="Cancel"
-                        description="Regular Cancel action label"
-                      />
-                    </Button>
-                    <Button
-                      color="primary"
+                    <ButtonMain
+                      variant="text"
+                      size="default"
+                      theme="text"
+                      onClick={closeBulkTrashDialog}
+                      label={
+                        <FormattedMessage
+                          id="global.cancel"
+                          defaultMessage="Cancel"
+                          description="Regular Cancel action label"
+                        />
+                      }
+                    />
+                    <ButtonMain
+                      variant="contained"
+                      size="default"
+                      theme="brand"
                       onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.TRASHED)}
-                    >
-                      <FormattedMessage
-                        id="mediaSuggestionsComponent.dialogBulkTrashConfirm"
-                        defaultMessage="Send to trash"
-                        description="Button that a user presses to confirm that they are going to send all visible suggested media to trash"
-                        values={{
-                          number: relationships.slice(cursor, cursor + pageSize).length,
-                        }}
-                      />
-                    </Button>
+                      label={
+                        <FormattedMessage
+                          id="mediaSuggestionsComponent.dialogBulkTrashConfirm"
+                          defaultMessage="Send to trash"
+                          description="Button that a user presses to confirm that they are going to send all visible suggested media to trash"
+                          values={{
+                            number: relationships.slice(cursor, cursor + pageSize).length,
+                          }}
+                        />
+                      }
+                    />
                   </DialogActions>
                 </Dialog>
                 <SelectProjectDialog
