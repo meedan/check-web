@@ -53,10 +53,8 @@ shared_examples 'project' do
 
   it 'should create and set filters to a filtered list', bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page({ use_default_project: true })
-    wait_for_selector('.media-card-large')
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
-    wait_for_selector('#side-navigation__toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('#projects-list__add-filtered-list').click
     wait_for_selector('#new-project__title').send_keys('Filtered list')

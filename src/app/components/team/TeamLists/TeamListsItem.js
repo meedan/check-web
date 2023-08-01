@@ -97,7 +97,7 @@ const TeamListsItem = ({
         {
           isRequired ?
             null :
-            <Button color="primary" size="small" onClick={handleToggle} className={classes.button}>
+            <Button color="primary" size="small" onClick={handleToggle} className={['test__list-toggle', classes.button].join(' ')}>
               { show ?
                 <FormattedMessage
                   id="teamListsItem.hide"

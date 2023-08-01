@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Chip from '@material-ui/core/Chip';
 import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
@@ -8,6 +7,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
 import { units } from '../../styles/js/shared';
+import Chip from '../cds/buttons-checkboxes-chips/Chip';
 
 const StyledConditionalSelect = styled.span`
   margin-left: ${units(2)};

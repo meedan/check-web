@@ -2,6 +2,6 @@
   {
     "id": "slackConfig.text",
     "description": "Description of the slack integration",
-    "defaultMessage": "Send notifications to Slack channels when items are added to specific folders"
+    "defaultMessage": "Send notifications to Slack channels"
   }
 ]

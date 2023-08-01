@@ -2,11 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import Button from '@material-ui/core/Button';
 import styles from './ButtonMain.module.css';
 
-// FIXME: Refactor using native button instead of MUI Button
 const ButtonMain = ({
+  className,
   buttonProps,
   customStyle,
   disabled,
@@ -18,12 +17,14 @@ const ButtonMain = ({
   size,
   theme,
   variant,
+  title,
 }) => (
-  <Button
+  <button
     className={cx(
       [styles.buttonMain],
       styles[`theme-${theme}`],
       {
+        [className]: true,
         [styles.sizeDefault]: size === 'default',
         [styles.sizeSmall]: size === 'small',
         [styles.sizeLarge]: size === 'large',
@@ -33,16 +34,12 @@ const ButtonMain = ({
         [styles['input-icon-center']]: iconCenter,
       })
     }
-    classes={{
-      root: styles.root,
-    }}
     style={customStyle}
     onClick={onClick}
     disabled={disabled}
     variant={variant}
-    disableRipple
-    disableFocusRipple
-    disableElevation
+    title={title}
+    type="button"
     {...buttonProps}
   >
     { iconLeft && (
@@ -63,10 +60,12 @@ const ButtonMain = ({
         {iconRight}
       </div>
     )}
-  </Button>
+  </button>
 );
 
 ButtonMain.defaultProps = {
+  label: null,
+  title: null,
   size: 'default',
   theme: 'brand',
   variant: 'contained',
@@ -74,18 +73,21 @@ ButtonMain.defaultProps = {
   iconRight: null,
   iconCenter: null,
   disabled: false,
+  className: null,
   customStyle: {},
   buttonProps: {},
   onClick: () => {},
 };
 
 ButtonMain.propTypes = {
-  label: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  label: PropTypes.object,
   size: PropTypes.oneOf(['default', 'small', 'large']),
   theme: PropTypes.oneOf(['brand', 'lightBrand', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert']),
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
   iconCenter: PropTypes.element,
+  title: PropTypes.object,
   variant: PropTypes.oneOf(['contained', 'outlined', 'text']),
   disabled: PropTypes.bool,
   customStyle: PropTypes.object,
