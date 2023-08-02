@@ -25,7 +25,6 @@ import {
   ReportGmailerrorred as SpamIcon,
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import SelectProjectDialog from '../SelectProjectDialog';
 import { can } from '../../Can';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
@@ -34,7 +33,6 @@ import MediasLoading from '../MediasLoading';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
-import globalStrings from '../../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { Column } from '../../../styles/js/shared';
 import BulkArchiveProjectMediaMutation from '../../../relay/mutations/BulkArchiveProjectMediaMutation';
@@ -143,17 +141,13 @@ const MediaSuggestionsComponent = ({
 }) => {
   const classes = useStyles();
   const [selectedItemId, setSelectedItemId] = React.useState(0);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [isBulkRejectDialogOpen, setIsBulkRejectDialogOpen] = React.useState(false);
   const [isBulkSpamDialogOpen, setIsBulkSpamDialogOpen] = React.useState(false);
   const [isBulkTrashDialogOpen, setIsBulkTrashDialogOpen] = React.useState(false);
   const [isBulkAcceptDialogOpen, setIsBulkAcceptDialogOpen] = React.useState(false);
   const [isMutationPending, setIsMutationPending] = React.useState(false);
-  const [selectedRelationship, setSelectedRelationship] = React.useState(0);
   const [cursor, setCursor] = React.useState(0);
   const [isPaginationLoading, setIsPaginationLoading] = React.useState(false);
-  const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
-  const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
   const openBulkRejectDialog = React.useCallback(() => setIsBulkRejectDialogOpen(true), [setIsBulkRejectDialogOpen]);
   const closeBulkRejectDialog = React.useCallback(() => setIsBulkRejectDialogOpen(false), [setIsBulkRejectDialogOpen]);
   const openBulkAcceptDialog = React.useCallback(() => setIsBulkAcceptDialogOpen(true), [setIsBulkAcceptDialogOpen]);
@@ -169,6 +163,14 @@ const MediaSuggestionsComponent = ({
 
   const handleCompleted = () => {
     setIsMutationPending(false);
+    const message = (
+      <FormattedMessage
+        id="mediaSuggestionsComponent.rejectedSuccessfully"
+        defaultMessage="Suggestion rejected"
+        description="Banner displayed after items are rejected successfully"
+      />
+    );
+    setFlashMessage(message, 'success');
   };
 
   const onFailure = (errors) => {
@@ -309,18 +311,14 @@ const MediaSuggestionsComponent = ({
           return onFailure(error);
         }
         const message = (
-          <div>
-            <Typography variant="subtitle2">
-              <FormattedMessage
-                id="mediaSuggestionsComponent.flashBulkRejectTitle"
-                defaultMessage="{number} media rejected"
-                description="Title that appears in a popup to confirm that a 'bulk reject' action was successful"
-                values={{
-                  number: visibleItemIds.length,
-                }}
-              />
-            </Typography>
-          </div>
+          <FormattedMessage
+            id="mediaSuggestionsComponent.flashBulkRejectTitle"
+            defaultMessage="{number} media rejected"
+            description="Title that appears in a popup to confirm that a 'bulk reject' action was successful"
+            values={{
+              number: visibleItemIds.length,
+            }}
+          />
         );
         if (!disableFlashMessage) {
           setFlashMessage(message, 'success');
@@ -392,16 +390,14 @@ const MediaSuggestionsComponent = ({
           return onFailure(error);
         }
         const message = (
-          <Typography variant="subtitle2">
-            <FormattedMessage
-              id="mediaSuggestionsComponent.flashBulkConfirmTitle"
-              defaultMessage="{number} suggested media matched"
-              description="Title that appears in a popup to confirm that a 'bulk accept' action was successful"
-              values={{
-                number: visibleItemIds.length,
-              }}
-            />
-          </Typography>
+          <FormattedMessage
+            id="mediaSuggestionsComponent.flashBulkConfirmTitle"
+            defaultMessage="{number} suggested media matched"
+            description="Title that appears in a popup to confirm that a 'bulk accept' action was successful"
+            values={{
+              number: visibleItemIds.length,
+            }}
+          />
         );
         closeBulkAcceptDialog();
         setFlashMessage(message, 'success');
@@ -498,9 +494,7 @@ const MediaSuggestionsComponent = ({
     });
   };
 
-  const handleReject = () => {
-    setIsDialogOpen(false);
-
+  const handleReject = (selectedRelationship) => {
     commitMutation(Store, {
       mutation: destroyMutation,
       variables: {
@@ -661,8 +655,7 @@ const MediaSuggestionsComponent = ({
           <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.reject" defaultMessage="Reject media" description="Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list." />}>
             <IconButton
               onClick={() => {
-                setSelectedRelationship(relationshipItem);
-                openDialog();
+                handleReject(relationshipItem);
               }}
               disabled={disableAcceptRejectButtons}
               className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject} similarity-media-item__reject-relationship`}
@@ -955,43 +948,45 @@ const MediaSuggestionsComponent = ({
                     </Button>
                   </DialogActions>
                 </Dialog>
-                <SelectProjectDialog
-                  open={isDialogOpen}
-                  excludeProjectDbids={[]}
-                  title={
-                    <FormattedMessage
-                      id="mediaSuggestionsComponent.dialogRejectTitle"
-                      defaultMessage="Choose a destination folder for this item"
-                      description="Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
-                    />
-                  }
-                  // eslint-disable-next-line @calm/react-intl/missing-attribute
-                  cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" description="Label for an action button that causes a user to move an item into a given folder" />}
-                  submitButtonClassName="media-actions-bar__add-button"
-                  onCancel={closeDialog}
-                  onSubmit={handleReject}
-                />
-                <SelectProjectDialog
+                <Dialog
                   open={isBulkRejectDialogOpen}
-                  excludeProjectDbids={[]}
-                  title={
+                  onClose={closeBulkRejectDialog}
+                  maxWidth="sm"
+                  fullWidth
+                >
+                  <DialogTitle>
                     <FormattedMessage
                       id="mediaSuggestionsComponent.dialogBulkRejectTitle"
-                      defaultMessage="Choose a destination folder for the {number} rejected medias"
-                      description="Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
+                      defaultMessage="Are you sure you want to reject {number} suggestions?"
+                      description="Prompt to a user when they choose to reject media in bulk"
                       values={{
                         number: relationships.slice(cursor, cursor + pageSize).length,
                       }}
                     />
-                  }
-                  // eslint-disable-next-line @calm/react-intl/missing-attribute
-                  cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.bulkRejectConfirm" defaultMessage="Reject all" description="Label for an action button that causes all selected items to be rejected" />}
-                  submitButtonClassName="media-actions-bar__add-button"
-                  onCancel={closeBulkRejectDialog}
-                  onSubmit={handleBulkReject}
-                />
+                  </DialogTitle>
+                  <DialogActions>
+                    <Button color="primary" onClick={closeBulkRejectDialog}>
+                      <FormattedMessage
+                        id="global.cancel"
+                        defaultMessage="Cancel"
+                        description="Regular Cancel action label"
+                      />
+                    </Button>
+                    <Button
+                      color="primary"
+                      onClick={() => handleBulkReject()}
+                    >
+                      <FormattedMessage
+                        id="mediaSuggestionsComponent.dialogBulkRejectConfirm"
+                        defaultMessage="Reject"
+                        description="Button that a user presses to confirm that they are going to reject all visible suggested media"
+                        values={{
+                          number: relationships.slice(cursor, cursor + pageSize).length,
+                        }}
+                      />
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </>
             </Box>
           </div> : null }
