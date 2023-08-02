@@ -6,12 +6,13 @@ import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
-import IconMoreVert from '@material-ui/icons/MoreVert';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import IconMoreVert from '../../../icons/more_vert.svg';
 import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
@@ -28,11 +29,8 @@ const useStyles = makeStyles(() => ({
   },
   inner: {
     position: 'absolute',
-    top: 0,
-    right: 0,
-  },
-  menuIcon: {
-    padding: '8px 19px',
+    top: '8px',
+    right: '8px',
   },
 }));
 
@@ -72,7 +70,6 @@ const RelationshipMenu = ({
   targetId,
   mainProjectMedia,
 }) => {
-  const classes = useStyles();
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
@@ -217,13 +214,14 @@ const RelationshipMenu = ({
     <>
       { canDelete && canSwitch ? (
         <Box>
-          <IconButton
+          <ButtonMain
+            iconCenter={<IconMoreVert />}
             onClick={handleOpenMenu}
-            className={`media-similarity__menu-icon ${classes.menuIcon}`}
+            className="media-similarity__menu-icon"
             size="small"
-          >
-            <IconMoreVert fontSize="small" />
-          </IconButton>
+            variant="contained"
+            theme="text"
+          />
           <Menu
             anchorEl={anchorEl}
             keepMounted
