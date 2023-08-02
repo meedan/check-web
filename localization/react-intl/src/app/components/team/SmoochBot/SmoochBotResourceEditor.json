@@ -41,6 +41,7 @@
   },
   {
     "id": "smoochBotResourceEditor.load",
+    "description": "Label for a button to load RSS feed entries",
     "defaultMessage": "Load"
   },
   {
