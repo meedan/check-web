@@ -72,8 +72,8 @@ shared_examples 'app' do |webdriver_url|
 
   after :each do |example|
     flaky = {}
-    link = save_screenshot("Test failed: #{example.description}")
     if example.exception
+      link = save_screenshot("Test failed: #{example.description}")
       if @failing_tests.key? example.description
         @failing_tests[example.description]['failures'] = example.metadata[:retry_attempts] + 1
         @failing_tests[example.description]['imgur'] = link
