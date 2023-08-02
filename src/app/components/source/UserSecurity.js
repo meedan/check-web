@@ -139,9 +139,6 @@ class UserSecurity extends Component {
   }
 
   handleSecuritySettings(type, e, inputChecked) {
-    console.log(`type ${type}`); // eslint-disable-line no-console
-    console.log(`e ${e}`); // eslint-disable-line no-console
-    console.log(`inputChecked ${inputChecked}`); // eslint-disable-line no-console
     const { id } = this.props.user;
 
     const onSuccess = () => {
