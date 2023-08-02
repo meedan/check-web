@@ -26,6 +26,13 @@ import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { Column } from '../../../styles/js/shared';
 import BulkArchiveProjectMediaMutation from '../../../relay/mutations/BulkArchiveProjectMediaMutation';
+import HelpIcon from '../../../icons/help.svg';
+import AcceptIcon from '../../../icons/check_circle.svg';
+import RejectIcon from '../../../icons/cancel.svg';
+import SpamIcon from '../../../icons/report.svg';
+import TrashIcon from '../../../icons/delete.svg';
+import NextIcon from '../../../icons/chevron_right.svg';
+import PreviousIcon from '../../../icons/chevron_left.svg';
 
 const useStyles = makeStyles(theme => ({
   containerBox: {
@@ -993,26 +1000,31 @@ const MediaSuggestionsComponent = ({
                     />
                   </DialogTitle>
                   <DialogActions>
-                    <Button color="primary" onClick={closeBulkRejectDialog}>
-                      <FormattedMessage
+                    <ButtonMain
+                      variant="text"
+                      size="default"
+                      theme="text"
+                      onClick={closeBulkRejectDialog}
+                      label={<FormattedMessage
                         id="global.cancel"
                         defaultMessage="Cancel"
                         description="Regular Cancel action label"
-                      />
-                    </Button>
-                    <Button
-                      color="primary"
+                      />}
+                    />
+                    <ButtonMain
+                      variant="contained"
+                      size="default"
+                      theme="brand"
                       onClick={() => handleBulkReject()}
-                    >
-                      <FormattedMessage
+                      label={<FormattedMessage
                         id="mediaSuggestionsComponent.dialogBulkRejectConfirm"
                         defaultMessage="Reject"
                         description="Button that a user presses to confirm that they are going to reject all visible suggested media"
                         values={{
                           number: relationships.slice(cursor, cursor + pageSize).length,
                         }}
-                      />
-                    </Button>
+                      />}
+                    />
                   </DialogActions>
                 </Dialog>
               </>
