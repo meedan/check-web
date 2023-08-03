@@ -31,7 +31,7 @@ function sort(items) {
   return items.slice().sort((a, b) => b.node.target.requests_count - a.node.target.requests_count);
 }
 
-const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
+const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting, superAdminMask }) => {
   const classes = useStyles();
 
   return (
@@ -49,6 +49,7 @@ const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
             mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
             relationshipSourceId={relationship.node.source_id}
             relationshipTargetId={relationship.node.target_id}
+            superAdminMask={superAdminMask}
           />
         ))}
       </div>
@@ -74,6 +75,11 @@ MediaSimilaritiesComponent.propTypes = {
       })).isRequired,
     }).isRequired,
   }).isRequired,
+  superAdminMask: PropTypes.bool,
+};
+
+MediaSimilaritiesComponent.defaultProps = {
+  superAdminMask: false,
 };
 
 export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
@@ -100,6 +106,7 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
             linked_items_count
             report_status
             added_as_similar_by_name
+            show_warning_cover
             confirmed_as_similar_by_name
             is_confirmed_similar_to_another_item
             url
