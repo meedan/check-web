@@ -119,57 +119,6 @@ const SandboxComponent = ({ admin }) => {
           <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
         </li>
       </ul>
-      <section id="sandbox-loaders">
-        <h6>LoadingAnimations</h6>
-        <div className={styles.componentWrapper}>
-          <div className={styles.componentControls}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>
-              MediasLoading
-            </div>
-            <ul>
-              <li>
-                <Select
-                  label="Size"
-                  onChange={onChangeLoadingSize}
-                >
-                  <option value="icon">icon</option>
-                  <option value="small">small</option>
-                  <option value="medium">medium</option>
-                  <option value="large" selected>large</option>
-                </Select>
-              </li>
-              <li>
-                <Select
-                  label="Theme"
-                  onChange={onChangeLoadingTheme}
-                >
-                  <option value="grey" selected>grey</option>
-                  <option value="white">white</option>=
-                </Select>
-              </li>
-              <li>
-                <Select
-                  label="Variant"
-                  onChange={onChangeLoadingVariant}
-                >
-                  <option value="inline" selected>inline</option>
-                  <option value="page">page</option>=
-                </Select>
-              </li>
-            </ul>
-          </div>
-          <div
-            className={cx(
-              [styles.componentInlineVariants],
-              {
-                [styles.componentInlineGreyVariants]: loadingTheme === 'white',
-              })
-            }
-          >
-            <MediasLoading theme={loadingTheme} variant={loadingVariant} size={loadingSize} />
-          </div>
-        </div>
-      </section>
       <section id="sandbox-buttons">
         <h6>Buttons</h6>
         <div className={styles.componentWrapper}>
@@ -620,6 +569,57 @@ const SandboxComponent = ({ admin }) => {
               variant={alertVariant}
               onClose={alertClosable ? () => {} : null}
             />
+          </div>
+        </div>
+      </section>
+      <section id="sandbox-loaders">
+        <h6>LoadingAnimations</h6>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              MediasLoading
+            </div>
+            <ul>
+              <li>
+                <Select
+                  label="Size"
+                  onChange={onChangeLoadingSize}
+                >
+                  <option value="icon">icon</option>
+                  <option value="small">small</option>
+                  <option value="medium">medium</option>
+                  <option value="large" selected>large</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Theme"
+                  onChange={onChangeLoadingTheme}
+                >
+                  <option value="grey" selected>grey</option>
+                  <option value="white">white</option>=
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={onChangeLoadingVariant}
+                >
+                  <option value="inline" selected>inline</option>
+                  <option value="page">page</option>=
+                </Select>
+              </li>
+            </ul>
+          </div>
+          <div
+            className={cx(
+              [styles.componentInlineVariants],
+              {
+                [styles.componentInlineGreyVariants]: loadingTheme === 'white',
+              })
+            }
+          >
+            <MediasLoading theme={loadingTheme} variant={loadingVariant} size={loadingSize} />
           </div>
         </div>
       </section>
