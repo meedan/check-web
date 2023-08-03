@@ -1,5 +1,10 @@
 [
   {
+    "id": "mediaSuggestionsComponent.rejectedSuccessfully",
+    "description": "Banner displayed after items are rejected successfully",
+    "defaultMessage": "Suggestion rejected"
+  },
+  {
     "id": "mediaSuggestionsComponent.flashBulkRejectTitle",
     "description": "Title that appears in a popup to confirm that a 'bulk reject' action was successful",
     "defaultMessage": "{number} media rejected"
@@ -140,24 +145,14 @@
     "defaultMessage": "Send to trash"
   },
   {
-    "id": "mediaSuggestionsComponent.dialogRejectTitle",
-    "description": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on",
-    "defaultMessage": "Choose a destination folder for this item"
-  },
-  {
-    "id": "mediaSuggestionsComponent.moveItem",
-    "description": "Label for an action button that causes a user to move an item into a given folder",
-    "defaultMessage": "Move item"
-  },
-  {
     "id": "mediaSuggestionsComponent.dialogBulkRejectTitle",
-    "description": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on",
-    "defaultMessage": "Choose a destination folder for the {number} rejected medias"
+    "description": "Prompt to a user when they choose to reject media in bulk",
+    "defaultMessage": "Are you sure you want to reject {number} suggestions?"
   },
   {
-    "id": "mediaSuggestionsComponent.bulkRejectConfirm",
-    "description": "Label for an action button that causes all selected items to be rejected",
-    "defaultMessage": "Reject all"
+    "id": "mediaSuggestionsComponent.dialogBulkRejectConfirm",
+    "description": "Button that a user presses to confirm that they are going to reject all visible suggested media",
+    "defaultMessage": "Reject"
   },
   {
     "id": "mediaSuggestions.lastSubmitted",

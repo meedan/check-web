@@ -18,6 +18,7 @@ import Team from './team/Team';
 import TiplineInbox from './team/TiplineInbox';
 import ImportedReports from './team/ImportedReports';
 import SuggestedMatches from './team/SuggestedMatches';
+import UnmatchedMedia from './team/UnmatchedMedia';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
 import SaveFeed from './feed/SaveFeed';
@@ -105,6 +106,7 @@ class Root extends Component {
                   <Route path=":team/tipline-inbox(/:query)" component={TiplineInbox} />
                   <Route path=":team/imported-fact-checks(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
+                  <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeed} />
                   <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
                   <Route path=":team/feed/create" component={SaveFeed} />
