@@ -50,6 +50,9 @@ function noFilters(query_, project, projectGroup) {
   if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
     delete query.channels;
   }
+  if (/\/(unmatched-media)+/.test(window.location.pathname)) {
+    delete query.unmatched;
+  }
   if (/\/(suggested-matches)+/.test(window.location.pathname)) {
     delete query.suggestions_count;
   }
@@ -147,7 +150,7 @@ Search.propTypes = {
   icon: PropTypes.node,
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'suggested-matches', 'feed', 'tipline-inbox']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'suggested-matches', 'feed', 'tipline-inbox', 'unmatched-media']), // FIXME find a cleaner way to render Trash differently
   query: PropTypes.object.isRequired, // may be empty
   showExpand: PropTypes.bool,
   resultType: PropTypes.string, // 'default' or 'feed', for now
