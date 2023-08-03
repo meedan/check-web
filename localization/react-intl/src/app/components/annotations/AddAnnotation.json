@@ -1,26 +1,32 @@
 [
   {
     "id": "addAnnotation.error",
+    "description": "Error message to try action again or contact support for more help",
     "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "addAnnotation.invalidCommand",
+    "description": "Error message when a command is invalid",
     "defaultMessage": "Invalid command"
   },
   {
     "id": "addAnnotation.inputEditHint",
+    "description": "Input help text about editing notes",
     "defaultMessage": "Edit note"
   },
   {
     "id": "addAnnotation.inputHint",
+    "description": "Input help text about adding new notes",
     "defaultMessage": "Add a note"
   },
   {
     "id": "addAnnotation.addFile",
+    "description": "Tooltip to tell the user they can add files",
     "defaultMessage": "Add a file"
   },
   {
     "id": "addAnnotation.submitButton",
+    "description": "Button text for submitting the annotation form",
     "defaultMessage": "Submit"
   }
 ]

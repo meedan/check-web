@@ -1,17 +1,16 @@
-:global(.MuiButton-root).buttonMain {
+/* stylelint-disable no-descending-specificity */
+.buttonMain {
   @mixin typography-button;
+  align-items: center;
   border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
   min-width: auto;
   padding: 4px 8px;
   transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
-
-  :global(.MuiButton-label) {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    justify-content: center;
-  }
 
   .buttonMainLabel {
     display: inline-block;
@@ -32,6 +31,7 @@
 
   &.sizeSmall {
     @mixin typography-body2;
+    gap: 4px;
     padding: 4px 6px;
 
     .input-icon-left-icon,
@@ -39,10 +39,6 @@
     .input-icon-center-icon {
       /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
       font-size: 16px;
-    }
-
-    :global(.MuiButton-label) {
-      gap: 4px;
     }
 
     &.input-icon-center {
@@ -53,6 +49,8 @@
   }
 
   &.sizeLarge {
+    min-height: 48px;
+
     .input-icon-left-icon,
     .input-icon-right-icon {
       /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
@@ -65,9 +63,9 @@
     }
 
     &.input-icon-center {
-      height: 50px;
-      min-width: 50px;
-      width: 50px;
+      height: 48px;
+      min-width: 48px;
+      width: 48px;
     }
   }
 
@@ -99,8 +97,8 @@
 
     &.contained {
       &:disabled {
-        border: solid 2px var(--grayDisabledBackground);
         background-color: var(--grayDisabledBackground);
+        border: solid 2px var(--grayDisabledBackground);
       }
     }
 
@@ -288,3 +286,4 @@
     }
   }
 }
+/* stylelint-enable */

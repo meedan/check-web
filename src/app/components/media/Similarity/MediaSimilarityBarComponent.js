@@ -108,7 +108,7 @@ MediaSimilarityBarComponent.propTypes = {
   confirmedSimilarCount: PropTypes.number.isRequired,
   hasMain: PropTypes.bool,
   isSuggested: PropTypes.bool,
-  confirmedMainItemId: PropTypes.number,
+  confirmedMainItemId: PropTypes.string, // GraphQL base64 ID
   canAdd: PropTypes.bool,
   isBlank: PropTypes.bool,
   isPublished: PropTypes.bool,

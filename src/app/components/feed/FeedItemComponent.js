@@ -10,7 +10,6 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Chip,
   Dialog,
   Divider,
   FormControl,
@@ -31,6 +30,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import MediaStatus from '../media/MediaStatus';
 import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
 import MediaExpandedComponent from '../media/MediaExpanded';
+import Chip from '../cds/buttons-checkboxes-chips/Chip';
 import NextPreviousLinks from '../media/NextPreviousLinks';
 import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';

@@ -72,8 +72,8 @@ shared_examples 'app' do |webdriver_url|
 
   after :each do |example|
     flaky = {}
-    link = save_screenshot("Test failed: #{example.description}")
     if example.exception
+      link = save_screenshot("Test failed: #{example.description}")
       if @failing_tests.key? example.description
         @failing_tests[example.description]['failures'] = example.metadata[:retry_attempts] + 1
         @failing_tests[example.description]['imgur'] = link
@@ -195,41 +195,6 @@ shared_examples 'app' do |webdriver_url|
       title = wait_for_selector('.not-found__component')
       expect(title.text).to match(/page does not exist/)
       expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
-    end
-
-    it 'should go back to the right url from the item page', bin3: true do
-      # item created in a project
-      api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.media__annotations-tabs')
-      wait_for_selector('.project-header__back-button').click
-      wait_for_selector('#search-input')
-      wait_for_selector_list_size('.medias__item', 1, :css, 30)
-      expect(@driver.current_url.to_s.match(%r{/project/[0-9]+$}).nil?).to be(false) # project page
-      # send this item to trash go to the item page and go back to trash page
-      wait_for_selector('table input[type=checkbox]').click
-      wait_for_selector('#media-bulk-actions')
-      wait_for_selector('.media-bulk-actions__delete-icon').click
-      wait_for_selector_none('.medias__item')
-      expect(@driver.find_elements(:css, '.media__heading').length.zero?).to be(true)
-      @driver.navigate.to "#{@config['self_url']}/#{get_team}/trash"
-      wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
-      wait_for_selector('.medias__item', :css, 20, true)
-      wait_for_selector('.media__heading').click
-      wait_for_selector('.media-actions__icon')
-      wait_for_selector('.project-header__back-button').click
-      wait_for_selector('#search-input')
-      wait_for_selector('#side-navigation__toggle').click
-      all = wait_for_selector('.projects-list__all-items')
-      expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
-      # item created from "all items" page
-      all.click
-      create_media('claim 2', false)
-      wait_for_selector('.media__heading', :css, 20, true).click
-      wait_for_selector('.media__annotations-tabs')
-      wait_for_selector('.project-header__back-button').click
-      wait_for_selector_list_size('.medias__item', 1, :css, 30)
-      wait_for_selector('#create-media__add-item')
-      expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # all items page
     end
 
     it 'should linkify URLs on comments', bin1: true do

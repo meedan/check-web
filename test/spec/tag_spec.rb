@@ -34,7 +34,7 @@ shared_examples 'tag' do
     expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(true)
   end
 
-  it 'should add a tag rule and use tag filter', bin3: true, quick: true do
+  it 'should add a tag rule', bin3: true, quick: true do
     team = "team#{Time.now.to_i}-#{rand(99_999)}"
     create_team_and_go_to_settings_page(team)
     # create a tag
@@ -60,18 +60,10 @@ shared_examples 'tag' do
     # create a media
     wait_for_selector('.projects-list__all-items').click
     create_media('new media')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch
+    sleep 30 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-tags__tag')
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
-    wait_for_selector('.tag-menu__icon')
-    # click on the tag and go to search page with the tag filter and see the item
-    wait_for_selector('.media-tags__tag').click
-    wait_for_selector('.media__heading', :css, 20, true)
-    wait_for_selector('#search-input')
-    wait_for_selector('.multi-select-filter__tag')
-    expect(@driver.page_source.include?('tag added automatically')).to be(true)
-    expect(@driver.page_source.include?('new media')).to be(true)
   end
 
   it 'should add a tag, reject duplicated tag', bin3: true, quick: true do

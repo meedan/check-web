@@ -256,8 +256,8 @@ const ProjectActions = ({
     }
   };
 
-  // Should disable delete from objectType = 'Project' if user has no permissions to destroy
-  const disableDeleteProject = objectType === 'Project' && !can(projectPermissions, 'destroy Project');
+  // Should disable delete from objectType = 'Project' if user has no permissions to destroy or if project is default
+  const disableDeleteProject = objectType === 'Project' && (!can(projectPermissions, 'destroy Project') || object.is_default);
 
   return (
     <Can permissions={team.permissions} permission="create Project">

@@ -681,6 +681,7 @@ const SearchFields = ({
 };
 
 SearchFields.defaultProps = {
+  page: null,
   project: null,
   projectGroup: null,
   savedSearch: null,
@@ -718,7 +719,7 @@ SearchFields.propTypes = {
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
 };
 
 SearchFields.contextTypes = {

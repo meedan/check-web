@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Chip from '@material-ui/core/Chip';
+import Chip from '../../cds/buttons-checkboxes-chips/Chip';
 
 const useStyles = makeStyles(theme => ({
   field: {

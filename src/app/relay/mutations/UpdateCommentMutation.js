@@ -13,7 +13,6 @@ class UpdateCommentMutation extends Relay.Mutation {
       project_media {
         id,
         comments,
-        log_count
       }
     }`;
   }
