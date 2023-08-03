@@ -36,7 +36,7 @@ const ProjectMedia = (parentProps, context) => {
         }}
         render={({ error, props }) => {
           if (!error && !props) {
-            return (<MediasLoading count={1} />);
+            return (<MediasLoading theme="grey" variant="page" size="large" />);
           }
 
           if (!error && props) {
