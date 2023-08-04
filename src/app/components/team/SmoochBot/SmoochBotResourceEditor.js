@@ -9,10 +9,9 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import CancelIcon from '../../../icons/cancel.svg';
+import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import ParsedText from '../../ParsedText';
 
@@ -112,8 +111,7 @@ const SmoochBotResourceEditor = ({
     onChange('smooch_custom_resource_feed_url', '');
   };
 
-  const handleToggleRss = (event) => {
-    const enabled = event.target.checked;
+  const handleToggleRss = (enabled) => {
     setRssEnabled(enabled);
     if (enabled) {
       onChange('smooch_custom_resource_feed_url', '');
@@ -200,20 +198,15 @@ const SmoochBotResourceEditor = ({
           /> : null }
       </Box>
       <Box mb={3} mt={2} ml={1}>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={rssEnabled}
-              onChange={handleToggleRss}
-            />
-          }
-          label={
-            <FormattedMessage
-              id="smoochBotResourceEditor.rss"
-              defaultMessage="Load content from RSS feed"
-              description="Label of switch that toggles loading of content from a RSS feed"
-            />
-          }
+        <SwitchComponent
+          checked={rssEnabled}
+          onChange={() => handleToggleRss(!rssEnabled)}
+          labelPlacement="end"
+          label={<FormattedMessage
+            id="smoochBotResourceEditor.rss"
+            defaultMessage="Load content from RSS feed"
+            description="Label of switch that toggles loading of content from a RSS feed"
+          />}
         />
       </Box>
       { rssEnabled ?

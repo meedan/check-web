@@ -1,4 +1,4 @@
-FROM node:12.16.1-buster AS base
+FROM node:14.20.1-buster AS base
 MAINTAINER Meedan <sysops@meedan.com>
 
 # Set a UTF-8 capabable locale
