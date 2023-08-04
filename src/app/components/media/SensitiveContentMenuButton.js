@@ -11,9 +11,9 @@ import {
   Popover,
   Radio,
   RadioGroup,
-  Switch,
   TextField,
 } from '@material-ui/core';
+import SwitchComponent from '../cds/inputs/SwitchComponent';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
@@ -64,7 +64,7 @@ const SensitiveContentMenu = ({
   const [customType, setCustomType] = React.useState(warningTypeCustom);
   const [formError, setFormError] = React.useState(null);
 
-  const handleSwitch = (e, inputChecked) => {
+  const handleSwitch = (inputChecked) => {
     setEnableSwitch(inputChecked);
     if (!inputChecked) {
       setContentType(null);
@@ -211,11 +211,15 @@ const SensitiveContentMenu = ({
     >
       <Box p={2}>
         <Box color={!enableSwitch && (formError === 'no_switch_enabled') ? 'red' : null}>
-          <Switch checked={enableSwitch} onChange={handleSwitch} />
-          <FormattedMessage
-            id="sensitiveContentMenuButton.enableSwitch"
-            defaultMessage="Enable content warning"
-            description="Switch to enable sensitive content screen"
+          <SwitchComponent
+            checked={enableSwitch}
+            onChange={() => handleSwitch(!enableSwitch)}
+            labelPlacement="end"
+            label={<FormattedMessage
+              id="sensitiveContentMenuButton.enableSwitch"
+              defaultMessage="Enable content warning"
+              description="Switch to enable sensitive content screen"
+            />}
           />
         </Box>
         <Box
