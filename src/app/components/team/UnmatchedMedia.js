@@ -8,6 +8,8 @@ import UnmatchedIcon from '../../icons/unmatched.svg';
 const UnmatchedMedia = ({ routeParams }) => {
   const query = {
     unmatched: [1],
+    sort: 'recent_activity',
+    sort_type: 'DESC',
     ...safelyParseJSON(routeParams.query, {}),
   };
   return (
