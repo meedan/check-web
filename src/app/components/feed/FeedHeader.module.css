@@ -14,7 +14,7 @@
       color: var(--textPrimary);
       display: -webkit-box; /* stylelint-disable */
       margin: 0;
-      max-height: 3em;
+      max-height: 5em;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       overflow: hidden;
