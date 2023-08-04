@@ -91,6 +91,7 @@ const SavedSearch = ({ routeParams }) => (
                   />
                 }
                 title={props.saved_search.title}
+                listSubtitle={<FormattedMessage id="savedSearch.subtitle" defaultMessage="Custom List" description="Displayed on top of the custom list title on the search results page." />}
                 teamSlug={routeParams.team}
                 query={query}
                 savedSearch={props.saved_search}

@@ -74,6 +74,7 @@ function SearchResultsComponent({
   relay,
   title,
   icon,
+  listSubtitle,
   listActions,
   page,
   resultType,
@@ -386,10 +387,17 @@ function SearchResultsComponent({
     <React.Fragment>
       <div className={styles['search-results-header']}>
         <div className="search__list-header-filter-row">
-          <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
-            { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
-            <div className={cx('project__title-text', styles['project-title'])}>
-              {title}
+          <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
+            { listSubtitle &&
+              <div className={styles.seachHeaderSubtitle}>
+                {listSubtitle}
+              </div>
+            }
+            <div className={cx('project__title-text', styles.seachHeaderTitle)}>
+              { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
+              <h6 className={['typography-h6', styles.feedHeaderTitle].join(' ')} title={title}>
+                {title}
+              </h6>
             </div>
             { savedSearch?.is_part_of_feeds ?
               <Tooltip
@@ -560,6 +568,7 @@ SearchResultsComponent.defaultProps = {
   savedSearch: null,
   feedTeam: null,
   feed: null,
+  listSubtitle: null,
   extra: null,
 };
 
@@ -596,6 +605,7 @@ SearchResultsComponent.propTypes = {
   showExpand: PropTypes.bool,
   relay: PropTypes.object.isRequired,
   title: PropTypes.node.isRequired,
+  listSubtitle: PropTypes.object,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
   page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'feed']), // FIXME find a cleaner way to render Trash differently
@@ -760,6 +770,7 @@ export default function SearchResults({ query, teamSlug, ...props }) {
 }
 
 SearchResults.propTypes = {
+  listSubtitle: PropTypes.object,
   query: PropTypes.object.isRequired,
   teamSlug: PropTypes.string.isRequired,
   extra: PropTypes.node,
@@ -767,4 +778,5 @@ SearchResults.propTypes = {
 
 SearchResults.defaultProps = {
   extra: null,
+  listSubtitle: null,
 };

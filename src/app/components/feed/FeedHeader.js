@@ -20,13 +20,9 @@ const FeedHeader = ({ feed }) => {
   };
 
   return (
-    <div className={`${styles.feedHeader} feed-header`}>
-      <div className={['typography-caption', styles.feedHeaderSubtitle].join(' ')}>
-        <FormattedMessage id="feedHeader.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />
-      </div>
-
-      <div className={styles.feedHeaderRow}>
-        <h6 className={['typography-h6', styles.feedHeaderTitle].join(' ')} title={feed.name}>
+    <div className="feed-header">
+      <div className={styles.seachHeaderTitle}>
+        <h6 title={feed.name}>
           {feed.name}
         </h6>
 

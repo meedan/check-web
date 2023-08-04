@@ -87,6 +87,7 @@ class ProjectComponent extends React.PureComponent {
           searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
+          listSubtitle={<FormattedMessage id="project.subtitle" defaultMessage="Folder" description="Displayed on top of the folder title on the search results page." />}
           listActions={
             <React.Fragment>
               { project.privacy > 0 ?
@@ -211,7 +212,7 @@ const Project = ({ routeParams, ...props }) => {
             ? <NotFound />
             : <ProjectContainer routeParams={routeParams} {...props} {...data} />
         )}
-        renderLoading={() => <MediasLoading theme="grey" variant="page" size="large" />}
+        renderLoading={() => <MediasLoading />}
       />
     </ErrorBoundary>
   );

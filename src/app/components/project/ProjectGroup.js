@@ -42,6 +42,7 @@ const ProjectGroup = ({ routeParams }) => (
               <Search
                 searchUrlPrefix={`/${routeParams.team}/collection/${routeParams.projectGroupId}`}
                 mediaUrlPrefix={`/${routeParams.team}/media`}
+                listSubtitle={<FormattedMessage id="projectGroup.subtitle" defaultMessage="Collection" description="Displayed on top of the collection title on the search results page." />}
                 title={props.project_group.title}
                 listActions={
                   <ProjectActions

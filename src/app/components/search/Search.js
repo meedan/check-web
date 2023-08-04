@@ -77,6 +77,7 @@ export default function Search({
   listActions,
   mediaUrlPrefix,
   page,
+  listSubtitle,
   teamSlug,
   project,
   projectGroup,
@@ -100,6 +101,7 @@ export default function Search({
     <SearchResults
       searchUrlPrefix={searchUrlPrefix}
       mediaUrlPrefix={mediaUrlPrefix}
+      listSubtitle={listSubtitle}
       teamSlug={teamSlug}
       project={project}
       projectGroup={projectGroup}
@@ -134,6 +136,7 @@ Search.defaultProps = {
   resultType: 'default',
   icon: null,
   extra: null,
+  listSubtitle: null,
 };
 
 Search.propTypes = {
@@ -145,6 +148,7 @@ Search.propTypes = {
   feedTeam: PropTypes.object, // or null
   feed: PropTypes.object, // or null
   savedSearch: PropTypes.object, // or null
+  listSubtitle: PropTypes.object,
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,
   icon: PropTypes.node,
