@@ -1,41 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  AudiotrackOutlined,
-  DescriptionOutlined,
-  ImageOutlined,
-  MovieOutlined,
-  PublicOutlined,
-  Facebook,
-  Instagram,
-  Twitter,
-  YouTube,
-  PlaylistAddCheck,
-} from '@material-ui/icons';
+import Audiotrack from '../../icons/audiotrack.svg';
+import Description from '../../icons/description.svg';
+import Facebook from '../../icons/facebook.svg';
+import Image from '../../icons/image.svg';
+import Instagram from '../../icons/instagram.svg';
+import Movie from '../../icons/movie.svg';
+import PlaylistAddCheck from '../../icons/playlist_add_check.svg';
+import Public from '../../icons/public.svg';
+import Twitter from '../../icons/twitter.svg';
+import YouTube from '../../icons/youtube.svg';
 
 export default function MediaTypeDisplayIcon({ mediaType }) {
-  const props = { fontSize: 'small' };
   switch (mediaType) {
   case 'Claim':
-    return <DescriptionOutlined {...props} />;
+    return <Description style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Link':
-    return <PublicOutlined {...props} />;
+    return <Public style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'UploadedImage':
-    return <ImageOutlined {...props} />;
+    return <Image style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'UploadedVideo':
-    return <MovieOutlined {...props} />;
+    return <Movie style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'UploadedAudio':
-    return <AudiotrackOutlined {...props} />;
+    return <Audiotrack style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Facebook':
-    return <Facebook {...props} />;
+    return <Facebook style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Instagram':
-    return <Instagram {...props} />;
+    return <Instagram style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Twitter':
-    return <Twitter {...props} />;
+    return <Twitter style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Youtube':
-    return <YouTube {...props} />;
+    return <YouTube style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Blank':
-    return <PlaylistAddCheck {...props} />;
+    return <PlaylistAddCheck style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case '-':
   default:
     return null;

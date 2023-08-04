@@ -7,10 +7,10 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import CancelIcon from '../../../icons/cancel.svg';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import ParsedText from '../../ParsedText';
@@ -34,9 +34,6 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexWrap: 'wrap',
-  },
-  icon: {
-    color: 'var(--textDisabled)',
   },
   load: {
     height: theme.spacing(4),
@@ -254,17 +251,16 @@ const SmoochBotResourceEditor = ({
             variant="outlined"
             fullWidth
           />
-
-          <Button variant="contained" color="primary" className={classes.spaced} onClick={handleLoad} disabled={loading}>
-            <FormattedMessage
-              id="smoochBotResourceEditor.load"
-              defaultMessage="Load"
-            />
-          </Button>
-
-          <IconButton onClick={handleReset}>
-            <CancelOutlinedIcon className={classes.icon} />
-          </IconButton>
+          <ButtonMain
+            label={<FormattedMessage id="smoochBotResourceEditor.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />}
+            variant="contained"
+            size="large"
+            theme="brand"
+            onClick={handleLoad}
+            disabled={loading}
+            className={classes.spaced}
+          />
+          <ButtonMain variant="text" size="large" theme="lightText" iconCenter={<CancelIcon />} onClick={handleReset} />
         </Box>
         : null }
 
