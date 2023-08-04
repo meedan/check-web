@@ -198,7 +198,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
       }}
       render={({ props, error }) => {
         if (!error && !props) {
-          return <MediasLoading center />;
+          return <MediasLoading theme="grey" variant="inline" size="medium" />;
         }
         if (props && !error) {
           return (<RequestCards {...props} mediaDbid={mediaDbid} />);

@@ -754,7 +754,7 @@ export default function SearchResults({ query, teamSlug, ...props }) {
       renderFetched={data => (
         <SearchResultsContainer {...props} query={query} search={data.search} />
       )}
-      renderLoading={() => <MediasLoading />}
+      renderLoading={() => <MediasLoading theme="grey" variant="page" size="large" />}
     />
   );
 }

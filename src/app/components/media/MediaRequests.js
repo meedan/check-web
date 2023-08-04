@@ -209,7 +209,7 @@ const MediaRequests = (props) => {
       renderFetched={data =>
         <Container cachedMedia={media} style={style} all={all} {...data} />}
       route={route}
-      renderLoading={() => <MediasLoading count={1} />}
+      renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
       forceFetch
     />
   );
