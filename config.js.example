@@ -50,4 +50,5 @@ window.config = {
   sentryAuthToken: null,
   sentryOrg: null,
   sentryProject: null,
+  sentryEnvironment: null,
 }
