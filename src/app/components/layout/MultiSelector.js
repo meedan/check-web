@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Radio from '@material-ui/core/Radio';
 import { withStyles } from '@material-ui/core/styles';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const styles = theme => ({
   multiSelectorArea: {
@@ -184,6 +185,7 @@ class MultiSelector extends React.Component {
 
   render() {
     const {
+      hasMore,
       onDismiss,
       onScrollBottom,
       onSubmit,
@@ -195,14 +197,6 @@ class MultiSelector extends React.Component {
       (this.props.single && this.state.selected === this.props.defaultValue) ||
       (!this.props.single && JSON.stringify(this.state.selected.sort()) === JSON.stringify(this.props.defaultValue.sort()))
     );
-
-    const handleScroll = onScrollBottom ? (e) => {
-      const { scrollHeight, scrollTop, clientHeight } = e.target;
-
-      if (scrollTop >= scrollHeight - clientHeight) {
-        onScrollBottom();
-      }
-    } : null;
 
     return (
       <div>
@@ -244,63 +238,65 @@ class MultiSelector extends React.Component {
           </Box>
           : null
         }
-        <div
-          className={classes.multiSelectorArea}
-          onScroll={handleScroll}
-        >
-          {
-            this.props.loadingIcon ? this.props.loadingIcon : (
-              <FormGroup>
-                {
-                  options.map((o, index) => {
-                    if (o.value === '' && o.label === '') {
-                      return (
-                        <Divider key={`multiselector-divider-${index.toString()}`} />
-                      );
-                    }
-                    if (o.value === '') {
-                      return (
-                        <span className={classes.category} key={`multiselector-header-${index.toString()}`}>
-                          {o.label}
-                        </span>
-                      );
-                    }
-                    const icons = {};
-                    if (o.icon) icons.icon = o.icon;
-                    if (o.checkedIcon) icons.checkedIcon = o.checkedIcon;
-
+        <div className={classes.multiSelectorArea}>
+          <InfiniteScroll
+            hasMore={hasMore}
+            loadMore={onScrollBottom}
+            initialLoad={false}
+            useWindow={false}
+            threshold={32}
+          >
+            <FormGroup>
+              {
+                options.map((o, index) => {
+                  if (o.value === '' && o.label === '') {
                     return (
-                      <FormControlLabel
-                        key={`multiselector-option-${index.toString()}`}
-                        className={o.parent ? classes.child : ''}
-                        control={this.props.single ?
-                          <Radio
-                            checked={this.state.selected === o.value}
-                            onChange={this.handleSelectRadio}
-                            id={o.value}
-                            {...icons}
-                          /> :
-                          <Checkbox
-                            checked={this.state.selected.indexOf(o.value) > -1}
-                            onChange={this.handleSelectCheckbox}
-                            id={o.value}
-                            {...icons}
-                          />
-                        }
-                        label={<span style={{ color: o.color }}>{o.label} </span>}
-                      />
+                      <Divider key={`multiselector-divider-${index.toString()}`} />
                     );
-                  })
-                }
-                { options.length < 1 ?
-                  <div className={classes.notFound}>
-                    { this.props.notFoundLabel }
-                  </div>
-                  : null
-                }
-              </FormGroup>
-            )
-          }
+                  }
+                  if (o.value === '') {
+                    return (
+                      <span className={classes.category} key={`multiselector-header-${index.toString()}`}>
+                        {o.label}
+                      </span>
+                    );
+                  }
+                  const icons = {};
+                  if (o.icon) icons.icon = o.icon;
+                  if (o.checkedIcon) icons.checkedIcon = o.checkedIcon;
+
+                  return (
+                    <FormControlLabel
+                      key={`multiselector-option-${index.toString()}`}
+                      className={o.parent ? classes.child : ''}
+                      control={this.props.single ?
+                        <Radio
+                          checked={this.state.selected === o.value}
+                          onChange={this.handleSelectRadio}
+                          id={o.value}
+                          {...icons}
+                        /> :
+                        <Checkbox
+                          checked={this.state.selected.indexOf(o.value) > -1}
+                          onChange={this.handleSelectCheckbox}
+                          id={o.value}
+                          {...icons}
+                        />
+                      }
+                      label={<span style={{ color: o.color }}>{o.label} </span>}
+                    />
+                  );
+                })
+              }
+              { options.length < 1 ?
+                <div className={classes.notFound}>
+                  { this.props.notFoundLabel }
+                </div>
+                : null
+              }
+            </FormGroup>
+            { this.props.loadingIcon }
+          </InfiniteScroll>
         </div>
         { this.props.children }
         <Box p={2} display="flex" justifyContent="flex-end" flexDirection="row">
@@ -327,12 +323,14 @@ MultiSelector.defaultProps = {
   actionButton: null,
   allowSearch: false,
   allowToggleAll: false,
+  cancelLabel: '',
   children: null,
   defaultAllSelected: false,
   defaultValue: [],
   disableReset: false,
   inputPlaceholder: null,
   loadingIcon: null,
+  notFoundLabel: '',
   onDismiss: null,
   onScrollBottom: null,
   onSearchChange: null,
@@ -345,7 +343,7 @@ MultiSelector.propTypes = {
   actionButton: PropTypes.node,
   allowSearch: PropTypes.bool,
   allowToggleAll: PropTypes.bool,
-  cancelLabel: PropTypes.node.isRequired,
+  cancelLabel: PropTypes.node,
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   defaultAllSelected: PropTypes.bool,
@@ -353,7 +351,7 @@ MultiSelector.propTypes = {
   disableReset: PropTypes.bool,
   inputPlaceholder: PropTypes.string,
   loadingIcon: PropTypes.node,
-  notFoundLabel: PropTypes.node.isRequired,
+  notFoundLabel: PropTypes.node,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,

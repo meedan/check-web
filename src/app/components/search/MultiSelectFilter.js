@@ -121,6 +121,7 @@ const PlusButton = ({ children }) => {
 const MultiSelectFilter = ({
   allowSearch,
   extraInputs,
+  hasMore,
   selected,
   icon,
   label,
@@ -190,6 +191,7 @@ const MultiSelectFilter = ({
             <CustomSelectDropdown
               allowSearch={allowSearch}
               inputPlaceholder={inputPlaceholder}
+              hasMore={hasMore}
               loading={loading}
               options={options}
               onScrollBottom={onScrollBottom}
@@ -214,6 +216,7 @@ const MultiSelectFilter = ({
 
 const CustomSelectDropdown = ({
   allowSearch,
+  hasMore,
   loading,
   options,
   selected,
@@ -243,6 +246,7 @@ const CustomSelectDropdown = ({
           {placeholder => (
             <MultiSelector
               allowSearch={allowSearch}
+              hasMore={hasMore}
               inputPlaceholder={inputPlaceholder || placeholder}
               loadingIcon={loading && <CircularProgress />}
               options={options}

@@ -6,9 +6,10 @@ import { FormattedMessage } from 'react-intl';
 import LocalOfferIcon from '../../../icons/local_offer.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
 
-const FILTER_PAGE_SIZE = 8;
+const FILTER_PAGE_SIZE = 50;
 
 let lastTypedValue = '';
+let plainTagsTexts = [];
 
 const SearchFieldTag = ({
   teamSlug,
@@ -33,10 +34,9 @@ const SearchFieldTag = ({
     }, 1500);
   };
 
-  const handleScrollBottom = (hasMore) => {
-    if (hasMore) {
-      setPageSize(pageSize + FILTER_PAGE_SIZE);
-    }
+  const handleLoadMore = () => {
+    setPageSize(pageSize + FILTER_PAGE_SIZE);
+    return false;
   };
 
   return (
@@ -64,7 +64,6 @@ const SearchFieldTag = ({
       }}
       render={({ error, props }) => {
         const loading = Boolean(!error && !props);
-        let plainTagsTexts = [];
         let total = 0;
         if (!error && props) {
           plainTagsTexts = props.team.tag_texts ? props.team.tag_texts.edges.map(t => t.node.text) : [];
@@ -81,7 +80,8 @@ const SearchFieldTag = ({
                 selected={query.tags}
                 options={plainTagsTexts.map(t => ({ label: t, value: t }))}
                 onChange={onChange}
-                onScrollBottom={() => handleScrollBottom(hasMore)}
+                onScrollBottom={handleLoadMore}
+                hasMore={hasMore}
                 onToggleOperator={onToggleOperator}
                 operator={operator}
                 readOnly={readOnly}
