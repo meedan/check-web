@@ -1032,7 +1032,7 @@ const MediaSuggestionsComponent = ({
           </div> : null }
         <div id="suggested-media__items">
           { isPaginationLoading ?
-            <MediasLoading count={pageSize} /> :
+            <MediasLoading theme="grey" variant="inline" size="medium" /> :
             relationships
               .slice(cursor, cursor + pageSize)
               .map(relationshipItem => (

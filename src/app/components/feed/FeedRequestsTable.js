@@ -443,7 +443,7 @@ const FeedRequestsTableQuery = ({
         }}
         render={({ props, error }) => {
           if (!error && !props) {
-            return <MediasLoading />;
+            return <MediasLoading theme="grey" variant="page" size="large" />;
           }
 
           if (props && !error) {
