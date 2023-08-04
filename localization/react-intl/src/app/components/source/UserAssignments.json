@@ -5,6 +5,7 @@
   },
   {
     "id": "userAssignments.blank",
+    "description": "Text for empty state when there are no user assignments",
     "defaultMessage": "No activity"
   }
 ]
