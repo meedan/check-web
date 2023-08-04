@@ -272,7 +272,7 @@
     }
   }
 
-  &.theme-lightAlert {
+  &.theme-lightAlert:not(:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--alertLight), var(--alertMain), var(--alertSecondary), var(--otherWhite);
     }
