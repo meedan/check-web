@@ -4,19 +4,17 @@ import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Button,
   Card,
   CardContent,
   Grid,
-  IconButton,
   Typography,
 } from '@material-ui/core';
-import {
-  CheckCircleOutline as AcceptIcon,
-  HighlightOff as RejectIcon,
-} from '@material-ui/icons';
+import AcceptIcon from '../../../icons/check_circle.svg';
+import RejectIcon from '../../../icons/cancel.svg';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -42,12 +40,10 @@ const useStyles = makeStyles(theme => ({
     float: 'right',
   },
   accept: {
-    color: 'var(--validationMain)',
-    padding: '4px',
+    display: 'inline-flex',
   },
   reject: {
-    color: 'var(--errorMain)',
-    padding: '4px',
+    display: 'inline-flex',
   },
 }));
 
@@ -259,13 +255,14 @@ const MediaSuggestionReview = ({ projectMedia, setFlashMessage }) => {
               <></>
             </Grid>
             <Grid item xs={6}>
-              <Button
+              <ButtonMain
                 variant="outlined"
+                theme="text"
+                size="default"
                 className={classes.button}
                 onClick={() => browserHistory.push(confirmedMainItemLink)}
-              >
-                <FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />
-              </Button>
+                label={<FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />}
+              />
             </Grid>
           </Grid>
         </CardContent>
@@ -284,34 +281,39 @@ const MediaSuggestionReview = ({ projectMedia, setFlashMessage }) => {
         <Typography className={classes.title} variant="h5" component="h1">
           <FormattedMessage id="mediaSuggestionReview.title" defaultMessage="Suggested Claim and Fact-check" description="Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)." />
         </Typography>
-        <Typography className={classes.prompt} variant="body1" component="p">
+        <p className={cx('typography-body1', classes.prompt)}>
           <FormattedMessage id="mediaSuggestionReview.prompt" defaultMessage="Is the Claim or Fact-check below a good match for this media?" description="Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)." />
-        </Typography>
+        </p>
         <Grid container direction="row" justifyContent="center" alignItems="flex-end">
           <Grid item xs={6}>
-            <IconButton
-              className={classes.accept}
+            <ButtonMain
+              iconCenter={<AcceptIcon />}
               onClick={handleAccept}
+              variant="text"
+              size="large"
+              theme="validation"
               disabled={disableAcceptRejectButtons}
-            >
-              <AcceptIcon fontSize="large" />
-            </IconButton>
-            <IconButton
-              className={classes.reject}
+              className={classes.accept}
+            />
+            <ButtonMain
+              iconCenter={<RejectIcon />}
               onClick={handleReject}
+              variant="text"
+              size="large"
+              theme="error"
               disabled={disableAcceptRejectButtons}
-            >
-              <RejectIcon fontSize="large" />
-            </IconButton>
+              className={classes.reject}
+            />
           </Grid>
           <Grid item xs={6}>
-            <Button
+            <ButtonMain
               variant="outlined"
+              theme="text"
+              size="default"
               className={classes.button}
               onClick={() => window.open(suggestedMainItemLink, '_blank')}
-            >
-              <FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />
-            </Button>
+              label={<FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />}
+            />
           </Grid>
         </Grid>
       </CardContent>

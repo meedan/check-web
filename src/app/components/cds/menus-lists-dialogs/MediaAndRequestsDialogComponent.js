@@ -6,11 +6,9 @@ import {
   DialogTitle,
   DialogContent,
   Grid,
-  IconButton,
 } from '@material-ui/core';
-import {
-  HighlightOff as CloseIcon,
-} from '@material-ui/icons';
+import IconClose from '../../../icons/clear.svg';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MediaRequests from '../../media/MediaRequests';
 import { MediaCardLargeQueryRenderer } from '../../media/MediaCardLarge';
 
@@ -63,9 +61,7 @@ const MediaAndRequestsDialogComponent = ({
     >
       <DialogTitle className={classes.dialogTitle}>
         {mediaSlug}
-        <IconButton className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
+        <ButtonMain variant="text" size="small" theme="text" iconCenter={<IconClose />} onClick={onClose} className={classes.closeButton} />
       </DialogTitle>
       <DialogContent dividers py={0} className={classes.dialogContent}>
         <Grid container>
