@@ -15,6 +15,7 @@ import {
   jssPreset,
 } from '@material-ui/core/styles';
 import * as Sentry from '@sentry/react';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Root from '../../app/components/Root';
 import { MuiTheme } from '../../app/styles/js/shared';
 import { FlashMessageProvider } from '../../app/components/FlashMessage';
@@ -66,12 +67,13 @@ const jss = jssCreate({
 });
 
 Sentry.init({
-  dsn: "https://92683fff6e8f499cbd5576802452ebbf@o361350.ingest.sentry.io/4504691041763328",
+  dsn: config.sentryDsn,
+  environment: config.sentryEnvironment,
   integrations: [
     new Sentry.Replay(),
   ],
-  // Session Replay
-  replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
+  // Session Replay - Sentry recommends recording a full replay when errors occur
+  replaysOnErrorSampleRate: 1.0,
 });
 
 const callback = (translations) => {

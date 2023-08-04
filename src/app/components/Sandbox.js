@@ -3,6 +3,7 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
+import * as Sentry from '@sentry/react';
 import styles from './sandbox.module.css';
 import Alert from './cds/alerts-and-prompts/Alert';
 import Chip from './cds/buttons-checkboxes-chips/Chip';
@@ -73,6 +74,44 @@ const SandboxComponent = ({ admin }) => {
   const [buttonTheme, setButtonTheme] = React.useState('brand');
   const onChangeButtonTheme = (event) => {
     setButtonTheme(event.target.value);
+  };
+
+  const generateUncaughtError = () => {
+    // eslint-disable-next-line
+    thisGeneratesSandboxError();
+  };
+
+  const generateManualError = () => {
+    const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
+    Sentry.setUser({ email, id: dbid, name });
+
+    const context = {
+      tags: {
+        level: 'error',
+        language: navigator.language,
+      },
+      user: {
+        userAgent: window.navigator.userAgent,
+        windowSize: {
+          height: window.screen.availHeight,
+          width: window.screen.availWidth,
+        },
+        name,
+        email,
+        id: dbid,
+      },
+      contexts: {
+        component: {
+          name: 'Sandbox',
+          url: window.location.href,
+        },
+        notifier: {
+          name: 'Check Sandbox Manual Error Button',
+        },
+      },
+    };
+
+    Sentry.captureException(new Error(`This is a captured error inside the sandbox! Random number: ${Math.random()}`), context);
   };
 
   return (
@@ -180,6 +219,13 @@ const SandboxComponent = ({ admin }) => {
             <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconCenter={<AddIcon />} label="Center" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
           </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>
+            Trigger Sentry error
+          </div>
+          <ButtonMain label="Trigger Sentry" onClick={generateUncaughtError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+          <ButtonMain label="Sentry manual error" onClick={generateManualError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
         </div>
         <div className={styles.componentWrapper}>
           <div className={cx('typography-subtitle2', [styles.componentName])}>
