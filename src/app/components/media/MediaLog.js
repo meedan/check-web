@@ -234,7 +234,7 @@ const MediaLog = (props) => {
       )}
       forceFetch
       route={route}
-      renderLoading={() => <MediasLoading count={1} />}
+      renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
     />
   );
 };

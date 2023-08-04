@@ -183,7 +183,7 @@ const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
     }}
     render={({ error, props }) => {
       if (!error && !props) {
-        return (<MediasLoading count={1} />);
+        return (<MediasLoading theme="grey" variant="inline" size="small" />);
       }
 
       if (!error && props) {

@@ -19,6 +19,7 @@ import ListIcon from '../icons/list.svg';
 import FigmaColorLogo from '../icons/figma_color.svg';
 import Card from './cds/media-cards/Card.js';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
+import MediasLoading from './media/MediasLoading';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -54,6 +55,21 @@ const SandboxComponent = ({ admin }) => {
   const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
   const onChangeSwitchLabelPlacement = (event) => {
     setSwitchLabelPlacement(event.target.value);
+  };
+
+  const [loadingTheme, setLoadingTheme] = React.useState('grey');
+  const onChangeLoadingTheme = (event) => {
+    setLoadingTheme(event.target.value);
+  };
+
+  const [loadingSize, setLoadingSize] = React.useState('large');
+  const onChangeLoadingSize = (event) => {
+    setLoadingSize(event.target.value);
+  };
+
+  const [loadingVariant, setLoadingVariant] = React.useState('inline');
+  const onChangeLoadingVariant = (event) => {
+    setLoadingVariant(event.target.value);
   };
 
   const [alertVariant, setAlertVariant] = React.useState('info');
@@ -137,6 +153,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <a href="#sandbox-alerts-prompts" title="Alerts & Prompts">Alerts &amp; Prompts</a>
+        </li>
+        <li>
+          <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
         </li>
       </ul>
       <section id="sandbox-buttons">
@@ -596,6 +615,57 @@ const SandboxComponent = ({ admin }) => {
               variant={alertVariant}
               onClose={alertClosable ? () => {} : null}
             />
+          </div>
+        </div>
+      </section>
+      <section id="sandbox-loaders">
+        <h6>LoadingAnimations</h6>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              MediasLoading
+            </div>
+            <ul>
+              <li>
+                <Select
+                  label="Size"
+                  onChange={onChangeLoadingSize}
+                >
+                  <option value="icon">icon</option>
+                  <option value="small">small</option>
+                  <option value="medium">medium</option>
+                  <option value="large" selected>large</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Theme"
+                  onChange={onChangeLoadingTheme}
+                >
+                  <option value="grey" selected>grey</option>
+                  <option value="white">white</option>=
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={onChangeLoadingVariant}
+                >
+                  <option value="inline" selected>inline</option>
+                  <option value="page">page</option>=
+                </Select>
+              </li>
+            </ul>
+          </div>
+          <div
+            className={cx(
+              [styles.componentInlineVariants],
+              {
+                [styles.componentInlineGreyVariants]: loadingTheme === 'white',
+              })
+            }
+          >
+            <MediasLoading theme={loadingTheme} variant={loadingVariant} size={loadingSize} />
           </div>
         </div>
       </section>

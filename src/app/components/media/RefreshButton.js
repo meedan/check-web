@@ -2,8 +2,8 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import IconButton from '@material-ui/core/IconButton';
-import RefreshIcon from '@material-ui/icons/Refresh';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import RefreshIcon from '../../icons/refresh.svg';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 
@@ -48,7 +48,7 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
     setFlashMessage((
       <FormattedMessage
         id="refreshButton.success"
-        defaultMessage="Media refreshed sucessfully"
+        defaultMessage="Media refreshed successfully"
         description="Notification displayed when refresh action (re-parsing) of media is completed"
       />
     ), 'success');
@@ -64,15 +64,16 @@ const RefreshButton = ({ projectMediaId, setFlashMessage }) => {
   };
 
   return (
-    <IconButton
-      disabled={waitRequest}
+    <ButtonMain
+      iconCenter={<RefreshIcon />}
       onClick={handleClick}
-      style={{ color: waitRequest ? null : 'var(--textPrimary)' }}
+      variant="outlined"
       size="small"
+      theme="text"
+      disabled={waitRequest}
+      customStyle={{ color: waitRequest ? null : 'var(--textPrimary)' }}
       className="media-actions__refresh" // For integration test
-    >
-      <RefreshIcon fontSize="small" />
-    </IconButton>
+    />
   );
 };
 

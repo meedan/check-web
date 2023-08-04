@@ -257,7 +257,7 @@ const MediaTasks = (props) => {
         Component={MediaMetadataContainer}
         renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} fieldset="metadata" />}
         route={route}
-        renderLoading={() => <MediasLoading count={1} />}
+        renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
       />
     </ErrorBoundary>
   );

@@ -13,7 +13,6 @@ const textSecondary = '#656565';
 const textPlaceholder = '#949494';
 const textDisabled = '#999';
 
-const grayBackground = '#f7f7f7';
 const grayDisabledBackground = '#f3f3f3';
 const grayBorderMain = '#e4e4e4';
 const grayBorderAccent = '#b4b4b4';
@@ -319,23 +318,6 @@ export const mediaQuery = {
   tablet: (...args) => css`@media (max-width: ${breakpointTablet}) { ${css(...args)} }`,
   desktop: (...args) => css`@media (min-width: ${breakpointDesktop}) { ${css(...args)} }`,
 };
-
-const shimmerKeyframes = keyframes`
-  0% {
-    background-position: 0% 50%;
-  }
-
-  100% {
-    background-position: 100% 50%;
-  }
-`;
-
-export const Shimmer = styled.div`
-  animation: ${shimmerKeyframes} 1s ease-out infinite;
-  animation-fill-mode: forwards;
-  background: linear-gradient(90deg, ${grayDisabledBackground}, ${grayDisabledBackground}, ${grayBackground}, ${grayBackground}, ${otherWhite}, ${grayBackground}, ${grayDisabledBackground}, ${grayDisabledBackground});
-  background-size: 400%;
-`;
 
 export const breakWordStyles = `
   hyphens: auto;
