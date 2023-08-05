@@ -159,31 +159,34 @@ class HomeComponent extends Component {
       },
     );
 
-    const { dbid, email, name } = this.props.user;
-    Sentry.init({
-      dsn: config.sentryDsn,
-      environment: config.sentryEnvironment,
-      integrations: [
-        new Sentry.Replay(),
-      ],
-      // Session Replay - Sentry recommends recording a full replay when errors occur
-      replaysOnErrorSampleRate: 1.0,
-      initialScope: {
-        tags: {
-          language: navigator.language,
-        },
-        user: {
-          userAgent: window.navigator.userAgent,
-          windowSize: {
-            height: window.screen.availHeight,
-            width: window.screen.availWidth,
+    // Init sentry if a user is logged in
+    if (this.props.user && config.sentryDsn) {
+      const { dbid, email, name } = this.props.user;
+      Sentry.init({
+        dsn: config.sentryDsn,
+        environment: config.sentryEnvironment || 'none',
+        integrations: [
+          new Sentry.Replay(),
+        ],
+        // Session Replay - Sentry recommends sending a full replay when errors occur
+        replaysOnErrorSampleRate: 1.0,
+        initialScope: {
+          tags: {
+            language: navigator.language,
           },
-          name,
-          email,
-          id: dbid,
+          user: {
+            userAgent: window.navigator.userAgent,
+            windowSize: {
+              height: window.screen.availHeight,
+              width: window.screen.availWidth,
+            },
+            name,
+            email,
+            id: dbid,
+          },
         },
-      },
-    });
+      });
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
