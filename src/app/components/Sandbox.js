@@ -104,17 +104,12 @@ const SandboxComponent = ({ admin }) => {
     const context = {
       tags: {
         level: 'error',
-        language: navigator.language,
       },
       user: {
-        userAgent: window.navigator.userAgent,
         windowSize: {
           height: window.screen.availHeight,
           width: window.screen.availWidth,
         },
-        name,
-        email,
-        id: dbid,
       },
       contexts: {
         component: {

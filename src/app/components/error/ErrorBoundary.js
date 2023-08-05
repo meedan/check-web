@@ -62,41 +62,11 @@ const errbitNotifier = ({
   }).catch(err => console.error('Failed to notify Errbit:', err)); // eslint-disable-line no-console
 };
 
-const notifySentry = ({
+const notifySentry = (
   error,
-  component,
-}) => {
+) => {
   if (config.sentryDsn) {
-    const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
-    Sentry.setUser({ email, id: dbid, name });
-
-    const context = {
-      tags: {
-        level: 'error',
-        language: navigator.language,
-      },
-      user: {
-        userAgent: window.navigator.userAgent,
-        windowSize: {
-          height: window.screen.availHeight,
-          width: window.screen.availWidth,
-        },
-        name,
-        email,
-        id: dbid,
-      },
-      contexts: {
-        component: {
-          name: component,
-          url: window.location.href,
-        },
-        notifier: {
-          name: 'Check ErrorBoundary',
-        },
-      },
-    };
-
-    Sentry.captureException(error, context);
+    Sentry.captureException(error);
   }
 };
 
@@ -129,7 +99,7 @@ class ErrorBoundary extends React.Component {
 
     window.onerror = (message, source, lineno, colno, error) => {
       getStackTraceAndNotifyErrbit({ error, component: 'window' });
-      notifySentry(error, 'window');
+      notifySentry(error);
     };
   }
 
@@ -150,7 +120,7 @@ class ErrorBoundary extends React.Component {
     };
 
     getStackTraceAndNotifyErrbit({ error, component, callIntercom });
-    notifySentry(error, component);
+    notifySentry(error);
   }
 
   render() {

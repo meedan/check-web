@@ -8,6 +8,7 @@ import isEqual from 'lodash.isequal';
 import Intercom from 'react-intercom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
+import * as Sentry from '@sentry/react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Header } from './Header';
 import LoginContainer from './LoginContainer';
@@ -157,6 +158,32 @@ class HomeComponent extends Component {
         return true;
       },
     );
+
+    const { dbid, email, name } = this.props.user;
+    Sentry.init({
+      dsn: config.sentryDsn,
+      environment: config.sentryEnvironment,
+      integrations: [
+        new Sentry.Replay(),
+      ],
+      // Session Replay - Sentry recommends recording a full replay when errors occur
+      replaysOnErrorSampleRate: 1.0,
+      initialScope: {
+        tags: {
+          language: navigator.language,
+        },
+        user: {
+          userAgent: window.navigator.userAgent,
+          windowSize: {
+            height: window.screen.availHeight,
+            width: window.screen.availWidth,
+          },
+          name,
+          email,
+          id: dbid,
+        },
+      },
+    });
   }
 
   shouldComponentUpdate(nextProps, nextState) {

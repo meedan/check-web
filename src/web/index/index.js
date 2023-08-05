@@ -14,7 +14,6 @@ import {
   createMuiTheme,
   jssPreset,
 } from '@material-ui/core/styles';
-import * as Sentry from '@sentry/react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Root from '../../app/components/Root';
 import { MuiTheme } from '../../app/styles/js/shared';
@@ -64,16 +63,6 @@ const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
 // See https://material-ui.com/guides/right-to-left/
 const jss = jssCreate({
   plugins: [...jssPreset().plugins, rtl()],
-});
-
-Sentry.init({
-  dsn: config.sentryDsn,
-  environment: config.sentryEnvironment,
-  integrations: [
-    new Sentry.Replay(),
-  ],
-  // Session Replay - Sentry recommends recording a full replay when errors occur
-  replaysOnErrorSampleRate: 1.0,
 });
 
 const callback = (translations) => {
