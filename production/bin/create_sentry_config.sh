@@ -8,8 +8,8 @@
 # the image launches
 
 # The following environment variables must be set:
-if [[ -z ${DEPLOYDIR+x} || -z ${AWS_DEFAULT_REGION+x} || -z ${AWS_ACCESS_KEY_ID} || -z ${AWS_SECRET_ACCESS_KEY} ]]; then
-  echo "DEPLOYDIR, AWS_DEFAULT_REGION, AWS_ACCESS_KEY_ID, and AWS_SECRET_ACCESS_KEY must be in the environment. Exiting."
+if [[ -z ${DEPLOYDIR+x} || -z ${AWS_DEFAULT_REGION+x} ]]; then
+  echo "DEPLOYDIR and AWS_DEFAULT_REGION must be in the environment. Exiting."
   exit 1
 fi
 
@@ -19,8 +19,6 @@ WORKTMP=$(mktemp)
 # Create .env.sentry-build-plugin from SSM parameter value, for webpack to upload sourcemaps:
 # (clientside auth stuff for sentry is stored in config above)
 DESTFILE="${DEPLOYDIR}/latest/.env.sentry-build-plugin"
-aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "${SSM_PREFIX}/config-sentry" | jq .Parameters[].Value|sed 's/["]//g' | python -m base64 -d > $WORKTMP
 if (( $? != 0 )); then
   echo "Error retrieving SSM parameter ${SSM_PREFIX}/config-sentry. Exiting."
