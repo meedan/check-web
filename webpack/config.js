@@ -6,13 +6,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
 const WarningsToErrorsPlugin = require('warnings-to-errors-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
-// const { sentryWebpackPlugin } =  require('@sentry/webpack-plugin');
+const { sentryWebpackPlugin } =  require('@sentry/webpack-plugin');
 // TODO once we reach react-relay 8.0, uncomment for simpler build end.
 // (Also, delete the relay-compiler stuff form gulpfile.)
 // const RelayCompilerWebpackPlugin = require('relay-compiler-webpack-plugin');
 const locales = require('../localization/translations/locales');
 const zlib = require('zlib');
-// const buildConfig = require('../config-build');
+const config = require('../config');
 
 // For ContextReplacementPlugin: pattern for dynamic-import filenames.
 // matches "/es.js" and "/es.json".
@@ -124,11 +124,11 @@ module.exports = {
       },
     }),
     new WarningsToErrorsPlugin(),
-    // sentryWebpackPlugin({
-    //   org: buildConfig.sentry.sentryOrg,
-    //   project: buildConfig.sentry.sentryProject,
-    //   authToken: buildConfig.sentry.sentryAuthToken,
-    // }),
+    sentryWebpackPlugin({
+      org: config.sentryOrg,
+      project: config.sentryProject,
+      authToken: config.sentryAuthToken,
+    }),
   ],
   resolve: {
     alias: { app: path.join(__dirname, '../src/app') },
