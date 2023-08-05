@@ -509,8 +509,6 @@ const NewsletterComponent = ({
                 checked={contentType === 'rss'}
                 disabled={scheduled}
                 onChange={(checked) => {
-                  // eslint-disable-next-line
-                  thisFunctionIsNotDefined();
                   if (checked) {
                     setContentType('rss');
                   } else {
