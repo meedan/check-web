@@ -26,5 +26,8 @@ if (( $? != 0 )); then
 fi
 mv $WORKTMP $DESTFILE
 
+# Apply the config to environment variables
+export $(cat $DESTFILE | xargs)
+
 echo "Configuration for sentry complete."
 exit 0

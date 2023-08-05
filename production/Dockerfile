@@ -60,7 +60,7 @@ RUN sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-buil
 COPY config.js.example ${DEPLOYDIR}/latest/config.js
 COPY config-server.js.example ${DEPLOYDIR}/latest/config-server.js
 
-# Get the configuration for Sentry, pre-build-step
+# Get the configuration for Sentry and apply environment variables, pre-build-step
 RUN bash /opt/bin/create_sentry_config.sh
 
 # build all assets, js, css, transifex, upload sourcemaps to Sentry
