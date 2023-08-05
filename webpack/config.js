@@ -12,7 +12,6 @@ const { sentryWebpackPlugin } =  require('@sentry/webpack-plugin');
 // const RelayCompilerWebpackPlugin = require('relay-compiler-webpack-plugin');
 const locales = require('../localization/translations/locales');
 const zlib = require('zlib');
-const config = require('../config');
 
 // For ContextReplacementPlugin: pattern for dynamic-import filenames.
 // matches "/es.js" and "/es.json".
@@ -23,6 +22,9 @@ const NODE_ENV = process.env.NODE_ENV || 'production';
 const BUNDLE_PREFIX = process.env.BUNDLE_PREFIX
   ? `.${process.env.BUNDLE_PREFIX}`
   : '';
+const SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN;
+const SENTRY_ORG = process.env.SENTRY_ORG;
+const SENTRY_PROJECT = process.env.SENTRY_PROJECT;
 
 const nodeModulesPrefix = path.resolve(__dirname, '../node_modules') + '/';
 const reactIntlLocaleDataPrefix = `${nodeModulesPrefix}react-intl/locale-data/`;
@@ -125,9 +127,11 @@ module.exports = {
     }),
     new WarningsToErrorsPlugin(),
     sentryWebpackPlugin({
-      org: config.sentryOrg,
-      project: config.sentryProject,
-      authToken: config.sentryAuthToken,
+      org: SENTRY_ORG,
+      project: SENTRY_PROJECT,
+      authToken: SENTRY_AUTH_TOKEN,
+      telemetry: false, // don't send Sentry errors to Sentry
+      disable: NODE_ENV === 'development', // we don't want to upload source maps on every recompile
     }),
   ],
   resolve: {
