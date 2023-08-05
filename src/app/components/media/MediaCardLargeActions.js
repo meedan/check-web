@@ -138,14 +138,15 @@ class MediaExpandedActions extends React.Component {
               /> : null }
             { inModal ? <MediaLanguageSwitcher projectMedia={projectMedia} /> : null }
           </div>
-          <Box display="flex" style={{ gap: '4px' }}>
-            { media.type === 'Link' ?
-              <RefreshButton projectMediaId={projectMedia.id} /> : null }
-            <ExtraMediaActions
-              projectMedia={projectMedia}
-              reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
-            />
-          </Box>
+          { media.type !== 'Claim' ?
+            <Box display="flex" style={{ gap: '4px' }}>
+              { media.type === 'Link' ?
+                <RefreshButton projectMediaId={projectMedia.id} /> : null }
+              <ExtraMediaActions
+                projectMedia={projectMedia}
+                reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+              />
+            </Box> : null }
         </Box>
       </div>
     );
