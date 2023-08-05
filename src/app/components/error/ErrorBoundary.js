@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import StackTrace from 'stacktrace-js';
+import * as Sentry from '@sentry/react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ErrorPage from './ErrorPage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -61,6 +62,14 @@ const errbitNotifier = ({
   }).catch(err => console.error('Failed to notify Errbit:', err)); // eslint-disable-line no-console
 };
 
+const notifySentry = (
+  error,
+) => {
+  if (config.sentryDsn) {
+    Sentry.captureException(error);
+  }
+};
+
 const getStackTraceAndNotifyErrbit = ({
   error,
   component,
@@ -90,6 +99,7 @@ class ErrorBoundary extends React.Component {
 
     window.onerror = (message, source, lineno, colno, error) => {
       getStackTraceAndNotifyErrbit({ error, component: 'window' });
+      notifySentry(error);
     };
   }
 
@@ -110,6 +120,7 @@ class ErrorBoundary extends React.Component {
     };
 
     getStackTraceAndNotifyErrbit({ error, component, callIntercom });
+    notifySentry(error);
   }
 
   render() {

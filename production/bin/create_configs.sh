@@ -30,6 +30,15 @@ if (( $? != 0 )); then
 fi
 mv $WORKTMP $DESTFILE
 
+# Create .env.sentry-build-plugin from SSM parameter value, for webpack to upload sourcemaps:
+# (clientside auth stuff for sentry is stored in config above)
+DESTFILE="${DEPLOYDIR}/latest/.env.sentry-build-plugin"
+aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "${SSM_PREFIX}/config-sentry" | jq .Parameters[].Value|sed 's/["]//g' | python -m base64 -d > $WORKTMP
+if (( $? != 0 )); then
+  echo "Error retrieving SSM parameter ${SSM_PREFIX}/config-sentry. Exiting."
+  exit 1
+fi
+mv $WORKTMP $DESTFILE
 
 echo "Configuration for env $DEPLOY_ENV complete."
 exit 0
