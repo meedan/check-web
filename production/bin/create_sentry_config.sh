@@ -3,14 +3,17 @@
 # This script generates a .env.sentry-build-plugin for check-web's sentry install using values
 # from the SSM parameter store. It is required for `npm run build` to upload source maps
 # to Sentry and must be run before the `npm run build` step
+# All deploy environments use the parameters stored at `/live/check-web/config-sentry` because
+# the permissions are the same in each environment and we dont have access to DEPLOY_ENV before
+# the image launches
 
 # The following environment variables must be set:
-if [[ -z ${DEPLOY_ENV+x} || -z ${DEPLOYDIR+x} || -z ${AWS_DEFAULT_REGION+x} ]]; then
-  echo "DEPLOY_ENV, DEPLOYDIR, and AWS_DEFAULT_REGION must be in the environment. Exiting."
+if [[ -z ${DEPLOYDIR+x} || -z ${AWS_DEFAULT_REGION+x} ]]; then
+  echo "DEPLOYDIR and AWS_DEFAULT_REGION must be in the environment. Exiting."
   exit 1
 fi
 
-SSM_PREFIX="/${DEPLOY_ENV}/check-web"
+SSM_PREFIX="/live/check-web"
 WORKTMP=$(mktemp)
 
 # Create .env.sentry-build-plugin from SSM parameter value, for webpack to upload sourcemaps:
@@ -23,5 +26,5 @@ if (( $? != 0 )); then
 fi
 mv $WORKTMP $DESTFILE
 
-echo "Configuration for sentry in env $DEPLOY_ENV complete."
+echo "Configuration for sentry complete."
 exit 0
