@@ -14,7 +14,6 @@ import {
   createMuiTheme,
   jssPreset,
 } from '@material-ui/core/styles';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Root from '../../app/components/Root';
 import { MuiTheme } from '../../app/styles/js/shared';
 import { FlashMessageProvider } from '../../app/components/FlashMessage';
