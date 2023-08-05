@@ -60,7 +60,10 @@ RUN sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-buil
 COPY config.js.example ${DEPLOYDIR}/latest/config.js
 COPY config-server.js.example ${DEPLOYDIR}/latest/config-server.js
 
-# build all assets, js, css, transifex
+# Get the configuration for Sentry, pre-build-step
+CMD ["/opt/bin/create-sentry-config.sh"]
+
+# build all assets, js, css, transifex, upload sourcemaps to Sentry
 RUN npm run build
 
 WORKDIR ${DEPLOYDIR}/latest
