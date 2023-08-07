@@ -401,7 +401,6 @@ function SearchResultsComponent({
               <div className={styles.searchHeaderActions}>
                 { savedSearch?.is_part_of_feeds ?
                   <Tooltip
-                    open="true"
                     title={
                       <>
                         <FormattedMessage
