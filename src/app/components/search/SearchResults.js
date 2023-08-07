@@ -395,12 +395,13 @@ function SearchResultsComponent({
             }
             <div className={cx('project__title-text', styles.searchHeaderTitle)}>
               <h6 title={title}>
-                { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
+                {icon}
                 {title}
               </h6>
               <div className={styles.searchHeaderActions}>
                 { savedSearch?.is_part_of_feeds ?
                   <Tooltip
+                    open="true"
                     title={
                       <>
                         <FormattedMessage
@@ -408,9 +409,12 @@ function SearchResultsComponent({
                           defaultMessage="Included in Shared Feed:"
                           description="Tooltip for shared feeds icon"
                         />
-                        <ul>
+                        <ul className="bulleted-list item-limited-list">
                           {feeds.map(feedObj => (
-                            <li key={feedObj.id}>&bull; {feedObj}</li>
+                            <>
+                              <li key={feedObj.id}>{feedObj}</li>
+                              <li key={feedObj.id}>{feedObj}</li>
+                            </>
                           ))}
                         </ul>
                       </>

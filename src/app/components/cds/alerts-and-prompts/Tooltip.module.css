@@ -5,6 +5,7 @@
     border: 1px solid var(--brandBorder);
     color: var(--textPrimary);
     padding: 4px 8px;
+    box-shadow: var(--dropShadowMedium);
   }
 
   :global(.MuiTooltip-arrow) {

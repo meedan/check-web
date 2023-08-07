@@ -131,3 +131,36 @@ h6,
 .typography-overline {
   @mixin typography-overline;
 }
+
+.bulleted-list {
+  list-style: disc;
+  margin: 0 0 0 .75em;
+  padding: .5em 0 .5em .75em;
+
+  li {
+    margin: 0 0 .5em;
+  }
+
+  &.item-limited-list {
+    padding: .5em 0 .5em 0;
+
+    li {
+      -webkit-box-orient: vertical;
+      color: var(--textPrimary);
+      /* stylelint-disable-next-line value-no-vendor-prefix */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      padding: 0 0 0 1em;
+      position: relative;
+      white-space: pre-line;
+      word-break: break-all;
+
+      &::before {
+        content: '\2022';
+        left: 0;
+        position: absolute;
+      }
+    }
+  }
+}

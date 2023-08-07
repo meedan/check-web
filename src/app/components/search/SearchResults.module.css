@@ -6,7 +6,6 @@
   font-size: var(--iconSizeSmall);
   height: 32px;
   line-height: 50%;
-  margin: 0 0 0 12px;
   padding: 4px;
   transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
   width: 32px;
@@ -48,18 +47,17 @@
       white-space: pre-line;
       word-break: break-all;
 
-      .project-title-icon {
+      :global(.check-icon) {
         color: var(--textSecondary);
         display: inline-block;
         /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
         font-size: 24px;
-        margin: 0 8px 0 0;
+        margin: 0 8px -3px 0;
       }
     }
 
     .searchHeaderActions {
       align-items: center;
-      background-color: var(--validationLight);
       display: flex;
       gap: 12px;
 
@@ -83,7 +81,6 @@
 }
 
 .search-results-header {
-  border: solid 2px var(--validationMain);
   margin: 16px;
 
   :global(.search__list-header-filter-row) {
