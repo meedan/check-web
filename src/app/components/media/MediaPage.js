@@ -10,6 +10,7 @@ export default function MediaPage({ route, routeParams, location }) {
     listUrl,
     listQuery,
     listIndex,
+    buildSiblingUrl,
   } = getListUrlQueryAndIndex(routeParams, location.query);
 
   const teamSlug = routeParams.team;
@@ -31,11 +32,13 @@ export default function MediaPage({ route, routeParams, location }) {
         listUrl={listUrl}
         listQuery={listQuery}
         listIndex={listIndex}
+        buildSiblingUrl={buildSiblingUrl}
         teamSlug={teamSlug}
         projectId={projectId}
         listId={listId}
         projectMediaId={projectMediaId}
         view={currentView}
+        mediaNavList={location?.state?.mediaNavList}
         count={location?.state?.count}
       />
     </ErrorBoundary>
