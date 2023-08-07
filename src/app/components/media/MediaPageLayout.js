@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Media from './Media';
 import MediaActionsBar from './MediaActionsBar';
+import NextPreviousLinks from './NextPreviousLinks';
 
 const StyledTopBar = styled.div`
   display: flex;
@@ -20,10 +21,20 @@ const StyledTopBar = styled.div`
 `;
 
 export default function MediaPageLayout({
-  listUrl, listQuery, listIndex, projectId, projectMediaId, view,
+  listUrl, buildSiblingUrl, listQuery, listIndex, projectId, projectMediaId, view, mediaNavList, count,
 }) {
   return (
     <div>
+      {buildSiblingUrl ? (
+        <NextPreviousLinks
+          buildSiblingUrl={buildSiblingUrl}
+          listQuery={listQuery}
+          listIndex={listIndex}
+          objectType="media"
+          mediaNavList={mediaNavList}
+          count={count}
+        />
+      ) : null}
       <StyledTopBar className="media-search__actions-bar">
         <MediaActionsBar
           key={`${listUrl}-${projectMediaId}` /* TODO test MediaActionsBar is sane, then nix key */}
@@ -41,6 +52,7 @@ export default function MediaPageLayout({
 
 MediaPageLayout.defaultProps = {
   listQuery: null,
+  buildSiblingUrl: null,
   listIndex: null,
   projectId: null,
   view: 'default',
@@ -48,6 +60,7 @@ MediaPageLayout.defaultProps = {
 
 MediaPageLayout.propTypes = {
   listUrl: PropTypes.string.isRequired,
+  buildSiblingUrl: PropTypes.func, // null or func(projectMediaId, listIndex) => String|null
   listQuery: PropTypes.object, // or null
   listIndex: PropTypes.number, // or null
   projectId: PropTypes.number, // or null
