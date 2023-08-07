@@ -1,8 +1,8 @@
 [
   {
-    "id": "mediaSuggestionsComponent.rejectedSuccessfully",
-    "description": "Banner displayed after items are rejected successfully",
-    "defaultMessage": "Suggestion rejected"
+    "id": "mediaSuggestionsComponent.updatedSuccessfully",
+    "description": "Banner displayed after items are accepted or rejected successfully",
+    "defaultMessage": "Suggestion updated successfully"
   },
   {
     "id": "mediaSuggestionsComponent.flashBulkRejectTitle",

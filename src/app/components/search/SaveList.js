@@ -202,7 +202,7 @@ const SaveList = ({
     }
     // If it's the unmatched media page, unmatched media is a default filter
     if (objectType === 'unmatched-media') {
-      queryToBeSaved = { unmatched: [1] };
+      queryToBeSaved = { unmatched: [1], sort: 'recent_activity', sort_type: 'DESC' };
     }
     queryToBeSaved = { ...queryToBeSaved, ...query };
 
