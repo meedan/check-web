@@ -14,7 +14,7 @@
 
   .buttonMainLabel {
     display: inline-block;
-    max-width: 125px;
+    max-width: 150px;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;

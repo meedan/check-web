@@ -57,11 +57,6 @@ shared_examples 'similarity' do
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__pin-relationship')
     wait_for_selector('.similarity-media-item__delete-relationship').click
-    wait_for_selector('.media-item__add-button')
-    wait_for_selector('input[name=project-title]').click
-    wait_for_selector('input[name=project-title]').send_keys('test')
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('.media-item__add-button').click
     wait_for_selector('.message')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 0
   end
@@ -81,9 +76,7 @@ shared_examples 'similarity' do
     wait_for_selector('.similarity-media-item__accept-relationship').click
     wait_for_selector("//span[contains(text(), '1 suggestion')]", :xpath)
     wait_for_selector('.similarity-media-item__reject-relationship').click
-    wait_for_selector('.media-actions-bar__add-button').click
-    wait_for_selector('#media-similarity__add-button')
-    wait_for_selector("//span[contains(text(), 'Media')]", :xpath).click
+    wait_for_selector("//span[contains(text(), '0 suggestions')]", :xpath)
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     expect(@driver.page_source.include?('claim 1')).to be(true)

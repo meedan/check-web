@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateRelatedMediaDialog from './CreateRelatedMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import { safelyParseJSON } from '../../helpers';
@@ -132,13 +132,19 @@ BlankMediaButton.defaultProps = {
   team: {},
   reverse: false,
   ButtonComponent: ({ onClick }) => (
-    <Button variant="contained" color="primary" onClick={onClick}>
-      <FormattedMessage
-        id="blankMediaButton.addItem"
-        defaultMessage="Add item"
-        description="Button label that opens dialog in which the user can add a media item to an existing fact-check"
-      />
-    </Button>
+    <ButtonMain
+      variant="contained"
+      brand="primary"
+      size="default"
+      onClick={onClick}
+      label={
+        <FormattedMessage
+          id="blankMediaButton.addItem"
+          defaultMessage="Add item"
+          description="Button label that opens dialog in which the user can add a media item to an existing fact-check"
+        />
+      }
+    />
   ),
 };
 

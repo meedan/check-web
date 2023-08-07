@@ -173,7 +173,7 @@ const MediaComments = (props) => {
           {...data}
         />)}
       route={route}
-      renderLoading={() => <MediasLoading count={1} />}
+      renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
     />
   );
 };

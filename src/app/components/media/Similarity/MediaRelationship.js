@@ -6,19 +6,18 @@ import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
-import IconMoreVert from '@material-ui/icons/MoreVert';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
+import IconMoreVert from '../../../icons/more_vert.svg';
 import MediaSlug from '../MediaSlug';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
-import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
 
 const useStyles = makeStyles(() => ({
@@ -28,11 +27,8 @@ const useStyles = makeStyles(() => ({
   },
   inner: {
     position: 'absolute',
-    top: 0,
-    right: 0,
-  },
-  menuIcon: {
-    padding: '8px 19px',
+    top: '8px',
+    right: '8px',
   },
 }));
 
@@ -65,18 +61,13 @@ const RelationshipMenu = ({
   canDelete,
   canSwitch,
   setFlashMessage,
-  isDialogOpen,
-  setIsDialogOpen,
   id,
   sourceId,
   targetId,
   mainProjectMedia,
 }) => {
-  const classes = useStyles();
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
-  const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
   const swallowClick = (event, callback) => {
     event.stopPropagation();
@@ -128,7 +119,6 @@ const RelationshipMenu = ({
   };
 
   const handleDelete = () => {
-    setIsDialogOpen(false);
     const mutation = graphql`
       mutation MediaRelationshipDestroyRelationshipMutation($input: DestroyRelationshipInput!) {
         destroyRelationship(input: $input) {
@@ -217,13 +207,14 @@ const RelationshipMenu = ({
     <>
       { canDelete && canSwitch ? (
         <Box>
-          <IconButton
+          <ButtonMain
+            iconCenter={<IconMoreVert />}
             onClick={handleOpenMenu}
-            className={`media-similarity__menu-icon ${classes.menuIcon}`}
+            className="media-similarity__menu-icon"
             size="small"
-          >
-            <IconMoreVert fontSize="small" />
-          </IconButton>
+            variant="contained"
+            theme="text"
+          />
           <Menu
             anchorEl={anchorEl}
             keepMounted
@@ -242,7 +233,7 @@ const RelationshipMenu = ({
                 }
               />
             </MenuItem>
-            <MenuItem onClick={event => swallowClick(event, openDialog)}>
+            <MenuItem onClick={event => swallowClick(event, handleDelete)}>
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
@@ -255,33 +246,10 @@ const RelationshipMenu = ({
       }
       { canDelete && !canSwitch ?
         <Box>
-          <IconButton onClick={event => swallowClick(event, openDialog)}>
+          <IconButton onClick={event => swallowClick(event, handleDelete)}>
             <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
           </IconButton>
         </Box> : null }
-      <SelectProjectDialog
-        open={isDialogOpen}
-        excludeProjectDbids={[]}
-        title={
-          <FormattedMessage
-            id="detachDialog.dialogdetachedToListTitle"
-            defaultMessage="Move detached item to…"
-            description="Dialog title prompting user to select a destination folder for the item"
-          />
-        }
-        /* eslint-disable-next-line @calm/react-intl/missing-attribute */
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-        submitLabel={
-          <FormattedMessage
-            id="detachDialog.detached"
-            defaultMessage="Move to folder"
-            description="Button to commit the action of moving item"
-          />
-        }
-        submitButtonClassName="media-item__add-button"
-        onCancel={closeDialog}
-        onSubmit={handleDelete}
-      />
     </>
   );
 };
@@ -301,7 +269,6 @@ const MediaRelationship = ({
 }) => {
   const classes = useStyles();
   const [isSelected, setIsSelected] = React.useState(false);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const swallowClick = (ev) => {
     // Don't close Dialog when clicking on it
@@ -365,8 +332,6 @@ const MediaRelationship = ({
             confirmedSimilarCount: mainProjectMediaConfirmedSimilarCount,
             demand: mainProjectMediaDemand,
           }}
-          setIsDialogOpen={setIsDialogOpen}
-          isDialogOpen={isDialogOpen}
         />
       </div>
     </div>
