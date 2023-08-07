@@ -1,13 +1,10 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
 import Menu from '@material-ui/core/Menu';
@@ -15,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ProjectMoveDialog from '../../project/ProjectMoveDialog';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import SettingsHeader from '../../team/SettingsHeader';
@@ -27,6 +25,14 @@ import globalStrings from '../../../globalStrings';
 import searchResultsStyles from '../../search/SearchResults.module.css';
 import IconMoreVert from '../../../icons/more_vert.svg';
 
+const messages = defineMessages({
+  actionsTooltip: {
+    id: 'projectActions.tooltip',
+    defaultMessage: 'Actions',
+    description: 'Toolitp for the button that shows actions that can be performed on a list',
+  },
+});
+
 const ProjectActions = ({
   name,
   object,
@@ -37,6 +43,7 @@ const ProjectActions = ({
   isMoveable,
   hasPrivacySettings,
   setFlashMessage,
+  intl,
 }) => {
   const [newTitle, setNewTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);
@@ -50,9 +57,9 @@ const ProjectActions = ({
   const { team, permissions: projectPermissions } = object;
 
   const privacyMessages = [
-    <FormattedMessage id="projectActions.privacyMessageAll" defaultMessage="Anyone can see this folder, access its content and annotate it." />,
-    <FormattedMessage id="projectActions.privacyMessageEditors" defaultMessage="Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved." />,
-    <FormattedMessage id="projectActions.privacyMessageAdmins" defaultMessage="Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved." />,
+    <FormattedMessage id="projectActions.privacyMessageAll" defaultMessage="Anyone can see this folder, access its content and annotate it." description="Message that shows that anyone can access this folder" />,
+    <FormattedMessage id="projectActions.privacyMessageEditors" description="Message about the limited access abilities of collaborator type users" defaultMessage="Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved." />,
+    <FormattedMessage id="projectActions.privacyMessageAdmins" description="Message about the limited access of editors and collaborator type users" defaultMessage="Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved." />,
   ];
 
   const privacyMessage = privacyMessages[privacyValue];
@@ -261,15 +268,15 @@ const ProjectActions = ({
 
   return (
     <Can permissions={team.permissions} permission="create Project">
-      <IconButton
-        className={cx('project-actions', searchResultsStyles['search-results-header-icon'])}
-        tooltip={
-          <FormattedMessage id="projectActions.tooltip" defaultMessage="Actions" />
-        }
+      <ButtonMain
+        variant="outlined"
+        size="small"
+        theme="text"
+        iconCenter={<IconMoreVert className="project-actions__icon" />}
         onClick={(e) => { setAnchorEl(e.currentTarget); }}
-      >
-        <IconMoreVert className="project-actions__icon" />
-      </IconButton>
+        className={cx('project-actions', searchResultsStyles['search-results-header-icon'], searchResultsStyles.seachHeaderActionButton)}
+        title={intl.formatMessage(messages.actionsTooltip)}
+      />
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -367,6 +374,7 @@ const ProjectActions = ({
                 <FormattedMessage
                   id="projectsComponent.title"
                   defaultMessage="Title"
+                  description="Label for the title input when renaming a collection, folder, or list"
                 />
               }
               defaultValue={object.title}
@@ -389,7 +397,7 @@ const ProjectActions = ({
         }
         onProceed={handleUpdate}
         isSaving={saving}
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />} // eslint-disable-line @calm/react-intl/missing-attribute
         onCancel={handleClose}
       />
 
@@ -405,9 +413,9 @@ const ProjectActions = ({
           />
         }
         body={
-          <Typography variant="body1" component="p" paragraph>
+          <p className="typography-body1">
             {deleteMessage}
-          </Typography>
+          </p>
         }
         proceedLabel={
           <FormattedMessage
@@ -419,7 +427,7 @@ const ProjectActions = ({
         }
         onProceed={handleDelete}
         isSaving={saving}
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />} // eslint-disable-line @calm/react-intl/missing-attribute
         onCancel={handleClose}
       />
 
@@ -431,13 +439,14 @@ const ProjectActions = ({
           <FormattedMessage
             id="bulkActions.dialogMoveTitle"
             defaultMessage="{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
+            description="Confirmation message about moving items to folders on delete"
             values={{
               mediasCount: object.medias_count,
             }}
           />
         }
         extraContent={deleteMessage}
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />} // eslint-disable-line @calm/react-intl/missing-attribute
         submitLabel={
           <FormattedMessage
             id="projectActions.moveTitle"
@@ -481,36 +490,40 @@ const ProjectActions = ({
                   <FormattedMessage
                     id="projectsComponent.privacyDialogOptionAll"
                     defaultMessage="Everyone with access to this workspace"
+                    description="Menu choice when changing privacy settings for this project to allow anyone"
                   />
                 </MenuItem>
                 <MenuItem value={1}>
                   <FormattedMessage
                     id="projectsComponent.privacyDialogOptionEditors"
                     defaultMessage="Only Admins and Editors"
+                    description="Menu choice when changing privacy settings for this project to allow only admins and editors to access"
                   />
                 </MenuItem>
                 <MenuItem value={2}>
                   <FormattedMessage
                     id="projectsComponent.privacyDialogOptionAdmins"
                     defaultMessage="Only Admins"
+                    description="Menu choice when changing privacy settings for this project to allow only admins to access"
                   />
                 </MenuItem>
               </Select>
             </Box>
-            <Typography variant="body1" component="p" paragraph>
+            <p className="typography-body1">
               {privacyMessage}
-            </Typography>
+            </p>
           </Box>
         }
         proceedLabel={
           <FormattedMessage
             id="projectsComponent.privacyDialogButton"
             defaultMessage="Update access"
+            description="Button text to confirm updating the access"
           />
         }
         onProceed={handleProceedPrivacy}
         isSaving={saving}
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />} // eslint-disable-line @calm/react-intl/missing-attribute
         onCancel={handleClose}
       />
     </Can>
@@ -544,4 +557,4 @@ ProjectActions.propTypes = {
   hasPrivacySettings: PropTypes.bool,
 };
 
-export default withSetFlashMessage(ProjectActions);
+export default withSetFlashMessage(injectIntl(ProjectActions));

@@ -4,11 +4,13 @@ import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsIcon from '../../icons/settings.svg';
 import { getLicenseIcon, getLicenseTranslatedName, getLicenseName } from '../../CheckFeedLicenses';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Can from '../Can';
-import styles from './FeedHeader.module.css';
+import searchResultsStyles from '../search/SearchResults.module.css';
 
 const FeedHeader = ({ feed }) => {
   const handleClickLicense = () => {
@@ -20,55 +22,51 @@ const FeedHeader = ({ feed }) => {
   };
 
   return (
-    <div className="feed-header">
-      <div className={styles.seachHeaderTitle}>
-        <h6 title={feed.name}>
-          {feed.name}
-        </h6>
+    <div className={cx('feed-header', searchResultsStyles.searchHeaderTitle)}>
+      <h6 title={feed.name}>
+        {feed.name}
+      </h6>
 
-        <div className={styles.feedHeaderIcons}>
-          {feed.licenses.map(licenseId => (
-            <Tooltip
-              key={licenseId}
-              placement="right"
-              title={
-                <FormattedMessage
-                  id="feedHeader.tooltipLicense"
-                  defaultMessage="Feed License: {licenseName}"
-                  values={{
-                    licenseName: getLicenseTranslatedName(getLicenseName(licenseId)),
-                  }}
-                  description="Tooltip message displayed on feed license icon."
-                />
-              }
-              arrow
-            >
-              <div className="feed-header-icon">
-                <IconButton onClick={handleClickLicense} className={styles.feedHeaderIcon}>
-                  {getLicenseIcon(getLicenseName(licenseId))}
-                </IconButton>
-              </div>
-            </Tooltip>
-          ))}
-
-          <Can permissions={feed.permissions} permission="update Feed">
-            <Tooltip
-              placement="right"
-              title={
-                <FormattedMessage
-                  id="feedHeader.tooltipSettings"
-                  defaultMessage="Shared Feed Settings"
-                  description="Tooltip message displayed on feed settings icon."
-                />
-              }
-              arrow
-            >
-              <IconButton onClick={handleClickSettings} className={styles.feedHeaderIcon}>
-                <SettingsIcon />
+      <div className={searchResultsStyles.searchHeaderActions}>
+        {feed.licenses.map(licenseId => (
+          <Tooltip
+            key={licenseId}
+            placement="right"
+            title={
+              <FormattedMessage
+                id="feedHeader.tooltipLicense"
+                defaultMessage="Feed License: {licenseName}"
+                values={{
+                  licenseName: getLicenseTranslatedName(getLicenseName(licenseId)),
+                }}
+                description="Tooltip message displayed on feed license icon."
+              />
+            }
+            arrow
+          >
+            <div className="feed-header-icon">
+              <IconButton onClick={handleClickLicense} className={searchResultsStyles.seachHeaderActionButton}>
+                {getLicenseIcon(getLicenseName(licenseId))}
               </IconButton>
-            </Tooltip>
-          </Can>
-        </div>
+            </div>
+          </Tooltip>
+        ))}
+
+        <Can permissions={feed.permissions} permission="update Feed">
+          <Tooltip
+            placement="right"
+            title={
+              <FormattedMessage
+                id="feedHeader.tooltipSettings"
+                defaultMessage="Shared Feed Settings"
+                description="Tooltip message displayed on feed settings icon."
+              />
+            }
+            arrow
+          >
+            <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SettingsIcon />} onClick={handleClickSettings} className={searchResultsStyles.seachHeaderActionButton} />
+          </Tooltip>
+        </Can>
       </div>
     </div>
   );

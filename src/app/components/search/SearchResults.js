@@ -393,37 +393,39 @@ function SearchResultsComponent({
                 {listSubtitle}
               </div>
             }
-            <div className={cx('project__title-text', styles.seachHeaderTitle)}>
-              { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
-              <h6 className={['typography-h6', styles.feedHeaderTitle].join(' ')} title={title}>
+            <div className={cx('project__title-text', styles.searchHeaderTitle)}>
+              <h6 title={title}>
+                { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
                 {title}
               </h6>
+              <div className={styles.searchHeaderActions}>
+                { savedSearch?.is_part_of_feeds ?
+                  <Tooltip
+                    title={
+                      <>
+                        <FormattedMessage
+                          id="sharedFeedIcon.Tooltip"
+                          defaultMessage="Included in Shared Feed:"
+                          description="Tooltip for shared feeds icon"
+                        />
+                        <ul>
+                          {feeds.map(feedObj => (
+                            <li key={feedObj.id}>&bull; {feedObj}</li>
+                          ))}
+                        </ul>
+                      </>
+                    }
+                    className={styles['tooltip-icon']}
+                  >
+                    <div className={styles['search-results-header-icon']}>
+                      <FeedIcon id="shared-feed__icon" />
+                    </div>
+                  </Tooltip>
+                  :
+                  null }
+                {listActions}
+              </div>
             </div>
-            { savedSearch?.is_part_of_feeds ?
-              <Tooltip
-                title={
-                  <>
-                    <FormattedMessage
-                      id="sharedFeedIcon.Tooltip"
-                      defaultMessage="Included in Shared Feed:"
-                      description="Tooltip for shared feeds icon"
-                    />
-                    <ul>
-                      {feeds.map(feedObj => (
-                        <li key={feedObj.id}>&bull; {feedObj}</li>
-                      ))}
-                    </ul>
-                  </>
-                }
-                className={styles['tooltip-icon']}
-              >
-                <div className={styles['search-results-header-icon']}>
-                  <FeedIcon id="shared-feed__icon" />
-                </div>
-              </Tooltip>
-              :
-              null }
-            {listActions}
           </div>
           { resultType !== 'factCheck' ?
             <SearchKeyword
