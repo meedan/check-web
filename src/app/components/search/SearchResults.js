@@ -410,10 +410,7 @@ function SearchResultsComponent({
                         />
                         <ul className="bulleted-list item-limited-list">
                           {feeds.map(feedObj => (
-                            <>
-                              <li key={feedObj.id}>{feedObj}</li>
-                              <li key={feedObj.id}>{feedObj}</li>
-                            </>
+                            <li key={feedObj.id}>{feedObj}</li>
                           ))}
                         </ul>
                       </>

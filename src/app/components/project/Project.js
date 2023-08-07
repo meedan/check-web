@@ -212,7 +212,7 @@ const Project = ({ routeParams, ...props }) => {
             ? <NotFound />
             : <ProjectContainer routeParams={routeParams} {...props} {...data} />
         )}
-        renderLoading={() => <MediasLoading />}
+        renderLoading={() => <MediasLoading theme="grey" variant="page" size="large" />}}
       />
     </ErrorBoundary>
   );
