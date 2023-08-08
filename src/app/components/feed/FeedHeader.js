@@ -44,7 +44,7 @@ const FeedHeader = ({ feed }) => {
               theme="text"
               iconCenter={getLicenseIcon(getLicenseName(licenseId))}
               onClick={handleClickLicense}
-              className={searchResultsStyles.seachHeaderActionButton}
+              className={searchResultsStyles.searchHeaderActionButton}
             />
           </div>
         </Tooltip>
@@ -63,7 +63,7 @@ const FeedHeader = ({ feed }) => {
           arrow
         >
           <span>{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
-            <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SettingsIcon />} onClick={handleClickSettings} className={searchResultsStyles.seachHeaderActionButton} />
+            <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SettingsIcon />} onClick={handleClickSettings} className={searchResultsStyles.searchHeaderActionButton} />
           </span>
         </Tooltip>
       </Can>

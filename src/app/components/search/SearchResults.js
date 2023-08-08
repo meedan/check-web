@@ -420,7 +420,7 @@ function SearchResultsComponent({
                       arrow
                     >
                       <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
-                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<FeedIcon />} className={styles.seachHeaderActionButton} />
+                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<FeedIcon />} className={styles.searchHeaderActionButton} />
                       </span>
                     </Tooltip>
                     :
@@ -482,7 +482,7 @@ function SearchResultsComponent({
               /> : null
           }
           title={count ?
-            <span className={styles['search__results-heading']}>
+            <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
               { resultType === 'factCheck' && feed ?
                 <ListSort
                   sort={query.sort}
@@ -490,20 +490,20 @@ function SearchResultsComponent({
                   onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
                 /> : null
               }
-              <span className="search__pagination">
+              <span className={styles['search-pagination']}>
                 <Tooltip title={
                   <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
                 }
                 >
                   {getPreviousPageLocation() ? (
                     <Link
-                      className="search__previous-page search__nav"
+                      className={cx('search__previous-page', styles['search-nav'])}
                       to={getPreviousPageLocation()}
                     >
                       <PrevIcon />
                     </Link>
                   ) : (
-                    <span className="search__previous-page search__nav search__button-disabled">
+                    <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
                       <PrevIcon />
                     </span>
                   )}
@@ -528,7 +528,7 @@ function SearchResultsComponent({
                         selectedCount: filteredSelectedProjectMediaIds.length,
                       }}
                     >
-                      {txt => <span className="search__selected">{txt}</span>}
+                      {txt => <span className={styles['search-selected']}>{txt}</span>}
                     </FormattedMessage>
                     : null
                   }
@@ -538,11 +538,11 @@ function SearchResultsComponent({
                 }
                 >
                   {getNextPageLocation() ? (
-                    <Link className="search__next-page search__nav" to={getNextPageLocation()}>
+                    <Link className={cx('search__next-page', styles['search-nav'])} to={getNextPageLocation()}>
                       <NextIcon />
                     </Link>
                   ) : (
-                    <span className="search__next-page search__nav search__button-disabled">
+                    <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
                       <NextIcon />
                     </span>
                   )}

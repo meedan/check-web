@@ -48,7 +48,7 @@
       display: flex;
       gap: 12px;
 
-      .seachHeaderActionButton {
+      .searchHeaderActionButton {
         background: var(--grayBackground);
         border: 2px solid var(--grayBorderMain);
         border-radius: 8px;
@@ -88,19 +88,19 @@
   overflow: hidden;
   width: 100%;
 
-  .search__results-heading {
+  .search-results-heading {
     align-items: center;
     color: var(--textPrimary);
     display: flex;
     justify-content: space-between;
     text-align: center;
 
-    .search__selected {
+    .search-selected {
       color: var(--brandMain);
       margin: 0 0 0 8px;
     }
 
-    .search__nav {
+    .search-nav {
       color: var(--textPrimary);
       cursor: pointer;
       display: flex;
@@ -109,12 +109,12 @@
       padding: 0 8px 0 0;
     }
 
-    .search__button-disabled {
+    .search-button-disabled {
       color: var(--textPlaceholder);
       cursor: not-allowed;
     }
 
-    .search__pagination {
+    .search-pagination {
       align-items: center;
       display: flex;
     }
