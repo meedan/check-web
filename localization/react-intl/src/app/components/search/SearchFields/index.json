@@ -141,8 +141,8 @@
   },
   {
     "id": "search.unmatched",
-    "description": "Prefix label for field to filter by matched/unmatched media",
-    "defaultMessage": "Media is"
+    "description": "Label for field to filter by unmatched media",
+    "defaultMessage": "Media is unmatched"
   },
   {
     "id": "search.read",

@@ -274,7 +274,6 @@ const SearchFields = ({
   ];
 
   const unmatchedValues = [
-    { value: '0', label: intl.formatMessage(messages.matched) },
     { value: '1', label: intl.formatMessage(messages.unmatched) },
   ];
 
@@ -397,7 +396,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     unmatched: (
-      <FormattedMessage id="search.unmatched" defaultMessage="Media is" description="Prefix label for field to filter by matched/unmatched media">
+      <FormattedMessage id="search.unmatched" defaultMessage="Media is unmatched" description="Label for field to filter by unmatched media">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
@@ -405,6 +404,7 @@ const SearchFields = ({
             icon={<UnmatchedIcon />}
             selected={query.unmatched}
             options={unmatchedValues}
+            oneOption
             readOnly={readOnlyFields.includes('unmatched')}
             onChange={(newValue) => { handleFilterClick(newValue, 'unmatched'); }}
             onRemove={() => handleRemoveField('unmatched')}
