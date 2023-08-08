@@ -65,6 +65,16 @@
     "defaultMessage": "Unread"
   },
   {
+    "id": "search.mediaMatched",
+    "description": "Describes media that is matched as in \"Media is [matched]\"",
+    "defaultMessage": "Matched"
+  },
+  {
+    "id": "search.mediaUnmatched",
+    "description": "Describes media that is unmatched as in \"Media is [unmatched]\"",
+    "defaultMessage": "Unmatched"
+  },
+  {
     "id": "search.empty",
     "description": "Allow filtering by claim with no value set",
     "defaultMessage": "Empty"
@@ -128,6 +138,11 @@
     "id": "search.show",
     "description": "Prefix label for field to filter by media type",
     "defaultMessage": "Type is"
+  },
+  {
+    "id": "search.unmatched",
+    "description": "Prefix label for field to filter by matched/unmatched media",
+    "defaultMessage": "Media is"
   },
   {
     "id": "search.read",

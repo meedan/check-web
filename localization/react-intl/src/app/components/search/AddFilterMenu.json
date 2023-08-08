@@ -80,6 +80,11 @@
     "defaultMessage": "Number of suggestions"
   },
   {
+    "id": "addFilterMenu.unmatched",
+    "description": "Menu option to enable searching items by whether they have matched or unmatched media",
+    "defaultMessage": "Media matched/unmatched"
+  },
+  {
     "id": "addFilterMenu.tiplineRequests",
     "description": "Menu option to enable searching items by tipline requests",
     "defaultMessage": "Number of requests"

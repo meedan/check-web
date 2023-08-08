@@ -33,6 +33,7 @@ import LanguageIcon from '../../../icons/language.svg';
 import PersonIcon from '../../../icons/person.svg';
 import ReportIcon from '../../../icons/playlist_add_check.svg';
 import MarkunreadIcon from '../../../icons/mail.svg';
+import UnmatchedIcon from '../../../icons/unmatched.svg';
 
 const messages = defineMessages({
   claim: {
@@ -99,6 +100,16 @@ const messages = defineMessages({
     id: 'search.itemUnread',
     defaultMessage: 'Unread',
     description: 'Describes media unread',
+  },
+  matched: {
+    id: 'search.mediaMatched',
+    defaultMessage: 'Matched',
+    description: 'Describes media that is matched as in "Media is [matched]"',
+  },
+  unmatched: {
+    id: 'search.mediaUnmatched',
+    defaultMessage: 'Unmatched',
+    description: 'Describes media that is unmatched as in "Media is [unmatched]"',
   },
   empty: {
     id: 'search.empty',
@@ -262,6 +273,11 @@ const SearchFields = ({
     { value: '1', label: intl.formatMessage(messages.read) },
   ];
 
+  const unmatchedValues = [
+    { value: '0', label: intl.formatMessage(messages.matched) },
+    { value: '1', label: intl.formatMessage(messages.unmatched) },
+  ];
+
   const confirmedValues = [
     { value: CheckArchivedFlags.NONE.toString(), label: intl.formatMessage(messages.confirmed) },
     { value: CheckArchivedFlags.UNCONFIRMED.toString(), label: intl.formatMessage(messages.unconfirmed) },
@@ -376,6 +392,22 @@ const SearchFields = ({
             readOnly={readOnlyFields.includes('show')}
             onChange={(newValue) => { handleFilterClick(newValue, 'show'); }}
             onRemove={() => handleRemoveField('show')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    unmatched: (
+      <FormattedMessage id="search.unmatched" defaultMessage="Media is" description="Prefix label for field to filter by matched/unmatched media">
+        { label => (
+          <MultiSelectFilter
+            allowSearch={false}
+            label={label}
+            icon={<UnmatchedIcon />}
+            selected={query.unmatched}
+            options={unmatchedValues}
+            readOnly={readOnlyFields.includes('unmatched')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'unmatched'); }}
+            onRemove={() => handleRemoveField('unmatched')}
           />
         )}
       </FormattedMessage>
