@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
-import IconButton from '@material-ui/core/IconButton';
-import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsIcon from '../../icons/settings.svg';
 import { getLicenseIcon, getLicenseTranslatedName, getLicenseName } from '../../CheckFeedLicenses';
@@ -22,52 +20,53 @@ const FeedHeader = ({ feed }) => {
   };
 
   return (
-    <div className={cx('feed-header', searchResultsStyles.searchHeaderTitle)}>
-      <h6 title={feed.name}>
-        {feed.name}
-      </h6>
+    <div className="feed-header">
+      {feed.licenses.map(licenseId => (
+        <Tooltip
+          key={licenseId}
+          placement="right"
+          title={
+            <FormattedMessage
+              id="feedHeader.tooltipLicense"
+              defaultMessage="Feed License: {licenseName}"
+              values={{
+                licenseName: getLicenseTranslatedName(getLicenseName(licenseId)),
+              }}
+              description="Tooltip message displayed on feed license icon."
+            />
+          }
+          arrow
+        >
+          <div className="feed-header-icon">
+            <ButtonMain
+              variant="outlined"
+              size="small"
+              theme="text"
+              iconCenter={getLicenseIcon(getLicenseName(licenseId))}
+              onClick={handleClickLicense}
+              className={searchResultsStyles.seachHeaderActionButton}
+            />
+          </div>
+        </Tooltip>
+      ))}
 
-      <div className={searchResultsStyles.searchHeaderActions}>
-        {feed.licenses.map(licenseId => (
-          <Tooltip
-            key={licenseId}
-            placement="right"
-            title={
-              <FormattedMessage
-                id="feedHeader.tooltipLicense"
-                defaultMessage="Feed License: {licenseName}"
-                values={{
-                  licenseName: getLicenseTranslatedName(getLicenseName(licenseId)),
-                }}
-                description="Tooltip message displayed on feed license icon."
-              />
-            }
-            arrow
-          >
-            <div className="feed-header-icon">
-              <IconButton onClick={handleClickLicense} className={searchResultsStyles.seachHeaderActionButton}>
-                {getLicenseIcon(getLicenseName(licenseId))}
-              </IconButton>
-            </div>
-          </Tooltip>
-        ))}
-
-        <Can permissions={feed.permissions} permission="update Feed">
-          <Tooltip
-            placement="right"
-            title={
-              <FormattedMessage
-                id="feedHeader.tooltipSettings"
-                defaultMessage="Shared Feed Settings"
-                description="Tooltip message displayed on feed settings icon."
-              />
-            }
-            arrow
-          >
+      <Can permissions={feed.permissions} permission="update Feed">
+        <Tooltip
+          placement="right"
+          title={
+            <FormattedMessage
+              id="feedHeader.tooltipSettings"
+              defaultMessage="Shared Feed Settings"
+              description="Tooltip message displayed on feed settings icon."
+            />
+          }
+          arrow
+        >
+          <span>{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
             <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SettingsIcon />} onClick={handleClickSettings} className={searchResultsStyles.seachHeaderActionButton} />
-          </Tooltip>
-        </Can>
-      </div>
+          </span>
+        </Tooltip>
+      </Can>
     </div>
   );
 };
@@ -77,7 +76,6 @@ FeedHeader.defaultProps = {};
 FeedHeader.propTypes = {
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
     team: PropTypes.shape({
@@ -93,7 +91,6 @@ export { FeedHeader };
 export default createFragmentContainer(FeedHeader, graphql`
   fragment FeedHeader_feed on Feed {
     dbid
-    name
     licenses
     permissions
     team {

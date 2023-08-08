@@ -274,7 +274,7 @@ const ProjectActions = ({
         theme="text"
         iconCenter={<IconMoreVert className="project-actions__icon" />}
         onClick={(e) => { setAnchorEl(e.currentTarget); }}
-        className={cx('project-actions', searchResultsStyles['search-results-header-icon'], searchResultsStyles.seachHeaderActionButton)}
+        className={cx('project-actions', searchResultsStyles.seachHeaderActionButton)}
         title={intl.formatMessage(messages.actionsTooltip)}
       />
       <Menu

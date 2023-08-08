@@ -3,9 +3,9 @@
     @mixin typography-body2;
     background-color: var(--otherWhite);
     border: 1px solid var(--brandBorder);
+    box-shadow: var(--dropShadowMedium);
     color: var(--textPrimary);
     padding: 4px 8px;
-    box-shadow: var(--dropShadowMedium);
   }
 
   :global(.MuiTooltip-arrow) {

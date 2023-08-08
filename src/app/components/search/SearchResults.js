@@ -8,6 +8,7 @@ import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import FeedIcon from '../../icons/dynamic_feed.svg';
@@ -394,8 +395,8 @@ function SearchResultsComponent({
               </div>
             }
             <div className={cx('project__title-text', styles.searchHeaderTitle)}>
-              <h6 title={title}>
-                {icon}
+              <h6>
+                { icon && <div className={styles.searchHeaderTitleIcon}>{icon}</div> }
                 {title}
               </h6>
               <div className={styles.searchHeaderActions}>
@@ -415,11 +416,11 @@ function SearchResultsComponent({
                         </ul>
                       </>
                     }
-                    className={styles['tooltip-icon']}
+                    arrow
                   >
-                    <div className={styles['search-results-header-icon']}>
-                      <FeedIcon id="shared-feed__icon" />
-                    </div>
+                    <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
+                      <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<FeedIcon />} className={styles.seachHeaderActionButton} />
+                    </span>
                   </Tooltip>
                   :
                   null }

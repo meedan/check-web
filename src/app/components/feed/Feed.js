@@ -110,7 +110,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'show',
             ]}
             {...commonSearchProps}
-            title={
+            title={feed.name}
+            listActions={
               <FeedHeader feed={feed} />
             }
           />

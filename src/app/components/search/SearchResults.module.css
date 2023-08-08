@@ -1,22 +1,3 @@
-.search-results-header-icon {
-  border: solid 2px var(--grayBorderMain);
-  border-radius: 8px;
-  color: var(--textSecondary);
-  display: inline-block;
-  font-size: var(--iconSizeSmall);
-  height: 32px;
-  line-height: 50%;
-  padding: 4px;
-  transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
-  width: 32px;
-
-  &:hover {
-    background: var(--brandHoverAccent);
-    border-color: var(--brandBorder);
-    color: var(--textLink);
-  }
-}
-
 .searchResultsTitleWrapper {
   align-items: flex-start;
   color: var(--textSecondary);
@@ -47,12 +28,15 @@
       white-space: pre-line;
       word-break: break-all;
 
-      :global(.check-icon) {
-        color: var(--textSecondary);
+      .searchHeaderTitleIcon {
         display: inline-block;
-        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-        font-size: 24px;
-        margin: 0 8px -3px 0;
+
+        :global(.check-icon) {
+          color: var(--textSecondary);
+          /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+          font-size: 24px;
+          margin: 0 8px -3px 0;
+        }
       }
     }
 
