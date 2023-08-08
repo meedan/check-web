@@ -209,13 +209,13 @@ const TeamDetails = ({
                 label={
                   <FormattedMessage
                     id="teamDetails.utmCode"
-                    defaultMessage="UTM code"
+                    defaultMessage="UTM code (optional)"
                     description="Label for 'UTM code' field"
                   />
                 }
                 margin="normal"
                 onChange={e => setUtmCode(e.target.value)}
-                helperText={<FormattedMessage id="teamDetails.utmCodeHelp" defaultMessage="Customize the UTM code appended to links. Leave blank to disable UTM codes." description="Helper text for UTM code field" />}
+                helpContent={<FormattedMessage id="teamDetails.utmCodeHelp" defaultMessage="Customize the UTM code appended to links. Leave blank to disable UTM codes." description="Helper text for UTM code field" />}
                 variant="outlined"
                 disabled={hasScheduledNewsletters}
               /> : null
