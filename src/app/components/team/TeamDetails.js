@@ -3,13 +3,12 @@ import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
 import { ContentColumn, avatarSizeLarge } from '../../styles/js/shared';
-import { StyledAvatarEditButton } from '../../styles/js/HeaderCard';
 import CreateTeamDialog from './CreateTeamDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamAvatar from './TeamAvatar';
@@ -99,31 +98,40 @@ const TeamDetails = ({
         }
         actionButton={
           <div className={styles['team-details-buttons']}>
-            <Button
-              id="team-details__duplicate-button"
+            <ButtonMain
+              buttonProps={{
+                id: 'team-details__duplicate-button',
+              }}
               disabled={!can(team.permissions, 'duplicate Team')}
               variant="outlined"
+              theme="text"
+              size="default"
               onClick={() => setShowDuplicateTeamDialog(true)}
-            >
-              <FormattedMessage
-                id="teamDetails.duplicateWorkspace"
-                defaultMessage="Duplicate workspace"
-                description="Label of a button to duplicate a workspace"
-              />
-            </Button>
-            <Button
-              id="team-details__update-button"
-              color="primary"
+              label={
+                <FormattedMessage
+                  id="teamDetails.duplicateWorkspace"
+                  defaultMessage="Duplicate workspace"
+                  description="Label of a button to duplicate a workspace"
+                />
+              }
+            />
+            <ButtonMain
+              buttonProps={{
+                id: 'team-details__update-button',
+              }}
+              theme="brand"
+              size="default"
               variant="contained"
               onClick={handleSave}
               disabled={!canEditTeam || isSaving}
-            >
-              <FormattedMessage
-                id="teamDetails.update"
-                defaultMessage="Update"
-                description="Label of the button that saves workspace details"
-              />
-            </Button>
+              label={
+                <FormattedMessage
+                  id="teamDetails.update"
+                  defaultMessage="Update"
+                  description="Label of the button that saves workspace details"
+                />
+              }
+            />
           </div>
         }
       />
@@ -134,16 +142,20 @@ const TeamDetails = ({
             size={avatarSizeLarge}
           />
           { !editProfileImg ?
-            <StyledAvatarEditButton>
-              <Button
-                id="team-details__edit-avatar-button"
-                color="primary"
-                onClick={() => setEditProfileImg(true)}
-                disabled={!canEditTeam}
-              >
+            <ButtonMain
+              buttonProps={{
+                id: 'team-details__edit-avatar-button',
+              }}
+              theme="brand"
+              variant="text"
+              size="default"
+              onClick={() => setEditProfileImg(true)}
+              disabled={!canEditTeam}
+              label={
                 <FormattedMessage id="teamDetails.edit" defaultMessage="Edit" description="Label for a button to change a workspace image" />
-              </Button>
-            </StyledAvatarEditButton>
+              }
+              className={styles.StyledAvatarEditButton}
+            />
             : null
           }
         </div>
