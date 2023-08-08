@@ -42,6 +42,17 @@
         }
       }
 
+      .componentInlineVariants {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 32px;
+        width: 100%;
+
+        &.componentInlineGreyVariants {
+          background-color: var(--grayBackground);
+        }
+      }
+
       .componentControls {
         background-color: var(--brandBackground);
         border-radius: 5px 5px 0 0;
@@ -49,8 +60,7 @@
 
         ul {
           display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
+          flex-flow: row wrap;
           gap: 16px;
           list-style: none;
 
@@ -64,12 +74,6 @@
           border-radius: 0 0 5px 5px;
           padding: 20px;
         }
-      }
-
-      .componentInlineVariants {
-        display: flex;
-        flex-direction: row;
-        gap: 32px;
       }
 
       .fixed-width-tags {

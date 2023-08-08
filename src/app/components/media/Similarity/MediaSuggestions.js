@@ -58,7 +58,7 @@ const MediaSuggestions = ({ dbid, teamDbid, superAdminMask }) => {
             <PaginatedMediaSuggestions root={props.project_media} parentProps={props} superAdminMask={superAdminMask} pageSize={pageSize} />
           );
         }
-        return <MediasLoading count={1} />;
+        return <MediasLoading theme="grey" variant="inline" size="medium" />;
       }}
     />
   );
