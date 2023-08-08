@@ -28,15 +28,18 @@
       white-space: pre-line;
       word-break: break-all;
 
-      .searchHeaderTitleIcon {
-        display: inline-block;
+      > span {
+        vertical-align: middle;
+      }
 
-        :global(.check-icon) {
-          color: var(--textSecondary);
-          /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-          font-size: 24px;
-          margin: 0 8px -3px 0;
-        }
+      .searchHeaderTitleIcon {
+        color: var(--textSecondary);
+        display: inline-block;
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        font-size: 24px;
+        height: 24px;
+        margin: 0 8px 3px 0;
+        vertical-align: middle;
       }
     }
 

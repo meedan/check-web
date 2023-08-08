@@ -399,33 +399,35 @@ function SearchResultsComponent({
                 { icon && <div className={styles.searchHeaderTitleIcon}>{icon}</div> }
                 {title}
               </h6>
-              <div className={styles.searchHeaderActions}>
-                { savedSearch?.is_part_of_feeds ?
-                  <Tooltip
-                    title={
-                      <>
-                        <FormattedMessage
-                          id="sharedFeedIcon.Tooltip"
-                          defaultMessage="Included in Shared Feed:"
-                          description="Tooltip for shared feeds icon"
-                        />
-                        <ul className="bulleted-list item-limited-list">
-                          {feeds.map(feedObj => (
-                            <li key={feedObj.id}>{feedObj}</li>
-                          ))}
-                        </ul>
-                      </>
-                    }
-                    arrow
-                  >
-                    <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
-                      <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<FeedIcon />} className={styles.seachHeaderActionButton} />
-                    </span>
-                  </Tooltip>
-                  :
-                  null }
-                {listActions}
-              </div>
+              { (savedSearch?.is_part_of_feeds || listActions) &&
+                <div className={styles.searchHeaderActions}>
+                  { savedSearch?.is_part_of_feeds ?
+                    <Tooltip
+                      title={
+                        <>
+                          <FormattedMessage
+                            id="sharedFeedIcon.Tooltip"
+                            defaultMessage="Included in Shared Feed:"
+                            description="Tooltip for shared feeds icon"
+                          />
+                          <ul className="bulleted-list item-limited-list">
+                            {feeds.map(feedObj => (
+                              <li key={feedObj.id}>{feedObj}</li>
+                            ))}
+                          </ul>
+                        </>
+                      }
+                      arrow
+                    >
+                      <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
+                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<FeedIcon />} className={styles.seachHeaderActionButton} />
+                      </span>
+                    </Tooltip>
+                    :
+                    null }
+                  {listActions}
+                </div>
+              }
             </div>
           </div>
           { resultType !== 'factCheck' ?
