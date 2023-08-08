@@ -148,9 +148,9 @@ const MediaSuggestionsComponent = ({
     setIsMutationPending(false);
     const message = (
       <FormattedMessage
-        id="mediaSuggestionsComponent.rejectedSuccessfully"
-        defaultMessage="Suggestion rejected"
-        description="Banner displayed after items are rejected successfully"
+        id="mediaSuggestionsComponent.updatedSuccessfully"
+        defaultMessage="Suggestion updated successfully"
+        description="Banner displayed after items are accepted or rejected successfully"
       />
     );
     setFlashMessage(message, 'success');
