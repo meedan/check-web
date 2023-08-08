@@ -239,8 +239,8 @@ const AddFilterMenu = ({
       label: (
         <FormattedMessage
           id="addFilterMenu.unmatched"
-          defaultMessage="Media matched/unmatched"
-          description="Menu option to enable searching items by whether they have matched or unmatched media"
+          defaultMessage="Media unmatched"
+          description="Menu option to enable searching items by whether they have media that has been unmatched at some point"
         />
       ),
     });

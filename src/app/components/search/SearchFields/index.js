@@ -101,11 +101,6 @@ const messages = defineMessages({
     defaultMessage: 'Unread',
     description: 'Describes media unread',
   },
-  matched: {
-    id: 'search.mediaMatched',
-    defaultMessage: 'Matched',
-    description: 'Describes media that is matched as in "Media is [matched]"',
-  },
   unmatched: {
     id: 'search.mediaUnmatched',
     defaultMessage: 'Unmatched',
