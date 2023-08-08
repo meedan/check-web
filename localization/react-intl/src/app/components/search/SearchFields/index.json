@@ -137,7 +137,7 @@
   {
     "id": "search.statusHeading",
     "description": "Prefix label for field to filter by status",
-    "defaultMessage": "Item status is"
+    "defaultMessage": "Rating is"
   },
   {
     "id": "search.userHeading",
@@ -180,13 +180,13 @@
     "defaultMessage": "Organization is"
   },
   {
-    "id": "search.applyFilters",
-    "description": "Button to perform query with specified filters",
-    "defaultMessage": "Apply filter"
+    "id": "search.resetFilter",
+    "description": "Button label to reset search filters.",
+    "defaultMessage": "Reset"
   },
   {
-    "id": "searchFields.clear",
-    "description": "Tooltip for button to remove any applied filters",
-    "defaultMessage": "Clear filters"
+    "id": "search.applyFilter",
+    "description": "Button label to apply search filters.",
+    "defaultMessage": "Apply"
   }
 ]

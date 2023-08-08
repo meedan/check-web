@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
+import SettingsInputAntennaIcon from '../../../icons/settings_input_antenna.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
 
 let lastTypedValue = '';

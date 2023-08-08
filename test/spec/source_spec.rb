@@ -30,20 +30,20 @@ shared_examples 'source' do
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://www.bbc.com/news/uk').to be(true)
     expect(@driver.find_elements(:css, '.source__remove-link-button').length == 1).to be(true)
     wait_for_selector('.source__add-link-button').click
-    # try add the same source again
+    # try to add the same source again
     wait_for_selector('#source__link-input-new').send_keys('https://www.bbc.com/news/uk')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('#source__link-input-new-helper-text')
     expect(@driver.page_source.include?('Account has already been taken')).to be(true)
   end
 
-  it 'should add a existing source for a media', bin6: true do
+  it 'should add a existing source for a media', bin4: true do
     api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://www.cnnbrasil.com.br/' })
     wait_for_selector('.media')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__name')
     expect(@driver.page_source.include?('Brasil')).to be(true)
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     wait_for_selector_list_size('.medias__item', 1)
     # create another media and add a existing source
@@ -59,25 +59,9 @@ shared_examples 'source' do
     expect(@driver.page_source.include?('Brasil')).to be(true)
   end
 
-  it 'should add a new source for a media, answer and edit the source annotation', bin6: true do
-    # Create team and go to team page that should not contain any task
-    team = "task-team-#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__metadata-tab').click
-    wait_for_selector("//span[contains(text(), 'annotation')]", :xpath)
-    wait_for_selector('.metadata-tab__source').click
-    # Create source annotation
-    expect(@driver.page_source.include?('No annotation fields')).to be(true)
-    expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_annotation(tab_class: '.metadata-tab__source', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my source annotation')
-    expect(@driver.page_source.include?('No annotation fields')).to be(false)
-    expect(@driver.page_source.include?('my source annotation')).to be(true)
-    @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
-    wait_for_selector('#search-input')
-    create_media('media')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.media')
-    @driver.manage.window.maximize
+  it 'should add a new source for a media', bin3: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector('.media-card-large')
     # create source
     wait_for_selector('.media-tab__source').click
     expect(@driver.page_source.include?('BBC')).to be(false)
@@ -89,23 +73,5 @@ shared_examples 'source' do
     wait_for_selector_none('.source__edit-cancel-button')
     expect(wait_for_selector('.source__name').text == 'BBC').to be(true)
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://www.bbc.com/portuguese').to be(true)
-    # answer annotation response
-    wait_for_selector('.form-edit').click
-    wait_for_selector('#metadata-input').send_keys('annotation response')
-    wait_for_selector('.form-save').click
-    wait_for_selector_none('.form-save')
-    expect(@driver.page_source.include?('annotation response')).to be(true)
-    # edit annotation response
-    expect(@driver.page_source.include?('annotation response- edited')).to be(false)
-    wait_for_selector('.form-edit').click
-    wait_for_selector('.clear-button')
-    wait_for_selector('#metadata-input').send_keys('- edited')
-    wait_for_selector('.form-save').click
-    wait_for_selector_none('.form-save')
-    @driver.navigate.refresh
-    wait_for_selector('.media__annotations-tabs')
-    wait_for_selector('.media-tab__source').click
-    wait_for_selector('.form-edit')
-    expect(@driver.page_source.include?('annotation response- edited')).to be(true)
   end
 end

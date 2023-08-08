@@ -3,10 +3,11 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import { Box, Chip } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import Request from '../cds/requests-annotations/Request';
+import Chip from '../cds/buttons-checkboxes-chips/Chip';
 import RequestSubscription from './RequestSubscription';
 import MediasLoading from '../media/MediasLoading';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -197,7 +198,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
       }}
       render={({ props, error }) => {
         if (!error && !props) {
-          return <MediasLoading center />;
+          return <MediasLoading theme="grey" variant="inline" size="medium" />;
         }
         if (props && !error) {
           return (<RequestCards {...props} mediaDbid={mediaDbid} />);

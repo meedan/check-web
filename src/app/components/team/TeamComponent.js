@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -21,6 +21,7 @@ import TeamMembers from './TeamMembers';
 import TeamLists from './TeamLists';
 import TeamIntegrations from './TeamIntegrations';
 import TeamSimilarity from './Similarity';
+import Newsletter from './Newsletter';
 import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
@@ -117,6 +118,7 @@ class TeamComponent extends Component {
                 <FormattedMessage
                   id="teamSettings.workspace"
                   defaultMessage="Workspace"
+                  description="Label for the Workspace settings tab"
                 />
               }
               value="workspace"
@@ -127,6 +129,7 @@ class TeamComponent extends Component {
                 <FormattedMessage
                   id="teamSettings.members"
                   defaultMessage="Members"
+                  description="Label for the Members settings tab"
                 />
               }
               value="members"
@@ -138,6 +141,7 @@ class TeamComponent extends Component {
                   <FormattedMessage
                     id="teamSettings.lists"
                     defaultMessage="Columns"
+                    description="Label for the Columns settings tab"
                   />
                 }
                 value="columns"
@@ -163,9 +167,23 @@ class TeamComponent extends Component {
                   <FormattedMessage
                     id="teamSettings.tipline"
                     defaultMessage="Tipline"
+                    description="Label for the Tipline settings tab"
                   />
                 }
                 value="tipline"
+              />
+              : null }
+            {isAdminOrEditor ?
+              <Tab
+                className="team-settings__newsletter-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.newsletter"
+                    defaultMessage="Newsletter"
+                    description="Label for a tab that takes the user to settings for their newsletter."
+                  />
+                }
+                value="newsletter"
               />
               : null }
             {isAdminOrEditor && Boolean(team.smooch_bot) ?
@@ -175,6 +193,7 @@ class TeamComponent extends Component {
                   <FormattedMessage
                     id="teamSettings.data"
                     defaultMessage="Data"
+                    description="Label for the Data settings tab"
                   />
                 }
                 value="data"
@@ -187,6 +206,7 @@ class TeamComponent extends Component {
                   <FormattedMessage
                     id="teamSettings.rules"
                     defaultMessage="Rules"
+                    description="Label for the Rules settings tab"
                   />
                 }
                 value="rules"
@@ -199,6 +219,7 @@ class TeamComponent extends Component {
                   <FormattedMessage
                     id="teamSettings.Tags"
                     defaultMessage="Tags"
+                    description="Label for the Tags settings tab"
                   />
                 }
                 value="tags"
@@ -210,6 +231,7 @@ class TeamComponent extends Component {
                   <FormattedMessage
                     id="teamSettings.similarity"
                     defaultMessage="Similarity"
+                    description="Label for the Similarity settings tab"
                   />
                 }
                 value="similarity"
@@ -221,7 +243,8 @@ class TeamComponent extends Component {
                 label={
                   <FormattedMessage
                     id="teamSettings.languages"
-                    defaultMessage="Languages"
+                    defaultMessage="Language"
+                    description="Label for the Language settings tab"
                   />
                 }
                 value="languages"
@@ -234,6 +257,7 @@ class TeamComponent extends Component {
                   <FormattedMessage
                     id="teamSettings.statuses"
                     defaultMessage="Statuses"
+                    description="Label for the Statuses settings tab"
                   />
                 }
                 value="statuses"
@@ -246,6 +270,7 @@ class TeamComponent extends Component {
                   <FormattedMessage
                     id="teamSettings.report"
                     defaultMessage="Report"
+                    description="Label for the Report settings tab"
                   />
                 }
                 value="report"
@@ -258,6 +283,7 @@ class TeamComponent extends Component {
                   <FormattedMessage
                     id="teamSettings.integrations"
                     defaultMessage="Integrations"
+                    description="Label for the Integrations settings tab"
                   />
                 }
                 value="integrations"
@@ -279,6 +305,9 @@ class TeamComponent extends Component {
               : null }
             { tab === 'tipline'
               ? <SmoochBot currentUser={this.getCurrentUser()} />
+              : null }
+            { tab === 'newsletter'
+              ? <Newsletter />
               : null }
             { tab === 'data'
               ? <TeamData teamSlug={team.slug} />

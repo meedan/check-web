@@ -1,14 +1,17 @@
 [
   {
     "id": "teamSettings.workspace",
+    "description": "Label for the Workspace settings tab",
     "defaultMessage": "Workspace"
   },
   {
     "id": "teamSettings.members",
+    "description": "Label for the Members settings tab",
     "defaultMessage": "Members"
   },
   {
     "id": "teamSettings.lists",
+    "description": "Label for the Columns settings tab",
     "defaultMessage": "Columns"
   },
   {
@@ -18,38 +21,52 @@
   },
   {
     "id": "teamSettings.tipline",
+    "description": "Label for the Tipline settings tab",
     "defaultMessage": "Tipline"
   },
   {
+    "id": "teamSettings.newsletter",
+    "description": "Label for a tab that takes the user to settings for their newsletter.",
+    "defaultMessage": "Newsletter"
+  },
+  {
     "id": "teamSettings.data",
+    "description": "Label for the Data settings tab",
     "defaultMessage": "Data"
   },
   {
     "id": "teamSettings.rules",
+    "description": "Label for the Rules settings tab",
     "defaultMessage": "Rules"
   },
   {
     "id": "teamSettings.Tags",
+    "description": "Label for the Tags settings tab",
     "defaultMessage": "Tags"
   },
   {
     "id": "teamSettings.similarity",
+    "description": "Label for the Similarity settings tab",
     "defaultMessage": "Similarity"
   },
   {
     "id": "teamSettings.languages",
-    "defaultMessage": "Languages"
+    "description": "Label for the Language settings tab",
+    "defaultMessage": "Language"
   },
   {
     "id": "teamSettings.statuses",
+    "description": "Label for the Statuses settings tab",
     "defaultMessage": "Statuses"
   },
   {
     "id": "teamSettings.report",
+    "description": "Label for the Report settings tab",
     "defaultMessage": "Report"
   },
   {
     "id": "teamSettings.integrations",
+    "description": "Label for the Integrations settings tab",
     "defaultMessage": "Integrations"
   }
 ]

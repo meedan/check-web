@@ -6,17 +6,17 @@ import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import { browserHistory } from 'react-router';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
-import ListIcon from '@material-ui/icons/List';
 import { FormattedMessage } from 'react-intl';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../FlashMessage';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import CheckChannels from '../../CheckChannels';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 const createMutation = graphql`
   mutation SaveListCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
@@ -67,9 +67,6 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     marginRight: theme.spacing(1),
   },
-  saveListButton: {
-    color: 'var(--brandMain)',
-  },
   saveListCreateLabel: {
     marginRight: 0,
     flexGrow: 1,
@@ -85,7 +82,7 @@ const SaveList = ({
   query,
   setFlashMessage,
 }) => {
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches|feed)(\/([0-9]+))?/);
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches|feed|unmatched-media)(\/([0-9]+))?/);
 
   if (!currentPath) {
     return null;
@@ -102,7 +99,7 @@ const SaveList = ({
   const [showExistingDialog, setShowExistingDialog] = React.useState(false);
 
   // Just show the button on some pages
-  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches', 'feed'].indexOf(objectType) === -1) {
+  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches', 'feed', 'unmatched-media'].indexOf(objectType) === -1) {
     return null;
   }
 
@@ -191,16 +188,21 @@ const SaveList = ({
     setSaving(true);
     const input = {};
     let queryToBeSaved = {};
-    // If it's a folder, add the project.id as a filter
+    // If it's a folder, add the project.id as a default filter
     if (project) {
       queryToBeSaved.projects = [project.dbid];
     }
-    // If it's a collection, add the projectGroup.id as a filter
+    // If it's a collection, add the projectGroup.id as a default filter
     if (projectGroup) {
       queryToBeSaved.project_group_id = [projectGroup.dbid];
     }
+    // If it's the tipline inbox, channels is a default filter
     if (objectType === 'tipline-inbox' && operation !== 'UPDATE_SPECIAL_PAGE') {
       queryToBeSaved.channels = [CheckChannels.ANYTIPLINE];
+    }
+    // If it's the unmatched media page, unmatched media is a default filter
+    if (objectType === 'unmatched-media') {
+      queryToBeSaved = { unmatched: [1], sort: 'recent_activity', sort_type: 'DESC' };
     }
     queryToBeSaved = { ...queryToBeSaved, ...query };
 
@@ -282,8 +284,8 @@ const SaveList = ({
   };
 
   const handleClick = () => {
-    // From the "All Items" page, collection page and a folder page, we can just create a new list
-    if (objectType === 'all-items' || objectType === 'project' || objectType === 'collection') {
+    // From the "All Items" page, collection page, unmatched media and a folder page, we can just create a new list
+    if (objectType === 'all-items' || objectType === 'project' || objectType === 'collection' || objectType === 'unmatched-media') {
       setShowNewDialog(true);
     // From a list page, we can either create a new one or update the one we're seeing
     } else if (objectType === 'list') {
@@ -298,29 +300,37 @@ const SaveList = ({
     }
   };
 
+  const feeds = savedSearch?.feeds?.edges.map(edge => edge.node.name);
+
   return (
     <React.Fragment>
-
       {/* The "Save" button */}
-      <Button
-        id="save-list__button"
-        className={classes.saveListButton}
-        startIcon={<ListIcon />}
+      <ButtonMain
+        variant="contained"
+        size="default"
+        theme="lightBrand"
         onClick={handleClick}
-      >
-        { feedTeam && feedTeam.shared ?
+        buttonProps={{
+          id: 'save-list__button',
+        }}
+        label={feedTeam && feedTeam.shared ?
           <FormattedMessage
             id="saveList.saveFeed"
             defaultMessage="Save and share"
             description="'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters."
-          /> :
+          >
+            {(...content) => content}
+          </FormattedMessage>
+          :
           <FormattedMessage
             id="saveList.saveList"
             defaultMessage="Save"
             description="'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
-          />
+          >
+            {(...content) => content}
+          </FormattedMessage>
         }
-      </Button>
+      />
 
       {/* Create a new list */}
       <ConfirmProceedDialog
@@ -360,11 +370,29 @@ const SaveList = ({
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
                 { savedSearch ?
-                  <FormControlLabel
-                    value="UPDATE"
-                    control={<Radio />}
-                    label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
-                  /> :
+                  <>
+                    <FormControlLabel
+                      value="UPDATE"
+                      control={<Radio />}
+                      label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
+                    />
+                    { savedSearch?.is_part_of_feeds ?
+                      <Alert
+                        variant="warning"
+                        title={
+                          <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
+                        }
+                        content={
+                          <ul>
+                            {feeds.map(feed => (
+                              <li key={feed?.id}>&bull; {feed}</li>
+                            ))}
+                          </ul>
+                        }
+                      />
+                      : null }
+                  </>
+                  :
                   <FormControlLabel
                     value="UPDATE_SPECIAL_PAGE"
                     control={<Radio />}

@@ -158,7 +158,7 @@ MoveProjectMediaAction.propTypes = {
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
-    project_id: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+    project_id: PropTypes.number,
   }).isRequired,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired,

@@ -8,12 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
-import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
-import SearchIcon from '@material-ui/icons/Search';
-import { Clear as ClearIcon } from '@material-ui/icons';
 import MediaPreview from '../feed/MediaPreview';
-import { borderWidthLarge } from '../../styles/js/shared';
+import SearchIcon from '../../icons/search.svg';
+import ClearIcon from '../../icons/clear.svg';
+import OpenInFullIcon from '../../icons/open_in_full.svg';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -21,10 +20,10 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
   },
   inputInactive: {
-    border: `${borderWidthLarge} solid var(--grayBorderMain)`,
+    border: '2px solid var(--grayBorderMain)',
   },
   inputActive: {
-    border: `${borderWidthLarge} solid var(--brandMain)`,
+    border: '2px solid var(--brandMain)',
   },
   startAdornmentRoot: {
     display: 'flex',
@@ -159,7 +158,7 @@ const SearchField = ({
                     >
                       <ClearIcon color="primary" />
                     </IconButton>
-                  ) : <SearchIcon /> }
+                  ) : <SearchIcon style={{ fontSize: '20px' }} /> }
                 </InputAdornment>
               ),
               endAdornment: (
@@ -180,12 +179,7 @@ const SearchField = ({
                         <IconButton
                           onClick={searchQuery?.file_type ? handleExpandMedia : handleExpand}
                         >
-                          <img
-                            src="/images/open_full.svg"
-                            height="24"
-                            width="24"
-                            alt="Expand"
-                          />
+                          <OpenInFullIcon style={{ fontSize: '20px' }} />
                         </IconButton>
                       </InputAdornment>
                     </Grid>) : null
@@ -258,7 +252,7 @@ const SearchField = ({
                 id="search-field__close-button"
                 onClick={handleCloseExpandMedia}
               >
-                <CloseIcon />
+                <ClearIcon />
               </IconButton>
               <MediaPreview media={mediaData} />
             </div>

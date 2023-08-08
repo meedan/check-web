@@ -1,3 +1,10 @@
+/* eslint-disable relay/unused-fields */
+/*
+  FIXME: had to skip this relay/unused-fields rule unfortunately because of the team fragment that is needed
+  for MediaStatusCommon (some 4 levels up the component tree) and is very difficult to
+  make a proper chain of fragmentContainers at this moment because the BlankMediaButton
+  is entangled in a few different places.
+*/
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, createFragmentContainer, QueryRenderer } from 'react-relay/compat';
@@ -28,14 +35,18 @@ const MediaCardLarge = ({
   inModal,
   projectMedia,
   currentUserRole,
+  superAdminMask,
   onClickMore,
 }) => {
   const { media } = projectMedia;
   const data = typeof media.metadata === 'string' ? JSON.parse(media.metadata) : media.metadata;
 
+  // from https://github.com/cookpete/react-player/blob/a110aaf2f3f4e23a3ba3889fe9e8e7b96b769f59/src/patterns.js#L3
+  const youtubeRegex = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|watch\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//;
+
   let { type } = media;
-  const isYoutube = media.url && media.domain === 'youtube.com';
-  const isYoutubeChannel = media.url?.match(/youtube\.com\/(channel|c)\//);
+  const isYoutube = media.url && !!media.url.match(youtubeRegex);
+  const isYoutubeChannel = !!media.url?.match(/youtube\.com\/(channel|c)\//);
   const isWebPage = media.url && data.provider === 'page';
   const isPender = media.url && data.provider !== 'page' && !isYoutube;
   const isBlank = media.type === 'Blank';
@@ -62,6 +73,7 @@ const MediaCardLarge = ({
             projectMedia={projectMedia}
             imagePath={media.embed_path}
             currentUserRole={currentUserRole}
+            superAdminMask={superAdminMask}
           />
         ) : null }
         { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
@@ -72,6 +84,7 @@ const MediaCardLarge = ({
             currentUserRole={currentUserRole}
             isAudio={type === 'UploadedAudio'}
             coverImage={coverImage}
+            superAdminMask={superAdminMask}
           />
         ) : null }
         { isWebPage ? (
@@ -80,6 +93,7 @@ const MediaCardLarge = ({
             currentUserRole={currentUserRole}
             data={data}
             inModal={inModal}
+            superAdminMask={superAdminMask}
           />
         ) : null }
         { isPender ? (
@@ -122,18 +136,25 @@ MediaCardLarge.propTypes = {
   inModal: PropTypes.bool,
   currentUserRole: PropTypes.string.isRequired,
   onClickMore: PropTypes.func.isRequired,
+  superAdminMask: PropTypes.bool,
 };
 
 MediaCardLarge.defaultProps = {
   inModal: false,
+  superAdminMask: false,
 };
 
 const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`
   fragment MediaCardLarge_projectMedia on ProjectMedia {
     id
+    team {
+      id
+      dbid
+      slug
+      verification_statuses
+    }
     media {
       type
-      domain
       url
       quote
       metadata
@@ -162,7 +183,7 @@ const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
     }}
     render={({ error, props }) => {
       if (!error && !props) {
-        return (<MediasLoading count={1} />);
+        return (<MediasLoading theme="grey" variant="inline" size="small" />);
       }
 
       if (!error && props) {

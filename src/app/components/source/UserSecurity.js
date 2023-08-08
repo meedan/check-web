@@ -1,15 +1,14 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import SwitchComponent from '../cds/inputs/SwitchComponent';
 import ChangePasswordComponent from '../ChangePasswordComponent';
 import SetUserSecuritySettingsMutation from '../../relay/mutations/SetUserSecuritySettingsMutation';
 import GenerateTwoFactorBackupCodesMutation from '../../relay/mutations/GenerateTwoFactorBackupCodesMutation';
@@ -28,18 +27,22 @@ const messages = defineMessages({
   passwordInput: {
     id: 'UserSecurity.passwordInput',
     defaultMessage: 'Current Password',
+    description: 'Form label for current password field',
   },
   passwordError: {
     id: 'UserSecurity.passwordError',
     defaultMessage: 'Incorrect password',
+    description: 'Error message output when an incorrect password is entered',
   },
   verifyInput: {
     id: 'UserSecurity.verifyInput',
     defaultMessage: 'Validation Code',
+    description: 'Label for user to know to put in their login security validation code',
   },
   verifyError: {
     id: 'UserSecurity.verifyError',
     defaultMessage: 'Incorrect validation code',
+    description: 'Error message if the login security validation code provided by the user is incorrect',
   },
 });
 
@@ -239,50 +242,52 @@ class UserSecurity extends Component {
 
     return (
       <div id="user__security">
-        <h2 style={style}>
-          <FormattedMessage id="userSecurity.notification" defaultMessage="Notification" />
-        </h2>
+        <div className="typography-subtitle2" style={style}>
+          <FormattedMessage id="userSecurity.notification" defaultMessage="Notification" description="Section header title for security notification settings" />
+        </div>
         <Card style={style}>
           <CardContent style={cardTextStyle}>
-            <span style={{ minWidth: units(64), padding: '0px' }}>
-              <FormattedMessage
+            <SwitchComponent
+              inputProps={{
+                id: 'edit-security__successfull-login-switch',
+              }}
+              checked={Boolean(this.state.sendSuccessfulLogin)}
+              onChange={this.handleSecuritySettings.bind(this, 'successfulLogin', Boolean(this.state.sendSuccessfulLogin))}
+              labelPlacement="start"
+              label={<FormattedMessage
                 id="userSecurity.successfulLoginText"
                 defaultMessage="Receive a notification for logins from a new location or device"
-              />
-            </span>
-            <Switch
-              id="edit-security__successfull-login-switch"
-              checked={Boolean(this.state.sendSuccessfulLogin)}
-              onChange={this.handleSecuritySettings.bind(this, 'successfulLogin')}
-              color="primary"
+                description="Label for switch input to allow users to determine if they get notifications on new logins"
+              />}
             />
           </CardContent>
           <CardContent style={cardTextStyle}>
-            <span style={{ minWidth: units(64), padding: '0px' }}>
-              <FormattedMessage
+            <SwitchComponent
+              inputProps={{
+                id: 'edit-security__failed-login-switch',
+              }}
+              checked={Boolean(this.state.sendFailedLogin)}
+              onChange={this.handleSecuritySettings.bind(this, 'failedLogin', Boolean(this.state.sendFailedLogin))}
+              labelPlacement="start"
+              label={<FormattedMessage
                 id="userSecurity.failedfulLoginText"
                 defaultMessage="Receive a notification for {loginTrial} consecutive failed login attempts"
                 values={{ loginTrial }}
-                style={{ minWidth: units(64), padding: '0px' }}
-              />
-            </span>
-            <Switch
-              id="edit-security__failed-login-switch"
-              checked={Boolean(this.state.sendFailedLogin)}
-              onChange={this.handleSecuritySettings.bind(this, 'failedLogin')}
-              color="primary"
+                description="Label for switch input to allow users to receive a notification if there are multiple failed login attempts with their credentials"
+              />}
             />
           </CardContent>
         </Card>
-        <h2 style={style}>
-          <FormattedMessage id="userSecurity.twoFactorAuthentication" defaultMessage="Two factor authentication" />
-        </h2>
+        <div className="typography-subtitle2" style={style}>
+          <FormattedMessage id="userSecurity.twoFactorAuthentication" defaultMessage="Two factor authentication" description="Sectiom title for two-factor authentication settings" />
+        </div>
         {can_enable_otp === false ?
           <Card style={style}>
             <CardContent style={cardTextStyle}>
               <FormattedMessage
                 id="userSecurity.suggestTwoFactorForSocialAccounts"
                 defaultMessage="In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below."
+                description="Help text on how the user can generate a new password in order to set up two-factor authentication"
                 style={{ minWidth: units(64), padding: '0px' }}
               />
             </CardContent>
@@ -303,6 +308,7 @@ class UserSecurity extends Component {
                   <FormattedMessage
                     id="userSecurity.requireTwoFactorAuth"
                     defaultMessage="Require two-factor authentication"
+                    description="Section header title for security two-factor authentication settings"
                   />
                 }
               />
@@ -316,12 +322,14 @@ class UserSecurity extends Component {
                       <FormattedMessage
                         id="userSecurity.authenticateHeader"
                         defaultMessage="Step 1: Authenticate"
+                        description="Sub title for first step in two-factor authentication settings"
                       />
                     </h3>
                     <span style={{ lineHeight: units(3) }}>
                       <FormattedMessage
                         id="userSecurity.authenticateDescription"
                         defaultMessage="Enter your current password to confirm your identity:"
+                        description="Sub title for current password confirmation step in two-factor authentication settings"
                       />
                     </span>
                   </div>
@@ -331,6 +339,7 @@ class UserSecurity extends Component {
                     <FormattedMessage
                       id="userSecurity.disableAuthenticateDescription"
                       defaultMessage="Enter your password to disable two-factor authentication:"
+                      description="Sub title for current password confirmation step in order to disable two-factor authentication"
                     />
                   </span>
                   : null }
@@ -356,7 +365,7 @@ class UserSecurity extends Component {
                       onClick={this.handleSubmitTwoFactorAuthentication.bind(this, false)}
                       className="user-two-factor__enable-button"
                     >
-                      <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" />
+                      <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" description="Button label to disable two-factor authentication settings" />
                     </Button>
                   </CardContent>
                   : null
@@ -369,12 +378,14 @@ class UserSecurity extends Component {
                       <FormattedMessage
                         id="userSecurity.downloadHeader"
                         defaultMessage="Step 2: Download"
+                        description="Sub title for second step in two-factor authentication settings"
                       />
                     </h3>
                     <span style={{ lineHeight: units(3) }}>
                       <FormattedMessage
                         id="userSecurity.downloadDescription"
                         defaultMessage="You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
+                        description="Help message to tell the user how they can get a two factor authentication code using their smartphone"
                       />
                     </span>
                     <a href={appsUrls.apple} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }} >
@@ -389,12 +400,14 @@ class UserSecurity extends Component {
                       <FormattedMessage
                         id="userSecurity.qrcodeHeader"
                         defaultMessage="Step 3: Scan"
+                        description="Sub title for third step in two-factor authentication settings"
                       />
                     </h3>
                     <span style={{ lineHeight: units(3) }}>
                       <FormattedMessage
                         id="userSecurity.qrcodeDescription"
                         defaultMessage="Using your two-factor app, scan this QR code:"
+                        description="Help text to tell the user to scan the QR code from the app they downloaded in a previous step"
                       />
                     </span>
                     <div
@@ -413,6 +426,7 @@ class UserSecurity extends Component {
                     <FormattedMessage
                       id="userSecurity.backupHeader"
                       defaultMessage="Step 4: Backup codes"
+                      description="Sub title for forth step in two-factor authentication settings"
                     />
                   </h3>
                   : null
@@ -423,12 +437,14 @@ class UserSecurity extends Component {
                       <FormattedMessage
                         id="userSecurity.backupDescription"
                         defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use codes to be used instead of 2FA login in the event that you lose access to your 2FA device."
+                        description="Help text description on the importance of backing up two-factor authentication codes"
                       />
                     </span>
                     <p>
                       <FormattedMessage
                         id="userSecurity.backupNote"
                         defaultMessage="Note: Existing backup codes will be invalidated by clicking this button."
+                        description="Warning on the removal of existing two-factor authentication codes"
                       />
                     </p>
                     <Button
@@ -437,7 +453,7 @@ class UserSecurity extends Component {
                       onClick={this.handleGenerateBackupCodes.bind(this)}
                       className="user-two-factor__backup-button"
                     >
-                      <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" />
+                      <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" description="Button label to generate two-factor authentication backup codes" />
                     </Button>
                     {this.state.backupCodes.length === 0 ?
                       null :
@@ -456,12 +472,14 @@ class UserSecurity extends Component {
                       <FormattedMessage
                         id="userSecurity.verifyHeader"
                         defaultMessage="Step 5: Verify"
+                        description="Sub title for fifth step in two-factor authentication settings"
                       />
                     </h3>
                     <span style={{ lineHeight: units(3) }}>
                       <FormattedMessage
                         id="userSecurity.verifyDescription"
                         defaultMessage="To enable two-factor authentication, enter the 6-digit code from your two-factor app:"
+                        description="Help text to let the user know where to get their authentication code to enter"
                       />
                     </span>
                     <TextField
@@ -483,7 +501,7 @@ class UserSecurity extends Component {
                       onClick={this.handleSubmitTwoFactorAuthentication.bind(this, true)}
                       className="user-two-factor__enable-button"
                     >
-                      <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" />
+                      <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" description="Button label to enabled two-factor authentication settings" />
                     </Button>
                   </CardContent>
                 </div>
@@ -492,9 +510,9 @@ class UserSecurity extends Component {
             </div>
           </Card>
         }
-        <h2 style={style}>
-          <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" />
-        </h2>
+        <div className="typography-subtitle2" style={style}>
+          <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" description="Section title for making password changes" />
+        </div>
         <ContentColumn center className="user-password-reset__component">
           <Card>
             <CardContent>

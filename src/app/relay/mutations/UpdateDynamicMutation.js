@@ -25,7 +25,6 @@ class UpdateDynamicMutation extends Relay.Mutation {
           tasks,
           log,
           id,
-          log_count
         }
       }`;
     case 'task':
@@ -37,7 +36,7 @@ class UpdateDynamicMutation extends Relay.Mutation {
       }
       return Relay.QL`fragment on UpdateDynamicPayload {
         task { id, first_response, responses, first_response_value }
-        project_media { id, log, log_count }
+        project_media { id, log }
       }`;
     default:
       return '';

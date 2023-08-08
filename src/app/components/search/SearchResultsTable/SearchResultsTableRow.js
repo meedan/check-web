@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 });
 
 export default function SearchResultsTableRow({
-  projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked, resultType, viewMode,
+  projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked, resultType,
 }) {
   const { dbid, is_read: isRead } = projectMedia;
   const classes = useStyles({ dbid, isRead });
@@ -75,7 +75,6 @@ export default function SearchResultsTableRow({
           type={type}
           projectMedia={projectMedia}
           projectMediaUrl={projectMediaOrFeedUrl}
-          viewMode={viewMode}
         />
       ))}
     </TableRow>
@@ -84,7 +83,6 @@ export default function SearchResultsTableRow({
 SearchResultsTableRow.defaultProps = {
   projectMediaUrl: null,
   resultType: 'default',
-  viewMode: 'shorter',
 };
 SearchResultsTableRow.propTypes = {
   columnDefs: PropTypes.arrayOf(PropTypes.shape({
@@ -98,6 +96,5 @@ SearchResultsTableRow.propTypes = {
   projectMediaUrl: PropTypes.string, // or null
   checked: PropTypes.bool.isRequired,
   onChangeChecked: PropTypes.func.isRequired, // onChangeChecked(ev, projectMedia) => undefined
-  viewMode: PropTypes.oneOf(['shorter', 'longer']),
   resultType: PropTypes.string,
 };

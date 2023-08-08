@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
 const WarningsToErrorsPlugin = require('warnings-to-errors-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
+const { sentryWebpackPlugin } =  require('@sentry/webpack-plugin');
 // TODO once we reach react-relay 8.0, uncomment for simpler build end.
 // (Also, delete the relay-compiler stuff form gulpfile.)
 // const RelayCompilerWebpackPlugin = require('relay-compiler-webpack-plugin');
@@ -21,6 +22,9 @@ const NODE_ENV = process.env.NODE_ENV || 'production';
 const BUNDLE_PREFIX = process.env.BUNDLE_PREFIX
   ? `.${process.env.BUNDLE_PREFIX}`
   : '';
+const SENTRY_AUTH_TOKEN = process.env.SENTRY_AUTH_TOKEN;
+const SENTRY_ORG = process.env.SENTRY_ORG;
+const SENTRY_PROJECT = process.env.SENTRY_PROJECT;
 
 const nodeModulesPrefix = path.resolve(__dirname, '../node_modules') + '/';
 const reactIntlLocaleDataPrefix = `${nodeModulesPrefix}react-intl/locale-data/`;
@@ -37,7 +41,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../build/web/js'),
     filename: `[name].bundle${BUNDLE_PREFIX}.js`,
-    chunkFilename: `[name].chunk${BUNDLE_PREFIX}.js`,
+    chunkFilename: `[name].chunk${BUNDLE_PREFIX}.[contenthash].js`,
 		publicPath: '/',
   },
   watchOptions: {
@@ -122,6 +126,13 @@ module.exports = {
       },
     }),
     new WarningsToErrorsPlugin(),
+    sentryWebpackPlugin({
+      org: SENTRY_ORG,
+      project: SENTRY_PROJECT,
+      authToken: SENTRY_AUTH_TOKEN,
+      telemetry: false, // don't send Sentry errors to Sentry
+      disable: NODE_ENV === 'development', // we don't want to upload source maps on every recompile
+    }),
   ],
   resolve: {
     alias: { app: path.join(__dirname, '../src/app') },

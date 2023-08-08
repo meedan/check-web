@@ -172,7 +172,6 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                           }
                         }
                       }
-                      log_count,
                       permissions,
                       domain,
                       team {
@@ -235,7 +234,7 @@ const MediaLog = (props) => {
       )}
       forceFetch
       route={route}
-      renderLoading={() => <MediasLoading count={1} />}
+      renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
     />
   );
 };

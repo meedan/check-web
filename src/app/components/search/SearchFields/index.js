@@ -4,21 +4,8 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import DescriptionIcon from '@material-ui/icons/Description';
-import LabelIcon from '@material-ui/icons/Label';
-import LanguageIcon from '@material-ui/icons/Language';
-import PersonIcon from '@material-ui/icons/Person';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
-import RuleIcon from '@material-ui/icons//Rule';
-import MarkunreadIcon from '@material-ui/icons/Markunread';
-import HowToRegIcon from '@material-ui/icons/HowToReg';
-import ErrorIcon from '@material-ui/icons/Error';
-import CorporateFareIcon from '@material-ui/icons/CorporateFare';
-import ClearIcon from '../../../icons/clear.svg';
+import Divider from '@material-ui/core/Divider';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -36,6 +23,16 @@ import SearchFieldProjectGroup from './SearchFieldProjectGroup';
 import SearchFieldUser from './SearchFieldUser';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import CorporateFareIcon from '../../../icons/corporate_fare.svg';
+import DescriptionIcon from '../../../icons/description.svg';
+import ErrorIcon from '../../../icons/error_outline.svg';
+import HowToRegIcon from '../../../icons/person_check.svg';
+import LabelIcon from '../../../icons/label.svg';
+import LanguageIcon from '../../../icons/language.svg';
+import PersonIcon from '../../../icons/person.svg';
+import ReportIcon from '../../../icons/playlist_add_check.svg';
+import MarkunreadIcon from '../../../icons/mail.svg';
 
 const messages = defineMessages({
   claim: {
@@ -286,10 +283,8 @@ const SearchFields = ({
   const reportStatusOptions = [
     { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
     { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
+    { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
   ];
-  if (!/feed/.test(window.location.pathname)) {
-    reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
-  }
 
   const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
@@ -326,7 +321,7 @@ const SearchFields = ({
         { label => (
           <MultiSelectFilter
             label={label}
-            icon={<RuleIcon />}
+            icon={<LabelIcon />}
             allowSearch={false}
             selected={query.has_claim}
             options={hasClaimOptions}
@@ -402,7 +397,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     verification_status: (
-      <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
+      <FormattedMessage id="search.statusHeading" defaultMessage="Rating is" description="Prefix label for field to filter by status">
         { label => (
           <MultiSelectFilter
             label={label}
@@ -650,18 +645,33 @@ const SearchFields = ({
           addedFields={addedFields}
           onSelect={handleAddField}
         />
-        <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
-          <IconButton id="search-fields__submit-button" onClick={handleSubmit} size="small">
-            <PlayArrowIcon color="primary" />
-          </IconButton>
-        </Tooltip>
+        <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
         { filterIsActive() ? (
-          <Tooltip title={<FormattedMessage id="searchFields.clear" defaultMessage="Clear filters" description="Tooltip for button to remove any applied filters" />}>
-            <IconButton id="search-fields__clear-button" onClick={handleClickClear} size="small">
-              <ClearIcon color="primary" />
-            </IconButton>
-          </Tooltip>
+          <ButtonMain
+            variant="contained"
+            size="default"
+            theme="lightText"
+            onClick={handleClickClear}
+            label={
+              <FormattedMessage id="search.resetFilter" defaultMessage="Reset" description="Button label to reset search filters." />
+            }
+            buttonProps={{
+              id: 'search-fields__clear-button',
+            }}
+          />
         ) : null }
+        <ButtonMain
+          variant="contained"
+          size="default"
+          theme="lightValidation"
+          onClick={handleSubmit}
+          label={
+            <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
+          }
+          buttonProps={{
+            id: 'search-fields__submit-button',
+          }}
+        />
         { can(team.permissions, 'update Team') ?
           <SaveList team={team} query={query} project={project} projectGroup={projectGroup} savedSearch={savedSearch} feedTeam={feedTeam} />
           : null }
@@ -671,6 +681,7 @@ const SearchFields = ({
 };
 
 SearchFields.defaultProps = {
+  page: null,
   project: null,
   projectGroup: null,
   savedSearch: null,
@@ -708,7 +719,7 @@ SearchFields.propTypes = {
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
 };
 
 SearchFields.contextTypes = {

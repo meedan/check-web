@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import ProjectActions from '../drawer/Projects/ProjectActions';
+import FolderSpecialIcon from '../../icons/folder_special.svg';
 
 const ProjectGroup = ({ routeParams }) => (
   <ErrorBoundary component="ProjectGroup">
@@ -20,7 +20,6 @@ const ProjectGroup = ({ routeParams }) => (
             id
             dbid
             title
-            description
             team {
               id
               slug
@@ -40,13 +39,12 @@ const ProjectGroup = ({ routeParams }) => (
           };
 
           return (
-            <div className="project-group">
+            <div className="project-group search-results-wrapper">
               <Search
                 searchUrlPrefix={`/${routeParams.team}/collection/${routeParams.projectGroupId}`}
                 mediaUrlPrefix={`/${routeParams.team}/media`}
                 icon={<FolderSpecialIcon />}
                 title={props.project_group.title}
-                listDescription={props.project_group.description}
                 listActions={
                   <ProjectActions
                     object={props.project_group}
@@ -58,7 +56,6 @@ const ProjectGroup = ({ routeParams }) => (
                           project_group {
                             id
                             title
-                            description
                           }
                         }
                       }

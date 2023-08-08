@@ -16,14 +16,17 @@
   },
   {
     "id": "similarityComponent.save",
+    "description": "Label for Save Button on Similarity settings page",
     "defaultMessage": "Save"
   },
   {
     "id": "similarityComponent.masterSwitchLabelOn",
+    "description": "Switch input label when switch is set to automatic matching",
     "defaultMessage": "Automated matching is ON"
   },
   {
     "id": "similarityComponent.masterSwitchLabelOff",
+    "description": "Switch input label when switch is set to not automatic match",
     "defaultMessage": "Automated matching is OFF"
   },
   {
@@ -33,6 +36,7 @@
   },
   {
     "id": "similarityComponent.dateThreshold",
+    "description": "Number input for how many month back similarity suggestions will be processed for",
     "defaultMessage": "Similar content last submitted more than {maxTime} months ago will only be suggested"
   },
   {
@@ -41,23 +45,33 @@
     "defaultMessage": "Only send fact-checks in the same language as the conversation language"
   },
   {
+    "id": "similarityComponent.textLength",
+    "description": "A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed",
+    "defaultMessage": "Minimum words required for a confirmed match"
+  },
+  {
     "id": "similarityComponent.minimumDuration",
+    "description": "number input for Automated transcription minimum duration",
     "defaultMessage": "Minimum duration in seconds"
   },
   {
     "id": "similarityComponent.maximumDuration",
+    "description": "number input for Automated transcription maximum duration",
     "defaultMessage": "Maximum duration in seconds"
   },
   {
     "id": "similarityComponent.minimumRequests",
+    "description": "number input for Automated transcription duration requests",
     "defaultMessage": "Minimum number of requests"
   },
   {
     "id": "similarityComponent.languageForSimilarity",
+    "description": "Text input for language similarity matching settings",
     "defaultMessage": "Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
   },
   {
     "id": "similarityComponent.minEsScore",
+    "description": "number input for the minimum matching score for ElasticSearch",
     "defaultMessage": "Minimum score for ElasticSearch"
   }
 ]

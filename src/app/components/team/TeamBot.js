@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box';
 import styled from 'styled-components';
 import FetchBot from './FetchBot';
 import KeepBot from './KeepBot';
+import TaggerBot from './TaggerBot';
 import { units } from '../../styles/js/shared';
 
 const StyledSchemaForm = styled.div`
@@ -66,6 +67,11 @@ class TeamBot extends Component {
     case 'keep':
       botContent = (
         <KeepBot {...this.props} />
+      );
+      break;
+    case 'tagger':
+      botContent = (
+        <TaggerBot {...this.props} />
       );
       break;
     default:

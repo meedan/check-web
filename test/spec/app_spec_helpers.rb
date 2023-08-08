@@ -174,12 +174,6 @@ module AppSpecHelpers
     wait_for_selector('.project-actions').click
     wait_for_selector('.project-actions__edit').click
     update_field('.project-actions__edit-title input', options[:title]) if options[:title]
-    unless options[:description].nil?
-      wait_for_selector('.project-actions__edit-description input').send_keys(:control, 'a', :delete)
-      @driver.action.send_keys(" \b").perform
-      sleep 1
-      update_field('.project-actions__edit-description input', options[:description])
-    end
     wait_for_selector('.confirm-proceed-dialog__proceed').click
     wait_for_selector('.message')
     self

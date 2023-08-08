@@ -22,7 +22,7 @@ const StyledAvatarDiv = styled.div`
 `;
 
 const TeamAvatar = props => (
-  <StyledAvatarDiv {...props} style={{ backgroundImage: `url(${props.team.avatar})` }} />
+  <StyledAvatarDiv {...props} style={{ backgroundImage: `url(${props.team?.avatar})` }} />
 );
 
 export default TeamAvatar;

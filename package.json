@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git://github.com/meedan/check-web.git"
   },
+  "engines": {
+    "node": "~12"
+  },
   "nyc": {
     "include": [
       "src/**/*.js"
@@ -20,10 +23,8 @@
     "build:dev": "NODE_ENV=development gulp build:web:dev",
     "link:ui": "yalc link @meedan/check-ui",
     "serve:dev": "NODE_ENV=development yalc link @meedan/check-ui && gulp serve:dev",
-    "transifex:download": "gulp transifex:download && gulp transifex:translations",
-    "transifex:upload": "gulp transifex:prepare && gulp transifex:upload",
-    "transifex:prepare": "gulp transifex:prepare",
-    "transifex:export-chrome": "gulp transifex:export-chrome",
+    "transifex:merge-source": "gulp transifex:prepare",
+    "transifex:merge-translated": "gulp transifex:translations",
     "publish": "node scripts/server.js",
     "test": "npm run test:unit && npm run test:integration && npm run test:quick",
     "test:unit": "jest",
@@ -93,7 +94,10 @@
     "@material-ui/pickers": "^3.2.10",
     "@meedan/check-ui": "^0.1.61",
     "@react-google-maps/api": "1.8.7",
+    "@sentry/cli": "^2.20.0",
+    "@sentry/react": "^7.60.0",
     "@svgr/webpack": "^5.5.0",
+    "@sentry/webpack-plugin": "^2.5.0",
     "@vvo/tzdb": "^6.39.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-import": "^1.13.5",
@@ -101,6 +105,7 @@
     "babel-plugin-react-intl": "^3.5.1",
     "babel-plugin-relay": "^1.7.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "classnames": "^2.3.2",
     "compression-webpack-plugin": "^0.3.2",
     "coordinate-parser": "^1.0.3",
     "core-js": "^3.6.4",
@@ -113,7 +118,7 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^3.0.3",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-relay": "^1.8.3",
     "eslint-plugin-require-path-exists": "1.1.7",
@@ -123,7 +128,6 @@
     "gulp": "^4.0.2",
     "gulp-json-editor": "^2.2.1",
     "gulp-merge-json": "^2.1.1",
-    "gulp-transifex": "^0.1.17",
     "gulp-util": "^3.0.6",
     "ifvisible.js": "^1.0.6",
     "intl": "^1.2.5",

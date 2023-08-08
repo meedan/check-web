@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import Search from './Search';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
+import CategoryIcon from '../../icons/category.svg';
 
 export default function AllItems({ routeParams }) {
   return (
@@ -14,6 +15,7 @@ export default function AllItems({ routeParams }) {
         mediaUrlPrefix={`/${routeParams.team}/media`}
         title={<FormattedMessage id="search.allClaimsTitle" defaultMessage="All items" />}
         query={safelyParseJSON(routeParams.query, {})}
+        icon={<CategoryIcon />}
         teamSlug={routeParams.team}
         hideFields={[
           'cluster_teams', 'cluster_published_reports', 'feed_fact_checked_by',

@@ -22,56 +22,13 @@ shared_examples 'media' do |type|
     end
   end
 
-  it 'should go from one item to another', bin2: true do
-    create_media_depending_on_type(nil, 3)
-    wait_for_selector('.projects-list')
-    wait_for_selector('.medias__item')
-    wait_for_selector('.media__heading a').click
-    wait_for_selector('#media-fact-check__title')
-
-    # First item
-    expect(page_source_body.include?('1 of 3')).to be(true)
-    expect(page_source_body.include?('2 of 3')).to be(false)
-    expect(page_source_body.include?('3 of 3')).to be(false)
-    expect(page_source_body.include?('Claim 2')).to be(true)
-    expect(page_source_body.include?('Claim 1')).to be(false)
-    expect(page_source_body.include?('Claim 0')).to be(false)
-
-    # Second item
-    press_button('.media-search__next-item')
-    wait_for_selector_none("//span[contains(text(), '1 of 3')]", :xpath)
-    @driver.navigate.refresh
-    wait_for_selector('#media-search__current-item')
-    wait_for_selector('#media-fact-check__title')
-    wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
-
-    expect(page_source_body.include?('1 of 3')).to be(false)
-    expect(page_source_body.include?('2 of 3')).to be(true)
-    expect(page_source_body.include?('3 of 3')).to be(false)
-    expect(page_source_body.include?('Claim 2')).to be(false)
-    expect(page_source_body.include?('Claim 1')).to be(true)
-    expect(page_source_body.include?('Claim 0')).to be(false)
-
-    # Third item
-    wait_for_selector('#media-search__current-item')
-    press_button('.media-search__next-item')
-    wait_for_selector_none("//span[contains(text(), '2 of 3')]", :xpath)
-
-    expect(page_source_body.include?('1 of 3')).to be(false)
-    expect(page_source_body.include?('2 of 3')).to be(false)
-    expect(page_source_body.include?('3 of 3')).to be(true)
-    expect(page_source_body.include?('Claim 2')).to be(false)
-    expect(page_source_body.include?('Claim 1')).to be(false)
-    expect(page_source_body.include?('Claim 0')).to be(true)
-  end
-
-  it 'should restore item from trash from item page', bin6: true do
+  it 'should restore item from trash from item page', bin3: true do
     create_media_depending_on_type
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
     wait_for_selector('.message').click
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     expect(@driver.find_elements(:css, '.medias__item').empty?)
     # Go to the trash page and restore the item
@@ -85,7 +42,7 @@ shared_examples 'media' do |type|
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__add-button').click
     wait_for_selector_none('input[name=project-title]') # wait for dialog to disappear
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     wait_for_selector('.project-list__link', index: 0).click # Go to target project
     wait_for_selector_list_size('.medias__item', 1, :css)
@@ -109,6 +66,8 @@ shared_examples 'media' do |type|
     wait_for_selector('div[aria-expanded=false]')
     wait_for_selector('.media-bulk-actions__move-button').click
     wait_for_selector('.message')
+    wait_for_selector('#search-input')
+    wait_for_selector('#side-navigation__toggle').click
     wait_for_selector('.project-list__link', index: 0).click # Go to target project
     wait_for_selector_list_size('.medias__item', 1, :css)
     expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)

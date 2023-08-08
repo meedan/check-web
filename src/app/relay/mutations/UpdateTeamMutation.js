@@ -19,6 +19,8 @@ class UpdateTeamMutation extends Relay.Mutation {
           description
           avatar
           get_slack_notifications_enabled
+          get_shorten_outgoing_urls
+          get_outgoing_urls_utm_code
           get_slack_webhook
           get_report
           get_rules
@@ -48,6 +50,8 @@ class UpdateTeamMutation extends Relay.Mutation {
       slack_webhook: this.props.slack_webhook,
       report: this.props.report,
       rules: this.props.rules,
+      shorten_outgoing_urls: this.props.shorten_outgoing_urls,
+      outgoing_urls_utm_code: this.props.outgoing_urls_utm_code,
     };
     Object.keys(options).forEach((key) => {
       if (options[key] !== undefined) {
@@ -91,6 +95,8 @@ class UpdateTeamMutation extends Relay.Mutation {
             team {
               name, id, description, avatar,
               get_slack_notifications_enabled,
+              get_shorten_outgoing_urls,
+              get_outgoing_urls_utm_code,
               get_slack_webhook,
               get_report,
               get_rules,

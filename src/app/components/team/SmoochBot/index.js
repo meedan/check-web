@@ -27,7 +27,6 @@ const SmoochBot = ({ currentUser }) => {
                 json_settings
                 lock_version
                 smooch_enabled_integrations(force: true)
-                smooch_newsletter_information
                 team_bot: bot_user {
                   id
                   dbid

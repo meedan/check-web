@@ -1,0 +1,56 @@
+.wrapper {
+  display: flex;
+  position: relative;
+}
+
+.main {
+  flex: 1 1 calc(100% - 256px);
+  overflow: hidden;
+
+  /* On the item page on mobile, we don't have scrollbars per column, so the whole page should scroll */
+  @media (min-width: 1100px) {
+    height: 100vh;
+  }
+}
+
+.mainContentWrapper {
+  background-color: var(--otherWhite);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  &:global(.route__feed) {
+    background: var(--grayBackground);
+    overflow: auto;
+  }
+
+  :global(.search-results-wrapper) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  :global(.feed__fact-checks) {
+    height: auto;
+
+    :global(.search__results) {
+      margin: auto;
+      overflow: visible;
+      width: calc(100% - 32px);
+    }
+
+    :global(.project__title-text) {
+      max-width: none;
+    }
+
+    :global(.search__results-top) {
+      background: var(--otherWhite);
+      border-radius: 8px;
+      margin: auto;
+      margin-bottom: 16px;
+      padding-top: 16px;
+      width: calc(100% - 32px);
+    }
+  }
+}

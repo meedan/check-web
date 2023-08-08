@@ -1,10 +1,10 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
+import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateRelatedMediaDialog from './CreateRelatedMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import { safelyParseJSON } from '../../helpers';
@@ -20,7 +20,7 @@ const BlankMediaButton = ({
   const [pending, setPending] = React.useState(false);
 
   const handleError = (error) => {
-    let errorMessage = <FormattedMessage id="blankMediaButton.defaultErrorMessage" defaultMessage="Could not save item" />;
+    let errorMessage = <FormattedMessage id="blankMediaButton.defaultErrorMessage" defaultMessage="Could not save item" description="Error message displayed when saving an item fails" />;
     const json = safelyParseJSON(error.source);
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
@@ -40,7 +40,7 @@ const BlankMediaButton = ({
   const handleSuccess = (projectMediaDbid) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     const newPath = `/${teamSlug}/media/${projectMediaDbid}`;
-    window.location.href = window.location.href.replace(window.location.pathname, newPath);
+    browserHistory.push(newPath);
   };
 
   const handleSubmitExisting = (projectMedia) => {
@@ -82,6 +82,7 @@ const BlankMediaButton = ({
       new CreateProjectMediaMutation({
         ...value,
         team,
+        skipOptimisticResponse: true,
       }),
       {
         onSuccess: (response) => {
@@ -102,6 +103,7 @@ const BlankMediaButton = ({
             <FormattedMessage
               id="blankMediaButton.addToImportedReport"
               defaultMessage="Add to imported fact-check"
+              description="Header to dialog in which the user adds media to already existing (imported) fact-checks"
             /> : null
         }
         team={team}
@@ -117,6 +119,7 @@ const BlankMediaButton = ({
           <FormattedMessage
             id="blankMediaButton.addToReport"
             defaultMessage="Add to report"
+            description="Submit button label to dialog in which the user adds media to already existing (imported) fact-check report"
           />
         )}
         showFilters
@@ -129,12 +132,19 @@ BlankMediaButton.defaultProps = {
   team: {},
   reverse: false,
   ButtonComponent: ({ onClick }) => (
-    <Button variant="contained" color="primary" onClick={onClick}>
-      <FormattedMessage
-        id="blankMediaButton.addItem"
-        defaultMessage="Add item"
-      />
-    </Button>
+    <ButtonMain
+      variant="contained"
+      brand="primary"
+      size="default"
+      onClick={onClick}
+      label={
+        <FormattedMessage
+          id="blankMediaButton.addItem"
+          defaultMessage="Add item"
+          description="Button label that opens dialog in which the user can add a media item to an existing fact-check"
+        />
+      }
+    />
   ),
 };
 
@@ -142,7 +152,7 @@ BlankMediaButton.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
   team: PropTypes.object, // Only if wants to be able to create a new item
   reverse: PropTypes.bool, // When "reverse" is true, the selected report is the source
-  ButtonComponent: PropTypes.node,
+  ButtonComponent: PropTypes.func,
 };
 
 export default BlankMediaButton;

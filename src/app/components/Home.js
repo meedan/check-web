@@ -5,10 +5,10 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter } from 'react-router';
 import Favicon from 'react-favicon';
 import isEqual from 'lodash.isequal';
-import styled from 'styled-components';
 import Intercom from 'react-intercom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
+import * as Sentry from '@sentry/react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Header } from './Header';
 import LoginContainer from './LoginContainer';
@@ -22,35 +22,7 @@ import { withClientSessionId } from '../ClientSessionId';
 import { stringHelper } from '../customHelpers';
 import { bemClass } from '../helpers';
 import MeRoute from '../relay/MeRoute';
-
-const Wrapper = styled.div`
-  display: flex;
-  position: relative;
-`;
-
-const Main = styled.main`
-  flex: 1 1 calc(100% - 256px);
-  overflow: hidden;
-  @media (min-width: 1100px) { // On the item page on mobile, we don't have scrollbars per column, so the whole page should scroll
-    height: 100vh;
-  }
-`;
-
-const StyledContent = styled.div`
-  background-color: var(--otherWhite);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-
-  .project,
-  .project-group,
-  .saved-search {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-`;
+import styles from './Home.module.css';
 
 function buildLoginContainerMessage(flashMessage, error, childRoute, queryString) {
   let message = null;
@@ -135,6 +107,9 @@ class HomeComponent extends Component {
     if (/\/feed\/:feedId\/cluster\/:clusterId/.test(children.props.route.path)) {
       return 'feed-item';
     }
+    if (/\/feed\/[0-9]+\/feed/.test(window.location.pathname)) {
+      return 'feed';
+    }
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media';
     }
@@ -183,6 +158,35 @@ class HomeComponent extends Component {
         return true;
       },
     );
+
+    // Init sentry if a user is logged in
+    if (this.props.user && config.sentryDsn) {
+      const { dbid, email, name } = this.props.user;
+      Sentry.init({
+        dsn: config.sentryDsn,
+        environment: config.sentryEnvironment || 'none',
+        integrations: [
+          new Sentry.Replay(),
+        ],
+        // Session Replay - Sentry recommends sending a full replay when errors occur
+        replaysOnErrorSampleRate: 1.0,
+        initialScope: {
+          tags: {
+            language: navigator.language,
+          },
+          user: {
+            userAgent: window.navigator.userAgent,
+            windowSize: {
+              height: window.screen.availHeight,
+              width: window.screen.availWidth,
+            },
+            name,
+            email,
+            id: dbid,
+          },
+        },
+      });
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -277,9 +281,6 @@ class HomeComponent extends Component {
       );
     }
 
-    const isMediaPage = /\/media\/[0-9]+/.test(window.location.pathname);
-    const isFeedPage = /\/feed\/[0-9]+\/(request|cluster)\/[0-9]+/.test(window.location.pathname);
-
     let userTiplines = '';
     if (user && user.current_team && user.current_team.team_bot_installation && user.current_team.team_bot_installation.smooch_enabled_integrations) {
       userTiplines = Object.keys(user.current_team.team_bot_installation.smooch_enabled_integrations).join(', ');
@@ -302,8 +303,13 @@ class HomeComponent extends Component {
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
           <UserTos user={user} />
-          <Wrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-            {!isMediaPage && !isFeedPage && loggedIn ? (
+          <div
+            className={[
+              styles.wrapper,
+              bemClass('home', routeSlug, `--${routeSlug}`),
+            ].join(' ')}
+          >
+            {loggedIn ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}
@@ -312,7 +318,7 @@ class HomeComponent extends Component {
                 {...this.props}
               />
             ) : null}
-            <Main>
+            <main className={styles.main}>
               <Header
                 loggedIn={loggedIn}
                 pageType={routeSlug}
@@ -321,11 +327,11 @@ class HomeComponent extends Component {
                 {...this.props}
               />
               <FlashMessage />
-              <StyledContent className="content-wrapper">
+              <div className={`${styles.mainContentWrapper} route__${routeSlug}`}>
                 {children}
-              </StyledContent>
-            </Main>
-          </Wrapper>
+              </div>
+            </main>
+          </div>
         </MuiPickersUtilsProvider>
       </React.Fragment>
     );

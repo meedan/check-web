@@ -65,10 +65,6 @@
     "defaultMessage": "Title"
   },
   {
-    "id": "projectsComponent.description",
-    "defaultMessage": "Description"
-  },
-  {
     "id": "projectsComponent.deleteType",
     "description": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list",
     "defaultMessage": "Delete {type}"

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "newsletterRssFeed.urlPlaceholder",
+    "description": "Placeholder text for newsletter RSS field",
+    "defaultMessage": "https://example.com/rss.xml"
+  },
+  {
+    "id": "newsletterRssFeed.error",
+    "description": "Error message displayed under RSS feed URL field.",
+    "defaultMessage": "This URL is not a valid RSS URL."
+  },
+  {
+    "id": "newsletterRssFeed.learnMore",
+    "description": "This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'",
+    "defaultMessage": "Learn more."
+  },
+  {
+    "id": "newsletterRssFeed.load",
+    "description": "Label for a button to load RSS feed entries",
+    "defaultMessage": "Load"
+  },
+  {
+    "id": "newsletterRssFeed.noArticle",
+    "description": "Message displayed when RSS feed has less entries than requested",
+    "defaultMessage": "No article retrieved from RSS at this time"
+  }
+]

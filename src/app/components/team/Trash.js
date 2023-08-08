@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '../../icons/delete.svg';
 import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';

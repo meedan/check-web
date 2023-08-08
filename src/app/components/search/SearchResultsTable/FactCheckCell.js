@@ -46,16 +46,9 @@ const useStyles = makeStyles({
     '-webkit-box-orient': 'vertical',
     '-webkit-line-clamp': 2,
   },
-  titleViewModeLonger: {
-    maxHeight: units(22),
-    '-webkit-line-clamp': 4,
-  },
   titleViewModeShorter: {
     maxHeight: units(5),
     '-webkit-line-clamp': 2,
-  },
-  cellViewModeLonger: {
-    height: units(15),
   },
   cellViewModeShorter: {
     height: units(10),
@@ -66,10 +59,9 @@ const TitleText = ({
   classes,
   title,
   description,
-  viewMode,
 }) => (
-  <div className={viewMode === 'longer' ? [classes.textBox, classes.cellViewModeLonger].join(' ') : [classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <Typography variant="body1" className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
+  <div className={[classes.textBox, classes.cellViewModeShorter].join(' ')}>
+    <Typography variant="body1" className={[classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
     </Typography>
     {description ? (
@@ -85,7 +77,7 @@ const MaybeLink = ({ to, className, children }) => {
   return <span className={className}>{children}</span>;
 };
 
-const FactCheckCell = ({ projectMedia, viewMode }) => {
+const FactCheckCell = ({ projectMedia }) => {
   const title = projectMedia.feed_columns_values?.fact_check_title;
   const summary = projectMedia.feed_columns_values?.fact_check_summary;
   const url = projectMedia.feed_columns_values?.fact_check_url;
@@ -101,17 +93,12 @@ const FactCheckCell = ({ projectMedia, viewMode }) => {
               classes={classes}
               title={title}
               description={summary}
-              viewMode={viewMode}
             />
           </Box>
         </MaybeLink>
       )}
     </TableCell>
   );
-};
-
-FactCheckCell.defaultProps = {
-  viewMode: 'shorter',
 };
 
 FactCheckCell.propTypes = {
@@ -122,7 +109,6 @@ FactCheckCell.propTypes = {
       fact_check_url: PropTypes.string, // or null
     }).isRequired,
   }).isRequired,
-  viewMode: PropTypes.oneOf(['shorter', 'longer']),
 };
 
 export default FactCheckCell;

@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import { graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ErrorBoundary from '../error/ErrorBoundary';
 import ProjectRoute from '../../relay/ProjectRoute';
@@ -16,6 +15,7 @@ import { safelyParseJSON } from '../../helpers';
 import NotFound from '../NotFound';
 import ProjectActions from '../drawer/Projects/ProjectActions';
 import { units } from '../../styles/js/shared';
+import FolderIcon from '../../icons/folder.svg';
 
 class ProjectComponent extends React.PureComponent {
   componentDidMount() {
@@ -83,13 +83,12 @@ class ProjectComponent extends React.PureComponent {
     const privacyLabel = privacyLabels[project.privacy];
 
     return (
-      <div className="project">
+      <div className="project search-results-wrapper">
         <Search
           searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
-          icon={<FolderOpenIcon />}
-          listDescription={project.description}
+          icon={<FolderIcon />}
           listActions={
             <React.Fragment>
               { project.privacy > 0 ?
@@ -117,7 +116,6 @@ class ProjectComponent extends React.PureComponent {
                       project {
                         id
                         title
-                        description
                       }
                     }
                   }
@@ -170,7 +168,6 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         id,
         dbid,
         title,
-        description,
         permissions,
         search_id,
         medias_count,
@@ -216,7 +213,7 @@ const Project = ({ routeParams, ...props }) => {
             ? <NotFound />
             : <ProjectContainer routeParams={routeParams} {...props} {...data} />
         )}
-        renderLoading={() => <MediasLoading />}
+        renderLoading={() => <MediasLoading theme="grey" variant="page" size="large" />}
       />
     </ErrorBoundary>
   );

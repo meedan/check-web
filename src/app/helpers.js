@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
+import { getTimeZones } from '@vvo/tzdb';
 import styled from 'styled-components';
 import CheckError from './CheckError';
 import { units } from './styles/js/shared';
@@ -365,6 +366,36 @@ function escapeHtml(url) {
     .replace(/'/g, '&#x27;');
 }
 
+/**
+ * Return a list of timezone objects
+ */
+function getTimeZoneOptions() {
+  const timezones = getTimeZones({ includeUtc: true }).map((option) => {
+    const offset = option.currentTimeOffsetInMinutes / 60;
+    const fullOffset = option.currentTimeFormat.split(' ')[0];
+    const sign = offset < 0 ? '' : '+';
+    const newOption = {
+      code: option.name,
+      label: `${option.name} (GMT${sign}${offset})`,
+      value: `${option.name} (GMT${fullOffset})`,
+    };
+    return newOption;
+  });
+  return timezones;
+}
+
+/**
+ * Return a boolean for super admin screen page
+ */
+function getSuperAdminMask(state) {
+  const { superAdminMask, superAdminMaskAction } = state;
+  if (superAdminMaskAction === 'page') {
+    return superAdminMask;
+  }
+  const superAdminMaskSession = sessionStorage.getItem('superAdminMaskSession');
+  return superAdminMaskSession !== 'false';
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -388,4 +419,6 @@ export { // eslint-disable-line import/no-unused-modules
   botName,
   getMediaType,
   escapeHtml,
+  getTimeZoneOptions,
+  getSuperAdminMask,
 };

@@ -33,6 +33,7 @@ const Team = (props) => {
         `}
         variables={{
           teamSlug,
+          timestamp: new Date().getTime(), // FIXME: Forcing re-fetching data from the backend since Relay Modern mutations with file uploads don't update the Relay store yet
         }}
         render={data => renderQuery(data, props)}
       />

@@ -1,0 +1,79 @@
+.sharedFeedTitle {
+  color: var(--textSecondary);
+  text-transform: uppercase;
+}
+
+.saveFeedContainer {
+  background: var(--grayBackground);
+  display: flex;
+  gap: 32px;
+  height: 100%;
+  overflow: auto;
+  padding: 16px 32px 32px;
+}
+
+.saveFeedContent {
+  --iconSize: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: fit-content;
+  max-width: 650px;
+}
+
+.saveFeedContentNarrow {
+  padding-top: 16px;
+}
+
+.saveFeedCard {
+  background: var(--otherWhite);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.licenseSection {
+  display: grid;
+  grid-gap: 16px;
+}
+
+.licenseOption {
+  align-items: center;
+  display: flex;
+}
+
+.licenseOptionIcon {
+  align-items: center;
+  display: flex;
+  font-size: var(--iconSize);
+  margin-right: 16px;
+}
+
+.licenseOptionDescription {
+  color: var(--textSecondary);
+}
+
+.licenseOptionDisabled {
+  color: var(--textDisabled);
+}
+
+.saveFeedMetadata {
+  margin-top: 8px;
+
+  span {
+    color: var(--textSecondary);
+    font-size: var(--fontSizeSmall);
+  }
+}
+
+.saveFeedLastUpdated {
+  align-items: center;
+  display: flex;
+
+  svg {
+    color: var(--brandMain);
+    font-size: var(--iconSizeSmall);
+  }
+}

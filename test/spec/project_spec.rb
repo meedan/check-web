@@ -47,25 +47,19 @@ shared_examples 'project' do
     # edit collection name
     expect(@driver.page_source.include?('collection A- edited')).to be(false)
     wait_for_selector('.project-list__link').click
-    edit_project(title: 'collection A- edited', description: '')
-    expect(@driver.page_source.include?('Set description')).to be(false)
-    # edit collection description
-    edit_project(description: "Set description #{Time.now.to_i}")
-    expect(@driver.page_source.include?('Set description')).to be(true)
+    edit_project(title: 'collection A- edited')
+    expect(@driver.page_source.include?('collection A- edited')).to be(true)
   end
 
   it 'should create and set filters to a filtered list', bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page({ use_default_project: true })
-    wait_for_selector('.media-card-large')
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
+    wait_for_selector('.projects-list')
     wait_for_selector('#projects-list__add-filtered-list').click
     wait_for_selector('#new-project__title').send_keys('Filtered list')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__confirm-action-button')
-    wait_for_selector_list('.project-list__link')[1].click
     wait_for_selector('div[title="Filtered list"]')
-    url = @driver.current_url.to_s
     wait_for_selector('.medias__item')
     expect(@driver.find_elements(:css, '.medias__item').size == 1).to be(true)
     wait_for_selector('#add-filter-menu__open-button').click
@@ -75,24 +69,11 @@ shared_examples 'project' do
     wait_for_selector('.multi__selector-save').click
     wait_for_selector('#search-fields__submit-button').click
     expect(@driver.find_elements(:css, '.medias__item').empty?).to be(true)
-    # clear filter
-    wait_for_selector('#search-fields__clear-button').click
-    wait_for_selector('.medias__item')
-    expect(@driver.find_elements(:css, '.medias__item').size == 1).to be(true)
-    expect(@driver.page_source.include?('Item status is')).to be(false)
-    # set a new filter and save list
-    wait_for_selector('#add-filter-menu__open-button').click
-    wait_for_selector('#add-filter-menu__media-type').click
-    wait_for_selector('.custom-select-dropdown__select-button').click
-    wait_for_selector('#weblink').click
-    wait_for_selector('.multi__selector-save').click
-    wait_for_selector('#search-fields__submit-button').click
-    wait_for_selector_none('.medias__item')
-    expect(@driver.find_elements(:css, '.medias__item').empty?).to be(true)
     # save list
     wait_for_selector('#save-list__button').click
+    wait_for_selector('.confirm-proceed-dialog__cancel')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    @driver.navigate.to url
+    @driver.navigate.refresh
     wait_for_selector('.project-list__link')
     expect(@driver.find_elements(:css, '.media__heading').empty?).to be(true)
   end
@@ -106,19 +87,16 @@ shared_examples 'project' do
     wait_for_selector('#teams-tab').click
     wait_for_selector('.switch-teams__joined-team')
     wait_for_selector_list('.teams a').first.click
-    wait_for_selector('.project__title')
-    wait_for_selector('.project-list__link-trash')
-    wait_for_selector('.project__title')
     wait_for_selector('.team-header__drawer-team-link').click
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.project-list__header')
     wait_for_selector('.project-list__link').click
-    wait_for_selector_none('.team-members__edit-button', :css, 10)
 
     @driver.navigate.to("#{@config['self_url']}/check/me")
     wait_for_selector('#teams-tab').click
     wait_for_selector('.switch-teams__joined-team')
     wait_for_selector_list('.teams a').last.click
-    wait_for_selector('.project__title')
-    wait_for_selector('.project-list__link-trash')
+    wait_for_selector('#search-input')
     wait_for_selector('.team-header__drawer-team-link').click
 
     @driver.navigate.to(@config['self_url'])
@@ -131,20 +109,10 @@ shared_examples 'project' do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     new_title = "Changed title #{Time.now.to_i}"
-    new_description = "Set description #{Time.now.to_i}"
     wait_for_selector('#search-input')
     expect(@driver.page_source.include?(new_title)).to be(false)
-    expect(@driver.page_source.include?(new_description)).to be(false)
-    # 7204 edit title and description separately
-    edit_project(title: new_title, description: '')
+    edit_project(title: new_title)
     expect(@driver.page_source.include?('Changed title')).to be(true)
-    expect(@driver.page_source.include?(new_description)).to be(false)
-    wait_for_selector('.project-actions', :css)
-    # 7204 edit title and description separately
-    edit_project(description: new_description)
-    wait_for_selector('.Linkify')
-    expect(@driver.page_source.include?('Changed title')).to be(true)
-    expect(@driver.page_source.include?(new_description)).to be(true)
   end
 
   it 'should paginate folder page', bin4: true do
@@ -187,6 +155,8 @@ shared_examples 'project' do
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.message')
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     @driver.navigate.refresh

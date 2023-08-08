@@ -1,7 +1,7 @@
 {
     "extends": [
         "stylelint-config-standard",
-        "stylelint-config-css-modules",
+        "stylelint-config-css-modules"
     ],
     "ignoreFiles": ["node_modules/**"],
     "defaultSeverity": "error",
@@ -41,13 +41,13 @@
             }
         ],
         "scale-unlimited/declaration-strict-value": [
-            ["/color/", "fill", "stroke", "z-index", "font-size"],
+            ["/color/", "fill", "stroke", "font-size"],
             {
                 "ignoreValues": ["transparent", "inherit", "currentColor", "currentcolor", "none", "underline", "medium"]
             }
         ],
         "selector-class-pattern": null,
         "selector-type-case": null,
-        "string-quotes": "single",
+        "string-quotes": "single"
     }
 }

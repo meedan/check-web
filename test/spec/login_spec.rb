@@ -1,5 +1,5 @@
 shared_examples 'login' do
-  it 'should sign up using e-mail', bin5: true do
+  it 'should sign up using e-mail', bin1: true do
     @driver.navigate.to @config['self_url']
     expect(@driver.page_source.include?('Please check your email to verify your account')).to be(false)
     email = "userTest+#{Time.now.to_i}@email.com"
@@ -8,7 +8,7 @@ shared_examples 'login' do
     expect(@driver.page_source.include?('Please check your email to verify your account')).to be(true)
   end
 
-  it 'should register and login using e-mail', bin5: true, quick: true do
+  it 'should register and login using e-mail', bin2: true, quick: true do
     email = "sysops+#{Time.now.to_i}@meedan.com"
     register_with_email(true, email, true)
     @driver.navigate.to "#{@config['self_url']}/check/me"
@@ -17,7 +17,7 @@ shared_examples 'login' do
     expect(displayed_name == 'User With Email').to be(true)
   end
 
-  it 'should invite a user by e-mail to join team', bin6: true do
+  it 'should invite a user by e-mail to join team', bin3: true do
     team = "team#{Time.now.to_i}-#{rand(99_999)}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}/settings/members"
@@ -29,7 +29,7 @@ shared_examples 'login' do
     expect(@driver.page_source.include?('Pending')).to be(true)
   end
 
-  it 'should not reset password', bin5: true do
+  it 'should not reset password', bin2: true do
     @driver.navigate.to @config['self_url']
     reset_password('test@meedan.com')
     wait_for_selector_none('.user-password-reset__email-input')
@@ -44,14 +44,14 @@ shared_examples 'login' do
     expect(@driver.page_source.include?('Sign in')).to be(true)
   end
 
-  it 'should logout', bin5: true do
+  it 'should logout', bin3: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     logout
     expect(@driver.page_source.include?('Sign in')).to be(true)
   end
 
-  it 'should reset password', bin5: true do
+  it 'should reset password', bin1: true do
     user = api_create_and_confirm_user
     api_logout
     @driver.quit

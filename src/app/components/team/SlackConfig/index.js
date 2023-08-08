@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -9,9 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Dialog from '@material-ui/core/Dialog';
-import IconButton from '@material-ui/core/IconButton';
-import Switch from '@material-ui/core/Switch';
-import SettingsIcon from '@material-ui/icons/Settings';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import UserUtil from '../../user/UserUtil';
 import Message from '../../Message';
 import SlackConfigDialog from './SlackConfigDialog';
@@ -20,6 +18,8 @@ import UpdateTeamMutation from '../../../relay/mutations/UpdateTeamMutation';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
+import SettingsIcon from '../../../icons/settings.svg';
+import SlackColorIcon from '../../../icons/slack_color.svg';
 
 class SlackConfig extends React.Component {
   constructor(props) {
@@ -91,19 +91,23 @@ class SlackConfig extends React.Component {
         <Card>
           <CardHeader
             avatar={
-              <img src="/images/slack.svg" height="32" width="32" alt="Slack" />
+              <SlackColorIcon style={{ fontSize: '32px' }} />
             }
             title={
               <span className="typography-h6">Slack</span>
             }
             action={
-              <IconButton
-                className="slack-config__settings"
-                onClick={this.handleOpenDialog.bind(this)}
+              <ButtonMain
+                variant="text"
+                size="default"
+                theme="text"
                 disabled={!enabled}
-              >
-                <SettingsIcon />
-              </IconButton>
+                onClick={this.handleOpenDialog.bind(this)}
+                iconCenter={<SettingsIcon />}
+                buttonProps={{
+                  className: 'slack-config__settings',
+                }}
+              />
             }
           />
           <Message message={this.state.message} />
@@ -111,12 +115,13 @@ class SlackConfig extends React.Component {
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage
                 id="slackConfig.text"
-                defaultMessage="Send notifications to Slack channels when items are added to specific folders"
+                defaultMessage="Send notifications to Slack channels"
+                description="Description of the slack integration"
               />
-              <Switch
+              <SwitchComponent
                 className="slack-config__switch"
                 checked={enabled}
-                onClick={this.handleToggleSwitch}
+                onChange={this.handleToggleSwitch}
               />
             </Box>
           </CardContent>

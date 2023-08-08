@@ -1,0 +1,83 @@
+.card {
+  border: 1px solid var(--grayBorderMain);
+  border-radius: 8px;
+  padding: 8px;
+  width: 100%;
+
+  &:hover {
+    border-color: var(--textLink);
+  }
+
+  .cardContent {
+    align-items: flex-start;
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+  }
+
+  .cardLeft {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cardTitle {
+    display: contents;
+    margin: 0;
+  }
+
+  .cardDescription {
+    -webkit-box-orient: vertical;
+    display: -webkit-box; /* stylelint-disable */
+    color: var(--textSecondary);
+    white-space: pre-line;
+  }
+
+  .cardDescriptionCollapse {
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .cardRight {
+    text-align: right;
+    min-width: 150px;
+  }
+
+  .cardFooter {
+    color: var(--textPrimary);
+    margin-top: 8px;
+  }
+
+  .clickableCard {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.toggleCollapse {
+  align-items: center;
+  background-color: var(--brandHoverAccent);
+  border: 0px solid var(--grayBorderMain);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2px 2px;
+  width: 28px;
+  height: 28px;
+  margin-top: 8px;
+  color: var(--textSecondary);
+
+  svg {
+    font-size: var(--iconSizeSmall);
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    background-color: var(--brandHoverAccent);
+    color: var(--brandMain);
+  }
+}

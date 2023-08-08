@@ -1,9 +1,5 @@
 [
   {
-    "id": "UserMenu.userSettings",
-    "defaultMessage": "User settings"
-  },
-  {
     "id": "UserMenu.training",
     "defaultMessage": "Training and documentation"
   },
@@ -18,9 +14,5 @@
   {
     "id": "UserMenu.about",
     "defaultMessage": "About"
-  },
-  {
-    "id": "UserMenu.signOut",
-    "defaultMessage": "Sign Out"
   }
 ]

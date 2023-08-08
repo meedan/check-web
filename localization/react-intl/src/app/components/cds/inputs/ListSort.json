@@ -1,0 +1,22 @@
+[
+  {
+    "id": "listSort.sort",
+    "description": "Label for sort criteria drop-down field displayed on fact-checks page.",
+    "defaultMessage": "Sort"
+  },
+  {
+    "id": "listSort.date",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Date updated"
+  },
+  {
+    "id": "listSort.status",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Rating"
+  },
+  {
+    "id": "listSort.changeDirection",
+    "description": "Tooltip to tell the user they can change the direction of the list sort",
+    "defaultMessage": "Change list sorting direction"
+  }
+]

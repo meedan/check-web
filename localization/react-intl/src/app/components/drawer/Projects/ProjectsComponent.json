@@ -17,27 +17,67 @@
   {
     "id": "projectsComponent.allItems",
     "description": "Label for the 'All items' list displayed on the left sidebar",
-    "defaultMessage": "All items"
+    "defaultMessage": "All"
   },
   {
     "id": "projectsComponent.tiplineInbox",
-    "description": "Label for a list displayed on the left sidebar.",
-    "defaultMessage": "Tipline inbox"
+    "description": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted",
+    "defaultMessage": "Inbox"
   },
   {
     "id": "projectsComponent.importedReports",
-    "description": "Label for a list displayed on the left sidebar.",
-    "defaultMessage": "Imported fact-checks"
+    "description": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel",
+    "defaultMessage": "Imported"
   },
   {
     "id": "projectsComponent.suggestedMatches",
-    "description": "Label for a list displayed on the left sidebar.",
+    "description": "Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1",
     "defaultMessage": "Suggestions"
+  },
+  {
+    "id": "projectsComponent.unmatchedMedia",
+    "description": "Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)",
+    "defaultMessage": "Unmatched media"
+  },
+  {
+    "id": "projectsComponent.lists",
+    "description": "List of items with some filters applied",
+    "defaultMessage": "Custom Lists"
+  },
+  {
+    "id": "projectsComponent.newListButton",
+    "description": "Tooltip for button that opens list creation dialog",
+    "defaultMessage": "New list"
+  },
+  {
+    "id": "projectsComponent.noCustomLists",
+    "description": "Displayed under the custom list header when there are no lists in it",
+    "defaultMessage": "No custom lists"
+  },
+  {
+    "id": "projectsComponent.sharedFeeds",
+    "description": "Feeds of content shared across workspaces",
+    "defaultMessage": "Shared feeds"
+  },
+  {
+    "id": "projectsComponent.newSharedFeed",
+    "description": "Tooltip for the button that navigates to shared feed creation page",
+    "defaultMessage": "New shared feed"
+  },
+  {
+    "id": "projectsComponent.noSharedFeeds",
+    "description": "Displayed under the shared feed header when there are no feeds in it",
+    "defaultMessage": "No shared feeds"
   },
   {
     "id": "projectsComponent.folders",
     "description": "Label for a collapsable panel displayed on the left sidebar.",
     "defaultMessage": "Folders"
+  },
+  {
+    "id": "projectsComponent.newFolderOrCollection",
+    "description": "Tooltip for the button opens the new folder or collection menu",
+    "defaultMessage": "New folder or collection"
   },
   {
     "id": "projectsComponent.newFolderMenu",
@@ -53,16 +93,6 @@
     "id": "projectsComponent.noFolders",
     "description": "Displayed under a collection when there are no folders in it",
     "defaultMessage": "No folders in this collection"
-  },
-  {
-    "id": "projectsComponent.lists",
-    "description": "List of items with some filters applied",
-    "defaultMessage": "Filtered lists"
-  },
-  {
-    "id": "projectsComponent.sharedFeeds",
-    "description": "Feeds of content shared across workspaces",
-    "defaultMessage": "Shared feeds"
   },
   {
     "id": "projectsComponent.newFolder",

@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/HelpOutline';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import HelpIcon from '../../icons/help.svg';
 
 const useStyles = makeStyles(theme => ({
   settingsHeaderRoot: {
@@ -20,9 +19,9 @@ const useStyles = makeStyles(theme => ({
   settingsHeaderTitle: {
     justifyContent: 'left',
     alignItems: 'center',
-  },
-  settingsHeaderHelpIcon: {
-    color: 'var(--brandMain)',
+    '& h6': {
+      margin: 0,
+    },
   },
   settingsHeaderExtra: {
     marginLeft: theme.spacing(5),
@@ -47,14 +46,9 @@ const SettingsHeader = ({
     <Box className={['component__settings-header', classes.settingsHeaderRoot, className].join(' ')} style={style}>
       <Toolbar className={classes.settingsHeaderToolbar}>
         <Box display="flex" justifyContent="center" className={classes.settingsHeaderTitle}>
-          <Typography variant="h6" component="div" className="settings-header__title">
-            {title}
-          </Typography>
-          { helpUrl ?
-            <IconButton onClick={handleHelp}>
-              <HelpIcon className={classes.settingsHeaderHelpIcon} />
-            </IconButton>
-            : null
+          <h6 className="component__settings-header typography-h6">{title}</h6>
+          { helpUrl &&
+            <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
           }
           <Box className={classes.settingsHeaderExtra}>
             {extra}

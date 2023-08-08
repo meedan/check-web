@@ -3,15 +3,13 @@ shared_examples 'team' do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}/settings/workspace"
-    wait_for_selector('#team-details__name-input-label')
-    expect(@driver.page_source.include?('duplicated-team')).to be(false)
     wait_for_selector('#team-details__update-button')
+    expect(@driver.page_source.include?('duplicated-team')).to be(false)
     wait_for_selector('#team-details__duplicate-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
     update_field('#create-team-dialog__name-input', "duplicated-team#{Time.now.to_i}")
     wait_for_selector('.create-team-dialog__confirm-button').click
     wait_for_selector_none('.create-team-dialog__confirm-button')
-    wait_for_selector('#team-details__name-input-label')
     expect(@driver.page_source.include?('duplicated-team')).to be(true)
   end
 
@@ -19,13 +17,10 @@ shared_examples 'team' do
     team = "testteam#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}"
+    wait_for_selector('#team-details__update-button')
     wait_for_selector('.team-settings__workspace-tab').click
-    expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(false)
     expect(@driver.page_source.include?(' - EDIT')).to be(false)
-
     wait_for_selector('#team-details__name-input').send_keys(' - EDIT')
-
-    wait_for_selector('#team-details__description-input').send_keys 'EDIT DESCRIPTION'
 
     # Logo
     wait_for_selector('#team-details__edit-avatar-button').click
@@ -39,11 +34,10 @@ shared_examples 'team' do
 
     @driver.navigate.refresh
     wait_for_selector('#team-details__update-button')
-    expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(true)
     expect(@driver.page_source.include?(' - EDIT')).to be(true)
   end
 
-  it 'should install and uninstall bot', bin6: true do
+  it 'should install and uninstall bot', bin1: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}/settings/integrations"
@@ -64,7 +58,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('Report settings saved successfully')).to be(true)
   end
 
-  it 'should enable the Slack notifications', bin5: true do
+  it 'should enable the Slack notifications', bin1: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     @driver.execute_script('window.scrollTo(10, 10000)')
@@ -90,7 +84,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
-  it 'should manage user permissions', bin5: true do
+  it 'should manage user permissions', bin3: true do
     utp = api_create_team_project_and_two_users
     user_editor = api_create_and_confirm_user
     api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
@@ -98,6 +92,8 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.project-list__header')
     wait_for_selector('.project-list__link').click
     create_media('text')
     api_logout
@@ -108,33 +104,17 @@ shared_examples 'team' do
     wait_for_selector('button#team-members__invite-button')
     # do not be able to invite a member
     expect(@driver.find_elements(:css, 'button#team-members__invite-button[disabled=""]').length == 1)
-    # do not be able to see member icon menu
-    expect(@driver.find_elements(:css, '.team-members__icon-menu').empty?).to be(true)
     # do not be able to duplicate or edit workspace detail
     wait_for_selector('.team-settings__workspace-tab').click
     wait_for_selector('#team-details__name-input')
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length == 1)
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
-    # be able to see just the members tab
-    wait_for_selector('.team-header__drawer-team-link').click
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 2
-    # do not be able to add, remove or edit a new folder
-    expect(@driver.find_elements(:css, '.projects-list__add-folder-or-collection').empty?).to be(true)
     # do not be able to see project actions button
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.project-list__header')
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(true)
-    api_logout
-
-    # log in as admin
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    # see all the team config tabs
-    wait_for_selector('.team-header__drawer-team-link')
-    wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector('.team-bots__alegre-uninstalled').click
-    wait_for_selector('.team-settings__similarity-tab')
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 11
     api_logout
 
     # log in as editor
@@ -151,6 +131,8 @@ shared_examples 'team' do
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
     wait_for_selector('.team-header__drawer-team-link').click
     # be able to see folder actions icon
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.project-list__header')
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(false)
@@ -166,82 +148,22 @@ shared_examples 'team' do
     # Go to first team
     @driver.navigate.to "#{@config['self_url']}/#{t1.slug}/all-items"
     wait_for_selector('#add-filter-menu__open-button')
-    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/settings/workspace\"]")
+    expect(@driver.current_url.to_s.match(t1.slug).nil?).to be(false)
 
     # Navigate to second team
-    wait_for_selector('.header__user-menu')
-    wait_for_selector('.user-menu__role').click
-    wait_for_selector('.user-menu__logout')
-    wait_for_selector('a[href="/check/me"]').click
-    wait_for_selector('.source__primary-info')
+    @driver.navigate.to "#{@config['self_url']}/check/me"
+    wait_for_selector('#assignments-tab')
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
     wait_for_selector('#add-filter-menu__open-button')
+    expect(@driver.current_url.to_s.match(t2.slug).nil?).to be(false)
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/settings/workspace\"]")
 
     # Navigate back to first team
-    wait_for_selector('.header__user-menu')
-    wait_for_selector('.user-menu__role').click
-    wait_for_selector('.user-menu__logout')
-    wait_for_selector('a[href="/check/me"]').click
-    wait_for_selector('.source__primary-info')
+    @driver.navigate.to "#{@config['self_url']}/check/me"
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
-    wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/settings/workspace\"]")
-  end
-
-  it 'should manage folder access', bin1: true do
-    utp = api_create_team_project_and_two_users
-    user_editor = api_create_and_confirm_user
-    api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
-    # log in as colaborator and be able to see the folder
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 2
-    api_logout
-
-    # log in as editor and be able to see the folder
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{user_editor.email}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 2
-    api_logout
-
-    # log in as admin and change folder acess to Only admins and Editors
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    wait_for_selector('.project-list__link').click
-    change_folder_access
-    api_logout
-
-    # log in as colaborator and do not be able to see the folder
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
-    api_logout
-
-    # log in as admin and change folder acess to Only admins
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    wait_for_selector('.project-list__link').click
-    change_folder_access
-    api_logout
-
-    # log in as editor and do not be able to see the folder
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{user_editor.email}")
-    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
-    api_logout
+    wait_for_selector('#search-input')
+    expect(@driver.current_url.to_s.match(t1.slug).nil?).to be(false)
   end
 end
