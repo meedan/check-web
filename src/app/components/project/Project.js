@@ -104,7 +104,6 @@ class ProjectComponent extends React.PureComponent {
                   <VisibilityIcon /> {privacyLabel}
                 </div> : null }
               <ProjectActions
-                isMoveable
                 hasPrivacySettings
                 object={project}
                 objectType="Project"

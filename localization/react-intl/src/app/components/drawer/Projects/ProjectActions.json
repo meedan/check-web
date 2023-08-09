@@ -40,16 +40,6 @@
     "defaultMessage": "Delete"
   },
   {
-    "id": "projectActions.move",
-    "description": "'Move' here is an infinitive verb",
-    "defaultMessage": "Move to…"
-  },
-  {
-    "id": "projectActions.moveOut",
-    "description": "Menu option to move a folder out of a collection",
-    "defaultMessage": "Move out"
-  },
-  {
     "id": "projectActions.privacy",
     "description": "'Change' here is an infinitive verb",
     "defaultMessage": "Change access"

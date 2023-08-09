@@ -13,7 +13,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import ProjectMoveDialog from '../../project/ProjectMoveDialog';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import SettingsHeader from '../../team/SettingsHeader';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -40,7 +39,6 @@ const ProjectActions = ({
   updateMutation,
   deleteMutation,
   deleteMessage,
-  isMoveable,
   hasPrivacySettings,
   setFlashMessage,
   intl,
@@ -51,7 +49,6 @@ const ProjectActions = ({
   const [showEditDialog, setShowEditDialog] = React.useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
   const [showDeleteProjectDialog, setShowDeleteProjectDialog] = React.useState(false);
-  const [showMoveDialog, setShowMoveDialog] = React.useState(false);
   const [showPrivacyDialog, setShowPrivacyDialog] = React.useState(false);
   const [privacyValue, setPrivacyValue] = React.useState(object.privacy);
   const { team, permissions: projectPermissions } = object;
@@ -73,7 +70,6 @@ const ProjectActions = ({
     setShowEditDialog(false);
     setShowDeleteDialog(false);
     setShowDeleteProjectDialog(false);
-    setShowMoveDialog(false);
     setShowPrivacyDialog(false);
   };
 
@@ -229,13 +225,6 @@ const ProjectActions = ({
     });
   };
 
-  const handleMoveOut = () => {
-    handleUpdateProject({
-      previous_project_group_id: object.project_group_id,
-      project_group_id: null,
-    });
-  };
-
   const handleChangePrivacy = (e) => {
     setPrivacyValue(e.target.value);
   };
@@ -304,30 +293,6 @@ const ProjectActions = ({
             }
           />
         </MenuItem>
-        { isMoveable ?
-          <MenuItem className="project-actions__move" onClick={() => { setShowMoveDialog(true); }}>
-            <ListItemText
-              primary={
-                <FormattedMessage
-                  id="projectActions.move"
-                  defaultMessage="Move to…"
-                  description="'Move' here is an infinitive verb"
-                />
-              }
-            />
-          </MenuItem> : null }
-        { isMoveable && object.project_group_id ?
-          <MenuItem className="project-actions__move-out" onClick={handleMoveOut}>
-            <ListItemText
-              primary={
-                <FormattedMessage
-                  id="projectActions.moveOut"
-                  defaultMessage="Move out"
-                  description="Menu option to move a folder out of a collection"
-                />
-              }
-            />
-          </MenuItem> : null }
         <Divider />
         { hasPrivacySettings && can(team.permissions, 'set_privacy Project') ?
           <MenuItem className="project-actions__privacy" onClick={() => { setShowPrivacyDialog(true); }}>
@@ -459,13 +424,6 @@ const ProjectActions = ({
         onCancel={handleClose}
       />
 
-      {/* "Move" dialog */}
-      { showMoveDialog ?
-        <ProjectMoveDialog
-          onCancel={handleClose}
-          project={object}
-        /> : null }
-
       {/* "Privacy" dialog */}
       <ConfirmProceedDialog
         open={showPrivacyDialog}
@@ -531,7 +489,6 @@ const ProjectActions = ({
 };
 
 ProjectActions.defaultProps = {
-  isMoveable: false,
   hasPrivacySettings: false,
 };
 
@@ -553,7 +510,6 @@ ProjectActions.propTypes = {
   updateMutation: PropTypes.object.isRequired,
   deleteMutation: PropTypes.object.isRequired,
   deleteMessage: PropTypes.object.isRequired,
-  isMoveable: PropTypes.bool,
   hasPrivacySettings: PropTypes.bool,
 };
 
