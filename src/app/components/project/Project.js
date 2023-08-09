@@ -15,7 +15,6 @@ import { safelyParseJSON } from '../../helpers';
 import NotFound from '../NotFound';
 import ProjectActions from '../drawer/Projects/ProjectActions';
 import { units } from '../../styles/js/shared';
-import FolderIcon from '../../icons/folder.svg';
 
 class ProjectComponent extends React.PureComponent {
   componentDidMount() {
@@ -88,7 +87,7 @@ class ProjectComponent extends React.PureComponent {
           searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
-          icon={<FolderIcon />}
+          listSubtitle={<FormattedMessage id="project.subtitle" defaultMessage="Folder" description="Displayed on top of the folder title on the search results page." />}
           listActions={
             <React.Fragment>
               { project.privacy > 0 ?
