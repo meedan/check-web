@@ -1,20 +1,5 @@
 [
   {
-    "id": "projectsComponent.couldNotMove",
-    "description": "Error message displayed when it's not possible to move folder to a collection",
-    "defaultMessage": "Could not move folder to collection"
-  },
-  {
-    "id": "projectsComponent.movedSuccessfully",
-    "description": "Message displayed when a folder is moved to or from a collection",
-    "defaultMessage": "Folder moved successfully"
-  },
-  {
-    "id": "projectsComponent.invalidMove",
-    "description": "Message displayed when a folder is moved to something that is not a collection",
-    "defaultMessage": "Folders can only be moved to collections"
-  },
-  {
     "id": "projectsComponent.allItems",
     "description": "Label for the 'All items' list displayed on the left sidebar",
     "defaultMessage": "All"
@@ -68,31 +53,6 @@
     "id": "projectsComponent.noSharedFeeds",
     "description": "Displayed under the shared feed header when there are no feeds in it",
     "defaultMessage": "No shared feeds"
-  },
-  {
-    "id": "projectsComponent.folders",
-    "description": "Label for a collapsable panel displayed on the left sidebar.",
-    "defaultMessage": "Folders"
-  },
-  {
-    "id": "projectsComponent.newFolderOrCollection",
-    "description": "Tooltip for the button opens the new folder or collection menu",
-    "defaultMessage": "New folder or collection"
-  },
-  {
-    "id": "projectsComponent.newFolderMenu",
-    "description": "Menu item for creating new folder",
-    "defaultMessage": "New folder"
-  },
-  {
-    "id": "projectsComponent.newCollectionMenu",
-    "description": "Menu item for creating new collection",
-    "defaultMessage": "New collection"
-  },
-  {
-    "id": "projectsComponent.noFolders",
-    "description": "Displayed under a collection when there are no folders in it",
-    "defaultMessage": "No folders in this collection"
   },
   {
     "id": "projectsComponent.newFolder",

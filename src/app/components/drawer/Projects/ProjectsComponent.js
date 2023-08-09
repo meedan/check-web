@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { commitMutation, graphql } from 'react-relay/compat';
-import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, withRouter } from 'react-router';
 import Collapse from '@material-ui/core/Collapse';
@@ -10,9 +8,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
@@ -31,18 +26,13 @@ import styles from './Projects.module.css';
 
 const ProjectsComponent = ({
   team,
-  projects,
-  projectGroups,
   savedSearches,
   feeds,
   location,
-  setFlashMessage,
 }) => {
-  const [folderMenuAnchor, setFolderMenuAnchor] = React.useState(null);
   const [showNewFolderDialog, setShowNewFolderDialog] = React.useState(false);
   const [showNewCollectionDialog, setShowNewCollectionDialog] = React.useState(false);
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
-  const [saving, setSaving] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
   const getBooleanPref = (key, fallback) => {
     const inStore = window.storage.getValue(key);
@@ -50,8 +40,6 @@ const ProjectsComponent = ({
     return (inStore === 'true');
   };
 
-  const [foldersExpanded, setFoldersExpanded] =
-    React.useState(getBooleanPref('drawer.foldersExpanded', true));
   const [listsExpanded, setListsExpanded] =
     React.useState(getBooleanPref('drawer.listsExpanded', true));
   const [feedsExpanded, setFeedsExpanded] =
@@ -93,121 +81,6 @@ const ProjectsComponent = ({
     }
   };
 
-  const handleError = () => {
-    setSaving(false);
-    setFlashMessage((
-      <FormattedMessage
-        id="projectsComponent.couldNotMove"
-        defaultMessage="Could not move folder to collection"
-        description="Error message displayed when it's not possible to move folder to a collection"
-      />
-    ), 'error');
-  };
-
-  const handleSuccess = () => {
-    setSaving(false);
-    setFlashMessage((
-      <FormattedMessage
-        id="projectsComponent.movedSuccessfully"
-        defaultMessage="Folder moved successfully"
-        description="Message displayed when a folder is moved to or from a collection"
-      />
-    ), 'success');
-  };
-
-  const handleMove = (projectId, projectGroupDbid, previousProjectGroupDbid) => {
-    setSaving(true);
-
-    commitMutation(Store, {
-      mutation: graphql`
-        mutation ProjectsComponentUpdateProjectMutation($input: UpdateProjectInput!) {
-          updateProject(input: $input) {
-            project {
-              id
-              dbid
-              project_group_id
-            }
-            project_group {
-              id
-              medias_count
-            }
-            project_group_was {
-              id
-              medias_count
-            }
-          }
-        }
-      `,
-      variables: {
-        input: {
-          id: projectId,
-          project_group_id: projectGroupDbid,
-          previous_project_group_id: previousProjectGroupDbid,
-        },
-      },
-      onCompleted: (response, error) => {
-        if (error) {
-          handleError();
-        } else {
-          handleSuccess(response);
-          if (projectGroupDbid) {
-            const destination = `/${team.slug}/collection/${projectGroupDbid}`;
-            if (window.location.pathname !== destination) {
-              browserHistory.push(destination);
-            }
-          }
-        }
-      },
-      onError: () => {
-        handleError();
-      },
-    });
-  };
-
-  const handleDropped = (result) => {
-    const source = result.draggableId.split('-');
-
-    // Dropped outside a valid destination: remove from any collection
-    if (!result.destination) {
-      if (source[3] !== 'null') {
-        handleMove(source[2], null, parseInt(source[3], 10));
-      }
-      return false;
-    }
-    const target = result.destination.droppableId.split('-');
-
-    // Project (folder) being moved to a project group (collection)
-    if (source[1] === 'project' && target[1] === 'collection') {
-      setCollapsed(false);
-      handleMove(source[2], parseInt(target[2], 10));
-
-    // Project (folder) being moved out from a group (collection)
-    } else if (source[1] === 'project' && source[3] !== 'null') {
-      handleMove(source[2], null, parseInt(source[3], 10));
-
-    // Project (folder) being moved to a project (folder) inside a project group (collection), so, assume the collection as destination
-    } else if (source[1] === 'project' && target[1] === 'project' && target[3] !== 'null') {
-      handleMove(source[2], parseInt(target[3], 10));
-
-    // Anything else is not valid
-    } else {
-      setFlashMessage((
-        <FormattedMessage
-          id="projectsComponent.invalidMove"
-          defaultMessage="Folders can only be moved to collections"
-          description="Message displayed when a folder is moved to something that is not a collection"
-        />
-      ), 'info');
-    }
-
-    return true;
-  };
-
-  const handleToggleFoldersExpand = () => {
-    setFoldersExpanded(!foldersExpanded);
-    window.storage.set('drawer.foldersExpanded', !foldersExpanded);
-  };
-
   const handleToggleListsExpand = () => {
     setListsExpanded(!listsExpanded);
     window.storage.set('drawer.listsExpanded', !listsExpanded);
@@ -224,7 +97,6 @@ const ProjectsComponent = ({
         Tipline
       </div>
       <List dense disablePadding className={[styles.listWrapper, 'projects-list'].join(' ')}>
-        { saving && <div className={styles.listMask} /> }
         {/* All items */}
         <ListItem
           button
@@ -379,138 +251,6 @@ const ProjectsComponent = ({
             </>
           }
         </Collapse>
-
-        {/* Folders: create new folder or collection */}
-        <ListItem onClick={handleToggleFoldersExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
-          { foldersExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-          <ListItemText disableTypography className={styles.listHeaderLabel}>
-            <FormattedMessage tagName="span" id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
-            <Can permissions={team.permissions} permission="create Project">
-              <Tooltip title={<FormattedMessage id="projectsComponent.newFolderOrCollection" defaultMessage="New folder or collection" description="Tooltip for the button opens the new folder or collection menu" />}>
-                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-folder-or-collection'].join(' ')}>
-                  <AddCircleIcon />
-                </IconButton>
-              </Tooltip>
-            </Can>
-            <Menu
-              anchorEl={folderMenuAnchor}
-              keepMounted
-              open={Boolean(folderMenuAnchor)}
-              onClose={() => { setFolderMenuAnchor(null); }}
-            >
-              <MenuItem
-                onClick={(e) => {
-                  setFolderMenuAnchor(null);
-                  setShowNewFolderDialog(true);
-                  e.stopPropagation();
-                }}
-                className="projects-list__add-folder"
-              >
-                <FormattedMessage id="projectsComponent.newFolderMenu" defaultMessage="New folder" description="Menu item for creating new folder" />
-              </MenuItem>
-              <MenuItem
-                onClick={(e) => {
-                  setFolderMenuAnchor(null);
-                  setShowNewCollectionDialog(true);
-                  e.stopPropagation();
-                }}
-                className="projects-list__add-collection"
-              >
-                <FormattedMessage id="projectsComponent.newCollectionMenu" defaultMessage="New collection" description="Menu item for creating new collection" />
-              </MenuItem>
-            </Menu>
-          </ListItemText>
-        </ListItem>
-
-        {/* Collections and their folders */}
-        <Collapse in={foldersExpanded} className={styles.listCollapseWrapper}>
-          <DragDropContext onDragEnd={handleDropped} key={`${projectGroups.length}-${projects.length}`}>
-            {projectGroups.sort((a, b) => (a.title.localeCompare(b.title))).map((projectGroup) => {
-              const groupIsActive = isActive('collection', projectGroup.dbid);
-              const groupProjectActive = (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid);
-              const groupIsExpanded = (!collapsed && groupIsActive) || groupProjectActive;
-
-              const groupComponent = (
-                <ProjectsListItem
-                  key={projectGroup.id}
-                  routePrefix="collection"
-                  project={projectGroup}
-                  teamSlug={team.slug}
-                  onClick={handleClick}
-                  icon={groupIsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} />}
-                  isActive={groupIsActive}
-                  className={[
-                    styles.listItem_group,
-                    groupIsExpanded ? styles.listItem_group_expanded : '',
-                    !groupIsActive && groupIsExpanded ? styles.listItem_group_expanded_slim : '',
-                  ].join(' ')}
-                  isDroppable
-                />
-              );
-
-              // We can stop here if groups are collapsed, only one group is open at a time
-              if (collapsed) {
-                return groupComponent;
-              }
-
-              // Expand the project group if a project under it is currently active
-              if (groupIsActive || groupProjectActive) {
-                const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
-                return (
-                  <>
-                    {groupComponent}
-                    <List
-                      dense
-                      disablePadding
-                      className={styles.groupList}
-                      key={projectGroup.id}
-                    >
-                      { childProjects.length === 0 ?
-                        <ListItem className={[styles.listItem, styles.listItem_empty].join(' ')}>
-                          <ListItemText disableTypography className={styles.listLabel}>
-                            <span>
-                              <FormattedMessage tagName="em" id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
-                            </span>
-                          </ListItemText>
-                        </ListItem> :
-                        <React.Fragment>
-                          {childProjects.sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
-                            <ProjectsListItem
-                              key={project.id}
-                              index={index}
-                              routePrefix="project"
-                              project={project}
-                              teamSlug={team.slug}
-                              onClick={handleClick}
-                              isActive={isActive('project', project.dbid)}
-                              isDraggable
-                            />
-                          ))}
-                        </React.Fragment>
-                      }
-                    </List>
-                  </>
-                );
-              }
-
-              return groupComponent;
-            })}
-
-            {/* Folders that are not inside any collection */}
-            {projects.filter(p => !p.project_group_id).sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
-              <ProjectsListItem
-                key={project.id}
-                index={index}
-                routePrefix="project"
-                project={project}
-                teamSlug={team.slug}
-                onClick={handleClick}
-                isActive={isActive('project', project.dbid)}
-                isDraggable
-              />
-            ))}
-          </DragDropContext>
-        </Collapse>
       </List>
 
       {/* Dialogs to create new folder, collection or list */}
@@ -561,18 +301,6 @@ ProjectsComponent.propTypes = {
     medias_count: PropTypes.number.isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
   }).isRequired,
-  projects: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    medias_count: PropTypes.number.isRequired,
-  }).isRequired).isRequired,
-  projectGroups: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    dbid: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    medias_count: PropTypes.number.isRequired,
-  }).isRequired).isRequired,
   savedSearches: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,

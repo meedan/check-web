@@ -29,13 +29,6 @@
     min-height: auto !important;
   }
 
-  .listMask {
-    @mixin position absolute, 0, 0, 0, 0;
-    background-color: var(--otherWhite);
-    opacity: .7;
-    z-index: 1;
-  }
-
   .listChevron {
     font-size: var(--drawerexpandIconSize);
     margin: 0 4px 0 1px;
