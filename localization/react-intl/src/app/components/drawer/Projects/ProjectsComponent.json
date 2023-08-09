@@ -55,26 +55,6 @@
     "defaultMessage": "No shared feeds"
   },
   {
-    "id": "projectsComponent.newCollection",
-    "description": "Dialog title for creating new collection",
-    "defaultMessage": "New collection"
-  },
-  {
-    "id": "projectsComponent.createCollection",
-    "description": "Button label for creating new collection",
-    "defaultMessage": "Create collection"
-  },
-  {
-    "id": "projectsComponent.newCollectionErrorMessage",
-    "description": "Error message when creating new collection fails",
-    "defaultMessage": "Could not create collection, please try again"
-  },
-  {
-    "id": "projectsComponent.newCollectionSuccessMessage",
-    "description": "Success message when new collection is created",
-    "defaultMessage": "Collection created successfully"
-  },
-  {
     "id": "projectsComponent.newList",
     "description": "Title for a dialog to create a new list displayed on the left sidebar.",
     "defaultMessage": "New list"
