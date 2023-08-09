@@ -137,6 +137,7 @@ const MultiSelectFilter = ({
   single,
   onType,
   inputPlaceholder,
+  oneOption,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
   const [version, setVersion] = React.useState(0);
@@ -159,6 +160,13 @@ const MultiSelectFilter = ({
     onChange(value);
   };
 
+  // On initial render, if we automatically pick one option and don't give the user a choice (for example, they select 'Media is unmatched' so we are only doing a query for that when selected), we assume that the options array as specified is the value we want.
+  React.useEffect(() => {
+    if (oneOption) {
+      handleSelect(options.filter(o => o.value !== '').map(o => o.value));
+    }
+  }, []);
+
   return (
     <div>
       <div className="multi-select-filter">
@@ -166,7 +174,7 @@ const MultiSelectFilter = ({
           <Box px={0.5} height={4.5} display="flex" alignItems="center" whiteSpace="nowrap">
             {label}
           </Box>
-          { selectedArray.map((value, index) => (
+          { !oneOption && selectedArray.map((value, index) => (
             <React.Fragment key={getLabelForValue(value)}>
               { index > 0 ? (
                 <OperatorToggle
@@ -181,13 +189,13 @@ const MultiSelectFilter = ({
               />
             </React.Fragment>
           )) }
-          { selectedArray.length > 0 && showSelect ? (
+          { !oneOption && selectedArray.length > 0 && showSelect ? (
             <OperatorToggle
               onClick={onToggleOperator}
               operator={operator}
             />
           ) : null }
-          { (selectedArray.length === 0 || showSelect) && !readOnly ? (
+          { !oneOption && (selectedArray.length === 0 || showSelect) && !readOnly ? (
             <CustomSelectDropdown
               allowSearch={allowSearch}
               inputPlaceholder={inputPlaceholder}
@@ -203,7 +211,7 @@ const MultiSelectFilter = ({
             />
           ) : null }
           { extraInputs }
-          { !readOnly && !single ? (
+          { !oneOption && !readOnly && !single ? (
             <PlusButton>
               <AddIcon fontSize="small" onClick={() => setShowSelect(true)} />
             </PlusButton>
@@ -289,6 +297,7 @@ MultiSelectFilter.defaultProps = {
   readOnly: false,
   onType: null,
   inputPlaceholder: null,
+  oneOption: false,
 };
 
 MultiSelectFilter.propTypes = {
@@ -312,6 +321,7 @@ MultiSelectFilter.propTypes = {
   readOnly: PropTypes.bool,
   onType: PropTypes.func,
   inputPlaceholder: PropTypes.string,
+  oneOption: PropTypes.bool,
 };
 
 export default MultiSelectFilter;
