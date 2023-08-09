@@ -30,7 +30,6 @@ const ProjectsComponent = ({
   feeds,
   location,
 }) => {
-  const [showNewFolderDialog, setShowNewFolderDialog] = React.useState(false);
   const [showNewCollectionDialog, setShowNewCollectionDialog] = React.useState(false);
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
@@ -254,18 +253,6 @@ const ProjectsComponent = ({
       </List>
 
       {/* Dialogs to create new folder, collection or list */}
-
-      <NewProject
-        type="folder"
-        team={team}
-        open={showNewFolderDialog}
-        onClose={() => { setShowNewFolderDialog(false); }}
-        title={<FormattedMessage id="projectsComponent.newFolder" defaultMessage="New folder" description="Dialog title for creating new folder" />}
-        buttonLabel={<FormattedMessage id="projectsComponent.createFolder" defaultMessage="Create folder" description="Button label for creating new folder" />}
-        helpUrl="http://help.checkmedia.org/en/articles/5229479-folders-and-collections"
-        errorMessage={<FormattedMessage id="projectsComponent.newFolderErrorMessage" defaultMessage="Could not create folder, please try again" description="Error message when creating new folder fails" />}
-        successMessage={<FormattedMessage id="projectsComponent.newFolderSuccessMessage" defaultMessage="Folder created successfully" description="Success message when new folder is created" />}
-      />
 
       <NewProject
         type="collection"

@@ -55,26 +55,6 @@
     "defaultMessage": "No shared feeds"
   },
   {
-    "id": "projectsComponent.newFolder",
-    "description": "Dialog title for creating new folder",
-    "defaultMessage": "New folder"
-  },
-  {
-    "id": "projectsComponent.createFolder",
-    "description": "Button label for creating new folder",
-    "defaultMessage": "Create folder"
-  },
-  {
-    "id": "projectsComponent.newFolderErrorMessage",
-    "description": "Error message when creating new folder fails",
-    "defaultMessage": "Could not create folder, please try again"
-  },
-  {
-    "id": "projectsComponent.newFolderSuccessMessage",
-    "description": "Success message when new folder is created",
-    "defaultMessage": "Folder created successfully"
-  },
-  {
     "id": "projectsComponent.newCollection",
     "description": "Dialog title for creating new collection",
     "defaultMessage": "New collection"
