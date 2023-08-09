@@ -10,7 +10,6 @@ import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import ErrorIcon from '../../icons/error_outline.svg';
-import FolderSpecialIcon from '../../icons/folder_special.svg';
 import ForwardIcon from '../../icons/forward.svg';
 import HowToRegIcon from '../../icons/person_check.svg';
 import LabelIcon from '../../icons/label.svg';
@@ -46,18 +45,6 @@ const AddFilterMenu = ({
         id="addFilterMenu.claim"
         defaultMessage="Claim"
         description="Menu option to enable searching items by claim"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__project-group-id',
-    key: 'project_group_id',
-    icon: <FolderSpecialIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.collection"
-        defaultMessage="Collection"
-        description="Menu option to enable searching items by collection"
       />
     ),
   },
