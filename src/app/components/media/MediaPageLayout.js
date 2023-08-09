@@ -1,24 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import Media from './Media';
 import MediaActionsBar from './MediaActionsBar';
 import NextPreviousLinks from './NextPreviousLinks';
-
-const StyledTopBar = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 60%;
-  position: absolute;
-  height: 64px;
-  right: 0;
-  top: 0;
-  display: flex;
-  align-items: center;
-  z-index: 2;
-  padding: 0 16px;
-  justify-content: space-between;
-`;
+import styles from './media.module.css';
 
 export default function MediaPageLayout({
   listUrl, buildSiblingUrl, listQuery, listIndex, projectId, projectMediaId, view, mediaNavList, count,
@@ -35,7 +20,7 @@ export default function MediaPageLayout({
           count={count}
         />
       ) : null}
-      <StyledTopBar className="media-search__actions-bar">
+      <div className={styles['media-actions-bar']}>
         <MediaActionsBar
           key={`${listUrl}-${projectMediaId}` /* TODO test MediaActionsBar is sane, then nix key */}
           listUrl={listUrl}
@@ -44,7 +29,7 @@ export default function MediaPageLayout({
           projectId={projectId}
           projectMediaId={projectMediaId}
         />
-      </StyledTopBar>
+      </div>
       <Media projectId={projectId} projectMediaId={projectMediaId} view={view} />
     </div>
   );
