@@ -1,10 +1,5 @@
 [
   {
-    "id": "addFilterMenu.folder",
-    "description": "Menu option to enable searching items by folder",
-    "defaultMessage": "Folder"
-  },
-  {
     "id": "addFilterMenu.claim",
     "description": "Menu option to enable searching items by claim",
     "defaultMessage": "Claim"

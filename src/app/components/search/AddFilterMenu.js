@@ -10,7 +10,6 @@ import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import ErrorIcon from '../../icons/error_outline.svg';
-import FolderIcon from '../../icons/folder.svg';
 import FolderSpecialIcon from '../../icons/folder_special.svg';
 import ForwardIcon from '../../icons/forward.svg';
 import HowToRegIcon from '../../icons/person_check.svg';
@@ -39,18 +38,6 @@ const AddFilterMenu = ({
   };
 
   let options = [{
-    id: 'add-filter-menu__folder',
-    key: 'projects',
-    icon: <FolderIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.folder"
-        defaultMessage="Folder"
-        description="Menu option to enable searching items by folder"
-      />
-    ),
-  },
-  {
     id: 'add-filter-menu__claim',
     key: 'has_claim',
     icon: <LabelIcon />,
