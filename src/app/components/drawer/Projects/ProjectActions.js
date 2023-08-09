@@ -33,7 +33,6 @@ const messages = defineMessages({
 });
 
 const ProjectActions = ({
-  name,
   object,
   objectType,
   updateMutation,
@@ -79,7 +78,7 @@ const ProjectActions = ({
       <FormattedMessage
         id="projectActions.defaultErrorMessage"
         defaultMessage="Error, please try again"
-        description="Generic error message displayed when it's not possible to update or delete a collection, folder or list"
+        description="Generic error message displayed when it's not possible to update or delete a list"
       />
     ), 'error');
   };
@@ -90,7 +89,7 @@ const ProjectActions = ({
       <FormattedMessage
         id="projectActions.savedSuccessfully"
         defaultMessage="Done"
-        description="Generic success message displayed when a collection, folder or list is updated or deleted"
+        description="Generic success message displayed when a list is updated or deleted"
       />
     ), 'success');
     setNewTitle('');
@@ -326,9 +325,8 @@ const ProjectActions = ({
         title={
           <FormattedMessage
             id="projectsComponent.renameType"
-            defaultMessage="Rename {type}"
-            values={{ type: name }}
-            description="'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+            defaultMessage="Rename list"
+            description="'Rename' here is an infinitive verb"
           />
         }
         body={
@@ -339,7 +337,7 @@ const ProjectActions = ({
                 <FormattedMessage
                   id="projectsComponent.title"
                   defaultMessage="Title"
-                  description="Label for the title input when renaming a collection, folder, or list"
+                  description="Label for the title input when renaming a list"
                 />
               }
               defaultValue={object.title}
@@ -355,9 +353,8 @@ const ProjectActions = ({
         proceedLabel={
           <FormattedMessage
             id="projectsComponent.renameType"
-            defaultMessage="Rename {type}"
-            values={{ type: name }}
-            description="'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+            defaultMessage="Rename list"
+            description="'Rename' here is an infinitive verb"
           />
         }
         onProceed={handleUpdate}
@@ -372,9 +369,8 @@ const ProjectActions = ({
         title={
           <FormattedMessage
             id="projectsComponent.deleteType"
-            defaultMessage="Delete {type}"
-            values={{ type: name }}
-            description="'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+            defaultMessage="Delete list"
+            description="'Delete' here is an infinitive verb"
           />
         }
         body={
@@ -385,9 +381,8 @@ const ProjectActions = ({
         proceedLabel={
           <FormattedMessage
             id="projectsComponent.deleteType"
-            defaultMessage="Delete {type}"
-            values={{ type: name }}
-            description="'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+            defaultMessage="Delete list"
+            description="'Delete' here is an infinitive verb"
           />
         }
         onProceed={handleDelete}
@@ -493,7 +488,6 @@ ProjectActions.defaultProps = {
 };
 
 ProjectActions.propTypes = {
-  name: PropTypes.object.isRequired, // Readable name (e.g., "collection", "folder", "list", etc.)
   object: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,

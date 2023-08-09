@@ -59,7 +59,6 @@ const SavedSearch = ({ routeParams }) => (
                   <ProjectActions
                     object={props.saved_search}
                     objectType="SavedSearch"
-                    name="list"
                     updateMutation={graphql`
                       mutation SavedSearchUpdateSavedSearchMutation($input: UpdateSavedSearchInput!) {
                         updateSavedSearch(input: $input) {
