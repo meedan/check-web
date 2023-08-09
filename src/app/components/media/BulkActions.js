@@ -289,12 +289,6 @@ class BulkActions extends React.Component {
     } else {
       modalToMove = (
         <BulkActionsMenu
-          excludeProjectDbids={project ? [project.dbid] : []}
-          onMove={(dstProj) => {
-            this.setState({ dstProj }, () => (
-              this.handleMove()
-            ));
-          }}
           selectedMedia={this.props.selectedMedia}
           /*
             FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
