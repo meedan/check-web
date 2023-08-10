@@ -254,7 +254,6 @@ const ProjectsComponent = ({
       {/* Dialog to create list */}
 
       <NewProject
-        type="list"
         team={team}
         open={showNewListDialog}
         onClose={() => { setShowNewListDialog(false); }}
