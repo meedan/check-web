@@ -17,7 +17,7 @@ import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
-import ProjectBlankState from '../project/ProjectBlankState';
+import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
 import SearchResultsTable from './SearchResultsTable';
@@ -339,15 +339,13 @@ function SearchResultsComponent({
 
   if (count === 0) {
     content = (
-      <ProjectBlankState
-        message={
-          <FormattedMessage
-            id="projectBlankState.blank"
-            defaultMessage="There are no items here."
-            description="Empty message that is displayed when search results are zero"
-          />
-        }
-      />
+      <BlankState>
+        <FormattedMessage
+          id="projectBlankState.blank"
+          defaultMessage="There are no items here."
+          description="Empty message that is displayed when search results are zero"
+        />
+      </BlankState>
     );
     if (resultType === 'factCheck') {
       content = (
