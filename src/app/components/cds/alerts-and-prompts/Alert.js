@@ -28,6 +28,7 @@ const Alert = ({
   buttonLabel,
   icon,
   floating,
+  banner,
   onButtonClick,
   onClose,
 }) => (
@@ -40,6 +41,7 @@ const Alert = ({
         [styles.warning]: variant === 'warning',
         [styles.error]: variant === 'error',
         [styles.floating]: floating,
+        [styles.banner]: banner,
       })
     }
   >
@@ -93,6 +95,7 @@ Alert.defaultProps = {
   onButtonClick: null,
   onClose: null,
   floating: false,
+  banner: false,
   icon: true,
 };
 
@@ -100,6 +103,7 @@ Alert.propTypes = {
   title: PropTypes.object,
   content: PropTypes.object,
   floating: PropTypes.bool,
+  banner: PropTypes.bool,
   icon: PropTypes.bool,
   buttonLabel: PropTypes.string,
   onButtonClick: PropTypes.func,

@@ -1,34 +1,8 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import styled from 'styled-components';
-import IconButton from '@material-ui/core/IconButton';
-import ClearIcon from '../icons/clear.svg';
 import { mapGlobalMessage } from './MappedMessage';
-
-import {
-  ContentColumn,
-  units,
-} from '../styles/js/shared';
-
-const Message = styled.div`
-  padding: ${units(1)};
-  color: var(--textSecondary);
-  background-color: var(--otherWhite);
-  > div {
-    display: flex;
-    align-items: center;
-  }
-
-  // Not sure why this is necessary for vertical alignment.
-  // Is there a bug in IconButton? I think we are using it correctly.
-  // - CGB 2017-7-12
-  //
-  button > div {
-    display: flex;
-    align-items: center;
-  }
-`;
+import Alert from './cds/alerts-and-prompts/Alert';
 
 class BrowserSupport extends Component {
   static supported() {
@@ -56,16 +30,13 @@ class BrowserSupport extends Component {
   render() {
     if (BrowserSupport.shouldShowMessage()) {
       return (
-        <Message>
-          <ContentColumn>
-            <IconButton style={{ fontSize: '20px', color: 'var(--textSecondary)' }} onClick={this.close.bind(this)}>
-              <ClearIcon />
-            </IconButton>
-            <div>
-              <FormattedMessage id="browserSupport.message" defaultMessage="{appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />
-            </div>
-          </ContentColumn>
-        </Message>
+        <Alert
+          title={<FormattedMessage id="browserSupport.message" defaultMessage="{appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />}
+          banner
+          icon
+          variant="warning"
+          onClose={this.close.bind(this)}
+        />
       );
     }
     return null;
