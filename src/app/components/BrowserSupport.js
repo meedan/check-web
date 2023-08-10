@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { mapGlobalMessage } from './MappedMessage';
@@ -31,7 +30,7 @@ class BrowserSupport extends Component {
     if (BrowserSupport.shouldShowMessage()) {
       return (
         <Alert
-          title={<FormattedMessage id="browserSupport.message" defaultMessage="{appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />}
+          title={<FormattedMessage id="browserSupport.message" description="Banner message encouraging users to use the Google Chrome browser, as their current browser is not supported" defaultMessage="{appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />}
           banner
           icon
           variant="warning"
