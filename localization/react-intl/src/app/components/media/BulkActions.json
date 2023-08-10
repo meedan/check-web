@@ -1,26 +1,23 @@
 [
   {
     "id": "bulkActions.movedRestoreSuccessfully",
-    "description": "Banner displayed after items are moved successfully",
-    "defaultMessage": "Items moved from Trash to '{toProject}'"
+    "description": "Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} moved from Trash to 'All'"
   },
   {
     "id": "bulkActions.movedFromSpamSuccessfully",
-    "description": "Banner displayed after items are moved successfully",
-    "defaultMessage": "Items moved from Spam to '{toProject}'"
-  },
-  {
-    "id": "bulkActions.movedSuccessfully",
-    "description": "Banner displayed after items are moved successfully",
-    "defaultMessage": "Items moved to '{toProject}'"
+    "description": "Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} moved from Spam to 'All'"
   },
   {
     "id": "bulkActions.moveToTrashSuccessfully",
-    "defaultMessage": "Items moved to the Trash."
+    "description": "Message that appears when one or more items have been selected and moved to the trash.",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} moved to Trash."
   },
   {
     "id": "bulkActions.moveToSpamSuccessfully",
-    "defaultMessage": "Items moved to the Spam."
+    "description": "Message that appears when one or more items have been selected and moved to spam.",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} moved to Spam."
   },
   {
     "id": "bulkActions.trash",
@@ -34,20 +31,11 @@
   {
     "id": "bulkActions.spam",
     "description": "Tooltip message for button that mark items as not spam",
-    "defaultMessage": "Mark selected items as not spam and move them to another folder"
+    "defaultMessage": "Mark selected items as not spam and move them to 'All Items'"
   },
   {
     "id": "bulkActions.notSpam",
     "defaultMessage": "Not Spam"
-  },
-  {
-    "id": "bulkActions.dialogMoveTitle",
-    "defaultMessage": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
-  },
-  {
-    "id": "bulkActions.moveTitle",
-    "description": "Label for button to commit action of moving item to the selected folder",
-    "defaultMessage": "Move to folder"
   },
   {
     "id": "bulkActions.sendItemsToSpam",

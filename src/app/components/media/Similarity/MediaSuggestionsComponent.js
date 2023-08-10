@@ -114,7 +114,6 @@ const MediaSuggestionsComponent = ({
   reportType,
   relationships,
   team,
-  project,
   superAdminMask,
   setFlashMessage,
   relay,
@@ -504,7 +503,6 @@ const MediaSuggestionsComponent = ({
       ids: visibleItemIds,
       archived,
       team,
-      project,
     });
 
     // reject these items and send them to a null folder
@@ -1081,7 +1079,6 @@ MediaSuggestionsComponent.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
-  project: PropTypes.object.isRequired,
   superAdminMask: PropTypes.bool,
 };
 

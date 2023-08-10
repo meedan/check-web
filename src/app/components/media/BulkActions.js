@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
@@ -13,16 +12,13 @@ import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import BulkActionsMenu from './BulkActionsMenu';
-import SelectProjectDialog from './SelectProjectDialog';
 import Can from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
-import BulkMoveProjectMediaMutation from '../../relay/mutations/BulkMoveProjectMediaMutation';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
-import globalStrings from '../../globalStrings';
 
 const useStyles = makeStyles(theme => ({
   // buttonSpan: a <span> between a <Tooltip> and a <Button>. (The <Button> may be
@@ -66,111 +62,42 @@ IconButtonWithTooltip.propTypes = {
 };
 
 class BulkActions extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openMoveDialog: false,
-      dstProj: null,
-    };
-  }
-
-  moveSelected() {
-    if (this.props.selectedMedia.length > 0) {
-      this.setState({ openMoveDialog: true });
-    }
-  }
-
-  handleCloseDialogs() {
-    this.setState({ openMoveDialog: false });
-  }
-
   fail = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
     this.props.setFlashMessage(message, 'error');
   };
 
-  handleMove() {
-    const onSuccess = () => {
-      const {
-        title: projectTitle,
-        dbid: projectId,
-      } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
-      const message = (
-        <FormattedMessage
-          id="bulkActions.movedSuccessfully"
-          defaultMessage="Items moved to '{toProject}'"
-          description="Banner displayed after items are moved successfully"
-          values={{
-            toProject: (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-              <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
-                {projectTitle}
-              </a>
-            ),
-          }}
-        />
-      );
-      this.props.setFlashMessage(message, 'success');
-      this.setState({ dstProj: null });
-      this.props.onUnselectAll();
-    };
-
-    if (this.props.selectedMedia.length && this.state.dstProj) {
-      Relay.Store.commitUpdate(
-        new BulkMoveProjectMediaMutation({
-          ids: this.props.selectedMedia,
-          dstProject: this.state.dstProj,
-          srcProject: this.props.project,
-        }),
-        { onSuccess, onFailure: this.fail },
-      );
-    }
-  }
-
   handleRestoreOrConfirm = (params) => {
     const onSuccess = () => {
-      const {
-        title: projectTitle,
-        dbid: projectId,
-      } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
-      const toProject = (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-        <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
-          {projectTitle}
-        </a>
-      );
       const message = this.props.page === 'trash' ? (
         <FormattedMessage
           id="bulkActions.movedRestoreSuccessfully"
-          defaultMessage="Items moved from Trash to '{toProject}'"
-          description="Banner displayed after items are moved successfully"
+          defaultMessage="{count, plural, one {# item} other {# items}} moved from Trash to 'All'"
           values={{
-            toProject,
+            count: this.props.selectedMedia?.length,
           }}
+          description="Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
         />
       ) : (
         <FormattedMessage
           id="bulkActions.movedFromSpamSuccessfully"
-          defaultMessage="Items moved from Spam to '{toProject}'"
-          description="Banner displayed after items are moved successfully"
+          defaultMessage="{count, plural, one {# item} other {# items}} moved from Spam to 'All'"
           values={{
-            toProject,
+            count: this.props.selectedMedia?.length,
           }}
+          description="Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
         />
       );
       this.props.setFlashMessage(message, 'success');
-      this.setState({ dstProj: null });
       this.props.onUnselectAll();
     };
 
-    if (this.props.selectedMedia.length && this.state.dstProj) {
+    if (this.props.selectedMedia.length) {
       Relay.Store.commitUpdate(
         new BulkRestoreProjectMediaMutation({
           ids: this.props.selectedMedia,
-          project: this.props.project,
           team: this.props.team,
           archived_was: params.archived_was,
-          dstProject: this.state.dstProj,
         }),
         { onSuccess, onFailure: this.fail },
       );
@@ -182,22 +109,29 @@ class BulkActions extends React.Component {
       const message = archived === CheckArchivedFlags.TRASHED ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
-          defaultMessage="Items moved to the Trash."
+          defaultMessage="{count, plural, one {# item} other {# items}} moved to Trash."
+          values={{
+            count: this.props.selectedMedia?.length,
+          }}
+          description="Message that appears when one or more items have been selected and moved to the trash."
         />
       ) : (
         <FormattedMessage
           id="bulkActions.moveToSpamSuccessfully"
-          defaultMessage="Items moved to the Spam."
+          defaultMessage="{count, plural, one {# item} other {# items}} moved to Spam."
+          values={{
+            count: this.props.selectedMedia?.length,
+          }}
+          description="Message that appears when one or more items have been selected and moved to spam."
         />
       );
       this.props.setFlashMessage(message, 'success');
       this.props.onUnselectAll();
     };
 
-    if (this.props.selectedMedia.length && !this.state.confirmationError) {
+    if (this.props.selectedMedia.length) {
       const mutation = new BulkArchiveProjectMediaMutation({
         ids: this.props.selectedMedia,
-        project: this.props.project,
         team: this.props.team,
         archived,
       });
@@ -207,10 +141,10 @@ class BulkActions extends React.Component {
 
   render() {
     const {
-      page, team, selectedMedia, project,
+      page, team, selectedMedia,
     } = this.props;
     const disabled = selectedMedia.length === 0;
-    let modalToMove = null;
+    let actionsAvailable = null;
     let permissionKey = 'bulk_update ProjectMedia';
     if (page === 'trash' || page === 'spam') {
       let archivedWas = null;
@@ -235,7 +169,7 @@ class BulkActions extends React.Component {
         moveTooltipMessage = (
           <FormattedMessage
             id="bulkActions.spam"
-            defaultMessage="Mark selected items as not spam and move them to another folder"
+            defaultMessage="Mark selected items as not spam and move them to 'All Items'"
             description="Tooltip message for button that mark items as not spam"
           />
         );
@@ -244,50 +178,22 @@ class BulkActions extends React.Component {
         );
       }
 
-      modalToMove = (
+      actionsAvailable = (
         <React.Fragment>
           <ButtonWithTooltip
             title={moveTooltipMessage}
             id="media-bulk-actions__move-to"
-            onClick={this.moveSelected.bind(this)}
+            onClick={() => this.handleRestoreOrConfirm({ archived_was: archivedWas })}
             disabled={disabled}
             color="primary"
             variant="contained"
           >
             {moveButtonMessage}
           </ButtonWithTooltip>
-          <SelectProjectDialog
-            open={this.state.openMoveDialog}
-            excludeProjectDbids={project ? [project.dbid] : []}
-            title={
-              <FormattedMessage
-                id="bulkActions.dialogMoveTitle"
-                defaultMessage="{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
-                values={{
-                  selectedCount: this.props.selectedMedia.length,
-                }}
-              />
-            }
-            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-            submitLabel={
-              <FormattedMessage
-                id="bulkActions.moveTitle"
-                defaultMessage="Move to folder"
-                description="Label for button to commit action of moving item to the selected folder"
-              />
-            }
-            submitButtonClassName="media-bulk-actions__move-button"
-            onSubmit={(dstProj) => {
-              this.setState({ dstProj }, () => (
-                this.handleRestoreOrConfirm({ archived_was: archivedWas })
-              ));
-            }}
-            onCancel={this.handleCloseDialogs.bind(this)}
-          />
         </React.Fragment>
       );
     } else {
-      modalToMove = (
+      actionsAvailable = (
         <BulkActionsMenu
           selectedMedia={this.props.selectedMedia}
           /*
@@ -340,7 +246,7 @@ class BulkActions extends React.Component {
         <Box id="media-bulk-actions__actions" display="flex" alignItems="center">
           <React.Fragment>
             <Can permission={permissionKey} permissions={team.permissions}>
-              {modalToMove}
+              {actionsAvailable}
             </Can>
             {archiveButton}
           </React.Fragment>
@@ -358,7 +264,6 @@ BulkActions.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
   team: PropTypes.object.isRequired,
   page: PropTypes.string,
-  project: PropTypes.object.isRequired,
   selectedMedia: PropTypes.array.isRequired,
   selectedProjectMedia: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   onUnselectAll: PropTypes.func.isRequired,
