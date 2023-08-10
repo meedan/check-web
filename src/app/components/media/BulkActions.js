@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -156,12 +156,12 @@ class BulkActions extends React.Component {
         moveTooltipMessage = (
           <FormattedMessage
             id="bulkActions.trash"
-            defaultMessage="Restore selected items and move them to another folder"
-            description="Tooltip message for button that restores items from Trash"
+            defaultMessage="Restore selected items and move them to 'All'"
+            description="Tooltip message for button that restores items from Trash. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
           />
         );
         moveButtonMessage = (
-          <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
+          <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" description="Label for button that removes one or more items from Trash and puts it back in the normal workspace" />
         );
       } else if (page === 'spam') {
         permissionKey = 'not_spam ProjectMedia';
@@ -169,12 +169,12 @@ class BulkActions extends React.Component {
         moveTooltipMessage = (
           <FormattedMessage
             id="bulkActions.spam"
-            defaultMessage="Mark selected items as not spam and move them to 'All Items'"
-            description="Tooltip message for button that mark items as not spam"
+            defaultMessage="Mark selected items as not spam and move them to 'All'"
+            description="Tooltip message for button that marks items as not spam. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
           />
         );
         moveButtonMessage = (
-          <FormattedMessage id="bulkActions.notSpam" defaultMessage="Not Spam" />
+          <FormattedMessage id="bulkActions.notSpam" defaultMessage="Not Spam" description="Label for button that removes one or more items from Spam and puts them back in the normal workspace" />
         );
       }
 
@@ -217,6 +217,7 @@ class BulkActions extends React.Component {
               <FormattedMessage
                 id="bulkActions.sendItemsToSpam"
                 defaultMessage="Mark as spam"
+                description="Label for button that sends one or more items to Spam"
               />
             }
             disabled={disabled}
@@ -229,7 +230,8 @@ class BulkActions extends React.Component {
             title={
               <FormattedMessage
                 id="bulkActions.sendItemsToTrash"
-                defaultMessage="Send to trash"
+                defaultMessage="Send to Trash"
+                description="Label for button that sends one or more items to Trash"
               />
             }
             disabled={disabled}

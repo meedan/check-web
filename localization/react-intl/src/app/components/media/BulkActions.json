@@ -21,28 +21,32 @@
   },
   {
     "id": "bulkActions.trash",
-    "description": "Tooltip message for button that restores items from Trash",
-    "defaultMessage": "Restore selected items and move them to another folder"
+    "description": "Tooltip message for button that restores items from Trash. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems",
+    "defaultMessage": "Restore selected items and move them to 'All'"
   },
   {
     "id": "bulkActions.restore",
+    "description": "Label for button that removes one or more items from Trash and puts it back in the normal workspace",
     "defaultMessage": "Restore from Trash"
   },
   {
     "id": "bulkActions.spam",
-    "description": "Tooltip message for button that mark items as not spam",
-    "defaultMessage": "Mark selected items as not spam and move them to 'All Items'"
+    "description": "Tooltip message for button that marks items as not spam. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems",
+    "defaultMessage": "Mark selected items as not spam and move them to 'All'"
   },
   {
     "id": "bulkActions.notSpam",
+    "description": "Label for button that removes one or more items from Spam and puts them back in the normal workspace",
     "defaultMessage": "Not Spam"
   },
   {
     "id": "bulkActions.sendItemsToSpam",
+    "description": "Label for button that sends one or more items to Spam",
     "defaultMessage": "Mark as spam"
   },
   {
     "id": "bulkActions.sendItemsToTrash",
-    "defaultMessage": "Send to trash"
+    "description": "Label for button that sends one or more items to Trash",
+    "defaultMessage": "Send to Trash"
   }
 ]
