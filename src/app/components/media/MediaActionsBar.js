@@ -493,10 +493,9 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
 // eslint-disable-next-line react/no-multi-comp
 class MediaActionsBar extends React.PureComponent {
   render() {
-    const { projectId, projectMediaId } = this.props;
-    const ids = `${projectMediaId},${projectId}`;
-    const projectIdValue = projectId == null ? 0 : projectId;
-    const route = new MediaRoute({ ids, projectId: projectIdValue });
+    const { projectMediaId } = this.props;
+    const ids = `${projectMediaId},`;
+    const route = new MediaRoute({ ids });
 
     return (
       <Relay.RootContainer

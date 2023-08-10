@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { Redirect, Router, Route, browserHistory, IndexRoute } from 'react-router';
 import ReactGA from 'react-ga';
 import { IntlProvider } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
@@ -29,8 +29,6 @@ import FeedClusterPage from './feed/FeedClusterPage';
 import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
-import Project from './project/Project';
-import ProjectGroup from './project/ProjectGroup';
 import SavedSearch from './search/SavedSearch';
 import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
@@ -82,25 +80,23 @@ class Root extends Component {
                   <Route path=":team" component={Team} />
                   <Route path=":team/settings(/:tab)" component={Team} />
                   <Route path=":team/media/:mediaId" component={MediaPage} />
-                  <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} />
+                  <Redirect from=":team/project/:projectId/media/:mediaId" to=":team/media/:mediaId" />
                   <Route path=":team/list/:listId/media/:mediaId" component={MediaPage} />
                   <Route path=":team/media/:mediaId/similar-media" component={MediaPage} view="similarMedia" />
-                  <Route path=":team/project/:projectId/media/:mediaId/similar-media" component={MediaPage} view="similarMedia" />
+                  <Redirect from=":team/project/:projectId/media/:mediaId/similar-media" to=":team/media/:mediaId/similar-media" />
                   <Route path=":team/list/:listId/media/:mediaId/similar-media" component={MediaPage} view="similarMedia" />
                   <Route path=":team/media/:mediaId/report" component={ReportDesigner} />
                   <Route path=":team/media/:mediaId/tasks" component={MediaTasks} />
                   <Route path=":team/media/:mediaId/metadata" component={MediaTasks} />
                   <Route path=":team/media/:mediaId/source" component={MediaSource} />
-                  <Route path=":team/project/:projectId/media/:mediaId/report" component={ReportDesigner} />
-                  <Route path=":team/project/:projectId/media/:mediaId/tasks" component={MediaTasks} />
-                  <Route path=":team/project/:projectId/media/:mediaId/metadata" component={MediaTasks} />
-                  <Route path=":team/project/:projectId/media/:mediaId/source" component={MediaSource} />
+                  <Redirect from=":team/project/:projectId/media/:mediaId/report" to=":team/media/:mediaId/report" />
+                  <Redirect from=":team/project/:projectId/media/:mediaId/tasks" to=":team/media/:mediaId/tasks" />
+                  <Redirect from=":team/project/:projectId/media/:mediaId/metadata" to=":team/media/:mediaId/metadata" />
+                  <Redirect from=":team/project/:projectId/media/:mediaId/source" to=":team/media/:mediaId/source" />
                   <Route path=":team/list/:listId/media/:mediaId/report" component={ReportDesigner} />
                   <Route path=":team/list/:listId/media/:mediaId/tasks" component={MediaTasks} />
                   <Route path=":team/list/:listId/media/:mediaId/metadata" component={MediaTasks} />
                   <Route path=":team/list/:listId/media/:mediaId/source" component={MediaSource} />
-                  <Route path=":team/project/:projectId(/:query)" component={Project} />
-                  <Route path=":team/collection/:projectGroupId(/:query)" component={ProjectGroup} />
                   <Route path=":team/list/:savedSearchId(/:query)" component={SavedSearch} />
                   <Route path=":team/all-items(/:query)" component={AllItems} />
                   <Route path=":team/tipline-inbox(/:query)" component={TiplineInbox} />
