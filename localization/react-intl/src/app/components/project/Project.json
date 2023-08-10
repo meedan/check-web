@@ -8,6 +8,11 @@
     "defaultMessage": "Only Admins"
   },
   {
+    "id": "project.subtitle",
+    "description": "Displayed on top of the folder title on the search results page.",
+    "defaultMessage": "Folder"
+  },
+  {
     "id": "project.name",
     "defaultMessage": "folder"
   },

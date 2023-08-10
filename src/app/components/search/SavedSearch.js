@@ -8,7 +8,6 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import ProjectActions from '../drawer/Projects/ProjectActions';
-import ListIcon from '../../icons/list.svg';
 
 const SavedSearch = ({ routeParams }) => (
   <ErrorBoundary component="SavedSearch">
@@ -56,7 +55,6 @@ const SavedSearch = ({ routeParams }) => (
               <Search
                 searchUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}`}
                 mediaUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}/media`}
-                icon={<ListIcon />}
                 listActions={
                   <ProjectActions
                     object={props.saved_search}
@@ -93,6 +91,7 @@ const SavedSearch = ({ routeParams }) => (
                   />
                 }
                 title={props.saved_search.title}
+                listSubtitle={<FormattedMessage id="savedSearch.subtitle" defaultMessage="Custom List" description="Displayed on top of the custom list title on the search results page." />}
                 teamSlug={routeParams.team}
                 query={query}
                 savedSearch={props.saved_search}

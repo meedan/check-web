@@ -57,7 +57,7 @@
   {
     "id": "teamDetails.utmCode",
     "description": "Label for 'UTM code' field",
-    "defaultMessage": "UTM code"
+    "defaultMessage": "UTM code (optional)"
   },
   {
     "id": "teamDetails.utmCodeHelp",

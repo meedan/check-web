@@ -9,10 +9,10 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TeamTaskCardForm from './TeamTaskCardForm';
 import globalStrings from '../../globalStrings';
 
@@ -74,25 +74,27 @@ const TeamTaskCard = ({
         </Button>
         <Box display="flex">
           <Box mr={4}>
-            <Switch
-              onClick={() => setRequired(!required)}
+            <SwitchComponent
+              onChange={() => setRequired(!required)}
               checked={required}
-            />
-            <FormattedMessage
-              id="teamTaskCard.required"
-              defaultMessage="Required"
-              description="Toggle switch to make field required"
+              labelPlacement="end"
+              label={<FormattedMessage
+                id="teamTaskCard.required"
+                defaultMessage="Required"
+                description="Toggle switch to make field required"
+              />}
             />
           </Box>
           <span>
-            <Switch
-              onClick={() => setShowInBrowserExtension(!showInBrowserExtension)}
+            <SwitchComponent
+              onChange={() => setShowInBrowserExtension(!showInBrowserExtension)}
               checked={showInBrowserExtension}
-            />
-            <FormattedMessage
-              id="teamTaskCard.showInBrowserExtension"
-              defaultMessage="Show in browser extension"
-              description="Toggle switch to make field visible in the browser extension"
+              labelPlacement="end"
+              label={<FormattedMessage
+                id="teamTaskCard.showInBrowserExtension"
+                defaultMessage="Show in browser extension"
+                description="Toggle switch to make field visible in the browser extension"
+              />}
             />
           </span>
         </Box>

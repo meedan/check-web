@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -13,7 +12,7 @@ export default function AllItems({ routeParams }) {
       <Search
         searchUrlPrefix={`/${routeParams.team}/all-items`}
         mediaUrlPrefix={`/${routeParams.team}/media`}
-        title={<FormattedMessage id="search.allClaimsTitle" defaultMessage="All items" />}
+        title={<FormattedMessage id="search.allClaimsTitle" defaultMessage="All items" description="Page title for listing all items in check" />}
         query={safelyParseJSON(routeParams.query, {})}
         icon={<CategoryIcon />}
         teamSlug={routeParams.team}

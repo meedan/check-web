@@ -22,6 +22,7 @@ import NoteAltIcon from '../../icons/note_alt.svg';
 import PersonIcon from '../../icons/person.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
 import SettingsInputAntennaIcon from '../../icons/settings_input_antenna.svg';
+import UnmatchedIcon from '../../icons/unmatched.svg';
 
 const AddFilterMenu = ({
   team,
@@ -228,6 +229,18 @@ const AddFilterMenu = ({
           id="addFilterMenu.suggestedMedias"
           defaultMessage="Number of suggestions"
           description="Menu option to enable searching items by suggestions"
+        />
+      ),
+    });
+    options.push({
+      id: 'add-filter-menu__unmatched',
+      key: 'unmatched',
+      icon: <UnmatchedIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.unmatched"
+          defaultMessage="Media unmatched"
+          description="Menu option to enable searching items by whether they have media that has been unmatched at some point"
         />
       ),
     });

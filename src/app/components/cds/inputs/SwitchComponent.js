@@ -8,6 +8,7 @@ import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './Switch.module.css';
 
 const SwitchComponent = ({
+  inputProps,
   checked,
   disabled,
   label,
@@ -40,6 +41,7 @@ const SwitchComponent = ({
                 checked: styles.checked,
                 disabled: styles.disabled,
               }}
+              {...inputProps}
             />
           </div>
         }
@@ -64,6 +66,7 @@ SwitchComponent.defaultProps = {
   helperContent: '',
   onChange: null,
   className: '',
+  inputProps: {},
 };
 
 SwitchComponent.propTypes = {
@@ -74,6 +77,7 @@ SwitchComponent.propTypes = {
   labelPlacement: PropTypes.oneOf(['bottom', 'end', 'start', 'top']),
   helperContent: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onChange: PropTypes.func,
+  inputProps: PropTypes.object,
 };
 
 export default SwitchComponent;

@@ -193,7 +193,7 @@ const MediaSource = ({ projectMedia, params }) => {
         }}
         render={({ error, props }) => {
           if (!error && !props) {
-            return <MediasLoading count={1} />;
+            return <MediasLoading theme="grey" variant="inline" size="medium" />;
           }
 
           if (!error && props) {
