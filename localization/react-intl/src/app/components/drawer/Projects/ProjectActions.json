@@ -5,21 +5,6 @@
     "defaultMessage": "Actions"
   },
   {
-    "id": "projectActions.privacyMessageAll",
-    "description": "Message that shows that anyone can access this folder",
-    "defaultMessage": "Anyone can see this folder, access its content and annotate it."
-  },
-  {
-    "id": "projectActions.privacyMessageEditors",
-    "description": "Message about the limited access abilities of collaborator type users",
-    "defaultMessage": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
-  },
-  {
-    "id": "projectActions.privacyMessageAdmins",
-    "description": "Message about the limited access of editors and collaborator type users",
-    "defaultMessage": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
-  },
-  {
     "id": "projectActions.defaultErrorMessage",
     "description": "Generic error message displayed when it's not possible to update or delete a list",
     "defaultMessage": "Error, please try again"
@@ -40,16 +25,6 @@
     "defaultMessage": "Delete"
   },
   {
-    "id": "projectActions.privacy",
-    "description": "'Change' here is an infinitive verb",
-    "defaultMessage": "Change access"
-  },
-  {
-    "id": "projectActions.makeDefault",
-    "description": "Make the folder default",
-    "defaultMessage": "Make default"
-  },
-  {
     "id": "projectsComponent.renameType",
     "description": "'Rename' here is an infinitive verb",
     "defaultMessage": "Rename list"
@@ -63,40 +38,5 @@
     "id": "projectsComponent.deleteType",
     "description": "'Delete' here is an infinitive verb",
     "defaultMessage": "Delete list"
-  },
-  {
-    "id": "bulkActions.dialogMoveTitle",
-    "description": "Confirmation message about moving items to folders on delete",
-    "defaultMessage": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
-  },
-  {
-    "id": "projectActions.moveTitle",
-    "description": "Label for button to move items and delete folder",
-    "defaultMessage": "Move items and delete folder"
-  },
-  {
-    "id": "projectsComponent.privacyDialogTitle",
-    "description": "Title for folder privacy dialog",
-    "defaultMessage": "Who can see this folder and its content"
-  },
-  {
-    "id": "projectsComponent.privacyDialogOptionAll",
-    "description": "Menu choice when changing privacy settings for this project to allow anyone",
-    "defaultMessage": "Everyone with access to this workspace"
-  },
-  {
-    "id": "projectsComponent.privacyDialogOptionEditors",
-    "description": "Menu choice when changing privacy settings for this project to allow only admins and editors to access",
-    "defaultMessage": "Only Admins and Editors"
-  },
-  {
-    "id": "projectsComponent.privacyDialogOptionAdmins",
-    "description": "Menu choice when changing privacy settings for this project to allow only admins to access",
-    "defaultMessage": "Only Admins"
-  },
-  {
-    "id": "projectsComponent.privacyDialogButton",
-    "description": "Button text to confirm updating the access",
-    "defaultMessage": "Update access"
   }
 ]
