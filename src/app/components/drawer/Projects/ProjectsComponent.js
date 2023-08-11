@@ -256,19 +256,17 @@ const ProjectsComponent = ({
           </ListItem>
         }
 
-        { team.fetch_bot &&
-          <ListItem
-            button
-            onClick={() => { handleSpecialLists('imported-fact-checks'); }}
-            className={['projects-list__imported-fact-checks', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'imported-fact-checks' ? styles.listItem_active : '')].join(' ')}
-          >
-            <FileDownloadIcon className={styles.listIcon} />
-            <ListItemText disableTypography className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
-            </ListItemText>
-            <ListItemSecondaryAction className={styles.listItemCount} />
-          </ListItem>
-        }
+        <ListItem
+          button
+          onClick={() => { handleSpecialLists('imported-fact-checks'); }}
+          className={['projects-list__imported-fact-checks', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'imported-fact-checks' ? styles.listItem_active : '')].join(' ')}
+        >
+          <FileDownloadIcon className={styles.listIcon} />
+          <ListItemText disableTypography className={styles.listLabel}>
+            <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
+          </ListItemText>
+          <ListItemSecondaryAction className={styles.listItemCount} />
+        </ListItem>
 
         { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
           <ListItem
