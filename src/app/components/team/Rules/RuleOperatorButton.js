@@ -1,50 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(() => ({
-  button: {
-    paddingLeft: 0,
-    paddingRight: 0,
-    minWidth: 0,
-  },
-  label: {
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
-  enabled: {
-  },
-  disabled: {
-    color: 'var(--textSecondary)',
-  },
-}));
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 
 const RuleOperatorButton = (props) => {
-  const classes = useStyles();
   const enabled = (props.currentValue === props.value);
 
   return (
-    <Button
+    <ButtonMain
+      size="default"
+      variant="text"
+      theme={enabled ? 'brand' : 'text'}
       onClick={props.onClick}
-      classes={{
-        root: [
-          classes.button,
-          (enabled ? classes.enabled : classes.disabled),
-        ].join(' '),
-        label: classes.label,
-      }}
-      style={enabled ? { color: props.color } : {}}
-    >
-      {props.children}
-    </Button>
+      label={props.children}
+    />
   );
 };
 
 RuleOperatorButton.propTypes = {
   currentValue: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
