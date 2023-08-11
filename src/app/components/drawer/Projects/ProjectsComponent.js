@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -23,6 +24,8 @@ import ExpandMoreIcon from '../../../icons/expand_more.svg';
 import FeedIcon from '../../../icons/dynamic_feed.svg';
 import FileDownloadIcon from '../../../icons/file_download.svg';
 import InboxIcon from '../../../icons/inbox.svg';
+import DeleteIcon from '../../../icons/delete.svg';
+import ReportIcon from '../../../icons/report.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
@@ -50,6 +53,8 @@ const ProjectsComponent = ({
     return (inStore === 'true');
   };
 
+  // eslint-disable-next-line
+  console.log("team", team);
   const [foldersExpanded, setFoldersExpanded] =
     React.useState(getBooleanPref('drawer.foldersExpanded', true));
   const [listsExpanded, setListsExpanded] =
@@ -80,6 +85,16 @@ const ProjectsComponent = ({
   const handleSpecialLists = (listId) => {
     setActiveItem({ type: listId, id: null });
     browserHistory.push(`/${team.slug}/${listId}`);
+  };
+
+  const handleTrash = () => {
+    setActiveItem({ type: 'trash', id: null });
+    browserHistory.push(`/${team.slug}/trash`);
+  };
+
+  const handleSpam = () => {
+    setActiveItem({ type: 'spam', id: null });
+    browserHistory.push(`/${team.slug}/spam`);
   };
 
   const handleClick = (route, id) => {
@@ -229,17 +244,19 @@ const ProjectsComponent = ({
         <ListItem
           button
           onClick={handleAllItems}
-          className={['projects-list__all-items', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'all-items' ? styles.listItem_active : '')].join(' ')}
+          className={['projects-list__all-items', styles.listItem, styles.listHeader, (activeItem.type === 'all-items' ? styles.listItem_active : '')].join(' ')}
         >
           <CategoryIcon className={styles.listIcon} />
-          <ListItemText disableTypography className={styles.listLabel}>
+          <ListItemText disableTypography className={styles.listHeaderLabel}>
             <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
+            <Can permissions={team.permissions} permission="create Project">
+              <Tooltip title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
+                <IconButton id="projects-list__add-filtered-list" onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
+                  <AddCircleIcon />
+                </IconButton>
+              </Tooltip>
+            </Can>
           </ListItemText>
-          <ListItemSecondaryAction className={styles.listItemCount}>
-            <small>
-              {team.medias_count}
-            </small>
-          </ListItemSecondaryAction>
         </ListItem>
 
         { team.smooch_bot &&
@@ -511,6 +528,38 @@ const ProjectsComponent = ({
             ))}
           </DragDropContext>
         </Collapse>
+      </List>
+
+      <List dense disablePadding className={[styles.listWrapper, styles.listFooter].join(' ')}>
+        {/* Spam */}
+        <ListItem
+          button
+          onClick={handleSpam}
+          className={['project-list__link-spam', 'project-list__item-spam', styles.listItem, styles.listItem_containsCount, activeItem.type === 'spam' ? styles.listItem_active : ''].join(' ')}
+        >
+          <ReportIcon className={styles.listIcon} />
+          <ListItemText disableTypography className={styles.listLabel}>
+            <FormattedMessage tagName="span" id="projects.spam" defaultMessage="Spam" />
+          </ListItemText>
+          <ListItemSecondaryAction title={team.medias_count} className={styles.listItemCount}>
+            <small>{String(team.spam_count)}</small>
+          </ListItemSecondaryAction>
+        </ListItem>
+
+        {/* Trash */}
+        <ListItem
+          button
+          onClick={handleTrash}
+          className={['project-list__link-trash', 'project-list__item-trash', styles.listItem, styles.listItem_containsCount, activeItem.type === 'trash' ? styles.listItem_active : ''].join(' ')}
+        >
+          <DeleteIcon className={styles.listIcon} />
+          <ListItemText disableTypography className={styles.listLabel}>
+            <FormattedMessage tagName="span" id="projects.trash" defaultMessage="Trash" />
+          </ListItemText>
+          <ListItemSecondaryAction title={team.trash_count} className={styles.listItemCount}>
+            <small>{String(team.trash_count)}</small>
+          </ListItemSecondaryAction>
+        </ListItem>
       </List>
 
       {/* Dialogs to create new folder, collection or list */}

@@ -20,6 +20,11 @@
     "defaultMessage": "All"
   },
   {
+    "id": "projectsComponent.newListButton",
+    "description": "Tooltip for button that opens list creation dialog",
+    "defaultMessage": "New list"
+  },
+  {
     "id": "projectsComponent.tiplineInbox",
     "description": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted",
     "defaultMessage": "Inbox"
@@ -43,11 +48,6 @@
     "id": "projectsComponent.lists",
     "description": "List of items with some filters applied",
     "defaultMessage": "Custom Lists"
-  },
-  {
-    "id": "projectsComponent.newListButton",
-    "description": "Tooltip for button that opens list creation dialog",
-    "defaultMessage": "New list"
   },
   {
     "id": "projectsComponent.noCustomLists",
@@ -93,6 +93,14 @@
     "id": "projectsComponent.noFolders",
     "description": "Displayed under a collection when there are no folders in it",
     "defaultMessage": "No folders in this collection"
+  },
+  {
+    "id": "projects.spam",
+    "defaultMessage": "Spam"
+  },
+  {
+    "id": "projects.trash",
+    "defaultMessage": "Trash"
   },
   {
     "id": "projectsComponent.newFolder",

@@ -1,21 +1,21 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+// import List from '@material-ui/core/List';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { withStyles } from '@material-ui/core/styles';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import CheckContext from '../CheckContext';
-import DeleteIcon from '../icons/delete.svg';
-import ReportIcon from '../icons/report.svg';
+// import DeleteIcon from '../icons/delete.svg';
+// import ReportIcon from '../icons/report.svg';
 import styles from './drawer/Drawer.module.css';
-import projectStyles from './drawer/Projects/Projects.module.css';
+// import projectStyles from './drawer/Projects/Projects.module.css';
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -55,15 +55,15 @@ class DrawerNavigationComponent extends Component {
     }
   }
 
-  handleSpam = () => {
-    // setActiveItem({ type: 'spam', id: null });
-    browserHistory.push(`/${this.props.team.slug}/spam`);
-  }
+  // handleSpam = () => {
+  //   // setActiveItem({ type: 'spam', id: null });
+  //   browserHistory.push(`/${this.props.team.slug}/spam`);
+  // }
 
-  handleTrash = () => {
-    // setActiveItem({ type: 'spam', id: null });
-    browserHistory.push(`/${this.props.team.slug}/trash`);
-  }
+  // handleTrash = () => {
+  //   // setActiveItem({ type: 'spam', id: null });
+  //   browserHistory.push(`/${this.props.team.slug}/trash`);
+  // }
 
   subscribe() {
     const { pusher, clientSessionId, team } = this.props;
@@ -115,7 +115,7 @@ class DrawerNavigationComponent extends Component {
           {!!team && (currentUserIsMember || !team.private) ? (
             <>
               <DrawerProjects team={team.slug} />
-              <List dense disablePadding className={[projectStyles.listWrapper, projectStyles.listFooter].join(' ')}>
+              {/* <List dense disablePadding className={[projectStyles.listWrapper, projectStyles.listFooter].join(' ')}>
                 <ListItem
                   button
                   onClick={this.handleSpam}
@@ -142,7 +142,7 @@ class DrawerNavigationComponent extends Component {
                     <small>{String(team.trash_count)}</small>
                   </ListItemSecondaryAction>
                 </ListItem>
-              </List>
+              </List>- */}
             </>
           ) : null }
         </React.Fragment>

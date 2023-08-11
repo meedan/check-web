@@ -187,4 +187,33 @@
   }
 }
 
+.listAll {
+  @mixin typography-caption;
+  border: solid 1px var(--otherWhite);
+  color: var(--textPlaceholder);
+  cursor: pointer;
+  font-weight: 500;
+  height: 30px;
+  margin: 0;
+  padding: 0 0 0 7px;
+  width: auto;
+}
+
+.listButton {
+  background-color: var(--grayBackground);
+  border-radius: 8px;
+  color: var(--textSecondary);
+  flex: 0 0 26px;
+  font-size: 20px;
+  height: 26px;
+  padding: 0;
+  transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+  width: 26px;
+
+  &:hover {
+    background-color: var(--brandHoverAccent);
+    color: var(--textLink);
+  }
+}
+
 /* stylelint-enable */
