@@ -52,12 +52,23 @@ const SimilarityComponent = ({
   const { alegre_settings } = team.alegre_bot;
 
   const [settings, setSettings] = React.useState(alegre_settings);
-  const [vectorModelToggle, setVectorModelToggle] = React.useState((
-    alegre_settings.text_similarity_model === MEAN_TOKENS_MODEL ||
-    alegre_settings.text_similarity_model === INDIAN_MODEL ||
-    alegre_settings.text_similarity_model === FILIPINO_MODEL ||
-    alegre_settings.text_similarity_model === OPENAI_ADA_MODEL
-  ));
+  const [vectorModelToggle, setVectorModelToggle] = React.useState(() => {
+    const textSimilarityModel = alegre_settings.text_similarity_model;
+    if (typeof textSimilarityModel === 'string') {
+      return (
+        textSimilarityModel === MEAN_TOKENS_MODEL ||
+        textSimilarityModel === INDIAN_MODEL ||
+        textSimilarityModel === FILIPINO_MODEL ||
+        textSimilarityModel === OPENAI_ADA_MODEL
+      );
+    }
+    return (
+      textSimilarityModel.includes(MEAN_TOKENS_MODEL) ||
+      textSimilarityModel.includes(INDIAN_MODEL) ||
+      textSimilarityModel.includes(FILIPINO_MODEL) ||
+      textSimilarityModel.includes(OPENAI_ADA_MODEL)
+    );
+  });
 
   const handleSettingsChange = (key, value) => {
     const newSettings = { ...settings };
@@ -88,10 +99,12 @@ const SimilarityComponent = ({
 
   const handleVectorModelToggle = (useVectorModel) => {
     if (!useVectorModel) {
-      handleSettingsChange('text_similarity_model', ELASTICSEARCH_MODEL);
+      const newSettings = { ...settings };
+      newSettings.alegre_model_in_use = [];
+      newSettings.text_similarity_model = ELASTICSEARCH_MODEL;
+      setSettings(newSettings);
     } else {
       handleSettingsChange('text_similarity_model', MEAN_TOKENS_MODEL);
-      // handleSettingsChange('text_similarity_model', settings.alegre_model_in_use);
     }
     setVectorModelToggle(useVectorModel);
   };
