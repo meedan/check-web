@@ -69,9 +69,7 @@ const ProjectsComponent = ({
   };
 
   const handleClick = (route, id) => {
-    if (route === 'collection' && route === activeItem.type && id === activeItem.id) {
-      setCollapsed(!collapsed);
-    } else if (route !== activeItem.type || id !== activeItem.id) {
+    if (route !== activeItem.type || id !== activeItem.id) {
       setActiveItem({ type: route, id });
       if (collapsed) {
         setCollapsed(false);
