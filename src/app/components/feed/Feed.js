@@ -108,6 +108,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'read',
               'report_status',
               'show',
+              'unmatched',
             ]}
             {...commonSearchProps}
             title={feed.name}
@@ -157,6 +158,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'cluster_teams',
               'archived',
               'read',
+              'unmatched',
             ]}
             {...commonSearchProps}
           />
