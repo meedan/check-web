@@ -1,6 +1,7 @@
 [
   {
     "id": "projectBlankState.blank",
+    "description": "Empty message that is displayed when search results are zero",
     "defaultMessage": "There are no items here."
   },
   {
@@ -10,10 +11,12 @@
   },
   {
     "id": "search.previousPage",
+    "description": "Pagination button to go to previous page",
     "defaultMessage": "Previous page"
   },
   {
     "id": "searchResults.itemsCount",
+    "description": "Pagination count of items returned",
     "defaultMessage": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
   },
   {
@@ -23,6 +26,7 @@
   },
   {
     "id": "search.nextPage",
+    "description": "Pagination button to go to next page",
     "defaultMessage": "Next page"
   }
 ]

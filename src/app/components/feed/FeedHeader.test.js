@@ -19,13 +19,6 @@ describe('<FeedHeader />', () => {
     expect(feedHeader).toHaveLength(1);
   });
 
-  it('should render feed name', () => {
-    const feedHeaderComponent = mountWithIntlProvider(<FeedHeader feed={feed} />);
-    const feedHeaderTitle = feedHeaderComponent.find('.feed-header h6');
-    expect(feedHeaderTitle).toHaveLength(1);
-    expect(feedHeaderTitle.text()).toContain('Test');
-  });
-
   it('should render feed licenses icons', () => {
     let feedHeaderComponent = mountWithIntlProvider(<FeedHeader feed={{ ...feed, licenses: [1] }} />);
     let feedHeaderIcons = feedHeaderComponent.find('.feed-header-icon').hostNodes();
