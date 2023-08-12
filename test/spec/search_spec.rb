@@ -104,7 +104,6 @@ shared_examples 'search' do
   it 'should search for reverse images', bin2: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item')
     create_image('files/test.png')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click

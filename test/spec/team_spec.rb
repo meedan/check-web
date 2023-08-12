@@ -92,10 +92,7 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
-    wait_for_selector('#side-navigation__toggle').click
-    puts 1
     create_media('text')
-    puts 2
     api_logout
 
     # log in as colaborator

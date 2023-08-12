@@ -12,7 +12,6 @@ shared_examples 'similarity' do
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     expect(@driver.page_source.include?('Media')).to be(true)
-    @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector_list('.media__heading').last.click
     wait_for_selector('#media__claim')
