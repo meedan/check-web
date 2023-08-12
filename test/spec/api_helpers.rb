@@ -46,7 +46,6 @@ module ApiHelpers
   def api_create_team_and_project(params = {})
     user = params[:user] || api_register_and_login_with_email
     team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(10_000).to_i}", email: user.email }
-    team_id = team.dbid
     api_install_bot(params[:bot], team[:slug], params[:score]) if params[:bot]
     sleep 5
     { user: user, team: team }
@@ -67,7 +66,7 @@ module ApiHelpers
     data = api_create_team_and_project(params)
     count.times do |i|
       request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid }
-      request_api 'source', { url: '', name: "Source #{i}", email: data[:user].email, team_id: data[:team].dbid  }
+      request_api 'source', { url: '', name: "Source #{i}", email: data[:user].email, team_id: data[:team].dbid }
       sleep 0.25
     end
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"

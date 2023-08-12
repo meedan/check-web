@@ -144,5 +144,4 @@ shared_examples 'media actions' do
     id2 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1 == id2).to be(true)
   end
-
 end
