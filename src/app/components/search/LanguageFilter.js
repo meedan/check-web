@@ -87,9 +87,9 @@ const LanguageFilter = ({
   }
 
   const label = {
-    language: <FormattedMessage id="search.mediaLanguage" defaultMessage="Media language" />,
-    report_language: <FormattedMessage id="search.reportLanguage" defaultMessage="Report language" />,
-    request_language: <FormattedMessage id="search.requestLanguage" defaultMessage="Conversation language" />,
+    language: <FormattedMessage id="search.mediaLanguage" description="Label for media language filter" defaultMessage="Media language" />,
+    report_language: <FormattedMessage id="search.reportLanguage" description="Label for report language filter" defaultMessage="Report language" />,
+    request_language: <FormattedMessage id="search.requestLanguage" description="Label for conversation Language filter" defaultMessage="Conversation language" />,
   };
 
   return (

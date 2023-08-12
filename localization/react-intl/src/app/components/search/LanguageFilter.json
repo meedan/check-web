@@ -1,14 +1,17 @@
 [
   {
     "id": "search.mediaLanguage",
+    "description": "Label for media language filter",
     "defaultMessage": "Media language"
   },
   {
     "id": "search.reportLanguage",
+    "description": "Label for report language filter",
     "defaultMessage": "Report language"
   },
   {
     "id": "search.requestLanguage",
+    "description": "Label for conversation Language filter",
     "defaultMessage": "Conversation language"
   }
 ]
