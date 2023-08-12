@@ -1,0 +1,14 @@
+[
+  {
+    "id": "search.mediaLanguage",
+    "defaultMessage": "Media language"
+  },
+  {
+    "id": "search.reportLanguage",
+    "defaultMessage": "Report language"
+  },
+  {
+    "id": "search.requestLanguage",
+    "defaultMessage": "Conversation language"
+  }
+]
