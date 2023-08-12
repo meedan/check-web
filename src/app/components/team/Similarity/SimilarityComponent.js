@@ -100,11 +100,11 @@ const SimilarityComponent = ({
   const handleVectorModelToggle = (useVectorModel) => {
     if (!useVectorModel) {
       const newSettings = { ...settings };
-      newSettings.alegre_model_in_use = [];
+      newSettings.alegre_model_in_use = ELASTICSEARCH_MODEL;
       newSettings.text_similarity_model = ELASTICSEARCH_MODEL;
       setSettings(newSettings);
     } else {
-      handleSettingsChange('text_similarity_model', MEAN_TOKENS_MODEL);
+      handleModelSettingsChange(MEAN_TOKENS_MODEL);
     }
     setVectorModelToggle(useVectorModel);
   };
