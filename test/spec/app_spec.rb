@@ -109,7 +109,6 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'tag'
     include_examples 'team'
     include_examples 'similarity'
-    it_behaves_like 'media', 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like 'media', 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
     it 'should redirect to not found page when access is denied', bin1: true do
@@ -189,9 +188,12 @@ shared_examples 'app' do |webdriver_url|
     it 'should redirect to 404 page if id does not exist', bin4: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
+      wait_for_selector('#side-navigation__toggle').click
+      wait_for_selector('.projects-list')
+      wait_for_selector('.projects-list__all-items').click
       wait_for_selector('#create-media__add-item')
       url = @driver.current_url.to_s
-      @driver.navigate.to url.gsub(%r{project/([0-9]+).*}, 'project/999')
+      @driver.navigate.to url.gsub('all-items', 'media/999')
       title = wait_for_selector('.not-found__component')
       expect(title.text).to match(/page does not exist/)
       expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)

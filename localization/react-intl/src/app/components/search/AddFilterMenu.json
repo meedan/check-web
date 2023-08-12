@@ -5,11 +5,6 @@
     "defaultMessage": "Claim"
   },
   {
-    "id": "addFilterMenu.collection",
-    "description": "Menu option to enable searching items by collection",
-    "defaultMessage": "Collection"
-  },
-  {
     "id": "addFilterMenu.timeRange",
     "description": "Menu option to enable searching items by date range",
     "defaultMessage": "Date range"

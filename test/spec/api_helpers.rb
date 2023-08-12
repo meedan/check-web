@@ -49,64 +49,50 @@ module ApiHelpers
     team_id = team.dbid
     api_install_bot(params[:bot], team[:slug], params[:score]) if params[:bot]
     sleep 5
-    project = request_api 'project', { title: "Test Project #{Time.now.to_i}", team_id: team_id, use_default_project: params[:use_default_project] }
-    { project: project, user: user, team: team }
+    { user: user, team: team }
   end
 
   def api_create_team_project_and_claim(params = {})
     quit = params[:quit] || false
     quote = params[:quote] || 'Claim'
-    project_id = params[:project_id] || 0
     data = api_create_team_and_project(params)
-    project_id = data[:project].dbid if project_id.to_i.zero?
-    claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
-    claim.full_url = "#{@config['self_url']}/#{data[:team].slug}/project/#{project_id}/media/#{claim.id}" if project_id
+    claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }
+    claim.full_url = "#{@config['self_url']}/#{data[:team].slug}/media/#{claim.id}"
     @driver.quit if quit
     claim
   end
 
   def api_create_team_project_claims_sources_and_redirect_to_project_page(params = {})
     count = params[:count]
-    project_id = params[:project_id] || 0
     data = api_create_team_and_project(params)
-    project_id_was = project_id
-    project_id = data[:project].dbid if project_id.to_i.zero?
     count.times do |i|
-      request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
-      request_api 'source', { url: '', name: "Source #{i}", email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
-      sleep 1
+      request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid }
+      request_api 'source', { url: '', name: "Source #{i}", email: data[:user].email, team_id: data[:team].dbid  }
+      sleep 0.25
     end
-    if project_id_was.to_i.zero?
-      @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{project_id}"
-    else
-      @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
-      nil
-    end
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
 
   def api_create_team_project_and_link(params = {})
     url = params[:url] || @media_url
-    project_id = params[:project_id] || 0
     data = api_create_team_and_project(params)
-    project_id = data[:project].dbid if project_id.to_i.zero?
-    link = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
-    link.full_url = "#{@config['self_url']}/#{data[:team].slug}/project/#{project_id}/media/#{link.id}" if project_id
+    link = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid }
+    link.full_url = "#{@config['self_url']}/#{data[:team].slug}/"
     link
   end
 
-  # Create things, then navigate to /my-team/project/123/media/234?listIndex=0
+  # Create things, then navigate to /my-team/media/234?listIndex=0
   #
   # listIndex is always 0, so this only simulates user behavior when there are
   # no other media in this project.
   def api_create_team_project_and_link_and_redirect_to_media_page(params = {})
     url = params[:url] || @media_url
-    project_id = params[:project_id] || 0
-    media = api_create_team_project_and_link({ url: url, project_id: project_id })
+    media = api_create_team_project_and_link({ url: url })
     @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
   end
 
-  # Create things, then navigate to /my-team/project/123/media/234?listIndex=0
+  # Create things, then navigate to /my-team/media/234?listIndex=0
   #
   # listIndex is always 0, so this only simulates user behavior when there are
   # no other media in this project.
@@ -129,7 +115,7 @@ module ApiHelpers
     media = api_create_team_project_and_claim({ quit: false, quote: 'My search result' })
     @driver.navigate.to media.full_url
 
-    sleep 30 # wait for Sidekiq
+    sleep 3 # wait for Sidekiq
 
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('.media__heading', :css, 20, true)
@@ -186,8 +172,8 @@ module ApiHelpers
     options = params[:options] || '[]'
     data = api_create_team_and_project(params)
     request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
-    request_api 'link', { url: url || @media_url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
+    request_api 'link', { url: url || @media_url, email: data[:user].email, team_id: data[:team].dbid }
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
 
   def api_create_team_project_metadata_and_claim(params = {})
@@ -196,14 +182,14 @@ module ApiHelpers
     options = params[:options] || '[]'
     data = api_create_team_and_project(params)
     request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
-    request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
+    request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
 
   def api_create_claim(params = {})
     data = params[:data] || api_create_team_and_project(params)
     quote = params[:quote] || 'Claim'
-    request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }
   end
 
   def api_suggest_similarity_between_items(team_id, source, target)
@@ -229,8 +215,8 @@ module ApiHelpers
   def api_create_team_project_claim_and_media_tag(params = {})
     data = params[:data] || api_create_team_and_project(params)
     quote = params[:quote] || 'Claim'
-    claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }
     request_api 'new_media_tag', { pm_id: claim[:id], email: data[:user].email, tag: 'TAG' }
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
 end

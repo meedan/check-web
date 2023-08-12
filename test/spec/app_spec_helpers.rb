@@ -75,7 +75,7 @@ module AppSpecHelpers
       attempts += 1
       sleep 0.5
       begin
-        element = wait_for_selector_list(selector, type)
+        element = wait_for_selector_list(selector, type, 5) # reduce timeout for checking for lack of element
       rescue
         element = []
         # rescue from Selenium::WebDriver::Error::NoSuchElementError: to give more information about the failure
@@ -143,14 +143,20 @@ module AppSpecHelpers
   end
 
   def create_media(url, wait_for_creation = true)
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.projects-list')
+    wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
     fill_field('#create-media-input', url)
     press_button('#create-media-dialog__submit-button')
-    wait_for_selector_none('#create-media-input')
+    wait_for_selector_none('#create-media-input', :css, 1)
     wait_for_selector('.media__heading a') if wait_for_creation
   end
 
   def create_image(file)
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.projects-list')
+    wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
     wait_for_selector('#create-media-dialog-form .without-file')
     wait_for_selector('#create-media-dialog-form input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))

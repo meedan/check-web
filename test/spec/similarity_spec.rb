@@ -3,11 +3,6 @@ shared_examples 'similarity' do
     api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 3 })
     sleep 90 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
-    project_url = @driver.current_url.to_s
-    create_folder_or_collection('list', '.projects-list__add-folder')
-    wait_for_selector('.project-list__header')
-    @driver.navigate.to project_url
-    wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
     wait_for_selector('#media__claim')
     wait_for_selector('#media-similarity__add-button').click
@@ -85,6 +80,9 @@ shared_examples 'similarity' do
   it 'should extract text from a image', bin7: true do
     api_create_team_and_project(bot: 'alegre', score: {})
     @driver.navigate.to @config['self_url']
+    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('.projects-list')
+    wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     create_image('files/test.png')
     sleep 60 # wait for the text extraction
@@ -101,7 +99,7 @@ shared_examples 'similarity' do
     sleep 60 # wait for the items to be indexed in the Elasticsearch
     api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')
     sleep 60 # wait for the items to be indexed in the Elasticsearch
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}/media/#{pm1.id}"
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}"
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end

@@ -93,9 +93,9 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
     wait_for_selector('#side-navigation__toggle').click
-    wait_for_selector('.project-list__header')
-    wait_for_selector('.project-list__link').click
+    puts 1
     create_media('text')
+    puts 2
     api_logout
 
     # log in as colaborator
@@ -109,12 +109,6 @@ shared_examples 'team' do
     wait_for_selector('#team-details__name-input')
     expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length == 1)
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
-    # do not be able to see project actions button
-    wait_for_selector('#side-navigation__toggle').click
-    wait_for_selector('.project-list__header')
-    wait_for_selector('.project-list__link').click
-    wait_for_selector('#search-form')
-    expect(@driver.find_elements(:css, '.project-actions').empty?).to be(true)
     api_logout
 
     # log in as editor
@@ -130,14 +124,6 @@ shared_examples 'team' do
     # do not be able to duplicate team
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
     wait_for_selector('.team-header__drawer-team-link').click
-    # be able to see folder actions icon
-    wait_for_selector('#side-navigation__toggle').click
-    wait_for_selector('.project-list__header')
-    wait_for_selector('.project-list__link').click
-    wait_for_selector('#search-form')
-    expect(@driver.find_elements(:css, '.project-actions').empty?).to be(false)
-    # be able to create a folder
-    expect(@driver.find_elements(:css, 'button.projects-list__add-folder-or-collection').length == 1)
   end
 
   it 'should go back to previous team', bin1: true do
