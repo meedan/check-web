@@ -35,7 +35,7 @@ shared_examples 'similarity' do
     pm1 = api_create_claim(data: data, quote: 'claim 1')
     pm2 = api_create_claim(data: data, quote: 'claim 2')
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm2.id)
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}/media/#{pm1.id}"
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}"
     wait_for_selector('#media-similarity__add-button')
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
     wait_for_selector('.similarity-media-item__accept-relationship').click
@@ -63,7 +63,7 @@ shared_examples 'similarity' do
     pm3 = api_create_claim(data: data, quote: 'claim 3')
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm2.id)
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm3.id)
-    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}/media/#{pm1.id}"
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/media/#{pm1.id}"
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
