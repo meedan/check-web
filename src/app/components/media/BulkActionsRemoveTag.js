@@ -5,7 +5,7 @@ import Relay from 'react-relay/classic';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Typography from '@material-ui/core/Typography';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
