@@ -76,7 +76,7 @@ module ApiHelpers
     url = params[:url] || @media_url
     data = api_create_team_and_project(params)
     link = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid }
-    link.full_url = "#{@config['self_url']}/#{data[:team].slug}/"
+    link.full_url = "#{@config['self_url']}/#{data[:team].slug}/media/#{link.id}"
     link
   end
 
