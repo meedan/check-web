@@ -239,10 +239,11 @@ const DateRangeFilter = ({
   };
   const rangeTypes = {
     startEnd: 'startEnd',
-    relative: 'relative',
+    less_than: 'less_than',
+    more_than: 'more_than',
   };
   const getInitialRangeType = () => {
-    if (value && value[getValueType()]?.condition) return rangeTypes.relative;
+    if (value && value[getValueType()]?.condition) return rangeTypes[value[getValueType()]?.condition];
     if (value && value[getValueType()]?.start_time) return rangeTypes.startEnd;
     return rangeTypes.startEnd;
   };
@@ -273,9 +274,9 @@ const DateRangeFilter = ({
     return { [valueType]: range };
   };
 
-  const buildValueRelative = (valueType, relativeQuantityValue, relativeRangeValue) => ({
+  const buildValueRelative = (valueType, relativeCondition, relativeQuantityValue, relativeRangeValue) => ({
     [valueType]: {
-      condition: 'less_than',
+      condition: relativeCondition,
       period: +relativeQuantityValue,
       period_type: relativeRangeValue,
     },
@@ -305,9 +306,10 @@ const DateRangeFilter = ({
         getStartDateStringOrNull(),
         getEndDateStringOrNull(),
       ));
-    } else if (rangeType === rangeTypes.relative) {
+    } else if (['less_than', 'more_than'].indexOf(rangeType) !== -1) {
       onChange(buildValueRelative(
         valueType,
+        rangeType,
         relativeQuantity,
         relativeRange,
       ));
@@ -324,9 +326,10 @@ const DateRangeFilter = ({
         getStartDateStringOrNull(),
         getEndDateStringOrNull(),
       ));
-    } else if (valueRangeType === rangeTypes.relative) {
+    } else if (['less_than', 'more_than'].indexOf(valueRangeType) !== -1) {
       onChange(buildValueRelative(
         getValueType(),
+        valueRangeType,
         relativeQuantity,
         relativeRange,
       ));
@@ -338,6 +341,7 @@ const DateRangeFilter = ({
     setRelativeRange(valueRelativeRange);
     onChange(buildValueRelative(
       getValueType(),
+      rangeType,
       relativeQuantity,
       valueRelativeRange,
     ));
@@ -349,6 +353,7 @@ const DateRangeFilter = ({
       setRelativeQuantity(valueRelativeQuantity);
       onChange(buildValueRelative(
         getValueType(),
+        rangeType,
         valueRelativeQuantity,
         relativeRange,
       ));
@@ -383,7 +388,8 @@ const DateRangeFilter = ({
     report_published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Report published" />,
     request_created_at: <FormattedMessage id="search.dateRequestHeading" defaultMessage="Request submitted" />,
     startEnd: <FormattedMessage id="search.dateStartEnd" defaultMessage="between" description="This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'." />,
-    relative: <FormattedMessage id="search.dateRelative" defaultMessage="less than" description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'." />,
+    lessThan: <FormattedMessage id="search.dateLessThan" defaultMessage="less than" description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'." />,
+    moreThan: <FormattedMessage id="search.dateMoreThan" defaultMessage="more than" description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published more than 10 months ago'." />,
     relativeDays: <FormattedMessage id="search.relativeDays" defaultMessage="days ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 days ago'." />,
     relativeWeeks: <FormattedMessage id="search.relativeWeeks" defaultMessage="weeks ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 weeks ago'." />,
     relativeMonths: <FormattedMessage id="search.relativeMonths" defaultMessage="months ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 months ago'." />,
@@ -418,7 +424,8 @@ const DateRangeFilter = ({
             }
           >
             <MenuItem value="startEnd"> { label.startEnd } </MenuItem>
-            <MenuItem value="relative"> { label.relative } </MenuItem>
+            <MenuItem value="less_than"> { label.lessThan } </MenuItem>
+            <MenuItem value="more_than"> { label.moreThan } </MenuItem>
           </Select>
           { rangeType === rangeTypes.startEnd ? (
             <DateRangeSelectorStartEnd {...{
