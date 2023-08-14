@@ -25,7 +25,7 @@ module AppSpecHelpers
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
 
-  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false, ignoreRaise = false)
+  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false, ignore_raise = false)
     elements = []
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
@@ -49,22 +49,22 @@ module AppSpecHelpers
       @driver.navigate.refresh if reload && elements.empty?
     end
     finish = Time.now.to_i - start
-    raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty? && !ignoreRaise
+    raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty? && !ignore_raise
 
     elements
   end
 
-  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false, ignoreRaise = false)
-    pp type, timeout, test, reload, ignoreRaise
+  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false, ignore_raise = false)
+    pp type, timeout, test, reload, ignore_raise
     elements = []
     attempts = 0
     start = Time.now.to_i
     while elements.length < size && attempts < retries
       attempts += 1
-      elements = wait_for_selector_list(selector, type, timeout, test, reload, ignoreRaise)
+      elements = wait_for_selector_list(selector, type, timeout, test, reload, ignore_raise)
     end
     finish = Time.now.to_i - start
-    raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size && !ignoreRaise
+    raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size && !ignore_raise
     elements
   end
 
