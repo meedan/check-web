@@ -25,7 +25,7 @@ module AppSpecHelpers
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
 
-  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false)
+  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false, ignoreRaise = false)
     elements = []
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
@@ -49,22 +49,22 @@ module AppSpecHelpers
       @driver.navigate.refresh if reload && elements.empty?
     end
     finish = Time.now.to_i - start
-    raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty?
+    raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty? && !ignoreRaise
 
     elements
   end
 
-  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false)
+  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false, ignoreRaise = false)
+    pp type, timeout, test, reload, ignoreRaise
     elements = []
     attempts = 0
     start = Time.now.to_i
     while elements.length < size && attempts < retries
       attempts += 1
-      elements = wait_for_selector_list(selector, type, timeout, test, reload)
+      elements = wait_for_selector_list(selector, type, timeout, test, reload, ignoreRaise)
     end
     finish = Time.now.to_i - start
-    raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size
-
+    raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size && !ignoreRaise
     elements
   end
 
@@ -143,8 +143,8 @@ module AppSpecHelpers
   end
 
   def create_media(url, wait_for_creation = true)
-    # open the side nav if it's closed
-    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1).size == 1
+    # open the side nav if it's closed, use very short retry periods, ignore a raised error if the closed button does not exist (it's fine, not actually an error, just means we don't do the .click)
+    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1, :css, 5, 2, 'unknown', false, true).size == 1
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
@@ -155,8 +155,8 @@ module AppSpecHelpers
   end
 
   def create_image(file)
-    # open the side nav if it's closed
-    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1).size == 1
+    # open the side nav if it's closed, use very short retry periods, ignore a raised error if the closed button does not exist (it's fine, not actually an error, just means we don't do the .click)
+    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1, :css, 5, 2, 'unknown', false, true).size == 1
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
