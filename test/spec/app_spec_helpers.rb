@@ -55,7 +55,6 @@ module AppSpecHelpers
   end
 
   def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false, ignore_raise = false)
-    pp type, timeout, test, reload, ignore_raise
     elements = []
     attempts = 0
     start = Time.now.to_i
