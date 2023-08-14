@@ -82,7 +82,6 @@ shared_examples 'similarity' do
     wait_for_selector('#side-navigation__toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('#create-media__add-item')
     create_image('files/test.png')
     sleep 60 # wait for the text extraction
     wait_for_selector('.medias__item')
@@ -106,7 +105,6 @@ shared_examples 'similarity' do
   it 'should identify images as similar', bin7: true do
     api_create_team_and_project(bot: 'alegre')
     @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item')
     create_image('files/similarity.jpg')
     sleep 60 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
@@ -122,7 +120,6 @@ shared_examples 'similarity' do
   it 'should identify videos as similar', bin7: true do
     api_create_team_and_project(bot: 'alegre')
     @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item')
     create_image('files/video.mp4')
     sleep 60 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
@@ -138,7 +135,6 @@ shared_examples 'similarity' do
   it 'should identify audios as similar', bin7: true do
     api_create_team_and_project(bot: 'alegre')
     @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item')
     create_image('files/audio.mp3')
     sleep 60 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
