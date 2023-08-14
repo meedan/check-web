@@ -144,7 +144,7 @@ module AppSpecHelpers
 
   def create_media(url, wait_for_creation = true)
     # open the side nav if it's closed
-    wait_for_selector('#side-navigation__toggle').click if @driver.find_elements(:css, '.side-navigation__toggle-closed').length == 1
+    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1).size == 1
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
@@ -156,7 +156,7 @@ module AppSpecHelpers
 
   def create_image(file)
     # open the side nav if it's closed
-    wait_for_selector('#side-navigation__toggle').click if @driver.find_elements(:css, '.side-navigation__toggle-closed').length == 1
+    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1).size == 1
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
