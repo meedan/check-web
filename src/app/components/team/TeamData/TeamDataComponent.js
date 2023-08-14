@@ -47,6 +47,17 @@ const useStyles = makeStyles(theme => ({
   typographyBody1: {
     fontSize: 14,
   },
+  sticky: {
+    position: 'sticky',
+    left: 0,
+    background: 'var(--otherWhite)',
+  },
+  stickyHeader: {
+    position: 'sticky',
+    left: 0,
+    background: 'var(--otherWhite)',
+    zIndex: '9999',
+  },
 }));
 
 const messagesDescription = 'Explanation on table header, when hovering the "help" icon, on data settings page';
@@ -313,7 +324,7 @@ const TeamDataComponent = ({
                 <TableHead>
                   <TableRow>
                     {headers.map(header => (
-                      <TableCell key={header} className={classes.tableCell} sortDirection={orderBy === header ? order : false}>
+                      <TableCell key={header} className={[classes.tableCell, header === 'Month' ? classes.stickyHeader : ''].join(' ')} sortDirection={orderBy === header ? order : false}>
                         <TableSortLabel active={orderBy === header} direction={orderBy === header ? order : 'asc'} onClick={createSortHandler(header)}>
                           <Box display="flex" alignItems="center">
                             <Typography variant="button" className={classes.typographyButton}>
@@ -334,7 +345,7 @@ const TeamDataComponent = ({
                   {rows.map(row => (
                     <TableRow key={row.ID}>
                       {headers.map(header => (
-                        <TableCell key={`${row.ID}-${header}`} className={classes.tableCell}>
+                        <TableCell key={`${row.ID}-${header}`} className={[classes.tableCell, header === 'Month' ? classes.sticky : ''].join(' ')}>
                           <Typography variant="body1" className={classes.typographyBody1}>
                             {formatValue(header, row[header])}
                           </Typography>
