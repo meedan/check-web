@@ -65,6 +65,7 @@ module AppSpecHelpers
     end
     finish = Time.now.to_i - start
     raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size && !ignore_raise
+
     elements
   end
 
