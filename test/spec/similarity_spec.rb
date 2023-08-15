@@ -3,6 +3,7 @@ shared_examples 'similarity' do
     api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 3 })
     sleep 90 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
+    all_items_url = @driver.current_url.to_s
     wait_for_selector('.media__heading').click
     wait_for_selector('#media__claim')
     wait_for_selector('#media-similarity__add-button').click
@@ -12,6 +13,7 @@ shared_examples 'similarity' do
     wait_for_selector('.media__relationship')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
     expect(@driver.page_source.include?('Media')).to be(true)
+    @driver.navigate.to all_items_url
     wait_for_selector('.search__results-heading')
     wait_for_selector_list('.media__heading').last.click
     wait_for_selector('#media__claim')
