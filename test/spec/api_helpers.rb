@@ -51,7 +51,7 @@ module ApiHelpers
     { user: user, team: team }
   end
 
-  def api_create_team_project_and_claim(params = {})
+  def api_create_team_and_claim(params = {})
     quit = params[:quit] || false
     quote = params[:quote] || 'Claim'
     data = api_create_team_and_bot(params)
@@ -97,7 +97,7 @@ module ApiHelpers
   # no other media in this project.
   def api_create_team_and_claim_and_redirect_to_media_page(params = {})
     params.merge!({ quit: false })
-    media = api_create_team_project_and_claim(params)
+    media = api_create_team_and_claim(params)
     @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
   end
@@ -111,7 +111,7 @@ module ApiHelpers
   end
 
   def api_create_claim_and_go_to_search_page
-    media = api_create_team_project_and_claim({ quit: false, quote: 'My search result' })
+    media = api_create_team_and_claim({ quit: false, quote: 'My search result' })
     @driver.navigate.to media.full_url
 
     sleep 3 # wait for Sidekiq
