@@ -17,7 +17,7 @@ shared_examples 'search' do
   end
 
   it 'should search by keywords', bin4: true, quick: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
+    api_create_team_claims_sources_and_redirect_to_project_page({ count: 2 })
     sleep 60 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('#search-input')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 2
@@ -131,7 +131,7 @@ shared_examples 'search' do
   end
 
   it 'should search by status', bin1: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
+    api_create_team_claims_sources_and_redirect_to_project_page({ count: 2 })
     sleep 30 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click

@@ -61,7 +61,7 @@ module ApiHelpers
     claim
   end
 
-  def api_create_team_project_claims_sources_and_redirect_to_project_page(params = {})
+  def api_create_team_claims_sources_and_redirect_to_project_page(params = {})
     count = params[:count]
     data = api_create_team_and_bot(params)
     count.times do |i|

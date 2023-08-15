@@ -27,7 +27,7 @@ shared_examples 'project' do
   end
 
   it 'should paginate all-items page', bin4: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 51 })
+    api_create_team_claims_sources_and_redirect_to_project_page({ count: 51 })
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading')
     wait_for_selector("//span[contains(text(), '1 - 50 / 51')]", :xpath)

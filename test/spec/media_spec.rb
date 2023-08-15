@@ -11,7 +11,7 @@ shared_examples 'media' do |type|
       if media == 1
         url.nil? ? api_create_team_and_claim_and_redirect_to_media_page({ quote: "Orphan #{Time.now.to_f}" }) : api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: url })
       else
-        api_create_team_project_claims_sources_and_redirect_to_project_page({ count: media })
+        api_create_team_claims_sources_and_redirect_to_project_page({ count: media })
       end
     end
   end
