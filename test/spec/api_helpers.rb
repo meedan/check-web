@@ -165,7 +165,7 @@ module ApiHelpers
     request_api 'bot', {}
   end
 
-  def api_create_team_project_metadata_and_media(params = {})
+  def api_create_team_metadata_and_media(params = {})
     url = params[:url] || nil
     type = params[:type] || 'free_text'
     options = params[:options] || '[]'

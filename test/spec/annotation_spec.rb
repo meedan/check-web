@@ -43,7 +43,7 @@ shared_examples 'annotation' do
   end
 
   it 'should add, edit and delete a annotation response', bin1: true do
-    api_create_team_project_metadata_and_media
+    api_create_team_metadata_and_media
     wait_for_selector('#search-input')
     wait_for_selector('.medias__item').click
     wait_for_selector('.media__annotations-tabs')
