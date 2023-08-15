@@ -177,13 +177,13 @@ const NewsletterScheduler = ({
             { timezones.map(tz => <option key={tz.code} value={tz.value}>{tz.label}</option>) }
           </Select>
         </div>
-        { parentErrors.datetime_past && (
-          <div className={`typography-caption ${styles['help-container']} ${styles['error-label']}`}>
-            <ErrorOutlineIcon className={styles['error-icon']} />
-            &nbsp;{parentErrors.datetime_past}
-          </div>
-        )}
       </div>
+      { parentErrors.datetime_past && (
+        <div className={`typography-caption ${styles['help-container']} ${styles['error-label']}`}>
+          <ErrorOutlineIcon className={styles['error-icon']} />
+          &nbsp;{parentErrors.datetime_past}
+        </div>
+      )}
 
       <div className={styles['newsletter-schedule-actions']}>
         { scheduled ?

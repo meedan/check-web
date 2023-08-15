@@ -7,8 +7,6 @@ import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import CardContent from '@material-ui/core/CardContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -54,12 +52,23 @@ const SimilarityComponent = ({
   const { alegre_settings } = team.alegre_bot;
 
   const [settings, setSettings] = React.useState(alegre_settings);
-  const [vectorModelToggle, setVectorModelToggle] = React.useState((
-    alegre_settings.text_similarity_model === MEAN_TOKENS_MODEL ||
-    alegre_settings.text_similarity_model === INDIAN_MODEL ||
-    alegre_settings.text_similarity_model === FILIPINO_MODEL ||
-    alegre_settings.text_similarity_model === OPENAI_ADA_MODEL
-  ));
+  const [vectorModelToggle, setVectorModelToggle] = React.useState(() => {
+    const textSimilarityModel = alegre_settings.text_similarity_model;
+    if (typeof textSimilarityModel === 'string') {
+      return (
+        textSimilarityModel === MEAN_TOKENS_MODEL ||
+        textSimilarityModel === INDIAN_MODEL ||
+        textSimilarityModel === FILIPINO_MODEL ||
+        textSimilarityModel === OPENAI_ADA_MODEL
+      );
+    }
+    return (
+      textSimilarityModel.includes(MEAN_TOKENS_MODEL) ||
+      textSimilarityModel.includes(INDIAN_MODEL) ||
+      textSimilarityModel.includes(FILIPINO_MODEL) ||
+      textSimilarityModel.includes(OPENAI_ADA_MODEL)
+    );
+  });
 
   const handleSettingsChange = (key, value) => {
     const newSettings = { ...settings };
@@ -67,10 +76,20 @@ const SimilarityComponent = ({
     setSettings(newSettings);
   };
 
-  const handleModelSettingsChange = (key1, key2, value) => {
+  const handleModelSettingsChange = (model) => {
     const newSettings = { ...settings };
-    newSettings[key1] = value;
-    newSettings[key2] = value;
+    const updatedModels = Array.isArray(settings.alegre_model_in_use) ? [...settings.alegre_model_in_use] : [settings.alegre_model_in_use];
+
+    if (updatedModels.includes(model)) {
+      // If the model is currently in use, remove it (uncheck it)
+      const index = updatedModels.indexOf(model);
+      updatedModels.splice(index, 1);
+    } else {
+      updatedModels.push(model);
+    }
+
+    newSettings.alegre_model_in_use = updatedModels;
+    newSettings.text_similarity_model = updatedModels;
     setSettings(newSettings);
   };
 
@@ -80,9 +99,12 @@ const SimilarityComponent = ({
 
   const handleVectorModelToggle = (useVectorModel) => {
     if (!useVectorModel) {
-      handleSettingsChange('text_similarity_model', ELASTICSEARCH_MODEL);
+      const newSettings = { ...settings };
+      newSettings.alegre_model_in_use = ELASTICSEARCH_MODEL;
+      newSettings.text_similarity_model = ELASTICSEARCH_MODEL;
+      setSettings(newSettings);
     } else {
-      handleSettingsChange('text_similarity_model', MEAN_TOKENS_MODEL);
+      handleModelSettingsChange(MEAN_TOKENS_MODEL);
     }
     setVectorModelToggle(useVectorModel);
   };
@@ -310,38 +332,48 @@ const SimilarityComponent = ({
                       label="Vector model"
                       helperContent="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
                     />
-                    <Box ml={7} mb={2} mt={2}>
+                    <Box ml={7} mb={2} mt={2} mr={6}>
                       <p><strong>Model to use</strong></p>
-                      <RadioGroup
-                        name="indexing-vector-model"
-                        value={settings.alegre_model_in_use}
-                        onChange={e => handleModelSettingsChange('alegre_model_in_use', 'text_similarity_model', e.target.value)}
-                      >
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={MEAN_TOKENS_MODEL}
-                          control={<Radio />}
-                          label="Means tokens - Covers all languages"
-                        />
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={INDIAN_MODEL}
-                          control={<Radio />}
-                          label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
-                        />
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={FILIPINO_MODEL}
-                          control={<Radio />}
-                          label="Filipino Paraphrase - Specialized in Filipino"
-                        />
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={OPENAI_ADA_MODEL}
-                          control={<Radio />}
-                          label="OpenAI ada model - Experimental, pay-per-use model"
-                        />
-                      </RadioGroup>
+                      <FormControlLabel
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        control={
+                          <Checkbox
+                            checked={settings.alegre_model_in_use.includes(MEAN_TOKENS_MODEL)}
+                            onChange={() => handleModelSettingsChange(MEAN_TOKENS_MODEL)}
+                          />
+                        }
+                        label="Means tokens - Covers all languages"
+                      />
+                      <FormControlLabel
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        control={
+                          <Checkbox
+                            checked={settings.alegre_model_in_use.includes(INDIAN_MODEL)}
+                            onChange={() => handleModelSettingsChange(INDIAN_MODEL)}
+                          />
+                        }
+                        label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
+                      />
+                      <FormControlLabel
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        control={
+                          <Checkbox
+                            checked={settings.alegre_model_in_use.includes(FILIPINO_MODEL)}
+                            onChange={() => handleModelSettingsChange(FILIPINO_MODEL)}
+                          />
+                        }
+                        label="Filipino Paraphrase - Specialized in Filipino"
+                      />
+                      <FormControlLabel
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        control={
+                          <Checkbox
+                            checked={settings.alegre_model_in_use.includes(OPENAI_ADA_MODEL)}
+                            onChange={() => handleModelSettingsChange(OPENAI_ADA_MODEL)}
+                          />
+                        }
+                        label="OpenAI ada model - Experimental, pay-per-use model"
+                      />
                     </Box>
                     <ThresholdControl
                       value={Number(settings.text_vector_matching_threshold * 100).toFixed()}
