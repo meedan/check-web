@@ -32,7 +32,7 @@ shared_examples 'similarity' do
   end
 
   it 'should pin and remove similarity items', bin4: true do
-    data = api_create_team_and_project
+    data = api_create_team_and_bot
     pm1 = api_create_claim(data: data, quote: 'claim 1')
     pm2 = api_create_claim(data: data, quote: 'claim 2')
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm2.id)
@@ -58,7 +58,7 @@ shared_examples 'similarity' do
   end
 
   it 'should accept and reject suggested similarity', bin1: true do
-    data = api_create_team_and_project
+    data = api_create_team_and_bot
     pm1 = api_create_claim(data: data, quote: 'claim 1')
     pm2 = api_create_claim(data: data, quote: 'claim 2')
     pm3 = api_create_claim(data: data, quote: 'claim 3')
@@ -79,7 +79,7 @@ shared_examples 'similarity' do
   end
 
   it 'should extract text from a image', bin7: true do
-    api_create_team_and_project(bot: 'alegre', score: {})
+    api_create_team_and_bot(bot: 'alegre', score: {})
     @driver.navigate.to @config['self_url']
     wait_for_selector('#side-navigation__toggle').click
     wait_for_selector('.projects-list')
@@ -94,7 +94,7 @@ shared_examples 'similarity' do
   end
 
   it 'should identify texts as similar', bin7: true do
-    data = api_create_team_and_project(bot: 'alegre', score: { min_es_score: 0 })
+    data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     pm1 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1502s.')
     sleep 60 # wait for the items to be indexed in the Elasticsearch
     api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1501s.')
@@ -105,7 +105,7 @@ shared_examples 'similarity' do
   end
 
   it 'should identify images as similar', bin7: true do
-    api_create_team_and_project(bot: 'alegre')
+    api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to @config['self_url']
     create_image('files/similarity.jpg')
     sleep 60 # Wait for the item to be indexed by Alegre
@@ -120,7 +120,7 @@ shared_examples 'similarity' do
   end
 
   it 'should identify videos as similar', bin7: true do
-    api_create_team_and_project(bot: 'alegre')
+    api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to @config['self_url']
     create_image('files/video.mp4')
     sleep 60 # Wait for the item to be indexed by Alegre
@@ -135,7 +135,7 @@ shared_examples 'similarity' do
   end
 
   it 'should identify audios as similar', bin7: true do
-    api_create_team_and_project(bot: 'alegre')
+    api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to @config['self_url']
     create_image('files/audio.mp3')
     sleep 60 # Wait for the item to be indexed by Alegre

@@ -33,7 +33,7 @@ module TeamSpecHelpers
   end
 
   def create_team_project_and_image_and_redirect_to_media_page
-    api_create_team_and_project
+    api_create_team_and_bot
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item').click
     wait_for_selector('#create-media__image').click

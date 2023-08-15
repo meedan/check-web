@@ -186,7 +186,7 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it 'should redirect to 404 page if id does not exist', bin4: true do
-      api_create_team_and_project
+      api_create_team_and_bot
       @driver.navigate.to @config['self_url']
       wait_for_selector('#side-navigation__toggle').click
       wait_for_selector('.projects-list')
@@ -213,7 +213,7 @@ shared_examples 'app' do |webdriver_url|
 
     it 'should show current team content on sidebar when viewing profile', bin3: true do
       user = api_register_and_login_with_email
-      api_create_team_and_project(user: user)
+      api_create_team_and_bot(user: user)
       @driver.navigate.to("#{@config['self_url']}/check/me")
       wait_for_selector('#teams-tab')
       wait_for_selector('.team-header__drawer-team-link')
