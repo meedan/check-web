@@ -191,7 +191,7 @@ module ApiHelpers
     sleep 5
   end
 
-  def api_create_team_project_claim_and_media_tag(params = {})
+  def api_create_team_claim_and_media_tag(params = {})
     data = params[:data] || api_create_team_and_bot(params)
     quote = params[:quote] || 'Claim'
     claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid }

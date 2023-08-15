@@ -66,7 +66,7 @@ shared_examples 'tag' do
   end
 
   it 'should add a tag, reject duplicated tag', bin3: true, quick: true do
-    api_create_team_project_claim_and_media_tag
+    api_create_team_claim_and_media_tag
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-card-large')
