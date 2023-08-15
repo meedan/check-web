@@ -57,7 +57,7 @@ before_script:
 jobs:
   include:
     - stage: tests
-      # if: branch = develop OR branch = master
+      if: branch = develop OR branch = master
       name: integration-and-unit-tests
       script:
       - docker-compose exec
@@ -71,7 +71,7 @@ jobs:
         web npm run tests
     - stage: tests
       name: similarity-tests
-      # if: branch = develop OR branch = master
+      if: branch = develop OR branch = master
       script:
       - docker-compose exec
         -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
