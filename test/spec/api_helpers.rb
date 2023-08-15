@@ -72,7 +72,7 @@ module ApiHelpers
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
 
-  def api_create_team_project_and_link(params = {})
+  def api_create_team_and_bot_and_link(params = {})
     url = params[:url] || @media_url
     data = api_create_team_and_bot(params)
     link = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid }
@@ -86,7 +86,7 @@ module ApiHelpers
   # no other media in this project.
   def api_create_team_and_bot_and_link_and_redirect_to_media_page(params = {})
     url = params[:url] || @media_url
-    media = api_create_team_project_and_link({ url: url })
+    media = api_create_team_and_bot_and_link({ url: url })
     @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
   end
@@ -103,7 +103,7 @@ module ApiHelpers
   end
 
   def api_create_media_and_go_to_search_page
-    media = api_create_team_project_and_link
+    media = api_create_team_and_bot_and_link
     @driver.navigate.to media.full_url
     sleep 10
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
