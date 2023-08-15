@@ -1,15 +1,5 @@
 [
   {
-    "id": "teamDataComponent.conversations",
-    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Starts with any outgoing or incoming message for a user, and ends after 24 hours. This information began collection on April 1, 2023."
-  },
-  {
-    "id": "teamDataComponent.averageMessagesPerDay",
-    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Average messages per day sent back and forth between users and the bot."
-  },
-  {
     "id": "teamDataComponent.uniqueUsers",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
     "defaultMessage": "Unique users who interacted with the bot."
@@ -20,24 +10,9 @@
     "defaultMessage": "Unique users who had at least one session in the current month, and at least one session in the last previous two months."
   },
   {
-    "id": "teamDataComponent.validNewRequests",
+    "id": "teamDataComponent.publishedReports",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "User requests associated with claims that are not in the trash."
-  },
-  {
-    "id": "teamDataComponent.publishedNativeReports",
-    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Published reports created in Check (for all platforms)."
-  },
-  {
-    "id": "teamDataComponent.publishedImportedReports",
-    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Published reports imported from web sites (for all languages and platforms)."
-  },
-  {
-    "id": "teamDataComponent.claimsAnsweredWithAReport",
-    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "For example, if two users requested the same claim and received the same report, it counts as one."
+    "defaultMessage": "Published reports created in Check or imported into Check (for all platforms)."
   },
   {
     "id": "teamDataComponent.reportsSent",
@@ -60,9 +35,9 @@
     "defaultMessage": "Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022."
   },
   {
-    "id": "teamDataComponent.newNewsletterSubscriptions",
+    "id": "teamDataComponent.newsletterSubscriptions",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "New newsletter subscriptions."
+    "defaultMessage": "Newsletter subscriptions."
   },
   {
     "id": "teamDataComponent.newsletterCancellations",
@@ -83,6 +58,21 @@
     "id": "teamDataComponent.whatsappConversations",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
     "defaultMessage": "Conversations are 24-hour message threads between the tipline and users. They are opened when messages are delivered. This number is not divided by language and is only available for WhatsApp tiplines."
+  },
+  {
+    "id": "teamDataComponent.positiveSearches",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of user searches that returned at least one report."
+  },
+  {
+    "id": "teamDataComponent.negativeSearches",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of user searches that did not return a report."
+  },
+  {
+    "id": "teamDataComponent.newslettersSent",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "The total number of newsletters sent to subscribers."
   },
   {
     "id": "teamDataComponent.title",
