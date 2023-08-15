@@ -1,6 +1,6 @@
-shared_examples 'project' do
+shared_examples 'list' do
   it 'should create and set filters to a filtered list', bin1: true do
-    api_create_team_and_claim_and_redirect_to_media_page({ use_default_project: true })
+    api_create_team_and_claim_and_redirect_to_media_page()
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     wait_for_selector('.projects-list')
