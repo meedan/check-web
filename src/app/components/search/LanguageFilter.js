@@ -129,6 +129,7 @@ const LanguageFilter = ({
                       <MenuItem value={option}>{ label[option] }</MenuItem>
                     ))}
                   </Select>
+                  <FormattedMessage id="languageFilter.is" defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" />
                   <MultiSelectFilter
                     selected={userLanguages}
                     options={languages}

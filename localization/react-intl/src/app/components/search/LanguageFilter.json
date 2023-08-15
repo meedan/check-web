@@ -13,5 +13,10 @@
     "id": "search.requestLanguage",
     "description": "Label for conversation Language filter",
     "defaultMessage": "Conversation language"
+  },
+  {
+    "id": "languageFilter.is",
+    "description": "This connects two selection fields and will read like 'Media language' is 'English'",
+    "defaultMessage": "is"
   }
 ]
