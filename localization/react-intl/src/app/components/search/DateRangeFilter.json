@@ -39,9 +39,14 @@
     "defaultMessage": "between"
   },
   {
-    "id": "search.dateRelative",
+    "id": "search.dateLessThan",
     "description": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'.",
     "defaultMessage": "less than"
+  },
+  {
+    "id": "search.dateMoreThan",
+    "description": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published more than 10 months ago'.",
+    "defaultMessage": "more than"
   },
   {
     "id": "search.relativeDays",

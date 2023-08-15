@@ -47,6 +47,17 @@ const useStyles = makeStyles(theme => ({
   typographyBody1: {
     fontSize: 14,
   },
+  sticky: {
+    position: 'sticky',
+    left: 0,
+    background: 'var(--otherWhite)',
+  },
+  stickyHeader: {
+    position: 'sticky',
+    left: 0,
+    background: 'var(--otherWhite)',
+    zIndex: '9999',
+  },
 }));
 
 const messagesDescription = 'Explanation on table header, when hovering the "help" icon, on data settings page';
@@ -131,6 +142,11 @@ const messages = defineMessages({
     defaultMessage: 'Number of newsletters successfully delivered to subscribers, accounting for user errors.',
     description: messagesDescription,
   },
+  whatsappConversations: {
+    id: 'teamDataComponent.whatsappConversations',
+    defaultMessage: 'Conversations are 24-hour message threads between the tipline and users. They are opened when messages are delivered. This number is not divided by language and is only available for WhatsApp tiplines.',
+    description: messagesDescription,
+  },
 });
 
 function descendingComparator(a, b, orderBy) {
@@ -205,6 +221,7 @@ const TeamDataComponent = ({
 
   const helpMessages = {
     Conversations: intl.formatMessage(messages.conversations),
+    'WhatsApp conversations': intl.formatMessage(messages.whatsappConversations),
     'Average messages per day': intl.formatMessage(messages.averageMessagesPerDay),
     'Unique users': intl.formatMessage(messages.uniqueUsers),
     'Returning users': intl.formatMessage(messages.returningUsers),
@@ -307,7 +324,7 @@ const TeamDataComponent = ({
                 <TableHead>
                   <TableRow>
                     {headers.map(header => (
-                      <TableCell key={header} className={classes.tableCell} sortDirection={orderBy === header ? order : false}>
+                      <TableCell key={header} className={[classes.tableCell, header === 'Month' ? classes.stickyHeader : ''].join(' ')} sortDirection={orderBy === header ? order : false}>
                         <TableSortLabel active={orderBy === header} direction={orderBy === header ? order : 'asc'} onClick={createSortHandler(header)}>
                           <Box display="flex" alignItems="center">
                             <Typography variant="button" className={classes.typographyButton}>
@@ -328,7 +345,7 @@ const TeamDataComponent = ({
                   {rows.map(row => (
                     <TableRow key={row.ID}>
                       {headers.map(header => (
-                        <TableCell key={`${row.ID}-${header}`} className={classes.tableCell}>
+                        <TableCell key={`${row.ID}-${header}`} className={[classes.tableCell, header === 'Month' ? classes.sticky : ''].join(' ')}>
                           <Typography variant="body1" className={classes.typographyBody1}>
                             {formatValue(header, row[header])}
                           </Typography>

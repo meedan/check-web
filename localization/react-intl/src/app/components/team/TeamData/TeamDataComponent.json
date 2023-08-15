@@ -80,6 +80,11 @@
     "defaultMessage": "Number of newsletters successfully delivered to subscribers, accounting for user errors."
   },
   {
+    "id": "teamDataComponent.whatsappConversations",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Conversations are 24-hour message threads between the tipline and users. They are opened when messages are delivered. This number is not divided by language and is only available for WhatsApp tiplines."
+  },
+  {
     "id": "teamDataComponent.title",
     "description": "Header for the stored data page of the current team",
     "defaultMessage": "Tipline engagement data"
