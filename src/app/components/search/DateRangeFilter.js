@@ -306,7 +306,7 @@ const DateRangeFilter = ({
         getStartDateStringOrNull(),
         getEndDateStringOrNull(),
       ));
-    } else if (['less_than', 'more_than'].indexOf(rangeType) !== -1) {
+    } else if (['less_than', 'more_than'].includes(rangeType)) {
       onChange(buildValueRelative(
         valueType,
         rangeType,
@@ -326,7 +326,7 @@ const DateRangeFilter = ({
         getStartDateStringOrNull(),
         getEndDateStringOrNull(),
       ));
-    } else if (['less_than', 'more_than'].indexOf(valueRangeType) !== -1) {
+    } else if (['less_than', 'more_than'].includes(valueRangeType)) {
       onChange(buildValueRelative(
         getValueType(),
         valueRangeType,

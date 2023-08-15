@@ -230,11 +230,11 @@ function SearchResultsComponent({
         oldQuery.range.updated_at ||
         oldQuery.range.media_published_at ||
         oldQuery.range.report_published_at || {};
-      const relativeCondition = ['less_than', 'more_than'].indexOf(datesObj.condition);
-      if ((!datesObj.start_time && !datesObj.end_time) && (relativeCondition === -1)) {
+      const relativeCondition = ['less_than', 'more_than'].includes(datesObj.condition);
+      if ((!datesObj.start_time && !datesObj.end_time) && (!relativeCondition)) {
         delete cleanQuery.range;
       }
-      if (relativeCondition !== -1 && datesObj.period === 0) {
+      if (relativeCondition && datesObj.period === 0) {
         delete cleanQuery.range;
       }
     }
