@@ -141,10 +141,6 @@ module ApiHelpers
     request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
   end
 
-  def api_create_project(team_id)
-    request_api 'project', { title: "TestProject#{Time.now.to_i}-#{rand(1000).to_i}", team_id: team_id }
-  end
-
   def api_create_bot
     request_api 'bot', {}
   end
