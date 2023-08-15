@@ -244,19 +244,17 @@ const ProjectsComponent = ({
         <ListItem
           button
           onClick={handleAllItems}
-          className={['projects-list__all-items', styles.listItem, styles.listHeader, (activeItem.type === 'all-items' ? styles.listItem_active : '')].join(' ')}
+          className={['projects-list__all-items', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'all-items' ? styles.listItem_active : '')].join(' ')}
         >
           <CategoryIcon className={styles.listIcon} />
-          <ListItemText disableTypography className={styles.listHeaderLabel}>
+          <ListItemText disableTypography className={styles.listLabel}>
             <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
-            <Can permissions={team.permissions} permission="create Project">
-              <Tooltip title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
-                <IconButton id="projects-list__add-filtered-list" onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
-                  <AddCircleIcon />
-                </IconButton>
-              </Tooltip>
-            </Can>
           </ListItemText>
+          <ListItemSecondaryAction className={styles.listItemCount}>
+            <small>
+              {team.medias_count}
+            </small>
+          </ListItemSecondaryAction>
         </ListItem>
 
         { team.smooch_bot &&
