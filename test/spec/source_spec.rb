@@ -60,7 +60,7 @@ shared_examples 'source' do
   end
 
   it 'should add a new source for a media', bin3: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
     # create source
     wait_for_selector('.media-tab__source').click

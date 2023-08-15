@@ -200,7 +200,7 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it 'should linkify URLs on comments', bin1: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('index.html')).to be(false)
       wait_for_selector('.media-tab__comments').click
       fill_field('#cmd-input', @media_url)

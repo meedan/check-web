@@ -1,6 +1,6 @@
 shared_examples 'media actions' do
   it 'should create an item and assign it', bin4: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media')
     expect(@driver.page_source.include?('Assigments updated successfully')).to be(false)
     wait_for_selector('.media-actions__icon').click
@@ -27,7 +27,7 @@ shared_examples 'media actions' do
   end
 
   it 'should autorefresh media when annotation is created', bin3: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     url = @driver.current_url
     wait_for_selector('.media-card-large')
     expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
@@ -46,7 +46,7 @@ shared_examples 'media actions' do
   end
 
   it 'should lock and unlock status', bin2: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
@@ -65,7 +65,7 @@ shared_examples 'media actions' do
   end
 
   it 'should add and delete note', bin3: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
     wait_for_selector('.media-tab__comments').click
     wait_for_selector('.annotations__list')
@@ -91,7 +91,7 @@ shared_examples 'media actions' do
   end
 
   it 'should add image to media comment', bin3: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     # First, verify that there isn't any comment with image
     expect(@driver.page_source.include?('This is my comment with image')).to be(false)
     wait_for_selector('.media-tab__comments').click

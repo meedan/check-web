@@ -95,7 +95,7 @@ module ApiHelpers
   #
   # listIndex is always 0, so this only simulates user behavior when there are
   # no other media in this project.
-  def api_create_team_project_and_claim_and_redirect_to_media_page(params = {})
+  def api_create_team_and_claim_and_redirect_to_media_page(params = {})
     params.merge!({ quit: false })
     media = api_create_team_project_and_claim(params)
     @driver.navigate.to "#{media.full_url}?listIndex=0"
