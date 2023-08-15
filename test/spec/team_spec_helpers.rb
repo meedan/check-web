@@ -76,15 +76,4 @@ module TeamSpecHelpers
     wait_for_selector('.confirm-proceed-dialog__proceed').click
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
   end
-
-  def change_folder_access
-    wait_for_selector('.project__title-text')
-    wait_for_selector('button.project-actions').click
-    wait_for_selector("//span[contains(text(), 'Change access')]", :xpath).click
-    wait_for_selector('.MuiSelect-icon')
-    wait_for_selector('.MuiSelect-selectMenu').click
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-  end
 end
