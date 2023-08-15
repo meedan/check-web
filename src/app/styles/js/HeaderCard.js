@@ -32,11 +32,6 @@ export const StyledName = styled.h1`
   margin-bottom: ${units(1)};
 `;
 
-export const StyledDescription = styled.div`
-  color: var(--extSecondary);
-  margin-bottom: ${units(1)};
-`;
-
 export const StyledHelper = styled.div`
   color: var(--textDisabled);
   font: 400 ${units(1.5)}/${units(2.5)} var(--fontStackSans);
@@ -44,26 +39,6 @@ export const StyledHelper = styled.div`
   ${mediaQuery.handheld`
     display: none;
   `}
-`;
-
-export const StyledContactInfo = styled.div`
-  color: var(--textSecondary);
-  display: flex;
-  flex-flow: wrap row;
-  font: 400 ${units(1.5)}/${units(2.5)} var(--fontStackSans);
-  align-items: center;
-
-  svg {
-    max-height: 16px;
-    max-width: 16px;
-    margin-right: ${units(1)}
-  }
-
-  margin: ${props => (props.noVerticalMargin ? '0' : `${units(2)} 0`)};
-
-  & > span {
-    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
-  }
 `;
 
 export const StyledAvatarEditButton = styled.div`
