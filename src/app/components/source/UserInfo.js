@@ -2,8 +2,7 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AccountChips from './AccountChips';
 import Can from '../Can';
 import ParsedText from '../ParsedText';
@@ -42,7 +41,11 @@ const UserInfo = (props) => {
             <Row>
               {props.user.name}
               <Can permissions={props.user.permissions} permission="update User">
-                <IconButton
+                <ButtonMain
+                  iconCenter={<IconEdit />}
+                  variant="text"
+                  theme="lightText"
+                  size="default"
                   className="source__edit-source-button"
                   onClick={() => {
                     if (props.user.dbid === props.context.currentUser.dbid) {
@@ -51,10 +54,8 @@ const UserInfo = (props) => {
                       browserHistory.push(`/check/user/${props.user.dbid}/edit`);
                     }
                   }}
-                  tooltip={props.intl.formatMessage(globalStrings.edit)}
-                >
-                  <IconEdit />
-                </IconButton>
+                  title={props.intl.formatMessage(globalStrings.edit)}
+                />
               </Can>
             </Row>
           </StyledName>
@@ -89,17 +90,20 @@ const UserInfo = (props) => {
           />
         </StyledContactInfo>
         <div>
-          <Button
+          <ButtonMain
             className="user-menu__logout"
             variant="contained"
+            theme="lightText"
+            size="default"
             onClick={logout}
-          >
-            <FormattedMessage
-              id="UserMenu.signOut"
-              defaultMessage="Sign Out"
-              description="This is the sign out button on the user profile page"
-            />
-          </Button>
+            label={
+              <FormattedMessage
+                id="UserMenu.signOut"
+                defaultMessage="Sign Out"
+                description="This is the sign out button on the user profile page"
+              />
+            }
+          />
         </div>
       </StyledBigColumn>
     </StyledTwoColumns>
