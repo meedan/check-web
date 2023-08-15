@@ -129,10 +129,6 @@ module AppSpecHelpers
     wait_for_selector_none('#tos__save')
   end
 
-  def get_project
-    @driver.execute_script('return Check.store.getState().app.context.project.dbid').to_s
-  end
-
   def page_source_body
     @driver.execute_script('return document.body.outerHTML;').to_s
   end
@@ -176,15 +172,6 @@ module AppSpecHelpers
     wait_for_selector('#input')
     create_media('My search result')
     expect(@driver.page_source.include?('My search result')).to be(true)
-  end
-
-  def edit_project(options)
-    wait_for_selector('.project-actions').click
-    wait_for_selector('.project-actions__edit').click
-    update_field('.project-actions__edit-title input', options[:title]) if options[:title]
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
-    wait_for_selector('.message')
-    self
   end
 
   def get_config(config_variable)
