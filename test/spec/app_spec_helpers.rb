@@ -270,21 +270,6 @@ module AppSpecHelpers
     wait_for_selector('.annotation__card-thumbnail')
   end
 
-  def create_folder_or_collection(project_name, project_type_selector)
-    name = project_name || "Project #{Time.now.to_i}"
-    wait_for_selector('.project-list__link-trash')
-    wait_for_selector('.projects-list__add-folder-or-collection').click
-    wait_for_selector(project_type_selector).click
-    wait_for_selector('.new-project__title input').send_keys(name)
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('.message')
-    wait_for_selector_none('#confirm-dialog__confirm-action-button')
-    # I'm getting "stale element reference" here:
-    # wait_for_selector_list('.project-list__link').last.click
-    @driver.execute_script("var items = document.querySelectorAll('.project-list__link') ; items[items.length - 1].click()")
-    wait_for_selector('.project')
-  end
-
   def add_related_item(item_name)
     wait_for_selector('#create-media-dialog__dismiss-button')
     wait_for_selector('#autocomplete-media-item').send_keys(item_name)
@@ -293,17 +278,5 @@ module AppSpecHelpers
     wait_for_selector('.autocomplete-media-item__select').click
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector_none('#create-media-dialog__dismiss-button')
-  end
-
-  def move_folder_to_collection(collection_title)
-    wait_for_selector('button.project-actions').click
-    wait_for_selector('.project-actions__move').click
-    wait_for_selector('.confirm-proceed-dialog__cancel')
-    wait_for_selector('.MuiAutocomplete-popupIndicator').click
-    wait_for_selector('.MuiAutocomplete-inputFocused').click
-    @driver.action.send_keys(:enter).send_keys(collection_title)
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
   end
 end
