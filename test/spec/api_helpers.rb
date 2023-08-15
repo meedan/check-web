@@ -121,22 +121,6 @@ module ApiHelpers
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  def api_create_team_project_and_source(params = {})
-    name = params[:name]
-    url = params[:url]
-    data = api_create_team_and_project(params)
-    request_api 'source', { url: url, name: name, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
-  end
-
-  def api_create_team_project_and_source_and_redirect_to_source(params = {})
-    name = params[:name]
-    url = params[:url]
-    source = api_create_team_project_and_source({ name: name, url: url })
-    @driver.navigate.to source.full_url
-    sleep 2
-    source
-  end
-
   def api_logout
     require 'net/http'
     uri = URI(api_path.gsub('/test/', '/api/users/logout'))
