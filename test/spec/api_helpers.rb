@@ -155,7 +155,7 @@ module ApiHelpers
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
 
-  def api_create_team_project_metadata_and_claim(params = {})
+  def api_create_team_metadata_and_claim(params = {})
     quote = params[:quote] || 'Claim'
     type = params[:type] || 'free_text'
     options = params[:options] || '[]'
