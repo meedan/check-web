@@ -1,6 +1,6 @@
 shared_examples 'similarity' do
   it 'should import and export items', bin4: true do
-    api_create_team_claims_sources_and_redirect_to_project_page({ count: 3 })
+    api_create_team_claims_sources_and_redirect_to_all_items({ count: 3 })
     sleep 90 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
     all_items_url = @driver.current_url.to_s
