@@ -16,7 +16,7 @@ shared_examples 'media actions' do
   end
 
   it 'should refresh media', bin1: true do
-    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'http://api:3000/test/random' })
+    api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'http://api:3000/test/random' })
     title1 = wait_for_selector('.media-card-large__title').text
     expect((title1 =~ /Test/).nil?).to be(false)
     wait_for_selector('.media-actions__refresh').click
@@ -130,7 +130,7 @@ shared_examples 'media actions' do
   end
 
   it 'should not create duplicated media', bin1: true do
-    api_create_team_project_and_link_and_redirect_to_media_page({ url: @media_url })
+    api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: @media_url })
     id1 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1.positive?).to be(true)
     wait_for_selector('.media-card-large')

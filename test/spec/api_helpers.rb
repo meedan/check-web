@@ -84,7 +84,7 @@ module ApiHelpers
   #
   # listIndex is always 0, so this only simulates user behavior when there are
   # no other media in this project.
-  def api_create_team_project_and_link_and_redirect_to_media_page(params = {})
+  def api_create_team_and_bot_and_link_and_redirect_to_media_page(params = {})
     url = params[:url] || @media_url
     media = api_create_team_project_and_link({ url: url })
     @driver.navigate.to "#{media.full_url}?listIndex=0"
