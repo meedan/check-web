@@ -74,7 +74,7 @@ const LanguageFilter = ({
   const [random] = React.useState(String(Math.random()));
 
   const handleChangeType = (e) => {
-    onChange({ [e.target.value]: [] });
+    onChange({ [e.target.value]: userLanguages });
   };
 
   const handleChangeLanguage = (languageValues) => {
