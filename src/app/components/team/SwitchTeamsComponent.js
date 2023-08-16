@@ -164,7 +164,6 @@ class SwitchTeamsComponent extends Component {
                     theme="text"
                     variant="text"
                     size="default"
-                    edge="end"
                     onClick={this.setCurrentTeam.bind(this, team, currentUser)}
                   />
                 </ListItemSecondaryAction>
