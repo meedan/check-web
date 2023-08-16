@@ -47,20 +47,21 @@ const useStyles = makeStyles(theme => ({
   typographyBody1: {
     fontSize: 14,
   },
+  sticky: {
+    position: 'sticky',
+    left: 0,
+    background: 'var(--otherWhite)',
+  },
+  stickyHeader: {
+    position: 'sticky',
+    left: 0,
+    background: 'var(--otherWhite)',
+    zIndex: '9999',
+  },
 }));
 
 const messagesDescription = 'Explanation on table header, when hovering the "help" icon, on data settings page';
 const messages = defineMessages({
-  conversations: {
-    id: 'teamDataComponent.conversations',
-    defaultMessage: 'Starts with any outgoing or incoming message for a user, and ends after 24 hours. This information began collection on April 1, 2023.',
-    description: messagesDescription,
-  },
-  averageMessagesPerDay: {
-    id: 'teamDataComponent.averageMessagesPerDay',
-    defaultMessage: 'Average messages per day sent back and forth between users and the bot.',
-    description: messagesDescription,
-  },
   uniqueUsers: {
     id: 'teamDataComponent.uniqueUsers',
     defaultMessage: 'Unique users who interacted with the bot.',
@@ -71,24 +72,9 @@ const messages = defineMessages({
     defaultMessage: 'Unique users who had at least one session in the current month, and at least one session in the last previous two months.',
     description: messagesDescription,
   },
-  validNewRequests: {
-    id: 'teamDataComponent.validNewRequests',
-    defaultMessage: 'User requests associated with claims that are not in the trash.',
-    description: messagesDescription,
-  },
-  publishedNativeReports: {
-    id: 'teamDataComponent.publishedNativeReports',
-    defaultMessage: 'Published reports created in Check (for all platforms).',
-    description: messagesDescription,
-  },
-  publishedImportedReports: {
-    id: 'teamDataComponent.publishedImportedReports',
-    defaultMessage: 'Published reports imported from web sites (for all languages and platforms).',
-    description: messagesDescription,
-  },
-  requestsAnsweredWithReport: {
-    id: 'teamDataComponent.claimsAnsweredWithAReport',
-    defaultMessage: 'For example, if two users requested the same claim and received the same report, it counts as one.',
+  publishedReports: {
+    id: 'teamDataComponent.publishedReports',
+    defaultMessage: 'Published reports created in Check or imported into Check (for all platforms).',
     description: messagesDescription,
   },
   reportsSent: {
@@ -108,17 +94,17 @@ const messages = defineMessages({
   },
   uniqueNewslettersSent: {
     id: 'teamDataComponent.uniqueNewslettersSent',
-    defaultMessage: 'Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022.',
+    defaultMessage: 'Unique newsletters sent, for all platforms.',
     description: messagesDescription,
   },
-  newNewsletterSubscriptions: {
-    id: 'teamDataComponent.newNewsletterSubscriptions',
-    defaultMessage: 'New newsletter subscriptions.',
+  newsletterSubscriptions: {
+    id: 'teamDataComponent.newsletterSubscriptions',
+    defaultMessage: 'Newsletter subscriptions.',
     description: messagesDescription,
   },
   newsletterCancellations: {
     id: 'teamDataComponent.newsletterCancellations',
-    defaultMessage: 'New newsletter cancellations.',
+    defaultMessage: 'Newsletter cancellations.',
     description: messagesDescription,
   },
   currentSubscribers: {
@@ -133,7 +119,22 @@ const messages = defineMessages({
   },
   whatsappConversations: {
     id: 'teamDataComponent.whatsappConversations',
-    defaultMessage: 'Conversations are 24-hour message threads between the tipline and users. They are opened when messages are delivered. This number is not divided by language and is only available for WhatsApp tiplines.',
+    defaultMessage: 'Conversations are 24-hour message threads between you and your users. They are opened when messages sent by Check to users are delivered.',
+    description: messagesDescription,
+  },
+  positiveSearches: {
+    id: 'teamDataComponent.positiveSearches',
+    defaultMessage: 'Number of user searches that returned at least one report.',
+    description: messagesDescription,
+  },
+  negativeSearches: {
+    id: 'teamDataComponent.negativeSearches',
+    defaultMessage: 'Number of user searches that did not return a report.',
+    description: messagesDescription,
+  },
+  newslettersSent: {
+    id: 'teamDataComponent.newslettersSent',
+    defaultMessage: 'The total number of newsletters sent to subscribers.',
     description: messagesDescription,
   },
 });
@@ -209,23 +210,21 @@ const TeamDataComponent = ({
   const [currentPlatform, setCurrentPlatform] = React.useState(platforms[0]);
 
   const helpMessages = {
-    Conversations: intl.formatMessage(messages.conversations),
     'WhatsApp conversations': intl.formatMessage(messages.whatsappConversations),
-    'Average messages per day': intl.formatMessage(messages.averageMessagesPerDay),
     'Unique users': intl.formatMessage(messages.uniqueUsers),
     'Returning users': intl.formatMessage(messages.returningUsers),
-    'Valid new requests': intl.formatMessage(messages.validNewRequests),
-    'Published native reports': intl.formatMessage(messages.publishedNativeReports),
-    'Published imported reports': intl.formatMessage(messages.publishedImportedReports),
-    'Requests answered with a report': intl.formatMessage(messages.requestsAnsweredWithReport),
+    'Published reports': intl.formatMessage(messages.publishedReports),
     'Reports sent to users': intl.formatMessage(messages.reportsSent),
     'Unique users who received a report': intl.formatMessage(messages.uniqueUsersWhoReceivedReport),
     'Average (median) response time': intl.formatMessage(messages.responseTime),
     'Unique newsletters sent': intl.formatMessage(messages.uniqueNewslettersSent),
-    'New newsletter subscriptions': intl.formatMessage(messages.newNewsletterSubscriptions),
+    'Newsletter subscriptions': intl.formatMessage(messages.newsletterSubscriptions),
     'Newsletter cancellations': intl.formatMessage(messages.newsletterCancellations),
     'Current subscribers': intl.formatMessage(messages.currentSubscribers),
-    'Total newsletter received': intl.formatMessage(messages.newslettersDelivered),
+    'Total newsletters delivered': intl.formatMessage(messages.newslettersDelivered),
+    'Positive searches': intl.formatMessage(messages.positiveSearches),
+    'Negative searches': intl.formatMessage(messages.negativeSearches),
+    'Total newsletters sent': intl.formatMessage(messages.newslettersSent),
   };
 
   const handleRequestSort = (event, property) => {
@@ -313,7 +312,7 @@ const TeamDataComponent = ({
                 <TableHead>
                   <TableRow>
                     {headers.map(header => (
-                      <TableCell key={header} className={classes.tableCell} sortDirection={orderBy === header ? order : false}>
+                      <TableCell key={header} className={[classes.tableCell, header === 'Month' ? classes.stickyHeader : ''].join(' ')} sortDirection={orderBy === header ? order : false}>
                         <TableSortLabel active={orderBy === header} direction={orderBy === header ? order : 'asc'} onClick={createSortHandler(header)}>
                           <Box display="flex" alignItems="center">
                             <Typography variant="button" className={classes.typographyButton}>
@@ -334,7 +333,7 @@ const TeamDataComponent = ({
                   {rows.map(row => (
                     <TableRow key={row.ID}>
                       {headers.map(header => (
-                        <TableCell key={`${row.ID}-${header}`} className={classes.tableCell}>
+                        <TableCell key={`${row.ID}-${header}`} className={[classes.tableCell, header === 'Month' ? classes.sticky : ''].join(' ')}>
                           <Typography variant="body1" className={classes.typographyBody1}>
                             {formatValue(header, row[header])}
                           </Typography>
