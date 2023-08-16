@@ -102,14 +102,6 @@ module ApiHelpers
     sleep 2
   end
 
-  def api_create_media_and_go_to_search_page
-    media = api_create_team_and_bot_and_link
-    @driver.navigate.to media.full_url
-    sleep 10
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
-    wait_for_selector('.search__results')
-  end
-
   def api_create_claim_and_go_to_search_page
     media = api_create_team_and_claim({ quit: false, quote: 'My search result' })
     @driver.navigate.to media.full_url
@@ -133,12 +125,6 @@ module ApiHelpers
 
   def api_add_team_user(params = {})
     request_api 'add_team_user', { email: params[:email], slug: params[:slug], role: params[:role] }
-  end
-
-  def api_create_media(params = {})
-    data = params[:data] || api_create_team_and_bot(params)
-    url = params[:url] || @media_url
-    request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
   end
 
   def api_create_bot

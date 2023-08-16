@@ -32,19 +32,6 @@ module TeamSpecHelpers
     wait_for_selector('.team-settings__similarity-tab')
   end
 
-  def create_team_project_and_image_and_redirect_to_media_page
-    api_create_team_and_bot
-    @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item').click
-    wait_for_selector('#create-media__image').click
-    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'files/test.png'))
-    wait_for_selector_none('.without-file')
-    wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector('.medias__item')
-    wait_for_selector('.media__heading a').click
-    wait_for_selector('.media__annotations-column')
-  end
-
   def select_team(options)
     wait_for_selector('#teams-tab').click
     wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath).click
