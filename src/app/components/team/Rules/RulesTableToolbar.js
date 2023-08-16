@@ -87,7 +87,6 @@ const RulesTableToolbar = (props) => {
               defaultMessage="{numSelected, plural, one {# selected} other {# selected}}"
               description="When rules are selected to perform bulk actions on, this text tells the user how many have been selected"
               values={{ numSelected }}
-              description="A label that tells the user how many rules have been selected"
             />
           </div>
           <Tooltip
