@@ -30,6 +30,7 @@ const TextField = React.forwardRef(({
   iconLeft,
   iconRight,
   label,
+  placeholder,
   required,
   variant,
   textArea,
@@ -85,6 +86,7 @@ const TextField = React.forwardRef(({
             type="text"
             disabled={disabled}
             error={internalError}
+            placeholder={placeholder}
             {...inputProps}
           />
         ) : (
@@ -104,6 +106,7 @@ const TextField = React.forwardRef(({
             type="text"
             disabled={disabled}
             error={internalError}
+            placeholder={placeholder}
             {...inputProps}
           />
         )}
@@ -131,12 +134,13 @@ const TextField = React.forwardRef(({
 
 TextField.defaultProps = {
   className: '',
-  disabled: false,
+  disabled: true,
   error: false,
   helpContent: null,
   iconLeft: null,
   iconRight: null,
-  label: '',
+  label: null,
+  placeholder: null,
   required: false,
   suppressInitialError: false,
   textArea: false,
@@ -150,7 +154,8 @@ TextField.propTypes = {
   helpContent: PropTypes.element,
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  placeholder: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   required: PropTypes.bool,
   suppressInitialError: PropTypes.bool,
   textArea: PropTypes.bool,

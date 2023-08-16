@@ -1,5 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import cx from 'classnames/bind';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
@@ -7,13 +8,13 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
 import PermMediaIcon from '../../icons/perm_media.svg';
+import searchStyles from './search.module.css';
 
 const styles = {
   input: {
@@ -269,69 +270,63 @@ class SearchKeyword extends React.Component {
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
     return (
-      <div>
+      <>
         <PageTitle prefix={title} team={this.props.team} />
         <form
           id="search-form"
-          className="search__form"
+          className={cx('search__form', searchStyles['search-form'])}
           onSubmit={this.props.handleSubmit}
           autoComplete="off"
         >
-          <Box width="450px">
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <SearchField
-                  isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
-                  showExpand={showExpand}
-                  setParentSearchText={this.setSearchText}
-                  searchText={this.props.query?.keyword || ''}
-                  searchQuery={this.props.query}
-                  inputBaseProps={{
-                    onBlur: this.handleInputChange,
-                    disabled: this.state?.imgData?.data?.length > 0,
-                  }}
-                  handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
-                />
-              </Grid>
-              <Grid item container xs={12}>
-                <Box display="flex" justifyContent="flex-end" marginLeft="auto">
-                  { showExpand ? (
-                    <div>
-                      <label htmlFor="media-upload">
-                        <input
-                          className={classes.input}
-                          id="media-upload"
-                          type="file"
-                          accept="image/*,video/*,audio/*"
-                          onChange={this.handleUpload}
-                        />
-                        <Button
-                          startIcon={this.state.isSaving ? <CircularProgress size={24} /> : <PermMediaIcon style={{ fontSize: '16px' }} />}
-                          component="span"
-                          className={classes.button}
-                        >
-                          <FormattedMessage
-                            id="search.file"
-                            defaultMessage="Search with file"
-                            description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
-                          />
-                        </Button>
-                      </label>
-                    </div>
-                  ) : null }
-                  { this.props.hideAdvanced ?
-                    null :
-                    <SearchKeywordMenu
-                      onChange={this.handleKeywordConfigChange}
-                      query={this.props.query}
+          <div className={cx(searchStyles['search-field-wrapper'])}>
+            <SearchField
+              isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
+              showExpand={showExpand}
+              setParentSearchText={this.setSearchText}
+              searchText={this.props.query?.keyword || ''}
+              searchQuery={this.props.query}
+              inputBaseProps={{
+                onBlur: this.handleInputChange,
+                disabled: this.state?.imgData?.data?.length > 0,
+              }}
+              handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+            />
+          </div>
+          <Box display="flex" justifyContent="flex-end" marginLeft="auto">
+            { showExpand ? (
+              <div>
+                <label htmlFor="media-upload">
+                  <input
+                    className={classes.input}
+                    id="media-upload"
+                    type="file"
+                    accept="image/*,video/*,audio/*"
+                    onChange={this.handleUpload}
+                  />
+                  <Button
+                    startIcon={this.state.isSaving ? <CircularProgress size={24} /> : <PermMediaIcon style={{ fontSize: '16px' }} />}
+                    component="span"
+                    className={classes.button}
+                  >
+                    <FormattedMessage
+                      id="search.file"
+                      defaultMessage="Search with file"
+                      description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
                     />
-                  }
-                </Box>
-              </Grid>
-            </Grid>
+                  </Button>
+                </label>
+              </div>
+            ) : null }
+            { this.props.hideAdvanced ?
+              null :
+              <SearchKeywordMenu
+                onChange={this.handleKeywordConfigChange}
+                query={this.props.query}
+              />
+            }
           </Box>
         </form>
-      </div>
+      </>
     );
   }
 }

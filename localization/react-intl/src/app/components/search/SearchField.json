@@ -1,8 +1,18 @@
 [
   {
     "id": "search.inputHint",
-    "description": "Placeholder for search keywords input",
+    "description": "Placeholder for search keywords input\"",
     "defaultMessage": "Search"
+  },
+  {
+    "id": "search.clearSearch",
+    "description": "Tooltip for button on main search component to remove the current search keywords",
+    "defaultMessage": "Clear search"
+  },
+  {
+    "id": "search.expandedSearchLabel",
+    "description": "Label for expanded search box with extra room for longer search strings",
+    "defaultMessage": "Enter search terms"
   },
   {
     "id": "search.clear",
