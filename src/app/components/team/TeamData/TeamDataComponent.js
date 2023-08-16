@@ -94,7 +94,7 @@ const messages = defineMessages({
   },
   uniqueNewslettersSent: {
     id: 'teamDataComponent.uniqueNewslettersSent',
-    defaultMessage: 'Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022.',
+    defaultMessage: 'Unique newsletters sent, for all platforms.',
     description: messagesDescription,
   },
   newsletterSubscriptions: {
@@ -104,7 +104,7 @@ const messages = defineMessages({
   },
   newsletterCancellations: {
     id: 'teamDataComponent.newsletterCancellations',
-    defaultMessage: 'New newsletter cancellations.',
+    defaultMessage: 'Newsletter cancellations.',
     description: messagesDescription,
   },
   currentSubscribers: {
@@ -119,7 +119,7 @@ const messages = defineMessages({
   },
   whatsappConversations: {
     id: 'teamDataComponent.whatsappConversations',
-    defaultMessage: 'Conversations are 24-hour message threads between the tipline and users. They are opened when messages are delivered. This number is not divided by language and is only available for WhatsApp tiplines.',
+    defaultMessage: 'Conversations are 24-hour message threads between you and your users. They are opened when messages sent by Check to users are delivered.',
     description: messagesDescription,
   },
   positiveSearches: {
@@ -221,7 +221,7 @@ const TeamDataComponent = ({
     'Newsletter subscriptions': intl.formatMessage(messages.newsletterSubscriptions),
     'Newsletter cancellations': intl.formatMessage(messages.newsletterCancellations),
     'Current subscribers': intl.formatMessage(messages.currentSubscribers),
-    'Total newsletters received': intl.formatMessage(messages.newslettersDelivered),
+    'Total newsletters delivered': intl.formatMessage(messages.newslettersDelivered),
     'Positive searches': intl.formatMessage(messages.positiveSearches),
     'Negative searches': intl.formatMessage(messages.negativeSearches),
     'Total newsletters sent': intl.formatMessage(messages.newslettersSent),
