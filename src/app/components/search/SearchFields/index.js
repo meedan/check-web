@@ -9,11 +9,11 @@ import Divider from '@material-ui/core/Divider';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
+import LanguageFilter from '../LanguageFilter';
 import NumericRangeFilter from '../NumericRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
 import { can } from '../../Can';
-import { languageLabel } from '../../../LanguageRegistry';
 import { Row } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
@@ -27,7 +27,6 @@ import DescriptionIcon from '../../../icons/description.svg';
 import ErrorIcon from '../../../icons/error_outline.svg';
 import HowToRegIcon from '../../../icons/person_check.svg';
 import LabelIcon from '../../../icons/label.svg';
-import LanguageIcon from '../../../icons/language.svg';
 import PersonIcon from '../../../icons/person.svg';
 import ReportIcon from '../../../icons/playlist_add_check.svg';
 import MarkunreadIcon from '../../../icons/mail.svg';
@@ -194,6 +193,11 @@ const SearchFields = ({
     setQuery(newQuery);
   };
 
+  const handleLanguageChange = (value) => {
+    const newQuery = { ...query, language_filter: value };
+    setQuery(newQuery);
+  };
+
   const handleNumericRange = (filterKey, value) => {
     const newQuery = { ...query };
     newQuery[filterKey] = value;
@@ -285,8 +289,6 @@ const SearchFields = ({
     { label: intl.formatMessage(messages.emptyAssign), value: 'NO_VALUE', exclusive: true },
     { label: '', value: '' },
   ];
-
-  const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
 
   const reportStatusOptions = [
     { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
@@ -537,20 +539,16 @@ const SearchFields = ({
         )}
       </FormattedMessage>
     ),
-    language: (
-      <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
-        { label => (
-          <MultiSelectFilter
-            label={label}
-            icon={<LanguageIcon />}
-            selected={query.language}
-            options={languages}
-            readOnly={readOnlyFields.includes('language')}
-            onChange={(newValue) => { handleFilterClick(newValue, 'language'); }}
-            onRemove={() => handleRemoveField('language')}
-          />
-        )}
-      </FormattedMessage>
+    language_filter: (
+      <Box maxWidth="900px">
+        <LanguageFilter
+          onChange={handleLanguageChange}
+          value={query.language_filter}
+          readOnly={readOnlyFields.includes('language_filter')}
+          onRemove={() => handleRemoveField('language_filter')}
+          teamSlug={team.slug}
+        />
+      </Box>
     ),
     assigned_to: (
       <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
@@ -720,7 +718,6 @@ SearchFields.propTypes = {
     slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
     verification_statuses: PropTypes.object.isRequired,
-    get_languages: PropTypes.string.isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
@@ -738,7 +735,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     slug
     permissions
     verification_statuses
-    get_languages
     get_tipline_inbox_filters
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {
       id
