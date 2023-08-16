@@ -176,8 +176,11 @@ const SearchField = ({
       >
         <ButtonMain
           iconCenter={<ClearIcon />}
+          variant="contained"
+          size="default"
+          theme="text"
           aria-label="close"
-          className={styles['close-search']}
+          className={styles['close-media-button']}
           buttonProps={{
             id: 'search-field__close-button',
           }}
