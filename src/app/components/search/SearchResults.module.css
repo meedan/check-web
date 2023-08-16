@@ -68,7 +68,7 @@
 }
 
 .search-results-header {
-  margin: 16px;
+  margin: 16px 16px 0;
 
   :global(.search__list-header-filter-row) {
     align-items: flex-start;
