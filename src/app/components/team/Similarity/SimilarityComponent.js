@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -7,15 +7,13 @@ import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import CardContent from '@material-ui/core/CardContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import SettingSwitch from './SettingSwitch';
+import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import ThresholdControl from './ThresholdControl';
 import SettingsHeader from '../SettingsHeader';
 import Can from '../../Can';
@@ -54,12 +52,23 @@ const SimilarityComponent = ({
   const { alegre_settings } = team.alegre_bot;
 
   const [settings, setSettings] = React.useState(alegre_settings);
-  const [vectorModelToggle, setVectorModelToggle] = React.useState((
-    alegre_settings.text_similarity_model === MEAN_TOKENS_MODEL ||
-    alegre_settings.text_similarity_model === INDIAN_MODEL ||
-    alegre_settings.text_similarity_model === FILIPINO_MODEL ||
-    alegre_settings.text_similarity_model === OPENAI_ADA_MODEL
-  ));
+  const [vectorModelToggle, setVectorModelToggle] = React.useState(() => {
+    const textSimilarityModel = alegre_settings.text_similarity_model;
+    if (typeof textSimilarityModel === 'string') {
+      return (
+        textSimilarityModel === MEAN_TOKENS_MODEL ||
+        textSimilarityModel === INDIAN_MODEL ||
+        textSimilarityModel === FILIPINO_MODEL ||
+        textSimilarityModel === OPENAI_ADA_MODEL
+      );
+    }
+    return (
+      textSimilarityModel.includes(MEAN_TOKENS_MODEL) ||
+      textSimilarityModel.includes(INDIAN_MODEL) ||
+      textSimilarityModel.includes(FILIPINO_MODEL) ||
+      textSimilarityModel.includes(OPENAI_ADA_MODEL)
+    );
+  });
 
   const handleSettingsChange = (key, value) => {
     const newSettings = { ...settings };
@@ -67,10 +76,20 @@ const SimilarityComponent = ({
     setSettings(newSettings);
   };
 
-  const handleModelSettingsChange = (key1, key2, value) => {
+  const handleModelSettingsChange = (model) => {
     const newSettings = { ...settings };
-    newSettings[key1] = value;
-    newSettings[key2] = value;
+    const updatedModels = Array.isArray(settings.alegre_model_in_use) ? [...settings.alegre_model_in_use] : [settings.alegre_model_in_use];
+
+    if (updatedModels.includes(model)) {
+      // If the model is currently in use, remove it (uncheck it)
+      const index = updatedModels.indexOf(model);
+      updatedModels.splice(index, 1);
+    } else {
+      updatedModels.push(model);
+    }
+
+    newSettings.alegre_model_in_use = updatedModels;
+    newSettings.text_similarity_model = updatedModels;
     setSettings(newSettings);
   };
 
@@ -80,9 +99,12 @@ const SimilarityComponent = ({
 
   const handleVectorModelToggle = (useVectorModel) => {
     if (!useVectorModel) {
-      handleSettingsChange('text_similarity_model', ELASTICSEARCH_MODEL);
+      const newSettings = { ...settings };
+      newSettings.alegre_model_in_use = ELASTICSEARCH_MODEL;
+      newSettings.text_similarity_model = ELASTICSEARCH_MODEL;
+      setSettings(newSettings);
     } else {
-      handleSettingsChange('text_similarity_model', MEAN_TOKENS_MODEL);
+      handleModelSettingsChange(MEAN_TOKENS_MODEL);
     }
     setVectorModelToggle(useVectorModel);
   };
@@ -174,7 +196,7 @@ const SimilarityComponent = ({
             team.alegre_bot ?
               <Can permissions={team.permissions} permission="update Team">
                 <Button color="primary" variant="contained" id="similarity-component__save" onClick={handleSave} disabled={saving || hasError}>
-                  <FormattedMessage id="similarityComponent.save" defaultMessage="Save" />
+                  <FormattedMessage id="similarityComponent.save" defaultMessage="Save" description="Label for Save Button on Similarity settings page" />
                 </Button>
               </Can> : null
           }
@@ -182,13 +204,14 @@ const SimilarityComponent = ({
         <Card>
           <CardContent>
             <Box mt={2.5}>
-              <SettingSwitch
+              <SwitchComponent
                 checked={settings.master_similarity_enabled}
                 onChange={() => handleSettingsChange('master_similarity_enabled', !settings.master_similarity_enabled)}
+                labelPlacement="end"
                 label={
                   settings.master_similarity_enabled ?
-                    <FormattedMessage id="similarityComponent.masterSwitchLabelOn" defaultMessage="Automated matching is ON" /> :
-                    <FormattedMessage id="similarityComponent.masterSwitchLabelOff" defaultMessage="Automated matching is OFF" />
+                    <FormattedMessage id="similarityComponent.masterSwitchLabelOn" defaultMessage="Automated matching is ON" description="Switch input label when switch is set to automatic matching" /> :
+                    <FormattedMessage id="similarityComponent.masterSwitchLabelOff" defaultMessage="Automated matching is OFF" description="Switch input label when switch is set to not automatic match" />
                 }
               />
               <Box mb={2} ml={7} color={settings.master_similarity_enabled ? '' : 'gray'}>
@@ -214,6 +237,7 @@ const SimilarityComponent = ({
                   <FormattedMessage
                     id="similarityComponent.dateThreshold"
                     defaultMessage="Similar content last submitted more than {maxTime} months ago will only be suggested"
+                    description="Number input for how many month back similarity suggestions will be processed for"
                     values={{
                       maxTime: (
                         <TextField
@@ -235,9 +259,10 @@ const SimilarityComponent = ({
                 </Box>
               </Box>
               <Box mt={1}>
-                <SettingSwitch
+                <SwitchComponent
                   checked={settings.single_language_fact_checks_enabled}
                   onChange={() => handleSettingsChange('single_language_fact_checks_enabled', !settings.single_language_fact_checks_enabled)}
+                  labelPlacement="end"
                   label={
                     <FormattedMessage id="similarityComponent.singleLanguageFactChecksEnabled" description="Label displayed when similarity setting for single language fact-checks is enabled" defaultMessage="Only send fact-checks in the same language as the conversation language" />
                   }
@@ -255,12 +280,14 @@ const SimilarityComponent = ({
             <Card>
               <CardContent>
                 <Box mb={4}>
-                  <SettingSwitch
+                  <SwitchComponent
                     checked={settings.text_similarity_enabled}
                     onChange={() => handleSettingsChange('text_similarity_enabled', !settings.text_similarity_enabled)}
+                    labelPlacement="end"
                     label="Text matching"
-                    explainer="Uses Elasticsearch for basic syntactic matching. It finds sentences that are written in a similar way, even if their meanings differ."
+                    helperContent="Uses Elasticsearch for basic syntactic matching. It finds sentences that are written in a similar way, even if their meanings differ."
                   />
+                  <br />
                   <ThresholdControl
                     value={Number(settings.text_elasticsearch_matching_threshold * 100).toFixed()}
                     onChange={newValue => handleThresholdChange('text_elasticsearch_matching_threshold', newValue)}
@@ -297,45 +324,56 @@ const SimilarityComponent = ({
                 </Box>
                 <Box mb={4}>
                   <Box ml={6}>
-                    <SettingSwitch
+                    <SwitchComponent
                       checked={settings.text_similarity_enabled && vectorModelToggle}
                       disabled={!settings.text_similarity_enabled}
                       onChange={() => handleVectorModelToggle(!vectorModelToggle)}
+                      labelPlacement="end"
                       label="Vector model"
-                      explainer="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
+                      helperContent="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
                     />
-                    <Box ml={7} mb={2}>
+                    <Box ml={7} mb={2} mt={2} mr={6}>
                       <p><strong>Model to use</strong></p>
-                      <RadioGroup
-                        name="indexing-vector-model"
-                        value={settings.alegre_model_in_use}
-                        onChange={e => handleModelSettingsChange('alegre_model_in_use', 'text_similarity_model', e.target.value)}
-                      >
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={MEAN_TOKENS_MODEL}
-                          control={<Radio />}
-                          label="Means tokens - Covers all languages"
-                        />
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={INDIAN_MODEL}
-                          control={<Radio />}
-                          label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
-                        />
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={FILIPINO_MODEL}
-                          control={<Radio />}
-                          label="Filipino Paraphrase - Specialized in Filipino"
-                        />
-                        <FormControlLabel
-                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value={OPENAI_ADA_MODEL}
-                          control={<Radio />}
-                          label="OpenAI ada model - Experimental, pay-per-use model"
-                        />
-                      </RadioGroup>
+                      <FormControlLabel
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        control={
+                          <Checkbox
+                            checked={settings.alegre_model_in_use.includes(MEAN_TOKENS_MODEL)}
+                            onChange={() => handleModelSettingsChange(MEAN_TOKENS_MODEL)}
+                          />
+                        }
+                        label="Means tokens - Covers all languages"
+                      />
+                      <FormControlLabel
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        control={
+                          <Checkbox
+                            checked={settings.alegre_model_in_use.includes(INDIAN_MODEL)}
+                            onChange={() => handleModelSettingsChange(INDIAN_MODEL)}
+                          />
+                        }
+                        label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
+                      />
+                      <FormControlLabel
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        control={
+                          <Checkbox
+                            checked={settings.alegre_model_in_use.includes(FILIPINO_MODEL)}
+                            onChange={() => handleModelSettingsChange(FILIPINO_MODEL)}
+                          />
+                        }
+                        label="Filipino Paraphrase - Specialized in Filipino"
+                      />
+                      <FormControlLabel
+                        disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                        control={
+                          <Checkbox
+                            checked={settings.alegre_model_in_use.includes(OPENAI_ADA_MODEL)}
+                            onChange={() => handleModelSettingsChange(OPENAI_ADA_MODEL)}
+                          />
+                        }
+                        label="OpenAI ada model - Experimental, pay-per-use model"
+                      />
                     </Box>
                     <ThresholdControl
                       value={Number(settings.text_vector_matching_threshold * 100).toFixed()}
@@ -355,11 +393,13 @@ const SimilarityComponent = ({
                   </Box>
                 </Box>
                 <Box mb={4}>
-                  <SettingSwitch
+                  <SwitchComponent
                     checked={settings.image_similarity_enabled}
                     onChange={() => handleSettingsChange('image_similarity_enabled', !settings.image_similarity_enabled)}
+                    labelPlacement="end"
                     label="Image matching"
                   />
+                  <br />
                   <ThresholdControl
                     value={Number(settings.image_hash_matching_threshold * 100).toFixed()}
                     onChange={newValue => handleThresholdChange('image_hash_matching_threshold', newValue)}
@@ -377,11 +417,13 @@ const SimilarityComponent = ({
                   />
                 </Box>
                 <Box mb={4}>
-                  <SettingSwitch
+                  <SwitchComponent
                     checked={settings.video_similarity_enabled}
                     onChange={() => handleSettingsChange('video_similarity_enabled', !settings.video_similarity_enabled)}
+                    labelPlacement="end"
                     label="Video matching"
                   />
+                  <br />
                   <ThresholdControl
                     value={Number(settings.video_hash_matching_threshold * 100).toFixed()}
                     onChange={newValue => handleThresholdChange('video_hash_matching_threshold', newValue)}
@@ -399,11 +441,13 @@ const SimilarityComponent = ({
                   />
                 </Box>
                 <Box mb={4}>
-                  <SettingSwitch
+                  <SwitchComponent
                     checked={settings.audio_similarity_enabled}
                     onChange={() => handleSettingsChange('audio_similarity_enabled', !settings.audio_similarity_enabled)}
+                    labelPlacement="end"
                     label="Audio matching"
                   />
+                  <br />
                   <ThresholdControl
                     value={Number(settings.audio_hash_matching_threshold * 100).toFixed()}
                     onChange={newValue => handleThresholdChange('audio_hash_matching_threshold', newValue)}
@@ -421,9 +465,10 @@ const SimilarityComponent = ({
                   />
                 </Box>
                 <Box mb={4}>
-                  <SettingSwitch
+                  <SwitchComponent
                     checked={settings.transcription_similarity_enabled}
                     onChange={() => handleSettingsChange('transcription_similarity_enabled', !settings.transcription_similarity_enabled)}
+                    labelPlacement="end"
                     label="Automated transcription"
                   />
                   <Box mb={2} ml={7}>
@@ -431,6 +476,7 @@ const SimilarityComponent = ({
                       <FormattedMessage
                         id="similarityComponent.minimumDuration"
                         defaultMessage="Minimum duration in seconds"
+                        description="number input for Automated transcription minimum duration"
                       />
                     </Typography>
                     <TextField
@@ -448,6 +494,7 @@ const SimilarityComponent = ({
                       <FormattedMessage
                         id="similarityComponent.maximumDuration"
                         defaultMessage="Maximum duration in seconds"
+                        description="number input for Automated transcription maximum duration"
                       />
                     </Typography>
                     <TextField
@@ -465,6 +512,7 @@ const SimilarityComponent = ({
                       <FormattedMessage
                         id="similarityComponent.minimumRequests"
                         defaultMessage="Minimum number of requests"
+                        description="number input for Automated transcription duration requests"
                       />
                     </Typography>
                     <TextField
@@ -484,6 +532,7 @@ const SimilarityComponent = ({
                       <FormattedMessage
                         id="similarityComponent.languageForSimilarity"
                         defaultMessage="Language analyzer for similarity matching (for example, 'pt', 'en', etc.)"
+                        description="Text input for language similarity matching settings"
                       />
                     }
                     variant="outlined"
@@ -499,6 +548,7 @@ const SimilarityComponent = ({
                       <FormattedMessage
                         id="similarityComponent.minEsScore"
                         defaultMessage="Minimum score for ElasticSearch"
+                        description="number input for the minimum matching score for ElasticSearch"
                       />
                     }
                     variant="outlined"

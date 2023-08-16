@@ -1,6 +1,7 @@
 [
   {
     "id": "search.allClaimsTitle",
+    "description": "Page title for listing all items in check",
     "defaultMessage": "All items"
   }
 ]

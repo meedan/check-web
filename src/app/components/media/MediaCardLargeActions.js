@@ -5,7 +5,6 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import {
   Box,
-  Button,
   Menu,
   MenuItem,
 } from '@material-ui/core';
@@ -124,27 +123,30 @@ class MediaExpandedActions extends React.Component {
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <div>
             { !inModal ?
-              <Button
-                variant="contained"
-                color="primary"
+              <ButtonMain
+                label={
+                  <FormattedMessage
+                    id="mediaCardLarge.more"
+                    description="Button to open an expanded view of the media"
+                    defaultMessage="More"
+                  />
+                }
                 onClick={onClickMore}
-              >
-                <FormattedMessage
-                  id="mediaCardLarge.more"
-                  description="Button to open an expanded view of the media"
-                  defaultMessage="More"
-                />
-              </Button> : null }
+                variant="contained"
+                size="default"
+                theme="brand"
+              /> : null }
             { inModal ? <MediaLanguageSwitcher projectMedia={projectMedia} /> : null }
           </div>
-          <Box display="flex">
-            { media.type === 'Link' ?
-              <RefreshButton projectMediaId={projectMedia.id} /> : null }
-            <ExtraMediaActions
-              projectMedia={projectMedia}
-              reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
-            />
-          </Box>
+          { media.type !== 'Claim' ?
+            <Box display="flex" style={{ gap: '4px' }}>
+              { media.type === 'Link' ?
+                <RefreshButton projectMediaId={projectMedia.id} /> : null }
+              <ExtraMediaActions
+                projectMedia={projectMedia}
+                reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
+              />
+            </Box> : null }
         </Box>
       </div>
     );

@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
@@ -124,7 +123,7 @@ class UserAssignmentsComponent extends Component {
         </AlignOpposite>
         { hasAssignment ? null : (
           <BlankState>
-            <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />
+            <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" description="Text for empty state when there are no user assignments" />
           </BlankState>
         )}
         { assignmentsWithoutProject.length > 0 ? (
@@ -212,7 +211,7 @@ const UserAssignments = (props) => {
     <Relay.RootContainer
       Component={UserAssignmentsContainer}
       route={route}
-      renderLoading={() => <MediasLoading />}
+      renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
       forceFetch
     />
   );
