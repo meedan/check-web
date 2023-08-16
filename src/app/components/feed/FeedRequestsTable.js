@@ -27,7 +27,7 @@ import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import SearchKeyword from '../search/SearchKeyword';
-import ProjectBlankState from '../project/ProjectBlankState';
+import BlankState from '../layout/BlankState';
 
 const useStyles = makeStyles({
   root: {
@@ -207,15 +207,13 @@ const FeedRequestsTable = ({
         </Box>
         : null }
       {totalCount === 0 ?
-        <ProjectBlankState
-          message={
-            <FormattedMessage
-              id="projectBlankState.blank"
-              defaultMessage="There are no items here."
-              description="Message displayed when there are no items"
-            />
-          }
-        />
+        <BlankState>
+          <FormattedMessage
+            id="projectBlankState.blank"
+            defaultMessage="There are no items here."
+            description="Message displayed when there are no items"
+          />
+        </BlankState>
         :
         <TableContainerWithScrollbars>
           <Table stickyHeader size="small">

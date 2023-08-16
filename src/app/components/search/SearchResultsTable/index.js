@@ -26,7 +26,6 @@ import ReportPublishedByCell from './ReportPublishedByCell';
 import ReactionCountCell from './ReactionCountCell';
 import CommentCountCell from './CommentCountCell';
 import SuggestionsCountCell from './SuggestionsCountCell';
-import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
 import ClusterSizeCell from './ClusterSizeCell';
 import ClusterRequestsCell from './ClusterRequestsCell';
@@ -142,11 +141,6 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.suggestionsCount" defaultMessage="Suggestions" description="Table header suggested matches count column" />,
     cellComponent: SuggestionsCountCell,
     sortKey: 'suggestions_count',
-  },
-  {
-    field: 'folder',
-    headerText: <FormattedMessage id="list.folder" defaultMessage="Folder" description="Table header for column that shows the folder title an item is in" />,
-    cellComponent: FolderCell,
   },
   {
     field: 'creator_name',

@@ -138,9 +138,8 @@ class CheckContext {
 
   // When accessing Check root, redirect to a friendlier location if needed:
   // - if user was on a previous page before logging in, go to that previous page
-  // - if no team, go to `/check/teams/find`
-  // - if team but no current project, go to team root
-  // - if team and current project, go to project page
+  // - if no team, go to `/check/me/workspaces`
+  // - if team go to team root
   maybeRedirect(location, userData) {
     if (location !== '/' || this.getTeamSlug() || !userData) return;
 
@@ -149,16 +148,7 @@ class CheckContext {
       redirectToPreviousPageOr('/check/me/workspaces');
       return;
     }
-    let projectNode = null;
-    if (userCurrentTeam.projects.edges.length > 0) {
-      projectNode = userCurrentTeam.projects.edges[0].node;
-    }
-    const project = userData.current_project || projectNode;
-    if (project && project.dbid) {
-      this.setContextAndRedirect(project.team, project);
-    } else {
-      this.setContextAndRedirect(userCurrentTeam, null);
-    }
+    this.setContextAndRedirect(userCurrentTeam, null);
   }
 }
 
