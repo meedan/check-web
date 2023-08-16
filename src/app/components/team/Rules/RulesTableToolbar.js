@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -58,18 +57,24 @@ const RulesTableToolbar = (props) => {
           <FormattedMessage
             id="rulesTableToolbar.title"
             defaultMessage="Rules"
+            description="Title for a page that lets the user set rules around how data flows in the app"
           />
         }
         subtitle={
           <FormattedMessage
             id="rulesTableToolbar.subtitle"
-            defaultMessage="Create automations to organize folders and customize your workflow."
+            defaultMessage="Create automations to customize your workflow."
+            description="A subtitle that appears on the rules page explaining the purpose of the page"
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"
         actionButton={
           <Button color="primary" variant="contained" className={[classes.button, 'rules__new-rule'].join(' ')} onClick={props.onAddNewRule}>
-            <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" />
+            <FormattedMessage
+              id="rulesTableToolbar.add"
+              defaultMessage="New rule"
+              description="A label for a button to create a new rule"
+            />
           </Button>
         }
       />
@@ -84,11 +89,16 @@ const RulesTableToolbar = (props) => {
               id="rulesTableToolbar.selected"
               defaultMessage="{numSelected, plural, one {# selected} other {# selected}}"
               values={{ numSelected }}
+              description="A label that tells the user how many rules have been selected"
             />
           </Typography>
           <Tooltip
             title={
-              <FormattedMessage id="rulesTableToolbar.delete" defaultMessage="Delete" />
+              <FormattedMessage
+                id="rulesTableToolbar.delete"
+                defaultMessage="Delete"
+                description="A label for a button to delete a rule"
+              />
             }
           >
             <IconButton onClick={handleConfirmDelete}>
@@ -102,6 +112,7 @@ const RulesTableToolbar = (props) => {
           <FormattedMessage
             id="rulesTableToolbar.deleteConfirmationTitle"
             defaultMessage="Do you want to delete the selected rules?"
+            description="A confirmation message that appears before a user deletes a set of rules they have selected"
           />
         }
         body={
@@ -111,6 +122,7 @@ const RulesTableToolbar = (props) => {
                 id="rulesTableToolbar.deleteConfirmationText"
                 defaultMessage="{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
                 values={{ numSelected }}
+                description="Body text for a confirmation message that appears before a user deletes a set of rules they have selected, giving more detail than the title"
               />
             </Typography>
           </div>
@@ -120,6 +132,7 @@ const RulesTableToolbar = (props) => {
             id="rulesTableToolbar.deleteConfirmationLabel"
             defaultMessage="{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
             values={{ numSelected }}
+            description="Label on a button that confirms how many rules will be deleted if a user presses the button"
           />
         }
         onProceed={handleDeleteConfirmed}

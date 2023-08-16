@@ -1,34 +1,42 @@
 [
   {
     "id": "rulesTableToolbar.title",
+    "description": "Title for a page that lets the user set rules around how data flows in the app",
     "defaultMessage": "Rules"
   },
   {
     "id": "rulesTableToolbar.subtitle",
-    "defaultMessage": "Create automations to organize folders and customize your workflow."
+    "description": "A subtitle that appears on the rules page explaining the purpose of the page",
+    "defaultMessage": "Create automations to customize your workflow."
   },
   {
     "id": "rulesTableToolbar.add",
+    "description": "A label for a button to create a new rule",
     "defaultMessage": "New rule"
   },
   {
     "id": "rulesTableToolbar.selected",
+    "description": "A label that tells the user how many rules have been selected",
     "defaultMessage": "{numSelected, plural, one {# selected} other {# selected}}"
   },
   {
     "id": "rulesTableToolbar.delete",
+    "description": "A label for a button to delete a rule",
     "defaultMessage": "Delete"
   },
   {
     "id": "rulesTableToolbar.deleteConfirmationTitle",
+    "description": "A confirmation message that appears before a user deletes a set of rules they have selected",
     "defaultMessage": "Do you want to delete the selected rules?"
   },
   {
     "id": "rulesTableToolbar.deleteConfirmationText",
+    "description": "Body text for a confirmation message that appears before a user deletes a set of rules they have selected, giving more detail than the title",
     "defaultMessage": "{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
   },
   {
     "id": "rulesTableToolbar.deleteConfirmationLabel",
+    "description": "Label on a button that confirms how many rules will be deleted if a user presses the button",
     "defaultMessage": "{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
   }
 ]

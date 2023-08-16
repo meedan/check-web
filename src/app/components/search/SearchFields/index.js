@@ -18,8 +18,6 @@ import { Row } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
-import SearchFieldProject from './SearchFieldProject';
-import SearchFieldProjectGroup from './SearchFieldProjectGroup';
 import SearchFieldUser from './SearchFieldUser';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
@@ -318,16 +316,6 @@ const SearchFields = ({
   };
 
   const fieldComponents = {
-    projects: (
-      <SearchFieldProject
-        teamSlug={team.slug}
-        query={query}
-        project={project}
-        onChange={(newValue) => { handleFilterClick(newValue, 'projects'); }}
-        readOnly={Boolean(project) || readOnlyFields.includes('projects')}
-        onRemove={() => handleRemoveField('projects')}
-      />
-    ),
     has_claim: (
       <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
         { label => (
@@ -343,16 +331,6 @@ const SearchFields = ({
           />
         )}
       </FormattedMessage>
-    ),
-    project_group_id: (
-      <SearchFieldProjectGroup
-        teamSlug={team.slug}
-        projectGroup={projectGroup}
-        query={query}
-        onChange={(newValue) => { handleFilterClick(newValue, 'project_group_id'); }}
-        readOnly={Boolean(projectGroup) || readOnlyFields.includes('project_group_id')}
-        onRemove={() => handleRemoveField('project_group_id')}
-      />
     ),
     range: (
       <Box maxWidth="900px">

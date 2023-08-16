@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NewProject = ({
-  type,
   open,
   title,
   team,
@@ -35,43 +34,6 @@ const NewProject = ({
   const [saving, setSaving] = React.useState(false);
 
   const mutations = {
-    folder: graphql`
-      mutation NewProjectCreateProjectMutation($input: CreateProjectInput!) {
-        createProject(input: $input) {
-          team {
-            projects(first: 10000) {
-              edges {
-                node {
-                  id
-                  dbid
-                  title
-                  medias_count
-                  project_group_id
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-    collection: graphql`
-      mutation NewProjectCreateProjectGroupMutation($input: CreateProjectGroupInput!) {
-        createProjectGroup(input: $input) {
-          team {
-            project_groups(first: 10000) {
-              edges {
-                node {
-                  id
-                  dbid
-                  title
-                  medias_count
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
     list: graphql`
       mutation NewProjectCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
         createSavedSearch(input: $input) {
@@ -116,7 +78,7 @@ const NewProject = ({
     };
 
     commitMutation(Store, {
-      mutation: mutations[type],
+      mutation: mutations.list,
       variables: {
         input,
       },
@@ -125,10 +87,8 @@ const NewProject = ({
           handleError();
         } else {
           handleSuccess(response);
-          if (type === 'list') {
-            const listId = response.createSavedSearch.saved_search.dbid;
-            browserHistory.push(`/${team.slug}/list/${listId}`);
-          }
+          const listId = response.createSavedSearch.saved_search.dbid;
+          browserHistory.push(`/${team.slug}/list/${listId}`);
         }
       },
       onError: () => {
@@ -178,7 +138,6 @@ NewProject.defaultProps = {
 };
 
 NewProject.propTypes = {
-  type: PropTypes.oneOf(['folder', 'collection', 'list']).isRequired,
   team: PropTypes.object.isRequired,
   open: PropTypes.bool,
   title: PropTypes.object.isRequired,
