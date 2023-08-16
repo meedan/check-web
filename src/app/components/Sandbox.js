@@ -3,6 +3,7 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
+import * as Sentry from '@sentry/react';
 import styles from './sandbox.module.css';
 import Alert from './cds/alerts-and-prompts/Alert';
 import Chip from './cds/buttons-checkboxes-chips/Chip';
@@ -18,6 +19,7 @@ import ListIcon from '../icons/list.svg';
 import FigmaColorLogo from '../icons/figma_color.svg';
 import Card from './cds/media-cards/Card.js';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
+import MediasLoading from './media/MediasLoading';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -55,6 +57,21 @@ const SandboxComponent = ({ admin }) => {
     setSwitchLabelPlacement(event.target.value);
   };
 
+  const [loadingTheme, setLoadingTheme] = React.useState('grey');
+  const onChangeLoadingTheme = (event) => {
+    setLoadingTheme(event.target.value);
+  };
+
+  const [loadingSize, setLoadingSize] = React.useState('large');
+  const onChangeLoadingSize = (event) => {
+    setLoadingSize(event.target.value);
+  };
+
+  const [loadingVariant, setLoadingVariant] = React.useState('inline');
+  const onChangeLoadingVariant = (event) => {
+    setLoadingVariant(event.target.value);
+  };
+
   const [alertVariant, setAlertVariant] = React.useState('info');
   const onChangeAlertVariant = (event) => {
     setAlertVariant(event.target.value);
@@ -73,6 +90,39 @@ const SandboxComponent = ({ admin }) => {
   const [buttonTheme, setButtonTheme] = React.useState('brand');
   const onChangeButtonTheme = (event) => {
     setButtonTheme(event.target.value);
+  };
+
+  const generateUncaughtError = () => {
+    // eslint-disable-next-line
+    thisGeneratesSandboxError();
+  };
+
+  const generateManualError = () => {
+    const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
+    Sentry.setUser({ email, id: dbid, name });
+
+    const context = {
+      tags: {
+        level: 'error',
+      },
+      user: {
+        windowSize: {
+          height: window.screen.availHeight,
+          width: window.screen.availWidth,
+        },
+      },
+      contexts: {
+        component: {
+          name: 'Sandbox',
+          url: window.location.href,
+        },
+        notifier: {
+          name: 'Check Sandbox Manual Error Button',
+        },
+      },
+    };
+
+    Sentry.captureException(new Error(`This is a captured error inside the sandbox! Random number: ${Math.random()}`), context);
   };
 
   return (
@@ -98,6 +148,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <a href="#sandbox-alerts-prompts" title="Alerts & Prompts">Alerts &amp; Prompts</a>
+        </li>
+        <li>
+          <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
         </li>
       </ul>
       <section id="sandbox-buttons">
@@ -180,6 +233,13 @@ const SandboxComponent = ({ admin }) => {
             <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconCenter={<AddIcon />} label="Center" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
           </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>
+            Trigger Sentry error
+          </div>
+          <ButtonMain label="Trigger Sentry" onClick={generateUncaughtError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+          <ButtonMain label="Sentry manual error" onClick={generateManualError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
         </div>
         <div className={styles.componentWrapper}>
           <div className={cx('typography-subtitle2', [styles.componentName])}>
@@ -550,6 +610,57 @@ const SandboxComponent = ({ admin }) => {
               variant={alertVariant}
               onClose={alertClosable ? () => {} : null}
             />
+          </div>
+        </div>
+      </section>
+      <section id="sandbox-loaders">
+        <h6>LoadingAnimations</h6>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              MediasLoading
+            </div>
+            <ul>
+              <li>
+                <Select
+                  label="Size"
+                  onChange={onChangeLoadingSize}
+                >
+                  <option value="icon">icon</option>
+                  <option value="small">small</option>
+                  <option value="medium">medium</option>
+                  <option value="large" selected>large</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Theme"
+                  onChange={onChangeLoadingTheme}
+                >
+                  <option value="grey" selected>grey</option>
+                  <option value="white">white</option>=
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={onChangeLoadingVariant}
+                >
+                  <option value="inline" selected>inline</option>
+                  <option value="page">page</option>=
+                </Select>
+              </li>
+            </ul>
+          </div>
+          <div
+            className={cx(
+              [styles.componentInlineVariants],
+              {
+                [styles.componentInlineGreyVariants]: loadingTheme === 'white',
+              })
+            }
+          >
+            <MediasLoading theme={loadingTheme} variant={loadingVariant} size={loadingSize} />
           </div>
         </div>
       </section>

@@ -65,6 +65,11 @@
     "defaultMessage": "Unread"
   },
   {
+    "id": "search.mediaUnmatched",
+    "description": "Describes media that is unmatched as in \"Media is [unmatched]\"",
+    "defaultMessage": "Unmatched"
+  },
+  {
     "id": "search.empty",
     "description": "Allow filtering by claim with no value set",
     "defaultMessage": "Empty"
@@ -130,6 +135,11 @@
     "defaultMessage": "Type is"
   },
   {
+    "id": "search.unmatched",
+    "description": "Label for field to filter by unmatched media",
+    "defaultMessage": "Media is unmatched"
+  },
+  {
     "id": "search.read",
     "description": "Prefix label for field to filter by media read",
     "defaultMessage": "Item is"
@@ -163,11 +173,6 @@
     "id": "search.annotatedBy",
     "description": "Prefix label for field to filter by annotated by",
     "defaultMessage": "Annotated by"
-  },
-  {
-    "id": "search.language",
-    "description": "Prefix label for field to filter by language",
-    "defaultMessage": "Language is"
   },
   {
     "id": "search.assignedTo",

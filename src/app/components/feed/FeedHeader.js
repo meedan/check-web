@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
-import IconButton from '@material-ui/core/IconButton';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsIcon from '../../icons/settings.svg';
 import { getLicenseIcon, getLicenseTranslatedName, getLicenseName } from '../../CheckFeedLicenses';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Can from '../Can';
-import styles from './FeedHeader.module.css';
+import searchResultsStyles from '../search/SearchResults.module.css';
 
 const FeedHeader = ({ feed }) => {
   const handleClickLicense = () => {
@@ -20,60 +20,53 @@ const FeedHeader = ({ feed }) => {
   };
 
   return (
-    <div className={`${styles.feedHeader} feed-header`}>
-      <div className={['typography-caption', styles.feedHeaderSubtitle].join(' ')}>
-        <FormattedMessage id="feedHeader.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />
-      </div>
+    <div className="feed-header">
+      {feed.licenses.map(licenseId => (
+        <Tooltip
+          key={licenseId}
+          placement="right"
+          title={
+            <FormattedMessage
+              id="feedHeader.tooltipLicense"
+              defaultMessage="Feed License: {licenseName}"
+              values={{
+                licenseName: getLicenseTranslatedName(getLicenseName(licenseId)),
+              }}
+              description="Tooltip message displayed on feed license icon."
+            />
+          }
+          arrow
+        >
+          <div className="feed-header-icon">
+            <ButtonMain
+              variant="outlined"
+              size="small"
+              theme="text"
+              iconCenter={getLicenseIcon(getLicenseName(licenseId))}
+              onClick={handleClickLicense}
+              className={searchResultsStyles.searchHeaderActionButton}
+            />
+          </div>
+        </Tooltip>
+      ))}
 
-      <div className={styles.feedHeaderRow}>
-        <h6 className={['typography-h6', styles.feedHeaderTitle].join(' ')} title={feed.name}>
-          {feed.name}
-        </h6>
-
-        <div className={styles.feedHeaderIcons}>
-          {feed.licenses.map(licenseId => (
-            <Tooltip
-              key={licenseId}
-              placement="right"
-              title={
-                <FormattedMessage
-                  id="feedHeader.tooltipLicense"
-                  defaultMessage="Feed License: {licenseName}"
-                  values={{
-                    licenseName: getLicenseTranslatedName(getLicenseName(licenseId)),
-                  }}
-                  description="Tooltip message displayed on feed license icon."
-                />
-              }
-              arrow
-            >
-              <div className="feed-header-icon">
-                <IconButton onClick={handleClickLicense} className={styles.feedHeaderIcon}>
-                  {getLicenseIcon(getLicenseName(licenseId))}
-                </IconButton>
-              </div>
-            </Tooltip>
-          ))}
-
-          <Can permissions={feed.permissions} permission="update Feed">
-            <Tooltip
-              placement="right"
-              title={
-                <FormattedMessage
-                  id="feedHeader.tooltipSettings"
-                  defaultMessage="Shared Feed Settings"
-                  description="Tooltip message displayed on feed settings icon."
-                />
-              }
-              arrow
-            >
-              <IconButton onClick={handleClickSettings} className={styles.feedHeaderIcon}>
-                <SettingsIcon />
-              </IconButton>
-            </Tooltip>
-          </Can>
-        </div>
-      </div>
+      <Can permissions={feed.permissions} permission="update Feed">
+        <Tooltip
+          placement="right"
+          title={
+            <FormattedMessage
+              id="feedHeader.tooltipSettings"
+              defaultMessage="Shared Feed Settings"
+              description="Tooltip message displayed on feed settings icon."
+            />
+          }
+          arrow
+        >
+          <span>{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
+            <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<SettingsIcon />} onClick={handleClickSettings} className={searchResultsStyles.searchHeaderActionButton} />
+          </span>
+        </Tooltip>
+      </Can>
     </div>
   );
 };
@@ -83,7 +76,6 @@ FeedHeader.defaultProps = {};
 FeedHeader.propTypes = {
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
     team: PropTypes.shape({
@@ -99,7 +91,6 @@ export { FeedHeader };
 export default createFragmentContainer(FeedHeader, graphql`
   fragment FeedHeader_feed on Feed {
     dbid
-    name
     licenses
     permissions
     team {

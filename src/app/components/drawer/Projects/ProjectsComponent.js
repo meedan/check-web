@@ -24,6 +24,7 @@ import FeedIcon from '../../../icons/dynamic_feed.svg';
 import FileDownloadIcon from '../../../icons/file_download.svg';
 import InboxIcon from '../../../icons/inbox.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
+import PublishedIcon from '../../../icons/playlist_add_check.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -256,19 +257,17 @@ const ProjectsComponent = ({
           </ListItem>
         }
 
-        { team.fetch_bot &&
-          <ListItem
-            button
-            onClick={() => { handleSpecialLists('imported-fact-checks'); }}
-            className={['projects-list__imported-fact-checks', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'imported-fact-checks' ? styles.listItem_active : '')].join(' ')}
-          >
-            <FileDownloadIcon className={styles.listIcon} />
-            <ListItemText disableTypography className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
-            </ListItemText>
-            <ListItemSecondaryAction className={styles.listItemCount} />
-          </ListItem>
-        }
+        <ListItem
+          button
+          onClick={() => { handleSpecialLists('imported-fact-checks'); }}
+          className={['projects-list__imported-fact-checks', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'imported-fact-checks' ? styles.listItem_active : '')].join(' ')}
+        >
+          <FileDownloadIcon className={styles.listIcon} />
+          <ListItemText disableTypography className={styles.listLabel}>
+            <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
+          </ListItemText>
+          <ListItemSecondaryAction className={styles.listItemCount} />
+        </ListItem>
 
         { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
           <ListItem
@@ -297,6 +296,18 @@ const ProjectsComponent = ({
             <ListItemSecondaryAction className={styles.listItemCount} />
           </ListItem>
         }
+
+        <ListItem
+          button
+          onClick={() => { handleSpecialLists('published'); }}
+          className={['projects-list__published', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'published' ? styles.listItem_active : '')].join(' ')}
+        >
+          <PublishedIcon className={styles.listIcon} />
+          <ListItemText disableTypography className={styles.listLabel}>
+            <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
+          </ListItemText>
+          <ListItemSecondaryAction className={styles.listItemCount} />
+        </ListItem>
 
         {/* Lists Header */}
         <ListItem onClick={handleToggleListsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>

@@ -1,14 +1,22 @@
 [
   {
+    "id": "projectActions.tooltip",
+    "description": "Toolitp for the button that shows actions that can be performed on a list",
+    "defaultMessage": "Actions"
+  },
+  {
     "id": "projectActions.privacyMessageAll",
+    "description": "Message that shows that anyone can access this folder",
     "defaultMessage": "Anyone can see this folder, access its content and annotate it."
   },
   {
     "id": "projectActions.privacyMessageEditors",
+    "description": "Message about the limited access abilities of collaborator type users",
     "defaultMessage": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
   },
   {
     "id": "projectActions.privacyMessageAdmins",
+    "description": "Message about the limited access of editors and collaborator type users",
     "defaultMessage": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
   },
   {
@@ -20,10 +28,6 @@
     "id": "projectActions.savedSuccessfully",
     "description": "Generic success message displayed when a collection, folder or list is updated or deleted",
     "defaultMessage": "Done"
-  },
-  {
-    "id": "projectActions.tooltip",
-    "defaultMessage": "Actions"
   },
   {
     "id": "projectActions.rename",
@@ -62,6 +66,7 @@
   },
   {
     "id": "projectsComponent.title",
+    "description": "Label for the title input when renaming a collection, folder, or list",
     "defaultMessage": "Title"
   },
   {
@@ -71,6 +76,7 @@
   },
   {
     "id": "bulkActions.dialogMoveTitle",
+    "description": "Confirmation message about moving items to folders on delete",
     "defaultMessage": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
   },
   {
@@ -85,18 +91,22 @@
   },
   {
     "id": "projectsComponent.privacyDialogOptionAll",
+    "description": "Menu choice when changing privacy settings for this project to allow anyone",
     "defaultMessage": "Everyone with access to this workspace"
   },
   {
     "id": "projectsComponent.privacyDialogOptionEditors",
+    "description": "Menu choice when changing privacy settings for this project to allow only admins and editors to access",
     "defaultMessage": "Only Admins and Editors"
   },
   {
     "id": "projectsComponent.privacyDialogOptionAdmins",
+    "description": "Menu choice when changing privacy settings for this project to allow only admins to access",
     "defaultMessage": "Only Admins"
   },
   {
     "id": "projectsComponent.privacyDialogButton",
+    "description": "Button text to confirm updating the access",
     "defaultMessage": "Update access"
   }
 ]

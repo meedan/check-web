@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -6,9 +5,10 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../layout/MultiSelector';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
+import CircularProgress from '../CircularProgress';
 import AddIcon from '../../icons/add.svg';
 import CloseIcon from '../../icons/clear.svg';
 
@@ -121,12 +121,15 @@ const PlusButton = ({ children }) => {
 const MultiSelectFilter = ({
   allowSearch,
   extraInputs,
+  hasMore,
   selected,
   icon,
   label,
+  loading,
   options,
   onChange,
   onRemove,
+  onScrollBottom,
   onSelectChange,
   onToggleOperator,
   operator,
@@ -134,6 +137,7 @@ const MultiSelectFilter = ({
   single,
   onType,
   inputPlaceholder,
+  oneOption,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
   const [version, setVersion] = React.useState(0);
@@ -156,6 +160,13 @@ const MultiSelectFilter = ({
     onChange(value);
   };
 
+  // On initial render, if we automatically pick one option and don't give the user a choice (for example, they select 'Media is unmatched' so we are only doing a query for that when selected), we assume that the options array as specified is the value we want.
+  React.useEffect(() => {
+    if (oneOption) {
+      handleSelect(options.filter(o => o.value !== '').map(o => o.value));
+    }
+  }, []);
+
   return (
     <div>
       <div className="multi-select-filter">
@@ -163,7 +174,7 @@ const MultiSelectFilter = ({
           <Box px={0.5} height={4.5} display="flex" alignItems="center" whiteSpace="nowrap">
             {label}
           </Box>
-          { selectedArray.map((value, index) => (
+          { !oneOption && selectedArray.map((value, index) => (
             <React.Fragment key={getLabelForValue(value)}>
               { index > 0 ? (
                 <OperatorToggle
@@ -178,26 +189,29 @@ const MultiSelectFilter = ({
               />
             </React.Fragment>
           )) }
-          { selectedArray.length > 0 && showSelect ? (
+          { !oneOption && selectedArray.length > 0 && showSelect ? (
             <OperatorToggle
               onClick={onToggleOperator}
               operator={operator}
             />
           ) : null }
-          { (selectedArray.length === 0 || showSelect) && !readOnly ? (
+          { !oneOption && (selectedArray.length === 0 || showSelect) && !readOnly ? (
             <CustomSelectDropdown
               allowSearch={allowSearch}
-              options={options}
-              selected={selectedArray}
-              onSubmit={handleSelect}
-              single={single}
-              onSelectChange={onSelectChange}
-              onType={onType}
               inputPlaceholder={inputPlaceholder}
+              hasMore={hasMore}
+              loading={loading}
+              options={options}
+              onScrollBottom={onScrollBottom}
+              onSelectChange={onSelectChange}
+              onSubmit={handleSelect}
+              onType={onType}
+              selected={selectedArray}
+              single={single}
             />
           ) : null }
           { extraInputs }
-          { !readOnly && !single ? (
+          { !oneOption && !readOnly && !single ? (
             <PlusButton>
               <AddIcon fontSize="small" onClick={() => setShowSelect(true)} />
             </PlusButton>
@@ -210,9 +224,12 @@ const MultiSelectFilter = ({
 
 const CustomSelectDropdown = ({
   allowSearch,
+  hasMore,
+  loading,
   options,
   selected,
   single,
+  onScrollBottom,
   onSubmit,
   onSelectChange,
   onType,
@@ -233,17 +250,28 @@ const CustomSelectDropdown = ({
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <FormattedMessage id="multiSelector.search" defaultMessage="Search…">
+        <FormattedMessage id="multiSelector.search" defaultMessage="Search…" description="Placeholder text for search input">
           {placeholder => (
             <MultiSelector
               allowSearch={allowSearch}
+              hasMore={hasMore}
               inputPlaceholder={inputPlaceholder || placeholder}
+              loadingIcon={loading && <CircularProgress />}
               options={options}
               selected={selected}
               onSubmit={handleSubmit}
               single={single}
+              onScrollBottom={onScrollBottom}
               onSelectChange={onSelectChange}
               onSearchChange={onType}
+              notFoundLabel={!loading && inputPlaceholder ? (
+                <FormattedMessage
+                  id="multiSelectFilter.noResultsMatching"
+                  defaultMessage="No results matching {keyword}."
+                  description="Label displayed on filter component when no results are found"
+                  values={{ keyword: inputPlaceholder }}
+                />) : null
+              }
               submitLabel={
                 <FormattedMessage
                   id="customAutocomplete.done"
@@ -262,11 +290,15 @@ const CustomSelectDropdown = ({
 MultiSelectFilter.defaultProps = {
   allowSearch: true,
   extraInputs: null,
+  loading: false,
   selected: [],
+  onScrollBottom: null,
   onToggleOperator: null,
   readOnly: false,
+  onRemove: null,
   onType: null,
   inputPlaceholder: null,
+  oneOption: false,
 };
 
 MultiSelectFilter.propTypes = {
@@ -278,16 +310,19 @@ MultiSelectFilter.propTypes = {
   ])).isRequired,
   label: PropTypes.node.isRequired,
   icon: PropTypes.element.isRequired,
+  loading: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
+  onRemove: PropTypes.func,
   selected: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.string,
   ]),
+  onScrollBottom: PropTypes.func,
   onToggleOperator: PropTypes.func,
   readOnly: PropTypes.bool,
   onType: PropTypes.func,
   inputPlaceholder: PropTypes.string,
+  oneOption: PropTypes.bool,
 };
 
 export default MultiSelectFilter;

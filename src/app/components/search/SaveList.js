@@ -82,7 +82,7 @@ const SaveList = ({
   query,
   setFlashMessage,
 }) => {
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches|feed|unmatched-media)(\/([0-9]+))?/);
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches|feed|unmatched-media|published)(\/([0-9]+))?/);
 
   if (!currentPath) {
     return null;
@@ -99,7 +99,7 @@ const SaveList = ({
   const [showExistingDialog, setShowExistingDialog] = React.useState(false);
 
   // Just show the button on some pages
-  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches', 'feed', 'unmatched-media'].indexOf(objectType) === -1) {
+  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches', 'feed', 'unmatched-media', 'published'].indexOf(objectType) === -1) {
     return null;
   }
 
@@ -202,7 +202,7 @@ const SaveList = ({
     }
     // If it's the unmatched media page, unmatched media is a default filter
     if (objectType === 'unmatched-media') {
-      queryToBeSaved = { unmatched: [1] };
+      queryToBeSaved = { unmatched: [1], sort: 'recent_activity', sort_type: 'DESC' };
     }
     queryToBeSaved = { ...queryToBeSaved, ...query };
 
@@ -285,7 +285,7 @@ const SaveList = ({
 
   const handleClick = () => {
     // From the "All Items" page, collection page, unmatched media and a folder page, we can just create a new list
-    if (objectType === 'all-items' || objectType === 'project' || objectType === 'collection' || objectType === 'unmatched-media') {
+    if (objectType === 'all-items' || objectType === 'project' || objectType === 'collection' || objectType === 'unmatched-media' || objectType === 'published') {
       setShowNewDialog(true);
     // From a list page, we can either create a new one or update the one we're seeing
     } else if (objectType === 'list') {

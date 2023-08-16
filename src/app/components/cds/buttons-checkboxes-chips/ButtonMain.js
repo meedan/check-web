@@ -81,13 +81,13 @@ ButtonMain.defaultProps = {
 
 ButtonMain.propTypes = {
   className: PropTypes.string,
-  label: PropTypes.object,
+  label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   size: PropTypes.oneOf(['default', 'small', 'large']),
   theme: PropTypes.oneOf(['brand', 'lightBrand', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert']),
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
   iconCenter: PropTypes.element,
-  title: PropTypes.object,
+  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   variant: PropTypes.oneOf(['contained', 'outlined', 'text']),
   disabled: PropTypes.bool,
   customStyle: PropTypes.object,

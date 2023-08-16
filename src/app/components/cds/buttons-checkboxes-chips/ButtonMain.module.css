@@ -14,7 +14,7 @@
 
   .buttonMainLabel {
     display: inline-block;
-    max-width: 125px;
+    max-width: 150px;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -272,7 +272,7 @@
     }
   }
 
-  &.theme-lightAlert {
+  &.theme-lightAlert:not(:disabled) {
     &.contained {
       @mixin main-button-contained-theme var(--alertLight), var(--alertMain), var(--alertSecondary), var(--otherWhite);
     }
