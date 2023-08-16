@@ -175,11 +175,6 @@
     "defaultMessage": "Annotated by"
   },
   {
-    "id": "search.language",
-    "description": "Prefix label for field to filter by language",
-    "defaultMessage": "Language is"
-  },
-  {
     "id": "search.assignedTo",
     "description": "Prefix label for field to filter by assigned users",
     "defaultMessage": "Assigned to"
