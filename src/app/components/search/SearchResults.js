@@ -17,7 +17,7 @@ import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
-import ProjectBlankState from '../project/ProjectBlankState';
+import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
 import SearchResultsTable from './SearchResultsTable';
@@ -340,15 +340,13 @@ function SearchResultsComponent({
 
   if (count === 0) {
     content = (
-      <ProjectBlankState
-        message={
-          <FormattedMessage
-            id="projectBlankState.blank"
-            defaultMessage="There are no items here."
-            description="Empty message that is displayed when search results are zero"
-          />
-        }
-      />
+      <BlankState>
+        <FormattedMessage
+          id="projectBlankState.blank"
+          defaultMessage="There are no items here."
+          description="Empty message that is displayed when search results are zero"
+        />
+      </BlankState>
     );
     if (resultType === 'factCheck') {
       content = (
@@ -614,7 +612,7 @@ SearchResultsComponent.propTypes = {
   listSubtitle: PropTypes.object,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'feed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'list', 'feed']), // FIXME find a cleaner way to render Trash differently
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
