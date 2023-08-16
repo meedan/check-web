@@ -29,8 +29,8 @@ const UserInfo = (props) => {
 
       <div className={styles['user-info-primary']}>
         <div className="source__primary-info">
-          <div className={cx('source__name', styles['user-info-name'])}>
-            <h5>{props.user.name}</h5>
+          <div className={cx(styles['user-info-name'])}>
+            <h5 className="source__name">{props.user.name}</h5>
             <Can permissions={props.user.permissions} permission="update User">
               <ButtonMain
                 iconCenter={<IconEdit />}
