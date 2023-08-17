@@ -1,7 +1,7 @@
 [
   {
     "id": "search.inputHint",
-    "description": "Placeholder for search keywords input\"",
+    "description": "Placeholder for search keywords input",
     "defaultMessage": "Search"
   },
   {

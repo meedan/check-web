@@ -17,7 +17,7 @@ const messages = defineMessages({
   searchPlaceholder: {
     id: 'search.inputHint',
     defaultMessage: 'Search',
-    description: 'Placeholder for search keywords input"',
+    description: 'Placeholder for search keywords input',
   },
   clearSearch: {
     id: 'search.clearSearch',
