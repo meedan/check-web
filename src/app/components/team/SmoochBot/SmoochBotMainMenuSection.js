@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import cx from 'classnames/bind';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import CancelIcon from '../../../icons/cancel.svg';
+import EditIcon from '../../../icons/edit.svg';
+import LockIcon from '../../../icons/lock.svg';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import AddIcon from '../../../icons/add.svg';
@@ -41,6 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   lock: {
     color: 'var(--textSecondary)',
+    fontSize: '20px',
   },
   noDescription: {
     fontStyle: 'italic',
@@ -168,15 +168,15 @@ const SmoochBotMainMenuSection = ({
           {/* Title */}
           { readOnly ?
             <Box pt={1} pb={1}>
-              <Typography variant="body1" component="div" className={classes.title}>
+              <div className={cx('typography-body1', classes.title)}>
                 <strong>
                   {value.smooch_menu_title}
                 </strong>
-              </Typography>
+              </div>
             </Box> : null }
           { noTitleNoDescription ?
             <Box p={1}>
-              <Typography variant="body1" component="div" className={classes.title}>
+              <div className={cx('typography-body1', classes.title)}>
                 <strong>
                   <FormattedMessage
                     id="smoochBotMainMenuSection.defaultSectionTitle"
@@ -184,7 +184,7 @@ const SmoochBotMainMenuSection = ({
                     description="Default label for a main menu section title field on tipline bot settings."
                   />
                 </strong>
-              </Typography>
+              </div>
             </Box> : null }
           { !readOnly && !noTitleNoDescription ?
             <TextField
@@ -214,13 +214,21 @@ const SmoochBotMainMenuSection = ({
 
         {/* Add a new menu option */}
         <Box pr={1}>
-          <Button color="primary" disabled={readOnly} onClick={handleAddNewOption} startIcon={<AddIcon />}>
-            <FormattedMessage
-              id="smoochBotMainMenuSection.newOption"
-              defaultMessage="New option"
-              description="Button label to create a new main menu option on tipline bot settings."
-            />
-          </Button>
+          <ButtonMain
+            theme="brand"
+            variant="text"
+            size="default"
+            disabled={readOnly}
+            onClick={handleAddNewOption}
+            iconLeft={<AddIcon />}
+            label={
+              <FormattedMessage
+                id="smoochBotMainMenuSection.newOption"
+                defaultMessage="New option"
+                description="Button label to create a new main menu option on tipline bot settings."
+              />
+            }
+          />
         </Box>
       </Box>
 
@@ -248,25 +256,37 @@ const SmoochBotMainMenuSection = ({
               { readOnly ?
                 null :
                 <Box display="flex" className={classes.arrows}>
-                  <IconButton onClick={() => { handleMoveUp(i); }} disabled={i === 0} className={classes.arrow}>
-                    <ArrowUpwardIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton onClick={() => { handleMoveDown(i); }} disabled={i === options.length - 1} className={classes.arrow}>
-                    <ArrowDownwardIcon fontSize="small" />
-                  </IconButton>
+                  <ButtonMain
+                    iconCenter={<ArrowUpwardIcon />}
+                    variant="text"
+                    theme="text"
+                    size="small"
+                    onClick={() => { handleMoveUp(i); }}
+                    disabled={i === 0}
+                    className={classes.arrow}
+                  />
+                  <ButtonMain
+                    iconCenter={<ArrowDownwardIcon />}
+                    variant="text"
+                    theme="text"
+                    size="small"
+                    onClick={() => { handleMoveDown(i); }}
+                    disabled={i === options.length - 1}
+                    className={classes.arrow}
+                  />
                 </Box> }
               {' '}
 
               <Box m={readOnly ? 1 : 0}>
                 {/* Menu option label */}
-                <Typography variant="body1" component="div">
+                <div className="typography-body1">
                   <strong>{formatOptionLabel(option)}</strong>
-                </Typography>
+                </div>
 
                 {/* Menu option description */}
                 { noTitleNoDescription ?
                   null :
-                  <Typography variant="caption" component="div">
+                  <div className="typography-caption">
                     { !readOnly && !option.smooch_menu_option_description ?
                       <span className={classes.noDescription}>
                         <FormattedMessage
@@ -275,7 +295,7 @@ const SmoochBotMainMenuSection = ({
                           description="Displayed when a tipline bot menu option doesn't have a description."
                         />
                       </span> : option.smooch_menu_option_description }
-                  </Typography> }
+                  </div> }
               </Box>
             </Box>
 
@@ -285,20 +305,32 @@ const SmoochBotMainMenuSection = ({
               {/* Edit */}
               { readOnly ?
                 null :
-                <IconButton disabled={readOnly} onClick={() => { handleEditOption(i); }}>
-                  <EditOutlinedIcon />
-                </IconButton> }
+                <ButtonMain
+                  iconCenter={<EditIcon />}
+                  variant="text"
+                  theme="lightText"
+                  size="default"
+                  disabled={readOnly}
+                  onClick={() => { handleEditOption(i); }}
+                />
+              }
               {' '}
 
               {/* Delete */}
               { readOnly || (!optional && options.length === 1) ?
                 null :
-                <IconButton onClick={() => { handleDeleteOption(i); }}>
-                  <CancelOutlinedIcon />
-                </IconButton> }
+                <ButtonMain
+                  iconCenter={<CancelIcon />}
+                  variant="text"
+                  theme="lightText"
+                  size="default"
+                  onClick={() => { handleDeleteOption(i); }}
+                />
+
+              }
 
               {/* Locked */}
-              { readOnly || (!optional && options.length === 1) ? <LockOutlinedIcon className={classes.lock} /> : null }
+              { readOnly || (!optional && options.length === 1) ? <LockIcon className={classes.lock} /> : null }
             </Box>
           </Box>
         ))}
@@ -332,13 +364,13 @@ const SmoochBotMainMenuSection = ({
         }
         body={
           <div>
-            <Typography variant="body1" component="p" paragraph>
+            <p className="typography-body1">
               <FormattedMessage
                 id="smoochBotMainMenuSection.maxOptionsReachedDescription"
                 defaultMessage="The maximum number of options in the main menu is 10."
                 description="Text of a dialog that is displayed when user tries to add a new option to the tipline bot menu but the maximum number of options was reached."
               />
-            </Typography>
+            </p>
           </div>
         }
         proceedLabel={
