@@ -9,12 +9,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateTeamDialog from './CreateTeamDialog';
 import { defaultBorderRadius } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
@@ -121,13 +121,15 @@ class SwitchTeamsComponent extends Component {
           title={cardTitle}
           action={
             isUserSelf ?
-              <Button
-                color="primary"
+              <ButtonMain
+                theme="brand"
+                size="default"
                 variant="contained"
                 onClick={() => this.setState({ showCreateTeamDialog: true })}
-              >
-                <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create" />
-              </Button> :
+                label={
+                  <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create" description="Button label for initiating creating a new team workspace" />
+                }
+              /> :
               null
           }
         />
@@ -157,9 +159,13 @@ class SwitchTeamsComponent extends Component {
                   }
                 />
                 <ListItemSecondaryAction>
-                  <IconButton edge="end" onClick={this.setCurrentTeam.bind(this, team, currentUser)}>
-                    <KeyboardArrowRight />
-                  </IconButton>
+                  <ButtonMain
+                    iconCenter={<KeyboardArrowRight />}
+                    theme="text"
+                    variant="text"
+                    size="default"
+                    onClick={this.setCurrentTeam.bind(this, team, currentUser)}
+                  />
                 </ListItemSecondaryAction>
               </ListItem>
             ))}

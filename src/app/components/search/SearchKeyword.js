@@ -325,6 +325,7 @@ class SearchKeyword extends React.Component {
 SearchKeyword.defaultProps = {
   showExpand: false,
 };
+
 SearchKeyword.propTypes = {
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
