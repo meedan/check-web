@@ -25,14 +25,30 @@
 }
 
 .search-form {
-  background-color: var(--validationLight);
+  align-items: center;
+  display: flex;
+  flex: 0 0 450px;
+  flex-direction: row;
+  gap: 8px;
+  margin: 6px 0 0;
   width: 450px;
+
+  .search-form-config {
+    align-items: center;
+    background-color: var(--brandBackground);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    height: 48px;
+    padding: 8px;
+  }
 }
 
 .search-field-wrapper {
   align-items: center;
   display: flex;
-  margin: 0 0 8px;
+  flex: 1 0 auto;
   position: relative;
 
   .search-clear-button,
@@ -49,6 +65,7 @@
 
   .search-expand-button {
     right: 6px;
+    visibility: hidden;
   }
 
   .search-field {
@@ -58,6 +75,18 @@
       input {
         border-color: var(--brandMain);
       }
+    }
+
+    &.search-field-expandable {
+      input {
+        padding-right: 38px;
+      }
+    }
+  }
+
+  &:hover {
+    .search-expand-button {
+      visibility: visible;
     }
   }
 }
@@ -69,7 +98,7 @@
     box-shadow: var(--dropShadowMedium);
     margin: 16px 0 0 2px;
     padding: 16px;
-    width: 440px;
+    width: 450px;
   }
 }
 

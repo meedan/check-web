@@ -43,8 +43,7 @@
 
   .iconWrapper {
     flex: 0 0 24px;
-    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-    font-size: 24px;
+    font-size: var(--iconSizeDefault);
   }
 
   .contentWrapper {

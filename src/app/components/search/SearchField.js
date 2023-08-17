@@ -4,7 +4,6 @@ import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-i
 import cx from 'classnames/bind';
 import Popover from '@material-ui/core/Popover';
 import Dialog from '@material-ui/core/Dialog';
-import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import TextField from '../cds/inputs/TextField';
 import TextArea from '../cds/inputs/TextArea';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -19,6 +18,16 @@ const messages = defineMessages({
     id: 'search.inputHint',
     defaultMessage: 'Search',
     description: 'Placeholder for search keywords input"',
+  },
+  clearSearch: {
+    id: 'search.clearSearch',
+    defaultMessage: 'Clear search',
+    description: 'Tooltip for button on main search component to remove the current search keywords',
+  },
+  expandSearch: {
+    id: 'search.expandSearch',
+    defaultMessage: 'Expand search input',
+    description: 'Tooltip for button on main search component to make the input size larger so the user can write more text',
   },
 });
 
@@ -71,46 +80,50 @@ const SearchField = ({
 
   return (
     <>
-      <TextField
-        className={cx(
-          styles['search-field'],
-          {
-            [styles['search-field-active']]: isActive,
-          })
-        }
-        disabled={expand}
-        inputProps={{
-          name: 'search-input',
-          id: 'search-input',
-          ...inputBaseProps,
-        }}
-        iconLeft={<SearchIcon />}
-        placeholder={intl.formatMessage(messages.searchPlaceholder)}
-        onBlur={(e) => {
-          setParentSearchText(e.target.value);
-          if (inputBaseProps.onBlur) {
-            inputBaseProps.onBlur(e);
+      <div className={cx(styles['search-field-wrapper'])}>
+        <TextField
+          className={cx(
+            styles['search-field'],
+            {
+              [styles['search-field-active']]: isActive,
+              [styles['search-field-expandable']]: showExpand,
+            })
           }
-        }}
-        onChange={(e) => {
-          setLocalSearchText(e.target.value);
-          if (inputBaseProps.onChange) {
-            inputBaseProps.onChange(e);
-          }
-        }}
-        onKeyPress={(e) => {
-          if (e.key === 'Enter') {
+          componentProps={{
+            name: 'search-input',
+            id: 'search-input',
+          }}
+          iconLeft={<SearchIcon />}
+          placeholder={intl.formatMessage(messages.searchPlaceholder)}
+          {...inputBaseProps}
+          onBlur={(e) => {
+            console.log('blur'); // eslint-disable-line no-console
             setParentSearchText(e.target.value);
-            setLocalSearchText(e.target.value);
             if (inputBaseProps.onBlur) {
               inputBaseProps.onBlur(e);
             }
-          }
-        }}
-        value={localSearchText}
-      />
-      { localSearchText || searchQuery?.file_type ? (
-        <Tooltip title={<FormattedMessage id="search.clearSearch" defaultMessage="Clear search" description="Tooltip for button on main search component to remove the current search keywords" />}>
+          }}
+          onChange={(e) => {
+            console.log('change'); // eslint-disable-line no-console
+            setLocalSearchText(e.target.value);
+            if (inputBaseProps.onChange) {
+              inputBaseProps.onChange(e);
+            }
+          }}
+          onKeyPress={(e) => {
+            console.log('keypress'); // eslint-disable-line no-console
+            if (e.key === 'Enter') {
+              setParentSearchText(e.target.value);
+              setLocalSearchText(e.target.value);
+              if (inputBaseProps.onBlur) {
+                inputBaseProps.onBlur(e);
+              }
+            }
+          }}
+          value={localSearchText}
+          disabled={expand}
+        />
+        { localSearchText || searchQuery?.file_type ? (
           <ButtonMain
             iconCenter={<ClearIcon />}
             variant="contained"
@@ -118,56 +131,58 @@ const SearchField = ({
             theme="lightText"
             className={cx(styles['search-clear-button'])}
             onClick={handleClickClear}
+            title={intl.formatMessage(messages.clearSearch)}
           />
-        </Tooltip>
-      ) : null }
-      { showExpand ? (
-        <ButtonMain
-          iconCenter={<OpenInFullIcon />}
-          variant="contained"
-          size="small"
-          theme="lightText"
-          className={cx(styles['search-expand-button'])}
-          onClick={searchQuery?.file_type ? handleExpandMedia : handleExpand}
-        />
-      ) : null }
-      <Popover
-        className={cx(styles['search-expanded-popover'])}
-        open={expand}
-        onClose={handleClose}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <TextArea
-          disabled={!expand}
-          rows={5}
-          onChange={(e) => {
-            setLocalSearchText(e.target.value);
+        ) : null }
+        { showExpand ? (
+          <ButtonMain
+            iconCenter={<OpenInFullIcon />}
+            variant="contained"
+            size="small"
+            theme="lightText"
+            className={cx(styles['search-expand-button'])}
+            onClick={searchQuery?.file_type ? handleExpandMedia : handleExpand}
+            title={intl.formatMessage(messages.expandSearch)}
+          />
+        ) : null }
+        <Popover
+          className={cx(styles['search-expanded-popover'])}
+          open={expand}
+          onClose={handleClose}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
           }}
-          value={localSearchText}
-          label={
-            <FormattedMessage id="search.expandedSearchLabel" defaultMessage="Enter search terms" description="Label for expanded search box with extra room for longer search strings" />
-          }
-        />
-        <ButtonMain
-          iconLeft={<ClearIcon />}
-          size="default"
-          variant="text"
-          theme="text"
-          onClick={handleClickClear}
-          disabled={!localSearchText}
-          label={
-            <FormattedMessage id="search.clear" defaultMessage="Clear" description="A label on a button that lets a user clear typing search text, deleting the text in the process." />
-          }
-        />
-      </Popover>
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+        >
+          <TextArea
+            disabled={!expand}
+            rows={5}
+            onChange={(e) => {
+              setLocalSearchText(e.target.value);
+            }}
+            value={localSearchText}
+            label={
+              <FormattedMessage id="search.expandedSearchLabel" defaultMessage="Enter search terms" description="Label for expanded search box with extra room for longer search strings" />
+            }
+          />
+          <ButtonMain
+            iconLeft={<ClearIcon />}
+            size="default"
+            variant="text"
+            theme="text"
+            onClick={handleClickClear}
+            disabled={!localSearchText}
+            label={
+              <FormattedMessage id="search.clear" defaultMessage="Clear" description="A label on a button that lets a user clear typing search text, deleting the text in the process." />
+            }
+          />
+        </Popover>
+      </div>
       <Dialog
         open={expandMedia}
         onClose={handleCloseExpandMedia}

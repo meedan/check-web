@@ -388,14 +388,20 @@ function SearchResultsComponent({
       <div className={styles['search-results-header']}>
         <div className="search__list-header-filter-row">
           <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
-            { listSubtitle &&
-              <div className={styles.seachHeaderSubtitle}>
-                {listSubtitle}
-              </div>
-            }
+            <div className={styles.searchHeaderSubtitle}>
+              { listSubtitle ?
+                <>
+                  {listSubtitle}
+                </>
+                :
+                <>
+                  &nbsp;
+                </>
+              }
+            </div>
             <div className={cx('project__title-text', styles.searchHeaderTitle)}>
               <h6>
-                { icon && <div className={styles.searchHeaderTitleIcon}>{icon}</div> }
+                {icon}
                 {title}
               </h6>
               { (savedSearch?.is_part_of_feeds || listActions) &&

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Table from '@material-ui/core/Table';
@@ -15,6 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SearchField from '../../search/SearchField';
 import SaveTag from './SaveTag';
 import TeamTagsActions from './TeamTagsActions';
@@ -23,7 +23,7 @@ import SettingsHeader from '../SettingsHeader';
 import { ContentColumn } from '../../../styles/js/shared';
 import Can from '../../Can';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   teamTagsCardComponent: {
     padding: 0,
     paddingBottom: '0 !important',
@@ -31,14 +31,10 @@ const useStyles = makeStyles(theme => ({
   teamTagsTableCell: {
     borderBottom: 0,
   },
-  teamTagsSearchField: {
-    background: 'var(--otherWhite)',
-    margin: `0 ${theme.spacing(27)}px`,
-  },
   teamTagsNewTagButton: {
     whiteSpace: 'nowrap',
   },
-}));
+});
 
 const TeamTagsComponent = ({
   teamId,
@@ -88,23 +84,29 @@ const TeamTagsComponent = ({
         helpUrl="https://help.checkmedia.org/en/articles/6542134-tags"
         actionButton={
           <Can permissions={permissions} permission="create TagText">
-            <Button variant="contained" color="primary" onClick={() => { setShowCreateTag(true); }} id="team-tags__create" className={classes.teamTagsNewTagButton}>
-              <FormattedMessage
-                id="teamTagsComponent.newTag"
-                defaultMessage="New tag"
-              />
-            </Button>
+            <ButtonMain
+              variant="contained"
+              theme="brand"
+              size="default"
+              onClick={() => { setShowCreateTag(true); }}
+              id="team-tags__create"
+              className={classes.teamTagsNewTagButton}
+              label={
+                <FormattedMessage
+                  id="teamTagsComponent.newTag"
+                  defaultMessage="New tag"
+                />
+              }
+            />
           </Can>
         }
         extra={
-          <Box className={classes.teamTagsSearchField}>
-            <SearchField
-              inputBaseProps={{
-                onChange: (e) => { setSearchTerm(e.target.value); },
-              }}
-              handleClear={handleSearchFieldClear}
-            />
-          </Box>
+          <SearchField
+            inputBaseProps={{
+              onChange: (e) => { setSearchTerm(e.target.value); },
+            }}
+            handleClear={handleSearchFieldClear}
+          />
         }
       />
       <Card>

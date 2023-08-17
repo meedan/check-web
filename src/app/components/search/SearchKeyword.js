@@ -4,7 +4,7 @@ import cx from 'classnames/bind';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import MediasLoading from '../media/MediasLoading';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
@@ -267,22 +267,20 @@ class SearchKeyword extends React.Component {
           onSubmit={this.props.handleSubmit}
           autoComplete="off"
         >
-          <div className={cx(searchStyles['search-field-wrapper'])}>
-            <SearchField
-              isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
-              showExpand={showExpand}
-              setParentSearchText={this.setSearchText}
-              searchText={this.props.query?.keyword || ''}
-              searchQuery={this.props.query}
-              inputBaseProps={{
-                onBlur: this.handleInputChange,
-                disabled: this.state?.imgData?.data?.length > 0,
-              }}
-              handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
-            />
-          </div>
-          <Box display="flex" justifyContent="flex-end" marginLeft="auto">
-            { showExpand ? (
+          <SearchField
+            isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
+            showExpand={showExpand}
+            setParentSearchText={this.setSearchText}
+            searchText={this.props.query?.keyword || ''}
+            searchQuery={this.props.query}
+            inputBaseProps={{
+              onBlur: this.handleInputChange,
+              disabled: this.state?.imgData?.data?.length > 0,
+            }}
+            handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+          />
+          <div className={searchStyles['search-form-config']}>
+            { showExpand &&
               <>
                 <input
                   id="media-upload"
@@ -292,30 +290,26 @@ class SearchKeyword extends React.Component {
                   ref={(el) => { this.fileInput = el; }}
                   style={{ display: 'none' }}
                 />
-                <ButtonMain
-                  iconLeft={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <PermMediaIcon />}
-                  size="small"
-                  variant="text"
-                  theme="text"
-                  onClick={this.triggerInputFile}
-                  label={
-                    <FormattedMessage
-                      id="search.file"
-                      defaultMessage="Search with file"
-                      description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
+                <Tooltip arrow title={<FormattedMessage id="search.file" defaultMessage="Search with file" description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt." />}>
+                  <span>
+                    <ButtonMain
+                      iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <PermMediaIcon />}
+                      size="small"
+                      variant="contained"
+                      theme="lightText"
+                      onClick={this.triggerInputFile}
                     />
-                  }
-                />
+                  </span>
+                </Tooltip>
               </>
-            ) : null }
-            { this.props.hideAdvanced ?
-              null :
+            }
+            { !this.props.hideAdvanced &&
               <SearchKeywordMenu
                 onChange={this.handleKeywordConfigChange}
                 query={this.props.query}
               />
             }
-          </Box>
+          </div>
         </form>
       </>
     );

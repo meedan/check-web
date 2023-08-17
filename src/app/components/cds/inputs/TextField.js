@@ -34,6 +34,7 @@ const TextField = React.forwardRef(({
   required,
   variant,
   textArea,
+  componentProps,
   ...inputProps
 }, ref) => {
   const [internalError, setInternalError] = React.useState(suppressInitialError ? false : error);
@@ -83,10 +84,10 @@ const TextField = React.forwardRef(({
               })
             }
             ref={ref}
-            type="text"
             disabled={disabled}
             error={internalError}
             placeholder={placeholder}
+            {...componentProps}
             {...inputProps}
           />
         ) : (
@@ -107,6 +108,7 @@ const TextField = React.forwardRef(({
             disabled={disabled}
             error={internalError}
             placeholder={placeholder}
+            {...componentProps}
             {...inputProps}
           />
         )}
@@ -134,7 +136,7 @@ const TextField = React.forwardRef(({
 
 TextField.defaultProps = {
   className: '',
-  disabled: true,
+  disabled: false,
   error: false,
   helpContent: null,
   iconLeft: null,
@@ -145,6 +147,7 @@ TextField.defaultProps = {
   suppressInitialError: false,
   textArea: false,
   variant: 'contained',
+  componentProps: {},
 };
 
 TextField.propTypes = {
@@ -159,6 +162,7 @@ TextField.propTypes = {
   required: PropTypes.bool,
   suppressInitialError: PropTypes.bool,
   textArea: PropTypes.bool,
+  componentProps: PropTypes.object,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
 

@@ -10,6 +10,11 @@
     "defaultMessage": "Clear search"
   },
   {
+    "id": "search.expandSearch",
+    "description": "Tooltip for button on main search component to make the input size larger so the user can write more text",
+    "defaultMessage": "Expand search input"
+  },
+  {
     "id": "search.expandedSearchLabel",
     "description": "Label for expanded search box with extra room for longer search strings",
     "defaultMessage": "Enter search terms"

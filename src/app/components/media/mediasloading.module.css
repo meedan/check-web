@@ -73,8 +73,7 @@
   }
 
   &.sizeIcon {
-    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-    font-size: 24px;
+    font-size: var(--iconSizeDefault);
     min-height: calc(24px + .7em);
 
     :global(.check-icon) {
