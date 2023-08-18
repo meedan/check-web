@@ -80,9 +80,6 @@ const ProjectsComponent = ({
     browserHistory.push(`/${team.slug}/all-items`);
   };
 
-  // eslint-disable-next-line
-  console.log("ProjectsComponent team ", team);
-
   const handleCreateFeed = () => {
     browserHistory.push(`/${team.slug}/feed/create`);
   };
