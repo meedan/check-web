@@ -89,7 +89,6 @@ const TeamTagsComponent = ({
               theme="brand"
               size="default"
               onClick={() => { setShowCreateTag(true); }}
-              id="team-tags__create"
               className={classes.teamTagsNewTagButton}
               label={
                 <FormattedMessage
@@ -97,6 +96,9 @@ const TeamTagsComponent = ({
                   defaultMessage="New tag"
                 />
               }
+              buttonProps={{
+                id: 'team-tags__create',
+              }}
             />
           </Can>
         }
