@@ -30,6 +30,7 @@ import LightbulbIcon from '../../../icons/lightbulb.svg';
 import PublishedIcon from '../../../icons/playlist_add_check.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
+import CreateProjectMedia from '../../media/CreateMedia';
 import { withSetFlashMessage } from '../../FlashMessage';
 import styles from './Projects.module.css';
 
@@ -78,6 +79,9 @@ const ProjectsComponent = ({
     setActiveItem({ type: 'all-items', id: null });
     browserHistory.push(`/${team.slug}/all-items`);
   };
+
+  // eslint-disable-next-line
+  console.log("ProjectsComponent team ", team);
 
   const handleCreateFeed = () => {
     browserHistory.push(`/${team.slug}/feed/create`);
@@ -241,6 +245,7 @@ const ProjectsComponent = ({
       </div>
       <List dense disablePadding className={[styles.listWrapper, 'projects-list'].join(' ')}>
         { saving && <div className={styles.listMask} /> }
+        {/* AQUIIIII */}
         {/* All items */}
         <ListItem
           button
@@ -252,9 +257,14 @@ const ProjectsComponent = ({
             <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
           </ListItemText>
           <ListItemSecondaryAction className={styles.listItemCount}>
-            <small>
+            {/* <small>
               {team.medias_count}
-            </small>
+            </small> */}
+            <Can permissions={team.permissions} permission="create ProjectMedia">
+              <Tooltip title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
+                <CreateProjectMedia search={team.search} project={null} team={team} />
+              </Tooltip>
+            </Can>
           </ListItemSecondaryAction>
         </ListItem>
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import CreateMediaDialog from './CreateMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
@@ -13,6 +13,9 @@ import { stringHelper } from '../../customHelpers';
 import { getErrorObjects, getFilters } from '../../helpers';
 import CheckError from '../../CheckError';
 import { withSetFlashMessage } from '../FlashMessage';
+// import MoreVertIcon from '../../icons/more_vert.svg';
+import AddCircleIcon from '../../icons/add_circle.svg';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 class CreateProjectMedia extends React.Component {
   constructor(props) {
@@ -109,9 +112,11 @@ class CreateProjectMedia extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Button id="create-media__add-item" onClick={this.handleOpenDialog} color="primary" variant="contained">
+        {/* <ButtonMain id="create-media__add-item" iconCenter={this.props.icon ? <MoreVertIcon /> : null} label="Testing button" variant="contained" size="default" theme="brand" onClick={this.handleOpenDialog} color="primary" /> */}
+        <ButtonMain id="create-media__add-item" iconCenter={<AddCircleIcon />} label={this.props.label ? this.props.label : ''} variant="outlined" size="small" theme="text" onClick={this.handleOpenDialog} color="primary" />
+        {/* <Button id="create-media__add-item" onClick={this.handleOpenDialog} color="primary" variant="contained">
           <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" />
-        </Button>
+        </Button> */}
         <CreateMediaDialog
           title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add item" />}
           open={this.state.dialogOpen}

@@ -57,6 +57,9 @@ const Toolbar = ({
     perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
   }
 
+  // eslint-disable-next-line
+  console.log('Toolbar', { actions, similarAction, title, project, page, team, search, resultType });
+
   return (
     <StyledToolbar className={`toolbar toolbar__${resultType}`}>
       <FlexRow className="toolbar__flex-row">

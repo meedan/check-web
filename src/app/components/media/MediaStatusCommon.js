@@ -85,7 +85,7 @@ class MediaStatusCommon extends Component {
 
   render() {
     const { media } = this.props;
-    const { statuses } = media.team.verification_statuses;
+    const { statuses } = media?.team ? media?.team?.verification_statuses : { statuses: [] };
     const currentStatus = getStatus(media.team.verification_statuses, media.last_status || this.props.currentStatus);
 
     return (

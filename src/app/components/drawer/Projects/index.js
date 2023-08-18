@@ -93,6 +93,11 @@ const Projects = () => {
             }
             trash_count
             spam_count
+            search {
+              id
+              number_of_results
+            }
+            verification_statuses,
           }
         }
       `}
