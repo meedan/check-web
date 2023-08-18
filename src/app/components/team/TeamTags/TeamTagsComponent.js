@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -94,6 +93,7 @@ const TeamTagsComponent = ({
                 <FormattedMessage
                   id="teamTagsComponent.newTag"
                   defaultMessage="New tag"
+                  description="Button label for calling the new tag creation modal"
                 />
               }
               buttonProps={{

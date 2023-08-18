@@ -106,7 +106,7 @@
     flex-direction: row-reverse;
     gap: 8px;
     justify-content: space-between;
-    margin: 8px 0 0 0;
+    margin: 8px 0 0;
 
     &.submit-search-expanded {
       flex-direction: row;
