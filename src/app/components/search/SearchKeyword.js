@@ -295,7 +295,7 @@ class SearchKeyword extends React.Component {
                     <ButtonMain
                       iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <PermMediaIcon />}
                       size="small"
-                      variant="contained"
+                      variant="text"
                       theme="lightText"
                       onClick={this.triggerInputFile}
                     />

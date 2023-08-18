@@ -30,7 +30,7 @@
   flex: 0 0 450px;
   flex-direction: row;
   gap: 8px;
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   width: 450px;
 
   .search-form-config {
@@ -99,6 +99,18 @@
     margin: 16px 0 0 2px;
     padding: 16px;
     width: 450px;
+  }
+
+  .search-expanded-popover-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+    justify-content: space-between;
+    margin: 8px 0 0 0;
+
+    &.submit-search-expanded {
+      flex-direction: row;
+    }
   }
 }
 

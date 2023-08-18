@@ -25,7 +25,7 @@ const SearchKeywordMenu = ({
           <ButtonMain
             iconCenter={<SettingsIcon />}
             size="small"
-            variant="contained"
+            variant="text"
             theme="lightText"
             onClick={e => setAnchorEl(e.currentTarget)}
           />
