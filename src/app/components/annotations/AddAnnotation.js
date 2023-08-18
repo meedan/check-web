@@ -5,9 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AttachFileIcon from '../../icons/attach_file.svg';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
 import UpdateCommentMutation from '../../relay/mutations/UpdateCommentMutation';
@@ -400,13 +400,17 @@ class AddAnnotation extends Component {
           ) : null}
           <AddAnnotationButtonGroup className="add-annotation__buttons">
             <Tooltip title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" description="Tooltip to tell the user they can add files" />} >
-              <IconButton
+              <ButtonMain
+                variant="text"
+                theme="lightText"
+                size="default"
+                iconCenter={<AttachFileIcon />}
                 className={`add-annotation__insert-photo ${this.state.fileMode ? 'add-annotation__file' : ''}`}
-                id="add-annotation__switcher"
+                buttonProps={{
+                  id: 'add-annotation__switcher',
+                }}
                 onClick={this.switchMode.bind(this)}
-              >
-                <AttachFileIcon />
-              </IconButton>
+              />
             </Tooltip>
             { editMode ?
               <Button onClick={this.props.handleCloseEdit} >

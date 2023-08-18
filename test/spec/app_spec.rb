@@ -11,7 +11,7 @@ require_relative './login_spec'
 require_relative './login_spec_helpers'
 require_relative './media_actions_spec'
 require_relative './media_spec'
-require_relative './project_spec'
+require_relative './list_spec'
 require_relative './report_spec'
 require_relative './rules_spec'
 require_relative './search_spec'
@@ -100,7 +100,7 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'login'
     include_examples 'media actions'
     include_examples 'annotation'
-    include_examples 'project'
+    include_examples 'list'
     include_examples 'report'
     include_examples 'rules'
     include_examples 'search'
@@ -109,7 +109,6 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'tag'
     include_examples 'team'
     include_examples 'similarity'
-    it_behaves_like 'media', 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like 'media', 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
     it 'should redirect to not found page when access is denied', bin1: true do
@@ -187,18 +186,21 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it 'should redirect to 404 page if id does not exist', bin4: true do
-      api_create_team_and_project
+      api_create_team_and_bot
       @driver.navigate.to @config['self_url']
+      wait_for_selector('#side-navigation__toggle').click
+      wait_for_selector('.projects-list')
+      wait_for_selector('.projects-list__all-items').click
       wait_for_selector('#create-media__add-item')
       url = @driver.current_url.to_s
-      @driver.navigate.to url.gsub(%r{project/([0-9]+).*}, 'project/999')
+      @driver.navigate.to url.gsub('all-items', 'media/999')
       title = wait_for_selector('.not-found__component')
       expect(title.text).to match(/page does not exist/)
       expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
     end
 
     it 'should linkify URLs on comments', bin1: true do
-      api_create_team_project_and_claim_and_redirect_to_media_page
+      api_create_team_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('index.html')).to be(false)
       wait_for_selector('.media-tab__comments').click
       fill_field('#cmd-input', @media_url)
@@ -211,7 +213,7 @@ shared_examples 'app' do |webdriver_url|
 
     it 'should show current team content on sidebar when viewing profile', bin3: true do
       user = api_register_and_login_with_email
-      api_create_team_and_project(user: user)
+      api_create_team_and_bot(user: user)
       @driver.navigate.to("#{@config['self_url']}/check/me")
       wait_for_selector('#teams-tab')
       wait_for_selector('.team-header__drawer-team-link')

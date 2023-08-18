@@ -29,13 +29,6 @@
     min-height: auto !important;
   }
 
-  .listMask {
-    @mixin position absolute, 0, 0, 0, 0;
-    background-color: var(--otherWhite);
-    opacity: .7;
-    z-index: 1;
-  }
-
   .listChevron {
     font-size: var(--drawerexpandIconSize);
     margin: 0 4px 0 1px;
@@ -122,27 +115,6 @@
       padding: 10px 48px 10px 6px;
     }
 
-    &.listItem_group {
-      margin: 0 1px;
-
-      &.listItem_group_expanded {
-        border-color: var(--brandLight);
-        border-radius: 5px 5px 0 0;
-      }
-
-      &.listItem_group_expanded_slim {
-        border: solid 1px var(--brandLight);
-        border-radius: 5px 5px 0 0;
-        border-width: 1px 1px 0;
-      }
-
-      .listLabel {
-        span {
-          margin: 0;
-        }
-      }
-    }
-
     &.listItem_active,
     &.listItem_active:hover {
       background-color: var(--brandLight);
@@ -184,35 +156,6 @@
     margin: 0 0 0 1px;
     padding: 6px;
     width: 100%;
-  }
-}
-
-.listAll {
-  @mixin typography-caption;
-  border: solid 1px var(--otherWhite);
-  color: var(--textPlaceholder);
-  cursor: pointer;
-  font-weight: 500;
-  height: 30px;
-  margin: 0;
-  padding: 0 0 0 7px;
-  width: auto;
-}
-
-.listButton {
-  background-color: var(--grayBackground);
-  border-radius: 8px;
-  color: var(--textSecondary);
-  flex: 0 0 26px;
-  font-size: 20px;
-  height: 26px;
-  padding: 0;
-  transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
-  width: 26px;
-
-  &:hover {
-    background-color: var(--brandHoverAccent);
-    color: var(--textLink);
   }
 }
 

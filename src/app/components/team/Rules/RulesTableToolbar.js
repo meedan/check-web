@@ -1,15 +1,12 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import clsx from 'clsx';
+import cx from 'classnames/bind';
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import DeleteIcon from '../../../icons/delete.svg';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
@@ -58,42 +55,54 @@ const RulesTableToolbar = (props) => {
           <FormattedMessage
             id="rulesTableToolbar.title"
             defaultMessage="Rules"
-          />
-        }
-        subtitle={
-          <FormattedMessage
-            id="rulesTableToolbar.subtitle"
-            defaultMessage="Create automations to organize folders and customize your workflow."
+            description="Title area for the rules admin section of the settings page"
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"
         actionButton={
-          <Button color="primary" variant="contained" className={[classes.button, 'rules__new-rule'].join(' ')} onClick={props.onAddNewRule}>
-            <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" />
-          </Button>
+          <ButtonMain
+            size="default"
+            theme="brand"
+            variant="contained"
+            className={[classes.button, 'rules__new-rule'].join(' ')}
+            onClick={props.onAddNewRule}
+            label={
+              <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" description="Button label for creating a new rule" />
+            }
+          />
         }
       />
       { numSelected > 0 ?
         <Toolbar
-          className={clsx(classes.root, {
-            [classes.highlight]: numSelected > 0,
-          })}
+          className={cx(
+            classes.root,
+            {
+              [classes.highlight]: numSelected > 0,
+            })
+          }
         >
-          <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+          <div className={cx('typography-subtitle1', classes.title)}>
             <FormattedMessage
               id="rulesTableToolbar.selected"
               defaultMessage="{numSelected, plural, one {# selected} other {# selected}}"
+              description="When rules are selected to perform bulk actions on, this text tells the user how many have been selected"
               values={{ numSelected }}
             />
-          </Typography>
+          </div>
           <Tooltip
             title={
-              <FormattedMessage id="rulesTableToolbar.delete" defaultMessage="Delete" />
+              <FormattedMessage id="rulesTableToolbar.delete" defaultMessage="Delete" description="Tooltip for deleting rules" />
             }
           >
-            <IconButton onClick={handleConfirmDelete}>
-              <DeleteIcon />
-            </IconButton>
+            <span>
+              <ButtonMain
+                iconCenter={<DeleteIcon />}
+                variant="text"
+                theme="text"
+                size="default"
+                onClick={handleConfirmDelete}
+              />
+            </span>
           </Tooltip>
         </Toolbar> : null }
       <ConfirmProceedDialog
@@ -102,17 +111,19 @@ const RulesTableToolbar = (props) => {
           <FormattedMessage
             id="rulesTableToolbar.deleteConfirmationTitle"
             defaultMessage="Do you want to delete the selected rules?"
+            description="Title for the confirmation dialog when the user is trying to delete rules"
           />
         }
         body={
           <div>
-            <Typography variant="body1" component="p" paragraph>
+            <p className="typography-body1">
               <FormattedMessage
                 id="rulesTableToolbar.deleteConfirmationText"
                 defaultMessage="{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
                 values={{ numSelected }}
+                description="Details of what will happen when one or more rules are deleted show in a modal confirmation"
               />
-            </Typography>
+            </p>
           </div>
         }
         proceedLabel={
@@ -120,6 +131,7 @@ const RulesTableToolbar = (props) => {
             id="rulesTableToolbar.deleteConfirmationLabel"
             defaultMessage="{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
             values={{ numSelected }}
+            description="Label for proceeding to delete the selected rules"
           />
         }
         onProceed={handleDeleteConfirmed}

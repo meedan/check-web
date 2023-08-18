@@ -11,13 +11,13 @@
   },
   {
     "id": "teamListsComponent.title",
-    "description": "Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists.",
+    "description": "Header for Column settings page, where users can configure the visibility of columns in lists.",
     "defaultMessage": "Column settings"
   },
   {
     "id": "teamListsComponent.description",
-    "description": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists.",
-    "defaultMessage": "Select all the columns you want to display in all your folders, collections and lists."
+    "description": "Subtitle for Column settings page, where users can configure the visibility of columns in lists.",
+    "defaultMessage": "Select all the columns you want to display in all your lists."
   },
   {
     "id": "settingsHeader.save",
@@ -26,17 +26,17 @@
   },
   {
     "id": "teamListsComponent.displayedColumns",
-    "description": "Columns that are displayed for users in folders, collections and lists.",
+    "description": "Columns that are displayed for users in lists.",
     "defaultMessage": "Displayed columns"
   },
   {
     "id": "teamListsComponent.generalColumns",
-    "description": "Columns not currently displayed for users in folders, collections and lists.",
+    "description": "Columns not currently displayed for users in lists.",
     "defaultMessage": "General"
   },
   {
     "id": "teamListsComponent.metadataColumns",
-    "description": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in folders, collections and lists.",
+    "description": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists.",
     "defaultMessage": "Annotation"
   },
   {
@@ -52,7 +52,7 @@
   {
     "id": "teamListsComponent.confirmSaveText",
     "description": "Content of 'Save changes' confirmation dialog.",
-    "defaultMessage": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
+    "defaultMessage": "Are you sure? Your changes will affect all lists and be visible by all users in your workspace."
   },
   {
     "id": "teamListsComponent.buttonLabel",

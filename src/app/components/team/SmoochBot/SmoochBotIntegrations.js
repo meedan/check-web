@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -22,9 +21,6 @@ import SettingsHeader from '../SettingsHeader';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
 
 const useStyles = makeStyles(() => ({
-  smoochBotIntegrationsTitle: {
-    fontWeight: 'bold',
-  },
   smoochBotIntegrationsHeader: {
     marginBottom: 0,
   },
@@ -54,9 +50,9 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
     <React.Fragment>
       <SettingsHeader
         title={
-          <Typography variant="subtitle1" component="div" className={classes.smoochBotIntegrationsTitle}>
+          <div className="typography-subtitle2">
             <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
-          </Typography>
+          </div>
         }
         helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline"
         className={classes.smoochBotIntegrationsHeader}

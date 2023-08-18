@@ -1,28 +1,8 @@
 [
   {
-    "id": "projectsComponent.couldNotMove",
-    "description": "Error message displayed when it's not possible to move folder to a collection",
-    "defaultMessage": "Could not move folder to collection"
-  },
-  {
-    "id": "projectsComponent.movedSuccessfully",
-    "description": "Message displayed when a folder is moved to or from a collection",
-    "defaultMessage": "Folder moved successfully"
-  },
-  {
-    "id": "projectsComponent.invalidMove",
-    "description": "Message displayed when a folder is moved to something that is not a collection",
-    "defaultMessage": "Folders can only be moved to collections"
-  },
-  {
     "id": "projectsComponent.allItems",
     "description": "Label for the 'All items' list displayed on the left sidebar",
     "defaultMessage": "All"
-  },
-  {
-    "id": "projectsComponent.newListButton",
-    "description": "Tooltip for button that opens list creation dialog",
-    "defaultMessage": "New list"
   },
   {
     "id": "projectsComponent.tiplineInbox",
@@ -55,6 +35,11 @@
     "defaultMessage": "Custom Lists"
   },
   {
+    "id": "projectsComponent.newListButton",
+    "description": "Tooltip for button that opens list creation dialog",
+    "defaultMessage": "New list"
+  },
+  {
     "id": "projectsComponent.noCustomLists",
     "description": "Displayed under the custom list header when there are no lists in it",
     "defaultMessage": "No custom lists"
@@ -75,77 +60,14 @@
     "defaultMessage": "No shared feeds"
   },
   {
-    "id": "projectsComponent.folders",
-    "description": "Label for a collapsable panel displayed on the left sidebar.",
-    "defaultMessage": "Folders"
-  },
-  {
-    "id": "projectsComponent.newFolderOrCollection",
-    "description": "Tooltip for the button opens the new folder or collection menu",
-    "defaultMessage": "New folder or collection"
-  },
-  {
-    "id": "projectsComponent.newFolderMenu",
-    "description": "Menu item for creating new folder",
-    "defaultMessage": "New folder"
-  },
-  {
-    "id": "projectsComponent.newCollectionMenu",
-    "description": "Menu item for creating new collection",
-    "defaultMessage": "New collection"
-  },
-  {
-    "id": "projectsComponent.noFolders",
-    "description": "Displayed under a collection when there are no folders in it",
-    "defaultMessage": "No folders in this collection"
-  },
-  {
-    "id": "projects.spam",
+    "id": "projectsComponent.spam",
+    "description": "Label for a list displayed on the left sidebar that includes items that have been trashed",
     "defaultMessage": "Spam"
   },
   {
-    "id": "projects.trash",
+    "id": "projectsComponent.trash",
+    "description": "Label for a list displayed on the left sidebar that includes items marked as spam",
     "defaultMessage": "Trash"
-  },
-  {
-    "id": "projectsComponent.newFolder",
-    "description": "Dialog title for creating new folder",
-    "defaultMessage": "New folder"
-  },
-  {
-    "id": "projectsComponent.createFolder",
-    "description": "Button label for creating new folder",
-    "defaultMessage": "Create folder"
-  },
-  {
-    "id": "projectsComponent.newFolderErrorMessage",
-    "description": "Error message when creating new folder fails",
-    "defaultMessage": "Could not create folder, please try again"
-  },
-  {
-    "id": "projectsComponent.newFolderSuccessMessage",
-    "description": "Success message when new folder is created",
-    "defaultMessage": "Folder created successfully"
-  },
-  {
-    "id": "projectsComponent.newCollection",
-    "description": "Dialog title for creating new collection",
-    "defaultMessage": "New collection"
-  },
-  {
-    "id": "projectsComponent.createCollection",
-    "description": "Button label for creating new collection",
-    "defaultMessage": "Create collection"
-  },
-  {
-    "id": "projectsComponent.newCollectionErrorMessage",
-    "description": "Error message when creating new collection fails",
-    "defaultMessage": "Could not create collection, please try again"
-  },
-  {
-    "id": "projectsComponent.newCollectionSuccessMessage",
-    "description": "Success message when new collection is created",
-    "defaultMessage": "Collection created successfully"
   },
   {
     "id": "projectsComponent.newList",

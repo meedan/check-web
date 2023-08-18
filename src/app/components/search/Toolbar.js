@@ -57,9 +57,6 @@ const Toolbar = ({
     perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
   }
 
-  // eslint-disable-next-line
-  console.log('Toolbar', { actions, similarAction, title, project, page, team, search, resultType });
-
   return (
     <StyledToolbar className={`toolbar toolbar__${resultType}`}>
       <FlexRow className="toolbar__flex-row">
@@ -68,7 +65,7 @@ const Toolbar = ({
           <span className="toolbar__title">{title}</span>
           {actions}
         </Row>
-        {['trash', 'collection', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed', 'unmatched-media', 'published'].indexOf(page) === -1 && resultType !== 'feed' ? (
+        {['trash', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed', 'unmatched-media', 'published'].indexOf(page) === -1 && resultType !== 'feed' ? (
           <Can {...perms}>
             <OffsetButton>
               <CreateProjectMedia search={search} project={project} team={team} />
@@ -85,7 +82,7 @@ Toolbar.defaultProps = {
 };
 
 Toolbar.propTypes = {
-  page: PropTypes.oneOf(['trash', 'collection', 'folder', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed', 'unmatched-media', 'published']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed', 'unmatched-media', 'published']), // FIXME find a cleaner way to render Trash differently
   // FIXME: Define other PropTypes
 };
 

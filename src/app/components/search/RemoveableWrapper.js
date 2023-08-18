@@ -22,7 +22,7 @@ const RemoveableWrapper = ({
       onMouseEnter={() => setShowDeleteIcon(true)}
       onMouseLeave={() => setShowDeleteIcon(false)}
     >
-      { showDeleteIcon && !readOnly ? <CloseIcon className="multi-select-filter__remove" onClick={handleClick} /> : icon }
+      { showDeleteIcon && onRemove && !readOnly ? <CloseIcon className="multi-select-filter__remove" onClick={handleClick} /> : icon }
       {children}
     </div>
   );
@@ -31,11 +31,12 @@ const RemoveableWrapper = ({
 RemoveableWrapper.defaultProps = {
   readOnly: false,
   children: null,
+  onRemove: null,
 };
 
 RemoveableWrapper.propTypes = {
   icon: PropTypes.object.isRequired,
-  onRemove: PropTypes.func.isRequired,
+  onRemove: PropTypes.func,
   children: PropTypes.node,
   readOnly: PropTypes.bool,
 };
