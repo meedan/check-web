@@ -1,10 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import cx from 'classnames/bind';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import MediasLoading from '../media/MediasLoading';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
@@ -13,6 +13,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
 import PermMediaIcon from '../../icons/perm_media.svg';
+import searchStyles from './search.module.css';
 
 class SearchKeyword extends React.Component {
   constructor(props) {
@@ -258,71 +259,59 @@ class SearchKeyword extends React.Component {
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
     return (
-      <div>
+      <>
         <PageTitle prefix={title} team={this.props.team} />
         <form
           id="search-form"
-          className="search__form"
+          className={cx('search__form', searchStyles['search-form'])}
           onSubmit={this.props.handleSubmit}
           autoComplete="off"
         >
-          <Box width="450px">
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <SearchField
-                  isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
-                  showExpand={showExpand}
-                  setParentSearchText={this.setSearchText}
-                  searchText={this.props.query?.keyword || ''}
-                  searchQuery={this.props.query}
-                  inputBaseProps={{
-                    onBlur: this.handleInputChange,
-                    disabled: this.state?.imgData?.data?.length > 0,
-                  }}
-                  handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+          <SearchField
+            isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
+            showExpand={showExpand}
+            setParentSearchText={this.setSearchText}
+            searchText={this.props.query?.keyword || ''}
+            searchQuery={this.props.query}
+            inputBaseProps={{
+              onBlur: this.handleInputChange,
+              disabled: this.state?.imgData?.data?.length > 0,
+            }}
+            handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+          />
+          <div className={searchStyles['search-form-config']}>
+            { showExpand &&
+              <>
+                <input
+                  id="media-upload"
+                  type="file"
+                  accept="image/*,video/*,audio/*"
+                  onChange={this.handleUpload}
+                  ref={(el) => { this.fileInput = el; }}
+                  style={{ display: 'none' }}
                 />
-              </Grid>
-              <Grid item container xs={12}>
-                <Box display="flex" justifyContent="flex-end" marginLeft="auto">
-                  { showExpand ? (
-                    <>
-                      <input
-                        id="media-upload"
-                        type="file"
-                        accept="image/*,video/*,audio/*"
-                        onChange={this.handleUpload}
-                        ref={(el) => { this.fileInput = el; }}
-                        style={{ display: 'none' }}
-                      />
-                      <ButtonMain
-                        iconLeft={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <PermMediaIcon />}
-                        size="small"
-                        variant="text"
-                        theme="text"
-                        onClick={this.triggerInputFile}
-                        label={
-                          <FormattedMessage
-                            id="search.file"
-                            defaultMessage="Search with file"
-                            description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
-                          />
-                        }
-                      />
-                    </>
-                  ) : null }
-                  { this.props.hideAdvanced ?
-                    null :
-                    <SearchKeywordMenu
-                      onChange={this.handleKeywordConfigChange}
-                      query={this.props.query}
+                <Tooltip arrow title={<FormattedMessage id="search.file" defaultMessage="Search with file" description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt." />}>
+                  <span>
+                    <ButtonMain
+                      iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <PermMediaIcon />}
+                      size="small"
+                      variant="text"
+                      theme="lightText"
+                      onClick={this.triggerInputFile}
                     />
-                  }
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
+                  </span>
+                </Tooltip>
+              </>
+            }
+            { !this.props.hideAdvanced &&
+              <SearchKeywordMenu
+                onChange={this.handleKeywordConfigChange}
+                query={this.props.query}
+              />
+            }
+          </div>
         </form>
-      </div>
+      </>
     );
   }
 }

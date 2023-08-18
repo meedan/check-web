@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SearchKeywordContainer from './SearchKeywordContainer';
 import SettingsIcon from '../../../icons/settings.svg';
@@ -19,20 +20,17 @@ const SearchKeywordMenu = ({
 
   return (
     <React.Fragment>
-      <ButtonMain
-        iconLeft={<SettingsIcon />}
-        size="small"
-        variant="text"
-        theme="text"
-        onClick={e => setAnchorEl(e.currentTarget)}
-        label={
-          <FormattedMessage
-            id="SearchKeywordMenu.searchSettings"
-            defaultMessage="Search settings"
-            description="Button for search settings"
+      <Tooltip arrow title={<FormattedMessage id="SearchKeywordMenu.searchSettings" defaultMessage="Search settings" description="Button for search settings" />}>
+        <span>
+          <ButtonMain
+            iconCenter={<SettingsIcon />}
+            size="small"
+            variant="text"
+            theme="lightText"
+            onClick={e => setAnchorEl(e.currentTarget)}
           />
-        }
-      />
+        </span>
+      </Tooltip>
       { anchorEl ?
         <SearchKeywordContainer
           query={query}
