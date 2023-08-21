@@ -5,16 +5,11 @@ import { browserHistory } from 'react-router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import RootRef from '@material-ui/core/RootRef';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styles from './Projects.module.css';
 
 const ProjectsListItem = ({
-  index,
   onClick,
   isActive,
-  isDroppable,
-  isDraggable,
   className,
   teamSlug,
   project,
@@ -67,60 +62,14 @@ const ProjectsListItem = ({
     </ListItem>
   );
 
-  const droppableId = `droppable-${routePrefix}-${project.dbid}-${project.project_group_id}`;
-
-  if (isDroppable) {
-    return (
-      <Droppable droppableId={droppableId}>
-        {provided => (
-          <RootRef rootRef={provided.innerRef}>
-            <>
-              <Item />
-              <div style={{ display: 'none' }}>
-                {provided.placeholder}
-              </div>
-            </>
-          </RootRef>
-        )}
-      </Droppable>
-    );
-  }
-
-  if (isDraggable) {
-    return (
-      <Droppable droppableId={droppableId}>
-        {provided => (
-          <RootRef rootRef={provided.innerRef}>
-            <>
-              <Draggable key={project.dbid} draggableId={`draggable-${routePrefix}-${project.id}-${project.project_group_id}`} index={index}>
-                {provided2 => (
-                  <Item
-                    ContainerComponent="li"
-                    ContainerProps={{ ref: provided2.innerRef }}
-                    {...provided2.draggableProps}
-                    {...provided2.dragHandleProps}
-                  />
-                )}
-              </Draggable>
-              {provided.placeholder}
-            </>
-          </RootRef>
-        )}
-      </Droppable>
-    );
-  }
-
   return <Item />;
 };
 
 ProjectsListItem.defaultProps = {
   icon: null,
-  index: null,
   onClick: null,
   isActive: false,
   className: '',
-  isDroppable: false,
-  isDraggable: false,
   routeSuffix: '',
 };
 
@@ -141,9 +90,6 @@ ProjectsListItem.propTypes = {
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
   className: PropTypes.string,
-  isDroppable: PropTypes.bool,
-  isDraggable: PropTypes.bool,
-  index: PropTypes.number,
 };
 
 export default injectIntl(ProjectsListItem);
