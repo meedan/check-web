@@ -1,35 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedRelative } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import RulesTableToolbar from './RulesTableToolbar';
 import RulesTableHead from './RulesTableHead';
-
-const useStyles = makeStyles(theme => ({
-  rulesTable: {
-    width: '100%',
-  },
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  tableRow: {
-    cursor: 'pointer',
-  },
-  rulesTableCell: {
-    borderBottom: 0,
-  },
-  rulesTableTime: {
-    whiteSpace: 'nowrap',
-  },
-}));
 
 export default function RulesTable(props) {
   const { rules } = props;
@@ -40,7 +19,6 @@ export default function RulesTable(props) {
     index,
   }));
 
-  const classes = useStyles();
   const [selected, setSelected] = React.useState([]);
   const [orderBy, setOrderBy] = React.useState('updated_at');
   const [order, setOrder] = React.useState('asc');
@@ -97,51 +75,48 @@ export default function RulesTable(props) {
         onAddNewRule={handleNewRule}
         onDeleteRules={handleDelete}
       />
-      <div className={classes.rulesTable}>
-        <Paper className={classes.paper}>
-          <TableContainer>
-            <Table size="medium" id="rules-table">
-              <RulesTableHead
-                order={order}
-                orderBy={orderBy}
-                onSort={handleSort}
-              />
-              <TableBody>
-                {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
-                  const { name, index } = row;
-                  const isItemSelected = isSelected(index);
-                  const labelId = `rules-table-checkbox-${index}`;
-                  const date = new Date(row.updated_at * 1000);
+      <div>
+        <TableContainer>
+          <Table size="medium" id="rules-table">
+            <RulesTableHead
+              order={order}
+              orderBy={orderBy}
+              onSort={handleSort}
+            />
+            <TableBody>
+              {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
+                const { name, index } = row;
+                const isItemSelected = isSelected(index);
+                const labelId = `rules-table-checkbox-${index}`;
+                const date = new Date(row.updated_at * 1000);
 
-                  return (
-                    <TableRow
-                      hover
-                      className={classes.tableRow}
-                      onClick={() => { handleClick(index); }}
-                      key={row.index}
-                    >
-                      <TableCell className={classes.rulesTableCell} padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          onClick={(event) => { handleChange(event, index); }}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell className={classes.rulesTableCell} component="th" id={labelId} scope="row">
-                        {name}
-                      </TableCell>
-                      <TableCell className={classes.rulesTableCell}>
-                        <time className={classes.rulesTableTime} dateTime={date.toISOString()}>
-                          <FormattedRelative value={date} />
-                        </time>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
+                return (
+                  <TableRow
+                    hover
+                    onClick={() => { handleClick(index); }}
+                    key={row.index}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={isItemSelected}
+                        onClick={(event) => { handleChange(event, index); }}
+                        inputProps={{ 'aria-labelledby': labelId }}
+                      />
+                    </TableCell>
+                    <TableCell component="th" id={labelId} scope="row">
+                      {name}
+                    </TableCell>
+                    <TableCell>
+                      <time dateTime={date.toISOString()}>
+                        <FormattedRelative value={date} />
+                      </time>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </React.Fragment>
   );

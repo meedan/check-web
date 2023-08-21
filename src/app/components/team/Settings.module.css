@@ -1,9 +1,18 @@
 .settings-wrapper {
-  border: solid 10px var(--errorMain);
+  background-color: var(--grayBackground);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 
-  .setting-details-wrapper {
-    border: solid 10px var(--brandMain);
-    max-width: var(--columnWidthLarge);
-    width: 100%;
+  .settings-content {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 16px 32px 32px;
+
+    .setting-details-wrapper {
+      border: solid 10px var(--brandMain);
+      max-width: var(--columnWidthLarge);
+      width: 100%;
+    }
   }
 }

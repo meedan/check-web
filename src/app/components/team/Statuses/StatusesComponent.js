@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import styled from 'styled-components';
 
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
-
+import cx from 'classnames/bind';
 import SettingsHeader from '../SettingsHeader';
 import DeleteStatusDialog from './DeleteStatusDialog';
 import EditStatusDialog from './EditStatusDialog';
@@ -20,9 +18,9 @@ import TranslateStatuses from './TranslateStatuses';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import { stringHelper } from '../../../customHelpers';
 import { getErrorMessage } from '../../../helpers';
-import { ContentColumn, units } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { languageName } from '../../../LanguageRegistry';
+import settingsStyles from '../Settings.module.css';
 
 const useToolbarStyles = makeStyles(() => ({
   button: {
@@ -30,9 +28,6 @@ const useToolbarStyles = makeStyles(() => ({
   },
 }));
 
-const StyledBlurb = styled.div`
-  margin-top: ${units(4)};
-`;
 
 const StatusesComponent = ({ team, setFlashMessage }) => {
   const statuses = [...team.verification_statuses.statuses];
@@ -217,38 +212,38 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   };
 
   return (
-    <Box display="flex" className="status-settings">
-      <ContentColumn large>
-        <SettingsHeader
-          title={
+    <>
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="statusesComponent.title"
+            defaultMessage="{languageName} statuses"
+            values={{
+              languageName: languageName(currentLanguage),
+            }}
+            description="The idea of this sentence is 'statuses written in language <languageName>'"
+          />
+        }
+        helpUrl="https://help.checkmedia.org/en/articles/4838891-status-settings"
+        actionButton={
+          <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setAddingNewStatus(true)}>
             <FormattedMessage
-              id="statusesComponent.title"
-              defaultMessage="{languageName} statuses"
-              values={{
-                languageName: languageName(currentLanguage),
-              }}
-              description="The idea of this sentence is 'statuses written in language <languageName>'"
+              id="statusesComponent.newStatus"
+              defaultMessage="New status"
+              description="Button label to create a new status."
             />
-          }
-          helpUrl="https://help.checkmedia.org/en/articles/4838891-status-settings"
-          actionButton={
-            <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setAddingNewStatus(true)}>
-              <FormattedMessage
-                id="statusesComponent.newStatus"
-                defaultMessage="New status"
-                description="Button label to create a new status."
-              />
-            </Button>
-          }
-          extra={
-            <LanguageSwitcher
-              component="dropdown"
-              currentLanguage={currentLanguage}
-              languages={languages}
-              onChange={handleChangeLanguage}
-            />
-          }
-        />
+          </Button>
+        }
+        extra={
+          <LanguageSwitcher
+            component="dropdown"
+            currentLanguage={currentLanguage}
+            languages={languages}
+            onChange={handleChangeLanguage}
+          />
+        }
+      />
+      <div className={cx('status-settings', settingsStyles['setting-details-wrapper'])}>
         <Card>
           <CardContent>
             {
@@ -269,13 +264,11 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
                 </List>
               ) : (
                 <React.Fragment>
-                  <StyledBlurb>
-                    <FormattedMessage
-                      id="statusesComponent.blurbSecondary"
-                      defaultMessage="Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
-                      description="Message displayed on status translation page."
-                    />
-                  </StyledBlurb>
+                  <FormattedMessage
+                    id="statusesComponent.blurbSecondary"
+                    defaultMessage="Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
+                    description="Message displayed on status translation page."
+                  />
                   <TranslateStatuses
                     currentLanguage={currentLanguage}
                     defaultLanguage={defaultLanguage}
@@ -288,26 +281,26 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
             }
           </CardContent>
         </Card>
-      </ContentColumn>
-      <EditStatusDialog
-        team={team}
-        defaultLanguage={defaultLanguage}
-        defaultValue={selectedStatus}
-        key={selectedStatus || 'edit-status-dialog'}
-        onCancel={handleCancelEdit}
-        onSubmit={handleAddOrEditStatus}
-        open={addingNewStatus || Boolean(selectedStatus)}
-      />
-      { showDeleteStatusDialogFor ?
-        <DeleteStatusDialog
-          open
-          defaultValue={showDeleteStatusDialogFor}
-          key={showDeleteStatusDialogFor || 'delete-status-dialog'}
-          onCancel={() => setShowDeleteStatusDialogFor(null)}
-          onProceed={handleDelete}
-          statuses={statuses}
-        /> : null }
-    </Box>
+        <EditStatusDialog
+          team={team}
+          defaultLanguage={defaultLanguage}
+          defaultValue={selectedStatus}
+          key={selectedStatus || 'edit-status-dialog'}
+          onCancel={handleCancelEdit}
+          onSubmit={handleAddOrEditStatus}
+          open={addingNewStatus || Boolean(selectedStatus)}
+        />
+        { showDeleteStatusDialogFor ?
+          <DeleteStatusDialog
+            open
+            defaultValue={showDeleteStatusDialogFor}
+            key={showDeleteStatusDialogFor || 'delete-status-dialog'}
+            onCancel={() => setShowDeleteStatusDialogFor(null)}
+            onProceed={handleDelete}
+            statuses={statuses}
+          /> : null }
+      </div>
+    </>
   );
 };
 

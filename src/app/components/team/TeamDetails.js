@@ -130,7 +130,6 @@ const TeamDetails = ({
           </>
         }
       />
-
       <div className={cx(settingsStyles['setting-details-wrapper'], styles['team-details'])}>
         <div className={styles['team-details-avatar']}>
           <TeamAvatar

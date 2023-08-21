@@ -16,14 +16,14 @@ import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import TelegramIcon from '@material-ui/icons/Telegram';
+import cx from 'classnames/bind';
+import settingsStyles from '../Settings.module.css';
 import ViberIcon from '../../../icons/viber.svg';
 import LineIcon from '../../../icons/line.svg';
-
 import SettingsHeader from '../SettingsHeader';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import { withSetFlashMessage } from '../../FlashMessage';
 import Can from '../../Can';
-import { ContentColumn } from '../../../styles/js/shared';
 
 const TeamReportComponent = ({ team, setFlashMessage }) => {
   const defaultLanguage = team.get_language || 'en';
@@ -123,37 +123,37 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
     return null;
   }
   return (
-    <Box display="flex" justifyContent="left" className="team-report-component">
-      <ContentColumn large>
-        <SettingsHeader
-          title={
-            <FormattedMessage
-              id="teamReportComponent.title"
-              defaultMessage="Default report settings"
-              description="Header for the default report settings page"
-            />
-          }
-          helpUrl="http://help.checkmedia.org/en/articles/3627266-check-message-report"
-          actionButton={
-            <Can permissions={team.permissions} permission="update Team">
-              <Button onClick={handleSave} color="primary" variant="contained" id="team-report__save" disabled={saving}>
-                <FormattedMessage
-                  id="teamReportComponent.save"
-                  defaultMessage="Save"
-                  description="Save settings button label"
-                />
-              </Button>
-            </Can>
-          }
-          extra={
-            <LanguageSwitcher
-              component="dropdown"
-              currentLanguage={currentLanguage}
-              languages={languages}
-              onChange={setCurrentLanguage}
-            />
-          }
-        />
+    <>
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="teamReportComponent.title"
+            defaultMessage="Default report settings"
+            description="Header for the default report settings page"
+          />
+        }
+        helpUrl="http://help.checkmedia.org/en/articles/3627266-check-message-report"
+        actionButton={
+          <Can permissions={team.permissions} permission="update Team">
+            <Button onClick={handleSave} color="primary" variant="contained" id="team-report__save" disabled={saving}>
+              <FormattedMessage
+                id="teamReportComponent.save"
+                defaultMessage="Save"
+                description="Save settings button label"
+              />
+            </Button>
+          </Can>
+        }
+        extra={
+          <LanguageSwitcher
+            component="dropdown"
+            currentLanguage={currentLanguage}
+            languages={languages}
+            onChange={setCurrentLanguage}
+          />
+        }
+      />
+      <div className={cx(settingsStyles['setting-details-wrapper'])}>
         <Card>
           <CardContent>
             <Box>
@@ -470,8 +470,8 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
             </Box>
           </CardContent>
         </Card>
-      </ContentColumn>
-    </Box>
+      </div>
+    </>
   );
 };
 

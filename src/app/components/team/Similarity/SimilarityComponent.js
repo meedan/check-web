@@ -13,15 +13,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import ThresholdControl from './ThresholdControl';
 import SettingsHeader from '../SettingsHeader';
 import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
-import { ContentColumn } from '../../../styles/js/shared';
 import { getErrorObjectsForRelayModernProblem } from '../../../helpers';
 import CheckError from '../../../CheckError';
+import settingsStyles from '../Settings.module.css';
 
 const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
@@ -175,25 +176,25 @@ const SimilarityComponent = ({
 
   return (
     <React.Fragment>
-      <ContentColumn large>
-        <SettingsHeader
-          title={
-            <FormattedMessage
-              id="similarityComponent.title"
-              defaultMessage="Similarity matching"
-              description="Title to similarity matching settings page"
-            />
-          }
-          helpUrl="https://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions"
-          actionButton={
-            team.alegre_bot ?
-              <Can permissions={team.permissions} permission="update Team">
-                <Button color="primary" variant="contained" id="similarity-component__save" onClick={handleSave} disabled={saving || hasError}>
-                  <FormattedMessage id="similarityComponent.save" defaultMessage="Save" description="Label for Save Button on Similarity settings page" />
-                </Button>
-              </Can> : null
-          }
-        />
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="similarityComponent.title"
+            defaultMessage="Similarity matching"
+            description="Title to similarity matching settings page"
+          />
+        }
+        helpUrl="https://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions"
+        actionButton={
+          team.alegre_bot ?
+            <Can permissions={team.permissions} permission="update Team">
+              <Button color="primary" variant="contained" id="similarity-component__save" onClick={handleSave} disabled={saving || hasError}>
+                <FormattedMessage id="similarityComponent.save" defaultMessage="Save" description="Label for Save Button on Similarity settings page" />
+              </Button>
+            </Can> : null
+        }
+      />
+      <div className={cx(settingsStyles['setting-details-wrapper'])}>
         <Card>
           <CardContent>
             <Box mt={2.5}>
@@ -555,7 +556,7 @@ const SimilarityComponent = ({
             </Card>
           </React.Fragment>
         ) : null }
-      </ContentColumn>
+      </div>
     </React.Fragment>
   );
 };

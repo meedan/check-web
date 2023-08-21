@@ -4,10 +4,11 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import RulesComponent from './RulesComponent';
+import settingsStyles from '../Settings.module.css';
 
 const renderQuery = ({ error, props }) => {
   if (!error && props) {
-    return <RulesComponent team={props.team} />;
+    return <div className={settingsStyles['setting-details-wrapper']}><RulesComponent team={props.team} /></div>;
   }
   // TODO: We need a better error handling in the future, standardized with other components
   return null;
