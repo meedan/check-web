@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,14 +15,15 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import cx from 'classnames/bind';
 import ChangeUserRole from './ChangeUserRole';
 import InviteDialog from './InviteDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamMemberActions from './TeamMemberActions';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { ContentColumn } from '../../styles/js/shared';
 import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
+import settingsStyles from './Settings.module.css';
 
 const useStyles = makeStyles(theme => ({
   pending: {
@@ -78,20 +78,13 @@ const TeamMembersComponent = ({
     team.team_users.edges;
 
   return (
-    <ContentColumn large>
+    <>
       <SettingsHeader
         title={
           <FormattedMessage
             id="teamMembers.title"
             defaultMessage="Members"
             description="Title for workspace members management page"
-          />
-        }
-        subtitle={
-          <FormattedMessage
-            id="teamMembers.subtitle"
-            defaultMessage="Invite and manage users."
-            description="Subtitle for workspace members management page"
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/3336431-permissions-in-check"
@@ -110,7 +103,7 @@ const TeamMembersComponent = ({
           </Button>
         }
       />
-      <Card>
+      <div className={cx(settingsStyles['setting-details-wrapper'])}>
         <TableContainer>
           <Table>
             <TableHead>
@@ -234,8 +227,8 @@ const TeamMembersComponent = ({
           open={inviteDialogOpen}
           onClose={() => setInviteDialogOpen(false)}
         />
-      </Card>
-    </ContentColumn>
+      </div>
+    </>
   );
 };
 

@@ -5,11 +5,12 @@ import Box from '@material-ui/core/Box';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import TeamTasksProject from './TeamTasksProject';
 import SettingsHeader from './SettingsHeader';
 import CreateTeamTask from './CreateTeamTask';
 import BlankState from '../layout/BlankState';
-import { ContentColumn } from '../../styles/js/shared';
+import settingsStyles from './Settings.module.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,43 +64,30 @@ function TeamMetadataRender({ team, about }) {
           className="metadata-tab__source"
         />
       </Tabs>
-      <ContentColumn large>
-        <SettingsHeader
-          title={
-            associatedType === 'ProjectMedia' ?
-              <FormattedMessage
-                id="teamMetadataRender.itemTitle"
-                defaultMessage="Item annotation form"
-                description="Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
-              /> :
-              <FormattedMessage
-                id="teamMetadataRender.sourceTitle"
-                defaultMessage="Source annotation form"
-                description="Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources."
-              />
-          }
-          subtitle={
-            associatedType === 'ProjectMedia' ?
-              <FormattedMessage
-                id="teamMetadataRender.metadataItemSubtitle"
-                defaultMessage="Create dynamic forms to annotate items by adding fields."
-                description="Subtitle for annotation settings screen applied to Items"
-              /> :
-              <FormattedMessage
-                id="teamMetadataRender.metadataSourceSubtitle"
-                defaultMessage="Create dynamic forms to annotate sources by adding fields."
-                description="Subtitle for annotation settings screen applied to Sources"
-              />
-          }
-          helpUrl={
-            associatedType === 'ProjectMedia' ?
-              'https://help.checkmedia.org/en/articles/4346772-metadata' :
-              'https://help.checkmedia.org/en/articles/4837896-sources#h_bb2bd143fd'
-          }
-          actionButton={
-            <CreateTeamTask fieldset="metadata" associatedType={associatedType} team={team} />
-          }
-        />
+      <SettingsHeader
+        title={
+          associatedType === 'ProjectMedia' ?
+            <FormattedMessage
+              id="teamMetadataRender.itemTitle"
+              defaultMessage="Item annotation form"
+              description="Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
+            /> :
+            <FormattedMessage
+              id="teamMetadataRender.sourceTitle"
+              defaultMessage="Source annotation form"
+              description="Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources."
+            />
+        }
+        helpUrl={
+          associatedType === 'ProjectMedia' ?
+            'https://help.checkmedia.org/en/articles/4346772-metadata' :
+            'https://help.checkmedia.org/en/articles/4837896-sources#h_bb2bd143fd'
+        }
+        actionButton={
+          <CreateTeamTask fieldset="metadata" associatedType={associatedType} team={team} />
+        }
+      />
+      <div className={cx(settingsStyles['setting-details-wrapper'])}>
         <div className={classes.root}>
           <div className={classes.tabContent} >
             { teamMetadata.length ?
@@ -119,7 +107,7 @@ function TeamMetadataRender({ team, about }) {
             }
           </div>
         </div>
-      </ContentColumn>
+      </div>
     </Box>
   );
 }

@@ -184,13 +184,6 @@ const SimilarityComponent = ({
               description="Title to similarity matching settings page"
             />
           }
-          subtitle={
-            <FormattedMessage
-              id="similarityComponent.blurb"
-              defaultMessage="Automatically group items together if they are similar."
-              description="Subtitle to similarity matching settings page"
-            />
-          }
           helpUrl="https://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions"
           actionButton={
             team.alegre_bot ?
@@ -275,7 +268,6 @@ const SimilarityComponent = ({
           <React.Fragment>
             <SettingsHeader
               title="Internal settings"
-              subtitle="Meedan employees see these settings, but users don't."
             />
             <Card>
               <CardContent>

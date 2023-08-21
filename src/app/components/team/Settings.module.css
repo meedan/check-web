@@ -1,0 +1,9 @@
+.settings-wrapper {
+  border: solid 10px var(--errorMain);
+
+  .setting-details-wrapper {
+    border: solid 10px var(--brandMain);
+    max-width: var(--columnWidthLarge);
+    width: 100%;
+  }
+}

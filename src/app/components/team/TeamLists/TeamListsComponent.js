@@ -7,13 +7,12 @@ import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import cx from 'classnames/bind';
 import TeamListsColumn from './TeamListsColumn';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
-import { ContentColumn } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
+import settingsStyles from '../Settings.module.css';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -164,86 +163,75 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
 
   return (
     <React.Fragment>
-      <ContentColumn large>
-        <SettingsHeader
-          title={
-            <FormattedMessage
-              id="teamListsComponent.title"
-              defaultMessage="Column settings"
-              description="Header for Column settings page, where users can configure the visibility of columns in lists."
-            />
-          }
-          subtitle={
-            <FormattedMessage
-              id="teamListsComponent.description"
-              defaultMessage="Select all the columns you want to display in all your lists."
-              description="Subtitle for Column settings page, where users can configure the visibility of columns in lists."
-            />
-          }
-          helpUrl="http://help.checkmedia.org/en/articles/4637158-list-settings"
-          actionButton={
-            <Button variant="contained" color="primary" disabled={saving || !hasUnsavedChanges} onClick={handleConfirmSave}>
-              <FormattedMessage id="settingsHeader.save" defaultMessage="Save" description="Button label for save columns settings" />
-            </Button>
-          }
-        />
-        <Card>
-          <CardContent>
-            <Box display="flex" justifyContent="space-between">
-              <TeamListsColumn
-                columns={selectedColumns}
-                title={
-                  <FormattedMessage
-                    id="teamListsComponent.displayedColumns"
-                    defaultMessage="Displayed columns"
-                    description="Columns that are displayed for users in lists."
-                  />
-                }
-                onToggle={handleToggle}
-                onMoveUp={handleMoveUp}
-                onMoveDown={handleMoveDown}
-                style={{
-                  background: 'var(--grayBackground)',
-                  borderRadius: '5px',
-                  border: '1px solid var(--grayBorderMain)',
-                  padding: '.3rem 1rem .5rem 0',
-                }}
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="teamListsComponent.title"
+            defaultMessage="Column settings"
+            description="Header for Column settings page, where users can configure the visibility of columns in lists."
+          />
+        }
+        helpUrl="http://help.checkmedia.org/en/articles/4637158-list-settings"
+        actionButton={
+          <Button variant="contained" color="primary" disabled={saving || !hasUnsavedChanges} onClick={handleConfirmSave}>
+            <FormattedMessage id="settingsHeader.save" defaultMessage="Save" description="Button label for save columns settings" />
+          </Button>
+        }
+      />
+      <div className={cx(settingsStyles['setting-details-wrapper'])}>
+        <Box display="flex" justifyContent="space-between">
+          <TeamListsColumn
+            columns={selectedColumns}
+            title={
+              <FormattedMessage
+                id="teamListsComponent.displayedColumns"
+                defaultMessage="Displayed columns"
+                description="Columns that are displayed for users in lists."
               />
-              <TeamListsColumn
-                columns={availableColumns.filter(c => !/^task_value_/.test(c.key))}
-                title={
-                  <FormattedMessage
-                    id="teamListsComponent.generalColumns"
-                    defaultMessage="General"
-                    description="Columns not currently displayed for users in lists."
-                  />
-                }
-                onToggle={handleToggle}
+            }
+            onToggle={handleToggle}
+            onMoveUp={handleMoveUp}
+            onMoveDown={handleMoveDown}
+            style={{
+              background: 'var(--grayBackground)',
+              borderRadius: '5px',
+              border: '1px solid var(--grayBorderMain)',
+              padding: '.3rem 1rem .5rem 0',
+            }}
+          />
+          <TeamListsColumn
+            columns={availableColumns.filter(c => !/^task_value_/.test(c.key))}
+            title={
+              <FormattedMessage
+                id="teamListsComponent.generalColumns"
+                defaultMessage="General"
+                description="Columns not currently displayed for users in lists."
               />
-              <TeamListsColumn
-                columns={availableColumns.filter(c => /^task_value_/.test(c.key))}
-                title={
-                  <FormattedMessage
-                    id="teamListsComponent.metadataColumns"
-                    defaultMessage="Annotation"
-                    description="Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists."
-                  />
-                }
-                onToggle={handleToggle}
-                placeholder={
-                  <Link to={`/${team.slug}/settings/annotation`} className={classes.link} id="create-metadata__add-button" >
-                    <FormattedMessage
-                      id="teamListsComponent.createMetadata"
-                      defaultMessage="Create new annotation field"
-                      description="Button label for create new annotation field"
-                    />
-                  </Link>
-                }
+            }
+            onToggle={handleToggle}
+          />
+          <TeamListsColumn
+            columns={availableColumns.filter(c => /^task_value_/.test(c.key))}
+            title={
+              <FormattedMessage
+                id="teamListsComponent.metadataColumns"
+                defaultMessage="Annotation"
+                description="Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists."
               />
-            </Box>
-          </CardContent>
-        </Card>
-      </ContentColumn>
+            }
+            onToggle={handleToggle}
+            placeholder={
+              <Link to={`/${team.slug}/settings/annotation`} className={classes.link} id="create-metadata__add-button" >
+                <FormattedMessage
+                  id="teamListsComponent.createMetadata"
+                  defaultMessage="Create new annotation field"
+                  description="Button label for create new annotation field"
+                />
+              </Link>
+            }
+          />
+        </Box>
+      </div>
       <ConfirmDialog
         open={showConfirmSaveDialog}
         title={

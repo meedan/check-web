@@ -1,0 +1,24 @@
+.settings-header-wrapper {
+  align-items: center;
+  border: solid 10px var(--errorMain);
+  display: flex;
+  justify-content: space-between;
+  max-width: var(--columnWidthLarge);
+  width: 100%;
+
+  .title-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: left;
+  }
+
+  .extra-wrapper {
+    margin: 0 0 0 40px;
+  }
+
+  .buttons-wrapper {
+    background-color: var(--brandLight);
+    display: flex;
+    gap: 8px;
+  }
+}

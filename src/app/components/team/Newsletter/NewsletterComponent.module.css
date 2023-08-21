@@ -1,6 +1,6 @@
 .content {
   margin-top: 16px;
-  max-width: 880px;
+  max-width: var(--columnWidthLarge);
   padding-left: 32px;
 }
 

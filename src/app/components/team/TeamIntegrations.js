@@ -86,12 +86,6 @@ const TeamIntegrations = () => (<QueryRenderer
                   defaultMessage="Integrations"
                 />
               }
-              subtitle={
-                <FormattedMessage
-                  id="teamIntegrations.subtitle"
-                  defaultMessage="Third party tools to enhance productivity."
-                />
-              }
               helpUrl="https://help.checkmedia.org/en/articles/6925397-integrations"
             />
             <Box className="team-integrations__integrations">
