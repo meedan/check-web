@@ -1,14 +1,11 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { browserHistory } from 'react-router';
 import Drawer from '@material-ui/core/Drawer';
 import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import CheckContext from '../CheckContext';
 import styles from './drawer/Drawer.module.css';
-// import projectStyles from './drawer/Projects/Projects.module.css';
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
