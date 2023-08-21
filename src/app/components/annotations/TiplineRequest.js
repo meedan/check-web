@@ -76,7 +76,7 @@ const TiplineRequest = ({
     return null;
   }
   const objectValue = activity.value_json;
-  const messageType = objectValue.source.type;
+  const messageType = objectValue.source?.type;
   const messageText = objectValue.text ?
     objectValue.text.trim()
       .split('\n')
