@@ -1,38 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import TeamTasksProject from './TeamTasksProject';
 import SettingsHeader from './SettingsHeader';
 import CreateTeamTask from './CreateTeamTask';
 import BlankState from '../layout/BlankState';
 import settingsStyles from './Settings.module.css';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: 'var(--grayBackground)',
-    display: 'flex',
-    minHeight: 224,
-    marginBottom: 50,
-  },
-  tabs: {
-    backgroundColor: 'var(--grayBackground)',
-    marginRight: theme.spacing(5),
-    marginTop: theme.spacing(2),
-  },
-  tabContent: {
-    width: '100%',
-  },
-}));
+import styles from './AnnotationSettings.module.css';
 
 function TeamMetadataRender({ team, about }) {
   const [showTab, setShowTab] = React.useState('items');
-  const classes = useStyles();
   const handleTabChange = (e, value) => {
     setShowTab(value);
   };
@@ -41,16 +21,16 @@ function TeamMetadataRender({ team, about }) {
     .filter(t => t.associated_type === associatedType);
 
   return (
-    <Box display="flex" justifyContent="center" className="team-metadata">
+    <>
       <Tabs
         indicatorColor="primary"
         scrollButtons="auto"
         textColor="primary"
-        orientation="vertical"
+        orientation="horizontal"
         variant="scrollable"
         value={showTab}
         onChange={handleTabChange}
-        className={classes.tabs}
+        className={styles['annotation-tabs']}
       >
         <Tab
           fullWidth
@@ -88,27 +68,23 @@ function TeamMetadataRender({ team, about }) {
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <div className={classes.root}>
-          <div className={classes.tabContent} >
-            { teamMetadata.length ?
-              <TeamTasksProject
-                fieldset="metadata"
-                project={{ teamTasks: teamMetadata }}
-                team={team}
-                about={about}
-              /> :
-              <BlankState>
-                <FormattedMessage
-                  id="teamMetadataRender.blankAnnotations"
-                  defaultMessage="No annotation fields"
-                  description="Text for empty annotations"
-                />
-              </BlankState>
-            }
-          </div>
-        </div>
+        { teamMetadata.length ?
+          <TeamTasksProject
+            fieldset="metadata"
+            project={{ teamTasks: teamMetadata }}
+            team={team}
+            about={about}
+          /> :
+          <BlankState>
+            <FormattedMessage
+              id="teamMetadataRender.blankAnnotations"
+              defaultMessage="No annotation fields"
+              description="Text for empty annotations"
+            />
+          </BlankState>
+        }
       </div>
-    </Box>
+    </>
   );
 }
 

@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedRelative } from 'react-intl';
+import { FormattedMessage, FormattedRelative } from 'react-intl';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import SettingsHeader from '../SettingsHeader';
 import RulesTableToolbar from './RulesTableToolbar';
 import RulesTableHead from './RulesTableHead';
+import settingsStyles from '../Settings.module.css';
 
 export default function RulesTable(props) {
   const { rules } = props;
@@ -70,12 +73,33 @@ export default function RulesTable(props) {
 
   return (
     <React.Fragment>
-      <RulesTableToolbar
-        numSelected={selected.length}
-        onAddNewRule={handleNewRule}
-        onDeleteRules={handleDelete}
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="rulesTableToolbar.title"
+            defaultMessage="Rules"
+            description="Title area for the rules admin section of the settings page"
+          />
+        }
+        helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"
+        actionButton={
+          <ButtonMain
+            size="default"
+            theme="brand"
+            variant="contained"
+            className="rules__new-rule"
+            onClick={handleNewRule}
+            label={
+              <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" description="Button label for creating a new rule" />
+            }
+          />
+        }
       />
-      <div>
+      <div className={settingsStyles['setting-details-wrapper']}>
+        <RulesTableToolbar
+          numSelected={selected.length}
+          onDeleteRules={handleDelete}
+        />
         <TableContainer>
           <Table size="medium" id="rules-table">
             <RulesTableHead
