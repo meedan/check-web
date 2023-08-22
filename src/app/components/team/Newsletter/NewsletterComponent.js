@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
-import Button from '@material-ui/core/Button';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import NewsletterHeader from './NewsletterHeader';
 import NewsletterStatic from './NewsletterStatic';
 import NewsletterRssFeed from './NewsletterRssFeed';
@@ -439,11 +439,17 @@ const NewsletterComponent = ({
             /> : null
         }
         actionButton={
-          <div>
-            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || textfieldOverLength || !can(team.permissions, 'create TiplineNewsletter')}>
+          <ButtonMain
+            className="save-button"
+            variant="contained"
+            theme="brand"
+            size="default"
+            onClick={handleSave}
+            disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || textfieldOverLength || !can(team.permissions, 'create TiplineNewsletter')}
+            label={
               <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
-            </Button>
-          </div>
+            }
+          />
         }
         // helpUrl="https://help.checkmedia.org/en/articles/123456" // FIXME: Add the real KB article URL here
       />

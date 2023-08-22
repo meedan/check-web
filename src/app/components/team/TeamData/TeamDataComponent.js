@@ -1,12 +1,9 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import GetAppIcon from '@material-ui/icons/GetApp';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Table from '@material-ui/core/Table';
@@ -21,6 +18,8 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import HelpIcon from '@material-ui/icons/HelpOutline';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import GetAppIcon from '../../../icons/file_download.svg';
 import SettingsHeader from '../SettingsHeader';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import { ContentColumn } from '../../../styles/js/shared';
@@ -294,13 +293,20 @@ const TeamDataComponent = ({
           </Box>
         }
         actionButton={
-          <Button variant="contained" color="primary" startIcon={<GetAppIcon />} onClick={handleDownload}>
-            <FormattedMessage
-              id="teamDataComponent.download"
-              defaultMessage="Download CSV"
-              description="Label for action button displayed on workspace data report page."
-            />
-          </Button>
+          <ButtonMain
+            variant="contained"
+            theme="brand"
+            size="default"
+            iconLeft={<GetAppIcon />}
+            onClick={handleDownload}
+            label={
+              <FormattedMessage
+                id="teamDataComponent.download"
+                defaultMessage="Download CSV"
+                description="Label for action button displayed on workspace data report page."
+              />
+            }
+          />
         }
         helpUrl="https://help.checkmedia.org/en/articles/4511362"
       />
@@ -345,22 +351,31 @@ const TeamDataComponent = ({
               </Table>
             </TableContainer> :
             <Box className="team-data-component__no-data">
-              <Typography variant="body1" component="p" paragraph>
+              <p className="typography-body1">
                 <FormattedMessage
                   id="teamDataComponent.set1"
                   defaultMessage="Fill {thisShortForm} to request access to your data report."
+                  description="Paragraph text informing the user what they need to do to enable this feature"
                   values={{
                     thisShortForm: (
                       <a href="https://airtable.com/shrWpaztZ2SzD5TrA" target="_blank" rel="noopener noreferrer">
-                        <FormattedMessage id="teamDataComponent.formLinkText" defaultMessage="this short form" />
+                        <FormattedMessage
+                          id="teamDataComponent.formLinkText"
+                          defaultMessage="this short form"
+                          description="Link text taking the user to a form to fill out in order to request this feature be enabled"
+                        />
                       </a>
                     ),
                   }}
                 />
-              </Typography>
-              <Typography variant="body1" component="p" paragraph>
-                <FormattedMessage id="teamDataComponent.set2" defaultMessage="Your data report will be enabled within one business day." />
-              </Typography>
+              </p>
+              <p className="typography-body1">
+                <FormattedMessage
+                  id="teamDataComponent.set2"
+                  defaultMessage="Your data report will be enabled within one business day."
+                  description="Informational message to let the user know when their report will be available to view"
+                />
+              </p>
             </Box> }
         </CardContent>
       </Card>

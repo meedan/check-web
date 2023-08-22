@@ -6,6 +6,7 @@
   },
   {
     "id": "teamMembers.invite",
+    "description": "Button label for main action to start the process of inviting team members to this workspace",
     "defaultMessage": "Invite"
   },
   {

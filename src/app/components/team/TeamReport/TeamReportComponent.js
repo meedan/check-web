@@ -5,7 +5,6 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -17,6 +16,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import TelegramIcon from '@material-ui/icons/Telegram';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import settingsStyles from '../Settings.module.css';
 import ViberIcon from '../../../icons/viber.svg';
 import LineIcon from '../../../icons/line.svg';
@@ -135,13 +135,23 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
         helpUrl="http://help.checkmedia.org/en/articles/3627266-check-message-report"
         actionButton={
           <Can permissions={team.permissions} permission="update Team">
-            <Button onClick={handleSave} color="primary" variant="contained" id="team-report__save" disabled={saving}>
-              <FormattedMessage
-                id="teamReportComponent.save"
-                defaultMessage="Save"
-                description="Save settings button label"
-              />
-            </Button>
+            <ButtonMain
+              onClick={handleSave}
+              theme="brand"
+              size="default"
+              variant="contained"
+              disabled={saving}
+              label={
+                <FormattedMessage
+                  id="teamReportComponent.save"
+                  defaultMessage="Save"
+                  description="Save settings button label"
+                />
+              }
+              buttonProps={{
+                id: 'team-report__save',
+              }}
+            />
           </Can>
         }
         extra={

@@ -1,10 +1,9 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -16,6 +15,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChangeUserRole from './ChangeUserRole';
 import InviteDialog from './InviteDialog';
 import SettingsHeader from './SettingsHeader';
@@ -89,18 +89,23 @@ const TeamMembersComponent = ({
         }
         helpUrl="https://help.checkmedia.org/en/articles/3336431-permissions-in-check"
         actionButton={
-          <Button
-            id="team-members__invite-button"
-            color="primary"
-            disabled={!can(team.permissions, 'invite Members')}
+          <ButtonMain
+            theme="brand"
+            size="default"
             variant="contained"
+            disabled={!can(team.permissions, 'invite Members')}
             onClick={() => setInviteDialogOpen(true)}
-          >
-            <FormattedMessage
-              id="teamMembers.invite"
-              defaultMessage="Invite"
-            />
-          </Button>
+            label={
+              <FormattedMessage
+                id="teamMembers.invite"
+                defaultMessage="Invite"
+                description="Button label for main action to start the process of inviting team members to this workspace"
+              />
+            }
+            buttonProps={{
+              id: 'team-members__invite-button',
+            }}
+          />
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>

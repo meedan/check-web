@@ -5,15 +5,14 @@ import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import ThresholdControl from './ThresholdControl';
 import SettingsHeader from '../SettingsHeader';
@@ -188,9 +187,19 @@ const SimilarityComponent = ({
         actionButton={
           team.alegre_bot ?
             <Can permissions={team.permissions} permission="update Team">
-              <Button color="primary" variant="contained" id="similarity-component__save" onClick={handleSave} disabled={saving || hasError}>
-                <FormattedMessage id="similarityComponent.save" defaultMessage="Save" description="Label for Save Button on Similarity settings page" />
-              </Button>
+              <ButtonMain
+                theme="brand"
+                variant="contained"
+                size="default"
+                onClick={handleSave}
+                disabled={saving || hasError}
+                label={
+                  <FormattedMessage id="similarityComponent.save" defaultMessage="Save" description="Label for Save Button on Similarity settings page" />
+                }
+                buttonProps={{
+                  id: 'similarity-component__save',
+                }}
+              />
             </Can> : null
         }
       />
@@ -297,13 +306,13 @@ const SimilarityComponent = ({
                     error={(settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold)}
                   />
                   <Box ml={7}>
-                    <Typography component="span" style={{ fontWeight: 'bold' }} className={classes.transactionMargin}>
+                    <span style={{ fontWeight: 'bold' }} className={classes.transactionMargin}>
                       <FormattedMessage
                         id="similarityComponent.textLength"
                         defaultMessage="Minimum words required for a confirmed match"
                         description="A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
                       />
-                    </Typography>
+                    </span>
                     <TextField
                       classes={{ root: classes.root }}
                       variant="outlined"
@@ -465,13 +474,13 @@ const SimilarityComponent = ({
                     label="Automated transcription"
                   />
                   <Box mb={2} ml={7}>
-                    <Typography component="span" className={classes.transactionMargin}>
+                    <span className={classes.transactionMargin}>
                       <FormattedMessage
                         id="similarityComponent.minimumDuration"
                         defaultMessage="Minimum duration in seconds"
                         description="number input for Automated transcription minimum duration"
                       />
-                    </Typography>
+                    </span>
                     <TextField
                       classes={{ root: classes.root }}
                       variant="outlined"
@@ -483,13 +492,13 @@ const SimilarityComponent = ({
                     />
                   </Box>
                   <Box mb={2} ml={7}>
-                    <Typography component="span" className={classes.transactionMargin}>
+                    <span className={classes.transactionMargin}>
                       <FormattedMessage
                         id="similarityComponent.maximumDuration"
                         defaultMessage="Maximum duration in seconds"
                         description="number input for Automated transcription maximum duration"
                       />
-                    </Typography>
+                    </span>
                     <TextField
                       classes={{ root: classes.root }}
                       variant="outlined"
@@ -501,13 +510,13 @@ const SimilarityComponent = ({
                     />
                   </Box>
                   <Box mb={2} ml={7}>
-                    <Typography component="span" className={classes.transactionMargin}>
+                    <span className={classes.transactionMargin}>
                       <FormattedMessage
                         id="similarityComponent.minimumRequests"
                         defaultMessage="Minimum number of requests"
                         description="number input for Automated transcription duration requests"
                       />
-                    </Typography>
+                    </span>
                     <TextField
                       classes={{ root: classes.root }}
                       variant="outlined"

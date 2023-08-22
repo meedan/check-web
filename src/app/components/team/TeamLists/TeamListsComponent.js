@@ -5,9 +5,9 @@ import { Link } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TeamListsColumn from './TeamListsColumn';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
@@ -173,9 +173,16 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
         }
         helpUrl="http://help.checkmedia.org/en/articles/4637158-list-settings"
         actionButton={
-          <Button variant="contained" color="primary" disabled={saving || !hasUnsavedChanges} onClick={handleConfirmSave}>
-            <FormattedMessage id="settingsHeader.save" defaultMessage="Save" description="Button label for save columns settings" />
-          </Button>
+          <ButtonMain
+            variant="contained"
+            theme="brand"
+            size="default"
+            disabled={saving || !hasUnsavedChanges}
+            onClick={handleConfirmSave}
+            label={
+              <FormattedMessage id="settingsHeader.save" defaultMessage="Save" description="Button label for save columns settings" />
+            }
+          />
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>

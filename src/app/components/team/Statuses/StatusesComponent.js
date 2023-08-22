@@ -4,12 +4,11 @@ import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
-import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsHeader from '../SettingsHeader';
 import DeleteStatusDialog from './DeleteStatusDialog';
 import EditStatusDialog from './EditStatusDialog';
@@ -22,13 +21,6 @@ import { withSetFlashMessage } from '../../FlashMessage';
 import { languageName } from '../../../LanguageRegistry';
 import settingsStyles from '../Settings.module.css';
 
-const useToolbarStyles = makeStyles(() => ({
-  button: {
-    whiteSpace: 'nowrap',
-  },
-}));
-
-
 const StatusesComponent = ({ team, setFlashMessage }) => {
   const statuses = [...team.verification_statuses.statuses];
   const defaultStatusId = team.verification_statuses.default;
@@ -39,7 +31,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   const [addingNewStatus, setAddingNewStatus] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState(null);
   const [showDeleteStatusDialogFor, setShowDeleteStatusDialogFor] = React.useState(null);
-  const classes = useToolbarStyles();
 
   const handleError = (error) => {
     const fallbackMessage = (
@@ -226,13 +217,20 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         }
         helpUrl="https://help.checkmedia.org/en/articles/4838891-status-settings"
         actionButton={
-          <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setAddingNewStatus(true)}>
-            <FormattedMessage
-              id="statusesComponent.newStatus"
-              defaultMessage="New status"
-              description="Button label to create a new status."
-            />
-          </Button>
+          <ButtonMain
+            className="team-statuses__add-button"
+            theme="brand"
+            size="default"
+            variant="contained"
+            onClick={() => setAddingNewStatus(true)}
+            label={
+              <FormattedMessage
+                id="statusesComponent.newStatus"
+                defaultMessage="New status"
+                description="Button label to create a new status."
+              />
+            }
+          />
         }
         extra={
           <LanguageSwitcher
