@@ -22,6 +22,8 @@ import LightbulbIcon from '../../../icons/lightbulb.svg';
 import PublishedIcon from '../../../icons/playlist_add_check.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
+import DeleteIcon from '../../../icons/delete.svg';
+import ReportIcon from '../../../icons/report.svg';
 import { withSetFlashMessage } from '../../FlashMessage';
 import styles from './Projects.module.css';
 
@@ -86,6 +88,16 @@ const ProjectsComponent = ({
   const handleToggleFeedsExpand = () => {
     setFeedsExpanded(!feedsExpanded);
     window.storage.set('drawer.feedsExpanded', !feedsExpanded);
+  };
+
+  const handleTrash = () => {
+    setActiveItem({ type: 'trash', id: null });
+    browserHistory.push(`/${team.slug}/trash`);
+  };
+
+  const handleSpam = () => {
+    setActiveItem({ type: 'spam', id: null });
+    browserHistory.push(`/${team.slug}/spam`);
   };
 
   return (
@@ -258,6 +270,38 @@ const ProjectsComponent = ({
             </>
           }
         </Collapse>
+      </List>
+
+      <List dense disablePadding className={[styles.listWrapper, styles.listFooter].join(' ')}>
+        {/* Spam */}
+        <ListItem
+          button
+          onClick={handleSpam}
+          className={['project-list__link-spam', 'project-list__item-spam', styles.listItem, styles.listItem_containsCount, activeItem.type === 'spam' ? styles.listItem_active : ''].join(' ')}
+        >
+          <ReportIcon className={styles.listIcon} />
+          <ListItemText disableTypography className={styles.listLabel}>
+            <FormattedMessage tagName="span" id="projectsComponent.spam" defaultMessage="Spam" description="Label for a list displayed on the left sidebar that includes items that have been trashed" />
+          </ListItemText>
+          <ListItemSecondaryAction title={team.medias_count} className={styles.listItemCount}>
+            <small>{String(team.spam_count)}</small>
+          </ListItemSecondaryAction>
+        </ListItem>
+
+        {/* Trash */}
+        <ListItem
+          button
+          onClick={handleTrash}
+          className={['project-list__link-trash', 'project-list__item-trash', styles.listItem, styles.listItem_containsCount, activeItem.type === 'trash' ? styles.listItem_active : ''].join(' ')}
+        >
+          <DeleteIcon className={styles.listIcon} />
+          <ListItemText disableTypography className={styles.listLabel}>
+            <FormattedMessage tagName="span" id="projectsComponent.trash" defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items marked as spam" />
+          </ListItemText>
+          <ListItemSecondaryAction title={team.trash_count} className={styles.listItemCount}>
+            <small>{String(team.trash_count)}</small>
+          </ListItemSecondaryAction>
+        </ListItem>
       </List>
 
       {/* Dialog to create list */}
