@@ -60,6 +60,16 @@
     "defaultMessage": "No shared feeds"
   },
   {
+    "id": "projectsComponent.spam",
+    "description": "Label for a list displayed on the left sidebar that includes items that have been trashed",
+    "defaultMessage": "Spam"
+  },
+  {
+    "id": "projectsComponent.trash",
+    "description": "Label for a list displayed on the left sidebar that includes items marked as spam",
+    "defaultMessage": "Trash"
+  },
+  {
     "id": "projectsComponent.newList",
     "description": "Title for a dialog to create a new list displayed on the left sidebar.",
     "defaultMessage": "New list"

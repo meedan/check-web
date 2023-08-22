@@ -1,21 +1,11 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { withStyles } from '@material-ui/core/styles';
-import { FormattedMessage } from 'react-intl';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import CheckContext from '../CheckContext';
-import DeleteIcon from '../icons/delete.svg';
-import ReportIcon from '../icons/report.svg';
 import styles from './drawer/Drawer.module.css';
-import projectStyles from './drawer/Projects/Projects.module.css';
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -53,16 +43,6 @@ class DrawerNavigationComponent extends Component {
       team.id = team.team_graphql_id;
       context.setContextStore({ team });
     }
-  }
-
-  handleSpam = () => {
-    // setActiveItem({ type: 'spam', id: null });
-    browserHistory.push(`/${this.props.team.slug}/spam`);
-  }
-
-  handleTrash = () => {
-    // setActiveItem({ type: 'spam', id: null });
-    browserHistory.push(`/${this.props.team.slug}/trash`);
   }
 
   subscribe() {
@@ -115,34 +95,6 @@ class DrawerNavigationComponent extends Component {
           {!!team && (currentUserIsMember || !team.private) ? (
             <>
               <DrawerProjects team={team.slug} />
-              <List dense disablePadding className={[projectStyles.listWrapper, projectStyles.listFooter].join(' ')}>
-                <ListItem
-                  button
-                  onClick={this.handleSpam}
-                  className={['project-list__link-spam', 'project-list__item-spam', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
-                >
-                  <ReportIcon className={projectStyles.listIcon} />
-                  <ListItemText disableTypography className={projectStyles.listLabel}>
-                    <FormattedMessage tagName="span" id="projects.spam" defaultMessage="Spam" />
-                  </ListItemText>
-                  <ListItemSecondaryAction title={team.medias_count} className={projectStyles.listItemCount}>
-                    <small>{String(team.spam_count)}</small>
-                  </ListItemSecondaryAction>
-                </ListItem>
-                <ListItem
-                  button
-                  onClick={this.handleTrash}
-                  className={['project-list__link-trash', 'project-list__item-trash', projectStyles.listItem, projectStyles.listItem_containsCount].join(' ')}
-                >
-                  <DeleteIcon className={projectStyles.listIcon} />
-                  <ListItemText disableTypography className={projectStyles.listLabel}>
-                    <FormattedMessage tagName="span" id="projects.trash" defaultMessage="Trash" />
-                  </ListItemText>
-                  <ListItemSecondaryAction title={team.trash_count} className={projectStyles.listItemCount}>
-                    <small>{String(team.trash_count)}</small>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </List>
             </>
           ) : null }
         </React.Fragment>
