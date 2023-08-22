@@ -136,7 +136,7 @@ const TiplineRequest = ({
       >
         {text => (
           <span title={text}>
-            <RequestSubscription lastCalledAt={smoochReportReceivedAt.toLocaleString(locale)} />
+            <RequestSubscription lastCalledAt={smoochReportReceivedAt} />
           </span>
         )}
       </FormattedMessage>
@@ -154,7 +154,7 @@ const TiplineRequest = ({
       >
         {text => (
           <span title={text}>
-            <RequestSubscription lastCalledAt={smoochReportUpdateReceivedAt.toLocaleString(locale)} />
+            <RequestSubscription lastCalledAt={smoochReportUpdateReceivedAt} />
           </span>
         )}
       </FormattedMessage>
@@ -180,7 +180,7 @@ const TiplineRequest = ({
 
 TiplineRequest.propTypes = {
   annotation: PropTypes.shape({
-    value_json: PropTypes.string.isRequired,
+    value_json: PropTypes.object.isRequired,
     created_at: PropTypes.string.isRequired,
     smooch_user_slack_channel_url: PropTypes.string.isRequired,
     smooch_user_external_identifier: PropTypes.string.isRequired,
