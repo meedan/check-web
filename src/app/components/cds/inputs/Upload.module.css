@@ -26,6 +26,10 @@
   margin: 10px 0;
 }
 
+a.link-text {
+  color: var(--brandMain);
+}
+
 .drop-text {
   color: var(--brandSecondary) !important;
   pointer-events: none; /* suppress drag and drop events, default to parent */

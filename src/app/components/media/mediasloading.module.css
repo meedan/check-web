@@ -58,9 +58,22 @@
     }
   }
 
+  &.iconLevel {
+    :global(.check-icon) {
+      display: inline-block;
+      margin: 0 auto;
+    }
+
+    &.sizeIcon {
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 1rem;
+      height: 1.25rem;
+      min-height: 1rem;
+    }
+  }
+
   &.sizeIcon {
-    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-    font-size: 24px;
+    font-size: var(--iconSizeDefault);
     min-height: calc(24px + .7em);
 
     :global(.check-icon) {

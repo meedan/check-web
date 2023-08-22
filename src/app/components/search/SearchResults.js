@@ -17,7 +17,7 @@ import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
-import ProjectBlankState from '../project/ProjectBlankState';
+import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
 import SearchResultsTable from './SearchResultsTable';
@@ -230,10 +230,11 @@ function SearchResultsComponent({
         oldQuery.range.updated_at ||
         oldQuery.range.media_published_at ||
         oldQuery.range.report_published_at || {};
-      if ((!datesObj.start_time && !datesObj.end_time) && (datesObj.condition !== 'less_than')) {
+      const relativeCondition = ['less_than', 'more_than'].includes(datesObj.condition);
+      if ((!datesObj.start_time && !datesObj.end_time) && (!relativeCondition)) {
         delete cleanQuery.range;
       }
-      if (datesObj.condition === 'less_than' && datesObj.period === 0) {
+      if (relativeCondition && datesObj.period === 0) {
         delete cleanQuery.range;
       }
     }
@@ -339,15 +340,13 @@ function SearchResultsComponent({
 
   if (count === 0) {
     content = (
-      <ProjectBlankState
-        message={
-          <FormattedMessage
-            id="projectBlankState.blank"
-            defaultMessage="There are no items here."
-            description="Empty message that is displayed when search results are zero"
-          />
-        }
-      />
+      <BlankState>
+        <FormattedMessage
+          id="projectBlankState.blank"
+          defaultMessage="There are no items here."
+          description="Empty message that is displayed when search results are zero"
+        />
+      </BlankState>
     );
     if (resultType === 'factCheck') {
       content = (
@@ -389,14 +388,20 @@ function SearchResultsComponent({
       <div className={styles['search-results-header']}>
         <div className="search__list-header-filter-row">
           <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
-            { listSubtitle &&
-              <div className={styles.seachHeaderSubtitle}>
-                {listSubtitle}
-              </div>
-            }
+            <div className={styles.searchHeaderSubtitle}>
+              { listSubtitle ?
+                <>
+                  {listSubtitle}
+                </>
+                :
+                <>
+                  &nbsp;
+                </>
+              }
+            </div>
             <div className={cx('project__title-text', styles.searchHeaderTitle)}>
               <h6>
-                { icon && <div className={styles.searchHeaderTitleIcon}>{icon}</div> }
+                {icon}
                 {title}
               </h6>
               { (savedSearch?.is_part_of_feeds || listActions) &&
@@ -613,7 +618,7 @@ SearchResultsComponent.propTypes = {
   listSubtitle: PropTypes.object,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'feed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'list', 'feed']), // FIXME find a cleaner way to render Trash differently
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined

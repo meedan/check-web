@@ -21,6 +21,7 @@ const MediasLoading = ({
         [styles.sizeLarge]: size === 'large',
         [styles.pageLevel]: variant === 'page',
         [styles.inlineLevel]: variant === 'inline',
+        [styles.iconLevel]: variant === 'icon',
       })
     }
   >
@@ -36,7 +37,7 @@ MediasLoading.defaultProps = {
 MediasLoading.propTypes = {
   size: PropTypes.oneOf(['icon', 'small', 'medium', 'large']),
   theme: PropTypes.oneOf(['grey', 'white']),
-  variant: PropTypes.oneOf(['page', 'inline']),
+  variant: PropTypes.oneOf(['page', 'inline', 'icon']),
 };
 
 export default MediasLoading;

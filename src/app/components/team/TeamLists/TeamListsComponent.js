@@ -52,7 +52,9 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
           // Filter out last_seen per CHECK-1565
           && column.key !== 'last_seen'
           // ...and related_count per CHECK-1745
-          && column.key !== 'related_count') {
+          && column.key !== 'related_count'
+          // ...and folder per CV2-2827
+          && column.key !== 'folder') {
         if (column.show || column.key === 'created_at_timestamp') {
           columnsToShow.push(column.key);
           selectedColumns.push({ ...column, index });
@@ -168,14 +170,14 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
             <FormattedMessage
               id="teamListsComponent.title"
               defaultMessage="Column settings"
-              description="Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
+              description="Header for Column settings page, where users can configure the visibility of columns in lists."
             />
           }
           subtitle={
             <FormattedMessage
               id="teamListsComponent.description"
-              defaultMessage="Select all the columns you want to display in all your folders, collections and lists."
-              description="Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
+              defaultMessage="Select all the columns you want to display in all your lists."
+              description="Subtitle for Column settings page, where users can configure the visibility of columns in lists."
             />
           }
           helpUrl="http://help.checkmedia.org/en/articles/4637158-list-settings"
@@ -194,7 +196,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                   <FormattedMessage
                     id="teamListsComponent.displayedColumns"
                     defaultMessage="Displayed columns"
-                    description="Columns that are displayed for users in folders, collections and lists."
+                    description="Columns that are displayed for users in lists."
                   />
                 }
                 onToggle={handleToggle}
@@ -213,7 +215,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                   <FormattedMessage
                     id="teamListsComponent.generalColumns"
                     defaultMessage="General"
-                    description="Columns not currently displayed for users in folders, collections and lists."
+                    description="Columns not currently displayed for users in lists."
                   />
                 }
                 onToggle={handleToggle}
@@ -224,7 +226,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                   <FormattedMessage
                     id="teamListsComponent.metadataColumns"
                     defaultMessage="Annotation"
-                    description="Subtitle for Column settings page, where users can configure the visibility of annotations columns in folders, collections and lists."
+                    description="Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists."
                   />
                 }
                 onToggle={handleToggle}
@@ -254,7 +256,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
         blurb={
           <FormattedMessage
             id="teamListsComponent.confirmSaveText"
-            defaultMessage="Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
+            defaultMessage="Are you sure? Your changes will affect all lists and be visible by all users in your workspace."
             description="Content of 'Save changes' confirmation dialog."
           />
         }

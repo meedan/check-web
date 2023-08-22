@@ -1,31 +1,19 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import cx from 'classnames/bind';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import MediasLoading from '../media/MediasLoading';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
 import PermMediaIcon from '../../icons/perm_media.svg';
-
-const styles = {
-  input: {
-    display: 'none',
-  },
-  button: {
-    fontWeight: 400,
-    fontSize: 12,
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-};
+import searchStyles from './search.module.css';
 
 class SearchKeyword extends React.Component {
   constructor(props) {
@@ -256,8 +244,10 @@ class SearchKeyword extends React.Component {
     };
   }
 
+  triggerInputFile = () => this.fileInput.click()
+
   render() {
-    const { team, classes, showExpand } = this.props;
+    const { team, showExpand } = this.props;
     const { statuses } = team.verification_statuses;
     let projects = [];
     if (team.projects) {
@@ -269,69 +259,59 @@ class SearchKeyword extends React.Component {
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
     return (
-      <div>
+      <>
         <PageTitle prefix={title} team={this.props.team} />
         <form
           id="search-form"
-          className="search__form"
+          className={cx('search__form', searchStyles['search-form'])}
           onSubmit={this.props.handleSubmit}
           autoComplete="off"
         >
-          <Box width="450px">
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <SearchField
-                  isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
-                  showExpand={showExpand}
-                  setParentSearchText={this.setSearchText}
-                  searchText={this.props.query?.keyword || ''}
-                  searchQuery={this.props.query}
-                  inputBaseProps={{
-                    onBlur: this.handleInputChange,
-                    disabled: this.state?.imgData?.data?.length > 0,
-                  }}
-                  handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+          <SearchField
+            isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
+            showExpand={showExpand}
+            setParentSearchText={this.setSearchText}
+            searchText={this.props.query?.keyword || ''}
+            searchQuery={this.props.query}
+            inputBaseProps={{
+              onBlur: this.handleInputChange,
+              disabled: this.state?.imgData?.data?.length > 0,
+            }}
+            handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+          />
+          <div className={searchStyles['search-form-config']}>
+            { showExpand &&
+              <>
+                <input
+                  id="media-upload"
+                  type="file"
+                  accept="image/*,video/*,audio/*"
+                  onChange={this.handleUpload}
+                  ref={(el) => { this.fileInput = el; }}
+                  style={{ display: 'none' }}
                 />
-              </Grid>
-              <Grid item container xs={12}>
-                <Box display="flex" justifyContent="flex-end" marginLeft="auto">
-                  { showExpand ? (
-                    <div>
-                      <label htmlFor="media-upload">
-                        <input
-                          className={classes.input}
-                          id="media-upload"
-                          type="file"
-                          accept="image/*,video/*,audio/*"
-                          onChange={this.handleUpload}
-                        />
-                        <Button
-                          startIcon={this.state.isSaving ? <CircularProgress size={24} /> : <PermMediaIcon style={{ fontSize: '16px' }} />}
-                          component="span"
-                          className={classes.button}
-                        >
-                          <FormattedMessage
-                            id="search.file"
-                            defaultMessage="Search with file"
-                            description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
-                          />
-                        </Button>
-                      </label>
-                    </div>
-                  ) : null }
-                  { this.props.hideAdvanced ?
-                    null :
-                    <SearchKeywordMenu
-                      onChange={this.handleKeywordConfigChange}
-                      query={this.props.query}
+                <Tooltip arrow title={<FormattedMessage id="search.file" defaultMessage="Search with file" description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt." />}>
+                  <span>
+                    <ButtonMain
+                      iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <PermMediaIcon />}
+                      size="small"
+                      variant="text"
+                      theme="lightText"
+                      onClick={this.triggerInputFile}
                     />
-                  }
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
+                  </span>
+                </Tooltip>
+              </>
+            }
+            { !this.props.hideAdvanced &&
+              <SearchKeywordMenu
+                onChange={this.handleKeywordConfigChange}
+                query={this.props.query}
+              />
+            }
+          </div>
         </form>
-      </div>
+      </>
     );
   }
 }
@@ -339,8 +319,8 @@ class SearchKeyword extends React.Component {
 SearchKeyword.defaultProps = {
   showExpand: false,
 };
+
 SearchKeyword.propTypes = {
-  classes: PropTypes.object.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
@@ -370,7 +350,7 @@ SearchKeyword.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchKeyword as SearchKeywordTest };
 
-export default createFragmentContainer(withStyles(styles)(withPusher(SearchKeyword)), graphql`
+export default createFragmentContainer((withPusher(SearchKeyword)), graphql`
   fragment SearchKeyword_team on Team {
     id
     dbid
