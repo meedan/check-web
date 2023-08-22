@@ -4,8 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -242,43 +240,41 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         }
       />
       <div className={cx('status-settings', settingsStyles['setting-details-wrapper'])}>
-        <Card>
-          <CardContent>
-            {
-              currentLanguage === defaultLanguage ? (
-                <List>
-                  { statuses.map(s => (
-                    <StatusListItem
-                      defaultLanguage={defaultLanguage}
-                      isDefault={s.id === defaultStatusId}
-                      key={s.id}
-                      onDelete={handleMenuDelete}
-                      onEdit={handleMenuEdit}
-                      onMakeDefault={handleMenuMakeDefault}
-                      preventDelete={statuses.length === 1}
-                      status={s}
-                    />
-                  ))}
-                </List>
-              ) : (
-                <React.Fragment>
-                  <FormattedMessage
-                    id="statusesComponent.blurbSecondary"
-                    defaultMessage="Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
-                    description="Message displayed on status translation page."
-                  />
-                  <TranslateStatuses
-                    currentLanguage={currentLanguage}
+        <div className={cx(settingsStyles['setting-content-container'])}>
+          {
+            currentLanguage === defaultLanguage ? (
+              <List>
+                { statuses.map(s => (
+                  <StatusListItem
                     defaultLanguage={defaultLanguage}
-                    key={currentLanguage}
-                    onSubmit={handleTranslateStatuses}
-                    statuses={statuses}
+                    isDefault={s.id === defaultStatusId}
+                    key={s.id}
+                    onDelete={handleMenuDelete}
+                    onEdit={handleMenuEdit}
+                    onMakeDefault={handleMenuMakeDefault}
+                    preventDelete={statuses.length === 1}
+                    status={s}
                   />
-                </React.Fragment>
-              )
-            }
-          </CardContent>
-        </Card>
+                ))}
+              </List>
+            ) : (
+              <React.Fragment>
+                <FormattedMessage
+                  id="statusesComponent.blurbSecondary"
+                  defaultMessage="Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
+                  description="Message displayed on status translation page."
+                />
+                <TranslateStatuses
+                  currentLanguage={currentLanguage}
+                  defaultLanguage={defaultLanguage}
+                  key={currentLanguage}
+                  onSubmit={handleTranslateStatuses}
+                  statuses={statuses}
+                />
+              </React.Fragment>
+            )
+          }
+        </div>
         <EditStatusDialog
           team={team}
           defaultLanguage={defaultLanguage}

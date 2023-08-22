@@ -10,9 +10,40 @@
     padding: 16px 32px 32px;
 
     .setting-details-wrapper {
-      border: solid 10px var(--brandMain);
       max-width: var(--columnWidthLarge);
       width: 100%;
+
+      .setting-content-container {
+        background-color: var(--otherWhite);
+        border-radius: 8px;
+        padding: 16px;
+      }
+
+      :global(.MuiTableContainer-root) {
+        background-color: var(--otherWhite);
+        border-radius: 8px;
+        border-top: 0;
+      }
+
+      table {
+        background-color: var(--otherWhite);
+
+        tbody {
+          tr {
+            &:last-of-type {
+              td,
+              th {
+                border-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+
+      .settings-columns {
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 }

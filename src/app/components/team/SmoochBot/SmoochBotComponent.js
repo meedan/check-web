@@ -3,8 +3,6 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import UserUtil from '../../user/UserUtil';
@@ -185,57 +183,53 @@ const SmoochBotComponent = ({
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <Box display="flex" justifyContent="left" className="smooch-bot-component">
-          <Card>
-            <CardContent>
-              { installation && bot ?
-                <SmoochBotConfig
-                  bot={bot}
-                  installationId={installation.id}
-                  schema={JSON.parse(bot.settings_as_json_schema)}
-                  uiSchema={JSON.parse(bot.settings_ui_schema)}
-                  value={settings}
-                  onChange={setSettings}
-                  currentUser={currentUser}
-                  userRole={userRole}
-                  currentLanguage={currentLanguage}
-                  languages={validLanguages}
-                  enabledIntegrations={installation.smooch_enabled_integrations}
+        <div className={cx('smooch-bot-component', settingsStyles['setting-content-container'])}>
+          { installation && bot ?
+            <SmoochBotConfig
+              bot={bot}
+              installationId={installation.id}
+              schema={JSON.parse(bot.settings_as_json_schema)}
+              uiSchema={JSON.parse(bot.settings_ui_schema)}
+              value={settings}
+              onChange={setSettings}
+              currentUser={currentUser}
+              userRole={userRole}
+              currentLanguage={currentLanguage}
+              languages={validLanguages}
+              enabledIntegrations={installation.smooch_enabled_integrations}
+            /> :
+            <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
+              { currentUser.is_admin ?
+                <ButtonMain
+                  variant="contained"
+                  theme="brand"
+                  size="default"
+                  onClick={handleInstall}
+                  disable={saving}
+                  label={
+                    <FormattedMessage
+                      data-testid="install-smooch__button"
+                      id="smoochBotComponent.install"
+                      defaultMessage="Install"
+                      description="Button label for action to install the tipline in this workspace"
+                    />
+                  }
                 /> :
-                <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
-                  { currentUser.is_admin ?
-                    <ButtonMain
-                      variant="contained"
-                      theme="brand"
-                      size="default"
-                      onClick={handleInstall}
-                      disable={saving}
-                      label={
-                        <FormattedMessage
-                          data-testid="install-smooch__button"
-                          id="smoochBotComponent.install"
-                          defaultMessage="Install"
-                          description="Button label for action to install the tipline in this workspace"
-                        />
-                      }
-                    /> :
-                    <ButtonMain
-                      variant="contained"
-                      theme="brand"
-                      size="default"
-                      onClick={handleOpenForm}
-                      label={
-                        <FormattedMessage
-                          id="smoochBotComponent.contactUs"
-                          defaultMessage="Contact us to setup"
-                          description="Button label for contacting support for help setting up a tipline in this workspace"
-                        />
-                      }
-                    /> }
-                </Box>
-              }
-            </CardContent>
-          </Card>
+                <ButtonMain
+                  variant="contained"
+                  theme="brand"
+                  size="default"
+                  onClick={handleOpenForm}
+                  label={
+                    <FormattedMessage
+                      id="smoochBotComponent.contactUs"
+                      defaultMessage="Contact us to setup"
+                      description="Button label for contacting support for help setting up a tipline in this workspace"
+                    />
+                  }
+                /> }
+            </Box>
+          }
           <ConfirmProceedDialog
             open={showContentError}
             title={
@@ -256,7 +250,7 @@ const SmoochBotComponent = ({
             onProceed={() => { setShowContentError(false); }}
             onCancel={null}
           />
-        </Box>
+        </div>
       </div>
     </>
   );

@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,8 +9,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import cx from 'classnames/bind';
+import KeyboardArrowDownIcon from '../../../icons/chevron_down.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SearchField from '../../search/SearchField';
 import SaveTag from './SaveTag';
@@ -23,10 +21,6 @@ import Can from '../../Can';
 import settingsStyles from '../Settings.module.css';
 
 const useStyles = makeStyles({
-  teamTagsCardComponent: {
-    padding: 0,
-    paddingBottom: '0 !important',
-  },
   teamTagsTableCell: {
     borderBottom: 0,
   },
@@ -110,101 +104,99 @@ const TeamTagsComponent = ({
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <Card>
-          <CardContent className={classes.teamTagsCardComponent}>
-            <TableContainer>
-              <Table stickyHeader>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <FormattedMessage
-                        id="teamTagsComponent.tableHeaderName"
-                        defaultMessage="Name"
-                        description="Column header in tags table."
-                      >
-                        { text => (
-                          <TableSortLabel
-                            active={sortParam === 'text'}
-                            direction={sortDirection || undefined}
-                            onClick={() => toggleSort('text')}
-                            IconComponent={KeyboardArrowDownIcon}
-                          >
-                            {text}
-                          </TableSortLabel>
-                        )}
-                      </FormattedMessage>
+        <div className={settingsStyles['setting-content-container']}>
+          <TableContainer>
+            <Table stickyHeader>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <FormattedMessage
+                      id="teamTagsComponent.tableHeaderName"
+                      defaultMessage="Name"
+                      description="Column header in tags table."
+                    >
+                      { text => (
+                        <TableSortLabel
+                          active={sortParam === 'text'}
+                          direction={sortDirection || undefined}
+                          onClick={() => toggleSort('text')}
+                          IconComponent={KeyboardArrowDownIcon}
+                        >
+                          {text}
+                        </TableSortLabel>
+                      )}
+                    </FormattedMessage>
+                  </TableCell>
+                  <TableCell>
+                    <FormattedMessage
+                      id="teamTagsComponent.tableHeaderUpdatedAt"
+                      defaultMessage="Updated"
+                      description="Column header in tags table."
+                    >
+                      { text => (
+                        <TableSortLabel
+                          active={sortParam === 'updated_at'}
+                          direction={sortDirection || undefined}
+                          onClick={() => toggleSort('updated_at')}
+                          IconComponent={KeyboardArrowDownIcon}
+                        >
+                          {text}
+                        </TableSortLabel>
+                      )}
+                    </FormattedMessage>
+                  </TableCell>
+                  <TableCell>
+                    <FormattedMessage
+                      id="teamTagsComponent.tableHeaderTagsCount"
+                      defaultMessage="Items"
+                      description="Column header in tags table."
+                    >
+                      { text => (
+                        <TableSortLabel
+                          active={sortParam === 'tags_count'}
+                          direction={sortDirection || undefined}
+                          onClick={() => toggleSort('tags_count')}
+                          IconComponent={KeyboardArrowDownIcon}
+                        >
+                          {text}
+                        </TableSortLabel>
+                      )}
+                    </FormattedMessage>
+                  </TableCell>
+                  <TableCell padding="checkbox" />
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                { sortedTags.map(tag => (
+                  <TableRow key={tag.id} className="team-tags__row">
+                    <TableCell className={classes.teamTagsTableCell}>
+                      {tag.text}
                     </TableCell>
-                    <TableCell>
-                      <FormattedMessage
-                        id="teamTagsComponent.tableHeaderUpdatedAt"
-                        defaultMessage="Updated"
-                        description="Column header in tags table."
-                      >
-                        { text => (
-                          <TableSortLabel
-                            active={sortParam === 'updated_at'}
-                            direction={sortDirection || undefined}
-                            onClick={() => toggleSort('updated_at')}
-                            IconComponent={KeyboardArrowDownIcon}
-                          >
-                            {text}
-                          </TableSortLabel>
-                        )}
-                      </FormattedMessage>
+                    <TableCell className={classes.teamTagsTableCell}>
+                      <TimeBefore date={tag.updated_at} />
                     </TableCell>
-                    <TableCell>
-                      <FormattedMessage
-                        id="teamTagsComponent.tableHeaderTagsCount"
-                        defaultMessage="Items"
-                        description="Column header in tags table."
-                      >
-                        { text => (
-                          <TableSortLabel
-                            active={sortParam === 'tags_count'}
-                            direction={sortDirection || undefined}
-                            onClick={() => toggleSort('tags_count')}
-                            IconComponent={KeyboardArrowDownIcon}
-                          >
-                            {text}
-                          </TableSortLabel>
-                        )}
-                      </FormattedMessage>
+                    <TableCell className={classes.teamTagsTableCell}>
+                      <a href={`/${teamSlug}/all-items/%7B"tags"%3A%5B"${tag.text}"%5D%7D`} target="_blank" rel="noopener noreferrer">
+                        {tag.tags_count}
+                      </a>
                     </TableCell>
-                    <TableCell padding="checkbox" />
+                    <TableCell className={classes.teamTagsTableCell}>
+                      <Can permissions={permissions} permission="create TagText">
+                        <TeamTagsActions
+                          tag={tag}
+                          teamId={teamId}
+                          teamDbid={teamDbid}
+                          rules={rules}
+                          rulesSchema={rulesSchema}
+                        />
+                      </Can>
+                    </TableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  { sortedTags.map(tag => (
-                    <TableRow key={tag.id} className="team-tags__row">
-                      <TableCell className={classes.teamTagsTableCell}>
-                        {tag.text}
-                      </TableCell>
-                      <TableCell className={classes.teamTagsTableCell}>
-                        <TimeBefore date={tag.updated_at} />
-                      </TableCell>
-                      <TableCell className={classes.teamTagsTableCell}>
-                        <a href={`/${teamSlug}/all-items/%7B"tags"%3A%5B"${tag.text}"%5D%7D`} target="_blank" rel="noopener noreferrer">
-                          {tag.tags_count}
-                        </a>
-                      </TableCell>
-                      <TableCell className={classes.teamTagsTableCell}>
-                        <Can permissions={permissions} permission="create TagText">
-                          <TeamTagsActions
-                            tag={tag}
-                            teamId={teamId}
-                            teamDbid={teamDbid}
-                            rules={rules}
-                            rulesSchema={rulesSchema}
-                          />
-                        </Can>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </CardContent>
-        </Card>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
       </div>
       { showCreateTag ?
         <SaveTag

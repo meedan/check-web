@@ -8,14 +8,10 @@
 }
 
 .team-details-section {
-  background: var(--otherWhite);
-  border: 2px solid var(--grayBorderMain);
-  border-radius: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 32px;
-  padding: 16px;
   width: 100%;
 }
 

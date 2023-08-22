@@ -31,10 +31,10 @@ const SettingsHeader = ({
       <div className={styles['title-wrapper']}>
         <h6 className="component__settings-header">
           {title}
+          { helpUrl &&
+            <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
+          }
         </h6>
-        { helpUrl &&
-          <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
-        }
         { extra &&
           <div className={styles['extra-wrapper']}>
             {extra}

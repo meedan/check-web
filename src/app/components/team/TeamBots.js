@@ -101,7 +101,7 @@ class TeamBots extends Component {
     const team = root.current_team;
 
     return (
-      <Box className="team-bots">
+      <div className="team-bots">
         { root.team_bots_listed.edges.map((teamBot) => {
           const bot = teamBot.node;
           const installation = this.getInstallation(bot.id);
@@ -183,7 +183,7 @@ class TeamBots extends Component {
             </Box>
           );
         })}
-      </Box>
+      </div>
     );
   }
 }

@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TeamListsColumn from './TeamListsColumn';
@@ -26,7 +25,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     borderRadius: 5,
   },
-
 }));
 
 function clone(arrayOfObjects) {
@@ -186,7 +184,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <Box display="flex" justifyContent="space-between">
+        <div className={cx(settingsStyles['setting-content-container'], settingsStyles['settings-columns'])}>
           <TeamListsColumn
             columns={selectedColumns}
             title={
@@ -202,7 +200,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
             style={{
               background: 'var(--grayBackground)',
               borderRadius: '5px',
-              border: '1px solid var(--grayBorderMain)',
+              margin: '16px 0 0',
               padding: '.3rem 1rem .5rem 0',
             }}
           />
@@ -237,7 +235,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
               </Link>
             }
           />
-        </Box>
+        </div>
       </div>
       <ConfirmDialog
         open={showConfirmSaveDialog}

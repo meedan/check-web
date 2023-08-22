@@ -5,8 +5,6 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -164,322 +162,318 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <Card>
-          <CardContent>
-            <Box>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="use_introduction"
-                    key={`use-introduction-${currentLanguage}`}
-                    checked={report.use_introduction || false}
-                    onChange={(e) => { handleChange('use_introduction', e.target.checked); }}
-                  />
-                }
+        <div className={cx(settingsStyles['setting-content-container'])}>
+          <Box>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  id="use_introduction"
+                  key={`use-introduction-${currentLanguage}`}
+                  checked={report.use_introduction || false}
+                  onChange={(e) => { handleChange('use_introduction', e.target.checked); }}
+                />
+              }
+              label={
+                <FormattedMessage
+                  id="teamReportComponent.introduction"
+                  defaultMessage="Introduction"
+                  description="Label to the report introduction field"
+                />
+              }
+            />
+            <TextField
+              id="introduction"
+              key={`introduction-${currentLanguage}`}
+              value={report.introduction || ''}
+              disabled={!report.use_introduction}
+              onChange={(e) => { handleChange('introduction', e.target.value); }}
+              helperText={
+                <FormattedMessage
+                  id="teamReportComponent.introductionSub"
+                  defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+                  description="Instructions for filling the report introduction field"
+                  values={{
+                    query_date: '{{query_date}}',
+                    status: '{{status}}',
+                  }}
+                />
+              }
+              variant="outlined"
+              rows="10"
+              rowsMax={Infinity}
+              multiline
+              fullWidth
+            />
+          </Box>
+          <Box mt={2}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  id="use_url"
+                  key={`use-url-${currentLanguage}`}
+                  checked={report.use_url || false}
+                  onChange={(e) => { handleChange('use_url', e.target.checked); }}
+                />
+              }
+              label={
+                <FormattedMessage
+                  id="teamReportComponent.url"
+                  defaultMessage="Website URL"
+                  description="Label to the report url field"
+                />
+              }
+            />
+            <Box width={0.5}>
+              <TextField
+                id="url"
+                type="url"
+                key={`url-${currentLanguage}`}
+                value={report.url || ''}
+                disabled={!report.use_url}
+                onChange={(e) => { handleChange('url', e.target.value); }}
+                inputProps={{ maxLength: 30 }}
                 label={
                   <FormattedMessage
-                    id="teamReportComponent.introduction"
-                    defaultMessage="Introduction"
-                    description="Label to the report introduction field"
-                  />
-                }
-              />
-              <TextField
-                id="introduction"
-                key={`introduction-${currentLanguage}`}
-                value={report.introduction || ''}
-                disabled={!report.use_introduction}
-                onChange={(e) => { handleChange('introduction', e.target.value); }}
-                helperText={
-                  <FormattedMessage
-                    id="teamReportComponent.introductionSub"
-                    defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
-                    description="Instructions for filling the report introduction field"
+                    id="teamReportComponent.urlLabel"
+                    defaultMessage="Short URL ({max} characters max)"
+                    description="Label for URL field in report settings"
                     values={{
-                      query_date: '{{query_date}}',
-                      status: '{{status}}',
+                      max: 30,
                     }}
                   />
                 }
                 variant="outlined"
-                rows="10"
-                rowsMax={Infinity}
-                multiline
                 fullWidth
               />
             </Box>
-
-            <Box mt={2}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="use_url"
-                    key={`use-url-${currentLanguage}`}
-                    checked={report.use_url || false}
-                    onChange={(e) => { handleChange('use_url', e.target.checked); }}
+          </Box>
+          <Box mt={4}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  id="use_signature"
+                  key={`use-signature-${currentLanguage}`}
+                  checked={report.use_signature || false}
+                  onChange={(e) => { handleChange('use_signature', e.target.checked); }}
+                />
+              }
+              label={
+                <FormattedMessage
+                  id="teamReportComponent.signature"
+                  defaultMessage="Signature"
+                  description="Label to report signature field"
+                />
+              }
+            />
+            <Box width={0.5} mt={1} mb={2}>
+              <TextField
+                id="signature"
+                type="url"
+                key={`signature-${currentLanguage}`}
+                value={report.signature || ''}
+                disabled={!report.use_signature}
+                onChange={(e) => { handleChange('signature', e.target.value); }}
+                inputProps={{ maxLength: 30 }}
+                label={
+                  <FormattedMessage
+                    id="teamReportComponent.signatureLabel"
+                    defaultMessage="Signature ({max} characters max)"
+                    description="Label for signature field in report settings"
+                    values={{
+                      max: 30,
+                    }}
                   />
+                }
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
+            <Box width={0.5} mt={1} mb={2}>
+              <TextField
+                id="whatsapp"
+                key={`whatsapp-${currentLanguage}`}
+                value={report.whatsapp || ''}
+                disabled={!report.use_signature}
+                onChange={(e) => {
+                  let { value } = e.target;
+                  if (value) {
+                    value = value.replace(/[^+0-9]/g, '');
+                  }
+                  handleChange('whatsapp', value);
+                }}
+                label={
+                  <FormattedMessage
+                    id="teamReportComponent.whatsapp"
+                    defaultMessage="WhatsApp number"
+                    description="Label to WhatsApp number field"
+                  />
+                }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />
+                    </InputAdornment>
+                  ),
+                }}
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
+            <Box width={0.5} mt={1} mb={2}>
+              <TextField
+                id="facebook"
+                key={`facebook-${currentLanguage}`}
+                value={report.facebook || ''}
+                disabled={!report.use_signature}
+                onChange={e => validateSignatureField('facebook', e.target.value)}
+                error={errorField === 'facebook'}
+                helperText={errorField === 'facebook' ?
+                  <FormattedMessage
+                    id="teamReportComponent.facebookFieldError"
+                    defaultMessage="Please use the page name instead of the full URL"
+                    description="Error message displayed when facebook profile is filled incorrectly"
+                  />
+                  : null
                 }
                 label={
                   <FormattedMessage
-                    id="teamReportComponent.url"
-                    defaultMessage="Website URL"
-                    description="Label to the report url field"
+                    id="teamReportComponent.facebook"
+                    defaultMessage="Facebook page name"
+                    description="Label to facebook page field"
                   />
                 }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <FacebookIcon style={{ color: 'var(--facebookBlue)' }} />
+                    </InputAdornment>
+                  ),
+                }}
+                variant="outlined"
+                fullWidth
               />
-              <Box width={0.5}>
-                <TextField
-                  id="url"
-                  type="url"
-                  key={`url-${currentLanguage}`}
-                  value={report.url || ''}
-                  disabled={!report.use_url}
-                  onChange={(e) => { handleChange('url', e.target.value); }}
-                  inputProps={{ maxLength: 30 }}
-                  label={
-                    <FormattedMessage
-                      id="teamReportComponent.urlLabel"
-                      defaultMessage="Short URL ({max} characters max)"
-                      description="Label for URL field in report settings"
-                      values={{
-                        max: 30,
-                      }}
-                    />
-                  }
-                  variant="outlined"
-                  fullWidth
-                />
-              </Box>
             </Box>
-
-            <Box mt={4}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="use_signature"
-                    key={`use-signature-${currentLanguage}`}
-                    checked={report.use_signature || false}
-                    onChange={(e) => { handleChange('use_signature', e.target.checked); }}
+            <Box width={0.5} mt={1} mb={2}>
+              <TextField
+                id="twitter"
+                key={`twitter-${currentLanguage}`}
+                value={report.twitter || ''}
+                disabled={!report.use_signature}
+                onChange={e => validateSignatureField('twitter', e.target.value)}
+                error={errorField === 'twitter'}
+                helperText={errorField === 'twitter' ?
+                  <FormattedMessage
+                    id="teamReportComponent.twitterFieldError"
+                    defaultMessage="Please use the account name instead of the full URL"
+                    description="Error message displayed when twitter profile is filled incorrectly"
                   />
+                  : null
                 }
                 label={
                   <FormattedMessage
-                    id="teamReportComponent.signature"
-                    defaultMessage="Signature"
-                    description="Label to report signature field"
+                    id="teamReportComponent.twitter"
+                    defaultMessage="Twitter account name"
+                    description="Label to twitter username field"
                   />
                 }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <TwitterIcon style={{ color: 'var(--twitterBlue)' }} />
+                      {' @ '}
+                    </InputAdornment>
+                  ),
+                }}
+                variant="outlined"
+                fullWidth
               />
-              <Box width={0.5} mt={1} mb={2}>
-                <TextField
-                  id="signature"
-                  type="url"
-                  key={`signature-${currentLanguage}`}
-                  value={report.signature || ''}
-                  disabled={!report.use_signature}
-                  onChange={(e) => { handleChange('signature', e.target.value); }}
-                  inputProps={{ maxLength: 30 }}
-                  label={
-                    <FormattedMessage
-                      id="teamReportComponent.signatureLabel"
-                      defaultMessage="Signature ({max} characters max)"
-                      description="Label for signature field in report settings"
-                      values={{
-                        max: 30,
-                      }}
-                    />
-                  }
-                  variant="outlined"
-                  fullWidth
-                />
-              </Box>
-              <Box width={0.5} mt={1} mb={2}>
-                <TextField
-                  id="whatsapp"
-                  key={`whatsapp-${currentLanguage}`}
-                  value={report.whatsapp || ''}
-                  disabled={!report.use_signature}
-                  onChange={(e) => {
-                    let { value } = e.target;
-                    if (value) {
-                      value = value.replace(/[^+0-9]/g, '');
-                    }
-                    handleChange('whatsapp', value);
-                  }}
-                  label={
-                    <FormattedMessage
-                      id="teamReportComponent.whatsapp"
-                      defaultMessage="WhatsApp number"
-                      description="Label to WhatsApp number field"
-                    />
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  variant="outlined"
-                  fullWidth
-                />
-              </Box>
-              <Box width={0.5} mt={1} mb={2}>
-                <TextField
-                  id="facebook"
-                  key={`facebook-${currentLanguage}`}
-                  value={report.facebook || ''}
-                  disabled={!report.use_signature}
-                  onChange={e => validateSignatureField('facebook', e.target.value)}
-                  error={errorField === 'facebook'}
-                  helperText={errorField === 'facebook' ?
-                    <FormattedMessage
-                      id="teamReportComponent.facebookFieldError"
-                      defaultMessage="Please use the page name instead of the full URL"
-                      description="Error message displayed when facebook profile is filled incorrectly"
-                    />
-                    : null
-                  }
-                  label={
-                    <FormattedMessage
-                      id="teamReportComponent.facebook"
-                      defaultMessage="Facebook page name"
-                      description="Label to facebook page field"
-                    />
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FacebookIcon style={{ color: 'var(--facebookBlue)' }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  variant="outlined"
-                  fullWidth
-                />
-              </Box>
-              <Box width={0.5} mt={1} mb={2}>
-                <TextField
-                  id="twitter"
-                  key={`twitter-${currentLanguage}`}
-                  value={report.twitter || ''}
-                  disabled={!report.use_signature}
-                  onChange={e => validateSignatureField('twitter', e.target.value)}
-                  error={errorField === 'twitter'}
-                  helperText={errorField === 'twitter' ?
-                    <FormattedMessage
-                      id="teamReportComponent.twitterFieldError"
-                      defaultMessage="Please use the account name instead of the full URL"
-                      description="Error message displayed when twitter profile is filled incorrectly"
-                    />
-                    : null
-                  }
-                  label={
-                    <FormattedMessage
-                      id="teamReportComponent.twitter"
-                      defaultMessage="Twitter account name"
-                      description="Label to twitter username field"
-                    />
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <TwitterIcon style={{ color: 'var(--twitterBlue)' }} />
-                        {' @ '}
-                      </InputAdornment>
-                    ),
-                  }}
-                  variant="outlined"
-                  fullWidth
-                />
-              </Box>
-              <Box width={0.5} mt={1} mb={2}>
-                <TextField
-                  id="telegram"
-                  key={`telegram-${currentLanguage}`}
-                  value={report.telegram || ''}
-                  disabled={!report.use_signature}
-                  onChange={e => validateSignatureField('telegram', e.target.value)}
-                  error={errorField === 'telegram'}
-                  helperText={errorField === 'telegram' ?
-                    <FormattedMessage
-                      id="teamReportComponent.telegramFieldError"
-                      defaultMessage="Please use the bot username instead of the full URL"
-                      description="Error message displayed when telegram username is filled incorrectly"
-                    />
-                    : null
-                  }
-                  label={
-                    <FormattedMessage
-                      id="teamReportComponent.telegram"
-                      defaultMessage="Telegram bot username"
-                      description="Label to Telegram username field"
-                    />
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  variant="outlined"
-                  fullWidth
-                />
-              </Box>
-              <Box width={0.5} mt={1} mb={2}>
-                <TextField
-                  id="viber"
-                  key={`viber-${currentLanguage}`}
-                  value={report.viber || ''}
-                  disabled={!report.use_signature}
-                  onChange={(e) => { handleChange('viber', e.target.value); }}
-                  label={
-                    <FormattedMessage
-                      id="teamReportComponent.viber"
-                      defaultMessage="Viber public account URI"
-                      description="Label to Viber account field"
-                    />
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '24px' }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  variant="outlined"
-                  fullWidth
-                />
-              </Box>
-              <Box width={0.5} mt={1} mb={2}>
-                <TextField
-                  id="line"
-                  key={`line-${currentLanguage}`}
-                  value={report.line || ''}
-                  disabled={!report.use_signature}
-                  onChange={(e) => { handleChange('line', e.target.value); }}
-                  label={
-                    <FormattedMessage
-                      id="teamReportComponent.line"
-                      defaultMessage="LINE channel"
-                      description="Label to LINE channel field"
-                    />
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <LineIcon style={{ color: 'var(--lineGreen)', fontSize: '24px' }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  variant="outlined"
-                  fullWidth
-                />
-              </Box>
             </Box>
-          </CardContent>
-        </Card>
+            <Box width={0.5} mt={1} mb={2}>
+              <TextField
+                id="telegram"
+                key={`telegram-${currentLanguage}`}
+                value={report.telegram || ''}
+                disabled={!report.use_signature}
+                onChange={e => validateSignatureField('telegram', e.target.value)}
+                error={errorField === 'telegram'}
+                helperText={errorField === 'telegram' ?
+                  <FormattedMessage
+                    id="teamReportComponent.telegramFieldError"
+                    defaultMessage="Please use the bot username instead of the full URL"
+                    description="Error message displayed when telegram username is filled incorrectly"
+                  />
+                  : null
+                }
+                label={
+                  <FormattedMessage
+                    id="teamReportComponent.telegram"
+                    defaultMessage="Telegram bot username"
+                    description="Label to Telegram username field"
+                  />
+                }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />
+                    </InputAdornment>
+                  ),
+                }}
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
+            <Box width={0.5} mt={1} mb={2}>
+              <TextField
+                id="viber"
+                key={`viber-${currentLanguage}`}
+                value={report.viber || ''}
+                disabled={!report.use_signature}
+                onChange={(e) => { handleChange('viber', e.target.value); }}
+                label={
+                  <FormattedMessage
+                    id="teamReportComponent.viber"
+                    defaultMessage="Viber public account URI"
+                    description="Label to Viber account field"
+                  />
+                }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '24px' }} />
+                    </InputAdornment>
+                  ),
+                }}
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
+            <Box width={0.5} mt={1} mb={2}>
+              <TextField
+                id="line"
+                key={`line-${currentLanguage}`}
+                value={report.line || ''}
+                disabled={!report.use_signature}
+                onChange={(e) => { handleChange('line', e.target.value); }}
+                label={
+                  <FormattedMessage
+                    id="teamReportComponent.line"
+                    defaultMessage="LINE channel"
+                    description="Label to LINE channel field"
+                  />
+                }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LineIcon style={{ color: 'var(--lineGreen)', fontSize: '24px' }} />
+                    </InputAdornment>
+                  ),
+                }}
+                variant="outlined"
+                fullWidth
+              />
+            </Box>
+          </Box>
+        </div>
       </div>
     </>
   );

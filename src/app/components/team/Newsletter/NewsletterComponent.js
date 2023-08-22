@@ -454,7 +454,7 @@ const NewsletterComponent = ({
         // helpUrl="https://help.checkmedia.org/en/articles/123456" // FIXME: Add the real KB article URL here
       />
       <div className={cx('newsletter-component', settingsStyles['setting-details-wrapper'])}>
-        <div className={styles.newsletter}>
+        <div className={cx(settingsStyles['setting-content-container'])}>
           <div className={styles.settings}>
             <div className="typography-subtitle2">
               <FormattedMessage id="newsletterComponent.content" defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" />

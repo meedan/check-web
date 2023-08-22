@@ -273,7 +273,7 @@ const TeamDataComponent = ({
             description="Header for the stored data page of the current team"
           />
         }
-        extra={
+        extra={(platforms.length > 1 || languages.length > 1) &&
           <Box display="flex" className={classes.dropDowns}>
             <FormControl variant="outlined">
               { platforms.length > 1 ?

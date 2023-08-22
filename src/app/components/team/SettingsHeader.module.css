@@ -1,24 +1,34 @@
 .settings-header-wrapper {
   align-items: center;
-  border: solid 10px var(--errorMain);
   display: flex;
   justify-content: space-between;
+  margin: 0 0 16px;
   max-width: var(--columnWidthLarge);
+  min-height: 48px;
   width: 100%;
+
+  .title-wrapper,
+  .extra-wrapper,
+  .buttons-wrapper {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+  }
 
   .title-wrapper {
     align-items: center;
-    display: flex;
-    justify-content: left;
-  }
+    gap: 40px;
+    justify-content: start;
 
-  .extra-wrapper {
-    margin: 0 0 0 40px;
+    h6 {
+      align-items: center;
+      display: flex;
+      gap: 4px;
+    }
   }
 
   .buttons-wrapper {
-    background-color: var(--brandLight);
-    display: flex;
     gap: 8px;
+    justify-content: end;
   }
 }
