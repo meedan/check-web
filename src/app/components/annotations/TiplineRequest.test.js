@@ -49,4 +49,15 @@ describe('<TiplineRequest />', () => {
     expect(wrapper.html()).toMatch('22 août 2023');
     expect(wrapper.html()).not.toMatch('Invalid Date');
   });
+
+  it('should localize date in request card 2', () => {
+    const wrapper = mountWithIntlProvider((
+      <TiplineRequest
+        annotation={{ ...annotation, smooch_report_update_received_at: 1691636400 }}
+        annotated={media}
+      />
+    ), { locale: 'fr' });
+    expect(wrapper.html()).toMatch('10 août 2023');
+    expect(wrapper.html()).not.toMatch('08 oct. 2023');
+  });
 });
