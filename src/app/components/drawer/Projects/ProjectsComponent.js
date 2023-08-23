@@ -22,6 +22,8 @@ import LightbulbIcon from '../../../icons/lightbulb.svg';
 import PublishedIcon from '../../../icons/playlist_add_check.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
+import DeleteIcon from '../../../icons/delete.svg';
+import ReportIcon from '../../../icons/report.svg';
 import { withSetFlashMessage } from '../../FlashMessage';
 import styles from './Projects.module.css';
 
@@ -57,7 +59,6 @@ const ProjectsComponent = ({
 
   const handleAllItems = () => {
     setActiveItem({ type: 'all-items', id: null });
-    // browserHistory.push(`/${team.slug}/all-items`);
   };
 
   const handleCreateFeed = () => {
@@ -66,7 +67,6 @@ const ProjectsComponent = ({
 
   const handleSpecialLists = (listId) => {
     setActiveItem({ type: listId, id: null });
-    // browserHistory.push(`/${team.slug}/${listId}`);
   };
 
   const handleClick = (route, id) => {
@@ -88,8 +88,13 @@ const ProjectsComponent = ({
     window.storage.set('drawer.feedsExpanded', !feedsExpanded);
   };
 
-  // eslint-disable-next-line
-  console.log('activeItem', activeItem);
+  const handleTrash = () => {
+    setActiveItem({ type: 'trash', id: null });
+  };
+
+  const handleSpam = () => {
+    setActiveItem({ type: 'spam', id: null });
+  };
 
   return (
     <React.Fragment>
@@ -132,7 +137,12 @@ const ProjectsComponent = ({
             className={styles.linkList}
           >
             <ListItem
-              className={['projects-list__tipline-inbox', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'tipline-inbox' ? styles.listItem_active : '')].join(' ')}
+              className={[
+                'projects-list__tipline-inbox',
+                styles.listItem,
+                styles.listItem_containsCount,
+                activeItem.type === 'tipline-inbox' ? styles.listItem_active : '',
+              ].join(' ')}
             >
               <InboxIcon className={styles.listIcon} />
               <ListItemText disableTypography className={styles.listLabel}>
@@ -148,7 +158,14 @@ const ProjectsComponent = ({
           className={styles.linkList}
         >
           <ListItem
-            className={['projects-list__imported-fact-checks', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'imported-fact-checks' ? styles.listItem_active : '')].join(' ')}
+            className={[
+              'projects-list__imported-fact-checks',
+              styles.listItem,
+              styles.listItem_containsCount,
+              activeItem.type === 'imported-fact-checks'
+                ? styles.listItem_active
+                : '',
+            ].join(' ')}
           >
             <FileDownloadIcon className={styles.listIcon} />
             <ListItemText disableTypography className={styles.listLabel}>
@@ -165,9 +182,14 @@ const ProjectsComponent = ({
             className={styles.linkList}
           >
             <ListItem
-              button
-              onClick={() => { handleSpecialLists('suggested-matches'); }}
-              className={['projects-list__suggested-matches', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'suggested-matches' ? styles.listItem_active : '')].join(' ')}
+              className={[
+                'projects-list__suggested-matches',
+                styles.listItem,
+                styles.listItem_containsCount,
+                activeItem.type === 'suggested-matches'
+                  ? styles.listItem_active
+                  : '',
+              ].join(' ')}
             >
               <LightbulbIcon className={styles.listIcon} />
               <ListItemText disableTypography className={styles.listLabel}>
@@ -185,7 +207,12 @@ const ProjectsComponent = ({
             className={styles.linkList}
           >
             <ListItem
-              className={['projects-list__unmatched-media', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'unmatched-media' ? styles.listItem_active : '')].join(' ')}
+              className={[
+                'projects-list__unmatched-media',
+                styles.listItem,
+                styles.listItem_containsCount,
+                activeItem.type === 'unmatched-media' ? styles.listItem_active : '',
+              ].join(' ')}
             >
               <UnmatchedIcon className={styles.listIcon} />
               <ListItemText disableTypography className={styles.listLabel}>
@@ -201,7 +228,12 @@ const ProjectsComponent = ({
           className={styles.linkList}
         >
           <ListItem
-            className={['projects-list__published', styles.listItem, styles.listItem_containsCount, (activeItem.type === 'published' ? styles.listItem_active : '')].join(' ')}
+            className={[
+              'projects-list__published',
+              styles.listItem,
+              styles.listItem_containsCount,
+              activeItem.type === 'published' ? styles.listItem_active : '',
+            ].join(' ')}
           >
             <PublishedIcon className={styles.listIcon} />
             <ListItemText disableTypography className={styles.listLabel}>
@@ -292,6 +324,54 @@ const ProjectsComponent = ({
             </>
           }
         </Collapse>
+      </List>
+
+      <List dense disablePadding className={[styles.listWrapper, styles.listFooter].join(' ')}>
+        {/* Spam */}
+        <Link
+          onClick={handleSpam}
+          to={`/${team.slug}/spam`}
+          className={styles.linkList}
+        >
+          <ListItem
+            className={['project-list__link-spam', 'project-list__item-spam', styles.listItem, styles.listItem_containsCount, activeItem.type === 'spam' ? styles.listItem_active : ''].join(' ')}
+          >
+            <ReportIcon className={styles.listIcon} />
+            <ListItemText disableTypography className={styles.listLabel}>
+              <FormattedMessage tagName="span" id="projectsComponent.spam" defaultMessage="Spam" description="Label for a list displayed on the left sidebar that includes items that have been trashed" />
+            </ListItemText>
+            <ListItemSecondaryAction title={team.medias_count} className={styles.listItemCount}>
+              <small>{String(team.spam_count)}</small>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </Link>
+
+        {/* Trash */}
+        <Link
+          onClick={handleTrash}
+          to={`/${team.slug}/trash`}
+          className={styles.linkList}
+        >
+          <ListItem
+            className={[
+              'project-list__link-trash',
+              'project-list__item-trash',
+              styles.listItem,
+              styles.listItem_containsCount,
+              activeItem.type === 'trash'
+                ? styles.listItem_active
+                : '',
+            ].join(' ')}
+          >
+            <DeleteIcon className={styles.listIcon} />
+            <ListItemText disableTypography className={styles.listLabel}>
+              <FormattedMessage tagName="span" id="projectsComponent.trash" defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items marked as spam" />
+            </ListItemText>
+            <ListItemSecondaryAction title={team.trash_count} className={styles.listItemCount}>
+              <small>{String(team.trash_count)}</small>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </Link>
       </List>
 
       {/* Dialog to create list */}
