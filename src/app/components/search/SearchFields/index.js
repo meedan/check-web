@@ -86,6 +86,11 @@ const messages = defineMessages({
     defaultMessage: 'Instagram post',
     description: 'Allow user to filter items by instagram posts',
   },
+  telegram: {
+    id: 'search.telegram',
+    defaultMessage: 'Telegram',
+    description: 'Allow user to filter items by Telegram posts',
+  },
   webLink: {
     id: 'search.webLink',
     defaultMessage: 'webLink',
@@ -255,6 +260,7 @@ const SearchFields = ({
     { value: 'social_media', label: intl.formatMessage(messages.socialMedia), hasChildren: true },
     { value: 'facebook', label: intl.formatMessage(messages.facebook), parent: 'social_media' },
     { value: 'instagram', label: intl.formatMessage(messages.instagram), parent: 'social_media' },
+    { value: 'telegram', label: intl.formatMessage(messages.telegram), parent: 'social_media' },
     { value: 'tiktok', label: intl.formatMessage(messages.tiktok), parent: 'social_media' },
     { value: 'twitter', label: intl.formatMessage(messages.twitter), parent: 'social_media' },
     { value: 'youtube', label: intl.formatMessage(messages.youtube), parent: 'social_media' },
