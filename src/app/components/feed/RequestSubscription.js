@@ -52,7 +52,7 @@ const RequestSubscription = ({
 
 RequestSubscription.propTypes = {
   subscribed: PropTypes.bool,
-  lastCalledAt: PropTypes.string,
+  lastCalledAt: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]), // Any value that FormattedMessage understands
 };
 
 RequestSubscription.defaultProps = {
