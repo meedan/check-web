@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -21,45 +21,48 @@ const ProjectsListItem = ({
   const handleClick = () => {
     if (onClick) {
       onClick(routePrefix, project.dbid);
-      browserHistory.push(`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`);
     }
   };
 
   const defaultClassName = ['project-list__link', className].join(' ');
 
   const Item = listItemProps => (
-    <ListItem
-      button
+    <Link
       onClick={handleClick}
-      title={project.title}
-      key={`${project.id}-${project.title}`}
-      className={[
-        defaultClassName,
-        styles.listItem,
-        styles.listItem_containsCount,
-        isActive ? styles.listItem_active : '',
-      ].join(' ')}
-      {...listItemProps}
+      className={styles.linkList}
+      to={`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`}
     >
-      {icon}
-      <ListItemText
-        disableTypography
+      <ListItem
+        title={project.title}
+        key={`${project.id}-${project.title}`}
         className={[
-          styles.listLabel,
-          !icon ? styles.listLabel_plainText : '',
+          defaultClassName,
+          styles.listItem,
+          styles.listItem_containsCount,
+          isActive ? styles.listItem_active : '',
         ].join(' ')}
+        {...listItemProps}
       >
-        <span>
-          {project.title || project.name}
-        </span>
-      </ListItemText>
-      <ListItemSecondaryAction title={project.medias_count} className={styles.listItemCount}>
-        <small>
-          { !Number.isNaN(parseInt(project.medias_count, 10)) ?
-            new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
-        </small>
-      </ListItemSecondaryAction>
-    </ListItem>
+        {icon}
+        <ListItemText
+          disableTypography
+          className={[
+            styles.listLabel,
+            !icon ? styles.listLabel_plainText : '',
+          ].join(' ')}
+        >
+          <span>
+            {project.title || project.name}
+          </span>
+        </ListItemText>
+        <ListItemSecondaryAction title={project.medias_count} className={styles.listItemCount}>
+          <small>
+            { !Number.isNaN(parseInt(project.medias_count, 10)) ?
+              new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
+          </small>
+        </ListItemSecondaryAction>
+      </ListItem>
+    </Link>
   );
 
   return <Item />;
