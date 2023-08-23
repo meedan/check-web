@@ -91,6 +91,8 @@ const Projects = () => {
                 }
               }
             }
+            trash_count
+            spam_count
           }
         }
       `}

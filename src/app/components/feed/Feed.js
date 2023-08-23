@@ -84,9 +84,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             resultType="factCheck"
             hideFields={[
               'feed_fact_checked_by',
-              'folder',
-              'projects',
-              'project_group_id',
               'tags',
               'users',
               'assigned_to',
@@ -135,9 +132,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             resultType="feed"
             hideFields={[
               'feed_fact_checked_by',
-              'folder',
-              'projects',
-              'project_group_id',
               'tags',
               'verification_status',
               'users',

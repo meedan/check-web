@@ -103,7 +103,7 @@ const NewsletterScheduler = ({
           title={
             <FormattedMessage
               id="newsletterScheduler.errorContentHasntChanged"
-              defaultMessage="The newsletter was unpublished because its content has not been updated since it was last sent."
+              defaultMessage="The newsletter was not sent because its content has not been updated since the last successful delivery."
               description="Text displayed in an error box on newsletter settings page when RSS content has not changed"
             />
           }
@@ -117,7 +117,7 @@ const NewsletterScheduler = ({
           title={
             <FormattedMessage
               id="newsletterScheduler.errorRss"
-              defaultMessage="The newsletter was unpublished because no content could be retrieved from the RSS feed."
+              defaultMessage="The newsletter was not sent because no content could be retrieved from the RSS feed."
               description="Text displayed in an error box on newsletter settings page when RSS feed could not be loaded"
             />
           }

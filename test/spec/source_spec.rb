@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 shared_examples 'source' do
   it 'should check, edit and remove source info', bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://g1.globo.com/' })
+    api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'https://g1.globo.com/' })
     wait_for_selector('.media')
     wait_for_selector('.tag-menu__icon')
     wait_for_selector('.media-tab__source').click
@@ -38,7 +38,7 @@ shared_examples 'source' do
   end
 
   it 'should add a existing source for a media', bin4: true do
-    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://www.cnnbrasil.com.br/' })
+    api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'https://www.cnnbrasil.com.br/' })
     wait_for_selector('.media')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__name')
@@ -60,7 +60,7 @@ shared_examples 'source' do
   end
 
   it 'should add a new source for a media', bin3: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
     # create source
     wait_for_selector('.media-tab__source').click

@@ -1,14 +1,17 @@
 [
   {
     "id": "ruleOperatorWrapper.and",
+    "description": "'and' logical operator choice for a rule step",
     "defaultMessage": "And"
   },
   {
     "id": "ruleOperatorWrapper.or",
+    "description": "'or' logical operator choice for a rule step",
     "defaultMessage": "Or"
   },
   {
     "id": "ruleOperatorWrapper.removeTheAbove",
+    "description": "Button to remove a new rule operator",
     "defaultMessage": "Remove item above"
   }
 ]

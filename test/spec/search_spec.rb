@@ -17,7 +17,7 @@ shared_examples 'search' do
   end
 
   it 'should search by keywords', bin4: true, quick: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
+    api_create_team_claims_sources_and_redirect_to_all_items({ count: 2 })
     sleep 60 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('#search-input')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 2
@@ -102,9 +102,8 @@ shared_examples 'search' do
   end
 
   it 'should search for reverse images', bin2: true do
-    api_create_team_and_project
+    api_create_team_and_bot
     @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item')
     create_image('files/test.png')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
@@ -119,7 +118,7 @@ shared_examples 'search' do
   end
 
   it 'should find all medias with an empty search', bin4: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     create_image('files/test.png')
@@ -132,7 +131,7 @@ shared_examples 'search' do
   end
 
   it 'should search by status', bin1: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
+    api_create_team_claims_sources_and_redirect_to_all_items({ count: 2 })
     sleep 30 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click

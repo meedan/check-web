@@ -114,7 +114,6 @@ const MediaSuggestionsComponent = ({
   reportType,
   relationships,
   team,
-  project,
   superAdminMask,
   setFlashMessage,
   relay,
@@ -504,10 +503,9 @@ const MediaSuggestionsComponent = ({
       ids: visibleItemIds,
       archived,
       team,
-      project,
     });
 
-    // reject these items and send them to a null folder
+    // reject these items and send them to trash or spam
     handleBulkReject({ dbid: null }, true, () => {
       // after rejecting, send to spam
       Store.commitUpdate(mutation, {
@@ -695,7 +693,7 @@ const MediaSuggestionsComponent = ({
               className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
             />
           </Tooltip>
-          <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.trash" defaultMessage="Send media to trash" description="Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash folder, and removed from the suggested items list." />}>
+          <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.trash" defaultMessage="Send media to trash" description="Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list." />}>
             <ButtonMain
               iconCenter={<TrashIcon />}
               onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED, relationshipItem)}
@@ -815,7 +813,7 @@ const MediaSuggestionsComponent = ({
                   </Tooltip>
                 </Grid>
                 <Grid item>
-                  <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.bulkTrash" defaultMessage="Send all medias on this page to trash" description="Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' folder and removed from the suggestions list." />}>
+                  <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.bulkTrash" defaultMessage="Send all medias on this page to trash" description="Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list." />}>
                     <ButtonMain
                       iconCenter={<TrashIcon />}
                       onClick={() => openBulkTrashDialog()}
@@ -1081,7 +1079,6 @@ MediaSuggestionsComponent.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
-  project: PropTypes.object.isRequired,
   superAdminMask: PropTypes.bool,
 };
 

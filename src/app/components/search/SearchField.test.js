@@ -3,8 +3,6 @@ import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import SearchField from './SearchField';
 
 describe('<SearchResults />', () => {
-  const node = <div />;
-
   it('should check that onBlur is called when press "enter" on input field', () => {
     const onBlur = jest.fn();
     const wrapper = mountWithIntl(<SearchField
@@ -12,7 +10,6 @@ describe('<SearchResults />', () => {
       inputBaseProps={{
         onBlur,
       }}
-      endAdorment={node}
       showExpand
       setParentSearchText={() => {}}
     />);

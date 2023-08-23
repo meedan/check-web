@@ -1,10 +1,5 @@
 [
   {
-    "id": "bulkActionsMenu.moveToFolder",
-    "description": "Menu option for bulk moving selected items into a folder",
-    "defaultMessage": "Move to folder"
-  },
-  {
     "id": "bulkActionsMenu.addTag",
     "description": "Menu option for bulk tagging selected items",
     "defaultMessage": "Add tag"
