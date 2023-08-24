@@ -198,7 +198,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
             onMoveUp={handleMoveUp}
             onMoveDown={handleMoveDown}
             style={{
-              background: 'var(--grayBackground)',
+              background: 'var(--brandBackground)',
               borderRadius: '5px',
               margin: '16px 0 0',
               padding: '.3rem 1rem .5rem 0',

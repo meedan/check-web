@@ -10,7 +10,7 @@
 
 .settings {
   background: var(--brandBackground);
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 16px;
 
   > *:not(:last-child) {
@@ -24,7 +24,7 @@
 
 .newsletter-body {
   background: var(--brandBackgroundAccent);
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 16px;
 
   .rss-feed-url {
@@ -81,7 +81,7 @@
 
 .newsletter-scheduler-container {
   .newsletter-scheduler {
-    border-radius: 8px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     gap: 8px;

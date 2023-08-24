@@ -7,8 +7,7 @@ import TeamListsItem from './TeamListsItem';
 
 const useStyles = makeStyles({
   innerColumn: {
-    padding: '.3rem 0 1rem 1rem',
-    margin: '16px 0 0',
+    margin: '22px 0 0',
   },
   placeholder: {
     color: 'var(--textSecondary)',

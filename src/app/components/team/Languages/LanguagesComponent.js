@@ -89,7 +89,7 @@ const LanguagesComponent = ({ team }) => {
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
         <div className={cx(settingsStyles['setting-content-container'], styles['team-languages-section'])}>
-          <div className="typography-subtitle2">
+          <div className={settingsStyles['setting-content-container-title']}>
             <FormattedMessage
               id="languagesComponent.languageDetection"
               defaultMessage="Language detection"
@@ -120,7 +120,7 @@ const LanguagesComponent = ({ team }) => {
           </div>
         </div>
         <div className={cx(settingsStyles['setting-content-container'], styles['team-languages-section'])}>
-          <div className="typography-subtitle2">
+          <div className={settingsStyles['setting-content-container-title']}>
             <FormattedMessage
               id="languagesComponent.languages"
               defaultMessage="Languages"
