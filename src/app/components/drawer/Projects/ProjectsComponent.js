@@ -217,7 +217,7 @@ const ProjectsComponent = ({
               <UnmatchedIcon className={styles.listIcon} />
               <ListItemText disableTypography className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.unmatchedMedia" defaultMessage="Unmatched media" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" />
-              </ListItemText>Project
+              </ListItemText>
               <ListItemSecondaryAction className={styles.listItemCount} />
             </ListItem>
           </Link>
