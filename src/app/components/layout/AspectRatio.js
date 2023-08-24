@@ -128,7 +128,7 @@ const AspectRatio = ({
   const handleOnExpand = () => {
     // If this is video, use the button to enter or exit fullscreen for the container div depending on whether we are already in fullscreen
     if (isVideoFile) {
-      if (isFullscreenVideo) {
+      if (isFullscreenVideo && document?.fullscreen) {
         document.exitFullscreen();
         setIsFullscreenVideo(false);
       } else {
