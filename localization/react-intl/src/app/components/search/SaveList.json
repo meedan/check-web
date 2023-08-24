@@ -21,14 +21,17 @@
   },
   {
     "id": "saveList.newList",
+    "description": "Dialog title and submit button label for saving changes to lists",
     "defaultMessage": "Save list"
   },
   {
     "id": "saveList.title",
+    "description": "Prompt for editing list name",
     "defaultMessage": "Enter new list name"
   },
   {
     "id": "saveList.cancel",
+    "description": "Cancel list editing button label",
     "defaultMessage": "Cancel"
   },
   {

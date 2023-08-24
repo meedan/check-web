@@ -21,6 +21,7 @@ const Published = ({ routeParams }) => {
       teamSlug={routeParams.team}
       query={query}
       hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
+      readOnlyFields={['report_status']}
       page="published"
     />
   );

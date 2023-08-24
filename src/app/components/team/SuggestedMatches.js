@@ -53,7 +53,8 @@ const SuggestedMatches = ({ routeParams }) => (
               icon={<LightbulbIcon />}
               teamSlug={routeParams.team}
               query={query}
-              hideFields={['feed_fact_checked_by', 'suggestions_count', 'cluster_teams', 'cluster_published_reports']}
+              hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
+              readOnlyFields={['suggestions_count']}
               page="suggested-matches"
             />
           );

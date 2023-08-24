@@ -258,14 +258,10 @@ class BulkActions extends React.Component {
   }
 }
 
-BulkActions.defaultProps = {
-  page: null,
-};
-
 BulkActions.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
   team: PropTypes.object.isRequired,
-  page: PropTypes.string,
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   selectedMedia: PropTypes.array.isRequired,
   selectedProjectMedia: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   onUnselectAll: PropTypes.func.isRequired,

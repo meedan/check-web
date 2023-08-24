@@ -26,33 +26,21 @@ import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
 
 /**
- * Delete `esoffset`, `timestamp`, and maybe `projects`, `project_group_id` and `channels` -- whenever
+ * Delete `esoffset`, `timestamp` and `channels` -- whenever
  * they can be inferred from the URL or defaults.
  *
  * This is useful for building simple-as-possible URLs.
  */
-function simplifyQuery(query, project, projectGroup) {
+function simplifyQuery(query) {
   const ret = { ...query };
   delete ret.esoffset;
   delete ret.timestamp;
-  if (
-    ret.projects &&
-    (ret.projects.length === 1 && project && ret.projects[0] === project.dbid)
-  ) {
-    delete ret.projects;
-  }
-  if (
-    ret.project_group_id &&
-    (ret.project_group_id.length === 1 && projectGroup && ret.project_group_id[0] === projectGroup.dbid)
-  ) {
-    delete ret.project_group_id;
-  }
   if (ret.keyword && !ret.keyword.trim()) {
     delete ret.keyword;
   }
-  if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
-    delete ret.channels;
-  }
+  // if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
+  //   delete ret.channels;
+  // }
   if (/\/(unmatched-media)+/.test(window.location.pathname)) {
     delete ret.unmatched;
   }
@@ -63,10 +51,9 @@ function simplifyQuery(query, project, projectGroup) {
 function SearchResultsComponent({
   pusher,
   clientSessionId,
-  query: defaultQuery,
+  query: currentQuery,
+  defaultQuery,
   search,
-  project,
-  projectGroup,
   feedTeam,
   feed,
   searchUrlPrefix,
@@ -86,12 +73,11 @@ function SearchResultsComponent({
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
-  const [query, setQuery] = React.useState(defaultQuery);
+  const [query, setQuery] = React.useState(currentQuery);
 
-  React.useEffect(() => {
-    const projectId = project ? project.dbid : 0;
-    relay.setVariables({ projectId });
-  }, []); // run only once, on load
+  console.log('defaultQuery', defaultQuery); // eslint-disable-line
+  console.log('currentQuery', currentQuery); // eslint-disable-line
+  console.log('query', query); // eslint-disable-line
 
   const onUnselectAll = () => {
     setSelectedProjectMediaIds([]);
@@ -164,7 +150,7 @@ function SearchResultsComponent({
       newQuery.sort = sortParams.key;
       newQuery.sort_type = sortParams.ascending ? 'ASC' : 'DESC';
     }
-    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
+    const cleanQuery = simplifyQuery(newQuery);
     navigateToQuery(cleanQuery);
   };
 
@@ -174,7 +160,7 @@ function SearchResultsComponent({
   if other filter is applied, the new query should keep the previous sort parameter
   */
   const handleChangeQuery = (newQuery) => {
-    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
+    const cleanQuery = simplifyQuery(newQuery);
     if (query.sort) {
       cleanQuery.sort = query.sort;
     }
@@ -189,7 +175,7 @@ function SearchResultsComponent({
   };
 
   const buildSearchUrlAtOffset = (offset) => {
-    const cleanQuery = simplifyQuery(query, project, projectGroup);
+    const cleanQuery = simplifyQuery(query);
     if (offset > 0) {
       cleanQuery.esoffset = offset;
     }
@@ -214,6 +200,7 @@ function SearchResultsComponent({
     return buildSearchUrlAtOffset(getBeginIndex() - pageSize);
   };
 
+  // Remove any malformed, partially formed or empty values from query
   const cleanupQuery = (oldQuery) => {
     const cleanQuery = { ...oldQuery };
     if (oldQuery.team_tasks) {
@@ -261,7 +248,7 @@ function SearchResultsComponent({
    * The URL will have a `listIndex` (so the ProjectMedia page can paginate). It
    * will also include `listPath` and `listQuery` ... _unless_ those parameters
    * are redundant. (For instance, if the query is
-   * `{ timestamp, esoffset, projects: [projectId] }` then the result can be `{}`
+   * `{ timestamp, esoffset }` then the result can be `{}`
    * because enough data is in `mediaUrlPrefix` to infer the properties.
    */
   const buildProjectMediaUrl = (projectMedia) => {
@@ -269,7 +256,7 @@ function SearchResultsComponent({
       return null;
     }
 
-    const cleanQuery = simplifyQuery(query, project, projectGroup);
+    const cleanQuery = simplifyQuery(query);
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
@@ -439,8 +426,6 @@ function SearchResultsComponent({
             <SearchKeyword
               query={query}
               setQuery={setQuery}
-              project={project}
-              hideFields={hideFields}
               title={title}
               team={team}
               showExpand={showExpand}
@@ -455,10 +440,10 @@ function SearchResultsComponent({
         <Box m={2}>
           <SearchFields
             query={query}
+            currentQuery={currentQuery}
+            defaultQuery={defaultQuery}
             setQuery={setQuery}
             onChange={handleChangeQuery}
-            project={project}
-            projectGroup={projectGroup}
             feedTeam={feedTeam}
             feed={feed}
             savedSearch={savedSearch}
@@ -480,7 +465,6 @@ function SearchResultsComponent({
               <BulkActions
                 team={team}
                 page={page}
-                project={project}
                 selectedProjectMedia={selectedProjectMedia}
                 selectedMedia={filteredSelectedProjectMediaIds}
                 onUnselectAll={onUnselectAll}
@@ -555,7 +539,6 @@ function SearchResultsComponent({
               </span>
             </span> : null
           }
-          project={project}
           page={page}
           search={search}
         />
@@ -566,12 +549,10 @@ function SearchResultsComponent({
 }
 
 SearchResultsComponent.defaultProps = {
-  project: null,
-  projectGroup: null,
   showExpand: false,
   icon: null,
   listActions: undefined,
-  page: undefined, // FIXME find a cleaner way to render Trash differently
+  page: undefined,
   resultType: 'default',
   hideFields: [],
   readOnlyFields: [],
@@ -592,14 +573,6 @@ SearchResultsComponent.propTypes = {
     id: PropTypes.string.isRequired, // TODO fill in props
     medias: PropTypes.shape({ edges: PropTypes.array.isRequired }).isRequired,
   }).isRequired,
-  project: PropTypes.shape({
-    id: PropTypes.string.isRequired, // TODO fill in props
-    dbid: PropTypes.number.isRequired,
-  }), // may be null
-  projectGroup: PropTypes.shape({
-    id: PropTypes.string.isRequired, // TODO fill in props
-    dbid: PropTypes.number.isRequired,
-  }), // may be null
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
@@ -618,7 +591,7 @@ SearchResultsComponent.propTypes = {
   listSubtitle: PropTypes.object,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  page: PropTypes.oneOf(['trash', 'list', 'feed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
@@ -631,7 +604,6 @@ export { SearchResultsComponent as SearchResultsComponentTest };
 
 const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
   initialVariables: {
-    projectId: 0,
     pageSize,
   },
   fragments: {
@@ -690,10 +662,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
                 first_item_at
                 last_item_at
               }
-              project {
-                dbid
-                id
-              }
               team {
                 slug
                 verification_statuses
@@ -745,25 +713,15 @@ function encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug) {
   if (nKeys === 0) {
     return `{"parent":{"type":"team","slug":${JSON.stringify(teamSlug)}}}`;
   }
-  if (nKeys === 1 && query.projects && query.projects.length === 1) {
-    // JSON.stringify is pedantic -- the ID is a Number to begin with
-    const id = JSON.stringify(query.projects[0]);
-    return `{"parent":{"type":"project","id":${id}},"projects":[${id}]}`;
-  }
   // In all but these two cases, generate a separate query.
   return JSON.stringify(query);
 }
 
 export default function SearchResults({ query, teamSlug, ...props }) {
   const jsonEncodedQuery = encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug);
-  let projectId = 0;
-  const { projects } = query;
-  if (projects && projects.length === 1) {
-    [projectId] = projects;
-  }
+
   const route = React.useMemo(() => new SearchRoute({
     jsonEncodedQuery,
-    projectId,
   }), [jsonEncodedQuery]);
 
   return (

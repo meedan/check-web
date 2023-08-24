@@ -13,8 +13,8 @@ import LanguageFilter from '../LanguageFilter';
 import NumericRangeFilter from '../NumericRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
-import { can } from '../../Can';
 import { Row } from '../../../styles/js/shared';
+import SearchFieldDummy from './SearchFieldDummy';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
@@ -23,12 +23,14 @@ import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import CorporateFareIcon from '../../../icons/corporate_fare.svg';
+import DeleteIcon from '../../../icons/delete.svg';
 import DescriptionIcon from '../../../icons/description.svg';
 import ErrorIcon from '../../../icons/error_outline.svg';
 import HowToRegIcon from '../../../icons/person_check.svg';
 import LabelIcon from '../../../icons/label.svg';
 import PersonIcon from '../../../icons/person.svg';
 import ReportIcon from '../../../icons/playlist_add_check.svg';
+import SpamIcon from '../../../icons/report.svg';
 import MarkunreadIcon from '../../../icons/mail.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 
@@ -139,8 +141,8 @@ const SearchFields = ({
   intl,
   team,
   query,
-  project,
-  projectGroup,
+  currentQuery,
+  defaultQuery,
   feedTeam,
   readOnlyFields,
   setQuery,
@@ -186,7 +188,7 @@ const SearchFields = ({
     setQuery(newQuery);
   };
 
-  const filterIsActive = () => Object.keys(query).filter(k => k !== 'keyword').length > 0;
+  // const filterIsActive = () => Object.keys(query).filter(k => k !== 'keyword').length > 0;
 
   const handleDateChange = (value) => {
     const newQuery = { ...query, range: value };
@@ -235,7 +237,7 @@ const SearchFields = ({
 
   const handleClickClear = () => {
     const { keyword } = query;
-    const newQuery = { keyword };
+    const newQuery = keyword ? { keyword } : {};
     setQuery(newQuery);
     onChange(newQuery);
   };
@@ -295,10 +297,6 @@ const SearchFields = ({
     { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
     { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
   ];
-
-  const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
-
-  const hideChannel = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname) || readOnlyFields.includes('channels');
 
   const OperatorToggle = () => {
     let operatorProps = { style: { minWidth: 0, color: 'var(--brandMain)' }, onClick: handleOperatorClick };
@@ -438,7 +436,7 @@ const SearchFields = ({
         query={query}
         onChange={(newValue) => { handleFilterClick(newValue, 'channels'); }}
         onRemove={() => handleRemoveField('channels')}
-        readOnly={hideChannel}
+        readOnly={readOnlyFields.includes('channels')}
       />
     ),
     archived: (
@@ -476,7 +474,7 @@ const SearchFields = ({
           onChange={handleNumericRange}
           value={query.suggestions_count}
           onRemove={() => handleRemoveField('suggestions_count')}
-          readOnly={isSpecialPage || readOnlyFields.includes('suggestions_count')}
+          readOnly={readOnlyFields.includes('suggestions_count')}
         />
       </Box>
     ),
@@ -613,15 +611,47 @@ const SearchFields = ({
         )}
       </FormattedMessage>
     ),
+    spam: (
+      <SearchFieldDummy
+        icon={<SpamIcon />}
+        label={<FormattedMessage id="search.spam" defaultMessage="Item is marked as spam" description="Label for spam filter field" />}
+      />
+    ),
+    trash: (
+      <SearchFieldDummy
+        icon={<DeleteIcon />}
+        label={<FormattedMessage id="search.trash" defaultMessage="Item is in the Trash" description="Label for spam filter field" />}
+      />
+    ),
   };
 
   let fieldKeys = [];
-  if (project) fieldKeys.push('projects');
-  if (projectGroup) fieldKeys.push('project_group_id');
-  if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
+  /*
+    spam and trash are added manually because they work with the `archived` filter field
+    and it gets mixed with the "tipline request is confirmed/unconfirmed" filter. :cry:
+    for the same reason, `archived` is a `hideFields` value for both lists.
+  */
+  if (page === 'spam') fieldKeys.push('spam');
+  if (page === 'trash') fieldKeys.push('trash');
 
-  fieldKeys = fieldKeys.concat(Object.keys(query).filter(k => k !== 'keyword' && hideFields.indexOf(k) === -1 && fieldComponents[k]));
+  fieldKeys = fieldKeys.concat(Object.keys(query).filter(k => k !== 'keyword' && !hideFields.includes(k) && fieldComponents[k]));
+
   const addedFields = fieldKeys.filter(i => i !== 'team_tasks');
+
+  const stripTimestamp = (obj) => {
+    const ret = { ...obj };
+    delete ret.timestamp;
+    return ret;
+  };
+
+  const queryWithoutTimestamp = stripTimestamp(query);
+  const currentQueryWithoutTimestamp = stripTimestamp(currentQuery);
+
+  // We can apply if the state query has differed from what is currently shown
+  const canApply = JSON.stringify(queryWithoutTimestamp) !== JSON.stringify(currentQueryWithoutTimestamp);
+  // We can save if the
+  const canSave = JSON.stringify(defaultQuery) !== JSON.stringify(currentQueryWithoutTimestamp);
+  const canReset = canApply || canSave;
 
   return (
     <div>
@@ -648,8 +678,8 @@ const SearchFields = ({
           addedFields={addedFields}
           onSelect={handleAddField}
         />
-        <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
-        { filterIsActive() ? (
+        { canReset && <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} /> }
+        { canReset && (
           <ButtonMain
             variant="contained"
             size="default"
@@ -662,22 +692,30 @@ const SearchFields = ({
               id: 'search-fields__clear-button',
             }}
           />
-        ) : null }
-        <ButtonMain
-          variant="contained"
-          size="default"
-          theme="lightValidation"
-          onClick={handleSubmit}
-          label={
-            <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
-          }
-          buttonProps={{
-            id: 'search-fields__submit-button',
-          }}
-        />
-        { can(team.permissions, 'update Team') ?
-          <SaveList team={team} query={query} project={project} projectGroup={projectGroup} savedSearch={savedSearch} feedTeam={feedTeam} />
-          : null }
+        )}
+        { canApply && (
+          <ButtonMain
+            variant="contained"
+            size="default"
+            theme="lightValidation"
+            onClick={handleSubmit}
+            label={
+              <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
+            }
+            buttonProps={{
+              id: 'search-fields__submit-button',
+            }}
+          />
+        )}
+        { canSave && (
+          <SaveList
+            team={team}
+            query={query}
+            savedSearch={savedSearch}
+            feedTeam={feedTeam}
+            page={page}
+          />
+        )}
       </Row>
     </div>
   );
@@ -685,20 +723,12 @@ const SearchFields = ({
 
 SearchFields.defaultProps = {
   page: null,
-  project: null,
-  projectGroup: null,
   savedSearch: null,
   feedTeam: null,
   readOnlyFields: [],
 };
 
 SearchFields.propTypes = {
-  project: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-  }),
-  projectGroup: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-  }),
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
@@ -709,8 +739,10 @@ SearchFields.propTypes = {
     title: PropTypes.string.isRequired,
     filters: PropTypes.string.isRequired,
   }),
-  query: PropTypes.object.isRequired,
-  setQuery: PropTypes.func.isRequired,
+  query: PropTypes.object.isRequired, // FIXME rename to stateQuery
+  currentQuery: PropTypes.object.isRequired, // FIXME rename to appliedQuery
+  defaultQuery: PropTypes.object.isRequired,
+  setQuery: PropTypes.func.isRequired, // FIXME rename to setStateQuery
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -721,7 +753,7 @@ SearchFields.propTypes = {
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
-  page: PropTypes.string,
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
 };
 
 SearchFields.contextTypes = {

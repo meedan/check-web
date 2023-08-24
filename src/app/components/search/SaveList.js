@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -12,11 +11,17 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
 import { FormattedMessage } from 'react-intl';
-import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import CheckChannels from '../../CheckChannels';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+
+/*
+  FIXME: defineMessages only once and reuse them with intl.formatMessage
+  instead of multiple FormattedMessage with same id, defaultMessage & description.
+*/
 
 const createMutation = graphql`
   mutation SaveListCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
@@ -77,12 +82,14 @@ const SaveList = ({
   team,
   feedTeam,
   savedSearch,
+  page,
   query,
   setFlashMessage,
 }) => {
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|all-items|tipline-inbox|suggested-matches|feed|unmatched-media|published)(\/([0-9]+))?/);
+  // FIXME: Replace pathname context-detection and derived logic with the `page` prop
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|all-items|tipline-inbox|suggested-matches|feed|imported-fact-checks|unmatched-media|published)(\/([0-9]+))?/);
 
-  if (!currentPath) {
+  if (!currentPath && !page) {
     return null;
   }
 
@@ -96,8 +103,11 @@ const SaveList = ({
   const [showNewDialog, setShowNewDialog] = React.useState(false);
   const [showExistingDialog, setShowExistingDialog] = React.useState(false);
 
-  // Just show the button on some pages
-  if (['all-items', 'list', 'tipline-inbox', 'suggested-matches', 'feed', 'unmatched-media', 'published'].indexOf(objectType) === -1) {
+  if (!can(team.permissions, 'update Team')) {
+    return null;
+  }
+
+  if (['spam', 'trash'].includes(page)) {
     return null;
   }
 
@@ -274,16 +284,17 @@ const SaveList = ({
   };
 
   const handleClick = () => {
-    // From the "All Items" page and unmatched media page, we can just create a new list
-    if (objectType === 'all-items' || objectType === 'unmatched-media' || objectType === 'published') {
+    // From these pages we can just create a new list
+    const coreLists = ['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published'];
+    if (coreLists.includes(objectType)) {
       setShowNewDialog(true);
     // From a list page, we can either create a new one or update the one we're seeing
     } else if (objectType === 'list') {
       setOperation('UPDATE');
       setShowExistingDialog(true);
-    } else if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
-      setOperation('UPDATE_SPECIAL_PAGE');
-      setShowExistingDialog(true);
+    // } else if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
+    //   setOperation('UPDATE_SPECIAL_PAGE');
+    //   setShowExistingDialog(true);
     // Save feed filters
     } else if (objectType === 'feed') {
       handleSaveFeed();
@@ -325,7 +336,7 @@ const SaveList = ({
       {/* Create a new list */}
       <ConfirmProceedDialog
         open={showNewDialog}
-        title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
+        title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />}
         body={
           <Box>
             <TextField
@@ -333,6 +344,7 @@ const SaveList = ({
                 <FormattedMessage
                   id="saveList.title"
                   defaultMessage="Enter new list name"
+                  description="Prompt for editing list name"
                 />
               }
               onChange={(e) => { setTitle(e.target.value); }}
@@ -344,10 +356,10 @@ const SaveList = ({
           </Box>
         }
         proceedDisabled={!title}
-        proceedLabel={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
+        proceedLabel={<FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />}
         onProceed={handleSave}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" description="Cancel list editing button label" />}
         onCancel={handleClose}
       />
 
@@ -355,7 +367,7 @@ const SaveList = ({
       { savedSearch || ['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1 ?
         <ConfirmProceedDialog
           open={showExistingDialog}
-          title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
+          title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />}
           body={
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
@@ -404,6 +416,7 @@ const SaveList = ({
                           <FormattedMessage
                             id="saveList.title"
                             defaultMessage="Enter new list name"
+                            description="Prompt for editing list name"
                           />
                         }
                         onChange={(e) => { setTitle(e.target.value); }}
@@ -421,10 +434,10 @@ const SaveList = ({
             </FormControl>
           }
           proceedDisabled={operation === 'CREATE' && !title}
-          proceedLabel={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
+          proceedLabel={<FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />}
           onProceed={handleSave}
           isSaving={saving}
-          cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" />}
+          cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" description="Cancel list editing button label" />}
           onCancel={handleClose}
         /> : null }
     </React.Fragment>
@@ -443,6 +456,7 @@ SaveList.propTypes = {
     slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
   }).isRequired,
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   query: PropTypes.object.isRequired,
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
