@@ -17,6 +17,30 @@
         background-color: var(--otherWhite);
         border-radius: 8px;
         padding: 16px;
+
+        .setting-content-container-title {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+
+          > span {
+            @mixin typography-subtitle2;
+            align-items: center;
+            display: flex;
+            flex: 1 1 auto;
+            gap: 2px;
+
+            :global(.check-icon) {
+              font-size: var(--iconSizeDefault);
+            }
+          }
+
+          .setting-content-container-actions {
+            align-items: center;
+            display: flex;
+            gap: 8px;
+          }
+        }
       }
 
       :global(.MuiTableContainer-root) {
