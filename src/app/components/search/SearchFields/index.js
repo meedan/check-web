@@ -238,6 +238,7 @@ const SearchFields = ({
   const handleClickClear = () => {
     const { keyword } = query;
     const newQuery = keyword ? { keyword } : {};
+    newQuery.sort = 'clear';
     setQuery(newQuery);
     onChange(newQuery);
   };
@@ -644,13 +645,16 @@ const SearchFields = ({
     return ret;
   };
 
-  const queryWithoutTimestamp = stripTimestamp(query);
-  const currentQueryWithoutTimestamp = stripTimestamp(currentQuery);
+  const stateQueryWithoutTimestamp = stripTimestamp(query);
+  const appliedQueryWithoutTimestamp = stripTimestamp(currentQuery);
 
-  // We can apply if the state query has differed from what is currently shown
-  const canApply = JSON.stringify(queryWithoutTimestamp) !== JSON.stringify(currentQueryWithoutTimestamp);
-  // We can save if the
-  const canSave = JSON.stringify(defaultQuery) !== JSON.stringify(currentQueryWithoutTimestamp);
+  console.log('stateQueryWithoutTimestamp', stateQueryWithoutTimestamp); // eslint-disable-line
+  console.log('appliedQueryWithoutTimestamp', appliedQueryWithoutTimestamp); // eslint-disable-line
+
+  // We can apply if the state query is dirty (differs from what is applied)
+  const canApply = JSON.stringify(stateQueryWithoutTimestamp) !== JSON.stringify(appliedQueryWithoutTimestamp);
+  // We can save if the applied query is different from the default query
+  const canSave = JSON.stringify(appliedQueryWithoutTimestamp) !== JSON.stringify(defaultQuery);
   const canReset = canApply || canSave;
 
   return (
@@ -722,7 +726,6 @@ const SearchFields = ({
 };
 
 SearchFields.defaultProps = {
-  page: null,
   savedSearch: null,
   feedTeam: null,
   readOnlyFields: [],

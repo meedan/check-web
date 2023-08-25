@@ -27,17 +27,18 @@ const SuggestedMatches = ({ routeParams }) => (
       render={({ error, props }) => {
         if (!error && props) {
           const { team } = props;
+          // Should we discard savedQuery already?
           const savedQuery = team.get_suggested_matches_filters || {};
-          let query = {};
+          const defaultQuery = {
+            suggestions_count: { min: 1 },
+            sort: 'recent_added',
+            sort_type: 'DESC',
+          };
+          let query = defaultQuery;
           if (typeof routeParams.query === 'undefined' && Object.keys(savedQuery).length > 0) {
             query = { ...savedQuery };
-          } else {
-            query = {
-              suggestions_count: { min: 1 },
-              sort: 'recent_added',
-              sort_type: 'DESC',
-              ...safelyParseJSON(routeParams.query, {}),
-            };
+          } else if (routeParams.query) {
+            query = { ...safelyParseJSON(routeParams.query, {}) };
           }
           return (
             <Search
@@ -53,6 +54,7 @@ const SuggestedMatches = ({ routeParams }) => (
               icon={<LightbulbIcon />}
               teamSlug={routeParams.team}
               query={query}
+              defaultQuery={defaultQuery}
               hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
               readOnlyFields={['suggestions_count']}
               page="suggested-matches"

@@ -552,7 +552,6 @@ SearchResultsComponent.defaultProps = {
   showExpand: false,
   icon: null,
   listActions: undefined,
-  page: undefined,
   resultType: 'default',
   hideFields: [],
   readOnlyFields: [],

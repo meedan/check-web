@@ -6,12 +6,16 @@ import Search from '../search/Search';
 import UnmatchedIcon from '../../icons/unmatched.svg';
 
 const UnmatchedMedia = ({ routeParams }) => {
-  const query = {
-    unmatched: [1],
+  const defaultQuery = {
+    unmatched: ['1'],
     sort: 'recent_activity',
     sort_type: 'DESC',
-    ...safelyParseJSON(routeParams.query, {}),
   };
+  const query = {
+    ...safelyParseJSON(routeParams.query, {}),
+    ...defaultQuery,
+  };
+
   return (
     <Search
       searchUrlPrefix={`/${routeParams.team}/unmatched-media`}
@@ -20,6 +24,7 @@ const UnmatchedMedia = ({ routeParams }) => {
       icon={<UnmatchedIcon />}
       teamSlug={routeParams.team}
       query={query}
+      defaultQuery={defaultQuery}
       hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
       readOnlyFields={['unmatched']}
       page="unmatched-media"

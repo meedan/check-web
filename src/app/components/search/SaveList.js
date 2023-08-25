@@ -15,7 +15,6 @@ import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import CheckChannels from '../../CheckChannels';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
 /*
@@ -56,17 +55,6 @@ const updateMutation = graphql`
   }
 `;
 
-const updateSpecialPageMutation = graphql`
-  mutation SaveListUpdateTeamMutation($input: UpdateTeamInput!) {
-    updateTeam(input: $input) {
-      team {
-        get_tipline_inbox_filters
-        get_suggested_matches_filters
-      }
-    }
-  }
-`;
-
 const useStyles = makeStyles(theme => ({
   saveListCreate: {
     whiteSpace: 'nowrap',
@@ -99,10 +87,13 @@ const SaveList = ({
 
   const [title, setTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);
-  const [operation, setOperation] = React.useState('CREATE'); // or 'UPDATE' or 'UPDATE_SPECIAL_PAGE'
+  const [operation, setOperation] = React.useState('CREATE'); // or 'UPDATE'
   const [showNewDialog, setShowNewDialog] = React.useState(false);
   const [showExistingDialog, setShowExistingDialog] = React.useState(false);
 
+  // FIXME: Review specific permissions:
+  // Create, Update SavedSearch
+  // Update Feed
   if (!can(team.permissions, 'update Team')) {
     return null;
   }
@@ -111,15 +102,15 @@ const SaveList = ({
     return null;
   }
 
-  // Don't even show the button if there is nothing to be saved
-  if (!query || JSON.stringify(query) === '{}') {
-    return null;
-  }
+  // // Don't even show the button if there is nothing to be saved
+  // if (!query || JSON.stringify(query) === '{}') {
+  //   return null;
+  // }
 
-  // Don't show the button if it's a list and nothing changed
-  if (objectType === 'list' && savedSearch && JSON.stringify(query) === savedSearch.filters) {
-    return null;
-  }
+  // // Don't show the button if it's a list and nothing changed
+  // if (objectType === 'list' && savedSearch && JSON.stringify(query) === savedSearch.filters) {
+  //   return null;
+  // }
 
   const feedFilters = {};
   if (objectType === 'feed') {
@@ -139,26 +130,26 @@ const SaveList = ({
     }
   }
 
-  // Don't show the button if it's a tipline inbox or suggested media page and nothing changed
-  if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
-    let defaultQuery = {};
-    let savedQuery = '{}';
-    if (objectType === 'tipline-inbox') {
-      defaultQuery = { read: ['0'], projects: ['-1'], verification_status: [team.verification_statuses.default] };
-      savedQuery = team.get_tipline_inbox_filters;
-    } else if (objectType === 'suggested-matches') {
-      defaultQuery = { suggestions_count: { min: 1 } };
-      savedQuery = team.get_suggested_matches_filters;
-    }
-    // Don't show the button if it's a saved search or a default list
-    if (savedQuery) {
-      if (JSON.stringify(query) === JSON.stringify(savedQuery)) {
-        return null;
-      }
-    } else if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
-      return null;
-    }
-  }
+  // // Don't show the button if it's a tipline inbox or suggested media page and nothing changed
+  // if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
+  //   let defaultQuery = {};
+  //   let savedQuery = '{}';
+  //   if (objectType === 'tipline-inbox') {
+  //     defaultQuery = { read: ['0'], projects: ['-1'], verification_status: [team.verification_statuses.default] };
+  //     savedQuery = team.get_tipline_inbox_filters;
+  //   } else if (objectType === 'suggested-matches') {
+  //     defaultQuery = { suggestions_count: { min: 1 } };
+  //     savedQuery = team.get_suggested_matches_filters;
+  //   }
+  //   // Don't show the button if it's a saved search or a default list
+  //   if (savedQuery) {
+  //     if (JSON.stringify(query) === JSON.stringify(savedQuery)) {
+  //       return null;
+  //     }
+  //   } else if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
+  //     return null;
+  //   }
+  // }
 
   const handleClose = () => {
     setShowNewDialog(false);
@@ -194,27 +185,9 @@ const SaveList = ({
 
   const handleSave = () => {
     setSaving(true);
-    const input = {};
-    let queryToBeSaved = {};
-    // If it's the tipline inbox, channels is a default filter
-    if (objectType === 'tipline-inbox' && operation !== 'UPDATE_SPECIAL_PAGE') {
-      queryToBeSaved.channels = [CheckChannels.ANYTIPLINE];
-    }
-    // If it's the unmatched media page, unmatched media is a default filter
-    if (objectType === 'unmatched-media') {
-      queryToBeSaved = { unmatched: [1], sort: 'recent_activity', sort_type: 'DESC' };
-    }
-    queryToBeSaved = { ...queryToBeSaved, ...query };
-
-    if (operation === 'UPDATE_SPECIAL_PAGE') {
-      if (objectType === 'tipline-inbox') {
-        input.tipline_inbox_filters = JSON.stringify(query);
-      } else if (objectType === 'suggested-matches') {
-        input.suggested_matches_filters = JSON.stringify(query);
-      }
-    } else {
-      input.filters = JSON.stringify(queryToBeSaved);
-    }
+    const input = {
+      filters: JSON.stringify({ ...query }),
+    };
 
     let mutation = updateMutation;
 
@@ -225,9 +198,6 @@ const SaveList = ({
     } else if (operation === 'UPDATE') {
       input.id = savedSearch.id;
       mutation = updateMutation;
-    } else if (operation === 'UPDATE_SPECIAL_PAGE') {
-      input.id = team.id;
-      mutation = updateSpecialPageMutation;
     }
 
     commitMutation(Store, {
@@ -292,9 +262,6 @@ const SaveList = ({
     } else if (objectType === 'list') {
       setOperation('UPDATE');
       setShowExistingDialog(true);
-    // } else if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
-    //   setOperation('UPDATE_SPECIAL_PAGE');
-    //   setShowExistingDialog(true);
     // Save feed filters
     } else if (objectType === 'feed') {
       handleSaveFeed();
@@ -364,43 +331,33 @@ const SaveList = ({
       />
 
       {/* Create a new list or update an existing list */}
-      { savedSearch || ['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1 ?
+      { savedSearch ?
         <ConfirmProceedDialog
           open={showExistingDialog}
           title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />}
           body={
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
-                { savedSearch ?
-                  <>
-                    <FormControlLabel
-                      value="UPDATE"
-                      control={<Radio />}
-                      label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
-                    />
-                    { savedSearch?.is_part_of_feeds ?
-                      <Alert
-                        variant="warning"
-                        title={
-                          <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
-                        }
-                        content={
-                          <ul>
-                            {feeds.map(feed => (
-                              <li key={feed?.id}>&bull; {feed}</li>
-                            ))}
-                          </ul>
-                        }
-                      />
-                      : null }
-                  </>
-                  :
-                  <FormControlLabel
-                    value="UPDATE_SPECIAL_PAGE"
-                    control={<Radio />}
-                    label={<FormattedMessage id="saveList.updateSpecialPage" defaultMessage="Save changes to the list" description="'Save' here is an infinitive verb" />}
+                <FormControlLabel
+                  value="UPDATE"
+                  control={<Radio />}
+                  label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
+                />
+                { savedSearch?.is_part_of_feeds ?
+                  <Alert
+                    variant="warning"
+                    title={
+                      <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
+                    }
+                    content={
+                      <ul>
+                        {feeds.map(feed => (
+                          <li key={feed}>&bull; {feed}</li>
+                        ))}
+                      </ul>
+                    }
                   />
-                }
+                  : null }
                 <FormControlLabel
                   value="CREATE"
                   control={<Radio />}

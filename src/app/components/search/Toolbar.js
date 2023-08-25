@@ -69,10 +69,6 @@ const Toolbar = ({
   );
 };
 
-Toolbar.defaultProps = {
-  page: undefined,
-};
-
 Toolbar.propTypes = {
   page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   // FIXME: Define other PropTypes

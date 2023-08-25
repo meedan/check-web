@@ -28,6 +28,7 @@ const TiplineInbox = ({ routeParams }) => (
         if (!error && props) {
           const { team } = props;
           const defaultStatusId = team.verification_statuses.default;
+          // Should we discard savedQuery already?
           const savedQuery = team.get_tipline_inbox_filters || {};
           const defaultQuery = {
             channels: [CheckChannels.ANYTIPLINE],

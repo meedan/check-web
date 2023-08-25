@@ -45,11 +45,6 @@
     "defaultMessage": "Saving changes will update shared feeds:"
   },
   {
-    "id": "saveList.updateSpecialPage",
-    "description": "'Save' here is an infinitive verb",
-    "defaultMessage": "Save changes to the list"
-  },
-  {
     "id": "saveList.create",
     "description": "'Create' here is an infinitive verb",
     "defaultMessage": "Create new list"
