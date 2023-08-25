@@ -1,10 +1,12 @@
 #!/bin/bash
 
-if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' ]]
+# Running only unit tests
+if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ '[full ci]' ]]
 then
   docker-compose build web
   docker-compose -f docker-compose.yml -f docker-test.yml up -d web
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
+# Running all tests
 else
   if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]
   then
