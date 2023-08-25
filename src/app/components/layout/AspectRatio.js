@@ -9,11 +9,11 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import FullscreenIcon from '@material-ui/icons/Fullscreen';
-import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import DownloadIcon from '@material-ui/icons/Download';
 import SensitiveContentMenuButton from '../media/SensitiveContentMenuButton.js';
+import FullscreenIcon from '../../icons/fullscreen.svg';
+import FullscreenExitIcon from '../../icons/fullscreen_exit.svg';
+import VisibilityOffIcon from '../../icons/visibility_off.svg';
+import DownloadIcon from '../../icons/download.svg';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -64,12 +64,13 @@ const useStyles = makeStyles(theme => ({
     color: 'var(--otherWhite)',
   }),
   visibilityIcon: props => ({
-    fontSize: '40px',
-    visibility: props.contentWarning ? 'visible' : 'hidden',
+    fontSize: '24px',
+    visibility: props.contentWarning || props.superAdminMask ? 'visible' : 'hidden',
   }),
   iconButton: {
     color: 'var(--otherWhite)',
     backgroundColor: 'var(--textPrimary)',
+    fontSize: '24px',
     margin: theme.spacing(0.5),
     '&:hover': {
       color: 'var(--otherWhite) !important',
@@ -114,20 +115,20 @@ const AspectRatio = ({
   children,
   projectMedia,
   isVideoFile,
+  superAdminMask,
   intl,
 }) => {
   const contentWarning = projectMedia?.show_warning_cover;
   const warningCreator = projectMedia?.dynamic_annotation_flag?.annotator?.name;
-
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
-  const classes = useStyles({ contentWarning: contentWarning && maskContent });
+  const classes = useStyles({ contentWarning: contentWarning && maskContent, superAdminMask });
 
   const handleOnExpand = () => {
     // If this is video, use the button to enter or exit fullscreen for the container div depending on whether we are already in fullscreen
     if (isVideoFile) {
-      if (isFullscreenVideo) {
+      if (isFullscreenVideo && document?.fullscreen) {
         document.exitFullscreen();
         setIsFullscreenVideo(false);
       } else {
@@ -202,9 +203,9 @@ const AspectRatio = ({
         />
         : null }
       <div className={classes.innerWrapper}>
-        <ButtonsContainer />
-        { !maskContent ? children : null }
-        { contentWarning ?
+        { !superAdminMask ? <ButtonsContainer /> : null }
+        { !maskContent && !superAdminMask ? children : null }
+        { contentWarning || superAdminMask ?
           <div className={classes.sensitiveScreen}>
             <Box
               display="flex"
@@ -216,7 +217,18 @@ const AspectRatio = ({
               pb={4}
             >
               <VisibilityOffIcon className={classes.visibilityIcon} />
-              <div style={{ visibility: contentWarning && maskContent ? 'visible' : 'hidden' }}>
+              { superAdminMask ? (
+                <div >
+                  <Typography variant="body1">
+                    <FormattedMessage
+                      id="contentScreen.superAdminMaskMessage"
+                      defaultMessage="Super admin screen is on"
+                      description="Text to show that admin screen is on"
+                    />
+                  </Typography>
+                </div>
+              ) : null }
+              <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
                 <Typography variant="body1">
                   { warningCreator !== 'Alegre' ? (
                     <FormattedHTMLMessage
@@ -240,7 +252,7 @@ const AspectRatio = ({
                   )}
                 </Typography>
               </div>
-              { contentWarning ? (
+              { contentWarning && !superAdminMask ? (
                 <Button
                   className={classes.button}
                   onClick={() => setMaskContent(!maskContent)}
@@ -274,11 +286,13 @@ AspectRatio.propTypes = {
   children: PropTypes.node.isRequired,
   downloadUrl: PropTypes.string,
   isVideoFile: PropTypes.bool,
+  superAdminMask: PropTypes.bool,
 };
 
 AspectRatio.defaultProps = {
   downloadUrl: '',
   isVideoFile: false,
+  superAdminMask: false,
 };
 
 export default createFragmentContainer(injectIntl(AspectRatio), graphql`

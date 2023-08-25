@@ -1,6 +1,6 @@
 shared_examples 'status' do
   it 'should customize status', bin4: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
     wait_for_selector('.media-status__current').click
     wait_for_selector('.media-status__menu-item')

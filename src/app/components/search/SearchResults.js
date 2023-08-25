@@ -1,102 +1,29 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
-import styled from 'styled-components';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
-import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import FeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
-import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
-import ProjectBlankState from '../project/ProjectBlankState';
+import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
-import { units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchResultsCards from './SearchResultsCards';
 import SearchRoute from '../../relay/SearchRoute';
 import { pageSize } from '../../urlHelpers';
-
-const StyledListHeader = styled.div`
-  margin: ${units(2)} ${units(2)} 0;
-
-  .search__list-header-filter-row {
-    justify-content: space-between;
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .project__title-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 500px;
-  }
-
-  .project__description {
-    padding-top: ${units(0.5)};
-  }
-`;
-
-const StyledSearchResultsWrapper = styled.div`
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .search__results-heading {
-    color: var(--textPrimary);
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .search__selected {
-      color: var(--brandMain);
-      margin: 0 0 0 ${units(1)};
-    }
-
-    .search__nav {
-      padding: 0 ${units(1)} 0 0;
-      display: flex;
-      font-size: 24px;
-      cursor: pointer;
-      color: var(--textPrimary);
-    }
-
-    .search__button-disabled {
-      color: var(--textPlaceholder);
-      cursor: not-allowed;
-    }
-
-    .search__pagination {
-      display: flex;
-      align-items: center;
-    }
-  }
-`;
-
-const Styles = theme => ({
-  similarSwitch: {
-    marginLeft: theme.spacing(0),
-  },
-  inactiveColor: {
-    color: 'rgb(238, 238, 238)',
-  },
-});
 
 /**
  * Delete `esoffset`, `timestamp`, and maybe `projects`, `project_group_id` and `channels` -- whenever
@@ -126,6 +53,9 @@ function simplifyQuery(query, project, projectGroup) {
   if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
     delete ret.channels;
   }
+  if (/\/(unmatched-media)+/.test(window.location.pathname)) {
+    delete ret.unmatched;
+  }
   return ret;
 }
 
@@ -145,8 +75,8 @@ function SearchResultsComponent({
   relay,
   title,
   icon,
+  listSubtitle,
   listActions,
-  listDescription,
   page,
   resultType,
   hideFields,
@@ -300,10 +230,11 @@ function SearchResultsComponent({
         oldQuery.range.updated_at ||
         oldQuery.range.media_published_at ||
         oldQuery.range.report_published_at || {};
-      if ((!datesObj.start_time && !datesObj.end_time) && (datesObj.condition !== 'less_than')) {
+      const relativeCondition = ['less_than', 'more_than'].includes(datesObj.condition);
+      if ((!datesObj.start_time && !datesObj.end_time) && (!relativeCondition)) {
         delete cleanQuery.range;
       }
-      if (datesObj.condition === 'less_than' && datesObj.period === 0) {
+      if (relativeCondition && datesObj.period === 0) {
         delete cleanQuery.range;
       }
     }
@@ -342,7 +273,7 @@ function SearchResultsComponent({
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-fact-checks|/tipline-inbox|/suggested-matches|/spam|(/feed/[0-9]+/(shared|feed)))$')) {
+    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-fact-checks|/tipline-inbox|/suggested-matches|/unmatched-media|/spam|(/feed/[0-9]+/(shared|feed)))$')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
@@ -409,14 +340,13 @@ function SearchResultsComponent({
 
   if (count === 0) {
     content = (
-      <ProjectBlankState
-        message={
-          <FormattedMessage
-            id="projectBlankState.blank"
-            defaultMessage="There are no items here."
-          />
-        }
-      />
+      <BlankState>
+        <FormattedMessage
+          id="projectBlankState.blank"
+          defaultMessage="There are no items here."
+          description="Empty message that is displayed when search results are zero"
+        />
+      </BlankState>
     );
     if (resultType === 'factCheck') {
       content = (
@@ -455,38 +385,55 @@ function SearchResultsComponent({
 
   return (
     <React.Fragment>
-      <StyledListHeader>
-        <Row className="search__list-header-filter-row">
-          <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
-            { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
-            <div className={cx('project__title-text', styles['project-title'])}>
-              {title}
+      <div className={styles['search-results-header']}>
+        <div className="search__list-header-filter-row">
+          <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
+            <div className={styles.searchHeaderSubtitle}>
+              { listSubtitle ?
+                <>
+                  {listSubtitle}
+                </>
+                :
+                <>
+                  &nbsp;
+                </>
+              }
             </div>
-            { savedSearch?.is_part_of_feeds ?
-              <Tooltip
-                title={
-                  <>
-                    <FormattedMessage
-                      id="sharedFeedIcon.Tooltip"
-                      defaultMessage="Included in Shared Feed:"
-                      description="Tooltip for shared feeds icon"
-                    />
-                    <ul>
-                      {feeds.map(feedObj => (
-                        <li key={feedObj.id}>&bull; {feedObj}</li>
-                      ))}
-                    </ul>
-                  </>
-                }
-                className={styles['tooltip-icon']}
-              >
-                <div className={styles['search-results-header-icon']}>
-                  <FeedIcon id="shared-feed__icon" />
+            <div className={cx('project__title-text', styles.searchHeaderTitle)}>
+              <h6>
+                {icon}
+                {title}
+              </h6>
+              { (savedSearch?.is_part_of_feeds || listActions) &&
+                <div className={styles.searchHeaderActions}>
+                  { savedSearch?.is_part_of_feeds ?
+                    <Tooltip
+                      title={
+                        <>
+                          <FormattedMessage
+                            id="sharedFeedIcon.Tooltip"
+                            defaultMessage="Included in Shared Feed:"
+                            description="Tooltip for shared feeds icon"
+                          />
+                          <ul className="bulleted-list item-limited-list">
+                            {feeds.map(feedObj => (
+                              <li key={feedObj.id}>{feedObj}</li>
+                            ))}
+                          </ul>
+                        </>
+                      }
+                      arrow
+                    >
+                      <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
+                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<FeedIcon />} className={styles.searchHeaderActionButton} />
+                      </span>
+                    </Tooltip>
+                    :
+                    null }
+                  {listActions}
                 </div>
-              </Tooltip>
-              :
-              null }
-            {listActions}
+              }
+            </div>
           </div>
           { resultType !== 'factCheck' ?
             <SearchKeyword
@@ -500,14 +447,10 @@ function SearchResultsComponent({
               cleanupQuery={cleanupQuery}
               handleSubmit={handleSubmit}
             /> : null }
-        </Row>
-        <>
-          {listDescription && listDescription.trim().length ?
-            <Row className="project__description"><ParsedText text={listDescription} /></Row>
-            : null}
-        </>
-      </StyledListHeader>
-      <div className="search__results-top">
+        </div>
+      </div>
+
+      <div className={cx('search__results-top', styles['search-results-top'])}>
         { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
         <Box m={2}>
           <SearchFields
@@ -528,7 +471,7 @@ function SearchResultsComponent({
           />
         </Box>
       </div>
-      <StyledSearchResultsWrapper className="search__results results">
+      <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         <Toolbar
           resultType={resultType}
           team={team}
@@ -544,7 +487,7 @@ function SearchResultsComponent({
               /> : null
           }
           title={count ?
-            <span className="search__results-heading">
+            <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
               { resultType === 'factCheck' && feed ?
                 <ListSort
                   sort={query.sort}
@@ -552,20 +495,20 @@ function SearchResultsComponent({
                   onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
                 /> : null
               }
-              <span className="search__pagination">
+              <span className={styles['search-pagination']}>
                 <Tooltip title={
-                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
+                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
                 }
                 >
                   {getPreviousPageLocation() ? (
                     <Link
-                      className="search__previous-page search__nav"
+                      className={cx('search__previous-page', styles['search-nav'])}
                       to={getPreviousPageLocation()}
                     >
                       <PrevIcon />
                     </Link>
                   ) : (
-                    <span className="search__previous-page search__nav search__button-disabled">
+                    <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
                       <PrevIcon />
                     </span>
                   )}
@@ -574,6 +517,7 @@ function SearchResultsComponent({
                   <FormattedMessage
                     id="searchResults.itemsCount"
                     defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                    description="Pagination count of items returned"
                     values={{
                       from: getBeginIndex() + 1,
                       to: getEndIndex(),
@@ -589,21 +533,21 @@ function SearchResultsComponent({
                         selectedCount: filteredSelectedProjectMediaIds.length,
                       }}
                     >
-                      {txt => <span className="search__selected">{txt}</span>}
+                      {txt => <span className={styles['search-selected']}>{txt}</span>}
                     </FormattedMessage>
                     : null
                   }
                 </span>
                 <Tooltip title={
-                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
+                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
                 }
                 >
                   {getNextPageLocation() ? (
-                    <Link className="search__next-page search__nav" to={getNextPageLocation()}>
+                    <Link className={cx('search__next-page', styles['search-nav'])} to={getNextPageLocation()}>
                       <NextIcon />
                     </Link>
                   ) : (
-                    <span className="search__next-page search__nav search__button-disabled">
+                    <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
                       <NextIcon />
                     </span>
                   )}
@@ -616,7 +560,7 @@ function SearchResultsComponent({
           search={search}
         />
         {content}
-      </StyledSearchResultsWrapper>
+      </div>
     </React.Fragment>
   );
 }
@@ -626,7 +570,6 @@ SearchResultsComponent.defaultProps = {
   projectGroup: null,
   showExpand: false,
   icon: null,
-  listDescription: undefined,
   listActions: undefined,
   page: undefined, // FIXME find a cleaner way to render Trash differently
   resultType: 'default',
@@ -635,6 +578,7 @@ SearchResultsComponent.defaultProps = {
   savedSearch: null,
   feedTeam: null,
   feed: null,
+  listSubtitle: null,
   extra: null,
 };
 
@@ -671,10 +615,10 @@ SearchResultsComponent.propTypes = {
   showExpand: PropTypes.bool,
   relay: PropTypes.object.isRequired,
   title: PropTypes.node.isRequired,
+  listSubtitle: PropTypes.object,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  listDescription: PropTypes.string, // or undefined
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'feed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'list', 'feed']), // FIXME find a cleaner way to render Trash differently
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
@@ -685,7 +629,7 @@ SearchResultsComponent.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchResultsComponent as SearchResultsComponentTest };
 
-const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
+const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
   initialVariables: {
     projectId: 0,
     pageSize,
@@ -830,12 +774,13 @@ export default function SearchResults({ query, teamSlug, ...props }) {
       renderFetched={data => (
         <SearchResultsContainer {...props} query={query} search={data.search} />
       )}
-      renderLoading={() => <MediasLoading />}
+      renderLoading={() => <MediasLoading theme="grey" variant="page" size="large" />}
     />
   );
 }
 
 SearchResults.propTypes = {
+  listSubtitle: PropTypes.object,
   query: PropTypes.object.isRequired,
   teamSlug: PropTypes.string.isRequired,
   extra: PropTypes.node,
@@ -843,4 +788,5 @@ SearchResults.propTypes = {
 
 SearchResults.defaultProps = {
   extra: null,
+  listSubtitle: null,
 };

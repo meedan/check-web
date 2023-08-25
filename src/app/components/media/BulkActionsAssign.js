@@ -6,7 +6,7 @@ import { commitMutation, createFragmentContainer, graphql } from 'react-relay/co
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';

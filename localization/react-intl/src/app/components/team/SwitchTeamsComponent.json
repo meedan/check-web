@@ -13,6 +13,7 @@
   },
   {
     "id": "switchTeams.newTeamLink",
+    "description": "Button label for initiating creating a new team workspace",
     "defaultMessage": "Create"
   },
   {

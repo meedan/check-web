@@ -1,13 +1,13 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Chip from '@material-ui/core/Chip';
-import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
 import { units } from '../../styles/js/shared';
+import SwitchComponent from '../cds/inputs/SwitchComponent';
+import Chip from '../cds/buttons-checkboxes-chips/Chip';
 
 const StyledConditionalSelect = styled.span`
   margin-left: ${units(2)};
@@ -112,8 +112,8 @@ const ConditionalField = ({ task, tasks, onChange }) => {
     }
   }, [selectedConditional, selectedCondition, selectedFieldId, hasConditions]);
 
-  const handleToggleHasConditions = (e) => {
-    setHasConditions(e.target.checked);
+  const handleToggleHasConditions = (conditions) => {
+    setHasConditions(conditions);
   };
 
   const handlePrerequisiteFieldChange = (e) => {
@@ -132,16 +132,16 @@ const ConditionalField = ({ task, tasks, onChange }) => {
 
   return (
     <React.Fragment>
-      <Switch
+      <SwitchComponent
         checked={hasConditions}
-        onChange={handleToggleHasConditions}
+        onChange={() => handleToggleHasConditions(!hasConditions)}
+        labelPlacement="end"
+        label={<FormattedMessage
+          id="tasks.showIfCondition"
+          defaultMessage="Show field when condition is met"
+          description="This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
+        />}
       />
-      <FormattedMessage
-        id="tasks.showIfCondition"
-        defaultMessage="Show field when condition is met"
-        description="This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
-      />
-      <br />
       { hasConditions ?
         <>
           <Typography variant="body1" component="span">

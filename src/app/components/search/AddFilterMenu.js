@@ -10,8 +10,6 @@ import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import DescriptionIcon from '../../icons/description.svg';
 import ErrorIcon from '../../icons/error_outline.svg';
-import FolderIcon from '../../icons/folder.svg';
-import FolderSpecialIcon from '../../icons/folder_special.svg';
 import ForwardIcon from '../../icons/forward.svg';
 import HowToRegIcon from '../../icons/person_check.svg';
 import LabelIcon from '../../icons/label.svg';
@@ -22,6 +20,7 @@ import NoteAltIcon from '../../icons/note_alt.svg';
 import PersonIcon from '../../icons/person.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
 import SettingsInputAntennaIcon from '../../icons/settings_input_antenna.svg';
+import UnmatchedIcon from '../../icons/unmatched.svg';
 
 const AddFilterMenu = ({
   team,
@@ -38,18 +37,6 @@ const AddFilterMenu = ({
   };
 
   let options = [{
-    id: 'add-filter-menu__folder',
-    key: 'projects',
-    icon: <FolderIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.folder"
-        defaultMessage="Folder"
-        description="Menu option to enable searching items by folder"
-      />
-    ),
-  },
-  {
     id: 'add-filter-menu__claim',
     key: 'has_claim',
     icon: <LabelIcon />,
@@ -58,18 +45,6 @@ const AddFilterMenu = ({
         id="addFilterMenu.claim"
         defaultMessage="Claim"
         description="Menu option to enable searching items by claim"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__project-group-id',
-    key: 'project_group_id',
-    icon: <FolderSpecialIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.collection"
-        defaultMessage="Collection"
-        description="Menu option to enable searching items by collection"
       />
     ),
   },
@@ -231,6 +206,18 @@ const AddFilterMenu = ({
         />
       ),
     });
+    options.push({
+      id: 'add-filter-menu__unmatched',
+      key: 'unmatched',
+      icon: <UnmatchedIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.unmatched"
+          defaultMessage="Media unmatched"
+          description="Menu option to enable searching items by whether they have media that has been unmatched at some point"
+        />
+      ),
+    });
   }
   options.push({
     id: 'add-filter-menu__tipline-requests',
@@ -247,7 +234,7 @@ const AddFilterMenu = ({
   options = options.concat([
     {
       id: 'add-filter-menu__language',
-      key: 'language',
+      key: 'language_filter',
       icon: <LanguageIcon />,
       label: (
         <FormattedMessage
@@ -334,6 +321,9 @@ const AddFilterMenu = ({
   return (
     <React.Fragment>
       <ButtonMain
+        variant="contained"
+        size="default"
+        theme="text"
         onClick={e => setAnchorEl(e.currentTarget)}
         label={
           <FormattedMessage

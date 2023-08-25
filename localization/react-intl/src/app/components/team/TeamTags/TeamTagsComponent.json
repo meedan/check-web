@@ -6,6 +6,7 @@
   },
   {
     "id": "teamTagsComponent.newTag",
+    "description": "Button label for calling the new tag creation modal",
     "defaultMessage": "New tag"
   },
   {

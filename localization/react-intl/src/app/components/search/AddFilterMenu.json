@@ -1,18 +1,8 @@
 [
   {
-    "id": "addFilterMenu.folder",
-    "description": "Menu option to enable searching items by folder",
-    "defaultMessage": "Folder"
-  },
-  {
     "id": "addFilterMenu.claim",
     "description": "Menu option to enable searching items by claim",
     "defaultMessage": "Claim"
-  },
-  {
-    "id": "addFilterMenu.collection",
-    "description": "Menu option to enable searching items by collection",
-    "defaultMessage": "Collection"
   },
   {
     "id": "addFilterMenu.timeRange",
@@ -78,6 +68,11 @@
     "id": "addFilterMenu.suggestedMedias",
     "description": "Menu option to enable searching items by suggestions",
     "defaultMessage": "Number of suggestions"
+  },
+  {
+    "id": "addFilterMenu.unmatched",
+    "description": "Menu option to enable searching items by whether they have media that has been unmatched at some point",
+    "defaultMessage": "Media unmatched"
   },
   {
     "id": "addFilterMenu.tiplineRequests",

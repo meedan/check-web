@@ -80,28 +80,40 @@ Then publish it to npm. Name the module `@meedan/name-of-my-module` (in its
 
 *Running*
 
-* Start the test environment in the [check](https://github.com/meedan/check) repo: `docker-compose -f docker-compose.yml -f docker-test.yml up`
+* Start the test environment in the [check](https://github.com/meedan/check) repository: `docker-compose -f docker-compose.yml -f docker-test.yml up`
 * Copy `test/config.yml.example` to `test/config.yml` and set the configurations
 * Copy `test/config.js.example` to `test/config.js` and set the configurations
+* Copy `test/config.js.example` to `config.js` and set the configurations
 * Run `docker-compose exec web npm test:integration`
 
-By default, only unit tests will run for branches on Travis other than develop or master. For run all the tests in any branch is just necessary comment the lines below in travis.yml:
+For Alegre, Pender and Check API that are executed for the integration tests: for each of them, if there is a branch with the same name as the Check Web branch, it's going to be used. Otherwise, it will use `develop`.
 
-* https://github.com/meedan/check-web/blob/develop/.travis.yml#L61
-* https://github.com/meedan/check-web/blob/develop/.travis.yml#L75
+You can run a single integration test this way: `docker-compose exec web bash -c "cd test && rspec --example KEYWORD spec/integration_spec.rb"`.
 
-and comment this verification in the build script to build and up all necessary containers:
-* https://github.com/meedan/check-web/blob/develop/build.sh#L3-L8
-* https://github.com/meedan/check-web/blob/develop/build.sh#L43
+By default, when a test fails, it's retried up to 3 times on CI and not retried locally. You can control it by using the environment variable `TEST_RETRY_COUNT`. For example, for five attempts: `docker-compose exec web bash -c "cd test && TEST_RETRY_COUNT=5 rspec --example KEYWORD spec/integration_spec.rb"`.
+
+By default, only unit tests will run for branches on Travis other than `develop` or `master`. In order to run all the tests in any branch it's just necessary to include `[full ci]` in your commit message, and the commit doesn't even need to contain anything, for example: `git commit --allow-empty -m '[full ci] Run all integration tests for this branch'`.
+
+Tests can also be completely skipped if your commit message contains `[skip ci]` (please note that in this case all continuous integration pipelines will be skipped, including deployments).
 
 *Writing*
 
 * Use API calls (instead of using Selenium) to create all test data you need _before_ the real thing that the test is testing
-* Tag the test with one of the existing tags
+* Tag the test with one of the existing tags (bins) so that the parallel threads stay balanced
 
 #### Unit tests
 
-* Run `docker-compose exec web npm run test:unit`
+* Run all unit tests: `docker-compose exec web npm run test:unit`
+* Run a single unit test file:
+```
+$ docker compose exec web bash
+# npm run test:unit TestFileName
+> RUNS src/app/components/example/TestFileName.test.js
+```
+* Run a single unit test:
+```
+./node_modules/.bin/jest -t KEYWORD path/to/TestFile.test.js
+```
 
 #### Missing tests
 

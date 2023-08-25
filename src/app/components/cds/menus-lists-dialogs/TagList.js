@@ -1,9 +1,10 @@
+// DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=4295-43910&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../../layout/MultiSelector';
 import styles from './TagList.module.css';
 import Chip from '../buttons-checkboxes-chips/Chip';
 import Tooltip from '../alerts-and-prompts/Tooltip';

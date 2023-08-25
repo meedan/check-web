@@ -3,7 +3,7 @@
   background-color: var(--grayDisabledBackground);
   border-radius: 4px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   min-height: 36px;
   padding: 0 4px;
 
@@ -22,4 +22,101 @@
     cursor: pointer;
     margin: 0 0 0 4px;
   }
+}
+
+.search-form {
+  align-items: center;
+  display: flex;
+  flex: 0 0 450px;
+  flex-direction: row;
+  gap: 8px;
+  margin: 8px 0 0;
+  width: 450px;
+
+  .search-form-config {
+    align-items: center;
+    background-color: var(--brandBackground);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    height: 48px;
+    padding: 8px;
+  }
+}
+
+.search-field-wrapper {
+  align-items: center;
+  display: flex;
+  flex: 1 0 auto;
+  position: relative;
+
+  .search-clear-button,
+  .search-expand-button {
+    bottom: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .search-clear-button {
+    left: 6px;
+  }
+
+  .search-expand-button {
+    right: 6px;
+    visibility: hidden;
+  }
+
+  .search-field {
+    flex: 1 0 auto;
+
+    &.search-field-active {
+      input {
+        border-color: var(--brandMain);
+      }
+    }
+
+    &.search-field-expandable {
+      input {
+        padding-right: 38px;
+      }
+    }
+  }
+
+  &:hover {
+    .search-expand-button {
+      visibility: visible;
+    }
+  }
+}
+
+.search-expanded-popover {
+  :global(.MuiPopover-paper) {
+    background-color: var(--otherWhite);
+    border-radius: 8px;
+    box-shadow: var(--dropShadowMedium);
+    margin: 16px 0 0 2px;
+    padding: 16px;
+    width: 450px;
+  }
+
+  .search-expanded-popover-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+    justify-content: space-between;
+    margin: 8px 0 0;
+
+    &.submit-search-expanded {
+      flex-direction: row;
+    }
+  }
+}
+
+.close-media-button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 1;
 }

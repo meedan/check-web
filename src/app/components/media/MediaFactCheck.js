@@ -4,9 +4,9 @@ import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import IconReport from '@material-ui/icons/PlaylistAddCheck';
-import Typography from '@material-ui/core/Typography';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import IconReport from '../../icons/playlist_add_check.svg';
+import IconUnpublishedReport from '../../icons/unpublished_report.svg';
 import TimeBefore from '../TimeBefore';
 import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
 import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
@@ -165,11 +165,11 @@ const MediaFactCheck = ({ projectMedia }) => {
   return (
     <Box id="media__fact-check">
       <Box id="media__fact-check-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <Typography variant="subtitle2" component="div">
+        <div className="typography-subtitle2">
           <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
-        </Typography>
+        </div>
         {' '}
-        <Typography variant="caption" component="div">
+        <div className="typography-caption">
           { error ? errorMessage : null }
           { saving && !error ?
             <FormattedMessage
@@ -189,7 +189,7 @@ const MediaFactCheck = ({ projectMedia }) => {
               description="Caption that informs who last saved this fact-check and when it happened."
             /> : null }
           { !saving && !factCheck && !error ? <span>&nbsp;</span> : null }
-        </Typography>
+        </div>
       </Box>
 
       <MediaFactCheckField
@@ -255,15 +255,15 @@ const MediaFactCheck = ({ projectMedia }) => {
 
       { projectMedia.team.smooch_bot ?
         <Box mt={1}>
-          <Button
+          <ButtonMain
             onClick={handleGoToReport}
             className="media-fact-check__report-designer"
             variant="contained"
-            color="primary"
-            startIcon={<IconReport />}
+            theme={published ? 'brand' : 'alert'}
+            size="default"
+            iconLeft={published ? <IconReport /> : <IconUnpublishedReport />}
             disabled={saving || readOnly}
-          >
-            { published ?
+            label={published ?
               <FormattedMessage
                 className="media-fact-check__published-report"
                 id="mediaActionsBar.publishedReport"
@@ -275,8 +275,9 @@ const MediaFactCheck = ({ projectMedia }) => {
                 id="mediaActionsBar.unpublishedReport"
                 defaultMessage="Unpublished report"
                 description="A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
-              /> }
-          </Button>
+              />
+            }
+          />
         </Box> : null }
 
       <ConfirmProceedDialog
@@ -290,14 +291,14 @@ const MediaFactCheck = ({ projectMedia }) => {
         }
         body={
           <div>
-            <Typography variant="body1" component="p" paragraph>
+            <p variant="typography-body1">
               <FormattedMessage
                 id="mediaFactCheck.claimMissingDesc"
                 data-testid="media-fact-check__confirm-button-label"
                 defaultMessage="You must add a claim to access the fact-check report."
                 description="Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
               />
-            </Typography>
+            </p>
           </div>
         }
         proceedLabel={

@@ -98,12 +98,12 @@ const NewsletterScheduler = ({
 
       { lastDeliveryError === 'CONTENT_HASNT_CHANGED' ?
         <Alert
-          hasBorder
-          type="error"
+          floating
+          variant="error"
           title={
             <FormattedMessage
               id="newsletterScheduler.errorContentHasntChanged"
-              defaultMessage="The newsletter was unpublished because its content has not been updated since it was last sent."
+              defaultMessage="The newsletter was not sent because its content has not been updated since the last successful delivery."
               description="Text displayed in an error box on newsletter settings page when RSS content has not changed"
             />
           }
@@ -112,12 +112,12 @@ const NewsletterScheduler = ({
 
       { lastDeliveryError === 'RSS_ERROR' ?
         <Alert
-          hasBorder
-          type="error"
+          floating
+          variant="error"
           title={
             <FormattedMessage
               id="newsletterScheduler.errorRss"
-              defaultMessage="The newsletter was unpublished because no content could be retrieved from the RSS feed."
+              defaultMessage="The newsletter was not sent because no content could be retrieved from the RSS feed."
               description="Text displayed in an error box on newsletter settings page when RSS feed could not be loaded"
             />
           }
@@ -177,13 +177,13 @@ const NewsletterScheduler = ({
             { timezones.map(tz => <option key={tz.code} value={tz.value}>{tz.label}</option>) }
           </Select>
         </div>
-        { parentErrors.datetime_past && (
-          <div className={`typography-caption ${styles['help-container']} ${styles['error-label']}`}>
-            <ErrorOutlineIcon className={styles['error-icon']} />
-            &nbsp;{parentErrors.datetime_past}
-          </div>
-        )}
       </div>
+      { parentErrors.datetime_past && (
+        <div className={`typography-caption ${styles['help-container']} ${styles['error-label']}`}>
+          <ErrorOutlineIcon className={styles['error-icon']} />
+          &nbsp;{parentErrors.datetime_past}
+        </div>
+      )}
 
       <div className={styles['newsletter-schedule-actions']}>
         { scheduled ?

@@ -1,29 +1,18 @@
 [
   {
-    "id": "projectActions.privacyMessageAll",
-    "defaultMessage": "Anyone can see this folder, access its content and annotate it."
-  },
-  {
-    "id": "projectActions.privacyMessageEditors",
-    "defaultMessage": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
-  },
-  {
-    "id": "projectActions.privacyMessageAdmins",
-    "defaultMessage": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+    "id": "projectActions.tooltip",
+    "description": "Toolitp for the button that shows actions that can be performed on a list",
+    "defaultMessage": "Actions"
   },
   {
     "id": "projectActions.defaultErrorMessage",
-    "description": "Generic error message displayed when it's not possible to update or delete a collection, folder or list",
+    "description": "Generic error message displayed when it's not possible to update or delete a list",
     "defaultMessage": "Error, please try again"
   },
   {
     "id": "projectActions.savedSuccessfully",
-    "description": "Generic success message displayed when a collection, folder or list is updated or deleted",
+    "description": "Generic success message displayed when a list is updated or deleted",
     "defaultMessage": "Done"
-  },
-  {
-    "id": "projectActions.tooltip",
-    "defaultMessage": "Actions"
   },
   {
     "id": "projectActions.rename",
@@ -36,71 +25,18 @@
     "defaultMessage": "Delete"
   },
   {
-    "id": "projectActions.move",
-    "description": "'Move' here is an infinitive verb",
-    "defaultMessage": "Move to…"
-  },
-  {
-    "id": "projectActions.moveOut",
-    "description": "Menu option to move a folder out of a collection",
-    "defaultMessage": "Move out"
-  },
-  {
-    "id": "projectActions.privacy",
-    "description": "'Change' here is an infinitive verb",
-    "defaultMessage": "Change access"
-  },
-  {
-    "id": "projectActions.makeDefault",
-    "description": "Make the folder default",
-    "defaultMessage": "Make default"
-  },
-  {
     "id": "projectsComponent.renameType",
-    "description": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list",
-    "defaultMessage": "Rename {type}"
+    "description": "'Rename' here is an infinitive verb",
+    "defaultMessage": "Rename list"
   },
   {
     "id": "projectsComponent.title",
+    "description": "Label for the title input when renaming a list",
     "defaultMessage": "Title"
   },
   {
-    "id": "projectsComponent.description",
-    "defaultMessage": "Description"
-  },
-  {
     "id": "projectsComponent.deleteType",
-    "description": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list",
-    "defaultMessage": "Delete {type}"
-  },
-  {
-    "id": "bulkActions.dialogMoveTitle",
-    "defaultMessage": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
-  },
-  {
-    "id": "projectActions.moveTitle",
-    "description": "Label for button to move items and delete folder",
-    "defaultMessage": "Move items and delete folder"
-  },
-  {
-    "id": "projectsComponent.privacyDialogTitle",
-    "description": "Title for folder privacy dialog",
-    "defaultMessage": "Who can see this folder and its content"
-  },
-  {
-    "id": "projectsComponent.privacyDialogOptionAll",
-    "defaultMessage": "Everyone with access to this workspace"
-  },
-  {
-    "id": "projectsComponent.privacyDialogOptionEditors",
-    "defaultMessage": "Only Admins and Editors"
-  },
-  {
-    "id": "projectsComponent.privacyDialogOptionAdmins",
-    "defaultMessage": "Only Admins"
-  },
-  {
-    "id": "projectsComponent.privacyDialogButton",
-    "defaultMessage": "Update access"
+    "description": "'Delete' here is an infinitive verb",
+    "defaultMessage": "Delete list"
   }
 ]

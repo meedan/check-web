@@ -7,7 +7,7 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core';
-import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
+import SlowMotionVideoIcon from '../../../icons/slow_motion_video.svg';
 
 const useStyles = makeStyles(() => ({
   active: {
@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
   },
   icon: {
     color: 'var(--otherWhite)',
+    fontSize: '24px',
     '&:hover': {
       color: 'var(--otherWhite)',
       backgroundColor: 'var(--overlayLight)',

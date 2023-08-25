@@ -1,0 +1,85 @@
+.sandbox {
+  background-color: var(--grayBackground);
+  height: 100%;
+  overflow: auto;
+  padding: 16px 32px;
+
+  .sandboxNav {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    list-style: none;
+    margin: 20px 0 40px;
+    padding: 0;
+  }
+
+  h6 {
+    margin: 0 0 1em;
+  }
+
+  section {
+    background-color: var(--otherWhite);
+    border-radius: 8px;
+    margin: 0 0 16px;
+    padding: 16px;
+
+    .componentWrapper {
+      margin: 0 0 40px;
+
+      &:last-of-type {
+        margin: 0;
+      }
+
+      .componentName {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        margin: 0 0 10px;
+
+        .figmaLink {
+          font-size: var(--iconSizeSmall);
+        }
+      }
+
+      .componentInlineVariants {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 32px;
+        width: 100%;
+
+        &.componentInlineGreyVariants {
+          background-color: var(--grayBackground);
+        }
+      }
+
+      .componentControls {
+        background-color: var(--brandBackground);
+        border-radius: 5px 5px 0 0;
+        padding: 8px;
+
+        ul {
+          display: flex;
+          flex-flow: row wrap;
+          gap: 16px;
+          list-style: none;
+
+          li {
+            flex: 1 1 auto;
+          }
+        }
+
+        + .componentInlineVariants {
+          border: solid 4px var(--brandBackground);
+          border-radius: 0 0 5px 5px;
+          padding: 20px;
+        }
+      }
+
+      .fixed-width-tags {
+        background-color: var(--validationLight);
+        width: 300px;
+      }
+    }
+  }
+}

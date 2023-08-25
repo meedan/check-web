@@ -1,10 +1,5 @@
 [
   {
-    "id": "feedHeader.sharedFeed",
-    "description": "Displayed on top of the feed title on the feed page.",
-    "defaultMessage": "Shared Feed"
-  },
-  {
     "id": "feedHeader.tooltipLicense",
     "description": "Tooltip message displayed on feed license icon.",
     "defaultMessage": "Feed License: {licenseName}"

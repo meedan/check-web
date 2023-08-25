@@ -13,7 +13,7 @@ shared_examples 'login' do
     register_with_email(true, email, true)
     @driver.navigate.to "#{@config['self_url']}/check/me"
     wait_for_selector('#teams-tab')
-    displayed_name = wait_for_selector('h1.source__name').text
+    displayed_name = wait_for_selector('h5.source__name').text
     expect(displayed_name == 'User With Email').to be(true)
   end
 
@@ -45,7 +45,7 @@ shared_examples 'login' do
   end
 
   it 'should logout', bin3: true do
-    api_create_team_and_project
+    api_create_team_and_bot
     @driver.navigate.to @config['self_url']
     logout
     expect(@driver.page_source.include?('Sign in')).to be(true)

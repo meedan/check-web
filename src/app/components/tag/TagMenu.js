@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import { withStyles } from '@material-ui/core/styles';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../layout/MultiSelector';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -182,7 +182,7 @@ TagMenuComponent.propTypes = {
   media: PropTypes.shape({
     id: PropTypes.string,
     dbid: PropTypes.number,
-    archived: PropTypes.bool,
+    archived: PropTypes.number,
     permissions: PropTypes.string.isRequired,
     tags: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({

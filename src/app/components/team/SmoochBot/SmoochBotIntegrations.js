@@ -7,24 +7,20 @@ import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TelegramIcon from '@material-ui/icons/Telegram';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
-import ViberIcon from '../../../icons/viber.svg';
+import FacebookIcon from '../../../icons/facebook.svg';
 import LineIcon from '../../../icons/line.svg';
+import TelegramIcon from '../../../icons/telegram.svg';
+import TwitterIcon from '../../../icons/twitter.svg';
+import ViberIcon from '../../../icons/viber.svg';
+import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import SettingsHeader from '../SettingsHeader';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
 
 const useStyles = makeStyles(() => ({
-  smoochBotIntegrationsTitle: {
-    fontWeight: 'bold',
-  },
   smoochBotIntegrationsHeader: {
     marginBottom: 0,
   },
@@ -54,9 +50,9 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
     <React.Fragment>
       <SettingsHeader
         title={
-          <Typography variant="subtitle1" component="div" className={classes.smoochBotIntegrationsTitle}>
+          <div className="typography-subtitle2">
             <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
-          </Typography>
+          </div>
         }
         helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline"
         className={classes.smoochBotIntegrationsHeader}
@@ -69,8 +65,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           label="WhatsApp"
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7122ffbcd0"
-          icon={<WhatsAppIcon />}
-          color="var(--whatsappGreen)"
+          icon={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
           online={isOnline('whatsapp')}
           readOnly={isWabaSet || isCapiSet}
           info={
@@ -220,8 +215,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           label="Twitter"
           url={null}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_5cfcbe09c7"
-          icon={<TwitterIcon />}
-          color="var(--twitterBlue)"
+          icon={<TwitterIcon style={{ color: 'var(--twitterBlue)' }} />}
           deprecationNotice={
             <FormattedMessage
               id="smoochBotIntegrations.twitterDisabled"
@@ -237,8 +231,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           label="Messenger"
           url={settings.smooch_facebook_authorization_url}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7e76e39cac"
-          icon={<FacebookIcon />}
-          color="var(--facebookBlue)"
+          icon={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
           online={isOnline('messenger')}
           readOnly={!isSmoochSet}
           info={
@@ -261,8 +254,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           disabled={!isEnabled}
           type="telegram"
           label="Telegram"
-          icon={<TelegramIcon />}
-          color="var(--telegramBlue)"
+          icon={<TelegramIcon style={{ color: 'var(--telegramBlue)' }} />}
           online={isOnline('telegram')}
           readOnly={!isSmoochSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_6aa3557c62"
@@ -292,8 +284,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           disabled={!isEnabled}
           type="viber"
           label="Viber"
-          icon={<ViberIcon />}
-          color="var(--viberPurple)"
+          icon={<ViberIcon style={{ color: 'var(--viberPurple)' }} />}
           online={isOnline('viber')}
           readOnly={!isSmoochSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_895bbda0a6"
@@ -319,8 +310,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           disabled={!isEnabled}
           type="line"
           label="LINE"
-          icon={<LineIcon />}
-          color="var(--lineGreen)"
+          icon={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
           online={isOnline('line')}
           readOnly={!isSmoochSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_351dd4f960"

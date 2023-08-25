@@ -40,10 +40,6 @@
       width: calc(100% - 32px);
     }
 
-    :global(.project__title-text) {
-      max-width: none;
-    }
-
     :global(.search__results-top) {
       background: var(--otherWhite);
       border-radius: 8px;

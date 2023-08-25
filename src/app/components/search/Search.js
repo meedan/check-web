@@ -50,6 +50,9 @@ function noFilters(query_, project, projectGroup) {
   if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
     delete query.channels;
   }
+  if (/\/(unmatched-media)+/.test(window.location.pathname)) {
+    delete query.unmatched;
+  }
   if (/\/(suggested-matches)+/.test(window.location.pathname)) {
     delete query.suggestions_count;
   }
@@ -72,9 +75,9 @@ export default function Search({
   hideFields,
   readOnlyFields,
   listActions,
-  listDescription,
   mediaUrlPrefix,
   page,
+  listSubtitle,
   teamSlug,
   project,
   projectGroup,
@@ -98,6 +101,7 @@ export default function Search({
     <SearchResults
       searchUrlPrefix={searchUrlPrefix}
       mediaUrlPrefix={mediaUrlPrefix}
+      listSubtitle={listSubtitle}
       teamSlug={teamSlug}
       project={project}
       projectGroup={projectGroup}
@@ -105,7 +109,6 @@ export default function Search({
       feedTeam={feedTeam}
       savedSearch={savedSearch}
       listActions={listActions}
-      listDescription={listDescription}
       page={page}
       hideFields={hideFields}
       readOnlyFields={readOnlyFields}
@@ -128,30 +131,30 @@ Search.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
   hideFields: [],
   readOnlyFields: [],
-  listDescription: undefined,
   listActions: undefined,
   showExpand: true,
   resultType: 'default',
   icon: null,
   extra: null,
+  listSubtitle: null,
 };
 
 Search.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,
-  listDescription: PropTypes.string, // or undefined
   listActions: PropTypes.node, // or undefined
   project: PropTypes.object, // or null
   projectGroup: PropTypes.object, // or null
   feedTeam: PropTypes.object, // or null
   feed: PropTypes.object, // or null
   savedSearch: PropTypes.object, // or null
+  listSubtitle: PropTypes.object,
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,
   icon: PropTypes.node,
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'suggested-matches', 'feed', 'tipline-inbox']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'list', 'suggested-matches', 'feed', 'tipline-inbox', 'unmatched-media']), // FIXME find a cleaner way to render Trash differently
   query: PropTypes.object.isRequired, // may be empty
   showExpand: PropTypes.bool,
   resultType: PropTypes.string, // 'default' or 'feed', for now

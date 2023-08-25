@@ -1,3 +1,4 @@
+// DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=623-12029&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
@@ -20,7 +21,7 @@ function useEffectSkipFirst(fn, inputs) {
   }, inputs);
 }
 
-const TextField = ({
+const TextField = React.forwardRef(({
   className,
   disabled,
   error,
@@ -29,11 +30,13 @@ const TextField = ({
   iconLeft,
   iconRight,
   label,
+  placeholder,
   required,
   variant,
   textArea,
+  componentProps,
   ...inputProps
-}) => {
+}, ref) => {
   const [internalError, setInternalError] = React.useState(suppressInitialError ? false : error);
 
   useEffectSkipFirst(() => {
@@ -80,9 +83,11 @@ const TextField = ({
                 [styles['input-icon-right']]: iconRight,
               })
             }
-            type="text"
+            ref={ref}
             disabled={disabled}
             error={internalError}
+            placeholder={placeholder}
+            {...componentProps}
             {...inputProps}
           />
         ) : (
@@ -98,9 +103,12 @@ const TextField = ({
                 [styles['input-icon-right']]: iconRight,
               })
             }
+            ref={ref}
             type="text"
             disabled={disabled}
             error={internalError}
+            placeholder={placeholder}
+            {...componentProps}
             {...inputProps}
           />
         )}
@@ -124,7 +132,7 @@ const TextField = ({
       )}
     </div>
   );
-};
+});
 
 TextField.defaultProps = {
   className: '',
@@ -133,11 +141,13 @@ TextField.defaultProps = {
   helpContent: null,
   iconLeft: null,
   iconRight: null,
-  label: '',
+  label: null,
+  placeholder: null,
   required: false,
   suppressInitialError: false,
   textArea: false,
   variant: 'contained',
+  componentProps: {},
 };
 
 TextField.propTypes = {
@@ -147,10 +157,12 @@ TextField.propTypes = {
   helpContent: PropTypes.element,
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  placeholder: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   required: PropTypes.bool,
   suppressInitialError: PropTypes.bool,
   textArea: PropTypes.bool,
+  componentProps: PropTypes.object,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
 

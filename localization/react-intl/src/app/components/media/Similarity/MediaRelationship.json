@@ -12,7 +12,7 @@
   {
     "id": "mediaItem.detachedSuccessfully",
     "description": "Banner displayed after items are detached successfully",
-    "defaultMessage": "Item detached to '{toProject}'"
+    "defaultMessage": "Item detached"
   },
   {
     "id": "mediaItem.pinAsMain",
@@ -23,16 +23,6 @@
     "id": "mediaItem.detach",
     "description": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item.",
     "defaultMessage": "Detach media"
-  },
-  {
-    "id": "detachDialog.dialogdetachedToListTitle",
-    "description": "Dialog title prompting user to select a destination folder for the item",
-    "defaultMessage": "Move detached item to…"
-  },
-  {
-    "id": "detachDialog.detached",
-    "description": "Button to commit the action of moving item",
-    "defaultMessage": "Move to folder"
   },
   {
     "id": "mediaRelationship.lastSubmitted",

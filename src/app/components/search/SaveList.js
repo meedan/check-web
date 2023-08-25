@@ -67,9 +67,6 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     marginRight: theme.spacing(1),
   },
-  saveListButton: {
-    color: 'var(--brandMain)',
-  },
   saveListCreateLabel: {
     marginRight: 0,
     flexGrow: 1,
@@ -78,14 +75,12 @@ const useStyles = makeStyles(theme => ({
 
 const SaveList = ({
   team,
-  project,
-  projectGroup,
   feedTeam,
   savedSearch,
   query,
   setFlashMessage,
 }) => {
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches|feed)(\/([0-9]+))?/);
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|all-items|tipline-inbox|suggested-matches|feed|unmatched-media|published)(\/([0-9]+))?/);
 
   if (!currentPath) {
     return null;
@@ -102,7 +97,7 @@ const SaveList = ({
   const [showExistingDialog, setShowExistingDialog] = React.useState(false);
 
   // Just show the button on some pages
-  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches', 'feed'].indexOf(objectType) === -1) {
+  if (['all-items', 'list', 'tipline-inbox', 'suggested-matches', 'feed', 'unmatched-media', 'published'].indexOf(objectType) === -1) {
     return null;
   }
 
@@ -191,16 +186,13 @@ const SaveList = ({
     setSaving(true);
     const input = {};
     let queryToBeSaved = {};
-    // If it's a folder, add the project.id as a filter
-    if (project) {
-      queryToBeSaved.projects = [project.dbid];
-    }
-    // If it's a collection, add the projectGroup.id as a filter
-    if (projectGroup) {
-      queryToBeSaved.project_group_id = [projectGroup.dbid];
-    }
+    // If it's the tipline inbox, channels is a default filter
     if (objectType === 'tipline-inbox' && operation !== 'UPDATE_SPECIAL_PAGE') {
       queryToBeSaved.channels = [CheckChannels.ANYTIPLINE];
+    }
+    // If it's the unmatched media page, unmatched media is a default filter
+    if (objectType === 'unmatched-media') {
+      queryToBeSaved = { unmatched: [1], sort: 'recent_activity', sort_type: 'DESC' };
     }
     queryToBeSaved = { ...queryToBeSaved, ...query };
 
@@ -282,8 +274,8 @@ const SaveList = ({
   };
 
   const handleClick = () => {
-    // From the "All Items" page, collection page and a folder page, we can just create a new list
-    if (objectType === 'all-items' || objectType === 'project' || objectType === 'collection') {
+    // From the "All Items" page and unmatched media page, we can just create a new list
+    if (objectType === 'all-items' || objectType === 'unmatched-media' || objectType === 'published') {
       setShowNewDialog(true);
     // From a list page, we can either create a new one or update the one we're seeing
     } else if (objectType === 'list') {
@@ -304,8 +296,9 @@ const SaveList = ({
     <React.Fragment>
       {/* The "Save" button */}
       <ButtonMain
-        customStyle={{ color: 'var(--brandSecondary)', cursor: 'pointer', background: 'var(--brandLight)' }}
-        className={classes.saveListButton}
+        variant="contained"
+        size="default"
+        theme="lightBrand"
         onClick={handleClick}
         buttonProps={{
           id: 'save-list__button',
@@ -375,7 +368,7 @@ const SaveList = ({
                     />
                     { savedSearch?.is_part_of_feeds ?
                       <Alert
-                        type="warning"
+                        variant="warning"
                         title={
                           <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
                         }
@@ -439,8 +432,6 @@ const SaveList = ({
 };
 
 SaveList.defaultProps = {
-  project: null,
-  projectGroup: null,
   savedSearch: null,
   feedTeam: null,
 };
@@ -453,12 +444,6 @@ SaveList.propTypes = {
     permissions: PropTypes.string.isRequired,
   }).isRequired,
   query: PropTypes.object.isRequired,
-  project: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-  }),
-  projectGroup: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-  }),
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,

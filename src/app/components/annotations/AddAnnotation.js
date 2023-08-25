@@ -5,10 +5,10 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import AttachFileIcon from '../../icons/attach_file.svg';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
 import UpdateCommentMutation from '../../relay/mutations/UpdateCommentMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
@@ -84,7 +84,7 @@ class AddAnnotation extends Component {
   invalidCommand() {
     this.setState({
       message: (
-        <FormattedMessage id="addAnnotation.invalidCommand" defaultMessage="Invalid command" />
+        <FormattedMessage id="addAnnotation.invalidCommand" defaultMessage="Invalid command" description="Error message when a command is invalid" />
       ),
       isSubmitting: false,
     });
@@ -106,6 +106,7 @@ class AddAnnotation extends Component {
       <FormattedMessage
         id="addAnnotation.error"
         defaultMessage="Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+        description="Error message to try action again or contact support for more help"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
@@ -358,8 +359,8 @@ class AddAnnotation extends Component {
       return null;
     }
 
-    const inputHint = editMode ? (<FormattedMessage id="addAnnotation.inputEditHint" defaultMessage="Edit note" />)
-      : (<FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note" />);
+    const inputHint = editMode ? (<FormattedMessage id="addAnnotation.inputEditHint" defaultMessage="Edit note" description="Input help text about editing notes" />)
+      : (<FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note" description="Input help text about adding new notes" />);
     return (
       <form
         className="add-annotation"
@@ -398,14 +399,18 @@ class AddAnnotation extends Component {
             />
           ) : null}
           <AddAnnotationButtonGroup className="add-annotation__buttons">
-            <Tooltip title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" />} >
-              <IconButton
+            <Tooltip title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" description="Tooltip to tell the user they can add files" />} >
+              <ButtonMain
+                variant="text"
+                theme="lightText"
+                size="default"
+                iconCenter={<AttachFileIcon />}
                 className={`add-annotation__insert-photo ${this.state.fileMode ? 'add-annotation__file' : ''}`}
-                id="add-annotation__switcher"
+                buttonProps={{
+                  id: 'add-annotation__switcher',
+                }}
                 onClick={this.switchMode.bind(this)}
-              >
-                <AttachFileIcon />
-              </IconButton>
+              />
             </Tooltip>
             { editMode ?
               <Button onClick={this.props.handleCloseEdit} >
@@ -419,7 +424,7 @@ class AddAnnotation extends Component {
               variant="contained"
               disabled={!this.state.canSubmit}
             >
-              <FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" />
+              <FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" description="Button text for submitting the annotation form" />
             </Button>
           </AddAnnotationButtonGroup>
         </div>

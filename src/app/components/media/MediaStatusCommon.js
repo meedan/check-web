@@ -1,21 +1,19 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import LockIcon from '@material-ui/icons/Lock';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import styled from 'styled-components';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getErrorMessage, bemClass } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
+import ChatBubbleIcon from '../../icons/chat_bubble.svg';
+import ChevronDownIcon from '../../icons/chevron_down.svg';
+import LockIcon from '../../icons/lock.svg';
 
 const StyledMediaStatus = styled.div`
   display: flex;
@@ -56,13 +54,6 @@ class MediaStatusCommon extends Component {
     this.setState({ anchorEl: null });
   };
 
-  handleEdit() {
-    const { media } = this.props;
-    const projectId = media.project_id;
-    const projectPart = projectId ? `/project/${projectId}` : '';
-    browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
-  }
-
   handleStatusClick = (clickedStatus) => {
     const { media } = this.props;
     const store = new CheckContext(this).getContextStore();
@@ -79,6 +70,7 @@ class MediaStatusCommon extends Component {
       <FormattedMessage
         id="mediaStatus.error"
         defaultMessage="Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists."
+        description="Error message displayed when a status change fails"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
@@ -100,13 +92,13 @@ class MediaStatusCommon extends Component {
       <StyledMediaStatus className="media-status">
         <Button
           className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status || this.props.currentStatus)}`}
-          style={{ backgroundColor: currentStatus.style.color, color: 'var(--otherWhite)', minHeight: 41 }}
+          style={{ backgroundColor: currentStatus?.style?.color, color: 'var(--otherWhite)', minHeight: 41 }}
           variant="contained"
           disableElevation
           onClick={e => this.setState({ anchorEl: e.currentTarget })}
           disabled={!this.canUpdate()}
-          startIcon={currentStatus.should_send_message ? <ChatBubbleOutlineIcon /> : null}
-          endIcon={this.canUpdate() ? <KeyboardArrowDownIcon /> : <LockIcon />}
+          startIcon={currentStatus.should_send_message ? <ChatBubbleIcon /> : null}
+          endIcon={this.canUpdate() ? <ChevronDownIcon /> : <LockIcon />}
         >
           {currentStatus.label}
         </Button>
@@ -129,7 +121,7 @@ class MediaStatusCommon extends Component {
               <StatusLabel color={status.style.color}>
                 <StyledMediaStatus>
                   {status.label}
-                  {status.should_send_message ? <ChatBubbleOutlineIcon /> : null}
+                  {status.should_send_message ? <ChatBubbleIcon /> : null}
                 </StyledMediaStatus>
               </StatusLabel>
             </MenuItem>

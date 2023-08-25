@@ -1,22 +1,19 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
-import Switch from '@material-ui/core/Switch';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import SettingsIcon from '@material-ui/icons/Settings';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TeamBot from './TeamBot';
 import CreateTeamBotInstallationMutation from '../../relay/mutations/CreateTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import { botName } from '../../helpers';
+import SettingsIcon from '../../icons/settings.svg';
 
 class TeamBots extends Component {
   constructor(props) {
@@ -74,13 +71,13 @@ class TeamBots extends Component {
     const onSuccess = () => {
       this.setState({
         messageBotId,
-        message: <FormattedMessage id="teamBots.success" defaultMessage="Settings updated!" />,
+        message: <FormattedMessage id="teamBots.success" defaultMessage="Settings updated!" description="Success message when an integration setting has been updated" />,
       });
     };
     const onFailure = () => {
       this.setState({
         messageBotId,
-        message: <FormattedMessage id="teamBots.fail" defaultMessage="Error! Please try again." />,
+        message: <FormattedMessage id="teamBots.fail" defaultMessage="Error! Please try again." description="Error message when an integration setting did not update correctly" />,
       });
     };
 
@@ -120,24 +117,26 @@ class TeamBots extends Component {
                 <CardHeader
                   title={botName(bot)}
                   action={
-                    <IconButton
+                    <ButtonMain
+                      variant="text"
+                      size="default"
+                      theme="text"
                       disabled={!installation}
                       onClick={this.handleToggleSettings.bind(this, bot.dbid)}
                       className="settingsIcon"
-                    >
-                      <SettingsIcon />
-                    </IconButton>
+                      iconCenter={<SettingsIcon />}
+                    />
                   }
                 />
                 <CardContent>
                   <Box display="flex" alignItems="center" justifyContent="space-between">
-                    <Typography variant="body1">
+                    <div className="typography-body1">
                       {bot.description}
-                    </Typography>
-                    <Switch
+                    </div>
+                    <SwitchComponent
                       className={`team-bots__${bot.identifier}-${installation ? 'installed' : 'uninstalled'}`}
                       checked={Boolean(installation)}
-                      onClick={this.handleToggle.bind(this, installation, bot, team)}
+                      onChange={this.handleToggle.bind(this, installation, bot, team)}
                       disabled={this.state.saving === bot.id}
                     />
                   </Box>
@@ -147,18 +146,17 @@ class TeamBots extends Component {
                     { bot.installation?.json_settings ?
                       <React.Fragment>
                         <Box display="flex" alignItems="center" justifyContent="space-between">
-                          <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                          <FormattedMessage id="teamBots.settings" defaultMessage="Settings" tagName="h5" description="section title for the settings of an individual integration" />
                           <div>
-                            <Button
+                            <ButtonMain
                               variant="contained"
-                              color="primary"
+                              size="default"
+                              theme="brand"
                               onClick={this.handleSubmitSettings.bind(this, installation)}
-                            >
-                              <FormattedMessage
-                                id="teamBots.save"
-                                defaultMessage="Save"
-                              />
-                            </Button>
+                              label={
+                                <FormattedMessage id="teamBots.save" defaultMessage="Save" description="Save button on an individual integration settings" />
+                              }
+                            />
                             { this.state.message && this.state.messageBotId === bot.dbid ?
                               <Box component="small" my={0} mx={1}>
                                 {this.state.message}
@@ -176,6 +174,7 @@ class TeamBots extends Component {
                       <FormattedMessage
                         id="teamBots.noSettings"
                         defaultMessage="There are no settings for this bot."
+                        description="message to the the user that there are no additional settings for an integration"
                       />
                     }
                   </CardContent>

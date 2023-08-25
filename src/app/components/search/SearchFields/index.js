@@ -9,17 +9,15 @@ import Divider from '@material-ui/core/Divider';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
+import LanguageFilter from '../LanguageFilter';
 import NumericRangeFilter from '../NumericRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
 import { can } from '../../Can';
-import { languageLabel } from '../../../LanguageRegistry';
 import { Row } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
-import SearchFieldProject from './SearchFieldProject';
-import SearchFieldProjectGroup from './SearchFieldProjectGroup';
 import SearchFieldUser from './SearchFieldUser';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
@@ -29,10 +27,10 @@ import DescriptionIcon from '../../../icons/description.svg';
 import ErrorIcon from '../../../icons/error_outline.svg';
 import HowToRegIcon from '../../../icons/person_check.svg';
 import LabelIcon from '../../../icons/label.svg';
-import LanguageIcon from '../../../icons/language.svg';
 import PersonIcon from '../../../icons/person.svg';
 import ReportIcon from '../../../icons/playlist_add_check.svg';
 import MarkunreadIcon from '../../../icons/mail.svg';
+import UnmatchedIcon from '../../../icons/unmatched.svg';
 
 const messages = defineMessages({
   claim: {
@@ -85,6 +83,11 @@ const messages = defineMessages({
     defaultMessage: 'Instagram post',
     description: 'Allow user to filter items by instagram posts',
   },
+  telegram: {
+    id: 'search.telegram',
+    defaultMessage: 'Telegram',
+    description: 'Allow user to filter items by Telegram posts',
+  },
   webLink: {
     id: 'search.webLink',
     defaultMessage: 'webLink',
@@ -99,6 +102,11 @@ const messages = defineMessages({
     id: 'search.itemUnread',
     defaultMessage: 'Unread',
     description: 'Describes media unread',
+  },
+  unmatched: {
+    id: 'search.mediaUnmatched',
+    defaultMessage: 'Unmatched',
+    description: 'Describes media that is unmatched as in "Media is [unmatched]"',
   },
   empty: {
     id: 'search.empty',
@@ -190,6 +198,11 @@ const SearchFields = ({
     setQuery(newQuery);
   };
 
+  const handleLanguageChange = (value) => {
+    const newQuery = { ...query, language_filter: value };
+    setQuery(newQuery);
+  };
+
   const handleNumericRange = (filterKey, value) => {
     const newQuery = { ...query };
     newQuery[filterKey] = value;
@@ -249,6 +262,7 @@ const SearchFields = ({
     { value: 'social_media', label: intl.formatMessage(messages.socialMedia), hasChildren: true },
     { value: 'facebook', label: intl.formatMessage(messages.facebook), parent: 'social_media' },
     { value: 'instagram', label: intl.formatMessage(messages.instagram), parent: 'social_media' },
+    { value: 'telegram', label: intl.formatMessage(messages.telegram), parent: 'social_media' },
     { value: 'tiktok', label: intl.formatMessage(messages.tiktok), parent: 'social_media' },
     { value: 'twitter', label: intl.formatMessage(messages.twitter), parent: 'social_media' },
     { value: 'youtube', label: intl.formatMessage(messages.youtube), parent: 'social_media' },
@@ -260,6 +274,10 @@ const SearchFields = ({
   const readValues = [
     { value: '0', label: intl.formatMessage(messages.unread) },
     { value: '1', label: intl.formatMessage(messages.read) },
+  ];
+
+  const unmatchedValues = [
+    { value: '1', label: intl.formatMessage(messages.unmatched) },
   ];
 
   const confirmedValues = [
@@ -278,15 +296,11 @@ const SearchFields = ({
     { label: '', value: '' },
   ];
 
-  const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
-
   const reportStatusOptions = [
     { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
     { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
+    { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
   ];
-  if (!/feed/.test(window.location.pathname)) {
-    reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
-  }
 
   const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
@@ -308,16 +322,6 @@ const SearchFields = ({
   };
 
   const fieldComponents = {
-    projects: (
-      <SearchFieldProject
-        teamSlug={team.slug}
-        query={query}
-        project={project}
-        onChange={(newValue) => { handleFilterClick(newValue, 'projects'); }}
-        readOnly={Boolean(project) || readOnlyFields.includes('projects')}
-        onRemove={() => handleRemoveField('projects')}
-      />
-    ),
     has_claim: (
       <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
         { label => (
@@ -333,16 +337,6 @@ const SearchFields = ({
           />
         )}
       </FormattedMessage>
-    ),
-    project_group_id: (
-      <SearchFieldProjectGroup
-        teamSlug={team.slug}
-        projectGroup={projectGroup}
-        query={query}
-        onChange={(newValue) => { handleFilterClick(newValue, 'project_group_id'); }}
-        readOnly={Boolean(projectGroup) || readOnlyFields.includes('project_group_id')}
-        onRemove={() => handleRemoveField('project_group_id')}
-      />
     ),
     range: (
       <Box maxWidth="900px">
@@ -378,6 +372,23 @@ const SearchFields = ({
             readOnly={readOnlyFields.includes('show')}
             onChange={(newValue) => { handleFilterClick(newValue, 'show'); }}
             onRemove={() => handleRemoveField('show')}
+          />
+        )}
+      </FormattedMessage>
+    ),
+    unmatched: (
+      <FormattedMessage id="search.unmatched" defaultMessage="Media is unmatched" description="Label for field to filter by unmatched media">
+        { label => (
+          <MultiSelectFilter
+            allowSearch={false}
+            label={label}
+            icon={<UnmatchedIcon />}
+            selected={query.unmatched}
+            options={unmatchedValues}
+            oneOption
+            readOnly={readOnlyFields.includes('unmatched')}
+            onChange={(newValue) => { handleFilterClick(newValue, 'unmatched'); }}
+            onRemove={() => handleRemoveField('unmatched')}
           />
         )}
       </FormattedMessage>
@@ -534,20 +545,16 @@ const SearchFields = ({
         )}
       </FormattedMessage>
     ),
-    language: (
-      <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
-        { label => (
-          <MultiSelectFilter
-            label={label}
-            icon={<LanguageIcon />}
-            selected={query.language}
-            options={languages}
-            readOnly={readOnlyFields.includes('language')}
-            onChange={(newValue) => { handleFilterClick(newValue, 'language'); }}
-            onRemove={() => handleRemoveField('language')}
-          />
-        )}
-      </FormattedMessage>
+    language_filter: (
+      <Box maxWidth="900px">
+        <LanguageFilter
+          onChange={handleLanguageChange}
+          value={query.language_filter}
+          readOnly={readOnlyFields.includes('language_filter')}
+          onRemove={() => handleRemoveField('language_filter')}
+          teamSlug={team.slug}
+        />
+      </Box>
     ),
     assigned_to: (
       <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
@@ -650,27 +657,26 @@ const SearchFields = ({
         <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
         { filterIsActive() ? (
           <ButtonMain
+            variant="contained"
+            size="default"
+            theme="lightText"
             onClick={handleClickClear}
             label={
               <FormattedMessage id="search.resetFilter" defaultMessage="Reset" description="Button label to reset search filters." />
             }
-            customStyle={{
-              color: 'var(--textSecondary)',
-            }}
             buttonProps={{
               id: 'search-fields__clear-button',
             }}
           />
         ) : null }
         <ButtonMain
+          variant="contained"
+          size="default"
+          theme="lightValidation"
           onClick={handleSubmit}
           label={
             <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
           }
-          customStyle={{
-            background: 'var(--validationLight)',
-            color: 'var(--validationSecondary)',
-          }}
           buttonProps={{
             id: 'search-fields__submit-button',
           }}
@@ -684,6 +690,7 @@ const SearchFields = ({
 };
 
 SearchFields.defaultProps = {
+  page: null,
   project: null,
   projectGroup: null,
   savedSearch: null,
@@ -717,11 +724,10 @@ SearchFields.propTypes = {
     slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
     verification_statuses: PropTypes.object.isRequired,
-    get_languages: PropTypes.string.isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
 };
 
 SearchFields.contextTypes = {
@@ -735,7 +741,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     slug
     permissions
     verification_statuses
-    get_languages
     get_tipline_inbox_filters
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {
       id

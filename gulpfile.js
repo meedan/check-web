@@ -3,7 +3,6 @@ const { spawn } = require('child_process');
 const request = require('sync-request');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
-const transifex = require('gulp-transifex');
 const jsonEditor = require('gulp-json-editor');
 const webpack = require('webpack');
 const app = require('./scripts/server-app');
@@ -19,17 +18,6 @@ const RelayCommand = [
   '--schema',
   'relay.json',
 ];
-
-let transifexClient = null;
-if (buildConfig.transifex) {
-  transifexClient = transifex.createClient({
-    user: buildConfig.transifex.user,
-    password: buildConfig.transifex.password,
-    project: buildConfig.transifex.project,
-    i18n_type: 'STRUCTURED_JSON',
-    local_path: './localization/translations/*/',
-  });
-}
 
 gulp.task('relay:copy', (callback) => {
   if (buildConfig.relay.startsWith('http')) {
@@ -67,8 +55,6 @@ function copy_build_web_config_js() {
 
 gulp.task('copy:build:web', gulp.series(copy_build_web_assets, copy_build_web_config_js));
 
-gulp.task('transifex:download', () => gulp.src('./localization/transifex/**/*.json').pipe(transifexClient.pullResource()));
-
 gulp.task('transifex:translations', () => gulp.src('./localization/translations/**/*.json').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/')));
 
 gulp.task('transifex:prepare:merge', () => gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
@@ -96,16 +82,6 @@ gulp.task('transifex:prepare:sort', () => gulp.src('./localization/transifex/Web
 })).pipe(gulp.dest('./localization/transifex/')));
 
 gulp.task('transifex:prepare', gulp.series('transifex:prepare:merge', 'transifex:prepare:sort'));
-
-gulp.task('transifex:upload', () => gulp.src('./localization/transifex/WebStructured.json').pipe(transifexClient.pushResource()));
-
-// FIXME: Remove unused?
-gulp.task('transifex:languages', () => {
-  transifexClient.languages((data) => {
-    console.log(JSON.stringify(data)); // eslint-disable-line no-console
-  });
-  return gulp.series();
-});
 
 function spawnPromise(cmd) {
   return new Promise((resolve, reject) => {

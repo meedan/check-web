@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
 import FeedRequestsTable from './FeedRequestsTable';
 import FeedTopBar from './FeedTopBar';
@@ -26,6 +27,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
     title: feed.name,
     extra: () => (<FeedTopBar team={team} feed={feed} />),
+    listSubtitle: <FormattedMessage id="feedHeader.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />,
     icon: null,
     teamSlug: routeParams.team,
     readOnlyFields: Object.keys(feed.filters),
@@ -82,9 +84,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             resultType="factCheck"
             hideFields={[
               'feed_fact_checked_by',
-              'folder',
-              'projects',
-              'project_group_id',
               'tags',
               'users',
               'assigned_to',
@@ -106,9 +105,11 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'read',
               'report_status',
               'show',
+              'unmatched',
             ]}
             {...commonSearchProps}
-            title={
+            title={feed.name}
+            listActions={
               <FeedHeader feed={feed} />
             }
           />
@@ -131,9 +132,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             resultType="feed"
             hideFields={[
               'feed_fact_checked_by',
-              'folder',
-              'projects',
-              'project_group_id',
               'tags',
               'verification_status',
               'users',
@@ -154,6 +152,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'cluster_teams',
               'archived',
               'read',
+              'unmatched',
             ]}
             {...commonSearchProps}
           />

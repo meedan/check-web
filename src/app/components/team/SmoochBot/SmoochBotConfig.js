@@ -5,10 +5,8 @@ import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import Typography from '@material-ui/core/Typography';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -18,22 +16,12 @@ import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
 import { labels, descriptions, placeholders } from './localizables';
+import AddCircleIcon from '../../../icons/add_circle.svg';
 
 const useStyles = makeStyles(theme => ({
-  title: {
-    fontWeight: 'bold',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1),
-  },
-  helpIcon: {
-    color: 'var(--brandMain)',
-  },
   box: {
     padding: theme.spacing(2),
     paddingTop: theme.spacing(1),
-  },
-  resource: {
-    color: 'var(--brandMain)',
   },
 }));
 
@@ -208,9 +196,11 @@ const SmoochBotConfig = (props) => {
                 version={value.smooch_version || 'v1'}
                 onClick={handleSelectOption}
               />
-              <Button
-                startIcon={<AddCircleOutlineIcon />}
-                className={classes.resource}
+              <ButtonMain
+                iconLeft={<AddCircleIcon />}
+                theme="brand"
+                size="default"
+                variant="text"
                 onClick={() => {
                   const updatedValue = handleAddResource(value);
                   setValue(updatedValue);
@@ -218,19 +208,20 @@ const SmoochBotConfig = (props) => {
                     .smooch_custom_resources.length;
                   setCurrentOption(`resource_${resourcesCount - 1}`);
                 }}
-              >
-                <FormattedMessage
-                  id="smoochBot.addResource"
-                  defaultMessage="Add resource"
-                />
-              </Button>
+                label={
+                  <FormattedMessage
+                    id="smoochBot.addResource"
+                    defaultMessage="Add resource"
+                  />
+                }
+              />
             </Box>
             <Box flexGrow="1" className={classes.box}>
               { currentOption === 'smooch_message_smooch_bot_no_action' ?
                 <React.Fragment>
                   <Box m={1}>
-                    <Typography variant="subtitle2" component="div">{labels[currentOption]}</Typography>
-                    <Typography component="div">{descriptions[currentOption]}</Typography>
+                    <div className="typography-subtitle2">{labels[currentOption]}</div>
+                    <div>{descriptions[currentOption]}</div>
                   </Box>
                   <SmoochBotResourceEditor
                     installationId={props.installationId}

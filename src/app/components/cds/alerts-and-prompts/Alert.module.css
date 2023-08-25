@@ -1,0 +1,61 @@
+.alert-wrapper {
+  align-items: flex-start;
+  border-radius: 16px;
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  position: relative;
+  width: 100%;
+
+  &.floating {
+    border: solid 2px var(--brandSecondary);
+    box-shadow: 0 4px 16px 0 rgba(0 0 0 / .1);
+    max-width: 320px;
+  }
+
+  &.banner {
+    border-radius: 0;
+  }
+
+  &.success {
+    background-color: var(--validationLight);
+    border-color: var(--validationSecondary);
+    color: var(--validationSecondary);
+  }
+
+  &.warning {
+    background-color: var(--alertLight);
+    border-color: var(--alertSecondary);
+    color: var(--alertSecondary);
+  }
+
+  &.info {
+    background-color: var(--brandBackground);
+    border-color: var(--brandSecondary);
+    color: var(--brandSecondary);
+  }
+
+  &.error {
+    background-color: var(--errorLight);
+    border-color: var(--errorSecondary);
+    color: var(--errorSecondary);
+  }
+
+  .iconWrapper {
+    flex: 0 0 24px;
+    font-size: var(--iconSizeDefault);
+  }
+
+  .contentWrapper {
+    flex: 1 1 auto;
+    padding: 4px 0 0;
+
+    .title + .content {
+      margin: 6px 0 0;
+    }
+
+    .actionsWrapper {
+      margin: 12px 0 0;
+    }
+  }
+}

@@ -19,9 +19,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NewProject = ({
-  type,
   open,
-  noDescription,
   title,
   team,
   buttonLabel,
@@ -33,47 +31,9 @@ const NewProject = ({
 }) => {
   const classes = useStyles();
   const [newTitle, setNewTitle] = React.useState('');
-  const [newDescription, setNewDescription] = React.useState('');
   const [saving, setSaving] = React.useState(false);
 
   const mutations = {
-    folder: graphql`
-      mutation NewProjectCreateProjectMutation($input: CreateProjectInput!) {
-        createProject(input: $input) {
-          team {
-            projects(first: 10000) {
-              edges {
-                node {
-                  id
-                  dbid
-                  title
-                  medias_count
-                  project_group_id
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-    collection: graphql`
-      mutation NewProjectCreateProjectGroupMutation($input: CreateProjectGroupInput!) {
-        createProjectGroup(input: $input) {
-          team {
-            project_groups(first: 10000) {
-              edges {
-                node {
-                  id
-                  dbid
-                  title
-                  medias_count
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
     list: graphql`
       mutation NewProjectCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
         createSavedSearch(input: $input) {
@@ -117,12 +77,8 @@ const NewProject = ({
       team_id: team.dbid,
     };
 
-    if (!noDescription) {
-      input.description = newDescription;
-    }
-
     commitMutation(Store, {
-      mutation: mutations[type],
+      mutation: mutations.list,
       variables: {
         input,
       },
@@ -131,10 +87,8 @@ const NewProject = ({
           handleError();
         } else {
           handleSuccess(response);
-          if (type === 'list') {
-            const listId = response.createSavedSearch.saved_search.dbid;
-            browserHistory.push(`/${team.slug}/list/${listId}`);
-          }
+          const listId = response.createSavedSearch.saved_search.dbid;
+          browserHistory.push(`/${team.slug}/list/${listId}`);
         }
       },
       onError: () => {
@@ -154,37 +108,20 @@ const NewProject = ({
         />
       }
       body={
-        <React.Fragment>
-          <TextField
-            id="new-project__title"
-            label={
-              <FormattedMessage
-                id="projectsComponent.title"
-                defaultMessage="Title"
-              />
-            }
-            onChange={(e) => { setNewTitle(e.target.value); }}
-            variant="outlined"
-            margin="normal"
-            className="new-project__title"
-            fullWidth
-          />
-          { !noDescription ?
-            <TextField
-              id="new-project__description"
-              label={
-                <FormattedMessage
-                  id="projectsComponent.description"
-                  defaultMessage="Description"
-                />
-              }
-              onChange={(e) => { setNewDescription(e.target.value); }}
-              variant="outlined"
-              margin="normal"
-              className="new-project__description"
-              fullWidth
-            /> : null }
-        </React.Fragment>
+        <TextField
+          id="new-project__title"
+          label={
+            <FormattedMessage
+              id="projectsComponent.title"
+              defaultMessage="Title"
+            />
+          }
+          onChange={(e) => { setNewTitle(e.target.value); }}
+          variant="outlined"
+          margin="normal"
+          className="new-project__title"
+          fullWidth
+        />
       }
       proceedDisabled={!newTitle}
       proceedLabel={buttonLabel}
@@ -198,14 +135,11 @@ const NewProject = ({
 
 NewProject.defaultProps = {
   open: false,
-  noDescription: false,
 };
 
 NewProject.propTypes = {
-  type: PropTypes.oneOf(['folder', 'collection', 'list']).isRequired,
   team: PropTypes.object.isRequired,
   open: PropTypes.bool,
-  noDescription: PropTypes.bool,
   title: PropTypes.object.isRequired,
   buttonLabel: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,

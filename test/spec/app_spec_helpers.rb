@@ -25,7 +25,7 @@ module AppSpecHelpers
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
 
-  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false)
+  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false, ignore_raise = false)
     elements = []
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
@@ -49,21 +49,21 @@ module AppSpecHelpers
       @driver.navigate.refresh if reload && elements.empty?
     end
     finish = Time.now.to_i - start
-    raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty?
+    raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty? && !ignore_raise
 
     elements
   end
 
-  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false)
+  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false, ignore_raise = false)
     elements = []
     attempts = 0
     start = Time.now.to_i
     while elements.length < size && attempts < retries
       attempts += 1
-      elements = wait_for_selector_list(selector, type, timeout, test, reload)
+      elements = wait_for_selector_list(selector, type, timeout, test, reload, ignore_raise)
     end
     finish = Time.now.to_i - start
-    raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size
+    raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size && !ignore_raise
 
     elements
   end
@@ -75,7 +75,7 @@ module AppSpecHelpers
       attempts += 1
       sleep 0.5
       begin
-        element = wait_for_selector_list(selector, type)
+        element = wait_for_selector_list(selector, type, 5) # reduce timeout for checking for lack of element
       rescue
         element = []
         # rescue from Selenium::WebDriver::Error::NoSuchElementError: to give more information about the failure
@@ -129,10 +129,6 @@ module AppSpecHelpers
     wait_for_selector_none('#tos__save')
   end
 
-  def get_project
-    @driver.execute_script('return Check.store.getState().app.context.project.dbid').to_s
-  end
-
   def page_source_body
     @driver.execute_script('return document.body.outerHTML;').to_s
   end
@@ -143,14 +139,22 @@ module AppSpecHelpers
   end
 
   def create_media(url, wait_for_creation = true)
+    # open the side nav if it's closed, use very short retry periods, ignore a raised error if the closed button does not exist (it's fine, not actually an error, just means we don't do the .click)
+    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1, :css, 5, 2, 'unknown', false, true).size == 1
+    wait_for_selector('.projects-list')
+    wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
     fill_field('#create-media-input', url)
     press_button('#create-media-dialog__submit-button')
-    wait_for_selector_none('#create-media-input')
+    wait_for_selector_none('#create-media-input', :css, 1)
     wait_for_selector('.media__heading a') if wait_for_creation
   end
 
   def create_image(file)
+    # open the side nav if it's closed, use very short retry periods, ignore a raised error if the closed button does not exist (it's fine, not actually an error, just means we don't do the .click)
+    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1, :css, 5, 2, 'unknown', false, true).size == 1
+    wait_for_selector('.projects-list')
+    wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
     wait_for_selector('#create-media-dialog-form .without-file')
     wait_for_selector('#create-media-dialog-form input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))
@@ -168,21 +172,6 @@ module AppSpecHelpers
     wait_for_selector('#input')
     create_media('My search result')
     expect(@driver.page_source.include?('My search result')).to be(true)
-  end
-
-  def edit_project(options)
-    wait_for_selector('.project-actions').click
-    wait_for_selector('.project-actions__edit').click
-    update_field('.project-actions__edit-title input', options[:title]) if options[:title]
-    unless options[:description].nil?
-      wait_for_selector('.project-actions__edit-description input').send_keys(:control, 'a', :delete)
-      @driver.action.send_keys(" \b").perform
-      sleep 1
-      update_field('.project-actions__edit-description input', options[:description])
-    end
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
-    wait_for_selector('.message')
-    self
   end
 
   def get_config(config_variable)
@@ -268,21 +257,6 @@ module AppSpecHelpers
     wait_for_selector('.annotation__card-thumbnail')
   end
 
-  def create_folder_or_collection(project_name, project_type_selector)
-    name = project_name || "Project #{Time.now.to_i}"
-    wait_for_selector('.project-list__link-trash')
-    wait_for_selector('.projects-list__add-folder-or-collection').click
-    wait_for_selector(project_type_selector).click
-    wait_for_selector('.new-project__title input').send_keys(name)
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('.message')
-    wait_for_selector_none('#confirm-dialog__confirm-action-button')
-    # I'm getting "stale element reference" here:
-    # wait_for_selector_list('.project-list__link').last.click
-    @driver.execute_script("var items = document.querySelectorAll('.project-list__link') ; items[items.length - 1].click()")
-    wait_for_selector('.project')
-  end
-
   def add_related_item(item_name)
     wait_for_selector('#create-media-dialog__dismiss-button')
     wait_for_selector('#autocomplete-media-item').send_keys(item_name)
@@ -291,17 +265,5 @@ module AppSpecHelpers
     wait_for_selector('.autocomplete-media-item__select').click
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector_none('#create-media-dialog__dismiss-button')
-  end
-
-  def move_folder_to_collection(collection_title)
-    wait_for_selector('button.project-actions').click
-    wait_for_selector('.project-actions__move').click
-    wait_for_selector('.confirm-proceed-dialog__cancel')
-    wait_for_selector('.MuiAutocomplete-popupIndicator').click
-    wait_for_selector('.MuiAutocomplete-inputFocused').click
-    @driver.action.send_keys(:enter).send_keys(collection_title)
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
   end
 end
