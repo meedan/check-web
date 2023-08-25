@@ -80,29 +80,36 @@ Then publish it to npm. Name the module `@meedan/name-of-my-module` (in its
 
 *Running*
 
-* Start the test environment in the [check](https://github.com/meedan/check) repo: `docker-compose -f docker-compose.yml -f docker-test.yml up`
+* Start the test environment in the [check](https://github.com/meedan/check) repository: `docker-compose -f docker-compose.yml -f docker-test.yml up`
 * Copy `test/config.yml.example` to `test/config.yml` and set the configurations
 * Copy `test/config.js.example` to `test/config.js` and set the configurations
 * Copy `test/config.js.example` to `config.js` and set the configurations
 * Run `docker-compose exec web npm test:integration`
 
-By default, only unit tests will run for branches on Travis other than develop or master. For run all the tests in any branch is just necessary comment the lines below in travis.yml:
+You can run a single integration test this way: `docker-compose exec web bash -c "cd test && rspec --example KEYWORD spec/integration_spec.rb"`.
 
-* https://github.com/meedan/check-web/blob/develop/.travis.yml#L61
-* https://github.com/meedan/check-web/blob/develop/.travis.yml#L75
+By default, when a test fails, it's retried up to 3 times. You can control it by using the environment variable `TEST_RETRY_COUNT`. For example, in order to completely disable it, you can run an integration test this way: `docker-compose exec web bash -c "cd test && TEST_RETRY_COUNT=0 rspec --example KEYWORD spec/integration_spec.rb"`.
 
-and comment this verification in the build script to build and up all necessary containers:
-* https://github.com/meedan/check-web/blob/develop/build.sh#L3-L8
-* https://github.com/meedan/check-web/blob/develop/build.sh#L43
+By default, only unit tests will run for branches on Travis other than `develop` or `master`. In order to run all the tests in any branch it's just necessary to include `[full ci]` in your commit message. Tests can also be completely skipped if your commit message contains `[skip ci]` (please note that in this case all continuous integration pipelines will be skipped, including deployments).
 
 *Writing*
 
 * Use API calls (instead of using Selenium) to create all test data you need _before_ the real thing that the test is testing
-* Tag the test with one of the existing tags
+* Tag the test with one of the existing tags (bins) so that the parallel threads stay balanced
 
 #### Unit tests
 
-* Run `docker-compose exec web npm run test:unit`
+* Run all unit tests: `docker-compose exec web npm run test:unit`
+* Run a single unit test file:
+```
+$ docker compose exec web bash
+# npm run test:unit TestFileName
+> RUNS src/app/components/example/TestFileName.test.js
+```
+* Run a single unit test:
+```
+./node_modules/.bin/jest -t KEYWORD path/to/TestFile.test.js
+```
 
 #### Missing tests
 
