@@ -90,7 +90,9 @@ You can run a single integration test this way: `docker-compose exec web bash -c
 
 By default, when a test fails, it's retried up to 3 times. You can control it by using the environment variable `TEST_RETRY_COUNT`. For example, in order to completely disable it, you can run an integration test this way: `docker-compose exec web bash -c "cd test && TEST_RETRY_COUNT=0 rspec --example KEYWORD spec/integration_spec.rb"`.
 
-By default, only unit tests will run for branches on Travis other than `develop` or `master`. In order to run all the tests in any branch it's just necessary to include `[full ci]` in your commit message. Tests can also be completely skipped if your commit message contains `[skip ci]` (please note that in this case all continuous integration pipelines will be skipped, including deployments).
+By default, only unit tests will run for branches on Travis other than `develop` or `master`. In order to run all the tests in any branch it's just necessary to include `[full ci]` in your commit message, and the commit doesn't even need to contain anything, for example: `git commit --allow-empty -m '[full ci] Run all integration tests for this branch'`.
+
+Tests can also be completely skipped if your commit message contains `[skip ci]` (please note that in this case all continuous integration pipelines will be skipped, including deployments).
 
 *Writing*
 
