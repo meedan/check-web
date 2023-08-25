@@ -86,9 +86,11 @@ Then publish it to npm. Name the module `@meedan/name-of-my-module` (in its
 * Copy `test/config.js.example` to `config.js` and set the configurations
 * Run `docker-compose exec web npm test:integration`
 
+For Alegre, Pender and Check API that are executed for the integration tests: for each of them, if there is a branch with the same name as the Check Web branch, it's going to be used. Otherwise, it will use `develop`.
+
 You can run a single integration test this way: `docker-compose exec web bash -c "cd test && rspec --example KEYWORD spec/integration_spec.rb"`.
 
-By default, when a test fails, it's retried up to 3 times. You can control it by using the environment variable `TEST_RETRY_COUNT`. For example, in order to completely disable it, you can run an integration test this way: `docker-compose exec web bash -c "cd test && TEST_RETRY_COUNT=0 rspec --example KEYWORD spec/integration_spec.rb"`.
+By default, when a test fails, it's retried up to 3 times on CI and not retried locally. You can control it by using the environment variable `TEST_RETRY_COUNT`. For example, for five attempts: `docker-compose exec web bash -c "cd test && TEST_RETRY_COUNT=5 rspec --example KEYWORD spec/integration_spec.rb"`.
 
 By default, only unit tests will run for branches on Travis other than `develop` or `master`. In order to run all the tests in any branch it's just necessary to include `[full ci]` in your commit message, and the commit doesn't even need to contain anything, for example: `git commit --allow-empty -m '[full ci] Run all integration tests for this branch'`.
 

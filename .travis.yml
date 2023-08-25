@@ -68,6 +68,7 @@ jobs:
         -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
         -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
         -e AWS_REGION=$AWS_REGION
+        -e TEST_RETRY_COUNT=3
         web npm run tests
     - stage: tests
       name: similarity-tests
@@ -81,6 +82,7 @@ jobs:
         -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
         -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
         -e AWS_REGION=$AWS_REGION
+        -e TEST_RETRY_COUNT=3
         web npm run tests
     - stage: tests
       name: unit-tests
