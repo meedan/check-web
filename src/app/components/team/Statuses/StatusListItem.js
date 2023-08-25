@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -48,6 +47,7 @@ const StatusListItem = ({
       <FormattedMessage
         id="statusListItem.noDescription"
         defaultMessage="No description"
+        description="Empty state message if a status has no additional description"
       />
     );
 
@@ -58,11 +58,13 @@ const StatusListItem = ({
   return (
     <ListItem className="status-list-item">
       <ListItemText
+        disableTypography
         primary={
           isDefault ? (
             <FormattedMessage
               id="statusListItem.default"
               defaultMessage="{statusLabel} (default)"
+              description="The label of the user created status, with an additional note in parenthesis if the label is the default"
               values={{
                 statusLabel: (
                   <StatusLabel color={status.style.color}>
@@ -79,7 +81,7 @@ const StatusListItem = ({
         }
         secondary={
           <React.Fragment>
-            <span>{statusDescription}</span><br />
+            <p>{statusDescription}</p>
             <StatusMessage message={statusMessage} />
           </React.Fragment>
         }
@@ -92,7 +94,7 @@ const StatusListItem = ({
           onClose={handleClose}
         >
           <MenuItem className="status-actions__make-default" onClick={handleMakeDefault} disabled={isDefault}>
-            <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" />
+            <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" description="Menu item choice for making the label the default choice" />
           </MenuItem>
           <MenuItem className="status-actions__edit" onClick={handleEdit}>
             <FormattedGlobalMessage messageKey="edit" />

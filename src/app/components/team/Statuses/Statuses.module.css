@@ -1,0 +1,9 @@
+.status-label {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+
+  :global(.check-icon) {
+    font-size: 28px; /* stylelint-disable-line scale-unlimited/declaration-strict-value */
+  }
+}
