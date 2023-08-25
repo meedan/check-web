@@ -11,3 +11,9 @@
   width: fit-content;
   z-index: 2;
 }
+
+.media-status-wrapper {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}

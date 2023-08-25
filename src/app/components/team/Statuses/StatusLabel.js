@@ -1,23 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import IconEllipse from '../../../icons/ellipse.svg';
 
-const useStyles = makeStyles({
-  statusLabel: props => ({
-    color: props.color,
-  }),
-});
-
-const StatusLabel = (props) => {
-  const classes = useStyles(props);
-
-  return (
-    <Typography className={classes.statusLabel} variant="h6" component="span">
-      {props.children}
-    </Typography>
-  );
-};
+const StatusLabel = props => (
+  <h6>
+    <IconEllipse style={{ color: props.color }} />
+    {props.children}
+  </h6>
+);
 
 StatusLabel.propTypes = {
   children: PropTypes.node.isRequired,
