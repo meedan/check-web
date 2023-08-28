@@ -35,9 +35,9 @@ const MediaPlayerCard = ({
   const videoRef = React.useRef();
   const [errorAlert, setErrorAlert] = React.useState(false);
 
-  const handleVideoError = () => {
-    setErrorAlert(true);
-  };
+  // const handleVideoError = () => {
+  //   setErrorAlert(true);
+  // };
 
   const handleDownloadButtonClick = () => {
     const downloadLink = document.createElement('a');
@@ -110,7 +110,7 @@ const MediaPlayerCard = ({
                 src={filePath}
                 className={classes.video}
                 poster={isAudio ? poster : ''}
-                onError={handleVideoError}
+                onError={() => setErrorAlert(true)}
               />
               <MediaControls videoRef={videoRef} />
             </>
