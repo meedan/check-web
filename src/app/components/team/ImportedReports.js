@@ -29,7 +29,7 @@ export default function ImportedReports({ routeParams }) {
         defaultQuery={defaultQuery}
         hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
         readOnlyFields={['channels']}
-        page="imported-reports"
+        page="imported-fact-checks"
       />
     </ErrorBoundary>
   );

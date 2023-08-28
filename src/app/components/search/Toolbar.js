@@ -57,7 +57,7 @@ const Toolbar = ({
           <span className="toolbar__title">{title}</span>
           {actions}
         </Row>
-        {['trash', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed', 'unmatched-media', 'published'].indexOf(page) === -1 && resultType !== 'feed' ? (
+        {['trash', 'list', 'imported-fact-checks', 'tipline-inbox', 'spam', 'suggested-matches', 'feed', 'unmatched-media', 'published'].indexOf(page) === -1 && resultType !== 'feed' ? (
           <Can {...perms}>
             <OffsetButton>
               <CreateProjectMedia search={search} team={team} />

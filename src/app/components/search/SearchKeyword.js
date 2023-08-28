@@ -58,7 +58,7 @@ class SearchKeyword extends React.Component {
     this.setState({
       isSaving: false,
     });
-    this.props.setQuery(cleanQuery);
+    this.props.setStateQuery(cleanQuery);
     this.props.handleSubmit();
   };
 
@@ -73,7 +73,7 @@ class SearchKeyword extends React.Component {
     delete cleanQuery.file_handle;
     delete cleanQuery.file_url;
     delete cleanQuery.file_name;
-    this.props.setQuery(cleanQuery);
+    this.props.setStateQuery(cleanQuery);
   }
 
   keywordIsActive = () => {
@@ -106,7 +106,7 @@ class SearchKeyword extends React.Component {
     if (Object.keys(value.keyword_fields).length === 0) {
       delete newQuery.keyword_fields;
     }
-    this.props.setQuery(newQuery);
+    this.props.setStateQuery(newQuery);
     this.props.handleSubmit(null, newQuery);
   }
 
@@ -150,7 +150,7 @@ class SearchKeyword extends React.Component {
       newQuery.keyword = newKeyword;
       newQuery.sort = 'score';
     }
-    this.props.setQuery(newQuery);
+    this.props.setStateQuery(newQuery);
   }
 
   /*
@@ -178,7 +178,7 @@ class SearchKeyword extends React.Component {
         name: '',
       },
     });
-    this.props.setQuery(cleanQuery);
+    this.props.setStateQuery(cleanQuery);
   };
 
   subscribe() {
@@ -196,26 +196,11 @@ class SearchKeyword extends React.Component {
       }
       return false;
     });
-
-    pusher.subscribe(team.pusher_channel).bind('project_updated', 'SearchKeyword', (data, run) => {
-      if (clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `team-${team.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
   }
 
   unsubscribe() {
     const { pusher, team } = this.props;
     pusher.unsubscribe(team.pusher_channel, 'tagtext_updated', 'SearchKeyword');
-    pusher.unsubscribe(team.pusher_channel, 'project_updated', 'SearchKeyword');
   }
 
   handleUpload = (e) => {
@@ -324,7 +309,7 @@ SearchKeyword.propTypes = {
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
-  setQuery: PropTypes.func.isRequired,
+  setStateQuery: PropTypes.func.isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     pusher_channel: PropTypes.string.isRequired,

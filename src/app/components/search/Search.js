@@ -29,7 +29,7 @@ function noFilters(query_) {
     delete query.archived;
     delete query.parent;
   }
-  if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
+  if (/\/(tipline-inbox|imported-fact-checks)+/.test(window.location.pathname)) {
     delete query.channels;
   }
   if (/\/(unmatched-media)+/.test(window.location.pathname)) {

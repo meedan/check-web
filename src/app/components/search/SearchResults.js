@@ -38,9 +38,9 @@ function simplifyQuery(query) {
   if (ret.keyword && !ret.keyword.trim()) {
     delete ret.keyword;
   }
-  // if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
-  //   delete ret.channels;
-  // }
+  if (/\/(imported-fact-checks)+/.test(window.location.pathname)) {
+    delete ret.channels;
+  }
   if (/\/(unmatched-media)+/.test(window.location.pathname)) {
     delete ret.unmatched;
   }
@@ -51,7 +51,7 @@ function simplifyQuery(query) {
 function SearchResultsComponent({
   pusher,
   clientSessionId,
-  query: currentQuery,
+  query: appliedQuery,
   defaultQuery,
   search,
   feedTeam,
@@ -73,17 +73,13 @@ function SearchResultsComponent({
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
-  const [query, setQuery] = React.useState(currentQuery);
-
-  console.log('defaultQuery', defaultQuery); // eslint-disable-line
-  console.log('currentQuery', currentQuery); // eslint-disable-line
-  console.log('query', query); // eslint-disable-line
+  const [stateQuery, setStateQuery] = React.useState(appliedQuery);
 
   const onUnselectAll = () => {
     setSelectedProjectMediaIds([]);
   };
 
-  const getBeginIndex = () => parseInt(query.esoffset /* may be invalid */, 10) || 0;
+  const getBeginIndex = () => parseInt(stateQuery.esoffset /* may be invalid */, 10) || 0;
 
   const getEndIndex = () => getBeginIndex() + search.medias.edges.length;
 
@@ -142,7 +138,7 @@ function SearchResultsComponent({
   };
 
   const handleChangeSortParams = (sortParams) => {
-    const newQuery = { ...query };
+    const newQuery = { ...stateQuery };
     if (sortParams === null) {
       delete newQuery.sort;
       delete newQuery.sort_type;
@@ -161,11 +157,11 @@ function SearchResultsComponent({
   */
   const handleChangeQuery = (newQuery) => {
     const cleanQuery = simplifyQuery(newQuery);
-    if (query.sort) {
-      cleanQuery.sort = query.sort;
+    if (stateQuery.sort) {
+      cleanQuery.sort = stateQuery.sort;
     }
-    if (query.sort_type) {
-      cleanQuery.sort_type = query.sort_type;
+    if (stateQuery.sort_type) {
+      cleanQuery.sort_type = stateQuery.sort_type;
     }
     if (newQuery.sort === 'clear') {
       delete cleanQuery.sort;
@@ -175,7 +171,7 @@ function SearchResultsComponent({
   };
 
   const buildSearchUrlAtOffset = (offset) => {
-    const cleanQuery = simplifyQuery(query);
+    const cleanQuery = simplifyQuery(stateQuery);
     if (offset > 0) {
       cleanQuery.esoffset = offset;
     }
@@ -238,7 +234,7 @@ function SearchResultsComponent({
   If does not have the newQuery param get the query from props
   */
   const handleSubmit = (e, newQuery) => {
-    const cleanQuery = cleanupQuery(newQuery || query);
+    const cleanQuery = cleanupQuery(newQuery || stateQuery);
     handleChangeQuery(cleanQuery);
   };
 
@@ -256,7 +252,7 @@ function SearchResultsComponent({
       return null;
     }
 
-    const cleanQuery = simplifyQuery(query);
+    const cleanQuery = simplifyQuery(stateQuery);
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
@@ -302,9 +298,9 @@ function SearchResultsComponent({
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
-  const sortParams = query.sort ? {
-    key: query.sort,
-    ascending: query.sort_type !== 'DESC',
+  const sortParams = stateQuery.sort ? {
+    key: stateQuery.sort,
+    ascending: stateQuery.sort_type !== 'DESC',
   } : {
     key: 'recent_added',
     ascending: false,
@@ -424,8 +420,8 @@ function SearchResultsComponent({
           </div>
           { resultType !== 'factCheck' ?
             <SearchKeyword
-              query={query}
-              setQuery={setQuery}
+              query={stateQuery}
+              setStateQuery={setStateQuery}
               title={title}
               team={team}
               showExpand={showExpand}
@@ -436,13 +432,13 @@ function SearchResultsComponent({
       </div>
 
       <div className={cx('search__results-top', styles['search-results-top'])}>
-        { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
+        { extra ? <Box mb={2} ml={2}>{extra(stateQuery)}</Box> : null }
         <Box m={2}>
           <SearchFields
-            query={query}
-            currentQuery={currentQuery}
+            stateQuery={stateQuery}
+            appliedQuery={appliedQuery}
             defaultQuery={defaultQuery}
-            setQuery={setQuery}
+            setStateQuery={setStateQuery}
             onChange={handleChangeQuery}
             feedTeam={feedTeam}
             feed={feed}
@@ -474,8 +470,8 @@ function SearchResultsComponent({
             <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
               { resultType === 'factCheck' && feed ?
                 <ListSort
-                  sort={query.sort}
-                  sortType={query.sort_type}
+                  sort={stateQuery.sort}
+                  sortType={stateQuery.sort_type}
                   onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
                 /> : null
               }
