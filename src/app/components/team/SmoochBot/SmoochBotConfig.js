@@ -1,7 +1,7 @@
 /* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
@@ -15,7 +15,6 @@ import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
-import { labels, descriptions, placeholders } from './localizables';
 import AddCircleIcon from '../../../icons/add_circle.svg';
 
 const useStyles = makeStyles(theme => ({
@@ -45,20 +44,11 @@ const SmoochBotConfig = (props) => {
     }
   });
 
-  // Look for current selected resource
-  let currentResource = null;
-  if (/^resource_/.test(currentOption)) {
-    const resourceIndex = parseInt(currentOption.replace(/^resource_/, ''), 10);
-    if (value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources) {
-      currentResource = value.smooch_workflows[currentWorkflowIndex]
-        .smooch_custom_resources[resourceIndex];
-      if (!currentResource) {
-        setCurrentOption('smooch_message_smooch_bot_greetings');
-      }
-    } else {
-      setCurrentOption('smooch_message_smooch_bot_greetings');
-    }
-  }
+  // FIXME: Set currentResource if the current selected option on the left sidebar is a resource
+  const currentResource = null;
+
+  // FIXME: Get resources from the backend
+  const resources = [];
 
   const menuActions = state => props.schema.properties.smooch_workflows.items.properties[state]
     .properties.smooch_menu_options.items.properties.smooch_menu_option_value.enum;
@@ -78,22 +68,6 @@ const SmoochBotConfig = (props) => {
 
   const handleSelectOption = (option) => {
     setCurrentOption(option);
-  };
-
-  const handleAddResource = (currentValue, title, id) => {
-    const updatedValue = JSON.parse(JSON.stringify(currentValue));
-    if (!value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources) {
-      updatedValue.smooch_workflows[currentWorkflowIndex].smooch_custom_resources = [];
-    }
-    updatedValue.smooch_workflows[currentWorkflowIndex].smooch_custom_resources.push({
-      smooch_custom_resource_id: id || Math.random().toString().substring(2, 10),
-      smooch_custom_resource_title:
-        title || props.intl.formatMessage(placeholders.default_new_resource_title),
-      smooch_custom_resource_body: '',
-      smooch_custom_resource_feed_url: '',
-      smooch_custom_resource_number_of_articles: 3,
-    });
-    return updatedValue;
   };
 
   const handleChangeTextField = (newValue) => {
@@ -156,27 +130,6 @@ const SmoochBotConfig = (props) => {
     setValue(updatedValue);
   };
 
-  const handleChangeResource = (key, newValue) => {
-    if (currentResource) {
-      const updatedValue = JSON.parse(JSON.stringify(value));
-      const resourceIndex = parseInt(currentOption.replace(/^resource_/, ''), 10);
-      updatedValue.smooch_workflows[currentWorkflowIndex]
-        .smooch_custom_resources[resourceIndex][key] = newValue;
-      setValue(updatedValue);
-    }
-  };
-
-  const handleDeleteResource = () => {
-    if (currentResource) {
-      const updatedValue = JSON.parse(JSON.stringify(value));
-      const resourceIndex = parseInt(currentOption.replace(/^resource_/, ''), 10);
-      updatedValue.smooch_workflows[currentWorkflowIndex]
-        .smooch_custom_resources.splice(resourceIndex, 1);
-      setValue(updatedValue);
-      setCurrentOption('smooch_message_smooch_bot_greetings');
-    }
-  };
-
   return (
     <React.Fragment>
       <Tabs value={currentTab} onChange={handleChangeTab} variant="fullWidth">
@@ -192,7 +145,7 @@ const SmoochBotConfig = (props) => {
             <Box>
               <SmoochBotSidebar
                 currentOption={currentOption}
-                resources={value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources}
+                resources={resources}
                 version={value.smooch_version || 'v1'}
                 onClick={handleSelectOption}
               />
@@ -202,11 +155,7 @@ const SmoochBotConfig = (props) => {
                 size="default"
                 variant="text"
                 onClick={() => {
-                  const updatedValue = handleAddResource(value);
-                  setValue(updatedValue);
-                  const resourcesCount = updatedValue.smooch_workflows[currentWorkflowIndex]
-                    .smooch_custom_resources.length;
-                  setCurrentOption(`resource_${resourcesCount - 1}`);
+                  // FIXME: Implement action to add a resource
                 }}
                 label={
                   <FormattedMessage
@@ -217,19 +166,6 @@ const SmoochBotConfig = (props) => {
               />
             </Box>
             <Box flexGrow="1" className={classes.box}>
-              { currentOption === 'smooch_message_smooch_bot_no_action' ?
-                <React.Fragment>
-                  <Box m={1}>
-                    <div className="typography-subtitle2">{labels[currentOption]}</div>
-                    <div>{descriptions[currentOption]}</div>
-                  </Box>
-                  <SmoochBotResourceEditor
-                    installationId={props.installationId}
-                    resource={value.smooch_workflows[currentWorkflowIndex][currentOption] || {}}
-                    onChange={handleChangeMultiTextField}
-                    hasTitle={false}
-                  />
-                </React.Fragment> : null }
               { currentOption === 'smooch_message_smooch_bot_tos' ?
                 <SmoochBotMultiTextEditor
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
@@ -251,7 +187,7 @@ const SmoochBotConfig = (props) => {
                   languages={languages}
                   field={currentOption}
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
-                  resources={value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources}
+                  resources={resources}
                   menuActions={menuActions(currentOption)}
                   onChange={handleChangeMenu}
                   currentLanguage={currentLanguage}
@@ -265,11 +201,8 @@ const SmoochBotConfig = (props) => {
                 /> : null }
               { currentResource ?
                 <SmoochBotResourceEditor
-                  key={currentResource.smooch_custom_resource_id}
-                  installationId={props.installationId}
+                  key={currentResource.id}
                   resource={currentResource}
-                  onChange={handleChangeResource}
-                  onDelete={handleDeleteResource}
                 /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation
@@ -311,9 +244,6 @@ SmoochBotConfig.propTypes = {
   currentUser: PropTypes.object.isRequired,
   userRole: PropTypes.string.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
-  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
-  // eslint-disable-next-line react/no-typos
-  intl: intlShape.isRequired,
 };
 
-export default injectIntl(SmoochBotConfig);
+export default SmoochBotConfig;
