@@ -190,7 +190,7 @@ const FeedRequestsTable = ({
             />
           </Box>
         </Box>
-        { tabs({}) }
+        { typeof tabs === 'function' && tabs({}) }
       </Box>
       <Box>
         <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} feedTeam={feedTeam} />
@@ -475,12 +475,13 @@ const FeedRequestsTableQuery = ({
 
 FeedRequestsTableQuery.defaultProps = {
   filters: {},
+  tabs: () => {},
 };
 
 FeedRequestsTableQuery.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   feedId: PropTypes.number.isRequired,
-  tabs: PropTypes.func.isRequired,
+  tabs: PropTypes.func,
   searchUrlPrefix: PropTypes.string.isRequired,
   filters: PropTypes.object,
   feedTeam: PropTypes.shape({

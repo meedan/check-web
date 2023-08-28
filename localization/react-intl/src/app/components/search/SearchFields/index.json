@@ -50,6 +50,11 @@
     "defaultMessage": "Instagram post"
   },
   {
+    "id": "search.telegram",
+    "description": "Allow user to filter items by Telegram posts",
+    "defaultMessage": "Telegram"
+  },
+  {
     "id": "search.webLink",
     "description": "Allow user to filter items by links of type page",
     "defaultMessage": "webLink"
