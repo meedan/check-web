@@ -2,7 +2,6 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
@@ -244,12 +243,9 @@ const TeamDetails = ({
           </div>
         </div>
 
-        <Box mt={2}>
-          { showDuplicateTeamDialog ?
-            <CreateTeamDialog onDismiss={() => setShowDuplicateTeamDialog(false)} team={team} /> :
-            null
-          }
-        </Box>
+        { showDuplicateTeamDialog &&
+          <CreateTeamDialog onDismiss={() => setShowDuplicateTeamDialog(false)} team={team} />
+        }
       </div>
     </>
   );

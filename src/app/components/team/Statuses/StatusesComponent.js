@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 
-import List from '@material-ui/core/List';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsHeader from '../SettingsHeader';
@@ -243,7 +242,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         <div className={cx(settingsStyles['setting-content-container'])}>
           {
             currentLanguage === defaultLanguage ? (
-              <List>
+              <ul>
                 { statuses.map(s => (
                   <StatusListItem
                     defaultLanguage={defaultLanguage}
@@ -256,10 +255,11 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
                     status={s}
                   />
                 ))}
-              </List>
+              </ul>
             ) : (
               <React.Fragment>
                 <FormattedMessage
+                  tagName="p"
                   id="statusesComponent.blurbSecondary"
                   defaultMessage="Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
                   description="Message displayed on status translation page."
