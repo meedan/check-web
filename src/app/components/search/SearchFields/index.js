@@ -654,14 +654,12 @@ const SearchFields = ({
 
   const stateQueryWithoutTimestamp = stripTimestamp(stateQuery);
   const appliedQueryWithoutTimestamp = stripTimestamp(appliedQuery);
-
-  console.log('stateQueryWithoutTimestamp', stateQueryWithoutTimestamp); // eslint-disable-line
-  console.log('appliedQueryWithoutTimestamp', appliedQueryWithoutTimestamp); // eslint-disable-line
+  const defaultQueryWithoutTimestamp = stripTimestamp(defaultQuery);
 
   // We can apply if the state query is dirty (differs from what is applied)
   const canApply = JSON.stringify(stateQueryWithoutTimestamp) !== JSON.stringify(appliedQueryWithoutTimestamp);
   // We can save if the applied query is different from the default query
-  const canSave = JSON.stringify(appliedQueryWithoutTimestamp) !== JSON.stringify(defaultQuery);
+  const canSave = JSON.stringify(appliedQueryWithoutTimestamp) !== JSON.stringify(defaultQueryWithoutTimestamp);
   const canReset = canApply || canSave;
 
   return (
