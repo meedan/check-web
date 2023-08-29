@@ -56,6 +56,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               ...feed.filters,
               ...routeQuery,
             }}
+            defaultQuery={feed.filters}
             feedTeam={{
               id: feedTeam.id,
               filters: feedTeam.filters,
@@ -81,6 +82,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               feed_id: feed.dbid,
               ...feed.filters,
             }}
+            defaultQuery={feed.filters}
             resultType="factCheck"
             hideFields={[
               'feed_fact_checked_by',
@@ -129,6 +131,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               clusterize: true,
               ...feed.filters,
             }}
+            defaultQuery={feed.filters}
             resultType="feed"
             hideFields={[
               'feed_fact_checked_by',

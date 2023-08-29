@@ -42,33 +42,25 @@ const OffsetButton = styled.div`
 
 const Toolbar = ({
   actions,
-  similarAction,
   title,
-  project,
   page,
   team,
   search,
   resultType,
 }) => {
-  let perms = { permissions: {}, permission: '' };
-  if (project) {
-    perms = { permissions: project.permissions, permission: 'create Media' };
-  } else if (team) {
-    perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
-  }
+  const perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
 
   return (
     <StyledToolbar className={`toolbar toolbar__${resultType}`}>
       <FlexRow className="toolbar__flex-row">
         <Row className="toolbar__row">
-          {similarAction}
           <span className="toolbar__title">{title}</span>
           {actions}
         </Row>
-        {['trash', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed', 'unmatched-media', 'published'].indexOf(page) === -1 && resultType !== 'feed' ? (
+        {['trash', 'list', 'imported-fact-checks', 'tipline-inbox', 'spam', 'suggested-matches', 'feed', 'unmatched-media', 'published'].indexOf(page) === -1 && resultType !== 'feed' ? (
           <Can {...perms}>
             <OffsetButton>
-              <CreateProjectMedia search={search} project={project} team={team} />
+              <CreateProjectMedia search={search} team={team} />
             </OffsetButton>
           </Can>
         ) : null}
@@ -77,12 +69,8 @@ const Toolbar = ({
   );
 };
 
-Toolbar.defaultProps = {
-  page: undefined, // FIXME find a cleaner way to render Trash differently
-};
-
 Toolbar.propTypes = {
-  page: PropTypes.oneOf(['trash', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed', 'unmatched-media', 'published']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   // FIXME: Define other PropTypes
 };
 

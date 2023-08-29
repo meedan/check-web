@@ -171,7 +171,7 @@ const FeedRequestsTable = ({
             <SearchKeyword
               query={{ keyword: filters.keyword }}
               team={{ verification_statuses: {} }}
-              setQuery={(query) => {
+              setStateQuery={(query) => {
                 // Clear
                 if (!query.keyword || query.keyword === '') {
                   const newFilters = { ...filters };
