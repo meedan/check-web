@@ -17,10 +17,10 @@ import LockIcon from '../../icons/lock.svg';
 import styles from './media.module.css';
 
 const StatusLabel = props => (
-  <>
+  <span className={styles['status-label']}>
     <EllipseIcon style={{ color: props.color }} />
     {props.children}
-  </>
+  </span>
 );
 
 class MediaStatusCommon extends Component {
@@ -105,8 +105,8 @@ class MediaStatusCommon extends Component {
               onClick={() => this.handleStatusClick(status.id)}
             >
               <StatusLabel color={status.style.color}>
-                {status.label}
                 {status.should_send_message ? <ChatBubbleIcon /> : null}
+                {status.label}
               </StatusLabel>
             </MenuItem>
           ))}

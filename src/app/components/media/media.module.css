@@ -17,3 +17,9 @@
   display: flex;
   gap: 4px;
 }
+
+.status-label {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+}
