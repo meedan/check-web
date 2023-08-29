@@ -32,7 +32,7 @@
   {
     "id": "teamDataComponent.uniqueNewslettersSent",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022."
+    "defaultMessage": "Unique newsletters sent, for all platforms."
   },
   {
     "id": "teamDataComponent.newsletterSubscriptions",
@@ -42,7 +42,7 @@
   {
     "id": "teamDataComponent.newsletterCancellations",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "New newsletter cancellations."
+    "defaultMessage": "Newsletter cancellations."
   },
   {
     "id": "teamDataComponent.currentSubscribers",
@@ -57,7 +57,7 @@
   {
     "id": "teamDataComponent.whatsappConversations",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Conversations are 24-hour message threads between the tipline and users. They are opened when messages are delivered. This number is not divided by language and is only available for WhatsApp tiplines."
+    "defaultMessage": "Conversations are 24-hour message threads between you and your users. They are opened when messages sent by Check to users are delivered."
   },
   {
     "id": "teamDataComponent.positiveSearches",

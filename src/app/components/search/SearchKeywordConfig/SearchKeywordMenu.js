@@ -1,25 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SearchKeywordContainer from './SearchKeywordContainer';
 import SettingsIcon from '../../../icons/settings.svg';
-
-const useStyles = makeStyles(() => ({
-  button: {
-    fontWeight: 400,
-    fontSize: 12,
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-}));
 
 const SearchKeywordMenu = ({
   query,
   onChange,
 }) => {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClose = () => setAnchorEl(null);
 
@@ -30,18 +20,17 @@ const SearchKeywordMenu = ({
 
   return (
     <React.Fragment>
-      <Button
-        startIcon={<SettingsIcon style={{ fontSize: '16px' }} />}
-        component="span"
-        className={classes.button}
-        onClick={e => setAnchorEl(e.currentTarget)}
-      >
-        <FormattedMessage
-          id="SearchKeywordMenu.searchSettings"
-          defaultMessage="Search settings"
-          description="Button for search settings"
-        />
-      </Button>
+      <Tooltip arrow title={<FormattedMessage id="SearchKeywordMenu.searchSettings" defaultMessage="Search settings" description="Button for search settings" />}>
+        <span>
+          <ButtonMain
+            iconCenter={<SettingsIcon />}
+            size="small"
+            variant="text"
+            theme="lightText"
+            onClick={e => setAnchorEl(e.currentTarget)}
+          />
+        </span>
+      </Tooltip>
       { anchorEl ?
         <SearchKeywordContainer
           query={query}

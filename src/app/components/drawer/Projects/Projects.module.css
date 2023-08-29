@@ -29,16 +29,14 @@
     min-height: auto !important;
   }
 
-  .listMask {
-    @mixin position absolute, 0, 0, 0, 0;
-    background-color: var(--otherWhite);
-    opacity: .7;
-    z-index: 1;
-  }
-
   .listChevron {
     font-size: var(--drawerexpandIconSize);
     margin: 0 4px 0 1px;
+  }
+
+  .linkList {
+    color: inherit;
+    text-decoration: none;
   }
 
   .listHeader {
@@ -120,27 +118,6 @@
 
     &.listItem_containsCount {
       padding: 10px 48px 10px 6px;
-    }
-
-    &.listItem_group {
-      margin: 0 1px;
-
-      &.listItem_group_expanded {
-        border-color: var(--brandLight);
-        border-radius: 5px 5px 0 0;
-      }
-
-      &.listItem_group_expanded_slim {
-        border: solid 1px var(--brandLight);
-        border-radius: 5px 5px 0 0;
-        border-width: 1px 1px 0;
-      }
-
-      .listLabel {
-        span {
-          margin: 0;
-        }
-      }
     }
 
     &.listItem_active,

@@ -69,6 +69,15 @@ const SearchFieldTag = ({
           plainTagsTexts = props.team.tag_texts ? props.team.tag_texts.edges.map(t => t.node.text) : [];
           total = props.team.tag_texts_count;
         }
+
+        // Due to tags pagination, a tag used in a query can be on a not loaded yet page.
+        // Merge `query.tags` with plainTagsText even if they're not loaded from graphql.
+        let queryTags = [];
+        if (query.tags) {
+          queryTags = Array.isArray(query.tags) ? query.tags : [query.tags];
+        }
+        plainTagsTexts = [...new Set(queryTags.concat(plainTagsTexts))];
+
         const hasMore = total > pageSize;
         return (
           <FormattedMessage id="SearchFieldTag.label" defaultMessage="Tag is" description="Prefix label for field to filter by tags">

@@ -7,7 +7,7 @@ import PublishedIcon from '../../icons/playlist_add_check.svg';
 
 const Published = ({ routeParams }) => {
   const query = {
-    report_status: 'published',
+    report_status: ['published'],
     sort: 'recent_activity',
     sort_type: 'DESC',
     ...safelyParseJSON(routeParams.query, {}),
