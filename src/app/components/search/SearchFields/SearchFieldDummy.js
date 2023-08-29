@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import RemoveableWrapper from '../RemoveableWrapper';
 
@@ -15,5 +16,19 @@ const SearchFieldDummy = ({
     </Box>
   </RemoveableWrapper>
 );
+
+SearchFieldDummy.defaultProps = {
+  readOnly: false,
+  onRemove: null,
+  version: undefined,
+};
+
+SearchFieldDummy.propTypes = {
+  icon: PropTypes.node.isRequired,
+  label: PropTypes.node.isRequired,
+  readOnly: PropTypes.bool,
+  onRemove: PropTypes.func,
+  version: PropTypes.string,
+};
 
 export default SearchFieldDummy;
