@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import TextField from './TextField';
 
 const TextArea = React.forwardRef(({
+  autoGrow = true,
   ...inputProps
 }, ref) => {
   const [height, setHeight] = useState('auto');
 
   const handleChange = (event) => {
-    setHeight(`${event.target.scrollHeight}px`);
+    if (autoGrow) {
+      setHeight(`${event.target.scrollHeight}px`);
+    }
   };
 
   return <TextField textArea ref={ref} {...inputProps} style={{ height }} onChange={handleChange} />;
