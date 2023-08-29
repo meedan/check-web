@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getErrorMessage, bemClass } from '../../helpers';
@@ -13,29 +12,16 @@ import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import ChatBubbleIcon from '../../icons/chat_bubble.svg';
 import ChevronDownIcon from '../../icons/chevron_down.svg';
+import EllipseIcon from '../../icons/ellipse.svg';
 import LockIcon from '../../icons/lock.svg';
+import styles from './media.module.css';
 
-const StyledMediaStatus = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`;
-
-const useStyles = makeStyles({
-  statusLabel: props => ({
-    color: props.color,
-  }),
-});
-
-const StatusLabel = (props) => {
-  const classes = useStyles(props);
-
-  return (
-    <span className={classes.statusLabel}>
-      {props.children}
-    </span>
-  );
-};
+const StatusLabel = props => (
+  <span className={styles['status-label']}>
+    <EllipseIcon style={{ color: props.color }} />
+    {props.children}
+  </span>
+);
 
 class MediaStatusCommon extends Component {
   static currentStatusToClass(status) {
@@ -89,19 +75,19 @@ class MediaStatusCommon extends Component {
     const currentStatus = getStatus(media.team.verification_statuses, media.last_status || this.props.currentStatus);
 
     return (
-      <StyledMediaStatus className="media-status">
-        <Button
+      <div className={cx('media-status', styles['media-status-wrapper'])}>
+        <ButtonMain
           className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status || this.props.currentStatus)}`}
-          style={{ backgroundColor: currentStatus?.style?.color, color: 'var(--otherWhite)', minHeight: 41 }}
-          variant="contained"
-          disableElevation
+          customStyle={{ borderColor: currentStatus.style.color }}
+          variant="outlined"
+          theme="text"
+          size="default"
           onClick={e => this.setState({ anchorEl: e.currentTarget })}
           disabled={!this.canUpdate()}
-          startIcon={currentStatus.should_send_message ? <ChatBubbleIcon /> : null}
-          endIcon={this.canUpdate() ? <ChevronDownIcon /> : <LockIcon />}
-        >
-          {currentStatus.label}
-        </Button>
+          iconLeft={currentStatus.should_send_message ? <><ChatBubbleIcon style={{ color: currentStatus.style.color }} /><EllipseIcon style={{ color: currentStatus.style.color }} /></> : <EllipseIcon style={{ color: currentStatus.style.color }} />}
+          iconRight={this.canUpdate() ? <ChevronDownIcon /> : <LockIcon />}
+          label={currentStatus.label}
+        />
         <Popover
           anchorEl={this.state.anchorEl}
           open={Boolean(this.state.anchorEl)}
@@ -119,15 +105,13 @@ class MediaStatusCommon extends Component {
               onClick={() => this.handleStatusClick(status.id)}
             >
               <StatusLabel color={status.style.color}>
-                <StyledMediaStatus>
-                  {status.label}
-                  {status.should_send_message ? <ChatBubbleIcon /> : null}
-                </StyledMediaStatus>
+                {status.should_send_message ? <ChatBubbleIcon /> : null}
+                {status.label}
               </StatusLabel>
             </MenuItem>
           ))}
         </Popover>
-      </StyledMediaStatus>
+      </div>
     );
   }
 }

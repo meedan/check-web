@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import styled from 'styled-components';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
 
 import SettingsHeader from '../SettingsHeader';
@@ -20,7 +18,7 @@ import TranslateStatuses from './TranslateStatuses';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import { stringHelper } from '../../../customHelpers';
 import { getErrorMessage } from '../../../helpers';
-import { ContentColumn, units } from '../../../styles/js/shared';
+import { ContentColumn } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { languageName } from '../../../LanguageRegistry';
 
@@ -29,10 +27,6 @@ const useToolbarStyles = makeStyles(() => ({
     whiteSpace: 'nowrap',
   },
 }));
-
-const StyledBlurb = styled.div`
-  margin-top: ${units(4)};
-`;
 
 const StatusesComponent = ({ team, setFlashMessage }) => {
   const statuses = [...team.verification_statuses.statuses];
@@ -253,7 +247,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
           <CardContent>
             {
               currentLanguage === defaultLanguage ? (
-                <List>
+                <ul>
                   { statuses.map(s => (
                     <StatusListItem
                       defaultLanguage={defaultLanguage}
@@ -266,16 +260,15 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
                       status={s}
                     />
                   ))}
-                </List>
+                </ul>
               ) : (
                 <React.Fragment>
-                  <StyledBlurb>
-                    <FormattedMessage
-                      id="statusesComponent.blurbSecondary"
-                      defaultMessage="Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
-                      description="Message displayed on status translation page."
-                    />
-                  </StyledBlurb>
+                  <FormattedMessage
+                    tagName="p"
+                    id="statusesComponent.blurbSecondary"
+                    defaultMessage="Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
+                    description="Message displayed on status translation page."
+                  />
                   <TranslateStatuses
                     currentLanguage={currentLanguage}
                     defaultLanguage={defaultLanguage}

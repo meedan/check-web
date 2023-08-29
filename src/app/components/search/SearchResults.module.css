@@ -1,3 +1,14 @@
+.search-results-status-cell {
+  max-width: 224px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  :global(.check-icon) {
+    vertical-align: text-top;
+  }
+}
+
 .searchResultsTitleWrapper {
   align-items: flex-start;
   color: var(--textSecondary);
