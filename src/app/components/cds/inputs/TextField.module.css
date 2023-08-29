@@ -76,5 +76,10 @@
         resize: none;
       }
     }
+
+    .textarea-autoGrow {
+      overflow-y: hidden;
+      resize: none;
+    }
   }
 }
