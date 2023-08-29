@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
-import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
-import CommentIcon from '../../../icons/chat_bubble.svg';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import styles from './Statuses.module.css';
 
 const StatusMessage = ({ message }) => {
@@ -12,19 +11,13 @@ const StatusMessage = ({ message }) => {
   }
 
   return (
-    <div className={cx(styles['status-message'], 'test__status-message')}>
-      <Tooltip
-        arrow
-        title={<FormattedMessage id="statusListItem.messageTooltip" defaultMessage="This message will be sent to the user who requested the item when you change an item to this status" description="Tooltip to tell the user when this message will be sent out" />}
-      >
-        <span>
-          <CommentIcon />
-        </span>
-      </Tooltip>
-      <p>
-        {message}
-      </p>
-    </div>
+    <Alert
+      className={cx(styles['status-message'], 'test__status-message')}
+      variant="info"
+      icon
+      title={<FormattedMessage id="statusListItem.messageTooltip" defaultMessage="When you change and item to this status, the user who requested will receive the following message:" description="Tooltip to tell the user when this message will be sent out" />}
+      content={message}
+    />
   );
 };
 
