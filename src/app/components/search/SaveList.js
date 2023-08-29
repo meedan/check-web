@@ -81,6 +81,10 @@ const SaveList = ({
     return null;
   }
 
+  if (['spam', 'trash'].includes(page)) {
+    return null;
+  }
+
   const classes = useStyles();
 
   const objectType = currentPath[1];
@@ -95,10 +99,6 @@ const SaveList = ({
   // Create, Update SavedSearch
   // Update Feed
   if (!can(team.permissions, 'update Team')) {
-    return null;
-  }
-
-  if (['spam', 'trash'].includes(page)) {
     return null;
   }
 
@@ -223,6 +223,7 @@ const SaveList = ({
   };
 
   const handleClick = () => {
+    // FIXME: declare core lists globally.
     // From these pages we can just create a new list
     const coreLists = ['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published'];
     if (coreLists.includes(objectType)) {

@@ -193,8 +193,6 @@ const SearchFields = ({
     setStateQuery(newQuery);
   };
 
-  // const filterIsActive = () => Object.keys(query).filter(k => k !== 'keyword').length > 0;
-
   const handleDateChange = (value) => {
     const newQuery = { ...stateQuery, range: value };
     setStateQuery(newQuery);

@@ -17,7 +17,6 @@ const TiplineInbox = ({ routeParams }) => (
         query TiplineInboxQuery($slug: String!) {
           team(slug: $slug) {
             verification_statuses
-            get_tipline_inbox_filters
           }
         }
       `}
@@ -28,18 +27,14 @@ const TiplineInbox = ({ routeParams }) => (
         if (!error && props) {
           const { team } = props;
           const defaultStatusId = team.verification_statuses.default;
-          // Should we discard savedQuery already?
-          const savedQuery = team.get_tipline_inbox_filters || {};
           const defaultQuery = {
             channels: [CheckChannels.ANYTIPLINE],
             verification_status: [defaultStatusId],
           };
-          let query = defaultQuery;
-          if (typeof routeParams.query === 'undefined' && Object.keys(savedQuery).length > 0) {
-            query = { ...savedQuery };
-          } else if (routeParams.query) {
-            query = { ...safelyParseJSON(routeParams.query, query) };
-          }
+          const query = {
+            ...defaultQuery,
+            ...safelyParseJSON(routeParams.query, {}),
+          };
           return (
             <Search
               searchUrlPrefix={`/${routeParams.team}/tipline-inbox`}
