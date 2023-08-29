@@ -23,6 +23,6 @@ describe('<StatusMessage/>', () => {
       message="status message"
     />);
     expect(wrapper.html()).toMatch('status message');
-    expect(wrapper.find('.status-message').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.test__status-message').hostNodes()).toHaveLength(1);
   });
 });
