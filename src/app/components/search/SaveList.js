@@ -102,16 +102,6 @@ const SaveList = ({
     return null;
   }
 
-  // // Don't even show the button if there is nothing to be saved
-  // if (!query || JSON.stringify(query) === '{}') {
-  //   return null;
-  // }
-
-  // // Don't show the button if it's a list and nothing changed
-  // if (objectType === 'list' && savedSearch && JSON.stringify(query) === savedSearch.filters) {
-  //   return null;
-  // }
-
   const feedFilters = {};
   if (objectType === 'feed') {
     // Don't show the button if it's a shared feed and nothing changed
@@ -129,27 +119,6 @@ const SaveList = ({
       return null;
     }
   }
-
-  // // Don't show the button if it's a tipline inbox or suggested media page and nothing changed
-  // if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
-  //   let defaultQuery = {};
-  //   let savedQuery = '{}';
-  //   if (objectType === 'tipline-inbox') {
-  //     defaultQuery = { read: ['0'], projects: ['-1'], verification_status: [team.verification_statuses.default] };
-  //     savedQuery = team.get_tipline_inbox_filters;
-  //   } else if (objectType === 'suggested-matches') {
-  //     defaultQuery = { suggestions_count: { min: 1 } };
-  //     savedQuery = team.get_suggested_matches_filters;
-  //   }
-  //   // Don't show the button if it's a saved search or a default list
-  //   if (savedQuery) {
-  //     if (JSON.stringify(query) === JSON.stringify(savedQuery)) {
-  //       return null;
-  //     }
-  //   } else if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
-  //     return null;
-  //   }
-  // }
 
   const handleClose = () => {
     setShowNewDialog(false);
