@@ -6,12 +6,14 @@ import TextField from './TextField';
 const TextArea = React.forwardRef(({
   autoGrow,
   maxHeight,
-  minHeight,
+  minHeight: minHeightProp,
   ...inputProps
 }, ref) => {
   const [height, setHeight] = useState('auto');
 
+
   const handleChange = (event) => {
+    const minHeight = minHeightProp || event.target.offsetHeight;
     const newHeight = `${event.target.scrollHeight}px`;
     if (autoGrow && event.target.scrollHeight >= minHeight && (!maxHeight || event.target.scrollHeight <= maxHeight)) {
       setHeight(newHeight);
@@ -24,13 +26,12 @@ const TextArea = React.forwardRef(({
 TextArea.defaultProps = {
   autoGrow: true,
   maxHeight: null,
-  minHeight: 65,
 };
 
 TextArea.propTypes = {
   autoGrow: PropTypes.bool,
   maxHeight: PropTypes.number,
-  minHeight: PropTypes.number,
+  minHeight: PropTypes.number.isRequired,
 };
 
 export default TextArea;

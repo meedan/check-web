@@ -70,11 +70,11 @@
     textarea {
       max-width: 100%;
       min-height: 3.5em;
-    }
 
-    .textarea-autoGrow {
-      overflow-y: hidden;
-      resize: none;
+      &.textarea-autoGrow {
+        overflow-y: hidden;
+        resize: none;
+      }
     }
   }
 }
