@@ -45,6 +45,7 @@ const TiplineInbox = ({ routeParams }) => (
               query={query}
               defaultQuery={defaultQuery}
               hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
+              readOnlyFields={['verification_status']}
               page="tipline-inbox"
             />
           );
