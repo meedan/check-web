@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import IconButton from '@material-ui/core/IconButton';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import ClearIcon from '../../../icons/clear.svg';
 import ErrorIcon from '../../../icons/error.svg';
 import ChevronDownIcon from '../../../icons/chevron_down.svg';
@@ -56,16 +56,18 @@ const Select = ({
         </div>
         { onRemove ?
           <Tooltip title={<FormattedMessage id="select.removeSelection" defaultMessage="Undo selection" description="Tooltip for button on Select component to remove current selection" />}>
-            <IconButton
-              className={cx('select__clear-button', styles['select-clear-button'])}
+            <ButtonMain
+              iconCenter={<ClearIcon />}
+              variant="contained"
+              size="default"
+              theme="lightText"
+              className={cx('select__clear-button')}
               onClick={() => {
                 inputRef.current.value = null;
                 inputRef.current.selectedIndex = 0;
                 onRemove();
               }}
-            >
-              <ClearIcon />
-            </IconButton>
+            />
           </Tooltip>
           : null }
       </div>

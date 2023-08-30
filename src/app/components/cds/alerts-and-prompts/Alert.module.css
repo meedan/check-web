@@ -43,13 +43,12 @@
 
   .iconWrapper {
     flex: 0 0 24px;
-    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-    font-size: 24px;
+    font-size: var(--iconSizeDefault);
   }
 
   .contentWrapper {
     flex: 1 1 auto;
-    padding: 4px 0 0;
+    padding: 2px 0 0;
 
     .title + .content {
       margin: 6px 0 0;

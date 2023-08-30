@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -9,13 +8,18 @@ import Search from '../search/Search';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 export default function Trash({ routeParams }) {
-  const query = {
-    ...safelyParseJSON(routeParams.query, {}),
+  const defaultQuery = {
     archived: CheckArchivedFlags.TRASHED,
+    sort: 'recent_activity',
+    sort_type: 'DESC',
     parent: {
       type: 'team',
       slug: routeParams.team,
     },
+  };
+  const query = {
+    ...safelyParseJSON(routeParams.query, {}),
+    ...defaultQuery,
   };
 
   return (
@@ -23,10 +27,11 @@ export default function Trash({ routeParams }) {
       <Search
         searchUrlPrefix={`/${routeParams.team}/trash`}
         mediaUrlPrefix={`/${routeParams.team}/media`}
-        title={<FormattedMessage id="trash.title" defaultMessage="Trash" />}
+        title={<FormattedMessage id="trash.title" defaultMessage="Trash" description="Title for the trash listing of items" />}
         icon={<DeleteIcon />}
         teamSlug={routeParams.team}
         query={query}
+        defaultQuery={defaultQuery}
         hideFields={['feed_fact_checked_by', 'user', 'cluster_teams', 'cluster_published_reports', 'archived']}
         page="trash"
       />

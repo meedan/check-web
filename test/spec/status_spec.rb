@@ -1,6 +1,6 @@
 shared_examples 'status' do
   it 'should customize status', bin4: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-card-large')
     wait_for_selector('.media-status__current').click
     wait_for_selector('.media-status__menu-item')
@@ -11,7 +11,7 @@ shared_examples 'status' do
     item_page = @driver.current_url
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team-settings__statuses-tab').click
-    wait_for_selector("//span[contains(text(), 'default')]", :xpath)
+    wait_for_selector("//small[contains(text(), 'default')]", :xpath)
     expect(@driver.page_source.include?('Unstarted')).to be(true)
     wait_for_selector('.status-actions__menu').click
     # edit status name

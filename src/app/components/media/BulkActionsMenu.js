@@ -10,15 +10,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import Divider from '@material-ui/core/Divider';
-import BulkActionsMove from './BulkActionsMove';
 import BulkActionsAssign from './BulkActionsAssign';
 import BulkActionsStatus from './BulkActionsStatus';
 import BulkActionsTag from './BulkActionsTag';
 import BulkActionsRemoveTag from './BulkActionsRemoveTag';
 
 const BulkActionsMenu = ({
-  excludeProjectDbids,
-  onMove,
   selectedMedia,
   selectedProjectMedia,
   team,
@@ -30,30 +27,14 @@ const BulkActionsMenu = ({
     setAnchorEl(null);
     setMode('menu');
   };
-  const handleMenuMove = () => setMode('move');
   const handleMenuTag = () => setMode('tag');
   const handleMenuRemoveTag = () => setMode('untag');
   const handleMenuAssign = () => setMode('assign');
   const handleMenuChangeStatus = () => setMode('status');
 
-  const destFolders = team.projects.edges
-    .filter(({ node }) => !excludeProjectDbids.includes(node.dbid));
-
   const menuContent = {
     menu: (
       <React.Fragment>
-        <MenuItem
-          className="bulk-actions-menu__move"
-          onClick={handleMenuMove}
-          disabled={destFolders.length === 0}
-        >
-          <FormattedMessage
-            id="bulkActionsMenu.moveToFolder"
-            defaultMessage="Move to folder"
-            description="Menu option for bulk moving selected items into a folder"
-          />
-        </MenuItem>
-        <Divider />
         <MenuItem className="bulk-actions-menu__add-tag" onClick={handleMenuTag}>
           <FormattedMessage
             id="bulkActionsMenu.addTag"
@@ -84,15 +65,6 @@ const BulkActionsMenu = ({
           />
         </MenuItem>
       </React.Fragment>
-    ),
-    move: (
-      <BulkActionsMove
-        excludeProjectDbids={excludeProjectDbids}
-        selectedMedia={selectedMedia}
-        onDismiss={handleClose}
-        onSubmit={onMove}
-        team={team}
-      />
     ),
     tag: (
       <BulkActionsTag
@@ -152,9 +124,7 @@ const BulkActionsMenu = ({
 };
 
 BulkActionsMenu.propTypes = {
-  excludeProjectDbids: PropTypes.arrayOf(PropTypes.number).isRequired,
   team: PropTypes.object.isRequired,
-  onMove: PropTypes.func.isRequired,
   selectedMedia: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectedProjectMedia: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
@@ -184,7 +154,6 @@ const BulkActionsMenuRenderer = (parentProps) => {
               }
             }
             ...BulkActionsAssign_team
-            ...BulkActionsMove_team
             ...BulkActionsStatus_team
             ...BulkActionsTag_team
             ...BulkActionsRemoveTag_team

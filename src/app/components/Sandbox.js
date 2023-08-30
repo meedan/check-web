@@ -37,6 +37,7 @@ const SandboxComponent = ({ admin }) => {
   ]);
 
   const [alertFloating, setAlertFloating] = React.useState(Boolean(false));
+  const [alertBanner, setAlertBanner] = React.useState(Boolean(false));
   const [alertIcon, setAlertIcon] = React.useState(Boolean(true));
   const [alertButton, setAlertButton] = React.useState(Boolean(true));
   const [alertTitle, setAlertTitle] = React.useState(Boolean(true));
@@ -238,8 +239,10 @@ const SandboxComponent = ({ admin }) => {
           <div className={cx('typography-subtitle2', [styles.componentName])}>
             Trigger Sentry error
           </div>
-          <ButtonMain label="Trigger Sentry" onClick={generateUncaughtError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
-          <ButtonMain label="Sentry manual error" onClick={generateManualError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+          <div className={styles.componentInlineVariants}>
+            <ButtonMain label="Trigger Sentry" onClick={generateUncaughtError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+            <ButtonMain label="Sentry manual error" onClick={generateManualError} variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+          </div>
         </div>
         <div className={styles.componentWrapper}>
           <div className={cx('typography-subtitle2', [styles.componentName])}>
@@ -353,6 +356,7 @@ const SandboxComponent = ({ admin }) => {
             helpContent="I can be of help to select"
             label="I am a select title"
             required
+            onRemove={() => {}}
           >
             <option>Select...</option>
             <option value="1">one</option>
@@ -592,6 +596,14 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  label="Banner Style"
+                  labelPlacement="top"
+                  checked={alertBanner}
+                  onChange={() => setAlertBanner(!alertBanner)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
                   label="Closable"
                   labelPlacement="top"
                   checked={alertClosable}
@@ -603,6 +615,7 @@ const SandboxComponent = ({ admin }) => {
           <div className={styles.componentInlineVariants}>
             <Alert
               title={alertTitle && <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>}
+              banner={alertBanner}
               floating={alertFloating}
               icon={alertIcon}
               buttonLabel={alertButton && <span>alert action</span>}

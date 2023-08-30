@@ -13,24 +13,24 @@ import LanguageFilter from '../LanguageFilter';
 import NumericRangeFilter from '../NumericRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
-import { can } from '../../Can';
 import { Row } from '../../../styles/js/shared';
+import SearchFieldDummy from './SearchFieldDummy';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
 import SearchFieldChannel from './SearchFieldChannel';
-import SearchFieldProject from './SearchFieldProject';
-import SearchFieldProjectGroup from './SearchFieldProjectGroup';
 import SearchFieldUser from './SearchFieldUser';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import CorporateFareIcon from '../../../icons/corporate_fare.svg';
+import DeleteIcon from '../../../icons/delete.svg';
 import DescriptionIcon from '../../../icons/description.svg';
 import ErrorIcon from '../../../icons/error_outline.svg';
 import HowToRegIcon from '../../../icons/person_check.svg';
 import LabelIcon from '../../../icons/label.svg';
 import PersonIcon from '../../../icons/person.svg';
 import ReportIcon from '../../../icons/playlist_add_check.svg';
+import SpamIcon from '../../../icons/report.svg';
 import MarkunreadIcon from '../../../icons/mail.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 
@@ -84,6 +84,11 @@ const messages = defineMessages({
     id: 'search.instagram',
     defaultMessage: 'Instagram post',
     description: 'Allow user to filter items by instagram posts',
+  },
+  telegram: {
+    id: 'search.telegram',
+    defaultMessage: 'Telegram',
+    description: 'Allow user to filter items by Telegram posts',
   },
   webLink: {
     id: 'search.webLink',
@@ -140,12 +145,12 @@ const messages = defineMessages({
 const SearchFields = ({
   intl,
   team,
-  query,
-  project,
-  projectGroup,
+  stateQuery,
+  appliedQuery,
+  defaultQuery,
   feedTeam,
   readOnlyFields,
-  setQuery,
+  setStateQuery,
   onChange,
   page,
   handleSubmit,
@@ -160,91 +165,90 @@ const SearchFields = ({
   */
   const updateStateQueryArrayValue = (key, newArray) => {
     if (newArray === undefined) {
-      const newQuery = { ...query };
+      const newQuery = { ...stateQuery };
       delete newQuery[key];
       return newQuery;
     }
-    return { ...query, [key]: newArray };
+    return { ...stateQuery, [key]: newArray };
   };
 
   const handleAddField = (field) => {
-    const newQuery = { ...query };
+    const newQuery = { ...stateQuery };
 
     if (field === 'team_tasks') {
-      newQuery.team_tasks = query.team_tasks ?
-        [...query.team_tasks, {}] : [{}];
+      newQuery.team_tasks = stateQuery.team_tasks ?
+        [...stateQuery.team_tasks, {}] : [{}];
     } else if (field === 'range') {
       newQuery.range = { created_at: {} };
     } else {
       newQuery[field] = [];
     }
 
-    setQuery(newQuery);
+    setStateQuery(newQuery);
   };
 
   const handleRemoveField = (field) => {
-    const newQuery = { ...query };
+    const newQuery = { ...stateQuery };
     delete newQuery[field];
-    setQuery(newQuery);
+    setStateQuery(newQuery);
   };
 
-  const filterIsActive = () => Object.keys(query).filter(k => k !== 'keyword').length > 0;
-
   const handleDateChange = (value) => {
-    const newQuery = { ...query, range: value };
-    setQuery(newQuery);
+    const newQuery = { ...stateQuery, range: value };
+    setStateQuery(newQuery);
   };
 
   const handleLanguageChange = (value) => {
-    const newQuery = { ...query, language_filter: value };
-    setQuery(newQuery);
+    const newQuery = { ...stateQuery, language_filter: value };
+    setStateQuery(newQuery);
   };
 
   const handleNumericRange = (filterKey, value) => {
-    const newQuery = { ...query };
+    const newQuery = { ...stateQuery };
     newQuery[filterKey] = value;
-    setQuery(newQuery);
+    setStateQuery(newQuery);
   };
 
   const handleCustomFilterChange = (value) => {
-    const newQuery = { ...query, ...value };
+    const newQuery = { ...stateQuery, ...value };
     if (JSON.stringify(value) === '{}') {
       delete newQuery.team_tasks;
     }
-    setQuery(newQuery);
+    setStateQuery(newQuery);
   };
 
   const handleFilterClick = (values, filterName) => {
-    setQuery(
+    setStateQuery(
       updateStateQueryArrayValue(filterName, values),
     );
   };
 
   const switchOperatorIs = (operator, key) => {
     let currentOperator = 'or'; // "or" is the default
-    if (query && query[key]) {
-      currentOperator = query[key];
+    if (stateQuery && stateQuery[key]) {
+      currentOperator = stateQuery[key];
     }
     return currentOperator === operator;
   };
 
   const handleSwitchOperator = (key) => {
     const operator = switchOperatorIs('or', key) ? 'and' : 'or';
-    const newQuery = { ...query };
+    const newQuery = { ...stateQuery };
     newQuery[key] = operator;
-    setQuery(newQuery);
+    setStateQuery(newQuery);
   };
 
   const handleClickClear = () => {
-    const { keyword } = query;
-    const newQuery = { keyword };
-    setQuery(newQuery);
+    const { keyword } = stateQuery;
+    const newQuery = keyword ? { keyword } : {};
+    newQuery.sort = 'clear';
+    setStateQuery(newQuery);
     onChange(newQuery);
   };
 
   const handleOperatorClick = () => {
-    const operator = query.operator === 'OR' ? 'AND' : 'OR';
-    setQuery(
+    const operator = stateQuery.operator === 'OR' ? 'AND' : 'OR';
+    setStateQuery(
       updateStateQueryArrayValue('operator', operator),
     );
   };
@@ -259,6 +263,7 @@ const SearchFields = ({
     { value: 'social_media', label: intl.formatMessage(messages.socialMedia), hasChildren: true },
     { value: 'facebook', label: intl.formatMessage(messages.facebook), parent: 'social_media' },
     { value: 'instagram', label: intl.formatMessage(messages.instagram), parent: 'social_media' },
+    { value: 'telegram', label: intl.formatMessage(messages.telegram), parent: 'social_media' },
     { value: 'tiktok', label: intl.formatMessage(messages.tiktok), parent: 'social_media' },
     { value: 'twitter', label: intl.formatMessage(messages.twitter), parent: 'social_media' },
     { value: 'youtube', label: intl.formatMessage(messages.youtube), parent: 'social_media' },
@@ -298,10 +303,6 @@ const SearchFields = ({
     { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
   ];
 
-  const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
-
-  const hideChannel = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname) || readOnlyFields.includes('channels');
-
   const OperatorToggle = () => {
     let operatorProps = { style: { minWidth: 0, color: 'var(--brandMain)' }, onClick: handleOperatorClick };
     if (page === 'feed') {
@@ -309,7 +310,7 @@ const SearchFields = ({
     }
     return (
       <Button {...operatorProps}>
-        { query.operator === 'OR' ?
+        { stateQuery.operator === 'OR' ?
           <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
           <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
         }
@@ -318,16 +319,6 @@ const SearchFields = ({
   };
 
   const fieldComponents = {
-    projects: (
-      <SearchFieldProject
-        teamSlug={team.slug}
-        query={query}
-        project={project}
-        onChange={(newValue) => { handleFilterClick(newValue, 'projects'); }}
-        readOnly={Boolean(project) || readOnlyFields.includes('projects')}
-        onRemove={() => handleRemoveField('projects')}
-      />
-    ),
     has_claim: (
       <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
         { label => (
@@ -335,7 +326,7 @@ const SearchFields = ({
             label={label}
             icon={<LabelIcon />}
             allowSearch={false}
-            selected={query.has_claim}
+            selected={stateQuery.has_claim}
             options={hasClaimOptions}
             readOnly={readOnlyFields.includes('has_claim')}
             onChange={(newValue) => { handleFilterClick(newValue, 'has_claim'); }}
@@ -344,21 +335,11 @@ const SearchFields = ({
         )}
       </FormattedMessage>
     ),
-    project_group_id: (
-      <SearchFieldProjectGroup
-        teamSlug={team.slug}
-        projectGroup={projectGroup}
-        query={query}
-        onChange={(newValue) => { handleFilterClick(newValue, 'project_group_id'); }}
-        readOnly={Boolean(projectGroup) || readOnlyFields.includes('project_group_id')}
-        onRemove={() => handleRemoveField('project_group_id')}
-      />
-    ),
     range: (
       <Box maxWidth="900px">
         <DateRangeFilter
           onChange={handleDateChange}
-          value={query.range}
+          value={stateQuery.range}
           readOnly={readOnlyFields.includes('range')}
           optionsToHide={['request_created_at']}
           onRemove={() => handleRemoveField('range')}
@@ -368,10 +349,10 @@ const SearchFields = ({
     tags: (
       <SearchFieldTag
         teamSlug={team.slug}
-        query={query}
+        query={stateQuery}
         onChange={(newValue) => { handleFilterClick(newValue, 'tags'); }}
         onToggleOperator={() => handleSwitchOperator('tags_operator')}
-        operator={query.tags_operator}
+        operator={stateQuery.tags_operator}
         readOnly={readOnlyFields.includes('tags')}
         onRemove={() => handleRemoveField('tags')}
       />
@@ -383,7 +364,7 @@ const SearchFields = ({
             allowSearch={false}
             label={label}
             icon={<DescriptionIcon />}
-            selected={query.show}
+            selected={stateQuery.show}
             options={types}
             readOnly={readOnlyFields.includes('show')}
             onChange={(newValue) => { handleFilterClick(newValue, 'show'); }}
@@ -399,7 +380,7 @@ const SearchFields = ({
             allowSearch={false}
             label={label}
             icon={<UnmatchedIcon />}
-            selected={query.unmatched}
+            selected={stateQuery.unmatched}
             options={unmatchedValues}
             oneOption
             readOnly={readOnlyFields.includes('unmatched')}
@@ -416,7 +397,7 @@ const SearchFields = ({
             allowSearch={false}
             label={label}
             icon={<MarkunreadIcon />}
-            selected={query.read}
+            selected={stateQuery.read}
             options={readValues}
             readOnly={readOnlyFields.includes('read')}
             onChange={(newValue) => { handleFilterClick(newValue, 'read'); }}
@@ -431,7 +412,7 @@ const SearchFields = ({
           <MultiSelectFilter
             label={label}
             icon={<LabelIcon />}
-            selected={query.verification_status}
+            selected={stateQuery.verification_status}
             options={statuses.map(s => ({ label: s.label, value: s.id }))}
             readOnly={readOnlyFields.includes('verification_status')}
             onChange={(newValue) => { handleFilterClick(newValue, 'verification_status'); }}
@@ -447,7 +428,7 @@ const SearchFields = ({
             teamSlug={team.slug}
             label={label}
             icon={<PersonIcon />}
-            selected={query.users}
+            selected={stateQuery.users}
             onChange={(newValue) => { handleFilterClick(newValue, 'users'); }}
             readOnly={readOnlyFields.includes('users')}
             onRemove={() => handleRemoveField('users')}
@@ -457,10 +438,11 @@ const SearchFields = ({
     ),
     channels: (
       <SearchFieldChannel
-        query={query}
+        query={stateQuery}
         onChange={(newValue) => { handleFilterClick(newValue, 'channels'); }}
+        page={page}
         onRemove={() => handleRemoveField('channels')}
-        readOnly={hideChannel}
+        readOnly={readOnlyFields.includes('channels')}
       />
     ),
     archived: (
@@ -470,7 +452,7 @@ const SearchFields = ({
             allowSearch={false}
             label={label}
             icon={<ErrorIcon />}
-            selected={query.archived}
+            selected={stateQuery.archived}
             options={confirmedValues}
             readOnly={readOnlyFields.includes('archived')}
             onChange={(newValue) => { handleFilterClick(newValue, 'archived'); }}
@@ -485,7 +467,7 @@ const SearchFields = ({
         <NumericRangeFilter
           filterKey="linked_items_count"
           onChange={handleNumericRange}
-          value={query.linked_items_count}
+          value={stateQuery.linked_items_count}
           readOnly={readOnlyFields.includes('linked_items_count')}
           onRemove={() => handleRemoveField('linked_items_count')}
         />
@@ -496,9 +478,9 @@ const SearchFields = ({
         <NumericRangeFilter
           filterKey="suggestions_count"
           onChange={handleNumericRange}
-          value={query.suggestions_count}
+          value={stateQuery.suggestions_count}
           onRemove={() => handleRemoveField('suggestions_count')}
-          readOnly={isSpecialPage || readOnlyFields.includes('suggestions_count')}
+          readOnly={readOnlyFields.includes('suggestions_count')}
         />
       </Box>
     ),
@@ -508,7 +490,7 @@ const SearchFields = ({
           filterKey="demand"
           onChange={handleNumericRange}
           readOnly={readOnlyFields.includes('demand')}
-          value={query.demand}
+          value={stateQuery.demand}
           onRemove={() => handleRemoveField('demand')}
         />
       </Box>
@@ -520,7 +502,7 @@ const SearchFields = ({
             allowSearch={false}
             label={label}
             icon={<ReportIcon />}
-            selected={query.report_status}
+            selected={stateQuery.report_status}
             options={reportStatusOptions}
             readOnly={readOnlyFields.includes('report_status')}
             onChange={(newValue) => { handleFilterClick(newValue, 'report_status'); }}
@@ -536,7 +518,7 @@ const SearchFields = ({
             teamSlug={team.slug}
             label={label}
             icon={<HowToRegIcon />}
-            selected={query.published_by}
+            selected={stateQuery.published_by}
             onChange={(newValue) => { handleFilterClick(newValue, 'published_by'); }}
             readOnly={readOnlyFields.includes('published_by')}
             onRemove={() => handleRemoveField('published_by')}
@@ -551,12 +533,12 @@ const SearchFields = ({
             teamSlug={team.slug}
             label={label}
             icon={<PersonIcon />}
-            selected={query.annotated_by}
+            selected={stateQuery.annotated_by}
             onChange={(newValue) => { handleFilterClick(newValue, 'annotated_by'); }}
             readOnly={readOnlyFields.includes('annotated_by')}
             onRemove={() => handleRemoveField('annotated_by')}
             onToggleOperator={() => handleSwitchOperator('annotated_by_operator')}
-            operator={query.annotated_by_operator}
+            operator={stateQuery.annotated_by_operator}
           />
         )}
       </FormattedMessage>
@@ -565,7 +547,7 @@ const SearchFields = ({
       <Box maxWidth="900px">
         <LanguageFilter
           onChange={handleLanguageChange}
-          value={query.language_filter}
+          value={stateQuery.language_filter}
           readOnly={readOnlyFields.includes('language_filter')}
           onRemove={() => handleRemoveField('language_filter')}
           teamSlug={team.slug}
@@ -579,7 +561,7 @@ const SearchFields = ({
             teamSlug={team.slug}
             label={label}
             icon={<PersonIcon />}
-            selected={query.assigned_to}
+            selected={stateQuery.assigned_to}
             onChange={(newValue) => { handleFilterClick(newValue, 'assigned_to'); }}
             readOnly={readOnlyFields.includes('assigned_to')}
             onRemove={() => handleRemoveField('assigned_to')}
@@ -592,14 +574,14 @@ const SearchFields = ({
       <CustomFiltersManager
         onFilterChange={handleCustomFilterChange}
         team={team}
-        query={query}
+        query={stateQuery}
         operatorToggle={<OperatorToggle />}
       />
     ),
     sources: (
       <SearchFieldSource
         teamSlug={team.slug}
-        selected={query.sources}
+        selected={stateQuery.sources}
         readOnly={readOnlyFields.includes('sources')}
         onChange={(newValue) => { handleFilterClick(newValue, 'sources'); }}
         onRemove={() => handleRemoveField('sources')}
@@ -612,7 +594,7 @@ const SearchFields = ({
             label={label}
             icon={<CorporateFareIcon />}
             teamSlug={team.slug}
-            selected={query.cluster_teams}
+            selected={stateQuery.cluster_teams}
             readOnly={readOnlyFields.includes('cluster_teams')}
             onChange={(newValue) => { handleFilterClick(newValue, 'cluster_teams'); }}
             onRemove={() => handleRemoveField('cluster_teams')}
@@ -627,7 +609,7 @@ const SearchFields = ({
             label={label}
             icon={<HowToRegIcon />}
             teamSlug={team.slug}
-            selected={query.cluster_published_reports}
+            selected={stateQuery.cluster_published_reports}
             readOnly={readOnlyFields.includes('cluster_published_reports')}
             onChange={(newValue) => { handleFilterClick(newValue, 'cluster_published_reports'); }}
             onRemove={() => handleRemoveField('cluster_published_reports')}
@@ -635,15 +617,48 @@ const SearchFields = ({
         )}
       </FormattedMessage>
     ),
+    spam: (
+      <SearchFieldDummy
+        icon={<SpamIcon />}
+        label={<FormattedMessage id="search.spam" defaultMessage="Item is marked as spam" description="Label for spam filter field" />}
+      />
+    ),
+    trash: (
+      <SearchFieldDummy
+        icon={<DeleteIcon />}
+        label={<FormattedMessage id="search.trash" defaultMessage="Item is in the Trash" description="Label for spam filter field" />}
+      />
+    ),
   };
 
   let fieldKeys = [];
-  if (project) fieldKeys.push('projects');
-  if (projectGroup) fieldKeys.push('project_group_id');
-  if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
+  /*
+    spam and trash are added manually because they work with the `archived` filter field
+    and it gets mixed with the "tipline request is confirmed/unconfirmed" filter. :cry:
+    for the same reason, `archived` is a `hideFields` value for both lists.
+  */
+  if (page === 'spam') fieldKeys.push('spam');
+  if (page === 'trash') fieldKeys.push('trash');
 
-  fieldKeys = fieldKeys.concat(Object.keys(query).filter(k => k !== 'keyword' && hideFields.indexOf(k) === -1 && fieldComponents[k]));
+  fieldKeys = fieldKeys.concat(Object.keys(stateQuery).filter(k => k !== 'keyword' && !hideFields.includes(k) && fieldComponents[k]));
+
   const addedFields = fieldKeys.filter(i => i !== 'team_tasks');
+
+  const stripTimestamp = (obj) => {
+    const ret = { ...obj };
+    delete ret.timestamp;
+    return ret;
+  };
+
+  const stateQueryWithoutTimestamp = stripTimestamp(stateQuery);
+  const appliedQueryWithoutTimestamp = stripTimestamp(appliedQuery);
+  const defaultQueryWithoutTimestamp = stripTimestamp(defaultQuery);
+
+  // We can apply if the state query is dirty (differs from what is applied)
+  const canApply = JSON.stringify(stateQueryWithoutTimestamp) !== JSON.stringify(appliedQueryWithoutTimestamp);
+  // We can save if the applied query is different from the default query
+  const canSave = JSON.stringify(appliedQueryWithoutTimestamp) !== JSON.stringify(defaultQueryWithoutTimestamp);
+  const canReset = canApply || canSave;
 
   return (
     <div>
@@ -670,8 +685,8 @@ const SearchFields = ({
           addedFields={addedFields}
           onSelect={handleAddField}
         />
-        <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
-        { filterIsActive() ? (
+        { canReset && <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} /> }
+        { canReset && (
           <ButtonMain
             variant="contained"
             size="default"
@@ -684,43 +699,42 @@ const SearchFields = ({
               id: 'search-fields__clear-button',
             }}
           />
-        ) : null }
-        <ButtonMain
-          variant="contained"
-          size="default"
-          theme="lightValidation"
-          onClick={handleSubmit}
-          label={
-            <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
-          }
-          buttonProps={{
-            id: 'search-fields__submit-button',
-          }}
-        />
-        { can(team.permissions, 'update Team') ?
-          <SaveList team={team} query={query} project={project} projectGroup={projectGroup} savedSearch={savedSearch} feedTeam={feedTeam} />
-          : null }
+        )}
+        { canApply && (
+          <ButtonMain
+            variant="contained"
+            size="default"
+            theme="lightValidation"
+            onClick={handleSubmit}
+            label={
+              <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
+            }
+            buttonProps={{
+              id: 'search-fields__submit-button',
+            }}
+          />
+        )}
+        { canSave && (
+          <SaveList
+            team={team}
+            query={stateQuery}
+            savedSearch={savedSearch}
+            feedTeam={feedTeam}
+            page={page}
+          />
+        )}
       </Row>
     </div>
   );
 };
 
 SearchFields.defaultProps = {
-  page: null,
-  project: null,
-  projectGroup: null,
   savedSearch: null,
   feedTeam: null,
   readOnlyFields: [],
 };
 
 SearchFields.propTypes = {
-  project: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-  }),
-  projectGroup: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-  }),
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
@@ -731,8 +745,10 @@ SearchFields.propTypes = {
     title: PropTypes.string.isRequired,
     filters: PropTypes.string.isRequired,
   }),
-  query: PropTypes.object.isRequired,
-  setQuery: PropTypes.func.isRequired,
+  stateQuery: PropTypes.object.isRequired,
+  appliedQuery: PropTypes.object.isRequired,
+  defaultQuery: PropTypes.object.isRequired,
+  setStateQuery: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -743,7 +759,7 @@ SearchFields.propTypes = {
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   readOnlyFields: PropTypes.arrayOf(PropTypes.string),
-  page: PropTypes.string,
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
 };
 
 SearchFields.contextTypes = {

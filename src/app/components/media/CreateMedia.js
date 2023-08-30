@@ -124,7 +124,20 @@ class CreateProjectMedia extends React.Component {
   }
 }
 
+CreateProjectMedia.defaultProps = {
+  project: null,
+};
+
 CreateProjectMedia.propTypes = {
+  team: PropTypes.shape({
+    slug: PropTypes.string,
+  }).isRequired,
+  project: PropTypes.shape({
+    dbid: PropTypes.number,
+  }),
+  search: PropTypes.shape({
+    number_of_results: PropTypes.number,
+  }).isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 

@@ -28,8 +28,7 @@
   .input-icon-left-icon,
   .input-icon-right-icon {
     color: var(--textSecondary);
-    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-    font-size: 24px;
+    font-size: var(--iconSizeDefault);
     height: 24px;
     pointer-events: none;
     position: absolute;

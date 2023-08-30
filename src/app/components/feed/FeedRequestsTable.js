@@ -27,7 +27,7 @@ import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import SearchKeyword from '../search/SearchKeyword';
-import ProjectBlankState from '../project/ProjectBlankState';
+import BlankState from '../layout/BlankState';
 
 const useStyles = makeStyles({
   root: {
@@ -171,7 +171,7 @@ const FeedRequestsTable = ({
             <SearchKeyword
               query={{ keyword: filters.keyword }}
               team={{ verification_statuses: {} }}
-              setQuery={(query) => {
+              setStateQuery={(query) => {
                 // Clear
                 if (!query.keyword || query.keyword === '') {
                   const newFilters = { ...filters };
@@ -190,7 +190,7 @@ const FeedRequestsTable = ({
             />
           </Box>
         </Box>
-        { tabs({}) }
+        { typeof tabs === 'function' && tabs({}) }
       </Box>
       <Box>
         <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} feedTeam={feedTeam} />
@@ -207,15 +207,13 @@ const FeedRequestsTable = ({
         </Box>
         : null }
       {totalCount === 0 ?
-        <ProjectBlankState
-          message={
-            <FormattedMessage
-              id="projectBlankState.blank"
-              defaultMessage="There are no items here."
-              description="Message displayed when there are no items"
-            />
-          }
-        />
+        <BlankState>
+          <FormattedMessage
+            id="projectBlankState.blank"
+            defaultMessage="There are no items here."
+            description="Message displayed when there are no items"
+          />
+        </BlankState>
         :
         <TableContainerWithScrollbars>
           <Table stickyHeader size="small">
@@ -477,12 +475,13 @@ const FeedRequestsTableQuery = ({
 
 FeedRequestsTableQuery.defaultProps = {
   filters: {},
+  tabs: () => {},
 };
 
 FeedRequestsTableQuery.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   feedId: PropTypes.number.isRequired,
-  tabs: PropTypes.func.isRequired,
+  tabs: PropTypes.func,
   searchUrlPrefix: PropTypes.string.isRequired,
   filters: PropTypes.object,
   feedTeam: PropTypes.shape({

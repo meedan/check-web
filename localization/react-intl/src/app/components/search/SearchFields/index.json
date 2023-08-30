@@ -50,6 +50,11 @@
     "defaultMessage": "Instagram post"
   },
   {
+    "id": "search.telegram",
+    "description": "Allow user to filter items by Telegram posts",
+    "defaultMessage": "Telegram"
+  },
+  {
     "id": "search.webLink",
     "description": "Allow user to filter items by links of type page",
     "defaultMessage": "webLink"
@@ -183,6 +188,16 @@
     "id": "search.clusterTeams",
     "description": "Prefix label for field to filter by workspace",
     "defaultMessage": "Organization is"
+  },
+  {
+    "id": "search.spam",
+    "description": "Label for spam filter field",
+    "defaultMessage": "Item is marked as spam"
+  },
+  {
+    "id": "search.trash",
+    "description": "Label for spam filter field",
+    "defaultMessage": "Item is in the Trash"
   },
   {
     "id": "search.resetFilter",

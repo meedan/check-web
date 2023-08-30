@@ -58,7 +58,6 @@ shared_examples 'tag' do
     # check that it does not have a item using this tag
     expect(wait_for_selector('td > a').text == '0').to be(true)
     # create a media
-    wait_for_selector('.projects-list__all-items').click
     create_media('new media')
     sleep 30 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.media__heading').click
@@ -67,7 +66,7 @@ shared_examples 'tag' do
   end
 
   it 'should add a tag, reject duplicated tag', bin3: true, quick: true do
-    api_create_team_project_claim_and_media_tag
+    api_create_team_claim_and_media_tag
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-card-large')

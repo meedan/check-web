@@ -1,20 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import RootRef from '@material-ui/core/RootRef';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styles from './Projects.module.css';
 
 const ProjectsListItem = ({
-  index,
   onClick,
   isActive,
-  isDroppable,
-  isDraggable,
   className,
   teamSlug,
   project,
@@ -26,101 +21,58 @@ const ProjectsListItem = ({
   const handleClick = () => {
     if (onClick) {
       onClick(routePrefix, project.dbid);
-      browserHistory.push(`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`);
     }
   };
 
   const defaultClassName = ['project-list__link', className].join(' ');
 
   const Item = listItemProps => (
-    <ListItem
-      button
+    <Link
       onClick={handleClick}
-      title={project.title}
-      key={`${project.id}-${project.title}`}
-      className={[
-        defaultClassName,
-        styles.listItem,
-        styles.listItem_containsCount,
-        isActive ? styles.listItem_active : '',
-      ].join(' ')}
-      {...listItemProps}
+      className={styles.linkList}
+      to={`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`}
     >
-      {icon}
-      <ListItemText
-        disableTypography
+      <ListItem
+        title={project.title}
+        key={`${project.id}-${project.title}`}
         className={[
-          styles.listLabel,
-          !icon ? styles.listLabel_plainText : '',
+          defaultClassName,
+          styles.listItem,
+          styles.listItem_containsCount,
+          isActive ? styles.listItem_active : '',
         ].join(' ')}
+        {...listItemProps}
       >
-        <span>
-          {project.title || project.name}
-        </span>
-      </ListItemText>
-      <ListItemSecondaryAction title={project.medias_count} className={styles.listItemCount}>
-        <small>
-          { !Number.isNaN(parseInt(project.medias_count, 10)) ?
-            new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
-        </small>
-      </ListItemSecondaryAction>
-    </ListItem>
+        {icon}
+        <ListItemText
+          disableTypography
+          className={[
+            styles.listLabel,
+            !icon ? styles.listLabel_plainText : '',
+          ].join(' ')}
+        >
+          <span>
+            {project.title || project.name}
+          </span>
+        </ListItemText>
+        <ListItemSecondaryAction title={project.medias_count} className={styles.listItemCount}>
+          <small>
+            { !Number.isNaN(parseInt(project.medias_count, 10)) ?
+              new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
+          </small>
+        </ListItemSecondaryAction>
+      </ListItem>
+    </Link>
   );
-
-  const droppableId = `droppable-${routePrefix}-${project.dbid}-${project.project_group_id}`;
-
-  if (isDroppable) {
-    return (
-      <Droppable droppableId={droppableId}>
-        {provided => (
-          <RootRef rootRef={provided.innerRef}>
-            <>
-              <Item />
-              <div style={{ display: 'none' }}>
-                {provided.placeholder}
-              </div>
-            </>
-          </RootRef>
-        )}
-      </Droppable>
-    );
-  }
-
-  if (isDraggable) {
-    return (
-      <Droppable droppableId={droppableId}>
-        {provided => (
-          <RootRef rootRef={provided.innerRef}>
-            <>
-              <Draggable key={project.dbid} draggableId={`draggable-${routePrefix}-${project.id}-${project.project_group_id}`} index={index}>
-                {provided2 => (
-                  <Item
-                    ContainerComponent="li"
-                    ContainerProps={{ ref: provided2.innerRef }}
-                    {...provided2.draggableProps}
-                    {...provided2.dragHandleProps}
-                  />
-                )}
-              </Draggable>
-              {provided.placeholder}
-            </>
-          </RootRef>
-        )}
-      </Droppable>
-    );
-  }
 
   return <Item />;
 };
 
 ProjectsListItem.defaultProps = {
   icon: null,
-  index: null,
   onClick: null,
   isActive: false,
   className: '',
-  isDroppable: false,
-  isDraggable: false,
   routeSuffix: '',
 };
 
@@ -141,9 +93,6 @@ ProjectsListItem.propTypes = {
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
   className: PropTypes.string,
-  isDroppable: PropTypes.bool,
-  isDraggable: PropTypes.bool,
-  index: PropTypes.number,
 };
 
 export default injectIntl(ProjectsListItem);

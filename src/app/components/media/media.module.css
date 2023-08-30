@@ -1,0 +1,29 @@
+.media-actions-bar {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  height: 64px;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: fit-content;
+  z-index: 2;
+}
+
+.media-status-wrapper {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+
+  button:disabled > span:first-of-type {
+    color: var(--textSecondary);
+  }
+}
+
+.status-label {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+}

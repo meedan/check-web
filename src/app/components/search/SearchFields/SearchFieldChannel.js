@@ -46,6 +46,7 @@ const SearchFieldChannelComponent = ({
   onChange,
   onRemove,
   about,
+  page,
   readOnly,
   intl,
 }) => {
@@ -67,13 +68,19 @@ const SearchFieldChannelComponent = ({
     SHARED_DATABASE: intl.formatMessage(messages.sharedDatabase),
   };
 
-  let options = Object.keys(channels).filter(key => key !== 'TIPLINE').map(key => ({ label: optionLabels[key], value: `${channels[key]}` }));
+  let options = [];
+
+  const nonTiplines = Object.keys(channels).filter(key => key !== 'TIPLINE').map(key => ({ label: optionLabels[key], value: `${channels[key]}` }));
+  const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: optionLabels[key], value: `${channels.TIPLINE[key]}`, parent: 'any_tipline' }));
+
+  if (page !== 'tipline-inbox') {
+    options = options.concat(nonTiplines);
+  }
 
   options = options.concat([
     { label: intl.formatMessage(messages.anyTipline), value: 'any_tipline', hasChildren: true },
   ]);
 
-  const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: optionLabels[key], value: `${channels.TIPLINE[key]}`, parent: 'any_tipline' }));
   options = options.concat(tiplines);
 
   const handleChange = (channelIds) => {
@@ -86,10 +93,10 @@ const SearchFieldChannelComponent = ({
   };
 
   let selectedChannels = [];
-  if (/tipline-inbox/.test(window.location.pathname)) {
+  if (page === 'tipline-inbox') {
     selectedChannels = [CheckChannels.ANYTIPLINE];
   }
-  if (/imported-fact-checks/.test(window.location.pathname)) {
+  if (page === 'imported-fact-checks') {
     selectedChannels = [CheckChannels.FETCH];
   }
 
@@ -102,7 +109,7 @@ const SearchFieldChannelComponent = ({
           selected={query.channels || selectedChannels}
           options={options}
           onChange={handleChange}
-          onRemove={onRemove}
+          onRemove={(page !== 'tipline-inbox') ? onRemove : null}
           readOnly={readOnly}
         />
       )}
@@ -135,6 +142,7 @@ SearchFieldChannel.propTypes = {
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired,
 };
 
 export default injectIntl(SearchFieldChannel);

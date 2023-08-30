@@ -8,12 +8,12 @@ function searchQueryFromUrlQuery(urlQuery) {
 }
 
 export function searchQueryFromUrl() {
-  const queryString = window.location.pathname.match(/.*\/(all-items|trash|project\/[0-9]+)(?:\/[a-z]+)?\/(.*)/);
+  const queryString = window.location.pathname.match(/.*\/(all-items|trash)(?:\/[a-z]+)?\/(.*)/);
   return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
 }
 
 function searchPrefixFromUrl() {
-  const queryString = window.location.pathname.match(/.*\/(all-items|trash|project\/[0-9]+)/);
+  const queryString = window.location.pathname.match(/.*\/(all-items|trash)/);
   return queryString ? queryString[0] : null;
 }
 
@@ -22,32 +22,14 @@ export function urlFromSearchQuery(query, path) {
   return Object.keys(query).length === 0 ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
 }
 
-function noFilters(query_, project, projectGroup) {
+function noFilters(query_) {
   const query = { ...query_ };
   delete query.timestamp;
   if (Object.keys(query).indexOf('archived') > -1) {
     delete query.archived;
     delete query.parent;
   }
-  if (
-    query.projects &&
-    (query.projects.length === 0 ||
-      (project &&
-        query.projects.length === 1 &&
-        query.projects[0] === project.dbid))
-  ) {
-    delete query.projects;
-  }
-  if (
-    query.project_group_id &&
-    (query.project_group_id.length === 0 ||
-      (projectGroup &&
-        query.project_group_id.length === 1 &&
-        query.project_group_id[0] === projectGroup.dbid))
-  ) {
-    delete query.project_group_id;
-  }
-  if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
+  if (/\/(tipline-inbox|imported-fact-checks)+/.test(window.location.pathname)) {
     delete query.channels;
   }
   if (/\/(unmatched-media)+/.test(window.location.pathname)) {
@@ -79,12 +61,11 @@ export default function Search({
   page,
   listSubtitle,
   teamSlug,
-  project,
-  projectGroup,
   feed,
   feedTeam,
   savedSearch,
   query,
+  defaultQuery,
   searchUrlPrefix,
   title,
   icon,
@@ -93,7 +74,7 @@ export default function Search({
   extra,
 }) {
   let timestampedQuery = query;
-  if (!noFilters(query, project, projectGroup)) {
+  if (!noFilters(query)) {
     timestampedQuery = { ...query, timestamp: new Date().getTime() };
   }
 
@@ -103,8 +84,6 @@ export default function Search({
       mediaUrlPrefix={mediaUrlPrefix}
       listSubtitle={listSubtitle}
       teamSlug={teamSlug}
-      project={project}
-      projectGroup={projectGroup}
       feed={feed}
       feedTeam={feedTeam}
       savedSearch={savedSearch}
@@ -115,6 +94,7 @@ export default function Search({
       title={title}
       icon={icon}
       query={timestampedQuery}
+      defaultQuery={defaultQuery}
       showExpand={showExpand}
       resultType={resultType}
       extra={extra}
@@ -123,12 +103,9 @@ export default function Search({
 }
 
 Search.defaultProps = {
-  project: null,
-  projectGroup: null,
   feedTeam: null,
   feed: null,
   savedSearch: null,
-  page: undefined, // FIXME find a cleaner way to render Trash differently
   hideFields: [],
   readOnlyFields: [],
   listActions: undefined,
@@ -143,8 +120,6 @@ Search.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,
   listActions: PropTypes.node, // or undefined
-  project: PropTypes.object, // or null
-  projectGroup: PropTypes.object, // or null
   feedTeam: PropTypes.object, // or null
   feed: PropTypes.object, // or null
   savedSearch: PropTypes.object, // or null
@@ -154,8 +129,9 @@ Search.propTypes = {
   icon: PropTypes.node,
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'suggested-matches', 'feed', 'tipline-inbox', 'unmatched-media']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   query: PropTypes.object.isRequired, // may be empty
+  defaultQuery: PropTypes.object.isRequired, // may be empty
   showExpand: PropTypes.bool,
   resultType: PropTypes.string, // 'default' or 'feed', for now
   extra: PropTypes.node, // or null

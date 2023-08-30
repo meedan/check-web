@@ -15,8 +15,6 @@ import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
-import MoveProjectMediaAction from './MoveProjectMediaAction';
-import RestoreConfirmProjectMediaToProjectAction from './RestoreConfirmProjectMediaToProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
@@ -84,7 +82,7 @@ class MediaActionsBarComponent extends Component {
       />
     );
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.props.setFlashMessage(message, 'error');
+    this?.props.setFlashMessage(message, 'error');
   }
 
   canSubmit = () => {
@@ -257,7 +255,6 @@ class MediaActionsBarComponent extends Component {
 
     const isParent = !(media?.suggested_main_item || media?.is_confirmed_similar_to_another_item);
 
-    const { project } = media;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design?.data && media?.dynamic_annotation_report_design?.data?.state === 'published');
 
     const options = [];
@@ -276,34 +273,8 @@ class MediaActionsBarComponent extends Component {
       });
     }
 
-    const context = this.getContext();
-
-    let moveOrRestor = '';
-    if (isParent) {
-      if (media.archived === CheckArchivedFlags.NONE) {
-        moveOrRestor = (
-          <MoveProjectMediaAction
-            team={this.props.media.team}
-            project={project}
-            projectMedia={this.props.media}
-            className={classes.spacedButton}
-          />
-        );
-      } else {
-        moveOrRestor = (
-          <RestoreConfirmProjectMediaToProjectAction
-            team={this.props.media.team}
-            projectMedia={this.props.media}
-            context={context}
-            className={classes.spacedButton}
-          />
-        );
-      }
-    }
-
     return (
       <div className={classes.root}>
-        <div> { moveOrRestor } </div>
         <Box display="flex">
           {isParent ?
             <MediaStatus
@@ -423,9 +394,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
-        ${MoveProjectMediaAction.getFragment('projectMedia')}
         ${MediaActionsMenuButton.getFragment('projectMedia')}
-        ${RestoreConfirmProjectMediaToProjectAction.getFragment('projectMedia')}
         dbid
         project_id
         title
@@ -443,7 +412,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         }
         project {
           id
-          ${MoveProjectMediaAction.getFragment('project')}
           dbid
           title
           search_id
@@ -472,8 +440,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           }
         }
         team {
-          ${MoveProjectMediaAction.getFragment('team')}
-          ${RestoreConfirmProjectMediaToProjectAction.getFragment('team')}
           id
           dbid
           slug
@@ -527,10 +493,9 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
 // eslint-disable-next-line react/no-multi-comp
 class MediaActionsBar extends React.PureComponent {
   render() {
-    const { projectId, projectMediaId } = this.props;
-    const ids = `${projectMediaId},${projectId}`;
-    const projectIdValue = projectId == null ? 0 : projectId;
-    const route = new MediaRoute({ ids, projectId: projectIdValue });
+    const { projectMediaId } = this.props;
+    const ids = `${projectMediaId},`;
+    const route = new MediaRoute({ ids });
 
     return (
       <Relay.RootContainer
