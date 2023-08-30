@@ -91,12 +91,20 @@
   }
 }
 
+.search-results-top {
+  background-color: var(--otherWhite);
+  border-radius: 8px;
+  margin: 0 16px 16px;
+}
+
 .search-results-wrapper {
+  background-color: var(--otherWhite);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   height: 100%;
+  margin: 0 16px 16px;
   overflow: hidden;
-  width: 100%;
 
   .search-results-heading {
     align-items: center;
@@ -126,6 +134,33 @@
     .search-pagination {
       align-items: center;
       display: flex;
+    }
+  }
+}
+
+.search-results-row {
+  border-left: solid 5px var(--brandMain);
+
+  &.search-results-read {
+    border-left-color: var(--otherWhite);
+  }
+}
+
+.search-results-table-wrapper {
+  display: block;
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+
+  table {
+    border-collapse: collapse;
+
+    tbody {
+      display: table-row-group;
+    }
+
+    thead {
+      display: table-header-group;
     }
   }
 }

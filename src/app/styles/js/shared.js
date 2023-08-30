@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 // These are deprecated and only used in this file, use css variables in other files
 const brandMain = '#567bff';
 const brandBorder = '#d0d6ec';
+const brandHoverAccent = '#f2f8ff';
 
 const textPrimary = '#262626';
 const textSecondary = '#656565';
@@ -172,6 +173,13 @@ export const MuiTheme = {
     MuiTableContainer: {
       root: {
         borderTop: `solid 1px ${grayBorderMain}`,
+      },
+    },
+    MuiTableRow: {
+      hover: {
+        '&:hover': {
+          backgroundColor: `${brandHoverAccent} !important`,
+        },
       },
     },
     MuiTableCell: {

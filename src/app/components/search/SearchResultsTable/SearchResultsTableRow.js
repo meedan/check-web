@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
+import styles from '../SearchResults.module.css';
 
 const isFeedPage = /\/feed$/.test(window.location.pathname);
 
@@ -12,26 +13,10 @@ const swallowClick = (ev) => {
   ev.stopPropagation();
 };
 
-const useStyles = makeStyles({
-  root: ({ dbid, isRead }) => ({
-    cursor: dbid ? 'pointer' : 'wait',
-    background: isRead || isFeedPage ? 'var(--grayBackground)' : 'transparent',
-    textDecoration: 'none',
-  }),
-  hover: ({ isRead }) => ({
-    '&$hover:hover': {
-      boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
-      background: isRead || isFeedPage ? 'var(--grayBackground)' : 'transparent',
-      transform: 'scale(1)',
-    },
-  }),
-});
-
 export default function SearchResultsTableRow({
   projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked, resultType,
 }) {
   const { dbid, is_read: isRead } = projectMedia;
-  const classes = useStyles({ dbid, isRead });
 
   // This is why we don't get a listIndex in our feed item url
   // We are forcing the url instead of getting it from `projectMediaUrl` which is built from `buildProjectMediaUrl`
@@ -58,8 +43,13 @@ export default function SearchResultsTableRow({
     <TableRow
       aria-checked={checked}
       selected={checked}
-      classes={classes}
-      className="medias__item" // for integration tests
+      className={cx(
+        'medias__item', // for integration tests
+        styles['search-results-row'],
+        {
+          [styles['search-results-read']]: isRead || isFeedPage,
+        })
+      }
       hover={!!dbid} // only allow hover when clickable
     >
       { (resultType !== 'feed' && resultType !== 'factCheck') ? (

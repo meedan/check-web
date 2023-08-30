@@ -430,7 +430,6 @@ function SearchResultsComponent({
             /> : null }
         </div>
       </div>
-
       <div className={cx('search__results-top', styles['search-results-top'])}>
         { extra ? <Box mb={2} ml={2}>{extra(stateQuery)}</Box> : null }
         <Box m={2}>
