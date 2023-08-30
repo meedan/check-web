@@ -1,34 +1,16 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { languageLabel } from '../../../LanguageRegistry';
-import { units } from '../../../styles/js/shared';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import StatusLabel from './StatusLabel';
 import StatusMessage from './StatusMessage';
-
-const StyledTranslateStatusesContainer = styled.div`
-  margin: ${units(4)};
-`;
-
-const StyledColHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const StyledTextField = styled.div`
-  margin-top: ${units(2)};
-  margin-bottom: ${units(1)};
-`;
+import styles from './Statuses.module.css';
 
 const TranslateStatuses = ({
   statuses,
@@ -112,99 +94,92 @@ const TranslateStatuses = ({
   };
 
   return (
-    <StyledTranslateStatusesContainer>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <Typography variant="button">
-            { languageLabel(defaultLanguage) }
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <StyledColHeader>
-            <Typography variant="button">
-              { languageLabel(currentLanguage) }
-            </Typography>
-            <Button className="translate-statuses__save" variant="contained" color="primary" onClick={handleSave}>
+    <div className={styles['settings-translated-statuses']}>
+      <div className={cx(styles['settings-translated-rows'], styles['settings-translated-row-header'])}>
+        <div className="typography-button">
+          { languageLabel(defaultLanguage) }
+        </div>
+        <div>
+          <span className="typography-button">
+            { languageLabel(currentLanguage) }
+          </span>
+          <ButtonMain
+            className="translate-statuses__save"
+            variant="contained"
+            theme="brand"
+            size="default"
+            onClick={handleSave}
+            label={
               <FormattedGlobalMessage messageKey="save" />
-            </Button>
-          </StyledColHeader>
-        </Grid>
-      </Grid>
+            }
+          />
+        </div>
+      </div>
       {statuses.map(s => (
-        <Box mt={1} key={s.id}>
-          <Divider />
-          <Grid
-            spacing={2}
-            container
-            direction="row"
-            alignItems="center"
-          >
-            <Grid item xs={6}>
-              <Typography variant="caption" component="div">
+        <div className={styles['settings-translated-rows']} key={s.id}>
+          <div>
+            <ul>
+              <li className={styles['settings-status-listitem']}>
+                <div>
+                  <StatusLabel color={s.style.color}>
+                    { s.locales[defaultLanguage] ?
+                      s.locales[defaultLanguage].label : s.label }
+                  </StatusLabel>
+                  <StatusMessage
+                    message={
+                      s.locales[defaultLanguage] && s.should_send_message ?
+                        s.locales[defaultLanguage].message : null
+                    }
+                  />
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <TextField
+              className="translate-statuses__input"
+              label={
                 <FormattedMessage
                   id="translateStatuses.status"
                   defaultMessage="Status"
+                  description="Label for TextField for the status translation"
                 />
-              </Typography>
-              <StatusLabel color={s.style.color}>
-                { s.locales[defaultLanguage] ?
-                  s.locales[defaultLanguage].label : s.label }
-              </StatusLabel>
-              <StatusMessage
-                message={
-                  s.locales[defaultLanguage] && s.should_send_message ?
-                    s.locales[defaultLanguage].message : null
-                }
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <StyledTextField>
-                <TextField
-                  className="translate-statuses__input"
-                  label={
-                    <FormattedMessage
-                      id="translateStatuses.status"
-                      defaultMessage="Status"
-                    />
-                  }
-                  defaultValue={
-                    s.locales[currentLanguage] ?
-                      s.locales[currentLanguage].label : ''
-                  }
-                  fullWidth
-                  id={`translate-statuses__input-${s.id}`}
-                  onChange={e => (handleTextChange(s.id, e.target.value))}
-                  size="small"
-                  variant="outlined"
-                />
-              </StyledTextField>
-              { s.should_send_message && s.locales[defaultLanguage] && s.locales[defaultLanguage].message ?
-                <StyledTextField>
-                  <TextField
-                    className="translate-statuses__message"
-                    label={
-                      <FormattedMessage
-                        id="translateStatuses.message"
-                        defaultMessage="Message"
-                      />
-                    }
-                    defaultValue={
-                      s.locales[currentLanguage] ?
-                        s.locales[currentLanguage].message : ''
-                    }
-                    fullWidth
-                    id={`translate-statuses__message-${s.id}`}
-                    multiline
-                    rows={3}
-                    rowsMax={Infinity}
-                    onChange={e => (handleMessageChange(s.id, e.target.value))}
-                    size="small"
-                    variant="outlined"
+              }
+              defaultValue={
+                s.locales[currentLanguage] ?
+                  s.locales[currentLanguage].label : ''
+              }
+              fullWidth
+              id={`translate-statuses__input-${s.id}`}
+              onChange={e => (handleTextChange(s.id, e.target.value))}
+              size="small"
+              variant="outlined"
+            />
+            { s.should_send_message && s.locales[defaultLanguage] && s.locales[defaultLanguage].message ?
+              <TextField
+                className="translate-statuses__message"
+                label={
+                  <FormattedMessage
+                    id="translateStatuses.message"
+                    defaultMessage="Message"
+                    description="Label for the textarea where user can provide a translation for the automated message"
                   />
-                </StyledTextField> : null }
-            </Grid>
-          </Grid>
-        </Box>
+                }
+                defaultValue={
+                  s.locales[currentLanguage] ?
+                    s.locales[currentLanguage].message : ''
+                }
+                fullWidth
+                id={`translate-statuses__message-${s.id}`}
+                multiline
+                rows={3}
+                rowsMax={Infinity}
+                onChange={e => (handleMessageChange(s.id, e.target.value))}
+                size="small"
+                variant="outlined"
+              /> : null }
+          </div>
+        </div>
       ))}
       <ConfirmProceedDialog
         open={showWarning}
@@ -212,14 +187,16 @@ const TranslateStatuses = ({
           <FormattedMessage
             id="translateStatuses.missingTranslations"
             defaultMessage="Missing translations"
+            description="Modal Title informing the user that there are missing translations"
           />
         }
         body={
-          <Box>
+          <div>
             <Typography variant="body1">
               <FormattedMessage
                 id="translateStatuses.missingTranslationsBody"
                 defaultMessage="Some statuses are missing translations. Users may not be able to read untranslated statuses."
+                description="Modal paragraph description informing the user that there are missing translations"
               />
             </Typography>
             <p />
@@ -227,9 +204,10 @@ const TranslateStatuses = ({
               <FormattedMessage
                 id="translateStatuses.missingTranslationsBody2"
                 defaultMessage="If the message for a status is not translated in a language, any requester using that language will not receive the message."
+                description="Description paragraph telling the user what will happen is a translation is missing"
               />
             </Typography>
-          </Box>
+          </div>
         }
         onCancel={handleDialogCancel}
         onProceed={handleSubmit}
@@ -237,10 +215,11 @@ const TranslateStatuses = ({
           <FormattedMessage
             id="translateStatuses.continueAndSave"
             defaultMessage="Continue and save"
+            description="Label for confirmation to save the updated status translations"
           />
         }
       />
-    </StyledTranslateStatusesContainer>
+    </div>
   );
 };
 

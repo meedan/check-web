@@ -1,6 +1,7 @@
 [
   {
     "id": "tiplineInbox.title",
+    "description": "Title for the tipline inbox listing of items",
     "defaultMessage": "Tipline inbox"
   }
 ]
