@@ -11,6 +11,7 @@ import { getStatus, getErrorMessage, bemClass } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import ChatBubbleIcon from '../../icons/chat_bubble.svg';
+import ChatBubbleFilledIcon from '../../icons/chat_bubble_filled.svg';
 import ChevronDownIcon from '../../icons/chevron_down.svg';
 import EllipseIcon from '../../icons/ellipse.svg';
 import LockIcon from '../../icons/lock.svg';
@@ -84,8 +85,8 @@ class MediaStatusCommon extends Component {
           size="default"
           onClick={e => this.setState({ anchorEl: e.currentTarget })}
           disabled={!this.canUpdate()}
-          iconLeft={currentStatus.should_send_message ? <><ChatBubbleIcon style={{ color: currentStatus.style.color }} /><EllipseIcon style={{ color: currentStatus.style.color }} /></> : <EllipseIcon style={{ color: currentStatus.style.color }} />}
-          iconRight={this.canUpdate() ? <ChevronDownIcon /> : <LockIcon />}
+          iconLeft={currentStatus.should_send_message ? <ChatBubbleFilledIcon style={{ color: currentStatus.style.color }} /> : <EllipseIcon style={{ color: currentStatus.style.color }} />}
+          iconRight={this.canUpdate() ? <ChevronDownIcon /> : <LockIcon style={{ color: currentStatus.style.color }} />}
           label={currentStatus.label}
         />
         <Popover
