@@ -18,7 +18,7 @@
   gap: 4px;
 
   button:disabled > span:first-of-type {
-    color: var(--textSecondary) !important;
+    color: var(--textSecondary);
   }
 }
 
