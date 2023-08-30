@@ -22,6 +22,7 @@ const buttonThemes = {
 const buttonTheme = alertVariant => buttonThemes[alertVariant] || 'brand';
 
 const Alert = ({
+  className,
   title,
   content,
   variant,
@@ -36,6 +37,7 @@ const Alert = ({
     className={cx(
       styles['alert-wrapper'],
       {
+        [className]: true,
         [styles.info]: variant === 'info',
         [styles.success]: variant === 'success',
         [styles.warning]: variant === 'warning',
@@ -80,7 +82,9 @@ const Alert = ({
           />
         }
         >
-          <ButtonMain variant="text" size="small" theme={buttonTheme(variant)} iconCenter={<IconClose />} onClick={onClose} />
+          <span>
+            <ButtonMain variant="text" size="small" theme={buttonTheme(variant)} iconCenter={<IconClose />} onClick={onClose} />
+          </span>
         </Tooltip>
       </div>
     }
@@ -88,6 +92,7 @@ const Alert = ({
 );
 
 Alert.defaultProps = {
+  className: null,
   variant: 'info',
   content: '',
   title: '',
@@ -100,6 +105,7 @@ Alert.defaultProps = {
 };
 
 Alert.propTypes = {
+  className: PropTypes.string,
   title: PropTypes.object,
   content: PropTypes.object,
   floating: PropTypes.bool,

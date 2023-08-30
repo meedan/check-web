@@ -10,15 +10,6 @@ describe('<SuggestedMatches />', () => {
       routeParams={{ team }}
     />);
 
-    const renderedMockSearch = wrapper.find('ReactRelayQueryRenderer').props().render(
-      {
-        error: false,
-        props: {
-          team,
-        },
-      },
-    );
-
-    expect(renderedMockSearch.props.query.sort).toBe('recent_added');
+    expect(wrapper.find('Search').props().query.sort).toBe('recent_added');
   });
 });

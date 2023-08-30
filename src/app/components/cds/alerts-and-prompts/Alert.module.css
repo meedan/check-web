@@ -48,7 +48,7 @@
 
   .contentWrapper {
     flex: 1 1 auto;
-    padding: 4px 0 0;
+    padding: 2px 0 0;
 
     .title + .content {
       margin: 6px 0 0;
