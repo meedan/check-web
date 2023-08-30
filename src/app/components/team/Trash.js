@@ -10,6 +10,8 @@ import CheckArchivedFlags from '../../CheckArchivedFlags';
 export default function Trash({ routeParams }) {
   const defaultQuery = {
     archived: CheckArchivedFlags.TRASHED,
+    sort: 'recent_activity',
+    sort_type: 'DESC',
     parent: {
       type: 'team',
       slug: routeParams.team,
