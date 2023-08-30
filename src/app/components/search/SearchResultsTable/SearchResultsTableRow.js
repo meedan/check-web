@@ -52,6 +52,13 @@ export default function SearchResultsTableRow({
       }
       hover={!!dbid} // only allow hover when clickable
     >
+      <TableCell
+        className={styles['unread-status']}
+        component="th"
+        scope="row"
+      >
+        &nbsp;
+      </TableCell>
       { (resultType !== 'feed' && resultType !== 'factCheck') ? (
         <TableCell padding="checkbox" onClick={swallowClick}>
           { !projectMedia.is_secondary ? <Checkbox checked={checked} onChange={handleChangeChecked} /> : null }

@@ -138,14 +138,6 @@
   }
 }
 
-.search-results-row {
-  border-left: solid 5px var(--brandMain);
-
-  &.search-results-read {
-    border-left-color: var(--otherWhite);
-  }
-}
-
 .search-results-table-wrapper {
   display: block;
   height: 100%;
@@ -155,12 +147,48 @@
   table {
     border-collapse: collapse;
 
-    tbody {
-      display: table-row-group;
-    }
-
     thead {
       display: table-header-group;
+
+      tr {
+        th {
+          box-shadow: inset 0 -1px 0 0 var(--grayBorderMain);
+
+          &.unread-status {
+            background-color: var(--otherWhite);
+            left: 0;
+            padding: 0;
+            position: sticky;
+            width: 5px;
+            z-index: 2;
+          }
+        }
+      }
+    }
+
+    tbody {
+      display: table-row-group;
+
+      tr {
+        &.search-results-row {
+          position: relative;
+
+          .unread-status {
+            background-color: var(--brandMain);
+            left: 0;
+            padding: 0;
+            position: sticky;
+            width: 5px;
+            z-index: 1;
+          }
+
+          &.search-results-read {
+            .unread-status {
+              background-color: var(--otherWhite);
+            }
+          }
+        }
+      }
     }
   }
 }

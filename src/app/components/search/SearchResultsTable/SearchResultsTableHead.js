@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TableHead from '@material-ui/core/TableHead';
+import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import SelectAllTh from './SelectAllTh';
 import SearchResultsTh from './SearchResultsTh';
+import styles from '../SearchResults.module.css';
 
 export default function SearchResultsTableHead({
   columnDefs, selectedIds, projectMedias, sortParams, onChangeSelectedIds, onChangeSortParams, resultType,
@@ -11,6 +13,7 @@ export default function SearchResultsTableHead({
   return (
     <TableHead>
       <TableRow>
+        <TableCell className={styles['unread-status']}>&nbsp;</TableCell>
         { (resultType !== 'feed' && resultType !== 'factCheck') ? (
           <SelectAllTh
             selectedIds={selectedIds}
