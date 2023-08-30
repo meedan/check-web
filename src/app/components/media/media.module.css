@@ -16,6 +16,10 @@
   align-items: center;
   display: flex;
   gap: 4px;
+
+  button:disabled > span:first-of-type {
+    color: var(--textSecondary);
+  }
 }
 
 .status-label {

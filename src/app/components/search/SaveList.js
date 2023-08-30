@@ -273,7 +273,7 @@ const SaveList = ({
       {/* Create a new list */}
       <ConfirmProceedDialog
         open={showNewDialog}
-        title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />}
+        title={<FormattedMessage id="saveList.saveAsNewList" defaultMessage="Save as new list" description="Dialog title and submit button label for saving filters as new lists" />}
         body={
           <Box>
             <TextField
@@ -304,7 +304,11 @@ const SaveList = ({
       { savedSearch ?
         <ConfirmProceedDialog
           open={showExistingDialog}
-          title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />}
+          title={
+            operation === 'CREATE' ?
+              <FormattedMessage id="saveList.saveAsNewList" defaultMessage="Save as new list" description="Dialog title and submit button label for saving filters as new lists" /> :
+              <FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />
+          }
           body={
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
