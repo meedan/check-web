@@ -1,20 +1,12 @@
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3606-26274&mode=design&t=ZVq51pKdIKdWZicO-4
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from './TextField';
 
 const TextArea = React.forwardRef(({
-  autoGrow = true,
   ...inputProps
-}, ref) => {
-  const [height, setHeight] = useState('auto');
+}, ref) => (
+  <TextField textArea ref={ref} {...inputProps} />
+));
 
-  const handleChange = (event) => {
-    if (autoGrow) {
-      setHeight(`${event.target.scrollHeight}px`);
-    }
-  };
-
-  return <TextField textArea ref={ref} {...inputProps} style={{ height }} onChange={handleChange} />;
-});
-
+// eslint-disable-next-line import/no-unused-modules
 export default TextArea;
