@@ -190,6 +190,16 @@
     "defaultMessage": "Organization is"
   },
   {
+    "id": "search.spam",
+    "description": "Label for spam filter field",
+    "defaultMessage": "Item is marked as spam"
+  },
+  {
+    "id": "search.trash",
+    "description": "Label for spam filter field",
+    "defaultMessage": "Item is in the Trash"
+  },
+  {
     "id": "search.resetFilter",
     "description": "Button label to reset search filters.",
     "defaultMessage": "Reset"

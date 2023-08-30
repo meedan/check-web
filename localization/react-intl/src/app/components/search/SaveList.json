@@ -21,14 +21,17 @@
   },
   {
     "id": "saveList.newList",
+    "description": "Dialog title and submit button label for saving changes to lists",
     "defaultMessage": "Save list"
   },
   {
     "id": "saveList.title",
+    "description": "Prompt for editing list name",
     "defaultMessage": "Enter new list name"
   },
   {
     "id": "saveList.cancel",
+    "description": "Cancel list editing button label",
     "defaultMessage": "Cancel"
   },
   {
@@ -40,11 +43,6 @@
     "id": "saveList.warningAlert",
     "description": "Text displayed in the title of a warning box when saving a list related to shared feeds",
     "defaultMessage": "Saving changes will update shared feeds:"
-  },
-  {
-    "id": "saveList.updateSpecialPage",
-    "description": "'Save' here is an infinitive verb",
-    "defaultMessage": "Save changes to the list"
   },
   {
     "id": "saveList.create",
