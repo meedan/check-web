@@ -49,8 +49,6 @@ const TagList = ({
   const selected = tags;
 
   const handleAddNew = (value) => {
-    // eslint-disable-next-line
-    console.log('~~~tags',tags);
     if (value.trim() === '') {
       return;
     }
