@@ -34,9 +34,8 @@
     height: auto;
 
     :global(.search__results) {
-      margin: auto;
+      margin: 0 32px;
       overflow: visible;
-      width: calc(100% - 32px);
     }
   }
 }

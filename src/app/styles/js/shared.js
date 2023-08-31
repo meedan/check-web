@@ -190,6 +190,7 @@ export const MuiTheme = {
         backgroundColor: otherWhite,
       },
       root: {
+        borderBottom: 0,
         fontSize: 14,
       },
     },

@@ -78,7 +78,7 @@
 }
 
 .search-results-header {
-  margin: 16px;
+  margin: 16px 32px;
 
   :global(.search__list-header-filter-row) {
     align-items: flex-start;
@@ -94,7 +94,7 @@
 .search-results-top {
   background-color: var(--otherWhite);
   border-radius: 8px;
-  margin: 0 16px 16px;
+  margin: 0 32px 16px;
 }
 
 .search-results-wrapper {
@@ -103,7 +103,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin: 0 16px 16px;
+  margin: 0 32px 16px;
   overflow: hidden;
 
   .search-results-heading {
@@ -139,28 +139,29 @@
 }
 
 .search-results-table-wrapper {
+  border-top: solid 1px var(--grayBorderMain);
   display: block;
   height: 100%;
   overflow: auto;
   width: 100%;
 
   table {
-    border-collapse: collapse;
-
     thead {
       display: table-header-group;
 
       tr {
         th {
+          background-color: var(--brandBackground);
+          border-right: solid 1px var(--grayBorderMain);
           box-shadow: inset 0 -1px 0 0 var(--grayBorderMain);
+          white-space: nowrap;
+          width: auto;
 
           &.unread-status {
-            background-color: var(--otherWhite);
+            background-color: var(--brandBackground);
             left: 0;
-            padding: 0;
             position: sticky;
-            width: 5px;
-            z-index: 2;
+            z-index: 3;
           }
         }
       }
@@ -170,21 +171,22 @@
       display: table-row-group;
 
       tr {
+        box-shadow: inset -2px -2px 0 -1px var(--grayBorderMain);
+
         &.search-results-row {
           position: relative;
 
           .unread-status {
-            background-color: var(--brandMain);
+            background-color: var(--otherWhite);
+            box-shadow: inset 3px 0 0 0 var(--brandMain), inset -2px -2px 0 -1px var(--grayBorderMain);
             left: 0;
-            padding: 0;
             position: sticky;
-            width: 5px;
             z-index: 1;
           }
 
           &.search-results-read {
             .unread-status {
-              background-color: var(--otherWhite);
+              box-shadow: inset -2px -2px 0 -1px var(--grayBorderMain);
             }
           }
         }

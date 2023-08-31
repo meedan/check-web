@@ -1,25 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
-const useStyles = makeStyles({
-  root: ({ width }) => ({
-    width,
-    whiteSpace: 'nowrap',
-  }),
-});
-
 export default function SearchResultsTh({
-  text, field, sortKey, width, align, sortParams, onChangeSortParams,
+  text, field, sortKey, align, sortParams, onChangeSortParams,
 }) {
   let sortDirection = null;
   if (sortParams && sortKey === sortParams.key) {
     sortDirection = sortParams.ascending ? 'asc' : 'desc';
   }
-  const classes = useStyles({ width });
 
   const handleClickSort = React.useCallback(() => {
     let newSortParams;
@@ -44,7 +35,6 @@ export default function SearchResultsTh({
     <TableCell
       data-field={field}
       sortDirection={sortDirection || false}
-      classes={classes}
       align={align}
     >
       {sortKey ? (
@@ -65,14 +55,12 @@ SearchResultsTh.defaultProps = {
   field: undefined,
   sortKey: null,
   sortParams: null,
-  width: 'auto',
   align: 'inherit',
 };
 SearchResultsTh.propTypes = {
   text: PropTypes.node.isRequired,
   field: PropTypes.string, // or undefined -- sets data-field="..." HTML attribute
   sortKey: PropTypes.string, // or null
-  width: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.oneOf(['auto']).isRequired]),
   align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']),
   sortParams: PropTypes.shape({
     key: PropTypes.string.isRequired,

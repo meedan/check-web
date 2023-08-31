@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TableHead from '@material-ui/core/TableHead';
-import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import SelectAllTh from './SelectAllTh';
 import SearchResultsTh from './SearchResultsTh';
-import styles from '../SearchResults.module.css';
 
 export default function SearchResultsTableHead({
   columnDefs, selectedIds, projectMedias, sortParams, onChangeSelectedIds, onChangeSortParams, resultType,
@@ -13,7 +11,6 @@ export default function SearchResultsTableHead({
   return (
     <TableHead>
       <TableRow>
-        <TableCell className={styles['unread-status']}>&nbsp;</TableCell>
         { (resultType !== 'feed' && resultType !== 'factCheck') ? (
           <SelectAllTh
             selectedIds={selectedIds}
@@ -24,7 +21,6 @@ export default function SearchResultsTableHead({
         {columnDefs.map(({
           headerText,
           sortKey,
-          width,
           align,
           field,
         }) => (
@@ -36,7 +32,6 @@ export default function SearchResultsTableHead({
             align={align || 'inherit'}
             sortParams={sortParams}
             onChangeSortParams={onChangeSortParams}
-            width={width}
           />
         ))}
       </TableRow>
@@ -52,7 +47,6 @@ SearchResultsTableHead.propTypes = {
     headerText: PropTypes.element.isRequired,
     field: PropTypes.string, // or undefined -- sets data-field="..." HTML attribute
     sortKey: PropTypes.string, // or undefined
-    width: PropTypes.string, // '1px' or undefined
     align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']), // default inherit
   }).isRequired).isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
