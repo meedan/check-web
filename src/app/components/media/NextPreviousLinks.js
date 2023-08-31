@@ -15,26 +15,10 @@ import { units } from '../../styles/js/shared';
 import { getPathnameAndSearch, pageSize } from '../../urlHelpers';
 
 const StyledPager = styled.div`
-  position: absolute;
-  top: 0;
-  width: 20%;
-  left: 20%;
   height: ${units(8)};
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-weight: bold;
-  font-size: ${units(2)};
-  color: var(--textSecondary);
-
-  button {
-    background: transparent;
-    border: 0;
-    color: var(--textSecondary);
-    cursor: pointer;
-    outline: 0;
-  }
 
   @media (max-width: 650px) {
     top: 43px;

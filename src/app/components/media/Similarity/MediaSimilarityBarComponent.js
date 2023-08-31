@@ -10,11 +10,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     margin: theme.spacing(-2),
-    marginBottom: 0,
-    borderTop: '1px solid var(--brandBorder)',
+    marginBottom: 16,
+    borderBottom: '1px solid var(--grayBorderMain)',
     position: 'sticky',
-    top: theme.spacing(-2),
-    background: 'var(--grayBackground)',
+    backgroundColor: 'var(--otherWhite)',
     zIndex: 200,
   },
   spacing: {

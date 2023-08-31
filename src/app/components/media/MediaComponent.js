@@ -4,7 +4,7 @@ import { graphql, createFragmentContainer, commitMutation } from 'react-relay/co
 import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaCardLarge from './MediaCardLarge';
@@ -20,56 +20,7 @@ import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import { getSuperAdminMask } from '../../helpers';
-import { units, Column } from '../../styles/js/shared';
-
-const StyledThreeColumnLayout = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  /* Middle column */
-  .media__column {
-    background-color: var(--grayBackground);
-  }
-
-  /* Middle column */
-  .media-suggestions__center-column {
-    background-color: white;
-  }
-
-  /* Right Column */
-  .media__suggestions-column {
-    max-width: none;
-    background-color: white;
-  }
-
-  /* Right Column */
-  .media__annotations-column {
-    border-left: 1px solid var(--brandBorder);
-    border-top: 1px solid var(--brandBorder);
-    padding-top: 0;
-    padding-left: 0;
-    padding-right: 0;
-    max-width: none;
-
-    /* Container of tabs */
-    .media__annotations-tabs {
-      background-color: white;
-      border-bottom: 1px solid var(--brandBorder);
-      padding-top: ${units(0.5)};
-    }
-  }
-`;
-
-const AnalysisColumn = styled.div`
-  width: 420px;
-  flex-grow: 0;
-  padding: 0 ${units(2)} ${units(2)} ${units(2)};
-  border-right: 1px solid var(--brandBorder);
-  border-top: 1px solid var(--brandBorder);
-  max-height: calc(100vh - 64px);
-  overflow-y: auto;
-`;
+import styles from './media.module.css';
 
 class MediaComponent extends Component {
   static handleSuperAdminMaskSession(value) {
@@ -207,15 +158,13 @@ class MediaComponent extends Component {
     const isAdmin = this.getContext().currentUser.is_admin;
 
     return (
-      <div>
+      <>
         <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
-        <StyledThreeColumnLayout className="media">
-          <AnalysisColumn>
-            <MediaSidebar projectMedia={projectMedia} />
-          </AnalysisColumn>
-          { view === 'default' || view === 'similarMedia' ?
-            <React.Fragment>
-              <Column className="media__column">
+        <MediaSidebar projectMedia={projectMedia} />
+        { view === 'default' || view === 'similarMedia' ?
+          <React.Fragment>
+            <div className={cx('media__column', styles['media-item-medias'])}>
+              <div className={styles['media-item-content']}>
                 { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
@@ -262,18 +211,22 @@ class MediaComponent extends Component {
                   superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
-                { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} /> }
-              </Column>
-              <Column className="media__annotations-column" overflow="hidden">
-                <MediaComponentRightPanel
-                  projectMedia={projectMedia}
-                  showTab={this.state.showTab}
-                  setShowTab={setShowTab}
-                  superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
-                />
-              </Column>
-            </React.Fragment> : null }
-        </StyledThreeColumnLayout>
+                { isSuggestedOrSimilar ?
+                  null
+                  :
+                  <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} />
+                }
+              </div>
+            </div>
+            <div className={cx('media__annotations-column', styles['media-item-annotations'])}>
+              <MediaComponentRightPanel
+                projectMedia={projectMedia}
+                showTab={this.state.showTab}
+                setShowTab={setShowTab}
+                superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
+              />
+            </div>
+          </React.Fragment> : null }
         {
           isAdmin ?
             <SuperAdminControls
@@ -281,7 +234,7 @@ class MediaComponent extends Component {
               handleSuperAdminMaskSession={MediaComponent.handleSuperAdminMaskSession.bind(this)}
             /> : null
         }
-      </div>
+      </>
     );
   }
 }
