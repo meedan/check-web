@@ -7,7 +7,6 @@ import Card from '@material-ui/core/Card';
 // These are deprecated and only used in this file, use css variables in other files
 const brandMain = '#567bff';
 const brandBorder = '#d0d6ec';
-const brandHoverAccent = '#f2f8ff';
 
 const textPrimary = '#262626';
 const textSecondary = '#656565';
@@ -17,8 +16,6 @@ const textDisabled = '#999';
 const grayDisabledBackground = '#f3f3f3';
 const grayBorderMain = '#e4e4e4';
 const grayBorderAccent = '#b4b4b4';
-
-const otherWhite = '#fff';
 
 // Units
 export function units(unit) {
@@ -173,25 +170,6 @@ export const MuiTheme = {
     MuiTableContainer: {
       root: {
         borderTop: `solid 1px ${grayBorderMain}`,
-      },
-    },
-    MuiTableRow: {
-      hover: {
-        '&:hover': {
-          backgroundColor: `${brandHoverAccent} !important`,
-        },
-      },
-    },
-    MuiTableCell: {
-      stickyHeader: {
-        // @material-ui/core sets #fafafa, only for sticky header. Undo that.
-        // We do need a color, though -- if we choose "transparent" the tbody
-        // will show through.
-        backgroundColor: otherWhite,
-      },
-      root: {
-        borderBottom: 0,
-        fontSize: 14,
       },
     },
     MuiTableSortLabel: {

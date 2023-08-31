@@ -146,14 +146,19 @@
   width: 100%;
 
   table {
+    th,
+    td {
+      font-size: var(--fontSizeDefault);
+    }
+
     thead {
       display: table-header-group;
 
       tr {
         th {
           background-color: var(--brandBackground);
+          border-bottom: solid 1px var(--grayBorderMain);
           border-right: solid 1px var(--grayBorderMain);
-          box-shadow: inset 0 -1px 0 0 var(--grayBorderMain);
           white-space: nowrap;
           width: auto;
 
@@ -171,14 +176,20 @@
       display: table-row-group;
 
       tr {
-        box-shadow: inset -2px -2px 0 -1px var(--grayBorderMain);
-
         &.search-results-row {
           position: relative;
+          transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+
+          th,
+          td {
+            border-bottom: solid 1px var(--grayBorderMain);
+            transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+          }
 
           .unread-status {
             background-color: var(--otherWhite);
-            box-shadow: inset 3px 0 0 0 var(--brandMain), inset -2px -2px 0 -1px var(--grayBorderMain);
+            border-right: solid 1px var(--grayBorderMain);
+            box-shadow: inset 3px 0 0 0 var(--brandMain);
             left: 0;
             position: sticky;
             z-index: 1;
@@ -186,8 +197,14 @@
 
           &.search-results-read {
             .unread-status {
-              box-shadow: inset -2px -2px 0 -1px var(--grayBorderMain);
+              box-shadow: none;
             }
+          }
+
+          &:hover,
+          &:hover th,
+          &:hover td {
+            background-color: var(--brandHoverAccent);
           }
         }
       }
