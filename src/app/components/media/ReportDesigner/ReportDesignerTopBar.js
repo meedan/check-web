@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
   reportHeader: {
     backgroundColor: 'var(--brandBackground)',
+    borderLeft: 'solid 2px var(--grayBorderMain)',
     borderBottom: '1px solid var(--brandBorder)',
   },
   cell: {
