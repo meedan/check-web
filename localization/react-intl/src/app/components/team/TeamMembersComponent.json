@@ -5,12 +5,8 @@
     "defaultMessage": "Members"
   },
   {
-    "id": "teamMembers.subtitle",
-    "description": "Subtitle for workspace members management page",
-    "defaultMessage": "Invite and manage users."
-  },
-  {
     "id": "teamMembers.invite",
+    "description": "Button label for main action to start the process of inviting team members to this workspace",
     "defaultMessage": "Invite"
   },
   {

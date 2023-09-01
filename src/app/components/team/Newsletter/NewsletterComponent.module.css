@@ -1,9 +1,3 @@
-.content {
-  margin-top: 16px;
-  max-width: 880px;
-  padding-left: 32px;
-}
-
 .header-container {
   display: grid;
   grid-gap: 8px;
@@ -14,18 +8,9 @@
   }
 }
 
-.newsletter {
-  background: var(--otherWhite);
-  border-color: var(--grayBorderMain);
-  border-radius: 16px;
-  border-style: solid;
-  border-width: 2px;
-  padding: 16px;
-}
-
 .settings {
   background: var(--brandBackground);
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 16px;
 
   > *:not(:last-child) {
@@ -39,7 +24,7 @@
 
 .newsletter-body {
   background: var(--brandBackgroundAccent);
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 16px;
 
   .rss-feed-url {
@@ -96,7 +81,7 @@
 
 .newsletter-scheduler-container {
   .newsletter-scheduler {
-    border-radius: 8px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     gap: 8px;
