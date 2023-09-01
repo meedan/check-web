@@ -2,7 +2,7 @@
   {
     "id": "teamTagsComponent.title",
     "description": "Title for the tags settings page",
-    "defaultMessage": "Tags"
+    "defaultMessage": "Tags [{count}]"
   },
   {
     "id": "teamTagsComponent.newTag",

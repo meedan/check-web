@@ -35,7 +35,7 @@ describe('<TeamListsComponent />', () => {
 
   it('should render all list columns', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team} />);
-    expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(3);
+    expect(wrapper.find('.typography-subtitle2').hostNodes()).toHaveLength(3);
     expect(wrapper.html()).toMatch('Displayed columns');
     expect(wrapper.html()).toMatch('General');
     expect(wrapper.html()).toMatch('Annotation');

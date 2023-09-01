@@ -38,7 +38,7 @@ const ExtraMediaActions = ({
     <div className="media-expanded-actions">
       <ButtonMain
         iconCenter={<MoreVertIcon />}
-        variant="outlined"
+        variant="contained"
         size="small"
         theme="text"
         onClick={e => setAnchorEl(e.currentTarget)}

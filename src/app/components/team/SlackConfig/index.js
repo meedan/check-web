@@ -3,15 +3,12 @@ import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
 import Dialog from '@material-ui/core/Dialog';
+import cx from 'classnames/bind';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import UserUtil from '../../user/UserUtil';
-import Message from '../../Message';
 import SlackConfigDialog from './SlackConfigDialog';
 import CheckContext from '../../../CheckContext';
 import UpdateTeamMutation from '../../../relay/mutations/UpdateTeamMutation';
@@ -20,6 +17,8 @@ import { getErrorMessage } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
 import SettingsIcon from '../../../icons/settings.svg';
 import SlackColorIcon from '../../../icons/slack_color.svg';
+import styles from '../Integrations.module.css';
+import settingsStyles from '../Settings.module.css';
 
 class SlackConfig extends React.Component {
   constructor(props) {
@@ -87,43 +86,46 @@ class SlackConfig extends React.Component {
     }
 
     return (
-      <div>
-        <Card>
-          <CardHeader
-            avatar={
-              <SlackColorIcon style={{ fontSize: '32px' }} />
-            }
-            title={
-              <span className="typography-h6">Slack</span>
-            }
-            action={
-              <ButtonMain
-                variant="text"
-                size="default"
-                theme="text"
-                disabled={!enabled}
-                onClick={this.handleOpenDialog.bind(this)}
-                iconCenter={<SettingsIcon />}
-                className="slack-config__settings"
-              />
-            }
+      <div className={cx(settingsStyles['setting-content-container'], styles['integration-bot'])}>
+        { this.state.message &&
+          <Alert
+            content={this.state.message}
+            icon
+            variant="error"
           />
-          <Message message={this.state.message} />
-          <CardContent>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+        }
+        <div className={settingsStyles['setting-content-container-title']}>
+          <span>
+            <SlackColorIcon />
+            Slack
+          </span>
+          <div className={settingsStyles['setting-content-container-actions']}>
+            <ButtonMain
+              variant="text"
+              size="default"
+              theme="text"
+              disabled={!enabled}
+              onClick={this.handleOpenDialog.bind(this)}
+              iconCenter={<SettingsIcon />}
+              className="slack-config__settings"
+            />
+          </div>
+        </div>
+        <div className={styles['integration-bot-switch']}>
+          <SwitchComponent
+            className="slack-config__switch"
+            checked={enabled}
+            onChange={this.handleToggleSwitch}
+            labelPlacement="end"
+            label={
               <FormattedMessage
                 id="slackConfig.text"
                 defaultMessage="Send notifications to Slack channels"
                 description="Description of the slack integration"
               />
-              <SwitchComponent
-                className="slack-config__switch"
-                checked={enabled}
-                onChange={this.handleToggleSwitch}
-              />
-            </Box>
-          </CardContent>
-        </Card>
+            }
+          />
+        </div>
         <Dialog
           open={this.state.openDialog}
           onClose={this.handleCloseDialog}
