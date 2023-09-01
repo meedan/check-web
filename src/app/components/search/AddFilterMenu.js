@@ -18,6 +18,7 @@ import LocalOfferIcon from '../../icons/local_offer.svg';
 import MarkunreadIcon from '../../icons/mail.svg';
 import NoteAltIcon from '../../icons/note_alt.svg';
 import PersonIcon from '../../icons/person.svg';
+import AddIcon from '../../icons/add.svg';
 import ReportIcon from '../../icons/playlist_add_check.svg';
 import SettingsInputAntennaIcon from '../../icons/settings_input_antenna.svg';
 import UnmatchedIcon from '../../icons/unmatched.svg';
@@ -324,11 +325,12 @@ const AddFilterMenu = ({
         variant="contained"
         size="default"
         theme="text"
+        iconLeft={<AddIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
         label={
           <FormattedMessage
             id="addFilterMenu.addFilter"
-            defaultMessage="Add filter"
+            defaultMessage="Filter"
             description="Button that opens menu with filter field options"
           />
         }
