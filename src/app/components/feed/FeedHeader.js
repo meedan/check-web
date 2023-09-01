@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
+import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsIcon from '../../icons/settings.svg';
 import { getLicenseIcon, getLicenseTranslatedName, getLicenseName } from '../../CheckFeedLicenses';
@@ -20,7 +21,7 @@ const FeedHeader = ({ feed }) => {
   };
 
   return (
-    <div className="feed-header">
+    <div className={cx('feed-header', searchResultsStyles.searchHeaderActions)}>
       {feed.licenses.map(licenseId => (
         <Tooltip
           key={licenseId}
