@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-
+import cx from 'classnames/bind';
 import SlackConfig from './SlackConfig';
 import SettingsHeader from './SettingsHeader';
 import TeamBots from './TeamBots';
-import { ContentColumn } from '../../styles/js/shared';
+import settingsStyles from './Settings.module.css';
 
 const TeamIntegrations = () => (<QueryRenderer
   environment={Relay.Store}
@@ -77,29 +76,23 @@ const TeamIntegrations = () => (<QueryRenderer
   render={({ props }) => {
     if (props) {
       return (
-        <Box className="team-integrations">
-          <ContentColumn>
-            <SettingsHeader
-              title={
-                <FormattedMessage
-                  id="teamIntegrations.title"
-                  defaultMessage="Integrations"
-                />
-              }
-              subtitle={
-                <FormattedMessage
-                  id="teamIntegrations.subtitle"
-                  defaultMessage="Third party tools to enhance productivity."
-                />
-              }
-              helpUrl="https://help.checkmedia.org/en/articles/6925397-integrations"
-            />
-            <Box className="team-integrations__integrations">
+        <>
+          <SettingsHeader
+            title={
+              <FormattedMessage
+                id="teamIntegrations.title"
+                defaultMessage="Integrations"
+              />
+            }
+            helpUrl="https://help.checkmedia.org/en/articles/6925397-integrations"
+          />
+          <div className={cx('team-integrations', settingsStyles['setting-details-wrapper'])}>
+            <div className={cx('team-integrations__integrations')}>
               <TeamBots {...props} />
               <SlackConfig team={props.root.current_team} />
-            </Box>
-          </ContentColumn>
-        </Box>
+            </div>
+          </div>
+        </>
       );
     }
     return null;

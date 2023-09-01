@@ -10,11 +10,6 @@
     "defaultMessage": "Similarity matching"
   },
   {
-    "id": "similarityComponent.blurb",
-    "description": "Subtitle to similarity matching settings page",
-    "defaultMessage": "Automatically group items together if they are similar."
-  },
-  {
     "id": "similarityComponent.save",
     "description": "Label for Save Button on Similarity settings page",
     "defaultMessage": "Save"

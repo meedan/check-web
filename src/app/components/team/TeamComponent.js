@@ -8,6 +8,7 @@ import { browserHistory } from 'react-router';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
+import cx from 'classnames/bind';
 import TeamDetails from './TeamDetails';
 import TeamLanguages from './Languages';
 import TeamRules from './Rules';
@@ -26,14 +27,7 @@ import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
-import { units } from '../../styles/js/shared';
-
-const StyledTeamContainer = styled.div`
-  background-color: var(--grayBackground);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-`;
+import styles from './Settings.module.css';
 
 const StyledTabs = styled(Tabs)`
   background-color: var(--brandBackground);
@@ -41,12 +35,6 @@ const StyledTabs = styled(Tabs)`
   box-shadow: none !important;
   padding-left: 32px;
   flex: 0 0 48px;
-`;
-
-const StyledTeamContent = styled.div`
-  flex: 1 1 auto;
-  overflow: auto;
-  padding: ${units(2)} 0;
 `;
 
 class TeamComponent extends Component {
@@ -105,7 +93,7 @@ class TeamComponent extends Component {
 
     return (
       <PageTitle team={team}>
-        <StyledTeamContainer className="team">
+        <div className={cx('team', styles['settings-wrapper'])}>
           <StyledTabs
             indicatorColor="primary"
             textColor="primary"
@@ -290,7 +278,7 @@ class TeamComponent extends Component {
               />
               : null }
           </StyledTabs>
-          <StyledTeamContent>
+          <div className={cx(styles['settings-content'])}>
             { tab === 'workspace'
               ? <TeamDetails team={team} />
               : null }
@@ -333,8 +321,8 @@ class TeamComponent extends Component {
             { tab === 'similarity'
               ? <TeamSimilarity teamSlug={team.slug} />
               : null }
-          </StyledTeamContent>
-        </StyledTeamContainer>
+          </div>
+        </div>
       </PageTitle>
     );
   }

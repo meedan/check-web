@@ -2,13 +2,13 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
+import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
-import { ContentColumn, avatarSizeLarge } from '../../styles/js/shared';
+import { avatarSizeLarge } from '../../styles/js/shared';
 import CreateTeamDialog from './CreateTeamDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamAvatar from './TeamAvatar';
@@ -17,6 +17,7 @@ import SwitchComponent from '../cds/inputs/SwitchComponent';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import UploadFile from '../UploadFile';
 import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
+import settingsStyles from './Settings.module.css';
 import styles from './TeamDetails.module.css';
 
 const TeamDetails = ({
@@ -80,7 +81,7 @@ const TeamDetails = ({
   };
 
   return (
-    <ContentColumn large>
+    <>
       <SettingsHeader
         title={
           <FormattedMessage
@@ -89,15 +90,8 @@ const TeamDetails = ({
             description="Title for details page of current workspace"
           />
         }
-        subtitle={
-          <FormattedMessage
-            id="teamDetails.subtitle"
-            defaultMessage="Add details to your Check workspace."
-            description="Subtitle for details page of current workspace"
-          />
-        }
         actionButton={
-          <div className={styles['team-details-buttons']}>
+          <>
             <ButtonMain
               buttonProps={{
                 id: 'team-details__duplicate-button',
@@ -132,10 +126,10 @@ const TeamDetails = ({
                 />
               }
             />
-          </div>
+          </>
         }
       />
-      <div className={styles['team-details']}>
+      <div className={cx(settingsStyles['setting-details-wrapper'], styles['team-details'])}>
         <div className={styles['team-details-avatar']}>
           <TeamAvatar
             team={avatar && avatar.preview ? { avatar: avatar.preview } : { avatar: team.avatar }}
@@ -161,8 +155,8 @@ const TeamDetails = ({
         </div>
 
         <div className={styles['team-details-column']}>
-          <div className={styles['team-details-section']}>
-            <div className="typography-subtitle2">
+          <div className={cx(styles['team-details-section'], settingsStyles['setting-content-container'])}>
+            <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage id="teamDetails.profile" defaultMessage="Profile" description="Title of the profile section in team details page" />
             </div>
             { editProfileImg ?
@@ -194,8 +188,8 @@ const TeamDetails = ({
             />
           </div>
 
-          <div className={styles['team-details-section']}>
-            <div className="typography-subtitle2">
+          <div className={cx(styles['team-details-section'], settingsStyles['setting-content-container'])}>
+            <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage id="teamDetails.linkManagement" defaultMessage="Link management" description="Title of the link management section in team details page" />
             </div>
             <SwitchComponent
@@ -248,14 +242,12 @@ const TeamDetails = ({
             }
           </div>
         </div>
-      </div>
-      <Box mt={2}>
-        { showDuplicateTeamDialog ?
-          <CreateTeamDialog onDismiss={() => setShowDuplicateTeamDialog(false)} team={team} /> :
-          null
+
+        { showDuplicateTeamDialog &&
+          <CreateTeamDialog onDismiss={() => setShowDuplicateTeamDialog(false)} team={team} />
         }
-      </Box>
-    </ContentColumn>
+      </div>
+    </>
   );
 };
 

@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
-import Button from '@material-ui/core/Button';
+import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import NewsletterHeader from './NewsletterHeader';
 import NewsletterStatic from './NewsletterStatic';
 import NewsletterRssFeed from './NewsletterRssFeed';
 import NewsletterScheduler from './NewsletterScheduler';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
+import settingsStyles from '../Settings.module.css';
 import styles from './NewsletterComponent.module.css';
 import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import SettingsHeader from '../SettingsHeader';
@@ -417,7 +419,7 @@ const NewsletterComponent = ({
   };
 
   return (
-    <div className={`newsletter-component ${styles.content}`}>
+    <>
       <SettingsHeader
         helpUrl="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters"
         title={
@@ -437,128 +439,136 @@ const NewsletterComponent = ({
             /> : null
         }
         actionButton={
-          <div>
-            <Button className="save-button" variant="contained" color="primary" onClick={handleSave} disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || textfieldOverLength || !can(team.permissions, 'create TiplineNewsletter')}>
+          <ButtonMain
+            className="save-button"
+            variant="contained"
+            theme="brand"
+            size="default"
+            onClick={handleSave}
+            disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || textfieldOverLength || !can(team.permissions, 'create TiplineNewsletter')}
+            label={
               <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
-            </Button>
-          </div>
+            }
+          />
         }
         // helpUrl="https://help.checkmedia.org/en/articles/123456" // FIXME: Add the real KB article URL here
       />
-      <div className={styles.newsletter}>
-        <div className={styles.settings}>
-          <div className="typography-subtitle2">
-            <FormattedMessage id="newsletterComponent.content" defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" />
-          </div>
-          <NewsletterHeader
-            className="newsletter-component-header"
-            key={`newsletter-header-${language}`}
-            disabled={scheduled}
-            parentErrors={errors}
-            file={file}
-            handleFileChange={handleFileChange}
-            setFile={setFile}
-            setFileName={setFileName}
-            availableHeaderTypes={team.available_newsletter_header_types || []}
-            headerType={headerType}
-            fileName={fileName}
-            overlayText={overlayText}
-            onUpdateField={(fieldName, value) => {
-              if (fieldName === 'headerType') {
-                setHeaderType(value);
-              } else if (fieldName === 'overlayText') {
-                setOverlayText(value);
-              }
-            }}
-          />
-          <FormattedMessage
-            id="newsletterComponent.placeholder"
-            defaultMessage="Example: Hello! Welcome to our newsletter. Here are the most popular fact-checks you should read now:"
-            description="Placeholder text for newsletter field"
-          >
-            { placeholder => (
-              <LimitedTextArea
-                maxChars={introductionTextMaxChars}
-                disabled={scheduled}
-                onErrorTooLong={(error) => {
-                  setTextfieldOverLength(error);
-                }}
-                value={introductionText}
-                setValue={setIntroductionText}
-                placeholder={placeholder}
-                error={errors.introduction}
-                helpContent={errors.introduction}
-                label={<FormattedMessage
-                  id="newsletterComponent.introduction"
-                  defaultMessage="Introduction"
-                  description="Label for a field where the user inputs text for an introduction to a newsletter"
-                />}
-              />
-            )}
-          </FormattedMessage>
-          <div className={styles['newsletter-body']}>
-            <div className={styles.switcher}>
-              <SwitchComponent
-                key={`newsletter-rss-feed-enabled-${language}`}
-                label={<FormattedMessage
-                  id="newsletterComponent.rss"
-                  defaultMessage="RSS"
-                  description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
-                />}
-                helperContent={<FormattedMessage id="newsletterComponent.rssFeed" defaultMessage="Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS." description="Message on tipline newsletter settings page that explains how RSS feeds work there." />}
-                checked={contentType === 'rss'}
-                disabled={scheduled}
-                onChange={(checked) => {
-                  if (checked) {
-                    setContentType('rss');
-                  } else {
-                    setContentType('static');
-                  }
-                }}
+      <div className={cx('newsletter-component', settingsStyles['setting-details-wrapper'])}>
+        <div className={cx(settingsStyles['setting-content-container'])}>
+          <div className={styles.settings}>
+            <div className="typography-subtitle2">
+              <FormattedMessage id="newsletterComponent.content" defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" />
+            </div>
+            <NewsletterHeader
+              className="newsletter-component-header"
+              key={`newsletter-header-${language}`}
+              disabled={scheduled}
+              parentErrors={errors}
+              file={file}
+              handleFileChange={handleFileChange}
+              setFile={setFile}
+              setFileName={setFileName}
+              availableHeaderTypes={team.available_newsletter_header_types || []}
+              headerType={headerType}
+              fileName={fileName}
+              overlayText={overlayText}
+              onUpdateField={(fieldName, value) => {
+                if (fieldName === 'headerType') {
+                  setHeaderType(value);
+                } else if (fieldName === 'overlayText') {
+                  setOverlayText(value);
+                }
+              }}
+            />
+            <FormattedMessage
+              id="newsletterComponent.placeholder"
+              defaultMessage="Example: Hello! Welcome to our newsletter. Here are the most popular fact-checks you should read now:"
+              description="Placeholder text for newsletter field"
+            >
+              { placeholder => (
+                <LimitedTextArea
+                  maxChars={introductionTextMaxChars}
+                  disabled={scheduled}
+                  onErrorTooLong={(error) => {
+                    setTextfieldOverLength(error);
+                  }}
+                  value={introductionText}
+                  setValue={setIntroductionText}
+                  placeholder={placeholder}
+                  error={errors.introduction}
+                  helpContent={errors.introduction}
+                  label={<FormattedMessage
+                    id="newsletterComponent.introduction"
+                    defaultMessage="Introduction"
+                    description="Label for a field where the user inputs text for an introduction to a newsletter"
+                  />}
+                />
+              )}
+            </FormattedMessage>
+            <div className={styles['newsletter-body']}>
+              <div className={styles.switcher}>
+                <SwitchComponent
+                  key={`newsletter-rss-feed-enabled-${language}`}
+                  label={<FormattedMessage
+                    id="newsletterComponent.rss"
+                    defaultMessage="RSS"
+                    description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
+                  />}
+                  helperContent={<FormattedMessage id="newsletterComponent.rssFeed" defaultMessage="Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS." description="Message on tipline newsletter settings page that explains how RSS feeds work there." />}
+                  checked={contentType === 'rss'}
+                  disabled={scheduled}
+                  onChange={(checked) => {
+                    if (checked) {
+                      setContentType('rss');
+                    } else {
+                      setContentType('static');
+                    }
+                  }}
+                />
+              </div>
+              { contentType === 'rss' ?
+                <NewsletterRssFeed
+                  disabled={scheduled}
+                  parentErrors={errors}
+                  helpContent={errors.rss_feed_url}
+                  numberOfArticles={numberOfArticles}
+                  onUpdateNumberOfArticles={setArticleNum}
+                  rssFeedUrl={rssFeedUrl}
+                  onUpdateUrl={setRssFeedUrl}
+                /> : null }
+              { contentType === 'static' ?
+                <NewsletterStatic
+                  disabled={scheduled}
+                  articleErrors={articleErrors}
+                  numberOfArticles={numberOfArticles}
+                  onUpdateNumberOfArticles={setArticleNum}
+                  articles={articles}
+                  setTextfieldOverLength={setTextfieldOverLength}
+                  onUpdateArticles={setArticles}
+                /> : null }
+            </div>
+            <div className={styles['newsletter-scheduler-container']}>
+              <NewsletterScheduler
+                type={contentType}
+                sendEvery={sendEvery}
+                sendOn={sendOn}
+                timezone={timezone}
+                time={time}
+                parentErrors={errors}
+                scheduled={scheduled}
+                disabled={saving || (!scheduled && (disableSaveNoFile || datetimeIsPast || textfieldOverLength))}
+                subscribersCount={subscribers_count}
+                lastSentAt={last_sent_at}
+                lastScheduledAt={last_scheduled_at}
+                lastScheduledBy={last_scheduled_by?.name}
+                lastDeliveryError={last_delivery_error}
+                onUpdate={handleUpdateSchedule}
               />
             </div>
-            { contentType === 'rss' ?
-              <NewsletterRssFeed
-                disabled={scheduled}
-                parentErrors={errors}
-                helpContent={errors.rss_feed_url}
-                numberOfArticles={numberOfArticles}
-                onUpdateNumberOfArticles={setArticleNum}
-                rssFeedUrl={rssFeedUrl}
-                onUpdateUrl={setRssFeedUrl}
-              /> : null }
-            { contentType === 'static' ?
-              <NewsletterStatic
-                disabled={scheduled}
-                articleErrors={articleErrors}
-                numberOfArticles={numberOfArticles}
-                onUpdateNumberOfArticles={setArticleNum}
-                articles={articles}
-                setTextfieldOverLength={setTextfieldOverLength}
-                onUpdateArticles={setArticles}
-              /> : null }
-          </div>
-          <div className={styles['newsletter-scheduler-container']}>
-            <NewsletterScheduler
-              type={contentType}
-              sendEvery={sendEvery}
-              sendOn={sendOn}
-              timezone={timezone}
-              time={time}
-              parentErrors={errors}
-              scheduled={scheduled}
-              disabled={saving || (!scheduled && (disableSaveNoFile || datetimeIsPast || textfieldOverLength))}
-              subscribersCount={subscribers_count}
-              lastSentAt={last_sent_at}
-              lastScheduledAt={last_scheduled_at}
-              lastScheduledBy={last_scheduled_by?.name}
-              lastDeliveryError={last_delivery_error}
-              onUpdate={handleUpdateSchedule}
-            />
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

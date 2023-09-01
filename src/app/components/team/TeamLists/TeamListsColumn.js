@@ -2,27 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TeamListsItem from './TeamListsItem';
 
-const useStyles = makeStyles(theme => ({
-  column: {
-    marginTop: theme.spacing(2),
-  },
+const useStyles = makeStyles({
   innerColumn: {
-    padding: '.3rem 0 1rem 1rem',
-    border: '1px solid transparent', // To match column of teamListComponent.js
+    margin: '22px 0 0',
   },
   placeholder: {
     color: 'var(--textSecondary)',
     textAlign: 'center',
   },
-  columnTitle: {
-    marginLeft: '1rem',
-    marginBottom: '1rem',
-  },
-}));
+});
 
 const TeamListsColumn = ({
   columns,
@@ -36,10 +27,10 @@ const TeamListsColumn = ({
   const classes = useStyles();
 
   return (
-    <Box className={classes.column} width="1">
-      <Typography className={classes.columnTitle} variant="subtitle2">
+    <Box width="1">
+      <span className="typography-subtitle2">
         {title}
-      </Typography>
+      </span>
       <Box className={classes.innerColumn} style={style}>
         {columns.map((column, i) => (
           <TeamListsItem
