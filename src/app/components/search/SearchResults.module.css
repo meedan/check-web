@@ -5,6 +5,7 @@
   white-space: nowrap;
 
   :global(.check-icon) {
+    margin: 1px 0 0;
     vertical-align: text-top;
   }
 }
@@ -161,14 +162,14 @@
 
       tr {
         th {
-          background-color: var(--brandBackground);
+          background-color: var(--otherWhite);
           border-bottom: solid 1px var(--grayBorderMain);
           border-right: solid 1px var(--grayBorderMain);
           white-space: nowrap;
           width: auto;
 
           &.unread-status {
-            background-color: var(--brandBackground);
+            background-color: var(--otherWhite);
             left: 0;
             position: sticky;
             z-index: 3;
@@ -182,6 +183,7 @@
 
       tr {
         &.search-results-row {
+          background-color: var(--brandBackground);
           position: relative;
           transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
 
@@ -192,16 +194,19 @@
           }
 
           .unread-status {
-            background-color: var(--otherWhite);
+            background-color: var(--brandBackground);
             border-right: solid 1px var(--grayBorderMain);
-            box-shadow: inset 3px 0 0 0 var(--brandMain);
+            box-shadow: inset 3px 0 0 0 var(--textPlaceholder);
             left: 0;
             position: sticky;
             z-index: 1;
           }
 
           &.search-results-read {
+            background-color: var(--otherWhite);
+
             .unread-status {
+              background-color: var(--otherWhite);
               box-shadow: none;
             }
           }
@@ -210,6 +215,10 @@
           &:hover th,
           &:hover td {
             background-color: var(--brandHoverAccent);
+
+            .unread-status {
+              background-color: var(--brandHoverAccent);
+            }
           }
         }
       }
