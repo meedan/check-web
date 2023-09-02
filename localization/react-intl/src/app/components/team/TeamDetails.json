@@ -10,11 +10,6 @@
     "defaultMessage": "Workspace"
   },
   {
-    "id": "teamDetails.subtitle",
-    "description": "Subtitle for details page of current workspace",
-    "defaultMessage": "Add details to your Check workspace."
-  },
-  {
     "id": "teamDetails.duplicateWorkspace",
     "description": "Label of a button to duplicate a workspace",
     "defaultMessage": "Duplicate workspace"

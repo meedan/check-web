@@ -1,15 +1,5 @@
 [
   {
-    "id": "rulesTableToolbar.title",
-    "description": "Title area for the rules admin section of the settings page",
-    "defaultMessage": "Rules"
-  },
-  {
-    "id": "rulesTableToolbar.add",
-    "description": "Button label for creating a new rule",
-    "defaultMessage": "New rule"
-  },
-  {
     "id": "rulesTableToolbar.selected",
     "description": "When rules are selected to perform bulk actions on, this text tells the user how many have been selected",
     "defaultMessage": "{numSelected, plural, one {# selected} other {# selected}}"

@@ -2,25 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RuleToolbar from './RuleToolbar';
 import RuleBody from './RuleBody';
+import settingsStyles from '../Settings.module.css';
 
 const Rule = (props) => {
   const { rule } = props;
 
   return (
     <React.Fragment>
-      <RuleToolbar
-        unsavedChanges={props.unsavedChanges}
-        actionsDisabled={!rule.updated_at}
-        onGoBack={props.onGoBack}
-        onSaveRule={props.onSaveRule}
-        onDuplicateRule={props.onDuplicateRule}
-        onDeleteRule={props.onDeleteRule}
-      />
-      <RuleBody
-        schema={props.schema}
-        rule={rule}
-        onChangeRule={props.onChangeRule}
-      />
+      <div className={settingsStyles['setting-details-wrapper']}>
+        <RuleToolbar
+          unsavedChanges={props.unsavedChanges}
+          actionsDisabled={!rule.updated_at}
+          onGoBack={props.onGoBack}
+          onSaveRule={props.onSaveRule}
+          onDuplicateRule={props.onDuplicateRule}
+          onDeleteRule={props.onDeleteRule}
+        />
+        <RuleBody
+          schema={props.schema}
+          rule={rule}
+          onChangeRule={props.onChangeRule}
+        />
+      </div>
     </React.Fragment>
   );
 };

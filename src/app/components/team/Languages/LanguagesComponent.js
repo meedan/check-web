@@ -4,6 +4,7 @@ import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import List from '@material-ui/core/List';
+import cx from 'classnames/bind';
 import AddLanguageAction from './AddLanguageAction';
 import LanguageListItem from './LanguageListItem';
 import SettingsHeader from '../SettingsHeader';
@@ -12,8 +13,8 @@ import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { compareLanguages, languageLabelFull } from '../../../LanguageRegistry';
-import { ContentColumn } from '../../../styles/js/shared';
 import styles from './LanguagesComponent.module.css';
+import settingsStyles from '../Settings.module.css';
 
 const submitToggleLanguageDetection = ({
   team,
@@ -73,22 +74,22 @@ const LanguagesComponent = ({ team }) => {
 
   return (
     <React.Fragment>
-      <ContentColumn large>
-        <SettingsHeader
-          title={
-            <FormattedMessage
-              id="languagesComponent.title"
-              defaultMessage="Language"
-              description="Title of Language settings page"
-            />
-          }
-          helpUrl="https://help.checkmedia.org/en/articles/4498863-languages"
-          actionButton={
-            <AddLanguageAction team={team} />
-          }
-        />
-        <div className={styles['team-languages-section']}>
-          <div className="typography-subtitle2">
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="languagesComponent.title"
+            defaultMessage="Language"
+            description="Title of Language settings page"
+          />
+        }
+        helpUrl="https://help.checkmedia.org/en/articles/4498863-languages"
+        actionButton={
+          <AddLanguageAction team={team} />
+        }
+      />
+      <div className={cx(settingsStyles['setting-details-wrapper'])}>
+        <div className={cx(settingsStyles['setting-content-container'], styles['team-languages-section'])}>
+          <div className={settingsStyles['setting-content-container-title']}>
             <FormattedMessage
               id="languagesComponent.languageDetection"
               defaultMessage="Language detection"
@@ -118,8 +119,8 @@ const LanguagesComponent = ({ team }) => {
             />
           </div>
         </div>
-        <div className={styles['team-languages-section']}>
-          <div className="typography-subtitle2">
+        <div className={cx(settingsStyles['setting-content-container'], styles['team-languages-section'])}>
+          <div className={settingsStyles['setting-content-container-title']}>
             <FormattedMessage
               id="languagesComponent.languages"
               defaultMessage="Languages"
@@ -136,7 +137,7 @@ const LanguagesComponent = ({ team }) => {
             ))}
           </List>
         </div>
-      </ContentColumn>
+      </div>
     </React.Fragment>
   );
 };

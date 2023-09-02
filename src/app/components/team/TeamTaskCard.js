@@ -44,11 +44,10 @@ const TeamTaskCard = ({
 
   return (
     <Box
-      my={2}
-      mr={2}
-      bgcolor="var(--grayBackground)"
-      border="2px solid var(--brandBorder)"
-      borderRadius="10px"
+      mb={2}
+      bgcolor="var(--brandBackground)"
+      padding="16px"
+      borderRadius="5px"
       minHeight="100px"
       width="100%"
     >
