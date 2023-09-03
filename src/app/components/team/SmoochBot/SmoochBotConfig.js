@@ -16,6 +16,7 @@ import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
 import AddCircleIcon from '../../../icons/add_circle.svg';
+import createEnvironment from '../../../relay/EnvironmentModern';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -32,9 +33,14 @@ const SmoochBotConfig = (props) => {
     languages,
     userRole,
     value,
+    resources,
+    onEditingResource,
   } = props;
   const [currentTab, setCurrentTab] = React.useState(0);
-  const [currentOption, setCurrentOption] = React.useState(value.smooch_version === 'v2' ? 'smooch_content' : 'smooch_message_smooch_bot_greetings');
+  const defaultOption = value.smooch_version === 'v2' ? 'smooch_content' : 'smooch_message_smooch_bot_greetings';
+  const [currentOption, setCurrentOption] = React.useState(defaultOption);
+  const team = props?.currentUser?.current_team;
+  const environment = createEnvironment(props?.currentUser?.token, team.slug);
 
   // Look for the workflow in the current selected language
   let currentWorkflowIndex = 0;
@@ -44,11 +50,31 @@ const SmoochBotConfig = (props) => {
     }
   });
 
-  // FIXME: Set currentResource if the current selected option on the left sidebar is a resource
-  const currentResource = null;
-
-  // FIXME: Get resources from the backend
-  const resources = [];
+  // Set currentResource if the current selected option on the left sidebar is a resource
+  let currentResource = null;
+  if (currentTab === 0 && /^resource_[0-9]+$/.test(currentOption)) {
+    const dbid = parseInt(currentOption.match(/^resource_([0-9]+)$/)[1], 10);
+    // New resource
+    if (dbid === 0) {
+      currentResource = {
+        uuid: Math.random().toString().substring(2, 10),
+        language: currentLanguage,
+        content_type: 'static',
+        header_type: 'link_preview',
+        number_of_articles: 0,
+      };
+    } else {
+      currentResource = resources.find(resource => resource.dbid === dbid);
+    }
+    if (currentResource) {
+      onEditingResource(true);
+    } else {
+      setCurrentOption(defaultOption);
+      onEditingResource(false);
+    }
+  } else {
+    onEditingResource(false);
+  }
 
   const menuActions = state => props.schema.properties.smooch_workflows.items.properties[state]
     .properties.smooch_menu_options.items.properties.smooch_menu_option_value.enum;
@@ -155,7 +181,7 @@ const SmoochBotConfig = (props) => {
                 size="default"
                 variant="text"
                 onClick={() => {
-                  // FIXME: Implement action to add a resource
+                  setCurrentOption('resource_0');
                 }}
                 label={
                   <FormattedMessage
@@ -202,7 +228,9 @@ const SmoochBotConfig = (props) => {
               { currentResource ?
                 <SmoochBotResourceEditor
                   key={currentResource.id}
+                  environment={environment}
                   resource={currentResource}
+                  language={currentLanguage}
                 /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation
@@ -219,6 +247,7 @@ const SmoochBotConfig = (props) => {
                   value={value.smooch_workflows[currentWorkflowIndex]}
                   enabledIntegrations={props.enabledIntegrations}
                   onChange={handleChangeMenu}
+                  resources={resources}
                 /> : null }
             </Box>
           </Box>
@@ -236,6 +265,10 @@ const SmoochBotConfig = (props) => {
   );
 };
 
+SmoochBotConfig.defaultProps = {
+  resources: [],
+};
+
 SmoochBotConfig.propTypes = {
   installationId: PropTypes.string.isRequired,
   value: PropTypes.object.isRequired, // saved settings for the Smooch Bot
@@ -244,6 +277,8 @@ SmoochBotConfig.propTypes = {
   currentUser: PropTypes.object.isRequired,
   userRole: PropTypes.string.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.object),
+  onEditingResource: PropTypes.func.isRequired,
 };
 
 export default SmoochBotConfig;

@@ -7,6 +7,7 @@ import TextArea from '../../cds/inputs/TextArea';
 const LimitedTextArea = ({
   maxChars,
   value,
+  required,
   setValue,
   onChange,
   onBlur,
@@ -47,7 +48,7 @@ const LimitedTextArea = ({
 
   return (
     <TextArea
-      required
+      required={required}
       ref={inputRef}
       value={localText}
       helpContent={(
@@ -70,6 +71,7 @@ const LimitedTextArea = ({
 };
 
 LimitedTextArea.defaultProps = {
+  required: true,
   value: '',
   helpContent: null,
   textFieldProps: {},
@@ -83,6 +85,7 @@ LimitedTextArea.propTypes = {
   helpContent: PropTypes.element,
   onErrorTooLong: PropTypes.func,
   textFieldProps: PropTypes.object,
+  required: PropTypes.bool,
 };
 
 export default LimitedTextArea;

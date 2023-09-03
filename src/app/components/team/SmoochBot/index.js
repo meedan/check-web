@@ -39,6 +39,23 @@ const SmoochBot = ({ currentUser }) => {
                   description: get_description
                 }
               }
+              tipline_resources(first: 10000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    uuid
+                    title
+                    language
+                    content
+                    header_file_url
+                    header_type
+                    header_overlay_text
+                    content_type
+                    rss_feed_url
+                  }
+                }
+              }
             }
             team_bots_listed(first: 10000) {
               edges {

@@ -89,22 +89,16 @@ const SmoochBotMenuOption = (props) => {
     props.onChange({ smooch_menu_option_keyword: value });
   };
 
-  const resourceIdToTitle = (id) => {
-    const resource = props.resources.find(r => r.smooch_custom_resource_id === id);
+  const resourceIdToTitle = (uuid) => {
+    const resource = props.resources.find(r => r.uuid === uuid);
     if (resource) {
-      return resource.smooch_custom_resource_title;
+      return resource.title;
     }
     return null;
   };
 
   const handleSelectAction = (event, newValue) => {
-    if (newValue && newValue.inputValue) {
-      props.onChange({
-        smooch_menu_option_value: 'custom_resource',
-        smooch_menu_custom_resource_title: newValue.inputValue,
-        smooch_menu_custom_resource_id: Math.random().toString().substring(2, 10),
-      });
-    } else if (newValue.value === 'custom_resource') {
+    if (newValue.value === 'custom_resource') {
       props.onChange({
         smooch_menu_option_value: 'custom_resource',
         smooch_menu_custom_resource_id: newValue.id,
@@ -145,8 +139,8 @@ const SmoochBotMenuOption = (props) => {
     });
     props.resources.forEach((resource) => {
       menuOptions.push({
-        title: resource.smooch_custom_resource_title,
-        id: resource.smooch_custom_resource_id,
+        title: resource.title,
+        id: resource.uuid,
         value: 'custom_resource',
       });
     });

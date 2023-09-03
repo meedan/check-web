@@ -28,6 +28,7 @@ const SmoochBotComponent = ({
   setFlashMessage,
 }) => {
   const [saving, setSaving] = React.useState(false);
+  const [editingResource, setEditingResource] = React.useState(false);
   const defaultLanguage = team.get_language || 'en';
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
@@ -39,6 +40,12 @@ const SmoochBotComponent = ({
   const [settings, setSettings] = React.useState(installation ? JSON.parse(installation.json_settings) : {});
 
   const userRole = UserUtil.myRole(currentUser, team.slug);
+
+  const handleEditingResource = (value) => {
+    if (value !== editingResource) {
+      setEditingResource(value);
+    }
+  };
 
   const handleOpenForm = () => {
     window.open('https://airtable.com/shr727e2MeBQnTGa1');
@@ -151,7 +158,7 @@ const SmoochBotComponent = ({
         }
         helpUrl="https://help.checkmedia.org/en/articles/5982401-tipline-bot-settings"
         actionButton={
-          installation ?
+          installation && !editingResource ?
             <Can permissions={team.permissions} permission="update Team">
               <ButtonMain
                 theme="brand"
@@ -197,6 +204,8 @@ const SmoochBotComponent = ({
               currentLanguage={currentLanguage}
               languages={validLanguages}
               enabledIntegrations={installation.smooch_enabled_integrations}
+              resources={team.tipline_resources.edges.map(edge => edge.node).filter(node => node.language === currentLanguage)}
+              onEditingResource={handleEditingResource}
             /> :
             <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
               { currentUser.is_admin ?
