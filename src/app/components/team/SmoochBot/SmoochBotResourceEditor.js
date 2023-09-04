@@ -21,6 +21,7 @@ const SmoochBotResourceEditor = (props) => {
     language,
     environment,
     setFlashMessage,
+    onCreate,
     onDelete,
   } = props;
 
@@ -96,6 +97,7 @@ const SmoochBotResourceEditor = (props) => {
       createTiplineResource(input: $input) {
         tipline_resource {
           id
+          dbid
         }
       }
     }
@@ -203,6 +205,11 @@ const SmoochBotResourceEditor = (props) => {
           input: {
             id: resource.id || response.createTiplineResource.tipline_resource.id,
           },
+        },
+        onCompleted: () => {
+          if (response.createTiplineResource) {
+            onCreate(response.createTiplineResource.tipline_resource);
+          }
         },
       },
     );
@@ -414,9 +421,9 @@ const SmoochBotResourceEditor = (props) => {
               checked={resource.content_type === 'rss'}
               onChange={(checked) => {
                 if (checked) {
-                  updateResource({ content_type: 'rss', number_of_articles: 3, content: '' });
+                  updateResource({ content_type: 'rss', number_of_articles: 3 });
                 } else {
-                  updateResource({ content_type: 'static', content: '' });
+                  updateResource({ content_type: 'static' });
                 }
               }}
             />
@@ -508,6 +515,7 @@ SmoochBotResourceEditor.propTypes = {
     header_file_url: PropTypes.string,
     header_type: PropTypes.string,
   }),
+  onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 

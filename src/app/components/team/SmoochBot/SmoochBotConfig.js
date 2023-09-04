@@ -232,6 +232,7 @@ const SmoochBotConfig = (props) => {
                   resource={currentResource}
                   language={currentLanguage}
                   onDelete={() => { setCurrentOption(defaultOption); }}
+                  onCreate={(newResource) => { setCurrentOption(`resource_${newResource.dbid}`); }}
                 /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation
