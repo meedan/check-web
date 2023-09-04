@@ -45,13 +45,14 @@ const SmoochBot = ({ currentUser }) => {
                     id
                     dbid
                     uuid
-                    title
                     language
-                    content
-                    header_file_url
+                    title
                     header_type
+                    header_file_url
                     header_overlay_text
                     content_type
+                    content
+                    number_of_articles
                     rss_feed_url
                   }
                 }

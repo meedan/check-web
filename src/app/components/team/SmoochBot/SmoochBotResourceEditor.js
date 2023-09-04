@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { graphql, commitMutation as commitMutationCompat } from 'react-relay/compat';
+import { graphql, createFragmentContainer, commitMutation as commitMutationCompat } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
 import { Store } from 'react-relay/classic';
 import cx from 'classnames/bind';
@@ -16,7 +16,56 @@ import newsletterStyles from '../Newsletter/NewsletterComponent.module.css';
 import styles from './SmoochBotResourceEditor.module.css';
 import { withSetFlashMessage } from '../../FlashMessage';
 
-const SmoochBotResourceEditor = (props) => {
+// Mutations
+
+const updateMutation = graphql`
+  mutation SmoochBotResourceEditorUpdateMutation($input: UpdateTiplineResourceInput!) {
+    updateTiplineResource(input: $input) {
+      tipline_resource {
+        ...SmoochBotResourceEditor_tiplineResource
+        team {
+          tipline_resources(first: 10000) {
+            edges {
+              node {
+                ...SmoochBotResourceEditor_tiplineResource
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const createMutation = graphql`
+  mutation SmoochBotResourceEditorCreateMutation($input: CreateTiplineResourceInput!) {
+    createTiplineResource(input: $input) {
+      tipline_resource {
+        id
+        dbid
+      }
+    }
+  }
+`;
+
+const deleteMutation = graphql`
+  mutation SmoochBotResourceEditorDestroyMutation($input: DestroyTiplineResourceInput!) {
+    destroyTiplineResource(input: $input) {
+      team {
+        id
+        tipline_resources(first: 10000) {
+          edges {
+            node {
+              ...SmoochBotResourceEditor_tiplineResource
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const SmoochBotResourceEditorComponent = (props) => {
   const {
     language,
     environment,
@@ -50,85 +99,6 @@ const SmoochBotResourceEditor = (props) => {
   const [disableSaveNoFile, setDisableSaveNoFile] = React.useState(false);
   const [disableSaveTextTooLong, setDisableSaveTextTooLong] = React.useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
-
-  // Mutations
-
-  const updateMutation = graphql`
-    mutation SmoochBotResourceEditorUpdateMutation($input: UpdateTiplineResourceInput!) {
-      updateTiplineResource(input: $input) {
-        tipline_resource {
-          id
-          dbid
-          uuid
-          title
-          language
-          header_type
-          header_overlay_text
-          content_type
-          content
-          rss_feed_url
-          number_of_articles
-          team {
-            tipline_resources(first: 10000) {
-              edges {
-                node {
-                  id
-                  dbid
-                  uuid
-                  title
-                  language
-                  header_type
-                  header_overlay_text
-                  content_type
-                  content
-                  rss_feed_url
-                  number_of_articles
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const createMutation = graphql`
-    mutation SmoochBotResourceEditorCreateMutation($input: CreateTiplineResourceInput!) {
-      createTiplineResource(input: $input) {
-        tipline_resource {
-          id
-          dbid
-        }
-      }
-    }
-  `;
-
-  const deleteMutation = graphql`
-    mutation SmoochBotResourceEditorDestroyMutation($input: DestroyTiplineResourceInput!) {
-      destroyTiplineResource(input: $input) {
-        team {
-          id
-          tipline_resources(first: 10000) {
-            edges {
-              node {
-                id
-                dbid
-                uuid
-                title
-                language
-                header_type
-                header_overlay_text
-                content_type
-                content
-                rss_feed_url
-                number_of_articles
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
 
   // Callbacks
 
@@ -338,7 +308,7 @@ const SmoochBotResourceEditor = (props) => {
   }, [file]);
 
   return (
-    <div className={styles.resourceEditor}>
+    <div className={styles.resourceEditor} id={`resource-${resource.dbid}`}>
       <TextField
         required
         id="resource__title"
@@ -497,11 +467,11 @@ const SmoochBotResourceEditor = (props) => {
   );
 };
 
-SmoochBotResourceEditor.defaultProps = {
+SmoochBotResourceEditorComponent.defaultProps = {
   resource: {}, // If it's a resource without an ID, then a new resource is being created
 };
 
-SmoochBotResourceEditor.propTypes = {
+SmoochBotResourceEditorComponent.propTypes = {
   environment: PropTypes.object.isRequired, // Relay Modern environment to support file uploads
   team: PropTypes.shape({
     slug: PropTypes.string.isRequired,
@@ -519,4 +489,21 @@ SmoochBotResourceEditor.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(SmoochBotResourceEditor);
+const SmoochBotResourceEditor = createFragmentContainer(withSetFlashMessage(SmoochBotResourceEditorComponent), graphql`
+  fragment SmoochBotResourceEditor_tiplineResource on TiplineResource {
+    id
+    dbid
+    uuid
+    language
+    title
+    header_type
+    header_file_url
+    header_overlay_text
+    content_type
+    content
+    number_of_articles
+    rss_feed_url
+  }
+`);
+
+export default SmoochBotResourceEditor;
