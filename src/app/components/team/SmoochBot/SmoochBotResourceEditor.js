@@ -9,6 +9,7 @@ import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
+import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import NewsletterHeader from '../Newsletter/NewsletterHeader';
 import NewsletterRssFeed from '../Newsletter/NewsletterRssFeed';
 import newsletterStyles from '../Newsletter/NewsletterComponent.module.css';
@@ -20,24 +21,36 @@ const SmoochBotResourceEditor = (props) => {
     language,
     environment,
     setFlashMessage,
+    onDelete,
   } = props;
+
   // Existing resource or new resource
+
   const [resource, setResource] = React.useState({ ...props.resource });
 
+  const updateResource = (changes) => { // "changes" is a hash { field => value }
+    setResource({ ...resource, ...changes });
+  };
+
   // States: File upload
+
   const [file, setFile] = React.useState(null);
   const fileNameFromUrl = new RegExp(/[^/\\&?]+\.\w{3,4}(?=([?&].*$|$))/);
   const [fileName, setFileName] = React.useState((resource.header_file_url && resource.header_file_url.match(fileNameFromUrl) && resource.header_file_url.match(fileNameFromUrl)[0]) || '');
 
-  // States: Form validation
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  // States: Form control
+
   const [errors, setErrors] = React.useState({});
   const [saving, setSaving] = React.useState(false);
   const [disableSaveNoFile, setDisableSaveNoFile] = React.useState(false);
   const [disableSaveTextTooLong, setDisableSaveTextTooLong] = React.useState(false);
+  const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
+  // Mutations
 
   const updateMutation = graphql`
     mutation SmoochBotResourceEditorUpdateMutation($input: UpdateTiplineResourceInput!) {
@@ -87,6 +100,35 @@ const SmoochBotResourceEditor = (props) => {
       }
     }
   `;
+
+  const deleteMutation = graphql`
+    mutation SmoochBotResourceEditorDestroyMutation($input: DestroyTiplineResourceInput!) {
+      destroyTiplineResource(input: $input) {
+        team {
+          id
+          tipline_resources(first: 10000) {
+            edges {
+              node {
+                id
+                dbid
+                uuid
+                title
+                language
+                header_type
+                header_overlay_text
+                content_type
+                content
+                rss_feed_url
+                number_of_articles
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  // Callbacks
 
   const handleError = (err) => {
     setSaving(false);
@@ -151,9 +193,8 @@ const SmoochBotResourceEditor = (props) => {
   };
 
   const refreshStore = (response) => {
-    // FIXME: This is a hack... send another dummy mutation in order to force an update of the Relay store
-    // We can delete this once the Relay Modern network is capable of refreshing the Relay store
-    // eslint-disable-next-line no-console
+    // FIXME: This is a hack... send another dummy update mutation using Relay Compat network layer in order to force an update of the Relay store
+    // We can delete this once our custom Relay Modern network layer that supports file uploads is capable of refreshing the Relay store
     commitMutationCompat(
       Store,
       {
@@ -224,6 +265,49 @@ const SmoochBotResourceEditor = (props) => {
     );
   };
 
+  const handleDeleted = () => {
+    setSaving(false);
+    setErrors({});
+    setFlashMessage((
+      <FormattedMessage
+        id="smoochBotResourceEditor.deleted"
+        defaultMessage="Resource deleted successfully."
+        description="Success message displayed when a resource is deleted."
+      />
+    ), 'success');
+    onDelete();
+  };
+
+  const handleDelete = () => {
+    commitMutationCompat(
+      Store,
+      {
+        mutation: deleteMutation,
+        variables: {
+          input: {
+            id: resource.id,
+          },
+        },
+        onCompleted: (response, err) => {
+          if (err) {
+            handleError(err);
+          } else {
+            handleDeleted();
+          }
+        },
+        onError: (err) => {
+          handleError(err);
+        },
+      },
+    );
+  };
+
+  const handleConfirmDelete = () => {
+    setShowConfirmationDialog(true);
+  };
+
+  // Effects
+
   // This triggers when a file or file name or header type is changed. If the header is an attachment type, it disables saving if there is no file attached.
   React.useEffect(() => {
     const fileRequired = resource.header_type === 'image' || resource.header_type === 'audio' || resource.header_type === 'video';
@@ -245,10 +329,6 @@ const SmoochBotResourceEditor = (props) => {
       setFileName(file.name);
     }
   }, [file]);
-
-  const updateResource = (changes) => { // "changes" is a hash { field => value }
-    setResource({ ...resource, ...changes });
-  };
 
   return (
     <div className={styles.resourceEditor}>
@@ -353,7 +433,7 @@ const SmoochBotResourceEditor = (props) => {
         </div>
       </div>
 
-      <div>
+      <div className={styles.resourceEditorActions}>
         <ButtonMain
           variant="contained"
           theme="brand"
@@ -368,7 +448,44 @@ const SmoochBotResourceEditor = (props) => {
             />
           }
         />
+
+        { resource.id ?
+          <ButtonMain
+            variant="outlined"
+            theme="text"
+            size="default"
+            onClick={handleConfirmDelete}
+            label={
+              <FormattedMessage
+                id="smoochBotResourceEditor.delete"
+                defaultMessage="Delete"
+                description="Label for action button to delete a tipline resource."
+              />
+            }
+          /> : null }
       </div>
+
+      <ConfirmProceedDialog
+        open={showConfirmationDialog}
+        title={
+          <FormattedMessage
+            id="smoochBotResourceEditor.confirmationDialogTitle"
+            defaultMessage="Are you sure you want to delete this resource?"
+            description="Confirmation dialog title when deleting a tipline resource."
+          />
+        }
+        body={
+          <FormattedMessage
+            id="smoochBotResourceEditor.confirmationDialogBody"
+            defaultMessage="This content won't be available for tipline users anymore. This action can't be undone."
+            description="Confirmation dialog message when deleting a tipline resource."
+          />
+        }
+        proceedLabel={<FormattedMessage id="smoochBotResourceEditor.confirmationDialogButton" defaultMessage="Delete tipline resource" description="Button label to confirm tipline resource deletion." />}
+        onProceed={handleDelete}
+        onCancel={() => { setShowConfirmationDialog(false); }}
+        isSaving={saving}
+      />
     </div>
   );
 };
@@ -391,6 +508,7 @@ SmoochBotResourceEditor.propTypes = {
     header_file_url: PropTypes.string,
     header_type: PropTypes.string,
   }),
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default withSetFlashMessage(SmoochBotResourceEditor);

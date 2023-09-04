@@ -52,10 +52,10 @@ const SmoochBotConfig = (props) => {
 
   // Set currentResource if the current selected option on the left sidebar is a resource
   let currentResource = null;
-  if (currentTab === 0 && /^resource_[0-9]+$/.test(currentOption)) {
-    const dbid = parseInt(currentOption.match(/^resource_([0-9]+)$/)[1], 10);
+  if (currentTab === 0 && /^resource_/.test(currentOption)) {
+    const resource_id = currentOption.match(/^resource_(.+)$/)[1];
     // New resource
-    if (dbid === 0) {
+    if (resource_id === 'new') {
       currentResource = {
         uuid: Math.random().toString().substring(2, 10),
         language: currentLanguage,
@@ -64,7 +64,7 @@ const SmoochBotConfig = (props) => {
         number_of_articles: 0,
       };
     } else {
-      currentResource = resources.find(resource => resource.dbid === dbid);
+      currentResource = resources.find(resource => resource.dbid === parseInt(resource_id, 10));
     }
     if (currentResource) {
       onEditingResource(true);
@@ -181,7 +181,7 @@ const SmoochBotConfig = (props) => {
                 size="default"
                 variant="text"
                 onClick={() => {
-                  setCurrentOption('resource_0');
+                  setCurrentOption('resource_new');
                 }}
                 label={
                   <FormattedMessage
@@ -231,6 +231,7 @@ const SmoochBotConfig = (props) => {
                   environment={environment}
                   resource={currentResource}
                   language={currentLanguage}
+                  onDelete={() => { setCurrentOption(defaultOption); }}
                 /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation

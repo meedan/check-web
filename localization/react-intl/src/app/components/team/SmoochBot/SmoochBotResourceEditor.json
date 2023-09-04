@@ -25,6 +25,11 @@
     "defaultMessage": "Resource saved successfully."
   },
   {
+    "id": "smoochBotResourceEditor.deleted",
+    "description": "Success message displayed when a resource is deleted.",
+    "defaultMessage": "Resource deleted successfully."
+  },
+  {
     "id": "smoochBotResourceEditor.title",
     "description": "Label for tipline resource title field",
     "defaultMessage": "Title"
@@ -58,5 +63,25 @@
     "id": "smoochBotResourceEditor.save",
     "description": "Label for action button to save a tipline resource.",
     "defaultMessage": "Save"
+  },
+  {
+    "id": "smoochBotResourceEditor.delete",
+    "description": "Label for action button to delete a tipline resource.",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "smoochBotResourceEditor.confirmationDialogTitle",
+    "description": "Confirmation dialog title when deleting a tipline resource.",
+    "defaultMessage": "Are you sure you want to delete this resource?"
+  },
+  {
+    "id": "smoochBotResourceEditor.confirmationDialogBody",
+    "description": "Confirmation dialog message when deleting a tipline resource.",
+    "defaultMessage": "This content won't be available for tipline users anymore. This action can't be undone."
+  },
+  {
+    "id": "smoochBotResourceEditor.confirmationDialogButton",
+    "description": "Button label to confirm tipline resource deletion.",
+    "defaultMessage": "Delete tipline resource"
   }
 ]
