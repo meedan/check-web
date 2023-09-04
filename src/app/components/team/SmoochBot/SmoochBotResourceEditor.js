@@ -16,23 +16,6 @@ import newsletterStyles from '../Newsletter/NewsletterComponent.module.css';
 import styles from './SmoochBotResourceEditor.module.css';
 import { withSetFlashMessage } from '../../FlashMessage';
 
-const tiplineResourceFragment = graphql`
-  fragment SmoochBotResourceEditor_tiplineResource on TiplineResource {
-    id
-    dbid
-    uuid
-    title
-    language
-    content
-    header_file_url
-    header_type
-    header_overlay_text
-    content_type
-    number_of_articles
-    rss_feed_url
-  }
-`;
-
 const SmoochBotResourceEditor = (props) => {
   const {
     language,
@@ -74,12 +57,32 @@ const SmoochBotResourceEditor = (props) => {
     mutation SmoochBotResourceEditorUpdateMutation($input: UpdateTiplineResourceInput!) {
       updateTiplineResource(input: $input) {
         tipline_resource {
-          ...SmoochBotResourceEditor_tiplineResource
+          id
+          dbid
+          uuid
+          title
+          language
+          header_type
+          header_overlay_text
+          content_type
+          content
+          rss_feed_url
+          number_of_articles
           team {
             tipline_resources(first: 10000) {
               edges {
                 node {
-                  ...SmoochBotResourceEditor_tiplineResource
+                  id
+                  dbid
+                  uuid
+                  title
+                  language
+                  header_type
+                  header_overlay_text
+                  content_type
+                  content
+                  rss_feed_url
+                  number_of_articles
                 }
               }
             }
@@ -108,7 +111,17 @@ const SmoochBotResourceEditor = (props) => {
           tipline_resources(first: 10000) {
             edges {
               node {
-                ...SmoochBotResourceEditor_tiplineResource
+                id
+                dbid
+                uuid
+                title
+                language
+                header_type
+                header_overlay_text
+                content_type
+                content
+                rss_feed_url
+                number_of_articles
               }
             }
           }
@@ -328,7 +341,6 @@ const SmoochBotResourceEditor = (props) => {
     <div className={styles.resourceEditor}>
       <TextField
         required
-        key={`resource-${resource.dbid}`}
         id="resource__title"
         defaultValue={resource.title}
         fullWidth
@@ -507,5 +519,4 @@ SmoochBotResourceEditor.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
-export { tiplineResourceFragment };
 export default withSetFlashMessage(SmoochBotResourceEditor);

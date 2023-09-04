@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import SmoochBotComponent from './SmoochBotComponent';
-// eslint-disable-next-line no-unused-vars
-import { tiplineResourceFragment } from './SmoochBotResourceEditor'; // Used as a Relay fragment in the GraphQL query below
 
 const SmoochBot = ({ currentUser }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
@@ -44,7 +42,17 @@ const SmoochBot = ({ currentUser }) => {
               tipline_resources(first: 10000) {
                 edges {
                   node {
-                    ...SmoochBotResourceEditor_tiplineResource
+                    id
+                    dbid
+                    uuid
+                    title
+                    language
+                    content
+                    header_file_url
+                    header_type
+                    header_overlay_text
+                    content_type
+                    rss_feed_url
                   }
                 }
               }
