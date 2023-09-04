@@ -50,9 +50,18 @@ const SmoochBotConfig = (props) => {
     }
   });
 
+  const handleSelectOption = (option) => {
+    if (/^resource_/.test(option)) {
+      onEditingResource(true);
+    } else {
+      onEditingResource(false);
+    }
+    setCurrentOption(option);
+  };
+
   // Set currentResource if the current selected option on the left sidebar is a resource
   let currentResource = null;
-  if (currentTab === 0 && /^resource_/.test(currentOption)) {
+  if (/^resource_/.test(currentOption)) {
     const resource_id = currentOption.match(/^resource_(.+)$/)[1];
     // New resource
     if (resource_id === 'new') {
@@ -66,14 +75,9 @@ const SmoochBotConfig = (props) => {
     } else {
       currentResource = resources.find(resource => resource.dbid === parseInt(resource_id, 10));
     }
-    if (currentResource) {
-      onEditingResource(true);
-    } else {
-      setCurrentOption(defaultOption);
-      onEditingResource(false);
+    if (!currentResource) {
+      handleSelectOption(defaultOption);
     }
-  } else {
-    onEditingResource(false);
   }
 
   const menuActions = state => props.schema.properties.smooch_workflows.items.properties[state]
@@ -89,11 +93,10 @@ const SmoochBotConfig = (props) => {
   };
 
   const handleChangeTab = (event, newTab) => {
+    if (currentResource && newTab === 1) { // Settings tab
+      onEditingResource(false);
+    }
     setCurrentTab(newTab);
-  };
-
-  const handleSelectOption = (option) => {
-    setCurrentOption(option);
   };
 
   const handleChangeTextField = (newValue) => {
@@ -181,7 +184,7 @@ const SmoochBotConfig = (props) => {
                 size="default"
                 variant="text"
                 onClick={() => {
-                  setCurrentOption('resource_new');
+                  handleSelectOption('resource_new');
                 }}
                 label={
                   <FormattedMessage
@@ -231,8 +234,8 @@ const SmoochBotConfig = (props) => {
                   environment={environment}
                   resource={currentResource}
                   language={currentLanguage}
-                  onDelete={() => { setCurrentOption(defaultOption); }}
-                  onCreate={(newResource) => { setCurrentOption(`resource_${newResource.dbid}`); }}
+                  onDelete={() => { handleSelectOption(defaultOption); }}
+                  onCreate={(newResource) => { handleSelectOption(`resource_${newResource.dbid}`); }}
                 /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation
