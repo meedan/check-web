@@ -148,7 +148,7 @@ TextField.defaultProps = {
   required: false,
   suppressInitialError: false,
   textArea: false,
-  autoGrow: false,
+  autoGrow: true,
   variant: 'contained',
   componentProps: {},
 };
