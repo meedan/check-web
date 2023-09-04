@@ -11,16 +11,19 @@ const TextArea = React.forwardRef(({
 }, ref) => {
   const [height, setHeight] = useState('auto');
 
-
   const handleChange = (event) => {
     const minHeight = minHeightProp || event.target.offsetHeight;
     const newHeight = `${event.target.scrollHeight}px`;
+    if (inputProps.onChange) {
+      inputProps.onChange();
+    }
     if (autoGrow && event.target.scrollHeight >= minHeight && (!maxHeight || event.target.scrollHeight <= maxHeight)) {
       setHeight(newHeight);
     }
   };
 
-  return <TextField textArea autoGrow ref={ref} {...inputProps} style={{ height }} onChange={handleChange} />;
+  const customStyle = inputProps.style || {};
+  return <TextField textArea autoGrow={autoGrow} ref={ref} {...inputProps} style={{ ...customStyle, height }} onChange={handleChange} />;
 });
 
 TextArea.defaultProps = {
