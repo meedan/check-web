@@ -459,7 +459,7 @@ const SmoochBotResourceEditorComponent = (props) => {
             description="Confirmation dialog message when deleting a tipline resource."
           />
         }
-        proceedLabel={<FormattedMessage id="smoochBotResourceEditor.confirmationDialogButton" defaultMessage="Delete tipline resource" description="Button label to confirm tipline resource deletion." />}
+        proceedLabel={<FormattedMessage id="smoochBotResourceEditor.confirmationDialogButton" defaultMessage="Delete" description="Button label to confirm tipline resource deletion." />}
         onProceed={handleDelete}
         onCancel={() => { setShowConfirmationDialog(false); }}
         isSaving={saving}
