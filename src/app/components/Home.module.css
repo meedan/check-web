@@ -20,11 +20,6 @@
   height: 100%;
   width: 100%;
 
-  &:global(.route__media),
-  &:global(.route__me) {
-    background-color: var(--otherWhite);
-  }
-
   &:global(.route__feed) {
     overflow: auto;
   }

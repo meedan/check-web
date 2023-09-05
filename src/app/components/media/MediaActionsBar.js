@@ -27,10 +27,9 @@ import CheckArchivedFlags from '../../CheckArchivedFlags';
 const Styles = theme => ({
   root: {
     display: 'flex',
-    width: '100%',
+    gap: 8,
     height: 64,
     alignItems: 'center',
-    padding: '0 16px',
     justifyContent: 'space-between',
   },
   spacedButton: {

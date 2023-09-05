@@ -14,7 +14,6 @@ import {
 
 const HeaderBar = styled.div`
   background-color: var(--brandBackground);
-  border-left: solid 2px var(--grayBorderMain);
   display: flex;
   align-items: center;
   padding: 0 ${units(2)};

@@ -4,7 +4,6 @@ import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import TimeBefore from '../TimeBefore';
 import MediaContext from './MediaContext';
@@ -115,24 +114,32 @@ const MediaClaim = ({ projectMedia }) => {
   return (
     <Box id="media__claim">
       <Box id="media__claim-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <Typography variant="subtitle2" component="div">
+        <div className="typography-subtitle2">
           <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
-        </Typography>
+        </div>
         {' '}
-        <Typography variant="caption" component="div">
-          { error ?
+        { error ?
+          <div className="typography-caption">
             <FormattedMessage
               id="mediaClaim.error"
               defaultMessage="error"
               description="Caption that informs that a claim could not be saved"
-            /> : null }
-          { saving && !error ?
+            />
+          </div>
+          : null
+        }
+        { saving && !error ?
+          <div className="typography-caption">
             <FormattedMessage
               id="mediaClaim.saving"
               defaultMessage="saving…"
               description="Caption that informs that a claim is being saved"
-            /> : null }
-          { !saving && !error && claimDescription ?
+            />
+          </div>
+          : null
+        }
+        { !saving && !error && claimDescription ?
+          <div className="typography-caption">
             <FormattedMessage
               className="media-claim__saved-by"
               id="mediaClaim.saved"
@@ -142,9 +149,16 @@ const MediaClaim = ({ projectMedia }) => {
                 timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
               }}
               description="Caption that informs who last saved this claim and when it happened."
-            /> : null }
-          { !saving && !claimDescription && !error ? <span>&nbsp;</span> : null }
-        </Typography>
+            />
+          </div>
+          : null
+        }
+        { !saving && !claimDescription && !error ?
+          <div className="typography-caption">
+            <span>&nbsp;</span>
+          </div>
+          : null
+        }
       </Box>
 
       <Box>
