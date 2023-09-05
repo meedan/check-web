@@ -1,69 +1,50 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
-import SmoochBotResourceEditor from './SmoochBotResourceEditor';
+import { shallow } from 'enzyme';
+import { SmoochBotResourceEditorComponent } from './SmoochBotResourceEditor';
 
-describe('<SmoochBotResourceEditor />', () => {
-  it('should contain a title field by default', () => {
-    const wrapper = mountWithIntl(<SmoochBotResourceEditor
-      installationId="foo"
-      resource={{
-        foo: 'bar',
-      }}
-      onChange={() => {}}
-    />);
+describe('<SmoochBotResourceEditorComponent />', () => {
+  const resource = {
+    id: 'VGlwbGluZVJlc291cmNlLzEK',
+    dbid: 1,
+    uuid: '12345678',
+    title: 'Test',
+    header_file_url: null,
+    header_type: 'none',
+  };
 
-    expect(wrapper.html()).toMatch(/Bot resource title/);
+  const props = {
+    environment: {},
+    team: {
+      slug: 'test',
+    },
+    language: 'en',
+    resource,
+    onCreate: () => {},
+    onDelete: () => {},
+  };
+
+  it('renders resource correctly', () => {
+    const resourceEditor = shallow(<SmoochBotResourceEditorComponent {...props} />);
+    expect(resourceEditor.find('div#resource-1')).toHaveLength(1);
   });
 
-  it('should not contain a title field if hasTitle=false', () => {
-    const wrapper = mountWithIntl(<SmoochBotResourceEditor
-      hasTitle={false}
-      installationId="foo"
-      resource={{
-        foo: 'bar',
-      }}
-      onChange={() => {}}
-    />);
-
-    expect(wrapper.html()).not.toMatch(/Bot resource title/);
+  it('renders static resource correctly', () => {
+    const resourceEditor = shallow(<SmoochBotResourceEditorComponent {...props} resource={{ ...resource, content_type: 'static' }} />);
+    expect(resourceEditor.find('NewsletterRssFeed')).toHaveLength(0);
   });
 
-  it('should render Delete resource button if onDelete callback is provided', () => {
-    const wrapper = mountWithIntl(<SmoochBotResourceEditor
-      installationId="foo"
-      resource={{
-        foo: 'bar',
-      }}
-      onChange={() => {}}
-      onDelete={() => {}}
-    />);
-
-    expect(wrapper.html()).toMatch(/Delete resource/);
+  it('renders dynamic resource correctly', () => {
+    const resourceEditor = shallow(<SmoochBotResourceEditorComponent {...props} resource={{ ...resource, content_type: 'rss' }} />);
+    expect(resourceEditor.find('NewsletterRssFeed')).toHaveLength(1);
   });
 
-  it('should render inactive toggle if no resource feed URL in data', () => {
-    const wrapper = mountWithIntl(<SmoochBotResourceEditor
-      installationId="foo"
-      resource={{
-        foo: 'bar',
-      }}
-      onChange={() => {}}
-    />);
-
-    expect(wrapper.find('WithStyles(ForwardRef(Switch))').props().checked).toBe(false);
-    expect(wrapper.html()).not.toMatch(/Number of articles to return/);
+  it('renders delete button for existing resource', () => {
+    const resourceEditor = shallow(<SmoochBotResourceEditorComponent {...props} />);
+    expect(resourceEditor.find('.resource-delete')).toHaveLength(1);
   });
 
-  it('should render active toggle if resource feed URL in data', () => {
-    const wrapper = mountWithIntl(<SmoochBotResourceEditor
-      installationId="foo"
-      resource={{
-        smooch_custom_resource_feed_url: 'http://foo.com/bar',
-      }}
-      onChange={() => {}}
-    />);
-
-    expect(wrapper.find('WithStyles(ForwardRef(Switch))').props().checked).toBe(true);
-    expect(wrapper.html()).toMatch(/Number of articles to return/);
+  it('renders no delete button for new resource', () => {
+    const resourceEditor = shallow(<SmoochBotResourceEditorComponent {...props} resource={{ ...resource, id: null }} />);
+    expect(resourceEditor.find('.resource-delete')).toHaveLength(0);
   });
 });
