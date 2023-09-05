@@ -8,12 +8,10 @@ import CounterButton from '../../cds/buttons-checkboxes-chips/CounterButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
-    margin: theme.spacing(-2),
-    marginBottom: 16,
-    borderBottom: '1px solid var(--grayBorderMain)',
-    position: 'sticky',
     backgroundColor: 'var(--otherWhite)',
+    padding: `0 0 ${theme.spacing(1)}px`,
+    position: 'sticky',
+    top: -16,
     zIndex: 200,
   },
   spacing: {

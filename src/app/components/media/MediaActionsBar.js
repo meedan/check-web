@@ -28,7 +28,6 @@ const Styles = theme => ({
   root: {
     display: 'flex',
     gap: 8,
-    height: 64,
     alignItems: 'center',
     justifyContent: 'space-between',
   },

@@ -11,11 +11,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import NextOrPreviousButton from './NextOrPreviousButton';
-import { units } from '../../styles/js/shared';
 import { getPathnameAndSearch, pageSize } from '../../urlHelpers';
 
 const StyledPager = styled.div`
-  height: ${units(8)};
   display: flex;
   align-items: center;
   justify-content: flex-end;

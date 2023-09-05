@@ -10,10 +10,11 @@
     background-color: var(--otherWhite);
     border-radius: 8px;
     display: flex;
-    height: 64px;
+    flex: 0 0 64px;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin: 16px 32px 0;
-    padding: 0 16px;
+    padding: 16px;
     width: auto;
   }
 
