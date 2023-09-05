@@ -82,6 +82,6 @@
   {
     "id": "smoochBotResourceEditor.confirmationDialogButton",
     "description": "Button label to confirm tipline resource deletion.",
-    "defaultMessage": "Delete tipline resource"
+    "defaultMessage": "Delete"
   }
 ]
