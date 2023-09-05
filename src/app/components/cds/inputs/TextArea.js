@@ -15,7 +15,7 @@ const TextArea = React.forwardRef(({
     const minHeight = minHeightProp || event.target.offsetHeight;
     const newHeight = `${event.target.scrollHeight}px`;
     if (inputProps.onChange) {
-      inputProps.onChange();
+      inputProps.onChange(event);
     }
     if (autoGrow && event.target.scrollHeight >= minHeight && (!maxHeight || event.target.scrollHeight <= maxHeight)) {
       setHeight(newHeight);
