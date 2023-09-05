@@ -227,7 +227,7 @@ const ReportDesignerComponent = (props) => {
         onStateChange={(action, state) => { handleSave(action, state); }}
         prefixUrl={prefixUrl}
       />
-      <Box display="flex" width="1">
+      <Box display="flex" width="1" style={{ borderLeft: 'solid 2px var(--grayBorderMain)' }}>
         <Box flex="1" alignItems="flex-start" display="flex" className={[classes.preview, classes.section].join(' ')}>
           <ReportDesignerPreview data={data.options} media={media} />
         </Box>

@@ -4,8 +4,9 @@ import { FormattedMessage } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import NumberIcon from '../../icons/numbers.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import AddIcon from '../../icons/add.svg';
+import NumberIcon from '../../icons/numbers.svg';
 import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import DescriptionIcon from '../../icons/description.svg';
@@ -324,11 +325,12 @@ const AddFilterMenu = ({
         variant="contained"
         size="default"
         theme="text"
+        iconLeft={<AddIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
         label={
           <FormattedMessage
             id="addFilterMenu.addFilter"
-            defaultMessage="Add filter"
+            defaultMessage="Filter"
             description="Button that opens menu with filter field options"
           />
         }

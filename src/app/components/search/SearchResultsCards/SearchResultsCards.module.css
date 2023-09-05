@@ -2,7 +2,6 @@
   background: var(--otherWhite);
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 317px);
   overflow: auto;
   padding: 0 16px;
 
