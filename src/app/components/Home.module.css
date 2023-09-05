@@ -14,14 +14,18 @@
 }
 
 .mainContentWrapper {
-  background-color: var(--otherWhite);
+  background-color: var(--grayBackground);
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
 
+  &:global(.route__media),
+  &:global(.route__me) {
+    background-color: var(--otherWhite);
+  }
+
   &:global(.route__feed) {
-    background: var(--grayBackground);
     overflow: auto;
   }
 
@@ -29,24 +33,5 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-  }
-
-  :global(.feed__fact-checks) {
-    height: auto;
-
-    :global(.search__results) {
-      margin: auto;
-      overflow: visible;
-      width: calc(100% - 32px);
-    }
-
-    :global(.search__results-top) {
-      background: var(--otherWhite);
-      border-radius: 8px;
-      margin: auto;
-      margin-bottom: 16px;
-      padding-top: 16px;
-      width: calc(100% - 32px);
-    }
   }
 }

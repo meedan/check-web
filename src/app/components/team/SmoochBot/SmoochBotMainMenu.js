@@ -29,12 +29,11 @@ const messages = defineMessages({
 const SmoochBotMainMenu = ({
   value,
   languages,
+  resources,
   enabledIntegrations,
   intl,
   onChange,
 }) => {
-  const resources = value.smooch_custom_resources || [];
-
   let optionsCount = 1; // "Privacy Policy" option
   let collapsedCount = 2; // "Privacy Policy" and "Languages" options
   if (languages.length >= 1) {
@@ -159,6 +158,7 @@ const SmoochBotMainMenu = ({
 SmoochBotMainMenu.defaultProps = {
   value: {},
   languages: [],
+  resources: [],
 };
 
 SmoochBotMainMenu.propTypes = {
@@ -167,6 +167,7 @@ SmoochBotMainMenu.propTypes = {
   intl: intlShape.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default injectIntl(SmoochBotMainMenu);

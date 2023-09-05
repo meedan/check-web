@@ -1,294 +1,513 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Typography from '@material-ui/core/Typography';
+import { FormattedMessage } from 'react-intl';
+import { graphql, createFragmentContainer, commitMutation as commitMutationCompat } from 'react-relay/compat';
+import { commitMutation } from 'react-relay';
+import { Store } from 'react-relay/classic';
+import cx from 'classnames/bind';
+import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import CancelIcon from '../../../icons/cancel.svg';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
-import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
-import ParsedText from '../../ParsedText';
+import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
+import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import NewsletterHeader from '../Newsletter/NewsletterHeader';
+import NewsletterRssFeed from '../Newsletter/NewsletterRssFeed';
+import newsletterStyles from '../Newsletter/NewsletterComponent.module.css';
+import styles from './SmoochBotResourceEditor.module.css';
+import { withSetFlashMessage } from '../../FlashMessage';
 
-const useStyles = makeStyles(theme => ({
-  spaced: {
-    margin: theme.spacing(1),
-    minWidth: 100,
-  },
-  title: {
-    margin: theme.spacing(1.25),
-  },
-  rssPreview: {
-    height: 'initial',
-    display: 'initial',
-    maxHeight: 'initial',
-    alignItems: 'initial',
-    whiteSpace: 'initial',
-    margin: 0,
-    width: '100%',
-  },
-  content: {
-    flexWrap: 'wrap',
-  },
-  load: {
-    height: theme.spacing(4),
-  },
-  divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-}));
+// Mutations
 
-const messages = defineMessages({
-  rssPlaceholder: {
-    id: 'smoochBotResourceEditor.rssPlaceholder',
-    defaultMessage: 'Public URL that returns N articles in RSS format',
-  },
-  typeHere: {
-    id: 'smoochBotResourceEditor.addContent',
-    defaultMessage: 'Type something',
-    description: 'Placeholder for manual content entry',
-  },
-});
-
-const SmoochBotResourceEditor = ({
-  intl,
-  installationId,
-  resource,
-  hasTitle,
-  onDelete,
-  onChange,
-}) => {
-  const classes = useStyles();
-  const [error, setError] = React.useState(null);
-  const [url, setUrl] = React.useState(resource.smooch_custom_resource_feed_url);
-  const [count, setCount] = React.useState(resource.smooch_custom_resource_number_of_articles);
-  const [refetch, setRefetch] = React.useState(1);
-  const [loading, setLoading] = React.useState(false);
-  const [rssEnabled, setRssEnabled] = React.useState(Boolean(url));
-  const [rssPreview, setRssPreview] = React.useState(null);
-  const [introduction, setIntroduction] = React.useState(resource.smooch_custom_resource_body);
-
-  const maxCharacters = 1024;
-  let charactersCount = 0;
-  if (introduction) {
-    charactersCount += introduction.length;
+const updateMutation = graphql`
+  mutation SmoochBotResourceEditorUpdateMutation($input: UpdateTiplineResourceInput!) {
+    updateTiplineResource(input: $input) {
+      tipline_resource {
+        ...SmoochBotResourceEditor_tiplineResource
+        team {
+          tipline_resources(first: 10000) {
+            edges {
+              node {
+                ...SmoochBotResourceEditor_tiplineResource
+              }
+            }
+          }
+        }
+      }
+    }
   }
-  if (rssPreview) {
-    charactersCount += rssPreview.length;
-  }
+`;
 
-  const handleError = () => {
-    setLoading(false);
-    setError(<FormattedMessage id="smoochBotResourceEditor.error" defaultMessage="This URL does not seem to be a valid RSS feed" />);
+const createMutation = graphql`
+  mutation SmoochBotResourceEditorCreateMutation($input: CreateTiplineResourceInput!) {
+    createTiplineResource(input: $input) {
+      tipline_resource {
+        id
+        dbid
+      }
+    }
+  }
+`;
+
+const deleteMutation = graphql`
+  mutation SmoochBotResourceEditorDestroyMutation($input: DestroyTiplineResourceInput!) {
+    destroyTiplineResource(input: $input) {
+      team {
+        id
+        tipline_resources(first: 10000) {
+          edges {
+            node {
+              ...SmoochBotResourceEditor_tiplineResource
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const SmoochBotResourceEditorComponent = (props) => {
+  const {
+    language,
+    environment,
+    setFlashMessage,
+    onCreate,
+    onDelete,
+  } = props;
+
+  // Existing resource or new resource
+
+  const [resource, setResource] = React.useState({ ...props.resource });
+
+  const updateResource = (changes) => { // "changes" is a hash { field => value }
+    setResource({ ...resource, ...changes });
   };
 
-  const handleSuccess = (preview) => {
-    setRssPreview(preview);
-    setLoading(false);
+  // States: File upload
+
+  const [file, setFile] = React.useState(null);
+  const fileNameFromUrl = new RegExp(/[^/\\&?]+\.\w{3,4}(?=([?&].*$|$))/);
+  const [fileName, setFileName] = React.useState((resource.header_file_url && resource.header_file_url.match(fileNameFromUrl) && resource.header_file_url.match(fileNameFromUrl)[0]) || '');
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
-  const handleLoad = () => {
-    if (resource.smooch_custom_resource_feed_url) {
-      setRefetch(refetch + 1);
-      setError(null);
-      setLoading(true);
-      setUrl(resource.smooch_custom_resource_feed_url.trim());
-      setCount(resource.smooch_custom_resource_number_of_articles);
+  // States: Form control
+
+  const [errors, setErrors] = React.useState({});
+  const [saving, setSaving] = React.useState(false);
+  const [disableSaveNoFile, setDisableSaveNoFile] = React.useState(false);
+  const [disableSaveTextTooLong, setDisableSaveTextTooLong] = React.useState(false);
+  const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
+
+  // Callbacks
+
+  const handleError = (err) => {
+    setSaving(false);
+    if (
+      err.length &&
+      err[0]?.data &&
+      (
+        err[0]?.data.title ||
+        err[0]?.data.rss_feed_url ||
+        err[0]?.data.header_type ||
+        err[0]?.data.header_file ||
+        err[0]?.data.base
+      )
+    ) {
+      const { data } = err[0];
+      if (data.rss_feed_url && data.rss_feed_url[0] === 'is invalid') {
+        data.rss_feed_url = (
+          <FormattedMessage
+            id="smoochBotResourceEditor.errorRssFeedUrl"
+            defaultMessage="RSS feed URL is invalid."
+            description="Error message displayed when a user submits a form with a URL that the server does not recognize."
+          />
+        );
+      }
+      if (data.title && data.title[0] === "can't be blank") {
+        data.title = (
+          <FormattedMessage
+            id="smoochBotResourceEditor.errorTitle"
+            defaultMessage="Title can't be blank"
+            description="Error message displayed when a user submits a form with a blank title."
+          />
+        );
+      }
+      if (data.header_file && data.header_file[0].includes('cannot be of type')) {
+        data.header_file = (
+          <FormattedMessage
+            id="smoochBotResourceEditor.errorHeaderFile"
+            defaultMessage="File must be of the following allowed types: {fileTypes}"
+            description="Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
+            values={{
+              fileTypes: data.header_file[0].split(':')[1],
+            }}
+          />
+        );
+      }
+      if (data.base && data.base[0].includes('Sorry, we don\'t support')) {
+        // FIXME: We are not going to internationalize this string for now, it's too unstructured and variable to make work
+        data.base = data.base[0]; // eslint-disable-line prefer-destructuring
+      }
+      setErrors(data);
+    } else if (err.length && err[0]?.message) {
+      setFlashMessage(err[0].message, 'error');
     } else {
-      handleError();
+      setFlashMessage((
+        <FormattedMessage
+          id="smoochBotResourceEditor.error"
+          defaultMessage="Could not save resource, please try again."
+          description="Error message displayed when it's not possible to save a resource."
+        />
+      ), 'error');
     }
   };
 
-  const handleReset = () => {
-    setRssPreview(null);
-    setUrl('');
-    onChange('smooch_custom_resource_feed_url', '');
+  const refreshStore = (response) => {
+    // FIXME: This is a hack... send another dummy update mutation using Relay Compat network layer in order to force an update of the Relay store
+    // We can delete this once our custom Relay Modern network layer that supports file uploads is capable of refreshing the Relay store
+    commitMutationCompat(
+      Store,
+      {
+        mutation: updateMutation,
+        variables: {
+          input: {
+            id: resource.id || response.createTiplineResource.tipline_resource.id,
+          },
+        },
+        onCompleted: () => {
+          if (response.createTiplineResource) {
+            onCreate(response.createTiplineResource.tipline_resource);
+          }
+        },
+      },
+    );
   };
 
-  const handleToggleRss = (enabled) => {
-    setRssEnabled(enabled);
-    if (enabled) {
-      onChange('smooch_custom_resource_feed_url', '');
-    } else {
-      handleReset();
-    }
+  const handleSuccess = (response) => {
+    setSaving(false);
+    setErrors({});
+    setFlashMessage((
+      <FormattedMessage
+        id="smoochBotResourceEditor.success"
+        defaultMessage="Resource saved successfully."
+        description="Success message displayed when a resource is saved."
+      />
+    ), 'success');
+    refreshStore(response);
   };
+
+  const handleSave = () => {
+    setSaving(true);
+    const mutation = (resource.id ? updateMutation : createMutation);
+    const input = {
+      language,
+      title: resource.title,
+      content: resource.content,
+      header_type: resource.header_type,
+      header_overlay_text: resource.header_overlay_text,
+      content_type: resource.content_type,
+      rss_feed_url: resource.rss_feed_url,
+      number_of_articles: resource.number_of_articles,
+    };
+    if (resource.id) {
+      input.id = resource.id;
+    } else {
+      input.uuid = resource.uuid;
+    }
+    const uploadables = {};
+    if (file) {
+      uploadables['file[]'] = file;
+    }
+    commitMutation(
+      environment,
+      {
+        mutation,
+        variables: {
+          input,
+        },
+        uploadables,
+        onCompleted: (response, err) => {
+          if (err) {
+            handleError(err);
+          } else {
+            handleSuccess(response);
+          }
+        },
+        onError: (err) => {
+          handleError(err);
+        },
+      },
+    );
+  };
+
+  const handleDeleted = () => {
+    setSaving(false);
+    setErrors({});
+    setFlashMessage((
+      <FormattedMessage
+        id="smoochBotResourceEditor.deleted"
+        defaultMessage="Resource deleted successfully."
+        description="Success message displayed when a resource is deleted."
+      />
+    ), 'success');
+    onDelete();
+  };
+
+  const handleDelete = () => {
+    commitMutationCompat(
+      Store,
+      {
+        mutation: deleteMutation,
+        variables: {
+          input: {
+            id: resource.id,
+          },
+        },
+        onCompleted: (response, err) => {
+          if (err) {
+            handleError(err);
+          } else {
+            handleDeleted();
+          }
+        },
+        onError: (err) => {
+          handleError(err);
+        },
+      },
+    );
+  };
+
+  const handleConfirmDelete = () => {
+    setShowConfirmationDialog(true);
+  };
+
+  // Effects
+
+  // This triggers when a file or file name or header type is changed. If the header is an attachment type, it disables saving if there is no file attached.
+  React.useEffect(() => {
+    const fileRequired = resource.header_type === 'image' || resource.header_type === 'audio' || resource.header_type === 'video';
+    if (file && fileRequired) {
+      setDisableSaveNoFile(false);
+    } else if (!file && !fileName && fileRequired) {
+      setDisableSaveNoFile(true);
+    } else if (!fileRequired) {
+      setDisableSaveNoFile(false);
+    }
+
+    // Reset any errors returned by the backend related to the previously uploaded file
+    setErrors({ ...errors, header_file: null, base: null });
+  }, [file, fileName, resource]);
+
+  // This triggers when a file is changed. It rerenders the file name if a new file was attached.
+  React.useEffect(() => {
+    if (file && !fileName) {
+      setFileName(file.name);
+    }
+  }, [file]);
 
   return (
-    <React.Fragment>
-      <Box display="flex" flexWrap="wrap">
-        { hasTitle ?
-          <TextField
-            label={
-              <FormattedMessage
-                id="smoochBotResourceEditor.title"
-                defaultMessage="Bot resource title"
-              />
+    <div className={styles.resourceEditor} id={`resource-${resource.dbid}`}>
+      <TextField
+        required
+        id="resource__title"
+        defaultValue={resource.title}
+        fullWidth
+        label={
+          <FormattedMessage
+            id="smoochBotResourceEditor.title"
+            defaultMessage="Title"
+            description="Label for tipline resource title field"
+          />
+        }
+        error={Boolean(errors.title)}
+        helpContent={errors.title}
+        margin="normal"
+        onChange={e => updateResource({ title: e.target.value })}
+        variant="outlined"
+      />
+
+      <div className={cx(newsletterStyles.settings, styles.settings)}>
+        <div className="typography-subtitle2">
+          <FormattedMessage id="smoochBotResourceEditor.content" defaultMessage="Content" description="Title for the resource content section on a tipline resource settings page" />
+        </div>
+        <NewsletterHeader
+          className="resource-component-header"
+          key={`resource-header-${resource.id}`}
+          parentErrors={errors}
+          file={file}
+          handleFileChange={handleFileChange}
+          setFile={setFile}
+          setFileName={setFileName}
+          availableHeaderTypes={['audio', 'video', 'image', 'none', 'link_preview']}
+          headerType={resource.header_type || 'link_preview'}
+          fileName={fileName}
+          overlayText={resource.header_overlay_text || ''}
+          onUpdateField={(fieldName, value) => {
+            if (fieldName === 'headerType') {
+              updateResource({ header_type: value });
+            } else if (fieldName === 'overlayText') {
+              updateResource({ header_overlay_text: value });
             }
-            className={classes.spaced}
-            defaultValue={resource.smooch_custom_resource_title}
-            onBlur={(event) => {
-              onChange('smooch_custom_resource_title', event.target.value.trim());
-            }}
-            variant="outlined"
-            fullWidth
-          /> : null }
-        <Box ml={1} mt={2}>
-          <Typography>
-            <strong>
+          }}
+        />
+        <LimitedTextArea
+          key={resource.content_type}
+          required={false}
+          maxChars={resource.content_type === 'rss' ? 180 : 720}
+          onErrorTooLong={(error) => {
+            setDisableSaveTextTooLong(error);
+          }}
+          value={resource.content}
+          onChange={e => updateResource({ content: e.target.value })}
+          error={errors.content}
+          helpContent={errors.content}
+          label={
+            resource.content_type === 'rss' ?
               <FormattedMessage
-                id="smoochBotResourceEditor.content"
-                defaultMessage="Content"
-                description="Header for the bot resource's content textfield"
+                id="smoochBotResourceEditor.introduction"
+                defaultMessage="Introduction"
+                description="Label for a field where the user inputs text for an introduction to a tipline resource that has an RSS feed"
+              /> :
+              <FormattedMessage
+                id="smoochBotResourceEditor.text"
+                defaultMessage="Text"
+                description="Label for a field where the user inputs text for the contents of a static tipline resource"
               />
-            </strong>
-          </Typography>
-          <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: 'var(--errorMain)' } : {}}>
-            <FormattedMessage
-              id="smoochBotResourceEditor.charsCounter"
-              defaultMessage="{count}/{max} characters available"
-              description="Counter that shows how many characters can still be input for the tipline content"
-              values={{
-                count: maxCharacters - charactersCount,
-                max: maxCharacters,
+          }
+        />
+
+        <div className={newsletterStyles['newsletter-body']}>
+          <div className={newsletterStyles.switcher}>
+            <SwitchComponent
+              key={`resource-rss-feed-enabled-${resource.id}`}
+              label={<FormattedMessage
+                id="smoochBotResourceEditor.rss"
+                defaultMessage="RSS"
+                description="Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
+              />}
+              helperContent={<FormattedMessage id="smoochBotResourceEditor.rssFeed" defaultMessage="Use an RSS feed to automatically load new content for your resource." description="Message on tipline resource settings page that explains how RSS feeds work there." />}
+              checked={resource.content_type === 'rss'}
+              onChange={(checked) => {
+                if (checked) {
+                  updateResource({ content_type: 'rss', number_of_articles: 3 });
+                } else {
+                  updateResource({ content_type: 'static' });
+                }
               }}
             />
-          </Typography>
-        </Box>
-        <TextField
-          placeholder={intl.formatMessage(messages.typeHere)}
-          className={classes.spaced}
-          defaultValue={resource.smooch_custom_resource_body}
-          onBlur={(event) => {
-            onChange('smooch_custom_resource_body', event.target.value);
-          }}
-          onChange={(e) => { setIntroduction(e.target.value); }}
-          variant="outlined"
-          rows={5}
-          rowsMax={Infinity}
-          multiline
-          fullWidth
-          InputProps={{
-            className: classes.content,
-            endAdornment: (
-              <InputAdornment position="end" className={classes.rssPreview}>
-                { rssPreview ?
-                  <React.Fragment>
-                    <Divider className={classes.divider} />
-                    <ParsedText text={rssPreview} block />
-                  </React.Fragment> : null }
-              </InputAdornment>
-            ),
-          }}
-        />
-        { url && count && !error ?
-          <SmoochBotPreviewFeed
-            installationId={installationId}
-            feedUrl={url}
-            count={count}
-            refetch={refetch}
-            onError={handleError}
-            onSuccess={handleSuccess}
-          /> : null }
-      </Box>
-      <Box mb={3} mt={2} ml={1}>
-        <SwitchComponent
-          checked={rssEnabled}
-          onChange={() => handleToggleRss(!rssEnabled)}
-          labelPlacement="end"
-          label={<FormattedMessage
-            id="smoochBotResourceEditor.rss"
-            defaultMessage="Load content from RSS feed"
-            description="Label of switch that toggles loading of content from a RSS feed"
-          />}
-        />
-      </Box>
-      { rssEnabled ?
-        <Box display="flex" justifyContent="space-between" alignItems={error ? 'baseline' : 'center'}>
-          <TextField
-            label={
-              <FormattedMessage
-                id="smoochBotResourceEditor.url"
-                defaultMessage="URL"
-              />
-            }
-            placeholder={intl.formatMessage(messages.rssPlaceholder)}
-            className={classes.spaced}
-            defaultValue={resource.smooch_custom_resource_feed_url}
-            onBlur={(event) => {
-              let feedUrl = event.target.value.trim();
-              if (feedUrl !== '' && !/^https?:\/\//.test(feedUrl)) {
-                feedUrl = `https://${feedUrl}`;
-              }
-              onChange('smooch_custom_resource_feed_url', feedUrl);
-            }}
-            error={Boolean(error)}
-            helperText={error}
-            variant="outlined"
-            fullWidth
-          />
+          </div>
+          { resource.content_type === 'rss' ?
+            <NewsletterRssFeed
+              parentErrors={errors}
+              helpContent={errors.rss_feed_url}
+              numberOfArticles={resource.number_of_articles}
+              onUpdateNumberOfArticles={(value) => { updateResource({ number_of_articles: value }); }}
+              rssFeedUrl={resource.rss_feed_url}
+              onUpdateUrl={(value) => { updateResource({ rss_feed_url: value }); }}
+            /> : null }
+        </div>
+      </div>
 
-          <TextField
-            type="number"
-            label={
-              <FormattedMessage
-                id="smoochBotResourceEditor.numberOfArticles"
-                defaultMessage="Number of articles to return"
-              />
-            }
-            className={classes.spaced}
-            defaultValue={resource.smooch_custom_resource_number_of_articles || 0}
-            onBlur={(event) => {
-              onChange('smooch_custom_resource_number_of_articles', parseInt(event.target.value, 10));
-            }}
-            inputProps={{ step: 1, min: 1, max: 50 }}
-            variant="outlined"
-            fullWidth
-          />
-          <ButtonMain
-            label={<FormattedMessage id="smoochBotResourceEditor.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />}
-            variant="contained"
-            size="large"
-            theme="brand"
-            onClick={handleLoad}
-            disabled={loading}
-            className={classes.spaced}
-          />
-          <ButtonMain variant="text" size="large" theme="lightText" iconCenter={<CancelIcon />} onClick={handleReset} />
-        </Box>
-        : null }
-
-      { onDelete ?
-        <Box display="flex">
-          <Button variant="outlined" onClick={onDelete} className={classes.spaced}>
+      <div className={styles.resourceEditorActions}>
+        <ButtonMain
+          variant="contained"
+          theme="brand"
+          size="default"
+          onClick={handleSave}
+          disabled={disableSaveNoFile || disableSaveTextTooLong || saving}
+          label={
             <FormattedMessage
-              id="smoochBotResourceEditor.delete"
-              defaultMessage="Delete resource"
+              id="smoochBotResourceEditor.save"
+              defaultMessage="Save"
+              description="Label for action button to save a tipline resource."
             />
-          </Button>
-        </Box> : null }
-    </React.Fragment>
+          }
+        />
+
+        { resource.id ?
+          <ButtonMain
+            className="resource-delete"
+            variant="outlined"
+            theme="text"
+            size="default"
+            onClick={handleConfirmDelete}
+            label={
+              <FormattedMessage
+                id="smoochBotResourceEditor.delete"
+                defaultMessage="Delete"
+                description="Label for action button to delete a tipline resource."
+              />
+            }
+          /> : null }
+      </div>
+
+      <ConfirmProceedDialog
+        open={showConfirmationDialog}
+        title={
+          <FormattedMessage
+            id="smoochBotResourceEditor.confirmationDialogTitle"
+            defaultMessage="Are you sure you want to delete this resource?"
+            description="Confirmation dialog title when deleting a tipline resource."
+          />
+        }
+        body={
+          <FormattedMessage
+            id="smoochBotResourceEditor.confirmationDialogBody"
+            defaultMessage="This content won't be available for tipline users anymore. This action can't be undone."
+            description="Confirmation dialog message when deleting a tipline resource."
+          />
+        }
+        proceedLabel={<FormattedMessage id="smoochBotResourceEditor.confirmationDialogButton" defaultMessage="Delete tipline resource" description="Button label to confirm tipline resource deletion." />}
+        onProceed={handleDelete}
+        onCancel={() => { setShowConfirmationDialog(false); }}
+        isSaving={saving}
+      />
+    </div>
   );
 };
 
-SmoochBotResourceEditor.defaultProps = {
-  onDelete: null,
-  hasTitle: true,
+SmoochBotResourceEditorComponent.defaultProps = {
+  resource: {}, // If it's a resource without an ID, then a new resource is being created
 };
 
-SmoochBotResourceEditor.propTypes = {
-  installationId: PropTypes.string.isRequired,
-  resource: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onDelete: PropTypes.func,
-  hasTitle: PropTypes.bool,
-  intl: intlShape.isRequired,
+SmoochBotResourceEditorComponent.propTypes = {
+  environment: PropTypes.object.isRequired, // Relay Modern environment to support file uploads
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
+  language: PropTypes.string.isRequired,
+  resource: PropTypes.shape({
+    id: PropTypes.string,
+    dbid: PropTypes.number,
+    uuid: PropTypes.string,
+    title: PropTypes.string,
+    header_file_url: PropTypes.string,
+    header_type: PropTypes.string,
+  }),
+  onCreate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
-export default injectIntl(SmoochBotResourceEditor);
+// eslint-disable-next-line import/no-unused-modules
+export { SmoochBotResourceEditorComponent };
+
+const SmoochBotResourceEditor = createFragmentContainer(withSetFlashMessage(SmoochBotResourceEditorComponent), graphql`
+  fragment SmoochBotResourceEditor_tiplineResource on TiplineResource {
+    id
+    dbid
+    uuid
+    language
+    title
+    header_type
+    header_file_url
+    header_overlay_text
+    content_type
+    content
+    number_of_articles
+    rss_feed_url
+  }
+`);
+
+export default SmoochBotResourceEditor;

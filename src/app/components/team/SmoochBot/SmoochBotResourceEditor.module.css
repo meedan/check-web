@@ -1,0 +1,13 @@
+.resourceEditor {
+  display: block;
+}
+
+.resourceEditorActions {
+  display: flex;
+  gap: 16px;
+}
+
+.settings {
+  margin-bottom: 16px;
+  margin-top: 16px;
+}

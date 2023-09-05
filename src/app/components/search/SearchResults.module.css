@@ -5,6 +5,7 @@
   white-space: nowrap;
 
   :global(.check-icon) {
+    margin: 1px 0 0;
     vertical-align: text-top;
   }
 }
@@ -78,7 +79,7 @@
 }
 
 .search-results-header {
-  margin: 16px;
+  margin: 16px 32px;
 
   :global(.search__list-header-filter-row) {
     align-items: flex-start;
@@ -91,12 +92,25 @@
   }
 }
 
+.search-results-top {
+  background-color: var(--otherWhite);
+  border-radius: 8px;
+  margin: 0 32px 16px;
+  padding: 16px;
+
+  .search-results-top-extra {
+    margin: 0 0 8px;
+  }
+}
+
 .search-results-wrapper {
+  background-color: var(--otherWhite);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   height: 100%;
+  margin: 0 32px 16px;
   overflow: hidden;
-  width: 100%;
 
   .search-results-heading {
     align-items: center;
@@ -126,6 +140,88 @@
     .search-pagination {
       align-items: center;
       display: flex;
+    }
+  }
+}
+
+.search-results-table-wrapper {
+  border-top: solid 1px var(--grayBorderMain);
+  display: block;
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+
+  table {
+    th,
+    td {
+      font-size: var(--fontSizeDefault);
+    }
+
+    thead {
+      display: table-header-group;
+
+      tr {
+        th {
+          background-color: var(--otherWhite);
+          border-bottom: solid 1px var(--grayBorderMain);
+          border-right: solid 1px var(--grayBorderMain);
+          white-space: nowrap;
+          width: auto;
+
+          &.unread-status {
+            background-color: var(--otherWhite);
+            left: 0;
+            position: sticky;
+            z-index: 3;
+          }
+        }
+      }
+    }
+
+    tbody {
+      display: table-row-group;
+
+      tr {
+        &.search-results-row {
+          background-color: var(--brandBackground);
+          position: relative;
+          transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+
+          th,
+          td {
+            border-bottom: solid 1px var(--grayBorderMain);
+            transition: background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
+          }
+
+          .unread-status {
+            background-color: var(--brandBackground);
+            border-right: solid 1px var(--grayBorderMain);
+            box-shadow: inset 3px 0 0 0 var(--textPlaceholder);
+            left: 0;
+            position: sticky;
+            z-index: 1;
+          }
+
+          &.search-results-read {
+            background-color: var(--otherWhite);
+
+            .unread-status {
+              background-color: var(--otherWhite);
+              box-shadow: none;
+            }
+          }
+
+          &:hover,
+          &:hover th,
+          &:hover td {
+            background-color: var(--brandHoverAccent);
+
+            .unread-status {
+              background-color: var(--brandHoverAccent);
+            }
+          }
+        }
+      }
     }
   }
 }

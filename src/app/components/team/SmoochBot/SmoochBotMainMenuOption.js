@@ -179,8 +179,8 @@ const SmoochBotMainMenuOption = ({
                 />
               </ListSubheader>
               { resources.map(resource => (
-                <MenuItem value={resource.smooch_custom_resource_id} key={resource.smooch_custom_resource_id}>
-                  {resource.smooch_custom_resource_title}
+                <MenuItem value={resource.uuid} key={resource.uuid}>
+                  {resource.title}
                 </MenuItem>
               ))}
             </Select>
