@@ -73,6 +73,7 @@ const LimitedTextArea = ({
 LimitedTextArea.defaultProps = {
   required: true,
   value: '',
+  setValue: null,
   helpContent: null,
   textFieldProps: {},
   onErrorTooLong: () => {},
@@ -81,7 +82,7 @@ LimitedTextArea.defaultProps = {
 LimitedTextArea.propTypes = {
   maxChars: PropTypes.number.isRequired,
   value: PropTypes.string,
-  setValue: PropTypes.func.isRequired,
+  setValue: PropTypes.func,
   helpContent: PropTypes.element,
   onErrorTooLong: PropTypes.func,
   textFieldProps: PropTypes.object,

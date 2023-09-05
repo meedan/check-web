@@ -428,6 +428,7 @@ const SmoochBotResourceEditorComponent = (props) => {
 
         { resource.id ?
           <ButtonMain
+            className="resource-delete"
             variant="outlined"
             theme="text"
             size="default"
@@ -488,6 +489,9 @@ SmoochBotResourceEditorComponent.propTypes = {
   onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { SmoochBotResourceEditorComponent };
 
 const SmoochBotResourceEditor = createFragmentContainer(withSetFlashMessage(SmoochBotResourceEditorComponent), graphql`
   fragment SmoochBotResourceEditor_tiplineResource on TiplineResource {
