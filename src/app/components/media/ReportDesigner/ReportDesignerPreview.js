@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import ParsedText from '../../ParsedText';
 import ReportDesignerImagePreview from './ReportDesignerImagePreview';
@@ -15,8 +14,7 @@ const useStyles = makeStyles(theme => ({
     margin: '0 auto',
   },
   messagePreview: {
-    border: '2px solid var(--brandBorder)',
-    borderRadius: '5px',
+    borderRadius: '8px',
     backgroundColor: 'var(--otherWhite)',
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
@@ -118,12 +116,12 @@ const ReportDesignerPreview = (props) => {
 
   if (isEmpty(data)) {
     return (
-      <Box className={[classes.messagePreview, classes.root].join(' ')}>
+      <div className={[classes.messagePreview, classes.root].join(' ')}>
         <FormattedMessage
           id="reportDesigner.nothingToPreview"
           defaultMessage="Start creating your report to preview what users will see when they receive it."
         />
-      </Box>
+      </div>
     );
   }
 
@@ -195,13 +193,13 @@ const ReportDesignerPreview = (props) => {
           { maskContent ? (
             <div className={classes.contentScreen}>
               <WarningIcon className={classes.icon} />
-              <Typography variant="h5">
+              <h5>
                 <FormattedHTMLMessage
                   id="reportDesigner.contentScreenHeader"
                   defaultMessage="Content with warning cannot<br />be published as a visual card."
                   description="Header for visual card when there's a content warning active and no alternative image is set"
                 />
-              </Typography>
+              </h5>
               <FormattedHTMLMessage
                 id="reportDesigner.uploadAlternative"
                 defaultMessage="Upload an alternative image or<br />uncheck the visual card option."

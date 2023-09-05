@@ -203,9 +203,6 @@ const ReportDesignerComponent = (props) => {
           prefixUrl={prefixUrl}
         />
         <div className={styles['report-designer']}>
-          <div className={styles['report-preview']}>
-            <ReportDesignerPreview data={data.options} media={media} />
-          </div>
           <div className={styles['report-editor']}>
             <h6 className="report-designer__title">
               <FormattedMessage
@@ -228,6 +225,9 @@ const ReportDesignerComponent = (props) => {
               team={team}
               onUpdate={handleUpdate}
             />
+          </div>
+          <div className={styles['report-preview']}>
+            <ReportDesignerPreview data={data.options} media={media} />
           </div>
         </div>
       </div>

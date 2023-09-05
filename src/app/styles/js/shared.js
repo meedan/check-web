@@ -30,7 +30,6 @@ const columnWidthLarge = units(110);
 const columnWidthWide = units(152);
 
 // Layout
-export const headerHeight = units(8);
 export const gutterLarge = units(5);
 export const gutterMedium = units(3);
 export const gutterSmall = units(2);

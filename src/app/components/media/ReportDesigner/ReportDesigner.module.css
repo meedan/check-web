@@ -34,16 +34,14 @@
       flex: 1 1 0;
       flex-direction: column;
       overflow: auto;
+      padding: 0 16px 16px;
     }
 
     .report-preview {
       border-right: solid 2px var(--brandBorder);
-      padding: 0 16px 16px 0;
     }
 
     .report-editor {
-      padding: 0 0 16px 16px;
-
       h6 {
         align-items: center;
         display: flex;
