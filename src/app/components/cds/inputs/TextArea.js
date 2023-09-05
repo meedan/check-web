@@ -10,15 +10,24 @@ const TextArea = React.forwardRef(({
   ...inputProps
 }, ref) => {
   const [height, setHeight] = useState('auto');
+  const [initialHeight, setInitialHeight] = useState('auto');
+
+  React.useEffect(() => {
+    // Get the initial height when the component mounts
+    setInitialHeight(minHeightProp || ref?.current?.offsetHeight);
+  }, []);
 
   const handleChange = (event) => {
     const minHeight = minHeightProp || event.target.offsetHeight;
     const newHeight = `${event.target.scrollHeight}px`;
+    // if the input is empty reset the height to minHeight
+    if (event.target.value === '') {
+      setHeight(initialHeight);
+    } else if (autoGrow && event.target.scrollHeight >= minHeight && (!maxHeight || event.target.scrollHeight <= maxHeight)) {
+      setHeight(newHeight);
+    }
     if (inputProps.onChange) {
       inputProps.onChange(event);
-    }
-    if (autoGrow && event.target.scrollHeight >= minHeight && (!maxHeight || event.target.scrollHeight <= maxHeight)) {
-      setHeight(newHeight);
     }
   };
 
