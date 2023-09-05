@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
+import styles from '../SearchResults.module.css';
 
 export default function SelectAllTh({ selectedIds, projectMedias, onChangeSelectedIds }) {
   const handleChange = React.useCallback((ev) => {
@@ -13,7 +14,7 @@ export default function SelectAllTh({ selectedIds, projectMedias, onChangeSelect
   const nTotal = projectMedias.length;
 
   return (
-    <TableCell padding="checkbox">
+    <TableCell padding="checkbox" className={styles['unread-status']}>
       <Checkbox
         indeterminate={nSelected ? nSelected < nTotal : false}
         checked={nSelected ? nSelected === nTotal : false}

@@ -23,6 +23,7 @@ import { getSuperAdminMask } from '../../helpers';
 import { units, Column } from '../../styles/js/shared';
 
 const StyledThreeColumnLayout = styled.div`
+  border-left: solid 2px var(--grayBorderMain);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
