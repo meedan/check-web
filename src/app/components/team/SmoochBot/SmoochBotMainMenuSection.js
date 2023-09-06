@@ -152,7 +152,7 @@ const SmoochBotMainMenuSection = ({
       return option.smooch_menu_option_label;
     }
     if (option.smooch_menu_option_value === 'custom_resource') {
-      const resource = resources.find(r => r.smooch_custom_resource_id === option.smooch_menu_custom_resource_id);
+      const resource = resources.find(r => r.uuid === option.smooch_menu_custom_resource_id);
       if (resource) {
         return resource.smooch_custom_resource_title;
       }
