@@ -122,6 +122,7 @@ const AllPossibleColumns = [
   {
     field: 'fact_check_published_on',
     headerText: <FormattedMessage id="list.factCheckPublishedAt" defaultMessage="Fact check published at" description="Table header for fact-check publication date column" />,
+    sortKey: 'fact_check_published_on',
     cellComponent: FactCheckPublishedAtCell,
   },
   {
