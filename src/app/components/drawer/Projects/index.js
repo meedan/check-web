@@ -79,6 +79,7 @@ const Projects = () => {
                   title
                   filters
                   is_part_of_feeds
+                  medias_count: items_count
                 }
               }
             }
