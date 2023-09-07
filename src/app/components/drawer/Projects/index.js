@@ -40,6 +40,7 @@ const Projects = () => {
             slug
             medias_count
             permissions
+            verification_statuses
             smooch_bot: team_bot_installation(bot_identifier: "smooch") {
               id
             }
