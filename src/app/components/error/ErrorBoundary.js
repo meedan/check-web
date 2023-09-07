@@ -67,8 +67,9 @@ const notifySentry = (
   component,
   callIntercom,
 ) => {
+  let eventId = '';
   if (config.sentryDsn) {
-    Sentry.captureException(error, {
+    eventId = Sentry.captureException(error, {
       contexts: {
         component: {
           name: component,
@@ -78,7 +79,9 @@ const notifySentry = (
   }
   // even if sentry isn't configured we should still call Intercom
   if (callIntercom) {
-    callIntercom({ url: window.location.href });
+    // this url links directly to the sentry issue page
+    const sentryIssueUrl = `https://sentry.io/${config.sentryOrg}/${config.sentryProject}/?query=${eventId}`;
+    callIntercom({ url: sentryIssueUrl });
   }
 };
 
