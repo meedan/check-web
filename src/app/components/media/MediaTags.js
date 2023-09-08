@@ -3,7 +3,7 @@ import xor from 'lodash.xor';
 import memoize from 'memoize-one';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { QueryRenderer, graphql } from 'react-relay/compat';
+import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import mergeWith from 'lodash.mergewith';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
@@ -11,9 +11,6 @@ import { can } from '../Can';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import TagList from '../cds/menus-lists-dialogs/TagList';
 
-// TODO Fix a11y issues
-/* eslint jsx-a11y/click-events-have-key-events: 0 */
-/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 const MediaTagsComponent = ({ projectMedia }) => {
   const filterTags = memoize((tags) => {
     const splitTags = {
@@ -85,48 +82,84 @@ const MediaTagsComponent = ({ projectMedia }) => {
   const { regularTags, videoTags } = filterTags(projectMedia.tags.edges);
   const tags = regularTags.concat(videoTags);
 
-  console.log('tags', tags); // eslint-disable-line
-
-  const onSuccess = () => {
-    console.log('created or deleted tags successfully'); // eslint-disable-line
-  };
   const onFailure = () => {
     console.log('failed to create or delete tags'); // eslint-disable-line
   };
 
   const handleCreateTag = (value) => {
-    // const context = new CheckContext(this).getContextStore();
-    createTag(
-      {
-        projectMedia,
-        value,
-        // annotator: context.currentUser,
+    commitMutation(Relay.Store, {
+      mutation: graphql`
+        mutation MediaTagsCreateTagMutation($input: CreateTagInput!) {
+          createTag(input: $input) {
+            project_media {
+              tags(first: 100) {
+                edges {
+                  node {
+                    tag_text
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {
+          annotated_id: projectMedia.dbid.toString(),
+          annotated_type: 'ProjectMedia',
+          tag: value,
+        },
       },
-      onSuccess,
-      onFailure,
-    );
+      onCompleted: ({ error }) => {
+        if (error) {
+          onFailure(error);
+        }
+      },
+      onError: onFailure,
+    });
   };
 
   const handleRemoveTag = (value) => {
     const removedTag = projectMedia.tags.edges.find(tag => tag.node.tag_text === value);
     if (removedTag) {
-      deleteTag(
-        {
-          projectMedia,
-          tagId: removedTag.node.id,
+      commitMutation(Relay.Store, {
+        mutation: graphql`
+          mutation MediaTagsDeleteTagMutation($input: DestroyTagInput!) {
+            destroyTag(input: $input) {
+              project_media {
+                tags(first: 100) {
+                  edges {
+                    node {
+                      tag_text
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          input: {
+            id: removedTag.node.id,
+          },
         },
-        onSuccess,
-        onFailure,
-      );
+        onCompleted: ({ error }) => {
+          if (error) {
+            onFailure(error);
+          }
+        },
+        onError: onFailure,
+      });
     }
   };
 
   const handleSetTags = (value) => {
-    tags.forEach((text) => {
+    const tagTexts = tags.map(t => t.node.tag_text);
+    tagTexts.forEach((text) => {
       if (!value.includes(text)) handleRemoveTag(text);
     });
     value.forEach((val) => {
-      if (!tags.includes(val)) handleCreateTag(val);
+      if (!tagTexts.includes(val)) handleCreateTag(val);
     });
   };
 
@@ -141,10 +174,6 @@ const MediaTagsComponent = ({ projectMedia }) => {
       tags={tags.map(t => t.node.tag_text)}
     />
   );
-};
-
-MediaTagsComponent.contextTypes = {
-  store: PropTypes.object,
 };
 
 MediaTagsComponent.propTypes = {
@@ -196,10 +225,9 @@ const MediaTags = ({ projectMediaId }) => (
           tags(last: 100) {
             edges {
               node {
-                # tag,
+                id
                 tag_text
                 fragment
-                id
               }
             }
           }

@@ -16,6 +16,7 @@ const TagList = ({
   tags,
   setTags,
   maxTags,
+  onClickTag,
 }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -113,6 +114,7 @@ const TagList = ({
           <Chip
             label={tag}
             key={tag}
+            onClick={onClickTag ? () => onClickTag(tag) : null}
             onRemove={!readOnly ? () => {
               deleteTag(tag);
             } : null}
@@ -149,6 +151,7 @@ const TagList = ({
 TagList.defaultProps = {
   readOnly: false,
   maxTags: Infinity,
+  onClickTag: null,
 };
 
 TagList.propTypes = {
@@ -156,6 +159,7 @@ TagList.propTypes = {
   setTags: PropTypes.func.isRequired,
   tags: PropTypes.array.isRequired,
   maxTags: PropTypes.number,
+  onClickTag: PropTypes.func,
 };
 
 export default TagList;
