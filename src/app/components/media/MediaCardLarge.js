@@ -157,6 +157,7 @@ const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`
       type
       url
       quote
+      domain
       metadata
       embed_path
       file_path
