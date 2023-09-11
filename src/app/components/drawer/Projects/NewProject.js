@@ -48,6 +48,7 @@ const NewProject = ({
                   dbid
                   title
                   filters
+                  medias_count: items_count
                 }
               }
             }
