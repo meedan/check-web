@@ -8,10 +8,13 @@ import Search from '../search/Search';
 import CheckChannels from '../../CheckChannels';
 import FileDownloadIcon from '../../icons/file_download.svg';
 
+const defaultQuery = {
+  channels: [CheckChannels.FETCH],
+};
+
+export { defaultQuery as importedReportsDefaultQuery };
+
 export default function ImportedReports({ routeParams }) {
-  const defaultQuery = {
-    channels: [CheckChannels.FETCH],
-  };
   const query = {
     ...safelyParseJSON(routeParams.query, {}),
     ...defaultQuery,
@@ -34,6 +37,7 @@ export default function ImportedReports({ routeParams }) {
     </ErrorBoundary>
   );
 }
+
 ImportedReports.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
