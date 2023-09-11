@@ -6,9 +6,13 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
 
+const defaultFilters = {
+  suggestions_count: { min: 1 },
+};
+
 const SuggestedMatches = ({ routeParams }) => {
   const defaultQuery = {
-    suggestions_count: { min: 1 },
+    ...defaultFilters,
     sort: 'recent_added',
     sort_type: 'DESC',
   };
@@ -47,4 +51,5 @@ SuggestedMatches.propTypes = {
   }).isRequired,
 };
 
+export { defaultFilters as suggestedMatchesDefaultQuery };
 export default SuggestedMatches;
