@@ -29,6 +29,7 @@ const SavedSearch = ({ routeParams }) => (
               }
             }
             is_part_of_feeds
+            medias_count: items_count
             team {
               id
               slug
@@ -40,6 +41,7 @@ const SavedSearch = ({ routeParams }) => (
       `}
       variables={{
         id: routeParams.savedSearchId,
+        timestamp: new Date().getTime(), // Invalidate Relay cache
       }}
       render={({ error, props }) => {
         if (!error && props) {
@@ -62,6 +64,7 @@ const SavedSearch = ({ routeParams }) => (
                           saved_search {
                             id
                             title
+                            medias_count: items_count
                           }
                         }
                       }
