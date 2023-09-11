@@ -19,9 +19,7 @@ const MediaSidebar = ({ projectMedia }) => (
       <Box mt={1}>
         <MediaTags projectMedia={projectMedia} />
       </Box>
-      <Box my={2}>
-        <MediaFactCheck projectMedia={projectMedia} />
-      </Box>
+      <MediaFactCheck projectMedia={projectMedia} />
       <MediaAnalysis projectMedia={projectMedia} />
     </div>
   </div>

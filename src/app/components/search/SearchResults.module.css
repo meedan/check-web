@@ -146,6 +146,7 @@
 }
 
 .search-results-table-wrapper {
+  border: solid 3px var(--otherWhite);
   border-top: solid 1px var(--grayBorderMain);
   display: block;
   max-height: 100%;
@@ -169,7 +170,7 @@
           white-space: nowrap;
           width: auto;
 
-          &:last-of-type {
+          &:last-child {
             border-right: 0;
           }
 

@@ -38,7 +38,7 @@
     }
 
     .report-preview {
-      border-right: solid 2px var(--brandBorder);
+      border-left: solid 2px var(--brandBorder);
     }
 
     .report-editor {
