@@ -7,9 +7,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import MultiSelector from '../layout/MultiSelector';
 import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaStatus from './MediaStatus';
@@ -23,14 +23,9 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import styles from './media.module.css';
 
 const Styles = theme => ({
-  root: {
-    display: 'flex',
-    gap: 8,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   spacedButton: {
     marginRight: theme.spacing(1),
   },
@@ -272,30 +267,28 @@ class MediaActionsBarComponent extends Component {
     }
 
     return (
-      <div className={classes.root}>
-        <Box display="flex">
-          {isParent ?
-            <MediaStatus
-              media={media}
-              readonly={(
-                (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
-                media.last_status_obj?.locked ||
-                published
-              )}
-            /> : null
-          }
-          <MediaActionsMenuButton
-            key={media.id /* close menu if we navigate to a different projectMedia */}
-            projectMedia={media}
-            isParent={isParent}
-            handleRefresh={this.handleRefresh.bind(this)}
-            handleSendToTrash={this.handleSendToTrash.bind(this)}
-            handleSendToSpam={this.handleSendToSpam.bind(this)}
-            handleAssign={this.handleAssign.bind(this)}
-            handleStatusLock={this.handleStatusLock.bind(this)}
-            handleItemHistory={this.handleItemHistory}
-          />
-        </Box>
+      <div className={styles['media-actions']}>
+        {isParent ?
+          <MediaStatus
+            media={media}
+            readonly={(
+              (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
+              media.last_status_obj?.locked ||
+              published
+            )}
+          /> : null
+        }
+        <MediaActionsMenuButton
+          key={media.id /* close menu if we navigate to a different projectMedia */}
+          projectMedia={media}
+          isParent={isParent}
+          handleRefresh={this.handleRefresh.bind(this)}
+          handleSendToTrash={this.handleSendToTrash.bind(this)}
+          handleSendToSpam={this.handleSendToSpam.bind(this)}
+          handleAssign={this.handleAssign.bind(this)}
+          handleStatusLock={this.handleStatusLock.bind(this)}
+          handleItemHistory={this.handleItemHistory}
+        />
 
         <ItemHistoryDialog
           open={this.state.itemHistoryDialogOpen}
@@ -346,13 +339,13 @@ class MediaActionsBarComponent extends Component {
                 )}
               </FormattedMessage>
               <div className={classes.spaced}>
-                <Typography variant="body1" component="div" className={classes.spaced}>
+                <div className={cx('typography-body1', classes.spaced)}>
                   <FormattedMessage
                     id="mediaActionsBar.assignmentNotesTitle"
                     defaultMessage="Add a note to the email"
                     description="Helper text to field for adding details about the assignment"
                   />
-                </Typography>
+                </div>
                 <TextField
                   variant="outlined"
                   inputRef={(element) => {

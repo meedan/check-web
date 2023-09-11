@@ -1,19 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
-const useStyles = makeStyles(theme => ({
-  button: {
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(1),
-    boxShadow: 'none',
-  },
-}));
-
 const ReportDesignerConfirmableButton = (props) => {
-  const classes = useStyles();
   const [opened, setOpened] = React.useState(false);
 
   const handleClose = () => {
@@ -40,15 +30,14 @@ const ReportDesignerConfirmableButton = (props) => {
 
   return (
     <React.Fragment>
-      <Button
+      <ButtonMain
         variant="contained"
         disabled={props.disabled}
         onClick={handleClick}
-        className={[classes.button, props.className].join(' ')}
-        startIcon={props.icon}
-      >
-        {props.label}
-      </Button>
+        theme={props.theme}
+        iconLeft={props.icon}
+        label={props.label}
+      />
       <ConfirmProceedDialog
         open={opened}
         title={props.title}
@@ -62,7 +51,7 @@ const ReportDesignerConfirmableButton = (props) => {
 
 ReportDesignerConfirmableButton.defaultProps = {
   disabled: false,
-  className: '',
+  theme: '',
   proceedLabel: null,
   cancelLabel: null,
   onConfirm: null,
@@ -77,7 +66,7 @@ ReportDesignerConfirmableButton.propTypes = {
   content: PropTypes.object.isRequired,
   onConfirm: PropTypes.func,
   onClose: PropTypes.func,
-  className: PropTypes.string,
+  theme: PropTypes.string,
   disabled: PropTypes.bool,
   cancelLabel: PropTypes.object,
   proceedLabel: PropTypes.object,

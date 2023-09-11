@@ -17,6 +17,18 @@
     margin: 16px 32px 0;
     padding: 16px;
     width: auto;
+
+    .report-header-meta {
+      display: flex;
+      gap: 32px;
+    }
+
+    .report-actions {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+    }
   }
 
   .report-designer {

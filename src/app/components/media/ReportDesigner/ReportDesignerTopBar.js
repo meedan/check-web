@@ -19,20 +19,8 @@ import HelpIcon from '../../../icons/help.svg';
 import styles from './ReportDesigner.module.css';
 
 const useStyles = makeStyles(theme => ({
-  publish: {
-    background: 'var(--validationMain)',
-    color: 'var(--otherWhite)',
-  },
-  pause: {
-    background: 'var(--alertMain)',
-    color: 'var(--otherWhite)',
-  },
   confirmation: {
     marginBottom: theme.spacing(2),
-  },
-  cell: {
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2),
   },
   correctionLink: {
     display: 'inline-flex',
@@ -163,8 +151,8 @@ const ReportDesignerTopBar = (props) => {
           />
         }
       />
-      <Box display="flex">
-        <Box className={classes.cell}>
+      <div className={styles['report-header-meta']}>
+        <div>
           <Typography variant="subtitle2">
             <FormattedMessage
               id="reportDesigner.firstSent"
@@ -175,8 +163,8 @@ const ReportDesignerTopBar = (props) => {
           <Typography variant="body1">
             {firstSent || '-'}
           </Typography>
-        </Box>
-        <Box className={classes.cell}>
+        </div>
+        <div>
           <Typography variant="subtitle2">
             <FormattedMessage
               id="reportDesigner.lastPublished"
@@ -187,8 +175,8 @@ const ReportDesignerTopBar = (props) => {
           <Typography variant="body1">
             {lastSent || firstSent || '-'}
           </Typography>
-        </Box>
-        <Box className={classes.cell}>
+        </div>
+        <div>
           <Typography variant="subtitle2">
             <FormattedMessage
               id="reportDesigner.sentCount"
@@ -200,12 +188,12 @@ const ReportDesignerTopBar = (props) => {
             { media.dynamic_annotation_report_design ?
               media.dynamic_annotation_report_design.sent_count : 0 }
           </Typography>
-        </Box>
-      </Box>
-      <Box display="flex">
+        </div>
+      </div>
+      <div className={styles['report-actions']}>
         { state === 'paused' ?
           <ReportDesignerConfirmableButton
-            className={classes.publish}
+            theme="validation"
             disabled={readOnly}
             label={
               <FormattedMessage
@@ -406,7 +394,7 @@ const ReportDesignerTopBar = (props) => {
           /> : null }
         { state === 'published' ?
           <ReportDesignerConfirmableButton
-            className={classes.pause}
+            theme="alert"
             disabled={readOnly}
             label={
               <FormattedMessage
@@ -456,7 +444,7 @@ const ReportDesignerTopBar = (props) => {
           callback={handleStatusChanged}
           onChanging={handleStatusChanging}
         />
-      </Box>
+      </div>
     </div>
   );
 };
