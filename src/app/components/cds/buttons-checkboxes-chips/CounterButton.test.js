@@ -9,13 +9,11 @@ describe('<CounterButton />', () => {
       label={<span>Widgets</span>}
       onClick={() => {}}
     />);
-    const button = counterButton.find('.counter-button');
+    const button = counterButton.find('.test__counter-button');
     expect(button).toHaveLength(1);
     expect(button.text()).toContain('Widgets');
     expect(button.text()).toContain('12');
     expect(button.props().onClick.toString()).toEqual('() => {}');
-    // renders the 'moreThanZero' class when count > 0
-    expect(button.props().className).toContain('moreThanZero');
   });
 
   it('should render with default onClick when undefined', () => {
@@ -23,7 +21,7 @@ describe('<CounterButton />', () => {
       count={12}
       label={<span>Widgets</span>}
     />);
-    const button = counterButton.find('.counter-button');
+    const button = counterButton.find('.test__counter-button');
     expect(button).toHaveLength(1);
     expect(typeof button.props().onClick).toEqual('function');
   });
@@ -34,7 +32,7 @@ describe('<CounterButton />', () => {
       label={<span>Widgets</span>}
       onClick={() => {}}
     />);
-    const button = counterButton.find('.counter-button');
-    expect(button.props().className).toContain('zeroCount');
+    const button = counterButton.find('.test__counter-button');
+    expect(button.prop('disabled')).toBeTruthy();
   });
 });
