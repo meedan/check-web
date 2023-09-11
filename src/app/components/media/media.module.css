@@ -109,3 +109,17 @@
     }
   }
 }
+
+.next-prev-pager {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.paging-not-found {
+  color: var(--textDisabled);
+  cursor: not-allowed;
+  display: flex;
+  font-size: var(--iconSizeSmall);
+}

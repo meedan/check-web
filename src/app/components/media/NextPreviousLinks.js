@@ -1,39 +1,29 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import NextIcon from '@material-ui/icons/KeyboardArrowRight';
-import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import NextOrPreviousButton from './NextOrPreviousButton';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import NextIcon from '../../icons/chevron_right.svg';
+import PrevIcon from '../../icons/chevron_left.svg';
+import styles from './media.module.css';
 import { getPathnameAndSearch, pageSize } from '../../urlHelpers';
-
-const StyledPager = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  @media (max-width: 650px) {
-    top: 43px;
-  }
-`;
 
 function NextPreviousLinksComponent({
   buildSiblingUrl, listQuery, listIndex, nTotal, objectType,
 }) {
   return (
-    <StyledPager>
+    <div className={styles['next-prev-pager']}>
       <NextOrPreviousButton
         className="media-search__previous-item"
         key={`${JSON.stringify(listQuery)}-${listIndex - 1}`}
         disabled={listIndex < 1}
         tooltipTitle={
-          <FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" />
+          <FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" description="Tooltip message for a paging button to move to the previous item" />
         }
         buildSiblingUrl={buildSiblingUrl}
         listQuery={listQuery}
@@ -41,13 +31,13 @@ function NextPreviousLinksComponent({
         searchIndex={(listIndex - 1) - ((listIndex - 1) % pageSize)}
         objectType={objectType}
         type="prev"
-      >
-        <PrevIcon />
-      </NextOrPreviousButton>
+        icon={<PrevIcon />}
+      />
       <span id="media-search__current-item">
         <FormattedMessage
           id="mediaSearch.xOfY"
           defaultMessage="{current} of {total}"
+          description="The current item number and total in the list paging control is showing"
           values={{ current: listIndex + 1, total: nTotal }}
         />
       </span>
@@ -56,7 +46,7 @@ function NextPreviousLinksComponent({
         key={`${JSON.stringify(listQuery)}-${listIndex + 1}`}
         disabled={listIndex + 1 >= nTotal}
         tooltipTitle={
-          <FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" />
+          <FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" description="Tooltip message for a paging button to move to the next item" />
         }
         buildSiblingUrl={buildSiblingUrl}
         listQuery={listQuery}
@@ -64,10 +54,9 @@ function NextPreviousLinksComponent({
         searchIndex={(listIndex + 1) - ((listIndex + 1) % pageSize)}
         objectType={objectType}
         type="next"
-      >
-        <NextIcon />
-      </NextOrPreviousButton>
-    </StyledPager>
+        icon={<NextIcon />}
+      />
+    </div>
   );
 }
 NextPreviousLinksComponent.propTypes = {
@@ -94,13 +83,13 @@ function NextPreviousLinksFastComponent({
     browserHistory.push({ pathname, search, state: { mediaNavList, count } });
   };
   return (
-    <StyledPager>
+    <div className={styles['next-prev-pager']}>
       { localIndex === 0 && listIndex !== 0 ? (
         <NextOrPreviousButton
           className="media-search__previous-item"
           key={listIndex - 1}
           tooltipTitle={
-            <FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" />
+            <FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" description="Tooltip message for a paging button to move to the previous item" />
           }
           buildSiblingUrl={buildSiblingUrl}
           listQuery={listQuery}
@@ -108,26 +97,31 @@ function NextPreviousLinksFastComponent({
           searchIndex={(listIndex - 1) - ((listIndex - 1) % pageSize)}
           objectType={objectType}
           type="prev"
-        >
-          <PrevIcon />
-        </NextOrPreviousButton>
+          icon={<PrevIcon />}
+        />
       ) : (
-        <Button
-          disabled={listIndex === 0}
-          className="media-search__previous-item"
-          onClick={handlePrevClick}
+        <Tooltip
+          arrow
+          title={<FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" description="Tooltip message for a paging button to move to the previous item" />}
         >
-          <Tooltip
-            title={<FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" />}
-          >
-            <PrevIcon />
-          </Tooltip>
-        </Button>
+          <span>
+            <ButtonMain
+              size="default"
+              variant="text"
+              theme="text"
+              disabled={listIndex === 0}
+              className="media-search__previous-item"
+              onClick={handlePrevClick}
+              iconCenter={<PrevIcon />}
+            />
+          </span>
+        </Tooltip>
       )}
       <span id="media-search__current-item">
         <FormattedMessage
           id="mediaSearch.xOfY"
           defaultMessage="{current} of {total}"
+          description="The current item number and total in the list paging control is showing"
           values={{ current: listIndex + 1, total: count }}
         />
       </span>
@@ -136,7 +130,7 @@ function NextPreviousLinksFastComponent({
           className="media-search__previous-item"
           key={listIndex + 1}
           tooltipTitle={
-            <FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" />
+            <FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" description="Tooltip message for a paging button to move to the next item" />
           }
           buildSiblingUrl={buildSiblingUrl}
           listQuery={listQuery}
@@ -144,23 +138,27 @@ function NextPreviousLinksFastComponent({
           searchIndex={(listIndex + 1) - ((listIndex + 1) % pageSize)}
           objectType={objectType}
           type="next"
-        >
-          <NextIcon />
-        </NextOrPreviousButton>
+          icon={<NextIcon />}
+        />
       ) : (
-        <Button
-          disabled={listIndex === count - 1}
-          className="media-search__next-item"
-          onClick={handleNextClick}
+        <Tooltip
+          title={<FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" description="Tooltip message for a paging button to move to the next item" />}
+          arrow
         >
-          <Tooltip
-            title={<FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" />}
-          >
-            <NextIcon />
-          </Tooltip>
-        </Button>
+          <span>
+            <ButtonMain
+              size="default"
+              variant="text"
+              theme="text"
+              disabled={listIndex === count - 1}
+              className="media-search__next-item"
+              onClick={handleNextClick}
+              iconCenter={<NextIcon />}
+            />
+          </span>
+        </Tooltip>
       )}
-    </StyledPager>
+    </div>
   );
 }
 
