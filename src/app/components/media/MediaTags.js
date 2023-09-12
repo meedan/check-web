@@ -1,6 +1,5 @@
 import React from 'react';
 import xor from 'lodash.xor';
-import memoize from 'memoize-one';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
@@ -12,38 +11,6 @@ import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import TagList from '../cds/menus-lists-dialogs/TagList';
 
 const MediaTagsComponent = ({ projectMedia }) => {
-  const filterTags = memoize((tags) => {
-    const splitTags = {
-      regularTags: [],
-      videoTags: [],
-    };
-    const fragments = {};
-    // Get regular tags and cluster video tags by tag_text
-    if (Array.isArray(tags)) {
-      tags.forEach((t) => {
-        if (t.node.fragment) {
-          if (!fragments[t.node.tag_text]) {
-            fragments[t.node.tag_text] = [];
-          }
-          fragments[t.node.tag_text].push(t);
-        } else {
-          splitTags.regularTags.push(t);
-        }
-      });
-    }
-    // Get the video tags with earliest timestamp
-    Object.values(fragments).forEach((tagFragments) => {
-      tagFragments.sort((a, b) => {
-        const aStart = parseFloat(a.node.fragment.match(/\d+(\.\d+)?/)[0]);
-        const bStart = parseFloat(b.node.fragment.match(/\d+(\.\d+)?/)[0]);
-        return aStart - bStart;
-      });
-      splitTags.videoTags.push(tagFragments[0]);
-    });
-
-    return splitTags;
-  });
-
   const searchTagUrl = (tagString) => {
     const tagQuery = {
       tags: [tagString],
@@ -78,9 +45,6 @@ const MediaTagsComponent = ({ projectMedia }) => {
     projectMedia.is_secondary ||
     projectMedia.suggested_main_item?.dbid ||
     projectMedia.archived > CheckArchivedFlags.NONE;
-
-  const { regularTags, videoTags } = filterTags(projectMedia.tags.edges);
-  const tags = regularTags.concat(videoTags);
 
   const onFailure = () => {
     console.log('failed to create or delete tags'); // eslint-disable-line
@@ -154,7 +118,7 @@ const MediaTagsComponent = ({ projectMedia }) => {
   };
 
   const handleSetTags = (value) => {
-    const tagTexts = tags.map(t => t.node.tag_text);
+    const tagTexts = projectMedia.tags.edges.map(t => t.node.tag_text);
     tagTexts.forEach((text) => {
       if (!value.includes(text)) handleRemoveTag(text);
     });
@@ -163,15 +127,16 @@ const MediaTagsComponent = ({ projectMedia }) => {
     });
   };
 
-  // const selected = projectMedia.tags.edges.map(t => t.node.tag_text);
-  // const options = projectMedia.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
+  const selected = projectMedia.tags.edges.map(t => t.node.tag_text);
+  const options = projectMedia.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
 
   return (
     <TagList
       readOnly={readOnly}
       setTags={handleSetTags}
       onClickTag={handleTagViewClick}
-      tags={tags.map(t => t.node.tag_text)}
+      options={options}
+      tags={selected}
     />
   );
 };
@@ -211,13 +176,13 @@ const MediaTags = ({ projectMediaId }) => (
           permissions
           team {
             slug
-            #  tag_texts(last: 100) {
-            #    edges {
-            #      node {
-            #        text
-            #      }
-            #    }
-            #  }
+            tag_texts(last: 100) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
           }
           suggested_main_item {
             dbid
@@ -227,7 +192,6 @@ const MediaTags = ({ projectMediaId }) => (
               node {
                 id
                 tag_text
-                fragment
               }
             }
           }

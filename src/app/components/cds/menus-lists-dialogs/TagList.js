@@ -13,6 +13,7 @@ import AddCircleIcon from '../../../icons/add_circle.svg';
 
 const TagList = ({
   readOnly,
+  options: teamTags,
   tags,
   setTags,
   maxTags,
@@ -41,12 +42,12 @@ const TagList = ({
 
   const handleSearchChange = value => setSearchValue(value);
   const handleSubmit = (newSelectedItems) => {
-    setTags(tags.filter(tag => newSelectedItems.includes(tag)));
+    setTags(newSelectedItems);
     handleCloseMenu();
   };
 
   // MultiSelector requires an options array of objects with label and tag
-  const options = tags.map(tag => ({ label: tag, value: tag }));
+  const options = teamTags || tags.map(tag => ({ label: tag, value: tag }));
   const selected = tags;
 
   const handleAddNew = (value) => {
@@ -152,11 +153,13 @@ TagList.defaultProps = {
   readOnly: false,
   maxTags: Infinity,
   onClickTag: null,
+  options: null,
 };
 
 TagList.propTypes = {
   readOnly: PropTypes.bool,
   setTags: PropTypes.func.isRequired,
+  options: PropTypes.array,
   tags: PropTypes.array.isRequired,
   maxTags: PropTypes.number,
   onClickTag: PropTypes.func,
