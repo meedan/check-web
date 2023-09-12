@@ -34,8 +34,9 @@
     .media-actions {
       align-items: center;
       display: flex;
+      flex: 1 1 auto;
       gap: 8px;
-      justify-content: space-between;
+      justify-content: flex-end;
     }
   }
 
