@@ -95,8 +95,16 @@
     }
 
     .media-item-annotations {
+      display: flex;
+      flex-direction: column;
+      max-height: 100%;
       overflow: hidden;
     }
+  }
+
+  .media-suggestions {
+    flex: 1;
+    padding: 16px;
   }
 
   @media (max-width: 1100px) {
