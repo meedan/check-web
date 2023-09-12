@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
 import PersonIcon from '../../icons/person.svg';
+import { safelyParseJSON } from '../../helpers';
 
 const defaultFilters = {
   sort: 'recent_activity',
@@ -25,9 +26,13 @@ const AssignedToMe = ({ routeParams }) => (
       `}
       render={({ error, props }) => {
         if (!error && props) {
-          const query = {
+          const defaultQuery = {
             ...defaultFilters,
             assigned_to: [props.me.dbid],
+          };
+          const query = {
+            ...defaultQuery,
+            ...safelyParseJSON(routeParams.query, {}),
           };
           return (
             <Search
@@ -37,7 +42,7 @@ const AssignedToMe = ({ routeParams }) => (
               icon={<PersonIcon />}
               teamSlug={routeParams.team}
               query={query}
-              defaultQuery={defaultFilters}
+              defaultQuery={defaultQuery}
               hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_AssignedToMe_reports']}
               readOnlyFields={['assigned_to']}
               page="assigned-to-me"
