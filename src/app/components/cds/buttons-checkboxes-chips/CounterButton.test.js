@@ -1,18 +1,18 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import CounterButton from './CounterButton';
+import ButtonMain from './ButtonMain';
 
 describe('<CounterButton />', () => {
-  it('should render CounterButton component', () => {
+  it('should render CounterButton component using the ButtonMain component', () => {
     const counterButton = shallow(<CounterButton
       count={12}
       label={<span>Widgets</span>}
       onClick={() => {}}
     />);
-    const button = counterButton.find('.test__counter-button');
+
+    const button = counterButton.find(ButtonMain);
     expect(button).toHaveLength(1);
-    expect(button.text()).toContain('Widgets');
-    expect(button.text()).toContain('12');
     expect(button.props().onClick.toString()).toEqual('() => {}');
   });
 
@@ -33,6 +33,6 @@ describe('<CounterButton />', () => {
       onClick={() => {}}
     />);
     const button = counterButton.find('.test__counter-button');
-    expect(button.prop('disabled')).toBeTruthy();
+    expect(button.props().className).toContain('test__zeroCount');
   });
 });

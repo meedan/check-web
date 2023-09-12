@@ -14,8 +14,13 @@ const CounterButton = ({
     theme={count === 0 ? 'lightText' : 'brand'}
     variant="text"
     size="small"
-    disabled={!onClick}
-    className={cx('test__counter-button', styles.counterButton)}
+    className={cx(
+      'test__counter-button',
+      styles.counterButton,
+      {
+        test__zeroCount: count === 0,
+      })
+    }
     label={
       <>
         {label}
