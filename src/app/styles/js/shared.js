@@ -327,24 +327,9 @@ export const breakWordStyles = `
 // ===================================================================
 // Styled Components
 //
-// Used as components, like: <HeaderTitle />
+// Used as components, like: <StyledSubHeader />
 //
 // ===================================================================
-
-export const HeaderTitle = styled.h3`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font: 400 16px/28px var(--fontStackSans);
-  color: var(--textSecondary);
-  max-width: 45vw;
-  ${mediaQuery.tablet`
-     max-width: 27vw;
-  `}
-  ${mediaQuery.handheld`
-     max-width: 18vw;
-  `}
-`;
 
 // FIXME: use Typography and/or a dedicated component under components/layout
 export const StyledSubHeader = styled.h2`

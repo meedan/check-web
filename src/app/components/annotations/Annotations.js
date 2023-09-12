@@ -6,10 +6,12 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import styled from 'styled-components';
+import cx from 'classnames/bind';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
 import BlankState from '../layout/BlankState';
 import { units, borderWidthMedium } from '../../styles/js/shared';
+import styles from '../media/media.module.css';
 
 const StyledAnnotations = styled.div`
   display: flex;
@@ -72,7 +74,7 @@ class Annotations extends React.Component {
 
     return (
       <StyledAnnotations
-        className="annotations"
+        className={cx('annotations', styles['media-item-content'])}
         showAddAnnotation={props.showAddAnnotation}
         noLink={props.noLink}
         noLastItemStretch={hasMore}

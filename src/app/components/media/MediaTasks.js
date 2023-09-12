@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
+import cx from 'classnames/bind';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -12,6 +13,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
 import { units } from '../../styles/js/shared';
+import styles from './media.module.css';
 
 const StyledAnnotationRow = styled.div`
   /* Tasks and metadata tab have shared styles */
@@ -139,7 +141,7 @@ class MediaTasksComponent extends Component {
     const itemTasks = media.item_metadata;
 
     return (
-      <StyledAnnotationRow className="typography-body1">
+      <StyledAnnotationRow className={cx('typography-body1', styles['media-item-content'])}>
         <Tasks tasks={itemTasks.edges} media={media} about={about} />
       </StyledAnnotationRow>
     );
