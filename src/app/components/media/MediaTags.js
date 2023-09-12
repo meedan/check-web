@@ -9,8 +9,11 @@ import CheckArchivedFlags from '../../CheckArchivedFlags';
 import { can } from '../Can';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
 import TagList from '../cds/menus-lists-dialogs/TagList';
+import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { getErrorMessage } from '../../helpers';
 
-const MediaTagsComponent = ({ projectMedia }) => {
+const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
   const searchTagUrl = (tagString) => {
     const tagQuery = {
       tags: [tagString],
@@ -46,8 +49,9 @@ const MediaTagsComponent = ({ projectMedia }) => {
     projectMedia.suggested_main_item?.dbid ||
     projectMedia.archived > CheckArchivedFlags.NONE;
 
-  const onFailure = () => {
-    console.log('failed to create or delete tags'); // eslint-disable-line
+  const onFailure = (transaction) => {
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+    setFlashMessage(message);
   };
 
   const handleCreateTag = (value) => {
@@ -164,7 +168,7 @@ MediaTagsComponent.propTypes = {
 
 export { MediaTagsComponent }; // eslint-disable-line import/no-unused-modules
 
-const MediaTags = ({ projectMediaId }) => (
+const MediaTags = parentProps => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
@@ -199,11 +203,11 @@ const MediaTags = ({ projectMediaId }) => (
       }
     `}
     variables={{
-      ids: `${projectMediaId},,`,
+      ids: `${parentProps.projectMediaId},,`,
     }}
     render={({ error, props }) => {
       if (!error && props) {
-        return (<MediaTagsComponent projectMedia={props.project_media} />);
+        return (<MediaTagsComponent {...parentProps} projectMedia={props.project_media} />);
       }
 
       // TODO: We need a better error handling in the future, standardized with other components
@@ -212,4 +216,4 @@ const MediaTags = ({ projectMediaId }) => (
   />
 );
 
-export default MediaTags;
+export default withSetFlashMessage(MediaTags);
