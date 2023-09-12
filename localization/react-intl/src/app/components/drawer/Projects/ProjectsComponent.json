@@ -5,6 +5,11 @@
     "defaultMessage": "All"
   },
   {
+    "id": "projectsComponent.assignedToMe",
+    "description": "Label for a list displayed on the left sidebar that includes items that are assigned to the current user",
+    "defaultMessage": "Assigned to me"
+  },
+  {
     "id": "projectsComponent.tiplineInbox",
     "description": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted",
     "defaultMessage": "Inbox"

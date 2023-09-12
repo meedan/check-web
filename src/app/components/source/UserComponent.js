@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -8,7 +7,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import UserEmail from '../user/UserEmail';
 import UserInfo from './UserInfo';
-import UserAssignments from './UserAssignments';
 import UserPrivacy from './UserPrivacy';
 import UserSecurity from './UserSecurity';
 import UserInfoEdit from './UserInfoEdit';
@@ -22,7 +20,7 @@ class UserComponent extends React.Component {
   constructor(props) {
     super(props);
     const { tab } = this.props.params;
-    const showTab = (typeof tab === 'undefined') ? 'assignments' : tab;
+    const showTab = (typeof tab === 'undefined') ? 'workspaces' : tab;
     this.state = {
       showTab,
     };
@@ -86,19 +84,10 @@ class UserComponent extends React.Component {
                       <FormattedMessage
                         id="userComponent.teams"
                         defaultMessage="Workspaces"
+                        description="Label of the workspaces tab in the user profile page"
                       />
                     }
                     value="workspaces"
-                  />
-                  <Tab
-                    id="assignments-tab"
-                    label={
-                      <FormattedMessage
-                        id="userComponents.assignments"
-                        defaultMessage="Assignments"
-                      />
-                    }
-                    value="assignments"
                   />
                   { isUserSelf ?
                     <Tab
@@ -107,6 +96,7 @@ class UserComponent extends React.Component {
                         <FormattedMessage
                           id="userComponents.privacy"
                           defaultMessage="Privacy"
+                          description="Label of the privacy tab in the user profile page"
                         />
                       }
                       value="privacy"
@@ -119,6 +109,7 @@ class UserComponent extends React.Component {
                         <FormattedMessage
                           id="userComponents.security"
                           defaultMessage="Security"
+                          description="Label of the security tab in the user profile page"
                         />
                       }
                       value="security"
@@ -134,7 +125,6 @@ class UserComponent extends React.Component {
               <div>
                 <UserEmail user={user} />
                 { this.state.showTab === 'teams' || this.state.showTab === 'workspaces' ? <SwitchTeamsComponent user={user} /> : null}
-                { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
                 { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
                 { this.state.showTab === 'security' ? <UserSecurity user={user} /> : null}
               </div>
