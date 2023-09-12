@@ -116,7 +116,6 @@ shared_examples 'app' do |webdriver_url|
       api_logout
       api_register_and_login_with_email
       @driver.navigate.to("#{@config['self_url']}/check/me")
-      wait_for_selector('#assignments-tab')
       wait_for_selector('#teams-tab').click
       wait_for_selector("//span[contains(text(), 'Create')]", :xpath)
       expect(@driver.page_source.include?('page does not exist')).to be(false)
