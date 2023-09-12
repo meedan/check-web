@@ -45,17 +45,18 @@ const DrawerNavigation = (props) => {
             />)
           }
         />
-        <Relay.RootContainer
-          Component={DrawerNavigationContainer}
-          route={route}
-          renderFetched={
-            data => (<DrawerNavigationContainer
-              drawerOpen={drawerOpen}
-              {...props}
-              {...data}
-            />)
-          }
-        />
+        { drawerOpen ?
+          <Relay.RootContainer
+            Component={DrawerNavigationContainer}
+            route={route}
+            renderFetched={
+              data => (<DrawerNavigationContainer
+                drawerOpen={drawerOpen}
+                {...props}
+                {...data}
+              />)
+            }
+          /> : null }
       </>
     );
   }

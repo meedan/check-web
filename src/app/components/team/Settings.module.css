@@ -1,0 +1,74 @@
+.settings-wrapper {
+  background-color: var(--grayBackground);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .settings-content {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 16px 32px 32px;
+
+    .setting-details-wrapper {
+      max-width: var(--columnWidthLarge);
+      width: 100%;
+
+      .setting-content-container {
+        background-color: var(--otherWhite);
+        border-radius: 8px;
+        padding: 16px;
+
+        .setting-content-container-title {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+
+          > span {
+            @mixin typography-subtitle2;
+            align-items: center;
+            display: flex;
+            flex: 1 1 auto;
+            gap: 2px;
+
+            :global(.check-icon) {
+              font-size: var(--iconSizeDefault);
+            }
+          }
+
+          .setting-content-container-actions {
+            align-items: center;
+            display: flex;
+            gap: 8px;
+          }
+        }
+      }
+
+      :global(.MuiTableContainer-root) {
+        background-color: var(--otherWhite);
+        border-radius: 8px;
+        border-top: 0;
+      }
+
+      table {
+        background-color: var(--otherWhite);
+
+        tbody {
+          tr {
+            &:last-of-type {
+              td,
+              th {
+                border-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+
+      .settings-columns {
+        display: flex;
+        gap: 16px;
+        justify-content: space-between;
+      }
+    }
+  }
+}

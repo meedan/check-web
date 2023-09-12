@@ -10,16 +10,6 @@
     "defaultMessage": "Source annotation form"
   },
   {
-    "id": "teamMetadataRender.metadataItemSubtitle",
-    "description": "Subtitle for annotation settings screen applied to Items",
-    "defaultMessage": "Create dynamic forms to annotate items by adding fields."
-  },
-  {
-    "id": "teamMetadataRender.metadataSourceSubtitle",
-    "description": "Subtitle for annotation settings screen applied to Sources",
-    "defaultMessage": "Create dynamic forms to annotate sources by adding fields."
-  },
-  {
     "id": "teamMetadataRender.blankAnnotations",
     "description": "Text for empty annotations",
     "defaultMessage": "No annotation fields"

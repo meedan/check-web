@@ -76,12 +76,12 @@ const SmoochBotSidebar = ({
 
       {/* Resources */}
       <Divider className={classes.divider} />
-      { resources.map((resource, index) => {
-        const label = resource.smooch_custom_resource_title;
+      { resources.sort((a, b) => a.title.localeCompare(b.title)).map((resource) => {
+        const label = resource.title;
         return (
           <Option
-            key={resource.smooch_custom_resource_id}
-            id={`resource_${index}`}
+            key={resource.uuid}
+            id={`resource_${resource.dbid}`}
             label={label}
           />
         );

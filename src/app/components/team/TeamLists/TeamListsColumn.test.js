@@ -28,7 +28,7 @@ describe('<TeamListsColumn />', () => {
       team={team}
       onToggle={() => {}}
     />);
-    expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.typography-subtitle2').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('Column title');
     expect(wrapper.html()).toMatch('label-content-1');
     expect(wrapper.html()).toMatch('label-content-2');
@@ -43,7 +43,7 @@ describe('<TeamListsColumn />', () => {
       team={team}
       onToggle={() => {}}
     />);
-    expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.typography-subtitle2').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('Column title');
     expect(wrapper.html()).toMatch('None available');
   });

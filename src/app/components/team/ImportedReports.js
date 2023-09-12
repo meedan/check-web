@@ -8,10 +8,16 @@ import Search from '../search/Search';
 import CheckChannels from '../../CheckChannels';
 import FileDownloadIcon from '../../icons/file_download.svg';
 
+const defaultQuery = {
+  channels: [CheckChannels.FETCH],
+};
+
+export { defaultQuery as importedReportsDefaultQuery };
+
 export default function ImportedReports({ routeParams }) {
   const query = {
     ...safelyParseJSON(routeParams.query, {}),
-    channels: [CheckChannels.FETCH],
+    ...defaultQuery,
   };
 
   return (
@@ -23,12 +29,15 @@ export default function ImportedReports({ routeParams }) {
         icon={<FileDownloadIcon />}
         teamSlug={routeParams.team}
         query={query}
-        hideFields={['feed_fact_checked_by', 'channels', 'cluster_teams', 'cluster_published_reports']}
-        page="imported-reports"
+        defaultQuery={defaultQuery}
+        hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
+        readOnlyFields={['channels']}
+        page="imported-fact-checks"
       />
     </ErrorBoundary>
   );
 }
+
 ImportedReports.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,

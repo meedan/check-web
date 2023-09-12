@@ -29,6 +29,7 @@ const SavedSearch = ({ routeParams }) => (
               }
             }
             is_part_of_feeds
+            medias_count: items_count
             team {
               id
               slug
@@ -40,15 +41,14 @@ const SavedSearch = ({ routeParams }) => (
       `}
       variables={{
         id: routeParams.savedSearchId,
+        timestamp: new Date().getTime(), // Invalidate Relay cache
       }}
       render={({ error, props }) => {
         if (!error && props) {
           // Weird Relay error happens here if "filters" is a JSON object instead of a JSON string...
           // "Uncaught TypeError: Cannot assign to read only property '<filter name>' of object '#<Object>'"
-          const savedQuery = props.saved_search.filters || '{}';
-          const query = routeParams.query ?
-            safelyParseJSON(routeParams.query, {}) :
-            safelyParseJSON(savedQuery, {});
+          const defaultQuery = safelyParseJSON(props.saved_search.filters, {});
+          const query = routeParams.query ? safelyParseJSON(routeParams.query, {}) : defaultQuery;
 
           return (
             <div className="saved-search search-results-wrapper">
@@ -64,6 +64,7 @@ const SavedSearch = ({ routeParams }) => (
                           saved_search {
                             id
                             title
+                            medias_count: items_count
                           }
                         }
                       }
@@ -92,6 +93,7 @@ const SavedSearch = ({ routeParams }) => (
                 listSubtitle={<FormattedMessage id="savedSearch.subtitle" defaultMessage="Custom List" description="Displayed on top of the custom list title on the search results page." />}
                 teamSlug={routeParams.team}
                 query={query}
+                defaultQuery={defaultQuery}
                 savedSearch={props.saved_search}
                 hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
                 page="list"

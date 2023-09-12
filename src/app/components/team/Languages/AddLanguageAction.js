@@ -3,7 +3,6 @@ import { PropTypes } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -11,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
@@ -96,13 +96,20 @@ const AddLanguageAction = ({ team }) => {
 
   return (
     <React.Fragment>
-      <Button className="add-language-action__add-button" color="primary" variant="contained" onClick={() => setDialogOpen(true)}>
-        <FormattedMessage
-          id="addLanguageAction.newLanguage"
-          defaultMessage="New language"
-          description="Label for button that adds a new language to list of supported languages"
-        />
-      </Button>
+      <ButtonMain
+        className="add-language-action__add-button"
+        theme="brand"
+        size="default"
+        variant="contained"
+        onClick={() => setDialogOpen(true)}
+        label={
+          <FormattedMessage
+            id="addLanguageAction.newLanguage"
+            defaultMessage="New language"
+            description="Label for button that adds a new language to list of supported languages"
+          />
+        }
+      />
       <Dialog
         open={dialogOpen}
         maxWidth="xs"
@@ -141,23 +148,32 @@ const AddLanguageAction = ({ team }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button className="add-language-action__cancel" onClick={() => setDialogOpen(false)}>
-            <FormattedGlobalMessage messageKey="cancel" />
-          </Button>
-          <Button
+          <ButtonMain
+            className="add-language-action__cancel"
+            size="default"
+            variant="text"
+            theme="lightText"
+            onClick={() => setDialogOpen(false)}
+            label={
+              <FormattedGlobalMessage messageKey="cancel" />
+            }
+          />
+          <ButtonMain
             className="add-language-action__submit"
-            color="primary"
-            endIcon={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
+            theme="brand"
+            size="default"
+            iconRight={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
             disabled={!value || isSaving}
             onClick={handleSubmit}
             variant="contained"
-          >
-            <FormattedMessage
-              id="addLanguageAction.addLanguage"
-              defaultMessage="Add language"
-              description="Label to submit button of language picker dialog"
-            />
-          </Button>
+            label={
+              <FormattedMessage
+                id="addLanguageAction.addLanguage"
+                defaultMessage="Add language"
+                description="Label to submit button of language picker dialog"
+              />
+            }
+          />
         </DialogActions>
       </Dialog>
     </React.Fragment>

@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import DeleteIcon from '../../../icons/delete.svg';
-import SettingsHeader from '../SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const useToolbarStyles = makeStyles(theme => ({
@@ -24,9 +23,6 @@ const useToolbarStyles = makeStyles(theme => ({
   title: {
     flex: '1 1 100%',
     alignSelf: 'center',
-  },
-  button: {
-    whiteSpace: 'nowrap',
   },
 }));
 
@@ -50,28 +46,6 @@ const RulesTableToolbar = (props) => {
 
   return (
     <React.Fragment>
-      <SettingsHeader
-        title={
-          <FormattedMessage
-            id="rulesTableToolbar.title"
-            defaultMessage="Rules"
-            description="Title area for the rules admin section of the settings page"
-          />
-        }
-        helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"
-        actionButton={
-          <ButtonMain
-            size="default"
-            theme="brand"
-            variant="contained"
-            className={[classes.button, 'rules__new-rule'].join(' ')}
-            onClick={props.onAddNewRule}
-            label={
-              <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" description="Button label for creating a new rule" />
-            }
-          />
-        }
-      />
       { numSelected > 0 ?
         <Toolbar
           className={cx(
@@ -143,7 +117,6 @@ const RulesTableToolbar = (props) => {
 
 RulesTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
-  onAddNewRule: PropTypes.func.isRequired,
   onDeleteRules: PropTypes.func.isRequired,
 };
 
