@@ -431,13 +431,6 @@ export const Column = styled.div`
   overflow: ${props => props.overflow ? props.overflow : 'auto'};
 `;
 
-// AlignOpposite
-export const AlignOpposite = styled.div`
-  ${props => props.theme.dir === 'rtl' ? 'margin-right: auto' : 'margin-left: auto'};
-  ${props => props.theme.dir === 'rtl' ? 'left: 0px' : 'right: 0px'};
-  width: fit-content;
-`;
-
 // It seems that this component is not centered in Material UI 0.x
 // So we must always use this wrapper, or similar.
 export const StyledIconButton = styled(IconButton)`

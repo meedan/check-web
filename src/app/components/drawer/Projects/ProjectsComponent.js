@@ -19,12 +19,14 @@ import FeedIcon from '../../../icons/dynamic_feed.svg';
 import FileDownloadIcon from '../../../icons/file_download.svg';
 import InboxIcon from '../../../icons/inbox.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
+import PersonIcon from '../../../icons/person.svg';
 import PublishedIcon from '../../../icons/playlist_add_check.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
 import DeleteIcon from '../../../icons/delete.svg';
 import ReportIcon from '../../../icons/report.svg';
 import { withSetFlashMessage } from '../../FlashMessage';
+import { assignedToMeDefaultQuery } from '../../team/AssignedToMe';
 import { suggestedMatchesDefaultQuery } from '../../team/SuggestedMatches';
 import { importedReportsDefaultQuery } from '../../team/ImportedReports';
 import { unmatchedMediaDefaultQuery } from '../../team/UnmatchedMedia';
@@ -34,6 +36,7 @@ import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import styles from './Projects.module.css';
 
 const ProjectsComponent = ({
+  currentUser,
   team,
   savedSearches,
   feeds,
@@ -135,7 +138,27 @@ const ProjectsComponent = ({
             </ListItemSecondaryAction>
           </ListItem>
         </Link>
-
+        { /* Assigned to me */}
+        <Link
+          onClick={() => { handleSpecialLists('assigned-to-me'); }}
+          to={`/${team.slug}/assigned-to-me`}
+          className={styles.linkList}
+        >
+          <ListItem
+            className={[
+              'projects-list__assigned-to-me',
+              styles.listItem,
+              styles.listItem_containsCount,
+              activeItem.type === 'assigned-to-me' ? styles.listItem_active : '',
+            ].join(' ')}
+          >
+            <PersonIcon className={styles.listIcon} />
+            <ListItemText disableTypography className={styles.listLabel}>
+              <FormattedMessage tagName="span" id="projectsComponent.assignedToMe" defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" />
+            </ListItemText>
+            <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
+          </ListItem>
+        </Link>
         { team.smooch_bot &&
           <Link
             onClick={() => { handleSpecialLists('tipline-inbox'); }}
@@ -397,6 +420,9 @@ const ProjectsComponent = ({
 };
 
 ProjectsComponent.propTypes = {
+  currentUser: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }).isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     slug: PropTypes.string.isRequired,

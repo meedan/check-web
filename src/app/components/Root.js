@@ -15,6 +15,7 @@ import ErrorBoundary from './error/ErrorBoundary';
 import User from './source/User';
 import Me from './source/Me';
 import Team from './team/Team';
+import AssignedToMe from './team/AssignedToMe';
 import TiplineInbox from './team/TiplineInbox';
 import ImportedReports from './team/ImportedReports';
 import SuggestedMatches from './team/SuggestedMatches';
@@ -100,6 +101,7 @@ class Root extends Component {
                   <Route path=":team/list/:listId/media/:mediaId/source" component={MediaSource} />
                   <Route path=":team/list/:savedSearchId(/:query)" component={SavedSearch} />
                   <Route path=":team/all-items(/:query)" component={AllItems} />
+                  <Route path=":team/assigned-to-me(/:query)" component={AssignedToMe} />
                   <Route path=":team/tipline-inbox(/:query)" component={TiplineInbox} />
                   <Route path=":team/imported-fact-checks(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
