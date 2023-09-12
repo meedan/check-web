@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
@@ -60,24 +59,29 @@ class MediaRequestsComponent extends Component {
 
     return (
       <div id="media__requests" className={classes.root}>
-        <Typography variant="subtitle2">
+        <span className="typography-subtitle2">
           { this.props.all ?
-            <FormattedMessage
-              id="mediaRequests.allRequests"
-              defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
-              values={{
-                count: media.demand,
-              }}
-            /> :
-            <FormattedMessage
-              id="mediaRequests.thisRequests"
-              defaultMessage="{count, plural, one {# request} other {# requests}}"
-              values={{
-                count: media.requests_count,
-              }}
-            />
+            media.demand > 0 && (
+              <FormattedMessage
+                id="mediaRequests.allRequests"
+                defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
+                values={{
+                  count: media.demand,
+                }}
+              />
+            )
+            :
+            media.requests_count > 0 && (
+              <FormattedMessage
+                id="mediaRequests.thisRequests"
+                defaultMessage="{count, plural, one {# request} other {# requests}}"
+                values={{
+                  count: media.requests_count,
+                }}
+              />
+            )
           }
-        </Typography>
+        </span>
         <Annotations
           noLink
           component={TiplineRequest}
