@@ -8,7 +8,6 @@ import Search from '../search/Search';
 import PersonIcon from '../../icons/person.svg';
 
 const defaultFilters = {
-  assigned_to: ['me'],
   sort: 'recent_activity',
   sort_type: 'DESC',
 };

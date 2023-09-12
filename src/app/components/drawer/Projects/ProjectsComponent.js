@@ -36,6 +36,7 @@ import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import styles from './Projects.module.css';
 
 const ProjectsComponent = ({
+  currentUser,
   team,
   savedSearches,
   feeds,
@@ -150,7 +151,7 @@ const ProjectsComponent = ({
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.assignedToMe" defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" />
             </ListItemText>
-            <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery }} />
+            <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
           </ListItem>
         </Link>
         { team.smooch_bot &&
@@ -414,6 +415,9 @@ const ProjectsComponent = ({
 };
 
 ProjectsComponent.propTypes = {
+  currentUser: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }).isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     slug: PropTypes.string.isRequired,
