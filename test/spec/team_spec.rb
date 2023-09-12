@@ -135,7 +135,6 @@ shared_examples 'team' do
 
     # Navigate to second team
     @driver.navigate.to "#{@config['self_url']}/check/me"
-    wait_for_selector('#assignments-tab')
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
     wait_for_selector('#add-filter-menu__open-button')
