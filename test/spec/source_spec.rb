@@ -48,6 +48,8 @@ shared_examples 'source' do
     wait_for_selector_list_size('.medias__item', 1)
     # create another media and add a existing source
     create_media('media 2')
+    @driver.navigate.refresh
+    wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading').click
     wait_for_selector('.media')
     wait_for_selector('.media-tab__source').click

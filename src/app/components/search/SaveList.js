@@ -37,6 +37,7 @@ const createMutation = graphql`
               dbid
               title
               filters
+              medias_count: items_count
             }
           }
         }
@@ -50,6 +51,7 @@ const updateMutation = graphql`
     updateSavedSearch(input: $input) {
       saved_search {
         filters
+        medias_count: items_count
       }
     }
   }
