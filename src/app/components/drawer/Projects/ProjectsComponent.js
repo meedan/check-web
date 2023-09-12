@@ -128,6 +128,11 @@ const ProjectsComponent = ({
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
             </ListItemText>
+            <ListItemSecondaryAction className={styles.listItemCount}>
+              <small>
+                {team.medias_count}
+              </small>
+            </ListItemSecondaryAction>
           </ListItem>
         </Link>
 
