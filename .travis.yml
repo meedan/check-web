@@ -42,6 +42,14 @@ before_install:
 - cp .env_file.test .env_file
 - cp ../test/google_credentials.json google_credentials.json
 - cd -
+# Presto
+- export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
+- echo "Using branch $PRESTO_BRANCH for Presto"
+- git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
+- cd presto
+- cp .env_file.test .env_file
+- cp ../test/google_credentials.json google_credentials.json
+- cd -
 # Configuration files
 - cp test/config.js.example config.js
 - cp test/config.js.example test/config.js
