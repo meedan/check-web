@@ -43,7 +43,7 @@ before_install:
 - cp ../test/google_credentials.json google_credentials.json
 - cd -
 # Presto
-- export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
+- export PRESTO_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/presto.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'master')
 - echo "Using branch $PRESTO_BRANCH for Presto"
 - git clone --branch=$PRESTO_BRANCH https://github.com/meedan/presto.git
 - cd presto
