@@ -88,6 +88,16 @@ const SandboxComponent = ({ admin }) => {
     setButtonVariant(event.target.value);
   };
 
+  const [textareaRows, setTextareaRows] = React.useState('none');
+  const onChangeTextareaRows = (event) => {
+    setTextareaRows(event.target.value);
+  };
+
+  const [textareaMaxHeight, setTextareaMaxHeight] = React.useState('none');
+  const onChangeTextareaMaxHeight = (event) => {
+    setTextareaMaxHeight(event.target.value);
+  };
+
   const [buttonSize, setButtonSize] = React.useState('default');
   const onChangeButtonSize = (event) => {
     setButtonSize(event.target.value);
@@ -345,6 +355,28 @@ const SandboxComponent = ({ admin }) => {
             </div>
             <ul>
               <li>
+                <Select
+                  label="Row Count"
+                  onChange={onChangeTextareaRows}
+                >
+                  <option value="none">none</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="4">4</option>
+                  <option value="8">8</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Max height"
+                  onChange={onChangeTextareaMaxHeight}
+                >
+                  <option value="none">none</option>
+                  <option value="48px">48px</option>
+                  <option value="96px">96px</option>
+                </Select>
+              </li>
+              <li>
                 <SwitchComponent
                   label="AutoGrow"
                   labelPlacement="top"
@@ -391,12 +423,18 @@ const SandboxComponent = ({ admin }) => {
               <LimitedTextArea
                 maxChars={500}
                 setValue={setLimitedText}
+                placeholder="I am a placeholder for limited textarea"
                 label="I am a limited textarea title"
                 value={limitedText}
                 helpContent={textareaHelp ? 'I can be of help to limited textarea' : null}
                 autoGrow={textareaAutogrow}
+                rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
+                style={{
+                  maxHeight: textareaMaxHeight,
+                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
+                }}
               />
               :
               <TextArea
@@ -404,8 +442,13 @@ const SandboxComponent = ({ admin }) => {
                 label="I am a textarea title"
                 helpContent={textareaHelp ? 'I can be of help to textarea' : null}
                 autoGrow={textareaAutogrow}
+                rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
+                style={{
+                  maxHeight: textareaMaxHeight,
+                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
+                }}
               />
             }
           </div>
