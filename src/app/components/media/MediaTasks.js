@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import MediasLoading from './MediasLoading';
-import MediaTags from './MediaTags';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Task from '../task/Task';
 import Tasks from '../task/Tasks';
@@ -228,7 +227,6 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
             }
           }
         }
-        ${MediaTags.getFragment('projectMedia')}
       }
     `,
   },

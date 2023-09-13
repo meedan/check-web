@@ -7,16 +7,20 @@ import CancelFillIcon from '../../../icons/cancel_fill.svg';
 
 const Chip = ({
   label,
+  onClick,
   onRemove,
   className,
 }) => {
-  const handleRemove = () => {
+  const handleRemove = (e) => {
+    e.stopPropagation();
     onRemove();
   };
 
+  /* eslint jsx-a11y/click-events-have-key-events: 0 */
   return (
     <div
       className={`${styles['chip-container']} typography-body2 ${className}`}
+      onClick={onClick}
     >
       <span>{label}</span>
       { onRemove && (
@@ -32,11 +36,13 @@ const Chip = ({
 };
 
 Chip.defaultProps = {
+  onClick: null,
   onRemove: null,
   className: '',
 };
 
 Chip.propTypes = {
+  onClick: PropTypes.func,
   onRemove: PropTypes.func,
   label: PropTypes.string.isRequired,
   className: PropTypes.string,

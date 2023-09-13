@@ -13,9 +13,11 @@ import AddCircleIcon from '../../../icons/add_circle.svg';
 
 const TagList = ({
   readOnly,
+  options: teamTags,
   tags,
   setTags,
   maxTags,
+  onClickTag,
 }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -40,17 +42,15 @@ const TagList = ({
 
   const handleSearchChange = value => setSearchValue(value);
   const handleSubmit = (newSelectedItems) => {
-    setTags(tags.filter(tag => newSelectedItems.includes(tag)));
+    setTags(newSelectedItems);
     handleCloseMenu();
   };
 
   // MultiSelector requires an options array of objects with label and tag
-  const options = tags.map(tag => ({ label: tag, value: tag }));
+  const options = teamTags || tags.map(tag => ({ label: tag, value: tag }));
   const selected = tags;
 
   const handleAddNew = (value) => {
-    // eslint-disable-next-line
-    console.log('~~~tags',tags);
     if (value.trim() === '') {
       return;
     }
@@ -115,6 +115,7 @@ const TagList = ({
           <Chip
             label={tag}
             key={tag}
+            onClick={onClickTag ? () => onClickTag(tag) : null}
             onRemove={!readOnly ? () => {
               deleteTag(tag);
             } : null}
@@ -151,13 +152,17 @@ const TagList = ({
 TagList.defaultProps = {
   readOnly: false,
   maxTags: Infinity,
+  onClickTag: null,
+  options: null,
 };
 
 TagList.propTypes = {
   readOnly: PropTypes.bool,
   setTags: PropTypes.func.isRequired,
+  options: PropTypes.array,
   tags: PropTypes.array.isRequired,
   maxTags: PropTypes.number,
+  onClickTag: PropTypes.func,
 };
 
 export default TagList;
