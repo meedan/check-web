@@ -64,21 +64,9 @@ const errbitNotifier = ({
 
 const notifySentry = (
   error,
-  component,
-  callIntercom,
 ) => {
   if (config.sentryDsn) {
-    Sentry.captureException(error, {
-      contexts: {
-        component: {
-          name: component,
-        },
-      },
-    });
-  }
-  // even if sentry isn't configured we should still call Intercom
-  if (callIntercom) {
-    callIntercom({ url: window.location.href });
+    Sentry.captureException(error);
   }
 };
 
@@ -111,7 +99,7 @@ class ErrorBoundary extends React.Component {
 
     window.onerror = (message, source, lineno, colno, error) => {
       getStackTraceAndNotifyErrbit({ error, component: 'window' });
-      notifySentry(error, 'window');
+      notifySentry(error);
     };
   }
 
@@ -132,7 +120,7 @@ class ErrorBoundary extends React.Component {
     };
 
     getStackTraceAndNotifyErrbit({ error, component, callIntercom });
-    notifySentry(error, component, callIntercom);
+    notifySentry(error);
   }
 
   render() {
