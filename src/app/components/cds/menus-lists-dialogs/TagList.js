@@ -114,6 +114,7 @@ const TagList = ({
         { tags.length > 0 && tags.map(tag => (
           <Chip
             label={tag}
+            className="tag-list__chip"
             key={tag}
             onClick={onClickTag ? () => onClickTag(tag) : null}
             onRemove={!readOnly ? () => {
