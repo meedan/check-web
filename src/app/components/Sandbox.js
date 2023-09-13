@@ -374,6 +374,7 @@ const SandboxComponent = ({ admin }) => {
                   <option value="none">none</option>
                   <option value="48px">48px</option>
                   <option value="96px">96px</option>
+                  <option value="180px">180px</option>
                 </Select>
               </li>
               <li>
@@ -431,10 +432,7 @@ const SandboxComponent = ({ admin }) => {
                 rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
-                style={{
-                  maxHeight: textareaMaxHeight,
-                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
-                }}
+                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
               />
               :
               <TextArea
@@ -445,10 +443,7 @@ const SandboxComponent = ({ admin }) => {
                 rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
-                style={{
-                  maxHeight: textareaMaxHeight,
-                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
-                }}
+                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
               />
             }
           </div>
