@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,15 +19,11 @@ import TeamTagsActions from './TeamTagsActions';
 import TimeBefore from '../../TimeBefore';
 import SettingsHeader from '../SettingsHeader';
 import MediasLoading from '../../media/MediasLoading';
-import { ContentColumn } from '../../../styles/js/shared';
-import Can from '../../Can';
 import styles from './TeamTagsComponent.module.css';
+import Can from '../../Can';
+import settingsStyles from '../Settings.module.css';
 
 const useStyles = makeStyles({
-  teamTagsCardComponent: {
-    padding: 0,
-    paddingBottom: '0 !important',
-  },
   teamTagsTableCell: {
     borderBottom: 0,
   },
@@ -63,13 +57,14 @@ const TeamTagsComponent = ({
   };
 
   return (
-    <ContentColumn large>
+    <>
       <SettingsHeader
         title={
           <FormattedMessage
             id="teamTagsComponent.title"
-            defaultMessage="Tags"
+            defaultMessage="Tags [{count}]"
             description="Title for the tags settings page"
+            values={{ count: tags.length }}
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/6542134-tags"
@@ -160,8 +155,8 @@ const TeamTagsComponent = ({
           </Tooltip>
         </div>
       }
-      <Card>
-        <CardContent className={classes.teamTagsCardComponent}>
+      <div className={cx(settingsStyles['setting-details-wrapper'])}>
+        <div className={settingsStyles['setting-content-container']}>
           <TableContainer>
             <Table stickyHeader>
               <TableHead>
@@ -221,8 +216,8 @@ const TeamTagsComponent = ({
               </TableBody>
             </Table>
           </TableContainer>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
       { showCreateTag ?
         <SaveTag
           tag={null}
@@ -232,7 +227,7 @@ const TeamTagsComponent = ({
           rulesSchema={rulesSchema}
           onCancel={() => { setShowCreateTag(false); }}
         /> : null }
-    </ContentColumn>
+    </>
   );
 };
 

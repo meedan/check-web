@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ProjectsListCounter from './ProjectsListCounter';
 import styles from './Projects.module.css';
 
 const ProjectsListItem = ({
@@ -16,7 +15,6 @@ const ProjectsListItem = ({
   icon,
   routePrefix,
   routeSuffix,
-  intl,
 }) => {
   const handleClick = () => {
     if (onClick) {
@@ -55,12 +53,7 @@ const ProjectsListItem = ({
             {project.title || project.name}
           </span>
         </ListItemText>
-        <ListItemSecondaryAction title={project.medias_count} className={styles.listItemCount}>
-          <small>
-            { !Number.isNaN(parseInt(project.medias_count, 10)) ?
-              new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
-          </small>
-        </ListItemSecondaryAction>
+        <ProjectsListCounter numberOfItems={project.medias_count} />
       </ListItem>
     </Link>
   );
@@ -89,10 +82,9 @@ ProjectsListItem.propTypes = {
     medias_count: PropTypes.number,
     project_group_id: PropTypes.number,
   }).isRequired,
-  intl: intlShape.isRequired,
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
   className: PropTypes.string,
 };
 
-export default injectIntl(ProjectsListItem);
+export default ProjectsListItem;

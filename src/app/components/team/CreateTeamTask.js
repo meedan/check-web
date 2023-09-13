@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import EditTaskDialog from '../task/EditTaskDialog';
 import CreateTeamTaskMutation from '../../relay/mutations/CreateTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
@@ -64,18 +64,20 @@ class CreateTeamTask extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Button
+        <ButtonMain
           className="create-task__add-button"
           onClick={this.handleOpen}
           variant="contained"
-          color="primary"
-        >
-          <FormattedMessage
-            id="createTeamTask.addField"
-            defaultMessage="New annotation field"
-            description="Button that triggers creation of a new field"
-          />
-        </Button>
+          theme="brand"
+          size="default"
+          label={
+            <FormattedMessage
+              id="createTeamTask.addField"
+              defaultMessage="New annotation field"
+              description="Button that triggers creation of a new field"
+            />
+          }
+        />
         { this.state.dialogOpen ?
           <EditTaskDialog
             message={this.state.message}

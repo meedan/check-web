@@ -1,32 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Toolbar from '@material-ui/core/Toolbar';
+import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import HelpIcon from '../../icons/help.svg';
-
-const useStyles = makeStyles(theme => ({
-  settingsHeaderRoot: {
-    marginBottom: theme.spacing(2),
-  },
-  settingsHeaderToolbar: {
-    padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  settingsHeaderTitle: {
-    justifyContent: 'left',
-    alignItems: 'center',
-    '& h6': {
-      margin: 0,
-    },
-  },
-  settingsHeaderExtra: {
-    marginLeft: theme.spacing(5),
-  },
-}));
+import styles from './SettingsHeader.module.css';
 
 const SettingsHeader = ({
   title,
@@ -36,29 +13,40 @@ const SettingsHeader = ({
   className,
   style,
 }) => {
-  const classes = useStyles();
-
   const handleHelp = () => {
     window.open(helpUrl);
   };
 
   return (
-    <Box className={['component__settings-header', classes.settingsHeaderRoot, className].join(' ')} style={style}>
-      <Toolbar className={classes.settingsHeaderToolbar}>
-        <Box display="flex" justifyContent="center" className={classes.settingsHeaderTitle}>
-          <h6 className="component__settings-header typography-h6">{title}</h6>
+    <div
+      className={cx(
+        'component__settings-header',
+        styles['settings-header-wrapper'],
+        {
+          [className]: true,
+        })
+      }
+      style={style}
+    >
+      <div className={styles['title-wrapper']}>
+        <h6 className="component__settings-header">
+          {title}
           { helpUrl &&
             <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
           }
-          <Box className={classes.settingsHeaderExtra}>
+        </h6>
+        { extra &&
+          <div className={styles['extra-wrapper']}>
             {extra}
-          </Box>
-        </Box>
-        <Box display="flex" alignItems="center">
+          </div>
+        }
+      </div>
+      { actionButton &&
+        <div className={styles['buttons-wrapper']}>
           {actionButton}
-        </Box>
-      </Toolbar>
-    </Box>
+        </div>
+      }
+    </div>
   );
 };
 

@@ -1,35 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedRelative } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
+import { FormattedMessage, FormattedRelative } from 'react-intl';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import SettingsHeader from '../SettingsHeader';
 import RulesTableToolbar from './RulesTableToolbar';
 import RulesTableHead from './RulesTableHead';
-
-const useStyles = makeStyles(theme => ({
-  rulesTable: {
-    width: '100%',
-  },
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  tableRow: {
-    cursor: 'pointer',
-  },
-  rulesTableCell: {
-    borderBottom: 0,
-  },
-  rulesTableTime: {
-    whiteSpace: 'nowrap',
-  },
-}));
+import settingsStyles from '../Settings.module.css';
 
 export default function RulesTable(props) {
   const { rules } = props;
@@ -40,7 +22,6 @@ export default function RulesTable(props) {
     index,
   }));
 
-  const classes = useStyles();
   const [selected, setSelected] = React.useState([]);
   const [orderBy, setOrderBy] = React.useState('updated_at');
   const [order, setOrder] = React.useState('asc');
@@ -92,56 +73,74 @@ export default function RulesTable(props) {
 
   return (
     <React.Fragment>
-      <RulesTableToolbar
-        numSelected={selected.length}
-        onAddNewRule={handleNewRule}
-        onDeleteRules={handleDelete}
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="rulesTableToolbar.title"
+            defaultMessage="Rules"
+            description="Title area for the rules admin section of the settings page"
+          />
+        }
+        helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"
+        actionButton={
+          <ButtonMain
+            size="default"
+            theme="brand"
+            variant="contained"
+            className="rules__new-rule"
+            onClick={handleNewRule}
+            label={
+              <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" description="Button label for creating a new rule" />
+            }
+          />
+        }
       />
-      <div className={classes.rulesTable}>
-        <Paper className={classes.paper}>
-          <TableContainer>
-            <Table size="medium" id="rules-table">
-              <RulesTableHead
-                order={order}
-                orderBy={orderBy}
-                onSort={handleSort}
-              />
-              <TableBody>
-                {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
-                  const { name, index } = row;
-                  const isItemSelected = isSelected(index);
-                  const labelId = `rules-table-checkbox-${index}`;
-                  const date = new Date(row.updated_at * 1000);
+      <div className={settingsStyles['setting-details-wrapper']}>
+        <RulesTableToolbar
+          numSelected={selected.length}
+          onDeleteRules={handleDelete}
+        />
+        <TableContainer>
+          <Table size="medium" id="rules-table">
+            <RulesTableHead
+              order={order}
+              orderBy={orderBy}
+              onSort={handleSort}
+            />
+            <TableBody>
+              {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
+                const { name, index } = row;
+                const isItemSelected = isSelected(index);
+                const labelId = `rules-table-checkbox-${index}`;
+                const date = new Date(row.updated_at * 1000);
 
-                  return (
-                    <TableRow
-                      hover
-                      className={classes.tableRow}
-                      onClick={() => { handleClick(index); }}
-                      key={row.index}
-                    >
-                      <TableCell className={classes.rulesTableCell} padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          onClick={(event) => { handleChange(event, index); }}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell className={classes.rulesTableCell} component="th" id={labelId} scope="row">
-                        {name}
-                      </TableCell>
-                      <TableCell className={classes.rulesTableCell}>
-                        <time className={classes.rulesTableTime} dateTime={date.toISOString()}>
-                          <FormattedRelative value={date} />
-                        </time>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
+                return (
+                  <TableRow
+                    hover
+                    onClick={() => { handleClick(index); }}
+                    key={row.index}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={isItemSelected}
+                        onClick={(event) => { handleChange(event, index); }}
+                        inputProps={{ 'aria-labelledby': labelId }}
+                      />
+                    </TableCell>
+                    <TableCell component="th" id={labelId} scope="row">
+                      {name}
+                    </TableCell>
+                    <TableCell>
+                      <time dateTime={date.toISOString()}>
+                        <FormattedRelative value={date} />
+                      </time>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </React.Fragment>
   );

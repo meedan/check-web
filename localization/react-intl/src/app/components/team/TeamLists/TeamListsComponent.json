@@ -15,11 +15,6 @@
     "defaultMessage": "Column settings"
   },
   {
-    "id": "teamListsComponent.description",
-    "description": "Subtitle for Column settings page, where users can configure the visibility of columns in lists.",
-    "defaultMessage": "Select all the columns you want to display in all your lists."
-  },
-  {
     "id": "settingsHeader.save",
     "description": "Button label for save columns settings",
     "defaultMessage": "Save"

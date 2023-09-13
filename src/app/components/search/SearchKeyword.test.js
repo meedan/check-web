@@ -33,7 +33,7 @@ describe('<SearchKeyword />', () => {
         keyword: 'search keyword',
       }}
       clientSessionId=""
-      setQuery={() => {}}
+      setStateQuery={() => {}}
       cleanupQuery={() => {}}
       handleSubmit={() => {}}
     />);
@@ -52,7 +52,7 @@ describe('<SearchKeyword />', () => {
       project={project}
       query={{}}
       clientSessionId=""
-      setQuery={() => {}}
+      setStateQuery={() => {}}
       cleanupQuery={() => {}}
       handleSubmit={() => {}}
     />);

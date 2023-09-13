@@ -19,15 +19,24 @@ import FeedIcon from '../../../icons/dynamic_feed.svg';
 import FileDownloadIcon from '../../../icons/file_download.svg';
 import InboxIcon from '../../../icons/inbox.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
+import PersonIcon from '../../../icons/person.svg';
 import PublishedIcon from '../../../icons/playlist_add_check.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
 import DeleteIcon from '../../../icons/delete.svg';
 import ReportIcon from '../../../icons/report.svg';
 import { withSetFlashMessage } from '../../FlashMessage';
+import { assignedToMeDefaultQuery } from '../../team/AssignedToMe';
+import { suggestedMatchesDefaultQuery } from '../../team/SuggestedMatches';
+import { importedReportsDefaultQuery } from '../../team/ImportedReports';
+import { unmatchedMediaDefaultQuery } from '../../team/UnmatchedMedia';
+import { publishedDefaultQuery } from '../../team/Published';
+import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
+import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import styles from './Projects.module.css';
 
 const ProjectsComponent = ({
+  currentUser,
   team,
   savedSearches,
   feeds,
@@ -129,7 +138,27 @@ const ProjectsComponent = ({
             </ListItemSecondaryAction>
           </ListItem>
         </Link>
-
+        { /* Assigned to me */}
+        <Link
+          onClick={() => { handleSpecialLists('assigned-to-me'); }}
+          to={`/${team.slug}/assigned-to-me`}
+          className={styles.linkList}
+        >
+          <ListItem
+            className={[
+              'projects-list__assigned-to-me',
+              styles.listItem,
+              styles.listItem_containsCount,
+              activeItem.type === 'assigned-to-me' ? styles.listItem_active : '',
+            ].join(' ')}
+          >
+            <PersonIcon className={styles.listIcon} />
+            <ListItemText disableTypography className={styles.listLabel}>
+              <FormattedMessage tagName="span" id="projectsComponent.assignedToMe" defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" />
+            </ListItemText>
+            <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
+          </ListItem>
+        </Link>
         { team.smooch_bot &&
           <Link
             onClick={() => { handleSpecialLists('tipline-inbox'); }}
@@ -148,7 +177,7 @@ const ProjectsComponent = ({
               <ListItemText disableTypography className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted" />
               </ListItemText>
-              <ListItemSecondaryAction className={styles.listItemCount} />
+              <ProjectsCoreListCounter query={{ ...tiplineInboxDefaultQuery, verification_status: [team.verification_statuses.default] }} />
             </ListItem>
           </Link>
         }
@@ -171,7 +200,7 @@ const ProjectsComponent = ({
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
             </ListItemText>
-            <ListItemSecondaryAction className={styles.listItemCount} />
+            <ProjectsCoreListCounter query={importedReportsDefaultQuery} />
           </ListItem>
         </Link>
 
@@ -195,7 +224,7 @@ const ProjectsComponent = ({
               <ListItemText disableTypography className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1" />
               </ListItemText>
-              <ListItemSecondaryAction className={styles.listItemCount} />
+              <ProjectsCoreListCounter query={suggestedMatchesDefaultQuery} />
             </ListItem>
           </Link>
         }
@@ -218,7 +247,7 @@ const ProjectsComponent = ({
               <ListItemText disableTypography className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.unmatchedMedia" defaultMessage="Unmatched media" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" />
               </ListItemText>
-              <ListItemSecondaryAction className={styles.listItemCount} />
+              <ProjectsCoreListCounter query={unmatchedMediaDefaultQuery} />
             </ListItem>
           </Link>
         }
@@ -239,7 +268,7 @@ const ProjectsComponent = ({
             <ListItemText disableTypography className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
             </ListItemText>
-            <ListItemSecondaryAction className={styles.listItemCount} />
+            <ProjectsCoreListCounter query={publishedDefaultQuery} />
           </ListItem>
         </Link>
 
@@ -391,11 +420,15 @@ const ProjectsComponent = ({
 };
 
 ProjectsComponent.propTypes = {
+  currentUser: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }).isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     slug: PropTypes.string.isRequired,
     medias_count: PropTypes.number.isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"create Media":true}'
+    verification_statuses: PropTypes.object.isRequired,
   }).isRequired,
   savedSearches: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,

@@ -7,7 +7,7 @@ shared_examples 'list' do
     wait_for_selector('#projects-list__add-filtered-list').click
     wait_for_selector('#new-project__title').send_keys('Filtered list')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('div[title="Filtered list"]')
+    wait_for_selector('li[title="Filtered list"]')
     wait_for_selector('.medias__item')
     expect(@driver.find_elements(:css, '.medias__item').size == 1).to be(true)
     wait_for_selector('#add-filter-menu__open-button').click

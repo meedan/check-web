@@ -100,39 +100,4 @@ class CreateTagMutation extends Relay.Mutation {
   }
 }
 
-const createTag = (obj, onSuccess, onFailure) => {
-  const {
-    media, source, annotator, value,
-  } = obj;
-
-  const annotated = media || source;
-  let parent_type = '';
-  let annotated_type = '';
-
-  if (media) {
-    parent_type = 'project_media';
-    annotated_type = 'ProjectMedia';
-  }
-
-  const tagsList = [...new Set(value.split(','))];
-
-  tagsList.forEach((tag) => {
-    Relay.Store.commitUpdate(
-      new CreateTagMutation({
-        annotated,
-        annotator,
-        parent_type,
-        media,
-        annotation: {
-          tag,
-          annotated_type,
-          annotated_id: annotated.dbid,
-        },
-      }),
-      { onSuccess, onFailure },
-    );
-  });
-};
-
 export default CreateTagMutation;
-export { createTag };

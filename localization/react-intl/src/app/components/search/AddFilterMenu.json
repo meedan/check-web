@@ -112,7 +112,7 @@
   {
     "id": "addFilterMenu.addFilter",
     "description": "Button that opens menu with filter field options",
-    "defaultMessage": "Add filter"
+    "defaultMessage": "Filter"
   },
   {
     "id": "addFilterMenu.filterBy",

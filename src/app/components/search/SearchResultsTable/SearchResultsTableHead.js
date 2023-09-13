@@ -21,7 +21,6 @@ export default function SearchResultsTableHead({
         {columnDefs.map(({
           headerText,
           sortKey,
-          width,
           align,
           field,
         }) => (
@@ -33,7 +32,6 @@ export default function SearchResultsTableHead({
             align={align || 'inherit'}
             sortParams={sortParams}
             onChangeSortParams={onChangeSortParams}
-            width={width}
           />
         ))}
       </TableRow>
@@ -49,7 +47,6 @@ SearchResultsTableHead.propTypes = {
     headerText: PropTypes.element.isRequired,
     field: PropTypes.string, // or undefined -- sets data-field="..." HTML attribute
     sortKey: PropTypes.string, // or undefined
-    width: PropTypes.string, // '1px' or undefined
     align: PropTypes.oneOf(['inherit', 'left', 'center', 'right', 'justify']), // default inherit
   }).isRequired).isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,

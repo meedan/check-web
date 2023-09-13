@@ -8,6 +8,7 @@ const renderQuery = ({ error, props }) => {
   if (!error && props) {
     return (
       <ProjectsComponent
+        currentUser={props.me}
         team={props.team}
         projects={props.team.projects.edges.map(p => p.node)}
         projectGroups={props.team.project_groups.edges.map(pg => pg.node)}
@@ -35,11 +36,15 @@ const Projects = () => {
       environment={Relay.Store}
       query={graphql`
         query ProjectsQuery($teamSlug: String!) {
+          me {
+            dbid
+          }
           team(slug: $teamSlug) {
             dbid
             slug
             medias_count
             permissions
+            verification_statuses
             smooch_bot: team_bot_installation(bot_identifier: "smooch") {
               id
             }
@@ -79,6 +84,7 @@ const Projects = () => {
                   title
                   filters
                   is_part_of_feeds
+                  medias_count: items_count
                 }
               }
             }
