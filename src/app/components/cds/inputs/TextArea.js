@@ -6,7 +6,6 @@ import TextField from './TextField';
 const TextArea = React.forwardRef(({
   autoGrow,
   rows,
-  maxHeight,
   ...inputProps
 }, ref) => {
   const handleChange = (event) => {
@@ -23,13 +22,11 @@ const TextArea = React.forwardRef(({
 TextArea.defaultProps = {
   autoGrow: true,
   rows: '1',
-  maxHeight: null,
 };
 
 TextArea.propTypes = {
   autoGrow: PropTypes.bool,
   rows: PropTypes.string,
-  maxHeight: PropTypes.number,
 };
 
 export default TextArea;

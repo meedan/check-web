@@ -93,6 +93,11 @@ const SandboxComponent = ({ admin }) => {
     setTextareaRows(event.target.value);
   };
 
+  const [textareaMaxHeight, setTextareaMaxHeight] = React.useState('none');
+  const onChangeTextareaMaxHeight = (event) => {
+    setTextareaMaxHeight(event.target.value);
+  };
+
   const [buttonSize, setButtonSize] = React.useState('default');
   const onChangeButtonSize = (event) => {
     setButtonSize(event.target.value);
@@ -362,6 +367,16 @@ const SandboxComponent = ({ admin }) => {
                 </Select>
               </li>
               <li>
+                <Select
+                  label="Max height"
+                  onChange={onChangeTextareaMaxHeight}
+                >
+                  <option value="none">none</option>
+                  <option value="48px">48px</option>
+                  <option value="96px">96px</option>
+                </Select>
+              </li>
+              <li>
                 <SwitchComponent
                   label="AutoGrow"
                   labelPlacement="top"
@@ -416,6 +431,10 @@ const SandboxComponent = ({ admin }) => {
                 rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
+                style={{
+                  maxHeight: textareaMaxHeight,
+                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
+                }}
               />
               :
               <TextArea
@@ -426,6 +445,10 @@ const SandboxComponent = ({ admin }) => {
                 rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
+                style={{
+                  maxHeight: textareaMaxHeight,
+                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
+                }}
               />
             }
           </div>
