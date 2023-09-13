@@ -63,6 +63,7 @@ const TextField = React.forwardRef(({
         inputStyles['input-container'],
         {
           [styles['textarea-container']]: textArea,
+          [styles['textarea-autoGrow']]: autoGrow,
         })
       }
       >
@@ -82,7 +83,6 @@ const TextField = React.forwardRef(({
                 [styles.outlined]: variant === 'outlined',
                 [styles['input-icon-left']]: iconLeft,
                 [styles['input-icon-right']]: iconRight,
-                [styles['textarea-autoGrow']]: autoGrow,
               })
             }
             ref={ref}
