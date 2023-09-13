@@ -208,6 +208,8 @@ const TeamTagsComponent = ({
                           teamDbid={teamDbid}
                           rules={rules}
                           rulesSchema={rulesSchema}
+                          relay={relay}
+                          pageSize={pageSize}
                         />
                       </Can>
                     </TableCell>
@@ -226,6 +228,8 @@ const TeamTagsComponent = ({
           rules={rules}
           rulesSchema={rulesSchema}
           onCancel={() => { setShowCreateTag(false); }}
+          pageSize={pageSize}
+          relay={relay}
         /> : null }
     </>
   );
@@ -247,6 +251,7 @@ TeamTagsComponent.propTypes = {
     tags_count: PropTypes.number.isRequired,
     updated_at: PropTypes.object.isRequired, // Date object
   }).isRequired).isRequired,
+  pageSize: PropTypes.number.isRequired,
 };
 
 export default TeamTagsComponent;

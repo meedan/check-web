@@ -44,6 +44,8 @@ const SaveTag = ({
   rules,
   rulesSchema,
   onCancel,
+  relay,
+  pageSize,
   setFlashMessage,
 }) => {
   const classes = useStyles();
@@ -203,8 +205,12 @@ const SaveTag = ({
           handleError();
         } else if (JSON.stringify(rule) !== JSON.stringify(initialRule)) {
           handleSaveRule();
+          // if we have updated the tags, we use refetchConnection to reset the pagination overall (since we can't figure out exactly where it should be relative to this page, anyway)
+          relay.refetchConnection(pageSize);
         } else {
           handleSuccess(response);
+          // if we have updated the tags, we use refetchConnection to reset the pagination overall (since we can't figure out exactly where it should be relative to this page, anyway)
+          relay.refetchConnection(pageSize);
         }
       },
       onError: () => {
@@ -281,6 +287,7 @@ SaveTag.propTypes = {
   rules: PropTypes.arrayOf(PropTypes.object),
   rulesSchema: PropTypes.object.isRequired,
   onCancel: PropTypes.func.isRequired,
+  relay: PropTypes.object.isRequired,
 };
 
 export default withSetFlashMessage(SaveTag);
