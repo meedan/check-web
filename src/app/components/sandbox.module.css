@@ -42,7 +42,8 @@
         }
       }
 
-      .componentInlineVariants {
+      .componentInlineVariants,
+      .componentBlockVariants {
         display: inline-flex;
         flex-direction: row;
         gap: 32px;
@@ -51,6 +52,10 @@
         &.componentInlineGreyVariants {
           background-color: var(--grayBackground);
         }
+      }
+
+      .componentBlockVariants {
+        display: block;
       }
 
       .componentControls {
@@ -69,7 +74,8 @@
           }
         }
 
-        + .componentInlineVariants {
+        + .componentInlineVariants,
+        + .componentBlockVariants {
           border: solid 4px var(--brandBackground);
           border-radius: 0 0 5px 5px;
           padding: 20px;

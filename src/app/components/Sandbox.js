@@ -52,6 +52,11 @@ const SandboxComponent = ({ admin }) => {
   const [switchesHelp, setSwitchesHelp] = React.useState(Boolean(false));
   const [switched, setSwitchExample] = React.useState(Boolean(false));
   const [limitedText, setLimitedText] = React.useState('Hello this is the initial limited text state');
+  const [textareaHelp, setTextareaHelp] = React.useState(Boolean(true));
+  const [textareaAutogrow, setTextareaAutogrow] = React.useState(Boolean(true));
+  const [textareaLimited, setTextareaLimited] = React.useState(Boolean(false));
+  const [textareaDisabled, setTextareaDisabled] = React.useState(Boolean(false));
+  const [textareaRequired, setTextareaRequired] = React.useState(Boolean(true));
 
   const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
   const onChangeSwitchLabelPlacement = (event) => {
@@ -300,46 +305,6 @@ const SandboxComponent = ({ admin }) => {
         </div>
         <div className={styles.componentWrapper}>
           <div className={cx('typography-subtitle2', [styles.componentName])}>
-            TextArea
-            <a
-              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3606-26274&mode=design&t=ZVq51pKdIKdWZicO-4"
-              rel="noopener noreferrer"
-              target="_blank"
-              title="Figma Designs"
-              className={styles.figmaLink}
-            >
-              <FigmaColorLogo />
-            </a>
-          </div>
-          <TextArea
-            placeholder="I am a placeholder for textarea"
-            label="I am a textarea title"
-            helpContent="I can be of help to textarea"
-            required
-          />
-        </div>
-        <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>
-            LimitedTextArea
-            <a
-              href="https://www.figma.com/file/bQWUXJItRRX8xO3uQ9FWdg/Multimedia-Newsletter-%2B-Report?type=design&node-id=656-50446&mode=design&t=PjtorENpol0lp5QG-4"
-              rel="noopener noreferrer"
-              target="_blank"
-              title="Figma Designs"
-              className={styles.figmaLink}
-            >
-              <FigmaColorLogo />
-            </a>
-          </div>
-          <LimitedTextArea
-            maxChars={500}
-            label="Limited text area"
-            value={limitedText}
-            setValue={setLimitedText}
-          />
-        </div>
-        <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>
             Select
             <a
               href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=34-5720&mode=design&t=ZVq51pKdIKdWZicO-4"
@@ -363,6 +328,87 @@ const SandboxComponent = ({ admin }) => {
             <option value="2">two</option>
             <option value="3">three</option>
           </Select>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              TextArea
+              <a
+                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3606-26274&mode=design&t=ZVq51pKdIKdWZicO-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="AutoGrow"
+                  labelPlacement="top"
+                  checked={textareaAutogrow}
+                  onChange={() => setTextareaAutogrow(!textareaAutogrow)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Limit Character Count"
+                  labelPlacement="top"
+                  checked={textareaLimited}
+                  onChange={() => setTextareaLimited(!textareaLimited)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Help"
+                  labelPlacement="top"
+                  checked={textareaHelp}
+                  onChange={() => setTextareaHelp(!textareaHelp)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={textareaDisabled}
+                  onChange={() => setTextareaDisabled(!textareaDisabled)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Required"
+                  labelPlacement="top"
+                  checked={textareaRequired}
+                  onChange={() => setTextareaRequired(!textareaRequired)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            { textareaLimited ?
+              <LimitedTextArea
+                maxChars={500}
+                setValue={setLimitedText}
+                label="I am a limited textarea title"
+                value={limitedText}
+                helpContent={textareaHelp ? 'I can be of help to limited textarea' : null}
+                autoGrow={textareaAutogrow}
+                required={textareaRequired}
+                disabled={textareaDisabled}
+              />
+              :
+              <TextArea
+                placeholder="I am a placeholder for textarea"
+                label="I am a textarea title"
+                helpContent={textareaHelp ? 'I can be of help to textarea' : null}
+                autoGrow={textareaAutogrow}
+                required={textareaRequired}
+                disabled={textareaDisabled}
+              />
+            }
+          </div>
         </div>
         <div className={styles.componentWrapper}>
           <div className={styles.componentControls}>
