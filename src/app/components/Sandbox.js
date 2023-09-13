@@ -88,7 +88,7 @@ const SandboxComponent = ({ admin }) => {
     setButtonVariant(event.target.value);
   };
 
-  const [textareaRows, setTextareaRows] = React.useState('4');
+  const [textareaRows, setTextareaRows] = React.useState('none');
   const onChangeTextareaRows = (event) => {
     setTextareaRows(event.target.value);
   };
