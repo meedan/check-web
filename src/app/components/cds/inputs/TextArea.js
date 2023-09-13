@@ -11,6 +11,9 @@ const TextArea = React.forwardRef(({
 }, ref) => {
   const handleChange = (event) => {
     event.target.parentNode.setAttribute('data-replicated-value', event.target.value);
+    if (inputProps.onInput) {
+      inputProps.onInput(event);
+    }
   };
 
   const customStyle = inputProps.style || {};
