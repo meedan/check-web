@@ -1,6 +1,5 @@
 /* eslint-disable relay/unused-fields */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { createPaginationContainer, graphql } from 'react-relay/compat';
 import TeamTagsComponent from './TeamTagsComponent';
 import { parseStringUnixTimestamp } from '../../../helpers';
@@ -77,13 +76,5 @@ const PaginatedTeamTags = createPaginationContainer(
     }),
   },
 );
-
-PaginatedTeamTags.propTypes = {
-  root: PropTypes.obj.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  parentProps: PropTypes.obj.isRequired,
-  searchTerm: PropTypes.string.isRequired,
-  setSearchTerm: PropTypes.func.isRequired,
-};
 
 export default PaginatedTeamTags;
