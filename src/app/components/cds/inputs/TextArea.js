@@ -1,4 +1,3 @@
-/* eslint-disable */
 // DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3606-26274&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -10,7 +9,9 @@ const TextArea = React.forwardRef(({
   maxHeight,
   ...inputProps
 }, ref) => {
-  const handleChange = (event) => event.target.parentNode.dataset.replicatedValue = event.target.value;
+  const handleChange = (event) => {
+    event.target.parentNode.setAttribute('data-replicated-value', event.target.value);
+  };
 
   const customStyle = inputProps.style || {};
   return <TextField textArea autoGrow={autoGrow} ref={ref} {...inputProps} style={{ ...customStyle }} rows={rows} onInput={handleChange} />;
