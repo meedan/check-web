@@ -75,6 +75,7 @@
 
         /* Note the weird space! Needed to preventy jumpy behavior */
         content: attr(data-replicated-value) ' ';
+        max-height: inherit;
 
         /* Hidden from view, clicks, and screen readers */
         visibility: hidden;
@@ -104,6 +105,13 @@
         grid-area: 1 / 1 / 2 / 2;
         line-height: 20px;
         padding: .5rem;
+      }
+    }
+
+    &.textarea-maxHeight {
+      > textarea {
+        max-height: inherit;
+        overflow: auto;
       }
     }
 

@@ -35,6 +35,7 @@ const TextField = React.forwardRef(({
   variant,
   textArea,
   autoGrow,
+  maxHeight,
   componentProps,
   ...inputProps
 }, ref) => {
@@ -58,14 +59,19 @@ const TextField = React.forwardRef(({
           { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
         </div>
       )}
-      <div className={cx(
-        styles['textfield-container'],
-        inputStyles['input-container'],
-        {
-          [styles['textarea-container']]: textArea,
-          [styles['textarea-autoGrow']]: autoGrow,
-        })
-      }
+      <div
+        className={cx(
+          styles['textfield-container'],
+          inputStyles['input-container'],
+          {
+            [styles['textarea-container']]: textArea,
+            [styles['textarea-autoGrow']]: autoGrow,
+            [styles['textarea-maxHeight']]: maxHeight,
+          })
+        }
+        style={{
+          maxHeight,
+        }}
       >
         { iconLeft && (
           <div className={inputStyles['input-icon-left-icon']}>
@@ -149,6 +155,7 @@ TextField.defaultProps = {
   suppressInitialError: false,
   textArea: false,
   autoGrow: true,
+  maxHeight: null,
   variant: 'contained',
   componentProps: {},
 };
@@ -166,6 +173,7 @@ TextField.propTypes = {
   suppressInitialError: PropTypes.bool,
   textArea: PropTypes.bool,
   autoGrow: PropTypes.bool,
+  maxHeight: PropTypes.string,
   componentProps: PropTypes.object,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
