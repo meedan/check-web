@@ -3,7 +3,7 @@ require_relative 'spec_helper'
 shared_examples 'source' do
   it 'should check, edit and remove source info', bin2: true do
     api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'https://g1.globo.com/' })
-    wait_for_selector('.media')
+    wait_for_selector('.test__media')
     wait_for_selector('.tag-menu__icon')
     wait_for_selector('.media-tab__source').click
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
@@ -39,7 +39,7 @@ shared_examples 'source' do
 
   it 'should add a existing source for a media', bin4: true do
     api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'https://www.cnnbrasil.com.br/' })
-    wait_for_selector('.media')
+    wait_for_selector('.test__media')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__name')
     expect(@driver.page_source.include?('Brasil')).to be(true)
@@ -51,7 +51,7 @@ shared_examples 'source' do
     @driver.navigate.refresh
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading').click
-    wait_for_selector('.media')
+    wait_for_selector('.test__media')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('#media-source__create-button')
     wait_for_selector('input[name=source-name]').send_keys('CNN')

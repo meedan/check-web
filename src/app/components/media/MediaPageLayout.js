@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import Media from './Media';
 import MediaActionsBar from './MediaActionsBar';
 import NextPreviousLinks from './NextPreviousLinks';
@@ -29,7 +30,7 @@ export default function MediaPageLayout({
           projectMediaId={projectMediaId}
         />
       </div>
-      <div className={styles['media-item']}>
+      <div className={cx('test__media', styles['media-item'])}>
         <Media projectMediaId={projectMediaId} view={view} />
       </div>
     </div>
