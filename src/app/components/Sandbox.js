@@ -51,10 +51,10 @@ const SandboxComponent = ({ admin }) => {
   const [switchesDisabled, setSwitchesDisabled] = React.useState(Boolean(false));
   const [switchesHelp, setSwitchesHelp] = React.useState(Boolean(false));
   const [switched, setSwitchExample] = React.useState(Boolean(false));
-  const [limitedText, setLimitedText] = React.useState('Hello this is the initial limited text state');
+  const [limitedText, setLimitedText] = React.useState('Hello this is the initial limited text state. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. ');
   const [textareaHelp, setTextareaHelp] = React.useState(Boolean(true));
   const [textareaAutogrow, setTextareaAutogrow] = React.useState(Boolean(true));
-  const [textareaLimited, setTextareaLimited] = React.useState(Boolean(false));
+  const [textareaLimited, setTextareaLimited] = React.useState(Boolean(true));
   const [textareaDisabled, setTextareaDisabled] = React.useState(Boolean(false));
   const [textareaRequired, setTextareaRequired] = React.useState(Boolean(true));
 

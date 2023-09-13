@@ -9,6 +9,12 @@ const TextArea = React.forwardRef(({
   rows,
   ...inputProps
 }, ref) => {
+  React.useEffect(() => {
+    if (ref?.current) {
+      ref.current.parentNode.setAttribute('data-replicated-value', ref.current.value);
+    }
+  }, []);
+
   const handleChange = (event) => {
     event.target.parentNode.setAttribute('data-replicated-value', event.target.value);
     if (inputProps.onInput) {
