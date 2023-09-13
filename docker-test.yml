@@ -41,7 +41,7 @@ services:
   presto:
     environment:
       BOILERPLATE_ENV: test
-      ALEGRE_PORT: 8000
+      PRESTO_PORT: 8000
   web:
     environment:
       PLATFORM: web
