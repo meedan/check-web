@@ -17,7 +17,7 @@ const MediaSidebar = ({ projectMedia }) => (
       }
       <MediaClaim projectMedia={projectMedia} />
       <Box mt={1}>
-        <MediaTags projectMedia={projectMedia} />
+        <MediaTags projectMediaId={projectMedia.dbid} />
       </Box>
       <MediaFactCheck projectMedia={projectMedia} />
       <MediaAnalysis projectMedia={projectMedia} />
