@@ -5,7 +5,7 @@ import TagList from '../cds/menus-lists-dialogs/TagList';
 
 describe('<MediaTags />', () => {
   const projectMedia = {
-    permissions: '{\"update ProjectMedia\":true}',
+    permissions: '{"update ProjectMedia":true}',
     team: {
       slug: 'my-slug',
       tag_texts: {
