@@ -5,12 +5,12 @@ import TagList from '../cds/menus-lists-dialogs/TagList';
 
 describe('<MediaTags />', () => {
   const projectMedia = {
-    permissions: "{\"update ProjectMedia\":true}",
+    permissions: '{\"update ProjectMedia\":true}',
     team: {
       slug: 'my-slug',
       tag_texts: {
         edges: [{ node: { text: 'tag1' } }, { node: { text: 'tag2' } }, { node: { text: 'suggestedTag3' } }],
-      }
+      },
     },
     tags: {
       edges: [{ node: { tag: '123', id: '123', tag_text: 'tag1' } }, { node: { tag: '234', tag_text: 'suggestedTag3', id: '234' } }],
