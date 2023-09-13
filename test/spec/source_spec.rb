@@ -4,7 +4,6 @@ shared_examples 'source' do
   it 'should check, edit and remove source info', bin2: true do
     api_create_team_and_bot_and_link_and_redirect_to_media_page({ url: 'https://g1.globo.com/' })
     wait_for_selector('.media')
-    wait_for_selector('.tag-menu__icon')
     wait_for_selector('.media-tab__source').click
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
     wait_for_selector('#media__source')

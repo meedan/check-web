@@ -61,8 +61,8 @@ shared_examples 'tag' do
     create_media('new media')
     sleep 30 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.media__heading').click
-    wait_for_selector('.media-tags__tag')
-    expect(@driver.page_source.include?('tag added automatically')).to be(true)
+    wait_for_selector('.media-card-large')
+    @wait.until { @driver.page_source.include?('tag added automatically') }
   end
 
   it 'should add a tag, reject duplicated tag', bin3: true, quick: true do
@@ -71,11 +71,10 @@ shared_examples 'tag' do
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-card-large')
     # Try to add duplicate
-    wait_for_selector('.tag-menu__icon').click
+    wait_for_selector('#tag-list__add-icon').click
     fill_field('.multiselector__search-input input', 'TAG')
     wait_for_selector('#tag-menu__create-button').click
     @driver.action.send_keys(:enter).perform
-    # Verify that 'Tag already exists' message is displayed
-    @wait.until { @driver.page_source.include?('Tag already exists') }
+    expect(@driver.find_elements(:css, '.tag-list__chip').length == 1).to be(true)
   end
 end
