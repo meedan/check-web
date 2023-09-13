@@ -70,7 +70,7 @@ class MediaActionsMenuButton extends React.PureComponent {
     const menuItems = [];
 
     if (isParent) {
-      if (can(projectMedia.permissions, 'update Status') && projectMedia.archived === CheckArchivedFlags.NONE) {
+      if (can(projectMedia.permissions, 'update Status') && [CheckArchivedFlags.NONE, CheckArchivedFlags.UNCONFIRMED].includes(projectMedia.archived)) {
         menuItems.push((
           <MenuItem
             key="mediaActions.assign"

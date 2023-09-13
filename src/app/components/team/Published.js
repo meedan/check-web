@@ -5,9 +5,13 @@ import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
 import PublishedIcon from '../../icons/playlist_add_check.svg';
 
+const defaultFilters = {
+  report_status: ['published'],
+};
+
 const Published = ({ routeParams }) => {
   const defaultQuery = {
-    report_status: ['published'],
+    ...defaultFilters,
     sort: 'recent_activity',
     sort_type: 'DESC',
   };
@@ -40,4 +44,5 @@ Published.propTypes = {
   }).isRequired,
 };
 
+export { defaultFilters as publishedDefaultQuery };
 export default Published;

@@ -49,19 +49,17 @@ shared_examples 'media actions' do
     api_create_team_and_claim_and_redirect_to_media_page
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__assign')
+    expect(@driver.page_source.include?('Lock status')).to be(true)
     wait_for_selector('.media-actions__lock-status').click
-    wait_for_selector_none('.media-actions__assign')
+    wait_for_selector_none('.media-actions__assign') # wait for close dialog
     wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__history').click
-    wait_for_selector('.annotation__timestamp')
-    expect(@driver.page_source.include?('Item status locked by')).to be(true)
-    wait_for_selector('#item-history__close-button').click
-    wait_for_selector('.media-actions__icon').click
+    expect(@driver.page_source.include?('Unlock status')).to be(true)
     wait_for_selector('.media-actions__lock-status').click
+    wait_for_selector_none('.media-actions__assign') # wait for close dialog
     wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__history').click
-    wait_for_selector("//span[contains(text(), 'Item status unlocked by')]", :xpath)
-    expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
+    expect(@driver.page_source.include?('Lock status')).to be(true)
+    expect(@driver.page_source.include?('Unlock status')).to be(false)
   end
 
   it 'should add and delete note', bin3: true do

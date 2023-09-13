@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import HelpIcon from '@material-ui/icons/HelpOutline';
+import HelpIcon from '../../../icons/help.svg';
 import { languageLabel } from '../../../LanguageRegistry';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
 import Alert from '../../cds/alerts-and-prompts/Alert';
@@ -29,12 +29,11 @@ const messages = defineMessages({
 const SmoochBotMainMenu = ({
   value,
   languages,
+  resources,
   enabledIntegrations,
   intl,
   onChange,
 }) => {
-  const resources = value.smooch_custom_resources || [];
-
   let optionsCount = 1; // "Privacy Policy" option
   let collapsedCount = 2; // "Privacy Policy" and "Languages" options
   if (languages.length >= 1) {
@@ -78,15 +77,15 @@ const SmoochBotMainMenu = ({
 
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
         <Box display="flex" alignItems="center" mb={1}>
-          <Typography component="div" variant="body1">
+          <div className="typography-body1">
             <FormattedMessage
               id="smoochBotMainMenu.subtitle2"
               defaultMessage="Please note that some messaging services have different menu display options than others."
               description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
             />
-          </Typography>
+          </div>
           <a href="https://help.checkmedia.org/en/articles/5982401-tipline-bot-settings" target="_blank" rel="noopener noreferrer">
-            <HelpIcon style={{ color: 'var(--brandMain)' }} />
+            <HelpIcon style={{ color: 'var(--brandMain)', fontSize: '24px' }} />
           </a>
         </Box> : null }
       <Typography component="div" variant="subtitle2" paragraph>
@@ -159,6 +158,7 @@ const SmoochBotMainMenu = ({
 SmoochBotMainMenu.defaultProps = {
   value: {},
   languages: [],
+  resources: [],
 };
 
 SmoochBotMainMenu.propTypes = {
@@ -167,6 +167,7 @@ SmoochBotMainMenu.propTypes = {
   intl: intlShape.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  resources: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default injectIntl(SmoochBotMainMenu);

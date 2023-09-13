@@ -86,14 +86,17 @@
   },
   {
     "id": "teamDataComponent.set1",
+    "description": "Paragraph text informing the user what they need to do to enable this feature",
     "defaultMessage": "Fill {thisShortForm} to request access to your data report."
   },
   {
     "id": "teamDataComponent.formLinkText",
+    "description": "Link text taking the user to a form to fill out in order to request this feature be enabled",
     "defaultMessage": "this short form"
   },
   {
     "id": "teamDataComponent.set2",
+    "description": "Informational message to let the user know when their report will be available to view",
     "defaultMessage": "Your data report will be enabled within one business day."
   }
 ]

@@ -34,6 +34,7 @@ const TextField = React.forwardRef(({
   required,
   variant,
   textArea,
+  autoGrow,
   componentProps,
   ...inputProps
 }, ref) => {
@@ -62,6 +63,7 @@ const TextField = React.forwardRef(({
         inputStyles['input-container'],
         {
           [styles['textarea-container']]: textArea,
+          [styles['textarea-autoGrow']]: autoGrow,
         })
       }
       >
@@ -146,6 +148,7 @@ TextField.defaultProps = {
   required: false,
   suppressInitialError: false,
   textArea: false,
+  autoGrow: true,
   variant: 'contained',
   componentProps: {},
 };
@@ -162,6 +165,7 @@ TextField.propTypes = {
   required: PropTypes.bool,
   suppressInitialError: PropTypes.bool,
   textArea: PropTypes.bool,
+  autoGrow: PropTypes.bool,
   componentProps: PropTypes.object,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };

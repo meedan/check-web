@@ -3,9 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableContainer from '@material-ui/core/TableContainer';
-import { withStyles } from '@material-ui/core/styles';
 import SearchResultsTableHead from './SearchResultsTableHead';
 import SearchResultsTableRow from './SearchResultsTableRow';
 import TitleCell from './TitleCell';
@@ -35,6 +32,7 @@ import ClusterFactCheckedByTeamsCell from './ClusterFactCheckedByTeamsCell';
 import SourcesCell from './SourcesCell';
 import TeamNameCell from './TeamNameCell';
 import { truncateLength } from '../../../helpers';
+import styles from '../SearchResults.module.css';
 
 const AllPossibleColumns = [
   {
@@ -122,6 +120,7 @@ const AllPossibleColumns = [
   {
     field: 'fact_check_published_on',
     headerText: <FormattedMessage id="list.factCheckPublishedAt" defaultMessage="Fact check published at" description="Table header for fact-check publication date column" />,
+    sortKey: 'fact_check_published_on',
     cellComponent: FactCheckPublishedAtCell,
   },
   {
@@ -241,15 +240,6 @@ function buildColumnDefs(team, resultType) {
   return columns;
 }
 
-const TableContainerWithScrollbars = withStyles({
-  root: {
-    overflow: 'auto',
-    display: 'block',
-    height: '100%',
-    width: '100%',
-  },
-})(TableContainer);
-
 export default function SearchResultsTable({
   team,
   selectedIds,
@@ -287,7 +277,7 @@ export default function SearchResultsTable({
   }, [selectedIds, onChangeSelectedIds]);
 
   return (
-    <TableContainerWithScrollbars>
+    <div className={styles['search-results-table-wrapper']}>
       <Table stickyHeader size="small">
         <SearchResultsTableHead
           columnDefs={columnDefs}
@@ -299,7 +289,7 @@ export default function SearchResultsTable({
           onChangeSortParams={onChangeSortParams}
           resultType={resultType}
         />
-        <TableBody>
+        <tbody>
           {projectMedias.map(projectMedia => (
             <SearchResultsTableRow
               key={projectMedia.id}
@@ -313,9 +303,9 @@ export default function SearchResultsTable({
               count={count}
             />
           ))}
-        </TableBody>
+        </tbody>
       </Table>
-    </TableContainerWithScrollbars>
+    </div>
   );
 }
 SearchResultsTable.defaultProps = {

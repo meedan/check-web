@@ -5,9 +5,13 @@ import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
 import UnmatchedIcon from '../../icons/unmatched.svg';
 
+const defaultFilters = {
+  unmatched: ['1'],
+};
+
 const UnmatchedMedia = ({ routeParams }) => {
   const defaultQuery = {
-    unmatched: ['1'],
+    ...defaultFilters,
     sort: 'recent_activity',
     sort_type: 'DESC',
   };
@@ -38,5 +42,7 @@ UnmatchedMedia.propTypes = {
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
 };
+
+export { defaultFilters as unmatchedMediaDefaultQuery };
 
 export default UnmatchedMedia;

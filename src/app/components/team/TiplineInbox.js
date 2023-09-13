@@ -9,6 +9,11 @@ import Search from '../search/Search';
 import CheckChannels from '../../CheckChannels';
 import InboxIcon from '../../icons/inbox.svg';
 
+const defaultQuery = {
+  channels: [CheckChannels.ANYTIPLINE],
+  verification_status: [], // To be set to the value returned by the backend
+};
+
 const TiplineInbox = ({ routeParams }) => (
   <ErrorBoundary component="TiplineInbox">
     <QueryRenderer
@@ -27,10 +32,7 @@ const TiplineInbox = ({ routeParams }) => (
         if (!error && props) {
           const { team } = props;
           const defaultStatusId = team.verification_statuses.default;
-          const defaultQuery = {
-            channels: [CheckChannels.ANYTIPLINE],
-            verification_status: [defaultStatusId],
-          };
+          defaultQuery.verification_status = [defaultStatusId];
           const query = {
             ...defaultQuery,
             ...safelyParseJSON(routeParams.query, {}),
@@ -63,4 +65,5 @@ TiplineInbox.propTypes = {
   }).isRequired,
 };
 
+export { defaultQuery as tiplineInboxDefaultQuery };
 export default TiplineInbox;

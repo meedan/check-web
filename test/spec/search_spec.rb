@@ -122,6 +122,8 @@ shared_examples 'search' do
     wait_for_selector('.media-card-large')
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     create_image('files/test.png')
+    @driver.navigate.refresh
+    wait_for_selector('.media__heading')
     old = wait_for_selector_list('.medias__item').length
     wait_for_selector('#search-input').click
     @driver.action.send_keys(:enter).perform

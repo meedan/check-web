@@ -1,10 +1,11 @@
+/* stylelint-disable no-descending-specificity */
 .textfield-container {
   .input {
     background-color: var(--otherWhite);
     border: 2px solid var(--grayBorderMain);
     border-radius: 8px;
     color: var(--textPrimary);
-    font: 400 14px var(--fontStackSans);
+    font: inherit;
     height: 100%;
     letter-spacing: .15px;
     line-height: 20px;
@@ -67,9 +68,47 @@
   }
 
   &.textarea-container {
+    &.textarea-autoGrow {
+      display: grid;
+
+      &::after {
+
+        /* Note the weird space! Needed to preventy jumpy behavior */
+        content: attr(data-replicated-value) ' ';
+
+        /* Hidden from view, clicks, and screen readers */
+        visibility: hidden;
+
+        /* This is how textarea text behaves */
+        white-space: pre-wrap;
+      }
+
+      > textarea {
+        height: auto;
+
+        /* Firefox shows scrollbar on growth, you can hide like this. */
+        overflow: hidden;
+
+        /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+        resize: none;
+      }
+
+      > textarea,
+      &::after {
+
+        /* Identical styling required!! */
+        border: 1px solid inherit;
+        font: inherit;
+
+        /* Place on top of each other */
+        grid-area: 1 / 1 / 2 / 2;
+        line-height: 20px;
+        padding: .5rem;
+      }
+    }
+
     textarea {
       max-width: 100%;
-      min-height: 3.5em;
     }
   }
 }

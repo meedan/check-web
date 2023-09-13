@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
-import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
@@ -430,27 +429,24 @@ function SearchResultsComponent({
             /> : null }
         </div>
       </div>
-
       <div className={cx('search__results-top', styles['search-results-top'])}>
-        { extra ? <Box mb={2} ml={2}>{extra(stateQuery)}</Box> : null }
-        <Box m={2}>
-          <SearchFields
-            stateQuery={stateQuery}
-            appliedQuery={appliedQuery}
-            defaultQuery={defaultQuery}
-            setStateQuery={setStateQuery}
-            onChange={handleChangeQuery}
-            feedTeam={feedTeam}
-            feed={feed}
-            savedSearch={savedSearch}
-            hideFields={hideFields}
-            readOnlyFields={readOnlyFields}
-            title={title}
-            team={team}
-            page={page}
-            handleSubmit={handleSubmit}
-          />
-        </Box>
+        { extra ? <div className={styles['search-results-top-extra']}>{extra(stateQuery)}</div> : null }
+        <SearchFields
+          stateQuery={stateQuery}
+          appliedQuery={appliedQuery}
+          defaultQuery={defaultQuery}
+          setStateQuery={setStateQuery}
+          onChange={handleChangeQuery}
+          feedTeam={feedTeam}
+          feed={feed}
+          savedSearch={savedSearch}
+          hideFields={hideFields}
+          readOnlyFields={readOnlyFields}
+          title={title}
+          team={team}
+          page={page}
+          handleSubmit={handleSubmit}
+        />
       </div>
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         <Toolbar
@@ -727,7 +723,7 @@ export default function SearchResults({ query, teamSlug, ...props }) {
       renderFetched={data => (
         <SearchResultsContainer {...props} query={query} search={data.search} />
       )}
-      renderLoading={() => <MediasLoading theme="grey" variant="page" size="large" />}
+      renderLoading={() => <MediasLoading theme="white" variant="page" size="large" />}
     />
   );
 }
