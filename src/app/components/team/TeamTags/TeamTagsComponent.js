@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Table from '@material-ui/core/Table';
@@ -11,16 +11,19 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
+import NextIcon from '../../../icons/chevron_right.svg';
+import PrevIcon from '../../../icons/chevron_left.svg';
 import SearchField from '../../search/SearchField';
 import SaveTag from './SaveTag';
 import TeamTagsActions from './TeamTagsActions';
 import TimeBefore from '../../TimeBefore';
 import SettingsHeader from '../SettingsHeader';
+import MediasLoading from '../../media/MediasLoading';
 import { ContentColumn } from '../../../styles/js/shared';
 import Can from '../../Can';
+import styles from './TeamTagsComponent.module.css';
 
 const useStyles = makeStyles({
   teamTagsCardComponent: {
@@ -42,30 +45,22 @@ const TeamTagsComponent = ({
   rules,
   rulesSchema,
   tags,
+  pageSize,
+  totalTags,
+  totalCount,
+  relay,
+  searchTerm,
+  setSearchTerm,
 }) => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const classes = useStyles();
-  const [sortParam, setSortParam] = React.useState('text');
-  const [sortDirection, setSortDirection] = React.useState('asc');
   const [showCreateTag, setShowCreateTag] = React.useState(false);
-  const [searchTerm, setSearchTerm] = React.useState('');
-
-  const toggleSort = (param) => {
-    setSortParam(param);
-    if (sortParam === param) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortDirection('asc');
-    }
-  };
+  const [cursor, setCursor] = React.useState(0);
+  const [isPaginationLoading, setIsPaginationLoading] = React.useState(false);
 
   const handleSearchFieldClear = () => {
     setSearchTerm('');
   };
-
-  const sortFunc = (a, b) => (a[sortParam] > b[sortParam] ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1);
-
-  const sortedTags = tags.slice().filter(t => t.text.toLowerCase().includes(searchTerm.toLowerCase())).sort(sortFunc);
 
   return (
     <ContentColumn large>
@@ -76,9 +71,6 @@ const TeamTagsComponent = ({
             defaultMessage="Tags"
             description="Title for the tags settings page"
           />
-        }
-        subtitle={
-          <Box>{sortedTags.length} / {tags.length}</Box>
         }
         helpUrl="https://help.checkmedia.org/en/articles/6542134-tags"
         actionButton={
@@ -105,77 +97,102 @@ const TeamTagsComponent = ({
         extra={
           <SearchField
             inputBaseProps={{
-              onChange: (e) => { setSearchTerm(e.target.value); },
+              onBlur: (e) => { setSearchTerm(e.target.value); },
             }}
             handleClear={handleSearchFieldClear}
+            searchText={searchTerm}
           />
         }
       />
+      { totalTags > pageSize && // only display paginator if there are more than pageSize worth of tags overall in the database
+        <div className={styles['tags-wrapper']}>
+          <Tooltip title={
+            <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+          }
+          >
+            <ButtonMain
+              disabled={isPaginationLoading || cursor - pageSize < 0}
+              variant="text"
+              theme="brand"
+              size="default"
+              onClick={() => {
+                if (cursor - pageSize >= 0) {
+                  setCursor(cursor - pageSize);
+                }
+              }}
+              iconCenter={<PrevIcon />}
+            />
+          </Tooltip>
+          <span className={cx('typography-button', styles['tags-header-count'])}>
+            <FormattedMessage
+              id="searchResults.itemsCount"
+              defaultMessage="{totalCount, plural, one {1 / 1} other {{from} - {to} / #}}"
+              description="Pagination count of items returned"
+              values={{
+                from: cursor + 1,
+                to: Math.min(cursor + pageSize, totalCount),
+                totalCount,
+              }}
+            />
+          </span>
+          <Tooltip title={
+            <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+          }
+          >
+            <ButtonMain
+              disabled={isPaginationLoading || cursor + pageSize >= totalCount}
+              variant="text"
+              theme="brand"
+              size="default"
+              onClick={() => {
+                if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= tags.length)) {
+                  setIsPaginationLoading(true);
+                  relay.loadMore(pageSize, () => {
+                    setCursor(cursor + pageSize);
+                    setIsPaginationLoading(false);
+                  });
+                } else if (cursor + pageSize < tags.length) {
+                  setCursor(cursor + pageSize);
+                }
+              }}
+              iconCenter={<NextIcon />}
+            />
+          </Tooltip>
+        </div>
+      }
       <Card>
         <CardContent className={classes.teamTagsCardComponent}>
           <TableContainer>
             <Table stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell>
+                  <TableCell className={styles['table-col-head-name']}>
                     <FormattedMessage
                       id="teamTagsComponent.tableHeaderName"
                       defaultMessage="Name"
                       description="Column header in tags table."
-                    >
-                      { text => (
-                        <TableSortLabel
-                          active={sortParam === 'text'}
-                          direction={sortDirection || undefined}
-                          onClick={() => toggleSort('text')}
-                          IconComponent={KeyboardArrowDownIcon}
-                        >
-                          {text}
-                        </TableSortLabel>
-                      )}
-                    </FormattedMessage>
+                    />
                   </TableCell>
-                  <TableCell>
+                  <TableCell className={styles['table-col-head-updated']}>
                     <FormattedMessage
                       id="teamTagsComponent.tableHeaderUpdatedAt"
                       defaultMessage="Updated"
                       description="Column header in tags table."
-                    >
-                      { text => (
-                        <TableSortLabel
-                          active={sortParam === 'updated_at'}
-                          direction={sortDirection || undefined}
-                          onClick={() => toggleSort('updated_at')}
-                          IconComponent={KeyboardArrowDownIcon}
-                        >
-                          {text}
-                        </TableSortLabel>
-                      )}
-                    </FormattedMessage>
+                    />
                   </TableCell>
-                  <TableCell>
+                  <TableCell className={styles['table-col-head-items']}>
                     <FormattedMessage
                       id="teamTagsComponent.tableHeaderTagsCount"
                       defaultMessage="Items"
                       description="Column header in tags table."
-                    >
-                      { text => (
-                        <TableSortLabel
-                          active={sortParam === 'tags_count'}
-                          direction={sortDirection || undefined}
-                          onClick={() => toggleSort('tags_count')}
-                          IconComponent={KeyboardArrowDownIcon}
-                        >
-                          {text}
-                        </TableSortLabel>
-                      )}
-                    </FormattedMessage>
+                    />
                   </TableCell>
-                  <TableCell padding="checkbox" />
+                  <TableCell padding="checkbox" className={styles['table-col-head-action']} />
                 </TableRow>
               </TableHead>
-              <TableBody>
-                { sortedTags.map(tag => (
+              { isPaginationLoading && <MediasLoading size="medium" theme="grey" variant="inline" /> }
+              <TableBody className={isPaginationLoading && styles['tags-hide']}>
+                { tags.slice(cursor, cursor + pageSize).map(tag => (
                   <TableRow key={tag.id} className="team-tags__row">
                     <TableCell className={classes.teamTagsTableCell}>
                       {tag.text}
