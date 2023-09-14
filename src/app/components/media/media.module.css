@@ -103,6 +103,7 @@
     }
   }
 
+  .media-requests,
   .media-suggestions,
   .media-comments {
     flex: 1;

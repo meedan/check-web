@@ -1,14 +1,14 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import TiplineRequest from '../annotations/TiplineRequest';
+import styles from './media.module.css';
 
 class MediaRequestsComponent extends Component {
   componentDidMount() {
@@ -55,16 +55,17 @@ class MediaRequestsComponent extends Component {
   }
 
   render() {
-    const { classes, media } = this.props;
+    const { media } = this.props;
 
     return (
-      <div id="media__requests" className={classes.root}>
+      <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>
         <span className="typography-subtitle2">
           { this.props.all ?
             media.demand > 0 && (
               <FormattedMessage
                 id="mediaRequests.allRequests"
                 defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
+                description="The count in a readable sentence of the number of requests for all media listed"
                 values={{
                   count: media.demand,
                 }}
@@ -75,6 +76,7 @@ class MediaRequestsComponent extends Component {
               <FormattedMessage
                 id="mediaRequests.thisRequests"
                 defaultMessage="{count, plural, one {# request} other {# requests}}"
+                description="The count in a readable sentence of the number of requests for this media"
                 values={{
                   count: media.requests_count,
                 }}
@@ -94,6 +96,7 @@ class MediaRequestsComponent extends Component {
             <FormattedMessage
               id="mediaRequests.noRequest"
               defaultMessage="No requests"
+              description="Empty message when there are zero requests for this item"
             />
           }
         />
@@ -109,13 +112,7 @@ MediaRequestsComponent.propTypes = {
 
 const pageSize = 10;
 
-const styles = theme => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-});
-
-const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaRequestsComponent)), {
+const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
   initialVariables: {
     pageSize,
     teamSlug: null,
@@ -157,7 +154,7 @@ const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withP
   },
 });
 
-const MediaOwnRequestsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaRequestsComponent)), {
+const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
   initialVariables: {
     pageSize,
     teamSlug: null,

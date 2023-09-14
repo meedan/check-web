@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -84,6 +83,7 @@ class MediaCommentsComponent extends Component {
             <FormattedMessage
               id="mediaComments.noNote"
               defaultMessage="No note"
+              description="Empty message when there are no notees for this item"
             />
           }
         />

@@ -6,12 +6,10 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import styled from 'styled-components';
-import cx from 'classnames/bind';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
 import BlankState from '../layout/BlankState';
 import { units, borderWidthMedium } from '../../styles/js/shared';
-import styles from '../media/media.module.css';
 
 const StyledAnnotations = styled.div`
   display: flex;
@@ -22,7 +20,6 @@ const StyledAnnotations = styled.div`
 
     .annotations__list-item {
       position: relative;
-      margin: 0 ${units(1)};
 
       ${prop => prop.noLink ? null : `
         // The timeline line
@@ -74,7 +71,7 @@ class Annotations extends React.Component {
 
     return (
       <StyledAnnotations
-        className={cx('annotations', styles['media-item-content'])}
+        className="annotations"
         showAddAnnotation={props.showAddAnnotation}
         noLink={props.noLink}
         noLastItemStretch={hasMore}
