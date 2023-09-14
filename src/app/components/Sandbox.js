@@ -51,10 +51,10 @@ const SandboxComponent = ({ admin }) => {
   const [switchesDisabled, setSwitchesDisabled] = React.useState(Boolean(false));
   const [switchesHelp, setSwitchesHelp] = React.useState(Boolean(false));
   const [switched, setSwitchExample] = React.useState(Boolean(false));
-  const [limitedText, setLimitedText] = React.useState('Hello this is the initial limited text state');
+  const [limitedText, setLimitedText] = React.useState('Hello this is the initial limited text state. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. ');
   const [textareaHelp, setTextareaHelp] = React.useState(Boolean(true));
   const [textareaAutogrow, setTextareaAutogrow] = React.useState(Boolean(true));
-  const [textareaLimited, setTextareaLimited] = React.useState(Boolean(false));
+  const [textareaLimited, setTextareaLimited] = React.useState(Boolean(true));
   const [textareaDisabled, setTextareaDisabled] = React.useState(Boolean(false));
   const [textareaRequired, setTextareaRequired] = React.useState(Boolean(true));
 
@@ -374,6 +374,7 @@ const SandboxComponent = ({ admin }) => {
                   <option value="none">none</option>
                   <option value="48px">48px</option>
                   <option value="96px">96px</option>
+                  <option value="180px">180px</option>
                 </Select>
               </li>
               <li>
@@ -431,10 +432,7 @@ const SandboxComponent = ({ admin }) => {
                 rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
-                style={{
-                  maxHeight: textareaMaxHeight,
-                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
-                }}
+                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
               />
               :
               <TextArea
@@ -445,10 +443,7 @@ const SandboxComponent = ({ admin }) => {
                 rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
-                style={{
-                  maxHeight: textareaMaxHeight,
-                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
-                }}
+                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
               />
             }
           </div>

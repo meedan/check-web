@@ -5,9 +5,16 @@ import TextField from './TextField';
 
 const TextArea = React.forwardRef(({
   autoGrow,
+  maxHeight,
   rows,
   ...inputProps
 }, ref) => {
+  React.useEffect(() => {
+    if (ref?.current) {
+      ref.current.parentNode.setAttribute('data-replicated-value', ref.current.value);
+    }
+  }, []);
+
   const handleChange = (event) => {
     event.target.parentNode.setAttribute('data-replicated-value', event.target.value);
     if (inputProps.onInput) {
@@ -16,16 +23,18 @@ const TextArea = React.forwardRef(({
   };
 
   const customStyle = inputProps.style || {};
-  return <TextField textArea autoGrow={autoGrow} ref={ref} {...inputProps} style={{ ...customStyle }} rows={rows} onInput={handleChange} />;
+  return <TextField textArea autoGrow={autoGrow} maxHeight={maxHeight} ref={ref} {...inputProps} style={{ ...customStyle }} rows={rows} onInput={handleChange} />;
 });
 
 TextArea.defaultProps = {
   autoGrow: true,
+  maxHeight: null,
   rows: '1',
 };
 
 TextArea.propTypes = {
   autoGrow: PropTypes.bool,
+  maxHeight: PropTypes.string,
   rows: PropTypes.string,
 };
 
