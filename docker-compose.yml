@@ -1,6 +1,7 @@
 version: "2.2"
 volumes:
   elasticsearch:
+  elasticmq:
   postgres:
   redis:
   minio:
@@ -151,7 +152,7 @@ services:
   presto:
     build: presto
     ports:
-      - "3100:3100"
+      - "8000:8000"
     volumes:
       - "./presto:/app"
     depends_on:
