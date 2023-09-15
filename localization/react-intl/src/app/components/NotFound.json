@@ -1,6 +1,7 @@
 [
   {
     "id": "notFound.pageTitle",
+    "description": "Page title for the Not found page",
     "defaultMessage": "Page not found"
   },
   {
@@ -10,6 +11,7 @@
   },
   {
     "id": "notFound.text",
+    "description": "Help text for the user to contact the workspace admin for additional help accessing",
     "defaultMessage": "If you are trying to access an existing workspace, please contact the workspace owner."
   },
   {

@@ -8,14 +8,17 @@ const messages = defineMessages({
   collaborator: {
     id: 'UserUtil.collaborator',
     defaultMessage: 'Collaborator',
+    description: 'User type label for a user without editor or admin privileges',
   },
   editor: {
     id: 'UserUtil.editor',
     defaultMessage: 'Editor',
+    description: 'User type label for a user with edit privileges',
   },
   admin: {
     id: 'UserUtil.admin',
     defaultMessage: 'Admin',
+    description: 'User type label for a user with admin privileges',
   },
 });
 
