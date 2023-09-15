@@ -275,6 +275,7 @@ class Login extends React.Component {
                       <FormattedMessage
                         id="login.passwordLabel"
                         defaultMessage="Password (minimum 8 characters)"
+                        description="Text field description for password input telling the user it much be at least 8 characters long when signing up"
                       />
                     )}
                   />
@@ -294,7 +295,7 @@ class Login extends React.Component {
                         <FormattedMessage
                           id="login.otpAttemptLabel"
                           defaultMessage="Two-Factor Authentication Token"
-                           description="Text field label for the user's two-factor authentication token"
+                          description="Text field label for the user's two-factor authentication token"
                         />
                       }
                     />
@@ -316,7 +317,7 @@ class Login extends React.Component {
                         <FormattedMessage
                           id="login.passwordConfirmLabel"
                           defaultMessage="Password confirmation"
-                           description="Text field label for the to confirm their password"
+                          description="Text field label for the to confirm their password"
                         />
                       }
                     />
