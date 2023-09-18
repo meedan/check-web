@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import EllipseIcon from '../../icons/ellipse.svg';
 
 const useStyles = makeStyles(theme => ({
   dot: {
@@ -37,18 +36,18 @@ const BulletSeparator = ({
   const classes = useStyles();
   const subtitleDetails = details.filter(d => !!d).map((d, index) => (
     <span key={`${d}-${Math.random()}`} className={classes.detailSpan}>
-      { index > 0 ? <FiberManualRecordIcon className={classes.dot} /> : null }
+      { index > 0 ? <EllipseIcon className={classes.dot} /> : null }
       {d}
     </span>
   ));
 
   return (
-    <Typography variant="body1" component="div">
+    <div className="typography-body1">
       <Box display="flex" alignItems="center" mb={compact ? 0 : 2} className={classes.details}>
         { icon ? <div className={classes.icon}>{icon}</div> : null }
         {subtitleDetails}
       </Box>
-    </Typography>
+    </div>
   );
 };
 
