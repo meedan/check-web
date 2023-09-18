@@ -201,7 +201,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
     }
 
     const timeout = setTimeout(() => {
-      this.setFlashMessage(<FormattedMessage id="network.stillWorking" defaultMessage="Still working…" />, 'info');
+      this.setFlashMessage(<FormattedMessage id="network.stillWorking" defaultMessage="Still working…" description="Status message trying to connect to the network" />, 'info');
     }, fetchTimeout);
 
     return fetch(this._uri, init).then((response) => {
@@ -221,6 +221,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
             <FormattedMessage
               id="network.noResponse"
               defaultMessage="Couldn't connect to {app}, please make sure you're connected to the internet"
+              description="Error message when the user cannot connect to the app, possibly being no internet connection detected"
               values={{ app: <FormattedMessage {...globalStrings.appNameHuman} /> }}
             />
           );

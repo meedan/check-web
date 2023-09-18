@@ -64,6 +64,7 @@ class MediaRequestsComponent extends Component {
             <FormattedMessage
               id="mediaRequests.allRequests"
               defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
+              description="The count in a readable sentence of the number of requests for all media listed"
               values={{
                 count: media.demand,
               }}
@@ -71,6 +72,7 @@ class MediaRequestsComponent extends Component {
             <FormattedMessage
               id="mediaRequests.thisRequests"
               defaultMessage="{count, plural, one {# request} other {# requests}}"
+              description="The count in a readable sentence of the number of requests for this media"
               values={{
                 count: media.requests_count,
               }}
@@ -89,6 +91,7 @@ class MediaRequestsComponent extends Component {
             <FormattedMessage
               id="mediaRequests.noRequest"
               defaultMessage="No requests"
+              description="Empty message when there are zero requests for this item"
             />
           }
         />
