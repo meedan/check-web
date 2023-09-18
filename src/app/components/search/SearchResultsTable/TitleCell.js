@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
-import ContentCopyIcon from '@material-ui/icons/ContentCopy';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { units } from '../../../styles/js/shared';
+import ContentCopyIcon from '../../../icons/content_copy.svg';
+import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 
 const isFeedPage = () => (/\/feed/.test(window.location.pathname));
 
