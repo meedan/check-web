@@ -13,7 +13,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { makeStyles } from '@material-ui/core/styles';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChangeUserRole from './ChangeUserRole';
@@ -24,6 +23,7 @@ import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
 import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
 import settingsStyles from './Settings.module.css';
+import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 
 const useStyles = makeStyles(theme => ({
   pending: {

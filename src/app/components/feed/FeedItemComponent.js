@@ -26,7 +26,7 @@ import {
   Checkbox,
 } from '@material-ui/core';
 import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '../../icons/clear.svg';
 import MediaStatus from '../media/MediaStatus';
 import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
 import MediaExpandedComponent from '../media/MediaExpanded';
