@@ -368,7 +368,6 @@ class AddAnnotation extends Component {
         style={{
           height: '100%',
           width: '100%',
-          paddingTop: units(2),
           position: 'relative',
           zIndex: 0,
         }}

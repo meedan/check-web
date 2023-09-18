@@ -20,7 +20,6 @@ const StyledAnnotations = styled.div`
 
     .annotations__list-item {
       position: relative;
-      margin: 0 ${units(1)};
 
       ${prop => prop.noLink ? null : `
         // The timeline line

@@ -8,7 +8,7 @@ import { units, Row, FlexRow } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
   background-color: var(--otherWhite);
-  min-height: ${units(5)};
+  height: ${units(7)};
   padding: 0 ${units(2)} 0 0;
   margin: 0;
 
@@ -36,8 +36,9 @@ const StyledToolbar = styled.div`
 `;
 
 const OffsetButton = styled.div`
+  display: flex;
   flex: 1 1 auto;
-  text-align: end;
+  flex-direction: row-reverse;
 `;
 
 const Toolbar = ({

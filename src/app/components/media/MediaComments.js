@@ -1,9 +1,8 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
@@ -11,6 +10,7 @@ import Annotations from '../annotations/Annotations';
 import Comment from '../annotations/Comment';
 import ProfileLink from '../layout/ProfileLink';
 import UserTooltip from '../user/UserTooltip';
+import styles from './media.module.css';
 
 class MediaCommentsComponent extends Component {
   componentDidMount() {
@@ -66,10 +66,10 @@ class MediaCommentsComponent extends Component {
   }
 
   render() {
-    const { classes, media } = this.props;
+    const { media } = this.props;
 
     return (
-      <div id="media__comments" className={classes.root}>
+      <div id="media__comments" className={cx(styles['media-comments'], styles['media-item-content'])}>
         <Annotations
           noLink
           component={Comment}
@@ -83,6 +83,7 @@ class MediaCommentsComponent extends Component {
             <FormattedMessage
               id="mediaComments.noNote"
               defaultMessage="No note"
+              description="Empty message when there are no notees for this item"
             />
           }
         />
@@ -98,13 +99,7 @@ MediaCommentsComponent.propTypes = {
 
 const pageSize = 10;
 
-const styles = theme => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-});
-
-const MediaCommentsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaCommentsComponent)), {
+const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsComponent), {
   initialVariables: {
     pageSize,
     teamSlug: null,

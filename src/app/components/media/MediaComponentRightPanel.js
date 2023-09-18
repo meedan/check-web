@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import MediaTasks from './MediaTasks';
@@ -93,13 +92,11 @@ const MediaComponentRightPanel = ({
         />
       </Tabs>
       { /* Set maxHeight to screen height - (media bar + tabs) */ }
-      <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
-        { showTab === 'requests' ? <MediaRequests media={projectMedia} all={!projectMedia.is_confirmed_similar_to_another_item} /> : null }
-        { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} superAdminMask={superAdminMask} /> : null }
-        { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
-        { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
-        { showTab === 'notes' ? <MediaComments media={projectMedia} /> : null }
-      </Box>
+      { showTab === 'requests' ? <MediaRequests media={projectMedia} all={!projectMedia.is_confirmed_similar_to_another_item} /> : null }
+      { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} superAdminMask={superAdminMask} /> : null }
+      { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
+      { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
+      { showTab === 'notes' ? <MediaComments media={projectMedia} /> : null }
     </ErrorBoundary>
   );
 };

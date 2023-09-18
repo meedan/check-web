@@ -9,6 +9,7 @@ References: TICKET-ID-1, TICKET-ID-2, …, TICKET-ID-N
 - [ ] Performance improvement and/or refactoring (non-breaking change that keeps existing functionality)
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
+- [ ] Security mitigation or enhancement
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Automated test (add or update automated tests)
 
@@ -27,6 +28,7 @@ Please describe parts of the change that require extra attention during code rev
 
 - [ ] I have performed a self-review of my own code
 - [ ] I've made sure my branch is runnable and given good testing steps in the PR description
+- [ ] I considered secure coding practices when writing this code. Any security concerns are noted above.
 - [ ] I have commented my code in hard-to-understand areas, if any
 - [ ] I have made needed changes to the README
 - [ ] My changes generate no new warnings

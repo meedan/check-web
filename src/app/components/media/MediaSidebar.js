@@ -6,25 +6,23 @@ import MediaTags from './MediaTags';
 import MediaFactCheck from './MediaFactCheck';
 import MediaAnalysis from './MediaAnalysis';
 import MediaSuggestionReview from './Similarity/MediaSuggestionReview';
+import styles from './media.module.css';
 
 const MediaSidebar = ({ projectMedia }) => (
-  <Box id="media__sidebar">
-    <Box my={2}>
-      { projectMedia.suggested_main_item || projectMedia.confirmed_main_item || projectMedia.is_confirmed_similar_to_another_item ? <MediaSuggestionReview projectMedia={projectMedia} /> : null }
-    </Box>
-    <Box>
-      <Box mt={2}>
-        <MediaClaim projectMedia={projectMedia} />
-      </Box>
-      <Box mt={1}>
+  <div id="media__sidebar" className={styles['media-item-claim']}>
+    <div className={styles['media-item-content']}>
+      { projectMedia.suggested_main_item || projectMedia.confirmed_main_item || projectMedia.is_confirmed_similar_to_another_item ?
+        <MediaSuggestionReview projectMedia={projectMedia} />
+        : null
+      }
+      <MediaClaim projectMedia={projectMedia} />
+      <Box mb={1} mt={1}>
         <MediaTags projectMediaId={projectMedia.dbid} />
       </Box>
-      <Box my={2}>
-        <MediaFactCheck projectMedia={projectMedia} />
-      </Box>
+      <MediaFactCheck projectMedia={projectMedia} />
       <MediaAnalysis projectMedia={projectMedia} />
-    </Box>
-  </Box>
+    </div>
+  </div>
 );
 
 MediaSidebar.propTypes = {

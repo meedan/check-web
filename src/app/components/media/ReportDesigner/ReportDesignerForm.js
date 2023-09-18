@@ -22,7 +22,6 @@ import { safelyParseJSON } from '../../../helpers';
 const useStyles = makeStyles(theme => ({
   root: {
     position: 'relative',
-    marginTop: theme.spacing(2),
   },
   mask: {
     position: 'absolute',
