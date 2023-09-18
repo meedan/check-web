@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
+import ExpandMoreIcon from '../../icons/expand_more.svg';
 
 const useStyles = makeStyles(theme => ({
   statusButton: props => ({
@@ -13,9 +13,6 @@ const useStyles = makeStyles(theme => ({
     color: 'var(--otherWhite)',
     backgroundColor: props.backgroundColor,
   }),
-  statusButtonIcon: {
-    fontSize: 32,
-  },
   input: {
     position: 'absolute',
     opacity: 0,
@@ -32,7 +29,7 @@ const ColorPicker = ({ color, onChange }) => {
       <IconButton
         className={classes.statusButton}
       >
-        <ExpandMoreIcon className={classes.statusButtonIcon} />
+        <ExpandMoreIcon />
         <input className={classes.input} type="color" id="head" name="head" value={color} onChange={onChange} />
       </IconButton>
     </React.Fragment>
