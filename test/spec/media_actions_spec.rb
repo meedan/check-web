@@ -1,8 +1,8 @@
 shared_examples 'media actions' do
   it 'should create an item and assign it', bin4: true do
     api_create_team_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media')
-    expect(@driver.page_source.include?('Assigments updated successfully')).to be(false)
+    wait_for_selector('.test__media')
+    expect(@driver.page_source.include?('Assignments updated successfully')).to be(false)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__assign').click
     wait_for_selector('input[type=checkbox]').click
@@ -47,7 +47,7 @@ shared_examples 'media actions' do
 
   it 'should lock and unlock status', bin2: true do
     api_create_team_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media')
+    wait_for_selector('.test__media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__assign')
     expect(@driver.page_source.include?('Lock status')).to be(true)
