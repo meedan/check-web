@@ -1,20 +1,16 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import ArrowDropDownIcon from '../../icons/arrow_drop_down.svg';
+import ExpandMoreIcon from '../../icons/expand_more.svg';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TeamTaskCardForm from './TeamTaskCardForm';
-import globalStrings from '../../globalStrings';
 
 const TeamTaskCard = ({
   about,
@@ -58,19 +54,23 @@ const TeamTaskCard = ({
         justifyContent="space-between"
         alignItems="center"
       >
-        <Button
+        <ButtonMain
           className="team-tasks__menu-item-button"
           onClick={e => setAnchorEl(e.currentTarget)}
-          startIcon={icon}
-          endIcon={<ArrowDropDownIcon />}
-        >
-          <FormattedMessage
-            id="teamTaskCard.menu"
-            defaultMessage="Field {number}"
-            values={{ number: index }}
-            description="E.g. Field 1, Field 2..."
-          />
-        </Button>
+          iconLeft={icon}
+          size="default"
+          variant="text"
+          theme="text"
+          iconRight={<ArrowDropDownIcon />}
+          label={
+            <FormattedMessage
+              id="teamTaskCard.menu"
+              defaultMessage="Field {number}"
+              values={{ number: index }}
+              description="E.g. Field 1, Field 2..."
+            />
+          }
+        />
         <Box display="flex">
           <Box mr={4}>
             <SwitchComponent
@@ -104,25 +104,37 @@ const TeamTaskCard = ({
         onClose={() => setAnchorEl(null)}
       >
         <MenuItem className="team-tasks__edit-button" onClick={handleMenuEdit}>
-          <FormattedMessage {...globalStrings.edit} />
+          <FormattedMessage
+            id="global.edit"
+            defaultMessage="Edit"
+            description="Generic label for a button or link for a user to press when they wish to edit content or functionality"
+          />
         </MenuItem>
         <MenuItem className="team-tasks__delete-button" onClick={handleMenuDelete}>
-          <FormattedMessage {...globalStrings.delete} />
+          <FormattedMessage
+            id="global.delete"
+            defaultMessage="Delete"
+            description="Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
+          />
         </MenuItem>
       </Menu>
       <Divider />
       <Box display="flex" ml={1}>
-        <IconButton onClick={() => setExpanded(!expanded)}>
-          <ExpandMoreIcon />
-        </IconButton>
-        <Typography variant="body1" component="div">
+        <ButtonMain
+          iconCenter={<ExpandMoreIcon />}
+          variant="text"
+          theme="text"
+          size="default"
+          onClick={() => setExpanded(!expanded)}
+        />
+        <div className="typography-body1">
           <Box my={2} className="team-tasks__task-label">
             <Box fontWeight="500">
               {task.label}
             </Box>
             {task.description}
           </Box>
-        </Typography>
+        </div>
       </Box>
       <Collapse in={expanded}>
         <TeamTaskCardForm task={task} about={about} />
