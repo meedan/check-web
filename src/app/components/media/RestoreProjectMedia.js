@@ -39,7 +39,7 @@ function handleRestore({
   );
 }
 
-function RestoreConfirmProjectMediaToProjectAction({
+function RestoreProjectMedia({
   team,
   projectMedia,
   context,
@@ -122,7 +122,7 @@ function RestoreConfirmProjectMediaToProjectAction({
     </React.Fragment>
   );
 }
-RestoreConfirmProjectMediaToProjectAction.propTypes = {
+RestoreProjectMedia.propTypes = {
   className: PropTypes.string.isRequired,
   team: PropTypes.shape({
     slug: PropTypes.string.isRequired,
@@ -133,9 +133,9 @@ RestoreConfirmProjectMediaToProjectAction.propTypes = {
   }).isRequired,
 };
 
-export default createFragmentContainer(RestoreConfirmProjectMediaToProjectAction, {
+export default createFragmentContainer(RestoreProjectMedia, {
   team: graphql`
-    fragment RestoreConfirmProjectMediaToProjectAction_team on Team {
+    fragment RestoreProjectMedia_team on Team {
       search {
         id
         number_of_results
@@ -152,7 +152,7 @@ export default createFragmentContainer(RestoreConfirmProjectMediaToProjectAction
     }
   `,
   projectMedia: graphql`
-    fragment RestoreConfirmProjectMediaToProjectAction_projectMedia on ProjectMedia {
+    fragment RestoreProjectMedia_projectMedia on ProjectMedia {
       id
       dbid
       archived

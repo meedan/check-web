@@ -18,7 +18,7 @@ import MediaActionsMenuButton from './MediaActionsMenuButton';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
-import RestoreConfirmProjectMediaToProjectAction from './RestoreConfirmProjectMediaToProjectAction';
+import RestoreProjectMedia from './RestoreProjectMedia';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
@@ -269,11 +269,11 @@ class MediaActionsBarComponent extends Component {
 
     const context = this.getContext();
 
-    let moveOrRestor = '';
+    let restorProjectMedia = '';
     if (isParent) {
       if (media.archived !== CheckArchivedFlags.NONE) {
-        moveOrRestor = (
-          <RestoreConfirmProjectMediaToProjectAction
+        restorProjectMedia = (
+          <RestoreProjectMedia
             team={this.props.media.team}
             projectMedia={this.props.media}
             context={context}
@@ -285,7 +285,7 @@ class MediaActionsBarComponent extends Component {
 
     return (
       <div className={styles['media-actions']}>
-        <div className={styles['media-actions']}> { moveOrRestor } </div>
+        <div className={styles['media-actions']}> { restorProjectMedia } </div>
         <div className={styles['media-actions']}>
           {isParent ?
             <MediaStatus
@@ -406,7 +406,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
       fragment on ProjectMedia {
         id
         ${MediaActionsMenuButton.getFragment('projectMedia')}
-        ${RestoreConfirmProjectMediaToProjectAction.getFragment('projectMedia')}
+        ${RestoreProjectMedia.getFragment('projectMedia')}
         dbid
         project_id
         title
