@@ -285,28 +285,30 @@ class MediaActionsBarComponent extends Component {
 
     return (
       <div className={styles['media-actions']}>
-        <div> { moveOrRestor } </div>
-        {isParent ?
-          <MediaStatus
-            media={media}
-            readonly={(
-              (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
-              media.last_status_obj?.locked ||
-              published
-            )}
-          /> : null
-        }
-        <MediaActionsMenuButton
-          key={media.id /* close menu if we navigate to a different projectMedia */}
-          projectMedia={media}
-          isParent={isParent}
-          handleRefresh={this.handleRefresh.bind(this)}
-          handleSendToTrash={this.handleSendToTrash.bind(this)}
-          handleSendToSpam={this.handleSendToSpam.bind(this)}
-          handleAssign={this.handleAssign.bind(this)}
-          handleStatusLock={this.handleStatusLock.bind(this)}
-          handleItemHistory={this.handleItemHistory}
-        />
+        <div className={styles['media-actions']}> { moveOrRestor } </div>
+        <div className={styles['media-actions']}>
+          {isParent ?
+            <MediaStatus
+              media={media}
+              readonly={(
+                (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
+                media.last_status_obj?.locked ||
+                published
+              )}
+            /> : null
+          }
+          <MediaActionsMenuButton
+            key={media.id /* close menu if we navigate to a different projectMedia */}
+            projectMedia={media}
+            isParent={isParent}
+            handleRefresh={this.handleRefresh.bind(this)}
+            handleSendToTrash={this.handleSendToTrash.bind(this)}
+            handleSendToSpam={this.handleSendToSpam.bind(this)}
+            handleAssign={this.handleAssign.bind(this)}
+            handleStatusLock={this.handleStatusLock.bind(this)}
+            handleItemHistory={this.handleItemHistory}
+          />
+        </div>
 
         <ItemHistoryDialog
           open={this.state.itemHistoryDialogOpen}

@@ -60,15 +60,15 @@ function RestoreConfirmProjectMediaToProjectAction({
           (
             <FormattedMessage
               id="mediaActionsBar.movedRestoreBack"
-              defaultMessage="Restored item and move it to 'All'"
-              description="Tooltip message for button that restores item from Trash.. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
+              defaultMessage="Item restored from Trash"
+              description="Success message after restoring item from Trash."
             />
           ) :
           (
             <FormattedMessage
               id="mediaActionsBar.movedSpamBack"
-              defaultMessage="Marked item as not Spam and move it to 'All'"
-              description="Tooltip message for button that marks items as not spam. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
+              defaultMessage="Item marked as Not Spam"
+              description="Success message after marking item as Not Spam."
             />
           );
         setFlashMessage(message, 'success');
