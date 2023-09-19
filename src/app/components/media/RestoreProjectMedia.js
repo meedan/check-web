@@ -89,14 +89,6 @@ function RestoreProjectMedia({
         description="Label for button that restores item from Trash"
       />
     );
-  } else if (projectMedia.archived === CheckArchivedFlags.UNCONFIRMED) {
-    buttonLabel = (
-      <FormattedMessage
-        id="mediaActionsBar.confirmTo"
-        defaultMessage="Confirm"
-        description="Label for button that confirms an item"
-      />
-    );
   } else if (projectMedia.archived === CheckArchivedFlags.SPAM) {
     buttonLabel = (
       <FormattedMessage
