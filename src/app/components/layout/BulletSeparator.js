@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   icon: {
-    height: '24px',
+    fontSize: '24px',
     marginRight: theme.spacing(1),
   },
 }));
