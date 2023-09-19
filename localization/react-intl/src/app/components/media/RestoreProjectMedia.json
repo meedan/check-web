@@ -25,14 +25,6 @@
     "defaultMessage": "Restore from Trash"
   },
   {
-<<<<<<< HEAD
-=======
-    "id": "mediaActionsBar.confirmTo",
-    "description": "Label for button that confirms an item",
-    "defaultMessage": "Confirm"
-  },
-  {
->>>>>>> 51322038e (replacing and replacing function names)
     "id": "mediaActionsBar.notSpamTo",
     "description": "Label for button that marks an item as not spam",
     "defaultMessage": "Not spam"
