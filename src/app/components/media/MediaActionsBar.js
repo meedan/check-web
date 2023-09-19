@@ -270,6 +270,7 @@ class MediaActionsBarComponent extends Component {
     const context = this.getContext();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     let restorProjectMedia = '';
     if (isParent) {
       if (media.archived !== CheckArchivedFlags.NONE) {
@@ -289,11 +290,26 @@ class MediaActionsBarComponent extends Component {
           />
         );
       }
+=======
+    let restorProjectMedia = '';
+    if (media.archived !== CheckArchivedFlags.NONE) {
+      restorProjectMedia = (
+        <RestoreProjectMedia
+          team={this.props.media.team}
+          projectMedia={this.props.media}
+          context={context}
+          className={classes.spacedButton}
+        />
+      );
+>>>>>>> 51322038e (replacing and replacing function names)
     }
 
     return (
       <div className={styles['media-actions']}>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 51322038e (replacing and replacing function names)
         <div className={styles['media-actions']}> { restorProjectMedia } </div>
         <div className={styles['media-actions']}>
           {isParent ?
@@ -440,10 +456,14 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         id
         ${MediaActionsMenuButton.getFragment('projectMedia')}
 <<<<<<< HEAD
+<<<<<<< HEAD
         ${RestoreProjectMedia.getFragment('projectMedia')}
 =======
         ${RestoreConfirmProjectMediaToProjectAction.getFragment('projectMedia')}
 >>>>>>> f794fe1fc (re-adding "restore from trash/mark as not spam" button on item page)
+=======
+        ${RestoreProjectMedia.getFragment('projectMedia')}
+>>>>>>> 51322038e (replacing and replacing function names)
         dbid
         project_id
         title
