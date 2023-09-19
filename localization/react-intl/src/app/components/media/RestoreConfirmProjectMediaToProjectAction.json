@@ -1,30 +1,27 @@
 [
   {
     "id": "mediaActionsBar.movedRestoreBack",
-    "defaultMessage": "Restored from Trash, redirecting…"
+    "description": "Tooltip message for button that restores item from Trash.. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems",
+    "defaultMessage": "Restored item and move it to 'All'"
   },
   {
-    "id": "mediaActionsBar.movedConfirmBack",
-    "defaultMessage": "Confirmed, redirecting…"
+    "id": "mediaActionsBar.movedSpamBack",
+    "description": "Tooltip message for button that marks items as not spam. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems",
+    "defaultMessage": "Marked item as not Spam and move it to 'All'"
   },
   {
     "id": "mediaActionsBar.restoreTo",
+    "description": "Label for button that restores item from Trash",
     "defaultMessage": "Restore from Trash"
   },
   {
     "id": "mediaActionsBar.confirmTo",
+    "description": "Label for button that confirms an item",
     "defaultMessage": "Confirm"
   },
   {
     "id": "mediaActionsBar.notSpamTo",
+    "description": "Label for button that marks an item as not spam",
     "defaultMessage": "Not spam"
-  },
-  {
-    "id": "mediaActionsBar.dialogRestoreOrConfirmToListTitle",
-    "defaultMessage": "Move item to folder…"
-  },
-  {
-    "id": "mediaActionsBar.restoreOrConfirm",
-    "defaultMessage": "Move to folder"
   }
 ]

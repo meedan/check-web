@@ -18,6 +18,7 @@ import MediaActionsMenuButton from './MediaActionsMenuButton';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
+import RestoreConfirmProjectMediaToProjectAction from './RestoreConfirmProjectMediaToProjectAction';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
@@ -266,8 +267,25 @@ class MediaActionsBarComponent extends Component {
       });
     }
 
+    const context = this.getContext();
+
+    let moveOrRestor = '';
+    if (isParent) {
+      if (media.archived !== CheckArchivedFlags.NONE) {
+        moveOrRestor = (
+          <RestoreConfirmProjectMediaToProjectAction
+            team={this.props.media.team}
+            projectMedia={this.props.media}
+            context={context}
+            className={classes.spacedButton}
+          />
+        );
+      }
+    }
+
     return (
       <div className={styles['media-actions']}>
+        <div> { moveOrRestor } </div>
         {isParent ?
           <MediaStatus
             media={media}
@@ -386,6 +404,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
       fragment on ProjectMedia {
         id
         ${MediaActionsMenuButton.getFragment('projectMedia')}
+        ${RestoreConfirmProjectMediaToProjectAction.getFragment('projectMedia')}
         dbid
         project_id
         title
