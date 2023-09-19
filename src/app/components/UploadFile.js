@@ -5,8 +5,8 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage } from 'react-intl';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import styled from 'styled-components';
+import HighlightOffIcon from '../icons/cancel.svg';
 import CircularProgress from './CircularProgress';
 import { unhumanizeSize } from '../helpers';
 import {

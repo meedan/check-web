@@ -4,6 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
 import * as Sentry from '@sentry/react';
+import WhatIcon from '@material-ui/icons/Launch';
 import styles from './sandbox.module.css';
 import Alert from './cds/alerts-and-prompts/Alert';
 import Chip from './cds/buttons-checkboxes-chips/Chip';
@@ -143,6 +144,7 @@ const SandboxComponent = ({ admin }) => {
 
   return (
     <div className={styles.sandbox}>
+      <WhatIcon />
       <h5>
         UI Sandbox&nbsp;<span role="img" aria-label="Beach">🏖️</span>
       </h5>
