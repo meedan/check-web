@@ -1,5 +1,5 @@
 import React from 'react';
-import WhatsAppIcon from '../../icons/whatsapp.svg';
+import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import Request from './Request';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 
