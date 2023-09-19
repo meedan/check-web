@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '../../icons/clear.svg';
 import { FlexRow, units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 

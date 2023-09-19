@@ -7,11 +7,10 @@ import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import 'react-image-lightbox/style.css';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddAnnotation from './AddAnnotation';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -32,6 +31,7 @@ import {
   breakWordStyles,
   Row,
 } from '../../styles/js/shared';
+import MoreVertIcon from '../../icons/more_vert.svg';
 
 const StyledAnnotationCardWrapper = styled.div`
   width: 100%;
@@ -147,12 +147,14 @@ class Comment extends Component {
       const canDoAnnotationActions = canDestroy || canUpdate;
       annotationActions = canDoAnnotationActions ? (
         <div>
-          <IconButton
+          <ButtonMain
+            theme="text"
+            size="small"
+            variant="contained"
+            iconCenter={<MoreVertIcon />}
             className="menu-button"
             onClick={this.handleOpenMenu}
-          >
-            <MoreHoriz />
-          </IconButton>
+          />
           <Menu
             id="customized-menu"
             anchorEl={this.state.anchorEl}

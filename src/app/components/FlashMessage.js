@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import IconClose from '@material-ui/icons/Close';
-import ErrorIcon from '@material-ui/icons/Error';
 import IconButton from '@material-ui/core/IconButton';
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import reactStringReplace from 'react-string-replace';
+import IconClose from '../icons/clear.svg';
+import ErrorIcon from '../icons/error.svg';
 import Message from './Message';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';

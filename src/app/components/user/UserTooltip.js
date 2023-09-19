@@ -4,12 +4,12 @@ import Relay from 'react-relay/classic';
 import { FormattedHTMLMessage, FormattedDate } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from '@material-ui/core/Avatar';
-import LaunchIcon from '@material-ui/icons/Launch';
 import styled from 'styled-components';
 import '../../styles/css/tooltip.css';
 import { LocalizedRole } from './UserUtil';
 import ParsedText from '../ParsedText';
 import SocialIcon from '../SocialIcon';
+import LaunchIcon from '../../icons/open_in_new.svg';
 import { truncateLength } from '../../helpers';
 import { units } from '../../styles/js/shared';
 import {

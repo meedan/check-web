@@ -2,8 +2,8 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import MdInfoOutlined from '@material-ui/icons/InfoOutlined';
 import styled from 'styled-components';
+import MdInfoOutlined from '../../icons/info.svg';
 import ResendConfirmationMutation from '../../relay/mutations/ResendConfirmationMutation';
 import SpecialBlueCard from '../layout/SpecialBlueCard';
 import {
