@@ -15,12 +15,12 @@ import {
   TableContainer,
   TableSortLabel,
 } from '@material-ui/core';
-import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import NextIcon from '@material-ui/icons/KeyboardArrowRight';
-import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
+import DynamicFeedIcon from '../../icons/dynamic_feed.svg';
+import KeyboardArrowUpIcon from '../../icons/chevron_up.svg';
+import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
+import NextIcon from '../../icons/chevron_right.svg';
+import PrevIcon from '../../icons/chevron_left.svg';
 import FeedFilters from './FeedFilters';
 import ListHeader from '../layout/ListHeader';
 import TitleCell from '../search/SearchResultsTable/TitleCell';

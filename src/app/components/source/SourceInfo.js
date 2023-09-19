@@ -6,7 +6,6 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -16,9 +15,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import CancelIcon from '@material-ui/icons/Cancel';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
+import AddIcon from '../../icons/add.svg';
+import CancelIcon from '../../icons/clear.svg';
+import KeyboardArrowDown from '../../icons/chevron_down.svg';
 import SetSourceDialog from '../media/SetSourceDialog';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
@@ -587,7 +587,7 @@ function SourceInfo({
                   className="source__add-link-button"
                   onClick={() => { setSecondaryUrl({ url: '', error: '', addNewLink: true }); }}
                   disabled={Boolean(secondaryUrl.addNewLink || !mainAccount || primaryUrl.error)}
-                  startIcon={<AddCircleOutlineIcon />}
+                  startIcon={<AddIcon />}
                 >
                   <FormattedMessage
                     id="sourceInfo.addLink"
