@@ -8,6 +8,7 @@ const globalStrings = defineMessages({
   edit: {
     id: 'global.edit',
     defaultMessage: 'Edit',
+    description: 'Generic label for a button or link for a user to press when they wish to edit content or functionality',
   },
   cancel: {
     id: 'global.cancel',
@@ -25,6 +26,7 @@ const globalStrings = defineMessages({
   delete: {
     id: 'global.delete',
     defaultMessage: 'Delete',
+    description: 'Generic label for a button or link for a user to press when they wish to delete content or remove functionality',
   },
   ok: {
     id: 'global.ok',

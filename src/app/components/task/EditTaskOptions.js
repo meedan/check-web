@@ -8,12 +8,10 @@ import {
   IconButton,
   TextField,
 } from '@material-ui/core';
-import {
-  Add as AddIcon,
-  Clear as ClearIcon,
-  CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
-  RadioButtonUnchecked as RadioButtonUncheckedIcon,
-} from '@material-ui/icons';
+import AddIcon from '../../icons/add.svg';
+import CheckBoxOutlineBlankIcon from '../../icons/check_box.svg';
+import ClearIcon from '../../icons/clear.svg';
+import RadioButtonUncheckedIcon from '../../icons/radio_button_checked.svg';
 import { Row } from '../../styles/js/shared';
 
 const messages = defineMessages({

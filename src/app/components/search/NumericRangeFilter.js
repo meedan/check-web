@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import ErrorOutlineIcon from '../../icons/error_outline.svg';
 import RemoveableWrapper from './RemoveableWrapper';
 import NumberIcon from '../../icons/numbers.svg';
 
