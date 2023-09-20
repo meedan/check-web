@@ -9,14 +9,13 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import { FormattedGlobalMessage } from '../MappedMessage';
@@ -29,6 +28,7 @@ import UserTooltip from '../user/UserTooltip';
 import { languageLabel } from '../../LanguageRegistry';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
+import MoreVertIcon from '../../icons/more_vert.svg';
 import {
   getErrorMessage,
   getStatus,
@@ -332,12 +332,14 @@ class Annotation extends Component {
             />
           }
           >
-            <IconButton
+            <ButtonMain
+              theme="text"
+              size="small"
+              variant="contained"
+              iconCenter={<MoreVertIcon />}
               className="menu-button"
               onClick={this.handleOpenMenu}
-            >
-              <MoreHoriz />
-            </IconButton>
+            />
           </Tooltip>
           <Menu
             id="customized-menu"

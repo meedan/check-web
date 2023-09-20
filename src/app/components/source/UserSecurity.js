@@ -17,7 +17,6 @@ import CheckContext from '../../CheckContext';
 import { getErrorMessage, getErrorObjects } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import globalStrings from '../../globalStrings';
 import {
   ContentColumn,
   units,
@@ -43,6 +42,14 @@ const messages = defineMessages({
     id: 'UserSecurity.verifyError',
     defaultMessage: 'Incorrect validation code',
     description: 'Error message if the login security validation code provided by the user is incorrect',
+  },
+  unknownError: {
+    id: 'global.unknownError',
+    defaultMessage: 'Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists.',
+    description: 'Message displayed in error notification when an operation fails unexpectedly',
+    values: {
+      supportEmail: stringHelper('SUPPORT_EMAIL'),
+    },
   },
 });
 
@@ -75,7 +82,7 @@ class UserSecurity extends Component {
   }
 
   fail = (transaction) => {
-    const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+    const fallbackMessage = this.props.intl.formatMessage(messages.unknownError);
     const message = getErrorMessage(transaction, fallbackMessage);
     this.props.setFlashMessage(message, 'error');
   };

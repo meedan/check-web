@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import TelegramIcon from '@material-ui/icons/Telegram';
 import styles from './TiplineRequest.module.css';
 import TimeBefore from '../TimeBefore';
 import RequestSubscription from '../feed/RequestSubscription';
+import FacebookIcon from '../../icons/facebook.svg';
+import TwitterIcon from '../../icons/twitter.svg';
+import TelegramIcon from '../../icons/telegram.svg';
 import ViberIcon from '../../icons/viber.svg';
 import LineIcon from '../../icons/line.svg';
-import FactCheckIcon from '../../icons/fact_check.svg';
+import WhatsAppIcon from '../../icons/whatsapp.svg';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -30,22 +29,12 @@ const messages = defineMessages({
 
 const SmoochIcon = ({ name }) => {
   switch (name) {
-  case 'whatsapp':
-    return (
-      <WhatsAppIcon
-        style={{
-          backgroundColor: 'var(--whatsappGreen)',
-          color: 'var(--otherWhite)',
-          borderRadius: 4,
-          padding: 2,
-        }}
-      />
-    );
+  case 'whatsapp': return <WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />;
   case 'messenger': return <FacebookIcon style={{ color: 'var(--facebookBlue)' }} />;
   case 'twitter': return <TwitterIcon style={{ color: 'var(--twitterBlue)' }} />;
   case 'telegram': return <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />;
-  case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '24px' }} />;
-  case 'line': return <LineIcon style={{ color: 'var(--lineGreen)', fontSize: '24px' }} />;
+  case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)' }} />;
+  case 'line': return <LineIcon style={{ color: 'var(--lineGreen)' }} />;
   default: return null;
   }
 };

@@ -20,6 +20,11 @@
     "defaultMessage": "Incorrect validation code"
   },
   {
+    "id": "global.unknownError",
+    "description": "Message displayed in error notification when an operation fails unexpectedly",
+    "defaultMessage": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
     "id": "userSecurity.notification",
     "description": "Section header title for security notification settings",
     "defaultMessage": "Notification"

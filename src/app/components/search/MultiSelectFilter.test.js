@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '../../icons/clear.svg';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import MultiSelectFilter from './MultiSelectFilter';
 

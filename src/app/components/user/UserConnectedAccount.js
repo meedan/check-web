@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -18,9 +17,9 @@ class UserConnectedAccount extends Component {
   static renderLabel(userAction) {
     switch (userAction) {
     case 'connect':
-      return <FormattedMessage id="UserConnectedAccount.connectButton" defaultMessage="Connect" />;
+      return <FormattedMessage id="UserConnectedAccount.connectButton" defaultMessage="Connect" description="Button label for connecting an account" />;
     case 'disconnect':
-      return <FormattedMessage id="UserConnectedAccount.disconnectButton" defaultMessage="Disconnect" />;
+      return <FormattedMessage id="UserConnectedAccount.disconnectButton" defaultMessage="Disconnect" description="Button label for disconnecting an account" />;
     default:
       return null;
     }
@@ -76,10 +75,12 @@ class UserConnectedAccount extends Component {
       title: <FormattedMessage
         id="UserConnectedAccount.disconnectAccountTitle"
         defaultMessage="Disconnect account"
+        description="Dialog title for disconnecting an account"
       />,
       blurb: <FormattedMessage
         id="UserConnectedAccount.disconnectAccountConfirmationText"
         defaultMessage="Are you sure? This will disconnect login account."
+        description="Confirmation to ensure the user knows they are disconnecting an account"
       />,
     };
 
@@ -124,7 +125,7 @@ class UserConnectedAccount extends Component {
               onClick={this.handleUserClick.bind(this, 'connect')}
               className="team-connect-account-button--disconnect"
             >
-              <FormattedMessage id="UserConnectedAccount.addAnother" defaultMessage="Add another account" />
+              <FormattedMessage id="UserConnectedAccount.addAnother" defaultMessage="Add another account" description="Button label for the user to connect another account" />
             </Button>
           </FlexRow>
           : null}

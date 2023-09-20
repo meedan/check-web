@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
@@ -140,7 +139,7 @@ class Login extends React.Component {
       request('post', 'users', failureCallback, successCallback, params);
     } else {
       this.setState({
-        message: <FormattedMessage id="login.tosMissing" defaultMessage="You must agree to the Terms of Service and Privacy Policy" />,
+        message: <FormattedMessage id="login.tosMissing" defaultMessage="You must agree to the Terms of Service and Privacy Policy" description="Error message to tell the user they must agree to the app terms of service before continuing" />,
       });
       window.scroll(0, 0);
     }
@@ -177,10 +176,12 @@ class Login extends React.Component {
                 <FormattedMessage
                   id="login.title"
                   defaultMessage="Sign in"
+                  description="Header title for the sign in page"
                 /> :
                 <FormattedMessage
                   id="login.registerTitle"
                   defaultMessage="Register"
+                  description="Header title for the new user registration page"
                 />}
             </StyledSubHeader>
             {this.state.type === 'login' ?
@@ -194,6 +195,7 @@ class Login extends React.Component {
                 <FormattedMessage
                   id="login.withGoogle"
                   defaultMessage="Sign in with Google"
+                  description="Button label for the user to sign in to the app using their google credentials"
                 />
               </Button> : null
             }
@@ -206,6 +208,7 @@ class Login extends React.Component {
                   <FormattedMessage
                     id="login.emailLogin"
                     defaultMessage="Or, sign in with your email"
+                    description="Button label for the user to sign in to the app using their email address"
                   />
                 </Grid>
                 <Grid item xs>
@@ -234,7 +237,7 @@ class Login extends React.Component {
                       className="login__name-input"
                       inputRef={(i) => { this.inputName = i; }}
                       onChange={this.handleFieldChange.bind(this)}
-                      label={<FormattedMessage id="login.nameLabel" defaultMessage="Name" />}
+                      label={<FormattedMessage id="login.nameLabel" defaultMessage="Name" description="Text field label for the user's name" />}
                     />
                   </div>}
 
@@ -250,7 +253,7 @@ class Login extends React.Component {
                     inputRef={(i) => { this.inputEmail = i; }}
                     onChange={this.handleFieldChange.bind(this)}
                     label={
-                      <FormattedMessage id="login.emailLabel" defaultMessage="Email" />
+                      <FormattedMessage id="login.emailLabel" defaultMessage="Email" description="Text field label for the user's email address" />
                     }
                     autoFocus
                   />
@@ -267,11 +270,12 @@ class Login extends React.Component {
                     className="login__password-input"
                     onChange={this.handleFieldChange.bind(this)}
                     label={this.state.type === 'login' ? (
-                      <FormattedMessage id="login.passwordInputHint" defaultMessage="Password" />
+                      <FormattedMessage id="login.passwordInputHint" defaultMessage="Password" description="Text field label for the user's password" />
                     ) : (
                       <FormattedMessage
                         id="login.passwordLabel"
                         defaultMessage="Password (minimum 8 characters)"
+                        description="Text field description for password input telling the user it much be at least 8 characters long when signing up"
                       />
                     )}
                   />
@@ -291,6 +295,7 @@ class Login extends React.Component {
                         <FormattedMessage
                           id="login.otpAttemptLabel"
                           defaultMessage="Two-Factor Authentication Token"
+                          description="Text field label for the user's two-factor authentication token"
                         />
                       }
                     />
@@ -312,6 +317,7 @@ class Login extends React.Component {
                         <FormattedMessage
                           id="login.passwordConfirmLabel"
                           defaultMessage="Password confirmation"
+                          description="Text field label for the to confirm their password"
                         />
                       }
                     />
@@ -334,6 +340,7 @@ class Login extends React.Component {
                           <FormattedMessage
                             id="loginEmail.lostPassword"
                             defaultMessage="Forgot your password?"
+                            description="Link for the user to initiate a password reset if they do not know it"
                           />
                         </Button>
                       </Link>
@@ -365,7 +372,8 @@ class Login extends React.Component {
                   <Typography component="div" align="center">
                     <FormattedMessage
                       id="login.newAccount"
-                      defaultMessage="Don't have an account ?"
+                      defaultMessage="Don't have an account?"
+                      description="Description to help the user sign up instead of logging in"
                     />
                     <Button
                       color="primary"
@@ -383,7 +391,8 @@ class Login extends React.Component {
                   <Typography component="div" align="center">
                     <FormattedMessage
                       id="login.alreadyHasAccount"
-                      defaultMessage="Already have an account ?"
+                      defaultMessage="Already have an account?"
+                      description="Description to help the user login instead of signing up"
                     />
                     <Button
                       color="primary"

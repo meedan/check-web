@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
 import cx from 'classnames/bind';
 import Alert from '../../cds/alerts-and-prompts/Alert';
@@ -12,13 +12,23 @@ import UserUtil from '../../user/UserUtil';
 import SlackConfigDialog from './SlackConfigDialog';
 import CheckContext from '../../../CheckContext';
 import UpdateTeamMutation from '../../../relay/mutations/UpdateTeamMutation';
-import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
 import SettingsIcon from '../../../icons/settings.svg';
 import SlackColorIcon from '../../../icons/slack_color.svg';
 import styles from '../Integrations.module.css';
 import settingsStyles from '../Settings.module.css';
+
+const messages = defineMessages({
+  unknownError: {
+    id: 'global.unknownError',
+    defaultMessage: 'Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists.',
+    description: 'Message displayed in error notification when an operation fails unexpectedly',
+    values: {
+      supportEmail: stringHelper('SUPPORT_EMAIL'),
+    },
+  },
+});
 
 class SlackConfig extends React.Component {
   constructor(props) {
@@ -57,7 +67,7 @@ class SlackConfig extends React.Component {
       : Boolean(parseInt(this.props.team.get_slack_notifications_enabled, 10));
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = this.props.intl.formatMessage(messages.unknownError);
       const message = getErrorMessage(transaction, fallbackMessage);
       return this.setState({ message });
     };

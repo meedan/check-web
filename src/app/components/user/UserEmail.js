@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
@@ -12,7 +11,6 @@ import ConfirmEmail from './ConfirmEmail';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import globalStrings from '../../globalStrings';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import { units } from '../../styles/js/shared';
 
@@ -20,10 +18,20 @@ const messages = defineMessages({
   title: {
     id: 'userEmail.title',
     defaultMessage: 'Add your email',
+    description: 'Title for the user adding their email address',
   },
   emailHint: {
     id: 'userEmail.emailInputHint',
     defaultMessage: 'email@example.com',
+    description: 'Text field input help text about the format of an email address',
+  },
+  unknownError: {
+    id: 'global.unknownError',
+    defaultMessage: 'Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists.',
+    description: 'Message displayed in error notification when an operation fails unexpectedly',
+    values: {
+      supportEmail: stringHelper('SUPPORT_EMAIL'),
+    },
   },
 });
 
@@ -50,7 +58,7 @@ class UserEmail extends React.Component {
     };
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = this.props.intl.formatMessage(messages.unknownError);
       const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message });
     };
@@ -82,9 +90,8 @@ class UserEmail extends React.Component {
           <CardContent>
             <FormattedMessage
               id="userEmail.text"
-              defaultMessage={
-                'To send you notifications, we need your email address. If you\'d like to receive notifications, please enter your email address. Otherwise, click "Skip"'
-              }
+              defaultMessage="To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click 'Skip'"
+              description="Message to the user on how to receive notifications to their email address"
             />
             <div>
               <TextField
@@ -93,6 +100,7 @@ class UserEmail extends React.Component {
                   <FormattedMessage
                     id="userEmail.emailInputLabel"
                     defaultMessage="Email"
+                    description="Text field label for the email address field"
                   />
                 }
                 placeholder={
@@ -107,10 +115,10 @@ class UserEmail extends React.Component {
           </CardContent>
           <CardActions>
             <Button onClick={this.handleClickSkip}>
-              <FormattedMessage id="userEmail.skip" defaultMessage="Skip" />
+              <FormattedMessage id="userEmail.skip" defaultMessage="Skip" description="Button label for skipping step" />
             </Button>
             <Button onClick={this.handleSubmit} color="primary">
-              <FormattedMessage id="userEmail.submit" defaultMessage="Submit" />
+              <FormattedMessage id="userEmail.submit" defaultMessage="Submit" description="Button label to submit the email form" />
             </Button>
           </CardActions>
         </Card>

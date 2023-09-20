@@ -1,10 +1,9 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateMediaDialog from './CreateMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
@@ -28,6 +27,7 @@ class CreateProjectMedia extends React.Component {
       <FormattedMessage
         id="createMedia.error"
         defaultMessage="Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists."
+        description="Error message for user to know how to reach out for support"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
@@ -109,11 +109,20 @@ class CreateProjectMedia extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Button id="create-media__add-item" onClick={this.handleOpenDialog} color="primary" variant="contained">
-          <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" />
-        </Button>
+        <ButtonMain
+          onClick={this.handleOpenDialog}
+          theme="brand"
+          size="default"
+          variant="contained"
+          label={
+            <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" description="Button label for adding an item" />
+          }
+          buttonProps={{
+            id: 'create-media__add-item',
+          }}
+        />
         <CreateMediaDialog
-          title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add item" />}
+          title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add item" description="Dialog title for adding a new item" />}
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
           onSubmit={this.handleSubmit}

@@ -4,20 +4,19 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import ShortTextIcon from '@material-ui/icons/ShortText';
-import LocationIcon from '@material-ui/icons/LocationOn';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import IconFileUpload from '@material-ui/icons/CloudUpload';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
-import NoteAltOutlinedIcon from '../../icons/note_alt.svg';
+import CheckBoxIcon from '../../icons/check_box.svg';
+import DateRangeIcon from '../../icons/calendar_month.svg';
+import ErrorOutlineIcon from '../../icons/error_outline.svg';
+import IconFileUpload from '../../icons/file_upload.svg';
 import NumberIcon from '../../icons/numbers.svg';
+import LocationIcon from '../../icons/location.svg';
+import NoteAltOutlinedIcon from '../../icons/note_alt.svg';
+import RadioButtonCheckedIcon from '../../icons/radio_button_checked.svg';
+import ShortTextIcon from '../../icons/notes.svg';
 
 const messages = defineMessages({
   empty: {
@@ -168,9 +167,9 @@ const CustomFiltersManagerComponent = ({
           { errorMessage ?
             <Box alignItems="center" color="red" display="flex">
               <Box pr={1}><ErrorOutlineIcon /></Box>
-              <Typography component="span" variant="body1">
+              <span className="typography-body1">
                 { errorMessage }
-              </Typography>
+              </span>
             </Box> : null }
         </Box>
       );

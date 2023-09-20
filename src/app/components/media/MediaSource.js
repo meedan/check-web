@@ -3,12 +3,14 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
 import ErrorBoundary from '../error/ErrorBoundary';
 import SourceInfo from '../source/SourceInfo';
 import CreateMediaSource from './CreateMediaSource';
 import { can } from '../Can';
+import styles from './media.module.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -115,7 +117,7 @@ const MediaSourceComponent = ({ projectMedia, about }) => {
 
   return (
     <React.Fragment>
-      <div id="media__source" className={classes.root}>
+      <div id="media__source" className={cx(classes.root, styles['media-sources'], styles['media-item-content'])}>
         { action === 'view' && source !== null ?
           <SourceInfo
             key={source ? source.id : 0}

@@ -5,6 +5,11 @@
     "defaultMessage": "Please enter a valid URL"
   },
   {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
     "id": "createMediaSource.createSource",
     "description": "Label for button to create a new source",
     "defaultMessage": "Create source"

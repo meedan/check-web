@@ -4,9 +4,7 @@ import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import RssFeedIcon from '@material-ui/icons/RssFeed';
 import styles from './SaveFeed.module.css';
 import SelectListQueryRenderer from './SelectList';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -25,6 +23,7 @@ import TagList from '../cds/menus-lists-dialogs/TagList';
 import SchoolIcon from '../../icons/school.svg';
 import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import OpenSourceIcon from '../../icons/open_source.svg';
+import RssFeedIcon from '../../icons/rss_feed.svg';
 
 const LicenseOption = ({
   icon,
@@ -428,13 +427,13 @@ const SaveFeed = (props) => {
         </div>
       </div>
       <div className={styles.saveFeedContentNarrow}>
-        <Button
-          color="primary"
+        <ButtonMain
+          theme="brand"
+          size="default"
           variant="contained"
           onClick={handleConfirmOrSave}
           disabled={disableSaveButton}
-        >
-          { feed.id ?
+          label={feed.id ?
             <FormattedMessage
               id="saveFeed.updateSaveButton"
               defaultMessage="Save"
@@ -446,7 +445,7 @@ const SaveFeed = (props) => {
               description="Label to the save button of the shared feed creation form"
             />
           }
-        </Button>
+        />
 
         { feed.id ?
           <div className={styles.saveFeedMetadata}>

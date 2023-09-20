@@ -11,7 +11,6 @@ import LinkifyIt from 'linkify-it';
 import SourcePicture from './SourcePicture';
 import Message from '../Message';
 import UploadFile from '../UploadFile';
-import globalStrings from '../../globalStrings';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
@@ -476,7 +475,7 @@ class UserInfoEdit extends React.Component {
                   onClick={this.handleEditProfileImg.bind(this)}
                   color="primary"
                 >
-                  <FormattedMessage {...globalStrings.edit} />
+                  <FormattedMessage id="global.edit" defaultMessage="Edit" description="Generic label for a button or link for a user to press when they wish to edit content or functionality" />
                 </Button>
               </StyledAvatarEditButton>
               : null}
@@ -559,7 +558,7 @@ class UserInfoEdit extends React.Component {
                   className="source__edit-cancel-button"
                   onClick={handleLeaveEditMode}
                 >
-                  <FormattedMessage {...globalStrings.cancel} />
+                  <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
                 </Button>
                 <Button
                   variant="contained"
@@ -567,7 +566,7 @@ class UserInfoEdit extends React.Component {
                   color="primary"
                   onClick={this.handleSubmit.bind(this)}
                 >
-                  <FormattedMessage {...globalStrings.save} />
+                  <FormattedMessage id="global.save" defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" />
                 </Button>
               </div>
             </StyledButtonGroup>

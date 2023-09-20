@@ -10,7 +10,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import CancelOutlinedIcon from '../../icons/cancel.svg';
 import { ImportButton } from './ImportDialog';
 import RequestCards from './RequestCards';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';

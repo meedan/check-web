@@ -31,7 +31,7 @@ const StyledFormControls = styled.div`
   align-items: center;
   height: 63px;
   position: sticky;
-  top: 0px;
+  top: -16px;
   z-index: 1001;
   background-color: var(--otherWhite);
   box-shadow: 0 0 8px 4px rgba(170, 170, 170, 0.25);
