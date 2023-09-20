@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -74,6 +73,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                 <FormattedMessage
                   id="smoochBotIntegrations.phoneNumber"
                   defaultMessage="Connected phone number: {link}"
+                  description="Label showing the whatsapp phone number connected to this bot"
                   values={{
                     link: (
                       <a href={`https://web.whatsapp.com/send?phone=${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9+]/g, '')}`} target="_blank" rel="noopener noreferrer">
@@ -219,7 +219,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           deprecationNotice={
             <FormattedMessage
               id="smoochBotIntegrations.twitterDisabled"
-              defaultMessage="The integration with Twitter is currently not available, following changes to the Twitter API on April 21, 2023. "
+              defaultMessage="The integration with Twitter is currently not available, following changes to the Twitter API on April 21, 2023."
               description="Disclaimer displayed on Twitter tipline settings page."
             />
           }
@@ -239,6 +239,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
               <FormattedMessage
                 id="smoochBotIntegrations.page"
                 defaultMessage="Connected page: {link}"
+                description="Label for the connected facebook page for this bot"
                 values={{
                   link: (
                     <a href={`https://m.me/${enabledIntegrations.messenger.pageId}`} target="_blank" rel="noopener noreferrer">
@@ -261,7 +262,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           params={[
             {
               key: 'token',
-              label: <FormattedMessage id="smoochBotIntegrations.telegramBotToken" defaultMessage="Telegram bot token" />,
+              label: <FormattedMessage id="smoochBotIntegrations.telegramBotToken" defaultMessage="Telegram bot token" description="Output of the telegram bot token" />,
             },
           ]}
           info={
@@ -269,6 +270,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
               <FormattedMessage
                 id="smoochBotIntegrations.telegramBot"
                 defaultMessage="Connected Telegram bot: {link}"
+                description="Label for the connected Telegram link for this bot"
                 values={{
                   link: (
                     <a href={`https://t.me/${enabledIntegrations.telegram.username}`} target="_blank" rel="noopener noreferrer">
@@ -291,7 +293,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           params={[
             {
               key: 'token',
-              label: <FormattedMessage id="smoochBotIntegrations.viberPublicAccountToken" defaultMessage="Viber public account token" />,
+              label: <FormattedMessage id="smoochBotIntegrations.viberPublicAccountToken" defaultMessage="Viber public account token" description="Output of the viber bot token" />,
             },
           ]}
           info={
@@ -299,6 +301,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
               <FormattedMessage
                 id="smoochBotIntegrations.viberPublicAccount"
                 defaultMessage="Connected Viber public account: {name}"
+                description="Name of the connected viber account for this bot"
                 values={{
                   name: enabledIntegrations.viber.uri,
                 }}
@@ -317,11 +320,11 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           params={[
             {
               key: 'channelAccessToken',
-              label: <FormattedMessage id="smoochBotIntegrations.lineChannelAccessToken" defaultMessage="LINE channel access token" />,
+              label: <FormattedMessage id="smoochBotIntegrations.lineChannelAccessToken" defaultMessage="LINE channel access token" description="Output of the LINE bot token" />,
             },
             {
               key: 'channelSecret',
-              label: <FormattedMessage id="smoochBotIntegrations.lineChannelSecret" defaultMessage="LINE channel secret" />,
+              label: <FormattedMessage id="smoochBotIntegrations.lineChannelSecret" defaultMessage="LINE channel secret" description="Output of the LINE channel secret paired with the token" />,
             },
           ]}
           info={
@@ -331,6 +334,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   <FormattedMessage
                     id="smoochBotIntegrations.lineWebhook"
                     defaultMessage="Copy this webhook URL to your LINE settings"
+                    description="Textfield label for the LINE webhook URL"
                   />
                 }
                 variant="outlined"

@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -70,6 +70,7 @@ const ChangeUserRole = ({
           <FormattedMessage
             id="changeUserRole.dialogTitle"
             defaultMessage="Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
+            description="Confirmation message to check if the user is sure they want to alter a user role"
             values={{
               userLabel: teamUser.user.name || teamUser.user.email,
               currentRole: teamUser.role,
@@ -83,6 +84,7 @@ const ChangeUserRole = ({
               <FormattedMessage
                 id="changeUserRole.changingTo"
                 defaultMessage="You will be changing {userLabel}'s role to {newRole}."
+                description="Description confirmation of what the current user role is, and what it will be changed to"
                 values={{
                   userLabel: teamUser.user.name || teamUser.user.email,
                   newRole,
@@ -93,6 +95,7 @@ const ChangeUserRole = ({
               <FormattedMessage
                 id="changeUserRole.learnMore"
                 defaultMessage="To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
+                description="Help link to learn about roles and permissions for this application"
                 values={{
                   userLabel: teamUser.user.name || teamUser.user.email,
                   newRole,
@@ -101,6 +104,7 @@ const ChangeUserRole = ({
                       <FormattedMessage
                         id="changeUserRole.helpCenter"
                         defaultMessage="Help Center"
+                        description="Link text to go to the help website"
                       />
                     </ExternalLink>
                   ),
@@ -115,6 +119,7 @@ const ChangeUserRole = ({
           <FormattedMessage
             id="changeUserRole.proceedLabel"
             defaultMessage="Change role to {newRole}"
+            description="Dialog continuation label for altering a user role"
             values={{ newRole }}
           />
         }

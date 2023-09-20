@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -163,6 +162,7 @@ const SmoochBotMenuEditor = (props) => {
         <FormattedMessage
           id="smoochBotMenuEditor.scenario"
           defaultMessage="Scenario"
+          description="Button label for the menu editor scenario"
         />
       </Button>
     </React.Fragment>
