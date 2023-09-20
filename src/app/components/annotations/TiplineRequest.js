@@ -5,10 +5,12 @@ import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import TelegramIcon from '@material-ui/icons/Telegram';
+import styles from './TiplineRequest.module.css';
 import TimeBefore from '../TimeBefore';
 import RequestSubscription from '../feed/RequestSubscription';
 import ViberIcon from '../../icons/viber.svg';
 import LineIcon from '../../icons/line.svg';
+import FactCheckIcon from '../../icons/fact_check.svg';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -16,6 +18,7 @@ import {
 } from '../../helpers';
 import Request from '../cds/requests-annotations/Request';
 import { units } from '../../styles/js/shared';
+import RequestReceipt from '../cds/requests-annotations/RequestReceipt';
 
 const messages = defineMessages({
   smoochNoMessage: {
@@ -97,14 +100,13 @@ const TiplineRequest = ({
   const smoochRequestLanguage = activity.smooch_user_request_language;
   const { locale, formatMessage } = intl;
 
-  const details = objectValue.name === 'deleted' ? [(<FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" />)] : [emojify(objectValue.name)];
+  const details = objectValue.name === 'deleted' ? [(<FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" />)] : [<strong>{emojify(objectValue.name)}</strong>];
   if (smoochExternalId && smoochExternalId !== 'deleted') {
-    details.push(smoochExternalId);
+    details.push(<strong>{smoochExternalId}</strong>);
   }
   if (smoochRequestLanguage) {
     details.push(languageName(smoochRequestLanguage));
   }
-  details.push(<TimeBefore date={updatedAt} />);
   if (messageType !== 'telegram' && smoochSlackUrl) {
     details.push((
       <a
@@ -166,15 +168,24 @@ const TiplineRequest = ({
   }
 
   return (
-    <Request
-      details={details}
-      text={messageText ? (
-        parseText(messageText, projectMedia, activity)
-      ) : (
-        formatMessage(messages.smoochNoMessage)
-      )}
-      icon={<SmoochIcon name={messageType} />}
-    />
+    <div>
+      <Request
+        details={details}
+        time={<TimeBefore date={updatedAt} />}
+        text={messageText ? (
+          parseText(messageText, projectMedia, activity)
+        ) : (
+          formatMessage(messages.smoochNoMessage)
+        )}
+        icon={<SmoochIcon name={messageType} />}
+        receipt={
+          <RequestReceipt
+            icon={<FactCheckIcon className={styles.icon} />}
+            label="Fact-check delivered 1h ago"
+          />
+        }
+      />
+    </div>
   );
 };
 

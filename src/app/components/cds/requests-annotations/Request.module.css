@@ -1,0 +1,7 @@
+.request-content {
+  background-color: var(--grayBackground);
+  border-radius: 8px;
+  gap: 8px;
+  padding: 12px;
+  width: 100%;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import styles from './Request.module.css';
 import ParsedText from '../../ParsedText';
 import BulletSeparator from '../../layout/BulletSeparator';
 
@@ -18,8 +19,10 @@ const Request = ({
   icon,
   details,
   text,
+  time,
   fileUrl,
   mediaTitle,
+  receipt,
 }) => {
   const classes = useStyles();
 
@@ -32,9 +35,11 @@ const Request = ({
   return (
     <div className={[classes.root, 'request-card'].join(' ')}>
       <BulletSeparator icon={icon} details={details} />
-      <div>
+      {time}
+      <div className={styles['request-content']}>
         <ParsedText text={preParsedText} fileUrlName={mediaTitle} />
       </div>
+      {receipt}
     </div>
   );
 };

@@ -1,0 +1,4 @@
+.icon {
+  color: var(--validationMain);
+  font-size: var(--iconSizeSmall);
+}
