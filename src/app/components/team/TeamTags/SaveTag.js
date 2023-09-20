@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -223,10 +222,12 @@ const SaveTag = ({
           <FormattedMessage
             id="saveTag.titleEdit"
             defaultMessage="Edit tag"
+            description="Dialog title when editing a tag"
           /> :
           <FormattedMessage
             id="saveTag.titleCreate"
             defaultMessage="Create new tag"
+            description="Dialog title when creating a new tag"
           />
       }
       body={(
@@ -234,13 +235,13 @@ const SaveTag = ({
           <TextField
             id="team-tags__name-input"
             defaultValue={text}
-            label={<FormattedMessage id="saveTag.name" defaultMessage="Name" />}
+            label={<FormattedMessage id="saveTag.name" defaultMessage="Name" description="Text field label for the input name of tag" />}
             onBlur={(e) => { setText(e.target.value); }}
             variant="outlined"
             fullWidth
           />
           <Typography variant="body1" className={classes.saveTagRulesTitle}>
-            <FormattedMessage id="saveTag.rule" defaultMessage="Automatically tag items matching the following conditions:" />
+            <FormattedMessage id="saveTag.rule" defaultMessage="Automatically tag items matching the following conditions:" description="Help text about automatically matching tags to a rule" />
           </Typography>
           <RuleBody
             noMargin
@@ -258,6 +259,7 @@ const SaveTag = ({
         <FormattedMessage
           id="saveTag.save"
           defaultMessage="Save tag"
+          description="Button label to continue saving a new tag via a dialog message"
         />
       }
       onCancel={onCancel}

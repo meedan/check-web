@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
@@ -63,10 +62,10 @@ const AnnotationFilterNumber = ({
     <Box display="flex" alignItems="center">
       <Box px={1}>
         <Typography component="span" variant="body1">
-          <FormattedMessage id="numericRangeFilter.between" defaultMessage="between" />
+          <FormattedMessage id="numericRangeFilter.between" defaultMessage="between" description="Filter operator denoting user is filtering by numbers between two values" />
         </Typography>
       </Box>
-      <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number">
+      <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">
         { placeholder => (
           <TextField
             classes={{ root: classes.root }}
@@ -83,10 +82,10 @@ const AnnotationFilterNumber = ({
       </FormattedMessage>
       <Box px={1}>
         <Typography component="span" variant="body1">
-          <FormattedMessage id="numericRangeFilter.and" defaultMessage="and" />
+          <FormattedMessage id="numericRangeFilter.and" defaultMessage="and" description="Logical operator AND statement" />
         </Typography>
       </Box>
-      <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number">
+      <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">
         { placeholder => (
           <TextField
             classes={{ root: classes.root }}

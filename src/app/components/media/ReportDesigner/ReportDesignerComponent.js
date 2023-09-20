@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
@@ -50,6 +49,7 @@ const ReportDesignerComponent = (props) => {
       const message = (<FormattedMessage
         id="reportDesigner.error"
         defaultMessage="Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
+        description="Message when an error is returned and how to reach support via email address"
         values={{
           supportEmail: stringHelper('SUPPORT_EMAIL'),
         }}
@@ -208,6 +208,7 @@ const ReportDesignerComponent = (props) => {
               <FormattedMessage
                 id="reportDesigner.title"
                 defaultMessage="Design your report"
+                description="Section title for inputs to design the report"
               />
               <ButtonMain
                 variant="text"

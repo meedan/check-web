@@ -6,14 +6,17 @@
   },
   {
     "id": "numericRangeFilter.between",
+    "description": "Filter operator denoting user is filtering by numbers between two values",
     "defaultMessage": "between"
   },
   {
     "id": "customFiltersManager.enterNumber",
+    "description": "Placeholder text for the number input in this filter",
     "defaultMessage": "enter number"
   },
   {
     "id": "numericRangeFilter.and",
+    "description": "Logical operator AND statement",
     "defaultMessage": "and"
   }
 ]

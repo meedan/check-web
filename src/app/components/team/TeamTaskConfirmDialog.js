@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -44,8 +43,8 @@ class TeamTaskConfirmDialog extends React.Component {
     if (this.props.action === 'edit') {
       action = this.props.editLabelOrDescription ? 'editLabelOrDescription' : 'edit';
     }
-    const deleteConfirmDialogTitle = <FormattedMessage id="teamTasks.confirmDeleteMetadataTitle" defaultMessage="Are you sure you want to delete this field?" />;
-    const editConfirmDialogTitle = <FormattedMessage id="teamTasks.confirmEditMetadataTitle" defaultMessage="Are you sure you want to edit this field?" />;
+    const deleteConfirmDialogTitle = <FormattedMessage id="teamTasks.confirmDeleteMetadataTitle" defaultMessage="Are you sure you want to delete this field?" description="Delete confirmation message" />;
+    const editConfirmDialogTitle = <FormattedMessage id="teamTasks.confirmEditMetadataTitle" defaultMessage="Are you sure you want to edit this field?" description="Editing confirmation message" />;
     const confirmDialogTitle = {
       edit: editConfirmDialogTitle,
       delete: deleteConfirmDialogTitle,
@@ -92,11 +91,11 @@ class TeamTaskConfirmDialog extends React.Component {
     };
 
     const deleteAction = (
-      <FormattedMessage id="teamTasks.deleteMetadata" defaultMessage="Delete field" />
+      <FormattedMessage id="teamTasks.deleteMetadata" defaultMessage="Delete field" description="Button label to delete a field" />
     );
 
     const editAction = (
-      <FormattedMessage id="teamTasks.continueMetadata" defaultMessage="Edit field" />
+      <FormattedMessage id="teamTasks.continueMetadata" defaultMessage="Edit field" description="Button label to edit a field" />
     );
 
     return (
@@ -140,7 +139,7 @@ class TeamTaskConfirmDialog extends React.Component {
             id="confirm-dialog__cancel-action-button"
             onClick={this.handleCancel}
           >
-            <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" />
+            <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" description="Dialog box cancel button label" />
           </Button>
           <Button
             id="confirm-dialog__confirm-action-button"
