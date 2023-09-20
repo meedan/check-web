@@ -1,11 +1,9 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import util from 'util';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import globalStrings from './globalStrings';
 
 const fetchTimeout = config.timeout || 60000;
 
@@ -222,7 +220,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
               id="network.noResponse"
               defaultMessage="Couldn't connect to {app}, please make sure you're connected to the internet"
               description="Error message when the user cannot connect to the app, possibly being no internet connection detected"
-              values={{ app: <FormattedMessage {...globalStrings.appNameHuman} /> }}
+              values={{ app: <FormattedMessage id="global.appNameHuman" defaultMessage="Check" description="The name of the application" /> }}
             />
           );
         }

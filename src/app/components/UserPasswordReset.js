@@ -16,7 +16,6 @@ import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
 import ErrorBoundary from './error/ErrorBoundary';
-import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import { getErrorMessageForRelayModernProblem } from '../helpers';
 import {
@@ -112,7 +111,12 @@ const UserPasswordReset = (props) => {
     <ErrorBoundary component="UserPasswordReset">
       <PageTitle>
         <Box m={2} align="center">
-          <FormattedHTMLMessage {...globalStrings.bestViewed} />
+          <FormattedHTMLMessage
+            id="global.bestViewed"
+            defaultMessage='Best viewed with <a href="{chromedownload}">Chrome for Desktop</a>.'
+            values={{ chromedownload: 'https://www.google.com/chrome/browser/desktop/' }}
+            description="Message shown to the user when they are using an unsupported browser"
+          />
         </Box>
         <ContentColumn center className="user-password-reset__component">
           <StyledCard>

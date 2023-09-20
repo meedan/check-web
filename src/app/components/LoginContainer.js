@@ -9,7 +9,6 @@ import FooterRelay from '../relay/containers/FooterRelay';
 import Login from './Login';
 import CheckAgreeTerms from './CheckAgreeTerms';
 import PageTitle from './PageTitle';
-import globalStrings from '../globalStrings';
 import {
   FadeIn,
   ContentColumn,
@@ -22,7 +21,12 @@ const LoginContainer = props => (
         <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
 
         <Box m={2} align="center">
-          <FormattedHTMLMessage {...globalStrings.bestViewed} />
+          <FormattedHTMLMessage
+            id="global.bestViewed"
+            defaultMessage='Best viewed with <a href="{chromedownload}">Chrome for Desktop</a>.'
+            values={{ chromedownload: 'https://www.google.com/chrome/browser/desktop/' }}
+            description="Message shown to the user when they are using an unsupported browser"
+          />
         </Box>
 
         <Message message={props.message} />

@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -10,7 +10,6 @@ import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import globalStrings from '../../globalStrings';
 
 const BulkActionsAssign = ({
   onDismiss,
@@ -73,7 +72,7 @@ const BulkActionsAssign = ({
   };
 
   return (
-    <FormattedMessage id="tagMenu.search" defaultMessage="Search…">
+    <FormattedMessage id="tagMenu.search" defaultMessage="Search…" description="Placeholder text for searching tags">
       {placeholder => (
         <MultiSelector
           allowSearch
@@ -81,7 +80,7 @@ const BulkActionsAssign = ({
           selected={[]}
           options={options}
           onSubmit={handleSubmit}
-          cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+          cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
           notFoundLabel={
             <FormattedMessage
               id="bulkActionsAssign.notFound"

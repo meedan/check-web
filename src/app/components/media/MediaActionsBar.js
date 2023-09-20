@@ -18,7 +18,6 @@ import MediaActionsMenuButton from './MediaActionsMenuButton';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
-import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
@@ -68,9 +67,10 @@ class MediaActionsBarComponent extends Component {
 
   fail(transaction) {
     const fallbackMessage = (
-      // eslint-disable-next-line @calm/react-intl/missing-attribute
       <FormattedMessage
-        {...globalStrings.unknownError}
+        id="global.unknownError"
+        defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+        description="Message displayed in error notification when an operation fails unexpectedly"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
@@ -329,8 +329,8 @@ class MediaActionsBarComponent extends Component {
                         description="Checkbox label for toggling select/unselect all"
                       />
                     }
-                    cancelLabel={<FormattedMessage {...globalStrings.cancel} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
-                    submitLabel={<FormattedMessage {...globalStrings.update} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
+                    cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+                    submitLabel={<FormattedMessage id="global.update" defaultMessage="Update" description="Generic label for a button or link for a user to press when they wish to update an action" />}
                     options={options}
                     selected={selected}
                     onDismiss={this.handleCloseDialogs.bind(this)}

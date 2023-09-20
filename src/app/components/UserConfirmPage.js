@@ -11,7 +11,6 @@ import PageTitle from './PageTitle';
 import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
 import ErrorBoundary from './error/ErrorBoundary';
-import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import {
   ContentColumn,
@@ -48,7 +47,12 @@ function UserConfirmPage({ params }) {
       <Typography component="div" variant="body1" gutterBottom>
         <PageTitle>
           <Box m={2} align="center">
-            <FormattedHTMLMessage {...globalStrings.bestViewed} />
+            <FormattedHTMLMessage
+              id="global.bestViewed"
+              defaultMessage='Best viewed with <a href="{chromedownload}">Chrome for Desktop</a>.'
+              values={{ chromedownload: 'https://www.google.com/chrome/browser/desktop/' }}
+              description="Message shown to the user when they are using an unsupported browser"
+            />
           </Box>
           <ContentColumn center className="user-confirm-page__component">
             <StyledCard>
