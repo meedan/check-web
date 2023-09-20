@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -16,6 +15,7 @@ const Footer = () => (
     <FormattedMessage
       id="footer.madeBy"
       defaultMessage="Check: Verify breaking news online. Made with ✨ by {meedan}"
+      description="Tagline shown on the bottom of the sign in or registration page"
       values={{
         meedan: <a target="_blank" rel="noopener noreferrer" href="http://meedan.com">Meedan</a>,
       }}

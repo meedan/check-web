@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation } from 'react-relay/compat';
@@ -51,6 +50,7 @@ function ChangePasswordComponent({
       <FormattedMessage
         id="passwordChange.unmatchingPasswords"
         defaultMessage="Passwords didn't match"
+        description="Error message when the supplied password and confirmation of password are not the same"
       />
     ) : null;
     setPasswordConfirmation(value);
@@ -126,6 +126,7 @@ function ChangePasswordComponent({
             <FormattedMessage
               id="passwordChange.currentPassword"
               defaultMessage="Current password"
+              description="Text field label for the users current password"
             />
           }
           variant="outlined"
@@ -143,6 +144,7 @@ function ChangePasswordComponent({
             id="passwordChange.newPassword"
             defaultMessage="New password (minimum {min} characters)"
             values={{ min: passwordLength.min }}
+            description="Text field label for the users new password"
           />
         }
         variant="outlined"
@@ -158,6 +160,7 @@ function ChangePasswordComponent({
           <FormattedMessage
             id="passwordChange.confirmPassword"
             defaultMessage="Confirm password"
+            description="Text field label for the users to confirm their new password"
           />
         }
         variant="outlined"
@@ -171,7 +174,7 @@ function ChangePasswordComponent({
           color="primary"
           disabled={submitDisabled}
         >
-          <FormattedMessage id="passwordChange.changePassword" defaultMessage="Change password" />
+          <FormattedMessage id="passwordChange.changePassword" defaultMessage="Change password" description="Button label to initial password change" />
         </Button>
       </Typography>
     </div>

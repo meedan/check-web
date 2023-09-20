@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -9,7 +8,6 @@ import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import globalStrings from '../../globalStrings';
 
 const BulkActionsTag = ({
   onDismiss,
@@ -64,7 +62,7 @@ const BulkActionsTag = ({
       color="primary"
       onClick={() => handleAddNew(searchValue)}
     >
-      <FormattedMessage id="tagMenu.create" defaultMessage="+ Create this tag" />
+      <FormattedMessage id="tagMenu.create" defaultMessage="+ Create this tag" description="Button label for creating a new tag" />
     </Button>
   ) : null;
 
@@ -137,12 +135,12 @@ const BulkActionsTag = ({
   };
 
   return (
-    <FormattedMessage id="tagMenu.search" defaultMessage="Search…">
+    <FormattedMessage id="tagMenu.search" defaultMessage="Search…" description="Placeholder text for searching tags">
       {placeholder => (
         <MultiSelector
           allowSearch
           actionButton={actionButton}
-          cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+          cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
           inputPlaceholder={placeholder}
           selected={[]}
           onDismiss={onDismiss}
@@ -154,6 +152,7 @@ const BulkActionsTag = ({
             <FormattedMessage
               id="tagMenu.notFound"
               defaultMessage="No tags found"
+              description="Empty message when a search results in no tags"
             />
           }
           submitLabel={
@@ -161,7 +160,7 @@ const BulkActionsTag = ({
               id="bulkActionsTag.submitLabel"
               defaultMessage="{numItems, plural, one {Add 1 tag} other {Add # tags}}"
               values={{ numItems: selectedValue.length }}
-              description="Button for commiting the action of tagging of a number of items in bulk"
+              description="Button for committing the action of tagging of a number of items in bulk"
             />
           }
         />

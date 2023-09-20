@@ -9,7 +9,6 @@ import ParsedText from '../ParsedText';
 import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
 import { logout } from '../../redux/actions.js';
-import globalStrings from '../../globalStrings';
 import IconEdit from '../../icons/edit.svg';
 import styles from './UserInfo.module.css';
 
@@ -45,7 +44,7 @@ const UserInfo = (props) => {
                     browserHistory.push(`/check/user/${props.user.dbid}/edit`);
                   }
                 }}
-                title={props.intl.formatMessage(globalStrings.edit)}
+                title={<FormattedMessage id="global.edit" defaultMessage="Edit" description="Generic label for a button or link for a user to press when they wish to edit content or functionality" />}
               />
             </Can>
           </div>

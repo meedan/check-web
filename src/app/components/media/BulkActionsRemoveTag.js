@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -9,7 +8,6 @@ import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import globalStrings from '../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const BulkActionsRemoveTag = ({
@@ -99,7 +97,7 @@ const BulkActionsRemoveTag = ({
         {placeholder => (
           <MultiSelector
             allowSearch
-            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+            cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
             inputPlaceholder={placeholder}
             selected={[]}
             onDismiss={onDismiss}

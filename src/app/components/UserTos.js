@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
@@ -10,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import { mapGlobalMessage } from './MappedMessage';
 import UserTosForm from './UserTosForm';
 import Message from './Message';
-import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import AboutRoute from '../relay/AboutRoute';
 import RelayContainer from '../relay/RelayContainer';
@@ -31,10 +29,7 @@ class UserTosComponent extends Component {
   handleSubmit() {
     const onFailure = () => {
       this.setState({
-        message: this.props.intl.formatMessage(
-          globalStrings.unknownError,
-          { supportEmail: stringHelper('SUPPORT_EMAIL') },
-        ),
+        message: <FormattedMessage id="global.unknownError" defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists." description="Message displayed in error notification when an operation fails unexpectedly" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />,
       });
     };
 
@@ -52,7 +47,7 @@ class UserTosComponent extends Component {
   handleValidate() {
     if (!this.state.checkedTos) {
       this.setState({
-        message: <FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" />,
+        message: <FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" description="Message to the user that they must review the application terms of service" />,
       });
     }
   }
@@ -69,7 +64,7 @@ class UserTosComponent extends Component {
           onClick={this.handleSubmit.bind(this)}
           disabled={!this.state.checkedTos}
         >
-          <FormattedMessage id="userTos.save" defaultMessage="Save" />
+          <FormattedMessage id="userTos.save" defaultMessage="Save" description="Button label for the user to save their review of the terms of service" />
         </Button>
       </div>,
     ];
@@ -85,7 +80,7 @@ class UserTosComponent extends Component {
         style={linkStyle}
         href="https://meedan.com/en/community_guidelines/"
       >
-        <FormattedMessage id="userTos.commGuidelinesLink" defaultMessage="Community Guidelines" />
+        <FormattedMessage id="userTos.commGuidelinesLink" defaultMessage="Community Guidelines" description="Link text to take the user to the application community guidelines at the Meedan website" />
       </a>
     );
 
@@ -105,6 +100,7 @@ class UserTosComponent extends Component {
               <FormattedMessage
                 id="userTos.commGuidelines"
                 defaultMessage="We ask that you also read our {communityGuidelinesLink} for using {appName}."
+                description="Message to encourage the user to read the application community guidelines document"
                 values={{
                   communityGuidelinesLink,
                   appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),

@@ -10,6 +10,11 @@
     "defaultMessage": "Search…"
   },
   {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
     "id": "tagMenu.notFound",
     "description": "Text to display if no tags found",
     "defaultMessage": "No tags found"

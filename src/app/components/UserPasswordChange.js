@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
@@ -12,7 +11,6 @@ import ChangePasswordComponent from './ChangePasswordComponent';
 import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
 import ErrorBoundary from './error/ErrorBoundary';
-import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import {
   ContentColumn,
@@ -51,7 +49,12 @@ function UserPasswordChange() {
     <ErrorBoundary component="UserPasswordChange">
       <PageTitle>
         <Box m={2} align="center">
-          <FormattedHTMLMessage {...globalStrings.bestViewed} />
+          <FormattedHTMLMessage
+            id="global.bestViewed"
+            defaultMessage='Best viewed with <a href="{chromedownload}">Chrome for Desktop</a>.'
+            values={{ chromedownload: 'https://www.google.com/chrome/browser/desktop/' }}
+            description="Message shown to the user when they are using an unsupported browser"
+          />
         </Box>
         <ContentColumn center className="user-password-reset__component">
           <StyledCard>
@@ -67,8 +70,8 @@ function UserPasswordChange() {
             </FormattedGlobalMessage>
             <StyledSubHeader className="reset-password__heading">
               { showConfirmDialog ?
-                <FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />
-                : <FormattedMessage id="passwordChange.title" defaultMessage="Change password" />
+                <FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" description="Title message when the user password was successfully updated" />
+                : <FormattedMessage id="passwordChange.title" defaultMessage="Change password" description="Title message for the user to change their password" />
               }
             </StyledSubHeader>
 
@@ -78,11 +81,12 @@ function UserPasswordChange() {
                   <FormattedMessage
                     id="passwordChange.successMsg"
                     defaultMessage="You're all set. Now you can log in with your new password."
+                    description="Success message when the user's password was changed and they can now login using the new password"
                   />
                 </CardContent>
                 <CardActions className="user-password-change__actions">
                   <Button color="primary" onClick={handleSignIn}>
-                    <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />
+                    <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" description="Button label for the user to continue to the sign in page" />
                   </Button>
                 </CardActions>
               </React.Fragment> :

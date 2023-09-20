@@ -6,6 +6,7 @@
   },
   {
     "id": "inviteNewAccount.invitedBy",
+    "description": "Message to the current user about who has invited them to join this workspace",
     "defaultMessage": "{name} has invited you to join the workspace"
   },
   {

@@ -37,4 +37,3 @@ Please describe parts of the change that require extra attention during code rev
 - [ ] I have removed the /* eslint-disable @calm/react-intl/missing-attribute */ from any files I've worked on and added a `description` prop to all `<FormattedMessage />` components that were missing it.
 - [ ] To the best of my knowledge, any new styles are applied according to the design system
 - [ ] If I added a new external dependency, I included a rationale for doing so and an estimate of the change in bundle size (e.g., checked in https://bundlephobia.com/)
-
