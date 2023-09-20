@@ -17,7 +17,6 @@ import SwitchComponent from '../cds/inputs/SwitchComponent';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
-import globalStrings from '../../globalStrings';
 import VisibilityOffIcon from '../../icons/visibility_off.svg';
 
 const SensitiveContentMenu = ({
@@ -296,16 +295,14 @@ const SensitiveContentMenu = ({
         </RadioGroup>
         <Box mt={2} display="flex" justifyContent="flex-end">
           <Button onClick={onDismiss}>
-            { /* eslint-disable-next-line @calm/react-intl/missing-attribute */}
-            <FormattedMessage {...globalStrings.cancel} />
+            <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
           </Button>
           <Button
             color="primary"
             onClick={submitFlagAnnotation}
             variant="contained"
           >
-            { /* eslint-disable-next-line @calm/react-intl/missing-attribute */}
-            <FormattedMessage {...globalStrings.save} />
+            <FormattedMessage id="global.save" defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" />
           </Button>
         </Box>
       </Box>

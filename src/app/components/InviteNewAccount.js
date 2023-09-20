@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
@@ -133,6 +132,7 @@ const InviteNewAccountComponent = ({ user }) => {
               <FormattedMessage
                 id="inviteNewAccount.invitedBy"
                 defaultMessage="{name} has invited you to join the workspace"
+                description="Message to the current user about who has invited them to join this workspace"
                 values={{
                   name: teamUser?.invited_by?.name,
                 }}

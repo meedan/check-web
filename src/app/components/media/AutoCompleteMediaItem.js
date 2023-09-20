@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -294,13 +293,13 @@ const AutoCompleteMediaItem = (props, context) => {
               searchResult ?
                 <React.Fragment>
                   { searchResult.loading ?
-                    <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" /> : null }
+                    <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" description="Status message that a search is active" /> : null }
                   { !searchResult.loading && !searchResult.error && !searchResult.items.length ?
-                    <FormattedMessage id="autoCompleteMediaItem.notFound" defaultMessage="No matches found" /> : null }
+                    <FormattedMessage id="autoCompleteMediaItem.notFound" defaultMessage="No matches found" description="Status message when a search returned no results" /> : null }
                   { searchResult.error ?
-                    <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
+                    <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." description="Status message when a search resulted in an error" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
                   { searchResult.items && searchResult.items.length > 0 ?
-                    <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {# result} other {# results}}" values={{ count: searchResult.items.length }} /> : null }
+                    <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {# result} other {# results}}" description="Count of search results" values={{ count: searchResult.items.length }} /> : null }
                 </React.Fragment> : <FormattedMessage id="autoCompleteMediaItem.type" defaultMessage="Type above to search" description="Helper text displayed next to search field to look for items to be imported" />
             }
             variant="outlined"
@@ -335,6 +334,7 @@ const AutoCompleteMediaItem = (props, context) => {
                           <FormattedMessage
                             id="autoCompleteMediaItem.cantSelectPublished"
                             defaultMessage="Media cannot be imported from items that have their report published"
+                            description="Tooltip error message about when media can be imported"
                           />
                         }
                       >

@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -21,7 +20,6 @@ import Message from '../Message';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
 import SetSourceDialog from './SetSourceDialog';
-import globalStrings from '../../globalStrings';
 import { getErrorObjects, getErrorMessage } from '../../helpers';
 import CheckError from '../../CheckError';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -224,7 +222,7 @@ function CreateMediaSource({
           className="source__edit-cancel-button"
           onClick={handleCancelOrSave}
         >
-          <FormattedMessage {...globalStrings.cancel} />
+          <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
         </Button>
         <Button
           variant="outlined"

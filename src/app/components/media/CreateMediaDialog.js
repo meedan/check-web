@@ -9,7 +9,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import CreateMediaInput from './CreateMediaInput';
-import globalStrings from '../../globalStrings';
 
 const useStyles = makeStyles({
   title: {
@@ -33,10 +32,10 @@ export default function CreateMediaDialog({
       </DialogContent>
       <DialogActions>
         <Button id="create-media-dialog__dismiss-button" onClick={onDismiss}>
-          <FormattedMessage {...globalStrings.cancel} />
+          <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
         </Button>
         <Button type="submit" form={formId} id="create-media-dialog__submit-button" color="primary">
-          <FormattedMessage {...globalStrings.submit} />
+          <FormattedMessage id="global.submit" defaultMessage="Submit" description="Generic label for a button or link for a user to press when they wish to submit and form or action" />
         </Button>
       </DialogActions>
     </Dialog>

@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
@@ -159,7 +158,7 @@ const SlackConfigDialogComponent = ({
   // FIXME: Define this function somewhere else and reuse across components
   const handleError = (error) => {
     setSaving(false);
-    let errorMessage = <FormattedMessage id="slackConfigDialogComponent.defaultErrorMessage" defaultMessage="Could not save Slack settings" />;
+    let errorMessage = <FormattedMessage id="slackConfigDialogComponent.defaultErrorMessage" defaultMessage="Could not save Slack settings" description="Error message when the setting did not save correctly" />;
     const json = safelyParseJSON(error.source);
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
@@ -170,7 +169,7 @@ const SlackConfigDialogComponent = ({
   const handleSuccess = () => {
     setSaving(false);
     onCancel();
-    setFlashMessage(<FormattedMessage id="slackConfigDialogComponent.savedSuccessfully" defaultMessage="Slack settings saved successfully" />, 'success');
+    setFlashMessage(<FormattedMessage id="slackConfigDialogComponent.savedSuccessfully" defaultMessage="Slack settings saved successfully" description="Success message when the setting was updated" />, 'success');
   };
 
   const handleSubmit = () => {
@@ -243,6 +242,7 @@ const SlackConfigDialogComponent = ({
             <FormattedMessage
               id="slackConfigDialogComponent.webhook"
               defaultMessage="Slack incoming webhook"
+              description="Text field label for the incoming webhook address"
             />
           }
           id="slack-config__webhook"
@@ -257,6 +257,7 @@ const SlackConfigDialogComponent = ({
             <FormattedMessage
               id="slackConfigDialogComponent.noWebhookError"
               defaultMessage="Please add the Slack webhook address"
+              description="Error message when the user did not provide the slack webhook address"
             />
           </Box>
           : null
@@ -271,6 +272,7 @@ const SlackConfigDialogComponent = ({
                     <FormattedMessage
                       id="slackConfigDialogComponent.notifications"
                       defaultMessage="Notifications"
+                      description="Table header row for notifiations"
                     />
                   </Box>
                   <Button
@@ -298,6 +300,7 @@ const SlackConfigDialogComponent = ({
                           <FormattedMessage
                             id="slackConfigDialogComponent.label"
                             defaultMessage="Notification name"
+                            description="Text field label for the name of the notification"
                           />
                         }
                         defaultValue={event.label || intl.formatMessage(messages.defaultLabel, { number: i + 1 })}
@@ -358,6 +361,7 @@ const SlackConfigDialogComponent = ({
                         <FormattedMessage
                           id="slackConfigDialogComponent.noConditionError"
                           defaultMessage="Please select a condition to send notifications"
+                          description="Error message to tell the user they need to select a notification condition"
                         />
                       </Box>
                       : null
@@ -374,6 +378,7 @@ const SlackConfigDialogComponent = ({
                           <FormattedMessage
                             id="slackConfigDialogComponent.channel"
                             defaultMessage="Slack channel"
+                            description="Text field label for the slack channel name"
                           />
                         }
                         defaultValue={event.slack_channel}
@@ -388,6 +393,7 @@ const SlackConfigDialogComponent = ({
                         <FormattedMessage
                           id="slackConfigDialogComponent.noChannelError"
                           defaultMessage="Please add the Slack channel where notifications will be sent"
+                          description="Error message to tell the user they need to provide a slack channel name to send notifications to"
                         />
                       </Box>
                       : null
@@ -400,10 +406,10 @@ const SlackConfigDialogComponent = ({
         </TableContainer>
         <Box className={classes.footer} display="flex" justifyContent="flex-end">
           <Button onClick={handleCancel}>
-            <FormattedMessage id="slackConfigDialogComponent.cancel" defaultMessage="Cancel" />
+            <FormattedMessage id="slackConfigDialogComponent.cancel" defaultMessage="Cancel" description="Cancel button label" />
           </Button>
           <Button color="primary" variant="contained" onClick={handleSubmit} disabled={saving} className="slack-config__save">
-            <FormattedMessage id="slackConfigDialogComponent.save" defaultMessage="Save" />
+            <FormattedMessage id="slackConfigDialogComponent.save" defaultMessage="Save" description="Save button label" />
           </Button>
         </Box>
       </Box>

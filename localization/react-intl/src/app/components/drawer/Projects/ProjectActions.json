@@ -35,6 +35,11 @@
     "defaultMessage": "Title"
   },
   {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
     "id": "projectsComponent.deleteType",
     "description": "'Delete' here is an infinitive verb",
     "defaultMessage": "Delete list"

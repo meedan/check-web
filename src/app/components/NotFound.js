@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
@@ -15,6 +14,7 @@ const NotFound = () => (
       <FormattedMessage
         id="notFound.pageTitle"
         defaultMessage="Page not found"
+        description="Page title for the Not found page"
       />
     }
   >
@@ -34,6 +34,7 @@ const NotFound = () => (
                 <FormattedMessage
                   id="notFound.text"
                   defaultMessage="If you are trying to access an existing workspace, please contact the workspace owner."
+                  description="Help text for the user to contact the workspace admin for additional help accessing"
                 />
               </Typography>
             </Box>

@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -28,6 +27,7 @@ class CreateProjectMedia extends React.Component {
       <FormattedMessage
         id="createMedia.error"
         defaultMessage="Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists."
+        description="Error message for user to know how to reach out for support"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
@@ -115,14 +115,14 @@ class CreateProjectMedia extends React.Component {
           size="default"
           variant="contained"
           label={
-            <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" />
+            <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" description="Button label for adding an item" />
           }
           buttonProps={{
             id: 'create-media__add-item',
           }}
         />
         <CreateMediaDialog
-          title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add item" />}
+          title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add item" description="Dialog title for adding a new item" />}
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
           onSubmit={this.handleSubmit}

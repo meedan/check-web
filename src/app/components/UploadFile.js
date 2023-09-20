@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -71,6 +70,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.message"
       defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+      description="Message to the user describing the requirements for uploading an image"
       values={{
         upload_max_size: about?.upload_max_size,
         upload_extensions: about?.upload_extensions?.join(', '),
@@ -83,6 +83,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.videoMessage"
       defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+      description="Message to the user describing the requirements for uploading a video"
       values={{
         video_max_size: about?.video_max_size,
         video_extensions: about?.video_extensions?.join(', '),
@@ -93,6 +94,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.audioMessage"
       defaultMessage="Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
+      description="Message to the user describing the requirements for uploading an audio file"
       values={{
         audio_max_size: about?.audio_max_size,
         audio_extensions: about?.audio_extensions?.join(', '),
@@ -104,6 +106,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.fileMessage"
       defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+      description="Message to the user describing the requirements for uploading a file using this component"
       values={{
         file_max_size: about?.file_max_size,
         file_extensions: about?.file_extensions?.join(', '),
@@ -115,6 +118,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.imageVideoAudioMessage"
       defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+      description="Message to the user describing the requirements for uploading an image, video, or audio file using this component"
       values={{
         file_max_size: about?.file_max_size,
         file_extensions: about?.upload_extensions
@@ -179,6 +183,7 @@ class UploadFileComponent extends React.PureComponent {
       onError(file, <FormattedMessage
         id="uploadFile.invalidExtension"
         defaultMessage='The file cannot have type "{extension}". Please try with the following file types: {allowed_types}.'
+        description="Error message when the user tries to upload a file with a not accepted file extension"
         values={{ extension, allowed_types: extensions.join(', ') }}
       />);
       return;
@@ -187,6 +192,7 @@ class UploadFileComponent extends React.PureComponent {
       onError(file, <FormattedMessage
         id="uploadFile.fileTooLarge"
         defaultMessage="The file size should be less than {size}. Please try with a smaller file."
+        description="Error message when the user tries to upload a file that is over the size limit"
         values={{ size: maxSize }}
       />);
       return;
@@ -241,6 +247,7 @@ class UploadFileComponent extends React.PureComponent {
               <FormattedMessage
                 id="uploadFile.changeFile"
                 defaultMessage="{filename} (click or drop to change)"
+                description="Output of the uploaded filename and how to change the file"
                 values={{ filename: value.name }}
               />
             ) : (

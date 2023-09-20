@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -14,7 +13,6 @@ import DateRangeIcon from '../../icons/calendar_month.svg';
 import CloseIcon from '../../icons/clear.svg';
 import RemoveableWrapper from './RemoveableWrapper';
 import { FlexRow, units } from '../../styles/js/shared';
-import globalStrings from '../../globalStrings';
 
 const StyledCloseIcon = withStyles({
   root: {
@@ -125,8 +123,8 @@ function DateRangeSelectorStartEnd(props) {
       <DatePicker
         onChange={handleChangeStartDate}
         maxDate={getEndDateStringOrNull() || undefined}
-        okLabel={<FormattedMessage {...globalStrings.ok} />}
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
+        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         value={getStartDateStringOrNull()}
         style={{ margin: `0 ${units(2)}` }}
         TextFieldComponent={({ onClick, value: valueText }) => (
@@ -151,8 +149,8 @@ function DateRangeSelectorStartEnd(props) {
         inputVariant="outlined"
         onChange={handleChangeEndDate}
         minDate={getStartDateStringOrNull() || undefined}
-        okLabel={<FormattedMessage {...globalStrings.ok} />}
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
+        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         value={getEndDateStringOrNull()}
         TextFieldComponent={({ onClick, value: valueText }) => (
           <div>
@@ -191,7 +189,7 @@ function DateRangeSelectorRelative(props) {
 
   return (
     <>
-      <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
+      <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder text to tell the user to enter a number">
         { placeholder => (
           <TextField
             classes={{ root: classes.numericSelector }}
@@ -382,11 +380,11 @@ const DateRangeFilter = ({
   }
 
   const label = {
-    created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Request submitted" />,
-    media_published_at: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Media published" />,
-    updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Item updated" />,
-    report_published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Report published" />,
-    request_created_at: <FormattedMessage id="search.dateRequestHeading" defaultMessage="Request submitted" />,
+    created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Request submitted" description="This is a header in a drop down selector, to filter a search by the submission date" />,
+    media_published_at: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Media published" description="This is a heading in a drop down selector, to filter a search by the last submitted date" />,
+    updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Item updated" description="This is a heading in a drop down selector, to filter a search by date updated" />,
+    report_published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Report published" description="This is a heading in a drop down selector, to filter a search by a report published date" />,
+    request_created_at: <FormattedMessage id="search.dateRequestHeading" defaultMessage="Request submitted" description="This is a heading in a drop down selector, to filter a search by request created dates" />,
     startEnd: <FormattedMessage id="search.dateStartEnd" defaultMessage="between" description="This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'." />,
     lessThan: <FormattedMessage id="search.dateLessThan" defaultMessage="less than" description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'." />,
     moreThan: <FormattedMessage id="search.dateMoreThan" defaultMessage="more than" description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published more than 10 months ago'." />,

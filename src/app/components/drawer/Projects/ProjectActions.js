@@ -15,7 +15,6 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import Can from '../../Can'; // eslint-disable-line import/no-duplicates
-import globalStrings from '../../../globalStrings';
 import searchResultsStyles from '../../search/SearchResults.module.css';
 import IconMoreVert from '../../../icons/more_vert.svg';
 
@@ -232,7 +231,7 @@ const ProjectActions = ({
         }
         onProceed={handleUpdate}
         isSaving={saving}
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />} // eslint-disable-line @calm/react-intl/missing-attribute
+        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         onCancel={handleClose}
       />
 
@@ -260,7 +259,7 @@ const ProjectActions = ({
         }
         onProceed={handleDelete}
         isSaving={saving}
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />} // eslint-disable-line @calm/react-intl/missing-attribute
+        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         onCancel={handleClose}
       />
     </Can>

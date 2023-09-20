@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -21,7 +20,6 @@ import UploadFile from '../UploadFile';
 import { Row, units } from '../../styles/js/shared';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import globalStrings from '../../globalStrings';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 class AddAnnotation extends Component {
@@ -413,7 +411,7 @@ class AddAnnotation extends Component {
             </Tooltip>
             { editMode ?
               <Button onClick={this.props.handleCloseEdit} >
-                <FormattedMessage {...globalStrings.cancel} />
+                <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
               </Button> : null
             }
             <Button

@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
@@ -12,7 +11,6 @@ import styled from 'styled-components';
 import AutoCompleteMediaItem from './AutoCompleteMediaItem';
 import CreateMediaInput from './CreateMediaInput';
 import Message from '../Message';
-import globalStrings from '../../globalStrings';
 import { units } from '../../styles/js/shared';
 
 const StyledAutoCompleteWrapper = styled.div`
@@ -95,14 +93,14 @@ class CreateRelatedMediaDialog extends React.Component {
                 id="create-media-dialog__tab-existing"
                 value="existing"
                 label={
-                  <FormattedMessage id="createMedia.existing" defaultMessage="Add existing item" />
+                  <FormattedMessage id="createMedia.existing" defaultMessage="Add existing item" description="Tab text for adding an existing media item" />
                 }
               />
               <Tab
                 id="create-media-dialog__tab-new"
                 value="new"
                 label={
-                  <FormattedMessage id="createMedia.addNew" defaultMessage="Add new item" />
+                  <FormattedMessage id="createMedia.addNew" defaultMessage="Add new item" description="Tab text for adding a new item" />
                 }
               />
             </Tabs> }
@@ -135,7 +133,7 @@ class CreateRelatedMediaDialog extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button id="create-media-dialog__dismiss-button" onClick={this.props.onDismiss}>
-            <FormattedMessage {...globalStrings.cancel} />
+            <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
           </Button>
           { mode === 'new' &&
             <Button
@@ -147,7 +145,7 @@ class CreateRelatedMediaDialog extends React.Component {
               variant="contained"
             >
               { this.props.isSubmitting ?
-                <FormattedMessage {...globalStrings.submitting} /> :
+                <FormattedMessage id="global.submitting" defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" /> :
                 this.props.submitButtonLabel(this.state.selectedItems.length)
               }
             </Button>
@@ -161,7 +159,7 @@ class CreateRelatedMediaDialog extends React.Component {
               variant="contained"
             >
               { this.props.isSubmitting ?
-                <FormattedMessage {...globalStrings.submitting} /> :
+                <FormattedMessage id="global.submitting" defaultMessage="Submitting…" description="Generic loading message when a form is in process of being submitted" /> :
                 this.props.submitButtonLabel(this.state.selectedItems.length)
               }
             </Button>

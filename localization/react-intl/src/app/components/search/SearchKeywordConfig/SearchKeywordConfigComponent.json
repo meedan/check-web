@@ -85,6 +85,16 @@
     "defaultMessage": "Select all"
   },
   {
+    "id": "global.update",
+    "description": "Generic label for a button or link for a user to press when they wish to update an action",
+    "defaultMessage": "Update"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
     "id": "SearchKeywordConfigComponent.resetLabel",
     "description": "Label for reset options to default",
     "defaultMessage": "Reset"
