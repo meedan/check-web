@@ -269,28 +269,6 @@ class MediaActionsBarComponent extends Component {
 
     const context = this.getContext();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    let restorProjectMedia = '';
-    if (isParent) {
-      if (media.archived !== CheckArchivedFlags.NONE) {
-        restorProjectMedia = (
-          <RestoreProjectMedia
-=======
-    let moveOrRestor = '';
-    if (isParent) {
-      if (media.archived !== CheckArchivedFlags.NONE) {
-        moveOrRestor = (
-          <RestoreConfirmProjectMediaToProjectAction
->>>>>>> f794fe1fc (re-adding "restore from trash/mark as not spam" button on item page)
-            team={this.props.media.team}
-            projectMedia={this.props.media}
-            context={context}
-            className={classes.spacedButton}
-          />
-        );
-      }
-=======
     let restorProjectMedia = '';
     if (media.archived !== CheckArchivedFlags.NONE) {
       restorProjectMedia = (
@@ -301,15 +279,10 @@ class MediaActionsBarComponent extends Component {
           className={classes.spacedButton}
         />
       );
->>>>>>> 51322038e (replacing and replacing function names)
     }
 
     return (
       <div className={styles['media-actions']}>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 51322038e (replacing and replacing function names)
         <div className={styles['media-actions']}> { restorProjectMedia } </div>
         <div className={styles['media-actions']}>
           {isParent ?
@@ -334,30 +307,6 @@ class MediaActionsBarComponent extends Component {
             handleItemHistory={this.handleItemHistory}
           />
         </div>
-=======
-        <div> { moveOrRestor } </div>
-        {isParent ?
-          <MediaStatus
-            media={media}
-            readonly={(
-              (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
-              media.last_status_obj?.locked ||
-              published
-            )}
-          /> : null
-        }
-        <MediaActionsMenuButton
-          key={media.id /* close menu if we navigate to a different projectMedia */}
-          projectMedia={media}
-          isParent={isParent}
-          handleRefresh={this.handleRefresh.bind(this)}
-          handleSendToTrash={this.handleSendToTrash.bind(this)}
-          handleSendToSpam={this.handleSendToSpam.bind(this)}
-          handleAssign={this.handleAssign.bind(this)}
-          handleStatusLock={this.handleStatusLock.bind(this)}
-          handleItemHistory={this.handleItemHistory}
-        />
->>>>>>> f794fe1fc (re-adding "restore from trash/mark as not spam" button on item page)
 
         <ItemHistoryDialog
           open={this.state.itemHistoryDialogOpen}
@@ -455,15 +404,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
       fragment on ProjectMedia {
         id
         ${MediaActionsMenuButton.getFragment('projectMedia')}
-<<<<<<< HEAD
-<<<<<<< HEAD
         ${RestoreProjectMedia.getFragment('projectMedia')}
-=======
-        ${RestoreConfirmProjectMediaToProjectAction.getFragment('projectMedia')}
->>>>>>> f794fe1fc (re-adding "restore from trash/mark as not spam" button on item page)
-=======
-        ${RestoreProjectMedia.getFragment('projectMedia')}
->>>>>>> 51322038e (replacing and replacing function names)
         dbid
         project_id
         title
