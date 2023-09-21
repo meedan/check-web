@@ -10,6 +10,16 @@
     "defaultMessage": "Item marked as Not Spam"
   },
   {
+    "id": "mediaActionsBar.failedmovedRestoreBack",
+    "description": "Failure message after attempting to restore an item from Trash.",
+    "defaultMessage": "Failed to restore the item. Please try again later."
+  },
+  {
+    "id": "mediaActionsBar.failedmovedSpamBack",
+    "description": "Failure message after attempting to mark an item as Not Spam.",
+    "defaultMessage": "Failed to mark the item as Not Spam. Please try again later."
+  },
+  {
     "id": "mediaActionsBar.restoreTo",
     "description": "Label for button that restores item from Trash",
     "defaultMessage": "Restore from Trash"

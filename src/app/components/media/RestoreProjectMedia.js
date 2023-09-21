@@ -1,11 +1,10 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
@@ -15,12 +14,12 @@ function handleRestore({
   projectMedia,
   context,
   onSuccess,
+  onFailure,
 }) {
   const newContext = context;
   if (context.team && !context.team.public_team) {
     newContext.team.public_team = Object.assign({}, context.team);
   }
-  const onFailure = () => {};
 
   Relay.Store.commitUpdate(
     new UpdateProjectMediaMutation({
@@ -74,7 +73,26 @@ function RestoreProjectMedia({
         setFlashMessage(message, 'success');
         window.location.assign(window.location.pathname);
       },
-      // FIXME: Add onFailure handler
+      onFailure: () => {
+        const message = projectMedia.archived === CheckArchivedFlags.TRASHED ?
+          (
+            <FormattedMessage
+              id="mediaActionsBar.failedmovedRestoreBack"
+              defaultMessage="Failed to restore the item. Please try again later."
+              description="Failure message after attempting to restore an item from Trash."
+            />
+          ) :
+          (
+            <FormattedMessage
+              id="mediaActionsBar.failedmovedSpamBack"
+              defaultMessage="Failed to mark the item as Not Spam. Please try again later."
+              description="Failure message after attempting to mark an item as Not Spam."
+            />
+          );
+        setFlashMessage(message, 'failure');
+        window.location.assign(window.location.pathname);
+        setFlashMessage('Failed to restore the item. Please try again later.', 'error');
+      },
     });
   }, [
     setFlashMessage, team, projectMedia, setIsSaving,
@@ -101,16 +119,17 @@ function RestoreProjectMedia({
 
   return (
     <React.Fragment>
-      <Button
-        id="media-actions-bar__restore-confirm-to"
+      <ButtonMain
+        buttonProps={{
+          id: 'media-actions-bar__restore-confirm-to',
+        }}
+        label={buttonLabel}
         variant="contained"
         className={className}
         endIcon={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
         color="primary"
         onClick={handleSubmit}
-      >
-        { buttonLabel }
-      </Button>
+      />
     </React.Fragment>
   );
 }
@@ -130,23 +149,18 @@ export default createFragmentContainer(RestoreProjectMedia, {
     fragment RestoreProjectMedia_team on Team {
       search {
         id
-        number_of_results
       }
       check_search_trash {
         id
-        number_of_results
       }
       check_search_spam {
         id
-        number_of_results
       }
-      slug
     }
   `,
   projectMedia: graphql`
     fragment RestoreProjectMedia_projectMedia on ProjectMedia {
       id
-      dbid
       archived
     }
   `,
