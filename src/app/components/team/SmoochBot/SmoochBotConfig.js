@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -164,7 +163,7 @@ const SmoochBotConfig = (props) => {
       <Tabs value={currentTab} onChange={handleChangeTab} variant="fullWidth">
         <Tab label={<FormattedMessage id="smoochBot.designYourBot" defaultMessage="Design your bot" description="Title of tipline settings page" />} />
         { userRole === 'admin' ?
-          <Tab label={<FormattedMessage id="smoochBot.settings" defaultMessage="Settings" />} />
+          <Tab label={<FormattedMessage id="smoochBot.settings" defaultMessage="Settings" description="Tab label to click to see the settings area" />} />
           : null
         }
       </Tabs>
@@ -190,6 +189,7 @@ const SmoochBotConfig = (props) => {
                   <FormattedMessage
                     id="smoochBot.addResource"
                     defaultMessage="Add resource"
+                    description="Button label to add a resource to this bot"
                   />
                 }
               />
@@ -225,6 +225,7 @@ const SmoochBotConfig = (props) => {
                       <FormattedMessage
                         id="smoochBotConfig.subscriptionHeader"
                         defaultMessage="You are currently {subscription_status} to our newsletter."
+                        description="Status message for the user to know if they are subscribed or not to the newsletter"
                       /> : null
                   }
                 /> : null }

@@ -16,10 +16,12 @@
   },
   {
     "id": "numericRangeFilter.enterNumber",
+    "description": "Placeholder for text field about entering a number value",
     "defaultMessage": "enter number"
   },
   {
     "id": "numericRangeFilter.between",
+    "description": "Logical operator AND statement",
     "defaultMessage": "and"
   },
   {

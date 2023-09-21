@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -51,6 +50,7 @@ class SwitchTeamsComponent extends Component {
         <FormattedMessage
           id="switchTeams.error"
           defaultMessage="Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
+          description="Error message with instructions on how to contact support"
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
       );
@@ -112,8 +112,8 @@ class SwitchTeamsComponent extends Component {
     });
 
     const cardTitle = isUserSelf ?
-      <FormattedMessage id="teams.yourTeams" defaultMessage="Workspaces" /> :
-      <FormattedMessage id="teams.userTeams" defaultMessage="{name}'s workspaces" values={{ name: user.name }} />;
+      <FormattedMessage id="teams.yourTeams" defaultMessage="Workspaces" description="Label for the list of the current user's workspaces they are a member of" /> :
+      <FormattedMessage id="teams.userTeams" defaultMessage="{name}'s workspaces" description="Label for the list of another user's workspaces they are a member of" values={{ name: user.name }} />;
 
     return (
       <Card>
@@ -154,6 +154,7 @@ class SwitchTeamsComponent extends Component {
                     <FormattedMessage
                       id="switchTeams.member"
                       defaultMessage="{membersCount, plural, one {# member} other {# members}}"
+                      description="Count of members of a workspace"
                       values={{ membersCount: team.members_count }}
                     />
                   }
@@ -186,6 +187,7 @@ class SwitchTeamsComponent extends Component {
                     <FormattedMessage
                       id="switchTeams.joinRequestMessage"
                       defaultMessage="You requested to join"
+                      description="Status message of a request to join a workspace"
                     />
                   }
                 />
@@ -194,14 +196,14 @@ class SwitchTeamsComponent extends Component {
                     className="switch-team__cancel-request"
                     onClick={this.cancelRequest.bind(this, team)}
                   >
-                    <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
+                    <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" description="Button label to cancel a request to join a workspace" />
                   </Button>
                 </ListItemSecondaryAction>
               </ListItem>
             ))}
           </List> :
           <CardContent>
-            <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." />
+            <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." description="Empty message when the user is not a member of a workspace" />
           </CardContent>
         }
         { this.state.showCreateTeamDialog ?

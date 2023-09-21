@@ -1,14 +1,17 @@
 [
   {
     "id": "reportDesigner.nothingToPreview",
+    "description": "Empty message when there is no preview to show",
     "defaultMessage": "Start creating your report to preview what users will see when they receive it."
   },
   {
     "id": "reportDesigner.addIntro",
+    "description": "Help text to tell the user to add content to the introduction",
     "defaultMessage": "Add content to the introduction"
   },
   {
     "id": "reportDesigner.addText",
+    "description": "Help text to tell the user to add content to the text message",
     "defaultMessage": "Add content to the text message"
   },
   {

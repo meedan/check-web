@@ -1,10 +1,12 @@
 [
   {
     "id": "feedItem.couldNotImport",
+    "description": "Error message when an import fails",
     "defaultMessage": "We could not import the claim because the media associated with this claim already exist in this workspace"
   },
   {
     "id": "feedItem.importedSuccessfully",
+    "description": "Success message when an import completes",
     "defaultMessage": "Claim successfully imported to {workspaceName} workspace"
   },
   {
@@ -24,22 +26,27 @@
   },
   {
     "id": "feedItem.claimDescription",
+    "description": "Column title for the claims column",
     "defaultMessage": "Claims"
   },
   {
     "id": "feedItem.rating",
+    "description": "Label for rating and value of the rating",
     "defaultMessage": "Rating: {rating}"
   },
   {
     "id": "feedItem.publishedAt",
+    "description": "Label and date for when the report was published",
     "defaultMessage": "Report published: {date}"
   },
   {
     "id": "feedItem.notPublished",
+    "description": "Placeholder when there is no date available for the published state",
     "defaultMessage": "Not published yet"
   },
   {
     "id": "feedItem.noClaim",
+    "description": "Empty message when there is no claim available",
     "defaultMessage": "No claim added yet"
   },
   {
@@ -69,6 +76,7 @@
   },
   {
     "id": "feedItem.aboutThisClaim",
+    "description": "Label for the about description of a claim",
     "defaultMessage": "About this claim"
   },
   {
@@ -83,22 +91,27 @@
   },
   {
     "id": "feedItem.import",
+    "description": "Button label to start an import",
     "defaultMessage": "Import"
   },
   {
     "id": "feedItem.mediasColumnTitleAll",
+    "description": "Count of medias regardless of organization",
     "defaultMessage": "{number} Medias across all organizations"
   },
   {
     "id": "feedItem.mediasColumnTitleSingle",
+    "description": "Count of medias from a specific of organization",
     "defaultMessage": "{number} Medias from {organizationName}"
   },
   {
     "id": "feedItem.mediaRequests",
+    "description": "Count of requests for all media",
     "defaultMessage": "{number} tipline requests across all medias"
   },
   {
     "id": "feedItem.sortBy",
+    "description": "Label for sorting",
     "defaultMessage": "Sort by"
   },
   {
@@ -128,10 +141,12 @@
   },
   {
     "id": "feedItem.completedAnnotations",
+    "description": "Form field label for the number of completed annotations",
     "defaultMessage": "Completed annotations"
   },
   {
     "id": "feedItem.tags",
+    "description": "Form field label for the tags assigned to this item",
     "defaultMessage": "Tags"
   },
   {

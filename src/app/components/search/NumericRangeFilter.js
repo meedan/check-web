@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
@@ -90,7 +89,7 @@ const NumericRangeFilter = ({
               { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
             </Typography>
           </Box>
-          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
+          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
             { placeholder => (
               <TextField
                 className={`${classes.root} ${minNumber === '' ? '' : classes.inputNotEmpty}`}
@@ -107,10 +106,10 @@ const NumericRangeFilter = ({
           </FormattedMessage>
           <Box px={1}>
             <Typography component="span" variant="body1">
-              <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" />
+              <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" description="Logical operator AND statement" />
             </Typography>
           </Box>
-          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
+          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
             { placeholder => (
               <TextField
                 className={`${classes.root} ${maxNumber === '' ? '' : classes.inputNotEmpty}`}
