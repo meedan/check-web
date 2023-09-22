@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -77,7 +76,7 @@ const BulkActionsStatus = ({
 
   return (
     <React.Fragment>
-      <FormattedMessage id="tagMenu.search" defaultMessage="Search…">
+      <FormattedMessage id="tagMenu.search" defaultMessage="Search…" description="Placeholder for search input">
         {placeholder => (
           <MultiSelector
             allowSearch
@@ -90,6 +89,7 @@ const BulkActionsStatus = ({
               <FormattedMessage
                 id="tagMenu.notFound"
                 defaultMessage="No status found"
+                description="Empty message when no statuses are returned"
               />
             }
             submitLabel={

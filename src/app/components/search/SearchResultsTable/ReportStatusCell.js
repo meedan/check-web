@@ -1,13 +1,12 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import TableCell from '@material-ui/core/TableCell';
 
 const labels = {
-  unpublished: <FormattedMessage id="reportStatusCell.unpublished" defaultMessage="Unpublished" />,
-  paused: <FormattedMessage id="reportStatusCell.paused" defaultMessage="Paused" />,
-  published: <FormattedMessage id="reportStatusCell.published" defaultMessage="Published" />,
+  unpublished: <FormattedMessage id="reportStatusCell.unpublished" defaultMessage="Unpublished" description="Table cell title for report status of unpublished" />,
+  paused: <FormattedMessage id="reportStatusCell.paused" defaultMessage="Paused" description="Table cell title for report status of paused" />,
+  published: <FormattedMessage id="reportStatusCell.published" defaultMessage="Published" description="Table cell title for report status of published" />,
 };
 
 export default function ReportStatusCell({ projectMedia }) {

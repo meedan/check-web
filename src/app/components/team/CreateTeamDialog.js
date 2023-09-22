@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -39,6 +38,7 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
       <FormattedMessage
         id="createTeamDialog.defaultErrorMessage"
         defaultMessage="Could not create new workspace"
+        description="Error message when a workspace could not be created"
       />
     );
     setErrorMessage(getErrorMessage(error, defaultErrorMessage));
@@ -135,6 +135,7 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
           <FormattedMessage
             id="createTeamDialog.dialogTitleDuplicate"
             defaultMessage="Duplicate workspace"
+            description="Title of a dialog box to duplicate the current workspace"
           /> :
           <FormattedMessage
             id="createTeamDialog.dialogTitleCreate"
@@ -148,6 +149,7 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
             <FormattedMessage
               id="createTeamDialog.description"
               defaultMessage="All settings from this workspace will be duplicated. No content will be added."
+              description="Description note to tell the user what information will be duplicated"
             />
           </Typography> : null }
         <TextField
@@ -157,6 +159,7 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
             <FormattedMessage
               id="createTeamDialog.name"
               defaultMessage="Workspace name"
+              description="Text field label for the name of the new workspace"
             />
           }
           onChange={(e) => { setName(e.target.value); }}
@@ -168,6 +171,7 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
             <FormattedMessage
               id="createTeamDialog.url"
               defaultMessage="Workspace URL"
+              description="Text field label for the URL of the new workspace"
             />
           }
           onChange={(e) => {
@@ -193,13 +197,14 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
           <FormattedMessage
             id="createTeamDialog.cancel"
             defaultMessage="Cancel"
+            description="Button label to cancel creating a workspace"
           />
         </Button>
         <Button color="primary" variant="contained" className="create-team-dialog__confirm-button" onClick={handleSubmit} disabled={saving || !name}>
-          { team && saving ? <FormattedMessage id="createTeamDialog.duplicating" defaultMessage="Duplicating…" /> : null }
-          { team && !saving ? <FormattedMessage id="createTeamDialog.duplice" defaultMessage="Duplicate" /> : null }
-          { !team && saving ? <FormattedMessage id="createTeamDialog.creating" defaultMessage="Creating…" /> : null }
-          { !team && !saving ? <FormattedMessage id="createTeamDialog.create" defaultMessage="Create" /> : null }
+          { team && saving ? <FormattedMessage id="createTeamDialog.duplicating" defaultMessage="Duplicating…" description="Button label status message while duplicating a workspace is in process" /> : null }
+          { team && !saving ? <FormattedMessage id="createTeamDialog.duplice" defaultMessage="Duplicate" description="Button label to start to duplicate a workspace" /> : null }
+          { !team && saving ? <FormattedMessage id="createTeamDialog.creating" defaultMessage="Creating…" description="Button label status message while creating a new workspace is in process" /> : null }
+          { !team && !saving ? <FormattedMessage id="createTeamDialog.create" defaultMessage="Create" description="Button label to start to create a new workspace" /> : null }
         </Button>
       </DialogActions>
     </Dialog>

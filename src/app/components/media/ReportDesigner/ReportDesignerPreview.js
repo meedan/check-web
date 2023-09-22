@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -120,6 +119,7 @@ const ReportDesignerPreview = (props) => {
         <FormattedMessage
           id="reportDesigner.nothingToPreview"
           defaultMessage="Start creating your report to preview what users will see when they receive it."
+          description="Empty message when there is no preview to show"
         />
       </div>
     );
@@ -156,6 +156,7 @@ const ReportDesignerPreview = (props) => {
             <FormattedMessage
               id="reportDesigner.addIntro"
               defaultMessage="Add content to the introduction"
+              description="Help text to tell the user to add content to the introduction"
             />
           )}
         </Box> : null }
@@ -167,6 +168,7 @@ const ReportDesignerPreview = (props) => {
             <FormattedMessage
               id="reportDesigner.addText"
               defaultMessage="Add content to the text message"
+              description="Help text to tell the user to add content to the text message"
             />
           )}
         </Box> : null }

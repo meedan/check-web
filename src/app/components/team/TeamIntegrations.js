@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -82,6 +82,7 @@ const TeamIntegrations = () => (<QueryRenderer
               <FormattedMessage
                 id="teamIntegrations.title"
                 defaultMessage="Integrations"
+                description="Settings page title for the Integrations section"
               />
             }
             helpUrl="https://help.checkmedia.org/en/articles/6925397-integrations"

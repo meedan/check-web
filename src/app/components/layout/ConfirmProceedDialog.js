@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -54,11 +53,12 @@ const ConfirmProceedDialog = ({
                 <FormattedMessage
                   id="confirmProceedDialog.confirmationText"
                   defaultMessage='Type "{text}" to confirm.'
+                  description="Description of what word to type in to the input in order to continue"
                   values={{ text: typeTextToConfirm }}
                 />
               </strong>
             </Typography>
-            <FormattedMessage id="confirmProceedDialog.confirmationTextPlaceholder" defaultMessage="Type here">
+            <FormattedMessage id="confirmProceedDialog.confirmationTextPlaceholder" defaultMessage="Type here" description="Placeholder label for confirmation word input">
               {placeholder => (
                 <TextField
                   key={typeTextToConfirm}
@@ -122,6 +122,7 @@ ConfirmProceedDialog.defaultProps = {
     <FormattedMessage
       id="confirmProceedDialog.continue"
       defaultMessage="Continue"
+      description="Label for the dialog continuation button"
     />
   ),
 };

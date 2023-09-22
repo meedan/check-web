@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -25,7 +24,7 @@ export default function ImportedReports({ routeParams }) {
       <Search
         searchUrlPrefix={`/${routeParams.team}/imported-fact-checks`}
         mediaUrlPrefix={`/${routeParams.team}/media`}
-        title={<FormattedMessage id="ImportedReports.title" defaultMessage="Imported fact-checks" />}
+        title={<FormattedMessage id="ImportedReports.title" defaultMessage="Imported fact-checks" description="Search label for searching fact-checks that were imported into the application" />}
         icon={<FileDownloadIcon />}
         teamSlug={routeParams.team}
         query={query}

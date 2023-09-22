@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -119,6 +118,7 @@ const ReportDesignerForm = (props) => {
               data-testid="report-designer__introduction"
               id="reportDesigner.introduction"
               defaultMessage="Introduction"
+              description="Section title for the report introduction"
             />
           }
         >
@@ -126,6 +126,7 @@ const ReportDesignerForm = (props) => {
             <FormattedMessage
               id="reportDesigner.introductionSub"
               defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+              description="Help text on how to use the query date and status fields"
               values={{
                 query_date: <strong>{'{{query_date}}'}</strong>,
                 status: <strong>{'{{status}}'}</strong>,
@@ -136,8 +137,9 @@ const ReportDesignerForm = (props) => {
             key={`introduction-${data.language}`}
             label={
               <FormattedMessage
-                id="reportDesigner.introduction"
+                id="reportDesigner.introductionInput"
                 defaultMessage="Introduction"
+                description="Text field label for the introduction input"
               />
             }
             defaultValue={data.introduction}
@@ -155,6 +157,7 @@ const ReportDesignerForm = (props) => {
                 <FormattedMessage
                   id="reportDesigner.report"
                   defaultMessage="Fact-check"
+                  description="Section title for the fact-check form fields"
                 />
               </strong>
             </Typography>
@@ -184,6 +187,7 @@ const ReportDesignerForm = (props) => {
                   <FormattedMessage
                     id="reportDesigner.textTitle"
                     defaultMessage="Title"
+                    description="Text field label for the report text title input"
                   />
                 }
                 onUpdate={(newValue) => { props.onUpdate('title', newValue); }}
@@ -199,6 +203,7 @@ const ReportDesignerForm = (props) => {
                   <FormattedMessage
                     id="reportDesigner.content"
                     defaultMessage="Summary"
+                    description="Text field label for the report summary input"
                   />
                 }
                 onUpdate={(newValue) => { props.onUpdate('text', newValue); }}
@@ -243,6 +248,7 @@ const ReportDesignerForm = (props) => {
                   <FormattedMessage
                     id="reportDesigner.headline"
                     defaultMessage="Title"
+                    description="Text field label for the report headline title input"
                   />
                 }
                 onUpdate={(newValue) => { props.onUpdate('headline', newValue); }}
@@ -258,6 +264,7 @@ const ReportDesignerForm = (props) => {
                   <FormattedMessage
                     id="reportDesigner.description"
                     defaultMessage="Summary"
+                    description="Text field label for the report text summary input"
                   />
                 }
                 onUpdate={(newValue) => { props.onUpdate('description', newValue); }}
@@ -282,6 +289,7 @@ const ReportDesignerForm = (props) => {
                     <FormattedMessage
                       id="reportDesigner.darkOverlay"
                       defaultMessage="Dark overlay"
+                      description="Check box label to indicate to user the dark overlay or not"
                     />
                   }
                 />
@@ -291,12 +299,14 @@ const ReportDesignerForm = (props) => {
                       <FormattedMessage
                         id="reportDesigner.useDefaultImage"
                         defaultMessage="Use default image"
+                        description="Button label to switch the report to use the default image"
                       />
                     </Button> : null }
                   <Button onClick={handleRemoveImage} color="primary">
                     <FormattedMessage
                       id="reportDesigner.removeImage"
                       defaultMessage="Remove image"
+                      description="Button label to remove the image from the report"
                     />
                   </Button>
                 </Box>
@@ -317,6 +327,7 @@ const ReportDesignerForm = (props) => {
                         <FormattedMessage
                           id="reportDesigner.statusLabel"
                           defaultMessage="Status label"
+                          description="Text field label for the status of the report"
                         />
                       }
                       textFieldProps={{
@@ -333,6 +344,7 @@ const ReportDesignerForm = (props) => {
                         <FormattedMessage
                           id="reportDesigner.datePublished"
                           defaultMessage="Date published"
+                          description="Text field label for the date the report was published"
                         />
                       }
                       textFieldProps={{
@@ -349,6 +361,7 @@ const ReportDesignerForm = (props) => {
                       <FormattedMessage
                         id="reportDesigner.url"
                         defaultMessage="Website URL"
+                        description="Text field label for the URL of the report website"
                       />
                     }
                     textFieldProps={{
