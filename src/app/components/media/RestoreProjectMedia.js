@@ -89,9 +89,7 @@ function RestoreProjectMedia({
               description="Failure message after attempting to mark an item as Not Spam."
             />
           );
-        setFlashMessage(message, 'failure');
-        window.location.assign(window.location.pathname);
-        setFlashMessage('Failed to restore the item. Please try again later.', 'error');
+        setFlashMessage(message, 'error');
       },
     });
   }, [
@@ -117,20 +115,22 @@ function RestoreProjectMedia({
     );
   }
 
+  if (projectMedia.archived === CheckArchivedFlags.NONE) {
+    return null;
+  }
+
   return (
-    <React.Fragment>
-      <ButtonMain
-        buttonProps={{
-          id: 'media-actions-bar__restore-confirm-to',
-        }}
-        label={buttonLabel}
-        variant="contained"
-        className={className}
-        endIcon={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
-        color="primary"
-        onClick={handleSubmit}
-      />
-    </React.Fragment>
+    <ButtonMain
+      buttonProps={{
+        id: 'media-actions-bar__restore-confirm-to',
+      }}
+      label={buttonLabel}
+      variant="contained"
+      className={className}
+      endIcon={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
+      color="primary"
+      onClick={handleSubmit}
+    />
   );
 }
 RestoreProjectMedia.propTypes = {
@@ -145,19 +145,6 @@ RestoreProjectMedia.propTypes = {
 };
 
 export default createFragmentContainer(RestoreProjectMedia, {
-  team: graphql`
-    fragment RestoreProjectMedia_team on Team {
-      search {
-        id
-      }
-      check_search_trash {
-        id
-      }
-      check_search_spam {
-        id
-      }
-    }
-  `,
   projectMedia: graphql`
     fragment RestoreProjectMedia_projectMedia on ProjectMedia {
       id
