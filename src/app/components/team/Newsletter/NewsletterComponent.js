@@ -468,8 +468,7 @@ const NewsletterComponent = ({
               handleFileChange={handleFileChange}
               setFile={setFile}
               setFileName={setFileName}
-              hideOptions={['link_preview']}
-              availableHeaderTypes={team.available_newsletter_header_types || []}
+              availableHeaderTypes={team.available_newsletter_header_types ? team.available_newsletter_header_types.filter(type => type !== 'link_preview') : []}
               headerType={headerType}
               fileName={fileName}
               overlayText={overlayText}

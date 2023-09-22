@@ -55,7 +55,6 @@ const NewsletterHeader = ({
   setFileName,
   overlayText,
   onUpdateField,
-  hideOptions,
   intl,
 }) => (
   <div>
@@ -69,11 +68,9 @@ const NewsletterHeader = ({
       helpContent={parentErrors.header_type}
     >
       {Object.keys(headerTypes).map(type => (
-        !hideOptions.includes(type) && (
-          <option key={type} value={type} disabled={!availableHeaderTypes.includes(type)}>
-            {intl.formatMessage(headerTypes[type])}
-          </option>
-        )
+        <option key={type} value={type} disabled={!availableHeaderTypes.includes(type)}>
+          {intl.formatMessage(headerTypes[type])}
+        </option>
       ))}
     </Select>
 
@@ -120,7 +117,6 @@ const NewsletterHeader = ({
 NewsletterHeader.defaultProps = {
   disabled: false,
   availableHeaderTypes: [],
-  hideOptions: [],
   headerType: 'none',
   overlayText: null,
   fileName: '',
@@ -130,7 +126,6 @@ NewsletterHeader.defaultProps = {
 NewsletterHeader.propTypes = {
   disabled: PropTypes.bool,
   availableHeaderTypes: PropTypes.arrayOf(PropTypes.string),
-  hideOptions: PropTypes.arrayOf(PropTypes.string),
   headerType: PropTypes.oneOf(['', 'none', 'link_preview', 'image', 'video', 'audio']),
   setFile: PropTypes.func.isRequired,
   setFileName: PropTypes.func.isRequired,
