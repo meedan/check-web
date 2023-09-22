@@ -4,6 +4,7 @@ import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import reactStringReplace from 'react-string-replace';
+import MediaChip from './cds/buttons-checkboxes-chips/MediaChip';
 import { units } from '../styles/js/shared';
 
 const StyledEmojiOnly = styled.span`
@@ -24,14 +25,18 @@ const marked = (text, truncateFileUrls, fileUrlName) => {
 
   if (truncateFileUrls) {
     parsedText = reactStringReplace(text, /(https?:\/\/[^ ]+\/[^/.]+\.[^ ]+)/gm, (match, i) => (
-      <a href={match} target="_blank" key={i} rel="noopener noreferrer">{fileUrlName || match.replace(/.*\//, '')}</a>
+      <a href={match} target="_blank" key={i} rel="noopener noreferrer">
+        <MediaChip url={match} label={fileUrlName || match.replace(/.*\//, '')} />
+      </a>
     ));
   }
 
   // Turn other URLs into links
 
   parsedText = reactStringReplace(parsedText, /(https?:\/\/[^ ]+)/gm, (match, i) => (
-    <a href={match} target="_blank" key={i} rel="noopener noreferrer">{match}</a>
+    <a href={match} target="_blank" key={i} rel="noopener noreferrer">
+      <MediaChip url={match} label={match} />
+    </a>
   ));
 
   // For now, only WhatsApp formatting rules... extend it if needed in the future,

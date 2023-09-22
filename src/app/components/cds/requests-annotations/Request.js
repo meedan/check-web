@@ -1,19 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import styles from './Request.module.css';
 import ParsedText from '../../ParsedText';
 import BulletSeparator from '../../layout/BulletSeparator';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    borderBottom: '1px var(--grayBorderMain) solid',
-    padding: `${theme.spacing(3)}px ${theme.spacing(1)}px`,
-  },
-  name: {
-    marginLeft: theme.spacing(1),
-  },
-}));
 
 const Request = ({
   icon,
@@ -24,8 +14,6 @@ const Request = ({
   mediaTitle,
   receipt,
 }) => {
-  const classes = useStyles();
-
   let preParsedText = text;
   preParsedText = preParsedText.replace(/^null /, '').replace(/^undefined /, ''); // Clean-up bad Feed API requests
   if (fileUrl && fileUrl !== '') {
@@ -33,9 +21,9 @@ const Request = ({
   }
 
   return (
-    <div className={[classes.root, 'request-card'].join(' ')}>
-      <BulletSeparator icon={icon} details={details} />
-      {time}
+    <div className={cx('request-card', styles['request-card'])}>
+      <BulletSeparator compact icon={icon} details={details} />
+      <div className={cx(styles['request-time'])}>{time}</div>
       <div className={styles['request-content']}>
         <ParsedText text={preParsedText} fileUrlName={mediaTitle} />
       </div>

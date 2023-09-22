@@ -10,6 +10,7 @@ import TelegramIcon from '../../icons/telegram.svg';
 import ViberIcon from '../../icons/viber.svg';
 import LineIcon from '../../icons/line.svg';
 import WhatsAppIcon from '../../icons/whatsapp.svg';
+import FactCheckIcon from '../../icons/fact_check.svg';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,

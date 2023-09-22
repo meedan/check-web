@@ -6,7 +6,10 @@ const RequestReceipt = ({
   icon,
   label,
 }) => (
-  <div className={cx(styles['receipt-wrapper'], styles['receipt-green'])}>{icon}{label}</div>
+  <div className={cx(styles['receipt-wrapper'], styles['receipt-green'])}>
+    {icon}
+    <span className="typography-body2">{label}</span>
+  </div>
 );
 
 export default RequestReceipt;
