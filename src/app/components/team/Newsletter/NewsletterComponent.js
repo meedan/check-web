@@ -68,7 +68,7 @@ const NewsletterComponent = ({
   const [introductionText, setIntroductionText] = React.useState(introduction || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
-  const [headerType, setHeaderType] = React.useState(header_type || 'link_preview');
+  const [headerType, setHeaderType] = React.useState(header_type || 'none');
   const fileNameFromUrl = new RegExp(/[^/\\&?]+\.\w{3,4}(?=([?&].*$|$))/);
   const [fileName, setFileName] = React.useState((header_file_url && header_file_url.match(fileNameFromUrl) && header_file_url.match(fileNameFromUrl)[0]) || '');
   const [rssFeedUrl, setRssFeedUrl] = React.useState(rss_feed_url || '');
@@ -468,6 +468,7 @@ const NewsletterComponent = ({
               handleFileChange={handleFileChange}
               setFile={setFile}
               setFileName={setFileName}
+              hideOptions={['link_preview']}
               availableHeaderTypes={team.available_newsletter_header_types || []}
               headerType={headerType}
               fileName={fileName}
