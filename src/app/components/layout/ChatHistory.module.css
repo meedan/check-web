@@ -1,0 +1,54 @@
+.chat-history {
+  background-color: var(--otherWhite);
+  border: 1px solid var(--grayBorderMain);
+  border-radius: 16px;
+  width: 579px;
+
+  .chat-header {
+    align-items: center;
+    border-bottom: 1px solid var(--brandBorder);
+    display: flex;
+    height: 64px;
+    justify-content: space-between;
+    padding: 16px 24px;
+    position: relative;
+    width: 100%;
+
+    .left-side {
+      position: relative;
+      white-space: nowrap;
+      width: fit-content;
+    }
+  }
+
+  .chat-content {
+    background-color: var(--grayBackground);
+    border: 0 none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px 24px 50px;
+    position: relative;
+
+    .date {
+      align-self: center;
+      margin-top: -1px;
+      text-align: center;
+    }
+
+    .message {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .user {
+        background-color: var(--brandMain);
+        border-radius: 16px 16px 16px 4px;
+        color: var(--otherWhite);
+        padding: 8px;
+        white-space: pre-wrap;
+        width: fit-content;
+      }
+    }
+  }
+}
