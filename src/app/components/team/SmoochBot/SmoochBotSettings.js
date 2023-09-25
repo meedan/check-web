@@ -27,7 +27,7 @@ const SmoochBotSettings = (props) => {
         />
       ))}
 
-      { props.currentUser.is_admin ?
+      { !props.currentUser.is_admin ?
         <Box mt={2}>
           <Typography variant="h6" component="div">
             <FormattedMessage id="smoochBotSettings.internalSettings" defaultMessage="Internal settings" description="Title of Internal Settings section in the tipline settings page" />

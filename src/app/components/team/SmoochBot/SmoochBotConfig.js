@@ -14,7 +14,7 @@ import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
-import AddCircleIcon from '../../../icons/add_circle.svg';
+import AddIcon from '../../../icons/add.svg';
 import createEnvironment from '../../../relay/EnvironmentModern';
 
 const useStyles = makeStyles(theme => ({
@@ -174,21 +174,20 @@ const SmoochBotConfig = (props) => {
               <SmoochBotSidebar
                 currentOption={currentOption}
                 resources={resources}
-                version={value.smooch_version || 'v1'}
                 onClick={handleSelectOption}
               />
               <ButtonMain
-                iconLeft={<AddCircleIcon />}
-                theme="brand"
+                iconLeft={<AddIcon />}
+                theme="text"
                 size="default"
-                variant="text"
+                variant="contained"
                 onClick={() => {
                   handleSelectOption('resource_new');
                 }}
                 label={
                   <FormattedMessage
                     id="smoochBot.addResource"
-                    defaultMessage="Add resource"
+                    defaultMessage="Resource"
                     description="Button label to add a resource to this bot"
                   />
                 }

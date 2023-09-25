@@ -70,5 +70,22 @@
         justify-content: space-between;
       }
     }
+
+    .smoochBotMenu {
+      li {
+        margin: 0 0 8px;
+
+        &.smoochBotMenuSection {
+          color: var(--textSecondary);
+          font-weight: bold;
+          margin: 8px 0;
+        }
+
+        button {
+          justify-content: start;
+          width: 100%;
+        }
+      }
+    }
   }
 }

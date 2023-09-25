@@ -8,16 +8,19 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import GetAppIcon from '../../../icons/file_download.svg';
 import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
 import FacebookIcon from '../../../icons/facebook.svg';
 import LineIcon from '../../../icons/line.svg';
+import HelpIcon from '../../../icons/help.svg';
 import TelegramIcon from '../../../icons/telegram.svg';
 import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
 import SettingsHeader from '../SettingsHeader';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
+import styles from '../Settings.module.css';
 
 const useStyles = makeStyles(() => ({
   smoochBotIntegrationsHeader: {
@@ -47,12 +50,19 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
 
   return (
     <React.Fragment>
+      <div className={styles['setting-content-container-title']}>
+        <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
+        <div className={styles['setting-content-container-actions']}>
+          <ButtonMain
+            variant="text"
+            size="small"
+            theme="text"
+            iconCenter={<HelpIcon />}
+          />
+        </div>
+      </div>
+
       <SettingsHeader
-        title={
-          <div className="typography-subtitle2">
-            <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
-          </div>
-        }
         helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline"
         className={classes.smoochBotIntegrationsHeader}
       />
