@@ -2,3 +2,7 @@
   color: var(--validationMain);
   font-size: var(--iconSizeSmall);
 }
+
+.user-name {
+  color: var(--textPrimary);
+}

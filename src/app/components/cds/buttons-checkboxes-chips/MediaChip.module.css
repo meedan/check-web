@@ -7,8 +7,9 @@
   padding: 4px 8px;
 }
 
-.media-chip-icon {
+.media-chip-icon svg {
   color: var(--textPrimary);
+  display: block;
 }
 
 .media-chip-label {

@@ -4,6 +4,7 @@ import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import reactStringReplace from 'react-string-replace';
+import styles from './ParsedText.module.css';
 import MediaChip from './cds/buttons-checkboxes-chips/MediaChip';
 import { units } from '../styles/js/shared';
 
@@ -25,7 +26,7 @@ const marked = (text, truncateFileUrls, fileUrlName) => {
 
   if (truncateFileUrls) {
     parsedText = reactStringReplace(text, /(https?:\/\/[^ ]+\/[^/.]+\.[^ ]+)/gm, (match, i) => (
-      <a href={match} target="_blank" key={i} rel="noopener noreferrer">
+      <a className={styles['media-chip-link']} href={match} target="_blank" key={i} rel="noopener noreferrer">
         <MediaChip url={match} label={fileUrlName || match.replace(/.*\//, '')} />
       </a>
     ));
@@ -34,7 +35,7 @@ const marked = (text, truncateFileUrls, fileUrlName) => {
   // Turn other URLs into links
 
   parsedText = reactStringReplace(parsedText, /(https?:\/\/[^ ]+)/gm, (match, i) => (
-    <a href={match} target="_blank" key={i} rel="noopener noreferrer">
+    <a className={styles['media-chip-link']} href={match} target="_blank" key={i} rel="noopener noreferrer">
       <MediaChip url={match} label={match} />
     </a>
   ));
