@@ -34,6 +34,14 @@ const messages = defineMessages({
   },
 });
 
+const headerTypes = {
+  none: messages.headerTypeNone,
+  link_preview: messages.headerTypeLinkPreview,
+  image: messages.headerTypeImage,
+  video: messages.headerTypeVideo,
+  audio: messages.headerTypeAudio,
+};
+
 const NewsletterHeader = ({
   disabled,
   availableHeaderTypes,
@@ -59,11 +67,11 @@ const NewsletterHeader = ({
       error={parentErrors.header_type || error}
       helpContent={parentErrors.header_type}
     >
-      <option disabled={!availableHeaderTypes.includes('none')} value="none">{intl.formatMessage(messages.headerTypeNone)}</option>
-      <option disabled={!availableHeaderTypes.includes('link_preview')} value="link_preview">{intl.formatMessage(messages.headerTypeLinkPreview)}</option>
-      <option disabled={!availableHeaderTypes.includes('image')} value="image">{intl.formatMessage(messages.headerTypeImage)}</option>
-      <option disabled={!availableHeaderTypes.includes('video')} value="video">{intl.formatMessage(messages.headerTypeVideo)}</option>
-      <option disabled={!availableHeaderTypes.includes('audio')} value="audio">{intl.formatMessage(messages.headerTypeAudio)}</option>
+      {Object.keys(headerTypes).map(type => (
+        <option key={type} value={type} disabled={!availableHeaderTypes.includes(type)}>
+          {intl.formatMessage(headerTypes[type])}
+        </option>
+      ))}
     </Select>
 
     { (headerType === 'image' || headerType === 'video' || headerType === 'audio') ?
@@ -109,7 +117,7 @@ const NewsletterHeader = ({
 NewsletterHeader.defaultProps = {
   disabled: false,
   availableHeaderTypes: [],
-  headerType: 'link_preview',
+  headerType: 'none',
   overlayText: null,
   fileName: '',
   error: false,

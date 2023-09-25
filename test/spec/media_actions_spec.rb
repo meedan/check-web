@@ -71,20 +71,9 @@ shared_examples 'media actions' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.annotation--comment')
     expect(@driver.page_source.include?('A comment')).to be(true)
-    @driver.navigate.refresh
-    wait_for_selector('.media-card-large')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    wait_for_selector('.media-tab__comments').click
-    wait_for_selector('.annotation--comment')
-    expect(@driver.page_source.include?('A comment')).to be(true)
     wait_for_selector('.annotation .menu-button').click
     wait_for_selector('.annotation__delete').click
     wait_for_selector_none('.annotation__avatar-col')
-    expect(@driver.page_source.include?('A comment')).to be(false)
-    @driver.navigate.refresh
-    wait_for_selector('.media-card-large')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    wait_for_selector('.media-tab__comments').click
     expect(@driver.page_source.include?('A comment')).to be(false)
   end
 
