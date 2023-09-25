@@ -1,5 +1,25 @@
 [
   {
+    "id": "createTeamDialog.duplicating",
+    "description": "Button label status message while duplicating a workspace is in process",
+    "defaultMessage": "Duplicating…"
+  },
+  {
+    "id": "createTeamDialog.duplicate",
+    "description": "\"Button label to start to duplicate a workspace",
+    "defaultMessage": "Duplicate"
+  },
+  {
+    "id": "\"createTeamDialog.creating",
+    "description": "\"Button label status message while creating a new workspace is in process",
+    "defaultMessage": "Creating…"
+  },
+  {
+    "id": "\"createTeamDialog.create",
+    "description": "Button label to start to create a new workspace",
+    "defaultMessage": "Create"
+  },
+  {
     "id": "createTeamDialog.defaultErrorMessage",
     "description": "Error message when a workspace could not be created",
     "defaultMessage": "Could not create new workspace"
@@ -33,25 +53,5 @@
     "id": "createTeamDialog.cancel",
     "description": "Button label to cancel creating a workspace",
     "defaultMessage": "Cancel"
-  },
-  {
-    "id": "createTeamDialog.duplicating",
-    "description": "Button label status message while duplicating a workspace is in process",
-    "defaultMessage": "Duplicating…"
-  },
-  {
-    "id": "createTeamDialog.duplice",
-    "description": "Button label to start to duplicate a workspace",
-    "defaultMessage": "Duplicate"
-  },
-  {
-    "id": "createTeamDialog.creating",
-    "description": "Button label status message while creating a new workspace is in process",
-    "defaultMessage": "Creating…"
-  },
-  {
-    "id": "createTeamDialog.create",
-    "description": "Button label to start to create a new workspace",
-    "defaultMessage": "Create"
   }
 ]
