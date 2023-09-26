@@ -2,7 +2,7 @@
   {
     "id": "smoochBotMainMenuOption.scenario",
     "description": "Title of dialog that opens to add a new option to tipline bot main menu",
-    "defaultMessage": "Scenario"
+    "defaultMessage": "Menu Option"
   },
   {
     "id": "smoochBotMainMenuOption.label",
@@ -25,39 +25,14 @@
     "defaultMessage": "If the button is clicked, then send:"
   },
   {
-    "id": "smoochBotMainMenuOption.response",
-    "description": "Input label displayed on dialog that opens to add a new option to tipline bot main menu",
-    "defaultMessage": "Response"
-  },
-  {
-    "id": "smoochBotMainMenuOption.selectAction",
-    "description": "Input label displayed on dialog that opens to add a new option to tipline bot main menu",
-    "defaultMessage": "Select action"
-  },
-  {
-    "id": "smoochBotMainMenuOption.main",
-    "description": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu",
-    "defaultMessage": "Main"
-  },
-  {
-    "id": "smoochBotMainMenuOption.queryState",
-    "description": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu",
-    "defaultMessage": "Submission prompt"
-  },
-  {
-    "id": "smoochBotMainMenuOption.subscriptionState",
-    "description": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu",
-    "defaultMessage": "Subscription opt-in"
-  },
-  {
-    "id": "smoochBotMainMenuOption.resources",
-    "description": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu",
-    "defaultMessage": "Resources"
-  },
-  {
     "id": "smoochBotMainMenuOption.responseError",
     "description": "Error message displayed when user tries to save tipline option with empty response",
     "defaultMessage": "Please choose a response"
+  },
+  {
+    "id": "smoochBotMainMenuOption.response",
+    "description": "Input label displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Response"
   },
   {
     "id": "smoochBotMainMenuOption.save",
