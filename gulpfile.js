@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { spawn } = require('child_process');
+const { spawn, exec } = require('child_process');
 const request = require('sync-request');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
@@ -103,6 +103,12 @@ gulp.task('build:web', gulp.series('relay:copy', 'react-relay:build', 'webpack:b
 
 gulp.task('react-relay:build:watch', () => spawnPromise([...RelayCommand, '--watch']));
 
+gulp.task('clean:build:web', (cb) => {
+  exec('rm -rf build/web/*', (err, stdout, stderr) => {
+    cb();
+  });
+});
+
 // Dev mode — with 'watch' enabled for faster builds
 // Webpack only — without the rest of the web build steps.
 gulp.task('webpack:build:web:dev', (callback) => {
@@ -142,6 +148,7 @@ gulp.task('webpack:build:web:dev', (callback) => {
 gulp.task(
   'build:web:dev',
   gulp.series(
+    'clean:build:web',
     'relay:copy',
     'copy:build:web',
     'react-relay:build', // before Webpack -- for first run to succeed and not race
