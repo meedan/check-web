@@ -1,5 +1,5 @@
 language: minimal
-dist: bionic
+dist: jammy
 before_install:
 # Decrypt credentials for Alegre
 - openssl aes-256-cbc -K $encrypted_e6af0c606e27_key -iv $encrypted_e6af0c606e27_iv
