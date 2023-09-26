@@ -3,58 +3,49 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import TeamTagsComponent from './TeamTagsComponent';
-import { parseStringUnixTimestamp } from '../../../helpers';
+import PaginatedTeamTags from './PaginatedTeamTags';
 
-const renderQuery = ({ error, props }) => {
-  if (!error && props) {
-    const { team } = props;
-    return (
-      <TeamTagsComponent
-        teamId={team.id}
-        teamDbid={team.dbid}
-        rulesSchema={JSON.parse(team.rules_json_schema)}
-        rules={team.get_rules}
-        permissions={team.permissions}
-        tags={team.tag_texts.edges.map(({ node }) => ({ ...node, updated_at: parseStringUnixTimestamp(node.updated_at) }))}
-      />
-    );
-  }
+const TeamTags = (props) => {
+  const pageSize = 100;
+  const [searchTerm, setSearchTerm] = React.useState('');
 
-  // TODO: We need a better error handling in the future, standardized with other components
-  return null;
-};
-
-const TeamTags = props => (
-  <QueryRenderer
+  return (<QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query TeamTagsQuery($teamSlug: String!) {
+      query TeamTagsQuery($teamSlug: String!, $pageSize: Int!, $after: String, $keyword: String) {
         team(slug: $teamSlug) {
           id
           dbid
           permissions
           get_rules
           rules_json_schema
-          tag_texts(last: 100) {
-            edges {
-              node {
-                id
-                text
-                tags_count
-                updated_at
-              }
-            }
-          }
+          ...PaginatedTeamTags_root
         }
       }
     `}
     variables={{
       teamSlug: props.teamSlug,
+      pageSize,
+      keyword: searchTerm,
     }}
-    render={renderQuery}
-  />
-);
+    render={({ error, props: innerProps }) => {
+      if (!error && innerProps) {
+        const { team } = innerProps;
+
+        return (
+          <PaginatedTeamTags
+            root={team}
+            pageSize={pageSize}
+            parentProps={innerProps}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        );
+      }
+      return null;
+    }}
+  />);
+};
 
 TeamTags.propTypes = {
   teamSlug: PropTypes.string.isRequired,
