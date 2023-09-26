@@ -25,7 +25,7 @@ const Request = ({
       <BulletSeparator compact icon={icon} details={details} />
       <div className={cx(styles['request-time'])}>{time}</div>
       <div className={styles['request-content']}>
-        <ParsedText text={preParsedText} fileUrlName={mediaTitle} />
+        <ParsedText text={preParsedText} fileUrlName={mediaTitle} mediaChips />
       </div>
       {receipt}
     </div>
