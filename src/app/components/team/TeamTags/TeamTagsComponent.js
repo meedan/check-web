@@ -64,7 +64,7 @@ const TeamTagsComponent = ({
             id="teamTagsComponent.title"
             defaultMessage="Tags [{count}]"
             description="Title for the tags settings page"
-            values={{ count: tags.length }}
+            values={{ count: totalTags }}
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/6542134-tags"
