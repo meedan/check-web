@@ -1,41 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Radio from '@material-ui/core/Radio';
-import { withStyles } from '@material-ui/core/styles';
 import InfiniteScroll from 'react-infinite-scroller';
-
-const styles = theme => ({
-  multiSelectorArea: {
-    padding: theme.spacing(2),
-    maxHeight: theme.spacing(40),
-    height: theme.spacing(40),
-    minWidth: theme.spacing(32),
-    overflowY: 'auto',
-    border: '1px solid #f2f2f2', // FIXME: implement a proper check palette
-    backgroundColor: '#fafafa',
-  },
-  notFound: {
-    color: '#757575',
-    paddingTop: theme.spacing(14),
-    paddingBottom: theme.spacing(14),
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  category: {
-    color: '#757575',
-    marginTop: `${theme.spacing(1)} !important`,
-  },
-  child: {
-    marginLeft: theme.spacing(2),
-  },
-});
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import TextField from '../cds/inputs/TextField';
+import SearchIcon from '../../icons/search.svg';
+import styles from './MultiSelector.module.css';
 
 class MultiSelector extends React.Component {
   constructor(props) {
@@ -189,7 +163,6 @@ class MultiSelector extends React.Component {
       onDismiss,
       onScrollBottom,
       onSubmit,
-      classes,
     } = this.props;
 
     const options = this.filter(this.props.options);
@@ -199,46 +172,43 @@ class MultiSelector extends React.Component {
     );
 
     return (
-      <div>
-        { this.props.allowSearch ?
-          <Box p={2}>
-            <TextField
-              className="multiselector__search-input"
-              onChange={this.handleChange}
-              placeholder={this.props.inputPlaceholder}
-              variant="outlined"
-              fullWidth
-            />
-            { this.props.actionButton }
-          </Box>
-          : null
-        }
-        { this.props.allowToggleAll ?
-          <Box p={2} display="flex" justifyContent="space-between">
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.isAllSelected()}
-                  onChange={this.handleToggleAll}
-                  id="multiselector__select-all"
+      <div className={styles['multiselector-wrapper']}>
+        <div className={styles['multiselector-controls']}>
+          { this.props.allowSearch &&
+            <>
+              <TextField
+                className={cx('multiselector__search-input', styles['multiselector-search-input'])}
+                onChange={this.handleChange}
+                placeholder={this.props.inputPlaceholder}
+                iconLeft={<SearchIcon />}
+              />
+              { this.props.actionButton }
+            </>
+          }
+          { this.props.allowToggleAll &&
+            <div className={styles['multiselector-reset']}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.isAllSelected()}
+                    onChange={this.handleToggleAll}
+                    id="multiselector__select-all"
+                  />
+                }
+                label={this.props.toggleAllLabel}
+              />
+              { this.props.resetLabel &&
+                <ButtonMain
+                  className="multiselector__reset"
+                  onClick={this.handleReset}
+                  disabled={disableReset}
+                  label={this.props.resetLabel}
                 />
               }
-              label={this.props.toggleAllLabel}
-            />
-            { this.props.resetLabel ?
-              <Button
-                className="multiselector__reset"
-                onClick={this.handleReset}
-                disabled={disableReset}
-              >
-                { this.props.resetLabel}
-              </Button>
-              : null
-            }
-          </Box>
-          : null
-        }
-        <div className={classes.multiSelectorArea}>
+            </div>
+          }
+        </div>
+        <div className={styles['multiselector-scroller']}>
           <InfiniteScroll
             hasMore={hasMore}
             loadMore={onScrollBottom}
@@ -251,12 +221,12 @@ class MultiSelector extends React.Component {
                 options.map((o, index) => {
                   if (o.value === '' && o.label === '') {
                     return (
-                      <Divider key={`multiselector-divider-${index.toString()}`} />
+                      <hr key={`multiselector-divider-${index.toString()}`} />
                     );
                   }
                   if (o.value === '') {
                     return (
-                      <span className={classes.category} key={`multiselector-header-${index.toString()}`}>
+                      <span className={styles['list-item-category']} key={`multiselector-header-${index.toString()}`}>
                         {o.label}
                       </span>
                     );
@@ -268,7 +238,7 @@ class MultiSelector extends React.Component {
                   return (
                     <FormControlLabel
                       key={`multiselector-option-${index.toString()}`}
-                      className={o.parent ? classes.child : ''}
+                      className={o.parent ? styles['list-item-child'] : ''}
                       control={this.props.single ?
                         <Radio
                           checked={this.state.selected === o.value}
@@ -283,37 +253,40 @@ class MultiSelector extends React.Component {
                           {...icons}
                         />
                       }
-                      label={<span style={{ color: o.color }}>{o.label} </span>}
+                      label={<span style={{ color: o.color }}>{o.label}</span>}
                     />
                   );
                 })
               }
-              { options.length < 1 ?
-                <div className={classes.notFound}>
+              { options.length < 1 &&
+                <div className={styles['not-found']}>
                   { this.props.notFoundLabel }
                 </div>
-                : null
               }
             </FormGroup>
             { this.props.loadingIcon }
           </InfiniteScroll>
         </div>
         { this.props.children }
-        <Box p={2} display="flex" justifyContent="flex-end" flexDirection="row">
-          { onDismiss && this.props.cancelLabel ? (
-            <Button onClick={onDismiss}>
-              { this.props.cancelLabel }
-            </Button>
-          ) : null }
-          <Button
+        <div className={styles['multiselector-footer']}>
+          { onDismiss && this.props.cancelLabel &&
+            <ButtonMain
+              variant="text"
+              theme="text"
+              size="default"
+              onClick={onDismiss}
+              label={this.props.cancelLabel}
+            />
+          }
+          <ButtonMain
             className="multi__selector-save"
-            color="primary"
+            theme="brand"
+            size="default"
             variant="contained"
             onClick={() => onSubmit(this.state.selected)}
-          >
-            { this.props.submitLabel }
-          </Button>
-        </Box>
+            label={this.props.submitLabel}
+          />
+        </div>
       </div>
     );
   }
@@ -344,7 +317,6 @@ MultiSelector.propTypes = {
   allowSearch: PropTypes.bool,
   allowToggleAll: PropTypes.bool,
   cancelLabel: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   defaultAllSelected: PropTypes.bool,
   defaultValue: PropTypes.array,
@@ -369,4 +341,4 @@ MultiSelector.propTypes = {
   resetLabel: PropTypes.node,
 };
 
-export default withStyles(styles)(MultiSelector);
+export default MultiSelector;

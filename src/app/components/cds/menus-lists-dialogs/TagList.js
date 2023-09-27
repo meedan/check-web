@@ -69,7 +69,7 @@ const TagList = ({
       size="default"
       onClick={() => handleAddNew(searchValue)}
       label={
-        <FormattedMessage id="tagList.create" defaultMessage="+ Create this tag" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." />
+        <FormattedMessage id="tagList.create" defaultMessage="+ Create search tags" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." />
       }
       buttonProps={{
         id: 'tag-menu__create-button',
@@ -110,6 +110,7 @@ const TagList = ({
         anchorEl={anchorEl}
         open={menuOpen}
         onClose={handleCloseMenu}
+        className={styles['tag-list-manager']}
       >
         <FormattedMessage id="multiSelector.search" defaultMessage="Search…" description="The placeholder text in a search box.">
           {placeholder => (
@@ -119,6 +120,13 @@ const TagList = ({
               inputPlaceholder={placeholder}
               selected={selected}
               options={options}
+              cancelLabel={
+                <FormattedMessage
+                  id="global.cancel"
+                  defaultMessage="Cancel"
+                  description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+                />
+              }
               onDismiss={handleCloseMenu}
               onSearchChange={handleSearchChange}
               onSubmit={handleSubmit}

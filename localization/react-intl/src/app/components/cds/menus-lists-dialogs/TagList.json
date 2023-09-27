@@ -2,7 +2,7 @@
   {
     "id": "tagList.create",
     "description": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results.",
-    "defaultMessage": "+ Create this tag"
+    "defaultMessage": "+ Create search tags"
   },
   {
     "id": "taglist.tooltipManage",
@@ -13,6 +13,11 @@
     "id": "multiSelector.search",
     "description": "The placeholder text in a search box.",
     "defaultMessage": "Search…"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
   },
   {
     "id": "tagList.notFound",
