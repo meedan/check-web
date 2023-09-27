@@ -8,6 +8,7 @@ import Instagram from '../../icons/instagram.svg';
 import Movie from '../../icons/movie.svg';
 import PlaylistAddCheck from '../../icons/playlist_add_check.svg';
 import Public from '../../icons/public.svg';
+import Telegram from '../../icons/telegram.svg';
 import Twitter from '../../icons/twitter.svg';
 import YouTube from '../../icons/youtube.svg';
 
@@ -20,8 +21,10 @@ export function mediaTypeFromUrl(url) {
     mediaType = 'Instagram';
   } else if (/^(https?:\/\/)?((www\.)?(twitter|x)\.com)\/.+$/.test(url)) {
     mediaType = 'Twitter';
-  } else if (/^(https?:\/\/)?((www\.)?facebook\.com)\/.+$/.test(url)) {
+  } else if (/^(https?:\/\/)?((www\.)?facebook\.com|fb\.watch)\/.+$/.test(url)) {
     mediaType = 'Facebook';
+  } else if (/^(https?:\/\/)?((www\.)?t\.me)\/.+$/.test(url)) {
+    mediaType = 'Telegram';
   }
 
   return mediaType;
@@ -62,6 +65,8 @@ export default function MediaTypeDisplayIcon({ mediaType }) {
     return <Facebook style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Instagram':
     return <Instagram style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+  case 'Telegram':
+    return <Telegram style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Twitter':
     return <Twitter style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Youtube':
