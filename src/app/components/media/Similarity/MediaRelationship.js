@@ -113,9 +113,8 @@ const RelationshipMenu = ({
         browserHistory.push(`/${teamSlug}/media/${targetId}`);
       }
     },
-    () => {
-      handleError();
-    });
+    handleError,
+    );
   };
 
   const handleDelete = () => {
