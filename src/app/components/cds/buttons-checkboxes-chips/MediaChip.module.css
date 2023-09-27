@@ -5,6 +5,7 @@
   display: flex;
   gap: 8px;
   padding: 4px 8px;
+  width: max-content;
 }
 
 .media-chip-icon svg {

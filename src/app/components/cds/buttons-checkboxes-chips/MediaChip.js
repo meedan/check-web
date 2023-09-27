@@ -11,19 +11,22 @@ const MediaChip = ({
 }) => {
   const mediaType = mediaTypeFromFilename(label) || mediaTypeFromUrl(url);
 
+  // Shortens url by hiding https://wwww.
+  const shortUrl = label.match(/https?:\/\/www.?([^ ]+)/)?.[1];
+
   return (
     <Tooltip title={url} arrow>
-      <div className={styles['media-chip']}>
-        <div className={styles['media-chip-icon']}><MediaTypeDisplayIcon mediaType={mediaType} /></div>
-        <div className={cx('typography-body2', styles['media-chip-label'])}>{label}</div>
+      <div className={cx(styles['media-chip'], 'media-chip')}>
+        <div className={cx(styles['media-chip-icon'], 'media-chip-icon')}><MediaTypeDisplayIcon mediaType={mediaType} /></div>
+        <div className={cx('typography-body2', styles['media-chip-label'], 'media-chip-label')}>{shortUrl || label}</div>
       </div>
     </Tooltip>
   );
 };
 
 MediaChip.propTypes = {
-  label: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired, // filename or url to website
+  url: PropTypes.string.isRequired, // actual url to file or website
 };
 
 export default MediaChip;

@@ -18,7 +18,7 @@ export function mediaTypeFromUrl(url) {
     mediaType = 'Youtube';
   } else if (/^(https?:\/\/)?((www\.)?instagram\.com)\/.+$/.test(url)) {
     mediaType = 'Instagram';
-  } else if (/^(https?:\/\/)?((www\.)?twitter\.com)\/.+$/.test(url)) {
+  } else if (/^(https?:\/\/)?((www\.)?(twitter|x)\.com)\/.+$/.test(url)) {
     mediaType = 'Twitter';
   } else if (/^(https?:\/\/)?((www\.)?facebook\.com)\/.+$/.test(url)) {
     mediaType = 'Facebook';
@@ -27,7 +27,6 @@ export function mediaTypeFromUrl(url) {
   return mediaType;
 }
 
-// FIXME Get supported file extensions from backend
 export function mediaTypeFromFilename(fileName) {
   let mediaType = null;
 
@@ -35,11 +34,11 @@ export function mediaTypeFromFilename(fileName) {
   const fileExtension = match && match[1];
 
   if (fileExtension) {
-    if (['jpg', 'jpeg', 'JPG', 'JPEG'].includes(fileExtension)) {
+    if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExtension.toLowerCase())) {
       mediaType = 'UploadedImage';
-    } else if (['mp3', 'MP3', 'ogg', 'OGG'].includes(fileExtension)) {
+    } else if (['mp3', 'wav', 'ogg', 'm4a'].includes(fileExtension.toLowerCase())) {
       mediaType = 'UploadedAudio';
-    } else if (['mp4', 'MP4', 'avi', 'AVI'].includes(fileExtension)) {
+    } else if (['mp4', 'ogg', 'ogv', 'webm', 'mov', 'm4v'].includes(fileExtension.toLowerCase())) {
       mediaType = 'UploadedVideo';
     }
   }
