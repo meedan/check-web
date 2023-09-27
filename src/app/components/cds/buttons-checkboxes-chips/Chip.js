@@ -24,7 +24,7 @@ const Chip = ({
       className={`${styles['chip-container']} typography-body2 ${className}`}
       onClick={onClick}
     >
-      <span>{label}</span>
+      <span title={label}>{label}</span>
       { onRemove && (
         <Tooltip
           placement="top"
