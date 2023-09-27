@@ -30,7 +30,7 @@ const SandboxComponent = ({ admin }) => {
   const [tags, setTags] = React.useState([
     'first',
     'second',
-    'Third is Quite Long',
+    'Third is Quite Long Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sapien tellus, pretium sed bibendum in, bibendum quis metus. Donec tincidunt justo urna, vel laoreet urna consectetur fermentum. Pellentesque et lectus dictum, dapibus leo at, semper augue. Sed quis tellus eu ipsum rutrum ultrices non id magna.',
     'fourth',
     'fifth!',
     'This is Six',

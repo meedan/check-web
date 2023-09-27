@@ -5,6 +5,11 @@
     "defaultMessage": "+ Create this tag"
   },
   {
+    "id": "taglist.tooltipManage",
+    "description": "Tooltip message displayed on a tag item to let the user know they can manage the tags in the list",
+    "defaultMessage": "Manage Tags"
+  },
+  {
     "id": "multiSelector.search",
     "description": "The placeholder text in a search box.",
     "defaultMessage": "Search…"
@@ -23,5 +28,10 @@
     "id": "tagList.empty",
     "description": "A message that appears in a lag list when there are no available tags to display.",
     "defaultMessage": "0 tags"
+  },
+  {
+    "id": "taglist.tooltipAdd",
+    "description": "Tooltip message displayed on a tag item to let the user know they can add new tags to the list",
+    "defaultMessage": "Add Tags"
   }
 ]
