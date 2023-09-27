@@ -26,7 +26,6 @@ describe('<MediaTypeDisplayIcon />', () => {
     type = mediaTypeFromUrl('https://x.com/wbalasdfy/status/170bliblo33468');
     expect(type).toEqual('Twitter');
 
-
     type = mediaTypeFromUrl('https://www.facebook.com/ioushdfuhm/posts/piriripororo');
     expect(type).toEqual('Facebook');
 

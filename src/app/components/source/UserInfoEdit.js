@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
@@ -440,6 +439,7 @@ class UserInfoEdit extends React.Component {
                 <FormattedMessage
                   id="userInfoEdit.addLinkHelper"
                   defaultMessage="Add a link to a web page or social media profile. Note: this does not affect your login method."
+                  description="Help text about adding a social media profile link to this user account"
                 />
               </StyledHelper>}
           </div>))}
@@ -549,6 +549,7 @@ class UserInfoEdit extends React.Component {
                   <FormattedMessage
                     id="userInfoEdit.addLink"
                     defaultMessage="Add Link"
+                    description="Button label for adding a new link"
                   />
                 </Button>
               </div>

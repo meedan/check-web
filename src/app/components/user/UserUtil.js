@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages } from 'react-intl';
@@ -23,7 +22,7 @@ const messages = defineMessages({
 });
 
 const LocalizedRole = ({ role, children }) => role ?
-  <FormattedMessage {...messages[role]}>{children}</FormattedMessage>
+  <FormattedMessage {...messages[role]}>{children}</FormattedMessage> // eslint-disable-line @calm/react-intl/missing-attribute
   : null;
 LocalizedRole.defaultProps = {
   children: null,

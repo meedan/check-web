@@ -1,14 +1,22 @@
 [
   {
     "id": "reportDesigner.introduction",
+    "description": "Section title for the report introduction",
     "defaultMessage": "Introduction"
   },
   {
     "id": "reportDesigner.introductionSub",
+    "description": "Help text on how to use the query date and status fields",
     "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
   },
   {
+    "id": "reportDesigner.introductionInput",
+    "description": "Text field label for the introduction input",
+    "defaultMessage": "Introduction"
+  },
+  {
     "id": "reportDesigner.report",
+    "description": "Section title for the fact-check form fields",
     "defaultMessage": "Fact-check"
   },
   {
@@ -23,10 +31,12 @@
   },
   {
     "id": "reportDesigner.textTitle",
+    "description": "Text field label for the report text title input",
     "defaultMessage": "Title"
   },
   {
     "id": "reportDesigner.content",
+    "description": "Text field label for the report summary input",
     "defaultMessage": "Summary"
   },
   {
@@ -36,34 +46,42 @@
   },
   {
     "id": "reportDesigner.headline",
+    "description": "Text field label for the report headline title input",
     "defaultMessage": "Title"
   },
   {
     "id": "reportDesigner.description",
+    "description": "Text field label for the report text summary input",
     "defaultMessage": "Summary"
   },
   {
     "id": "reportDesigner.darkOverlay",
+    "description": "Check box label to indicate to user the dark overlay or not",
     "defaultMessage": "Dark overlay"
   },
   {
     "id": "reportDesigner.useDefaultImage",
+    "description": "Button label to switch the report to use the default image",
     "defaultMessage": "Use default image"
   },
   {
     "id": "reportDesigner.removeImage",
+    "description": "Button label to remove the image from the report",
     "defaultMessage": "Remove image"
   },
   {
     "id": "reportDesigner.statusLabel",
+    "description": "Text field label for the status of the report",
     "defaultMessage": "Status label"
   },
   {
     "id": "reportDesigner.datePublished",
+    "description": "Text field label for the date the report was published",
     "defaultMessage": "Date published"
   },
   {
     "id": "reportDesigner.url",
+    "description": "Text field label for the URL of the report website",
     "defaultMessage": "Website URL"
   }
 ]

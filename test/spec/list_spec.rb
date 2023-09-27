@@ -48,8 +48,9 @@ shared_examples 'list' do
     expect(@driver.page_source.include?('answer')).to be(false)
     wait_for_selector('.media__heading').click
     # answer the metadata
-    wait_for_selector('.form-edit').click
+    wait_for_selector('.media__annotations-tabs')
     wait_for_selector('.media-tab__metadata').click
+    wait_for_selector('.form-edit').click
     wait_for_selector('#metadata-input').send_keys('answer')
     wait_for_selector('.form-save').click
     wait_for_selector_none('.form-cancel', 2)

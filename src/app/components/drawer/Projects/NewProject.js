@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -115,6 +114,7 @@ const NewProject = ({
             <FormattedMessage
               id="projectsComponent.title"
               defaultMessage="Title"
+              description="Text field label for the title input"
             />
           }
           onChange={(e) => { setNewTitle(e.target.value); }}
@@ -128,7 +128,7 @@ const NewProject = ({
       proceedLabel={buttonLabel}
       onProceed={handleCreate}
       isSaving={saving}
-      cancelLabel={<FormattedMessage id="newProject.cancel" defaultMessage="Cancel" />}
+      cancelLabel={<FormattedMessage id="newProject.cancel" defaultMessage="Cancel" description="Dialog label for the cancel button to close the dialog" />}
       onCancel={onClose}
     />
   );

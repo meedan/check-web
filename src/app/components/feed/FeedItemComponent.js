@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
@@ -253,6 +252,7 @@ const FeedItemComponent = ({
       <FormattedMessage
         id="feedItem.couldNotImport"
         defaultMessage="We could not import the claim because the media associated with this claim already exist in this workspace"
+        description="Error message when an import fails"
       />
     ), 'error');
   };
@@ -302,6 +302,7 @@ const FeedItemComponent = ({
             <FormattedMessage
               id="feedItem.importedSuccessfully"
               defaultMessage="Claim successfully imported to {workspaceName} workspace"
+              description="Success message when an import completes"
               values={{
                 workspaceName: teams.find(t => t.dbid === parseInt(selectedImportingTeam, 10)).name,
               }}
@@ -371,7 +372,7 @@ const FeedItemComponent = ({
           <Column>
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <Typography className={classes.columnTitle}>
-                <FormattedMessage id="feedItem.claimDescription" defaultMessage="Claims" />
+                <FormattedMessage id="feedItem.claimDescription" defaultMessage="Claims" description="Column title for the claims column" />
               </Typography>
               { importingClaim ?
                 <IconButton onClick={handleClose}>
@@ -397,6 +398,7 @@ const FeedItemComponent = ({
                           <FormattedMessage
                             id="feedItem.rating"
                             defaultMessage="Rating: {rating}"
+                            description="Label for rating and value of the rating"
                             values={{ rating: getStatus(claim.project_media.team.verification_statuses, claim.project_media.last_status).label }}
                           />
                         </Box>
@@ -404,12 +406,13 @@ const FeedItemComponent = ({
                           <FormattedMessage
                             id="feedItem.publishedAt"
                             defaultMessage="Report published: {date}"
+                            description="Label and date for when the report was published"
                             values={{
                               date: (
                                 claim?.project_media?.report_status === 'published' ?
                                   <TimeBefore date={parseStringUnixTimestamp(claim.project_media.report?.data?.last_published)} /> :
                                   <span style={{ color: 'var(--textDisabled)' }}>
-                                    <FormattedMessage id="feedItem.notPublished" defaultMessage="Not published yet" />
+                                    <FormattedMessage id="feedItem.notPublished" defaultMessage="Not published yet" description="Placeholder when there is no date available for the published state" />
                                   </span>
                               ),
                             }}
@@ -438,6 +441,7 @@ const FeedItemComponent = ({
                           <FormattedMessage
                             id="feedItem.noClaim"
                             defaultMessage="No claim added yet"
+                            description="Empty message when there is no claim available"
                           />
                         </span>
                       </Box>
@@ -501,7 +505,7 @@ const FeedItemComponent = ({
                 </Box>
                 <Divider />
                 <Box mb={2} mt={2}>
-                  <strong><FormattedMessage id="feedItem.aboutThisClaim" defaultMessage="About this claim" /></strong>
+                  <strong><FormattedMessage id="feedItem.aboutThisClaim" defaultMessage="About this claim" description="Label for the about description of a claim" /></strong>
                 </Box>
                 <Box key={`tags-${importingClaim.project_media.id}`}>
                   { importingClaim.project_media.tags.edges.length === 0 ?
@@ -526,22 +530,22 @@ const FeedItemComponent = ({
           <Column>
             <Box display="flex" justifyContent="flex-end">
               <Button color="primary" variant="contained" startIcon={<SystemUpdateAltOutlinedIcon />} onClick={() => { setShowImportClaimDialog(true); }} disabled={!selectedItem}>
-                <FormattedMessage id="feedItem.import" defaultMessage="Import" />
+                <FormattedMessage id="feedItem.import" defaultMessage="Import" description="Button label to start an import" />
               </Button>
             </Box>
             <Grid container alignItems="center">
               <Grid item xs={6}>
                 <Typography className={classes.columnTitle}>
                   { !selectedTeam ?
-                    <FormattedMessage id="feedItem.mediasColumnTitleAll" defaultMessage="{number} Medias across all organizations" values={{ number: medias.length }} /> : null }
+                    <FormattedMessage id="feedItem.mediasColumnTitleAll" defaultMessage="{number} Medias across all organizations" values={{ number: medias.length }} description="Count of medias regardless of organization" /> : null }
                   { selectedTeam ?
-                    <FormattedMessage id="feedItem.mediasColumnTitleSingle" defaultMessage="{number} Medias from {organizationName}" values={{ number: medias.length, organizationName: selectedTeam.name }} /> : null }
+                    <FormattedMessage id="feedItem.mediasColumnTitleSingle" defaultMessage="{number} Medias from {organizationName}" values={{ number: medias.length, organizationName: selectedTeam.name }} description="Count of medias from a specific of organization" /> : null }
                 </Typography>
-                <p><small><FormattedMessage id="feedItem.mediaRequests" defaultMessage="{number} tipline requests across all medias" values={{ number: totalDemand }} /></small></p>
+                <p><small><FormattedMessage id="feedItem.mediaRequests" defaultMessage="{number} tipline requests across all medias" values={{ number: totalDemand }} description="Count of requests for all media" /></small></p>
               </Grid>
               <Grid item xs={6}>
                 <Typography className={`${classes.columnTitle} ${classes.sortBy}`} component="div">
-                  <FormattedMessage id="feedItem.sortBy" defaultMessage="Sort by" /><br />
+                  <FormattedMessage id="feedItem.sortBy" defaultMessage="Sort by" description="Label for sorting" /><br />
                   <Select
                     value={sortBy}
                     onChange={handleChange}
@@ -664,7 +668,7 @@ const FeedItemComponent = ({
                         onChange={(e) => { setImportingOptions({ ...importingOptions, annotations: e.target.checked }); }}
                       />
                     }
-                    label={<FormattedMessage id="feedItem.completedAnnotations" defaultMessage="Completed annotations" />}
+                    label={<FormattedMessage id="feedItem.completedAnnotations" defaultMessage="Completed annotations" description="Form field label for the number of completed annotations" />}
                   />
                 </Box>
                 <Box>
@@ -675,7 +679,7 @@ const FeedItemComponent = ({
                         onChange={(e) => { setImportingOptions({ ...importingOptions, tags: e.target.checked }); }}
                       />
                     }
-                    label={<FormattedMessage id="feedItem.tags" defaultMessage="Tags" />}
+                    label={<FormattedMessage id="feedItem.tags" defaultMessage="Tags" description="Form field label for the tags assigned to this item" />}
                   />
                 </Box>
               </Box>

@@ -154,6 +154,9 @@ function getFilters() {
  */
 function getErrorMessage(transactionOrError, fallbackMessage) {
   let message = fallbackMessage;
+  if (!transactionOrError) {
+    return message;
+  }
   const json = transactionOrError.source ?
     safelyParseJSON(transactionOrError.source) :
     safelyParseJSON(transactionOrError.getError().source); // TODO remove after Relay Modern update

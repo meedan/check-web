@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -139,6 +138,7 @@ const SmoochBotIntegrationButton = ({
       <FormattedMessage
         id="smoochBotIntegrationButton.defaultErrorMessage"
         defaultMessage="Something went wrong"
+        description="Default error message"
       />
     );
     const errorMessage = getErrorMessageForRelayModernProblem(errors) || fallbackMessage;
@@ -152,6 +152,7 @@ const SmoochBotIntegrationButton = ({
       <FormattedMessage
         id="smoochBotIntegrationButton.savedSuccessfully"
         defaultMessage="Done"
+        description="Button label after a successful save"
       />
     ), 'success');
     handleClose();
@@ -250,10 +251,12 @@ const SmoochBotIntegrationButton = ({
                 <FormattedMessage
                   id="smoochBotIntegrationButton.online"
                   defaultMessage="Online"
+                  description="Status of bot when its online"
                 /> :
                 <FormattedMessage
                   id="smoochBotIntegrationButton.connect"
                   defaultMessage="Connect"
+                  description="Status of bot when its not connected"
                 /> }
             </Typography> : null
         }
@@ -274,6 +277,7 @@ const SmoochBotIntegrationButton = ({
               <FormattedMessage
                 id="smoochBotIntegrationButton.tipline"
                 defaultMessage="{platform} tipline"
+                description="Platform name for heading"
                 values={{ platform: label }}
               />
             }
@@ -287,6 +291,7 @@ const SmoochBotIntegrationButton = ({
               <FormattedMessage
                 id="smoochBotIntegrationButton.status"
                 defaultMessage="Status: Online"
+                description="Button label for online bot"
               />
             </Typography>
             <Typography variant="body1" component="div" paragraph>
@@ -294,10 +299,10 @@ const SmoochBotIntegrationButton = ({
             </Typography>
           </Box>
         )}
-        proceedLabel={<FormattedMessage id="smoochBotIntegrationButton.disconnect" defaultMessage="Disconnect from this account" />}
+        proceedLabel={<FormattedMessage id="smoochBotIntegrationButton.disconnect" defaultMessage="Disconnect from this account" description="Button label to disconnect a bot from an account" />}
         onProceed={() => { setOpenConfirmDialog(true); }}
         proceedDisabled={readOnly}
-        cancelLabel={<FormattedMessage id="smoochBotIntegrationButton.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage id="smoochBotIntegrationButton.cancel" defaultMessage="Cancel" description="Button label to cancel connection" />}
         onCancel={() => { setOpenInfoDialog(false); }}
       />
 
@@ -309,6 +314,7 @@ const SmoochBotIntegrationButton = ({
               <FormattedMessage
                 id="smoochBotIntegrationButton.connectTipline"
                 defaultMessage="Connect to {platform} tipline"
+                description="Settings header for connecting a platform to a tipline"
                 values={{ platform: label }}
               />
             }
@@ -345,6 +351,7 @@ const SmoochBotIntegrationButton = ({
                     <FormattedMessage
                       id="smoochBotIntegrationButton.disclaimer"
                       defaultMessage="We don't store this information. This is just used to configure the integration."
+                      description="Privacy disclaimer statement"
                     />
                   }
                 </Typography>
@@ -354,12 +361,12 @@ const SmoochBotIntegrationButton = ({
         proceedDisabled={deprecationNotice || Object.keys(paramValues).sort().join(',') !== params.map(p => p.key).sort().join(',')}
         proceedLabel={
           url ?
-            <FormattedMessage id="smoochBotIntegrationButton.readyToConnect" defaultMessage="I'm ready to connect" /> :
-            <FormattedMessage id="smoochBotIntegrationButton.connect" defaultMessage="Connect" />
+            <FormattedMessage id="smoochBotIntegrationButton.readyToConnect" defaultMessage="I'm ready to connect" description="Button label to indicate user is ready to connect" /> :
+            <FormattedMessage id="smoochBotIntegrationButton.connectButton" defaultMessage="Connect" description="Button label to connect bot" />
         }
         onProceed={url ? handleOpenUrl : handleConnect}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="smoochBotIntegrationButton.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage id="smoochBotIntegrationButton.cancel" defaultMessage="Cancel" description="Button label to cancel connection" />}
         onCancel={() => { setOpenFormDialog(false); }}
       />
 
@@ -394,10 +401,10 @@ const SmoochBotIntegrationButton = ({
             intl.formatMessage(messages.confirmationMessagePermanent, { platform: label }) :
             intl.formatMessage(messages.confirmationMessage, { platform: label })
         }
-        proceedLabel={<FormattedMessage id="smoochBotIntegrationButton.confirm" defaultMessage="Confirm" />}
+        proceedLabel={<FormattedMessage id="smoochBotIntegrationButton.confirm" defaultMessage="Confirm" description="Button label to confirm connection" />}
         onProceed={handleDisconnect}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="smoochBotIntegrationButton.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage id="smoochBotIntegrationButton.cancel" defaultMessage="Cancel" description="Button label to cancel connection" />}
         onCancel={() => { setOpenConfirmDialog(false); }}
       />
     </React.Fragment>

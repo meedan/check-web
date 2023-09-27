@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
@@ -201,15 +200,15 @@ class CreateMediaInput extends React.Component {
       <>
         <StyledHeader>
           <Typography variant="h6">
-            <FormattedMessage id="createMedia.mediaClaimDescription" defaultMessage="Claim description" />
+            <FormattedMessage id="createMedia.mediaClaimDescription" defaultMessage="Claim description" description="Section title for the description of a claim" />
           </Typography>
         </StyledHeader>
         <StyledSubtitle>
           <Typography variant="subtitle1">
-            <FormattedMessage id="createMedia.mediaClaimDescriptionSubtitle" defaultMessage="A description of the claim that needs to be reviewed." />
+            <FormattedMessage id="createMedia.mediaClaimDescriptionSubtitle" defaultMessage="A description of the claim that needs to be reviewed." description="Subtitle for the claim's description that is under review" />
           </Typography>
         </StyledSubtitle>
-        <FormattedMessage id="createMedia.mediaClaim" defaultMessage="Type something">
+        <FormattedMessage id="createMedia.mediaClaim" defaultMessage="Type something" description="Placeholder message for the claim text field">
           {placeholder => (
             <StyledTextField>
               <TextField
@@ -228,17 +227,17 @@ class CreateMediaInput extends React.Component {
         </FormattedMessage>
         <StyledHeader>
           <Typography variant="h6">
-            <FormattedMessage id="createMedia.media.media" defaultMessage="Media" />
+            <FormattedMessage id="createMedia.media.media" defaultMessage="Media" description="Header for the claim media area" />
           </Typography>
         </StyledHeader>
         <StyledSubtitle>
           <Typography variant="subtitle1">
-            <FormattedMessage id="createMedia.mediaMediaSubtitle" defaultMessage="The media that contains the claim." />
+            <FormattedMessage id="createMedia.mediaMediaSubtitle" defaultMessage="The media that contains the claim." description="Subtitle for the section of the media that contains the claim being created" />
           </Typography>
         </StyledSubtitle>
         {
           this.state.mediaFile === null ? (
-            <FormattedMessage id="createMedia.mediaInput" defaultMessage="Add a URL to a social media post or webpage, or a block of text.">
+            <FormattedMessage id="createMedia.mediaInput" defaultMessage="Add a URL to a social media post or webpage, or a block of text." description="Placeholder text for the media URL input">
               {placeholder => (
                 <StyledTextField>
                   <TextField

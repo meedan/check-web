@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -28,7 +27,7 @@ const MediaExpandedSecondRow = ({ projectMedia }) => (
         <span>
           <FormattedMessage
             id="mediaExpanded.firstSeen"
-            defaultMessage="First submitted: "
+            defaultMessage="First submitted:"
             description="Header for the date when the Check item (aka media) was first received (added to) by the workspace"
           />
           <TimeBefore date={parseStringUnixTimestamp(projectMedia.created_at)} />
@@ -39,7 +38,7 @@ const MediaExpandedSecondRow = ({ projectMedia }) => (
             <span>
               <FormattedMessage
                 id="mediaExpanded.lastSeen"
-                defaultMessage="Last submitted: "
+                defaultMessage="Last submitted:"
                 description="Header for the date when the Check item (aka media) was last received by the the workspace"
               />
               <TimeBefore date={parseStringUnixTimestamp(projectMedia.last_seen)} />
@@ -49,6 +48,7 @@ const MediaExpandedSecondRow = ({ projectMedia }) => (
               <FormattedMessage
                 id="mediaExpanded.requests"
                 defaultMessage="{count, plural, one {# request} other {# requests}}"
+                description="Count of other requests for this media"
                 values={{
                   count: projectMedia.requests_count,
                 }}

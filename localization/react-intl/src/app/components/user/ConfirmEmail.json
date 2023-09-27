@@ -1,14 +1,17 @@
 [
   {
     "id": "ConfirmEmail.title",
+    "description": "Container title for confirming user email address",
     "defaultMessage": "Confirm your email"
   },
   {
     "id": "ConfirmEmail.content",
+    "description": "Message to the user to check their email inbox in order to verify their application account",
     "defaultMessage": "Please check your email to verify your account."
   },
   {
     "id": "ConfirmEmail.resendConfirmation",
+    "description": "Button label to allow the user to resend their email address confirmation",
     "defaultMessage": "Resend"
   }
 ]

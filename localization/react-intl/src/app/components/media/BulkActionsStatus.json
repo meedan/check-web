@@ -6,10 +6,12 @@
   },
   {
     "id": "tagMenu.search",
+    "description": "Placeholder for search input",
     "defaultMessage": "Search…"
   },
   {
     "id": "tagMenu.notFound",
+    "description": "Empty message when no statuses are returned",
     "defaultMessage": "No status found"
   },
   {

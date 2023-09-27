@@ -41,6 +41,7 @@
   },
   {
     "id": "userInfoEdit.addLinkHelper",
+    "description": "Help text about adding a social media profile link to this user account",
     "defaultMessage": "Add a link to a web page or social media profile. Note: this does not affect your login method."
   },
   {
@@ -50,6 +51,7 @@
   },
   {
     "id": "userInfoEdit.addLink",
+    "description": "Button label for adding a new link",
     "defaultMessage": "Add Link"
   },
   {

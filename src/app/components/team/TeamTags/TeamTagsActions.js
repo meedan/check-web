@@ -26,6 +26,8 @@ const TeamTagsActions = ({
   rules,
   rulesSchema,
   setFlashMessage,
+  relay,
+  pageSize,
   intl,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -90,6 +92,8 @@ const TeamTagsActions = ({
           handleError();
         } else {
           handleSuccess(response);
+          // if we have updated the tags, we use refetchConnection to reset the pagination overall (since we can't figure out exactly where it should be relative to this page, anyway)
+          relay.refetchConnection(pageSize);
         }
       },
       onError: () => {
@@ -185,6 +189,8 @@ TeamTagsActions.propTypes = {
   teamDbid: PropTypes.number.isRequired,
   rules: PropTypes.arrayOf(PropTypes.object),
   rulesSchema: PropTypes.object.isRequired,
+  relay: PropTypes.object.isRequired,
+  pageSize: PropTypes.number.isRequired,
 };
 
 export default withSetFlashMessage(injectIntl(TeamTagsActions));
