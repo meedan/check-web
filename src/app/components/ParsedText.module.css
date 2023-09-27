@@ -1,0 +1,7 @@
+.media-chip-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

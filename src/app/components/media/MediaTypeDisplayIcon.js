@@ -11,6 +11,41 @@ import Public from '../../icons/public.svg';
 import Twitter from '../../icons/twitter.svg';
 import YouTube from '../../icons/youtube.svg';
 
+export function mediaTypeFromUrl(url) {
+  let mediaType = 'Link';
+
+  if (/^(https?:\/\/)?((www\.)?youtube\.com|youtu\.be)\/.+$/.test(url)) {
+    mediaType = 'Youtube';
+  } else if (/^(https?:\/\/)?((www\.)?instagram\.com)\/.+$/.test(url)) {
+    mediaType = 'Instagram';
+  } else if (/^(https?:\/\/)?((www\.)?(twitter|x)\.com)\/.+$/.test(url)) {
+    mediaType = 'Twitter';
+  } else if (/^(https?:\/\/)?((www\.)?facebook\.com)\/.+$/.test(url)) {
+    mediaType = 'Facebook';
+  }
+
+  return mediaType;
+}
+
+export function mediaTypeFromFilename(fileName) {
+  let mediaType = null;
+
+  const match = fileName.match(/\.([a-zA-Z0-9]+)$/);
+  const fileExtension = match && match[1];
+
+  if (fileExtension) {
+    if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExtension.toLowerCase())) {
+      mediaType = 'UploadedImage';
+    } else if (['mp3', 'wav', 'ogg', 'm4a'].includes(fileExtension.toLowerCase())) {
+      mediaType = 'UploadedAudio';
+    } else if (['mp4', 'ogg', 'ogv', 'webm', 'mov', 'm4v'].includes(fileExtension.toLowerCase())) {
+      mediaType = 'UploadedVideo';
+    }
+  }
+
+  return mediaType;
+}
+
 export default function MediaTypeDisplayIcon({ mediaType }) {
   switch (mediaType) {
   case 'Claim':
