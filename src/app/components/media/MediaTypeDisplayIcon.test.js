@@ -22,5 +22,8 @@ describe('<MediaTypeDisplayIcon />', () => {
 
     type = mediaTypeFromUrl('https://twitter.com/wbalasdfy/status/170bliblo33468');
     expect(type).toEqual('Twitter');
+
+    type = mediaTypeFromUrl('https://x.com/wbalasdfy/status/170bliblo33468');
+    expect(type).toEqual('Twitter');
   });
 });
