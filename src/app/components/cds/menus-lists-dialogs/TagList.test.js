@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import TagList from './TagList';
 
 describe('TagList', () => {
@@ -16,13 +16,14 @@ describe('TagList', () => {
   };
 
   it('renders without crashing', () => {
-    const wrapper = shallow(<TagList {...defaultProps} />);
+    const wrapper = mount(<TagList {...defaultProps} />);
     expect(wrapper.find('Chip')).toHaveLength(6);
     expect(wrapper.find('#empty-list')).toHaveLength(0);
     expect(wrapper.find('#hidden-tags')).toHaveLength(0);
     expect(wrapper.find('#tag-list__tag-icon')).toHaveLength(1);
     expect(wrapper.find('#tag-list__add-icon')).toHaveLength(1);
     expect(wrapper.find('#tag-list__tag-icon').prop('onClick')).toBeInstanceOf(Function);
+    expect(wrapper.find('#tag-list__tag-icon').prop('disabled')).toBeFalsy();
   });
 
   it('renders empty tag list', () => {
@@ -41,10 +42,10 @@ describe('TagList', () => {
   });
 
   it('does not render menu buttons in read only mode', () => {
-    const wrapper = shallow(<TagList {...defaultProps} readOnly />);
+    const wrapper = mount(<TagList {...defaultProps} readOnly />);
     expect(wrapper.find('#tag-list__tag-icon')).toHaveLength(1);
     expect(wrapper.find('#tag-list__add-icon')).toHaveLength(0);
-    expect(wrapper.find('#tag-list__tag-icon').prop('onClick')).toEqual(undefined);
+    expect(wrapper.find('#tag-list__tag-icon').prop('disabled')).toBeTruthy();
   });
 });
 
