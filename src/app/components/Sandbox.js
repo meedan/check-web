@@ -20,6 +20,7 @@ import FigmaColorLogo from '../icons/figma_color.svg';
 import Card from './cds/media-cards/Card.js';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
+import ParsedText from './ParsedText';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -164,6 +165,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <a href="#sandbox-alerts-prompts" title="Alerts & Prompts">Alerts &amp; Prompts</a>
+        </li>
+        <li>
+          <a href="#sandbox-text-display" title="Text Display">Text Display</a>
         </li>
         <li>
           <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
@@ -374,6 +378,7 @@ const SandboxComponent = ({ admin }) => {
                   <option value="none">none</option>
                   <option value="48px">48px</option>
                   <option value="96px">96px</option>
+                  <option value="180px">180px</option>
                 </Select>
               </li>
               <li>
@@ -431,10 +436,7 @@ const SandboxComponent = ({ admin }) => {
                 rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
-                style={{
-                  maxHeight: textareaMaxHeight,
-                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
-                }}
+                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
               />
               :
               <TextArea
@@ -445,10 +447,7 @@ const SandboxComponent = ({ admin }) => {
                 rows={textareaRows === 'none' ? undefined : textareaRows}
                 required={textareaRequired}
                 disabled={textareaDisabled}
-                style={{
-                  maxHeight: textareaMaxHeight,
-                  overflowY: textareaMaxHeight === 'none' ? 'hidden' : 'scroll',
-                }}
+                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
               />
             }
           </div>
@@ -713,6 +712,16 @@ const SandboxComponent = ({ admin }) => {
               onClose={alertClosable ? () => {} : null}
             />
           </div>
+        </div>
+      </section>
+      <section id="sandbox-text-display">
+        <h6>Parsed Text</h6>
+        <div className={styles.componentWrapper}>
+          <ParsedText
+            text="Call me Ishmael. This is my Youtube video: https://www.youtube.com/watch?v=zg84olIrn-k Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. This is an image of the cover of this book: https://upload.wikimedia.org/wikipedia/commons/3/36/Moby-Dick_FE_title_page.jpg Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
+            fileUrlName=""
+            mediaChips
+          />
         </div>
       </section>
       <section id="sandbox-loaders">

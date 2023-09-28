@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaSearchRedirect from './MediaSearchRedirect';
 
 /**
@@ -12,7 +12,7 @@ import MediaSearchRedirect from './MediaSearchRedirect';
  * to unmount the component if any of its props are going to change.
  */
 export default function NextOrPreviousButton({
-  children, className, disabled, tooltipTitle, buildSiblingUrl, listQuery, listIndex, objectType, type, searchIndex,
+  icon, className, disabled, tooltipTitle, buildSiblingUrl, listQuery, listIndex, objectType, type, searchIndex,
 }) {
   const [loading, setLoading] = React.useState(false);
   const handleClick = React.useCallback(() => {
@@ -24,7 +24,7 @@ export default function NextOrPreviousButton({
   }, [setLoading]);
 
   return (
-    <Button disabled={disabled || loading} className={className} onClick={handleClick}>
+    <>
       {loading ? (
         <MediaSearchRedirect
           buildSiblingUrl={buildSiblingUrl}
@@ -35,11 +35,21 @@ export default function NextOrPreviousButton({
           type={type}
         />
       ) : (
-        <Tooltip title={tooltipTitle}>
-          {children}
+        <Tooltip title={tooltipTitle} arrow>
+          <span>
+            <ButtonMain
+              size="default"
+              variant="text"
+              theme="text"
+              disabled={disabled}
+              className={className}
+              onClick={handleClick}
+              iconCenter={icon}
+            />
+          </span>
         </Tooltip>
       )}
-    </Button>
+    </>
   );
 }
 NextOrPreviousButton.defaultProps = {
@@ -50,7 +60,7 @@ NextOrPreviousButton.propTypes = {
   buildSiblingUrl: PropTypes.func.isRequired, // func(dbid, listIndex) => location
   disabled: PropTypes.bool,
   className: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  icon: PropTypes.element.isRequired,
   tooltipTitle: PropTypes.node.isRequired, // <FormattedMessage>
   listQuery: PropTypes.object.isRequired,
   listIndex: PropTypes.number.isRequired,

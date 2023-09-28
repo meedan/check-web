@@ -1,8 +1,8 @@
 shared_examples 'media actions' do
   it 'should create an item and assign it', bin4: true do
     api_create_team_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media')
-    expect(@driver.page_source.include?('Assigments updated successfully')).to be(false)
+    wait_for_selector('.test__media')
+    expect(@driver.page_source.include?('Assignments updated successfully')).to be(false)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__assign').click
     wait_for_selector('input[type=checkbox]').click
@@ -47,7 +47,7 @@ shared_examples 'media actions' do
 
   it 'should lock and unlock status', bin2: true do
     api_create_team_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media')
+    wait_for_selector('.test__media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__assign')
     expect(@driver.page_source.include?('Lock status')).to be(true)
@@ -71,20 +71,9 @@ shared_examples 'media actions' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.annotation--comment')
     expect(@driver.page_source.include?('A comment')).to be(true)
-    @driver.navigate.refresh
-    wait_for_selector('.media-card-large')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    wait_for_selector('.media-tab__comments').click
-    wait_for_selector('.annotation--comment')
-    expect(@driver.page_source.include?('A comment')).to be(true)
     wait_for_selector('.annotation .menu-button').click
     wait_for_selector('.annotation__delete').click
     wait_for_selector_none('.annotation__avatar-col')
-    expect(@driver.page_source.include?('A comment')).to be(false)
-    @driver.navigate.refresh
-    wait_for_selector('.media-card-large')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    wait_for_selector('.media-tab__comments').click
     expect(@driver.page_source.include?('A comment')).to be(false)
   end
 

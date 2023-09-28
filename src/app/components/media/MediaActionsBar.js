@@ -7,9 +7,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import MultiSelector from '../layout/MultiSelector';
 import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaStatus from './MediaStatus';
@@ -18,21 +18,14 @@ import MediaActionsMenuButton from './MediaActionsMenuButton';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
-import globalStrings from '../../globalStrings';
+import RestoreProjectMedia from './RestoreProjectMedia';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import styles from './media.module.css';
 
 const Styles = theme => ({
-  root: {
-    display: 'flex',
-    width: '100%',
-    height: 64,
-    alignItems: 'center',
-    padding: '0 16px',
-    justifyContent: 'space-between',
-  },
   spacedButton: {
     marginRight: theme.spacing(1),
   },
@@ -75,9 +68,10 @@ class MediaActionsBarComponent extends Component {
 
   fail(transaction) {
     const fallbackMessage = (
-      // eslint-disable-next-line @calm/react-intl/missing-attribute
       <FormattedMessage
-        {...globalStrings.unknownError}
+        id="global.unknownError"
+        defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+        description="Message displayed in error notification when an operation fails unexpectedly"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
@@ -273,9 +267,24 @@ class MediaActionsBarComponent extends Component {
       });
     }
 
+    const context = this.getContext();
+
+    let restorProjectMedia = '';
+    if (media.archived !== CheckArchivedFlags.NONE) {
+      restorProjectMedia = (
+        <RestoreProjectMedia
+          team={this.props.media.team}
+          projectMedia={this.props.media}
+          context={context}
+          className={classes.spacedButton}
+        />
+      );
+    }
+
     return (
-      <div className={classes.root}>
-        <Box display="flex">
+      <div className={styles['media-actions']}>
+        { restorProjectMedia ? <div className={styles['media-actions']}> {restorProjectMedia} </div> : null }
+        <div className={styles['media-actions']}>
           {isParent ?
             <MediaStatus
               media={media}
@@ -297,7 +306,7 @@ class MediaActionsBarComponent extends Component {
             handleStatusLock={this.handleStatusLock.bind(this)}
             handleItemHistory={this.handleItemHistory}
           />
-        </Box>
+        </div>
 
         <ItemHistoryDialog
           open={this.state.itemHistoryDialogOpen}
@@ -338,8 +347,8 @@ class MediaActionsBarComponent extends Component {
                         description="Checkbox label for toggling select/unselect all"
                       />
                     }
-                    cancelLabel={<FormattedMessage {...globalStrings.cancel} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
-                    submitLabel={<FormattedMessage {...globalStrings.update} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
+                    cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+                    submitLabel={<FormattedMessage id="global.update" defaultMessage="Update" description="Generic label for a button or link for a user to press when they wish to update an action" />}
                     options={options}
                     selected={selected}
                     onDismiss={this.handleCloseDialogs.bind(this)}
@@ -348,13 +357,13 @@ class MediaActionsBarComponent extends Component {
                 )}
               </FormattedMessage>
               <div className={classes.spaced}>
-                <Typography variant="body1" component="div" className={classes.spaced}>
+                <div className={cx('typography-body1', classes.spaced)}>
                   <FormattedMessage
                     id="mediaActionsBar.assignmentNotesTitle"
                     defaultMessage="Add a note to the email"
                     description="Helper text to field for adding details about the assignment"
                   />
-                </Typography>
+                </div>
                 <TextField
                   variant="outlined"
                   inputRef={(element) => {
@@ -395,6 +404,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
       fragment on ProjectMedia {
         id
         ${MediaActionsMenuButton.getFragment('projectMedia')}
+        ${RestoreProjectMedia.getFragment('projectMedia')}
         dbid
         project_id
         title

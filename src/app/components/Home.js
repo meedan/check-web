@@ -10,7 +10,6 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import * as Sentry from '@sentry/react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { Header } from './Header';
 import LoginContainer from './LoginContainer';
 import InviteNewAccount from './InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
@@ -319,13 +318,6 @@ class HomeComponent extends Component {
               />
             ) : null}
             <main className={styles.main}>
-              <Header
-                loggedIn={loggedIn}
-                pageType={routeSlug}
-                inTeamContext={inTeamContext}
-                currentUserIsMember={currentUserIsMember}
-                {...this.props}
-              />
               <FlashMessage />
               <div className={`${styles.mainContentWrapper} route__${routeSlug}`}>
                 {children}

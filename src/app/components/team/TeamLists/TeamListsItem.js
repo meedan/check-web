@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -87,10 +86,12 @@ const TeamListsItem = ({
               <FormattedMessage
                 id="teamListsItem.metadata"
                 defaultMessage="Annotation"
+                description="label to show that this type of task is an annotation"
               /> :
               <FormattedMessage
                 id="teamListsItem.general"
                 defaultMessage="General"
+                description="label to show that this type of task is a general task"
               /> }
           </Typography>
         </Box>
@@ -102,10 +103,12 @@ const TeamListsItem = ({
                 <FormattedMessage
                   id="teamListsItem.hide"
                   defaultMessage="Hide"
+                  description="Button label to hide this item from the list"
                 /> :
                 <FormattedMessage
                   id="teamListsItem.show"
                   defaultMessage="Show"
+                  description="Button label to show this item in the list"
                 /> }
             </Button>
         }

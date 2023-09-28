@@ -1,6 +1,7 @@
 [
   {
     "id": "teamIntegrations.title",
+    "description": "Settings page title for the Integrations section",
     "defaultMessage": "Integrations"
   }
 ]

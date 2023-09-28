@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -15,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 
 const ValueOrPlaceholder = ({ value, field, children }) => (value || !placeholders[field])
   ? children(value)
-  : <FormattedMessage {...placeholders[field]}>{children}</FormattedMessage>;
+  : <FormattedMessage {...placeholders[field]}>{children}</FormattedMessage>; // eslint-disable-line @calm/react-intl/missing-attribute
 
 const SmoochBotTextEditor = (props) => {
   const classes = useStyles();

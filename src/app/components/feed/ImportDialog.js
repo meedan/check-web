@@ -12,7 +12,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
+import SystemUpdateAltOutlinedIcon from '../../icons/file_download.svg';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';

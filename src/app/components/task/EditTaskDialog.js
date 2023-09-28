@@ -19,21 +19,19 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {
-  CheckBox as CheckBoxIcon,
-  CloudUpload as CloudUploadIcon,
-  DateRange as DateRangeIcon,
-  Info as InfoIcon,
-  LocationOn as LocationIcon,
-  RadioButtonChecked as RadioButtonCheckedIcon,
-  ShortText as ShortTextIcon,
-  LinkOutlined as LinkOutlinedIcon,
-} from '@material-ui/icons';
 import { getTimeZones } from '@vvo/tzdb';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import EditTaskAlert from './EditTaskAlert';
 import EditTaskOptions from './EditTaskOptions';
 import Message from '../Message';
+import CheckBoxIcon from '../../icons/check_box.svg';
+import CloudUploadIcon from '../../icons/file_upload.svg';
+import DateRangeIcon from '../../icons/calendar_month.svg';
 import NumberIcon from '../../icons/numbers.svg';
+import LinkOutlinedIcon from '../../icons/link.svg';
+import LocationIcon from '../../icons/location.svg';
+import RadioButtonCheckedIcon from '../../icons/radio_button_checked.svg';
+import ShortTextIcon from '../../icons/notes.svg';
 import { units } from '../../styles/js/shared';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
@@ -338,6 +336,19 @@ class EditTaskDialog extends React.Component {
 
     const FieldTypeSelect = () => (
       <React.Fragment>
+        { this.state.hasCollectedAnswers &&
+          <Alert
+            icon
+            content={
+              <FormattedMessage
+                id="tasks.cantChangeTypeMessage"
+                defaultMessage="The field type cannot be changed because answers have already been filled"
+                description="Message when team task has answers and type cannot be updated"
+              />
+            }
+            variant="warning"
+          />
+        }
         <FormControl variant="outlined" margin="normal" fullWidth id="edit-task-dialog__type-select">
           <InputLabel id="edit-task-dialog__type-select-label">
             <FormattedMessage
@@ -375,17 +386,6 @@ class EditTaskDialog extends React.Component {
         <Box mt={1} mb={this.state.hasCollectedAnswers ? 1 : 2}>
           { types.find(t => t.value === this.state.taskType)?.description }
         </Box>
-        { this.state.hasCollectedAnswers ?
-          <Box mb={2} display="flex" alignItems="center">
-            <Box mr={1}><InfoIcon /></Box>
-            <FormattedMessage
-              id="tasks.cantChangeTypeMessage"
-              defaultMessage="The field type cannot be changed because answers have already been filled"
-              description="Message when team task has answers and type cannot be updated"
-            />
-          </Box>
-          : null
-        }
       </React.Fragment>
     );
 

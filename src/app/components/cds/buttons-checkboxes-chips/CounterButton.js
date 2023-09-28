@@ -1,62 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Button,
-  Typography,
-} from '@material-ui/core';
-
-const useStyles = makeStyles({
-  counterButton: {
-    display: 'block',
-    padding: '0 8px',
-    '&:hover': {
-      color: 'var(--brandSecondary)',
-      backgroundColor: 'inherit',
-    },
-    '&:active': {
-      color: 'var(--brandMain)',
-    },
-  },
-  zeroCount: {
-    color: 'var(--textPrimary)',
-  },
-  moreThanZeroCount: {
-    color: 'var(--brandMain)',
-  },
-  noClick: {
-    cursor: 'default',
-    '&:hover': {
-      color: 'var(--brandMain)',
-    },
-    '&:active': {
-      color: 'var(--brandMain)',
-    },
-  },
-});
+import cx from 'classnames/bind';
+import ButtonMain from './ButtonMain';
+import styles from './ButtonMain.module.css';
 
 const CounterButton = ({
-  label, count, onClick,
-}) => {
-  const classes = useStyles();
-  return (
-    <Button
-      onClick={onClick}
-      className={`counter-button ${classes.counterButton} ${count === 0 ? classes.zeroCount : classes.moreThanZeroCount} ${onClick ? '' : classes.noClick}`}
-      disableRipple
-    >
-      <Typography
-        variant="overline"
-      >
+  label,
+  count,
+  onClick,
+}) => (
+  <ButtonMain
+    onClick={onClick}
+    theme={count === 0 ? 'lightText' : 'brand'}
+    variant="text"
+    size="small"
+    className={cx(
+      'test__counter-button',
+      styles.counterButton,
+      {
+        test__zeroCount: count === 0,
+      })
+    }
+    label={
+      <>
         {label}
-      </Typography>
-      <br />
-      <Typography variant="subtitle2">
-        {count}
-      </Typography>
-    </Button>
-  );
-};
+        <strong className="typography-subtitle2">
+          {count}
+        </strong>
+      </>
+    }
+  />
+);
 
 CounterButton.defaultProps = {
   onClick: () => {},

@@ -11,38 +11,47 @@
   },
   {
     "id": "smoochBotIntegrationButton.defaultErrorMessage",
+    "description": "Default error message",
     "defaultMessage": "Something went wrong"
   },
   {
     "id": "smoochBotIntegrationButton.savedSuccessfully",
+    "description": "Button label after a successful save",
     "defaultMessage": "Done"
   },
   {
     "id": "smoochBotIntegrationButton.online",
+    "description": "Status of bot when its online",
     "defaultMessage": "Online"
   },
   {
     "id": "smoochBotIntegrationButton.connect",
+    "description": "Status of bot when its not connected",
     "defaultMessage": "Connect"
   },
   {
     "id": "smoochBotIntegrationButton.tipline",
+    "description": "Platform name for heading",
     "defaultMessage": "{platform} tipline"
   },
   {
     "id": "smoochBotIntegrationButton.status",
+    "description": "Button label for online bot",
     "defaultMessage": "Status: Online"
   },
   {
     "id": "smoochBotIntegrationButton.disconnect",
+    "description": "Button label to disconnect a bot from an account",
     "defaultMessage": "Disconnect from this account"
   },
   {
     "id": "smoochBotIntegrationButton.cancel",
+    "description": "Button label to cancel connection",
     "defaultMessage": "Cancel"
   },
   {
     "id": "smoochBotIntegrationButton.connectTipline",
+    "description": "Settings header for connecting a platform to a tipline",
     "defaultMessage": "Connect to {platform} tipline"
   },
   {
@@ -52,11 +61,18 @@
   },
   {
     "id": "smoochBotIntegrationButton.disclaimer",
+    "description": "Privacy disclaimer statement",
     "defaultMessage": "We don't store this information. This is just used to configure the integration."
   },
   {
     "id": "smoochBotIntegrationButton.readyToConnect",
+    "description": "Button label to indicate user is ready to connect",
     "defaultMessage": "I'm ready to connect"
+  },
+  {
+    "id": "smoochBotIntegrationButton.connectButton",
+    "description": "Button label to connect bot",
+    "defaultMessage": "Connect"
   },
   {
     "id": "smoochBotIntegrationButton.confirmDisconnectTitle",
@@ -75,6 +91,7 @@
   },
   {
     "id": "smoochBotIntegrationButton.confirm",
+    "description": "Button label to confirm connection",
     "defaultMessage": "Confirm"
   }
 ]

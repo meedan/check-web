@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
@@ -6,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import ErrorOutlineIcon from '../../icons/error_outline.svg';
 import RemoveableWrapper from './RemoveableWrapper';
 import NumberIcon from '../../icons/numbers.svg';
 
@@ -90,7 +89,7 @@ const NumericRangeFilter = ({
               { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
             </Typography>
           </Box>
-          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
+          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
             { placeholder => (
               <TextField
                 className={`${classes.root} ${minNumber === '' ? '' : classes.inputNotEmpty}`}
@@ -107,10 +106,10 @@ const NumericRangeFilter = ({
           </FormattedMessage>
           <Box px={1}>
             <Typography component="span" variant="body1">
-              <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" />
+              <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" description="Logical operator AND statement" />
             </Typography>
           </Box>
-          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
+          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
             { placeholder => (
               <TextField
                 className={`${classes.root} ${maxNumber === '' ? '' : classes.inputNotEmpty}`}

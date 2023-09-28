@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import KeyboardArrowDownIcon from '../../../icons/chevron_down.svg';
 
 export default function SearchResultsTh({
   text, field, sortKey, align, sortParams, onChangeSortParams,

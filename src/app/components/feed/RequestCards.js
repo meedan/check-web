@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import WhatsAppIcon from '../../icons/whatsapp.svg';
 import Request from '../cds/requests-annotations/Request';
 import Chip from '../cds/buttons-checkboxes-chips/Chip';
 import RequestSubscription from './RequestSubscription';
@@ -33,14 +33,7 @@ const RequestCards = ({ request, mediaDbid }) => {
   const requestsCount = request.requests_count;
 
   const whatsappIcon = (
-    <WhatsAppIcon
-      style={{
-        backgroundColor: 'var(--whatsappGreen)',
-        color: 'var(--otherWhite)',
-        borderRadius: 4,
-        padding: 2,
-      }}
-    />
+    <WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />
   );
 
   const feedChip = <Chip label={request.feed?.name} size="small" />;

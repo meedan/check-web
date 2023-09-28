@@ -9,13 +9,13 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import TelegramIcon from '@material-ui/icons/Telegram';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import settingsStyles from '../Settings.module.css';
+import WhatsAppIcon from '../../../icons/whatsapp.svg';
+import FacebookIcon from '../../../icons/facebook.svg';
+import TwitterIcon from '../../../icons/twitter.svg';
+import TelegramIcon from '../../../icons/telegram.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import LineIcon from '../../../icons/line.svg';
 import SettingsHeader from '../SettingsHeader';
@@ -311,7 +311,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />
+                      <WhatsAppIcon style={{ color: 'var(--whatsappGreen)', fontSize: '20px' }} />
                     </InputAdornment>
                   ),
                 }}
@@ -345,7 +345,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <FacebookIcon style={{ color: 'var(--facebookBlue)' }} />
+                      <FacebookIcon style={{ color: 'var(--facebookBlue)', fontSize: '20px' }} />
                     </InputAdornment>
                   ),
                 }}
@@ -379,7 +379,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <TwitterIcon style={{ color: 'var(--twitterBlue)' }} />
+                      <TwitterIcon style={{ color: 'var(--twitterBlue)', fontSize: '20px' }} />
                       {' @ '}
                     </InputAdornment>
                   ),
@@ -414,7 +414,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />
+                      <TelegramIcon style={{ color: 'var(--telegramBlue)', fontSize: '20px' }} />
                     </InputAdornment>
                   ),
                 }}
@@ -439,7 +439,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '24px' }} />
+                      <ViberIcon style={{ color: 'var(--viberPurple)', fontSize: '20px' }} />
                     </InputAdornment>
                   ),
                 }}
@@ -464,7 +464,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <LineIcon style={{ color: 'var(--lineGreen)', fontSize: '24px' }} />
+                      <LineIcon style={{ color: 'var(--lineGreen)', fontSize: '20px' }} />
                     </InputAdornment>
                   ),
                 }}

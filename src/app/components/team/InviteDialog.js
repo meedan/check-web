@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -16,7 +15,6 @@ import RoleSelect from './RoleSelect';
 import Message from '../Message';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import globalStrings from '../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const InviteDialog = ({
@@ -174,7 +172,7 @@ const InviteDialog = ({
           id="invite-dialog__cancel"
           onClick={onClose}
         >
-          <FormattedMessage {...globalStrings.cancel} />
+          <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
         </Button>
         <Button
           id="invite-dialog__submit"

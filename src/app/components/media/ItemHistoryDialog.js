@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -34,7 +33,7 @@ const ItemHistoryDialog = ({
       fullWidth
     >
       <DialogTitle>
-        <FormattedMessage id="ItemHistoryDialog.title" defaultMessage="Item history" />
+        <FormattedMessage id="ItemHistoryDialog.title" defaultMessage="Item history" description="Dialog window title for the item's history" />
         <ButtonMain
           variant="text"
           size="small"

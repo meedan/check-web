@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages } from 'react-intl';
@@ -8,19 +7,22 @@ const messages = defineMessages({
   collaborator: {
     id: 'UserUtil.collaborator',
     defaultMessage: 'Collaborator',
+    description: 'User type label for a user without editor or admin privileges',
   },
   editor: {
     id: 'UserUtil.editor',
     defaultMessage: 'Editor',
+    description: 'User type label for a user with edit privileges',
   },
   admin: {
     id: 'UserUtil.admin',
     defaultMessage: 'Admin',
+    description: 'User type label for a user with admin privileges',
   },
 });
 
 const LocalizedRole = ({ role, children }) => role ?
-  <FormattedMessage {...messages[role]}>{children}</FormattedMessage>
+  <FormattedMessage {...messages[role]}>{children}</FormattedMessage> // eslint-disable-line @calm/react-intl/missing-attribute
   : null;
 LocalizedRole.defaultProps = {
   children: null,

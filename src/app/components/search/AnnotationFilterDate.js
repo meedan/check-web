@@ -1,12 +1,10 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '../../icons/clear.svg';
 import { FlexRow, units } from '../../styles/js/shared';
-import globalStrings from '../../globalStrings';
 
 const StyledCloseIcon = withStyles({
   root: {
@@ -108,8 +106,8 @@ class AnnotationFilterDate extends React.Component {
           <DatePicker
             onChange={this.handleChangeStartDate}
             maxDate={this.endDateStringOrNull || undefined}
-            okLabel={<FormattedMessage {...globalStrings.ok} />}
-            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+            okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
+            cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
             value={this.startDateStringOrNull}
             style={{ margin: `0 ${units(2)}` }}
             TextFieldComponent={({ onClick, value, onChange }) => (
@@ -136,8 +134,8 @@ class AnnotationFilterDate extends React.Component {
             inputVariant="outlined"
             onChange={this.handleChangeEndDate}
             minDate={this.startDateStringOrNull || undefined}
-            okLabel={<FormattedMessage {...globalStrings.ok} />}
-            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+            okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
+            cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
             value={this.endDateStringOrNull}
             TextFieldComponent={({ onClick, value, onChange }) => (
               <div>

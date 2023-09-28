@@ -1,6 +1,6 @@
 import React from 'react';
-import CheckIcon from '@material-ui/icons/Check';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import CheckIcon from '../../icons/done.svg';
+import NotificationsNoneIcon from '../../icons/notifications.svg';
 import RequestSubscription from './RequestSubscription';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 

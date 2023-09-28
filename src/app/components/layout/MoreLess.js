@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -79,8 +78,8 @@ class MoreLess extends React.PureComponent {
         {canExpand ? (
           <TextButton color="primary" onClick={this.toggleExpand}>
             {isExpanded ?
-              <FormattedMessage id="moreLess.less" defaultMessage="Less" /> :
-              <FormattedMessage id="moreLess.more" defaultMessage="More" />
+              <FormattedMessage id="moreLess.less" defaultMessage="Less" description="Button label to show less content" /> :
+              <FormattedMessage id="moreLess.more" defaultMessage="More" description="Button label to show more content" />
             }
           </TextButton>
         ) : null}

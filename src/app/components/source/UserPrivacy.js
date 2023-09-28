@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
@@ -16,7 +15,6 @@ import CheckContext from '../../CheckContext';
 import { mapGlobalMessage } from '../MappedMessage';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import globalStrings from '../../globalStrings';
 
 const useStyles = theme => ({
   linkStyle: {
@@ -46,6 +44,15 @@ const messages = defineMessages({
   deleteAccount: {
     id: 'UserPrivacy.deleteAccount',
     defaultMessage: 'Delete Account',
+    description: 'Dialog title for deleting a user account',
+  },
+  unknownError: {
+    id: 'global.unknownError',
+    defaultMessage: 'Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists.',
+    description: 'Message displayed in error notification when an operation fails unexpectedly',
+    values: {
+      supportEmail: stringHelper('SUPPORT_EMAIL'),
+    },
   },
 });
 
@@ -84,7 +91,7 @@ class UserPrivacy extends Component {
     const { user } = this.props;
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
+      const fallbackMessage = this.props.intl.formatMessage(messages.unknownError);
       const message = getErrorMessage(transaction, fallbackMessage);
       this.setState({ message });
     };
@@ -115,6 +122,7 @@ class UserPrivacy extends Component {
       blurb: <FormattedMessage
         id="userPrivacy.deleteAccountConfirmationText"
         defaultMessage="Are you sure? This will remove your account and log you out of the app."
+        description="Confirmation for the user to know what will happen when they remove their account"
       />,
     };
 
@@ -127,7 +135,7 @@ class UserPrivacy extends Component {
         className={classes.linkStyle}
         href={stringHelper('PP_URL')}
       >
-        <FormattedMessage id="userPrivacy.ppLink" defaultMessage="Privacy Policy" />
+        <FormattedMessage id="userPrivacy.ppLink" defaultMessage="Privacy Policy" description="Link text for the privacy policy" />
       </a>
     );
 
@@ -136,12 +144,13 @@ class UserPrivacy extends Component {
     return (
       <div id="user__privacy">
         <div className={`typography-subtitle2 ${classes.style}`}>
-          <FormattedMessage id="userPrivacy.title" defaultMessage="Your information" />
+          <FormattedMessage id="userPrivacy.title" defaultMessage="Your information" description="Page title for the user's privacy information" />
         </div>
         <p className={classes.style}>
           <FormattedMessage
             id="userPrivacy.description"
             defaultMessage="Please review our {ppLink} to learn how {appName} uses and stores your information."
+            description="Description text to tell the user why they should review the privacy policy"
             values={{
               ppLink,
               appName,
@@ -153,6 +162,7 @@ class UserPrivacy extends Component {
             <FormattedMessage
               id="userPrivacy.seeInformationText"
               defaultMessage="We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
+              description="Description of what the app will do when the user requests their information"
               values={{ appName }}
             />
             <Button
@@ -161,7 +171,7 @@ class UserPrivacy extends Component {
               color="primary"
               onClick={UserPrivacy.handleSubmit.bind(this, 'Send information')}
             >
-              <FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" />
+              <FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" description="Button text for the user to see their privacy information" />
             </Button>
           </CardContent>
         </Card>
@@ -170,6 +180,7 @@ class UserPrivacy extends Component {
             <FormattedMessage
               id="userPrivacy.stopProcessingText"
               defaultMessage="You can request {appName} to stop processing your information under certain conditions."
+              description="Help text to tell the user how they can request a change to their privacy settings"
               values={{ appName }}
             />
             <Button
@@ -178,12 +189,12 @@ class UserPrivacy extends Component {
               color="primary"
               onClick={UserPrivacy.handleSubmit.bind(this, 'Stop processing')}
             >
-              <FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" />
+              <FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" description="Button text for the user to request a change to their privacy settings" />
             </Button>
           </CardContent>
         </Card>
         <div className={`typography-subtitle2 ${classes.style}`}>
-          <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" />
+          <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" description="Title for social accounts connected to their app account" />
         </div>
         <Card className={classes.cardStyle}>
           <CardContent className={classes.cardTextStyle}>
@@ -199,13 +210,14 @@ class UserPrivacy extends Component {
           </CardContent>
         </Card>
         <div className={`typography-subtitle2 ${classes.headerStyle}`}>
-          <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" />
+          <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" description="Page title for the user to delete their account" />
         </div>
         <Card className={classes.cardStyle}>
           <CardContent className={classes.cardTextStyle}>
             <FormattedMessage
               id="userPrivacy.deleteAccountText"
               defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
+              description="Text to tell the user what will happen to their personal information when their account is removed"
               values={{ appName }}
             />
             <Button
@@ -214,7 +226,7 @@ class UserPrivacy extends Component {
               color="primary"
               onClick={this.handleOpenDialog.bind(this)}
             >
-              <FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" />
+              <FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" description="Button text for the user to delete their account" />
             </Button>
             <ConfirmDialog
               message={this.state.message}

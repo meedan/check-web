@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import MultiSelector from '../../layout/MultiSelector';
-import globalStrings from '../../../globalStrings';
 
 const SearchKeywordConfigComponent = ({
   query,
@@ -227,8 +226,8 @@ const SearchKeywordConfigComponent = ({
           description="Label for checkbox to toggle selection of all checkboxes in menu"
         />
       }
-      submitLabel={<FormattedMessage {...globalStrings.update} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
-      cancelLabel={<FormattedMessage {...globalStrings.cancel} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
+      submitLabel={<FormattedMessage id="global.update" defaultMessage="Update" description="Generic label for a button or link for a user to press when they wish to update an action" />}
+      cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
       resetLabel={
         <FormattedMessage
           id="SearchKeywordConfigComponent.resetLabel"

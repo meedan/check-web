@@ -68,7 +68,7 @@ const NewsletterComponent = ({
   const [introductionText, setIntroductionText] = React.useState(introduction || '');
   const [articleNum, setArticleNum] = React.useState(number_of_articles || 0);
   const [articles, setArticles] = React.useState([first_article || '', second_article || '', third_article || '']);
-  const [headerType, setHeaderType] = React.useState(header_type || 'link_preview');
+  const [headerType, setHeaderType] = React.useState(header_type || 'none');
   const fileNameFromUrl = new RegExp(/[^/\\&?]+\.\w{3,4}(?=([?&].*$|$))/);
   const [fileName, setFileName] = React.useState((header_file_url && header_file_url.match(fileNameFromUrl) && header_file_url.match(fileNameFromUrl)[0]) || '');
   const [rssFeedUrl, setRssFeedUrl] = React.useState(rss_feed_url || '');
@@ -445,7 +445,7 @@ const NewsletterComponent = ({
             theme="brand"
             size="default"
             onClick={handleSave}
-            disabled={scheduled || saving || datetimeIsPast || disableSaveNoFile || textfieldOverLength || !can(team.permissions, 'create TiplineNewsletter')}
+            disabled={scheduled || saving || disableSaveNoFile || !can(team.permissions, 'create TiplineNewsletter')}
             label={
               <FormattedMessage id="newsletterComponent.save" defaultMessage="Save" description="Label for a button to save settings for the newsletter" />
             }
@@ -468,7 +468,7 @@ const NewsletterComponent = ({
               handleFileChange={handleFileChange}
               setFile={setFile}
               setFileName={setFileName}
-              availableHeaderTypes={team.available_newsletter_header_types || []}
+              availableHeaderTypes={team.available_newsletter_header_types ? team.available_newsletter_header_types.filter(type => type !== 'link_preview') : []}
               headerType={headerType}
               fileName={fileName}
               overlayText={overlayText}

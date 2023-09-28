@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
@@ -43,7 +43,7 @@ const MediaExpandedMetadata = ({ projectMedia }) => {
         { publishedOn ? (
           <Grid item xs={3}>
             <Typography variant="button" component="div">
-              <FormattedMessage id="mediaExpandedMetadata.publishedOn" defaultMessage="Published on" />
+              <FormattedMessage id="mediaExpandedMetadata.publishedOn" defaultMessage="Published on" description="Grid column label for when the meta data was published" />
             </Typography>
             <div>{publishedOn}</div>
           </Grid>
@@ -52,19 +52,19 @@ const MediaExpandedMetadata = ({ projectMedia }) => {
           <Box display="flex" width="100%" margin={1}>
             <div className={classes.metric}>
               <Typography variant="button" component="div">
-                <FormattedMessage id="mediaExpandedMetadata.shares" defaultMessage="FB Shares" />
+                <FormattedMessage id="mediaExpandedMetadata.shares" defaultMessage="FB Shares" description="Grid column label for then number of shares on facebook" />
               </Typography>
               <div><FormattedNumber value={metrics.share_count || 0} /></div>
             </div>
             <div className={classes.metric}>
               <Typography variant="button" component="div">
-                <FormattedMessage id="mediaExpandedMetadata.reactions" defaultMessage="FB Reactions" />
+                <FormattedMessage id="mediaExpandedMetadata.reactions" defaultMessage="FB Reactions" description="Grid column label for the number of facebook reactions" />
               </Typography>
               <div><FormattedNumber value={metrics.reaction_count || 0} /></div>
             </div>
             <div className={classes.metric}>
               <Typography variant="button" component="div">
-                <FormattedMessage id="mediaExpandedMetadata.comments" defaultMessage="FB Comments" />
+                <FormattedMessage id="mediaExpandedMetadata.comments" defaultMessage="FB Comments" description="Grid column label for the number of facebook comments" />
               </Typography>
               <div>
                 <FormattedNumber value={metrics.comment_count + metrics.comment_plugin_count || 0} />

@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
@@ -31,7 +30,7 @@ const StyledFormControls = styled.div`
   align-items: center;
   height: 63px;
   position: sticky;
-  top: 0px;
+  top: -16px;
   z-index: 1001;
   background-color: var(--otherWhite);
   box-shadow: 0 0 8px 4px rgba(170, 170, 170, 0.25);
@@ -68,7 +67,7 @@ const Tasks = ({
         { !isBrowserExtension ?
           <Box display="flex" justifyContent="center" m={2}>
             <Button variant="contained" color="primary" onClick={goToSettings}>
-              <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" />
+              <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" description="Button label to take the user to the settings area of the application" />
             </Button>
           </Box>
           : null

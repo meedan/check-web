@@ -18,7 +18,7 @@ shared_examples 'media' do |type|
 
   it 'should restore items from the trash', bin2: true do
     create_media_depending_on_type
-    wait_for_selector('.media')
+    wait_for_selector('.test__media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
     wait_for_selector('.message')

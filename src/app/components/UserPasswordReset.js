@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { graphql, commitMutation } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -17,7 +16,6 @@ import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
 import ErrorBoundary from './error/ErrorBoundary';
-import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import { getErrorMessageForRelayModernProblem } from '../helpers';
 import {
@@ -113,7 +111,12 @@ const UserPasswordReset = (props) => {
     <ErrorBoundary component="UserPasswordReset">
       <PageTitle>
         <Box m={2} align="center">
-          <FormattedHTMLMessage {...globalStrings.bestViewed} />
+          <FormattedHTMLMessage
+            id="global.bestViewed"
+            defaultMessage='Best viewed with <a href="{chromedownload}">Chrome for Desktop</a>.'
+            values={{ chromedownload: 'https://www.google.com/chrome/browser/desktop/' }}
+            description="Message shown to the user when they are using an unsupported browser"
+          />
         </Box>
         <ContentColumn center className="user-password-reset__component">
           <StyledCard>
@@ -135,6 +138,7 @@ const UserPasswordReset = (props) => {
                 <FormattedMessage
                   id="passwordReset.confirmedText"
                   defaultMessage="If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+                  description="Confirmation text to tell the user what will happen if their password request request was valid"
                   values={{
                     adminEmail: stringHelper('ADMIN_EMAIL'),
                     supportEmail: stringHelper('SUPPORT_EMAIL'),
@@ -148,18 +152,18 @@ const UserPasswordReset = (props) => {
                   disabled={submitDisabled}
                   onClick={handleSignIn}
                 >
-                  <FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />
+                  <FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" description="Sign in button label" />
                 </Button>
               </Typography>,
             ] : [
               <CardContent key="usr-2">
                 { previousErrorMsg ? <p>{previousErrorMsg}</p> : null }
-                <FormattedMessage id="passwordReset.text" defaultMessage="Add your address and an email will be sent with further instructions." />
+                <FormattedMessage id="passwordReset.text" defaultMessage="Add your address and an email will be sent with further instructions." description="Helper text about why the user should enter their email adddress" />
                 <div className="user-password-reset__email-input">
                   <TextField
                     id="password-reset-email-input"
                     type="email"
-                    label={<FormattedMessage id="passwordReset.email" defaultMessage="Email" />}
+                    label={<FormattedMessage id="passwordReset.email" defaultMessage="Email" description="Textfield label for email address" />}
                     onChange={handleChange}
                     helperText={errorMsg}
                     error={errorMsg}
@@ -172,7 +176,11 @@ const UserPasswordReset = (props) => {
               </CardContent>,
               <CardActions key="usr-3" className="user-password-reset__actions">
                 <Button onClick={handleGoBack}>
-                  <FormattedMessage {...globalStrings.cancel} />
+                  <FormattedMessage
+                    id="global.cancel"
+                    defaultMessage="Cancel"
+                    description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+                  />
                 </Button>
                 <Button color="primary" disabled={submitDisabled} onClick={handleSubmit}>
                   { pagetitleMessage }

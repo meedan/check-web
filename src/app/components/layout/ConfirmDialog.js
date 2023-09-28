@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -93,9 +92,9 @@ class ConfirmDialog extends React.Component {
 ConfirmDialog.defaultProps = {
   blurb: null,
   disabled: false,
-  checkBoxLabel: <FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />,
-  continueButtonLabel: <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />,
-  cancelButtonLabel: <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" />,
+  checkBoxLabel: <FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" description="Positive label for a checkbox field" />,
+  continueButtonLabel: <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" description="Button label to continue a process" />,
+  cancelButtonLabel: <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" description="Button label to cancel a process" />,
   message: null,
   handleConfirm: null,
 };

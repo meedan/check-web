@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedDate, FormattedMessage } from 'react-intl';
@@ -27,7 +26,7 @@ class UserTosForm extends Component {
         style={linkStyle}
         href={stringHelper('TOS_URL')}
       >
-        <FormattedMessage id="userTos.tosLink" defaultMessage="Terms of Service" />
+        <FormattedMessage id="userTos.tosLink" defaultMessage="Terms of Service" description="Link text to take the user to the terms of service" />
       </a>
     );
 
@@ -38,7 +37,7 @@ class UserTosForm extends Component {
         style={linkStyle}
         href={stringHelper('PP_URL')}
       >
-        <FormattedMessage id="userTos.ppLink" defaultMessage="Privacy Policy" />
+        <FormattedMessage id="userTos.ppLink" defaultMessage="Privacy Policy" description="Link text to take the user to the privacy policy" />
       </a>
     );
 
@@ -53,6 +52,7 @@ class UserTosForm extends Component {
                 <FormattedMessage
                   id="userTos.title"
                   defaultMessage="Terms of Service and Privacy Policy"
+                  description="Page title for the terms of service"
                 />
               </h2> : null
             }
@@ -61,6 +61,7 @@ class UserTosForm extends Component {
                 <FormattedMessage
                   id="userTos.termsLastUpdatedAt"
                   defaultMessage="Last updated {lastUpdated}"
+                  description="Date of the last terms of service update"
                   values={{
                     lastUpdated: <FormattedDate value={termsLastUpdatedAt * 1000} day="numeric" month="long" year="numeric" />,
                   }}
@@ -72,6 +73,7 @@ class UserTosForm extends Component {
                 <FormattedMessage
                   id="userTos.disclaimer"
                   defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"
+                  description="Message for the user to review the terms of service and privacy policy"
                   values={{
                     tosLink,
                     ppLink,
@@ -85,12 +87,14 @@ class UserTosForm extends Component {
               <FormattedMessage
                 id="userTos.titleUpdated"
                 defaultMessage="Updated Terms and Privacy Policy"
+                description="Page title for the updated terms of service and privacy policy messages"
               />
             </h2>
             <p style={{ margin: `${units(4)} 0` }}>
               <FormattedMessage
                 id="userTos.disclaimerUpdate"
                 defaultMessage="We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:"
+                description="Message to the user that the terms of service and privacy policy have been updated"
                 values={{
                   tosLink,
                   ppLink,
@@ -112,6 +116,7 @@ class UserTosForm extends Component {
               <FormattedMessage
                 id="userTos.agreeTos"
                 defaultMessage="I agree to the Terms of Service."
+                description="Checkbox label for the user to agree to the terms of service"
               />
             }
           />

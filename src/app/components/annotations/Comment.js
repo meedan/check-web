@@ -1,17 +1,15 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import 'react-image-lightbox/style.css';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddAnnotation from './AddAnnotation';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -25,13 +23,13 @@ import {
   getErrorMessage,
   parseStringUnixTimestamp,
 } from '../../helpers';
-import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import {
   units,
   breakWordStyles,
   Row,
 } from '../../styles/js/shared';
+import MoreVertIcon from '../../icons/more_vert.svg';
 
 const StyledAnnotationCardWrapper = styled.div`
   width: 100%;
@@ -130,7 +128,9 @@ class Comment extends Component {
       transaction,
       (
         <FormattedMessage
-          {...globalStrings.unknownError}
+          id="global.unknownError"
+          defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+          description="Message displayed in error notification when an operation fails unexpectedly"
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
       ),
@@ -147,12 +147,14 @@ class Comment extends Component {
       const canDoAnnotationActions = canDestroy || canUpdate;
       annotationActions = canDoAnnotationActions ? (
         <div>
-          <IconButton
+          <ButtonMain
+            theme="text"
+            size="small"
+            variant="contained"
+            iconCenter={<MoreVertIcon />}
             className="menu-button"
             onClick={this.handleOpenMenu}
-          >
-            <MoreHoriz />
-          </IconButton>
+          />
           <Menu
             id="customized-menu"
             anchorEl={this.state.anchorEl}
@@ -165,7 +167,7 @@ class Comment extends Component {
                 className="annotation__update"
                 onClick={this.handleEdit}
               >
-                <FormattedMessage id="annotation.editButton" defaultMessage="Edit" />
+                <FormattedMessage id="annotation.editButton" defaultMessage="Edit" description="Menu item label to edit a comment" />
               </MenuItem>
             ) : null}
             {canDestroy ? (
@@ -173,7 +175,7 @@ class Comment extends Component {
                 className="annotation__delete"
                 onClick={this.handleDelete.bind(this, annotation.id)}
               >
-                <FormattedMessage id="annotation.deleteButton" defaultMessage="Delete" />
+                <FormattedMessage id="annotation.deleteButton" defaultMessage="Delete" description="Menu item label to delete a comment" />
               </MenuItem>
             ) : null}
             <MenuItem>
@@ -184,6 +186,7 @@ class Comment extends Component {
                 <FormattedMessage
                   id="annotation.permalink"
                   defaultMessage="Permalink"
+                  description="Menu item label to generate the permanent link for this comment"
                 />
               </a>
             </MenuItem>
@@ -289,7 +292,6 @@ Comment.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   setFlashMessage: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
 };
 
 export default withSetFlashMessage(injectIntl(Comment));

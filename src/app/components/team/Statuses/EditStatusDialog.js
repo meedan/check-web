@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -89,11 +88,13 @@ const EditStatusDialog = ({
           <FormattedMessage
             id="editStatusDialog.titleEdit"
             defaultMessage="Edit status"
+            description="Dialog title for editing a status message"
           />
         ) : (
           <FormattedMessage
             id="editStatusDialog.title"
             defaultMessage="Add a new status"
+            description="Dialog title for adding a new status message"
           />
         )}
       </DialogTitle>
@@ -109,6 +110,7 @@ const EditStatusDialog = ({
               <FormattedMessage
                 id="editStatusDialog.statusTitle"
                 defaultMessage="Status ({maxLength} characters max)"
+                description="Text field label for the status name"
                 values={{ maxLength }}
               />
             )}
@@ -129,6 +131,7 @@ const EditStatusDialog = ({
             <FormattedMessage
               id="editStatusDialog.statusDescription"
               defaultMessage="Description"
+              description="Text field label for the status description value"
             />
           )}
           value={statusDescription}
@@ -172,6 +175,7 @@ const EditStatusDialog = ({
                 <FormattedMessage
                   id="editStatusDialog.statusMessage"
                   defaultMessage="Message"
+                  description="Text field label for the message that will be sent to the user when an item is changed to this status value"
                 />
               )}
               disabled={!statusMessageEnabled}
@@ -203,6 +207,7 @@ const EditStatusDialog = ({
             <FormattedMessage
               id="editStatusDialog.addButton"
               defaultMessage="Add status"
+              description="Button label to add a new status"
             />
           )}
         </Button>

@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -34,6 +33,7 @@ const FetchBot = ({
           <FormattedMessage
             id="fetchBot.contactUs"
             defaultMessage="Contact us to set up"
+            description="Link text for a contact us link"
           />
         </a>
       </p>

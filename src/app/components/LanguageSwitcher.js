@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -88,6 +87,7 @@ const LanguageSwitcher = (props) => {
                       <FormattedMessage
                         id="languageSwitcher.primaryLanguage"
                         defaultMessage="(default)"
+                        description="Label for the default language choice"
                       />
                     </div> : null }
                 </div>
@@ -104,6 +104,7 @@ const LanguageSwitcher = (props) => {
                         <FormattedMessage
                           id="languageSwitcher.makeDefault"
                           defaultMessage="Set as default language for this item"
+                          description="Menu item for the user to change the default language"
                         />
                       </MenuItem>
                     </Menu>

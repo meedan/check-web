@@ -164,7 +164,7 @@ const MediaFactCheck = ({ projectMedia }) => {
 
   return (
     <Box id="media__fact-check">
-      <Box id="media__fact-check-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
+      <Box id="media__fact-check-title" display="flex" alignItems="center" mb={2} mt={2} justifyContent="space-between">
         <div className="typography-subtitle2">
           <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
         </div>

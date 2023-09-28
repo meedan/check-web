@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -8,7 +7,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import globalStrings from '../../globalStrings';
 
 function SetSourceDialog({
   open,
@@ -76,7 +74,7 @@ function SetSourceDialog({
           />
         </Button>
         <Button color="primary" onClick={onCancel}>
-          <FormattedMessage {...globalStrings.cancel} />
+          <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
         </Button>
       </DialogActions>
     </Dialog>
