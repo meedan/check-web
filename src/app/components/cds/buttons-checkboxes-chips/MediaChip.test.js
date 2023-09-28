@@ -9,8 +9,7 @@ describe('<MediaChip />', () => {
       label="https://www.youtube.com/watch?v=IxMtrololoSFs"
     />);
 
-    expect(wrapper.find('.media-chip-label').text().startsWith('http')).toBe(false);
-    expect(wrapper.find('.media-chip-label').text().startsWith('youtube.com')).toBe(true);
+    expect(wrapper.find('.media-chip-label').text()).toEqual('youtube.com/watch?v=IxMtrololoSFs');
 
     wrapper = shallow(<MediaChip
       url="https://www.nytimes.com/2023/09/07/climate/climate-forward-event.html"
@@ -18,6 +17,13 @@ describe('<MediaChip />', () => {
     />);
 
     expect(wrapper.find('.media-chip-label').text()).toEqual('nytimes.com/2023/09/07/climate/climate-forward-event.html');
+
+    wrapper = shallow(<MediaChip
+      url="https://www.twitter.com/rtyuuty/3456436"
+      label="https://www.twitter.com/rtyuuty/3456436"
+    />);
+
+    expect(wrapper.find('.media-chip-label').text()).toEqual('twitter.com/rtyuuty/3456436');
   });
 
   it('should display icon', () => {
