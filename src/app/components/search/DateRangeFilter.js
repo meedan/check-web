@@ -13,6 +13,7 @@ import DateRangeIcon from '../../icons/calendar_month.svg';
 import CloseIcon from '../../icons/clear.svg';
 import RemoveableWrapper from './RemoveableWrapper';
 import { FlexRow, units } from '../../styles/js/shared';
+import styles from './search.module.css';
 
 const StyledCloseIcon = withStyles({
   root: {
@@ -87,10 +88,6 @@ const Styles = {
     paddingLeft: '8px',
     paddingRight: '8px',
   },
-  wrapper: {
-    backgroundColor: 'var(--grayDisabledBackground)',
-    borderRadius: '4px',
-  },
 };
 
 function parseStartDateAsISOString(moment) {
@@ -119,7 +116,7 @@ function DateRangeSelectorStartEnd(props) {
   } = props;
 
   return (
-    <>
+    <div className={styles['filter-removeable-wrapper']}>
       <DatePicker
         onChange={handleChangeStartDate}
         maxDate={getEndDateStringOrNull() || undefined}
@@ -173,7 +170,7 @@ function DateRangeSelectorStartEnd(props) {
           </div>
         )}
       />
-    </>
+    </div>
   );
 }
 
@@ -395,7 +392,7 @@ const DateRangeFilter = ({
   };
 
   return (
-    <div className={classes.wrapper}>
+    <div className={styles['filter-wrapper']}>
       <FlexRow>
         <FormControl variant="outlined" className={classes.selectFormControl}>
           <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>

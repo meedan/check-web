@@ -2,59 +2,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import MultiSelector from '../layout/MultiSelector';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
 import CircularProgress from '../CircularProgress';
 import AddIcon from '../../icons/add.svg';
 import CloseIcon from '../../icons/clear.svg';
-
-const NoHoverButton = withStyles({
-  root: {
-    borderRadius: 0,
-    borderLeft: '2px solid var(--otherWhite)',
-    borderRight: '2px solid var(--otherWhite)',
-    height: '36px',
-    minWidth: 0,
-    margin: 0,
-    '&:hover': {
-      background: 'transparent',
-    },
-  },
-  disabled: {
-    color: 'var(--textPrimary) !important',
-  },
-})(Button);
+import styles from './search.module.css';
 
 const OperatorToggle = ({ onClick, operator }) => (
-  <NoHoverButton
+  <ButtonMain
     onClick={onClick}
     disabled={!onClick}
-    color="primary"
-    disableRipple
-  >
-    { operator === 'and' ?
-      <FormattedMessage id="search.and" defaultMessage="and" description="Logical operator to be applied when filtering by multiple tags" /> :
-      <FormattedMessage id="search.or" defaultMessage="or" description="Logical operator to be applied when filtering by multiple tags" />
-    }
-  </NoHoverButton>
+    theme="text"
+    size="small"
+    variant="text"
+    customStyle={{ color: 'var(--textPrimary' }}
+    label={operator === 'and' ? <FormattedMessage id="search.and" defaultMessage="and" description="Logical operator to be applied when filtering by multiple tags" /> : <FormattedMessage id="search.or" defaultMessage="or" description="Logical operator to be applied when filtering by multiple tags" />}
+  />
 );
 
 const useTagStyles = makeStyles({
   root: {
     display: 'flex',
     alignItems: 'center',
-    height: '24px',
-    margin: '2px',
+    height: '30px',
     lineHeight: '22px',
     color: 'var(--otherWhite)',
     backgroundColor: 'var(--brandMain)',
     borderRadius: '4px',
     boxSizing: 'content-box',
-    padding: '0 8px 0 8px',
+    padding: '0 0 0 8px',
+    gap: '2px',
     outline: 0,
     overflow: 'hidden',
     '& :focus': {
@@ -83,7 +67,24 @@ const Tag = ({
     <div className={`multi-select-filter__tag ${classes.root}`} {...props}>
       <span>{label}</span>
       { readOnly ? null : (
-        <CloseIcon className="multi-select-filter__tag-remove" onClick={onDelete} />
+        <Tooltip
+          title={
+            <FormattedMessage id="filter.removeFilterCondition" defaultMessage="Remove filter" description="Tooltip to tell the user they can add remove the argument to the filter they are interacting with" />
+          }
+          arrow
+        >
+          <span>
+            <ButtonMain
+              className="multi-select-filter__tag-remove"
+              iconCenter={<CloseIcon />}
+              onClick={onDelete}
+              theme="text"
+              variant="text"
+              size="small"
+              customStyle={{ color: 'var(--otherWhite)' }}
+            />
+          </span>
+        </Tooltip>
       )}
     </div>
   ) : (
@@ -94,26 +95,6 @@ const Tag = ({
       { readOnly ? null : (
         <CloseIcon className="multi-select-filter__tag-remove" onClick={onDelete} />
       )}
-    </div>
-  );
-};
-
-const usePlusButtonStyles = makeStyles({
-  root: {
-    height: '36px',
-    paddingLeft: '4px',
-    borderLeft: '2px solid var(--otherWhite)',
-    alignItems: 'center',
-    display: 'flex',
-    cursor: 'pointer',
-  },
-});
-
-const PlusButton = ({ children }) => {
-  const classes = usePlusButtonStyles();
-  return (
-    <div className={classes.root}>
-      {children}
     </div>
   );
 };
@@ -168,56 +149,67 @@ const MultiSelectFilter = ({
   }, []);
 
   return (
-    <div>
-      <div className="multi-select-filter">
-        <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version}>
-          <Box px={0.5} height={4.5} display="flex" alignItems="center" whiteSpace="nowrap">
-            {label}
-          </Box>
-          { !oneOption && selectedArray.map((value, index) => (
-            <React.Fragment key={getLabelForValue(value)}>
-              { index > 0 ? (
-                <OperatorToggle
-                  onClick={onToggleOperator}
-                  operator={operator}
-                />
-              ) : null }
-              <Tag
-                label={getLabelForValue(value)}
-                onDelete={() => handleTagDelete(value)}
-                readOnly={readOnly}
+    <div className={cx('multi-select-filter', styles['filter-wrapper'], styles['filter-multiselect'])}>
+      <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version}>
+        <Box px={0.5} height={4.5} display="flex" alignItems="center" whiteSpace="nowrap">
+          {label}
+        </Box>
+        { !oneOption && selectedArray.map((value, index) => (
+          <React.Fragment key={getLabelForValue(value)}>
+            { index > 0 ? (
+              <OperatorToggle
+                onClick={onToggleOperator}
+                operator={operator}
               />
-            </React.Fragment>
-          )) }
-          { !oneOption && selectedArray.length > 0 && showSelect ? (
-            <OperatorToggle
-              onClick={onToggleOperator}
-              operator={operator}
+            ) : null }
+            <Tag
+              label={getLabelForValue(value)}
+              onDelete={() => handleTagDelete(value)}
+              readOnly={readOnly}
             />
-          ) : null }
-          { !oneOption && (selectedArray.length === 0 || showSelect) && !readOnly ? (
-            <CustomSelectDropdown
-              allowSearch={allowSearch}
-              inputPlaceholder={inputPlaceholder}
-              hasMore={hasMore}
-              loading={loading}
-              options={options}
-              onScrollBottom={onScrollBottom}
-              onSelectChange={onSelectChange}
-              onSubmit={handleSelect}
-              onType={onType}
-              selected={selectedArray}
-              single={single}
-            />
-          ) : null }
-          { extraInputs }
-          { !oneOption && !readOnly && !single ? (
-            <PlusButton>
-              <AddIcon fontSize="small" onClick={() => setShowSelect(true)} />
-            </PlusButton>
-          ) : null }
-        </RemoveableWrapper>
-      </div>
+          </React.Fragment>
+        )) }
+        { !oneOption && selectedArray.length > 0 && showSelect ? (
+          <OperatorToggle
+            onClick={onToggleOperator}
+            operator={operator}
+          />
+        ) : null }
+        { !oneOption && (selectedArray.length === 0 || showSelect) && !readOnly ? (
+          <CustomSelectDropdown
+            allowSearch={allowSearch}
+            inputPlaceholder={inputPlaceholder}
+            hasMore={hasMore}
+            loading={loading}
+            options={options}
+            onScrollBottom={onScrollBottom}
+            onSelectChange={onSelectChange}
+            onSubmit={handleSelect}
+            onType={onType}
+            selected={selectedArray}
+            single={single}
+          />
+        ) : null }
+        { extraInputs }
+        { !oneOption && !readOnly && !single ? (
+          <Tooltip
+            title={
+              <FormattedMessage id="filter.addParameter" defaultMessage="Add filter condition" description="Tooltip to tell the user they can add another argument to the filter they are interacting with" />
+            }
+            arrow
+          >
+            <span>
+              <ButtonMain
+                iconCenter={<AddIcon />}
+                theme="lightValidation"
+                size="small"
+                variant="contained"
+                onClick={() => setShowSelect(true)}
+              />
+            </span>
+          </Tooltip>
+        ) : null }
+      </RemoveableWrapper>
     </div>
   );
 };

@@ -10,11 +10,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import MultiSelectFilter from './MultiSelectFilter';
 import { languageLabel } from '../../LanguageRegistry';
 import LanguageIcon from '../../icons/language.svg';
 import RemoveableWrapper from './RemoveableWrapper';
 import { FlexRow } from '../../styles/js/shared';
+import styles from './search.module.css';
 
 const StyledInputBaseDropdown = withStyles(theme => ({
   root: {
@@ -45,10 +47,6 @@ const Styles = {
     flexShrink: 0,
     alignItems: 'center',
     padding: '0 4px 0 0',
-  },
-  wrapper: {
-    backgroundColor: 'var(--grayDisabledBackground)',
-    borderRadius: '4px',
   },
 };
 
@@ -109,7 +107,7 @@ const LanguageFilter = ({
         if (!error && props) {
           const languages = props.team.get_languages ? JSON.parse(props.team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
           return (
-            <div className={classes.wrapper}>
+            <div className={cx(styles['filter-wrapper'])}>
               <FlexRow>
                 <FormControl variant="outlined" className={classes.selectFormControl}>
                   <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>

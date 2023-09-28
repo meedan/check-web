@@ -3,8 +3,6 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
@@ -304,17 +302,22 @@ const SearchFields = ({
   ];
 
   const OperatorToggle = () => {
-    let operatorProps = { style: { minWidth: 0, color: 'var(--brandMain)' }, onClick: handleOperatorClick };
+    let operatorProps = { onClick: handleOperatorClick };
     if (page === 'feed') {
-      operatorProps = { style: { minWidth: 0, color: 'var(--textPrimary)' }, disabled: true };
+      operatorProps = { disabled: true };
     }
     return (
-      <Button {...operatorProps}>
-        { stateQuery.operator === 'OR' ?
+      <ButtonMain
+        variant="contained"
+        size="small"
+        theme={page === 'feed' ? 'text' : 'lightBrand'}
+        customStyle={{ fontWeight: 'bold' }}
+        label={stateQuery.operator === 'OR' ?
           <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
           <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
         }
-      </Button>
+        {...operatorProps}
+      />
     );
   };
 
@@ -336,15 +339,13 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     range: (
-      <Box maxWidth="900px">
-        <DateRangeFilter
-          onChange={handleDateChange}
-          value={stateQuery.range}
-          readOnly={readOnlyFields.includes('range')}
-          optionsToHide={['request_created_at']}
-          onRemove={() => handleRemoveField('range')}
-        />
-      </Box>
+      <DateRangeFilter
+        onChange={handleDateChange}
+        value={stateQuery.range}
+        readOnly={readOnlyFields.includes('range')}
+        optionsToHide={['request_created_at']}
+        onRemove={() => handleRemoveField('range')}
+      />
     ),
     tags: (
       <SearchFieldTag
@@ -463,37 +464,31 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     linked_items_count: (
-      <Box maxWidth="700px">
-        <NumericRangeFilter
-          filterKey="linked_items_count"
-          onChange={handleNumericRange}
-          value={stateQuery.linked_items_count}
-          readOnly={readOnlyFields.includes('linked_items_count')}
-          onRemove={() => handleRemoveField('linked_items_count')}
-        />
-      </Box>
+      <NumericRangeFilter
+        filterKey="linked_items_count"
+        onChange={handleNumericRange}
+        value={stateQuery.linked_items_count}
+        readOnly={readOnlyFields.includes('linked_items_count')}
+        onRemove={() => handleRemoveField('linked_items_count')}
+      />
     ),
     suggestions_count: (
-      <Box maxWidth="700px">
-        <NumericRangeFilter
-          filterKey="suggestions_count"
-          onChange={handleNumericRange}
-          value={stateQuery.suggestions_count}
-          onRemove={() => handleRemoveField('suggestions_count')}
-          readOnly={readOnlyFields.includes('suggestions_count')}
-        />
-      </Box>
+      <NumericRangeFilter
+        filterKey="suggestions_count"
+        onChange={handleNumericRange}
+        value={stateQuery.suggestions_count}
+        onRemove={() => handleRemoveField('suggestions_count')}
+        readOnly={readOnlyFields.includes('suggestions_count')}
+      />
     ),
     demand: (
-      <Box maxWidth="700px">
-        <NumericRangeFilter
-          filterKey="demand"
-          onChange={handleNumericRange}
-          readOnly={readOnlyFields.includes('demand')}
-          value={stateQuery.demand}
-          onRemove={() => handleRemoveField('demand')}
-        />
-      </Box>
+      <NumericRangeFilter
+        filterKey="demand"
+        onChange={handleNumericRange}
+        readOnly={readOnlyFields.includes('demand')}
+        value={stateQuery.demand}
+        onRemove={() => handleRemoveField('demand')}
+      />
     ),
     report_status: (
       <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">
@@ -544,15 +539,13 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     language_filter: (
-      <Box maxWidth="900px">
-        <LanguageFilter
-          onChange={handleLanguageChange}
-          value={stateQuery.language_filter}
-          readOnly={readOnlyFields.includes('language_filter')}
-          onRemove={() => handleRemoveField('language_filter')}
-          teamSlug={team.slug}
-        />
-      </Box>
+      <LanguageFilter
+        onChange={handleLanguageChange}
+        value={stateQuery.language_filter}
+        readOnly={readOnlyFields.includes('language_filter')}
+        onRemove={() => handleRemoveField('language_filter')}
+        teamSlug={team.slug}
+      />
     ),
     assigned_to: (
       <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
@@ -661,70 +654,68 @@ const SearchFields = ({
   const canReset = canApply || canSave;
 
   return (
-    <div>
-      <Row flexWrap style={{ gap: '8px' }}>
-        { fieldKeys.map((key, index) => {
-          if (index > 0) {
-            return (
-              <React.Fragment key={key}>
-                <OperatorToggle />
-                { fieldComponents[key] }
-              </React.Fragment>
-            );
-          }
-
+    <Row flexWrap style={{ gap: '8px' }}>
+      { fieldKeys.map((key, index) => {
+        if (index > 0) {
           return (
-            <span key={key}>
+            <React.Fragment key={key}>
+              <OperatorToggle />
               { fieldComponents[key] }
-            </span>
+            </React.Fragment>
           );
-        })}
-        <AddFilterMenu
-          team={team}
-          hideOptions={hideFields}
-          addedFields={addedFields}
-          onSelect={handleAddField}
+        }
+
+        return (
+          <React.Fragment key={key}>
+            { fieldComponents[key] }
+          </React.Fragment>
+        );
+      })}
+      <AddFilterMenu
+        team={team}
+        hideOptions={hideFields}
+        addedFields={addedFields}
+        onSelect={handleAddField}
+      />
+      { canReset && <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} /> }
+      { canReset && (
+        <ButtonMain
+          variant="contained"
+          size="default"
+          theme="lightText"
+          onClick={handleClickClear}
+          label={
+            <FormattedMessage id="search.resetFilter" defaultMessage="Reset" description="Button label to reset search filters." />
+          }
+          buttonProps={{
+            id: 'search-fields__clear-button',
+          }}
         />
-        { canReset && <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} /> }
-        { canReset && (
-          <ButtonMain
-            variant="contained"
-            size="default"
-            theme="lightText"
-            onClick={handleClickClear}
-            label={
-              <FormattedMessage id="search.resetFilter" defaultMessage="Reset" description="Button label to reset search filters." />
-            }
-            buttonProps={{
-              id: 'search-fields__clear-button',
-            }}
-          />
-        )}
-        { canApply && (
-          <ButtonMain
-            variant="contained"
-            size="default"
-            theme="lightValidation"
-            onClick={handleSubmit}
-            label={
-              <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
-            }
-            buttonProps={{
-              id: 'search-fields__submit-button',
-            }}
-          />
-        )}
-        { canSave && (
-          <SaveList
-            team={team}
-            query={stateQuery}
-            savedSearch={savedSearch}
-            feedTeam={feedTeam}
-            page={page}
-          />
-        )}
-      </Row>
-    </div>
+      )}
+      { canApply && (
+        <ButtonMain
+          variant="contained"
+          size="default"
+          theme="lightValidation"
+          onClick={handleSubmit}
+          label={
+            <FormattedMessage id="search.applyFilter" defaultMessage="Apply" description="Button label to apply search filters." />
+          }
+          buttonProps={{
+            id: 'search-fields__submit-button',
+          }}
+        />
+      )}
+      { canSave && (
+        <SaveList
+          team={team}
+          query={stateQuery}
+          savedSearch={savedSearch}
+          feedTeam={feedTeam}
+          page={page}
+        />
+      )}
+    </Row>
   );
 };
 
