@@ -1,5 +1,6 @@
 .media-chip-link {
-  display: block;
+  display: inline-block;
+  max-width: 100%;
   overflow: hidden;
   text-decoration: none;
 
