@@ -10,7 +10,8 @@ const MediaChip = ({
   url,
 }) => {
   const isFile = /assets\.checkmedia\.org/.test(url);
-  const mediaType = isFile ? mediaTypeFromFilename(label) : mediaTypeFromUrl(url);
+
+  const mediaType = mediaTypeFromFilename(label) || mediaTypeFromUrl(url);
 
   // Shortens url by hiding https://wwww.
   const shortUrl = !isFile ? url.match(/https?:\/\/www.?([^ ]+)/)?.[1] : null;
