@@ -283,7 +283,7 @@ class MediaActionsBarComponent extends Component {
 
     return (
       <div className={styles['media-actions']}>
-        <div className={styles['media-actions']}> { restorProjectMedia } </div>
+        { restorProjectMedia ? <div className={styles['media-actions']}> {restorProjectMedia} </div> : null }
         <div className={styles['media-actions']}>
           {isParent ?
             <MediaStatus
