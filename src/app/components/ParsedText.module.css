@@ -1,4 +1,6 @@
 .media-chip-link {
+  display: block;
+  overflow: hidden;
   text-decoration: none;
 
   &:hover {
