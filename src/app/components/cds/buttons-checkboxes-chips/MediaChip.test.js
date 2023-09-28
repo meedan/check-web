@@ -17,7 +17,7 @@ describe('<MediaChip />', () => {
       label="climate-forward-event.html"
     />);
 
-    expect(wrapper.find('.media-chip-label').text()).toEqual("nytimes.com/2023/09/07/climate/climate-forward-event.html");
+    expect(wrapper.find('.media-chip-label').text()).toEqual('nytimes.com/2023/09/07/climate/climate-forward-event.html');
   });
 
   it('should display icon', () => {
