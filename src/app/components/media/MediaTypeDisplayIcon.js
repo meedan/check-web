@@ -42,7 +42,7 @@ export function mediaTypeFromFilename(fileName) {
   if (fileExtension) {
     if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExtension.toLowerCase())) {
       mediaType = 'UploadedImage';
-    } else if (['mp3', 'wav', 'ogg', 'm4a'].includes(fileExtension.toLowerCase())) {
+    } else if (['mp3', 'wav', 'oga', 'ogg', 'm4a'].includes(fileExtension.toLowerCase())) {
       mediaType = 'UploadedAudio';
     } else if (['mp4', 'ogg', 'ogv', 'webm', 'mov', 'm4v'].includes(fileExtension.toLowerCase())) {
       mediaType = 'UploadedVideo';
