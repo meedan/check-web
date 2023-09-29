@@ -30,10 +30,6 @@ const Styles = {
   numericSelector: {
     maxWidth: '100px',
   },
-  andText: {
-    paddingLeft: '8px',
-    paddingRight: '8px',
-  },
 };
 
 function parseStartDateAsISOString(moment) {
@@ -53,7 +49,6 @@ function setInputWidth(textLength) {
 
 function DateRangeSelectorStartEnd(props) {
   const {
-    classes,
     getEndDateStringOrNull,
     getStartDateStringOrNull,
     handleChangeEndDate,
@@ -71,36 +66,34 @@ function DateRangeSelectorStartEnd(props) {
         value={getStartDateStringOrNull()}
         style={{ margin: `0 ${units(2)}` }}
         TextFieldComponent={({ onClick, value: valueText }) => (
-          <div>
-            <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
-              { text => (
-                <InputBase
-                  className={cx(
-                    'date-range__start-date',
-                    {
-                      [styles['filter-value']]: valueText,
-                    })
-                  }
-                  type="text"
-                  style={{ width: `${setInputWidth(valueText.length)}px` }}
-                  placeholder={text}
-                  onClick={onClick}
-                  value={valueText}
-                  endAdornment={
-                    valueText &&
-                      <ButtonMain
-                        iconCenter={<CloseIcon />}
-                        onClick={e => handleClearDate(e, 'start_time')}
-                        theme="text"
-                        variant="text"
-                        size="small"
-                        customStyle={{ color: 'var(--otherWhite)' }}
-                      />
-                  }
-                />
-              )}
-            </FormattedMessage>
-          </div>
+          <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
+            { text => (
+              <InputBase
+                className={cx(
+                  'date-range__start-date',
+                  {
+                    [styles['filter-value']]: valueText,
+                  })
+                }
+                type="text"
+                style={{ width: `${setInputWidth(valueText.length)}px` }}
+                placeholder={text}
+                onClick={onClick}
+                value={valueText}
+                endAdornment={
+                  valueText &&
+                    <ButtonMain
+                      iconCenter={<CloseIcon />}
+                      onClick={e => handleClearDate(e, 'start_time')}
+                      theme="text"
+                      variant="text"
+                      size="small"
+                      customStyle={{ color: 'var(--otherWhite)' }}
+                    />
+                }
+              />
+            )}
+          </FormattedMessage>
         )}
       />
       <DatePicker
@@ -111,8 +104,8 @@ function DateRangeSelectorStartEnd(props) {
         cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         value={getEndDateStringOrNull()}
         TextFieldComponent={({ onClick, value: valueText }) => (
-          <div>
-            <span className={classes.andText}>
+          <>
+            <span className={styles['logical-operator-text']}>
               <FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />
             </span>
             <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
@@ -143,7 +136,7 @@ function DateRangeSelectorStartEnd(props) {
                 />
               )}
             </FormattedMessage>
-          </div>
+          </>
         )}
       />
     </div>

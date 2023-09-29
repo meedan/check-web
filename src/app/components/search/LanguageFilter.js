@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import FormControl from '@material-ui/core/FormControl';
 import InputBase from '@material-ui/core/InputBase';
-import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
@@ -45,7 +44,6 @@ const Styles = {
     flexDirection: 'row',
     flexShrink: 0,
     alignItems: 'center',
-    padding: '0 4px 0 0',
   },
 };
 
@@ -108,7 +106,6 @@ const LanguageFilter = ({
           return (
             <div className={cx(styles['filter-wrapper'])}>
               <FormControl variant="outlined" className={classes.selectFormControl}>
-                <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
                 <Select
                   onChange={handleChangeType}
                   value={getValueType()}

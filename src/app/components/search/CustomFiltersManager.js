@@ -17,6 +17,7 @@ import LocationIcon from '../../icons/location.svg';
 import NoteAltOutlinedIcon from '../../icons/note_alt.svg';
 import RadioButtonCheckedIcon from '../../icons/radio_button_checked.svg';
 import ShortTextIcon from '../../icons/notes.svg';
+import styles from './search.module.css';
 
 const messages = defineMessages({
   empty: {
@@ -150,28 +151,25 @@ const CustomFiltersManagerComponent = ({
       };
 
       return (
-        <Box>
-          <Box display="flex" alignItems="center">
-            <MultiSelectFilter
-              id={`${filter.task_type}-${filter.id}`}
-              allowSearch={false}
-              extraInputs={getExtraInputs()}
-              label={intl.formatMessage(messages.labelIs, { title: teamTask.node?.label })}
-              icon={icons[teamTask.node.type]}
-              selected={filter.response}
-              options={options}
-              onChange={handleChoiceTaskFilterChange}
-              onRemove={() => handleRemoveFilter(i)}
-            />
-          </Box>
-          { errorMessage ?
-            <Box alignItems="center" color="red" display="flex">
-              <Box pr={1}><ErrorOutlineIcon /></Box>
-              <span className="typography-body1">
-                { errorMessage }
-              </span>
-            </Box> : null }
-        </Box>
+        <div className={styles['filter-wrapper']}>
+          <MultiSelectFilter
+            id={`${filter.task_type}-${filter.id}`}
+            allowSearch={false}
+            extraInputs={getExtraInputs()}
+            label={intl.formatMessage(messages.labelIs, { title: teamTask.node?.label })}
+            icon={icons[teamTask.node.type]}
+            selected={filter.response}
+            options={options}
+            onChange={handleChoiceTaskFilterChange}
+            onRemove={() => handleRemoveFilter(i)}
+          />
+          { !errorMessage ?
+            <div className={styles['filter-error']}>
+              <ErrorOutlineIcon />
+              BRIAN
+              { errorMessage }
+            </div> : null }
+        </div>
       );
     }
 

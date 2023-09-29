@@ -25,6 +25,11 @@
     "defaultMessage": "Add filter condition"
   },
   {
+    "id": "customAutocomplete.select",
+    "description": "Verb. Label for generic dropdown component",
+    "defaultMessage": "Select"
+  },
+  {
     "id": "multiSelector.search",
     "description": "Placeholder text for search input",
     "defaultMessage": "Search…"

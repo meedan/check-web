@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import Popover from '@material-ui/core/Popover';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import MultiSelector from '../layout/MultiSelector';
 import RemoveableWrapper from './RemoveableWrapper';
-import SelectButton from './SelectButton';
 import MediasLoading from '../media/MediasLoading';
 import AddIcon from '../../icons/add.svg';
 import CloseIcon from '../../icons/clear.svg';
+import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import styles from './search.module.css';
 
 const OperatorToggle = ({ onClick, operator }) => (
@@ -208,8 +207,22 @@ const CustomSelectDropdown = ({
   };
 
   return (
-    <Box mx={0.5}>
-      <SelectButton onClick={e => setAnchorEl(e.currentTarget)} />
+    <>
+      <ButtonMain
+        size="small"
+        variant="contained"
+        theme="text"
+        className="custom-select-dropdown__select-button"
+        iconRight={<KeyboardArrowDownIcon />}
+        onClick={e => setAnchorEl(e.currentTarget)}
+        label={
+          <FormattedMessage
+            id="customAutocomplete.select"
+            defaultMessage="Select"
+            description="Verb. Label for generic dropdown component"
+          />
+        }
+      />
       <Popover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -248,7 +261,7 @@ const CustomSelectDropdown = ({
           )}
         </FormattedMessage>
       </Popover>
-    </Box>
+    </>
   );
 };
 

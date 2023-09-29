@@ -110,9 +110,9 @@
 .filter-wrapper {
   background-color: var(--brandBackgroundAccent);
   border: solid 2px var(--errorMain);
-  border-radius: 4px;
+  border-radius: 12px;
   max-width: 100%;
-  padding: 0 4px;
+  padding: 3px 6px;
 
   .filter-wrapper {
     padding: 0;
@@ -133,6 +133,10 @@
     border-color: var(--alertMain);
     margin: 0 4px 0 0;
   }
+}
+
+.logical-operator-text {
+  background-color: var(--alertMain);
 }
 
 .filter-error {

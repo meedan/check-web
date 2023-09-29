@@ -1,7 +1,6 @@
 import React from 'react';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import ErrorOutlineIcon from '../../icons/error_outline.svg';
@@ -83,9 +82,7 @@ const NumericRangeFilter = ({
   return (
     <div className={styles['filter-wrapper']}>
       <RemoveableWrapper icon={<NumberIcon />} readOnly={readOnly} onRemove={onRemove}>
-        <Box pr={1}>
-          { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
-        </Box>
+        { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
         <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
           { placeholder => (
             <TextField
@@ -101,9 +98,7 @@ const NumericRangeFilter = ({
             />
           )}
         </FormattedMessage>
-        <Box px={1}>
-          <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" description="Logical operator AND statement" />
-        </Box>
+        <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" description="Logical operator AND statement" />
         <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
           { placeholder => (
             <TextField
@@ -123,6 +118,7 @@ const NumericRangeFilter = ({
       { !showErrorMsg ?
         <div className={styles['filter-error']}>
           <ErrorOutlineIcon />
+          BRIAN
           <FormattedMessage
             id="numericRangeFilter.errorMessage"
             defaultMessage="First number should be less than second number"
