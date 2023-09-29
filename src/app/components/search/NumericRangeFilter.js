@@ -125,10 +125,9 @@ const NumericRangeFilter = ({
           )}
         </FormattedMessage>
       </RemoveableWrapper>
-      { !showErrorMsg ?
+      { showErrorMsg ?
         <div className={styles['filter-error']}>
           <ErrorOutlineIcon />
-          BRIAN
           <FormattedMessage
             id="numericRangeFilter.errorMessage"
             defaultMessage="First number should be less than second number"

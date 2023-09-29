@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import MediasLoading from '../media/MediasLoading';
 import MultiSelectFilter from './MultiSelectFilter';
 import { languageLabel } from '../../LanguageRegistry';
@@ -121,7 +122,14 @@ const LanguageFilter = ({
                     <MenuItem value={option}>{ label[option] }</MenuItem>
                   ))}
                 </Select>
-                <FormattedMessage id="languageFilter.is" defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" />
+                <ButtonMain
+                  disabled
+                  theme="text"
+                  size="small"
+                  variant="text"
+                  customStyle={{ color: 'var(--textPrimary' }}
+                  label={<FormattedMessage id="languageFilter.is" defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" />}
+                />
                 <MultiSelectFilter
                   selected={userLanguages}
                   options={languages}

@@ -102,68 +102,65 @@
   flex-wrap: wrap;
   gap: 8px;
 
-  .filter-label {
-    background-color: var(--alertMain);
-  }
-}
-
-.filter-wrapper {
-  background-color: var(--brandBackgroundAccent);
-  border: solid 2px var(--errorMain);
-  border-radius: 12px;
-  max-width: 100%;
-  padding: 3px 6px;
-
   .filter-wrapper {
-    padding: 0;
-  }
-}
+    background-color: var(--brandBackgroundAccent);
+    border-radius: 12px;
+    max-width: 100%;
+    padding: 3px 6px;
 
-.filter-removeable-wrapper {
-  align-items: center;
-  border: solid 2px var(--validationMain);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin: 10px;
-  max-width: 100%;
-  min-height: 36px;
+    .filter-wrapper {
+      padding: 0;
+    }
 
-  &.filter-removeable-wrapper-icon {
-    border-color: var(--alertMain);
-    margin: 0 4px 0 0;
-  }
-}
+    .filter-removeable-wrapper {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 100%;
+      min-height: 36px;
 
-.filter-error {
-  color: var(--errorMain);
-  display: flex;
-  gap: 4px;
+      &.filter-removeable-wrapper-icon {
+        border-color: var(--alertMain);
+        margin: 0 4px 0 0;
+      }
 
-  svg {
-    font-size: var(--fontSizeBaseText);
-  }
-}
+      .filter-label {
+        background-color: var(--alertMain);
+      }
+    }
 
-.filter-value {
-  align-items: center;
-  background-color: var(--brandMain);
-  border-radius: 8px;
-  color: var(--otherWhite);
-  display: flex;
-  height: 30px;
-  max-width: 100%;
-  padding: 0 0 0 4px;
+    .filter-value {
+      align-items: center;
+      background-color: var(--brandMain);
+      border-radius: 8px;
+      color: var(--otherWhite);
+      display: flex;
+      height: 30px;
+      max-width: 100%;
+      padding: 0 0 0 4px;
 
-  input,
-  span:first-of-type {
-    background-color: var(--validationMain);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+      input,
+      span:first-of-type {
+        background-color: var(--validationMain);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
-  &.filter-value-missing {
-    background-color: var(--errorMain);
+      &.filter-value-missing {
+        background-color: var(--errorMain);
+      }
+    }
+
+    .filter-error {
+      color: var(--errorMain);
+      display: flex;
+      gap: 4px;
+
+      svg {
+        font-size: var(--fontSizeBaseText);
+      }
+    }
   }
 }
