@@ -11,6 +11,7 @@ import LineIcon from '../../icons/line.svg';
 import WhatsAppIcon from '../../icons/whatsapp.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import EditNoteIcon from '../../icons/edit_note.svg';
+import SendTiplineMessage from '../SendTiplineMessage';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -152,6 +153,13 @@ const TiplineRequest = ({
           formatMessage(messages.smoochNoMessage)
         )}
         icon={<SmoochIcon name={messageType} />}
+        sendMessageButton={
+          <SendTiplineMessage
+            username={userName}
+            channel={messageType}
+            annotationId={activity.annotation_id}
+          />
+        }
         receipt={
           <RequestReceipt
             icon={reportReceiveStatus.icon}
