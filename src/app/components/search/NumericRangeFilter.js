@@ -83,7 +83,9 @@ const NumericRangeFilter = ({
   return (
     <div className={styles['filter-wrapper']}>
       <RemoveableWrapper icon={<NumberIcon />} readOnly={readOnly} onRemove={onRemove}>
-        { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
+        <div className={styles['filter-label']}>
+          { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
+        </div>
         <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
           { placeholder => (
             <TextField

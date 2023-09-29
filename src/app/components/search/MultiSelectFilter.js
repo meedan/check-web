@@ -187,6 +187,7 @@ const MultiSelectFilter = ({
       { error ?
         <div className={styles['filter-error']}>
           <ErrorOutlineIcon />
+          BRIAN
           { error }
         </div> : null }
     </div>

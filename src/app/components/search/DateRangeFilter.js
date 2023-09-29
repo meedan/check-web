@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import cx from 'classnames/bind';
 import { DatePicker } from '@material-ui/pickers';
 import FormControl from '@material-ui/core/FormControl';
 import InputBase from '@material-ui/core/InputBase';
@@ -12,6 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import CloseIcon from '../../icons/clear.svg';
+import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import RemoveableWrapper from './RemoveableWrapper';
 import { units } from '../../styles/js/shared';
 import styles from './search.module.css';
@@ -41,11 +41,6 @@ function parseEndDateAsISOString(moment) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
 }
 
-// linear equation that gives us a good width relative to the text length with fairly stable right-padding
-function setInputWidth(textLength) {
-  return ((textLength || 7) * 12.5) - ((5 * Math.max(7, textLength)) - 35);
-}
-
 function DateRangeSelectorStartEnd(props) {
   const {
     getEndDateStringOrNull,
@@ -64,35 +59,34 @@ function DateRangeSelectorStartEnd(props) {
         cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         value={getStartDateStringOrNull()}
         style={{ margin: `0 ${units(2)}` }}
-        TextFieldComponent={({ onClick, value: valueText }) => (
-          <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
-            { text => (
-              <InputBase
-                className={cx(
-                  'date-range__start-date',
-                  {
-                    [styles['filter-value']]: valueText,
-                  })
-                }
-                type="text"
-                style={{ width: `${setInputWidth(valueText.length)}px` }}
-                placeholder={text}
-                onClick={onClick}
-                value={valueText}
-                endAdornment={
-                  valueText &&
-                    <ButtonMain
-                      iconCenter={<CloseIcon />}
-                      onClick={e => handleClearDate(e, 'start_time')}
-                      theme="text"
-                      variant="text"
-                      size="small"
-                      customStyle={{ color: 'var(--otherWhite)' }}
-                    />
-                }
-              />
-            )}
-          </FormattedMessage>
+        TextFieldComponent={({ params, onClick, value: valueText }) => (
+          <ButtonMain
+            className="date-range__start-date"
+            size="small"
+            variant="contained"
+            theme={valueText ? 'brand' : 'text'}
+            iconRight={
+              valueText ?
+                <ButtonMain
+                  iconCenter={<CloseIcon />}
+                  onClick={e => handleClearDate(e, 'start_time')}
+                  theme="text"
+                  variant="text"
+                  size="small"
+                  customStyle={{ color: 'var(--otherWhite)' }}
+                />
+                :
+                <KeyboardArrowDownIcon />
+            }
+            label={
+              !valueText ?
+                <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
+                :
+                valueText
+            }
+            onClick={onClick}
+            {...params}
+          />
         )}
       />
       <DatePicker
@@ -102,7 +96,7 @@ function DateRangeSelectorStartEnd(props) {
         okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
         cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         value={getEndDateStringOrNull()}
-        TextFieldComponent={({ onClick, value: valueText }) => (
+        TextFieldComponent={({ params, onClick, value: valueText }) => (
           <>
             <ButtonMain
               disabled
@@ -112,34 +106,33 @@ function DateRangeSelectorStartEnd(props) {
               customStyle={{ color: 'var(--textPrimary' }}
               label={<FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />}
             />
-            <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
-              { text => (
-                <InputBase
-                  className={cx(
-                    'date-range__end-date',
-                    {
-                      [styles['filter-value']]: valueText,
-                    })
-                  }
-                  type="text"
-                  style={{ width: `${setInputWidth(valueText.length)}px` }}
-                  placeholder={text}
-                  onClick={onClick}
-                  value={valueText}
-                  endAdornment={
-                    valueText &&
-                      <ButtonMain
-                        iconCenter={<CloseIcon />}
-                        onClick={e => handleClearDate(e, 'end_time')}
-                        theme="text"
-                        variant="text"
-                        size="small"
-                        customStyle={{ color: 'var(--otherWhite)' }}
-                      />
-                  }
-                />
-              )}
-            </FormattedMessage>
+            <ButtonMain
+              className="date-range__end-date"
+              size="small"
+              variant="contained"
+              theme={valueText ? 'brand' : 'text'}
+              iconRight={
+                valueText ?
+                  <ButtonMain
+                    iconCenter={<CloseIcon />}
+                    onClick={e => handleClearDate(e, 'end_time')}
+                    theme="text"
+                    variant="text"
+                    size="small"
+                    customStyle={{ color: 'var(--otherWhite)' }}
+                  />
+                  :
+                  <KeyboardArrowDownIcon />
+              }
+              label={
+                !valueText ?
+                  <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
+                  :
+                  valueText
+              }
+              onClick={onClick}
+              {...params}
+            />
           </>
         )}
       />
