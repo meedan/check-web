@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import { DatePicker } from '@material-ui/pickers';
 import FormControl from '@material-ui/core/FormControl';
 import InputBase from '@material-ui/core/InputBase';
@@ -9,59 +10,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import CloseIcon from '../../icons/clear.svg';
 import RemoveableWrapper from './RemoveableWrapper';
-import { FlexRow, units } from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 import styles from './search.module.css';
-
-const StyledCloseIcon = withStyles({
-  root: {
-    fontSize: '24px',
-    cursor: 'pointer',
-    padding: '4px',
-  },
-})(CloseIcon);
-
-const StyledInputBaseDate = withStyles(theme => ({
-  root: {
-    backgroundColor: 'var(--grayDisabledBackground)',
-    padding: `0 ${theme.spacing(0.5)}px`,
-    height: theme.spacing(4.5),
-    fontSize: 14,
-    width: 150,
-  },
-  input: {
-    color: 'var(--otherWhite)',
-    padding: '4px 0 4px',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-  },
-}))(InputBase);
-
-const StyledInputBaseDropdown = withStyles(theme => ({
-  root: {
-    backgroundColor: 'var(--grayDisabledBackground)',
-    padding: `0 ${theme.spacing(0.5)}px`,
-    height: theme.spacing(4.5),
-    fontSize: 14,
-    borderRadius: '4px',
-    '& .MuiSelect-icon': {
-      color: 'var(--otherWhite)',
-    },
-  },
-  input: {
-    backgroundColor: 'var(--brandMain)',
-    color: 'var(--otherWhite)',
-    paddingLeft: theme.spacing(1),
-    '&:focus': {
-      backgroundColor: 'var(--brandMain)',
-      borderRadius: 4,
-    },
-    padding: '4px 0 4px',
-  },
-}))(InputBase);
 
 const Styles = {
   selectFormControl: {
@@ -69,14 +23,6 @@ const Styles = {
     flexShrink: 0,
     alignItems: 'center',
     padding: '0 4px 0 0',
-  },
-  dateRangeFilterSelected: {
-    backgroundColor: 'var(--brandMain)',
-    color: 'var(--otherWhite)',
-    height: 'auto',
-    borderRadius: 4,
-    paddingLeft: '8px',
-    lineHeight: '10px',
   },
   inputMarginDense: {
     padding: '4px 8px',
@@ -128,14 +74,29 @@ function DateRangeSelectorStartEnd(props) {
           <div>
             <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
               { text => (
-                <StyledInputBaseDate
-                  className={valueText ? ['date-range__start-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__start-date'}
+                <InputBase
+                  className={cx(
+                    'date-range__start-date',
+                    {
+                      [styles['filter-value']]: valueText,
+                    })
+                  }
                   type="text"
                   style={{ width: `${setInputWidth(valueText.length)}px` }}
                   placeholder={text}
                   onClick={onClick}
                   value={valueText}
-                  endAdornment={valueText ? <StyledCloseIcon onClick={e => handleClearDate(e, 'start_time')} /> : null}
+                  endAdornment={
+                    valueText &&
+                      <ButtonMain
+                        iconCenter={<CloseIcon />}
+                        onClick={e => handleClearDate(e, 'start_time')}
+                        theme="text"
+                        variant="text"
+                        size="small"
+                        customStyle={{ color: 'var(--otherWhite)' }}
+                      />
+                  }
                 />
               )}
             </FormattedMessage>
@@ -156,14 +117,29 @@ function DateRangeSelectorStartEnd(props) {
             </span>
             <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
               { text => (
-                <StyledInputBaseDate
-                  className={valueText ? ['date-range__end-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__end-date'}
+                <InputBase
+                  className={cx(
+                    'date-range__end-date',
+                    {
+                      [styles['filter-value']]: valueText,
+                    })
+                  }
                   type="text"
                   style={{ width: `${setInputWidth(valueText.length)}px` }}
                   placeholder={text}
                   onClick={onClick}
                   value={valueText}
-                  endAdornment={valueText ? <StyledCloseIcon onClick={e => handleClearDate(e, 'end_time')} /> : null}
+                  endAdornment={
+                    valueText &&
+                      <ButtonMain
+                        iconCenter={<CloseIcon />}
+                        onClick={e => handleClearDate(e, 'end_time')}
+                        theme="text"
+                        variant="text"
+                        size="small"
+                        customStyle={{ color: 'var(--otherWhite)' }}
+                      />
+                  }
                 />
               )}
             </FormattedMessage>
@@ -204,7 +180,7 @@ function DateRangeSelectorRelative(props) {
         onChange={handleChangeRelativeRange}
         value={relativeRange}
         input={
-          <StyledInputBaseDropdown />
+          <InputBase />
         }
       >
         <MenuItem value="d"> { label.relativeDays } </MenuItem>
@@ -393,59 +369,57 @@ const DateRangeFilter = ({
 
   return (
     <div className={styles['filter-wrapper']}>
-      <FlexRow>
-        <FormControl variant="outlined" className={classes.selectFormControl}>
-          <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
-          <Select
-            onChange={handleChangeType}
-            value={getValueType()}
-            input={
-              <StyledInputBaseDropdown
-                startAdornment={
-                  <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} />
-                }
-              />
-            }
-          >
-            { ['created_at', 'media_published_at', 'updated_at', 'report_published_at', 'request_created_at'].filter(option => !optionsToHide.includes(option)).map(option => (
-              <MenuItem value={option}>{ label[option] }</MenuItem>
-            ))}
-          </Select>
-          <Select
-            onChange={handleChangeRangeType}
-            value={rangeType}
-            input={
-              <StyledInputBaseDropdown />
-            }
-          >
-            <MenuItem value="startEnd"> { label.startEnd } </MenuItem>
-            <MenuItem value="less_than"> { label.lessThan } </MenuItem>
-            <MenuItem value="more_than"> { label.moreThan } </MenuItem>
-          </Select>
-          { rangeType === rangeTypes.startEnd ? (
-            <DateRangeSelectorStartEnd {...{
-              classes,
-              getEndDateStringOrNull,
-              getStartDateStringOrNull,
-              handleChangeEndDate,
-              handleChangeStartDate,
-              handleClearDate,
-            }}
+      <FormControl variant="outlined" className={classes.selectFormControl}>
+        <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
+        <Select
+          onChange={handleChangeType}
+          value={getValueType()}
+          input={
+            <InputBase
+              startAdornment={
+                <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} />
+              }
             />
-          ) : (
-            <DateRangeSelectorRelative {...{
-              classes,
-              handleChangeRelativeQuantity,
-              handleChangeRelativeRange,
-              label,
-              onRemove,
-              relativeQuantity,
-              relativeRange,
-            }}
-            />
-          )}
-        </FormControl>
-      </FlexRow>
+          }
+        >
+          { ['created_at', 'media_published_at', 'updated_at', 'report_published_at', 'request_created_at'].filter(option => !optionsToHide.includes(option)).map(option => (
+            <MenuItem value={option}>{ label[option] }</MenuItem>
+          ))}
+        </Select>
+        <Select
+          onChange={handleChangeRangeType}
+          value={rangeType}
+          input={
+            <InputBase />
+          }
+        >
+          <MenuItem value="startEnd"> { label.startEnd } </MenuItem>
+          <MenuItem value="less_than"> { label.lessThan } </MenuItem>
+          <MenuItem value="more_than"> { label.moreThan } </MenuItem>
+        </Select>
+        { rangeType === rangeTypes.startEnd ? (
+          <DateRangeSelectorStartEnd {...{
+            classes,
+            getEndDateStringOrNull,
+            getStartDateStringOrNull,
+            handleChangeEndDate,
+            handleChangeStartDate,
+            handleClearDate,
+          }}
+          />
+        ) : (
+          <DateRangeSelectorRelative {...{
+            classes,
+            handleChangeRelativeQuantity,
+            handleChangeRelativeRange,
+            label,
+            onRemove,
+            relativeQuantity,
+            relativeRange,
+          }}
+          />
+        )}
+      </FormControl>
     </div>
   );
 };

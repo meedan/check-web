@@ -8,14 +8,13 @@ import InputBase from '@material-ui/core/InputBase';
 import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import MediasLoading from '../media/MediasLoading';
 import MultiSelectFilter from './MultiSelectFilter';
 import { languageLabel } from '../../LanguageRegistry';
 import LanguageIcon from '../../icons/language.svg';
 import RemoveableWrapper from './RemoveableWrapper';
-import { FlexRow } from '../../styles/js/shared';
 import styles from './search.module.css';
 
 const StyledInputBaseDropdown = withStyles(theme => ({
@@ -108,38 +107,36 @@ const LanguageFilter = ({
           const languages = props.team.get_languages ? JSON.parse(props.team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
           return (
             <div className={cx(styles['filter-wrapper'])}>
-              <FlexRow>
-                <FormControl variant="outlined" className={classes.selectFormControl}>
-                  <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
-                  <Select
-                    onChange={handleChangeType}
-                    value={getValueType()}
-                    input={
-                      <StyledInputBaseDropdown
-                        startAdornment={
-                          <RemoveableWrapper icon={<LanguageIcon />} onRemove={onRemove} />
-                        }
-                      />
-                    }
-                  >
-                    { ['language', 'report_language', 'request_language'].filter(option => !optionsToHide.includes(option)).map(option => (
-                      <MenuItem value={option}>{ label[option] }</MenuItem>
-                    ))}
-                  </Select>
-                  <FormattedMessage id="languageFilter.is" defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" />
-                  <MultiSelectFilter
-                    selected={userLanguages}
-                    options={languages}
-                    onChange={(newValue) => { handleChangeLanguage(newValue); }}
-                  />
-                </FormControl>
-              </FlexRow>
+              <FormControl variant="outlined" className={classes.selectFormControl}>
+                <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
+                <Select
+                  onChange={handleChangeType}
+                  value={getValueType()}
+                  input={
+                    <StyledInputBaseDropdown
+                      startAdornment={
+                        <RemoveableWrapper icon={<LanguageIcon />} onRemove={onRemove} />
+                      }
+                    />
+                  }
+                >
+                  { ['language', 'report_language', 'request_language'].filter(option => !optionsToHide.includes(option)).map(option => (
+                    <MenuItem value={option}>{ label[option] }</MenuItem>
+                  ))}
+                </Select>
+                <FormattedMessage id="languageFilter.is" defaultMessage="is" description="This connects two selection fields and will read like 'Media language' is 'English'" />
+                <MultiSelectFilter
+                  selected={userLanguages}
+                  options={languages}
+                  onChange={(newValue) => { handleChangeLanguage(newValue); }}
+                />
+              </FormControl>
             </div>
           );
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <CircularProgress size={36} />;
+        return <MediasLoading theme="grey" variant="icon" size="icon" />;
       }}
     />
   );

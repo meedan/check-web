@@ -4,7 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import MediasLoading from '../media/MediasLoading';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
@@ -271,7 +271,7 @@ const CustomFiltersManager = ({
           );
         }
         // TODO: We need a better error handling in the future, standardized with other components
-        return <CircularProgress size={36} />;
+        return <MediasLoading theme="grey" variant="icon" size="icon" />;
       }}
     />
   );

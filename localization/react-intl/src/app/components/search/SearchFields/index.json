@@ -132,7 +132,7 @@
   {
     "id": "search.claim",
     "description": "Prefix label for field to filter by claim",
-    "defaultMessage": "Claim field is"
+    "defaultMessage": "Claim is"
   },
   {
     "id": "search.show",

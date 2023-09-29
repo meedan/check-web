@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Popover from '@material-ui/core/Popover';
-import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import MultiSelector from '../layout/MultiSelector';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
-import CircularProgress from '../CircularProgress';
+import MediasLoading from '../media/MediasLoading';
 import AddIcon from '../../icons/add.svg';
 import CloseIcon from '../../icons/clear.svg';
 import styles from './search.module.css';
@@ -27,77 +26,49 @@ const OperatorToggle = ({ onClick, operator }) => (
   />
 );
 
-const useTagStyles = makeStyles({
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-    height: '30px',
-    lineHeight: '22px',
-    color: 'var(--otherWhite)',
-    backgroundColor: 'var(--brandMain)',
-    borderRadius: '4px',
-    boxSizing: 'content-box',
-    padding: '0 0 0 8px',
-    gap: '2px',
-    outline: 0,
-    overflow: 'hidden',
-    '& :focus': {
-      borderColor: 'var(--brandAccent)',
-      backgroundColor: 'var(--brandAccent)',
-    },
-    '& span': {
-      overflow: 'hidden',
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
-    },
-  },
-  missingProperty: {
-    backgroundColor: 'var(--errorMain)',
-  },
-});
-
 const Tag = ({
   label,
   onDelete,
   readOnly,
   ...props
-}) => {
-  const classes = useTagStyles();
-  return label ? (
-    <div className={`multi-select-filter__tag ${classes.root}`} {...props}>
-      <span>{label}</span>
-      { readOnly ? null : (
-        <Tooltip
-          title={
-            <FormattedMessage id="filter.removeFilterCondition" defaultMessage="Remove filter" description="Tooltip to tell the user they can add remove the argument to the filter they are interacting with" />
-          }
-          arrow
-        >
-          <span>
-            <ButtonMain
-              className="multi-select-filter__tag-remove"
-              iconCenter={<CloseIcon />}
-              onClick={onDelete}
-              theme="text"
-              variant="text"
-              size="small"
-              customStyle={{ color: 'var(--otherWhite)' }}
-            />
-          </span>
-        </Tooltip>
-      )}
-    </div>
-  ) : (
-    <div className={`multi-select-filter__tag ${classes.root} ${classes.missingProperty}`} {...props}>
-      <span>
-        <FormattedMessage id="filter.tag.deleted" defaultMessage="Property deleted" description="Message shown a placeholder when someone tries to filter a search by a property that the user has deleted" />
-      </span>
-      { readOnly ? null : (
-        <CloseIcon className="multi-select-filter__tag-remove" onClick={onDelete} />
-      )}
-    </div>
-  );
-};
+}) => (
+  <>
+    {label ?
+      <div className={cx('multi-select-filter__tag', styles['filter-value'])} {...props}>
+        <span>{label}</span>
+        { readOnly ? null : (
+          <Tooltip
+            title={
+              <FormattedMessage id="filter.removeFilterCondition" defaultMessage="Remove filter" description="Tooltip to tell the user they can add remove the argument to the filter they are interacting with" />
+            }
+            arrow
+          >
+            <span>
+              <ButtonMain
+                className="multi-select-filter__tag-remove"
+                iconCenter={<CloseIcon />}
+                onClick={onDelete}
+                theme="text"
+                variant="text"
+                size="small"
+                customStyle={{ color: 'var(--otherWhite)' }}
+              />
+            </span>
+          </Tooltip>
+        )}
+      </div>
+      :
+      <div className={cx('multi-select-filter__tag', styles['filter-value'], styles['filter-value-missing'])} {...props}>
+        <span>
+          <FormattedMessage id="filter.tag.deleted" defaultMessage="Property deleted" description="Message shown a placeholder when someone tries to filter a search by a property that the user has deleted" />
+        </span>
+        { readOnly ? null : (
+          <CloseIcon className="multi-select-filter__tag-remove" onClick={onDelete} />
+        )}
+      </div>
+    }
+  </>
+);
 
 const MultiSelectFilter = ({
   allowSearch,
@@ -151,9 +122,11 @@ const MultiSelectFilter = ({
   return (
     <div className={cx('multi-select-filter', styles['filter-wrapper'], styles['filter-multiselect'])}>
       <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version}>
-        <Box px={0.5} height={4.5} display="flex" alignItems="center" whiteSpace="nowrap">
-          {label}
-        </Box>
+        {label &&
+          <div className={styles['filter-label']}>
+            {label}
+          </div>
+        }
         { !oneOption && selectedArray.map((value, index) => (
           <React.Fragment key={getLabelForValue(value)}>
             { index > 0 ? (
@@ -248,7 +221,7 @@ const CustomSelectDropdown = ({
               allowSearch={allowSearch}
               hasMore={hasMore}
               inputPlaceholder={inputPlaceholder || placeholder}
-              loadingIcon={loading && <CircularProgress />}
+              loadingIcon={loading && <MediasLoading theme="white" variant="inline" size="small" />}
               options={options}
               selected={selected}
               onSubmit={handleSubmit}

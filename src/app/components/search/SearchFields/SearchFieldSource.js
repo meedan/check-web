@@ -3,7 +3,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import MediasLoading from '../../media/MediasLoading';
 import SettingsInputAntennaIcon from '../../../icons/settings_input_antenna.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
 
@@ -78,7 +78,7 @@ const SearchFieldSource = ({
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <CircularProgress size={36} />;
+        return <MediasLoading theme="grey" variant="icon" size="icon" />;
       }}
     />
   );

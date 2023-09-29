@@ -38,18 +38,6 @@ const AddFilterMenu = ({
   };
 
   let options = [{
-    id: 'add-filter-menu__claim',
-    key: 'has_claim',
-    icon: <LabelIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.claim"
-        defaultMessage="Claim"
-        description="Menu option to enable searching items by claim"
-      />
-    ),
-  },
-  {
     id: 'add-filter-menu__time-range',
     key: 'range',
     icon: <DateRangeIcon />,
@@ -58,6 +46,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.timeRange"
         defaultMessage="Date range"
         description="Menu option to enable searching items by date range"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__claim',
+    key: 'has_claim',
+    icon: <LabelIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.claim"
+        defaultMessage="Claim"
+        description="Menu option to enable searching items by claim"
       />
     ),
   },

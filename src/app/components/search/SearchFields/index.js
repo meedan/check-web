@@ -11,7 +11,6 @@ import LanguageFilter from '../LanguageFilter';
 import NumericRangeFilter from '../NumericRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
-import { Row } from '../../../styles/js/shared';
 import SearchFieldDummy from './SearchFieldDummy';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldTag from './SearchFieldTag';
@@ -31,6 +30,7 @@ import ReportIcon from '../../../icons/playlist_add_check.svg';
 import SpamIcon from '../../../icons/report.svg';
 import MarkunreadIcon from '../../../icons/mail.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
+import styles from '../search.module.css';
 
 const messages = defineMessages({
   claim: {
@@ -323,7 +323,7 @@ const SearchFields = ({
 
   const fieldComponents = {
     has_claim: (
-      <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
+      <FormattedMessage id="search.claim" defaultMessage="Claim is" description="Prefix label for field to filter by claim">
         { label => (
           <MultiSelectFilter
             label={label}
@@ -654,7 +654,7 @@ const SearchFields = ({
   const canReset = canApply || canSave;
 
   return (
-    <Row flexWrap style={{ gap: '8px' }}>
+    <div className={styles['filters-wrapper']}>
       { fieldKeys.map((key, index) => {
         if (index > 0) {
           return (
@@ -715,7 +715,7 @@ const SearchFields = ({
           page={page}
         />
       )}
-    </Row>
+    </div>
   );
 };
 

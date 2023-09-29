@@ -22,28 +22,35 @@ const RemoveableWrapper = ({
 
   return (
     <div
-      className={styles['filter-removeable-wrapper']}
+      className={cx(
+        styles['filter-removeable-wrapper'],
+        {
+          [styles['filter-removeable-wrapper-icon']]: !children,
+        })
+      }
       onMouseEnter={() => setShowDeleteIcon(true)}
       onMouseLeave={() => setShowDeleteIcon(false)}
     >
-      <Tooltip
-        title={
-          <FormattedMessage id="filter.removeFilter" defaultMessage="Remove filter" description="Tooltip to tell the user they can remove this filter" />
-        }
-        arrow
-      >
-        <span>
-          <ButtonMain
-            className={cx('multi-select-filter__remove', styles['filter-icon-remove'])}
-            iconCenter={showDeleteIcon && onRemove && !readOnly ? <CloseIcon /> : icon}
-            onClick={handleClick}
-            theme={showDeleteIcon && onRemove && !readOnly ? 'lightError' : 'text'}
-            variant={showDeleteIcon && onRemove && !readOnly ? 'contained' : 'text'}
-            size="small"
-            disabled={!showDeleteIcon && !onRemove && readOnly}
-          />
-        </span>
-      </Tooltip>
+      {icon &&
+        <Tooltip
+          title={
+            <FormattedMessage id="filter.removeFilter" defaultMessage="Remove filter" description="Tooltip to tell the user they can remove this filter" />
+          }
+          arrow
+        >
+          <span>
+            <ButtonMain
+              className={cx('multi-select-filter__remove', styles['filter-icon-remove'])}
+              iconCenter={showDeleteIcon && onRemove && !readOnly ? <CloseIcon /> : icon}
+              onClick={handleClick}
+              theme={showDeleteIcon && onRemove && !readOnly ? 'lightError' : 'text'}
+              variant={showDeleteIcon && onRemove && !readOnly ? 'contained' : 'text'}
+              size="small"
+              disabled={!showDeleteIcon && !onRemove && readOnly}
+            />
+          </span>
+        </Tooltip>
+      }
       {children}
     </div>
   );
