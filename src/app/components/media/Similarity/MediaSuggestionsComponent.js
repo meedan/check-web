@@ -651,15 +651,19 @@ const MediaSuggestionsComponent = ({
         </Box>
       </Grid>
       <Grid item xs={10}>
-        <SmallMediaCard
-          customTitle={relationshipItem?.target?.title}
-          details={details}
-          media={relationshipItem?.target?.media}
-          description={relationshipItem?.target?.description}
-          maskContent={relationshipItem?.target?.show_warning_cover}
-          superAdminMask={superAdminMask}
-          onClick={() => setSelectedItemId(relationshipItem.target?.dbid)}
-        />
+        {
+          relationshipItem?.target && (
+            <SmallMediaCard
+              customTitle={relationshipItem.target.title}
+              details={details}
+              media={relationshipItem.target.media}
+              description={relationshipItem.target.description}
+              maskContent={relationshipItem.target.show_warning_cover}
+              superAdminMask={superAdminMask}
+              onClick={() => setSelectedItemId(relationshipItem.target.dbid)}
+            />
+          )
+        }
         { selectedItemId === relationshipItem?.target_id ?
           <MediaAndRequestsDialogComponent
             mediaSlug={

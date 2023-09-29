@@ -1,0 +1,16 @@
+.receipt-wrapper {
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  gap: 8px;
+  padding: 4px 8px;
+  width: fit-content;
+}
+
+.receipt-green {
+  background-color: var(--validationLight);
+}
+
+.receipt-yellow {
+  background-color: var(--alertLight);
+}
