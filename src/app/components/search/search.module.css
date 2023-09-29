@@ -135,10 +135,6 @@
   }
 }
 
-.logical-operator-text {
-  background-color: var(--alertMain);
-}
-
 .filter-error {
   color: var(--errorMain);
   display: flex;

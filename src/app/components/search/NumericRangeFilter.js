@@ -3,6 +3,7 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ErrorOutlineIcon from '../../icons/error_outline.svg';
 import RemoveableWrapper from './RemoveableWrapper';
 import NumberIcon from '../../icons/numbers.svg';
@@ -98,7 +99,14 @@ const NumericRangeFilter = ({
             />
           )}
         </FormattedMessage>
-        <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" description="Logical operator AND statement" />
+        <ButtonMain
+          disabled
+          theme="text"
+          size="small"
+          variant="text"
+          customStyle={{ color: 'var(--textPrimary' }}
+          label={<FormattedMessage id="numericRangeFilter.between" defaultMessage="and" description="Logical operator AND statement" />}
+        />
         <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
           { placeholder => (
             <TextField

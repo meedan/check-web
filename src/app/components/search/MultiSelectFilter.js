@@ -10,6 +10,7 @@ import RemoveableWrapper from './RemoveableWrapper';
 import MediasLoading from '../media/MediasLoading';
 import AddIcon from '../../icons/add.svg';
 import CloseIcon from '../../icons/clear.svg';
+import ErrorOutlineIcon from '../../icons/error_outline.svg';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import styles from './search.module.css';
 
@@ -70,6 +71,7 @@ const Tag = ({
 );
 
 const MultiSelectFilter = ({
+  error,
   allowSearch,
   extraInputs,
   hasMore,
@@ -182,6 +184,11 @@ const MultiSelectFilter = ({
           </Tooltip>
         ) : null }
       </RemoveableWrapper>
+      { error ?
+        <div className={styles['filter-error']}>
+          <ErrorOutlineIcon />
+          { error }
+        </div> : null }
     </div>
   );
 };
@@ -266,6 +273,7 @@ const CustomSelectDropdown = ({
 };
 
 MultiSelectFilter.defaultProps = {
+  error: null,
   allowSearch: true,
   extraInputs: null,
   loading: false,
@@ -280,6 +288,10 @@ MultiSelectFilter.defaultProps = {
 };
 
 MultiSelectFilter.propTypes = {
+  error: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ])),
   allowSearch: PropTypes.bool,
   extraInputs: PropTypes.node,
   options: PropTypes.arrayOf(PropTypes.oneOfType([

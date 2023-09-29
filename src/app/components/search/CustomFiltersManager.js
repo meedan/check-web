@@ -3,21 +3,18 @@ import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import MediasLoading from '../media/MediasLoading';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
 import CheckBoxIcon from '../../icons/check_box.svg';
 import DateRangeIcon from '../../icons/calendar_month.svg';
-import ErrorOutlineIcon from '../../icons/error_outline.svg';
 import IconFileUpload from '../../icons/file_upload.svg';
 import NumberIcon from '../../icons/numbers.svg';
 import LocationIcon from '../../icons/location.svg';
 import NoteAltOutlinedIcon from '../../icons/note_alt.svg';
 import RadioButtonCheckedIcon from '../../icons/radio_button_checked.svg';
 import ShortTextIcon from '../../icons/notes.svg';
-import styles from './search.module.css';
 
 const messages = defineMessages({
   empty: {
@@ -151,25 +148,18 @@ const CustomFiltersManagerComponent = ({
       };
 
       return (
-        <div className={styles['filter-wrapper']}>
-          <MultiSelectFilter
-            id={`${filter.task_type}-${filter.id}`}
-            allowSearch={false}
-            extraInputs={getExtraInputs()}
-            label={intl.formatMessage(messages.labelIs, { title: teamTask.node?.label })}
-            icon={icons[teamTask.node.type]}
-            selected={filter.response}
-            options={options}
-            onChange={handleChoiceTaskFilterChange}
-            onRemove={() => handleRemoveFilter(i)}
-          />
-          { !errorMessage ?
-            <div className={styles['filter-error']}>
-              <ErrorOutlineIcon />
-              BRIAN
-              { errorMessage }
-            </div> : null }
-        </div>
+        <MultiSelectFilter
+          id={`${filter.task_type}-${filter.id}`}
+          allowSearch={false}
+          extraInputs={getExtraInputs()}
+          label={intl.formatMessage(messages.labelIs, { title: teamTask.node?.label })}
+          icon={icons[teamTask.node.type]}
+          selected={filter.response}
+          options={options}
+          onChange={handleChoiceTaskFilterChange}
+          onRemove={() => handleRemoveFilter(i)}
+          error={errorMessage}
+        />
       );
     }
 
@@ -197,7 +187,7 @@ const CustomFiltersManagerComponent = ({
   });
 
   return (
-    <Box display="flex" alignItems="center" flexWrap="wrap">
+    <>
       { filterFields.filter(ff => ff !== null).map((component, index) => {
         const key = filters[index]?.id || 'new-filter';
         if (index > 0) {
@@ -215,7 +205,7 @@ const CustomFiltersManagerComponent = ({
           </span>
         );
       })}
-    </Box>
+    </>
   );
 };
 

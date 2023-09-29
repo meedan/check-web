@@ -5,7 +5,6 @@ import cx from 'classnames/bind';
 import { DatePicker } from '@material-ui/pickers';
 import FormControl from '@material-ui/core/FormControl';
 import InputBase from '@material-ui/core/InputBase';
-import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -105,9 +104,14 @@ function DateRangeSelectorStartEnd(props) {
         value={getEndDateStringOrNull()}
         TextFieldComponent={({ onClick, value: valueText }) => (
           <>
-            <span className={styles['logical-operator-text']}>
-              <FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />
-            </span>
+            <ButtonMain
+              disabled
+              theme="text"
+              size="small"
+              variant="text"
+              customStyle={{ color: 'var(--textPrimary' }}
+              label={<FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />}
+            />
             <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
               { text => (
                 <InputBase
@@ -363,7 +367,6 @@ const DateRangeFilter = ({
   return (
     <div className={styles['filter-wrapper']}>
       <FormControl variant="outlined" className={classes.selectFormControl}>
-        <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
         <Select
           onChange={handleChangeType}
           value={getValueType()}
