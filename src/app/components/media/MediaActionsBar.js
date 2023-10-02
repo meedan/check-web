@@ -270,7 +270,7 @@ class MediaActionsBarComponent extends Component {
     const context = this.getContext();
 
     let restorProjectMedia = '';
-    if (media.archived !== CheckArchivedFlags.NONE) {
+    if (media.archived === CheckArchivedFlags.TRASHED || media.archived === CheckArchivedFlags.SPAM) {
       restorProjectMedia = (
         <RestoreProjectMedia
           team={this.props.media.team}

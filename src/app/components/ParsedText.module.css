@@ -1,4 +1,7 @@
 .media-chip-link {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
   text-decoration: none;
 
   &:hover {
