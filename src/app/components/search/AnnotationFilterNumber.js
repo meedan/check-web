@@ -1,18 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: theme.spacing(15),
-  },
-  inputMarginDense: {
-    padding: '4px 8px',
-  },
-}));
+import TextField from '../cds/inputs/TextField';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import styles from './search.module.css';
 
 const AnnotationFilterNumber = ({
   teamTask,
@@ -20,8 +10,6 @@ const AnnotationFilterNumber = ({
   onChange,
   onError,
 }) => {
-  const classes = useStyles();
-
   const getFieldValue = (field) => {
     const teamTaskValue = query.team_tasks.find(tt => tt.id.toString() === teamTask.node.dbid.toString());
     const { range } = teamTaskValue;
@@ -59,19 +47,19 @@ const AnnotationFilterNumber = ({
   };
 
   return (
-    <Box display="flex" alignItems="center">
-      <Box px={1}>
-        <Typography component="span" variant="body1">
-          <FormattedMessage id="numericRangeFilter.between" defaultMessage="between" description="Filter operator denoting user is filtering by numbers between two values" />
-        </Typography>
-      </Box>
+    <>
+      <ButtonMain
+        disabled
+        theme="text"
+        size="small"
+        variant="text"
+        customStyle={{ color: 'var(--textPrimary' }}
+        label={<FormattedMessage id="numericRangeFilter.between" defaultMessage="between" description="Filter operator denoting user is filtering by numbers between two values" />}
+      />
       <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">
         { placeholder => (
           <TextField
-            classes={{ root: classes.root }}
-            InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-            variant="outlined"
-            size="small"
+            className={styles['filter-input-number']}
             placeholder={placeholder}
             value={minNumber}
             onChange={(e) => { handleFieldChange('min', e.target.value); }}
@@ -80,18 +68,18 @@ const AnnotationFilterNumber = ({
           />
         )}
       </FormattedMessage>
-      <Box px={1}>
-        <Typography component="span" variant="body1">
-          <FormattedMessage id="numericRangeFilter.and" defaultMessage="and" description="Logical operator AND statement" />
-        </Typography>
-      </Box>
+      <ButtonMain
+        disabled
+        theme="text"
+        size="small"
+        variant="text"
+        customStyle={{ color: 'var(--textPrimary' }}
+        label={<FormattedMessage id="numericRangeFilter.and" defaultMessage="and" description="Logical operator AND statement" />}
+      />
       <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">
         { placeholder => (
           <TextField
-            classes={{ root: classes.root }}
-            InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-            variant="outlined"
-            size="small"
+            className={styles['filter-input-number']}
             placeholder={placeholder}
             value={maxNumber}
             onChange={(e) => { handleFieldChange('max', e.target.value); }}
@@ -100,7 +88,7 @@ const AnnotationFilterNumber = ({
           />
         )}
       </FormattedMessage>
-    </Box>
+    </>
   );
 };
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ErrorOutlineIcon from '../../icons/error_outline.svg';
 import RemoveableWrapper from './RemoveableWrapper';
@@ -27,23 +26,6 @@ const messages = defineMessages({
   },
 });
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: theme.spacing(15),
-    '& fieldset': {
-      fontSize: '14px',
-    },
-  },
-  inputMarginDense: {
-    padding: '4px 8px',
-  },
-  inputNotEmpty: {
-    '& fieldset': {
-      border: '2px solid var(--brandMain)',
-    },
-  },
-}));
-
 const NumericRangeFilter = ({
   onChange,
   onRemove,
@@ -52,7 +34,6 @@ const NumericRangeFilter = ({
   value,
   intl,
 }) => {
-  const classes = useStyles();
   const defaultMinValue = (value && value.min) ? value.min : 0;
   const defaultMaxValue = (value && value.max) ? value.max : '';
   const [minNumber, setMinNumber] = React.useState(defaultMinValue);
@@ -89,10 +70,7 @@ const NumericRangeFilter = ({
         <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
           { placeholder => (
             <TextField
-              className={`${classes.root} ${minNumber === '' ? '' : classes.inputNotEmpty}`}
-              InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-              variant="outlined"
-              size="small"
+              className={styles['filter-input-number']}
               placeholder={placeholder}
               value={minNumber}
               onChange={(e) => { handleFieldChange('min', e.target.value); }}
@@ -112,10 +90,7 @@ const NumericRangeFilter = ({
         <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
           { placeholder => (
             <TextField
-              className={`${classes.root} ${maxNumber === '' ? '' : classes.inputNotEmpty}`}
-              InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-              variant="outlined"
-              size="small"
+              className={styles['filter-input-number']}
               placeholder={placeholder}
               value={maxNumber}
               onChange={(e) => { handleFieldChange('max', e.target.value); }}

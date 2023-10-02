@@ -89,8 +89,8 @@ const CustomFiltersManagerComponent = ({
   const icons = {
     free_text: <ShortTextIcon />,
     single_choice: <RadioButtonCheckedIcon />,
-    multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
-    number: <NumberIcon style={{ fontSize: '24px' }} />,
+    multiple_choice: <CheckBoxIcon />,
+    number: <NumberIcon />,
     geolocation: <LocationIcon />,
     datetime: <DateRangeIcon />,
     file_upload: <IconFileUpload />,

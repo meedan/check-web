@@ -162,5 +162,16 @@
         font-size: var(--fontSizeBaseText);
       }
     }
+
+    .filter-input-number {
+      height: 30px;
+      width: 8em;
+
+      input {
+        height: 30px;
+        min-height: 30px;
+        padding: 0 6px;
+      }
+    }
   }
 }
