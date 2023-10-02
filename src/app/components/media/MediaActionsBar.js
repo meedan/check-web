@@ -269,14 +269,17 @@ class MediaActionsBarComponent extends Component {
 
     const context = this.getContext();
 
-    const restorProjectMedia = (
-      <RestoreProjectMedia
-        team={this.props.media.team}
-        projectMedia={this.props.media}
-        context={context}
-        className={classes.spacedButton}
-      />
-    );
+    let restorProjectMedia = '';
+    if (media.archived === CheckArchivedFlags.TRASHED || media.archived === CheckArchivedFlags.SPAM) {
+      restorProjectMedia = (
+        <RestoreProjectMedia
+          team={this.props.media.team}
+          projectMedia={this.props.media}
+          context={context}
+          className={classes.spacedButton}
+        />
+      );
+    }
 
     return (
       <div className={styles['media-actions']}>
