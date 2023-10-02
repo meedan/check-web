@@ -28,6 +28,7 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
     const onSuccess = () => {
       setIsSending(false);
       setDialogOpen(false);
+      setText('');
       setFlashMessage(
         <FormattedMessage
           id="sendTiplineMessage.success"
