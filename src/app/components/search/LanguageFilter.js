@@ -2,13 +2,8 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import FormControl from '@material-ui/core/FormControl';
-import InputBase from '@material-ui/core/InputBase';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import { withStyles } from '@material-ui/core/styles';
-import cx from 'classnames/bind';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import Select from '../cds/inputs/Select';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import MediasLoading from '../media/MediasLoading';
 import MultiSelectFilter from './MultiSelectFilter';
@@ -17,45 +12,32 @@ import LanguageIcon from '../../icons/language.svg';
 import RemoveableWrapper from './RemoveableWrapper';
 import styles from './search.module.css';
 
-const StyledInputBaseDropdown = withStyles(theme => ({
-  root: {
-    backgroundColor: 'var(--grayDisabledBackground)',
-    padding: `0 ${theme.spacing(0.5)}px`,
-    height: theme.spacing(4.5),
-    fontSize: 14,
-    borderRadius: '4px',
-    '& .MuiSelect-icon': {
-      color: 'var(--otherWhite)',
-    },
+const messages = defineMessages({
+  language: {
+    id: 'search.mediaLanguage',
+    description: 'Label for media language filter',
+    defaultMessage: 'Media language',
   },
-  input: {
-    backgroundColor: 'var(--brandMain)',
-    color: 'var(--otherWhite)',
-    paddingLeft: theme.spacing(1),
-    '&:focus': {
-      backgroundColor: 'var(--brandMain)',
-      borderRadius: 4,
-    },
-    padding: '4px 0 4px',
+  report_language: {
+    id: 'search.reportLanguage',
+    description: 'Label for report language filter',
+    defaultMessage: 'Report language',
   },
-}))(InputBase);
-
-const Styles = {
-  selectFormControl: {
-    flexDirection: 'row',
-    flexShrink: 0,
-    alignItems: 'center',
+  request_language: {
+    id: 'search.requestLanguage',
+    description: 'Label for conversation Language filter',
+    defaultMessage: 'Conversation language',
   },
-};
+});
 
 const LanguageFilter = ({
-  classes,
   hide,
   value,
   optionsToHide,
   onChange,
   onRemove,
   teamSlug,
+  intl,
 }) => {
   const getValueType = () => {
     if (value && value.language) return 'language';
@@ -81,12 +63,6 @@ const LanguageFilter = ({
     return null;
   }
 
-  const label = {
-    language: <FormattedMessage id="search.mediaLanguage" description="Label for media language filter" defaultMessage="Media language" />,
-    report_language: <FormattedMessage id="search.reportLanguage" description="Label for report language filter" defaultMessage="Report language" />,
-    request_language: <FormattedMessage id="search.requestLanguage" description="Label for conversation Language filter" defaultMessage="Conversation language" />,
-  };
-
   return (
     <QueryRenderer
       environment={Relay.Store}
@@ -105,21 +81,16 @@ const LanguageFilter = ({
         if (!error && props) {
           const languages = props.team.get_languages ? JSON.parse(props.team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
           return (
-            <div className={cx(styles['filter-wrapper'])}>
-              <FormControl variant="outlined" className={classes.selectFormControl}>
+            <div className={styles['filter-wrapper']}>
+              <div className={styles['filter-multidate-wrapper']}>
+                <RemoveableWrapper icon={<LanguageIcon />} onRemove={onRemove} />
                 <Select
+                  className={styles['filter-select']}
                   onChange={handleChangeType}
                   value={getValueType()}
-                  input={
-                    <StyledInputBaseDropdown
-                      startAdornment={
-                        <RemoveableWrapper icon={<LanguageIcon />} onRemove={onRemove} />
-                      }
-                    />
-                  }
                 >
                   { ['language', 'report_language', 'request_language'].filter(option => !optionsToHide.includes(option)).map(option => (
-                    <MenuItem value={option}>{ label[option] }</MenuItem>
+                    <option value={option}>{ intl.formatMessage(messages[option]) }</option>
                   ))}
                 </Select>
                 <ButtonMain
@@ -135,7 +106,7 @@ const LanguageFilter = ({
                   options={languages}
                   onChange={(newValue) => { handleChangeLanguage(newValue); }}
                 />
-              </FormControl>
+              </div>
             </div>
           );
         }
@@ -154,7 +125,6 @@ LanguageFilter.defaultProps = {
 };
 
 LanguageFilter.propTypes = {
-  classes: PropTypes.object.isRequired,
   hide: PropTypes.bool,
   optionsToHide: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([
@@ -170,6 +140,7 @@ LanguageFilter.propTypes = {
   ]),
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default withStyles(Styles)(LanguageFilter);
+export default injectIntl(LanguageFilter);

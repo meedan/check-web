@@ -1,35 +1,79 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
-import FormControl from '@material-ui/core/FormControl';
-import InputBase from '@material-ui/core/InputBase';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
+import Select from '../cds/inputs/Select';
+import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import DateRangeIcon from '../../icons/calendar_month.svg';
 import CloseIcon from '../../icons/clear.svg';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import RemoveableWrapper from './RemoveableWrapper';
-import { units } from '../../styles/js/shared';
 import styles from './search.module.css';
 
-const Styles = {
-  selectFormControl: {
-    flexDirection: 'row',
-    flexShrink: 0,
-    alignItems: 'center',
-    padding: '0 4px 0 0',
+const messages = defineMessages({
+  created_at: {
+    id: 'search.dateSubmittedHeading',
+    defaultMessage: 'Request submitted',
+    description: 'This is a header in a drop down selector, to filter a search by the submission date',
   },
-  inputMarginDense: {
-    padding: '4px 8px',
+  media_published_at: {
+    id: 'search.dateLastSubmittedHeading',
+    defaultMessage: 'Media published',
+    description: 'This is a heading in a drop down selector, to filter a search by the last submitted date',
   },
-  numericSelector: {
-    maxWidth: '100px',
+  updated_at: {
+    id: 'search.dateUpdatedHeading',
+    defaultMessage: 'Item updated',
+    description: 'This is a heading in a drop down selector, to filter a search by date updated',
   },
-};
+  report_published_at: {
+    id: 'search.datePublishedHeading',
+    defaultMessage: 'Report published',
+    description: 'This is a heading in a drop down selector, to filter a search by a report published date',
+  },
+  request_created_at: {
+    id: 'search.dateRequestHeading',
+    defaultMessage: 'Request submitted',
+    description: 'This is a heading in a drop down selector, to filter a search by request created dates',
+  },
+  relativeDays: {
+    id: 'search.relativeDays',
+    defaultMessage: 'days ago',
+    description: 'This is a label in a drop down selector, and will appear a sentence format like "Report published less than 3 days ago"',
+  },
+  relativeWeeks: {
+    id: 'search.relativeWeeks',
+    defaultMessage: 'weeks ago',
+    description: 'This is a label in a drop down selector, and will appear a sentence format like "Report published less than 3 weeks ago".',
+  },
+  relativeMonths: {
+    id: 'search.relativeMonths',
+    defaultMessage: 'months ago',
+    description: 'This is a label in a drop down selector, and will appear a sentence format like "Report published less than 3 months ago".',
+  },
+  relativeYears: {
+    id: 'search.relativeYears',
+    defaultMessage: 'years ago',
+    description: 'This is a label in a drop down selector, and will appear a sentence format like "Report published less than 3 years ago".',
+  },
+  startEnd: {
+    id: 'search.dateStartEnd',
+    defaultMessage: 'between',
+    description: 'This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like "Report published between February 3, 2022 and February 9, 2022".',
+  },
+  lessThan: {
+    id: 'search.dateLessThan',
+    defaultMessage: 'less than',
+    description: 'This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like "Report published less than 10 months ago".',
+  },
+  moreThan: {
+    id: 'search.dateMoreThan',
+    defaultMessage: 'more than',
+    description: 'This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like "Report published more than 10 months ago".',
+  },
+});
 
 function parseStartDateAsISOString(moment) {
   const date = moment.toDate();
@@ -51,17 +95,17 @@ function DateRangeSelectorStartEnd(props) {
   } = props;
 
   return (
-    <div className={styles['filter-removeable-wrapper']}>
+    <div className={styles['filter-removable-wrapper']}>
       <DatePicker
         onChange={handleChangeStartDate}
         maxDate={getEndDateStringOrNull() || undefined}
         okLabel={<FormattedMessage id="global.ok" defaultMessage="OK" description="Generic label for a button or link for a user to press when they wish to confirm an action" />}
         cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
         value={getStartDateStringOrNull()}
-        style={{ margin: `0 ${units(2)}` }}
+        style={{ margin: '0 16px' }}
         TextFieldComponent={({ params, onClick, value: valueText }) => (
           <ButtonMain
-            className="date-range__start-date"
+            className={cx('date-range__start-date', styles['filter-date'])}
             size="small"
             variant="contained"
             theme={valueText ? 'brand' : 'text'}
@@ -70,10 +114,9 @@ function DateRangeSelectorStartEnd(props) {
                 <ButtonMain
                   iconCenter={<CloseIcon />}
                   onClick={e => handleClearDate(e, 'start_time')}
-                  theme="text"
-                  variant="text"
+                  theme="brand"
+                  variant="contained"
                   size="small"
-                  customStyle={{ color: 'var(--otherWhite)' }}
                 />
                 :
                 <KeyboardArrowDownIcon />
@@ -107,7 +150,7 @@ function DateRangeSelectorStartEnd(props) {
               label={<FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />}
             />
             <ButtonMain
-              className="date-range__end-date"
+              className={cx('date-range__end-date', styles['filter-date'])}
               size="small"
               variant="contained"
               theme={valueText ? 'brand' : 'text'}
@@ -116,10 +159,9 @@ function DateRangeSelectorStartEnd(props) {
                   <ButtonMain
                     iconCenter={<CloseIcon />}
                     onClick={e => handleClearDate(e, 'end_time')}
-                    theme="text"
-                    variant="text"
+                    theme="brand"
+                    variant="contained"
                     size="small"
-                    customStyle={{ color: 'var(--otherWhite)' }}
                   />
                   :
                   <KeyboardArrowDownIcon />
@@ -142,10 +184,9 @@ function DateRangeSelectorStartEnd(props) {
 
 function DateRangeSelectorRelative(props) {
   const {
-    classes,
     handleChangeRelativeQuantity,
     handleChangeRelativeRange,
-    label,
+    intl,
     relativeQuantity,
     relativeRange,
   } = props;
@@ -155,10 +196,8 @@ function DateRangeSelectorRelative(props) {
       <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder text to tell the user to enter a number">
         { placeholder => (
           <TextField
-            classes={{ root: classes.numericSelector }}
-            InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-            variant="outlined"
-            size="small"
+            className={styles['filter-input-number']}
+            variant="contained"
             placeholder={placeholder}
             onChange={handleChangeRelativeQuantity}
             value={relativeQuantity}
@@ -167,21 +206,18 @@ function DateRangeSelectorRelative(props) {
         )}
       </FormattedMessage>
       <Select
+        className={styles['filter-select']}
         onChange={handleChangeRelativeRange}
         value={relativeRange}
-        input={
-          <InputBase />
-        }
       >
-        <MenuItem value="d"> { label.relativeDays } </MenuItem>
-        <MenuItem value="w"> { label.relativeWeeks } </MenuItem>
-        <MenuItem value="m"> { label.relativeMonths } </MenuItem>
-        <MenuItem value="y"> { label.relativeYears } </MenuItem>
+        <option value="d"> { intl.formatMessage(messages.relativeDays) } </option>
+        <option value="w"> { intl.formatMessage(messages.relativeWeeks) } </option>
+        <option value="m"> { intl.formatMessage(messages.relativeMonths) } </option>
+        <option value="y"> { intl.formatMessage(messages.relativeYears) } </option>
       </Select>
     </>
   );
 }
-
 
 const DateRangeFilter = ({
   classes,
@@ -190,6 +226,7 @@ const DateRangeFilter = ({
   optionsToHide,
   onChange,
   onRemove,
+  intl,
 }) => {
   const getValueType = () => {
     if (value && value.updated_at) return 'updated_at';
@@ -342,49 +379,27 @@ const DateRangeFilter = ({
     return null;
   }
 
-  const label = {
-    created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Request submitted" description="This is a header in a drop down selector, to filter a search by the submission date" />,
-    media_published_at: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Media published" description="This is a heading in a drop down selector, to filter a search by the last submitted date" />,
-    updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Item updated" description="This is a heading in a drop down selector, to filter a search by date updated" />,
-    report_published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Report published" description="This is a heading in a drop down selector, to filter a search by a report published date" />,
-    request_created_at: <FormattedMessage id="search.dateRequestHeading" defaultMessage="Request submitted" description="This is a heading in a drop down selector, to filter a search by request created dates" />,
-    startEnd: <FormattedMessage id="search.dateStartEnd" defaultMessage="between" description="This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'." />,
-    lessThan: <FormattedMessage id="search.dateLessThan" defaultMessage="less than" description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'." />,
-    moreThan: <FormattedMessage id="search.dateMoreThan" defaultMessage="more than" description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published more than 10 months ago'." />,
-    relativeDays: <FormattedMessage id="search.relativeDays" defaultMessage="days ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 days ago'." />,
-    relativeWeeks: <FormattedMessage id="search.relativeWeeks" defaultMessage="weeks ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 weeks ago'." />,
-    relativeMonths: <FormattedMessage id="search.relativeMonths" defaultMessage="months ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 months ago'." />,
-    relativeYears: <FormattedMessage id="search.relativeYears" defaultMessage="years ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 years ago'." />,
-  };
-
   return (
     <div className={styles['filter-wrapper']}>
-      <FormControl variant="outlined" className={classes.selectFormControl}>
+      <div className={styles['filter-multidate-wrapper']}>
+        <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} />
         <Select
+          className={styles['filter-select']}
           onChange={handleChangeType}
           value={getValueType()}
-          input={
-            <InputBase
-              startAdornment={
-                <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} />
-              }
-            />
-          }
         >
           { ['created_at', 'media_published_at', 'updated_at', 'report_published_at', 'request_created_at'].filter(option => !optionsToHide.includes(option)).map(option => (
-            <MenuItem value={option}>{ label[option] }</MenuItem>
+            <option value={option}>{ intl.formatMessage(messages[option]) }</option>
           ))}
         </Select>
         <Select
+          className={styles['filter-select']}
           onChange={handleChangeRangeType}
           value={rangeType}
-          input={
-            <InputBase />
-          }
         >
-          <MenuItem value="startEnd"> { label.startEnd } </MenuItem>
-          <MenuItem value="less_than"> { label.lessThan } </MenuItem>
-          <MenuItem value="more_than"> { label.moreThan } </MenuItem>
+          <option value="startEnd">{ intl.formatMessage(messages.startEnd) }</option>
+          <option value="less_than">{ intl.formatMessage(messages.lessThan) }</option>
+          <option value="more_than">{ intl.formatMessage(messages.moreThan) }</option>
         </Select>
         { rangeType === rangeTypes.startEnd ? (
           <DateRangeSelectorStartEnd {...{
@@ -401,14 +416,14 @@ const DateRangeFilter = ({
             classes,
             handleChangeRelativeQuantity,
             handleChangeRelativeRange,
-            label,
+            intl,
             onRemove,
             relativeQuantity,
             relativeRange,
           }}
           />
         )}
-      </FormControl>
+      </div>
     </div>
   );
 };
@@ -492,6 +507,7 @@ DateRangeFilter.propTypes = {
   ]),
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default withStyles(Styles)(DateRangeFilter);
+export default injectIntl(DateRangeFilter);

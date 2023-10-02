@@ -48,10 +48,9 @@ const Tag = ({
                 className="multi-select-filter__tag-remove"
                 iconCenter={<CloseIcon />}
                 onClick={onDelete}
-                theme="text"
-                variant="text"
+                theme="brand"
+                variant="contained"
                 size="small"
-                customStyle={{ color: 'var(--otherWhite)' }}
               />
             </span>
           </Tooltip>

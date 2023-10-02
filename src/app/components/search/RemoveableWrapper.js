@@ -23,9 +23,9 @@ const RemoveableWrapper = ({
   return (
     <div
       className={cx(
-        styles['filter-removeable-wrapper'],
+        styles['filter-removable-wrapper'],
         {
-          [styles['filter-removeable-wrapper-icon']]: !children,
+          [styles['filter-removable-wrapper-icon']]: !children,
         })
       }
       onMouseEnter={() => setShowDeleteIcon(true)}

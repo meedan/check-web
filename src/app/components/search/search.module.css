@@ -112,7 +112,8 @@
       padding: 0;
     }
 
-    .filter-removeable-wrapper {
+    .filter-multidate-wrapper,
+    .filter-removable-wrapper {
       align-items: center;
       display: flex;
       flex-wrap: wrap;
@@ -120,13 +121,14 @@
       max-width: 100%;
       min-height: 36px;
 
-      &.filter-removeable-wrapper-icon {
+      &.filter-removable-wrapper-icon {
         border-color: var(--alertMain);
         margin: 0 4px 0 0;
       }
 
       .filter-label {
         background-color: var(--alertMain);
+        font-size: var(--fontSizeSmall);
       }
     }
 
@@ -136,13 +138,13 @@
       border-radius: 8px;
       color: var(--otherWhite);
       display: flex;
+      font-size: var(--fontSizeSmall);
       height: 30px;
       max-width: 100%;
       padding: 0 0 0 4px;
 
       input,
       span:first-of-type {
-        background-color: var(--validationMain);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -163,15 +165,37 @@
       }
     }
 
+    .filter-select,
     .filter-input-number {
+      font-size: var(--fontSizeSmall);
       height: 30px;
+
+      select,
+      input {
+        font-size: var(--fontSizeSmall);
+        height: 30px;
+        min-height: 30px;
+        padding-bottom: 0;
+        padding-top: 0;
+
+        + div {
+          font-size: var(--fontSizeBaseText);
+          height: var(--fontSizeBaseText);
+          width: var(--fontSizeBaseText);
+        }
+      }
+    }
+
+    .filter-input-number {
       width: 8em;
 
       input {
-        height: 30px;
-        min-height: 30px;
         padding: 0 6px;
       }
+    }
+
+    .filter-date {
+      padding-right: 0;
     }
   }
 }
