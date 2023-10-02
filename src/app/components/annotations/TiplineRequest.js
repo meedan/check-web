@@ -55,6 +55,15 @@ SmoochIcon.propTypes = {
   name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line']).isRequired,
 };
 
+const channelLabel = {
+  whatsapp: 'WhatsApp',
+  messenger: 'Messenger',
+  twitter: 'Twitter',
+  telegram: 'Telegram',
+  viber: 'Viber',
+  line: 'Line',
+};
+
 function parseText(text, projectMedia, activity) {
   let parsedText = text;
 
@@ -156,7 +165,7 @@ const TiplineRequest = ({
         sendMessageButton={
           <SendTiplineMessage
             username={userName}
-            channel={messageType}
+            channel={channelLabel[messageType] || messageType}
             annotationId={activity.annotation_id}
           />
         }

@@ -1,5 +1,10 @@
 [
   {
+    "id": "sendTiplineMessage.success",
+    "description": "Banner displayed when message is sent to tipline user successfully",
+    "defaultMessage": "Message sent"
+  },
+  {
     "id": "sendTiplineMessage.title",
     "description": "Title for messaging popup",
     "defaultMessage": "Send message to {username} on {channel}"
