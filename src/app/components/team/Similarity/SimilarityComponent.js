@@ -26,6 +26,7 @@ const INDIAN_MODEL = 'indian-sbert';
 const ELASTICSEARCH_MODEL = 'elasticsearch';
 const FILIPINO_MODEL = 'paraphrase-filipino-mpnet-base-v2';
 const OPENAI_ADA_MODEL = 'openai-text-embedding-ada-002';
+const PARAPHRASE_MULTILINGUAL_MODEL = 'paraphrase-multilingual-mpnet-base-v2';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,14 +58,16 @@ const SimilarityComponent = ({
         textSimilarityModel === MEAN_TOKENS_MODEL ||
         textSimilarityModel === INDIAN_MODEL ||
         textSimilarityModel === FILIPINO_MODEL ||
-        textSimilarityModel === OPENAI_ADA_MODEL
+        textSimilarityModel === OPENAI_ADA_MODEL ||
+        textSimilarityModel === PARAPHRASE_MULTILINGUAL_MODEL
       );
     }
     return (
       textSimilarityModel.includes(MEAN_TOKENS_MODEL) ||
       textSimilarityModel.includes(INDIAN_MODEL) ||
       textSimilarityModel.includes(FILIPINO_MODEL) ||
-      textSimilarityModel.includes(OPENAI_ADA_MODEL)
+      textSimilarityModel.includes(OPENAI_ADA_MODEL) ||
+      textSimilarityModel.includes(PARAPHRASE_MULTILINGUAL_MODEL)
     );
   });
 
@@ -331,6 +334,16 @@ const SimilarityComponent = ({
                   />
                   <Box ml={7} mb={2} mt={2} mr={6}>
                     <p><strong>Model to use</strong></p>
+                    <FormControlLabel
+                      disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                      control={
+                        <Checkbox
+                          checked={settings.alegre_model_in_use.includes(PARAPHRASE_MULTILINGUAL_MODEL)}
+                          onChange={() => handleModelSettingsChange(PARAPHRASE_MULTILINGUAL_MODEL)}
+                        />
+                      }
+                      label="Paraphrase multilingual - New model, covers 50+ languages"
+                    />
                     <FormControlLabel
                       disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                       control={

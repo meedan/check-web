@@ -11,6 +11,7 @@ import LineIcon from '../../icons/line.svg';
 import WhatsAppIcon from '../../icons/whatsapp.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import EditNoteIcon from '../../icons/edit_note.svg';
+import SendTiplineMessage from '../SendTiplineMessage';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -52,6 +53,15 @@ const SmoochIcon = ({ name }) => {
 
 SmoochIcon.propTypes = {
   name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line']).isRequired,
+};
+
+const channelLabel = {
+  whatsapp: 'WhatsApp',
+  messenger: 'Messenger',
+  twitter: 'Twitter',
+  telegram: 'Telegram',
+  viber: 'Viber',
+  line: 'Line',
 };
 
 function parseText(text, projectMedia, activity) {
@@ -152,6 +162,13 @@ const TiplineRequest = ({
           formatMessage(messages.smoochNoMessage)
         )}
         icon={<SmoochIcon name={messageType} />}
+        sendMessageButton={
+          <SendTiplineMessage
+            username={userName}
+            channel={channelLabel[messageType] || messageType}
+            annotationId={activity.annotation_id}
+          />
+        }
         receipt={
           <RequestReceipt
             icon={reportReceiveStatus.icon}
