@@ -39,7 +39,7 @@ deploy_qa:
     - pip install botocore==1.17.47
     - pip install boto3==1.14.47
     - pip install ecs-deploy==1.11.0
-    - pip install --force-reinstall six=1.16.0
+    - pip install --force-reinstall six==1.16.0
     - ecs deploy ecs-qa  qa-check-web --image qa-check-web-c $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA -r arn:aws:iam::848416313321:role/ECSSecretsAccessRole --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
     - sh scripts/clear-cf-cache.sh
