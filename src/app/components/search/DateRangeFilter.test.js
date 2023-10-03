@@ -22,7 +22,7 @@ describe('<DateRangeFilter />', () => {
       </MuiPickersUtilsProvider>,
     );
 
-    expect(wrapper.find('select').first().props().value).toBe("created_at");
+    expect(wrapper.find('select').first().props().value).toBe('created_at');
   });
 
   it('should hide filter', () => {
@@ -62,6 +62,6 @@ describe('<DateRangeFilter />', () => {
       </MuiPickersUtilsProvider>,
     );
 
-    expect(wrapper.find('select').first().props().value).toBe("media_published_at");
+    expect(wrapper.find('select').first().props().value).toBe('media_published_at');
   });
 });
