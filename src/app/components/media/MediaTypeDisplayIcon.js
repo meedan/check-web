@@ -9,6 +9,7 @@ import Movie from '../../icons/movie.svg';
 import PlaylistAddCheck from '../../icons/playlist_add_check.svg';
 import Public from '../../icons/public.svg';
 import Telegram from '../../icons/telegram.svg';
+import Tiktok from '../../icons/tiktok.svg';
 import Twitter from '../../icons/twitter.svg';
 import YouTube from '../../icons/youtube.svg';
 
@@ -25,6 +26,8 @@ export function mediaTypeFromUrl(url) {
     mediaType = 'Facebook';
   } else if (/^(https?:\/\/)?((www\.)?t\.me)\/.+$/.test(url)) {
     mediaType = 'Telegram';
+  } else if (/^(https?:\/\/)?((www\.)?tiktok\.com)\/.+$/.test(url)) {
+    mediaType = 'Tiktok';
   }
 
   return mediaType;
@@ -39,7 +42,7 @@ export function mediaTypeFromFilename(fileName) {
   if (fileExtension) {
     if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExtension.toLowerCase())) {
       mediaType = 'UploadedImage';
-    } else if (['mp3', 'wav', 'ogg', 'm4a'].includes(fileExtension.toLowerCase())) {
+    } else if (['mp3', 'wav', 'oga', 'ogg', 'm4a'].includes(fileExtension.toLowerCase())) {
       mediaType = 'UploadedAudio';
     } else if (['mp4', 'ogg', 'ogv', 'webm', 'mov', 'm4v'].includes(fileExtension.toLowerCase())) {
       mediaType = 'UploadedVideo';
@@ -67,6 +70,8 @@ export default function MediaTypeDisplayIcon({ mediaType }) {
     return <Instagram style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Telegram':
     return <Telegram style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+  case 'Tiktok':
+    return <Tiktok style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Twitter':
     return <Twitter style={{ fontSize: 'var(--iconSizeSmall)' }} />;
   case 'Youtube':

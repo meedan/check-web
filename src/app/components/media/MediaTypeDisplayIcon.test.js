@@ -34,5 +34,8 @@ describe('<MediaTypeDisplayIcon />', () => {
 
     type = mediaTypeFromUrl('https://t.me/tchucniasjfd/118234');
     expect(type).toEqual('Telegram');
+
+    type = mediaTypeFromUrl('https://www.tiktok.com/poijasdf/112342348234');
+    expect(type).toEqual('Tiktok');
   });
 });

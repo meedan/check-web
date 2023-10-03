@@ -71,6 +71,7 @@
     ]
   },
   "devDependencies": {
+    "@material-ui/icons": "^5.0.0-beta.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "enzyme": "^3.3.0",
     "jest": "^25.4.0"

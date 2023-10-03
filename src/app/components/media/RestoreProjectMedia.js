@@ -115,7 +115,7 @@ function RestoreProjectMedia({
     );
   }
 
-  if (projectMedia.archived === CheckArchivedFlags.NONE) {
+  if (projectMedia.archived !== CheckArchivedFlags.TRASHED && projectMedia.archived !== CheckArchivedFlags.SPAM) {
     return null;
   }
 
