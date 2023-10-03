@@ -127,8 +127,11 @@
       }
 
       .filter-label {
-        background-color: var(--alertMain);
         font-size: var(--fontSizeSmall);
+      }
+
+      button:disabled {
+        margin: 0 -4px; /* negative margins to remove the gap on non-functional and/or buttons */
       }
     }
 
@@ -141,7 +144,7 @@
       font-size: var(--fontSizeSmall);
       height: 30px;
       max-width: 100%;
-      padding: 0 0 0 4px;
+      padding: 0 6px;
 
       input,
       span:first-of-type {
@@ -152,6 +155,10 @@
 
       &.filter-value-missing {
         background-color: var(--errorMain);
+      }
+
+      &.filter-value-removable {
+        padding: 0 0 0 6px;
       }
     }
 
@@ -195,7 +202,12 @@
     }
 
     .filter-date {
-      padding-right: 0;
+      border-radius: 8px 0 0 8px;
+      margin: 0 -12px 0 0;
+
+      + .filter-date-remove button {
+        margin: 0 4px 0 0;
+      }
     }
   }
 }

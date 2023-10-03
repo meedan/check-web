@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import cx from 'classnames/bind';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Select from '../cds/inputs/Select';
 import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -104,32 +105,46 @@ function DateRangeSelectorStartEnd(props) {
         value={getStartDateStringOrNull()}
         style={{ margin: '0 16px' }}
         TextFieldComponent={({ params, onClick, value: valueText }) => (
-          <ButtonMain
-            className={cx('date-range__start-date', styles['filter-date'])}
-            size="small"
-            variant="contained"
-            theme={valueText ? 'brand' : 'text'}
-            iconRight={
-              valueText ?
-                <ButtonMain
-                  iconCenter={<CloseIcon />}
-                  onClick={e => handleClearDate(e, 'start_time')}
-                  theme="brand"
-                  variant="contained"
-                  size="small"
-                />
-                :
-                <KeyboardArrowDownIcon />
+          <>
+            <ButtonMain
+              className={cx(
+                'date-range__start-date',
+                {
+                  [styles['filter-date']]: valueText,
+                })
+              }
+              size="small"
+              variant="contained"
+              theme={valueText ? 'brand' : 'text'}
+              label={
+                !valueText ?
+                  <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
+                  :
+                  valueText
+              }
+              onClick={onClick}
+              iconRight={!valueText && <KeyboardArrowDownIcon />}
+              {...params}
+            />
+            { valueText &&
+              <Tooltip
+                title={
+                  <FormattedMessage id="search.removeStartDateCondition" defaultMessage="Remove start date" description="Tooltip to tell the user they can add remove the start date portion of this filter" />
+                }
+                arrow
+              >
+                <span className={styles['filter-date-remove']}>
+                  <ButtonMain
+                    iconCenter={<CloseIcon />}
+                    onClick={e => handleClearDate(e, 'start_time')}
+                    theme="brand"
+                    variant="contained"
+                    size="small"
+                  />
+                </span>
+              </Tooltip>
             }
-            label={
-              !valueText ?
-                <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
-                :
-                valueText
-            }
-            onClick={onClick}
-            {...params}
-          />
+          </>
         )}
       />
       <DatePicker
@@ -150,22 +165,16 @@ function DateRangeSelectorStartEnd(props) {
               label={<FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />}
             />
             <ButtonMain
-              className={cx('date-range__end-date', styles['filter-date'])}
+              className={cx(
+                'date-range__end-date',
+                {
+                  [styles['filter-date']]: valueText,
+                })
+              }
               size="small"
               variant="contained"
               theme={valueText ? 'brand' : 'text'}
-              iconRight={
-                valueText ?
-                  <ButtonMain
-                    iconCenter={<CloseIcon />}
-                    onClick={e => handleClearDate(e, 'end_time')}
-                    theme="brand"
-                    variant="contained"
-                    size="small"
-                  />
-                  :
-                  <KeyboardArrowDownIcon />
-              }
+              iconRight={!valueText && <KeyboardArrowDownIcon />}
               label={
                 !valueText ?
                   <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
@@ -175,6 +184,24 @@ function DateRangeSelectorStartEnd(props) {
               onClick={onClick}
               {...params}
             />
+            { valueText &&
+              <Tooltip
+                title={
+                  <FormattedMessage id="search.removeEndDateCondition" defaultMessage="Remove end date" description="Tooltip to tell the user they can add remove the end date portion of this filter" />
+                }
+                arrow
+              >
+                <span className={styles['filter-date-remove']}>
+                  <ButtonMain
+                    iconCenter={<CloseIcon />}
+                    onClick={e => handleClearDate(e, 'end_time')}
+                    theme="brand"
+                    variant="contained"
+                    size="small"
+                  />
+                </span>
+              </Tooltip>
+            }
           </>
         )}
       />

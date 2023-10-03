@@ -4,6 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import Divider from '@material-ui/core/Divider';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -307,17 +308,26 @@ const SearchFields = ({
       operatorProps = { disabled: true };
     }
     return (
-      <ButtonMain
-        variant="contained"
-        size="small"
-        theme={page === 'feed' ? 'text' : 'lightBrand'}
-        customStyle={{ fontWeight: 'bold' }}
-        label={stateQuery.operator === 'OR' ?
-          <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
-          <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+      <Tooltip
+        title={
+          <FormattedMessage id="search.switchOperator" defaultMessage="Toggle AND/OR" description="Tooltip to tell the user they can switch the logical operator between 'AND/OR' when filtering by multiple fields" />
         }
-        {...operatorProps}
-      />
+        arrow
+      >
+        <span>
+          <ButtonMain
+            variant="contained"
+            size="small"
+            theme={page === 'feed' ? 'text' : 'lightBrand'}
+            customStyle={{ fontWeight: 'bold' }}
+            label={stateQuery.operator === 'OR' ?
+              <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
+              <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+            }
+            {...operatorProps}
+          />
+        </span>
+      </Tooltip>
     );
   };
 

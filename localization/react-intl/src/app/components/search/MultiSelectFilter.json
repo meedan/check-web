@@ -12,7 +12,7 @@
   {
     "id": "filter.removeFilterCondition",
     "description": "Tooltip to tell the user they can add remove the argument to the filter they are interacting with",
-    "defaultMessage": "Remove filter"
+    "defaultMessage": "Remove filter condition"
   },
   {
     "id": "filter.tag.deleted",

@@ -33,6 +33,7 @@ const RemoveableWrapper = ({
     >
       {icon &&
         <Tooltip
+          disableHoverListener={readOnly || !onRemove}
           title={
             <FormattedMessage id="filter.removeFilter" defaultMessage="Remove filter" description="Tooltip to tell the user they can remove this filter" />
           }

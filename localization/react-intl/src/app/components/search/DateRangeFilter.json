@@ -75,9 +75,19 @@
     "defaultMessage": "any date"
   },
   {
+    "id": "search.removeStartDateCondition",
+    "description": "Tooltip to tell the user they can add remove the start date portion of this filter",
+    "defaultMessage": "Remove start date"
+  },
+  {
     "id": "search.beforeDate",
     "description": "String displayed between after and before date pickers",
     "defaultMessage": "and"
+  },
+  {
+    "id": "search.removeEndDateCondition",
+    "description": "Tooltip to tell the user they can add remove the end date portion of this filter",
+    "defaultMessage": "Remove end date"
   },
   {
     "id": "numericRangeFilter.enterNumber",

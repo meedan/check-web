@@ -1,9 +1,12 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
+import cx from 'classnames/bind';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CloseIcon from '../../icons/clear.svg';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
+import styles from './search.module.css';
 
 function buildValue(startTimeOrNull, endTimeOrNull) {
   const range = {};
@@ -87,23 +90,16 @@ class AnnotationFilterDate extends React.Component {
                 label={<FormattedMessage id="search.afterDate" defaultMessage="after" description="String displayed before a date picker" />}
               />
               <ButtonMain
-                className="date-range__start-date"
+                className={cx(
+                  'date-range__start-date',
+                  {
+                    [styles['filter-date']]: valueText,
+                  })
+                }
                 size="small"
                 variant="contained"
                 theme={valueText ? 'brand' : 'text'}
-                iconRight={
-                  valueText ?
-                    <ButtonMain
-                      iconCenter={<CloseIcon />}
-                      onClick={e => this.handleClearDate(e, 'start_time')}
-                      theme="text"
-                      variant="text"
-                      size="small"
-                      customStyle={{ color: 'var(--otherWhite)' }}
-                    />
-                    :
-                    <KeyboardArrowDownIcon />
-                }
+                iconRight={!valueText && <KeyboardArrowDownIcon />}
                 label={
                   !valueText ?
                     <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
@@ -113,6 +109,24 @@ class AnnotationFilterDate extends React.Component {
                 onClick={onClick}
                 {...params}
               />
+              { valueText &&
+                <Tooltip
+                  title={
+                    <FormattedMessage id="search.removeStartDateCondition" defaultMessage="Remove start date" description="Tooltip to tell the user they can add remove the start date portion of this filter" />
+                  }
+                  arrow
+                >
+                  <span className={styles['filter-date-remove']}>
+                    <ButtonMain
+                      iconCenter={<CloseIcon />}
+                      onClick={e => this.handleClearDate(e, 'start_time')}
+                      theme="brand"
+                      variant="contained"
+                      size="small"
+                    />
+                  </span>
+                </Tooltip>
+              }
             </>
           )}
         />
@@ -134,24 +148,16 @@ class AnnotationFilterDate extends React.Component {
                 label={<FormattedMessage id="search.beforeDate" defaultMessage="and before" description="String displayed between after and before date pickers" />}
               />
               <ButtonMain
-                className="date-range__start-date"
+                className={cx(
+                  'date-range__end-date',
+                  {
+                    [styles['filter-date']]: valueText,
+                  })
+                }
                 size="small"
                 variant="contained"
                 theme={valueText ? 'brand' : 'text'}
-                iconRight={
-                  valueText ?
-                    <ButtonMain
-                      className="date-range__end-date"
-                      iconCenter={<CloseIcon />}
-                      onClick={e => this.handleClearDate(e, 'end_time')}
-                      theme="text"
-                      variant="text"
-                      size="small"
-                      customStyle={{ color: 'var(--otherWhite)' }}
-                    />
-                    :
-                    <KeyboardArrowDownIcon />
-                }
+                iconRight={!valueText && <KeyboardArrowDownIcon />}
                 label={
                   !valueText ?
                     <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
@@ -161,6 +167,24 @@ class AnnotationFilterDate extends React.Component {
                 onClick={onClick}
                 {...params}
               />
+              { valueText &&
+                <Tooltip
+                  title={
+                    <FormattedMessage id="search.removeEndDateCondition" defaultMessage="Remove end date" description="Tooltip to tell the user they can add remove the end date portion of this filter" />
+                  }
+                  arrow
+                >
+                  <span className={styles['filter-date-remove']}>
+                    <ButtonMain
+                      iconCenter={<CloseIcon />}
+                      onClick={e => this.handleClearDate(e, 'end_time')}
+                      theme="brand"
+                      variant="contained"
+                      size="small"
+                    />
+                  </span>
+                </Tooltip>
+              }
             </>
           )}
         />

@@ -34,12 +34,21 @@ const Tag = ({
 }) => (
   <>
     {label ?
-      <div className={cx('multi-select-filter__tag', styles['filter-value'])} {...props}>
+      <div
+        className={cx(
+          'multi-select-filter__tag',
+          styles['filter-value'],
+          {
+            [styles['filter-value-removable']]: !readOnly,
+          })
+        }
+        {...props}
+      >
         <span>{label}</span>
         { readOnly ? null : (
           <Tooltip
             title={
-              <FormattedMessage id="filter.removeFilterCondition" defaultMessage="Remove filter" description="Tooltip to tell the user they can add remove the argument to the filter they are interacting with" />
+              <FormattedMessage id="filter.removeFilterCondition" defaultMessage="Remove filter condition" description="Tooltip to tell the user they can add remove the argument to the filter they are interacting with" />
             }
             arrow
           >

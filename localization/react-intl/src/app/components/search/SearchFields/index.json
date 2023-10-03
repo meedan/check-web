@@ -120,6 +120,11 @@
     "defaultMessage": "Paused"
   },
   {
+    "id": "search.switchOperator",
+    "description": "Tooltip to tell the user they can switch the logical operator between 'AND/OR' when filtering by multiple fields",
+    "defaultMessage": "Toggle AND/OR"
+  },
+  {
     "id": "search.fieldOr",
     "description": "Logical operator 'OR' to be applied when filtering by multiple fields",
     "defaultMessage": "or"
