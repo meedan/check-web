@@ -138,10 +138,10 @@ shared_examples 'similarity' do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to @config['self_url']
     create_image('files/audio.mp3')
-    sleep 420 # Wait for the item to be indexed by Alegre
+    sleep 180 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
     create_image('files/audio.ogg')
-    sleep 420 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    sleep 180 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('.media__more-medias')
