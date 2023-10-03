@@ -140,6 +140,7 @@ const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequests
               dbid
               created_at
               value_json
+              annotation_id
               associated_graphql_id
               smooch_user_slack_channel_url
               smooch_user_request_language
@@ -182,6 +183,7 @@ const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequests
               dbid
               created_at
               value_json
+              annotation_id
               associated_graphql_id
               smooch_user_slack_channel_url
               smooch_user_request_language
