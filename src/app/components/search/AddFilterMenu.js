@@ -44,7 +44,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.timeRange"
-        defaultMessage="Date range"
+        defaultMessage="Date"
         description="Menu option to enable searching items by date range"
       />
     ),
@@ -80,7 +80,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.mediaType"
-        defaultMessage="Media type"
+        defaultMessage="Media"
         description="Menu option to enable searching items by media type"
       />
     ),
@@ -92,7 +92,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.itemRead"
-        defaultMessage="Item read/unread"
+        defaultMessage="Read/unread"
         description="Menu option to enable searching items by item read/unread"
       />
     ),
@@ -116,7 +116,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.reportStatus"
-        defaultMessage="Report status"
+        defaultMessage="Report (status)"
         description="Menu option to enable searching items by report status"
       />
     ),
@@ -128,7 +128,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.publishedBy"
-        defaultMessage="Published by"
+        defaultMessage="Publisher (author)"
         description="Menu option to enable searching items by report published by"
       />
     ),
@@ -140,7 +140,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.annotatedBy"
-        defaultMessage="Annotated by"
+        defaultMessage="Annotator"
         description="Menu option to enable searching items by annotated by"
       />
     ),
@@ -152,7 +152,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.createdBy"
-        defaultMessage="Created by"
+        defaultMessage="Creator"
         description="Menu option to enable searching items by author"
       />
     ),
@@ -176,7 +176,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.tiplineRequest"
-        defaultMessage="Tipline request"
+        defaultMessage="Request"
         description="Menu option to enable searching items by confirmed/unconfirmed items"
       />
     ),
@@ -188,7 +188,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.similarMedias"
-        defaultMessage="Number of media"
+        defaultMessage="Media (count)"
         description="Menu option to enable searching items by matched medias"
       />
     ),
@@ -202,7 +202,7 @@ const AddFilterMenu = ({
       label: (
         <FormattedMessage
           id="addFilterMenu.suggestedMedias"
-          defaultMessage="Number of suggestions"
+          defaultMessage="Suggestions (count)"
           description="Menu option to enable searching items by suggestions"
         />
       ),
@@ -227,7 +227,7 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.tiplineRequests"
-        defaultMessage="Number of requests"
+        defaultMessage="Requests (count)"
         description="Menu option to enable searching items by tipline requests"
       />
     ),
@@ -300,7 +300,7 @@ const AddFilterMenu = ({
       label: (
         <FormattedMessage
           id="addFilterMenu.publishedBy"
-          defaultMessage="Published by"
+          defaultMessage="Publisher (author)"
           description="Menu option to enable searching items by report published by"
         />
       ),

@@ -167,22 +167,22 @@
   {
     "id": "search.archived",
     "description": "Prefix label for field to filter by Tipline request",
-    "defaultMessage": "Tipline request is"
+    "defaultMessage": "Request is"
   },
   {
     "id": "search.reportStatus",
     "description": "Prefix label for field to filter by report status",
-    "defaultMessage": "Report status is"
+    "defaultMessage": "Report (status) is"
   },
   {
     "id": "search.publishedBy",
     "description": "Prefix label for field to filter by published by",
-    "defaultMessage": "Report published by"
+    "defaultMessage": "Publisher (author) is"
   },
   {
     "id": "search.annotatedBy",
     "description": "Prefix label for field to filter by annotated by",
-    "defaultMessage": "Annotated by"
+    "defaultMessage": "Annotater is"
   },
   {
     "id": "search.assignedTo",

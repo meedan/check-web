@@ -11,17 +11,17 @@ import styles from './search.module.css';
 const messages = defineMessages({
   linkedItems: {
     id: 'numericRangeFilter.linkedItems',
-    defaultMessage: 'Number of media is between',
+    defaultMessage: 'Media (count) is between',
     description: 'Filter option that refers to number of media',
   },
   suggestedItems: {
     id: 'numericRangeFilter.suggestedItems',
-    defaultMessage: 'Number of suggestions is between',
+    defaultMessage: 'Suggestions (count) is between',
     description: 'Filter option that refers to number of suggestions',
   },
   tiplineRequests: {
     id: 'numericRangeFilter.tiplineRequests',
-    defaultMessage: 'Number of requests is between',
+    defaultMessage: 'Requests (count) is between',
     description: 'Filter option that refers to tipline requests',
   },
 });

@@ -458,7 +458,7 @@ const SearchFields = ({
       />
     ),
     archived: (
-      <FormattedMessage id="search.archived" defaultMessage="Tipline request is" description="Prefix label for field to filter by Tipline request">
+      <FormattedMessage id="search.archived" defaultMessage="Request is" description="Prefix label for field to filter by Tipline request">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
@@ -502,7 +502,7 @@ const SearchFields = ({
       />
     ),
     report_status: (
-      <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">
+      <FormattedMessage id="search.reportStatus" defaultMessage="Report (status) is" description="Prefix label for field to filter by report status">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
@@ -518,7 +518,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     published_by: (
-      <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+      <FormattedMessage id="search.publishedBy" defaultMessage="Publisher (author) is" description="Prefix label for field to filter by published by">
         { label => (
           <SearchFieldUser
             teamSlug={team.slug}
@@ -533,7 +533,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     annotated_by: (
-      <FormattedMessage id="search.annotatedBy" defaultMessage="Annotated by" description="Prefix label for field to filter by annotated by">
+      <FormattedMessage id="search.annotatedBy" defaultMessage="Annotater is" description="Prefix label for field to filter by annotated by">
         { label => (
           <SearchFieldUser
             teamSlug={team.slug}
@@ -607,7 +607,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     cluster_published_reports: (
-      <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+      <FormattedMessage id="search.publishedBy" defaultMessage="Publisher (author) is" description="Prefix label for field to filter by published by">
         { label => (
           <SearchFieldClusterTeams
             label={label}

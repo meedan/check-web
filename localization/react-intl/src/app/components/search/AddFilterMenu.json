@@ -2,7 +2,7 @@
   {
     "id": "addFilterMenu.timeRange",
     "description": "Menu option to enable searching items by date range",
-    "defaultMessage": "Date range"
+    "defaultMessage": "Date"
   },
   {
     "id": "addFilterMenu.claim",
@@ -17,12 +17,12 @@
   {
     "id": "addFilterMenu.mediaType",
     "description": "Menu option to enable searching items by media type",
-    "defaultMessage": "Media type"
+    "defaultMessage": "Media"
   },
   {
     "id": "addFilterMenu.itemRead",
     "description": "Menu option to enable searching items by item read/unread",
-    "defaultMessage": "Item read/unread"
+    "defaultMessage": "Read/unread"
   },
   {
     "id": "addFilterMenu.itemStatus",
@@ -32,22 +32,22 @@
   {
     "id": "addFilterMenu.reportStatus",
     "description": "Menu option to enable searching items by report status",
-    "defaultMessage": "Report status"
+    "defaultMessage": "Report (status)"
   },
   {
     "id": "addFilterMenu.publishedBy",
     "description": "Menu option to enable searching items by report published by",
-    "defaultMessage": "Published by"
+    "defaultMessage": "Publisher (author)"
   },
   {
     "id": "addFilterMenu.annotatedBy",
     "description": "Menu option to enable searching items by annotated by",
-    "defaultMessage": "Annotated by"
+    "defaultMessage": "Annotator"
   },
   {
     "id": "addFilterMenu.createdBy",
     "description": "Menu option to enable searching items by author",
-    "defaultMessage": "Created by"
+    "defaultMessage": "Creator"
   },
   {
     "id": "addFilterMenu.channel",
@@ -57,17 +57,17 @@
   {
     "id": "addFilterMenu.tiplineRequest",
     "description": "Menu option to enable searching items by confirmed/unconfirmed items",
-    "defaultMessage": "Tipline request"
+    "defaultMessage": "Request"
   },
   {
     "id": "addFilterMenu.similarMedias",
     "description": "Menu option to enable searching items by matched medias",
-    "defaultMessage": "Number of media"
+    "defaultMessage": "Media (count)"
   },
   {
     "id": "addFilterMenu.suggestedMedias",
     "description": "Menu option to enable searching items by suggestions",
-    "defaultMessage": "Number of suggestions"
+    "defaultMessage": "Suggestions (count)"
   },
   {
     "id": "addFilterMenu.unmatched",
@@ -77,7 +77,7 @@
   {
     "id": "addFilterMenu.tiplineRequests",
     "description": "Menu option to enable searching items by tipline requests",
-    "defaultMessage": "Number of requests"
+    "defaultMessage": "Requests (count)"
   },
   {
     "id": "addFilterMenu.language",
