@@ -518,7 +518,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     published_by: (
-      <FormattedMessage id="search.publishedBy" defaultMessage="Publisher (author) is" description="Prefix label for field to filter by published by">
+      <FormattedMessage id="search.publishedBy" defaultMessage="Publisher is" description="Prefix label for field to filter by published by">
         { label => (
           <SearchFieldUser
             teamSlug={team.slug}
@@ -607,7 +607,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     cluster_published_reports: (
-      <FormattedMessage id="search.publishedBy" defaultMessage="Publisher (author) is" description="Prefix label for field to filter by published by">
+      <FormattedMessage id="search.publishedBy" defaultMessage="Publisher is" description="Prefix label for field to filter by published by">
         { label => (
           <SearchFieldClusterTeams
             label={label}

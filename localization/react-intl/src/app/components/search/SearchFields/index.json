@@ -177,7 +177,7 @@
   {
     "id": "search.publishedBy",
     "description": "Prefix label for field to filter by published by",
-    "defaultMessage": "Publisher (author) is"
+    "defaultMessage": "Publisher is"
   },
   {
     "id": "search.annotatedBy",

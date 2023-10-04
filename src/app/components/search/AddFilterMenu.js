@@ -37,211 +37,28 @@ const AddFilterMenu = ({
     onSelect(field);
   };
 
-  let options = [{
-    id: 'add-filter-menu__time-range',
-    key: 'range',
-    icon: <DateRangeIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.timeRange"
-        defaultMessage="Date"
-        description="Menu option to enable searching items by date range"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__claim',
-    key: 'has_claim',
-    icon: <LabelIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.claim"
-        defaultMessage="Claim"
-        description="Menu option to enable searching items by claim"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__tags',
-    key: 'tags',
-    icon: <LocalOfferIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.tag"
-        defaultMessage="Tag"
-        description="Menu option to enable searching items by tags"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__media-type',
-    key: 'show',
-    icon: <DescriptionIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.mediaType"
-        defaultMessage="Media"
-        description="Menu option to enable searching items by media type"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__read',
-    key: 'read',
-    icon: <MarkunreadIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.itemRead"
-        defaultMessage="Read/unread"
-        description="Menu option to enable searching items by item read/unread"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__status',
-    key: 'verification_status',
-    icon: <LabelIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.itemStatus"
-        defaultMessage="Rating"
-        description="Menu option to enable searching items by item status"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__report-status',
-    key: 'report_status',
-    icon: <ReportIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.reportStatus"
-        defaultMessage="Report (status)"
-        description="Menu option to enable searching items by report status"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__published-by',
-    key: 'published_by',
-    icon: <HowToRegIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.publishedBy"
-        defaultMessage="Publisher (author)"
-        description="Menu option to enable searching items by report published by"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__annotated-by',
-    key: 'annotated_by',
-    icon: <PersonIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.annotatedBy"
-        defaultMessage="Annotator"
-        description="Menu option to enable searching items by annotated by"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__created-by',
-    key: 'users',
-    icon: <PersonIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.createdBy"
-        defaultMessage="Creator"
-        description="Menu option to enable searching items by author"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__channel',
-    key: 'channels',
-    icon: <ForwardIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.channel"
-        defaultMessage="Channel"
-        description="Menu option to enable searching items by channel"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__tipline-request',
-    key: 'archived',
-    icon: <ErrorIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.tiplineRequest"
-        defaultMessage="Request"
-        description="Menu option to enable searching items by confirmed/unconfirmed items"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__similar-medias',
-    key: 'linked_items_count',
-    icon: <NumberIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.similarMedias"
-        defaultMessage="Media (count)"
-        description="Menu option to enable searching items by matched medias"
-      />
-    ),
-  },
-  ];
-  if (team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled) {
-    options.push({
-      id: 'add-filter-menu__suggested-medias',
-      key: 'suggestions_count',
-      icon: <NumberIcon />,
-      label: (
-        <FormattedMessage
-          id="addFilterMenu.suggestedMedias"
-          defaultMessage="Suggestions (count)"
-          description="Menu option to enable searching items by suggestions"
-        />
-      ),
-    });
-    options.push({
-      id: 'add-filter-menu__unmatched',
-      key: 'unmatched',
-      icon: <UnmatchedIcon />,
-      label: (
-        <FormattedMessage
-          id="addFilterMenu.unmatched"
-          defaultMessage="Media unmatched"
-          description="Menu option to enable searching items by whether they have media that has been unmatched at some point"
-        />
-      ),
-    });
-  }
-  options.push({
-    id: 'add-filter-menu__tipline-requests',
-    key: 'demand',
-    icon: <NumberIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.tiplineRequests"
-        defaultMessage="Requests (count)"
-        description="Menu option to enable searching items by tipline requests"
-      />
-    ),
-  });
-  options = options.concat([
+  const options = [
     {
-      id: 'add-filter-menu__language',
-      key: 'language_filter',
-      icon: <LanguageIcon />,
+      id: 'add-filter-menu__team-tasks',
+      key: 'team_tasks',
+      icon: <NoteAltIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.language"
-          defaultMessage="Language"
-          description="Menu option to enable searching items by language"
+          id="addFilterMenu.annotation"
+          defaultMessage="Annotation"
+          description="Menu option to enable searching items by annotation fields"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__annotated-by',
+      key: 'annotated_by',
+      icon: <PersonIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.annotatedBy"
+          defaultMessage="Annotator"
+          description="Menu option to enable searching items by annotated by"
         />
       ),
     },
@@ -258,29 +75,113 @@ const AddFilterMenu = ({
       ),
     },
     {
-      id: 'add-filter-menu__time-source',
-      key: 'sources',
-      icon: <SettingsInputAntennaIcon />,
+      id: 'add-filter-menu__channel',
+      key: 'channels',
+      icon: <ForwardIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.source"
-          defaultMessage="Source"
-          description="Menu option to enable searching items by source"
+          id="addFilterMenu.channel"
+          defaultMessage="Channel"
+          description="Menu option to enable searching items by channel"
         />
       ),
     },
     {
-      id: 'add-filter-menu__team-tasks',
-      key: 'team_tasks',
-      icon: <NoteAltIcon />,
+      id: 'add-filter-menu__claim',
+      key: 'has_claim',
+      icon: <LabelIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.annotation"
-          defaultMessage="Annotation"
-          description="Menu option to enable searching items by annotation fields"
+          id="addFilterMenu.claim"
+          defaultMessage="Claim"
+          description="Menu option to enable searching items by claim"
         />
       ),
     },
+    {
+      id: 'add-filter-menu__created-by',
+      key: 'users',
+      icon: <PersonIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.createdBy"
+          defaultMessage="Creator"
+          description="Menu option to enable searching items by author"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__time-range',
+      key: 'range',
+      icon: <DateRangeIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.timeRange"
+          defaultMessage="Date"
+          description="Menu option to enable searching items by date range"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__feed-fact-checked-by',
+      key: 'feed_fact_checked_by',
+      icon: <HowToRegIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.feedFactCheckedBy"
+          defaultMessage="Fact-checker"
+          description="Menu option to enable searching feed items by whether they were fact-checked"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__language',
+      key: 'language_filter',
+      icon: <LanguageIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.language"
+          defaultMessage="Language"
+          description="Menu option to enable searching items by language"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__similar-medias',
+      key: 'linked_items_count',
+      icon: <NumberIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.similarMedias"
+          defaultMessage="Media (count)"
+          description="Menu option to enable searching items by matched medias"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__media-type',
+      key: 'show',
+      icon: <DescriptionIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.mediaType"
+          defaultMessage="Media (type)"
+          description="Menu option to enable searching items by media type"
+        />
+      ),
+    },
+    ...(team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled) ? [{
+      id: 'add-filter-menu__unmatched',
+      key: 'unmatched',
+      icon: <UnmatchedIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.unmatched"
+          defaultMessage="Media (unmatched)"
+          description="Menu option to enable searching items by whether they have media that has been unmatched at some point"
+        />
+      ),
+    }] : [],
     {
       id: 'add-filter-menu__workspace',
       key: 'cluster_teams',
@@ -294,30 +195,126 @@ const AddFilterMenu = ({
       ),
     },
     {
+      id: 'add-filter-menu__published-by',
+      key: 'published_by',
+      icon: <HowToRegIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.publishedBy"
+          defaultMessage="Publisher"
+          description="Menu option to enable searching items by report published by"
+        />
+      ),
+    },
+    {
       id: 'add-filter-menu__cluster-published-reports',
       key: 'cluster_published_reports',
       icon: <HowToRegIcon />,
       label: (
         <FormattedMessage
           id="addFilterMenu.publishedBy"
-          defaultMessage="Publisher (author)"
+          defaultMessage="Publisher"
           description="Menu option to enable searching items by report published by"
         />
       ),
     },
     {
-      id: 'add-filter-menu__feed-fact-checked-by',
-      key: 'feed_fact_checked_by',
-      icon: <HowToRegIcon />,
+      id: 'add-filter-menu__status',
+      key: 'verification_status',
+      icon: <LabelIcon />,
       label: (
         <FormattedMessage
-          id="addFilterMenu.feedFactCheckedBy"
-          defaultMessage="Fact-checked by"
-          description="Menu option to enable searching feed items by whether they were fact-checked"
+          id="addFilterMenu.itemStatus"
+          defaultMessage="Rating"
+          description="Menu option to enable searching items by item status"
         />
       ),
     },
-  ]);
+    {
+      id: 'add-filter-menu__read',
+      key: 'read',
+      icon: <MarkunreadIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.itemRead"
+          defaultMessage="Read/unread"
+          description="Menu option to enable searching items by item read/unread"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__report-status',
+      key: 'report_status',
+      icon: <ReportIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.reportStatus"
+          defaultMessage="Report (status)"
+          description="Menu option to enable searching items by report status"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__tipline-requests',
+      key: 'demand',
+      icon: <NumberIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.tiplineRequests"
+          defaultMessage="Request (count)"
+          description="Menu option to enable searching items by tipline requests"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__tipline-request',
+      key: 'archived',
+      icon: <ErrorIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.tiplineRequest"
+          defaultMessage="Request (status)"
+          description="Menu option to enable searching items by confirmed/unconfirmed items"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__time-source',
+      key: 'sources',
+      icon: <SettingsInputAntennaIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.source"
+          defaultMessage="Source"
+          description="Menu option to enable searching items by source"
+        />
+      ),
+    },
+    ...(team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled) ? [{
+      id: 'add-filter-menu__suggested-medias',
+      key: 'suggestions_count',
+      icon: <NumberIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.suggestedMedias"
+          defaultMessage="Suggestions (count)"
+          description="Menu option to enable searching items by suggestions"
+        />
+      ),
+    }] : [],
+    {
+      id: 'add-filter-menu__tags',
+      key: 'tags',
+      icon: <LocalOfferIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.tag"
+          defaultMessage="Tag"
+          description="Menu option to enable searching items by tags"
+        />
+      ),
+    },
+  ];
 
   return (
     <React.Fragment>
