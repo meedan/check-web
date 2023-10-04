@@ -74,7 +74,7 @@ function parseText(text, projectMedia, activity) {
   // since the first media is downloaded and saved in Check.
   // Ignore similar items, since it's not the exact same media as the main item.
   if (projectMedia && projectMedia.media && projectMedia.media.file_path && activity.associated_graphql_id === projectMedia.id) {
-    parsedText = parsedText.replace(/https:\/\/media.smooch.io[^\s]+/m, projectMedia.media.file_path);
+    parsedText = parsedText.replace(/https:\/\/media\.smooch\.io[^\s]+/m, projectMedia.media.file_path);
   }
 
   return emojify(parsedText);
