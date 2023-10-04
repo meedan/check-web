@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import RemoveableWrapper from '../RemoveableWrapper';
+import styles from '../search.module.css';
 
 const SearchFieldDummy = ({
   icon,
@@ -10,11 +10,11 @@ const SearchFieldDummy = ({
   onRemove,
   version,
 }) => (
-  <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version}>
-    <Box px={0.5} height={4.5} display="flex" alignItems="center" whiteSpace="nowrap">
+  <div className={styles['filter-wrapper']}>
+    <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version}>
       {label}
-    </Box>
-  </RemoveableWrapper>
+    </RemoveableWrapper>
+  </div>
 );
 
 SearchFieldDummy.defaultProps = {
