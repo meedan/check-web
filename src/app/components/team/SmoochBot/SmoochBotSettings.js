@@ -18,7 +18,7 @@ const SmoochBotSettings = (props) => {
         installationId={props.installationId}
       />
 
-      {['smooch_urls_to_ignore', 'smooch_time_to_send_request', 'smooch_disabled'].map(field => (
+      {['smooch_time_to_send_request', 'smooch_disabled'].map(field => (
         <SmoochBotSetting
           field={field}
           value={props.settings[field]}
