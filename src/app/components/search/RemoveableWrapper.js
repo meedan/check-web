@@ -1,6 +1,10 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import searchStyles from './search.module.css';
+import cx from 'classnames/bind';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import styles from './search.module.css';
 import CloseIcon from '../../icons/clear.svg';
 
 const RemoveableWrapper = ({
@@ -18,11 +22,36 @@ const RemoveableWrapper = ({
 
   return (
     <div
-      className={searchStyles.inputWrapper}
+      className={cx(
+        styles['filter-removable-wrapper'],
+        {
+          [styles['filter-removable-wrapper-icon']]: !children,
+        })
+      }
       onMouseEnter={() => setShowDeleteIcon(true)}
       onMouseLeave={() => setShowDeleteIcon(false)}
     >
-      { showDeleteIcon && onRemove && !readOnly ? <CloseIcon className="multi-select-filter__remove" onClick={handleClick} /> : icon }
+      {icon &&
+        <Tooltip
+          disableHoverListener={readOnly || !onRemove}
+          title={
+            <FormattedMessage id="filter.removeFilter" defaultMessage="Remove filter" description="Tooltip to tell the user they can remove this filter" />
+          }
+          arrow
+        >
+          <span>
+            <ButtonMain
+              className={cx('int-removeable-wrapper__button--remove', styles['filter-icon-remove'])}
+              iconCenter={showDeleteIcon && onRemove && !readOnly ? <CloseIcon /> : icon}
+              onClick={handleClick}
+              theme={showDeleteIcon && onRemove && !readOnly ? 'lightError' : 'text'}
+              variant={showDeleteIcon && onRemove && !readOnly ? 'contained' : 'text'}
+              size="small"
+              disabled={!showDeleteIcon && !onRemove && readOnly}
+            />
+          </span>
+        </Tooltip>
+      }
       {children}
     </div>
   );
