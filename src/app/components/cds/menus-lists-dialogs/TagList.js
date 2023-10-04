@@ -64,6 +64,7 @@ const TagList = ({
 
   const actionButton = (
     <ButtonMain
+      className="int-tag-list__button--create"
       theme="brand"
       variant="text"
       size="default"
@@ -97,11 +98,8 @@ const TagList = ({
             variant="text"
             theme="text"
             size="small"
-            buttonProps={{
-              id: 'tag-list__tag-icon',
-            }}
             disabled={readOnly}
-            className={styles['tag-icon']}
+            className={`int-tag-list__button--manage ${styles['tag-icon']}`}
             onClick={readOnly ? undefined : handleOpenMenu}
           />
         </span>
@@ -203,10 +201,7 @@ const TagList = ({
               variant="text"
               theme="text"
               size="small"
-              buttonProps={{
-                id: 'tag-list__add-icon',
-              }}
-              className={styles['circle-icon']}
+              className={`int-tag-list__button--add ${styles['circle-icon']}`}
               onClick={handleOpenMenu}
             />
           </span>

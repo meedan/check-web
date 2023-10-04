@@ -39,6 +39,7 @@ const Chip = ({
         >
           <span className={styles['delete-button']}>
             <ButtonMain
+              className="int-chip__button--delete"
               iconCenter={<CancelFillIcon />}
               size="small"
               variant="text"

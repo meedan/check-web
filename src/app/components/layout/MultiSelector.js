@@ -177,7 +177,7 @@ class MultiSelector extends React.Component {
           { this.props.allowSearch &&
             <>
               <TextField
-                className={cx('multiselector__search-input', styles['multiselector-search-input'])}
+                className={cx('int-multiselector__search--input', styles['multiselector-search-input'])}
                 onChange={this.handleChange}
                 placeholder={this.props.inputPlaceholder}
                 iconLeft={<SearchIcon />}
@@ -199,7 +199,7 @@ class MultiSelector extends React.Component {
               />
               { this.props.resetLabel &&
                 <ButtonMain
-                  className="multiselector__reset"
+                  className="int-multiselector__button--reset"
                   onClick={this.handleReset}
                   disabled={disableReset}
                   label={this.props.resetLabel}
@@ -271,6 +271,7 @@ class MultiSelector extends React.Component {
         <div className={styles['multiselector-footer']}>
           { onDismiss && this.props.cancelLabel &&
             <ButtonMain
+              className="int-multiselector__button--cancel"
               variant="text"
               theme="text"
               size="default"
@@ -279,7 +280,7 @@ class MultiSelector extends React.Component {
             />
           }
           <ButtonMain
-            className="multi__selector-save"
+            className="int-multiselector__button--save"
             theme="brand"
             size="default"
             variant="contained"
