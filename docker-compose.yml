@@ -73,7 +73,6 @@ services:
       - dev
   elasticmq:
     image: softwaremill/elasticmq
-    mem_limit: 4g
     hostname: presto-elasticmq
     ports:
       - "9324:9324"
@@ -147,7 +146,6 @@ services:
   presto:
     build: presto
     platform: linux/amd64
-    mem_limit: 4g
     ports:
       - "8000:8000"
     volumes:
@@ -161,7 +159,6 @@ services:
         condition: service_healthy
   alegre:
     build: alegre
-    mem_limit: 4g
     ports:
       - "3100:3100"
     volumes:
@@ -176,7 +173,6 @@ services:
       - dev
   video:
     build: alegre
-    mem_limit: 4g
     command: ["make", "run_model"]
     volumes:
       - "./alegre:/app"
@@ -190,7 +186,6 @@ services:
       - dev
   web:
     build: .
-    mem_limit: 4g
     ports:
       - "3333:3333"
     volumes:
