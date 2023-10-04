@@ -146,7 +146,7 @@ shared_examples 'search' do
     wait_for_selector('#add-filter-menu__status').click
     wait_for_selector('.custom-select-dropdown__select-button').click
     wait_for_selector('input#false').click
-    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('.int-multiselector__button--save').click
     wait_for_selector('#search-fields__submit-button').click
     wait_for_selector('.multi-select-filter')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 1
