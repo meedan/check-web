@@ -71,6 +71,7 @@
     ]
   },
   "devDependencies": {
+    "@material-ui/icons": "^5.0.0-beta.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "enzyme": "^3.3.0",
     "jest": "^25.4.0"
@@ -184,7 +185,6 @@
     "relay-compiler": "^1.7.0",
     "rtl-detect": "^1.0.0",
     "serve-static": "^1.10.2",
-    "stacktrace-js": "^2.0.2",
     "style-loader": "^1.2.1",
     "styled-components": "^5.0.1",
     "stylelint": "^14.0.0",
