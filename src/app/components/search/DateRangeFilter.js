@@ -108,7 +108,7 @@ function DateRangeSelectorStartEnd(props) {
           <>
             <ButtonMain
               className={cx(
-                'date-range__start-date',
+                'int-date-filter__button--start-date',
                 {
                   [styles['filter-date']]: valueText,
                 })
@@ -135,6 +135,7 @@ function DateRangeSelectorStartEnd(props) {
               >
                 <span className={styles['filter-date-remove']}>
                   <ButtonMain
+                    className="int-date-filter__button--clear-start-date"
                     iconCenter={<CloseIcon />}
                     onClick={e => handleClearDate(e, 'start_time')}
                     theme="brand"
@@ -166,7 +167,7 @@ function DateRangeSelectorStartEnd(props) {
             />
             <ButtonMain
               className={cx(
-                'date-range__end-date',
+                'int-date-filter__button--end-date',
                 {
                   [styles['filter-date']]: valueText,
                 })
@@ -193,6 +194,7 @@ function DateRangeSelectorStartEnd(props) {
               >
                 <span className={styles['filter-date-remove']}>
                   <ButtonMain
+                    className="int-date-filter__button--clear-end-date"
                     iconCenter={<CloseIcon />}
                     onClick={e => handleClearDate(e, 'end_time')}
                     theme="brand"

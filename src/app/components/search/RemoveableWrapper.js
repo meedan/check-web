@@ -41,7 +41,7 @@ const RemoveableWrapper = ({
         >
           <span>
             <ButtonMain
-              className={cx('multi-select-filter__remove', styles['filter-icon-remove'])}
+              className={cx('int-removeable-wrapper__button--remove', styles['filter-icon-remove'])}
               iconCenter={showDeleteIcon && onRemove && !readOnly ? <CloseIcon /> : icon}
               onClick={handleClick}
               theme={showDeleteIcon && onRemove && !readOnly ? 'lightError' : 'text'}

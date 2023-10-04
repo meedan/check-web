@@ -70,7 +70,7 @@ const NumericRangeFilter = ({
         <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
           { placeholder => (
             <TextField
-              className={styles['filter-input-number']}
+              className={`int-numeric-range-filter__textfield--min-number ${styles['filter-input-number']}`}
               placeholder={placeholder}
               value={minNumber}
               onChange={(e) => { handleFieldChange('min', e.target.value); }}
@@ -90,7 +90,7 @@ const NumericRangeFilter = ({
         <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" description="Placeholder for text field about entering a number value">
           { placeholder => (
             <TextField
-              className={styles['filter-input-number']}
+              className={`int-numeric-range-filter__textfield--max-number ${styles['filter-input-number']}`}
               placeholder={placeholder}
               value={maxNumber}
               onChange={(e) => { handleFieldChange('max', e.target.value); }}

@@ -81,6 +81,7 @@ const SearchFieldTag = ({
         const hasMore = total > pageSize;
         return (
           <MultiSelectFilter
+            className="int-search-field-tag__multi-select-filter--select-tag"
             label={<FormattedMessage id="SearchFieldTag.label" defaultMessage="Tag is" description="Prefix label for field to filter by tags" />}
             icon={<LocalOfferIcon />}
             loading={loading}

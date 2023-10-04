@@ -59,7 +59,7 @@ const AnnotationFilterNumber = ({
       <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">
         { placeholder => (
           <TextField
-            className={styles['filter-input-number']}
+            className={`int-annotation-filter-number__textfield--number-min ${styles['filter-input-number']}`}
             placeholder={placeholder}
             value={minNumber}
             onChange={(e) => { handleFieldChange('min', e.target.value); }}
@@ -79,7 +79,7 @@ const AnnotationFilterNumber = ({
       <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number" description="Placeholder text for the number input in this filter">
         { placeholder => (
           <TextField
-            className={styles['filter-input-number']}
+            className={`int-annotation-filter-number__textfield--number-max ${styles['filter-input-number']}`}
             placeholder={placeholder}
             value={maxNumber}
             onChange={(e) => { handleFieldChange('max', e.target.value); }}

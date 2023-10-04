@@ -149,6 +149,7 @@ const CustomFiltersManagerComponent = ({
 
       return (
         <MultiSelectFilter
+          className="int-custom-filters-manager__multi-select-filter"
           id={`${filter.task_type}-${filter.id}`}
           allowSearch={false}
           extraInputs={getExtraInputs()}
@@ -169,6 +170,7 @@ const CustomFiltersManagerComponent = ({
       <FormattedMessage id="customFiltersManager.label" defaultMessage="Custom field is" description="Placeholder label for metadata field when not fully configured">
         { label => (
           <MultiSelectFilter
+            className="int-custom-filters-manager__multi-select-filter--team-tasks"
             label={label}
             icon={<NoteAltOutlinedIcon />}
             options={teamTasks.filter(tt => existingFilters.indexOf(tt.node?.dbid.toString()) === -1).map(tt => ({

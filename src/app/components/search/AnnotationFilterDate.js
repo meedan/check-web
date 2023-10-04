@@ -91,7 +91,7 @@ class AnnotationFilterDate extends React.Component {
               />
               <ButtonMain
                 className={cx(
-                  'date-range__start-date',
+                  'int-annotation-filter__button--start-date',
                   {
                     [styles['filter-date']]: valueText,
                   })
@@ -118,6 +118,7 @@ class AnnotationFilterDate extends React.Component {
                 >
                   <span className={styles['filter-date-remove']}>
                     <ButtonMain
+                      className="int-annotation-filter__button--clear-start-date"
                       iconCenter={<CloseIcon />}
                       onClick={e => this.handleClearDate(e, 'start_time')}
                       theme="brand"
@@ -149,7 +150,7 @@ class AnnotationFilterDate extends React.Component {
               />
               <ButtonMain
                 className={cx(
-                  'date-range__end-date',
+                  'int-annotation-filter__button--end-date',
                   {
                     [styles['filter-date']]: valueText,
                   })
@@ -176,6 +177,7 @@ class AnnotationFilterDate extends React.Component {
                 >
                   <span className={styles['filter-date-remove']}>
                     <ButtonMain
+                      className="int-annotation-filter__button--clear-end-date"
                       iconCenter={<CloseIcon />}
                       onClick={e => this.handleClearDate(e, 'end_time')}
                       theme="brand"

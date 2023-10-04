@@ -12,7 +12,7 @@ shared_examples 'list' do
     expect(@driver.find_elements(:css, '.medias__item').size == 1).to be(true)
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__status').click
-    wait_for_selector('.custom-select-dropdown__select-button').click
+    wait_for_selector('.int-multi-select-filter__button--select-dropdown').click
     wait_for_selector('#in_progress').click
     wait_for_selector('.multi__selector-save').click
     wait_for_selector('#search-fields__submit-button').click

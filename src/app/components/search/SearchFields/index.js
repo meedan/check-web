@@ -316,6 +316,7 @@ const SearchFields = ({
       >
         <span>
           <ButtonMain
+            className="int-search-fields__button--toggle-and-or-operator"
             variant="contained"
             size="small"
             theme={page === 'feed' ? 'text' : 'lightBrand'}
@@ -690,6 +691,7 @@ const SearchFields = ({
       { canReset && <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} /> }
       { canReset && (
         <ButtonMain
+          className="int-search-fields__button--reset-filter"
           variant="contained"
           size="default"
           theme="lightText"
@@ -704,6 +706,7 @@ const SearchFields = ({
       )}
       { canApply && (
         <ButtonMain
+          className="int-search-fields__button--apply-filter"
           variant="contained"
           size="default"
           theme="lightValidation"

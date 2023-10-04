@@ -16,6 +16,7 @@ import styles from './search.module.css';
 
 const OperatorToggle = ({ onClick, operator }) => (
   <ButtonMain
+    className="int-multi-select-filter__button--operator-toggle"
     onClick={onClick}
     disabled={!onClick}
     theme="text"
@@ -54,7 +55,7 @@ const Tag = ({
           >
             <span>
               <ButtonMain
-                className="multi-select-filter__tag-remove"
+                className="int-multi-select-filter__button--tag-remove"
                 iconCenter={<CloseIcon />}
                 onClick={onDelete}
                 theme="brand"
@@ -71,7 +72,7 @@ const Tag = ({
           <FormattedMessage id="filter.tag.deleted" defaultMessage="Property deleted" description="Message shown a placeholder when someone tries to filter a search by a property that the user has deleted" />
         </span>
         { readOnly ? null : (
-          <CloseIcon className="multi-select-filter__tag-remove" onClick={onDelete} />
+          <CloseIcon className="int-multi-select-filter__icon--tag-remove-missing" onClick={onDelete} />
         )}
       </div>
     }
@@ -182,6 +183,7 @@ const MultiSelectFilter = ({
           >
             <span>
               <ButtonMain
+                className="int-multi-select-filter__button--add-filter-condition"
                 iconCenter={<AddIcon />}
                 theme="lightValidation"
                 size="small"
@@ -227,7 +229,7 @@ const CustomSelectDropdown = ({
         size="small"
         variant="contained"
         theme="text"
-        className="custom-select-dropdown__select-button"
+        className="int-multi-select-filter__button--select-dropdown"
         iconRight={<KeyboardArrowDownIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
         label={
