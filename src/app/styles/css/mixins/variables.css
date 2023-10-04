@@ -4,8 +4,9 @@
   --columnWidthLarge: 880px;
   --fontStackSans: 'Roboto', -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
 
-  --fontSizeDefault: 14px;
   --fontSizeSmall: 12px;
+  --fontSizeDefault: 14px;
+  --fontSizeBaseText: 16px;
   --iconSizeSmall: 20px;
   --iconSizeDefault: 24px;
   --iconSizeBig: 176px;

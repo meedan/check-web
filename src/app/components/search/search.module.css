@@ -1,29 +1,4 @@
-.inputWrapper {
-  align-items: center;
-  background-color: var(--grayDisabledBackground);
-  border-radius: 4px;
-  display: flex;
-  flex-wrap: wrap;
-  min-height: 36px;
-  padding: 0 4px;
-
-  :global(.check-icon) {
-    color: var(--textSecondary);
-    font-size: var(--iconSizeSmall);
-  }
-
-  :global(.multi-select-filter__remove) {
-    color: var(--errorMain);
-    cursor: pointer;
-  }
-
-  :global(.multi-select-filter__tag-remove) {
-    color: var(--otherWhite);
-    cursor: pointer;
-    margin: 0 0 0 4px;
-  }
-}
-
+/* stylelint-disable no-descending-specificity */
 .search-form {
   align-items: center;
   display: flex;
@@ -119,4 +94,125 @@
   right: 8px;
   top: 8px;
   z-index: 1;
+}
+
+.filters-wrapper {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  .filter-wrapper {
+    background-color: var(--brandBackgroundAccent);
+    border-radius: 12px;
+    max-width: 100%;
+    padding: 3px 6px;
+    transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+
+    &:hover {
+      background-color: var(--brandBackground);
+    }
+
+    .filter-wrapper {
+      padding: 0;
+    }
+
+    .filter-multidate-wrapper,
+    .filter-removable-wrapper {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 100%;
+      min-height: 36px;
+
+      &.filter-removable-wrapper-icon {
+        border-color: var(--alertMain);
+        margin: 0 4px 0 0;
+      }
+
+      .filter-label {
+        font-size: var(--fontSizeSmall);
+      }
+
+      button:disabled {
+        margin: 0 -4px; /* negative margins to remove the gap on non-functional and/or buttons */
+      }
+    }
+
+    .filter-value {
+      align-items: center;
+      background-color: var(--brandMain);
+      border-radius: 8px;
+      color: var(--otherWhite);
+      display: flex;
+      font-size: var(--fontSizeSmall);
+      height: 30px;
+      max-width: 100%;
+      padding: 0 6px;
+
+      input,
+      span:first-of-type {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      &.filter-value-missing {
+        background-color: var(--errorMain);
+      }
+
+      &.filter-value-removable {
+        padding: 0 0 0 6px;
+      }
+    }
+
+    .filter-error {
+      color: var(--errorMain);
+      display: flex;
+      gap: 4px;
+
+      svg {
+        font-size: var(--fontSizeBaseText);
+      }
+    }
+
+    .filter-select,
+    .filter-input-number {
+      font-size: var(--fontSizeSmall);
+      height: 30px;
+
+      select,
+      input {
+        font-size: var(--fontSizeSmall);
+        height: 30px;
+        min-height: 30px;
+        padding-bottom: 0;
+        padding-top: 0;
+
+        + div {
+          font-size: var(--fontSizeBaseText);
+          height: var(--fontSizeBaseText);
+          width: var(--fontSizeBaseText);
+        }
+      }
+    }
+
+    .filter-input-number {
+      width: 8em;
+
+      input {
+        padding: 0 6px;
+      }
+    }
+
+    .filter-date {
+      border-radius: 8px 0 0 8px;
+      margin: 0 -12px 0 0;
+
+      + .filter-date-remove button {
+        margin: 0 4px 0 0;
+      }
+    }
+  }
 }

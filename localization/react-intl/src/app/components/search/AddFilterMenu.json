@@ -1,13 +1,13 @@
 [
   {
-    "id": "addFilterMenu.claim",
-    "description": "Menu option to enable searching items by claim",
-    "defaultMessage": "Claim"
-  },
-  {
     "id": "addFilterMenu.timeRange",
     "description": "Menu option to enable searching items by date range",
     "defaultMessage": "Date range"
+  },
+  {
+    "id": "addFilterMenu.claim",
+    "description": "Menu option to enable searching items by claim",
+    "defaultMessage": "Claim"
   },
   {
     "id": "addFilterMenu.tag",
