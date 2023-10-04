@@ -19,6 +19,6 @@ module TagSpecHelpers
     wait_for_selector('.tag-menu__icon').click
     wait_for_selector('.int-multiselector__search--input input')
     wait_for_selector('input[type=checkbox]').click
-    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('.int-multiselector__button--save').click
   end
 end
