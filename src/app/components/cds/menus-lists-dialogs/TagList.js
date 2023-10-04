@@ -2,8 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import Popover from '@material-ui/core/Popover';
-import Button from '@material-ui/core/Button';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MultiSelector from '../../layout/MultiSelector';
 import styles from './TagList.module.css';
 import Chip from '../buttons-checkboxes-chips/Chip';
@@ -62,22 +63,52 @@ const TagList = ({
   };
 
   const actionButton = (
-    <Button
-      id="tag-menu__create-button"
-      color="primary"
+    <ButtonMain
+      className="int-tag-list__button--create"
+      theme="brand"
+      variant="text"
+      size="default"
       onClick={() => handleAddNew(searchValue)}
-    >
-      <FormattedMessage id="tagList.create" defaultMessage="+ Create this tag" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." />
-    </Button>
+      label={
+        <FormattedMessage id="tagList.create" defaultMessage="+ Create search tags" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." />
+      }
+      buttonProps={{
+        id: 'tag-menu__create-button',
+      }}
+    />
   );
 
   return (
-    <div className={`${styles['grid-wrapper']}`} >
-      { readOnly ? <LocalOfferIcon id="tag-list__tag-icon" className={`${styles['tag-icon']}`} /> : <LocalOfferIcon id="tag-list__tag-icon" className={`${styles['tag-icon']} ${styles['tag-icon-editable']}`} onClick={handleOpenMenu} /> }
+    <div className={styles['grid-wrapper']}>
+      <Tooltip
+        disableHoverListener={readOnly}
+        placement="top"
+        title={
+          <FormattedMessage
+            id="taglist.tooltipManage"
+            defaultMessage="Manage Tags"
+            description="Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
+          />
+        }
+        arrow
+      >
+        <span>
+          <ButtonMain
+            iconCenter={<LocalOfferIcon />}
+            variant="text"
+            theme="text"
+            size="small"
+            disabled={readOnly}
+            className={`int-tag-list__button--manage ${styles['tag-icon']}`}
+            onClick={readOnly ? undefined : handleOpenMenu}
+          />
+        </span>
+      </Tooltip>
       <Popover
         anchorEl={anchorEl}
         open={menuOpen}
         onClose={handleCloseMenu}
+        className={styles['tag-list-manager']}
       >
         <FormattedMessage id="multiSelector.search" defaultMessage="Search…" description="The placeholder text in a search box.">
           {placeholder => (
@@ -87,6 +118,13 @@ const TagList = ({
               inputPlaceholder={placeholder}
               selected={selected}
               options={options}
+              cancelLabel={
+                <FormattedMessage
+                  id="global.cancel"
+                  defaultMessage="Cancel"
+                  description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
+                />
+              }
               onDismiss={handleCloseMenu}
               onSearchChange={handleSearchChange}
               onSubmit={handleSubmit}
@@ -135,17 +173,40 @@ const TagList = ({
         }
         {
           tags.length === 0 && (
-            <span id="empty-list" className={`typography-body2-italic ${styles['empty-list']}`}>
+            <em id="empty-list" className={cx('typography-body2', styles['empty-list'])}>
               <FormattedMessage
                 id="tagList.empty"
                 defaultMessage="0 tags"
                 description="A message that appears in a lag list when there are no available tags to display."
               />
-            </span>
+            </em>
           )
         }
       </div>
-      { !readOnly && <AddCircleIcon id="tag-list__add-icon" className={`${styles['circle-icon']}`} onClick={handleOpenMenu} /> }
+      { !readOnly &&
+        <Tooltip
+          placement="top"
+          title={
+            <FormattedMessage
+              id="taglist.tooltipAdd"
+              defaultMessage="Add Tags"
+              description="Tooltip message displayed on a tag item to let the user know they can add new tags to the list"
+            />
+          }
+          arrow
+        >
+          <span>
+            <ButtonMain
+              iconCenter={<AddCircleIcon />}
+              variant="text"
+              theme="text"
+              size="small"
+              className={`int-tag-list__button--add ${styles['circle-icon']}`}
+              onClick={handleOpenMenu}
+            />
+          </span>
+        </Tooltip>
+      }
     </div>
   );
 };

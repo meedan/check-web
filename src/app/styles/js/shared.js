@@ -226,6 +226,13 @@ export const MuiTheme = {
         boxShadow: 'none',
         border: `2px solid ${brandBorder}`,
       },
+      rounded: {
+        borderRadius: 16,
+      },
+      elevation8: {
+        boxShadow: '0 5px 5px -3px rgba(0, 0, 0, .20), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12)',
+        border: `2px solid ${brandBorder}`,
+      },
     },
     MuiTabs: {
       indicator: {

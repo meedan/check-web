@@ -71,8 +71,8 @@ shared_examples 'tag' do
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-card-large')
     # Try to add duplicate
-    wait_for_selector('#tag-list__add-icon').click
-    fill_field('.multiselector__search-input input', 'TAG')
+    wait_for_selector('.int-tag-list__button--add').click
+    fill_field('.int-multiselector__search--input input', 'TAG')
     wait_for_selector('#tag-menu__create-button').click
     @driver.action.send_keys(:enter).perform
     expect(@driver.find_elements(:css, '.tag-list__chip').length == 1).to be(true)
