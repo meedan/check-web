@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
-    Minheight: theme.spacing(10),
+    minHeight: theme.spacing(10),
     background: 'var(--otherWhite)',
   },
   label: {
@@ -61,9 +61,11 @@ const TeamListsItem = ({
   };
 
   return (
-    <Box display="flex" flexWrap="nowrap" alignItems="center">
+    <Box display="flex" flexWrap="nowrap" alignItems="center" style={{ gap: '4px', padding: '2px' }}>
       { onMoveUp && onMoveDown ?
         <Reorder
+          variant="vertical"
+          theme="white"
           onMoveUp={handleMoveUp}
           onMoveDown={handleMoveDown}
           disableUp={isFirst}

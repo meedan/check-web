@@ -66,7 +66,7 @@ describe('<TeamListsComponent />', () => {
 
   it('should render reorder buttons', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team} />);
-    expect(wrapper.find('.reorder__button-up').hostNodes()).toHaveLength(2);
-    expect(wrapper.find('.reorder__button-down').hostNodes()).toHaveLength(2);
+    expect(wrapper.find('.int-reorder__button-up').hostNodes()).toHaveLength(2);
+    expect(wrapper.find('.int-reorder__button-down').hostNodes()).toHaveLength(2);
   });
 });

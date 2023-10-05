@@ -302,7 +302,14 @@ class TeamTasksListItem extends React.Component {
     return (
       <React.Fragment>
         <Box display="flex" alignItems="center" className="team-tasks__list-item">
-          <Reorder onMoveUp={this.handleMoveTaskUp} onMoveDown={this.handleMoveTaskDown} />
+          <Reorder
+            onMoveUp={this.handleMoveTaskUp}
+            onMoveDown={this.handleMoveTaskDown}
+            disableUp={this.props.isFirst}
+            disableDown={this.props.isLast}
+            variant="vertical"
+            theme="gray"
+          />
           <TeamTaskCard
             icon={icon[task.type]}
             task={this.props.task}

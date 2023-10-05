@@ -79,8 +79,8 @@ describe('<TeamListsItem />', () => {
     />);
     expect(wrapper.html()).toMatch('label-content');
     expect(wrapper.find('#team-lists__item-1-key-content').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.reorder__button-up').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.reorder__button-down').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-reorder__button-up').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-reorder__button-down').hostNodes()).toHaveLength(1);
   });
 
   it('should not render reorder buttons', () => {
@@ -91,8 +91,8 @@ describe('<TeamListsItem />', () => {
     />);
     expect(wrapper.html()).toMatch('label-content');
     expect(wrapper.find('#team-lists__item-1-key-content').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.reorder__button-up').hostNodes()).toHaveLength(0);
-    expect(wrapper.find('.reorder__button-down').hostNodes()).toHaveLength(0);
+    expect(wrapper.find('.int-reorder__button-up').hostNodes()).toHaveLength(0);
+    expect(wrapper.find('.int-reorder__button-down').hostNodes()).toHaveLength(0);
   });
 
   it('should display Annotation label', () => {
