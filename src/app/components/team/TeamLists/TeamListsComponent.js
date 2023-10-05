@@ -201,7 +201,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
               background: 'var(--brandBackground)',
               borderRadius: '5px',
               margin: '16px 0 0',
-              padding: '.3rem 1rem .5rem 0',
+              padding: '.3rem .5rem .5rem .5rem',
             }}
           />
           <TeamListsColumn
