@@ -1,0 +1,42 @@
+.reorder {
+  background-color: var(--grayBackground);
+  border-radius: 8px;
+  display: flex;
+
+  span {
+    margin: 2px;
+  }
+
+  &.vertical {
+    flex-direction: column;
+    height: 68px;
+    width: 34px;
+  }
+
+  &.horizontal {
+    flex-direction: row;
+    height: 34px;
+    width: 68px;
+
+    hr {
+      height: auto;
+      width: 1px;
+    }
+  }
+
+  &.theme-gray {
+    background-color: var(--grayBackground);
+
+    hr {
+      background-color: var(--otherWhite);
+    }
+  }
+
+  &.theme-white {
+    background-color: var(--otherWhite);
+
+    hr {
+      background-color: var(--grayBackground);
+    }
+  }
+}

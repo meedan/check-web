@@ -1,0 +1,12 @@
+[
+  {
+    "id": "reorder.moveUp",
+    "description": "Tooltip for control that moves an item higher up in a list",
+    "defaultMessage": "Move item up"
+  },
+  {
+    "id": "reorder.moveDown",
+    "description": "Tooltip for control that moves an item lower in a list",
+    "defaultMessage": "Move item down"
+  }
+]
