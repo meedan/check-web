@@ -40,6 +40,7 @@ else
     docker-compose build
     docker-compose -f docker-compose.yml -f docker-test.yml up -d
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
+    until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
   fi
   until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
   until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
@@ -47,4 +48,5 @@ else
   # tail -f check-api/log/test.log &
   # docker-compose logs -f api &
   # docker-compose logs -f alegre &
+  # docker-compose logs -f presto &
 fi
