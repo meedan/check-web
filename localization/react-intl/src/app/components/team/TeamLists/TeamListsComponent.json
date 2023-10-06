@@ -22,17 +22,17 @@
   {
     "id": "teamListsComponent.displayedColumns",
     "description": "Columns that are displayed for users in lists.",
-    "defaultMessage": "Displayed columns"
+    "defaultMessage": "Displayed"
   },
   {
     "id": "teamListsComponent.generalColumns",
     "description": "Columns not currently displayed for users in lists.",
-    "defaultMessage": "General"
+    "defaultMessage": "General (hidden)"
   },
   {
     "id": "teamListsComponent.metadataColumns",
     "description": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists.",
-    "defaultMessage": "Annotation"
+    "defaultMessage": "Annotations (hidden)"
   },
   {
     "id": "teamListsComponent.createMetadata",
