@@ -259,18 +259,16 @@ const SmoochBotMainMenuSection = ({
                 </div>
 
                 {/* Menu option description */}
-                { noTitleNoDescription ?
-                  null :
-                  <div className="typography-caption">
-                    { !readOnly && !option.smooch_menu_option_description ?
-                      <span className={classes.noDescription}>
-                        <FormattedMessage
-                          id="smoochBotMainMenuSection.optionNoDescription"
-                          defaultMessage="no description"
-                          description="Displayed when a tipline bot menu option doesn't have a description."
-                        />
-                      </span> : option.smooch_menu_option_description }
-                  </div> }
+                <div className="typography-caption">
+                  { !readOnly && !option.smooch_menu_option_description ?
+                    <span className={classes.noDescription}>
+                      <FormattedMessage
+                        id="smoochBotMainMenuSection.optionNoDescription"
+                        defaultMessage="no description"
+                        description="Displayed when a tipline bot menu option doesn't have a description."
+                      />
+                    </span> : option.smooch_menu_option_description }
+                </div>
               </Box>
             </Box>
 
@@ -322,7 +320,6 @@ const SmoochBotMainMenuSection = ({
           currentTitle={options[editingOptionIndex].smooch_menu_option_label}
           currentDescription={options[editingOptionIndex].smooch_menu_option_description}
           currentValue={options[editingOptionIndex].smooch_menu_option_value === 'custom_resource' ? options[editingOptionIndex].smooch_menu_custom_resource_id : options[editingOptionIndex].smooch_menu_option_value}
-          noDescription={noTitleNoDescription}
           onSave={handleSaveOption}
           onCancel={handleCancel}
         /> : null }
