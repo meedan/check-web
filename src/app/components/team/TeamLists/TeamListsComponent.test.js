@@ -57,7 +57,7 @@ describe('<TeamListsComponent />', () => {
 
   it('should hide item column', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team2} />);
-    const button =  wrapper.find('.int-list-toggle__button').at(0);
+    const button = wrapper.find('.int-list-toggle__button').at(0);
     expect(button.html()).toMatch('Hide');
     expect(button.html()).not.toMatch('Display');
     button.simulate('click');
