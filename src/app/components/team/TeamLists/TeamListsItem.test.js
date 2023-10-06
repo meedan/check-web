@@ -36,7 +36,7 @@ describe('<TeamListsItem />', () => {
       onToggle={() => {}}
     />);
     expect(wrapper.html()).toMatch('Hide');
-    expect(wrapper.html()).not.toMatch('Show');
+    expect(wrapper.html()).not.toMatch('Display');
     expect(wrapper.html()).toMatch('label-content');
     expect(wrapper.html()).toMatch('General');
     expect(wrapper.find('#team-lists__item-1-key-content').hostNodes()).toHaveLength(1);
@@ -50,7 +50,7 @@ describe('<TeamListsItem />', () => {
       isRequired
     />);
     expect(wrapper.html()).not.toMatch('Hide');
-    expect(wrapper.html()).not.toMatch('Show');
+    expect(wrapper.html()).not.toMatch('Display');
     expect(wrapper.html()).toMatch('label-content');
     expect(wrapper.html()).toMatch('General');
     expect(wrapper.find('#team-lists__item-1-key-content').hostNodes()).toHaveLength(1);
@@ -63,7 +63,7 @@ describe('<TeamListsItem />', () => {
       onToggle={() => {}}
     />);
     expect(wrapper.html()).not.toMatch('Hide');
-    expect(wrapper.html()).toMatch('Show');
+    expect(wrapper.html()).toMatch('Display');
     expect(wrapper.html()).toMatch('label-content');
     expect(wrapper.html()).toMatch('General');
     expect(wrapper.find('#team-lists__item-2-key-content').hostNodes()).toHaveLength(1);
