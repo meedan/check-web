@@ -17,6 +17,6 @@
   {
     "id": "teamListsItem.show",
     "description": "Button label to show this item in the list",
-    "defaultMessage": "Show"
+    "defaultMessage": "Display"
   }
 ]

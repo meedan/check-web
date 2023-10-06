@@ -4,35 +4,20 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TeamListsColumn from './TeamListsColumn';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
+import styles from './TeamLists.module.css';
 import settingsStyles from '../Settings.module.css';
-
-const useStyles = makeStyles(theme => ({
-  link: {
-    textDecoration: 'underline',
-    background: 'var(--grayBackground)',
-    padding: theme.spacing(1),
-    margin: theme.spacing(1),
-    minHeight: theme.spacing(10),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-  },
-}));
 
 function clone(arrayOfObjects) {
   return JSON.parse(JSON.stringify(arrayOfObjects));
 }
 
 const TeamListsComponent = ({ team, setFlashMessage }) => {
-  const classes = useStyles();
   const [columns, setColumns] = React.useState(clone(team.list_columns || []));
   const [saving, setSaving] = React.useState(false);
   const [showConfirmSaveDialog, setShowConfirmSaveDialog] = React.useState(false);
@@ -184,32 +169,27 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <div className={cx(settingsStyles['setting-content-container'], settingsStyles['settings-columns'])}>
+        <div className={cx(settingsStyles['setting-content-container'], styles['teamlist-columns'])}>
           <TeamListsColumn
             columns={selectedColumns}
             title={
               <FormattedMessage
                 id="teamListsComponent.displayedColumns"
-                defaultMessage="Displayed columns"
+                defaultMessage="Displayed"
                 description="Columns that are displayed for users in lists."
               />
             }
             onToggle={handleToggle}
             onMoveUp={handleMoveUp}
             onMoveDown={handleMoveDown}
-            style={{
-              background: 'var(--brandBackground)',
-              borderRadius: '5px',
-              margin: '16px 0 0',
-              padding: '.3rem .5rem .5rem .5rem',
-            }}
+            className={styles['teamlist-column-selected']}
           />
           <TeamListsColumn
             columns={availableColumns.filter(c => !/^task_value_/.test(c.key))}
             title={
               <FormattedMessage
                 id="teamListsComponent.generalColumns"
-                defaultMessage="General"
+                defaultMessage="General (hidden)"
                 description="Columns not currently displayed for users in lists."
               />
             }
@@ -220,13 +200,13 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
             title={
               <FormattedMessage
                 id="teamListsComponent.metadataColumns"
-                defaultMessage="Annotation"
+                defaultMessage="Annotations (hidden)"
                 description="Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists."
               />
             }
             onToggle={handleToggle}
             placeholder={
-              <Link to={`/${team.slug}/settings/annotation`} className={classes.link} id="create-metadata__add-button" >
+              <Link to={`/${team.slug}/settings/annotation`} id="create-metadata__add-button" >
                 <FormattedMessage
                   id="teamListsComponent.createMetadata"
                   defaultMessage="Create new annotation field"

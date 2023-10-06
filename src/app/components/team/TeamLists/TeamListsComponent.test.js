@@ -59,7 +59,7 @@ describe('<TeamListsComponent />', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team2} />);
     expect(wrapper.html()).toMatch('Hide');
     expect(wrapper.html()).not.toMatch('Show');
-    wrapper.find('.test__list-toggle').hostNodes().simulate('click');
+    wrapper.find('.int-list-toggle__button').hostNodes().simulate('click');
     expect(wrapper.html()).toMatch('Show');
     expect(wrapper.html()).not.toMatch('Hide');
   });
