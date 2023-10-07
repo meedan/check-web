@@ -59,7 +59,7 @@ shared_examples 'list' do
     wait_for_selector('.team-settings__lists-tab').click
     wait_for_selector('.int-reorder__button-down')
     wait_for_selector('span[title="Report status"]')
-    wait_for_selector_list("//span[contains(text(), 'metadata')]/../../../div/button", :xpath)[0].click
+    wait_for_selector_list("//span[contains(text(), 'metadata')]/../../div/button", :xpath)[0].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[0].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[1].click
     wait_for_selector('#team-lists__item-4-status button').click
