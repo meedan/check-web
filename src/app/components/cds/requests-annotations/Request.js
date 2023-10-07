@@ -13,6 +13,7 @@ const Request = ({
   fileUrl,
   mediaTitle,
   sendMessageButton,
+  historyButton,
   receipt,
 }) => {
   let preParsedText = text;
@@ -28,6 +29,7 @@ const Request = ({
       <div className={styles['request-content']}>
         <ParsedText text={preParsedText} fileUrlName={mediaTitle} mediaChips />
       </div>
+      {historyButton}
       {sendMessageButton}
       {receipt}
     </div>
@@ -40,11 +42,17 @@ Request.propTypes = {
   icon: PropTypes.node.isRequired,
   fileUrl: PropTypes.string,
   mediaTitle: PropTypes.string,
+  historyButton: PropTypes.element,
+  sendMessageButton: PropTypes.element,
+  receipt: PropTypes.element,
 };
 
 Request.defaultProps = {
   fileUrl: null,
   mediaTitle: null,
+  historyButton: null,
+  sendMessageButton: null,
+  receipt: null,
 };
 
 export default Request;

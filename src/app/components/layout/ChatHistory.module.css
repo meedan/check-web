@@ -2,6 +2,10 @@
   background-color: var(--otherWhite);
   border: 1px solid var(--grayBorderMain);
   border-radius: 16px;
+  left: 50%;
+  position: absolute;
+  top: 25%;
+  transform: translate(-50%, -25%);
   width: 579px;
 
   .chat-header {
@@ -15,7 +19,9 @@
     width: 100%;
 
     .left-side {
+      overflow-x: clip;
       position: relative;
+      text-overflow: ellipsis;
       white-space: nowrap;
       width: fit-content;
     }
@@ -24,16 +30,31 @@
   .chat-content {
     background-color: var(--grayBackground);
     border: 0 none;
+    border-radius: 0 0 16px 16px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 14px;
+    max-height: 80vh;
+    overflow-y: auto;
     padding: 20px 24px 50px;
     position: relative;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .date {
       align-self: center;
       margin-top: -1px;
       text-align: center;
+    }
+
+    .time {
+      cursor: default;
+    }
+
+    .bot-message {
+      align-items: end;
     }
 
     .message {
@@ -44,10 +65,30 @@
       .user {
         background-color: var(--brandMain);
         border-radius: 16px 16px 16px 4px;
+        /* stylelint-disable-next-line color-function-notation */
+        box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
         color: var(--otherWhite);
+        max-width: 80%;
         padding: 8px;
         white-space: pre-wrap;
         width: fit-content;
+      }
+
+      .bot {
+        background-color: var(--validationLight);
+        border-radius: 16px 16px 4px;
+        /* stylelint-disable-next-line color-function-notation */
+        box-shadow: 0 1px 6px 0 rgba(0, 0, 0, .15);
+        color: var(--textPrimary);
+        max-width: 80%;
+        padding: 8px;
+        white-space: pre-wrap;
+        width: fit-content;
+      }
+
+      .delivered {
+        color: var(--validationMain);
+        vertical-align: middle;
       }
     }
   }
