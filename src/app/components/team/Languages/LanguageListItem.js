@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
@@ -193,6 +192,7 @@ const LanguageListItem = ({ code, team, intl }) => {
             <FormattedMessage
               id="languageListItem.default"
               defaultMessage="{language} (default)"
+              description="Label to indicate that this language is the default"
               values={{ language: listItemText }}
             />
           ) : listItemText }
@@ -205,7 +205,7 @@ const LanguageListItem = ({ code, team, intl }) => {
             onClose={handleClose}
           >
             <MenuItem className="language-actions__make-default" onClick={handleMenuMakeDefault} disabled={isDefault}>
-              <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" />
+              <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" description="Menu item to make the current language the default" />
             </MenuItem>
             <MenuItem className="language-actions__delete" onClick={isDefault ? handleMenuDeleteDefault : handleMenuDelete}>
               <FormattedGlobalMessage messageKey="delete" />
@@ -221,6 +221,7 @@ const LanguageListItem = ({ code, team, intl }) => {
                 <FormattedMessage
                   id="statusListItem.translationNeededBody1"
                   defaultMessage="Not all statuses are currently translated into {language}!"
+                  description="Warning message to tell the user there are missing translations for a status"
                   values={{ language: <strong>{languageLabelFull(code)}</strong> }}
                 />
               </p>
@@ -228,6 +229,7 @@ const LanguageListItem = ({ code, team, intl }) => {
                 <FormattedMessage
                   id="statusListItem.translationNeededBody2"
                   defaultMessage="Before you can make {language} the default language you must first translate all existing statuses into {language} in the Statuses settings tab."
+                  description="Warning message that a language cannot be default until all statuses are translated into that language"
                   values={{ language: <strong>{languageLabelFull(code)}</strong> }}
                 />
               </p>
@@ -235,11 +237,12 @@ const LanguageListItem = ({ code, team, intl }) => {
           )}
           onProceed={() => setDefaultDialogOpen(false)}
           open={defaultDialogOpen}
-          proceedLabel={<FormattedMessage id="statusListItem.translationNeededLabel" defaultMessage="Go back and translate statuses" />}
+          proceedLabel={<FormattedMessage id="statusListItem.translationNeededLabel" defaultMessage="Go back and translate statuses" description="Button label to return to the status translations area" />}
           title={
             <FormattedMessage
               id="statusListItem.translationNeededTitle"
               defaultMessage="You need to translate all statuses into {language}"
+              description="Dialog title warning message that a language cannot be default until all statuses are translated into that language"
               values={{ language: languageLabelFull(code) }}
             />
           }
@@ -252,6 +255,7 @@ const LanguageListItem = ({ code, team, intl }) => {
                 <FormattedMessage
                   id="statusListItem.confirmDefaultBody1"
                   defaultMessage="This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
+                  description="Confirmation message of the change in default language"
                   values={{
                     currentDefaultLanguage: <strong>{languageLabelFull(defaultLanguage)}</strong>,
                     newDefaultLanguage: <strong>{languageLabelFull(code)}</strong>,
@@ -262,6 +266,7 @@ const LanguageListItem = ({ code, team, intl }) => {
                 <FormattedMessage
                   id="statusListItem.confirmDefaultBody2"
                   defaultMessage="{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
+                  description="Description of what will happen when a new language becomes the default"
                   values={{ language: <strong>{languageLabelFull(code)}</strong> }}
                 />
               </p>
@@ -275,6 +280,7 @@ const LanguageListItem = ({ code, team, intl }) => {
             <FormattedMessage
               id="statusListItem.confirmDefaultButton"
               defaultMessage="Set {language} as default"
+              description="Button label to continue to set a language as default"
               values={{ language: languageLabelFull(code) }}
             />
           }
@@ -282,6 +288,7 @@ const LanguageListItem = ({ code, team, intl }) => {
             <FormattedMessage
               id="statusListItem.confirmDefaultTitle"
               defaultMessage="Do you want to set the default language to {language}?"
+              description="Dialog title to confirm the user wants to set a new default language"
               values={{ language: languageLabelFull(code) }}
             />
           }
@@ -303,6 +310,7 @@ const LanguageListItem = ({ code, team, intl }) => {
               <FormattedMessage
                 id="statusListItem.confirmDeleteBody2"
                 defaultMessage="Users will receive this content in the default language {language} instead."
+                description="Description of which language a user will see by default"
                 values={{ language: <strong>{languageLabelFull(defaultLanguage)}</strong> }}
               />
             </p>
@@ -313,8 +321,8 @@ const LanguageListItem = ({ code, team, intl }) => {
         onCancel={() => setDeleteDialogOpen(false)}
         onProceed={submitDelete}
         open={deleteDialogOpen}
-        proceedLabel={<FormattedMessage id="statusListItem.confirmDeleteLabel" defaultMessage="Delete language and all content" />}
-        title={<FormattedMessage id="statusListItem.confirmDeleteTitle" defaultMessage="Do you want to delete this content language?" />}
+        proceedLabel={<FormattedMessage id="statusListItem.confirmDeleteLabel" defaultMessage="Delete language and all content" description="Button label for continuing to delete language content" />}
+        title={<FormattedMessage id="statusListItem.confirmDeleteTitle" defaultMessage="Do you want to delete this content language?" description="Title for the dialog of deleting language content" />}
       />
       <ConfirmProceedDialog
         body={(
@@ -331,8 +339,8 @@ const LanguageListItem = ({ code, team, intl }) => {
         )}
         onProceed={() => setDeleteDefaultDialogOpen(false)}
         open={deleteDefaultDialogOpen}
-        proceedLabel={<FormattedMessage id="statusListItem.confirmDeleteDefaultLabel" defaultMessage="Go back and change" />}
-        title={<FormattedMessage id="statusListItem.confirmDeleteDefaultTitle" defaultMessage="You must first change the default language" />}
+        proceedLabel={<FormattedMessage id="statusListItem.confirmDeleteDefaultLabel" defaultMessage="Go back and change" description="Button label to go back a step" />}
+        title={<FormattedMessage id="statusListItem.confirmDeleteDefaultTitle" defaultMessage="You must first change the default language" description="Title for a dialog telling the user they must return to a previous process" />}
       />
     </React.Fragment>
   );

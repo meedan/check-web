@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
@@ -50,19 +49,20 @@ const ConfirmEmail = (props) => {
 
   return (
     <SpecialBlueCard
-      title={<FormattedMessage id="ConfirmEmail.title" defaultMessage="Confirm your email" />}
+      title={<FormattedMessage id="ConfirmEmail.title" defaultMessage="Confirm your email" description="Container title for confirming user email address" />}
       icon={<MdInfoOutlined />}
       content={
         <div>
           <FormattedMessage
             id="ConfirmEmail.content"
             defaultMessage="Please check your email to verify your account."
+            description="Message to the user to check their email inbox in order to verify their application account"
           />
           <StyledUserConfirmation
             className="confirm-email__resend-confirmation"
             onClick={handleResend}
           >
-            <FormattedMessage id="ConfirmEmail.resendConfirmation" defaultMessage="Resend" />
+            <FormattedMessage id="ConfirmEmail.resendConfirmation" defaultMessage="Resend" description="Button label to allow the user to resend their email address confirmation" />
           </StyledUserConfirmation>
         </div>
       }

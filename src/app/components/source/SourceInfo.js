@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
@@ -360,10 +360,12 @@ function SourceInfo({
               <FormattedMessage
                 id="sourceInfo.saving"
                 defaultMessage="Saving…"
+                description="Progress message about a save in progress"
               /> :
               <FormattedMessage
                 id="sourceInfo.saved"
                 defaultMessage="Saved {ago}"
+                description="Caption value for how long ago a save occured"
                 values={{
                   ago: <TimeBefore date={parseStringUnixTimestamp(source.updated_at)} />,
                 }}

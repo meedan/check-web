@@ -12,9 +12,9 @@ shared_examples 'list' do
     expect(@driver.find_elements(:css, '.medias__item').size == 1).to be(true)
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__status').click
-    wait_for_selector('.custom-select-dropdown__select-button').click
+    wait_for_selector('.int-multi-select-filter__button--select-dropdown').click
     wait_for_selector('#in_progress').click
-    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('.int-multiselector__button--save').click
     wait_for_selector('#search-fields__submit-button').click
     expect(@driver.find_elements(:css, '.medias__item').empty?).to be(true)
     # save list
@@ -48,8 +48,9 @@ shared_examples 'list' do
     expect(@driver.page_source.include?('answer')).to be(false)
     wait_for_selector('.media__heading').click
     # answer the metadata
-    wait_for_selector('.form-edit').click
+    wait_for_selector('.media__annotations-tabs')
     wait_for_selector('.media-tab__metadata').click
+    wait_for_selector('.form-edit').click
     wait_for_selector('#metadata-input').send_keys('answer')
     wait_for_selector('.form-save').click
     wait_for_selector_none('.form-cancel', 2)

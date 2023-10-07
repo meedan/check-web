@@ -4,6 +4,8 @@ import { toArray } from 'react-emoji-render';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import reactStringReplace from 'react-string-replace';
+import styles from './ParsedText.module.css';
+import MediaChip from './cds/buttons-checkboxes-chips/MediaChip';
 import { units } from '../styles/js/shared';
 
 const StyledEmojiOnly = styled.span`
@@ -17,21 +19,28 @@ const Styled = styled.span`
   line-height: ${units(2.5)};
 `;
 
-const marked = (text, truncateFileUrls, fileUrlName) => {
+const marked = (text, truncateFileUrls, fileUrlName, mediaChips) => {
   let parsedText = text;
 
   // If a URL ends on a filename, display only the filename, not the full URL
 
   if (truncateFileUrls) {
     parsedText = reactStringReplace(text, /(https?:\/\/[^ ]+\/[^/.]+\.[^ ]+)/gm, (match, i) => (
-      <a href={match} target="_blank" key={i} rel="noopener noreferrer">{fileUrlName || match.replace(/.*\//, '')}</a>
+      <a className={styles['media-chip-link']} href={match} target="_blank" key={i} rel="noopener noreferrer">
+        { mediaChips
+          ? <MediaChip url={match} label={fileUrlName || match.replace(/.*\//, '')} />
+          : fileUrlName || match.replace(/.*\//, '')
+        }
+      </a>
     ));
   }
 
   // Turn other URLs into links
 
   parsedText = reactStringReplace(parsedText, /(https?:\/\/[^ ]+)/gm, (match, i) => (
-    <a href={match} target="_blank" key={i} rel="noopener noreferrer">{match}</a>
+    <a className={styles['media-chip-link']} href={match} target="_blank" key={i} rel="noopener noreferrer">
+      { mediaChips ? <MediaChip url={match} label={match} /> : match }
+    </a>
   ));
 
   // For now, only WhatsApp formatting rules... extend it if needed in the future,
@@ -91,7 +100,7 @@ const ParsedText = (props) => {
 
   // Add the line breaks elements.
   const breakified = e2.map((line, key) => {
-    const parsedLine = line.map(part => (typeof part === 'string' ? marked(part, props.truncateFileUrls, props.fileUrlName) : part));
+    const parsedLine = line.map(part => (typeof part === 'string' ? marked(part, props.truncateFileUrls, props.fileUrlName, props.mediaChips) : part));
     return (
       // eslint-disable-next-line react/no-array-index-key
       <React.Fragment key={key}>
@@ -117,6 +126,7 @@ ParsedText.propTypes = {
   block: PropTypes.bool,
   truncateFileUrls: PropTypes.bool,
   fileUrlName: PropTypes.string,
+  mediaChips: PropTypes.bool,
 };
 
 ParsedText.defaultProps = {
@@ -124,6 +134,7 @@ ParsedText.defaultProps = {
   block: false,
   truncateFileUrls: true,
   fileUrlName: null,
+  mediaChips: false,
 };
 
 export default ParsedText;

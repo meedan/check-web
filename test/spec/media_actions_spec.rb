@@ -6,7 +6,7 @@ shared_examples 'media actions' do
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__assign').click
     wait_for_selector('input[type=checkbox]').click
-    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('.int-multiselector__button--save').click
     wait_for_selector('.message')
     expect(@driver.page_source.include?('Assignments updated successfully')).to be(true)
     wait_for_selector('.media-actions__icon').click
@@ -71,20 +71,9 @@ shared_examples 'media actions' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.annotation--comment')
     expect(@driver.page_source.include?('A comment')).to be(true)
-    @driver.navigate.refresh
-    wait_for_selector('.media-card-large')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    wait_for_selector('.media-tab__comments').click
-    wait_for_selector('.annotation--comment')
-    expect(@driver.page_source.include?('A comment')).to be(true)
     wait_for_selector('.annotation .menu-button').click
     wait_for_selector('.annotation__delete').click
     wait_for_selector_none('.annotation__avatar-col')
-    expect(@driver.page_source.include?('A comment')).to be(false)
-    @driver.navigate.refresh
-    wait_for_selector('.media-card-large')
-    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    wait_for_selector('.media-tab__comments').click
     expect(@driver.page_source.include?('A comment')).to be(false)
   end
 

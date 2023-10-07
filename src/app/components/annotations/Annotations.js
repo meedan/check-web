@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -86,7 +85,7 @@ class Annotations extends React.Component {
           {!props.annotations.length ?
             <Box m="auto">
               <BlankState>
-                { props.noActivityMessage || <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" />}
+                { props.noActivityMessage || <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
               </BlankState>
             </Box> :
             props.annotations.slice(0).reverse().map(annotation => (
@@ -119,6 +118,7 @@ class Annotations extends React.Component {
               <FormattedMessage
                 id="annotations.loadMore"
                 defaultMessage="Load more"
+                description="Button label to fetch additional annotations in this list"
               />
             </Button>
           ) : null }

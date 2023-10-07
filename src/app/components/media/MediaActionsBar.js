@@ -18,6 +18,7 @@ import MediaActionsMenuButton from './MediaActionsMenuButton';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
+import RestoreProjectMedia from './RestoreProjectMedia';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
@@ -266,29 +267,46 @@ class MediaActionsBarComponent extends Component {
       });
     }
 
+    const context = this.getContext();
+
+    let restorProjectMedia = '';
+    if (media.archived === CheckArchivedFlags.TRASHED || media.archived === CheckArchivedFlags.SPAM) {
+      restorProjectMedia = (
+        <RestoreProjectMedia
+          team={this.props.media.team}
+          projectMedia={this.props.media}
+          context={context}
+          className={classes.spacedButton}
+        />
+      );
+    }
+
     return (
       <div className={styles['media-actions']}>
-        {isParent ?
-          <MediaStatus
-            media={media}
-            readonly={(
-              (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
-              media.last_status_obj?.locked ||
-              published
-            )}
-          /> : null
-        }
-        <MediaActionsMenuButton
-          key={media.id /* close menu if we navigate to a different projectMedia */}
-          projectMedia={media}
-          isParent={isParent}
-          handleRefresh={this.handleRefresh.bind(this)}
-          handleSendToTrash={this.handleSendToTrash.bind(this)}
-          handleSendToSpam={this.handleSendToSpam.bind(this)}
-          handleAssign={this.handleAssign.bind(this)}
-          handleStatusLock={this.handleStatusLock.bind(this)}
-          handleItemHistory={this.handleItemHistory}
-        />
+        { restorProjectMedia ? <div className={styles['media-actions']}> {restorProjectMedia} </div> : null }
+        <div className={styles['media-actions']}>
+          {isParent ?
+            <MediaStatus
+              media={media}
+              readonly={(
+                (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
+                media.last_status_obj?.locked ||
+                published
+              )}
+            /> : null
+          }
+          <MediaActionsMenuButton
+            key={media.id /* close menu if we navigate to a different projectMedia */}
+            projectMedia={media}
+            isParent={isParent}
+            handleRefresh={this.handleRefresh.bind(this)}
+            handleSendToTrash={this.handleSendToTrash.bind(this)}
+            handleSendToSpam={this.handleSendToSpam.bind(this)}
+            handleAssign={this.handleAssign.bind(this)}
+            handleStatusLock={this.handleStatusLock.bind(this)}
+            handleItemHistory={this.handleItemHistory}
+          />
+        </div>
 
         <ItemHistoryDialog
           open={this.state.itemHistoryDialogOpen}
@@ -386,6 +404,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
       fragment on ProjectMedia {
         id
         ${MediaActionsMenuButton.getFragment('projectMedia')}
+        ${RestoreProjectMedia.getFragment('projectMedia')}
         dbid
         project_id
         title

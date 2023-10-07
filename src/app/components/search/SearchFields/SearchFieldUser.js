@@ -2,7 +2,7 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import MediasLoading from '../../media/MediasLoading';
 import MultiSelectFilter from '../MultiSelectFilter';
 
 const SearchFieldUser = ({
@@ -64,7 +64,7 @@ const SearchFieldUser = ({
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
-        return <CircularProgress size={36} />;
+        return <MediasLoading theme="grey" variant="icon" size="icon" />;
       }}
     />
   );

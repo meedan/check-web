@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
@@ -68,7 +67,7 @@ const Tasks = ({
         { !isBrowserExtension ?
           <Box display="flex" justifyContent="center" m={2}>
             <Button variant="contained" color="primary" onClick={goToSettings}>
-              <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" />
+              <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" description="Button label to take the user to the settings area of the application" />
             </Button>
           </Box>
           : null

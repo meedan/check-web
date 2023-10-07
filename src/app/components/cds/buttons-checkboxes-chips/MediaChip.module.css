@@ -1,0 +1,20 @@
+.media-chip {
+  align-items: center;
+  background-color: var(--brandBackgroundAccent);
+  border-radius: 4px;
+  display: flex;
+  gap: 8px;
+  padding: 4px 8px;
+}
+
+.media-chip-icon svg {
+  color: var(--textPrimary);
+  display: block;
+}
+
+.media-chip-label {
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

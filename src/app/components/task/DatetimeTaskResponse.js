@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { convertNumbers2English } from '../../helpers';
@@ -47,6 +46,7 @@ function DateTimeDisplay({
       <FormattedMessage
         id="datetimeTaskResponse.timeIs"
         defaultMessage="View this timezone on time.is"
+        description="Link text for how to view a timezone on time.is"
       >
         {title => (
           <a
@@ -76,6 +76,7 @@ const DatetimeTaskResponse = (props) => {
       <FormattedMessage
         id="datetimeTaskResponse.invalidTimestamp"
         defaultMessage="Error: Invalid timestamp"
+        description="Error message for an invalid timestamp value"
       />
     );
   }

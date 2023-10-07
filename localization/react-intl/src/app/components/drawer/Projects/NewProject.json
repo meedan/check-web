@@ -1,10 +1,12 @@
 [
   {
     "id": "projectsComponent.title",
+    "description": "Text field label for the title input",
     "defaultMessage": "Title"
   },
   {
     "id": "newProject.cancel",
+    "description": "Dialog label for the cancel button to close the dialog",
     "defaultMessage": "Cancel"
   }
 ]

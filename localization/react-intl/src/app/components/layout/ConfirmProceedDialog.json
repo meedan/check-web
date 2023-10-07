@@ -1,14 +1,17 @@
 [
   {
     "id": "confirmProceedDialog.confirmationText",
+    "description": "Description of what word to type in to the input in order to continue",
     "defaultMessage": "Type \"{text}\" to confirm."
   },
   {
     "id": "confirmProceedDialog.confirmationTextPlaceholder",
+    "description": "Placeholder label for confirmation word input",
     "defaultMessage": "Type here"
   },
   {
     "id": "confirmProceedDialog.continue",
+    "description": "Label for the dialog continuation button",
     "defaultMessage": "Continue"
   }
 ]

@@ -11,10 +11,12 @@
   },
   {
     "id": "sourceInfo.saving",
+    "description": "Progress message about a save in progress",
     "defaultMessage": "Saving…"
   },
   {
     "id": "sourceInfo.saved",
+    "description": "Caption value for how long ago a save occured",
     "defaultMessage": "Saved {ago}"
   },
   {

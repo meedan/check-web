@@ -1,18 +1,22 @@
 [
   {
     "id": "teamListsItem.metadata",
+    "description": "label to show that this type of task is an annotation",
     "defaultMessage": "Annotation"
   },
   {
     "id": "teamListsItem.general",
+    "description": "label to show that this type of task is a general task",
     "defaultMessage": "General"
   },
   {
     "id": "teamListsItem.hide",
+    "description": "Button label to hide this item from the list",
     "defaultMessage": "Hide"
   },
   {
     "id": "teamListsItem.show",
+    "description": "Button label to show this item in the list",
     "defaultMessage": "Show"
   }
 ]

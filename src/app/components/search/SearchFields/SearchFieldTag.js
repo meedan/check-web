@@ -80,26 +80,23 @@ const SearchFieldTag = ({
 
         const hasMore = total > pageSize;
         return (
-          <FormattedMessage id="SearchFieldTag.label" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<LocalOfferIcon />}
-                loading={loading}
-                selected={query.tags}
-                options={plainTagsTexts.map(t => ({ label: t, value: t }))}
-                onChange={onChange}
-                onScrollBottom={handleLoadMore}
-                hasMore={hasMore}
-                onToggleOperator={onToggleOperator}
-                operator={operator}
-                readOnly={readOnly}
-                onRemove={onRemove}
-                onType={handleType}
-                inputPlaceholder={keyword}
-              />
-            )}
-          </FormattedMessage>
+          <MultiSelectFilter
+            className="int-search-field-tag__multi-select-filter--select-tag"
+            label={<FormattedMessage id="SearchFieldTag.label" defaultMessage="Tag is" description="Prefix label for field to filter by tags" />}
+            icon={<LocalOfferIcon />}
+            loading={loading}
+            selected={query.tags}
+            options={plainTagsTexts.map(t => ({ label: t, value: t }))}
+            onChange={onChange}
+            onScrollBottom={handleLoadMore}
+            hasMore={hasMore}
+            onToggleOperator={onToggleOperator}
+            operator={operator}
+            readOnly={readOnly}
+            onRemove={onRemove}
+            onType={handleType}
+            inputPlaceholder={keyword}
+          />
         );
       }}
     />

@@ -1,18 +1,22 @@
 [
   {
     "id": "editStatusDialog.titleEdit",
+    "description": "Dialog title for editing a status message",
     "defaultMessage": "Edit status"
   },
   {
     "id": "editStatusDialog.title",
+    "description": "Dialog title for adding a new status message",
     "defaultMessage": "Add a new status"
   },
   {
     "id": "editStatusDialog.statusTitle",
+    "description": "Text field label for the status name",
     "defaultMessage": "Status ({maxLength} characters max)"
   },
   {
     "id": "editStatusDialog.statusDescription",
+    "description": "Text field label for the status description value",
     "defaultMessage": "Description"
   },
   {
@@ -27,10 +31,12 @@
   },
   {
     "id": "editStatusDialog.statusMessage",
+    "description": "Text field label for the message that will be sent to the user when an item is changed to this status value",
     "defaultMessage": "Message"
   },
   {
     "id": "editStatusDialog.addButton",
+    "description": "Button label to add a new status",
     "defaultMessage": "Add status"
   },
   {

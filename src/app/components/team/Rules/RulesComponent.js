@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
@@ -24,7 +23,7 @@ const RulesComponent = (props) => {
   const [savedRule, setSavedRule] = React.useState(null);
 
   const handleError = (error) => {
-    let errorMessage = <FormattedMessage id="rulesComponent.defaultErrorMessage" defaultMessage="Could not save rules" />;
+    let errorMessage = <FormattedMessage id="rulesComponent.defaultErrorMessage" defaultMessage="Could not save rules" description="Error message when rule cannot be saved" />;
     const json = safelyParseJSON(error.source);
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
@@ -33,7 +32,7 @@ const RulesComponent = (props) => {
   };
 
   const handleSuccess = () => {
-    props.setFlashMessage(<FormattedMessage id="rulesComponent.savedSuccessfully" defaultMessage="Rules saved successfully" />, 'success');
+    props.setFlashMessage(<FormattedMessage id="rulesComponent.savedSuccessfully" defaultMessage="Rules saved successfully" description="Success message when rule has saved" />, 'success');
   };
 
   const handleUpdateRules = (newRules, commit) => {

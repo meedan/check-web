@@ -6,6 +6,7 @@
   },
   {
     "id": "tasks.goToSettings",
+    "description": "Button label to take the user to the settings area of the application",
     "defaultMessage": "Go to settings"
   },
   {

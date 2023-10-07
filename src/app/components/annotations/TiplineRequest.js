@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
+import styles from './TiplineRequest.module.css';
 import TimeBefore from '../TimeBefore';
-import RequestSubscription from '../feed/RequestSubscription';
 import FacebookIcon from '../../icons/facebook.svg';
 import TwitterIcon from '../../icons/twitter.svg';
 import TelegramIcon from '../../icons/telegram.svg';
 import ViberIcon from '../../icons/viber.svg';
 import LineIcon from '../../icons/line.svg';
 import WhatsAppIcon from '../../icons/whatsapp.svg';
+import FactCheckIcon from '../../icons/fact_check.svg';
+import EditNoteIcon from '../../icons/edit_note.svg';
+import SendTiplineMessage from '../SendTiplineMessage';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -16,12 +19,23 @@ import {
 } from '../../helpers';
 import Request from '../cds/requests-annotations/Request';
 import { units } from '../../styles/js/shared';
+import RequestReceipt from '../cds/requests-annotations/RequestReceipt';
 
 const messages = defineMessages({
   smoochNoMessage: {
     id: 'annotation.smoochNoMessage',
     defaultMessage: 'No message was sent with the request',
     description: 'Replacement for tipline requests without a message',
+  },
+  reportReceived: {
+    id: 'annotation.reportReceived',
+    defaultMessage: 'Report sent on {date}',
+    description: 'Caption for report sent date',
+  },
+  reportUpdateReceived: {
+    id: 'annotation.reportUpdateReceived',
+    defaultMessage: 'Report update sent on {date}',
+    description: 'Caption for report update sent date',
   },
 });
 
@@ -41,6 +55,15 @@ SmoochIcon.propTypes = {
   name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line']).isRequired,
 };
 
+const channelLabel = {
+  whatsapp: 'WhatsApp',
+  messenger: 'Messenger',
+  twitter: 'Twitter',
+  telegram: 'Telegram',
+  viber: 'Viber',
+  line: 'Line',
+};
+
 function parseText(text, projectMedia, activity) {
   let parsedText = text;
 
@@ -51,7 +74,7 @@ function parseText(text, projectMedia, activity) {
   // since the first media is downloaded and saved in Check.
   // Ignore similar items, since it's not the exact same media as the main item.
   if (projectMedia && projectMedia.media && projectMedia.media.file_path && activity.associated_graphql_id === projectMedia.id) {
-    parsedText = parsedText.replace(/https:\/\/media.smooch.io[^\s]+/m, projectMedia.media.file_path);
+    parsedText = parsedText.replace(/https:\/\/media\.smooch\.io[^\s]+/m, projectMedia.media.file_path);
   }
 
   return emojify(parsedText);
@@ -87,14 +110,18 @@ const TiplineRequest = ({
   const smoochRequestLanguage = activity.smooch_user_request_language;
   const { locale, formatMessage } = intl;
 
-  const details = objectValue.name === 'deleted' ? [(<FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" />)] : [emojify(objectValue.name)];
+  const userName = objectValue.name === 'deleted' ?
+    <FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" /> :
+    emojify(objectValue.name);
+
+  const details = [<strong className={styles['user-name']}>{userName}</strong>];
+
   if (smoochExternalId && smoochExternalId !== 'deleted') {
     details.push(smoochExternalId);
   }
   if (smoochRequestLanguage) {
     details.push(languageName(smoochRequestLanguage));
   }
-  details.push(<TimeBefore date={updatedAt} />);
   if (messageType !== 'telegram' && smoochSlackUrl) {
     details.push((
       <a
@@ -112,59 +139,44 @@ const TiplineRequest = ({
     ));
   }
 
-  let reportReceiveStatus = null;
+  const reportReceiveStatus = {};
 
   if (smoochReportReceivedAt) {
-    reportReceiveStatus = (
-      <FormattedMessage
-        id="annotation.reportReceived"
-        defaultMessage="Report sent on {date}"
-        description="Caption for report sent date"
-        values={{
-          date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
-        }}
-      >
-        {text => (
-          <span title={text}>
-            <RequestSubscription lastCalledAt={smoochReportReceivedAt} />
-          </span>
-        )}
-      </FormattedMessage>
-    );
-  }
-  if (smoochReportUpdateReceivedAt) {
-    reportReceiveStatus = (
-      <FormattedMessage
-        id="annotation.reportUpdateReceived"
-        defaultMessage="Report update sent on {date}"
-        description="Caption for report update sent date"
-        values={{
-          date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
-        }}
-      >
-        {text => (
-          <span title={text}>
-            <RequestSubscription lastCalledAt={smoochReportUpdateReceivedAt} />
-          </span>
-        )}
-      </FormattedMessage>
-    );
+    reportReceiveStatus.label = formatMessage(messages.reportReceived, { date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }) });
+    reportReceiveStatus.icon = <FactCheckIcon className={styles.icon} />;
   }
 
-  if (reportReceiveStatus) {
-    details.push(reportReceiveStatus);
+  if (smoochReportUpdateReceivedAt) {
+    reportReceiveStatus.label = formatMessage(messages.reportUpdateReceived, { date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }) });
+    reportReceiveStatus.icon = <EditNoteIcon className={styles.icon} />;
   }
 
   return (
-    <Request
-      details={details}
-      text={messageText ? (
-        parseText(messageText, projectMedia, activity)
-      ) : (
-        formatMessage(messages.smoochNoMessage)
-      )}
-      icon={<SmoochIcon name={messageType} />}
-    />
+    <div>
+      <Request
+        details={details}
+        time={<TimeBefore date={updatedAt} />}
+        text={messageText ? (
+          parseText(messageText, projectMedia, activity)
+        ) : (
+          formatMessage(messages.smoochNoMessage)
+        )}
+        icon={<SmoochIcon name={messageType} />}
+        sendMessageButton={
+          <SendTiplineMessage
+            username={userName}
+            channel={channelLabel[messageType] || messageType}
+            annotationId={activity.annotation_id}
+          />
+        }
+        receipt={
+          <RequestReceipt
+            icon={reportReceiveStatus.icon}
+            label={reportReceiveStatus.label}
+          />
+        }
+      />
+    </div>
   );
 };
 
@@ -172,10 +184,10 @@ TiplineRequest.propTypes = {
   annotation: PropTypes.shape({
     value_json: PropTypes.object.isRequired,
     created_at: PropTypes.string.isRequired,
-    smooch_user_slack_channel_url: PropTypes.string.isRequired,
+    smooch_user_slack_channel_url: PropTypes.string,
     smooch_user_external_identifier: PropTypes.string.isRequired,
-    smooch_report_received_at: PropTypes.number.isRequired,
-    smooch_report_update_received_at: PropTypes.number.isRequired,
+    smooch_report_received_at: PropTypes.number,
+    smooch_report_update_received_at: PropTypes.number,
     associated_graphql_id: PropTypes.string.isRequired,
   }).isRequired,
   annotated: PropTypes.shape({
