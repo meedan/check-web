@@ -10,12 +10,12 @@
     "defaultMessage": "Duplicate"
   },
   {
-    "id": "\"createTeamDialog.creating",
+    "id": "createTeamDialog.creating",
     "description": "\"Button label status message while creating a new workspace is in process",
     "defaultMessage": "Creating…"
   },
   {
-    "id": "\"createTeamDialog.create",
+    "id": "createTeamDialog.create",
     "description": "Button label to start to create a new workspace",
     "defaultMessage": "Create"
   },

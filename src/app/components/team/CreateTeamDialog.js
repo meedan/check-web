@@ -25,12 +25,12 @@ const messages = defineMessages({
     description: '"Button label to start to duplicate a workspace',
   },
   creating: {
-    id: '"createTeamDialog.creating',
+    id: 'createTeamDialog.creating',
     defaultMessage: 'Creating…',
     description: '"Button label status message while creating a new workspace is in process',
   },
   create: {
-    id: '"createTeamDialog.create',
+    id: 'createTeamDialog.create',
     defaultMessage: 'Create',
     description: 'Button label to start to create a new workspace',
   },
