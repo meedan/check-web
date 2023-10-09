@@ -20,7 +20,6 @@ import FigmaColorLogo from '../icons/figma_color.svg';
 import Card from './cds/media-cards/Card.js';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
-import ChatHistory from './layout/ChatHistory';
 import ParsedText from './ParsedText';
 
 const SandboxComponent = ({ admin }) => {
@@ -37,25 +36,6 @@ const SandboxComponent = ({ admin }) => {
     'fifth!',
     'This is Six',
   ]);
-
-  const chatHistory = {
-    history: [
-      {
-        datetime: 1695409386025,
-        content: 'Hi',
-        sender: 'user',
-      },
-      {
-        datetime: 1695409372025,
-        content: `Hi!
-My uncle sent this link
-nytimes.com/live/2022/12/19/us/jan-6-committee
-Crazy ha?
-`,
-        sender: 'user',
-      },
-    ],
-  };
 
   const [alertFloating, setAlertFloating] = React.useState(Boolean(false));
   const [alertBanner, setAlertBanner] = React.useState(Boolean(false));
@@ -193,13 +173,6 @@ Crazy ha?
           <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
         </li>
       </ul>
-      <section id="sandbox-buttons">
-        <h6>Chat History</h6>
-        <ChatHistory
-          title="Chat history with Joe McFly on WhatsApp"
-          history={chatHistory.history}
-        />
-      </section>
       <section id="sandbox-buttons">
         <h6>Buttons</h6>
         <div className={styles.componentWrapper}>
