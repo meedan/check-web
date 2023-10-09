@@ -44,13 +44,15 @@ const ChatHistory = ({
     return output;
   };
 
+  const convertSentAtToLocaleDateString = sent_at => new Date(+sent_at * 1000).toLocaleDateString();
+
   const Message = ({
     content,
-    datetime,
+    dateTime,
     userMessage,
     isDelivered,
   }) => {
-    const d = new Date(datetime);
+    const d = new Date(dateTime);
     return (
       <div className={cx(styles.message, {
         [styles['bot-message']]: !userMessage,
@@ -85,19 +87,37 @@ const ChatHistory = ({
         </div>
       </div>
       <div className={styles['chat-content']}>
-        {parseHistory(history).map((item) => {
+        {parseHistory(history).map((item, index, array) => {
           const content = parseItem(item);
+          let dateHeader = null;
+          // check to see if the previous item in the array renders a different day in our local timzone
+          // and then insert a date header if we have crossed a local date boundary between messages
+          if (array[index - 1]?.sent_at) {
+            const lastMessageDateFormatted = convertSentAtToLocaleDateString(array[index - 1]?.sent_at);
+            const currentMessageDateFormatted = convertSentAtToLocaleDateString(array[index]?.sent_at);
+            if (lastMessageDateFormatted !== currentMessageDateFormatted) {
+              dateHeader = (
+                <div className={`typography-body2 ${styles.date}`}>
+                  {lastMessageDateFormatted}
+                </div>
+              );
+            }
+          }
+          const dateTime = +item.sent_at * 1000;
           return (
-            <Message
-              content={content}
-              datetime={+item.sent_at * 1000}
-              userMessage={item.direction === 'incoming'}
-              isDelivered={item.isDelivered}
-            />
+            <div dateTime={dateTime}>
+              <Message
+                content={content}
+                dateTime={dateTime}
+                userMessage={item.direction === 'incoming'}
+                isDelivered={item.isDelivered}
+              />
+              { dateHeader }
+            </div>
           );
-        }).sort((a, b) => +b.props.datetime - +a.props.datetime)}
+        }).sort((a, b) => +b.props.dateTime - +a.props.dateTime)}
         <div className={`typography-body2 ${styles.date}`}>
-          {(new Date(+history[history.length - 1].sent_at * 1000)).toLocaleDateString()}
+          {convertSentAtToLocaleDateString(history[history.length - 1].sent_at)}
         </div>
       </div>
     </div>
