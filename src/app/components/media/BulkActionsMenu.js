@@ -4,11 +4,10 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Divider from '@material-ui/core/Divider';
+import MediasLoading from './MediasLoading';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import BulkActionsAssign from './BulkActionsAssign';
 import BulkActionsStatus from './BulkActionsStatus';
@@ -171,6 +170,37 @@ const BulkActionsMenu = ({
   const menuContent = page !== 'trash' && page !== 'spam' ? {
     menu: (
       <React.Fragment>
+        <MenuItem className="bulk-actions-menu__assign" onClick={handleMenuAssign}>
+          <FormattedMessage
+            id="bulkActionsMenu.assign"
+            defaultMessage="Assign"
+            description="Menu option for bulk assigning selected items"
+          />
+        </MenuItem>
+        <hr />
+        <MenuItem className="bulk-actions-menu__mark-read" onClick={() => handleMarkAsRead(true)}>
+          <FormattedMessage
+            id="bulkActions.markAsRead"
+            defaultMessage="Mark as read"
+            description="Menu option for bulk marking selected items as read"
+          />
+        </MenuItem>
+        <MenuItem className="bulk-actions-menu__mark-not-read" onClick={() => handleMarkAsRead(false)}>
+          <FormattedMessage
+            id="bulkActions.markAsNotRead"
+            defaultMessage="Mark as unread"
+            description="Menu option for bulk marking selected items as unread"
+          />
+        </MenuItem>
+        <hr />
+        <MenuItem className="bulk-actions-menu__change-status" onClick={handleMenuChangeStatus}>
+          <FormattedMessage
+            id="bulkActionsMenu.changeStatus"
+            defaultMessage="Change status"
+            description="Menu option for bulk changing statuses of selected items"
+          />
+        </MenuItem>
+        <hr />
         <MenuItem className="bulk-actions-menu__add-tag" onClick={handleMenuTag}>
           <FormattedMessage
             id="bulkActionsMenu.addTag"
@@ -185,39 +215,11 @@ const BulkActionsMenu = ({
             description="Menu option for bulk untagging selected items"
           />
         </MenuItem>
-        <Divider />
-        <MenuItem className="bulk-actions-menu__assign" onClick={handleMenuAssign}>
-          <FormattedMessage
-            id="bulkActionsMenu.assign"
-            defaultMessage="Assign"
-            description="Menu option for bulk assigning selected items"
-          />
-        </MenuItem>
-        <MenuItem className="bulk-actions-menu__change-status" onClick={handleMenuChangeStatus}>
-          <FormattedMessage
-            id="bulkActionsMenu.changeStatus"
-            defaultMessage="Change status"
-            description="Menu option for bulk changing statuses of selected items"
-          />
-        </MenuItem>
-        <MenuItem className="bulk-actions-menu__mark-read" onClick={() => handleMarkAsRead(true)}>
-          <FormattedMessage
-            id="bulkActions.markAsRead"
-            defaultMessage="Mark as Read"
-            description="Menu option for bulk marking selected items as read"
-          />
-        </MenuItem>
-        <MenuItem className="bulk-actions-menu__mark-not-read" onClick={() => handleMarkAsRead(false)}>
-          <FormattedMessage
-            id="bulkActions.markAsNotRead"
-            defaultMessage="Mark as Unread"
-            description="Menu option for bulk marking selected items as unread"
-          />
-        </MenuItem>
+        <hr />
         <MenuItem className="bulk-actions-menu__archive" onClick={() => handleArchive(CheckArchivedFlags.TRASHED)}>
           <FormattedMessage
             id="bulkActions.sendItemsToTrash"
-            defaultMessage="Send to Trash"
+            defaultMessage="Send to trash"
             description="Label for button that sends one or more items to Trash"
           />
         </MenuItem>
@@ -263,13 +265,13 @@ const BulkActionsMenu = ({
     menu: page === 'spam' ? (
       <React.Fragment>
         <MenuItem className="bulk-actions-menu__restore" onClick={() => handleRestoreOrConfirm({ archived_was: CheckArchivedFlags.SPAM })}>
-          <FormattedMessage id="bulkActions.notSpam" defaultMessage="Not Spam" description="Label for button that removes one or more items from Spam and puts them back in the normal workspace" />
+          <FormattedMessage id="bulkActions.notSpam" defaultMessage="Not spam" description="Label for button that removes one or more items from Spam and puts them back in the normal workspace" />
         </MenuItem>
       </React.Fragment>
     ) : (
       <React.Fragment>
         <MenuItem className="bulk-actions-menu__restore" onClick={() => handleRestoreOrConfirm({ archived_was: CheckArchivedFlags.TRASHED })}>
-          <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" description="Label for button that removes one or more items from Trash and puts it back in the normal workspace" />
+          <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" description="Label for button that removes one or more items from Trash and puts it back in the normal workspace" />
         </MenuItem>
       </React.Fragment>
     ),
@@ -277,19 +279,23 @@ const BulkActionsMenu = ({
 
   return (
     <React.Fragment>
-      <Button
-        id="bulk-actions-menu__button"
-        color="primary"
+      <ButtonMain
+        theme="brand"
         variant="contained"
+        size="small"
         onClick={e => setAnchorEl(e.currentTarget)}
-        endIcon={<KeyboardArrowDownIcon />}
-      >
-        <FormattedMessage
-          id="bulkActionsMenu.action"
-          defaultMessage="Action"
-          description="Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
-        />
-      </Button>
+        iconRight={<KeyboardArrowDownIcon />}
+        buttonProps={{
+          id: 'bulk-actions-menu__button',
+        }}
+        label={
+          <FormattedMessage
+            id="bulkActionsMenu.action"
+            defaultMessage="Action"
+            description="Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
+          />
+        }
+      />
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -365,7 +371,7 @@ const BulkActionsMenuRenderer = (parentProps) => {
             <BulkActionsMenu {...parentProps} {...props} />
           );
         }
-        return <CircularProgress size={30} />;
+        return <MediasLoading theme="grey" variant="icon" size="icon" />;
       }}
     />
   );

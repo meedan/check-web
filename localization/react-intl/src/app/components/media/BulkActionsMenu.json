@@ -30,6 +30,26 @@
     "defaultMessage": "{count, plural, one {# item} other {# items}} marked as unread successfully."
   },
   {
+    "id": "bulkActionsMenu.assign",
+    "description": "Menu option for bulk assigning selected items",
+    "defaultMessage": "Assign"
+  },
+  {
+    "id": "bulkActions.markAsRead",
+    "description": "Menu option for bulk marking selected items as read",
+    "defaultMessage": "Mark as read"
+  },
+  {
+    "id": "bulkActions.markAsNotRead",
+    "description": "Menu option for bulk marking selected items as unread",
+    "defaultMessage": "Mark as unread"
+  },
+  {
+    "id": "bulkActionsMenu.changeStatus",
+    "description": "Menu option for bulk changing statuses of selected items",
+    "defaultMessage": "Change status"
+  },
+  {
     "id": "bulkActionsMenu.addTag",
     "description": "Menu option for bulk tagging selected items",
     "defaultMessage": "Add tag"
@@ -40,29 +60,9 @@
     "defaultMessage": "Remove tag"
   },
   {
-    "id": "bulkActionsMenu.assign",
-    "description": "Menu option for bulk assigning selected items",
-    "defaultMessage": "Assign"
-  },
-  {
-    "id": "bulkActionsMenu.changeStatus",
-    "description": "Menu option for bulk changing statuses of selected items",
-    "defaultMessage": "Change status"
-  },
-  {
-    "id": "bulkActions.markAsRead",
-    "description": "Menu option for bulk marking selected items as read",
-    "defaultMessage": "Mark as Read"
-  },
-  {
-    "id": "bulkActions.markAsNotRead",
-    "description": "Menu option for bulk marking selected items as unread",
-    "defaultMessage": "Mark as Unread"
-  },
-  {
     "id": "bulkActions.sendItemsToTrash",
     "description": "Label for button that sends one or more items to Trash",
-    "defaultMessage": "Send to Trash"
+    "defaultMessage": "Send to trash"
   },
   {
     "id": "bulkActions.sendItemsToSpam",
@@ -72,12 +72,12 @@
   {
     "id": "bulkActions.notSpam",
     "description": "Label for button that removes one or more items from Spam and puts them back in the normal workspace",
-    "defaultMessage": "Not Spam"
+    "defaultMessage": "Not spam"
   },
   {
     "id": "bulkActions.restore",
     "description": "Label for button that removes one or more items from Trash and puts it back in the normal workspace",
-    "defaultMessage": "Restore from Trash"
+    "defaultMessage": "Restore from trash"
   },
   {
     "id": "bulkActionsMenu.action",

@@ -2,37 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
 import BulkActionsMenu from './BulkActionsMenu';
 import Can from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
-
-const useStyles = makeStyles(theme => ({
-  // buttonSpan: a <span> between a <Tooltip> and a <Button>. (The <Button> may be
-  // disabled, and disabled buttons can't be direct children of <Tooltip>.)
-  buttonSpan: {
-    display: 'inline-block',
-    marginRight: theme.spacing(1),
-  },
-}));
-
-function ButtonWithTooltip({ title, ...buttonProps }) {
-  const classes = useStyles();
-
-  return (
-    <Tooltip title={title}>
-      <span className={classes.buttonSpan}>
-        <Button {...buttonProps} />
-      </span>
-    </Tooltip>
-  );
-}
-ButtonWithTooltip.propTypes = {
-  title: PropTypes.element.isRequired, // <FormattedMessage>
-  // every other prop is passed to <Button>
-};
 
 class BulkActions extends React.Component {
   fail = () => {};
