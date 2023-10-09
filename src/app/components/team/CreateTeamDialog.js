@@ -22,12 +22,12 @@ const messages = defineMessages({
   duplicate: {
     id: 'createTeamDialog.duplicate',
     defaultMessage: 'Duplicate',
-    description: '"Button label to start to duplicate a workspace',
+    description: 'Button label to start to duplicate a workspace',
   },
   creating: {
     id: 'createTeamDialog.creating',
     defaultMessage: 'Creating…',
-    description: '"Button label status message while creating a new workspace is in process',
+    description: 'Button label status message while creating a new workspace is in process',
   },
   create: {
     id: 'createTeamDialog.create',

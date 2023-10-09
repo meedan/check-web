@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
@@ -18,18 +17,10 @@ import TelegramIcon from '../../../icons/telegram.svg';
 import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
-import SettingsHeader from '../SettingsHeader';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
 import styles from '../Settings.module.css';
 
-const useStyles = makeStyles(() => ({
-  smoochBotIntegrationsHeader: {
-    marginBottom: 0,
-  },
-}));
-
 const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }) => {
-  const classes = useStyles();
   const [copied, setCopied] = React.useState(null);
 
   const isWabaSet = settings.turnio_host && settings.turnio_secret && settings.turnio_token;
@@ -48,6 +39,10 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
     link.click();
   };
 
+  const handleHelp = () => {
+    window.open('https://help.checkmedia.org/en/articles/5189362-connect-a-new-tipline', '_blank');
+  };
+
   return (
     <React.Fragment>
       <div className={styles['setting-content-container-title']}>
@@ -58,14 +53,10 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
             size="small"
             theme="text"
             iconCenter={<HelpIcon />}
+            onClick={handleHelp}
           />
         </div>
       </div>
-
-      <SettingsHeader
-        helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline"
-        className={classes.smoochBotIntegrationsHeader}
-      />
       <Box display="flex" justifyContent="space-between" flexWrap="wrap">
         <SmoochBotIntegrationButton
           installationId={installationId}

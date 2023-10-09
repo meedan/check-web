@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import SmoochBotIntegrations from './SmoochBotIntegrations';
 import SmoochBotSetting from './SmoochBotSetting';
+import styles from '../Settings.module.css';
 
 const SmoochBotSettings = (props) => {
   const fields = props.schema;
@@ -27,21 +27,18 @@ const SmoochBotSettings = (props) => {
         />
       ))}
 
-      { !props.currentUser.is_admin ?
+      { props.currentUser.is_admin ?
         <Box mt={2}>
-          <Typography variant="h6" component="div">
+          <div className={styles['setting-content-container-title']}>
             <FormattedMessage id="smoochBotSettings.internalSettings" defaultMessage="Internal settings" description="Title of Internal Settings section in the tipline settings page" />
-          </Typography>
-
-          <Typography variant="subtitle1" component="div">
-            <FormattedMessage id="smoochBotSettings.internalSettingsDescription" defaultMessage="Meedan employees see these settings, but users don't." description="Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated." />
-          </Typography>
+          </div>
+          <FormattedMessage tagName="p" id="smoochBotSettings.internalSettingsDescription" defaultMessage="Meedan employees see these settings, but users don't." description="Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated." />
 
           { props.settings.smooch_version === 'v2' ?
             <Box mt={1}>
-              <Typography variant="subtitle1" component="div">
+              <div className={styles['setting-content-container-title']}>
                 <FormattedMessage id="smoochBotSettings.searchSettings" defaultMessage="Search settings" description="Title of Search settings section in the tipline settings page." />
-              </Typography>
+              </div>
 
               {['smooch_search_text_similarity_threshold', 'smooch_search_max_keyword'].map(field => (
                 <SmoochBotSetting
@@ -55,9 +52,9 @@ const SmoochBotSettings = (props) => {
             </Box> : null }
 
           <Box mt={1}>
-            <Typography variant="subtitle1" component="div">
+            <div className={styles['setting-content-container-title']}>
               <FormattedMessage id="smoochBotSettings.sunshineSettings" defaultMessage="Sunshine integration settings" description="Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated." />
-            </Typography>
+            </div>
 
             {['smooch_app_id', 'smooch_secret_key_key_id', 'smooch_secret_key_secret', 'smooch_webhook_secret'].map(field => (
               <SmoochBotSetting
@@ -71,9 +68,9 @@ const SmoochBotSettings = (props) => {
           </Box>
 
           <Box mt={1}>
-            <Typography variant="subtitle1" component="div">
+            <div className={styles['setting-content-container-title']}>
               <FormattedMessage id="smoochBotSettings.templatesSettings" defaultMessage="Templates settings" description="Title of templates settings section in the tipline settings page." />
-            </Typography>
+            </div>
 
             {['smooch_template_namespace', 'smooch_template_locales'].map(field => (
               <SmoochBotSetting
@@ -97,9 +94,9 @@ const SmoochBotSettings = (props) => {
           </Box>
 
           <Box mt={1}>
-            <Typography variant="subtitle1" component="div">
+            <div className={styles['setting-content-container-title']}>
               <FormattedMessage id="smoochBotSettings.onpremSettings" defaultMessage="WhatsApp On-Premises API settings" description="Title of 'WhatsApp On-Premises API' settings section in the tipline settings page. The words 'WhatsApp On-Premises API' do not need to be translated." />
-            </Typography>
+            </div>
 
             {Object.keys(fields).filter(f => /^turnio_/.test(f)).map(field => (
               <SmoochBotSetting
@@ -113,9 +110,9 @@ const SmoochBotSettings = (props) => {
           </Box>
 
           <Box mt={1}>
-            <Typography variant="subtitle1" component="div">
+            <div className={styles['setting-content-container-title']}>
               <FormattedMessage id="smoochBotSettings.capiSettings" defaultMessage="WhatsApp Cloud API settings" description="Title of 'WhatsApp Cloud API' settings section in the tipline settings page. The words 'WhatsApp Cloud API' do not need to be translated." />
-            </Typography>
+            </div>
 
             {Object.keys(fields).filter(f => /^capi_/.test(f)).map(field => (
               <SmoochBotSetting

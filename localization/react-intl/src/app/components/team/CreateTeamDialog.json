@@ -6,12 +6,12 @@
   },
   {
     "id": "createTeamDialog.duplicate",
-    "description": "\"Button label to start to duplicate a workspace",
+    "description": "Button label to start to duplicate a workspace",
     "defaultMessage": "Duplicate"
   },
   {
     "id": "createTeamDialog.creating",
-    "description": "\"Button label status message while creating a new workspace is in process",
+    "description": "Button label status message while creating a new workspace is in process",
     "defaultMessage": "Creating…"
   },
   {

@@ -20,8 +20,10 @@
 
         .setting-content-container-title {
           align-items: center;
+          border: solid 2px var(--errorMain);
           display: flex;
           justify-content: space-between;
+          min-height: 34px;
 
           > span {
             @mixin typography-subtitle2;

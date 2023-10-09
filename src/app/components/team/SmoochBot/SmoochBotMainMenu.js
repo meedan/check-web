@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import HelpIcon from '../../../icons/help.svg';
 import { languageLabel } from '../../../LanguageRegistry';
 import SmoochBotMainMenuSection from './SmoochBotMainMenuSection';
@@ -78,18 +77,28 @@ const SmoochBotMainMenu = ({
     <React.Fragment>
       <div className={styles['setting-content-container-title']}>
         <FormattedMessage id="smoochBotMainMenu.mainMenu" defaultMessage="Main menu" description="Title of the tipline bot main menu settings page." />
+        { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
+          <div className={styles['setting-content-container-actions']}>
+            <ButtonMain
+              variant="text"
+              size="small"
+              theme="text"
+              iconCenter={<HelpIcon />}
+              onClick={handleHelp}
+            />
+          </div>
+          : null
+        }
       </div>
       { Object.keys(enabledIntegrations).filter(platformName => platformName !== 'whatsapp').length > 0 ? // Any platform other than WhatsApp
-        <Box display="flex" alignItems="center" mb={1}>
-          <div className="typography-body1">
-            <FormattedMessage
-              id="smoochBotMainMenu.subtitle2"
-              defaultMessage="Please note that some messaging services have different menu display options than others."
-              description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
-            />
-            <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
-          </div>
-        </Box> : null }
+        <FormattedMessage
+          tagName="p"
+          id="smoochBotMainMenu.subtitle2"
+          defaultMessage="Please note that some messaging services have different menu display options than others."
+          description="Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
+        />
+        : null
+      }
       <div className="typography-subtitle2">
         <FormattedMessage
           id="smoochBotMainMenu.optionsCounter"
