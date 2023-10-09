@@ -29,8 +29,10 @@ const Request = ({
       <div className={styles['request-content']}>
         <ParsedText text={preParsedText} fileUrlName={mediaTitle} mediaChips />
       </div>
-      {historyButton}
-      {sendMessageButton}
+      <div className={styles.buttons}>
+        {historyButton}
+        {sendMessageButton}
+      </div>
       {receipt}
     </div>
   );
