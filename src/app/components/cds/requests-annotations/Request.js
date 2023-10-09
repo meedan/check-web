@@ -12,6 +12,7 @@ const Request = ({
   time,
   fileUrl,
   mediaTitle,
+  sendMessageButton,
   receipt,
 }) => {
   let preParsedText = text;
@@ -27,6 +28,7 @@ const Request = ({
       <div className={styles['request-content']}>
         <ParsedText text={preParsedText} fileUrlName={mediaTitle} mediaChips />
       </div>
+      {sendMessageButton}
       {receipt}
     </div>
   );

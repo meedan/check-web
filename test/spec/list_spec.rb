@@ -12,9 +12,9 @@ shared_examples 'list' do
     expect(@driver.find_elements(:css, '.medias__item').size == 1).to be(true)
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__status').click
-    wait_for_selector('.custom-select-dropdown__select-button').click
+    wait_for_selector('.int-multi-select-filter__button--select-dropdown').click
     wait_for_selector('#in_progress').click
-    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('.int-multiselector__button--save').click
     wait_for_selector('#search-fields__submit-button').click
     expect(@driver.find_elements(:css, '.medias__item').empty?).to be(true)
     # save list
@@ -57,9 +57,9 @@ shared_examples 'list' do
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click
-    wait_for_selector('.reorder__button-down')
-    wait_for_selector('p[title="Report status"]')
-    wait_for_selector_list("//p[contains(text(), 'metadata')]/../../../div/button", :xpath)[0].click
+    wait_for_selector('.int-reorder__button-down')
+    wait_for_selector('span[title="Report status"]')
+    wait_for_selector_list("//span[contains(text(), 'metadata')]/../../div/button", :xpath)[0].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[0].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[1].click
     wait_for_selector('#team-lists__item-4-status button').click

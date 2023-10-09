@@ -76,6 +76,7 @@
         /* Note the weird space! Needed to preventy jumpy behavior */
         content: attr(data-replicated-value) ' ';
         max-height: inherit;
+        overflow-wrap: anywhere;
 
         /* Hidden from view, clicks, and screen readers */
         visibility: hidden;
@@ -89,6 +90,7 @@
 
         /* Firefox shows scrollbar on growth, you can hide like this. */
         overflow: hidden;
+        overflow-wrap: anywhere;
 
         /* You could leave this, but after a user resizes, then it ruins the auto sizing */
         resize: none;

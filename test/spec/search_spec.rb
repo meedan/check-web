@@ -5,10 +5,10 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__time-range').click
-    wait_for_selector('.date-range__start-date input').click
+    wait_for_selector('.int-date-filter__button--start-date').click
     # Click OK on date picker dialog to select today's date
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-    wait_for_selector('.date-range__end-date input').click
+    wait_for_selector('.int-date-filter__button--end-date').click
     # Click OK on date picker dialog to select today's date
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
     wait_for_selector('#search-fields__submit-button').click
@@ -144,9 +144,9 @@ shared_examples 'search' do
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 2
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__status').click
-    wait_for_selector('.custom-select-dropdown__select-button').click
+    wait_for_selector('.int-multi-select-filter__button--select-dropdown').click
     wait_for_selector('input#false').click
-    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('.int-multiselector__button--save').click
     wait_for_selector('#search-fields__submit-button').click
     wait_for_selector('.multi-select-filter')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 1

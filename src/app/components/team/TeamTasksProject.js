@@ -22,6 +22,8 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
           tasks={props.project.teamTasks}
           team={props.team}
           about={props.about}
+          isFirst={index === 0}
+          isLast={index === props.project.teamTasks.length - 1}
         />))}
     </List>
   </div>

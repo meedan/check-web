@@ -1,0 +1,79 @@
+.teamlist-columns {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  margin: 0 auto;
+
+  .teamlist-column {
+    .teamlist-column-items {
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 8px 0;
+      padding: 8px;
+
+      .teamlist-column-item {
+        align-items: center;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+
+        .item-details {
+          align-items: center;
+          background-color: var(--otherWhite);
+          border: solid 2px var(--grayBorderMain);
+          border-radius: 5px;
+          display: grid;
+          gap: 0 4px;
+          grid-template-columns: 1fr max-content;
+          padding: 8px;
+          width: 100%;
+
+          .item-content {
+            .item-label {
+              @mixin typography-body1;
+            }
+
+            small {
+              color: var(--textSecondary);
+              display: none;
+            }
+          }
+
+          &.item-visible {
+            min-height: 68px;
+
+            .item-content {
+              small {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.teamlist-column-selected {
+      .teamlist-column-items {
+        background-color: var(--brandBackground);
+      }
+    }
+
+    .teamlist-placeholder {
+      align-items: center;
+      background-color: var(--grayBackground);
+      border-radius: 5px;
+      color: var(--textSecondary);
+      display: flex;
+      justify-content: center;
+      min-height: 80px;
+      padding: 8px;
+      text-align: center;
+
+      a {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -11,3 +11,11 @@ html {
 body {
   margin: 0;
 }
+
+hr {
+  background-color: var(--grayBorderMain);
+  border: none;
+  flex-shrink: 0;
+  height: 1px;
+  margin: 0;
+}
