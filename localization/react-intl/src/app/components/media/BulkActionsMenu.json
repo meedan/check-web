@@ -1,5 +1,35 @@
 [
   {
+    "id": "bulkActions.movedRestoreSuccessfully",
+    "description": "Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} moved from Trash to 'All'"
+  },
+  {
+    "id": "bulkActions.movedFromSpamSuccessfully",
+    "description": "Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} moved from Spam to 'All'"
+  },
+  {
+    "id": "bulkActions.moveToTrashSuccessfully",
+    "description": "Message that appears when one or more items have been selected and moved to the trash.",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} moved to Trash."
+  },
+  {
+    "id": "bulkActions.moveToSpamSuccessfully",
+    "description": "Message that appears when one or more items have been selected and moved to spam.",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} moved to Spam."
+  },
+  {
+    "id": "bulkActions.markAsReadSuccess",
+    "description": "Message that appears when one or more items have been marked as read.",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} marked as read successfully."
+  },
+  {
+    "id": "bulkActions.markAsUnreadSuccess",
+    "description": "Message that appears when one or more items have been marked as unread.",
+    "defaultMessage": "{count, plural, one {# item} other {# items}} marked as unread successfully."
+  },
+  {
     "id": "bulkActionsMenu.addTag",
     "description": "Menu option for bulk tagging selected items",
     "defaultMessage": "Add tag"
@@ -18,6 +48,36 @@
     "id": "bulkActionsMenu.changeStatus",
     "description": "Menu option for bulk changing statuses of selected items",
     "defaultMessage": "Change status"
+  },
+  {
+    "id": "bulkActions.markAsRead",
+    "description": "Menu option for bulk marking selected items as read",
+    "defaultMessage": "Mark as Read"
+  },
+  {
+    "id": "bulkActions.markAsNotRead",
+    "description": "Menu option for bulk marking selected items as unread",
+    "defaultMessage": "Mark as Unread"
+  },
+  {
+    "id": "bulkActions.sendItemsToTrash",
+    "description": "Label for button that sends one or more items to Trash",
+    "defaultMessage": "Send to Trash"
+  },
+  {
+    "id": "bulkActions.sendItemsToSpam",
+    "description": "Label for button that sends one or more items to Spam",
+    "defaultMessage": "Mark as spam"
+  },
+  {
+    "id": "bulkActions.notSpam",
+    "description": "Label for button that removes one or more items from Spam and puts them back in the normal workspace",
+    "defaultMessage": "Not Spam"
+  },
+  {
+    "id": "bulkActions.restore",
+    "description": "Label for button that removes one or more items from Trash and puts it back in the normal workspace",
+    "defaultMessage": "Restore from Trash"
   },
   {
     "id": "bulkActionsMenu.action",
