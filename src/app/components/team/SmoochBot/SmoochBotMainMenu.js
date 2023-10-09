@@ -110,7 +110,7 @@ const SmoochBotMainMenu = ({
           }}
         />
       </div>
-
+      <br />
       { collapseLanguages ?
         <Alert
           variant="warning"
