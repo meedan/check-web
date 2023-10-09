@@ -69,7 +69,9 @@ const ChatHistory = ({
           {content}
         </div>
         <div className={`typography-body2 ${styles.time}`}>
-          <Tooltip title={d.toLocaleString()}><time dateTime={d.toISOString()}>{d.toLocaleTimeString()}</time></Tooltip>
+          <Tooltip title={d.toLocaleString()}>
+            <time dateTime={d.toISOString()}>{d.toLocaleTimeString()}</time>
+          </Tooltip>
           {isDelivered && <IconDone className={styles.delivered} />}
         </div>
       </div>
@@ -83,7 +85,13 @@ const ChatHistory = ({
           <span className="typography-h6">{title}</span>
         </div>
         <div className={styles['right-side']}>
-          <ButtonMain variant="text" size="medium" theme="text" iconCenter={<IconClose />} onClick={handleClose} />
+          <ButtonMain
+            variant="text"
+            size="medium"
+            theme="text"
+            iconCenter={<IconClose />}
+            onClick={handleClose}
+          />
         </div>
       </div>
       <div className={styles['chat-content']}>
