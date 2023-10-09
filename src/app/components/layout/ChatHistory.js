@@ -21,10 +21,18 @@ const ChatHistory = ({
     // Remove all 'delivered' messages from main history
     output = output.filter(item => item.state !== 'delivered');
 
-    // Apply an `isDelivered` to items that got a delivery confirmation
+    // Apply various helper properties to items
     output = output.map((item) => {
       const newItem = item;
+      // Apply an `isDelivered` to items that got a delivery confirmation
       newItem.isDelivered = deliveredIds.includes(item.external_id);
+
+      // Apply a `userSelection` to items where the user selected from a menu of options
+      // if a user message has a "payload" sub-item then it was a user selection from a menu of options
+      if (item.payload.messages && item.payload.messages[0]?.payload) {
+        newItem.userSelection = true;
+      }
+
       return newItem;
     });
 
@@ -34,13 +42,13 @@ const ChatHistory = ({
   const parseItem = (item) => {
     let output = '';
 
+    // Items from us have text directly in the payload, items from users have it in a messages sub-object
     if (item.payload?.text) {
       output = item.payload.text;
     } else if (item.payload.messages?.length) {
-      output = item.payload.messages[0]?.text || 'NO TEXT';
-    } else {
-      output = 'AN OBJECT';
+      output = item.payload.messages.map(message => message.text).join('//');
     }
+
     return output;
   };
 
@@ -51,6 +59,7 @@ const ChatHistory = ({
     dateTime,
     userMessage,
     isDelivered,
+    userSelection,
   }) => {
     const d = new Date(dateTime);
     return (
@@ -63,6 +72,7 @@ const ChatHistory = ({
           {
             [styles.user]: userMessage,
             [styles.bot]: !userMessage,
+            [styles.selection]: userSelection,
           },
         )}
         >
@@ -118,6 +128,7 @@ const ChatHistory = ({
                 content={content}
                 dateTime={dateTime}
                 userMessage={item.direction === 'incoming'}
+                userSelection={item.userSelection}
                 isDelivered={item.isDelivered}
               />
               { dateHeader }
