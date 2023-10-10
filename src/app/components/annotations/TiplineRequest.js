@@ -12,6 +12,7 @@ import WhatsAppIcon from '../../icons/whatsapp.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import EditNoteIcon from '../../icons/edit_note.svg';
 import SendTiplineMessage from '../SendTiplineMessage';
+import TiplineHistoryButton from './TiplineHistoryButton';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -113,6 +114,10 @@ const TiplineRequest = ({
   const userName = objectValue.name === 'deleted' ?
     <FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" /> :
     emojify(objectValue.name);
+  // the unique ID of the conversation associated with this media item
+  const uid = objectValue.authorId;
+  // the ID of the specific message of this submission
+  const messageId = objectValue._id; // eslint-disable-line no-underscore-dangle
 
   const details = [<strong className={styles['user-name']}>{userName}</strong>];
 
@@ -162,6 +167,9 @@ const TiplineRequest = ({
           formatMessage(messages.smoochNoMessage)
         )}
         icon={<SmoochIcon name={messageType} />}
+        historyButton={
+          <TiplineHistoryButton uid={uid} name={userName} messageId={messageId} />
+        }
         sendMessageButton={
           <SendTiplineMessage
             username={userName}
