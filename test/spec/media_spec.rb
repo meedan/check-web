@@ -26,7 +26,8 @@ shared_examples 'media' do |type|
     wait_for_selector('.media__heading')
     wait_for_selector("table input[type='checkbox']").click
     wait_for_selector("//span[contains(text(), '(1 selected)')]", :xpath)
-    wait_for_selector('#media-bulk-actions__move-to').click
+    wait_for_selector('#bulk-actions-menu__button').click
+    wait_for_selector('.bulk-actions-menu__restore').click
     wait_for_selector('.message')
     wait_for_selector('#side-navigation__toggle').click
     wait_for_selector('.projects-list__all-items').click
