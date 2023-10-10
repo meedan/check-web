@@ -3660,7 +3660,7 @@
 		"developer_comment": "Helper text for the publish feed section"
 	},
 	"saveFeed.publishSwitch": {
-		"string": "Publish shared feed to Marketplace",
+		"string": "Publicar feed compartilhado no Marketplace",
 		"developer_comment": "Label for a switch where the user publishes a feed"
 	},
 	"saveFeed.publishTitle": {

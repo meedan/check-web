@@ -180,16 +180,14 @@
 		"string": "سياسة الخصوصية"
 	},
 	"UserMenu.signOut": {
-		"string": "تسجيل الخروج"
+		"string": "تسجيل الخروج",
+		"developer_comment": "This is the sign out button on the user profile page"
 	},
 	"UserMenu.tos": {
 		"string": "شروط الاستخدام"
 	},
 	"UserMenu.training": {
 		"string": "التدريب والتوثيق"
-	},
-	"UserMenu.userSettings": {
-		"string": "إعدادات المستخدم(ة)"
 	},
 	"UserPrivacy.deleteAccount": {
 		"string": "حذف الحساب"
@@ -286,7 +284,7 @@
 		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
-		"string": "حالة العنصر",
+		"string": "التقييم",
 		"developer_comment": "Menu option to enable searching items by item status"
 	},
 	"addFilterMenu.language": {
@@ -866,6 +864,18 @@
 		"string": "هام ! ستنقطع المهام بتاريخ فاتح يونيو 2022. يُرجى ربط الاتصال بالدعم إذا كانت لديك أي أسئلة حول كيفية استبدالها بواسطة التعليقات.",
 		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
+	"checkFeedLicenses.licenseNameAcademic": {
+		"string": "أكاديمي",
+		"developer_comment": "Feed license"
+	},
+	"checkFeedLicenses.licenseNameCommercial": {
+		"string": "تجاري",
+		"developer_comment": "Feed license"
+	},
+	"checkFeedLicenses.licenseNameOpenSource": {
+		"string": "مفتوح المصدر",
+		"developer_comment": "Feed license"
+	},
 	"checkedByTeamsCell.more": {
 		"string": "‫+{number} أيضا",
 		"developer_comment": "Table cell displayed on Trends page showing how many more workspaces fact-checked this item but their names were omitted from display"
@@ -910,6 +920,10 @@
 	"contentScreen.warningByAutomationRule": {
 		"string": "لقد اكتشفت قاعدة آلية أن هذا المحتوى حساس",
 		"developer_comment": "Content warning displayed over sensitive content"
+	},
+	"createFeed.sharedFeedPageDescription": {
+		"string": "مشاركة موجزات البيانات مع المنظمات الأخرى لفتح رؤى جديدة عبر الجماهير واللغات.",
+		"developer_comment": "Description of the shared feed creation page"
 	},
 	"createMedia.addItem": {
 		"string": "إضافة عنصر"
@@ -1148,6 +1162,26 @@
 		"string": "المُشارَك",
 		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
 	},
+	"feedBlankState.description": {
+		"string": "يمكنك تجربة {resetLink} للعثور على تقصي الحقائق أو التحقق من أن {listLink} يحتوي على عناصر",
+		"developer_comment": "Message displayed on feed page when there are no fact-checks to be listed. English values for placeholders link text: 'resetLink' is 'resetting filters' and 'listLink' is 'source list'."
+	},
+	"feedBlankState.listLinkText": {
+		"string": "قائمة المصدر",
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Verify that the source list has items'."
+	},
+	"feedBlankState.listText": {
+		"string": "قائمة المصدر",
+		"developer_comment": "Text that is part of message displayed when a feed does not return any fact-checks."
+	},
+	"feedBlankState.resetLinkText": {
+		"string": "إعادة تعيين التصفيات",
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Try resetting filters to find fact-checks'."
+	},
+	"feedBlankState.title": {
+		"string": "لا يوجد تقصي حقائق",
+		"developer_comment": "Title displayed on feed page when there are no fact-checks to be listed."
+	},
 	"feedFilters.applyFilters": {
 		"string": "تفعيل التصفية",
 		"developer_comment": "Button to perform query with specified filters"
@@ -1179,6 +1213,18 @@
 	"feedFilters.savedSuccessfully": {
 		"string": "لقد حُفظَت التصفيات بنجاح",
 		"developer_comment": "Success message displayed when feed requests filters are saved"
+	},
+	"feedHeader.sharedFeed": {
+		"string": "الموجز الذي تمت مشاركته",
+		"developer_comment": "Displayed on top of the feed title on the feed page."
+	},
+	"feedHeader.tooltipLicense": {
+		"string": "ترخيص الموجز : {licenseName}",
+		"developer_comment": "Tooltip message displayed on feed license icon."
+	},
+	"feedHeader.tooltipSettings": {
+		"string": "إعدادات الموجز الذي تمت مشاركته",
+		"developer_comment": "Tooltip message displayed on feed settings icon."
 	},
 	"feedItem.aboutThisClaim": {
 		"string": "عن هذا الادعاء"
@@ -1425,6 +1471,22 @@
 		"string": "تطبيق ثم حفظ التصفية المراد مشاركتها",
 		"developer_comment": "Tooltip displayed on feed 'Enable sharing' switcher"
 	},
+	"feedSort.date": {
+		"string": "تاريخ آخر تحديث",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"feedSort.sort": {
+		"string": "ترتيب",
+		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
+	},
+	"feedSort.status": {
+		"string": "تقييم",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"feedTopBar.noListSelected": {
+		"string": "لم يتم تحديد القائمة",
+		"developer_comment": "Message displayed on feed top bar when there is no list associated with the feed."
+	},
 	"fetchBot.contactUs": {
 		"string": "الاتصال بنا للإعداد"
 	},
@@ -1512,9 +1574,6 @@
 	},
 	"global.update": {
 		"string": "تحديث"
-	},
-	"headerActions.signIn": {
-		"string": "تسجيل الدخول"
 	},
 	"home.invalidExpiredInvitation": {
 		"string": "عذراً ، الدعوة التي تلقيتها منتهية الصلاحية. يرجى التواصل مع {supportEmail} إن كنت تعتقدين ان هناك خطأ ما.",
@@ -1615,14 +1674,32 @@
 	"languageSwitcher.primaryLanguage": {
 		"string": "(الافتراضية)"
 	},
-	"languagesComponent.blurb": {
-		"string": "بإمكانكم بإضافة لغات جديدة إلى مساحة العمل الخاصة بكم لإنشاء التقارير و بوتات الخط السّاخن (Tipline) والحالات بلغات متعددة عند التواصل مع المستخدمين."
+	"languagesComponent.description": {
+		"string": "إذا تم <strong>تفعيل</strong> اكتشاف اللغة، فسيتعرف بوت الخط الساخن لـ Check تلقائيا على اللغة، ثم سيجيب باللغة التي يطلبها المستخدم.\nإذا تم <strong>تعطيل</strong>اكتشاف اللغة، فسيجيب بوت الخط الساخن لـ Check باللغة الافتراضية لمساحة العمل : <strong>{defaultLanguage}</strong>",
+		"developer_comment": "Instructions for the language detection toggle switch"
+	},
+	"languagesComponent.languageDetection": {
+		"string": "اكتشاف اللغة",
+		"developer_comment": "Title of the Language detection section in language settings page"
+	},
+	"languagesComponent.languageDetectionSwitch": {
+		"string": "تفعيل اكتشاف اللغة",
+		"developer_comment": "Label for a switch where the user toggles auto language detection"
+	},
+	"languagesComponent.languages": {
+		"string": "اللغات",
+		"developer_comment": "Title of the active languages list section in language settings page"
 	},
 	"languagesComponent.title": {
-		"string": "اللغات"
+		"string": "اللغة",
+		"developer_comment": "Title of Language settings page"
+	},
+	"limitedTextAreaWithCounter.counter": {
+		"string": "{remaining, plural, zero {لا حرف متبق} one {حرف واحد متبق} two {حرفان متبقيان} few {# حروف متبقية} many {# حرفا متبقيا} other {# حرف متبق}}",
+		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"limitedTextFieldWithCounter.counter": {
-		"string": "{remaining, plural, zero {(لم يبق أي حرف)} one {(بقي حرف واحد)} two {(بقي حرفان)} few {(بقي # حروف)} many {(بقي # حرفا)} other {(بقي # حرف)}}",
+		"string": "{remaining, plural, zero {لا حرف متبق} one {حرف واحد متبق} two {حرفان متبقيان} few {# حروف متبقية} many {# حرفا متبقيا} other {# حرف متبق}}",
 		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
@@ -1728,6 +1805,22 @@
 	"list.updated": {
 		"string": "آخر تحديث",
 		"developer_comment": "Table header for item updated date column"
+	},
+	"listSort.changeDirection": {
+		"string": "تغيير اتجاه ترتيب القائمة",
+		"developer_comment": "Tooltip to tell the user they can change the direction of the list sort"
+	},
+	"listSort.date": {
+		"string": "تاريخ آخر تحديث",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"listSort.sort": {
+		"string": "ترتيب",
+		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
+	},
+	"listSort.status": {
+		"string": "تقييم",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
 	},
 	"login.alreadyHasAccount": {
 		"string": "ألديك حساب بالفعل ؟"
@@ -2450,7 +2543,7 @@
 	},
 	"metadata.file.invalidFile": {
 		"string": "هذا الملف غير صالح. يرجى إعادة المحاولة باستخدام ملف آخر.",
-		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+		"developer_comment": "This message appears when a user tries to add a file that the browser cannot read for some reason to the file upload widget."
 	},
 	"metadata.file.noFile": {
 		"string": "إن الملف مفقود من قاعدة البيانات. يُرجى تحرير ثم محو هذا التعليق لتحميل ملف جديد.",
@@ -2532,6 +2625,222 @@
 	},
 	"newProject.cancel": {
 		"string": "إلغاء"
+	},
+	"newsletter.error": {
+		"string": "لقد تعذر حفظ الرسالة الإخبارية، يُرجى إعادة المحاولة.",
+		"developer_comment": "Error message displayed when it's not possible to save a newsletter."
+	},
+	"newsletter.headerTypeAudio": {
+		"string": "صوت",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeImage": {
+		"string": "صورة",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeLinkPreview": {
+		"string": "لمحة عن الرابط",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeNone": {
+		"string": "خالٍ",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeVideo": {
+		"string": "فيديو",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.success": {
+		"string": "لقد تم حفظ الرسالة الإخبارية بنجاح.",
+		"developer_comment": "Success message displayed when a newsletter is saved."
+	},
+	"newsletter.title": {
+		"string": "الرسالة الإخبارية",
+		"developer_comment": "Title for newsletter settings page."
+	},
+	"newsletterComponent.articleBlank": {
+		"string": "لا يمكن أن يكون حقل المقال فارغا",
+		"developer_comment": "Message displayed on the article text field when it is empty and a user tries to save"
+	},
+	"newsletterComponent.articlePlaceholder": {
+		"string": "إضافة نص أو رابط",
+		"developer_comment": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
+	},
+	"newsletterComponent.content": {
+		"string": "المحتوى",
+		"developer_comment": "Title for newsletter content section on newsletter settings page"
+	},
+	"newsletterComponent.error": {
+		"string": "لقد تعذر حفظ الرسالة الإخبارية، يُرجى إعادة المحاولة.",
+		"developer_comment": "Error message displayed when it's not possible to save a newsletter."
+	},
+	"newsletterComponent.errorDatetimePast": {
+		"string": "لا يمكن أن يكون تاريخ الرسالة الإخبارية المجدولة في الماضي.",
+		"developer_comment": "Error message displayed when a user tries to schedule sending a newsletter on a past date."
+	},
+	"newsletterComponent.errorHeaderFile": {
+		"string": "يجب أن يكون الملف من الأنواع المسموح بها التالية : {fileTypes}",
+		"developer_comment": "Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
+	},
+	"newsletterComponent.errorHeaderType": {
+		"string": "يجب إضافة نوع الترويسة من القائمة.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank header type field (this is chosen from a list)."
+	},
+	"newsletterComponent.errorIntroduction": {
+		"string": "لا يمكن أن تكون المقدمة فارغة.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank introduction field."
+	},
+	"newsletterComponent.errorIntroductionTooLong": {
+		"string": "إن المقدمة طويلة جدا",
+		"developer_comment": "Error message displayed when a user submits a form with an introduction field that is too long."
+	},
+	"newsletterComponent.errorRssFeedUrl": {
+		"string": "عنوان الصفحة لموجز RSS غير صالح.",
+		"developer_comment": "Error message displayed when a user submits a form with a URL that the server does not recognize."
+	},
+	"newsletterComponent.errorSendOn": {
+		"string": "لا يمكن أن يكون التاريخ المجدول فارغا.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank scheduled date field."
+	},
+	"newsletterComponent.errorTimezone": {
+		"string": "لا يمكن أن تكون المنطقة الزمنية فارغة.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank time zone field."
+	},
+	"newsletterComponent.introduction": {
+		"string": "المقدمة",
+		"developer_comment": "Label for a field where the user inputs text for an introduction to a newsletter"
+	},
+	"newsletterComponent.numberOfArticles": {
+		"string": "عدد المقالات",
+		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
+	},
+	"newsletterComponent.overlay": {
+		"string": "النص اللاصق",
+		"developer_comment": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterComponent.overlayPlaceholder": {
+		"string": "إضافة نص فوق الصورة",
+		"developer_comment": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterComponent.placeholder": {
+		"string": "مثال : أهلا! مرحبا بكم في رسالتنا الإخبارية. فيما يلي أكثر تقصيات الحقائق شيوعا التي يجب عليك قراءتها الآن :",
+		"developer_comment": "Placeholder text for newsletter field"
+	},
+	"newsletterComponent.rss": {
+		"string": "RSS",
+		"developer_comment": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
+	},
+	"newsletterComponent.rssFeed": {
+		"string": "يمكنك استخدام موجز RSS لتحميل محتوى جديد تلقائيا، وكذا إرسال رسالتك الإخبارية وفقا لجدولة زمنية متكررة. لن يتم إرسال الرسالة الإخبارية إلا إذا تم جلب محتوى جديد من RSS.",
+		"developer_comment": "Message on tipline newsletter settings page that explains how RSS feeds work there."
+	},
+	"newsletterComponent.save": {
+		"string": "حفظ",
+		"developer_comment": "Label for a button to save settings for the newsletter"
+	},
+	"newsletterComponent.success": {
+		"string": "لقد تم حفظ الرسالة الإخبارية بنجاح.",
+		"developer_comment": "Success message displayed when a newsletter is saved."
+	},
+	"newsletterComponent.title": {
+		"string": "الرسالة الإخبارية",
+		"developer_comment": "Title for newsletter settings page."
+	},
+	"newsletterHeader.header": {
+		"string": "ترويسة",
+		"developer_comment": "Label for the newsletter header type field"
+	},
+	"newsletterHeader.headerTypeAudio": {
+		"string": "صوت",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeImage": {
+		"string": "صورة",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeLinkPreview": {
+		"string": "لمحة عن الرابط (يتطلب حسابا مُتحقَّق منه على واتساب)",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeNone": {
+		"string": "خالٍ",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeVideo": {
+		"string": "فيديو",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.overlay": {
+		"string": "النص اللاصق",
+		"developer_comment": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterHeader.overlayPlaceholder": {
+		"string": "إضافة نص فوق الصورة",
+		"developer_comment": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterNumberOfArticles.label": {
+		"string": "عدد المقالات",
+		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
+	},
+	"newsletterRssFeed.error": {
+		"string": "يجب التوفر على رابط RSS صالح لتحميل المقالات.",
+		"developer_comment": "Error message displayed under RSS feed URL field"
+	},
+	"newsletterRssFeed.load": {
+		"string": "تحميل",
+		"developer_comment": "Label for a button to load RSS feed entries"
+	},
+	"newsletterRssFeed.noArticle": {
+		"string": "لم يتم جلب أي مقال من RSS في الوقت الحالي",
+		"developer_comment": "Message displayed when RSS feed has less entries than requested"
+	},
+	"newsletterRssFeed.urlPlaceholder": {
+		"string": "https://example.com/rss.xml",
+		"developer_comment": "Placeholder text for newsletter RSS field"
+	},
+	"newsletterScheduler.at": {
+		"string": "في",
+		"developer_comment": "This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'"
+	},
+	"newsletterScheduler.errorContentHasntChanged": {
+		"string": "لم يتم نشر الرسالة الإخبارية لأن محتواها لم يتم تحديثه منذ آخر مرة تم إرسالها فيها.",
+		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS content has not changed"
+	},
+	"newsletterScheduler.errorRss": {
+		"string": "لم يتم نشر الرسالة الإخبارية لأنه لا يمكن جلب أي محتوى من موجز RSS.",
+		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS feed could not be loaded"
+	},
+	"newsletterScheduler.pause": {
+		"string": "إيقاف مؤقت",
+		"developer_comment": "Label for a button to pause a newsletter"
+	},
+	"newsletterScheduler.schedule": {
+		"string": "الجدولة",
+		"developer_comment": "Label for a button to schedule a newsletter"
+	},
+	"newsletterScheduler.sendEvery": {
+		"string": "إرسال في يوم",
+		"developer_comment": "Label on an input where the user selects in which days of the week to send an RSS newsletter"
+	},
+	"newsletterScheduler.sendOn": {
+		"string": "إرسال بتاريخ",
+		"developer_comment": "Label on a input where the user selects a date to send a newsletter"
+	},
+	"newsletterScheduler.subscribers": {
+		"string": "المشتركون :",
+		"developer_comment": "Label related to the number of subscribers of a newsletter"
+	},
+	"newsletterScheduler.tooltipScheduled": {
+		"string": "لقد تمت جدولتها بواسطة {name} بتاريخ {date}",
+		"developer_comment": "Tooltip message displayed on newsletter scheduler."
+	},
+	"newsletterScheduler.tooltipSent": {
+		"string": "آخر إرسال بتاريخ {date}",
+		"developer_comment": "Tooltip message displayed on newsletter scheduler."
+	},
+	"newsletterStatic.articlePlaceholder": {
+		"string": "إضافة نص أو رابط",
+		"developer_comment": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
 	},
 	"notFound.back": {
 		"string": "اذهب إلى صفحتي الشخصية",
@@ -2787,7 +3096,7 @@
 		"string": "سلة المهملات"
 	},
 	"projectsComponent.allItems": {
-		"string": "كل العناصر",
+		"string": "الكل",
 		"developer_comment": "Label for the 'All items' list displayed on the left sidebar"
 	},
 	"projectsComponent.couldNotMove": {
@@ -2818,15 +3127,15 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "تقصي الحقائق المُستورَدة",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"string": "مُستورَد",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel"
 	},
 	"projectsComponent.invalidMove": {
 		"string": "لا يمكن نقل المجلدات إلا إلى مجموعات",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
-		"string": "القوائم التي تم تصفيتها",
+		"string": "قوائم مخصصة",
 		"developer_comment": "List of items with some filters applied"
 	},
 	"projectsComponent.movedSuccessfully": {
@@ -2861,6 +3170,10 @@
 		"string": "مجلد جديد",
 		"developer_comment": "Menu item for creating new folder"
 	},
+	"projectsComponent.newFolderOrCollection": {
+		"string": "مجلد جديد أو مجموعة جديدة",
+		"developer_comment": "Tooltip for the button opens the new folder or collection menu"
+	},
 	"projectsComponent.newFolderSuccessMessage": {
 		"string": "تم إنشاء المجلد بنجاح",
 		"developer_comment": "Success message when new folder is created"
@@ -2868,6 +3181,10 @@
 	"projectsComponent.newList": {
 		"string": "قائمة جديدة",
 		"developer_comment": "Title for a dialog to create a new list displayed on the left sidebar."
+	},
+	"projectsComponent.newListButton": {
+		"string": "قائمة جديدة",
+		"developer_comment": "Tooltip for button that opens list creation dialog"
 	},
 	"projectsComponent.newListErrorMessage": {
 		"string": "تعذَّر إنشاء القائمة، يرجى المحاولة مرة أخرى",
@@ -2877,9 +3194,21 @@
 		"string": "لقد أُنشئَت القائمة بنجاح",
 		"developer_comment": "Success message when new list is created"
 	},
+	"projectsComponent.newSharedFeed": {
+		"string": "موجز جديد تمت مشاركته",
+		"developer_comment": "Tooltip for the button that navigates to shared feed creation page"
+	},
+	"projectsComponent.noCustomLists": {
+		"string": "لا توجد قوائم مخصصة",
+		"developer_comment": "Displayed under the custom list header when there are no lists in it"
+	},
 	"projectsComponent.noFolders": {
 		"string": "لا توجد مجلدات في هذه المجموعة",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
+	},
+	"projectsComponent.noSharedFeeds": {
+		"string": "لا يوجد موجز تم مشاركته",
+		"developer_comment": "Displayed under the shared feed header when there are no feeds in it"
 	},
 	"projectsComponent.privacyDialogButton": {
 		"string": "تحديث التصاريح"
@@ -2907,11 +3236,11 @@
 	},
 	"projectsComponent.suggestedMatches": {
 		"string": "الاقتراحات",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1"
 	},
 	"projectsComponent.tiplineInbox": {
-		"string": "صندوق بريد الخط الساخن",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"string": "البريد الوارد",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted"
 	},
 	"projectsComponent.title": {
 		"string": "العنوان"
@@ -3242,6 +3571,138 @@
 	"rulesTableToolbar.title": {
 		"string": "القواعد"
 	},
+	"saveFeed.confirmationDialogBody": {
+		"string": "هل تأكدت من رغبتك في تحديث هذا الموجز الذي تمت مشاركته؟",
+		"developer_comment": "Confirmation dialog message when saving a feed."
+	},
+	"saveFeed.confirmationDialogButton": {
+		"string": "تحديث هذا موجز الذي تمت مشاركته",
+		"developer_comment": "Button label to confirm updating a feed."
+	},
+	"saveFeed.confirmationDialogTitle": {
+		"string": "هل تأكدت من رغبتك في تحديث هذا الموجز الذي تمت مشاركته؟",
+		"developer_comment": "Confirmation dialog title when saving a feed."
+	},
+	"saveFeed.createSaveButton": {
+		"string": "إنشاء موجز قابل للمشاركة",
+		"developer_comment": "Label to the save button of the shared feed creation form"
+	},
+	"saveFeed.createdBy": {
+		"string": "تم الإنشاء بواسطة {teamName}",
+		"developer_comment": "Metadata field displayed on feed edit page."
+	},
+	"saveFeed.descriptionLabel": {
+		"string": "الوصف",
+		"developer_comment": "Label for a field where the user inputs text for a description to a shared feed"
+	},
+	"saveFeed.descriptionPlaceholder": {
+		"string": "إضافة وصف اختياري لهذا الموجز الذي تمت مشاركته.",
+		"developer_comment": "Placeholder text for feed description field"
+	},
+	"saveFeed.feedContentBlurb": {
+		"string": "يُرجى حدد قائمة مُصفّاة من تقصي الحقائق من مساحة عملك للمساهمة في هذا الموجز الذي تمت مشاركته. سيصبح بإمكانك تحديث هذه القائمة في أي وقت.",
+		"developer_comment": "Helper text for the feed content section"
+	},
+	"saveFeed.feedContentBlurb2": {
+		"string": "<strong>ملحوظة :</strong>يجب أن تحتوي قائمتك على<strong> تقصي حقائق منشورة</strong> لكي تكون جزءا من هذا الموجز الذي تمت مشاركته.",
+		"developer_comment": "Helper text for the feed content section"
+	},
+	"saveFeed.feedContentTitle": {
+		"string": "محتوى الموجز ",
+		"developer_comment": "Title of section where a list can be selected as the content of the feed"
+	},
+	"saveFeed.feedDetailsTitle": {
+		"string": "تفاصيل الموجز ",
+		"developer_comment": "Title of section where the details of the feed are filled. e.g.: title, description"
+	},
+	"saveFeed.lastUpdated": {
+		"string": "آخر تحديث منذ {timeAgo}",
+		"developer_comment": "On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
+	},
+	"saveFeed.learnMore": {
+		"string": "التعرف على المزيد.",
+		"developer_comment": "Link to external page with more details about shared feeds"
+	},
+	"saveFeed.learnMoreLicenses": {
+		"string": "التعرف على المزيد حول التراخيص.",
+		"developer_comment": "Link to an external page with more information about the data licenses"
+	},
+	"saveFeed.licenseAcademic": {
+		"string": "أكاديمي",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseBlurb": {
+		"string": "يخبر الترخيص الآخرين بما يمكنهم وما لا يمكنهم فعله بالبرمجة الخاصة بك.",
+		"developer_comment": "Helper text for the license section"
+	},
+	"saveFeed.licenseCommercial": {
+		"string": "تجاري",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseDetails": {
+		"string": "تفاصيل الترخيص",
+		"developer_comment": "Link to external page with license details"
+	},
+	"saveFeed.licenseOpenSource": {
+		"string": "مفتوح المصدر",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseTitle": {
+		"string": "الترخيص",
+		"developer_comment": "Title of the section where the publishing preferences such as licenses are selected"
+	},
+	"saveFeed.noListSelected": {
+		"string": "لا تساهم مساحة عملك في هذا الموجز الذي تمت مشاركته. يُرجى تحديد القائمة أدناه للمساهمة.",
+		"developer_comment": "Warning displayed on edit feed page when no list is selected."
+	},
+	"saveFeed.publishBlurb": {
+		"string": "يُرجى نشر موجزك في المتجر لجعله قابلا للاكتشاف من طرف المنظمات التابعة لجهات خارجية، مع الحفاظ على التحكم الدقيق في ممتلكاتك.",
+		"developer_comment": "Helper text for the publish feed section"
+	},
+	"saveFeed.publishSwitch": {
+		"string": "نشر الموجز الذي تمت مشاركته في ’المتجر‘",
+		"developer_comment": "Label for a switch where the user publishes a feed"
+	},
+	"saveFeed.publishTitle": {
+		"string": " نشر في 'السوق' <small>(قريبا)</small>",
+		"developer_comment": "Title of the section where the publishing preferences are set"
+	},
+	"saveFeed.selectHelper": {
+		"string": "ستتم مشاركة التحقق من صحة العنوان والملخص وعنوان الرابط مع الموجز.",
+		"developer_comment": "Helper text for shared feed list selector"
+	},
+	"saveFeed.selectLicense": {
+		"string": "يُرجى تحديد ترخيص لإنشاء هذا الموجز المشترك ونشره.",
+		"developer_comment": "Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data."
+	},
+	"saveFeed.sharedFeedPageSubtitle": {
+		"string": "إنشاء موجز جديد قابل للمشاركة",
+		"developer_comment": "Subtitle of the shared feed creation page"
+	},
+	"saveFeed.sharedFeedPageTitle": {
+		"string": "الموجز الذي تمت مشاركته",
+		"developer_comment": "Title of the shared feed creation page"
+	},
+	"saveFeed.titleHelper": {
+		"string": "إن أسماء الموجز الذي تتم مشاركته، والتي تلقى القبول، تكون قصيرة ولا تُنسى وتخبر جمهورك بالتركيز على المواد الإعلامية",
+		"developer_comment": "Title input helper text"
+	},
+	"saveFeed.titleLabel": {
+		"string": "العنوان",
+		"developer_comment": "Label for the shared feed title input"
+	},
+	"saveFeed.titlePlaceholder": {
+		"string": "عنوان موجز لا يُنسى",
+		"developer_comment": "Placeholder text for feed title field"
+	},
+	"saveFeed.updateSaveButton": {
+		"string": "حفظ",
+		"developer_comment": "Label to the save button of the shared feed update form"
+	},
+	"saveFeed.viewSharedFeed": {
+		"string": "عرض موجز تتم مشاركته",
+		"developer_comment": "Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page."
+	},
 	"saveList.cancel": {
 		"string": "إلغاء"
 	},
@@ -3279,6 +3740,10 @@
 		"string": "حفظ التغييرات في القائمة",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveList.warningAlert": {
+		"string": "سيؤدي حفظ التغييرات إلى تحديث الموجزات التي تتم مشاركتها : ",
+		"developer_comment": "Text displayed in the title of a warning box when saving a list related to shared feeds"
+	},
 	"saveTag.couldNotSave": {
 		"string": "تعذَّر حفظ الوسم",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
@@ -3303,10 +3768,8 @@
 		"string": "تحرير الوسم"
 	},
 	"savedSearch.deleteMessage": {
-		"string": "أأنت على يقين من ذلك ؟ لقد تمت مشاركة هذه القائمة بين كل مستخدمي {teamName}. لن يتمكن أي مستخدم من الوصول إليها بعد حذفها."
-	},
-	"savedSearch.name": {
-		"string": "القائمة"
+		"string": "أأنت على يقين من ذلك ؟ لقد تمت مشاركة هذه القائمة بين كل مستخدمي {teamName}. لن يتمكن أي مستخدم من الوصول إليها بعد حذفها.",
+		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
 	},
 	"search.afterDate": {
 		"string": "بعد",
@@ -3326,6 +3789,10 @@
 	"search.anyDate": {
 		"string": "أي تاريخ",
 		"developer_comment": "Date picker placeholder"
+	},
+	"search.applyFilter": {
+		"string": "تطبيق",
+		"developer_comment": "Button label to apply search filters."
 	},
 	"search.applyFilters": {
 		"string": "تفعيل التصفية",
@@ -3504,6 +3971,10 @@
 		"string": "غير منشور",
 		"developer_comment": "Refers to a report status"
 	},
+	"search.resetFilter": {
+		"string": "إعادة التعيين",
+		"developer_comment": "Button label to reset search filters."
+	},
 	"search.show": {
 		"string": "النوع هو",
 		"developer_comment": "Prefix label for field to filter by media type"
@@ -3537,7 +4008,7 @@
 		"developer_comment": "Allow user to filter by social media links"
 	},
 	"search.statusHeading": {
-		"string": "حالة العنصر هي",
+		"string": "التقييم هو",
 		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.tiktok": {
@@ -3671,6 +4142,26 @@
 		"string": "{selectedCount, plural, zero {(لا عنصر محدد)} one {(واحد محدد)} two {(إثنان محددان)} few {(# محددة)} many {(# محددة)} other {(# محددة)}}",
 		"developer_comment": "Label for number of selected items"
 	},
+	"select.removeSelection": {
+		"string": "التراجع عن التحديد",
+		"developer_comment": "Tooltip for button on Select component to remove current selection"
+	},
+	"selectList.noListButtonLabel": {
+		"string": "كيفية إنشاء القوائم",
+		"developer_comment": "Helper link in a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.noListDescription": {
+		"string": "عليك بإنشاء القائمة ثم القيام بإعداد التصفيات لتحديد عمليات تقصي الحقائق التي عندك رغبة في المساهمة بها في هذا الموجز المشترك.",
+		"developer_comment": "Content of a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.noListTitle": {
+		"string": "تحتاج مساحة عملك إلى قائمة تصفية مخصصة للمساهمة.",
+		"developer_comment": "Title of a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.select": {
+		"string": "تحديد القائمة…",
+		"developer_comment": "Label for list selector"
+	},
 	"sensitiveContentMenuButton.adult": {
 		"string": "إباحي (عري، صور خليعة)",
 		"developer_comment": "Label for adult content type"
@@ -3729,6 +4220,10 @@
 		"string": "حفظ",
 		"developer_comment": "Button label for save columns settings"
 	},
+	"sharedFeedIcon.Tooltip": {
+		"string": "مُضمَنة في الموجز المشترك :",
+		"developer_comment": "Tooltip for shared feeds icon"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "الإجابة عن المهمة"
 	},
@@ -3780,6 +4275,10 @@
 	"similarityComponent.singleLanguageFactChecksEnabled": {
 		"string": "إرسال فقط معلومات تقصي الحقائق بنفس لغة المحادثات",
 		"developer_comment": "Label displayed when similarity setting for single language fact-checks is enabled"
+	},
+	"similarityComponent.textLength": {
+		"string": "الحد الأدنى من الكلمات المطلوبة للتوافق المؤكد",
+		"developer_comment": "A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
 	},
 	"similarityComponent.title": {
 		"string": "توافق المتشابهات",
@@ -3889,15 +4388,6 @@
 	"smoochBot.descriptionMainMenu": {
 		"string": "قائمة تطلب من المستخدم الاختيار بين مجموعة من الخيارات.  ستتبع هذه الرسالة رسالة الترحيب تلقائيا. لا يمكن استخدام الخيار 9 في القائمة الرئيسية."
 	},
-	"smoochBot.descriptionNewsletter1": {
-		"string": "يرجى إكمال الخطوات بالأسفل لإرسال رسالة إخبارية أسبوعية:"
-	},
-	"smoochBot.descriptionNewsletter2": {
-		"string": "1. كتابة الرسالة الإخبارية"
-	},
-	"smoochBot.descriptionNewsletter3": {
-		"string": "2. نحديد يوم ووقت معين في الأسبوع"
-	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "الرسالة التى سيتم إرسالها اذا كان سيناريو رد المستخدم على قائمة ما لا يصلح  للقائمة."
 	},
@@ -3951,12 +4441,6 @@
 	"smoochBot.labelMainMenu": {
 		"string": "القائمة الرئيسية"
 	},
-	"smoochBot.labelNewsletter": {
-		"string": "الرسالة الإخبارية"
-	},
-	"smoochBot.labelNewsletterV2": {
-		"string": "الرسالة الإخبارية"
-	},
 	"smoochBot.labelOptionNotAvailable": {
 		"string": "الخيار غير متاح"
 	},
@@ -3995,15 +4479,6 @@
 	},
 	"smoochBot.placeholderMainMenu": {
 		"string": "📌*القائمة الرئيسة*\n\n*أرسلوا 1* (أو 🔍) لإرسال طلب تقصي الحقائق في مقال، فيديو، صورة، أو أي محتوى آخر.\n*أرسلوا 2* (أو 🦠) للحصول على آخر المعلومات عن مرض فيروس كورونا (كوفيد-19)"
-	},
-	"smoochBot.placeholderNewsletter": {
-		"string": "يُرجى كتابة رسالتك الإخبارية. يمكنك إضافة محتوى من موجز RSS بالأسفل."
-	},
-	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "إضافة مقال"
-	},
-	"smoochBot.placeholderNewsletterIntroduction": {
-		"string": "يُرجى كتابة شيء هنا"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖أنا آسف، لم أفهم رسالتك. يرجى المحاولة ثانية!"
@@ -4740,7 +5215,7 @@
 	},
 	"sourceInfo.addLink": {
 		"string": "إضافة عنوان ثانوي",
-		"developer_comment": "allow user to relate a new link to media source"
+		"developer_comment": "Allow user to relate a new link to media source"
 	},
 	"sourceInfo.addSecondaryLink": {
 		"string": "إضافة عنوان ثانوي",
@@ -4760,7 +5235,7 @@
 	},
 	"sourceInfo.mainName": {
 		"string": "الاسم الأساسي",
-		"developer_comment": "souce name"
+		"developer_comment": "Source name"
 	},
 	"sourceInfo.mediasCount": {
 		"string": "{mediasCount, plural, zero {لا وجود لأي عنصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرا} other {# عنصر}}",
@@ -4910,6 +5385,22 @@
 	},
 	"tagInput.search": {
 		"string": "للبحث عن الوسوم أو لإضافة وسوم جديدة"
+	},
+	"tagList.create": {
+		"string": "+ إنشاء هذا الوسم",
+		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
+	},
+	"tagList.empty": {
+		"string": "0 وسوم",
+		"developer_comment": "A message that appears in a lag list when there are no available tags to display."
+	},
+	"tagList.notFound": {
+		"string": "‏‏لم يعثر على الوسوم",
+		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
+	},
+	"tagList.submit": {
+		"string": "الوسم",
+		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.create": {
 		"string": "+ إنشاء هذا الوسم",
@@ -5175,7 +5666,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
-		"string": "‫البدء بأي رسالة للمستخدم  (سواء الواردة منها أو الصادرة)، ثم إنهاء ذلك بعد 24 ساعة. سيتم جمع تلك البيانات انطلاقا من فاتح أبريل 2023.",
+		"string": "‫البدء بأي رسالة للمستخدم (سواء الواردة منها أو الصادرة)، ثم إنهاء ذلك بعد 24 ساعة. سيتم جمع تلك البيانات انطلاقا من فاتح أبريل 2023.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.currentSubscribers": {
@@ -5243,28 +5734,65 @@
 		"string": "طلبات المستخدمين المرتبطة بهذه الادعاءات، والتي ليست في سلة المهملات.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDetails.description": {
-		"string": "الوصف"
-	},
 	"teamDetails.duplicateWorkspace": {
-		"string": "تكرار مساحة العمل"
+		"string": "تكرار مساحة العمل",
+		"developer_comment": "Label of a button to duplicate a workspace"
+	},
+	"teamDetails.edit": {
+		"string": "تحرير",
+		"developer_comment": "Label for a button to change a workspace image"
+	},
+	"teamDetails.linkManagement": {
+		"string": "إدارة الروابط",
+		"developer_comment": "Title of the link management section in team details page"
+	},
+	"teamDetails.linkManagementRss": {
+		"string": "لا يمكن تعطيل خدمة الرابط أثناء تهيئة رسائل RSS الإخبارية في مساحة العمل هذه",
+		"developer_comment": "Helper text for link management switcher when workspace has RSS newsletters configured"
+	},
+	"teamDetails.linkManagementSwitcher": {
+		"string": "تفعيل اختصار الروابط والتحليلات",
+		"developer_comment": "Label for a switch where the user toggles link management in team details page"
+	},
+	"teamDetails.profile": {
+		"string": "ملف التعريف",
+		"developer_comment": "Title of the profile section in team details page"
 	},
 	"teamDetails.savedSuccessfully": {
-		"string": "حُفظَت تفاصيل مساحة العمل بنجاح"
+		"string": "حُفظَت تفاصيل مساحة العمل بنجاح",
+		"developer_comment": "Success message displayed when workspace settings are saved"
 	},
 	"teamDetails.subtitle": {
 		"string": "إضافة التفاصيل إلى مساحة عملك في Check.",
 		"developer_comment": "Subtitle for details page of current workspace"
 	},
 	"teamDetails.title": {
-		"string": "تفاصيل مساحة العمل",
+		"string": "مساحة العمل",
 		"developer_comment": "Title for details page of current workspace"
 	},
 	"teamDetails.update": {
-		"string": "تحديث"
+		"string": "تحديث",
+		"developer_comment": "Label of the button that saves workspace details"
+	},
+	"teamDetails.utmCode": {
+		"string": "رمز UTM",
+		"developer_comment": "Label for 'UTM code' field"
+	},
+	"teamDetails.utmCodeHelp": {
+		"string": "تخصيص رمز UTM المُضاف للروابط. يُرجى ترك الحقل فارغا لتعطيل رموز UTM.",
+		"developer_comment": "Helper text for UTM code field"
+	},
+	"teamDetails.warnContent": {
+		"string": "‫ستتضمن الروابط المعاد كتابتها أيضا رمز UTM إذا تم توفيره. لا يغير رمز UTM عنوان الصفحة المقصودة. <br /><br /><strong>قبل :</strong> https://www.example.com/your-link<br /><strong>بعد :</strong>https://chck.media/x1y2z3w4/{code}",
+		"developer_comment": "Text displayed in the content of a warning box on team details page when link shortening is on"
+	},
+	"teamDetails.warnTitle": {
+		"string": "ستتم إعادة كتابة جميع الروابط المرسلة عبر Check.",
+		"developer_comment": "Text displayed in the title of a warning box on team details page when link shortening is on"
 	},
 	"teamDetails.workspaceName": {
-		"string": "اسم مساحة العمل"
+		"string": "اسم مساحة العمل",
+		"developer_comment": "Label for workspace name field"
 	},
 	"teamIntegrations.subtitle": {
 		"string": "أدوات الأطراف الأخرى لتحسين الإنتاجية."
@@ -5492,44 +6020,60 @@
 		"developer_comment": "Label to WhatsApp number field"
 	},
 	"teamSettings.Tags": {
-		"string": "الوسوم"
+		"string": "الوسوم",
+		"developer_comment": "Label for the Tags settings tab"
 	},
 	"teamSettings.data": {
-		"string": "البيانات"
+		"string": "البيانات",
+		"developer_comment": "Label for the Data settings tab"
 	},
 	"teamSettings.integrations": {
-		"string": "التكاملات"
+		"string": "التكاملات",
+		"developer_comment": "Label for the Integrations settings tab"
 	},
 	"teamSettings.languages": {
-		"string": "اللغات"
+		"string": "اللغة",
+		"developer_comment": "Label for the Language settings tab"
 	},
 	"teamSettings.lists": {
-		"string": "الأعمدة"
+		"string": "الأعمدة",
+		"developer_comment": "Label for the Columns settings tab"
 	},
 	"teamSettings.members": {
-		"string": "الأعضاء"
+		"string": "الأعضاء",
+		"developer_comment": "Label for the Members settings tab"
 	},
 	"teamSettings.metadata": {
 		"string": "التفسيرات",
 		"developer_comment": "Label for annotation settings tab"
 	},
+	"teamSettings.newsletter": {
+		"string": "الرسالة الإخبارية",
+		"developer_comment": "Label for a tab that takes the user to settings for their newsletter."
+	},
 	"teamSettings.report": {
-		"string": "التقرير"
+		"string": "التقرير",
+		"developer_comment": "Label for the Report settings tab"
 	},
 	"teamSettings.rules": {
-		"string": "القواعد"
+		"string": "القواعد",
+		"developer_comment": "Label for the Rules settings tab"
 	},
 	"teamSettings.similarity": {
-		"string": "التشابهات"
+		"string": "التشابهات",
+		"developer_comment": "Label for the Similarity settings tab"
 	},
 	"teamSettings.statuses": {
-		"string": "الحالات"
+		"string": "الحالات",
+		"developer_comment": "Label for the Statuses settings tab"
 	},
 	"teamSettings.tipline": {
-		"string": "الخط الساخن"
+		"string": "الخط الساخن",
+		"developer_comment": "Label for the Tipline settings tab"
 	},
 	"teamSettings.workspace": {
-		"string": "مساحة العمل"
+		"string": "مساحة العمل",
+		"developer_comment": "Label for the Workspace settings tab"
 	},
 	"teamTags.addTag": {
 		"string": "إضافة الوسم"
@@ -5913,6 +6457,22 @@
 	"unconfirmed.title": {
 		"string": "غير مؤكد"
 	},
+	"upload.dragMessage": {
+		"string": "اسحب ملفا هنا أو",
+		"developer_comment": "A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'."
+	},
+	"upload.dropFile": {
+		"string": "إفلات الملف هنا",
+		"developer_comment": "A label that appears when a user drags a file over a valid file drop area"
+	},
+	"upload.removeUpload": {
+		"string": "إزالة الملف",
+		"developer_comment": "Tooltip message displayed on upload component. Cancel file selected for upload"
+	},
+	"upload.selectFile": {
+		"string": "حدد ملفا محليا",
+		"developer_comment": "Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system."
+	},
 	"uploadFile.audioMessage": {
 		"string": "يرجى اسقاط ملف صوتي هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {audio_max_size}، الأنواع المسموحة: {audio_extensions})"
 	},
@@ -6187,5 +6747,21 @@
 	"webPageMediaCard.Error": {
 		"string": "لم يمكن تعريف هذا العنصر. ربّما تم حذفه، أو قد يكون ظاهراً فقط  للمستخدمين الذين سجّلوا الدخول. يرجى نقر الرابط أعلاه للإنتقال إليه.",
 		"developer_comment": "Error message displayed when link data is unavailable"
+	},
+	"workspaceMenu.teamLegal": {
+		"string": "حول",
+		"developer_comment": "Legal link tooltip in drawer rail navigation"
+	},
+	"workspaceMenu.teamSettings": {
+		"string": "إعدادات مساحة العمل",
+		"developer_comment": "Tooltip for drawer navigation to workspace settings"
+	},
+	"workspaceMenu.teamTipline": {
+		"string": "الخط الساخن",
+		"developer_comment": "Tooltip for drawer navigation to tipline"
+	},
+	"workspaceMenu.teamTraining": {
+		"string": "التدريبات والتوثيقات",
+		"developer_comment": "Help link tooltip in drawer rail navigation"
 	}
 }
