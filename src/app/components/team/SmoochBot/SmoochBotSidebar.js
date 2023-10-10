@@ -21,7 +21,6 @@ const SmoochBotSidebar = ({
         size="default"
         variant={currentOption === id ? 'contained' : 'text'}
         theme={currentOption === id ? 'lightBrand' : 'lightText'}
-        disabled={currentOption === id}
         onClick={() => { handleClick(id); }}
         label={label}
       />
@@ -29,7 +28,7 @@ const SmoochBotSidebar = ({
   );
 
   return (
-    <ul className={cx(styles.smoochBotMenu)}>
+    <ul className={styles.smoochBotMenu}>
       <li className={cx('typography-overline', styles.smoochBotMenuSection)}>Menu Options</li>
       {/* Menu options */}
       { Object.keys(labelsV2).map((key) => {

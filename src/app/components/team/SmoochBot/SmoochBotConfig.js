@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import Box from '@material-ui/core/Box';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
@@ -16,17 +14,9 @@ import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
 import SmoochBotMainMenu from './SmoochBotMainMenu';
 import AddIcon from '../../../icons/add.svg';
 import createEnvironment from '../../../relay/EnvironmentModern';
-
-const useStyles = makeStyles(theme => ({
-  box: {
-    padding: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-  },
-}));
+import styles from '../Settings.module.css';
 
 const SmoochBotConfig = (props) => {
-  const classes = useStyles();
-
   const {
     currentLanguage,
     languages,
@@ -169,8 +159,8 @@ const SmoochBotConfig = (props) => {
       </Tabs>
       { currentTab === 0 ?
         <React.Fragment>
-          <Box display="flex">
-            <Box>
+          <div className={styles['bot-designer']}>
+            <div className={styles['bot-designer-menu']}>
               <SmoochBotSidebar
                 currentOption={currentOption}
                 resources={resources}
@@ -192,8 +182,8 @@ const SmoochBotConfig = (props) => {
                   />
                 }
               />
-            </Box>
-            <Box flexGrow="1" className={classes.box}>
+            </div>
+            <div className={styles['bot-designer-content']}>
               { currentOption === 'smooch_message_smooch_bot_tos' ?
                 <SmoochBotMultiTextEditor
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
@@ -254,8 +244,8 @@ const SmoochBotConfig = (props) => {
                   onChange={handleChangeMenu}
                   resources={resources}
                 /> : null }
-            </Box>
-          </Box>
+            </div>
+          </div>
         </React.Fragment> : null }
       { currentTab === 1 ?
         <SmoochBotSettings

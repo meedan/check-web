@@ -103,24 +103,32 @@
   }
 }
 
-.tipline-menu-option {
-  align-items: center;
+.bot-designer {
   display: flex;
-  justify-content: space-between;
-  margin: 8px 0;
+  flex-direction: row;
+  gap: 16px;
 
-  .tipline-menu-option-content,
-  .tipline-menu-option-actions {
+  .bot-designer-menu {
+    flex: 0 0 250px;
+    margin: 16px 0;
+  }
+
+  .bot-designer-content {
+    flex: 1 1 auto;
+    margin: 16px 0;
+  }
+
+  .tipline-menu-option {
     align-items: center;
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    margin: 8px 0;
+
+    .tipline-menu-option-content,
+    .tipline-menu-option-actions {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+    }
   }
-}
-
-.identify-me {
-  border: solid 5px var(--validationMain);
-}
-
-.identify-me-2 {
-  border: solid 5px var(--alertMain);
 }
