@@ -76,7 +76,11 @@ const ChatHistory = ({
           },
         )}
         >
-          {content}
+          {
+            typeof content === 'object' ? // It's probably a WhatsApp Cloud API template message, which is an object
+              JSON.stringify(content.template) :
+              content
+          }
         </div>
         <div className={`typography-body2 ${styles.time}`}>
           <Tooltip title={d.toLocaleString()}>
