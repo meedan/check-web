@@ -242,7 +242,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         <div className={cx(settingsStyles['setting-content-container'])}>
           {
             currentLanguage === defaultLanguage ? (
-              <ul>
+              <ul className={settingsStyles['setting-content-list']}>
                 { statuses.map(s => (
                   <StatusListItem
                     defaultLanguage={defaultLanguage}

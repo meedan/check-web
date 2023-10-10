@@ -88,10 +88,8 @@ const TeamIntegrations = () => (<QueryRenderer
             helpUrl="https://help.checkmedia.org/en/articles/6925397-integrations"
           />
           <div className={cx('team-integrations', settingsStyles['setting-details-wrapper'])}>
-            <div className={cx('team-integrations__integrations')}>
-              <TeamBots {...props} />
-              <SlackConfig team={props.root.current_team} />
-            </div>
+            <TeamBots {...props} />
+            <SlackConfig team={props.root.current_team} />
           </div>
         </>
       );

@@ -54,6 +54,10 @@
           border-radius: 3px;
           padding: 16px;
         }
+
+        + .setting-content-container {
+          margin: 16px 0 0;
+        }
       }
 
       :global(.MuiTableContainer-root) {
@@ -64,6 +68,7 @@
 
       table {
         background-color: var(--otherWhite);
+        border: solid 3px var(--validationMain);
 
         tbody {
           tr {
@@ -74,6 +79,18 @@
               }
             }
           }
+        }
+      }
+
+      .setting-content-list {
+        border: solid 3px var(--errorMain);
+      }
+
+      .setting-content-form-wrapper {
+        margin: 16px 0 0;
+
+        .setting-content-form-field + .setting-content-form-field {
+          margin: 16px 0 0;
         }
       }
 

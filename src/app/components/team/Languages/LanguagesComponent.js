@@ -3,7 +3,6 @@ import { PropTypes } from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import List from '@material-ui/core/List';
 import cx from 'classnames/bind';
 import AddLanguageAction from './AddLanguageAction';
 import LanguageListItem from './LanguageListItem';
@@ -105,19 +104,17 @@ const LanguagesComponent = ({ team }) => {
               values={{ defaultLanguage: languageLabelFull(team.get_language) }}
             />
           </div>
-          <div>
-            <SwitchComponent
-              label={
-                <FormattedMessage
-                  id="languagesComponent.languageDetectionSwitch"
-                  defaultMessage="Enable language detection"
-                  description="Label for a switch where the user toggles auto language detection"
-                />
-              }
-              checked={team.get_language_detection}
-              onChange={toggleLanguageDetection}
-            />
-          </div>
+          <SwitchComponent
+            label={
+              <FormattedMessage
+                id="languagesComponent.languageDetectionSwitch"
+                defaultMessage="Enable language detection"
+                description="Label for a switch where the user toggles auto language detection"
+              />
+            }
+            checked={team.get_language_detection}
+            onChange={toggleLanguageDetection}
+          />
         </div>
         <div className={cx(settingsStyles['setting-content-container'], styles['team-languages-section'])}>
           <div className={settingsStyles['setting-content-container-title']}>
@@ -127,7 +124,7 @@ const LanguagesComponent = ({ team }) => {
               description="Title of the active languages list section in language settings page"
             />
           </div>
-          <List>
+          <ul className={settingsStyles['setting-content-list']}>
             {languages.map(l => (
               <LanguageListItem
                 code={l}
@@ -135,7 +132,7 @@ const LanguagesComponent = ({ team }) => {
                 team={team}
               />
             ))}
-          </List>
+          </ul>
         </div>
       </div>
     </React.Fragment>
