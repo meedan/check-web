@@ -14,7 +14,7 @@ import FeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
-import BulkActions from '../media/BulkActions';
+import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
@@ -454,7 +454,14 @@ function SearchResultsComponent({
           team={team}
           actions={
             projectMedias.length && selectedProjectMedia.length ?
-              <BulkActions
+              <BulkActionsMenu
+              /*
+              FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
+              below to contain the PM objects as the tagging mutation currently requires dbids and
+              also for other requirements such as warning about published reports before bulk changing statuses
+              additional data is needed.
+              I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
+              */
                 team={team}
                 page={page}
                 selectedProjectMedia={selectedProjectMedia}
@@ -603,7 +610,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         id,
         pusher_channel,
         team {
-          ${BulkActions.getFragment('team')}
           ${SearchKeyword.getFragment('team')}
           ${SearchFields.getFragment('team')}
           id
