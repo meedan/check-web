@@ -60,7 +60,10 @@ const ChatHistory = ({
     console.log('~~~',content);
     return content.components.map(
       item => item.parameters.map(
-        innerItem => (innerItem.type === 'text' && innerItem.text) || (innerItem.type === 'video' && innerItem.video.link)),
+        innerItem => (innerItem.type === 'text' && innerItem.text)
+          || (innerItem.type === 'video' && innerItem.video.link)
+          || (innerItem.type === 'image' && innerItem.image.link),
+      ),
     ).flat().join('\n\n');
   };
 
