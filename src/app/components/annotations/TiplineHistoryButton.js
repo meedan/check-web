@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Modal } from '@material-ui/core';
 import TiplineHistory from './TiplineHistory';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -31,7 +31,7 @@ const TiplineHistoryButton = ({
         <TiplineHistory
           uid={uid}
           handleClose={handleClose}
-          title={`Chat with ${name}`}
+          title={<FormattedMessage id="tiplineHistory.title" description="Title field labeling a chat log with a user" defaultMessage="Chat with {user}" values={{ user: name }} />}
         />
       </Modal>
     </>

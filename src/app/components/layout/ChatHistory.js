@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
+import Linkify from 'react-linkify';
 import IconClose from '../../icons/cancel.svg';
 import IconDone from '../../icons/done.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -67,7 +68,7 @@ const ChatHistory = ({
         [styles['bot-message']]: !userMessage,
       })}
       >
-        <div className={cx(
+        <Linkify className={cx(
           'typography-body1',
           {
             [styles.user]: userMessage,
@@ -81,7 +82,7 @@ const ChatHistory = ({
               JSON.stringify(content.template) :
               content
           }
-        </div>
+        </Linkify>
         <div className={`typography-body2 ${styles.time}`}>
           <Tooltip title={d.toLocaleString()}>
             <time dateTime={d.toISOString()}>{d.toLocaleTimeString()}</time>
