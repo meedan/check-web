@@ -55,6 +55,15 @@ const ChatHistory = ({
 
   const convertSentAtToLocaleDateString = sent_at => new Date(+sent_at * 1000).toLocaleDateString();
 
+  const parseWhatsApp = (content) => {
+    // eslint-disable-next-line
+    console.log('~~~',content);
+    return content.components.map(
+      item => item.parameters.map(
+        innerItem => (innerItem.type === 'text' && innerItem.text) || (innerItem.type === 'video' && innerItem.video.link)),
+    ).flat().join('\n\n');
+  };
+
   const Message = ({
     content,
     dateTime,
@@ -79,7 +88,7 @@ const ChatHistory = ({
         >
           {
             typeof content === 'object' ? // It's probably a WhatsApp Cloud API template message, which is an object
-              JSON.stringify(content.template) :
+              parseWhatsApp(content.template) :
               content
           }
         </Linkify>
