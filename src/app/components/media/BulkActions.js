@@ -6,47 +6,42 @@ import BulkActionsMenu from './BulkActionsMenu';
 import Can from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 
-class BulkActions extends React.Component {
-  fail = () => {};
+function BulkActions(props) {
+  const {
+    page, team,
+  } = props;
+  let actionsAvailable = null;
+  const permissionKey = 'bulk_update ProjectMedia';
 
-  render() {
-    const {
-      page, team,
-    } = this.props;
-    // const disabled = selectedMedia.length === 0;
-    let actionsAvailable = null;
-    const permissionKey = 'bulk_update ProjectMedia';
+  actionsAvailable = (
+    <BulkActionsMenu
+      selectedMedia={props.selectedMedia}
+      /*
+          FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
+          below to contain the PM objects as the tagging mutation currently requires dbids and
+          also for other requirements such as warning about published reports before bulk changing statuses
+          additional data is needed.
+          I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
+        */
+      selectedProjectMedia={props.selectedProjectMedia}
+      team={team}
+      page={page}
+      onUnselectAll={props.onUnselectAll}
+      setFlashMessage={props.setFlashMessage}
+    />
+  );
 
-    actionsAvailable = (
-      <BulkActionsMenu
-        selectedMedia={this.props.selectedMedia}
-        /*
-            FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
-            below to contain the PM objects as the tagging mutation currently requires dbids and
-            also for other requirements such as warning about published reports before bulk changing statuses
-            additional data is needed.
-            I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
-          */
-        selectedProjectMedia={this.props.selectedProjectMedia}
-        team={team}
-        page={page}
-        onUnselectAll={this.props.onUnselectAll}
-        setFlashMessage={this.props.setFlashMessage}
-      />
-    );
-
-    return (
-      <span id="media-bulk-actions">
-        <Box id="media-bulk-actions__actions" display="flex" alignItems="center">
-          <React.Fragment>
-            <Can permission={permissionKey} permissions={team.permissions}>
-              {actionsAvailable}
-            </Can>
-          </React.Fragment>
-        </Box>
-      </span>
-    );
-  }
+  return (
+    <span id="media-bulk-actions">
+      <Box id="media-bulk-actions__actions" display="flex" alignItems="center">
+        <React.Fragment>
+          <Can permission={permissionKey} permissions={team.permissions}>
+            {actionsAvailable}
+          </Can>
+        </React.Fragment>
+      </Box>
+    </span>
+  );
 }
 
 BulkActions.propTypes = {
