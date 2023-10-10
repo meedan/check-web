@@ -2,7 +2,7 @@
   {
     "id": "rulesTableToolbar.title",
     "description": "Title area for the rules admin section of the settings page",
-    "defaultMessage": "Rules"
+    "defaultMessage": "Rules [{rulesCount}]"
   },
   {
     "id": "rulesTableToolbar.add",

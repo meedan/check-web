@@ -77,8 +77,9 @@ export default function RulesTable(props) {
         title={
           <FormattedMessage
             id="rulesTableToolbar.title"
-            defaultMessage="Rules"
+            defaultMessage="Rules [{rulesCount}]"
             description="Title area for the rules admin section of the settings page"
+            values={{ rulesCount: rows.length }}
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"

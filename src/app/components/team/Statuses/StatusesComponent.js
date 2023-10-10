@@ -205,9 +205,10 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         title={
           <FormattedMessage
             id="statusesComponent.title"
-            defaultMessage="{languageName} statuses"
+            defaultMessage="{languageName} statuses [{statusCount}]"
             values={{
               languageName: languageName(currentLanguage),
+              statusCount: statuses.length,
             }}
             description="The idea of this sentence is 'statuses written in language <languageName>'"
           />

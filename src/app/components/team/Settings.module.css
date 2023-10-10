@@ -9,6 +9,23 @@
     overflow: auto;
     padding: 16px 32px 32px;
 
+    .smoochBotMenu {
+      li {
+        margin: 0 0 8px;
+
+        &.smoochBotMenuSection {
+          color: var(--textSecondary);
+          font-weight: bold;
+          margin: 8px 0;
+        }
+
+        button {
+          justify-content: start;
+          width: 100%;
+        }
+      }
+    }
+
     .setting-details-wrapper {
       max-width: var(--columnWidthLarge);
       width: 100%;
@@ -20,12 +37,14 @@
 
         .setting-content-container-title {
           align-items: center;
+          background-color: var(--errorLight);
           display: flex;
           justify-content: space-between;
+          margin: 0 0 8px;
           min-height: 34px;
 
           > span {
-            @mixin typography-subtitle2;
+            @mixin typography-subtitle1;
             align-items: center;
             display: flex;
             flex: 1 1 auto;
@@ -44,7 +63,7 @@
         }
 
         .setting-content-container-inner {
-          background: var(--brandBackground);
+          background-color: var(--brandBackground);
           border-radius: 5px;
           padding: 16px;
         }
@@ -83,7 +102,33 @@
       }
 
       .setting-content-list {
-        border: solid 3px var(--errorMain);
+        li {
+          align-items: flex-start;
+          display: flex;
+          gap: 16px;
+          margin: 0 0 16px;
+
+          &.setting-content-list-language {
+            align-items: center;
+          }
+
+          &:last-of-type {
+            margin: 0;
+          }
+
+          > div {
+            flex: 1 1 auto;
+
+            p {
+              color: var(--textSecondary);
+              margin: 3px 0 0 26px;
+            }
+
+            &.setting-content-list-actions {
+              flex: 0 0 auto;
+            }
+          }
+        }
       }
 
       .setting-content-form-wrapper {
@@ -97,23 +142,6 @@
       .tipline-admin-settings {
         .setting-content-container-inner {
           margin: 0 0 16px;
-        }
-      }
-    }
-
-    .smoochBotMenu {
-      li {
-        margin: 0 0 8px;
-
-        &.smoochBotMenuSection {
-          color: var(--textSecondary);
-          font-weight: bold;
-          margin: 8px 0;
-        }
-
-        button {
-          justify-content: start;
-          width: 100%;
         }
       }
     }

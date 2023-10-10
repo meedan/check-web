@@ -126,16 +126,14 @@ class TeamBots extends Component {
                   />
                 </div>
               </div>
-              <div className={styles['integration-bot-switch']}>
-                <SwitchComponent
-                  className={`team-bots__${bot.identifier}-${installation ? 'installed' : 'uninstalled'}`}
-                  checked={Boolean(installation)}
-                  onChange={this.handleToggle.bind(this, installation, bot, team)}
-                  disabled={this.state.saving === bot.id}
-                  label={bot.description}
-                  labelPlacement="end"
-                />
-              </div>
+              <SwitchComponent
+                className={`team-bots__${bot.identifier}-${installation ? 'installed' : 'uninstalled'}`}
+                checked={Boolean(installation)}
+                onChange={this.handleToggle.bind(this, installation, bot, team)}
+                disabled={this.state.saving === bot.id}
+                label={bot.description}
+                labelPlacement="end"
+              />
               <Collapse in={botExpanded} timeout="auto" className={styles['integration-details']}>
                 { bot.installation?.json_settings ?
                   <React.Fragment>

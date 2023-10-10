@@ -45,9 +45,6 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  actionsCell: {
-    gap: `${theme.spacing(3)}px`,
-  },
 }));
 
 const TeamMembersComponent = ({
@@ -83,8 +80,9 @@ const TeamMembersComponent = ({
         title={
           <FormattedMessage
             id="teamMembers.title"
-            defaultMessage="Members"
+            defaultMessage="Members [{membersCount}]"
             description="Title for workspace members management page"
+            values={{ membersCount: sortedMembers.filter(tu => !tu.node.user.is_bot).length }}
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/3336431-permissions-in-check"
@@ -167,6 +165,7 @@ const TeamMembersComponent = ({
                     )}
                   </FormattedMessage>
                 </TableCell>
+                <TableCell padding="checkbox" />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -217,10 +216,10 @@ const TeamMembersComponent = ({
                     }
                   </TableCell>
                   <TableCell>
-                    <Box display="flex" className={classes.actionsCell} alignItems="center">
-                      <ChangeUserRole teamUser={tu.node} />
-                      <TeamMemberActions team={team} teamUser={tu.node} />
-                    </Box>
+                    <ChangeUserRole teamUser={tu.node} />
+                  </TableCell>
+                  <TableCell>
+                    <TeamMemberActions team={team} teamUser={tu.node} />
                   </TableCell>
                 </TableRow>
               ))}
