@@ -180,16 +180,14 @@
 		"string": "Políticas de privacidad"
 	},
 	"UserMenu.signOut": {
-		"string": "Salir"
+		"string": "Salir",
+		"developer_comment": "This is the sign out button on the user profile page"
 	},
 	"UserMenu.tos": {
 		"string": "Términos del servicio"
 	},
 	"UserMenu.training": {
 		"string": "Entrenamiento y documentación"
-	},
-	"UserMenu.userSettings": {
-		"string": "Configuración del usuario"
 	},
 	"UserPrivacy.deleteAccount": {
 		"string": "Eliminar cuenta"
@@ -286,7 +284,7 @@
 		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
-		"string": "Estado del ítem",
+		"string": "Calificación",
 		"developer_comment": "Menu option to enable searching items by item status"
 	},
 	"addFilterMenu.language": {
@@ -866,6 +864,18 @@
 		"string": "¡Importante! Las tareas serán descontinuadas el 1 de junio de 2022.  Por favor contacta con soporte si tienes alguna pregunta sobre cómo reemplazarlas con Anotaciones.",
 		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
+	"checkFeedLicenses.licenseNameAcademic": {
+		"string": "Académica",
+		"developer_comment": "Feed license"
+	},
+	"checkFeedLicenses.licenseNameCommercial": {
+		"string": "Comercial",
+		"developer_comment": "Feed license"
+	},
+	"checkFeedLicenses.licenseNameOpenSource": {
+		"string": "Open Source",
+		"developer_comment": "Feed license"
+	},
 	"checkedByTeamsCell.more": {
 		"string": "+{number}más",
 		"developer_comment": "Table cell displayed on Trends page showing how many more workspaces fact-checked this item but their names were omitted from display"
@@ -910,6 +920,10 @@
 	"contentScreen.warningByAutomationRule": {
 		"string": "Una regla de automatización ha detectado este contenido como sensible",
 		"developer_comment": "Content warning displayed over sensitive content"
+	},
+	"createFeed.sharedFeedPageDescription": {
+		"string": "Comparte fuentes de datos con otras organizaciones para desbloquear nuevos conocimientos a través de audiencias e idiomas.",
+		"developer_comment": "Description of the shared feed creation page"
 	},
 	"createMedia.addItem": {
 		"string": "Añadir ítem"
@@ -1148,6 +1162,26 @@
 		"string": "Compartido",
 		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
 	},
+	"feedBlankState.description": {
+		"string": "Intenta {resetLink} para encontrar verificaciones de hechos o verificar que la {listLink} tiene ítems",
+		"developer_comment": "Message displayed on feed page when there are no fact-checks to be listed. English values for placeholders link text: 'resetLink' is 'resetting filters' and 'listLink' is 'source list'."
+	},
+	"feedBlankState.listLinkText": {
+		"string": "lista de origen",
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Verify that the source list has items'."
+	},
+	"feedBlankState.listText": {
+		"string": "lista de origen",
+		"developer_comment": "Text that is part of message displayed when a feed does not return any fact-checks."
+	},
+	"feedBlankState.resetLinkText": {
+		"string": "restablecer filtros",
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Try resetting filters to find fact-checks'."
+	},
+	"feedBlankState.title": {
+		"string": "No hay verificaciones de datos",
+		"developer_comment": "Title displayed on feed page when there are no fact-checks to be listed."
+	},
 	"feedFilters.applyFilters": {
 		"string": "Aplicar filtro",
 		"developer_comment": "Button to perform query with specified filters"
@@ -1179,6 +1213,18 @@
 	"feedFilters.savedSuccessfully": {
 		"string": "Filtros guardados exitosamente",
 		"developer_comment": "Success message displayed when feed requests filters are saved"
+	},
+	"feedHeader.sharedFeed": {
+		"string": "Feed Compartido",
+		"developer_comment": "Displayed on top of the feed title on the feed page."
+	},
+	"feedHeader.tooltipLicense": {
+		"string": "Licencia del Feed: {licenseName}",
+		"developer_comment": "Tooltip message displayed on feed license icon."
+	},
+	"feedHeader.tooltipSettings": {
+		"string": "Ajustes de Feed Compartido",
+		"developer_comment": "Tooltip message displayed on feed settings icon."
 	},
 	"feedItem.aboutThisClaim": {
 		"string": "Sobre esta afirmación"
@@ -1425,6 +1471,22 @@
 		"string": "Aplicar y guardar el filtro para compartir",
 		"developer_comment": "Tooltip displayed on feed 'Enable sharing' switcher"
 	},
+	"feedSort.date": {
+		"string": "Fecha de actualización",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"feedSort.sort": {
+		"string": "Ordenar",
+		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
+	},
+	"feedSort.status": {
+		"string": "Calificación",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"feedTopBar.noListSelected": {
+		"string": "ninguna lista seleccionada",
+		"developer_comment": "Message displayed on feed top bar when there is no list associated with the feed."
+	},
 	"fetchBot.contactUs": {
 		"string": "Contáctanos para configurar"
 	},
@@ -1512,9 +1574,6 @@
 	},
 	"global.update": {
 		"string": "Actualizar"
-	},
-	"headerActions.signIn": {
-		"string": "Inicia sesión "
 	},
 	"home.invalidExpiredInvitation": {
 		"string": "Lo sentimos, la invitación que recibiste ha vencido. Si piensas que ha sido un error, por favor ponte en contacto con nosotros {supportEmail}.",
@@ -1615,14 +1674,32 @@
 	"languageSwitcher.primaryLanguage": {
 		"string": "(predeterminado)"
 	},
-	"languagesComponent.blurb": {
-		"string": "Agrega nuevos idiomas a tu espacio de trabajo para crear informes, bots de Tipline y estados en varios idiomas cuando te comuniques con los usuarios."
+	"languagesComponent.description": {
+		"string": "Si la detección de idiomas está <strong>habilitada</strong>, el bot de la Tipline de Check reconocerá automáticamente y responderá en el idioma de la petición de tu usuaria(o).\nSi está <strong>deshabilitada</strong>, el bot de la Tipline de Check responderá en el idioma por defecto del área de trabajo:<strong>{defaultLanguage}</strong>",
+		"developer_comment": "Instructions for the language detection toggle switch"
+	},
+	"languagesComponent.languageDetection": {
+		"string": "Detección de idioma",
+		"developer_comment": "Title of the Language detection section in language settings page"
+	},
+	"languagesComponent.languageDetectionSwitch": {
+		"string": "Habilitar detección de idioma",
+		"developer_comment": "Label for a switch where the user toggles auto language detection"
+	},
+	"languagesComponent.languages": {
+		"string": "Idiomas",
+		"developer_comment": "Title of the active languages list section in language settings page"
 	},
 	"languagesComponent.title": {
-		"string": "Idiomas"
+		"string": "Idioma",
+		"developer_comment": "Title of Language settings page"
+	},
+	"limitedTextAreaWithCounter.counter": {
+		"string": "{remaining, plural, one {# caracter restante} many {# caracteres restantes} other {# caracteres restantes}}",
+		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"limitedTextFieldWithCounter.counter": {
-		"string": "{remaining, plural, one {(queda # caracter)} many {(quedan # caracteres)} other {(quedan # caracteres)}}",
+		"string": "{remaining, plural, one {# caracter restante} many {# caracteres restantes} other {# caracteres restantes}}",
 		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
@@ -1728,6 +1805,22 @@
 	"list.updated": {
 		"string": "Actualizada",
 		"developer_comment": "Table header for item updated date column"
+	},
+	"listSort.changeDirection": {
+		"string": "Cambiar la dirección del orden de la lista",
+		"developer_comment": "Tooltip to tell the user they can change the direction of the list sort"
+	},
+	"listSort.date": {
+		"string": "Fecha de actualización",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"listSort.sort": {
+		"string": "Ordenar",
+		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
+	},
+	"listSort.status": {
+		"string": "Calificación",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
 	},
 	"login.alreadyHasAccount": {
 		"string": "¿Ya tienes una cuenta?"
@@ -2450,7 +2543,7 @@
 	},
 	"metadata.file.invalidFile": {
 		"string": "Este no es un archivo válido. Por favor vuelve a intentarlo con un archivo diferente.",
-		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+		"developer_comment": "This message appears when a user tries to add a file that the browser cannot read for some reason to the file upload widget."
 	},
 	"metadata.file.noFile": {
 		"string": "Falta este archivo en la base de datos. Edita y borra esta anotación para subir un archivo nuevo.",
@@ -2532,6 +2625,222 @@
 	},
 	"newProject.cancel": {
 		"string": "Cancelar"
+	},
+	"newsletter.error": {
+		"string": "No se pudo guardar el boletín, por favor intente de nuevo.",
+		"developer_comment": "Error message displayed when it's not possible to save a newsletter."
+	},
+	"newsletter.headerTypeAudio": {
+		"string": "Audio",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeImage": {
+		"string": "Imagen",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeLinkPreview": {
+		"string": "Vista previa de enlace",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeNone": {
+		"string": "Ninguna",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeVideo": {
+		"string": "Video",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.success": {
+		"string": "Boletín guardado exitosamente ",
+		"developer_comment": "Success message displayed when a newsletter is saved."
+	},
+	"newsletter.title": {
+		"string": "Boletín",
+		"developer_comment": "Title for newsletter settings page."
+	},
+	"newsletterComponent.articleBlank": {
+		"string": "El campo de articulo no puede estar vacío",
+		"developer_comment": "Message displayed on the article text field when it is empty and a user tries to save"
+	},
+	"newsletterComponent.articlePlaceholder": {
+		"string": "Añade texto o enlace",
+		"developer_comment": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
+	},
+	"newsletterComponent.content": {
+		"string": "Contenido",
+		"developer_comment": "Title for newsletter content section on newsletter settings page"
+	},
+	"newsletterComponent.error": {
+		"string": "No se pudo guardar el boletín, por favor intente de nuevo.",
+		"developer_comment": "Error message displayed when it's not possible to save a newsletter."
+	},
+	"newsletterComponent.errorDatetimePast": {
+		"string": "La fecha programada del boletín no puede estar en el pasado.",
+		"developer_comment": "Error message displayed when a user tries to schedule sending a newsletter on a past date."
+	},
+	"newsletterComponent.errorHeaderFile": {
+		"string": "El archivo debe ser de los siguientes tipos permitidos: {fileTypes}",
+		"developer_comment": "Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
+	},
+	"newsletterComponent.errorHeaderType": {
+		"string": "El tipo de encabezado debe proporcionarse desde la lista.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank header type field (this is chosen from a list)."
+	},
+	"newsletterComponent.errorIntroduction": {
+		"string": "La introducción no puede estar vacía",
+		"developer_comment": "Error message displayed when a user submits a form with a blank introduction field."
+	},
+	"newsletterComponent.errorIntroductionTooLong": {
+		"string": "La introducción es demasiado larga",
+		"developer_comment": "Error message displayed when a user submits a form with an introduction field that is too long."
+	},
+	"newsletterComponent.errorRssFeedUrl": {
+		"string": "La URL del feed RSS no es válida. ",
+		"developer_comment": "Error message displayed when a user submits a form with a URL that the server does not recognize."
+	},
+	"newsletterComponent.errorSendOn": {
+		"string": "La fecha programada no puede estar vacía. ",
+		"developer_comment": "Error message displayed when a user submits a form with a blank scheduled date field."
+	},
+	"newsletterComponent.errorTimezone": {
+		"string": "La zona horaria no puede estar vacía. ",
+		"developer_comment": "Error message displayed when a user submits a form with a blank time zone field."
+	},
+	"newsletterComponent.introduction": {
+		"string": "Introducción",
+		"developer_comment": "Label for a field where the user inputs text for an introduction to a newsletter"
+	},
+	"newsletterComponent.numberOfArticles": {
+		"string": "Número de artículos",
+		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
+	},
+	"newsletterComponent.overlay": {
+		"string": "Superposición de texto",
+		"developer_comment": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterComponent.overlayPlaceholder": {
+		"string": "Agregar texto encima de la imagen ",
+		"developer_comment": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterComponent.placeholder": {
+		"string": "Ejemplo: ¡Hola! Bienvenida(o) a nuestro boletín. Aquí están las verificaciones de hechos más populares que debes leer ahora:",
+		"developer_comment": "Placeholder text for newsletter field"
+	},
+	"newsletterComponent.rss": {
+		"string": "RSS",
+		"developer_comment": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
+	},
+	"newsletterComponent.rssFeed": {
+		"string": "Usa una fuente RSS para cargar automáticamente nuevo contenido y enviar tu boletín en un horario recurrente. El boletín solo se enviara si el nuevo contenido es recuperado de la fuente RSS.",
+		"developer_comment": "Message on tipline newsletter settings page that explains how RSS feeds work there."
+	},
+	"newsletterComponent.save": {
+		"string": "Guardar",
+		"developer_comment": "Label for a button to save settings for the newsletter"
+	},
+	"newsletterComponent.success": {
+		"string": "Boletín guardado exitosamente ",
+		"developer_comment": "Success message displayed when a newsletter is saved."
+	},
+	"newsletterComponent.title": {
+		"string": "Boletín",
+		"developer_comment": "Title for newsletter settings page."
+	},
+	"newsletterHeader.header": {
+		"string": "Encabezado",
+		"developer_comment": "Label for the newsletter header type field"
+	},
+	"newsletterHeader.headerTypeAudio": {
+		"string": "Audio",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeImage": {
+		"string": "Imagen",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeLinkPreview": {
+		"string": "Previsualizar enlace (requiere una cuenta verificada en WhatsApp)",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeNone": {
+		"string": "Ninguna",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeVideo": {
+		"string": "Video",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.overlay": {
+		"string": "Superposición de texto",
+		"developer_comment": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterHeader.overlayPlaceholder": {
+		"string": "Agregar texto encima de la imagen ",
+		"developer_comment": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterNumberOfArticles.label": {
+		"string": "Número de artículos",
+		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
+	},
+	"newsletterRssFeed.error": {
+		"string": "Se requiere una URL de RSS válida para cargar artículos.",
+		"developer_comment": "Error message displayed under RSS feed URL field"
+	},
+	"newsletterRssFeed.load": {
+		"string": "Cargar",
+		"developer_comment": "Label for a button to load RSS feed entries"
+	},
+	"newsletterRssFeed.noArticle": {
+		"string": "Ningún artículo recuperado de la fuente RSS en este momento.",
+		"developer_comment": "Message displayed when RSS feed has less entries than requested"
+	},
+	"newsletterRssFeed.urlPlaceholder": {
+		"string": "https://ejemplo.com/rss.xml",
+		"developer_comment": "Placeholder text for newsletter RSS field"
+	},
+	"newsletterScheduler.at": {
+		"string": "a las",
+		"developer_comment": "This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'"
+	},
+	"newsletterScheduler.errorContentHasntChanged": {
+		"string": "El boletín no se publicó porque su contenido no ha sido actualizado desde la última vez que fue enviado.",
+		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS content has not changed"
+	},
+	"newsletterScheduler.errorRss": {
+		"string": "El boletín no se publicó porque no se recuperó ningún contenido de la fuente RSS.",
+		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS feed could not be loaded"
+	},
+	"newsletterScheduler.pause": {
+		"string": "Pausar",
+		"developer_comment": "Label for a button to pause a newsletter"
+	},
+	"newsletterScheduler.schedule": {
+		"string": "Agendar",
+		"developer_comment": "Label for a button to schedule a newsletter"
+	},
+	"newsletterScheduler.sendEvery": {
+		"string": "Enviar cada",
+		"developer_comment": "Label on an input where the user selects in which days of the week to send an RSS newsletter"
+	},
+	"newsletterScheduler.sendOn": {
+		"string": "Enviar el",
+		"developer_comment": "Label on a input where the user selects a date to send a newsletter"
+	},
+	"newsletterScheduler.subscribers": {
+		"string": "Suscriptora(e)s:",
+		"developer_comment": "Label related to the number of subscribers of a newsletter"
+	},
+	"newsletterScheduler.tooltipScheduled": {
+		"string": "Programado por {name} el {date}",
+		"developer_comment": "Tooltip message displayed on newsletter scheduler."
+	},
+	"newsletterScheduler.tooltipSent": {
+		"string": "Enviado por ultima vez el {date}",
+		"developer_comment": "Tooltip message displayed on newsletter scheduler."
+	},
+	"newsletterStatic.articlePlaceholder": {
+		"string": "Añade texto o enlace",
+		"developer_comment": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
 	},
 	"notFound.back": {
 		"string": "Ir a mi página de perfil",
@@ -2787,7 +3096,7 @@
 		"string": "Papelera"
 	},
 	"projectsComponent.allItems": {
-		"string": "Todos los ítems",
+		"string": "Todo",
 		"developer_comment": "Label for the 'All items' list displayed on the left sidebar"
 	},
 	"projectsComponent.couldNotMove": {
@@ -2818,15 +3127,15 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Verificaciones de datos importadas",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"string": "Importados",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel"
 	},
 	"projectsComponent.invalidMove": {
 		"string": "Las carpetas solo se pueden mover a colecciones",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
-		"string": "Listas filtradas",
+		"string": "Listas personalizadas",
 		"developer_comment": "List of items with some filters applied"
 	},
 	"projectsComponent.movedSuccessfully": {
@@ -2861,6 +3170,10 @@
 		"string": "Nueva carpeta",
 		"developer_comment": "Menu item for creating new folder"
 	},
+	"projectsComponent.newFolderOrCollection": {
+		"string": "Nueva carpeta o colección",
+		"developer_comment": "Tooltip for the button opens the new folder or collection menu"
+	},
 	"projectsComponent.newFolderSuccessMessage": {
 		"string": "Carpeta creada exitosamente",
 		"developer_comment": "Success message when new folder is created"
@@ -2868,6 +3181,10 @@
 	"projectsComponent.newList": {
 		"string": "Nueva lista",
 		"developer_comment": "Title for a dialog to create a new list displayed on the left sidebar."
+	},
+	"projectsComponent.newListButton": {
+		"string": "Nueva lista",
+		"developer_comment": "Tooltip for button that opens list creation dialog"
 	},
 	"projectsComponent.newListErrorMessage": {
 		"string": "No se pudo crear la lista, por favor vuelve a intentar",
@@ -2877,9 +3194,21 @@
 		"string": "Lista creada exitosamente",
 		"developer_comment": "Success message when new list is created"
 	},
+	"projectsComponent.newSharedFeed": {
+		"string": "Nueva fuente compartida",
+		"developer_comment": "Tooltip for the button that navigates to shared feed creation page"
+	},
+	"projectsComponent.noCustomLists": {
+		"string": "Ninguna lista personalizada",
+		"developer_comment": "Displayed under the custom list header when there are no lists in it"
+	},
 	"projectsComponent.noFolders": {
 		"string": "No hay carpetas en esta colección",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
+	},
+	"projectsComponent.noSharedFeeds": {
+		"string": "Ninguna fuente compartida",
+		"developer_comment": "Displayed under the shared feed header when there are no feeds in it"
 	},
 	"projectsComponent.privacyDialogButton": {
 		"string": "Actualizar acceso"
@@ -2907,11 +3236,11 @@
 	},
 	"projectsComponent.suggestedMatches": {
 		"string": "Sugerencias",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1"
 	},
 	"projectsComponent.tiplineInbox": {
-		"string": "Bandeja de entrada de Tipline",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"string": "Bandeja de entrada",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted"
 	},
 	"projectsComponent.title": {
 		"string": "Título"
@@ -3242,6 +3571,138 @@
 	"rulesTableToolbar.title": {
 		"string": "Reglas"
 	},
+	"saveFeed.confirmationDialogBody": {
+		"string": "¿Estás segura(o) que quieres actualizar esta fuente compartida?",
+		"developer_comment": "Confirmation dialog message when saving a feed."
+	},
+	"saveFeed.confirmationDialogButton": {
+		"string": "Actualizar Fuente Compartida",
+		"developer_comment": "Button label to confirm updating a feed."
+	},
+	"saveFeed.confirmationDialogTitle": {
+		"string": "¿Estás segura(o) que quieres actualizar esta fuente compartida?",
+		"developer_comment": "Confirmation dialog title when saving a feed."
+	},
+	"saveFeed.createSaveButton": {
+		"string": "Crear fuente compartida",
+		"developer_comment": "Label to the save button of the shared feed creation form"
+	},
+	"saveFeed.createdBy": {
+		"string": "Creado por {teamName}",
+		"developer_comment": "Metadata field displayed on feed edit page."
+	},
+	"saveFeed.descriptionLabel": {
+		"string": "Descripción ",
+		"developer_comment": "Label for a field where the user inputs text for a description to a shared feed"
+	},
+	"saveFeed.descriptionPlaceholder": {
+		"string": "Ponle una descripción opcional a esta fuente compartida.",
+		"developer_comment": "Placeholder text for feed description field"
+	},
+	"saveFeed.feedContentBlurb": {
+		"string": "Selecciona una lista filtrada de verificaciones de datos de tu área de trabajo para contribuir a esta fuente compartida. Podrás actualizar esta lista en cualquier momento.",
+		"developer_comment": "Helper text for the feed content section"
+	},
+	"saveFeed.feedContentBlurb2": {
+		"string": "<strong>Nota:</strong> Tu lista debe contener <strong>verificaciones de hechos publicadas</strong> para ser parte de esta fuente compartida.",
+		"developer_comment": "Helper text for the feed content section"
+	},
+	"saveFeed.feedContentTitle": {
+		"string": "Contenido de la fuente",
+		"developer_comment": "Title of section where a list can be selected as the content of the feed"
+	},
+	"saveFeed.feedDetailsTitle": {
+		"string": "Detalles de la fuente",
+		"developer_comment": "Title of section where the details of the feed are filled. e.g.: title, description"
+	},
+	"saveFeed.lastUpdated": {
+		"string": "Actualizado por ultima vez {timeAgo}",
+		"developer_comment": "On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
+	},
+	"saveFeed.learnMore": {
+		"string": "Aprende más.",
+		"developer_comment": "Link to external page with more details about shared feeds"
+	},
+	"saveFeed.learnMoreLicenses": {
+		"string": "Aprende más sobre las licencias. ",
+		"developer_comment": "Link to an external page with more information about the data licenses"
+	},
+	"saveFeed.licenseAcademic": {
+		"string": "Académica",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseBlurb": {
+		"string": "Una licencia le dice a los demás lo que pueden y no pueden hacer con tu código.",
+		"developer_comment": "Helper text for the license section"
+	},
+	"saveFeed.licenseCommercial": {
+		"string": "Comercial",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseDetails": {
+		"string": "Detalles de la licencia",
+		"developer_comment": "Link to external page with license details"
+	},
+	"saveFeed.licenseOpenSource": {
+		"string": "Open source",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseTitle": {
+		"string": "Licencia",
+		"developer_comment": "Title of the section where the publishing preferences such as licenses are selected"
+	},
+	"saveFeed.noListSelected": {
+		"string": "Tu área de trabajo no esta contribuyendo a este feed compartido. Selecciona una lista a continuación para contribuir.",
+		"developer_comment": "Warning displayed on edit feed page when no list is selected."
+	},
+	"saveFeed.publishBlurb": {
+		"string": "Publica tu feed en la tienda para hacerla visible a organizaciones de terceros, mientras mantienes control preciso sobre tus activos.",
+		"developer_comment": "Helper text for the publish feed section"
+	},
+	"saveFeed.publishSwitch": {
+		"string": "Publicar feed compartido en la Tienda",
+		"developer_comment": "Label for a switch where the user publishes a feed"
+	},
+	"saveFeed.publishTitle": {
+		"string": "Publicar en la Tienda <small>(próximamente)</small>",
+		"developer_comment": "Title of the section where the publishing preferences are set"
+	},
+	"saveFeed.selectHelper": {
+		"string": "El título de la verificación de datos, resumen y URL serán compartidas con el feed.",
+		"developer_comment": "Helper text for shared feed list selector"
+	},
+	"saveFeed.selectLicense": {
+		"string": "Selecciona la licencia para crear y publicar este feed compartido.",
+		"developer_comment": "Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data."
+	},
+	"saveFeed.sharedFeedPageSubtitle": {
+		"string": "Crea un nuevo feed compartido",
+		"developer_comment": "Subtitle of the shared feed creation page"
+	},
+	"saveFeed.sharedFeedPageTitle": {
+		"string": "Feed compartido",
+		"developer_comment": "Title of the shared feed creation page"
+	},
+	"saveFeed.titleHelper": {
+		"string": "Los grandes nombres de feed compartidos son cortos, memorables, y le dicen a tu audiencia el enfoque del medio",
+		"developer_comment": "Title input helper text"
+	},
+	"saveFeed.titleLabel": {
+		"string": "Título",
+		"developer_comment": "Label for the shared feed title input"
+	},
+	"saveFeed.titlePlaceholder": {
+		"string": "Título de fuente memorable ",
+		"developer_comment": "Placeholder text for feed title field"
+	},
+	"saveFeed.updateSaveButton": {
+		"string": "Guardar",
+		"developer_comment": "Label to the save button of the shared feed update form"
+	},
+	"saveFeed.viewSharedFeed": {
+		"string": "Ver Feed Compartido",
+		"developer_comment": "Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page."
+	},
 	"saveList.cancel": {
 		"string": "Cancelar"
 	},
@@ -3279,6 +3740,10 @@
 		"string": "Guardar cambios a la lista",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveList.warningAlert": {
+		"string": "Guardar los cambios actualizará los feeds compartidos:",
+		"developer_comment": "Text displayed in the title of a warning box when saving a list related to shared feeds"
+	},
 	"saveTag.couldNotSave": {
 		"string": "No se pudo guardar la etiqueta",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
@@ -3303,10 +3768,8 @@
 		"string": "Editar etiqueta"
 	},
 	"savedSearch.deleteMessage": {
-		"string": "¿Está segura(o)? Esta lista se comparte entre todas(os) las(os) usuarias(os) de {teamName}. Después de eliminarla, ningún(a) usuaria(o) podrá acceder a ella."
-	},
-	"savedSearch.name": {
-		"string": "lista"
+		"string": "¿Está segura(o)? Esta lista se comparte entre todas(os) las(os) usuarias(os) de {teamName}. Después de eliminarla, ningún(a) usuaria(o) podrá acceder a ella.",
+		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
 	},
 	"search.afterDate": {
 		"string": "después ",
@@ -3326,6 +3789,10 @@
 	"search.anyDate": {
 		"string": "cualquier fecha",
 		"developer_comment": "Date picker placeholder"
+	},
+	"search.applyFilter": {
+		"string": "Aplicar",
+		"developer_comment": "Button label to apply search filters."
 	},
 	"search.applyFilters": {
 		"string": "Aplicar filtro",
@@ -3504,6 +3971,10 @@
 		"string": "Sin publicar",
 		"developer_comment": "Refers to a report status"
 	},
+	"search.resetFilter": {
+		"string": "Restablecer",
+		"developer_comment": "Button label to reset search filters."
+	},
 	"search.show": {
 		"string": "Tipo es",
 		"developer_comment": "Prefix label for field to filter by media type"
@@ -3537,7 +4008,7 @@
 		"developer_comment": "Allow user to filter by social media links"
 	},
 	"search.statusHeading": {
-		"string": "El estado del ítem es",
+		"string": "La calificación es",
 		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.tiktok": {
@@ -3671,6 +4142,26 @@
 		"string": "{selectedCount, plural, one {(# seleccionado)} many {(# seleccionados)} other {(# seleccionados)}}",
 		"developer_comment": "Label for number of selected items"
 	},
+	"select.removeSelection": {
+		"string": "Deshacer selección",
+		"developer_comment": "Tooltip for button on Select component to remove current selection"
+	},
+	"selectList.noListButtonLabel": {
+		"string": "Cómo crear listas",
+		"developer_comment": "Helper link in a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.noListDescription": {
+		"string": "Crea una lista y configura filtros para seleccionar verificaciones de hechos que te gustaría contribuir a este feed compartido.",
+		"developer_comment": "Content of a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.noListTitle": {
+		"string": "Tu área de trabajo necesita una Lista Filtrada Personalizada para contribuir.",
+		"developer_comment": "Title of a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.select": {
+		"string": "Selecciona una lista...",
+		"developer_comment": "Label for list selector"
+	},
 	"sensitiveContentMenuButton.adult": {
 		"string": "Adulto (desnudos, pornografía)",
 		"developer_comment": "Label for adult content type"
@@ -3729,6 +4220,10 @@
 		"string": "Guardar",
 		"developer_comment": "Button label for save columns settings"
 	},
+	"sharedFeedIcon.Tooltip": {
+		"string": "Incluido en Feed Compartido:",
+		"developer_comment": "Tooltip for shared feeds icon"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Responder tarea"
 	},
@@ -3780,6 +4275,10 @@
 	"similarityComponent.singleLanguageFactChecksEnabled": {
 		"string": "Sólo envía revisiones de hechos en el mismo idioma  que el idioma de conversación",
 		"developer_comment": "Label displayed when similarity setting for single language fact-checks is enabled"
+	},
+	"similarityComponent.textLength": {
+		"string": "Palabras mínimas requeridas para una coincidencia confirmada",
+		"developer_comment": "A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
 	},
 	"similarityComponent.title": {
 		"string": "Coincidencia de Similitud",
@@ -3889,15 +4388,6 @@
 	"smoochBot.descriptionMainMenu": {
 		"string": "Un menú solicitando a la/el usuaria(o) que elija entre un conjunto de opciones. Este mensaje sigue automáticamente al Mensaje de saludo. 9 no se puede utilizar como una opción en el menú principal."
 	},
-	"smoochBot.descriptionNewsletter1": {
-		"string": "Por favor completa los pasos a continuación para enviar un boletín semanal:"
-	},
-	"smoochBot.descriptionNewsletter2": {
-		"string": "1. Compón tu boletín"
-	},
-	"smoochBot.descriptionNewsletter3": {
-		"string": "2. Selecciona una hora y día de la semana"
-	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "El mensaje enviado si la respuesta del usuario a un menú no es un escenario de menú válido."
 	},
@@ -3951,12 +4441,6 @@
 	"smoochBot.labelMainMenu": {
 		"string": "Menú principal"
 	},
-	"smoochBot.labelNewsletter": {
-		"string": "Boletín"
-	},
-	"smoochBot.labelNewsletterV2": {
-		"string": "Boletín"
-	},
 	"smoochBot.labelOptionNotAvailable": {
 		"string": "Opción no disponible"
 	},
@@ -3995,15 +4479,6 @@
 	},
 	"smoochBot.placeholderMainMenu": {
 		"string": "📌*Menú Principal*\n\n*Responde 1* (o 🔍) para enviar una solicitud de verificación de hechos sobre un artículo, video, imagen u otro contenido.\n*Responde 2* (o 🦠) para obtener la información más reciente sobre la enfermedad por coronavirus (COVID-19)"
-	},
-	"smoochBot.placeholderNewsletter": {
-		"string": "Escribe para componer tu boletín. Puedes añadir contenido del RSS a continuación."
-	},
-	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Añadir un artículo"
-	},
-	"smoochBot.placeholderNewsletterIntroduction": {
-		"string": "Escribe algo"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Lo siento, no entendí tu mensaje ¡Inténtalo de nuevo!"
@@ -4740,7 +5215,7 @@
 	},
 	"sourceInfo.addLink": {
 		"string": "Agrega una URL secundaria",
-		"developer_comment": "allow user to relate a new link to media source"
+		"developer_comment": "Allow user to relate a new link to media source"
 	},
 	"sourceInfo.addSecondaryLink": {
 		"string": "Agrega una URL secundaria",
@@ -4760,7 +5235,7 @@
 	},
 	"sourceInfo.mainName": {
 		"string": "Nombre principal",
-		"developer_comment": "souce name"
+		"developer_comment": "Source name"
 	},
 	"sourceInfo.mediasCount": {
 		"string": "{mediasCount, plural, one {1 ítem} many {# ítems} other {# ítems}}",
@@ -4910,6 +5385,22 @@
 	},
 	"tagInput.search": {
 		"string": "Buscar o añadir una nueva etiqueta"
+	},
+	"tagList.create": {
+		"string": "+ Crear esta etiqueta",
+		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
+	},
+	"tagList.empty": {
+		"string": "0 etiquetas",
+		"developer_comment": "A message that appears in a lag list when there are no available tags to display."
+	},
+	"tagList.notFound": {
+		"string": "Etiquetas no encontradas",
+		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
+	},
+	"tagList.submit": {
+		"string": "Etiqueta",
+		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.create": {
 		"string": "+ Crear esta etiqueta",
@@ -5243,28 +5734,65 @@
 		"string": "Solicitudes de usuaria(o)s asociada(o)s a afirmaciones que no están en la papelera.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDetails.description": {
-		"string": "Descripción "
-	},
 	"teamDetails.duplicateWorkspace": {
-		"string": "Duplicar área de trabajo"
+		"string": "Duplicar área de trabajo",
+		"developer_comment": "Label of a button to duplicate a workspace"
+	},
+	"teamDetails.edit": {
+		"string": "Editar",
+		"developer_comment": "Label for a button to change a workspace image"
+	},
+	"teamDetails.linkManagement": {
+		"string": "Gestion de enlaces",
+		"developer_comment": "Title of the link management section in team details page"
+	},
+	"teamDetails.linkManagementRss": {
+		"string": "El servicio de enlaces no se puede deshabilitar mientras el boletín RSS esté configurado en esta área de trabajo",
+		"developer_comment": "Helper text for link management switcher when workspace has RSS newsletters configured"
+	},
+	"teamDetails.linkManagementSwitcher": {
+		"string": "Habilitar acortamiento de enlace y analíticas",
+		"developer_comment": "Label for a switch where the user toggles link management in team details page"
+	},
+	"teamDetails.profile": {
+		"string": "Perfil ",
+		"developer_comment": "Title of the profile section in team details page"
 	},
 	"teamDetails.savedSuccessfully": {
-		"string": "Detalles del área de trabajo guardados con éxito"
+		"string": "Detalles del área de trabajo guardados con éxito",
+		"developer_comment": "Success message displayed when workspace settings are saved"
 	},
 	"teamDetails.subtitle": {
 		"string": "Añade detalles a tu espacio de trabajo de Check",
 		"developer_comment": "Subtitle for details page of current workspace"
 	},
 	"teamDetails.title": {
-		"string": "Detalles del área de trabajo",
+		"string": "Área de trabajo",
 		"developer_comment": "Title for details page of current workspace"
 	},
 	"teamDetails.update": {
-		"string": "Actualizar"
+		"string": "Actualizar",
+		"developer_comment": "Label of the button that saves workspace details"
+	},
+	"teamDetails.utmCode": {
+		"string": "código UTM",
+		"developer_comment": "Label for 'UTM code' field"
+	},
+	"teamDetails.utmCodeHelp": {
+		"string": "Personaliza el código UTM adjunto a los enlaces. Déjalo en blanco para deshabilitar los códigos UTM.",
+		"developer_comment": "Helper text for UTM code field"
+	},
+	"teamDetails.warnContent": {
+		"string": "Los enlaces reescritos también incluirán el código UTM proporcionados. El código UTM no cambia la URL destino. <br /><br /><strong>ANTES:</strong>https://www.example.com/your-link<br /><strong>DESPUÉS:</strong>https://chck.media/x1y2z3w4/{code}",
+		"developer_comment": "Text displayed in the content of a warning box on team details page when link shortening is on"
+	},
+	"teamDetails.warnTitle": {
+		"string": "Todos los enlaces enviados via Check serán reescritos.",
+		"developer_comment": "Text displayed in the title of a warning box on team details page when link shortening is on"
 	},
 	"teamDetails.workspaceName": {
-		"string": "Nombre del área de trabajo"
+		"string": "Nombre del área de trabajo",
+		"developer_comment": "Label for workspace name field"
 	},
 	"teamIntegrations.subtitle": {
 		"string": "Herramientas de terceros para mejorar la productividad."
@@ -5492,44 +6020,60 @@
 		"developer_comment": "Label to WhatsApp number field"
 	},
 	"teamSettings.Tags": {
-		"string": "Etiquetas"
+		"string": "Etiquetas",
+		"developer_comment": "Label for the Tags settings tab"
 	},
 	"teamSettings.data": {
-		"string": "Datos"
+		"string": "Datos",
+		"developer_comment": "Label for the Data settings tab"
 	},
 	"teamSettings.integrations": {
-		"string": "Integraciones"
+		"string": "Integraciones",
+		"developer_comment": "Label for the Integrations settings tab"
 	},
 	"teamSettings.languages": {
-		"string": "Idiomas"
+		"string": "Idioma",
+		"developer_comment": "Label for the Language settings tab"
 	},
 	"teamSettings.lists": {
-		"string": "Columnas"
+		"string": "Columnas",
+		"developer_comment": "Label for the Columns settings tab"
 	},
 	"teamSettings.members": {
-		"string": "Miembros"
+		"string": "Miembros",
+		"developer_comment": "Label for the Members settings tab"
 	},
 	"teamSettings.metadata": {
 		"string": "Anotación",
 		"developer_comment": "Label for annotation settings tab"
 	},
+	"teamSettings.newsletter": {
+		"string": "Boletín",
+		"developer_comment": "Label for a tab that takes the user to settings for their newsletter."
+	},
 	"teamSettings.report": {
-		"string": "Informe"
+		"string": "Informe",
+		"developer_comment": "Label for the Report settings tab"
 	},
 	"teamSettings.rules": {
-		"string": "Reglas"
+		"string": "Reglas",
+		"developer_comment": "Label for the Rules settings tab"
 	},
 	"teamSettings.similarity": {
-		"string": "Similaridad"
+		"string": "Similaridad",
+		"developer_comment": "Label for the Similarity settings tab"
 	},
 	"teamSettings.statuses": {
-		"string": "Estados"
+		"string": "Estados",
+		"developer_comment": "Label for the Statuses settings tab"
 	},
 	"teamSettings.tipline": {
-		"string": "Tipline"
+		"string": "Tipline",
+		"developer_comment": "Label for the Tipline settings tab"
 	},
 	"teamSettings.workspace": {
-		"string": "Área de trabajo"
+		"string": "Área de trabajo",
+		"developer_comment": "Label for the Workspace settings tab"
 	},
 	"teamTags.addTag": {
 		"string": "Añadir etiqueta"
@@ -5913,6 +6457,22 @@
 	"unconfirmed.title": {
 		"string": "Sin Confirmar"
 	},
+	"upload.dragMessage": {
+		"string": "Arrastra un archivo aquí o",
+		"developer_comment": "A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'."
+	},
+	"upload.dropFile": {
+		"string": "Soltar archivo aquí",
+		"developer_comment": "A label that appears when a user drags a file over a valid file drop area"
+	},
+	"upload.removeUpload": {
+		"string": "Eliminar archivo",
+		"developer_comment": "Tooltip message displayed on upload component. Cancel file selected for upload"
+	},
+	"upload.selectFile": {
+		"string": "Seleccionar un archivo local",
+		"developer_comment": "Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system."
+	},
 	"uploadFile.audioMessage": {
 		"string": "Arrastra el audio aquí, o haz clic para subir un archivo (tamaño máximo: {audio_max_size}, extensiones permitidas: {audio_extensions})"
 	},
@@ -6187,5 +6747,21 @@
 	"webPageMediaCard.Error": {
 		"string": "No se pudo identificar este ítem. Puede que se haya eliminado o que sólo sea visible para las(os) usuarias(os) que hayan iniciado sesión. Haz clic en el enlace de arriba para navegar hasta él. ",
 		"developer_comment": "Error message displayed when link data is unavailable"
+	},
+	"workspaceMenu.teamLegal": {
+		"string": "Acerca de",
+		"developer_comment": "Legal link tooltip in drawer rail navigation"
+	},
+	"workspaceMenu.teamSettings": {
+		"string": "Configuración del área de trabajo",
+		"developer_comment": "Tooltip for drawer navigation to workspace settings"
+	},
+	"workspaceMenu.teamTipline": {
+		"string": "Tipline",
+		"developer_comment": "Tooltip for drawer navigation to tipline"
+	},
+	"workspaceMenu.teamTraining": {
+		"string": "Entrenamiento y documentación",
+		"developer_comment": "Help link tooltip in drawer rail navigation"
 	}
 }
