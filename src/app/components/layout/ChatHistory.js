@@ -45,7 +45,20 @@ const ChatHistory = ({
 
     // Items from us have text directly in the payload, items from users have it in a messages sub-object
     if (item.payload?.text) {
-      output = item.payload.text;
+      // Smooch templates are raw text objects that start with the text `&((namespace` and look like
+      // &((namespace=[[cf8315ab_1bf3_28c3_eaaa_90dc59c1c9ad]]template=[[manual_4oct23]]fallback=[[Thank you!]]language=[[en]]body_text=[[09 Oct 16:23]]body_text=[[Thank you!]]))&
+      // and we extract the 'fallback' to render this
+      if (item.payload.text.match(/^&\(\(namespace/)) {
+        const fallbackMatch = item.payload.text.match(/fallback=\[\[(.*?)\]\]/);
+        if (fallbackMatch !== null) {
+          // eslint-disable-next-line prefer-destructuring
+          output = fallbackMatch[1];
+        } else {
+          output = item.payload.text;
+        }
+      } else {
+        output = item.payload.text;
+      }
     } else if (item.payload.messages?.length) {
       output = item.payload.messages.map(message => message.text).join('//');
     }
@@ -55,17 +68,17 @@ const ChatHistory = ({
 
   const convertSentAtToLocaleDateString = sent_at => new Date(+sent_at * 1000).toLocaleDateString();
 
-  const parseWhatsApp = (content) => {
-    // eslint-disable-next-line
-    console.log('~~~',content);
-    return content.components.map(
+  const parseCapiTemplate = content => (
+    content.components.map(
+      // for each sub-object we check to see if it is of a certain type, return the appropriate value given the object
+      // type, then flatten the array and join with a double line break
       item => item.parameters.map(
         innerItem => (innerItem.type === 'text' && innerItem.text)
           || (innerItem.type === 'video' && innerItem.video.link)
           || (innerItem.type === 'image' && innerItem.image.link),
       ),
-    ).flat().join('\n\n');
-  };
+    ).flat().join('\n\n')
+  );
 
   const Message = ({
     content,
@@ -90,8 +103,8 @@ const ChatHistory = ({
         )}
         >
           {
-            typeof content === 'object' ? // It's probably a WhatsApp Cloud API template message, which is an object
-              parseWhatsApp(content.template) :
+            typeof content === 'object' ? // It's probably a CapiTemplate Cloud API template message, which is an object
+              parseCapiTemplate(content.template) :
               content
           }
         </Linkify>
