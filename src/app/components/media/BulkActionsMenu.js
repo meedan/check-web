@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Can from '../Can';
 import MediasLoading from './MediasLoading';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
@@ -13,6 +14,7 @@ import BulkActionsAssign from './BulkActionsAssign';
 import BulkActionsStatus from './BulkActionsStatus';
 import BulkActionsTag from './BulkActionsTag';
 import BulkActionsRemoveTag from './BulkActionsRemoveTag';
+import { FlashMessageSetterContext } from '../FlashMessage';
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -24,11 +26,11 @@ const BulkActionsMenu = ({
   selectedProjectMedia,
   team,
   page,
-  setFlashMessage,
   onUnselectAll,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mode, setMode] = React.useState('menu');
+  const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -278,32 +280,34 @@ const BulkActionsMenu = ({
   };
 
   return (
-    <React.Fragment>
-      <ButtonMain
-        theme="brand"
-        variant="contained"
-        size="small"
-        onClick={e => setAnchorEl(e.currentTarget)}
-        iconRight={<KeyboardArrowDownIcon />}
-        buttonProps={{
-          id: 'bulk-actions-menu__button',
-        }}
-        label={
-          <FormattedMessage
-            id="bulkActionsMenu.action"
-            defaultMessage="Action"
-            description="Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
-          />
-        }
-      />
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {menuContent[mode]}
-      </Menu>
-    </React.Fragment>
+    <span id="media-bulk-actions">
+      <Can permission="bulk_update ProjectMedia" permissions={team.permissions}>
+        <ButtonMain
+          theme="brand"
+          variant="contained"
+          size="small"
+          onClick={e => setAnchorEl(e.currentTarget)}
+          iconRight={<KeyboardArrowDownIcon />}
+          buttonProps={{
+            id: 'bulk-actions-menu__button',
+          }}
+          label={
+            <FormattedMessage
+              id="bulkActionsMenu.action"
+              defaultMessage="Action"
+              description="Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
+            />
+          }
+        />
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {menuContent[mode]}
+        </Menu>
+      </Can>
+    </span>
   );
 };
 
@@ -311,7 +315,6 @@ BulkActionsMenu.propTypes = {
   team: PropTypes.object.isRequired,
   page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   selectedMedia: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setFlashMessage: PropTypes.func.isRequired,
   selectedProjectMedia: PropTypes.arrayOf(PropTypes.object).isRequired,
   onUnselectAll: PropTypes.func.isRequired,
 };
@@ -333,6 +336,7 @@ const BulkActionsMenuRenderer = (parentProps) => {
             id
             dbid
             name
+            permissions
             projects(first: 10000) {
               edges {
                 node {
