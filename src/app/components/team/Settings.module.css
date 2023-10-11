@@ -85,6 +85,25 @@
         border-top: 0;
       }
 
+      .table-toolbar {
+        align-items: center;
+        background-color: var(--brandLight);
+        border-radius: 5px;
+        color: var(--brandMain);
+        display: flex;
+        margin: 0 0 16px;
+        padding: 8px 16px;
+
+        .table-toolbar-summary {
+          @mixin typography-button;
+          flex: 1 1 auto;
+        }
+
+        .table-toolbar-actions {
+          flex: 0;
+        }
+      }
+
       table {
         background-color: var(--validationLight);
 

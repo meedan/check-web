@@ -6,6 +6,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconMoreVert from '../../../icons/more_vert.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsHeader from '../SettingsHeader';
 import RulesTableToolbar from './RulesTableToolbar';
@@ -21,6 +24,7 @@ export default function RulesTable(props) {
     index,
   }));
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [selected, setSelected] = React.useState([]);
   const [orderBy, setOrderBy] = React.useState('updated_at');
   const [order, setOrder] = React.useState('asc');
@@ -101,7 +105,7 @@ export default function RulesTable(props) {
             numSelected={selected.length}
             onDeleteRules={handleDelete}
           />
-          <Table size="medium" id="rules-table">
+          <Table id="rules-table">
             <RulesTableHead
               order={order}
               orderBy={orderBy}
@@ -115,11 +119,7 @@ export default function RulesTable(props) {
                 const date = new Date(row.updated_at * 1000);
 
                 return (
-                  <TableRow
-                    hover
-                    onClick={() => { handleClick(index); }}
-                    key={row.index}
-                  >
+                  <TableRow key={row.index}>
                     <TableCell padding="checkbox">
                       <Checkbox
                         checked={isItemSelected}
@@ -134,6 +134,28 @@ export default function RulesTable(props) {
                       <time dateTime={date.toISOString()}>
                         <FormattedRelative value={date} />
                       </time>
+                    </TableCell>
+                    <TableCell>
+                      <ButtonMain
+                        iconCenter={<IconMoreVert />}
+                        variant="outlined"
+                        size="default"
+                        theme="text"
+                        onClick={e => setAnchorEl(e.currentTarget)}
+                      />
+                      <Menu
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={() => setAnchorEl(null)}
+                      >
+                        <MenuItem onClick={() => { handleClick(index); }}>
+                          <FormattedMessage
+                            id="teamTagsActions.edit"
+                            defaultMessage="Edit"
+                            description="Menu item to edit a rule"
+                          />
+                        </MenuItem>
+                      </Menu>
                     </TableCell>
                   </TableRow>
                 );

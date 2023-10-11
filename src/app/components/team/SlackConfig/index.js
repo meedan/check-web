@@ -121,19 +121,21 @@ class SlackConfig extends React.Component {
             />
           </div>
         </div>
-        <SwitchComponent
-          className="slack-config__switch"
-          checked={enabled}
-          onChange={this.handleToggleSwitch}
-          labelPlacement="end"
-          label={
-            <FormattedMessage
-              id="slackConfig.text"
-              defaultMessage="Send notifications to Slack channels"
-              description="Description of the slack integration"
-            />
-          }
-        />
+        <div className={styles['integration-bot-switch']}>
+          <SwitchComponent
+            className="slack-config__switch"
+            checked={enabled}
+            onChange={this.handleToggleSwitch}
+            labelPlacement="end"
+            label={
+              <FormattedMessage
+                id="slackConfig.text"
+                defaultMessage="Send notifications to Slack channels"
+                description="Description of the slack integration"
+              />
+            }
+          />
+        </div>
         <Dialog
           open={this.state.openDialog}
           onClose={this.handleCloseDialog}
