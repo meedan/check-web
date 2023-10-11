@@ -180,16 +180,14 @@
 		"string": "Sera ya faragha"
 	},
 	"UserMenu.signOut": {
-		"string": "Toka"
+		"string": "Toka",
+		"developer_comment": "This is the sign out button on the user profile page"
 	},
 	"UserMenu.tos": {
 		"string": "Masharti ya huduma"
 	},
 	"UserMenu.training": {
 		"string": "Mafunzo na miongozo."
-	},
-	"UserMenu.userSettings": {
-		"string": "Mipangilio ya mtumiaji"
 	},
 	"UserPrivacy.deleteAccount": {
 		"string": "Futa Akaunti"
@@ -286,7 +284,7 @@
 		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
-		"string": "Hali ya kipengee",
+		"string": "Rating",
 		"developer_comment": "Menu option to enable searching items by item status"
 	},
 	"addFilterMenu.language": {
@@ -866,6 +864,18 @@
 		"string": "Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations.",
 		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
+	"checkFeedLicenses.licenseNameAcademic": {
+		"string": "Academic",
+		"developer_comment": "Feed license"
+	},
+	"checkFeedLicenses.licenseNameCommercial": {
+		"string": "Commercial",
+		"developer_comment": "Feed license"
+	},
+	"checkFeedLicenses.licenseNameOpenSource": {
+		"string": "Open Source",
+		"developer_comment": "Feed license"
+	},
 	"checkedByTeamsCell.more": {
 		"string": "+{number} more",
 		"developer_comment": "Table cell displayed on Trends page showing how many more workspaces fact-checked this item but their names were omitted from display"
@@ -910,6 +920,10 @@
 	"contentScreen.warningByAutomationRule": {
 		"string": "An automation rule has detected this content as sensitive",
 		"developer_comment": "Content warning displayed over sensitive content"
+	},
+	"createFeed.sharedFeedPageDescription": {
+		"string": "Share data feeds with other organizations to unlock new insights across audiences and languages.",
+		"developer_comment": "Description of the shared feed creation page"
 	},
 	"createMedia.addItem": {
 		"string": "Ongeza kipengee "
@@ -1148,6 +1162,26 @@
 		"string": "Shared",
 		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
 	},
+	"feedBlankState.description": {
+		"string": "Try {resetLink} to find fact-checks or verify that the {listLink} has items",
+		"developer_comment": "Message displayed on feed page when there are no fact-checks to be listed. English values for placeholders link text: 'resetLink' is 'resetting filters' and 'listLink' is 'source list'."
+	},
+	"feedBlankState.listLinkText": {
+		"string": "source list",
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Verify that the source list has items'."
+	},
+	"feedBlankState.listText": {
+		"string": "source list",
+		"developer_comment": "Text that is part of message displayed when a feed does not return any fact-checks."
+	},
+	"feedBlankState.resetLinkText": {
+		"string": "resetting filters",
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Try resetting filters to find fact-checks'."
+	},
+	"feedBlankState.title": {
+		"string": "No fact-checks",
+		"developer_comment": "Title displayed on feed page when there are no fact-checks to be listed."
+	},
 	"feedFilters.applyFilters": {
 		"string": "Apply filter",
 		"developer_comment": "Button to perform query with specified filters"
@@ -1179,6 +1213,18 @@
 	"feedFilters.savedSuccessfully": {
 		"string": "Filters saved successfully",
 		"developer_comment": "Success message displayed when feed requests filters are saved"
+	},
+	"feedHeader.sharedFeed": {
+		"string": "Shared Feed",
+		"developer_comment": "Displayed on top of the feed title on the feed page."
+	},
+	"feedHeader.tooltipLicense": {
+		"string": "Feed License: {licenseName}",
+		"developer_comment": "Tooltip message displayed on feed license icon."
+	},
+	"feedHeader.tooltipSettings": {
+		"string": "Shared Feed Settings",
+		"developer_comment": "Tooltip message displayed on feed settings icon."
 	},
 	"feedItem.aboutThisClaim": {
 		"string": "About this claim"
@@ -1425,6 +1471,22 @@
 		"string": "Apply and save the filter to share",
 		"developer_comment": "Tooltip displayed on feed 'Enable sharing' switcher"
 	},
+	"feedSort.date": {
+		"string": "Date updated",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"feedSort.sort": {
+		"string": "Sort",
+		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
+	},
+	"feedSort.status": {
+		"string": "Rating",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"feedTopBar.noListSelected": {
+		"string": "no list selected",
+		"developer_comment": "Message displayed on feed top bar when there is no list associated with the feed."
+	},
 	"fetchBot.contactUs": {
 		"string": "Contact us to set up"
 	},
@@ -1512,9 +1574,6 @@
 	},
 	"global.update": {
 		"string": "Sasisha"
-	},
-	"headerActions.signIn": {
-		"string": "Ingia"
 	},
 	"home.invalidExpiredInvitation": {
 		"string": "Samahani, mwaliko uliopokea umepitwa na muda. Tafadhali wasiliana na {supportEmail}. ",
@@ -1615,14 +1674,32 @@
 	"languageSwitcher.primaryLanguage": {
 		"string": "(default)"
 	},
-	"languagesComponent.blurb": {
-		"string": "Ongeza lugha mpya kwenye eneo lako la kazi ili kuunda ripoti, boti za vidokezo na hali katika lugha nyingi wakati wa kuwasiliana na watumiaji."
+	"languagesComponent.description": {
+		"string": "If language detection is <strong>enabled</strong>, the Check Tipline bot will automatically recognize and respond in the language of your user's request.\n              If <strong>disabled</strong>, the Check Tipline bot will respond in the workspace default language: <strong>{defaultLanguage}</strong>",
+		"developer_comment": "Instructions for the language detection toggle switch"
+	},
+	"languagesComponent.languageDetection": {
+		"string": "Language detection",
+		"developer_comment": "Title of the Language detection section in language settings page"
+	},
+	"languagesComponent.languageDetectionSwitch": {
+		"string": "Enable language detection",
+		"developer_comment": "Label for a switch where the user toggles auto language detection"
+	},
+	"languagesComponent.languages": {
+		"string": "Lugha",
+		"developer_comment": "Title of the active languages list section in language settings page"
 	},
 	"languagesComponent.title": {
-		"string": "Lugha"
+		"string": "Lugha",
+		"developer_comment": "Title of Language settings page"
+	},
+	"limitedTextAreaWithCounter.counter": {
+		"string": "{remaining, plural, one {# character left} other {# characters left}}",
+		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"limitedTextFieldWithCounter.counter": {
-		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}",
+		"string": "{remaining, plural, one {# character left} other {# characters left}}",
 		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
@@ -1728,6 +1805,22 @@
 	"list.updated": {
 		"string": "Imesasishwa",
 		"developer_comment": "Table header for item updated date column"
+	},
+	"listSort.changeDirection": {
+		"string": "Change list sorting direction",
+		"developer_comment": "Tooltip to tell the user they can change the direction of the list sort"
+	},
+	"listSort.date": {
+		"string": "Date updated",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"listSort.sort": {
+		"string": "Sort",
+		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
+	},
+	"listSort.status": {
+		"string": "Rating",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
 	},
 	"login.alreadyHasAccount": {
 		"string": "Already have an account ?"
@@ -2450,7 +2543,7 @@
 	},
 	"metadata.file.invalidFile": {
 		"string": "This is not a valid file. Please try again with a different file.",
-		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+		"developer_comment": "This message appears when a user tries to add a file that the browser cannot read for some reason to the file upload widget."
 	},
 	"metadata.file.noFile": {
 		"string": "This file is missing from the database. Edit and clear this annotation to upload a new file.",
@@ -2532,6 +2625,222 @@
 	},
 	"newProject.cancel": {
 		"string": "Ghairi"
+	},
+	"newsletter.error": {
+		"string": "Could not save newsletter, please try again.",
+		"developer_comment": "Error message displayed when it's not possible to save a newsletter."
+	},
+	"newsletter.headerTypeAudio": {
+		"string": "Sauti",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeImage": {
+		"string": "Picha",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeLinkPreview": {
+		"string": "Link preview",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeNone": {
+		"string": "None",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeVideo": {
+		"string": "Video",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.success": {
+		"string": "Newsletter saved successfully.",
+		"developer_comment": "Success message displayed when a newsletter is saved."
+	},
+	"newsletter.title": {
+		"string": "Newsletter",
+		"developer_comment": "Title for newsletter settings page."
+	},
+	"newsletterComponent.articleBlank": {
+		"string": "Article field cannot be blank",
+		"developer_comment": "Message displayed on the article text field when it is empty and a user tries to save"
+	},
+	"newsletterComponent.articlePlaceholder": {
+		"string": "Add text or link",
+		"developer_comment": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
+	},
+	"newsletterComponent.content": {
+		"string": "Maudhui",
+		"developer_comment": "Title for newsletter content section on newsletter settings page"
+	},
+	"newsletterComponent.error": {
+		"string": "Could not save newsletter, please try again.",
+		"developer_comment": "Error message displayed when it's not possible to save a newsletter."
+	},
+	"newsletterComponent.errorDatetimePast": {
+		"string": "Scheduled newsletter date cannot be in the past.",
+		"developer_comment": "Error message displayed when a user tries to schedule sending a newsletter on a past date."
+	},
+	"newsletterComponent.errorHeaderFile": {
+		"string": "File must be of the following allowed types: {fileTypes}",
+		"developer_comment": "Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
+	},
+	"newsletterComponent.errorHeaderType": {
+		"string": "Header type must be supplied from the list.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank header type field (this is chosen from a list)."
+	},
+	"newsletterComponent.errorIntroduction": {
+		"string": "Introduction cannot be blank.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank introduction field."
+	},
+	"newsletterComponent.errorIntroductionTooLong": {
+		"string": "Introduction is too long",
+		"developer_comment": "Error message displayed when a user submits a form with an introduction field that is too long."
+	},
+	"newsletterComponent.errorRssFeedUrl": {
+		"string": "RSS feed URL is invalid.",
+		"developer_comment": "Error message displayed when a user submits a form with a URL that the server does not recognize."
+	},
+	"newsletterComponent.errorSendOn": {
+		"string": "Scheduled date cannot be blank.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank scheduled date field."
+	},
+	"newsletterComponent.errorTimezone": {
+		"string": "Time zone cannot be blank.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank time zone field."
+	},
+	"newsletterComponent.introduction": {
+		"string": "Utangulizi",
+		"developer_comment": "Label for a field where the user inputs text for an introduction to a newsletter"
+	},
+	"newsletterComponent.numberOfArticles": {
+		"string": "Number of articles",
+		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
+	},
+	"newsletterComponent.overlay": {
+		"string": "Text overlay",
+		"developer_comment": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterComponent.overlayPlaceholder": {
+		"string": "Add text on top of the image",
+		"developer_comment": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterComponent.placeholder": {
+		"string": "Example: Hello! Welcome to our newsletter. Here are the most popular fact-checks you should read now:",
+		"developer_comment": "Placeholder text for newsletter field"
+	},
+	"newsletterComponent.rss": {
+		"string": "RSS",
+		"developer_comment": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
+	},
+	"newsletterComponent.rssFeed": {
+		"string": "Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS.",
+		"developer_comment": "Message on tipline newsletter settings page that explains how RSS feeds work there."
+	},
+	"newsletterComponent.save": {
+		"string": "Hifadhi",
+		"developer_comment": "Label for a button to save settings for the newsletter"
+	},
+	"newsletterComponent.success": {
+		"string": "Newsletter saved successfully.",
+		"developer_comment": "Success message displayed when a newsletter is saved."
+	},
+	"newsletterComponent.title": {
+		"string": "Newsletter",
+		"developer_comment": "Title for newsletter settings page."
+	},
+	"newsletterHeader.header": {
+		"string": "Header",
+		"developer_comment": "Label for the newsletter header type field"
+	},
+	"newsletterHeader.headerTypeAudio": {
+		"string": "Sauti",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeImage": {
+		"string": "Picha",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeLinkPreview": {
+		"string": "Link preview (requires a verified account on WhatsApp)",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeNone": {
+		"string": "None",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeVideo": {
+		"string": "Video",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.overlay": {
+		"string": "Text overlay",
+		"developer_comment": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterHeader.overlayPlaceholder": {
+		"string": "Add text on top of the image",
+		"developer_comment": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterNumberOfArticles.label": {
+		"string": "Number of articles",
+		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
+	},
+	"newsletterRssFeed.error": {
+		"string": "A valid RSS URL is required to load articles.",
+		"developer_comment": "Error message displayed under RSS feed URL field"
+	},
+	"newsletterRssFeed.load": {
+		"string": "Pakia",
+		"developer_comment": "Label for a button to load RSS feed entries"
+	},
+	"newsletterRssFeed.noArticle": {
+		"string": "No article retrieved from RSS at this time",
+		"developer_comment": "Message displayed when RSS feed has less entries than requested"
+	},
+	"newsletterRssFeed.urlPlaceholder": {
+		"string": "https://example.com/rss.xml",
+		"developer_comment": "Placeholder text for newsletter RSS field"
+	},
+	"newsletterScheduler.at": {
+		"string": "at",
+		"developer_comment": "This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'"
+	},
+	"newsletterScheduler.errorContentHasntChanged": {
+		"string": "The newsletter was unpublished because its content has not been updated since it was last sent.",
+		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS content has not changed"
+	},
+	"newsletterScheduler.errorRss": {
+		"string": "The newsletter was unpublished because no content could be retrieved from the RSS feed.",
+		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS feed could not be loaded"
+	},
+	"newsletterScheduler.pause": {
+		"string": "Sitisha",
+		"developer_comment": "Label for a button to pause a newsletter"
+	},
+	"newsletterScheduler.schedule": {
+		"string": "Schedule",
+		"developer_comment": "Label for a button to schedule a newsletter"
+	},
+	"newsletterScheduler.sendEvery": {
+		"string": "Send every",
+		"developer_comment": "Label on an input where the user selects in which days of the week to send an RSS newsletter"
+	},
+	"newsletterScheduler.sendOn": {
+		"string": "Send on",
+		"developer_comment": "Label on a input where the user selects a date to send a newsletter"
+	},
+	"newsletterScheduler.subscribers": {
+		"string": "Subscribers:",
+		"developer_comment": "Label related to the number of subscribers of a newsletter"
+	},
+	"newsletterScheduler.tooltipScheduled": {
+		"string": "Scheduled by {name} on {date}",
+		"developer_comment": "Tooltip message displayed on newsletter scheduler."
+	},
+	"newsletterScheduler.tooltipSent": {
+		"string": "Last sent on {date}",
+		"developer_comment": "Tooltip message displayed on newsletter scheduler."
+	},
+	"newsletterStatic.articlePlaceholder": {
+		"string": "Add text or link",
+		"developer_comment": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
 	},
 	"notFound.back": {
 		"string": "Go to my profile page",
@@ -2787,7 +3096,7 @@
 		"string": "Taka"
 	},
 	"projectsComponent.allItems": {
-		"string": "Vipengee vyote",
+		"string": "Wote",
 		"developer_comment": "Label for the 'All items' list displayed on the left sidebar"
 	},
 	"projectsComponent.couldNotMove": {
@@ -2818,15 +3127,15 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Imported fact-checks",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"string": "Imported",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel"
 	},
 	"projectsComponent.invalidMove": {
 		"string": "Folders can only be moved to collections",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
-		"string": "Filtered lists",
+		"string": "Custom Lists",
 		"developer_comment": "List of items with some filters applied"
 	},
 	"projectsComponent.movedSuccessfully": {
@@ -2861,6 +3170,10 @@
 		"string": "New folder",
 		"developer_comment": "Menu item for creating new folder"
 	},
+	"projectsComponent.newFolderOrCollection": {
+		"string": "New folder or collection",
+		"developer_comment": "Tooltip for the button opens the new folder or collection menu"
+	},
 	"projectsComponent.newFolderSuccessMessage": {
 		"string": "Folder created successfully",
 		"developer_comment": "Success message when new folder is created"
@@ -2868,6 +3181,10 @@
 	"projectsComponent.newList": {
 		"string": "New list",
 		"developer_comment": "Title for a dialog to create a new list displayed on the left sidebar."
+	},
+	"projectsComponent.newListButton": {
+		"string": "New list",
+		"developer_comment": "Tooltip for button that opens list creation dialog"
 	},
 	"projectsComponent.newListErrorMessage": {
 		"string": "Could not create list, please try again",
@@ -2877,9 +3194,21 @@
 		"string": "List created successfully",
 		"developer_comment": "Success message when new list is created"
 	},
+	"projectsComponent.newSharedFeed": {
+		"string": "New shared feed",
+		"developer_comment": "Tooltip for the button that navigates to shared feed creation page"
+	},
+	"projectsComponent.noCustomLists": {
+		"string": "No custom lists",
+		"developer_comment": "Displayed under the custom list header when there are no lists in it"
+	},
 	"projectsComponent.noFolders": {
 		"string": "No folders in this collection",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
+	},
+	"projectsComponent.noSharedFeeds": {
+		"string": "No shared feeds",
+		"developer_comment": "Displayed under the shared feed header when there are no feeds in it"
 	},
 	"projectsComponent.privacyDialogButton": {
 		"string": "Update access"
@@ -2907,11 +3236,11 @@
 	},
 	"projectsComponent.suggestedMatches": {
 		"string": "Suggestions",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1"
 	},
 	"projectsComponent.tiplineInbox": {
-		"string": "Tipline inbox",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"string": "Inbox",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted"
 	},
 	"projectsComponent.title": {
 		"string": "Kichwa"
@@ -3242,6 +3571,138 @@
 	"rulesTableToolbar.title": {
 		"string": "Masharti"
 	},
+	"saveFeed.confirmationDialogBody": {
+		"string": "Are you sure you want to update this shared feed?",
+		"developer_comment": "Confirmation dialog message when saving a feed."
+	},
+	"saveFeed.confirmationDialogButton": {
+		"string": "Update Shared Feed",
+		"developer_comment": "Button label to confirm updating a feed."
+	},
+	"saveFeed.confirmationDialogTitle": {
+		"string": "Are you sure you want to update this shared feed?",
+		"developer_comment": "Confirmation dialog title when saving a feed."
+	},
+	"saveFeed.createSaveButton": {
+		"string": "Create shared feed",
+		"developer_comment": "Label to the save button of the shared feed creation form"
+	},
+	"saveFeed.createdBy": {
+		"string": "Created by {teamName}",
+		"developer_comment": "Metadata field displayed on feed edit page."
+	},
+	"saveFeed.descriptionLabel": {
+		"string": "Maelezo",
+		"developer_comment": "Label for a field where the user inputs text for a description to a shared feed"
+	},
+	"saveFeed.descriptionPlaceholder": {
+		"string": "Give this shared feed an optional description.",
+		"developer_comment": "Placeholder text for feed description field"
+	},
+	"saveFeed.feedContentBlurb": {
+		"string": "Select a filtered list of fact-checks from your workspace to contribute to this shared feed. You will be able to update this list at any time.",
+		"developer_comment": "Helper text for the feed content section"
+	},
+	"saveFeed.feedContentBlurb2": {
+		"string": "<strong>Note:</strong> Your list must contain <strong>published fact-checks</strong> in order to be part of this shared feed.",
+		"developer_comment": "Helper text for the feed content section"
+	},
+	"saveFeed.feedContentTitle": {
+		"string": "Feed content",
+		"developer_comment": "Title of section where a list can be selected as the content of the feed"
+	},
+	"saveFeed.feedDetailsTitle": {
+		"string": "Feed details",
+		"developer_comment": "Title of section where the details of the feed are filled. e.g.: title, description"
+	},
+	"saveFeed.lastUpdated": {
+		"string": "Last updated {timeAgo}",
+		"developer_comment": "On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
+	},
+	"saveFeed.learnMore": {
+		"string": "Learn more.",
+		"developer_comment": "Link to external page with more details about shared feeds"
+	},
+	"saveFeed.learnMoreLicenses": {
+		"string": "Learn more about licenses.",
+		"developer_comment": "Link to an external page with more information about the data licenses"
+	},
+	"saveFeed.licenseAcademic": {
+		"string": "Academic",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseBlurb": {
+		"string": "A license tells others what they can and can't do with your code.",
+		"developer_comment": "Helper text for the license section"
+	},
+	"saveFeed.licenseCommercial": {
+		"string": "Commercial",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseDetails": {
+		"string": "License details",
+		"developer_comment": "Link to external page with license details"
+	},
+	"saveFeed.licenseOpenSource": {
+		"string": "Open source",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseTitle": {
+		"string": "License",
+		"developer_comment": "Title of the section where the publishing preferences such as licenses are selected"
+	},
+	"saveFeed.noListSelected": {
+		"string": "Your workspace is not contributing to this shared feed. Select a list below to contribute.",
+		"developer_comment": "Warning displayed on edit feed page when no list is selected."
+	},
+	"saveFeed.publishBlurb": {
+		"string": "Publish your feed to the marketplace to make it discoverable to third-party organizations, while keeping precise control over your assets.",
+		"developer_comment": "Helper text for the publish feed section"
+	},
+	"saveFeed.publishSwitch": {
+		"string": "Publish shared feed to Marketplace",
+		"developer_comment": "Label for a switch where the user publishes a feed"
+	},
+	"saveFeed.publishTitle": {
+		"string": "Publish to Marketplace <small>(coming soon)</small>",
+		"developer_comment": "Title of the section where the publishing preferences are set"
+	},
+	"saveFeed.selectHelper": {
+		"string": "Fact-check title, summary, and URL will be shared with the feed.",
+		"developer_comment": "Helper text for shared feed list selector"
+	},
+	"saveFeed.selectLicense": {
+		"string": "Select a license in order to create and publish this shared feed.",
+		"developer_comment": "Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data."
+	},
+	"saveFeed.sharedFeedPageSubtitle": {
+		"string": "Create a new shared feed",
+		"developer_comment": "Subtitle of the shared feed creation page"
+	},
+	"saveFeed.sharedFeedPageTitle": {
+		"string": "Shared feed",
+		"developer_comment": "Title of the shared feed creation page"
+	},
+	"saveFeed.titleHelper": {
+		"string": "Great shared feed names are short, memorable, and tell your audience the focus of the media",
+		"developer_comment": "Title input helper text"
+	},
+	"saveFeed.titleLabel": {
+		"string": "Kichwa",
+		"developer_comment": "Label for the shared feed title input"
+	},
+	"saveFeed.titlePlaceholder": {
+		"string": "Memorable feed title",
+		"developer_comment": "Placeholder text for feed title field"
+	},
+	"saveFeed.updateSaveButton": {
+		"string": "Hifadhi",
+		"developer_comment": "Label to the save button of the shared feed update form"
+	},
+	"saveFeed.viewSharedFeed": {
+		"string": "View Shared Feed",
+		"developer_comment": "Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page."
+	},
 	"saveList.cancel": {
 		"string": "Ghairi"
 	},
@@ -3279,6 +3740,10 @@
 		"string": "Save changes to the list",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveList.warningAlert": {
+		"string": "Saving changes will update shared feeds:",
+		"developer_comment": "Text displayed in the title of a warning box when saving a list related to shared feeds"
+	},
 	"saveTag.couldNotSave": {
 		"string": "Could not save tag",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
@@ -3303,10 +3768,8 @@
 		"string": "Hariri lebo"
 	},
 	"savedSearch.deleteMessage": {
-		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
-	},
-	"savedSearch.name": {
-		"string": "list"
+		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it.",
+		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
 	},
 	"search.afterDate": {
 		"string": "after",
@@ -3326,6 +3789,10 @@
 	"search.anyDate": {
 		"string": "any date",
 		"developer_comment": "Date picker placeholder"
+	},
+	"search.applyFilter": {
+		"string": "Apply",
+		"developer_comment": "Button label to apply search filters."
 	},
 	"search.applyFilters": {
 		"string": "Apply filter",
@@ -3504,6 +3971,10 @@
 		"string": "Haijachapishwa",
 		"developer_comment": "Refers to a report status"
 	},
+	"search.resetFilter": {
+		"string": "Weka upya",
+		"developer_comment": "Button label to reset search filters."
+	},
 	"search.show": {
 		"string": "Type is",
 		"developer_comment": "Prefix label for field to filter by media type"
@@ -3537,7 +4008,7 @@
 		"developer_comment": "Allow user to filter by social media links"
 	},
 	"search.statusHeading": {
-		"string": "Hali ya kipengee ni",
+		"string": "Rating is",
 		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.tiktok": {
@@ -3671,6 +4142,26 @@
 		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}",
 		"developer_comment": "Label for number of selected items"
 	},
+	"select.removeSelection": {
+		"string": "Undo selection",
+		"developer_comment": "Tooltip for button on Select component to remove current selection"
+	},
+	"selectList.noListButtonLabel": {
+		"string": "How to create lists",
+		"developer_comment": "Helper link in a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.noListDescription": {
+		"string": "Create a list and set up filters in order to select the fact-checks you would like to contribute to this shared feed.",
+		"developer_comment": "Content of a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.noListTitle": {
+		"string": "Your workspace needs a Custom Filtered List to contribute.",
+		"developer_comment": "Title of a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.select": {
+		"string": "Select list…",
+		"developer_comment": "Label for list selector"
+	},
 	"sensitiveContentMenuButton.adult": {
 		"string": "Adult (nudity, pornographic)",
 		"developer_comment": "Label for adult content type"
@@ -3729,6 +4220,10 @@
 		"string": "Hifadhi",
 		"developer_comment": "Button label for save columns settings"
 	},
+	"sharedFeedIcon.Tooltip": {
+		"string": "Included in Shared Feed:",
+		"developer_comment": "Tooltip for shared feeds icon"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Jibu kazi"
 	},
@@ -3780,6 +4275,10 @@
 	"similarityComponent.singleLanguageFactChecksEnabled": {
 		"string": "Only send fact-checks in the same language as the conversation language",
 		"developer_comment": "Label displayed when similarity setting for single language fact-checks is enabled"
+	},
+	"similarityComponent.textLength": {
+		"string": "Minimum words required for a confirmed match",
+		"developer_comment": "A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
 	},
 	"similarityComponent.title": {
 		"string": "Similarity matching",
@@ -3889,15 +4388,6 @@
 	"smoochBot.descriptionMainMenu": {
 		"string": "Menyu inayomuuliza mtumiaji kuchagua kati ya seti ya chaguzi. Ujumbe huu hufuata moja kwa moja ujumbe wa Salamu. 9 haiwezi kutumiwa kama chaguo katika menyu kuu."
 	},
-	"smoochBot.descriptionNewsletter1": {
-		"string": "Please complete the steps below to send a weekly newsletter:"
-	},
-	"smoochBot.descriptionNewsletter2": {
-		"string": "1. Compose your newsletter"
-	},
-	"smoochBot.descriptionNewsletter3": {
-		"string": "2. Select a day and time of the week"
-	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Ujumbe unaotumwa iwapo jibu la mtumiaji kwa menyu ni batili kwa mazingira ya menyu."
 	},
@@ -3951,12 +4441,6 @@
 	"smoochBot.labelMainMenu": {
 		"string": "Menyu kuu"
 	},
-	"smoochBot.labelNewsletter": {
-		"string": "Newsletter"
-	},
-	"smoochBot.labelNewsletterV2": {
-		"string": "Newsletter"
-	},
 	"smoochBot.labelOptionNotAvailable": {
 		"string": "Chaguo halipatikani"
 	},
@@ -3995,15 +4479,6 @@
 	},
 	"smoochBot.placeholderMainMenu": {
 		"string": "📌* Menyu kuu* \n\n*Jibu 1* (au 🔍) tuma ombi lako kwa uthibitishaji kuhusu nakala, video, picha, au maudhui.\n*Jibu 2* (au 🦠) kupata taarifa za hivi punde kuhusu ugonjwa wa virusi vya korona \n(COVID-19)"
-	},
-	"smoochBot.placeholderNewsletter": {
-		"string": "Type to compose your newsletter. You can add content from the RSS below."
-	},
-	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Add an article"
-	},
-	"smoochBot.placeholderNewsletterIntroduction": {
-		"string": "Type something"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖 Samahani, sikuuelewa ujumbe wako. Tafadhali jaribu tena!"
@@ -4740,7 +5215,7 @@
 	},
 	"sourceInfo.addLink": {
 		"string": "Ongeza URL ya pili",
-		"developer_comment": "allow user to relate a new link to media source"
+		"developer_comment": "Allow user to relate a new link to media source"
 	},
 	"sourceInfo.addSecondaryLink": {
 		"string": "Ongeza URL ya pili",
@@ -4760,7 +5235,7 @@
 	},
 	"sourceInfo.mainName": {
 		"string": "Jina kuu",
-		"developer_comment": "souce name"
+		"developer_comment": "Source name"
 	},
 	"sourceInfo.mediasCount": {
 		"string": "{mediasCount, plural, one {1 item} other {# items}}",
@@ -4910,6 +5385,22 @@
 	},
 	"tagInput.search": {
 		"string": "Tafuta au ongeza lebo mpya"
+	},
+	"tagList.create": {
+		"string": "+ Create this tag",
+		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
+	},
+	"tagList.empty": {
+		"string": "0 tags",
+		"developer_comment": "A message that appears in a lag list when there are no available tags to display."
+	},
+	"tagList.notFound": {
+		"string": "No tags found",
+		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
+	},
+	"tagList.submit": {
+		"string": "Tagi",
+		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.create": {
 		"string": "+ Create this tag",
@@ -5243,28 +5734,65 @@
 		"string": "User requests associated with claims that are not in the trash.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDetails.description": {
-		"string": "Maelezo"
-	},
 	"teamDetails.duplicateWorkspace": {
-		"string": "Ulingo wa kazi uliorudiwa"
+		"string": "Ulingo wa kazi uliorudiwa",
+		"developer_comment": "Label of a button to duplicate a workspace"
+	},
+	"teamDetails.edit": {
+		"string": "Hariri",
+		"developer_comment": "Label for a button to change a workspace image"
+	},
+	"teamDetails.linkManagement": {
+		"string": "Link management",
+		"developer_comment": "Title of the link management section in team details page"
+	},
+	"teamDetails.linkManagementRss": {
+		"string": "The link service cannot be disabled while RSS newsletters are configured in this workspace",
+		"developer_comment": "Helper text for link management switcher when workspace has RSS newsletters configured"
+	},
+	"teamDetails.linkManagementSwitcher": {
+		"string": "Enable link shortening and analytics",
+		"developer_comment": "Label for a switch where the user toggles link management in team details page"
+	},
+	"teamDetails.profile": {
+		"string": "Profile",
+		"developer_comment": "Title of the profile section in team details page"
 	},
 	"teamDetails.savedSuccessfully": {
-		"string": "Workspace details saved successfully"
+		"string": "Workspace details saved successfully",
+		"developer_comment": "Success message displayed when workspace settings are saved"
 	},
 	"teamDetails.subtitle": {
 		"string": "Add details to your Check workspace.",
 		"developer_comment": "Subtitle for details page of current workspace"
 	},
 	"teamDetails.title": {
-		"string": "Workspace details",
+		"string": "Ulingo wa kazi",
 		"developer_comment": "Title for details page of current workspace"
 	},
 	"teamDetails.update": {
-		"string": "Sasisha"
+		"string": "Sasisha",
+		"developer_comment": "Label of the button that saves workspace details"
+	},
+	"teamDetails.utmCode": {
+		"string": "UTM code",
+		"developer_comment": "Label for 'UTM code' field"
+	},
+	"teamDetails.utmCodeHelp": {
+		"string": "Customize the UTM code appended to links. Leave blank to disable UTM codes.",
+		"developer_comment": "Helper text for UTM code field"
+	},
+	"teamDetails.warnContent": {
+		"string": "The rewritten links will also include the UTM code if provided. The UTM code does not change the destination URL.<br /><br /><strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}",
+		"developer_comment": "Text displayed in the content of a warning box on team details page when link shortening is on"
+	},
+	"teamDetails.warnTitle": {
+		"string": "All links sent via Check will be rewritten.",
+		"developer_comment": "Text displayed in the title of a warning box on team details page when link shortening is on"
 	},
 	"teamDetails.workspaceName": {
-		"string": "Jina la ulingo"
+		"string": "Jina la ulingo",
+		"developer_comment": "Label for workspace name field"
 	},
 	"teamIntegrations.subtitle": {
 		"string": "Zana za mtu mwingine kuongeza tija."
@@ -5492,44 +6020,60 @@
 		"developer_comment": "Label to WhatsApp number field"
 	},
 	"teamSettings.Tags": {
-		"string": "Lebo"
+		"string": "Lebo",
+		"developer_comment": "Label for the Tags settings tab"
 	},
 	"teamSettings.data": {
-		"string": "Data"
+		"string": "Data",
+		"developer_comment": "Label for the Data settings tab"
 	},
 	"teamSettings.integrations": {
-		"string": "Mijumuisho"
+		"string": "Mijumuisho",
+		"developer_comment": "Label for the Integrations settings tab"
 	},
 	"teamSettings.languages": {
-		"string": "Lugha"
+		"string": "Lugha",
+		"developer_comment": "Label for the Language settings tab"
 	},
 	"teamSettings.lists": {
-		"string": "Columns"
+		"string": "Columns",
+		"developer_comment": "Label for the Columns settings tab"
 	},
 	"teamSettings.members": {
-		"string": "Wanachama"
+		"string": "Wanachama",
+		"developer_comment": "Label for the Members settings tab"
 	},
 	"teamSettings.metadata": {
 		"string": "Annotation",
 		"developer_comment": "Label for annotation settings tab"
 	},
+	"teamSettings.newsletter": {
+		"string": "Newsletter",
+		"developer_comment": "Label for a tab that takes the user to settings for their newsletter."
+	},
 	"teamSettings.report": {
-		"string": "Ripoti"
+		"string": "Ripoti",
+		"developer_comment": "Label for the Report settings tab"
 	},
 	"teamSettings.rules": {
-		"string": "Masharti"
+		"string": "Masharti",
+		"developer_comment": "Label for the Rules settings tab"
 	},
 	"teamSettings.similarity": {
-		"string": "Similarity"
+		"string": "Similarity",
+		"developer_comment": "Label for the Similarity settings tab"
 	},
 	"teamSettings.statuses": {
-		"string": "Hali"
+		"string": "Hali",
+		"developer_comment": "Label for the Statuses settings tab"
 	},
 	"teamSettings.tipline": {
-		"string": "Tipline"
+		"string": "Tipline",
+		"developer_comment": "Label for the Tipline settings tab"
 	},
 	"teamSettings.workspace": {
-		"string": "Ulingo wa kazi"
+		"string": "Ulingo wa kazi",
+		"developer_comment": "Label for the Workspace settings tab"
 	},
 	"teamTags.addTag": {
 		"string": "Ongeza lebo"
@@ -5913,6 +6457,22 @@
 	"unconfirmed.title": {
 		"string": "Haijathibitishwa"
 	},
+	"upload.dragMessage": {
+		"string": "Drag a file here or",
+		"developer_comment": "A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'."
+	},
+	"upload.dropFile": {
+		"string": "Drop file here",
+		"developer_comment": "A label that appears when a user drags a file over a valid file drop area"
+	},
+	"upload.removeUpload": {
+		"string": "Remove file",
+		"developer_comment": "Tooltip message displayed on upload component. Cancel file selected for upload"
+	},
+	"upload.selectFile": {
+		"string": "Select a local file",
+		"developer_comment": "Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system."
+	},
 	"uploadFile.audioMessage": {
 		"string": "Weka faili ya sauti hapa, au bonyeza kupakia faili (saizi ya juu: {audio_max_size}, viongezeo vinavyokubaliwa: {audio_extensions})"
 	},
@@ -6187,5 +6747,21 @@
 	"webPageMediaCard.Error": {
 		"string": "Kipengee hiki hakiwezi kutambuliwa. Inaweza kuwa imeondolewa, au inaweza tu kuonekana kwa watumiaji ambao wameingia. Bonyeza kiungo hapo juu ili uende kwenye hiyo.",
 		"developer_comment": "Error message displayed when link data is unavailable"
+	},
+	"workspaceMenu.teamLegal": {
+		"string": "Kuhusu",
+		"developer_comment": "Legal link tooltip in drawer rail navigation"
+	},
+	"workspaceMenu.teamSettings": {
+		"string": "Mipangilio ya eneo la kazi",
+		"developer_comment": "Tooltip for drawer navigation to workspace settings"
+	},
+	"workspaceMenu.teamTipline": {
+		"string": "Tipline",
+		"developer_comment": "Tooltip for drawer navigation to tipline"
+	},
+	"workspaceMenu.teamTraining": {
+		"string": "Mafunzo na miongozo.",
+		"developer_comment": "Help link tooltip in drawer rail navigation"
 	}
 }
