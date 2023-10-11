@@ -8,7 +8,6 @@ import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
@@ -107,7 +106,7 @@ const TeamMembersComponent = ({
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <TableContainer>
+        <div className={settingsStyles['setting-content-container']}>
           <Table>
             <TableHead>
               <TableRow>
@@ -225,12 +224,12 @@ const TeamMembersComponent = ({
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
-        <InviteDialog
-          team={team}
-          open={inviteDialogOpen}
-          onClose={() => setInviteDialogOpen(false)}
-        />
+          <InviteDialog
+            team={team}
+            open={inviteDialogOpen}
+            onClose={() => setInviteDialogOpen(false)}
+          />
+        </div>
       </div>
     </>
   );

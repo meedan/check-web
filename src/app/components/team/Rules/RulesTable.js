@@ -4,7 +4,6 @@ import { FormattedMessage, FormattedRelative } from 'react-intl';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -97,11 +96,11 @@ export default function RulesTable(props) {
         }
       />
       <div className={settingsStyles['setting-details-wrapper']}>
-        <RulesTableToolbar
-          numSelected={selected.length}
-          onDeleteRules={handleDelete}
-        />
-        <TableContainer>
+        <div className={settingsStyles['setting-content-container']}>
+          <RulesTableToolbar
+            numSelected={selected.length}
+            onDeleteRules={handleDelete}
+          />
           <Table size="medium" id="rules-table">
             <RulesTableHead
               order={order}
@@ -141,7 +140,7 @@ export default function RulesTable(props) {
               })}
             </TableBody>
           </Table>
-        </TableContainer>
+        </div>
       </div>
     </React.Fragment>
   );

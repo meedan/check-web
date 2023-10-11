@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -101,22 +100,26 @@ const TeamTagsComponent = ({
       />
       { totalTags > pageSize && // only display paginator if there are more than pageSize worth of tags overall in the database
         <div className={styles['tags-wrapper']}>
-          <Tooltip title={
-            <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
-          }
+          <Tooltip
+            disableHoverListener={isPaginationLoading || cursor - pageSize < 0}
+            title={
+              <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+            }
           >
-            <ButtonMain
-              disabled={isPaginationLoading || cursor - pageSize < 0}
-              variant="text"
-              theme="brand"
-              size="default"
-              onClick={() => {
-                if (cursor - pageSize >= 0) {
-                  setCursor(cursor - pageSize);
-                }
-              }}
-              iconCenter={<PrevIcon />}
-            />
+            <span>
+              <ButtonMain
+                disabled={isPaginationLoading || cursor - pageSize < 0}
+                variant="text"
+                theme="brand"
+                size="default"
+                onClick={() => {
+                  if (cursor - pageSize >= 0) {
+                    setCursor(cursor - pageSize);
+                  }
+                }}
+                iconCenter={<PrevIcon />}
+              />
+            </span>
           </Tooltip>
           <span className={cx('typography-button', styles['tags-header-count'])}>
             <FormattedMessage
@@ -130,34 +133,38 @@ const TeamTagsComponent = ({
               }}
             />
           </span>
-          <Tooltip title={
-            <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
-          }
+          <Tooltip
+            disableHoverListener={isPaginationLoading || cursor + pageSize >= totalCount}
+            title={
+              <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+            }
           >
-            <ButtonMain
-              disabled={isPaginationLoading || cursor + pageSize >= totalCount}
-              variant="text"
-              theme="brand"
-              size="default"
-              onClick={() => {
-                if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= tags.length)) {
-                  setIsPaginationLoading(true);
-                  relay.loadMore(pageSize, () => {
+            <span>
+              <ButtonMain
+                disabled={isPaginationLoading || cursor + pageSize >= totalCount}
+                variant="text"
+                theme="brand"
+                size="default"
+                onClick={() => {
+                  if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize >= tags.length)) {
+                    setIsPaginationLoading(true);
+                    relay.loadMore(pageSize, () => {
+                      setCursor(cursor + pageSize);
+                      setIsPaginationLoading(false);
+                    });
+                  } else if (cursor + pageSize < tags.length) {
                     setCursor(cursor + pageSize);
-                    setIsPaginationLoading(false);
-                  });
-                } else if (cursor + pageSize < tags.length) {
-                  setCursor(cursor + pageSize);
-                }
-              }}
-              iconCenter={<NextIcon />}
-            />
+                  }
+                }}
+                iconCenter={<NextIcon />}
+              />
+            </span>
           </Tooltip>
         </div>
       }
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <TableContainer>
-          <Table stickyHeader>
+        <div className={settingsStyles['setting-content-container']}>
+          <Table>
             <TableHead>
               <TableRow>
                 <TableCell className={styles['table-col-head-name']}>
@@ -216,7 +223,7 @@ const TeamTagsComponent = ({
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </div>
       </div>
       { showCreateTag ?
         <SaveTag
