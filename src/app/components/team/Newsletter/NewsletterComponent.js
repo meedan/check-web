@@ -253,7 +253,6 @@ const NewsletterComponent = ({
   const handleSuccess = (response) => {
     setScheduled(response?.updateTiplineNewsletter?.tipline_newsletter?.enabled);
     setSaving(false);
-    setErrors({});
     setFlashMessage((
       <FormattedMessage
         id="newsletterComponent.success"
@@ -376,6 +375,10 @@ const NewsletterComponent = ({
               handleError(err);
             } else {
               handleSuccess(response);
+              // Clear errors only if the action is "schedule" or "paused", if it is just the "save" action then we want to keep displaying the errors
+              if (scheduledOrPaused === 'paused' || scheduledOrPaused === 'scheduled') {
+                setErrors({});
+              }
               // FIXME: Find a better way to refresh the local store when a newsletter is created
               if (!input.id) {
                 window.location.assign(`/${team.slug}/settings/newsletter`);
