@@ -179,6 +179,9 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
               />
             }
             labelPlacement="end"
+            inputProps={{
+              id: 'use_introduction',
+            }}
           />
           { report.use_introduction &&
             <div className={settingsStyles['setting-content-form-wrapper']}>
@@ -226,6 +229,9 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
               />
             }
             labelPlacement="end"
+            inputProps={{
+              id: 'use_url',
+            }}
           />
           { report.use_url &&
             <div className={settingsStyles['setting-content-form-wrapper']}>
@@ -272,6 +278,9 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
               />
             }
             labelPlacement="end"
+            inputProps={{
+              id: 'use_signature',
+            }}
           />
           { report.use_signature &&
             <div className={settingsStyles['setting-content-form-wrapper']}>
