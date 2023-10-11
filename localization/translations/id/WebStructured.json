@@ -15,7 +15,7 @@
 		"string": "Saring berdasarkan"
 	},
 	"CustomFilter.keywordsLabel": {
-		"string": "Ketik daftar kata-kata kunci dipisahkan dengan tanda koma"
+		"string": "Ketik daftar kata kunci, pisahkan dengan tanda koma"
 	},
 	"CustomFilter.selectValueLabel": {
 		"string": "Pilih nilai"
@@ -180,16 +180,14 @@
 		"string": "Kebijakan privasi"
 	},
 	"UserMenu.signOut": {
-		"string": "Keluar"
+		"string": "Keluar",
+		"developer_comment": "This is the sign out button on the user profile page"
 	},
 	"UserMenu.tos": {
 		"string": "Persyaratan layanan"
 	},
 	"UserMenu.training": {
 		"string": "Pelatihan dan dokumentasi"
-	},
-	"UserMenu.userSettings": {
-		"string": "Pengaturan pengguna"
 	},
 	"UserPrivacy.deleteAccount": {
 		"string": "Hapus Akun"
@@ -286,7 +284,7 @@
 		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
-		"string": "Status perihal",
+		"string": "Penilaian",
 		"developer_comment": "Menu option to enable searching items by item status"
 	},
 	"addFilterMenu.language": {
@@ -866,6 +864,18 @@
 		"string": "Penting! Fitur Tugas akan dihentikan pada 1 Juni 2022. Silakan hubungi dukungan jika Anda memiliki pertanyaan tentang cara menggantinya dengan Anotasi.",
 		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
+	"checkFeedLicenses.licenseNameAcademic": {
+		"string": "Akademik",
+		"developer_comment": "Feed license"
+	},
+	"checkFeedLicenses.licenseNameCommercial": {
+		"string": "Komersial",
+		"developer_comment": "Feed license"
+	},
+	"checkFeedLicenses.licenseNameOpenSource": {
+		"string": "Sumber Terbuka",
+		"developer_comment": "Feed license"
+	},
 	"checkedByTeamsCell.more": {
 		"string": "+{number} lebih banyak",
 		"developer_comment": "Table cell displayed on Trends page showing how many more workspaces fact-checked this item but their names were omitted from display"
@@ -910,6 +920,10 @@
 	"contentScreen.warningByAutomationRule": {
 		"string": "Aturan otomatisasi telah mendeteksi konten ini sebagai konten sensitif",
 		"developer_comment": "Content warning displayed over sensitive content"
+	},
+	"createFeed.sharedFeedPageDescription": {
+		"string": "Bagikan umpan data dengan organisasi lain untuk membuka wawasan baru lintas audiens dan bahasa.",
+		"developer_comment": "Description of the shared feed creation page"
 	},
 	"createMedia.addItem": {
 		"string": "Tambah perihal"
@@ -1148,6 +1162,26 @@
 		"string": "Dibagikan",
 		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
 	},
+	"feedBlankState.description": {
+		"string": "Coba {resetLink} untuk menemukan pengecekan fakta atau memverifikasi bahwa {listLink} memiliki perihal",
+		"developer_comment": "Message displayed on feed page when there are no fact-checks to be listed. English values for placeholders link text: 'resetLink' is 'resetting filters' and 'listLink' is 'source list'."
+	},
+	"feedBlankState.listLinkText": {
+		"string": "daftar sumber",
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Verify that the source list has items'."
+	},
+	"feedBlankState.listText": {
+		"string": "daftar sumber",
+		"developer_comment": "Text that is part of message displayed when a feed does not return any fact-checks."
+	},
+	"feedBlankState.resetLinkText": {
+		"string": "mengatur ulang saringan",
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Try resetting filters to find fact-checks'."
+	},
+	"feedBlankState.title": {
+		"string": "Tidak ada pengecekan fakta",
+		"developer_comment": "Title displayed on feed page when there are no fact-checks to be listed."
+	},
 	"feedFilters.applyFilters": {
 		"string": "Terapkan saringan",
 		"developer_comment": "Button to perform query with specified filters"
@@ -1179,6 +1213,18 @@
 	"feedFilters.savedSuccessfully": {
 		"string": "Saringan berhasil disimpan",
 		"developer_comment": "Success message displayed when feed requests filters are saved"
+	},
+	"feedHeader.sharedFeed": {
+		"string": "Umpan Bersama",
+		"developer_comment": "Displayed on top of the feed title on the feed page."
+	},
+	"feedHeader.tooltipLicense": {
+		"string": "Lisensi Umpan: {licenseName}",
+		"developer_comment": "Tooltip message displayed on feed license icon."
+	},
+	"feedHeader.tooltipSettings": {
+		"string": "Pengaturan Umpan Bersama",
+		"developer_comment": "Tooltip message displayed on feed settings icon."
 	},
 	"feedItem.aboutThisClaim": {
 		"string": "Tentang klaim ini"
@@ -1425,6 +1471,22 @@
 		"string": "Terapkan dan simpan saringan untuk dibagikan",
 		"developer_comment": "Tooltip displayed on feed 'Enable sharing' switcher"
 	},
+	"feedSort.date": {
+		"string": "Tanggal diperbarui",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"feedSort.sort": {
+		"string": "Urutkan",
+		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
+	},
+	"feedSort.status": {
+		"string": "Penilaian",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"feedTopBar.noListSelected": {
+		"string": "tidak ada daftar yang dipilih",
+		"developer_comment": "Message displayed on feed top bar when there is no list associated with the feed."
+	},
 	"fetchBot.contactUs": {
 		"string": "Hubungi kami untuk mengatur"
 	},
@@ -1512,9 +1574,6 @@
 	},
 	"global.update": {
 		"string": "Perbarui"
-	},
-	"headerActions.signIn": {
-		"string": "Masuk"
 	},
 	"home.invalidExpiredInvitation": {
 		"string": "Maaf, undangan yang Anda terima telah kedaluwarsa. Silakan hubungi {supportEmail} jika Anda pikir ini adalah kesalahan.",
@@ -1615,14 +1674,32 @@
 	"languageSwitcher.primaryLanguage": {
 		"string": "(bawaan)"
 	},
-	"languagesComponent.blurb": {
-		"string": "Tambah bahasa baru ke ruang kerja Anda untuk membuat laporan, bot Tipline dan status dalam beberapa bahasa saat berkomunikasi dengan para pengguna."
+	"languagesComponent.description": {
+		"string": "Jika deteksi bahasa <strong>diaktifkan</strong>, bot Tipline Check akan secara otomatis mengenali dan merespons dalam bahasa permintaan pengguna Anda.\n              Jika <strong>dinonaktifkan</strong>, bot Tipline Check akan merespons dalam bahasa bawaan ruang kerja: <strong>{defaultLanguage}</strong>",
+		"developer_comment": "Instructions for the language detection toggle switch"
+	},
+	"languagesComponent.languageDetection": {
+		"string": "Deteksi bahasa",
+		"developer_comment": "Title of the Language detection section in language settings page"
+	},
+	"languagesComponent.languageDetectionSwitch": {
+		"string": "Aktifkan deteksi bahasa",
+		"developer_comment": "Label for a switch where the user toggles auto language detection"
+	},
+	"languagesComponent.languages": {
+		"string": "Bahasa",
+		"developer_comment": "Title of the active languages list section in language settings page"
 	},
 	"languagesComponent.title": {
-		"string": "Bahasa"
+		"string": "Bahasa",
+		"developer_comment": "Title of Language settings page"
+	},
+	"limitedTextAreaWithCounter.counter": {
+		"string": "{remaining, plural, other {# karakter tersisa}}",
+		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"limitedTextFieldWithCounter.counter": {
-		"string": "{remaining, plural, other {(# karakter yang tersisa)}}",
+		"string": "{remaining, plural, other {# karakter tersisa}}",
 		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
@@ -1728,6 +1805,22 @@
 	"list.updated": {
 		"string": "Diperbarui",
 		"developer_comment": "Table header for item updated date column"
+	},
+	"listSort.changeDirection": {
+		"string": "Ubah arah urutan daftar",
+		"developer_comment": "Tooltip to tell the user they can change the direction of the list sort"
+	},
+	"listSort.date": {
+		"string": "Tanggal diperbarui",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"listSort.sort": {
+		"string": "Urutkan",
+		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
+	},
+	"listSort.status": {
+		"string": "Penilaian",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
 	},
 	"login.alreadyHasAccount": {
 		"string": "Sudah memiliki akun?"
@@ -2450,7 +2543,7 @@
 	},
 	"metadata.file.invalidFile": {
 		"string": "Berkas ini tidak valid. Silakan coba lagi dengan berkas yang berbeda.",
-		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+		"developer_comment": "This message appears when a user tries to add a file that the browser cannot read for some reason to the file upload widget."
 	},
 	"metadata.file.noFile": {
 		"string": "Berkas ini tidak ada di basis data. Sunting dan hapus anotasi ini untuk mengunggah berkas baru.",
@@ -2532,6 +2625,222 @@
 	},
 	"newProject.cancel": {
 		"string": "Batalkan"
+	},
+	"newsletter.error": {
+		"string": "Tidak dapat menyimpan buletin, silakan coba lagi.",
+		"developer_comment": "Error message displayed when it's not possible to save a newsletter."
+	},
+	"newsletter.headerTypeAudio": {
+		"string": "Audio",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeImage": {
+		"string": "Gambar",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeLinkPreview": {
+		"string": "Pratinjau tautan",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeNone": {
+		"string": "Tidak ada",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.headerTypeVideo": {
+		"string": "Video",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletter.success": {
+		"string": "Buletin berhasil disimpan",
+		"developer_comment": "Success message displayed when a newsletter is saved."
+	},
+	"newsletter.title": {
+		"string": "Buletin",
+		"developer_comment": "Title for newsletter settings page."
+	},
+	"newsletterComponent.articleBlank": {
+		"string": "Bidang Artikel wajib diisi",
+		"developer_comment": "Message displayed on the article text field when it is empty and a user tries to save"
+	},
+	"newsletterComponent.articlePlaceholder": {
+		"string": "Tambah teks atau tautan",
+		"developer_comment": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
+	},
+	"newsletterComponent.content": {
+		"string": "Konten",
+		"developer_comment": "Title for newsletter content section on newsletter settings page"
+	},
+	"newsletterComponent.error": {
+		"string": "Tidak dapat menyimpan buletin, silakan coba lagi.",
+		"developer_comment": "Error message displayed when it's not possible to save a newsletter."
+	},
+	"newsletterComponent.errorDatetimePast": {
+		"string": "Tanggal buletin terjadwal tidak boleh di masa lalu.",
+		"developer_comment": "Error message displayed when a user tries to schedule sending a newsletter on a past date."
+	},
+	"newsletterComponent.errorHeaderFile": {
+		"string": "Berkas harus dari tipe format berikut: {fileTypes}",
+		"developer_comment": "Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
+	},
+	"newsletterComponent.errorHeaderType": {
+		"string": "Tipe tajuk harus berasal dari daftar",
+		"developer_comment": "Error message displayed when a user submits a form with a blank header type field (this is chosen from a list)."
+	},
+	"newsletterComponent.errorIntroduction": {
+		"string": "Pendahuluan wajib diisi.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank introduction field."
+	},
+	"newsletterComponent.errorIntroductionTooLong": {
+		"string": "Pendahuluan terlalu panjang",
+		"developer_comment": "Error message displayed when a user submits a form with an introduction field that is too long."
+	},
+	"newsletterComponent.errorRssFeedUrl": {
+		"string": "URL umpan RSS tidak valid.",
+		"developer_comment": "Error message displayed when a user submits a form with a URL that the server does not recognize."
+	},
+	"newsletterComponent.errorSendOn": {
+		"string": "Tanggal yang dijadwalkan wajib diisi.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank scheduled date field."
+	},
+	"newsletterComponent.errorTimezone": {
+		"string": "Zona waktu wajib diisi.",
+		"developer_comment": "Error message displayed when a user submits a form with a blank time zone field."
+	},
+	"newsletterComponent.introduction": {
+		"string": "Pengantar",
+		"developer_comment": "Label for a field where the user inputs text for an introduction to a newsletter"
+	},
+	"newsletterComponent.numberOfArticles": {
+		"string": "Jumlah artikel",
+		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
+	},
+	"newsletterComponent.overlay": {
+		"string": "Lapisan teks",
+		"developer_comment": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterComponent.overlayPlaceholder": {
+		"string": "Tambahkan teks di atas gambar",
+		"developer_comment": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterComponent.placeholder": {
+		"string": "Contoh: Halo! Selamat datang di buletin kami. Berikut pengecekan fakta paling populer yang harus Anda baca sekarang:",
+		"developer_comment": "Placeholder text for newsletter field"
+	},
+	"newsletterComponent.rss": {
+		"string": "RSS",
+		"developer_comment": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
+	},
+	"newsletterComponent.rssFeed": {
+		"string": "Gunakan umpan RSS untuk memuat konten baru secara otomatis dan mengirim buletin Anda dengan jadwal berulang. Buletin akan dikirim jika konten baru diambil dari RSS.",
+		"developer_comment": "Message on tipline newsletter settings page that explains how RSS feeds work there."
+	},
+	"newsletterComponent.save": {
+		"string": "Simpan",
+		"developer_comment": "Label for a button to save settings for the newsletter"
+	},
+	"newsletterComponent.success": {
+		"string": "Buletin berhasil disimpan",
+		"developer_comment": "Success message displayed when a newsletter is saved."
+	},
+	"newsletterComponent.title": {
+		"string": "Buletin",
+		"developer_comment": "Title for newsletter settings page."
+	},
+	"newsletterHeader.header": {
+		"string": "Tajuk",
+		"developer_comment": "Label for the newsletter header type field"
+	},
+	"newsletterHeader.headerTypeAudio": {
+		"string": "Audio",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeImage": {
+		"string": "Gambar",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeLinkPreview": {
+		"string": "Pratinjau tautan (memerlukan akun terverifikasi di WhatsApp)",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeNone": {
+		"string": "Tidak ada",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.headerTypeVideo": {
+		"string": "Video",
+		"developer_comment": "One of the options for a newsletter header type"
+	},
+	"newsletterHeader.overlay": {
+		"string": "Lapisan teks",
+		"developer_comment": "Label for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterHeader.overlayPlaceholder": {
+		"string": "Tambahkan teks di atas gambar",
+		"developer_comment": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
+	},
+	"newsletterNumberOfArticles.label": {
+		"string": "Jumlah artikel",
+		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
+	},
+	"newsletterRssFeed.error": {
+		"string": "URL RSS yang valid diperlukan untuk memuat artikel.",
+		"developer_comment": "Error message displayed under RSS feed URL field"
+	},
+	"newsletterRssFeed.load": {
+		"string": "Muat",
+		"developer_comment": "Label for a button to load RSS feed entries"
+	},
+	"newsletterRssFeed.noArticle": {
+		"string": "Tidak ada artikel yang diambil dari RSS saat ini",
+		"developer_comment": "Message displayed when RSS feed has less entries than requested"
+	},
+	"newsletterRssFeed.urlPlaceholder": {
+		"string": "https://example.com/rss.xml",
+		"developer_comment": "Placeholder text for newsletter RSS field"
+	},
+	"newsletterScheduler.at": {
+		"string": "pada",
+		"developer_comment": "This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'"
+	},
+	"newsletterScheduler.errorContentHasntChanged": {
+		"string": "Buletin batal diterbitkan karena kontennya belum diperbarui sejak terakhir dikirim.",
+		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS content has not changed"
+	},
+	"newsletterScheduler.errorRss": {
+		"string": "Buletin batal diterbitkan karena tidak ada konten yang dapat diambil dari umpan RSS.",
+		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS feed could not be loaded"
+	},
+	"newsletterScheduler.pause": {
+		"string": "Tunda",
+		"developer_comment": "Label for a button to pause a newsletter"
+	},
+	"newsletterScheduler.schedule": {
+		"string": "Jadwal",
+		"developer_comment": "Label for a button to schedule a newsletter"
+	},
+	"newsletterScheduler.sendEvery": {
+		"string": "Kirim setiap",
+		"developer_comment": "Label on an input where the user selects in which days of the week to send an RSS newsletter"
+	},
+	"newsletterScheduler.sendOn": {
+		"string": "Kirim pada",
+		"developer_comment": "Label on a input where the user selects a date to send a newsletter"
+	},
+	"newsletterScheduler.subscribers": {
+		"string": "Pelanggan:",
+		"developer_comment": "Label related to the number of subscribers of a newsletter"
+	},
+	"newsletterScheduler.tooltipScheduled": {
+		"string": "Dijadwalkan oleh {name} pada {date}",
+		"developer_comment": "Tooltip message displayed on newsletter scheduler."
+	},
+	"newsletterScheduler.tooltipSent": {
+		"string": "Terakhir dikirim pada {date}",
+		"developer_comment": "Tooltip message displayed on newsletter scheduler."
+	},
+	"newsletterStatic.articlePlaceholder": {
+		"string": "Tambah teks atau tautan",
+		"developer_comment": "Placeholder text for a field where the user is supposed to enter text for an article, or a link to an article"
 	},
 	"notFound.back": {
 		"string": "Pergi ke halaman profil saya",
@@ -2787,7 +3096,7 @@
 		"string": "Tong Sampah"
 	},
 	"projectsComponent.allItems": {
-		"string": "Semua perihal",
+		"string": "Semua",
 		"developer_comment": "Label for the 'All items' list displayed on the left sidebar"
 	},
 	"projectsComponent.couldNotMove": {
@@ -2818,15 +3127,15 @@
 		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
 	},
 	"projectsComponent.importedReports": {
-		"string": "Pengecekan fakta yang diimpor",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"string": "Diimpor",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel"
 	},
 	"projectsComponent.invalidMove": {
 		"string": "Folder hanya dapat dipindahkan ke koleksi",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
-		"string": "Daftar yang disaring",
+		"string": "Daftar Khusus",
 		"developer_comment": "List of items with some filters applied"
 	},
 	"projectsComponent.movedSuccessfully": {
@@ -2861,6 +3170,10 @@
 		"string": "Folder baru",
 		"developer_comment": "Menu item for creating new folder"
 	},
+	"projectsComponent.newFolderOrCollection": {
+		"string": "Folder atau koleksi baru",
+		"developer_comment": "Tooltip for the button opens the new folder or collection menu"
+	},
 	"projectsComponent.newFolderSuccessMessage": {
 		"string": "Folder berhasil dibuat",
 		"developer_comment": "Success message when new folder is created"
@@ -2868,6 +3181,10 @@
 	"projectsComponent.newList": {
 		"string": "Daftar baru",
 		"developer_comment": "Title for a dialog to create a new list displayed on the left sidebar."
+	},
+	"projectsComponent.newListButton": {
+		"string": "Daftar baru",
+		"developer_comment": "Tooltip for button that opens list creation dialog"
 	},
 	"projectsComponent.newListErrorMessage": {
 		"string": "Tidak dapat membuat daftar, silakan coba lagi",
@@ -2877,9 +3194,21 @@
 		"string": "Daftar berhasil dibuat",
 		"developer_comment": "Success message when new list is created"
 	},
+	"projectsComponent.newSharedFeed": {
+		"string": "Umpan bersama baru",
+		"developer_comment": "Tooltip for the button that navigates to shared feed creation page"
+	},
+	"projectsComponent.noCustomLists": {
+		"string": "Tidak ada daftar khusus",
+		"developer_comment": "Displayed under the custom list header when there are no lists in it"
+	},
 	"projectsComponent.noFolders": {
 		"string": "Tidak ada folder dalam koleksi ini",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
+	},
+	"projectsComponent.noSharedFeeds": {
+		"string": "Tidak ada umpan bersama",
+		"developer_comment": "Displayed under the shared feed header when there are no feeds in it"
 	},
 	"projectsComponent.privacyDialogButton": {
 		"string": "Perbarui akses"
@@ -2907,11 +3236,11 @@
 	},
 	"projectsComponent.suggestedMatches": {
 		"string": "Saran",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1"
 	},
 	"projectsComponent.tiplineInbox": {
-		"string": "Kotak masuk Tipline",
-		"developer_comment": "Label for a list displayed on the left sidebar."
+		"string": "Kotak masuk",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted"
 	},
 	"projectsComponent.title": {
 		"string": "Judul"
@@ -3242,6 +3571,138 @@
 	"rulesTableToolbar.title": {
 		"string": "Peraturan"
 	},
+	"saveFeed.confirmationDialogBody": {
+		"string": "Anda yakin ingin memperbarui umpan bersama ini?",
+		"developer_comment": "Confirmation dialog message when saving a feed."
+	},
+	"saveFeed.confirmationDialogButton": {
+		"string": "Perbarui umpan bersama",
+		"developer_comment": "Button label to confirm updating a feed."
+	},
+	"saveFeed.confirmationDialogTitle": {
+		"string": "Anda yakin ingin memperbarui umpan bersama ini?",
+		"developer_comment": "Confirmation dialog title when saving a feed."
+	},
+	"saveFeed.createSaveButton": {
+		"string": "Buat umpan bersama",
+		"developer_comment": "Label to the save button of the shared feed creation form"
+	},
+	"saveFeed.createdBy": {
+		"string": "Dibuat oleh {teamName}",
+		"developer_comment": "Metadata field displayed on feed edit page."
+	},
+	"saveFeed.descriptionLabel": {
+		"string": "Deskripsi",
+		"developer_comment": "Label for a field where the user inputs text for a description to a shared feed"
+	},
+	"saveFeed.descriptionPlaceholder": {
+		"string": "Beri umpan bersama ini deskripsi opsional.",
+		"developer_comment": "Placeholder text for feed description field"
+	},
+	"saveFeed.feedContentBlurb": {
+		"string": "Pilih daftar pengecekan fakta yang disaring dari ruang kerja Anda untuk ikut berkontribusi pada umpan bersama ini. Anda dapat memperbarui daftar ini kapan saja.",
+		"developer_comment": "Helper text for the feed content section"
+	},
+	"saveFeed.feedContentBlurb2": {
+		"string": "Catatan:</strong> Daftar Anda harus mengandung <strong>pengecekan fakta yang diterbitkan</strong> untuk menjadi bagian dari umpan bersama ini.",
+		"developer_comment": "Helper text for the feed content section"
+	},
+	"saveFeed.feedContentTitle": {
+		"string": "Konten umpan",
+		"developer_comment": "Title of section where a list can be selected as the content of the feed"
+	},
+	"saveFeed.feedDetailsTitle": {
+		"string": "Detail umpan",
+		"developer_comment": "Title of section where the details of the feed are filled. e.g.: title, description"
+	},
+	"saveFeed.lastUpdated": {
+		"string": "Terakhir diperbarui {timeAgo}",
+		"developer_comment": "On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
+	},
+	"saveFeed.learnMore": {
+		"string": "Pelajari lebih lanjut.",
+		"developer_comment": "Link to external page with more details about shared feeds"
+	},
+	"saveFeed.learnMoreLicenses": {
+		"string": "Pelajari lisensi lebih lanjut.",
+		"developer_comment": "Link to an external page with more information about the data licenses"
+	},
+	"saveFeed.licenseAcademic": {
+		"string": "Akademik",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseBlurb": {
+		"string": "Lisensi dapat memberi tahu orang lain apa yang boleh dan tidak boleh mereka lakukan dengan kode Anda.",
+		"developer_comment": "Helper text for the license section"
+	},
+	"saveFeed.licenseCommercial": {
+		"string": "Komersial",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseDetails": {
+		"string": "Detail lisensi",
+		"developer_comment": "Link to external page with license details"
+	},
+	"saveFeed.licenseOpenSource": {
+		"string": "Sumber terbuka",
+		"developer_comment": "Label for the academic licensing of shared feed data"
+	},
+	"saveFeed.licenseTitle": {
+		"string": "Lisensi",
+		"developer_comment": "Title of the section where the publishing preferences such as licenses are selected"
+	},
+	"saveFeed.noListSelected": {
+		"string": "Ruang kerja Anda tidak berkontribusi pada umpan bersama ini. Pilih daftar di bawah ini untuk berkontribusi.",
+		"developer_comment": "Warning displayed on edit feed page when no list is selected."
+	},
+	"saveFeed.publishBlurb": {
+		"string": "Terbitkan umpan Anda ke lokapasar agar dapat ditemukan oleh organisasi pihak ketiga, sekaligus menjaga kontrol yang tepat atas aset Anda.",
+		"developer_comment": "Helper text for the publish feed section"
+	},
+	"saveFeed.publishSwitch": {
+		"string": "Terbitkan umpan bersama ke Lokapasar",
+		"developer_comment": "Label for a switch where the user publishes a feed"
+	},
+	"saveFeed.publishTitle": {
+		"string": "Terbitkan ke Lokapasar <small>(segera hadir)</small>",
+		"developer_comment": "Title of the section where the publishing preferences are set"
+	},
+	"saveFeed.selectHelper": {
+		"string": "Judul, ringkasan, dan URL pengecekan fakta akan dibagikan bersama dengan umpan.",
+		"developer_comment": "Helper text for shared feed list selector"
+	},
+	"saveFeed.selectLicense": {
+		"string": "Pilih lisensi untuk membuat dan menerbitkan umpan bersama ini.",
+		"developer_comment": "Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data."
+	},
+	"saveFeed.sharedFeedPageSubtitle": {
+		"string": "Buat umpan bersama baru",
+		"developer_comment": "Subtitle of the shared feed creation page"
+	},
+	"saveFeed.sharedFeedPageTitle": {
+		"string": "Umpan bersama",
+		"developer_comment": "Title of the shared feed creation page"
+	},
+	"saveFeed.titleHelper": {
+		"string": "Nama umpan bersama yang bagus adalah singkat, mudah diingat, dan memberi tahu audiens Anda tentang fokus media",
+		"developer_comment": "Title input helper text"
+	},
+	"saveFeed.titleLabel": {
+		"string": "Judul",
+		"developer_comment": "Label for the shared feed title input"
+	},
+	"saveFeed.titlePlaceholder": {
+		"string": "Judul umpan yang mudah diingat",
+		"developer_comment": "Placeholder text for feed title field"
+	},
+	"saveFeed.updateSaveButton": {
+		"string": "Simpan",
+		"developer_comment": "Label to the save button of the shared feed update form"
+	},
+	"saveFeed.viewSharedFeed": {
+		"string": "Lihat umpan bersama",
+		"developer_comment": "Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page."
+	},
 	"saveList.cancel": {
 		"string": "Batalkan"
 	},
@@ -3279,6 +3740,10 @@
 		"string": "Simpan perubahan ke daftar",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveList.warningAlert": {
+		"string": "Menyimpan perubahan akan memperbarui umpan bersama:",
+		"developer_comment": "Text displayed in the title of a warning box when saving a list related to shared feeds"
+	},
 	"saveTag.couldNotSave": {
 		"string": "Tidak dapat menyimpan label",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
@@ -3303,10 +3768,8 @@
 		"string": "Sunting label"
 	},
 	"savedSearch.deleteMessage": {
-		"string": "Apakah Anda yakin? Daftar ini dibagikan di antara semua pengguna dari {teamName}. Setelah dihapus, tidak ada pengguna yang dapat mengaksesnya."
-	},
-	"savedSearch.name": {
-		"string": "daftar"
+		"string": "Apakah Anda yakin? Daftar ini dibagikan di antara semua pengguna dari {teamName}. Setelah dihapus, tidak ada pengguna yang dapat mengaksesnya.",
+		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
 	},
 	"search.afterDate": {
 		"string": "setelah",
@@ -3326,6 +3789,10 @@
 	"search.anyDate": {
 		"string": "tanggal berapapun",
 		"developer_comment": "Date picker placeholder"
+	},
+	"search.applyFilter": {
+		"string": "Terapkan",
+		"developer_comment": "Button label to apply search filters."
 	},
 	"search.applyFilters": {
 		"string": "Terapkan saringan",
@@ -3504,6 +3971,10 @@
 		"string": "Belum diterbitkan",
 		"developer_comment": "Refers to a report status"
 	},
+	"search.resetFilter": {
+		"string": "Atur ulang",
+		"developer_comment": "Button label to reset search filters."
+	},
 	"search.show": {
 		"string": "Tipe adalah",
 		"developer_comment": "Prefix label for field to filter by media type"
@@ -3537,7 +4008,7 @@
 		"developer_comment": "Allow user to filter by social media links"
 	},
 	"search.statusHeading": {
-		"string": "Status perihal adalah",
+		"string": "Penilaian adalah",
 		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.tiktok": {
@@ -3671,6 +4142,26 @@
 		"string": "{selectedCount, plural, other {(# dipilih)}}",
 		"developer_comment": "Label for number of selected items"
 	},
+	"select.removeSelection": {
+		"string": "Batalkan pilihan",
+		"developer_comment": "Tooltip for button on Select component to remove current selection"
+	},
+	"selectList.noListButtonLabel": {
+		"string": "Cara membuat daftar",
+		"developer_comment": "Helper link in a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.noListDescription": {
+		"string": "Buat daftar dan atur saringan untuk memilih pengecekan fakta yang ingin Anda kontribusikan ke umpan bersama ini.",
+		"developer_comment": "Content of a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.noListTitle": {
+		"string": "Ruang kerja Anda membutuhkan Daftar yang Disaring Khusus untuk berkontribusi.",
+		"developer_comment": "Title of a warning displayed on edit feed page when the workspace has no lists."
+	},
+	"selectList.select": {
+		"string": "Pilih daftar…",
+		"developer_comment": "Label for list selector"
+	},
 	"sensitiveContentMenuButton.adult": {
 		"string": "Dewasa (ketelanjangan, pornografi)",
 		"developer_comment": "Label for adult content type"
@@ -3729,6 +4220,10 @@
 		"string": "Simpan",
 		"developer_comment": "Button label for save columns settings"
 	},
+	"sharedFeedIcon.Tooltip": {
+		"string": "Termasuk dalam Umpan Bersama:",
+		"developer_comment": "Tooltip for shared feeds icon"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Jawab tugas"
 	},
@@ -3780,6 +4275,10 @@
 	"similarityComponent.singleLanguageFactChecksEnabled": {
 		"string": "Kirim pengecekan fakta hanya dalam bahasa yang sama dengan bahasa percakapan",
 		"developer_comment": "Label displayed when similarity setting for single language fact-checks is enabled"
+	},
+	"similarityComponent.textLength": {
+		"string": "Jumlah kata minimum yang diperlukan untuk kecocokan yang terkonfirmasi",
+		"developer_comment": "A label on a text input where the user specifies the minimum number of words needed to match before a text content match is considered confirmed"
 	},
 	"similarityComponent.title": {
 		"string": "Pencocokan kemiripan",
@@ -3889,15 +4388,6 @@
 	"smoochBot.descriptionMainMenu": {
 		"string": "Menu yang meminta pengguna untuk memilih di antara serangkaian opsi. Pesan ini secara otomatis mengikuti pesan Sambutan. Angka 9 tidak dapat digunakan sebagai opsi di menu utama."
 	},
-	"smoochBot.descriptionNewsletter1": {
-		"string": "Silakan selesaikan langkah-langkah di bawah ini untuk mengirim buletin mingguan:"
-	},
-	"smoochBot.descriptionNewsletter2": {
-		"string": "1. Tulis buletin Anda"
-	},
-	"smoochBot.descriptionNewsletter3": {
-		"string": "2. Pilih hari dan waktu dalam seminggu"
-	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Pesan yang dikirim ketika pengguna menanggapi sebuah menu namun bukan skenario menu yang valid."
 	},
@@ -3951,12 +4441,6 @@
 	"smoochBot.labelMainMenu": {
 		"string": "Menu utama"
 	},
-	"smoochBot.labelNewsletter": {
-		"string": "Buletin"
-	},
-	"smoochBot.labelNewsletterV2": {
-		"string": "Buletin"
-	},
 	"smoochBot.labelOptionNotAvailable": {
 		"string": "Opsi tidak tersedia"
 	},
@@ -3991,19 +4475,10 @@
 		"string": "❌Terima kasih atas pesan Anda. Layanan pengecekan fakta kami saat ini sedang *tidak aktif.*\n\nHubungi kami di *[surel atau kontak lain]* untuk pertanyaan lebih lanjut."
 	},
 	"smoochBot.placeholderInvalidFormat": {
-		"string": "❌Maaf, saat ini kami tidak dapat menerima jenis pesan ini untuk verifikasi.\n\nKami dapat menerima sebagian besar gambar, video, tautan, pesan teks, dan pesan WhatsApp yang dibagikan."
+		"string": "❌Maaf, saat ini kami tidak dapat menerima tipe pesan ini untuk verifikasi.\n\nKami dapat menerima sebagian besar gambar, video, tautan, pesan teks, dan pesan WhatsApp yang dibagikan."
 	},
 	"smoochBot.placeholderMainMenu": {
 		"string": "📌*Menu Utama*\n\n*Balas dengan 1* (atau 🔍) untuk menyerahkan permintaan cek fakta tentang artikel, video, gambar, atau konten lainnya.\n*Balas dengan 2* (atau 🦠) untuk mendapatkan informasi terbaru tentang penyakit coronavirus (COVID-19)"
-	},
-	"smoochBot.placeholderNewsletter": {
-		"string": "Ketik untuk menulis buletin Anda. Anda dapat menambahkan konten dari RSS di bawah ini."
-	},
-	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Tambah sebuah artikel"
-	},
-	"smoochBot.placeholderNewsletterIntroduction": {
-		"string": "Ketik sesuatu"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Maaf, saya tidak mengerti pesan Anda. Silakan coba lagi!"
@@ -4740,7 +5215,7 @@
 	},
 	"sourceInfo.addLink": {
 		"string": "Tambah URL sekunder",
-		"developer_comment": "allow user to relate a new link to media source"
+		"developer_comment": "Allow user to relate a new link to media source"
 	},
 	"sourceInfo.addSecondaryLink": {
 		"string": "Tambah URL sekunder",
@@ -4760,7 +5235,7 @@
 	},
 	"sourceInfo.mainName": {
 		"string": "Nama utama",
-		"developer_comment": "souce name"
+		"developer_comment": "Source name"
 	},
 	"sourceInfo.mediasCount": {
 		"string": "{mediasCount, plural, other {# perihal}}",
@@ -4911,6 +5386,22 @@
 	"tagInput.search": {
 		"string": "Cari atau tambahkan label baru"
 	},
+	"tagList.create": {
+		"string": "+ Buat label ini",
+		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
+	},
+	"tagList.empty": {
+		"string": "0 label",
+		"developer_comment": "A message that appears in a lag list when there are no available tags to display."
+	},
+	"tagList.notFound": {
+		"string": "Tidak ada label yang ditemukan",
+		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
+	},
+	"tagList.submit": {
+		"string": "Label",
+		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
+	},
 	"tagMenu.create": {
 		"string": "+ Buat label ini",
 		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
@@ -5016,7 +5507,7 @@
 		"string": "Batalkan"
 	},
 	"tasks.cantChangeTypeMessage": {
-		"string": "Jenis bidang tidak dapat diubah karena telah terisi jawaban",
+		"string": "Tipe bidang tidak dapat diubah karena telah terisi jawaban",
 		"developer_comment": "Message when team task has answers and type cannot be updated"
 	},
 	"tasks.changeOptionWithAnswersBody": {
@@ -5243,28 +5734,65 @@
 		"string": "Permintaan pengguna terkait dengan klaim yang tidak ada di tempat sampah.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDetails.description": {
-		"string": "Deskripsi"
-	},
 	"teamDetails.duplicateWorkspace": {
-		"string": "Gandakan ruang kerja"
+		"string": "Gandakan ruang kerja",
+		"developer_comment": "Label of a button to duplicate a workspace"
+	},
+	"teamDetails.edit": {
+		"string": "Sunting",
+		"developer_comment": "Label for a button to change a workspace image"
+	},
+	"teamDetails.linkManagement": {
+		"string": "Pengelolaan tautan",
+		"developer_comment": "Title of the link management section in team details page"
+	},
+	"teamDetails.linkManagementRss": {
+		"string": "Layanan tautan tidak dapat dinonaktifkan saat buletin RSS sedang dikonfigurasi di ruang kerja ini",
+		"developer_comment": "Helper text for link management switcher when workspace has RSS newsletters configured"
+	},
+	"teamDetails.linkManagementSwitcher": {
+		"string": "Aktifkan pemendekan tautan dan analitik",
+		"developer_comment": "Label for a switch where the user toggles link management in team details page"
+	},
+	"teamDetails.profile": {
+		"string": "Profil",
+		"developer_comment": "Title of the profile section in team details page"
 	},
 	"teamDetails.savedSuccessfully": {
-		"string": "Detail ruang kerja berhasil disimpan"
+		"string": "Detail ruang kerja berhasil disimpan",
+		"developer_comment": "Success message displayed when workspace settings are saved"
 	},
 	"teamDetails.subtitle": {
 		"string": "Tambahkan detail ke ruang kerja Check Anda.",
 		"developer_comment": "Subtitle for details page of current workspace"
 	},
 	"teamDetails.title": {
-		"string": "Detail ruang kerja",
+		"string": "Ruang kerja",
 		"developer_comment": "Title for details page of current workspace"
 	},
 	"teamDetails.update": {
-		"string": "Perbarui"
+		"string": "Perbarui",
+		"developer_comment": "Label of the button that saves workspace details"
+	},
+	"teamDetails.utmCode": {
+		"string": "Kode UTM",
+		"developer_comment": "Label for 'UTM code' field"
+	},
+	"teamDetails.utmCodeHelp": {
+		"string": "Sesuaikan kode UTM yang ditambahkan ke tautan. Biarkan kosong untuk menonaktifkan kode UTM.",
+		"developer_comment": "Helper text for UTM code field"
+	},
+	"teamDetails.warnContent": {
+		"string": "Tautan yang ditulis ulang juga akan menyertakan kode UTM jika disediakan. Kode UTM tidak mengubah URL tujuan.<br /><br /><strong>SEBELUM:</strong> https://www.example.com/your-link<br /><strong>SESUDAH:</strong> https://chck.media/x1y2z3w4/{code}",
+		"developer_comment": "Text displayed in the content of a warning box on team details page when link shortening is on"
+	},
+	"teamDetails.warnTitle": {
+		"string": "Semua tautan yang dikirim melalui Check akan ditulis ulang.",
+		"developer_comment": "Text displayed in the title of a warning box on team details page when link shortening is on"
 	},
 	"teamDetails.workspaceName": {
-		"string": "Nama ruang kerja"
+		"string": "Nama ruang kerja",
+		"developer_comment": "Label for workspace name field"
 	},
 	"teamIntegrations.subtitle": {
 		"string": "Alat pihak ketiga untuk meningkatkan produktivitas."
@@ -5492,44 +6020,60 @@
 		"developer_comment": "Label to WhatsApp number field"
 	},
 	"teamSettings.Tags": {
-		"string": "Label"
+		"string": "Label",
+		"developer_comment": "Label for the Tags settings tab"
 	},
 	"teamSettings.data": {
-		"string": "Data"
+		"string": "Data",
+		"developer_comment": "Label for the Data settings tab"
 	},
 	"teamSettings.integrations": {
-		"string": "Integrasi"
+		"string": "Integrasi",
+		"developer_comment": "Label for the Integrations settings tab"
 	},
 	"teamSettings.languages": {
-		"string": "Bahasa"
+		"string": "Bahasa",
+		"developer_comment": "Label for the Language settings tab"
 	},
 	"teamSettings.lists": {
-		"string": "Kolom"
+		"string": "Kolom",
+		"developer_comment": "Label for the Columns settings tab"
 	},
 	"teamSettings.members": {
-		"string": "Anggota"
+		"string": "Anggota",
+		"developer_comment": "Label for the Members settings tab"
 	},
 	"teamSettings.metadata": {
 		"string": "Anotasi",
 		"developer_comment": "Label for annotation settings tab"
 	},
+	"teamSettings.newsletter": {
+		"string": "Buletin",
+		"developer_comment": "Label for a tab that takes the user to settings for their newsletter."
+	},
 	"teamSettings.report": {
-		"string": "Laporan"
+		"string": "Laporan",
+		"developer_comment": "Label for the Report settings tab"
 	},
 	"teamSettings.rules": {
-		"string": "Peraturan"
+		"string": "Peraturan",
+		"developer_comment": "Label for the Rules settings tab"
 	},
 	"teamSettings.similarity": {
-		"string": "Kemiripan"
+		"string": "Kemiripan",
+		"developer_comment": "Label for the Similarity settings tab"
 	},
 	"teamSettings.statuses": {
-		"string": "Status"
+		"string": "Status",
+		"developer_comment": "Label for the Statuses settings tab"
 	},
 	"teamSettings.tipline": {
-		"string": "Tipline"
+		"string": "Tipline",
+		"developer_comment": "Label for the Tipline settings tab"
 	},
 	"teamSettings.workspace": {
-		"string": "Ruang kerja"
+		"string": "Ruang kerja",
+		"developer_comment": "Label for the Workspace settings tab"
 	},
 	"teamTags.addTag": {
 		"string": "Tambah label"
@@ -5913,6 +6457,22 @@
 	"unconfirmed.title": {
 		"string": "Belum Dikonfirmasi"
 	},
+	"upload.dragMessage": {
+		"string": "Seret berkas ke sini atau",
+		"developer_comment": "A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'."
+	},
+	"upload.dropFile": {
+		"string": "Jatuhkan berkas di sini",
+		"developer_comment": "A label that appears when a user drags a file over a valid file drop area"
+	},
+	"upload.removeUpload": {
+		"string": "Hapus berkas",
+		"developer_comment": "Tooltip message displayed on upload component. Cancel file selected for upload"
+	},
+	"upload.selectFile": {
+		"string": "Pilih berkas lokal",
+		"developer_comment": "Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system."
+	},
 	"uploadFile.audioMessage": {
 		"string": "Letakkan sebuah berkas audio di sini, atau klik untuk mengunggah berkas (ukuran maksimal: {audio_max_size}, format yang diperbolehkan: {audio_extensions})"
 	},
@@ -5929,7 +6489,7 @@
 		"string": "Letakkan sebuah berkas di sini, atau klik untuk mengunggah berkas (ukuran maksimal: {file_max_size}, format yang diperbolehkan: {file_extensions})"
 	},
 	"uploadFile.invalidExtension": {
-		"string": "Berkas tidak dapat memiliki tipe format \"{extension}\". Silakan coba dengan tipe berkas berikut: {allowed_types}."
+		"string": "Berkas tidak boleh memiliki tipe format \"{extension}\". Silakan coba dengan tipe berkas berikut: {allowed_types}."
 	},
 	"uploadFile.message": {
 		"string": "Letakkan sebuah berkas gambar di sini, atau klik untuk mengunggah berkas (ukuran maksimal: {upload_max_size}, format yang diperbolehkan: {upload_extensions}, dimensi yang diperbolehkan antara {upload_min_dimensions} dan {upload_max_dimensions} piksel)"
@@ -6187,5 +6747,21 @@
 	"webPageMediaCard.Error": {
 		"string": "Perihal ini tidak dapat diidentifikasi. Perihal tersebut mungkin telah dihapus, atau mungkin hanya dapat dilihat oleh pengguna yang sudah masuk. Klik tautan di atas untuk berpindah ke sana.",
 		"developer_comment": "Error message displayed when link data is unavailable"
+	},
+	"workspaceMenu.teamLegal": {
+		"string": "Mengenai",
+		"developer_comment": "Legal link tooltip in drawer rail navigation"
+	},
+	"workspaceMenu.teamSettings": {
+		"string": "Pengaturan ruang kerja",
+		"developer_comment": "Tooltip for drawer navigation to workspace settings"
+	},
+	"workspaceMenu.teamTipline": {
+		"string": "Tipline",
+		"developer_comment": "Tooltip for drawer navigation to tipline"
+	},
+	"workspaceMenu.teamTraining": {
+		"string": "Pelatihan dan dokumentasi",
+		"developer_comment": "Help link tooltip in drawer rail navigation"
 	}
 }

@@ -11,6 +11,8 @@ import LineIcon from '../../icons/line.svg';
 import WhatsAppIcon from '../../icons/whatsapp.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import EditNoteIcon from '../../icons/edit_note.svg';
+import SendTiplineMessage from '../SendTiplineMessage';
+import TiplineHistoryButton from './TiplineHistoryButton';
 import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
@@ -54,6 +56,15 @@ SmoochIcon.propTypes = {
   name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line']).isRequired,
 };
 
+const channelLabel = {
+  whatsapp: 'WhatsApp',
+  messenger: 'Messenger',
+  twitter: 'Twitter',
+  telegram: 'Telegram',
+  viber: 'Viber',
+  line: 'Line',
+};
+
 function parseText(text, projectMedia, activity) {
   let parsedText = text;
 
@@ -64,7 +75,7 @@ function parseText(text, projectMedia, activity) {
   // since the first media is downloaded and saved in Check.
   // Ignore similar items, since it's not the exact same media as the main item.
   if (projectMedia && projectMedia.media && projectMedia.media.file_path && activity.associated_graphql_id === projectMedia.id) {
-    parsedText = parsedText.replace(/https:\/\/media.smooch.io[^\s]+/m, projectMedia.media.file_path);
+    parsedText = parsedText.replace(/https:\/\/media\.smooch\.io[^\s]+/m, projectMedia.media.file_path);
   }
 
   return emojify(parsedText);
@@ -103,6 +114,10 @@ const TiplineRequest = ({
   const userName = objectValue.name === 'deleted' ?
     <FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" /> :
     emojify(objectValue.name);
+  // the unique ID of the conversation associated with this media item
+  const uid = objectValue.authorId;
+  // the ID of the specific message of this submission
+  const messageId = objectValue._id; // eslint-disable-line no-underscore-dangle
 
   const details = [<strong className={styles['user-name']}>{userName}</strong>];
 
@@ -152,6 +167,16 @@ const TiplineRequest = ({
           formatMessage(messages.smoochNoMessage)
         )}
         icon={<SmoochIcon name={messageType} />}
+        historyButton={
+          <TiplineHistoryButton uid={uid} name={userName} messageId={messageId} />
+        }
+        sendMessageButton={
+          <SendTiplineMessage
+            username={userName}
+            channel={channelLabel[messageType] || messageType}
+            annotationId={activity.annotation_id}
+          />
+        }
         receipt={
           <RequestReceipt
             icon={reportReceiveStatus.icon}

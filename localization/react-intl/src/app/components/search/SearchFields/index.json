@@ -120,6 +120,11 @@
     "defaultMessage": "Paused"
   },
   {
+    "id": "search.switchOperator",
+    "description": "Tooltip to tell the user they can switch the logical operator between 'AND/OR' when filtering by multiple fields",
+    "defaultMessage": "Toggle AND/OR"
+  },
+  {
     "id": "search.fieldOr",
     "description": "Logical operator 'OR' to be applied when filtering by multiple fields",
     "defaultMessage": "or"
@@ -132,7 +137,7 @@
   {
     "id": "search.claim",
     "description": "Prefix label for field to filter by claim",
-    "defaultMessage": "Claim field is"
+    "defaultMessage": "Claim is"
   },
   {
     "id": "search.show",
@@ -162,22 +167,22 @@
   {
     "id": "search.archived",
     "description": "Prefix label for field to filter by Tipline request",
-    "defaultMessage": "Tipline request is"
+    "defaultMessage": "Request is"
   },
   {
     "id": "search.reportStatus",
     "description": "Prefix label for field to filter by report status",
-    "defaultMessage": "Report status is"
+    "defaultMessage": "Report (status) is"
   },
   {
     "id": "search.publishedBy",
     "description": "Prefix label for field to filter by published by",
-    "defaultMessage": "Report published by"
+    "defaultMessage": "Publisher is"
   },
   {
     "id": "search.annotatedBy",
     "description": "Prefix label for field to filter by annotated by",
-    "defaultMessage": "Annotated by"
+    "defaultMessage": "Annotater is"
   },
   {
     "id": "search.assignedTo",

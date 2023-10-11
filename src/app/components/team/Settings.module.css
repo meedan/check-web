@@ -63,12 +63,6 @@
           }
         }
       }
-
-      .settings-columns {
-        display: flex;
-        gap: 16px;
-        justify-content: space-between;
-      }
     }
   }
 }

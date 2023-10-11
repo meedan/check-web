@@ -1,47 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { withStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Select from '@material-ui/core/Select';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import Select from '../../cds/inputs/Select';
+import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-
-const errorFieldStyles = {
-  root: {
-    '& .MuiFormHelperText-root.Mui-error': {
-      color: 'var(--errorMain)',
-      marginLeft: 0,
-      fontSize: 12,
-      fontWeight: 400,
-    },
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'var(--errorMain)',
-        borderWidth: 2,
-      },
-    },
-  },
-};
-
-const StyledTextField = withStyles(errorFieldStyles)(TextField);
-
-const StyledFormControl = withStyles(errorFieldStyles)(FormControl);
 
 const SmoochBotMainMenuOption = ({
   currentTitle,
   currentDescription,
   currentValue,
   resources,
-  noDescription,
   onSave,
   onCancel,
+  intl,
 }) => {
   const [text, setText] = React.useState(currentTitle);
   const [description, setDescription] = React.useState(currentDescription);
@@ -65,26 +36,27 @@ const SmoochBotMainMenuOption = ({
       title={
         <FormattedMessage
           id="smoochBotMainMenuOption.scenario"
-          defaultMessage="Scenario"
+          defaultMessage="Menu Option"
           description="Title of dialog that opens to add a new option to tipline bot main menu"
         />
       }
       body={(
-        <Box>
-          <StyledTextField
+        <>
+          <LimitedTextArea
             label={
               <FormattedMessage
                 id="smoochBotMainMenuOption.label"
-                defaultMessage="Button text - 24 characters limit"
+                defaultMessage="Button text"
                 description="Text field label on dialog that opens to add a new option to tipline bot main menu"
               />
             }
-            defaultValue={text}
+            value={text}
             onBlur={(e) => { setText(e.target.value); }}
-            inputProps={{ maxLength: 24 }}
-            variant="outlined"
+            maxChars={24}
+            variant="contained"
             error={submitted && !text}
-            helperText={
+            required
+            helpContent={
               submitted && !text ?
                 <FormattedMessage
                   id="smoochBotMainMenuOption.labelError"
@@ -92,108 +64,93 @@ const SmoochBotMainMenuOption = ({
                   description="Error message displayed when user tries to save tipline menu option with a blank label"
                 /> : null
             }
-            fullWidth
           />
-
-          { noDescription ?
-            null :
-            <Box my={2}>
-              <TextField
-                label={
-                  <FormattedMessage
-                    id="smoochBotMainMenuOption.description"
-                    defaultMessage="Description - 72 characters limit"
-                    description="Description field label on dialog that opens to add a new option to tipline bot main menu"
-                  />
-                }
-                defaultValue={description}
-                onBlur={(e) => { setDescription(e.target.value); }}
-                inputProps={{ maxLength: 72 }}
-                variant="outlined"
-                fullWidth
-              />
-            </Box> }
-
-          <Box my={2}>
-            <Typography variant="body1" component="div">
+          <br />
+          <LimitedTextArea
+            label={
               <FormattedMessage
-                id="smoochBotMainMenuOption.send"
-                defaultMessage="If the button is clicked, then send:"
-                description="Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu"
+                id="smoochBotMainMenuOption.description"
+                defaultMessage="Description"
+                description="Description field label on dialog that opens to add a new option to tipline bot main menu"
               />
-            </Typography>
-          </Box>
-
-          <StyledFormControl variant="outlined" error={submitted && !value} fullWidth>
-            <InputLabel>
+            }
+            value={description}
+            onBlur={(e) => { setDescription(e.target.value); }}
+            maxChars={72}
+            variant="contained"
+          />
+          <br />
+          <FormattedMessage
+            tagName="p"
+            id="smoochBotMainMenuOption.send"
+            defaultMessage="If the button is clicked, then send:"
+            description="Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu"
+          />
+          <Select
+            value={value}
+            required
+            error={submitted && !value}
+            helpContent={
+              (submitted && !value) ?
+                <FormattedMessage
+                  id="smoochBotMainMenuOption.responseError"
+                  defaultMessage="Please choose a response"
+                  description="Error message displayed when user tries to save tipline option with empty response"
+                /> : null
+            }
+            label={
               <FormattedMessage
                 id="smoochBotMainMenuOption.response"
                 defaultMessage="Response"
                 description="Input label displayed on dialog that opens to add a new option to tipline bot main menu"
               />
-            </InputLabel>
-            <Select
-              value={value}
-              label={
-                <FormattedMessage
-                  id="smoochBotMainMenuOption.response"
-                  defaultMessage="Response"
-                  description="Input label displayed on dialog that opens to add a new option to tipline bot main menu"
-                />
-              }
-              onChange={(e) => { setValue(e.target.value); }}
+            }
+            onChange={(e) => { setValue(e.target.value); }}
+          >
+            <option hidden>
+              {intl.formatMessage({
+                id: 'smoochBotMainMenuOption.selectAction',
+                defaultMessage: 'Select action...',
+                description: 'Input label displayed on dialog that opens to add a new option to tipline bot main menu',
+              })}
+            </option>
+            <optgroup
+              label={intl.formatMessage({
+                id: 'smoochBotMainMenuOption.main',
+                defaultMessage: 'Main',
+                description: 'List subheader displayed on dialog that opens to add a new option to tipline bot main menu',
+              })}
             >
-              <MenuItem value="" disabled>
-                <FormattedMessage
-                  id="smoochBotMainMenuOption.selectAction"
-                  defaultMessage="Select action"
-                  description="Input label displayed on dialog that opens to add a new option to tipline bot main menu"
-                />
-              </MenuItem>
-              <ListSubheader>
-                <FormattedMessage
-                  id="smoochBotMainMenuOption.main"
-                  defaultMessage="Main"
-                  description="List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
-                />
-              </ListSubheader>
-              <MenuItem value="query_state">
-                <FormattedMessage
-                  id="smoochBotMainMenuOption.queryState"
-                  defaultMessage="Submission prompt"
-                  description="Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
-                />
-              </MenuItem>
-              <MenuItem value="subscription_state">
-                <FormattedMessage
-                  id="smoochBotMainMenuOption.subscriptionState"
-                  defaultMessage="Subscription opt-in"
-                  description="Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
-                />
-              </MenuItem>
-              <ListSubheader>
-                <FormattedMessage
-                  id="smoochBotMainMenuOption.resources"
-                  defaultMessage="Resources"
-                  description="List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
-                />
-              </ListSubheader>
+              <option value="query_state">
+                {intl.formatMessage({
+                  id: 'smoochBotMainMenuOption.queryState',
+                  defaultMessage: 'Submission prompt',
+                  description: 'Menu option displayed on dialog that opens to add a new option to tipline bot main menu',
+                })}
+              </option>
+              <option value="subscription_state">
+                {intl.formatMessage({
+                  id: 'smoochBotMainMenuOption.subscriptionState',
+                  defaultMessage: 'Subscription opt-in',
+                  description: 'Menu option displayed on dialog that opens to add a new option to tipline bot main menu',
+                })}
+              </option>
+            </optgroup>
+            <optgroup
+              label={intl.formatMessage({
+                id: 'smoochBotMainMenuOption.resources',
+                defaultMessage: 'Resources',
+                description: 'List subheader displayed on dialog that opens to add a new option to tipline bot main menu',
+              })}
+            >
               { resources.map(resource => (
-                <MenuItem value={resource.uuid} key={resource.uuid}>
+                <option value={resource.uuid} key={resource.uuid}>
                   {resource.title}
-                </MenuItem>
+                </option>
               ))}
-            </Select>
-            { (submitted && !value) ?
-              <FormHelperText>
-                <FormattedMessage
-                  id="smoochBotMainMenuOption.responseError"
-                  defaultMessage="Please choose a response"
-                  description="Error message displayed when user tries to save tipline option with empty response"
-                />
-              </FormHelperText> : null }
-          </StyledFormControl>
-        </Box>
+            </optgroup>
+          </Select>
+        </>
       )}
       proceedLabel={<FormattedMessage id="smoochBotMainMenuOption.save" defaultMessage="Save" description="Button label to save new tipline menu option" />}
       onProceed={handleSave}
@@ -207,7 +164,6 @@ SmoochBotMainMenuOption.defaultProps = {
   currentTitle: '',
   currentDescription: '',
   currentValue: null,
-  noDescription: false,
   resources: [],
 };
 
@@ -216,9 +172,8 @@ SmoochBotMainMenuOption.propTypes = {
   currentDescription: PropTypes.string,
   currentValue: PropTypes.string,
   resources: PropTypes.arrayOf(PropTypes.object),
-  noDescription: PropTypes.bool,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };
 
-export default SmoochBotMainMenuOption;
+export default injectIntl(SmoochBotMainMenuOption);

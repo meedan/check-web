@@ -14,6 +14,7 @@ import { ToggleButton, ToggleButtonGroup } from './cds/inputs/ToggleButtonGroup'
 import Select from './cds/inputs/Select';
 import SwitchComponent from './cds/inputs/SwitchComponent';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import Reorder from './layout/Reorder';
 import AddIcon from '../icons/settings.svg';
 import ListIcon from '../icons/list.svg';
 import FigmaColorLogo from '../icons/figma_color.svg';
@@ -31,7 +32,7 @@ const SandboxComponent = ({ admin }) => {
   const [tags, setTags] = React.useState([
     'first',
     'second',
-    'Third is Quite Long',
+    'Third is Quite Long Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sapien tellus, pretium sed bibendum in, bibendum quis metus. Donec tincidunt justo urna, vel laoreet urna consectetur fermentum. Pellentesque et lectus dictum, dapibus leo at, semper augue. Sed quis tellus eu ipsum rutrum ultrices non id magna.',
     'fourth',
     'fifth!',
     'This is Six',
@@ -49,6 +50,8 @@ const SandboxComponent = ({ admin }) => {
   const [tagsReadOnly, setTagsReadOnly] = React.useState(Boolean(false));
   const [chipRemovable, setChipRemovable] = React.useState(Boolean(false));
   const [buttonDisabled, setMainButtonDisabled] = React.useState(Boolean(false));
+  const [reorderFirst, setReorderFirst] = React.useState(Boolean(false));
+  const [reorderLast, setReorderLast] = React.useState(Boolean(false));
   const [switchesDisabled, setSwitchesDisabled] = React.useState(Boolean(false));
   const [switchesHelp, setSwitchesHelp] = React.useState(Boolean(false));
   const [switched, setSwitchExample] = React.useState(Boolean(false));
@@ -89,6 +92,11 @@ const SandboxComponent = ({ admin }) => {
     setButtonVariant(event.target.value);
   };
 
+  const [reorderVariant, setReorderVariant] = React.useState('vertical');
+  const onChangeReorderVariant = (event) => {
+    setReorderVariant(event.target.value);
+  };
+
   const [textareaRows, setTextareaRows] = React.useState('none');
   const onChangeTextareaRows = (event) => {
     setTextareaRows(event.target.value);
@@ -107,6 +115,11 @@ const SandboxComponent = ({ admin }) => {
   const [buttonTheme, setButtonTheme] = React.useState('brand');
   const onChangeButtonTheme = (event) => {
     setButtonTheme(event.target.value);
+  };
+
+  const [reorderTheme, setReorderTheme] = React.useState('gray');
+  const onChangeReorderTheme = (event) => {
+    setReorderTheme(event.target.value);
   };
 
   const generateUncaughtError = () => {
@@ -252,6 +265,66 @@ const SandboxComponent = ({ admin }) => {
             <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconCenter={<AddIcon />} label="Center" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
+          </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Reorder
+              <a
+                href="https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=2142-47843&mode=design&t=Xk5LFyi7pmsXEX1T-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={onChangeReorderVariant}
+                >
+                  <option value="vertical">vertical (default)</option>
+                  <option value="horizontal">horizontal</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Theme"
+                  onChange={onChangeReorderTheme}
+                >
+                  <option value="gray">gray (default)</option>
+                  <option value="white">white</option>
+                </Select>
+              </li>
+              <li>
+                <SwitchComponent
+                  label="First"
+                  labelPlacement="top"
+                  checked={reorderFirst}
+                  onChange={() => setReorderFirst(!reorderFirst)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Last"
+                  labelPlacement="top"
+                  checked={reorderLast}
+                  onChange={() => setReorderLast(!reorderLast)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentInlineVariants} style={{ backgroundColor: reorderTheme === 'white' ? 'var(--grayBackground)' : 'var(--otherWhite' }}>
+            <Reorder
+              variant={reorderVariant}
+              theme={reorderTheme}
+              disableUp={reorderFirst}
+              disableDown={reorderLast}
+            />
           </div>
         </div>
         <div className={styles.componentWrapper}>

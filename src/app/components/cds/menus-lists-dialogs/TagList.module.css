@@ -10,51 +10,24 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px 8px;
+  min-width: 0;
 
-  div {
+  > div {
     background-color: var(--grayBorderMain);
     color: var(--textPrimary);
-  }
-
-  button > span > svg {
-    background-color: var(--grayBorderMain);
-    fill: var(--grayBorderAccent);
-  }
-
-  button > span > svg:hover {
-    fill: var(--errorMain) !important;
+    flex: 0 1 auto;
+    min-width: 0;
   }
 }
 
 .tag-icon {
   align-self: start;
-  border-radius: 8px;
-  color: var(--textPlaceholder);
-  font-size: var(--iconSizeSmall);
-  margin-right: 4px;
-  padding: 3px !important;
-}
-
-.tag-icon-editable {
-  &:hover {
-    background: var(--brandHoverAccent);
-    color: var(--textSecondary);
-    cursor: pointer;
-  }
+  margin: -2px 4px 0 0;
 }
 
 .circle-icon {
   align-self: start;
-  border-radius: 8px;
-  color: var(--textSecondary);
-  font-size: var(--iconSizeSmall);
-  margin-left: 4px;
-  padding: 3px !important;
-
-  &:hover {
-    background: var(--brandHoverAccent);
-    cursor: pointer;
-  }
+  margin: -2px 0 0 4px;
 }
 
 .empty-list {

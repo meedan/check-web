@@ -32,7 +32,7 @@ shared_examples 'annotation' do
     task = wait_for_selector('.team-tasks__task-label') # first metadata
     expect(task.text).to eq 'my metadata - Edited'
     @driver.execute_script('window.scrollTo(0, 0)')
-    wait_for_selector('.reorder__button-down').click
+    wait_for_selector('.int-reorder__button-down').click
     wait_for_text_change('my metadata - Edited', '.team-tasks__task-label', :css)
     task = wait_for_selector('.team-tasks__task-label') # the second becomes the first
     expect(task.text).to eq 'my date time metadata'

@@ -1,35 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Reorder from '../../layout/Reorder';
-
-const useStyles = makeStyles(theme => ({
-  box: {
-    border: '2px solid var(--grayBorderMain)',
-    borderRadius: '5px',
-    padding: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(1),
-    Minheight: theme.spacing(10),
-    background: 'var(--otherWhite)',
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    width: '10rem',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-  },
-  button: {
-    fontSize: 12,
-    fontWeight: 'normal',
-  },
-}));
+import styles from './TeamLists.module.css';
 
 const TeamListsItem = ({
   column,
@@ -46,8 +21,6 @@ const TeamListsItem = ({
     label,
     show,
   } = column;
-  const classes = useStyles();
-
   const handleToggle = () => {
     onToggle(key, index);
   };
@@ -61,59 +34,71 @@ const TeamListsItem = ({
   };
 
   return (
-    <Box display="flex" flexWrap="nowrap" alignItems="center">
+    <div className={styles['teamlist-column-item']}>
       { onMoveUp && onMoveDown ?
         <Reorder
+          variant="vertical"
+          theme="white"
           onMoveUp={handleMoveUp}
           onMoveDown={handleMoveDown}
           disableUp={isFirst}
           disableDown={isLast}
         /> : null }
-      <Box
+      <div
         id={`team-lists__item-${index}-${key}`}
-        className={classes.box}
-        display="flex"
-        width="1"
-        alignItems="center"
-        justifyContent="space-between"
+        className={cx(
+          styles['item-details'],
+          {
+            [styles['item-visible']]: show,
+          })
+        }
       >
-        <Box>
-          <Typography title={label} variant="body1" className={classes.label}>
+        <div className={styles['item-content']}>
+          <span title={label} className={styles['item-label']}>
             {label}
-          </Typography>
-          <Typography variant="caption">
-            { /^task_value_/.test(key) ?
-              <FormattedMessage
-                id="teamListsItem.metadata"
-                defaultMessage="Annotation"
-                description="label to show that this type of task is an annotation"
-              /> :
-              <FormattedMessage
-                id="teamListsItem.general"
-                defaultMessage="General"
-                description="label to show that this type of task is a general task"
-              /> }
-          </Typography>
-        </Box>
+          </span>
+          { /^task_value_/.test(key) ?
+            <FormattedMessage
+              tagName="small"
+              id="teamListsItem.metadata"
+              defaultMessage="Annotation"
+              description="label to show that this type of task is an annotation"
+            /> :
+            <FormattedMessage
+              tagName="small"
+              id="teamListsItem.general"
+              defaultMessage="General"
+              description="label to show that this type of task is a general task"
+            />
+          }
+        </div>
         {
           isRequired ?
             null :
-            <Button color="primary" size="small" onClick={handleToggle} className={['test__list-toggle', classes.button].join(' ')}>
-              { show ?
-                <FormattedMessage
-                  id="teamListsItem.hide"
-                  defaultMessage="Hide"
-                  description="Button label to hide this item from the list"
-                /> :
-                <FormattedMessage
-                  id="teamListsItem.show"
-                  defaultMessage="Show"
-                  description="Button label to show this item in the list"
-                /> }
-            </Button>
+            <div className={styles['item-actions']}>
+              <ButtonMain
+                theme="lightBrand"
+                variant="contained"
+                size="small"
+                onClick={handleToggle}
+                className="int-list-toggle__button"
+                label={show ?
+                  <FormattedMessage
+                    id="teamListsItem.hide"
+                    defaultMessage="Hide"
+                    description="Button label to hide this item from the list"
+                  /> :
+                  <FormattedMessage
+                    id="teamListsItem.show"
+                    defaultMessage="Display"
+                    description="Button label to show this item in the list"
+                  />
+                }
+              />
+            </div>
         }
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 
