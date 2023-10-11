@@ -44,7 +44,7 @@ const ChatHistory = ({
     let output = '';
 
     // Items from us have text directly in the payload, items from users have it in a messages sub-object
-    if (item.payload?.text) {
+    if (item.payload?.text && typeof item.payload.text === 'string') {
       // Smooch templates are raw text objects that start with the text `&((namespace` and look like
       // &((namespace=[[cf8315ab_1bf3_28c3_eaaa_90dc59c1c9ad]]template=[[manual_4oct23]]fallback=[[Thank you!]]language=[[en]]body_text=[[09 Oct 16:23]]body_text=[[Thank you!]]))&
       // and we extract the 'fallback' to render this
