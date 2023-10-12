@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ExpandMoreIcon from '../../../icons/expand_more.svg';
 
 const useStyles = makeStyles(() => ({
-  expansionPanelDetails: {
+  accordionDetails: {
     display: 'block',
   },
   reportMessage: {
@@ -20,13 +20,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const IconLeftExpansionPanelSummary = withStyles({
+const IconLeftAccordionSummary = withStyles({
   expandIcon: {
     order: -1,
     marginLeft: 0,
     marginRight: 0,
   },
-})(ExpansionPanelSummary);
+})(AccordionSummary);
 
 const ReportDesignerFormSection = (props) => {
   const classes = useStyles();
@@ -51,12 +51,12 @@ const ReportDesignerFormSection = (props) => {
   };
 
   return (
-    <ExpansionPanel
+    <Accordion
       className={classes.reportMessage}
       TransitionProps={{ unmountOnExit: true }}
       expanded={expanded}
     >
-      <IconLeftExpansionPanelSummary
+      <IconLeftAccordionSummary
         expandIcon={<ExpandMoreIcon />}
         onClick={handleClick}
       >
@@ -71,11 +71,11 @@ const ReportDesignerFormSection = (props) => {
           }
           label={<strong>{label}</strong>}
         />
-      </IconLeftExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+      </IconLeftAccordionSummary>
+      <AccordionDetails className={classes.accordionDetails}>
         {props.children}
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

@@ -94,8 +94,8 @@ const Alert = ({
 Alert.defaultProps = {
   className: null,
   variant: 'info',
-  content: '',
-  title: '',
+  content: null,
+  title: null,
   buttonLabel: null,
   onButtonClick: null,
   onClose: null,
@@ -106,8 +106,8 @@ Alert.defaultProps = {
 
 Alert.propTypes = {
   className: PropTypes.string,
-  title: PropTypes.object,
-  content: PropTypes.object,
+  title: PropTypes.node,
+  content: PropTypes.node,
   floating: PropTypes.bool,
   banner: PropTypes.bool,
   icon: PropTypes.bool,
