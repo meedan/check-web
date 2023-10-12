@@ -109,16 +109,18 @@ const LanguagesComponent = ({ team }) => {
             variant={team.get_language_detection ? 'info' : 'warning'}
             icon
             title={
-              <FormattedHTMLMessage
-                id="languagesComponent.alertTitle"
-                defaultMessage="Language detection is {detectionStatus}"
-                description="Title for extra information about  the language detection toggle switch"
-                values={
-                  {
-                    detectionStatus: team.get_language_detection ? 'enabled' : 'disabled',
-                  }
-                }
-              />
+              team.get_language_detection ?
+                <FormattedHTMLMessage
+                  id="languagesComponent.alertTitleEnabled"
+                  defaultMessage="Language detection is enabled"
+                  description="Title for extra information about the language detection toggle switch when it is enabled"
+                />
+                :
+                <FormattedHTMLMessage
+                  id="languagesComponent.alertTitleDisabled"
+                  defaultMessage="Language detection is disabled"
+                  description="Title for extra information about the language detection toggle switch when it is disabled"
+                />
             }
             content={
               team.get_language_detection ?

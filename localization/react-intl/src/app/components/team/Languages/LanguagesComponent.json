@@ -15,9 +15,14 @@
     "defaultMessage": "Enable language detection"
   },
   {
-    "id": "languagesComponent.alertTitle",
-    "description": "Title for extra information about  the language detection toggle switch",
-    "defaultMessage": "Language detection is {detectionStatus}"
+    "id": "languagesComponent.alertTitleEnabled",
+    "description": "Title for extra information about the language detection toggle switch when it is enabled",
+    "defaultMessage": "Language detection is enabled"
+  },
+  {
+    "id": "languagesComponent.alertTitleDisabled",
+    "description": "Title for extra information about the language detection toggle switch when it is disabled",
+    "defaultMessage": "Language detection is disabled"
   },
   {
     "id": "languagesComponent.enabledDescription",
