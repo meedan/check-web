@@ -106,8 +106,8 @@ Alert.defaultProps = {
 
 Alert.propTypes = {
   className: PropTypes.string,
-  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  content: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  title: PropTypes.node,
+  content: PropTypes.node,
   floating: PropTypes.bool,
   banner: PropTypes.bool,
   icon: PropTypes.bool,
