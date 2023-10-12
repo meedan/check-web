@@ -418,7 +418,7 @@ const DateRangeFilter = ({
           value={getValueType()}
         >
           { ['created_at', 'media_published_at', 'updated_at', 'report_published_at', 'request_created_at'].filter(option => !optionsToHide.includes(option)).map(option => (
-            <option value={option}>{ intl.formatMessage(messages[option]) }</option>
+            <option key={option} value={option}>{ intl.formatMessage(messages[option]) }</option>
           ))}
         </Select>
         <Select

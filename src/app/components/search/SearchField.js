@@ -158,7 +158,7 @@ const SearchField = ({
         >
           <TextArea
             disabled={!expand}
-            rows={5}
+            rows="5"
             onChange={(e) => {
               setParentSearchText(e.target.value);
               setLocalSearchText(e.target.value);

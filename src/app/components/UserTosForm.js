@@ -4,7 +4,6 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Typography from '@material-ui/core/Typography';
 import { units } from '../styles/js/shared';
 import { stringHelper } from '../customHelpers';
 
@@ -69,7 +68,7 @@ class UserTosForm extends Component {
               </p> : null
             }
             <Box my={4}>
-              <Typography component="div" variant="body1">
+              <div className="typography-body1">
                 <FormattedMessage
                   id="userTos.disclaimer"
                   defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"
@@ -79,7 +78,7 @@ class UserTosForm extends Component {
                     ppLink,
                   }}
                 />
-              </Typography>
+              </div>
             </Box>
           </div> :
           <div>

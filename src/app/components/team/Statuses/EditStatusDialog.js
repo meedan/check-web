@@ -185,7 +185,7 @@ const EditStatusDialog = ({
               margin="normal"
               fullWidth
               multiline
-              rows={5}
+              rows="5"
               rowsMax={Infinity}
             />
           </React.Fragment> : null }
