@@ -4,7 +4,7 @@
   gap: 2px;
 
   :global(.check-icon) {
-    font-size: 24px; /* stylelint-disable-line scale-unlimited/declaration-strict-value */
+    font-size: var(--iconSizeDefault);
   }
 
   small {
