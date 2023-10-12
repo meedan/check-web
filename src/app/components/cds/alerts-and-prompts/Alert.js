@@ -94,8 +94,8 @@ const Alert = ({
 Alert.defaultProps = {
   className: null,
   variant: 'info',
-  content: '',
-  title: '',
+  content: null,
+  title: null,
   buttonLabel: null,
   onButtonClick: null,
   onClose: null,

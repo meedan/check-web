@@ -91,7 +91,7 @@ export default function RulesTable(props) {
             size="default"
             theme="brand"
             variant="contained"
-            className="rules__new-rule"
+            className="int-rules-table__button--new-rule"
             onClick={handleNewRule}
             label={
               <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" description="Button label for creating a new rule" />
@@ -138,6 +138,7 @@ export default function RulesTable(props) {
                     <TableCell>
                       <ButtonMain
                         iconCenter={<IconMoreVert />}
+                        className="int-rules-table__button--rule-menu"
                         variant="outlined"
                         size="default"
                         theme="text"
@@ -148,7 +149,7 @@ export default function RulesTable(props) {
                         open={Boolean(anchorEl)}
                         onClose={() => setAnchorEl(null)}
                       >
-                        <MenuItem onClick={() => { handleClick(index); }}>
+                        <MenuItem onClick={() => { handleClick(index); }} className="int-rules-table__button--rule-menuitem">
                           <FormattedMessage
                             id="teamTagsActions.edit"
                             defaultMessage="Edit"

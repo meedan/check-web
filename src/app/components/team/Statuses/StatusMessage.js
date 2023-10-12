@@ -26,7 +26,7 @@ StatusMessage.defaultProps = {
 };
 
 StatusMessage.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.object,
 };
 
 export default StatusMessage;

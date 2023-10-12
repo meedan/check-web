@@ -37,7 +37,6 @@
 
         .setting-content-container-title {
           align-items: center;
-          background-color: var(--errorLight);
           display: flex;
           justify-content: space-between;
           margin: 0 0 8px;
@@ -105,8 +104,6 @@
       }
 
       table {
-        background-color: var(--validationLight);
-
         tbody {
           tr {
             &:last-of-type {
