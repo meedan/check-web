@@ -56,7 +56,8 @@ shared_examples 'rules' do
     wait_for_selector('.team-settings__rules-tab').click
     wait_for_selector('#rules-table')
     expect(@driver.page_source.include?('Rule 1')).to be(true)
-    wait_for_selector('tbody tr').click
+    wait_for_selector('.int-rules-table__button--rule-menu').click
+    wait_for_selector('.int-rules-table__button--rule-menuitem').click
     wait_for_selector('input[name="rule-name"]')
     expect(@driver.page_source.include?('Rule 1')).to be(true)
     expect(@driver.page_source.include?('keyword')).to be(true)
@@ -70,7 +71,8 @@ shared_examples 'rules' do
     expect(@driver.page_source.include?('Rule 1- Edited')).to be(true)
 
     # Delete rule
-    wait_for_selector('tbody tr').click
+    wait_for_selector('.int-rules-table__button--rule-menu').click
+    wait_for_selector('.int-rules-table__button--rule-menuitem').click
     wait_for_selector("//span[contains(text(), 'More')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Delete')]", :xpath).click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
