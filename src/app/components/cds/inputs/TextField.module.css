@@ -72,6 +72,7 @@
       display: grid;
 
       &::after {
+        border: 2px solid var(--grayBorderMain);
 
         /* Note the weird space! Needed to preventy jumpy behavior */
         content: attr(data-replicated-value) ' ';
@@ -98,13 +99,11 @@
 
       > textarea,
       &::after {
-
-        /* Identical styling required!! */
-        border: 1px solid inherit;
         font: inherit;
 
         /* Place on top of each other */
         grid-area: 1 / 1 / 2 / 2;
+        letter-spacing: .15px;
         line-height: 20px;
         padding: .5rem;
       }
