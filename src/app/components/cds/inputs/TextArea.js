@@ -9,6 +9,8 @@ const TextArea = React.forwardRef(({
   rows,
   ...inputProps
 }, ref) => {
+  const inputRef = React.useRef();
+
   React.useEffect(() => {
     if (ref?.current) {
       ref.current.parentNode.setAttribute('data-replicated-value', ref.current.value);
@@ -28,7 +30,7 @@ const TextArea = React.forwardRef(({
       textArea
       autoGrow={autoGrow}
       maxHeight={maxHeight}
-      ref={ref}
+      ref={ref || inputRef}
       style={{ ...customStyle }}
       rows={rows}
       onInput={handleChange}
