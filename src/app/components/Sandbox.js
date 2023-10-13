@@ -58,7 +58,7 @@ const SandboxComponent = ({ admin }) => {
   const [limitedText, setLimitedText] = React.useState('DRF envisions a place where all people, and especially women, are able to exercise their right of expression without being threatened. We believe that free internet with access to information and impeccable privacy policies can encourage such a healthy and productive environment that would eventually help not only women, but the world at large. \n Digital Rights Foundation aims to strengthen protections for human rights defenders (HRDs), with a focus on women\'s rights, in digital spaces through policy advocacy & digital security awareness-raising. In addition, one of our aims at the Foundation is also to protect women from work and cyber-harassment that they have to deal with through out their lives.');
   const [textareaHelp, setTextareaHelp] = React.useState(Boolean(true));
   const [textareaAutogrow, setTextareaAutogrow] = React.useState(Boolean(true));
-  const [textareaLimited, setTextareaLimited] = React.useState(Boolean(false));
+  const [textareaLimited, setTextareaLimited] = React.useState(Boolean(true));
   const [textareaDisabled, setTextareaDisabled] = React.useState(Boolean(false));
   const [textareaRequired, setTextareaRequired] = React.useState(Boolean(true));
 
@@ -186,225 +186,6 @@ const SandboxComponent = ({ admin }) => {
           <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
         </li>
       </ul>
-      <section id="sandbox-inputs">
-        <h6>Inputs</h6>
-        <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>
-            TextField
-            <a
-              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=623-12029&mode=design&t=ZVq51pKdIKdWZicO-4"
-              rel="noopener noreferrer"
-              target="_blank"
-              title="Figma Designs"
-              className={styles.figmaLink}
-            >
-              <FigmaColorLogo />
-            </a>
-          </div>
-          <TextField
-            placeholder="I am a placeholder"
-            label="I am a textfield title"
-            helpContent="I can be of help to textfield"
-            required
-          />
-        </div>
-        <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>
-            Select
-            <a
-              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=34-5720&mode=design&t=ZVq51pKdIKdWZicO-4"
-              rel="noopener noreferrer"
-              target="_blank"
-              title="Figma Designs"
-              className={styles.figmaLink}
-            >
-              <FigmaColorLogo />
-            </a>
-          </div>
-          <Select
-            iconLeft={<ListIcon />}
-            helpContent="I can be of help to select"
-            label="I am a select title"
-            required
-            onRemove={() => {}}
-          >
-            <option>Select...</option>
-            <option value="1">one</option>
-            <option value="2">two</option>
-            <option value="3">three</option>
-          </Select>
-        </div>
-        <div className={styles.componentWrapper}>
-          <div className={styles.componentControls}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>
-              TextArea
-              <a
-                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3606-26274&mode=design&t=ZVq51pKdIKdWZicO-4"
-                rel="noopener noreferrer"
-                target="_blank"
-                title="Figma Designs"
-                className={styles.figmaLink}
-              >
-                <FigmaColorLogo />
-              </a>
-            </div>
-            <ul>
-              <li>
-                <Select
-                  label="Row Count"
-                  onChange={onChangeTextareaRows}
-                  value={textareaRows}
-                >
-                  <option value="none">none</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="4">4</option>
-                  <option value="8">8</option>
-                </Select>
-              </li>
-              <li>
-                <Select
-                  label="Max height"
-                  onChange={onChangeTextareaMaxHeight}
-                  value={textareaMaxHeight}
-                >
-                  <option value="none">none</option>
-                  <option value="48px">48px</option>
-                  <option value="96px">96px</option>
-                  <option value="180px">180px</option>
-                  <option value="360px">360px</option>
-                  <option value="500px">500px</option>
-                </Select>
-              </li>
-              <li>
-                <SwitchComponent
-                  label="AutoGrow"
-                  labelPlacement="top"
-                  checked={textareaAutogrow}
-                  onChange={() => setTextareaAutogrow(!textareaAutogrow)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Limit Character Count"
-                  labelPlacement="top"
-                  checked={textareaLimited}
-                  onChange={() => setTextareaLimited(!textareaLimited)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Show Help"
-                  labelPlacement="top"
-                  checked={textareaHelp}
-                  onChange={() => setTextareaHelp(!textareaHelp)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Disabled"
-                  labelPlacement="top"
-                  checked={textareaDisabled}
-                  onChange={() => setTextareaDisabled(!textareaDisabled)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Required"
-                  labelPlacement="top"
-                  checked={textareaRequired}
-                  onChange={() => setTextareaRequired(!textareaRequired)}
-                />
-              </li>
-            </ul>
-          </div>
-          <div className={styles.componentBlockVariants}>
-            { textareaLimited ?
-              <LimitedTextArea
-                maxChars={500}
-                setValue={setLimitedText}
-                placeholder="I am a placeholder for limited textarea"
-                label="I am a limited textarea title"
-                value={limitedText}
-                helpContent={textareaHelp ? 'I can be of help to limited textarea' : null}
-                autoGrow={textareaAutogrow}
-                rows={textareaRows === 'none' ? undefined : textareaRows}
-                required={textareaRequired}
-                disabled={textareaDisabled}
-                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
-              />
-              :
-              <TextArea
-                placeholder="I am a placeholder for textarea"
-                label="I am a textarea title"
-                helpContent={textareaHelp ? 'I can be of help to textarea' : null}
-                autoGrow={textareaAutogrow}
-                rows={textareaRows === 'none' ? undefined : textareaRows}
-                required={textareaRequired}
-                disabled={textareaDisabled}
-                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
-                value={limitedText}
-              />
-            }
-          </div>
-        </div>
-        <div className={styles.componentWrapper}>
-          <div className={styles.componentControls}>
-            <div className={cx('typography-subtitle2', [styles.componentName])}>
-              Switch
-              <a
-                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4"
-                rel="noopener noreferrer"
-                target="_blank"
-                title="Figma Designs"
-                className={styles.figmaLink}
-              >
-                <FigmaColorLogo />
-              </a>
-            </div>
-            <ul>
-              <li>
-                <Select
-                  label="Label Placement"
-                  onChange={onChangeSwitchLabelPlacement}
-                  value={switchLabelPlacement}
-                >
-                  <option value="top">top (default)</option>
-                  <option value="bottom">bottom</option>
-                  <option value="start">start</option>
-                  <option value="end">end</option>
-                </Select>
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Disabled"
-                  labelPlacement="top"
-                  checked={switchesDisabled}
-                  onChange={() => setSwitchesDisabled(!switchesDisabled)}
-                />
-              </li>
-              <li>
-                <SwitchComponent
-                  label="Show Help"
-                  labelPlacement="top"
-                  checked={switchesHelp}
-                  onChange={() => setSwitchesHelp(!switchesHelp)}
-                />
-              </li>
-            </ul>
-          </div>
-          <div className={styles.componentInlineVariants}>
-            <SwitchComponent
-              label="I am a switch label"
-              labelPlacement={switchLabelPlacement}
-              helperContent={switchesHelp ? 'I can help switches' : null}
-              checked={switched}
-              disabled={switchesDisabled}
-              onChange={() => setSwitchExample(!switched)}
-            />
-          </div>
-        </div>
-      </section>
       <section id="sandbox-buttons">
         <h6>Buttons</h6>
         <div className={styles.componentWrapper}>
@@ -590,6 +371,224 @@ const SandboxComponent = ({ admin }) => {
               Three
             </ToggleButton>
           </ToggleButtonGroup>
+        </div>
+      </section>
+      <section id="sandbox-inputs">
+        <h6>Inputs</h6>
+        <div className={styles.componentWrapper}>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>
+            TextField
+            <a
+              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=623-12029&mode=design&t=ZVq51pKdIKdWZicO-4"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="Figma Designs"
+              className={styles.figmaLink}
+            >
+              <FigmaColorLogo />
+            </a>
+          </div>
+          <TextField
+            placeholder="I am a placeholder"
+            label="I am a textfield title"
+            helpContent="I can be of help to textfield"
+            required
+          />
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={cx('typography-subtitle2', [styles.componentName])}>
+            Select
+            <a
+              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=34-5720&mode=design&t=ZVq51pKdIKdWZicO-4"
+              rel="noopener noreferrer"
+              target="_blank"
+              title="Figma Designs"
+              className={styles.figmaLink}
+            >
+              <FigmaColorLogo />
+            </a>
+          </div>
+          <Select
+            iconLeft={<ListIcon />}
+            helpContent="I can be of help to select"
+            label="I am a select title"
+            required
+            onRemove={() => {}}
+          >
+            <option>Select...</option>
+            <option value="1">one</option>
+            <option value="2">two</option>
+            <option value="3">three</option>
+          </Select>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              TextArea
+              <a
+                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3606-26274&mode=design&t=ZVq51pKdIKdWZicO-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <Select
+                  label="Row Count"
+                  onChange={onChangeTextareaRows}
+                  value={textareaRows}
+                >
+                  <option value="none">none</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="4">4</option>
+                  <option value="8">8</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Max height"
+                  onChange={onChangeTextareaMaxHeight}
+                  value={textareaMaxHeight}
+                >
+                  <option value="none">none</option>
+                  <option value="48px">48px</option>
+                  <option value="96px">96px</option>
+                  <option value="180px">180px</option>
+                  <option value="360px">360px</option>
+                  <option value="500px">500px</option>
+                </Select>
+              </li>
+              <li>
+                <SwitchComponent
+                  label="AutoGrow"
+                  labelPlacement="top"
+                  checked={textareaAutogrow}
+                  onChange={() => setTextareaAutogrow(!textareaAutogrow)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Limit Character Count"
+                  labelPlacement="top"
+                  checked={textareaLimited}
+                  onChange={() => setTextareaLimited(!textareaLimited)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Help"
+                  labelPlacement="top"
+                  checked={textareaHelp}
+                  onChange={() => setTextareaHelp(!textareaHelp)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={textareaDisabled}
+                  onChange={() => setTextareaDisabled(!textareaDisabled)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Required"
+                  labelPlacement="top"
+                  checked={textareaRequired}
+                  onChange={() => setTextareaRequired(!textareaRequired)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            { textareaLimited ?
+              <LimitedTextArea
+                maxChars={500}
+                setValue={setLimitedText}
+                placeholder="I am a placeholder for limited textarea"
+                label="I am a limited textarea title"
+                value={limitedText}
+                helpContent={textareaHelp ? 'I can be of help to limited textarea' : null}
+                autoGrow={textareaAutogrow}
+                rows={textareaRows === 'none' ? undefined : textareaRows}
+                required={textareaRequired}
+                disabled={textareaDisabled}
+                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
+              />
+              :
+              <TextArea
+                placeholder="I am a placeholder for textarea"
+                label="I am a textarea title"
+                helpContent={textareaHelp ? 'I can be of help to textarea' : null}
+                autoGrow={textareaAutogrow}
+                rows={textareaRows === 'none' ? undefined : textareaRows}
+                required={textareaRequired}
+                disabled={textareaDisabled}
+                maxHeight={textareaMaxHeight === 'none' ? undefined : textareaMaxHeight}
+              />
+            }
+          </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Switch
+              <a
+                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=194-3449&mode=design&t=ZVq51pKdIKdWZicO-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <Select
+                  label="Label Placement"
+                  onChange={onChangeSwitchLabelPlacement}
+                  value={switchLabelPlacement}
+                >
+                  <option value="top">top (default)</option>
+                  <option value="bottom">bottom</option>
+                  <option value="start">start</option>
+                  <option value="end">end</option>
+                </Select>
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={switchesDisabled}
+                  onChange={() => setSwitchesDisabled(!switchesDisabled)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Help"
+                  labelPlacement="top"
+                  checked={switchesHelp}
+                  onChange={() => setSwitchesHelp(!switchesHelp)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentInlineVariants}>
+            <SwitchComponent
+              label="I am a switch label"
+              labelPlacement={switchLabelPlacement}
+              helperContent={switchesHelp ? 'I can help switches' : null}
+              checked={switched}
+              disabled={switchesDisabled}
+              onChange={() => setSwitchExample(!switched)}
+            />
+          </div>
         </div>
       </section>
       <section id="sandbox-chips">

@@ -72,10 +72,11 @@
       display: grid;
 
       &::after {
-        border: 2px solid var(--grayBorderMain);
+        border: 2px solid transparent;
 
         /* Note the weird space! Needed to preventy jumpy behavior */
         content: attr(data-replicated-value) ' ';
+        margin-top: 1px;
         max-height: inherit;
         overflow-wrap: anywhere;
 
@@ -105,7 +106,7 @@
         grid-area: 1 / 1 / 2 / 2;
         letter-spacing: .15px;
         line-height: 20px;
-        padding: .5rem;
+        padding: .65rem;
       }
     }
 
