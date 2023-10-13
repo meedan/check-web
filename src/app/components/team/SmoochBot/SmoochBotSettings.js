@@ -18,14 +18,12 @@ const SmoochBotSettings = (props) => {
         installationId={props.installationId}
       />
 
-      {['smooch_time_to_send_request', 'smooch_disabled'].map(field => (
-        <SmoochBotSetting
-          field={field}
-          value={props.settings[field]}
-          schema={fields[field]}
-          onChange={props.onChange}
-        />
-      ))}
+      <SmoochBotSetting
+        field="smooch_disabled"
+        value={props.settings.smooch_disabled}
+        schema={fields.smooch_disabled}
+        onChange={props.onChange}
+      />
 
       { props.currentUser.is_admin ?
         <Box mt={2}>
