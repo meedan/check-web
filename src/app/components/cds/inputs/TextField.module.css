@@ -106,14 +106,16 @@
         grid-area: 1 / 1 / 2 / 2;
         letter-spacing: .15px;
         line-height: 20px;
+        margin: 1px 0;
         padding: .65rem;
       }
     }
 
     &.textarea-maxHeight {
-      > textarea {
+      > textarea,
+      &::after {
         max-height: inherit;
-        overflow: auto;
+        overflow-y: auto;
       }
     }
 
