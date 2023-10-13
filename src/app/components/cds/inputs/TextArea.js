@@ -23,7 +23,18 @@ const TextArea = React.forwardRef(({
   };
 
   const customStyle = inputProps.style || {};
-  return <TextField textArea autoGrow={autoGrow} maxHeight={maxHeight} ref={ref} {...inputProps} style={{ ...customStyle }} rows={rows} onInput={handleChange} />;
+  return (
+    <TextField
+      textArea
+      autoGrow={autoGrow}
+      maxHeight={maxHeight}
+      ref={ref}
+      style={{ ...customStyle }}
+      rows={rows}
+      onInput={handleChange}
+      {...inputProps}
+    />
+  );
 });
 
 TextArea.defaultProps = {
