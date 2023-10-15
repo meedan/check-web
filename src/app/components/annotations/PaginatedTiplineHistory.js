@@ -42,6 +42,7 @@ const PaginatedTiplineHistory = createPaginationContainer(
               team_id
               state
               sent_at
+              media_url
             }
           }
           pageInfo {

@@ -9,6 +9,7 @@ import QuestionAnswerIcon from '../../icons/question_answer.svg';
 const TiplineHistoryButton = ({
   uid,
   name,
+  channel,
   // messageId,
 }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -31,7 +32,7 @@ const TiplineHistoryButton = ({
         <TiplineHistory
           uid={uid}
           handleClose={handleClose}
-          title={<FormattedMessage id="tiplineHistory.title" description="Title field labeling a chat log with a user" defaultMessage="Chat with {user}" values={{ user: name }} />}
+          title={<FormattedMessage id="tiplineHistory.title" description="Title field labeling a chat log with a user" defaultMessage="Chat with {user} on {channel}" values={{ user: name, channel }} />}
         />
       </Modal>
     </>
@@ -44,6 +45,7 @@ TiplineHistoryButton.defaultProps = {
 TiplineHistoryButton.propTypes = {
   uid: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  channel: PropTypes.string.isRequired, // WhatsApp, Telegram, etc.
   // messageId: PropTypes.string.isRequired,
 };
 

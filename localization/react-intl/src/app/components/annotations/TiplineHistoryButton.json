@@ -2,6 +2,6 @@
   {
     "id": "tiplineHistory.title",
     "description": "Title field labeling a chat log with a user",
-    "defaultMessage": "Chat with {user}"
+    "defaultMessage": "Chat with {user} on {channel}"
   }
 ]
