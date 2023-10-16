@@ -22,7 +22,7 @@
         .item-details {
           align-items: center;
           background-color: var(--otherWhite);
-          border: solid 2px var(--grayBorderMain);
+          border: solid 1px var(--grayBorderMain);
           border-radius: 5px;
           display: grid;
           gap: 0 4px;

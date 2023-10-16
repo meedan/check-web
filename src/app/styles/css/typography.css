@@ -49,6 +49,7 @@ a {
 }
 
 p {
+  @mixin typography-body1;
   margin-top: 0;
 }
 

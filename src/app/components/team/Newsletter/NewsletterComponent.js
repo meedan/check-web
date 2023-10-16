@@ -458,8 +458,8 @@ const NewsletterComponent = ({
       />
       <div className={cx('newsletter-component', settingsStyles['setting-details-wrapper'])}>
         <div className={cx(settingsStyles['setting-content-container'])}>
-          <div className={styles.settings}>
-            <div className="typography-subtitle2">
+          <div className={cx(styles.settings, settingsStyles['setting-content-container-inner'])}>
+            <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage id="newsletterComponent.content" defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" />
             </div>
             <NewsletterHeader
@@ -508,7 +508,7 @@ const NewsletterComponent = ({
                 />
               )}
             </FormattedMessage>
-            <div className={styles['newsletter-body']}>
+            <div className={cx(settingsStyles['setting-content-container-inner-accent'], styles['newsletter-body'])}>
               <div className={styles.switcher}>
                 <SwitchComponent
                   key={`newsletter-rss-feed-enabled-${language}`}

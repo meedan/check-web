@@ -3,17 +3,15 @@ import { PropTypes } from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import List from '@material-ui/core/List';
-import cx from 'classnames/bind';
 import AddLanguageAction from './AddLanguageAction';
 import LanguageListItem from './LanguageListItem';
 import SettingsHeader from '../SettingsHeader';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { compareLanguages, languageLabelFull } from '../../../LanguageRegistry';
-import styles from './LanguagesComponent.module.css';
 import settingsStyles from '../Settings.module.css';
 
 const submitToggleLanguageDetection = ({
@@ -87,8 +85,8 @@ const LanguagesComponent = ({ team }) => {
           <AddLanguageAction team={team} />
         }
       />
-      <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <div className={cx(settingsStyles['setting-content-container'], styles['team-languages-section'])}>
+      <div className={settingsStyles['setting-details-wrapper']}>
+        <div className={settingsStyles['setting-content-container']}>
           <div className={settingsStyles['setting-content-container-title']}>
             <FormattedMessage
               id="languagesComponent.languageDetection"
@@ -96,38 +94,65 @@ const LanguagesComponent = ({ team }) => {
               description="Title of the Language detection section in language settings page"
             />
           </div>
-          <div className="typography-body2">
-            <FormattedHTMLMessage
-              id="languagesComponent.description"
-              defaultMessage="If language detection is <strong>enabled</strong>, the Check Tipline bot will automatically recognize and respond in the language of your user's request.
-              If <strong>disabled</strong>, the Check Tipline bot will respond in the workspace default language: <strong>{defaultLanguage}</strong>"
-              description="Instructions for the language detection toggle switch"
-              values={{ defaultLanguage: languageLabelFull(team.get_language) }}
-            />
-          </div>
-          <div>
-            <SwitchComponent
-              label={
-                <FormattedMessage
-                  id="languagesComponent.languageDetectionSwitch"
-                  defaultMessage="Enable language detection"
-                  description="Label for a switch where the user toggles auto language detection"
+          <SwitchComponent
+            label={
+              <FormattedMessage
+                id="languagesComponent.languageDetectionSwitch"
+                defaultMessage="Enable language detection"
+                description="Label for a switch where the user toggles auto language detection"
+              />
+            }
+            checked={team.get_language_detection}
+            onChange={toggleLanguageDetection}
+          />
+          <Alert
+            variant={team.get_language_detection ? 'info' : 'warning'}
+            icon
+            title={
+              team.get_language_detection ?
+                <FormattedHTMLMessage
+                  id="languagesComponent.alertTitleEnabled"
+                  defaultMessage="Language detection is enabled"
+                  description="Title for extra information about the language detection toggle switch when it is enabled"
                 />
-              }
-              checked={team.get_language_detection}
-              onChange={toggleLanguageDetection}
-            />
-          </div>
+                :
+                <FormattedHTMLMessage
+                  id="languagesComponent.alertTitleDisabled"
+                  defaultMessage="Language detection is disabled"
+                  description="Title for extra information about the language detection toggle switch when it is disabled"
+                />
+            }
+            content={
+              team.get_language_detection ?
+                <FormattedHTMLMessage
+                  id="languagesComponent.enabledDescription"
+                  defaultMessage="The Check Tipline bot will automatically recognize and respond in the language of your user's request."
+                  description="Instructions for the language detection toggle switch when enabled"
+                />
+                :
+                <FormattedHTMLMessage
+                  id="languagesComponent.disabledDescription"
+                  defaultMessage="The Check Tipline bot will respond in the workspace default language: <strong>{defaultLanguage}</strong>"
+                  description="Instructions for the language detection toggle switch when disabled"
+                  values={
+                    {
+                      defaultLanguage: languageLabelFull(team.get_language),
+                    }
+                  }
+                />
+            }
+          />
         </div>
-        <div className={cx(settingsStyles['setting-content-container'], styles['team-languages-section'])}>
+        <div className={settingsStyles['setting-content-container']}>
           <div className={settingsStyles['setting-content-container-title']}>
             <FormattedMessage
               id="languagesComponent.languages"
-              defaultMessage="Languages"
+              defaultMessage="Languages [{languageCount}]"
               description="Title of the active languages list section in language settings page"
+              values={{ languageCount: languages.length }}
             />
           </div>
-          <List>
+          <ul className={settingsStyles['setting-content-list']}>
             {languages.map(l => (
               <LanguageListItem
                 code={l}
@@ -135,7 +160,7 @@ const LanguagesComponent = ({ team }) => {
                 team={team}
               />
             ))}
-          </List>
+          </ul>
         </div>
       </div>
     </React.Fragment>

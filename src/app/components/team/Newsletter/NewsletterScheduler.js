@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
 import Button from '@material-ui/core/Button';
+import cx from 'classnames/bind';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import { getTimeZoneOptions } from '../../../helpers';
 import Alert from '../../cds/alerts-and-prompts/Alert';
@@ -9,11 +10,12 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import Select from '../../cds/inputs/Select';
 import DatePicker from '../../cds/inputs/DatePicker';
 import Time from '../../cds/inputs/Time';
-import styles from './NewsletterComponent.module.css';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 import InfoOutlinedIcon from '../../../icons/info.svg';
 import PlayArrowIcon from '../../../icons/play_arrow.svg';
 import PauseIcon from '../../../icons/pause.svg';
+import styles from './NewsletterComponent.module.css';
+import settingsStyles from '../Settings.module.css';
 
 const timezones = getTimeZoneOptions();
 
@@ -40,7 +42,7 @@ const NewsletterScheduler = ({
 
   return (
     <div className={`${styles['newsletter-scheduler']} ${scheduled ? styles['newsletter-scheduled'] : styles['newsletter-paused']}`}>
-      <div className={`typography-subtitle2 ${styles['newsletter-scheduler-title']}`}>
+      <div className={cx(settingsStyles['setting-content-container-title'], styles['newsletter-scheduler-title'])}>
         { type === 'static' ?
           <FormattedMessage id="newsletterScheduler.sendOn" defaultMessage="Send on" description="Label on a input where the user selects a date to send a newsletter" />
           : null

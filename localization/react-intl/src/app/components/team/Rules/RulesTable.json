@@ -2,11 +2,16 @@
   {
     "id": "rulesTableToolbar.title",
     "description": "Title area for the rules admin section of the settings page",
-    "defaultMessage": "Rules"
+    "defaultMessage": "Rules [{rulesCount}]"
   },
   {
     "id": "rulesTableToolbar.add",
     "description": "Button label for creating a new rule",
     "defaultMessage": "New rule"
+  },
+  {
+    "id": "teamTagsActions.edit",
+    "description": "Menu item to edit a rule",
+    "defaultMessage": "Edit"
   }
 ]
