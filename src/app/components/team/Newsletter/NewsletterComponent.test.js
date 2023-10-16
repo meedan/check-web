@@ -72,7 +72,7 @@ describe('<NewsletterComponent />', () => {
     expect(header.props().overlayText).toEqual('Some overlay');
   });
 
-  it('renders static newsletter correctly', () => {
+  it('renders rss newsletter correctly', () => {
     const newsletter = shallow(<NewsletterComponentTest
       team={teamRss}
       setFlashMessage={() => {}}
