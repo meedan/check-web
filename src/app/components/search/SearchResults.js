@@ -417,16 +417,15 @@ function SearchResultsComponent({
               }
             </div>
           </div>
-          { resultType !== 'factCheck' ?
-            <SearchKeyword
-              query={stateQuery}
-              setStateQuery={setStateQuery}
-              title={title}
-              team={team}
-              showExpand={showExpand}
-              cleanupQuery={cleanupQuery}
-              handleSubmit={handleSubmit}
-            /> : null }
+          <SearchKeyword
+            query={stateQuery}
+            setStateQuery={setStateQuery}
+            title={title}
+            team={team}
+            showExpand={showExpand}
+            cleanupQuery={cleanupQuery}
+            handleSubmit={handleSubmit}
+          />
         </div>
       </div>
       <div className={cx('search__results-top', styles['search-results-top'])}>
