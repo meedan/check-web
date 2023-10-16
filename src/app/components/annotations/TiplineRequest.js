@@ -168,7 +168,12 @@ const TiplineRequest = ({
         )}
         icon={<SmoochIcon name={messageType} />}
         historyButton={
-          <TiplineHistoryButton uid={uid} name={userName} messageId={messageId} />
+          <TiplineHistoryButton
+            uid={uid}
+            name={userName}
+            channel={channelLabel[messageType] || messageType}
+            messageId={messageId}
+          />
         }
         sendMessageButton={
           <SendTiplineMessage
