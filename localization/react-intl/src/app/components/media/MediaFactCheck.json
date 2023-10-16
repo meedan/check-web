@@ -5,6 +5,16 @@
     "defaultMessage": "Title and description have to be filled"
   },
   {
+    "id": "alert.noClaimTitle",
+    "description": "Alert box information title to tell the user they must complete additional fields to unlock this area",
+    "defaultMessage": "Claim Required"
+  },
+  {
+    "id": "alert.noClaimDescript",
+    "description": "Alert box information content to tell the user they must complete additional fields to unlock this area",
+    "defaultMessage": "Add a claim above in order to access the fact-check for this item"
+  },
+  {
     "id": "mediaFactCheck.factCheck",
     "description": "Title of the media fact-check section.",
     "defaultMessage": "Fact-check"

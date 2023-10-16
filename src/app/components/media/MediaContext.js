@@ -3,16 +3,9 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import TextArea from '../cds/inputs/TextArea';
 import { can } from '../Can';
-
-const useStyles = makeStyles(theme => ({
-  context: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const MediaContext = ({
   projectMedia,
@@ -20,8 +13,6 @@ const MediaContext = ({
   setError,
   setSaving,
 }) => {
-  const classes = useStyles();
-
   // override to compensate for fast onBlur stateless component
   const textElement = document.querySelector('#media-claim__context');
   if (textElement && claimDescription && claimDescription.context && textElement.value !== claimDescription.context) {
@@ -117,39 +108,34 @@ const MediaContext = ({
   };
 
   return (
-    <Box id="media__context" className={classes.context}>
-      <Box>
-        <FormattedMessage
-          id="mediaContext.placeholder"
-          defaultMessage="Type something"
-          description="Placeholder for claim context field."
-        >
-          { placeholder => (
-            <TextField
-              id="media-claim__context"
-              className="media-claim__context"
-              label={
-                <FormattedMessage
-                  id="mediaContext.title"
-                  defaultMessage="Additional context"
-                  description="Title of claim context field."
-                />
-              }
-              placeholder={placeholder}
-              defaultValue={claimDescription ? claimDescription.context : ''}
-              onBlur={(e) => { handleBlur(e.target.value); }}
-              variant="outlined"
-              inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
-              rows={1}
-              rowsMax={Infinity}
-              disabled={!hasPermission || readOnly}
-              multiline
-              fullWidth
-            />
-          )}
-        </FormattedMessage>
-      </Box>
-    </Box>
+    <div id="media__context" className={inputStyles['form-fieldset-field']}>
+      <FormattedMessage
+        id="mediaContext.placeholder"
+        defaultMessage="Type something"
+        description="Placeholder for claim context field."
+      >
+        { placeholder => (
+          <TextArea
+            autoGrow
+            maxHeight="266px"
+            id="media-claim__context"
+            className="media-claim__context"
+            label={
+              <FormattedMessage
+                id="mediaContext.title"
+                defaultMessage="Additional context"
+                description="Title of claim additional context field."
+              />
+            }
+            placeholder={placeholder}
+            defaultValue={claimDescription ? claimDescription.context : ''}
+            onBlur={(e) => { handleBlur(e.target.value); }}
+            rows="1"
+            disabled={!hasPermission || readOnly}
+          />
+        )}
+      </FormattedMessage>
+    </div>
   );
 };
 

@@ -15,13 +15,13 @@
     "defaultMessage": "saving…"
   },
   {
-    "id": "mediaClaim.saved",
-    "description": "Caption that informs who last saved this claim and when it happened.",
-    "defaultMessage": "saved by {userName} {timeAgo}"
-  },
-  {
     "id": "mediaClaim.placeholder",
     "description": "Placeholder for claim description field.",
     "defaultMessage": "For example: The earth is flat"
+  },
+  {
+    "id": "mediaClaim.saved",
+    "description": "Caption that informs who last saved this claim and when it happened.",
+    "defaultMessage": "saved by {userName} {timeAgo}"
   }
 ]

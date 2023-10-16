@@ -88,6 +88,23 @@
 
     .media-item-claim {
       flex: 0 0 420px;
+
+      .media-item-content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .media-item-tags {
+          background-color: var(--otherWhite);
+          border-radius: 5px;
+        }
+
+        .media-item-claim-inner {
+          background-color: var(--brandBackground);
+          border-radius: 5px;
+          padding: 16px;
+        }
+      }
     }
 
     .media-item-medias,

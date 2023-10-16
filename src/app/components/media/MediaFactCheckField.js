@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import LimitedTextFieldWithCounter from '../layout/LimitedTextFieldWithCounter';
+import TextArea from '../cds/inputs/TextArea';
+import LimitedTextArea from '../layout/inputs/LimitedTextArea';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
   placeholder: {
@@ -42,28 +42,28 @@ const MediaFactCheckField = ({
   };
 
   return (
-    <Box my={2}>
+    <div className={inputStyles['form-fieldset-field']}>
       { limit !== null ?
-        <LimitedTextFieldWithCounter
+        <LimitedTextArea
+          autoGrow
+          maxChars={limit}
           label={label}
-          limit={limit}
+          placeholder={name}
           value={defaultValue}
           onUpdate={(newValue) => { onBlur(newValue); }}
-          textFieldProps={textFieldProps}
+          {...textFieldProps}
         /> :
-        <TextField
+        <TextArea
+          autoGrow
+          maxHeight="266px"
+          placeholder={name}
           label={label}
-          inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
           onBlur={(e) => { onBlur(e.target.value.trim()); }}
           defaultValue={value}
-          multiline
-          rowsMax={Infinity}
-          variant="outlined"
-          fullWidth
           {...textFieldProps}
         />
       }
-    </Box>
+    </div>
   );
 };
 

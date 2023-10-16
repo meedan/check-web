@@ -356,6 +356,7 @@ const SmoochBotResourceEditorComponent = (props) => {
         <LimitedTextArea
           key={resource.content_type}
           required={false}
+          maxHeight="200px"
           maxChars={resource.content_type === 'rss' ? 180 : 720}
           onErrorTooLong={(error) => {
             setDisableSaveTextTooLong(error);

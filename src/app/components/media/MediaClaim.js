@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
+import cx from 'classnames/bind';
+import TextArea from '../cds/inputs/TextArea';
 import TimeBefore from '../TimeBefore';
 import MediaContext from './MediaContext';
 import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
+import styles from './media.module.css';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const MediaClaim = ({ projectMedia }) => {
   // If the item we are viewing is being suggested to a main item, show the claim for the main item. Otherwise show the claim associated with this item
@@ -112,12 +114,11 @@ const MediaClaim = ({ projectMedia }) => {
   };
 
   return (
-    <Box id="media__claim">
-      <Box id="media__claim-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
+    <div id="media__claim" className={cx(styles['media-item-claim-inner'], inputStyles['form-fieldset'])}>
+      <div id="media__claim-title">
         <div className="typography-subtitle2">
           <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
         </div>
-        {' '}
         { error ?
           <div className="typography-caption">
             <FormattedMessage
@@ -138,62 +139,47 @@ const MediaClaim = ({ projectMedia }) => {
           </div>
           : null
         }
-        { !saving && !error && claimDescription ?
-          <div className="typography-caption">
-            <FormattedMessage
-              className="media-claim__saved-by"
-              id="mediaClaim.saved"
-              defaultMessage="saved by {userName} {timeAgo}"
-              values={{
-                userName: claimDescription.user.name,
-                timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
-              }}
-              description="Caption that informs who last saved this claim and when it happened."
-            />
-          </div>
-          : null
-        }
-        { !saving && !claimDescription && !error ?
-          <div className="typography-caption">
-            <span>&nbsp;</span>
-          </div>
-          : null
-        }
-      </Box>
-
-      <Box>
+      </div>
+      <div className={inputStyles['form-fieldset-field']}>
         <FormattedMessage
           id="mediaClaim.placeholder"
           defaultMessage="For example: The earth is flat"
           description="Placeholder for claim description field."
         >
           { placeholder => (
-            <TextField
+            <TextArea
+              maxHeight="266px"
               id="media-claim__description"
               className="media-claim__description"
               placeholder={placeholder}
               defaultValue={claimDescription ? claimDescription.description : ''}
               onBlur={(e) => { handleBlur(e.target.value); }}
-              variant="outlined"
-              inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
-              rows={1}
-              rowsMax={Infinity}
               disabled={!hasPermission || readOnly}
-              multiline
-              fullWidth
+              helpContent={!saving && !error && claimDescription &&
+                <div className="typography-caption">
+                  <FormattedMessage
+                    className="media-claim__saved-by"
+                    id="mediaClaim.saved"
+                    defaultMessage="saved by {userName} {timeAgo}"
+                    values={{
+                      userName: claimDescription.user.name,
+                      timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
+                    }}
+                    description="Caption that informs who last saved this claim and when it happened."
+                  />
+                </div>
+              }
             />
           )}
         </FormattedMessage>
-      </Box>
-      <Box>
-        <MediaContext
-          projectMedia={projectMedia}
-          claimDescription={claimDescription}
-          setSaving={setSaving}
-          setError={setError}
-        />
-      </Box>
-    </Box>
+      </div>
+      <MediaContext
+        projectMedia={projectMedia}
+        claimDescription={claimDescription}
+        setSaving={setSaving}
+        setError={setError}
+      />
+    </div>
   );
 };
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import Box from '@material-ui/core/Box';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconReport from '../../icons/playlist_add_check.svg';
@@ -12,7 +13,10 @@ import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
 import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
 import { can } from '../Can';
 import MediaFactCheckField from './MediaFactCheckField';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import styles from './media.module.css';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const MediaFactCheck = ({ projectMedia }) => {
   const claimDescription = projectMedia.suggested_main_item ? projectMedia.suggested_main_item.claim_description : projectMedia.claim_description;
@@ -163,12 +167,31 @@ const MediaFactCheck = ({ projectMedia }) => {
   );
 
   return (
-    <Box id="media__fact-check">
-      <Box id="media__fact-check-title" display="flex" alignItems="center" mb={2} mt={2} justifyContent="space-between">
+    <div id="media__fact-check" className={cx(styles['media-item-claim-inner'], inputStyles['form-fieldset'])}>
+      { (!claimDescription || claimDescription.description?.trim()?.length === 0) ?
+        <Alert
+          variant="warning"
+          title={
+            <FormattedMessage
+              id="alert.noClaimTitle"
+              defaultMessage="Claim Required"
+              description="Alert box information title to tell the user they must complete additional fields to unlock this area"
+            />
+          }
+          content={
+            <FormattedMessage
+              id="alert.noClaimDescript"
+              defaultMessage="Add a claim above in order to access the fact-check for this item"
+              description="Alert box information content to tell the user they must complete additional fields to unlock this area"
+            />
+          }
+        />
+        : null
+      }
+      <div id="media__fact-check-title">
         <div className="typography-subtitle2">
           <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
         </div>
-        {' '}
         <div className="typography-caption">
           { error ? errorMessage : null }
           { saving && !error ?
@@ -190,8 +213,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             /> : null }
           { !saving && !factCheck && !error ? <span>&nbsp;</span> : null }
         </div>
-      </Box>
-
+      </div>
       <MediaFactCheckField
         label={<FormattedMessage id="mediaFactCheck.title" defaultMessage="Title" description="Label for fact-check title field" />}
         name="title"
@@ -206,7 +228,6 @@ const MediaFactCheck = ({ projectMedia }) => {
         rows={1}
         key={`title-${claimDescription}`}
       />
-
       <MediaFactCheckField
         limit={900 - title.length - url.length}
         label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
@@ -222,7 +243,6 @@ const MediaFactCheck = ({ projectMedia }) => {
         rows={1}
         key={`summary-${claimDescription}-${title.length}-${url.length}`}
       />
-
       <MediaFactCheckField
         label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Article URL" description="Label for fact-check URL field" />}
         name="url"
@@ -243,14 +263,14 @@ const MediaFactCheck = ({ projectMedia }) => {
       />
 
       { languages.length > 1 ?
-        <Box my={2} >
+        <div className={inputStyles['form-fieldset-field']}>
           <LanguagePickerSelect
             isDisabled={(!hasPermission || isDisabled)}
             selectedLanguage={language}
             onSubmit={handleLanguageSubmit}
             languages={safelyParseJSON(team.get_languages)}
           />
-        </Box> : null
+        </div> : null
       }
 
       { projectMedia.team.smooch_bot ?
@@ -311,7 +331,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         onProceed={() => { setShowDialog(false); }}
         onCancel={() => { setShowDialog(false); }}
       />
-    </Box>
+    </div>
   );
 };
 

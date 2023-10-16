@@ -61,3 +61,13 @@
     color: var(--errorSecondary);
   }
 }
+
+.form-fieldset {
+  .form-fieldset-field {
+    margin: 0 0 16px;
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}
