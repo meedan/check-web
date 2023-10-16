@@ -155,7 +155,7 @@ const TeamDetails = ({
         </div>
 
         <div className={styles['team-details-column']}>
-          <div className={cx(styles['team-details-section'], settingsStyles['setting-content-container'])}>
+          <div className={settingsStyles['setting-content-container']}>
             <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage id="teamDetails.profile" defaultMessage="Profile" description="Title of the profile section in team details page" />
             </div>
@@ -188,7 +188,7 @@ const TeamDetails = ({
             />
           </div>
 
-          <div className={cx(styles['team-details-section'], settingsStyles['setting-content-container'])}>
+          <div className={settingsStyles['setting-content-container']}>
             <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage id="teamDetails.linkManagement" defaultMessage="Link management" description="Title of the link management section in team details page" />
             </div>

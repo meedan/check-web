@@ -100,7 +100,7 @@ class TeamBots extends Component {
     const team = root.current_team;
 
     return (
-      <div className="team-bots">
+      <>
         { root.team_bots_listed.edges.map((teamBot) => {
           const bot = teamBot.node;
           const installation = this.getInstallation(bot.id);
@@ -126,16 +126,16 @@ class TeamBots extends Component {
                   />
                 </div>
               </div>
-              <div className={styles['integration-bot-switch']}>
-                <SwitchComponent
-                  className={`team-bots__${bot.identifier}-${installation ? 'installed' : 'uninstalled'}`}
-                  checked={Boolean(installation)}
-                  onChange={this.handleToggle.bind(this, installation, bot, team)}
-                  disabled={this.state.saving === bot.id}
-                  label={bot.description}
-                  labelPlacement="end"
-                />
-              </div>
+              <SwitchComponent
+                inputProps={{
+                  id: `team-bots__${bot.identifier}-${installation ? 'installed' : 'uninstalled'}`,
+                }}
+                checked={Boolean(installation)}
+                onChange={this.handleToggle.bind(this, installation, bot, team)}
+                disabled={this.state.saving === bot.id}
+                label={bot.description}
+                labelPlacement="end"
+              />
               <Collapse in={botExpanded} timeout="auto" className={styles['integration-details']}>
                 { bot.installation?.json_settings ?
                   <React.Fragment>
@@ -175,7 +175,7 @@ class TeamBots extends Component {
             </div>
           );
         })}
-      </div>
+      </>
     );
   }
 }

@@ -4,9 +4,11 @@ import { FormattedMessage, FormattedRelative } from 'react-intl';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconMoreVert from '../../../icons/more_vert.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsHeader from '../SettingsHeader';
 import RulesTableToolbar from './RulesTableToolbar';
@@ -22,6 +24,7 @@ export default function RulesTable(props) {
     index,
   }));
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [selected, setSelected] = React.useState([]);
   const [orderBy, setOrderBy] = React.useState('updated_at');
   const [order, setOrder] = React.useState('asc');
@@ -77,8 +80,9 @@ export default function RulesTable(props) {
         title={
           <FormattedMessage
             id="rulesTableToolbar.title"
-            defaultMessage="Rules"
+            defaultMessage="Rules [{rulesCount}]"
             description="Title area for the rules admin section of the settings page"
+            values={{ rulesCount: rows.length }}
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"
@@ -87,7 +91,7 @@ export default function RulesTable(props) {
             size="default"
             theme="brand"
             variant="contained"
-            className="rules__new-rule"
+            className="int-rules-table__button--new-rule"
             onClick={handleNewRule}
             label={
               <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" description="Button label for creating a new rule" />
@@ -96,12 +100,12 @@ export default function RulesTable(props) {
         }
       />
       <div className={settingsStyles['setting-details-wrapper']}>
-        <RulesTableToolbar
-          numSelected={selected.length}
-          onDeleteRules={handleDelete}
-        />
-        <TableContainer>
-          <Table size="medium" id="rules-table">
+        <div className={settingsStyles['setting-content-container']}>
+          <RulesTableToolbar
+            numSelected={selected.length}
+            onDeleteRules={handleDelete}
+          />
+          <Table id="rules-table">
             <RulesTableHead
               order={order}
               orderBy={orderBy}
@@ -115,11 +119,7 @@ export default function RulesTable(props) {
                 const date = new Date(row.updated_at * 1000);
 
                 return (
-                  <TableRow
-                    hover
-                    onClick={() => { handleClick(index); }}
-                    key={row.index}
-                  >
+                  <TableRow key={row.index}>
                     <TableCell padding="checkbox">
                       <Checkbox
                         checked={isItemSelected}
@@ -135,12 +135,35 @@ export default function RulesTable(props) {
                         <FormattedRelative value={date} />
                       </time>
                     </TableCell>
+                    <TableCell>
+                      <ButtonMain
+                        iconCenter={<IconMoreVert />}
+                        className="int-rules-table__button--rule-menu"
+                        variant="outlined"
+                        size="default"
+                        theme="text"
+                        onClick={e => setAnchorEl(e.currentTarget)}
+                      />
+                      <Menu
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={() => setAnchorEl(null)}
+                      >
+                        <MenuItem onClick={() => { handleClick(index); }} className="int-rules-table__button--rule-menuitem">
+                          <FormattedMessage
+                            id="teamTagsActions.edit"
+                            defaultMessage="Edit"
+                            description="Menu item to edit a rule"
+                          />
+                        </MenuItem>
+                      </Menu>
+                    </TableCell>
                   </TableRow>
                 );
               })}
             </TableBody>
           </Table>
-        </TableContainer>
+        </div>
       </div>
     </React.Fragment>
   );

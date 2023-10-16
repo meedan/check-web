@@ -31,6 +31,7 @@ const RulesTableHead = ({ orderBy, order, onSort }) => (
           </TableSortLabel>
         </TableCell>
       ))}
+      <TableCell padding="checkbox" />
     </TableRow>
   </TableHead>
 );

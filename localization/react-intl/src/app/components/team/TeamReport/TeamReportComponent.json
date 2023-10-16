@@ -11,8 +11,8 @@
   },
   {
     "id": "teamReportComponent.title",
-    "description": "Header for the default report settings page",
-    "defaultMessage": "Default report settings"
+    "description": "Header for the report settings page",
+    "defaultMessage": "Report settings"
   },
   {
     "id": "teamReportComponent.save",
@@ -25,6 +25,11 @@
     "defaultMessage": "Introduction"
   },
   {
+    "id": "teamReportComponent.introductionDescription",
+    "description": "Switch component descriptive text on the purpose of the report introduction",
+    "defaultMessage": "Include an introduction anytime the report is sent to reference the initial query from the end user."
+  },
+  {
     "id": "teamReportComponent.introductionSub",
     "description": "Instructions for filling the report introduction field",
     "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
@@ -33,6 +38,11 @@
     "id": "teamReportComponent.url",
     "description": "Label to the report url field",
     "defaultMessage": "Website URL"
+  },
+  {
+    "id": "teamReportComponent.urlDescription",
+    "description": "Switch component descriptive text on the purpose of the report url",
+    "defaultMessage": "Include a link to a website anytime the report is sent to reference the initial query from the end user."
   },
   {
     "id": "teamReportComponent.urlLabel",
@@ -45,9 +55,19 @@
     "defaultMessage": "Signature"
   },
   {
+    "id": "teamReportComponent.signatureDescription",
+    "description": "Switch component descriptive text on the purpose of the report signature",
+    "defaultMessage": "Include a custom signature anytime the report is sent to reference the initial query from the end user."
+  },
+  {
     "id": "teamReportComponent.signatureLabel",
     "description": "Label for signature field in report settings",
-    "defaultMessage": "Signature ({max} characters max)"
+    "defaultMessage": "Signature"
+  },
+  {
+    "id": "teamReportComponent.signatureHelp",
+    "description": "Help content for signature field in report settings",
+    "defaultMessage": "{max} characters max"
   },
   {
     "id": "teamReportComponent.whatsapp",
