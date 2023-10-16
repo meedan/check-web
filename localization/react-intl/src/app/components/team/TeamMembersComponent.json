@@ -2,7 +2,7 @@
   {
     "id": "teamMembers.title",
     "description": "Title for workspace members management page",
-    "defaultMessage": "Members"
+    "defaultMessage": "Members [{membersCount}]"
   },
   {
     "id": "teamMembers.invite",

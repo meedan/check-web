@@ -14,6 +14,7 @@ import NewsletterHeader from '../Newsletter/NewsletterHeader';
 import NewsletterRssFeed from '../Newsletter/NewsletterRssFeed';
 import newsletterStyles from '../Newsletter/NewsletterComponent.module.css';
 import styles from './SmoochBotResourceEditor.module.css';
+import settingsStyles from '../Settings.module.css';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 // Mutations
@@ -329,7 +330,7 @@ const SmoochBotResourceEditorComponent = (props) => {
       />
 
       <div className={cx(newsletterStyles.settings, styles.settings)}>
-        <div className="typography-subtitle2">
+        <div className={settingsStyles['setting-content-container-title']}>
           <FormattedMessage id="smoochBotResourceEditor.content" defaultMessage="Content" description="Title for the resource content section on a tipline resource settings page" />
         </div>
         <NewsletterHeader

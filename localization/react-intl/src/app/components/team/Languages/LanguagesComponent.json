@@ -10,18 +10,33 @@
     "defaultMessage": "Language detection"
   },
   {
-    "id": "languagesComponent.description",
-    "description": "Instructions for the language detection toggle switch",
-    "defaultMessage": "If language detection is <strong>enabled</strong>, the Check Tipline bot will automatically recognize and respond in the language of your user's request.\n              If <strong>disabled</strong>, the Check Tipline bot will respond in the workspace default language: <strong>{defaultLanguage}</strong>"
-  },
-  {
     "id": "languagesComponent.languageDetectionSwitch",
     "description": "Label for a switch where the user toggles auto language detection",
     "defaultMessage": "Enable language detection"
   },
   {
+    "id": "languagesComponent.alertTitleEnabled",
+    "description": "Title for extra information about the language detection toggle switch when it is enabled",
+    "defaultMessage": "Language detection is enabled"
+  },
+  {
+    "id": "languagesComponent.alertTitleDisabled",
+    "description": "Title for extra information about the language detection toggle switch when it is disabled",
+    "defaultMessage": "Language detection is disabled"
+  },
+  {
+    "id": "languagesComponent.enabledDescription",
+    "description": "Instructions for the language detection toggle switch when enabled",
+    "defaultMessage": "The Check Tipline bot will automatically recognize and respond in the language of your user's request."
+  },
+  {
+    "id": "languagesComponent.disabledDescription",
+    "description": "Instructions for the language detection toggle switch when disabled",
+    "defaultMessage": "The Check Tipline bot will respond in the workspace default language: <strong>{defaultLanguage}</strong>"
+  },
+  {
     "id": "languagesComponent.languages",
     "description": "Title of the active languages list section in language settings page",
-    "defaultMessage": "Languages"
+    "defaultMessage": "Languages [{languageCount}]"
   }
 ]

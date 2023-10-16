@@ -8,7 +8,7 @@ import StatusMessage from './StatusMessage';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import IconMoreVert from '../../../icons/more_vert.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import styles from './Statuses.module.css';
+import settingsStyles from '../Settings.module.css';
 
 const StatusListItem = ({
   defaultLanguage,
@@ -54,7 +54,7 @@ const StatusListItem = ({
       localeStatus.message : null;
 
   return (
-    <li className={styles['settings-status-listitem']}>
+    <li>
       <div>
         {isDefault ? (
           <FormattedMessage
@@ -81,7 +81,7 @@ const StatusListItem = ({
         <p>{statusDescription}</p>
         <StatusMessage message={statusMessage} />
       </div>
-      <div className={styles['settings-status-menu']}>
+      <div className={settingsStyles['setting-content-list-actions']}>
         <ButtonMain className="status-actions__menu" iconCenter={<IconMoreVert />} variant="outlined" size="default" theme="text" onClick={e => setAnchorEl(e.target)} />
         <Menu
           anchorEl={anchorEl}

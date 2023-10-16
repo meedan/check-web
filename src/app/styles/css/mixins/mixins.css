@@ -64,7 +64,7 @@
 }
 
 @define-mixin typography-subtitle1 {
-  @mixin typography-definition var(--fontSizeDefault), 400, .15px, 21px;
+  @mixin typography-definition var(--fontSizeLarge), 500, .15px, 21px;
 }
 
 @define-mixin typography-subtitle2 {

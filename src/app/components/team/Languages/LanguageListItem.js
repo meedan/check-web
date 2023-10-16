@@ -1,13 +1,11 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import cx from 'classnames/bind';
 import IconMoreVert from '../../../icons/more_vert.svg';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { FormattedGlobalMessage } from '../../MappedMessage';
@@ -16,6 +14,7 @@ import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { languageLabelFull } from '../../../LanguageRegistry';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import settingsStyles from '../Settings.module.css';
 
 const messages = defineMessages({
   deleteConfirmationText: {
@@ -176,28 +175,29 @@ const LanguageListItem = ({ code, team, intl }) => {
     });
   };
 
-  const listItemText = (
-    <span className="typography-h6">
-      { languageLabelFull(code) }
-    </span>
-  );
-
   return (
     <React.Fragment>
-      <ListItem>
-        <ListItemText
-          className={isDefault ? `language-list-item__${code}-default` : `language-list-item__${code}`}
-        >
+      <li
+        className={cx(
+          settingsStyles['setting-content-list-language'],
+          {
+            [`language-list-item__${code}-default`]: isDefault,
+            [`language-list-item__${code}`]: !isDefault,
+          })
+        }
+      >
+        <div>
           { isDefault ? (
-            <FormattedMessage
+            <FormattedHTMLMessage
               id="languageListItem.default"
-              defaultMessage="{language} (default)"
+              defaultMessage="<strong>{language}</strong> (default)"
               description="Label to indicate that this language is the default"
-              values={{ language: listItemText }}
+              values={{ language: languageLabelFull(code) }}
             />
-          ) : listItemText }
-        </ListItemText>
-        <ListItemSecondaryAction>
+          ) : <strong>{ languageLabelFull(code) }</strong>
+          }
+        </div>
+        <div className={settingsStyles['setting-content-list-actions']}>
           <ButtonMain iconCenter={<IconMoreVert />} variant="outlined" size="default" theme="text" className="language-actions__menu" onClick={e => setAnchorEl(e.target)} />
           <Menu
             anchorEl={anchorEl}
@@ -211,8 +211,8 @@ const LanguageListItem = ({ code, team, intl }) => {
               <FormattedGlobalMessage messageKey="delete" />
             </MenuItem>
           </Menu>
-        </ListItemSecondaryAction>
-      </ListItem>
+        </div>
+      </li>
       { isTranslationPending ? (
         <ConfirmProceedDialog
           body={(
