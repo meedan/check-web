@@ -112,7 +112,7 @@ const ChatHistory = ({
 
     // Concatenate with a media URL if there is one
     if (mediaUrl) {
-      preParsedText = `${mediaUrl}\n\n${preParsedText}`;
+      preParsedText = [mediaUrl, preParsedText].filter(contentSection => !!contentSection).join('\n\n');
     }
 
     // Return a proper icon for the message event type
@@ -145,7 +145,7 @@ const ChatHistory = ({
           { [styles['bot-message']]: !userMessage },
         )}
       >
-        { content ?
+        { preParsedText ?
           <div className={cx(
             'typography-body1',
             styles[`message-event-${messageEvent ? messageEvent.replaceAll('_', '-') : 'default'}`],
