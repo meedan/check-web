@@ -8,7 +8,7 @@
   }
 
   small {
-    @mixin typography-subtitle1;
+    @mixin typography-subtitle2;
     color: var(--textSecondary);
     margin: 3px 0 0 3px;
   }
