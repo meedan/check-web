@@ -72,9 +72,11 @@
       display: grid;
 
       &::after {
+        border: 2px solid transparent;
 
         /* Note the weird space! Needed to preventy jumpy behavior */
         content: attr(data-replicated-value) ' ';
+        margin-top: 1px;
         max-height: inherit;
         overflow-wrap: anywhere;
 
@@ -98,22 +100,22 @@
 
       > textarea,
       &::after {
-
-        /* Identical styling required!! */
-        border: 1px solid inherit;
         font: inherit;
 
         /* Place on top of each other */
         grid-area: 1 / 1 / 2 / 2;
+        letter-spacing: .15px;
         line-height: 20px;
-        padding: .5rem;
+        margin: 1px 0;
+        padding: .65rem;
       }
     }
 
     &.textarea-maxHeight {
-      > textarea {
+      > textarea,
+      &::after {
         max-height: inherit;
-        overflow: auto;
+        overflow-y: auto;
       }
     }
 
