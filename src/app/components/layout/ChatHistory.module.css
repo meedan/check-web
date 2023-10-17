@@ -137,6 +137,10 @@
         background-color: var(--brandSecondary);
         color: var(--otherWhite);
       }
+
+      .message-event-status-change {
+        background-color: var(--brandLight);
+      }
     }
   }
 }

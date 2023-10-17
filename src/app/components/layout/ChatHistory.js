@@ -130,6 +130,7 @@ const ChatHistory = ({
         break;
       case 'custom_message':
       case 'newsletter':
+      case 'status_change':
         icon = <IconSend />;
         break;
       default:
