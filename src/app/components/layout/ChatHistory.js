@@ -85,11 +85,6 @@ const ChatHistory = ({
       output = output.replace('search_result_is_relevant. ', '');
     }
 
-    // Unsupported message (for example, a document, reaction, etc.
-    if (!output) {
-      output = intl.formatMessage(messages.unsupportedMessage);
-    }
-
     return output;
   };
 
@@ -128,6 +123,11 @@ const ChatHistory = ({
     // Concatenate with a media URL if there is one
     if (mediaUrl) {
       preParsedText = [mediaUrl, preParsedText].filter(contentSection => !!contentSection).join('\n\n');
+    }
+
+    // Unsupported message (for example, a document, reaction, etc.
+    if (!preParsedText) {
+      preParsedText = intl.formatMessage(messages.unsupportedMessage);
     }
 
     // Return a proper icon for the message event type
