@@ -9,8 +9,6 @@ import TelegramIcon from '../../icons/telegram.svg';
 import ViberIcon from '../../icons/viber.svg';
 import LineIcon from '../../icons/line.svg';
 import WhatsAppIcon from '../../icons/whatsapp.svg';
-import FactCheckIcon from '../../icons/fact_check.svg';
-import EditNoteIcon from '../../icons/edit_note.svg';
 import SendTiplineMessage from '../SendTiplineMessage';
 import { languageName } from '../../LanguageRegistry';
 import {
@@ -26,16 +24,6 @@ const messages = defineMessages({
     id: 'annotation.smoochNoMessage',
     defaultMessage: 'No message was sent with the request',
     description: 'Replacement for tipline requests without a message',
-  },
-  reportReceived: {
-    id: 'annotation.reportReceived',
-    defaultMessage: 'Report sent on {date}',
-    description: 'Caption for report sent date',
-  },
-  reportUpdateReceived: {
-    id: 'annotation.reportUpdateReceived',
-    defaultMessage: 'Report update sent on {date}',
-    description: 'Caption for report update sent date',
   },
 });
 
@@ -142,13 +130,13 @@ const TiplineRequest = ({
   const reportReceiveStatus = {};
 
   if (smoochReportReceivedAt) {
-    reportReceiveStatus.label = formatMessage(messages.reportReceived, { date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }) });
-    reportReceiveStatus.icon = <FactCheckIcon className={styles.icon} />;
+    reportReceiveStatus.type = 'fact_check_delivered';
+    reportReceiveStatus.timestamp = smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' });
   }
 
   if (smoochReportUpdateReceivedAt) {
-    reportReceiveStatus.label = formatMessage(messages.reportUpdateReceived, { date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }) });
-    reportReceiveStatus.icon = <EditNoteIcon className={styles.icon} />;
+    reportReceiveStatus.type = 'update_delivered';
+    reportReceiveStatus.timestamp = smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' });
   }
 
   return (
@@ -171,8 +159,8 @@ const TiplineRequest = ({
         }
         receipt={
           <RequestReceipt
-            icon={reportReceiveStatus.icon}
-            label={reportReceiveStatus.label}
+            type={reportReceiveStatus.type}
+            timestamp={reportReceiveStatus.timestamp}
           />
         }
       />
