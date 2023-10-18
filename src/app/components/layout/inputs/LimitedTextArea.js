@@ -75,7 +75,6 @@ LimitedTextArea.defaultProps = {
   value: '',
   setValue: null,
   helpContent: null,
-  textFieldProps: {},
   onErrorTooLong: () => {},
 };
 
@@ -85,7 +84,6 @@ LimitedTextArea.propTypes = {
   setValue: PropTypes.func,
   helpContent: PropTypes.element,
   onErrorTooLong: PropTypes.func,
-  textFieldProps: PropTypes.object,
   required: PropTypes.bool,
 };
 

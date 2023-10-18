@@ -50,7 +50,14 @@
     }
 
     .time {
+      align-items: center;
       cursor: default;
+      display: flex;
+      gap: 4px;
+
+      svg {
+        font-size: var(--iconSizeTiny);
+      }
     }
 
     .bot-message {
@@ -72,10 +79,6 @@
         padding: 8px;
         white-space: pre-wrap;
         width: fit-content;
-
-        a {
-          color: var(--otherWhite);
-        }
       }
 
       .bot {
@@ -105,6 +108,38 @@
       .delivered {
         color: var(--validationMain);
         vertical-align: middle;
+      }
+
+      /* Styles for different message events */
+      .message-event-no-results {
+        background-color: var(--alertMain);
+        color: var(--otherWhite);
+      }
+
+      .message-event-report,
+      .message-event-search-result,
+      .message-event-newsletter,
+      .message-event-resource {
+        background-color: var(--validationMain);
+        color: var(--otherWhite);
+      }
+
+      .message-event-timeout {
+        background-color: var(--textPrimary);
+        color: var(--otherWhite);
+      }
+
+      .message-event-option-not-available {
+        background-color: var(--errorLight);
+      }
+
+      .message-event-custom-message {
+        background-color: var(--brandSecondary);
+        color: var(--otherWhite);
+      }
+
+      .message-event-status-change {
+        background-color: var(--brandLight);
       }
     }
   }

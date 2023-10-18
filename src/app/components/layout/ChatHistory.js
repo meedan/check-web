@@ -1,15 +1,30 @@
 // DESIGNS: https://www.figma.com/file/bQWUXJItRRX8xO3uQ9FWdg/Multimedia-Newsletter-%2B-Report?type=design&node-id=656-50446&mode=design&t=PjtorENpol0lp5QG-://www.figma.com/file/swpcrmbyoYJXMnqhsVT5sr/Conversation-history-and-messaging-via-request?type=design&node-id=110-15572&mode=design&t=3zQWKZA3YXye2rWF-0
 import React from 'react';
 import PropTypes from 'prop-types';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import cx from 'classnames/bind';
-import Linkify from 'react-linkify';
 import IconClose from '../../icons/cancel.svg';
 import IconDone from '../../icons/done.svg';
+import IconFactCheck from '../../icons/fact_check.svg';
+import IconBot from '../../icons/smart_toy.svg';
+import IconResource from '../../icons/task.svg';
+import IconSend from '../../icons/send.svg';
+import IconMenuOpen from '../../icons/menu_open.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import ParsedText from '../ParsedText';
 import styles from './ChatHistory.module.css';
 
+const messages = defineMessages({
+  unsupportedMessage: {
+    id: 'chatHistory.unsupportedMessage',
+    defaultMessage: 'Unsupported message',
+    description: 'Fallback used in the conversation history when a type of message is not supported',
+  },
+});
+
 const ChatHistory = ({
+  intl,
   title,
   history,
   handleClose,
@@ -46,10 +61,10 @@ const ChatHistory = ({
     // Items from us have text directly in the payload, items from users have it in a messages sub-object
     if (item.payload?.text && typeof item.payload.text === 'string') {
       // Smooch templates are raw text objects that start with the text `&((namespace` and look like
-      // &((namespace=[[cf8315ab_1bf3_28c3_eaaa_90dc59c1c9ad]]template=[[manual_4oct23]]fallback=[[Thank you!]]language=[[en]]body_text=[[09 Oct 16:23]]body_text=[[Thank you!]]))&
+      // &((namespace=[[abc_123_def_456]]template=[[manual_4oct23]]fallback=[[Thank you!]]language=[[en]]body_text=[[09 Oct 16:23]]body_text=[[Thank you!]]))&
       // and we extract the 'fallback' to render this
       if (item.payload.text.match(/^&\(\(namespace/)) {
-        const fallbackMatch = item.payload.text.match(/fallback=\[\[(.*?)\]\]/);
+        const fallbackMatch = item.payload.text.match(/fallback=\[\[([^\]]+)\]\]/m);
         if (fallbackMatch !== null) {
           // eslint-disable-next-line prefer-destructuring
           output = fallbackMatch[1];
@@ -61,12 +76,24 @@ const ChatHistory = ({
       }
     } else if (item.payload.messages?.length) {
       output = item.payload.messages.map(message => message.text).join('//');
+    } else if (item.payload?.text && typeof item.payload.text === 'object') {
+      output = item.payload.text;
+    }
+
+    // Hide the machine label for the positive feedback button
+    if (typeof output === 'string') {
+      output = output.replace('search_result_is_relevant. ', '');
+    }
+
+    // Unsupported message (for example, a document, reaction, etc.
+    if (!output) {
+      output = intl.formatMessage(messages.unsupportedMessage);
     }
 
     return output;
   };
 
-  const convertSentAtToLocaleDateString = sent_at => new Date(+sent_at * 1000).toLocaleDateString();
+  const convertSentAtToLocaleDateString = sent_at => new Date(+sent_at * 1000).toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' });
 
   const parseCapiTemplate = content => (
     content.components.map(
@@ -81,36 +108,76 @@ const ChatHistory = ({
   );
 
   const Message = ({
+    messageId,
+    messageEvent,
     content,
     dateTime,
     userMessage,
     isDelivered,
     userSelection,
+    mediaUrl,
   }) => {
     const d = new Date(dateTime);
+
+    let preParsedText = (
+      typeof content === 'object' ? // It's probably a CapiTemplate Cloud API template message, which is an object
+        parseCapiTemplate(content.template) :
+        content
+    );
+
+    // Concatenate with a media URL if there is one
+    if (mediaUrl) {
+      preParsedText = [mediaUrl, preParsedText].filter(contentSection => !!contentSection).join('\n\n');
+    }
+
+    // Return a proper icon for the message event type
+    let icon = null;
+    if (userSelection) {
+      icon = <IconMenuOpen />;
+    } else if (!userMessage) {
+      switch (messageEvent) {
+      case 'report':
+      case 'search_result':
+        icon = <IconFactCheck />;
+        break;
+      case 'resource':
+        icon = <IconResource />;
+        break;
+      case 'custom_message':
+      case 'newsletter':
+      case 'status_change':
+        icon = <IconSend />;
+        break;
+      default:
+        icon = <IconBot />;
+      }
+    }
+
     return (
-      <div className={cx(styles.message, {
-        [styles['bot-message']]: !userMessage,
-      })}
-      >
-        <Linkify className={cx(
-          'typography-body1',
-          {
-            [styles.user]: userMessage,
-            [styles.bot]: !userMessage,
-            [styles.selection]: userSelection,
-          },
+      <div
+        id={`message-${messageId}`}
+        className={cx(
+          styles.message,
+          { [styles['bot-message']]: !userMessage },
         )}
-        >
-          {
-            typeof content === 'object' ? // It's probably a CapiTemplate Cloud API template message, which is an object
-              parseCapiTemplate(content.template) :
-              content
-          }
-        </Linkify>
+      >
+        { preParsedText ?
+          <div className={cx(
+            'typography-body1',
+            styles[`message-event-${messageEvent ? messageEvent.replaceAll('_', '-') : 'default'}`],
+            {
+              [styles.user]: userMessage,
+              [styles.bot]: !userMessage,
+              [styles.selection]: userSelection,
+            },
+          )}
+          >
+            <ParsedText text={preParsedText} mediaChips />
+          </div> : null }
         <div className={`typography-body2 ${styles.time}`}>
+          {icon}
           <Tooltip title={d.toLocaleString()}>
-            <time dateTime={d.toISOString()}>{d.toLocaleTimeString()}</time>
+            <time dateTime={d.toISOString()}>{d.toLocaleTimeString(intl.locale)}</time>
           </Tooltip>
           {isDelivered && <IconDone className={styles.delivered} />}
         </div>
@@ -138,7 +205,7 @@ const ChatHistory = ({
         {parseHistory(history).map((item, index, array) => {
           const content = parseItem(item);
           let dateHeader = null;
-          // check to see if the previous item in the array renders a different day in our local timzone
+          // check to see if the previous item in the array renders a different day in our local timezone
           // and then insert a date header if we have crossed a local date boundary between messages
           if (array[index - 1]?.sent_at) {
             const lastMessageDateFormatted = convertSentAtToLocaleDateString(array[index - 1]?.sent_at);
@@ -155,7 +222,10 @@ const ChatHistory = ({
           return (
             <div dateTime={dateTime}>
               <Message
+                messageId={item.dbid}
+                messageEvent={item.event}
                 content={content}
+                mediaUrl={item.media_url}
                 dateTime={dateTime}
                 userMessage={item.direction === 'incoming'}
                 userSelection={item.userSelection}
@@ -180,6 +250,7 @@ ChatHistory.propTypes = {
   title: PropTypes.string.isRequired,
   history: PropTypes.object.isRequired,
   handleClose: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default ChatHistory;
+export default injectIntl(ChatHistory);

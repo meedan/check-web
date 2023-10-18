@@ -4,10 +4,10 @@ import IconEllipse from '../../../icons/ellipse.svg';
 import styles from './Statuses.module.css';
 
 const StatusLabel = props => (
-  <h6 className={styles['status-label']}>
+  <strong className={styles['status-label']}>
     <IconEllipse style={{ color: props.color }} />
     {props.children}
-  </h6>
+  </strong>
 );
 
 StatusLabel.propTypes = {

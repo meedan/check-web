@@ -7,14 +7,6 @@
   width: 100%;
 }
 
-.team-details-section {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
-  width: 100%;
-}
-
 .StyledAvatarEditButton {
   width: 100%;
 }

@@ -3,6 +3,7 @@
   max-width: 100%;
   overflow: hidden;
   text-decoration: none;
+  vertical-align: middle;
 
   &:hover {
     text-decoration: underline;

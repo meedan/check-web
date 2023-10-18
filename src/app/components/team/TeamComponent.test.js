@@ -39,7 +39,7 @@ describe('<TeamComponent />', () => {
     getStore().team = team;
     const wrapper = shallowWithIntl(<TeamComponentTest
       team={team}
-      params={{}}
+      params={{ tab: '' }}
     />);
     expect(wrapper.find('.team-settings__report-tab')).toHaveLength(0);
     expect(wrapper.find('.team-settings__data-tab')).toHaveLength(0);
@@ -56,7 +56,7 @@ describe('<TeamComponent />', () => {
     getStore().team = team;
     const wrapper = shallowWithIntl(<TeamComponentTest
       team={team2}
-      params={{}}
+      params={{ tab: 'report' }}
     />);
     expect(wrapper.find('.team-settings__report-tab')).toHaveLength(1);
     expect(wrapper.find('.team-settings__data-tab')).toHaveLength(1);

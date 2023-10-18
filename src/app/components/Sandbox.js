@@ -55,7 +55,7 @@ const SandboxComponent = ({ admin }) => {
   const [switchesDisabled, setSwitchesDisabled] = React.useState(Boolean(false));
   const [switchesHelp, setSwitchesHelp] = React.useState(Boolean(false));
   const [switched, setSwitchExample] = React.useState(Boolean(false));
-  const [limitedText, setLimitedText] = React.useState('Hello this is the initial limited text state. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. This is very very long. ');
+  const [limitedText, setLimitedText] = React.useState('DRF envisions a place where all people, and especially women, are able to exercise their right of expression without being threatened. We believe that free internet with access to information and impeccable privacy policies can encourage such a healthy and productive environment that would eventually help not only women, but the world at large. \n Digital Rights Foundation aims to strengthen protections for human rights defenders (HRDs), with a focus on women\'s rights, in digital spaces through policy advocacy & digital security awareness-raising. In addition, one of our aims at the Foundation is also to protect women from work and cyber-harassment that they have to deal with through out their lives.');
   const [textareaHelp, setTextareaHelp] = React.useState(Boolean(true));
   const [textareaAutogrow, setTextareaAutogrow] = React.useState(Boolean(true));
   const [textareaLimited, setTextareaLimited] = React.useState(Boolean(true));
@@ -207,6 +207,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Variant"
                   onChange={onChangeButtonVariant}
+                  value={buttonVariant}
                 >
                   <option value="contained">contained (default)</option>
                   <option value="outlined">outlined</option>
@@ -217,6 +218,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Size"
                   onChange={onChangeButtonSize}
+                  value={buttonSize}
                 >
                   <option value="default">default</option>
                   <option value="small">small</option>
@@ -227,6 +229,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Theme"
                   onChange={onChangeButtonTheme}
+                  value={buttonTheme}
                 >
                   <optgroup label="brand">
                     <option value="brand">brand (default)</option>
@@ -286,6 +289,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Variant"
                   onChange={onChangeReorderVariant}
+                  value={reorderVariant}
                 >
                   <option value="vertical">vertical (default)</option>
                   <option value="horizontal">horizontal</option>
@@ -295,6 +299,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Theme"
                   onChange={onChangeReorderTheme}
+                  value={reorderTheme}
                 >
                   <option value="gray">gray (default)</option>
                   <option value="white">white</option>
@@ -435,6 +440,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Row Count"
                   onChange={onChangeTextareaRows}
+                  value={textareaRows}
                 >
                   <option value="none">none</option>
                   <option value="1">1</option>
@@ -447,11 +453,14 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Max height"
                   onChange={onChangeTextareaMaxHeight}
+                  value={textareaMaxHeight}
                 >
                   <option value="none">none</option>
                   <option value="48px">48px</option>
                   <option value="96px">96px</option>
                   <option value="180px">180px</option>
+                  <option value="360px">360px</option>
+                  <option value="500px">500px</option>
                 </Select>
               </li>
               <li>
@@ -544,6 +553,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Label Placement"
                   onChange={onChangeSwitchLabelPlacement}
+                  value={switchLabelPlacement}
                 >
                   <option value="top">top (default)</option>
                   <option value="bottom">bottom</option>
@@ -708,6 +718,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Variant"
                   onChange={onChangeAlertVariant}
+                  value={alertVariant}
                 >
                   <option value="info">info</option>
                   <option value="success">success</option>
@@ -809,6 +820,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Size"
                   onChange={onChangeLoadingSize}
+                  value={loadingSize}
                 >
                   <option value="icon">icon</option>
                   <option value="small">small</option>
@@ -820,6 +832,7 @@ const SandboxComponent = ({ admin }) => {
                 <Select
                   label="Theme"
                   onChange={onChangeLoadingTheme}
+                  value={loadingTheme}
                 >
                   <option value="grey" selected>grey</option>
                   <option value="white">white</option>=

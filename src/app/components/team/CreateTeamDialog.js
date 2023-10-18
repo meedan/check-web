@@ -1,18 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import TextField from '../cds/inputs/TextField';
 import { getErrorMessage } from '../../helpers';
+
+const messages = defineMessages({
+  duplicating: {
+    id: 'createTeamDialog.duplicating',
+    defaultMessage: 'Duplicating…',
+    description: 'Button label status message while duplicating a workspace is in process',
+  },
+  duplicate: {
+    id: 'createTeamDialog.duplicate',
+    defaultMessage: 'Duplicate',
+    description: 'Button label to start to duplicate a workspace',
+  },
+  creating: {
+    id: 'createTeamDialog.creating',
+    defaultMessage: 'Creating…',
+    description: 'Button label status message while creating a new workspace is in process',
+  },
+  create: {
+    id: 'createTeamDialog.create',
+    defaultMessage: 'Create',
+    description: 'Button label to start to create a new workspace',
+  },
+});
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -24,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CreateTeamDialog = ({ onDismiss, team }) => {
+const CreateTeamDialog = ({ onDismiss, team, intl }) => {
   const classes = useStyles();
   const [saving, setSaving] = React.useState(false);
   const [name, setName] = React.useState(team ? `Copy of ${team.name}` : '');
@@ -127,6 +149,18 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
   };
 
   const handleSubmit = team ? handleDuplicate : handleCreate;
+  const { formatMessage } = intl;
+
+  let buttonLabel = null;
+  if (team && saving) {
+    buttonLabel = formatMessage(messages.duplicating);
+  } else if (team && !saving) {
+    buttonLabel = formatMessage(messages.duplicate);
+  } else if (!team && saving) {
+    buttonLabel = formatMessage(messages.creating);
+  } else if (!team && !saving) {
+    buttonLabel = formatMessage(messages.create);
+  }
 
   return (
     <Dialog open>
@@ -180,32 +214,35 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
             }
             setSlug(e.target.value);
           }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                https://checkmedia.org/
-              </InputAdornment>
-            ),
-          }}
+          helpContent={`https://checkmedia.org/${slug || autoSlug}`}
           error={Boolean(errorMessage)}
           helperText={errorMessage}
           {...textFieldProps}
         />
       </DialogContent>
       <DialogActions className={classes.actions}>
-        <Button onClick={onDismiss}>
-          <FormattedMessage
-            id="createTeamDialog.cancel"
-            defaultMessage="Cancel"
-            description="Button label to cancel creating a workspace"
-          />
-        </Button>
-        <Button color="primary" variant="contained" className="create-team-dialog__confirm-button" onClick={handleSubmit} disabled={saving || !name}>
-          { team && saving ? <FormattedMessage id="createTeamDialog.duplicating" defaultMessage="Duplicating…" description="Button label status message while duplicating a workspace is in process" /> : null }
-          { team && !saving ? <FormattedMessage id="createTeamDialog.duplice" defaultMessage="Duplicate" description="Button label to start to duplicate a workspace" /> : null }
-          { !team && saving ? <FormattedMessage id="createTeamDialog.creating" defaultMessage="Creating…" description="Button label status message while creating a new workspace is in process" /> : null }
-          { !team && !saving ? <FormattedMessage id="createTeamDialog.create" defaultMessage="Create" description="Button label to start to create a new workspace" /> : null }
-        </Button>
+        <ButtonMain
+          onClick={onDismiss}
+          theme="text"
+          variant="text"
+          size="default"
+          label={
+            <FormattedMessage
+              id="createTeamDialog.cancel"
+              defaultMessage="Cancel"
+              description="Button label to cancel creating a workspace"
+            />
+          }
+        />
+        <ButtonMain
+          theme="brand"
+          variant="contained"
+          size="default"
+          className="create-team-dialog__confirm-button"
+          onClick={handleSubmit}
+          disabled={saving || !name}
+          label={buttonLabel}
+        />
       </DialogActions>
     </Dialog>
   );
@@ -223,9 +260,10 @@ CreateTeamDialog.propTypes = {
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
   }),
+  intl: intlShape.isRequired,
 };
 
-export default createFragmentContainer(CreateTeamDialog, graphql`
+export default createFragmentContainer(injectIntl(CreateTeamDialog), graphql`
   fragment CreateTeamDialog_team on Team {
     id
     name

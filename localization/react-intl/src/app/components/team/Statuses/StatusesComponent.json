@@ -22,7 +22,7 @@
   {
     "id": "statusesComponent.title",
     "description": "The idea of this sentence is 'statuses written in language <languageName>'",
-    "defaultMessage": "{languageName} statuses"
+    "defaultMessage": "{languageName} statuses [{statusCount}]"
   },
   {
     "id": "statusesComponent.newStatus",
