@@ -17,3 +17,8 @@
   padding: 12px;
   width: 100%;
 }
+
+.buttons {
+  display: flex;
+  gap: 8px;
+}

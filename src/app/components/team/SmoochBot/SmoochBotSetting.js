@@ -119,7 +119,7 @@ const SmoochBotSetting = (props) => {
         handleChange(field, newValue);
       }}
       helpContent={schema.description}
-      variant="outlined"
+      variant="contained"
       componentProps={inputProps}
       {...otherProps}
     />

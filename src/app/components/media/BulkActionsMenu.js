@@ -285,7 +285,7 @@ const BulkActionsMenu = ({
         <ButtonMain
           theme="brand"
           variant="contained"
-          size="small"
+          size="default"
           onClick={e => setAnchorEl(e.currentTarget)}
           iconRight={<KeyboardArrowDownIcon />}
           buttonProps={{

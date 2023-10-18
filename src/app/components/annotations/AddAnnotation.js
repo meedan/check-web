@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AttachFileIcon from '../../icons/attach_file.svg';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
@@ -396,18 +396,20 @@ class AddAnnotation extends Component {
             />
           ) : null}
           <AddAnnotationButtonGroup className="add-annotation__buttons">
-            <Tooltip title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" description="Tooltip to tell the user they can add files" />} >
-              <ButtonMain
-                variant="text"
-                theme="lightText"
-                size="default"
-                iconCenter={<AttachFileIcon />}
-                className={`add-annotation__insert-photo ${this.state.fileMode ? 'add-annotation__file' : ''}`}
-                buttonProps={{
-                  id: 'add-annotation__switcher',
-                }}
-                onClick={this.switchMode.bind(this)}
-              />
+            <Tooltip arrow title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" description="Tooltip to tell the user they can add files" />}>
+              <span>
+                <ButtonMain
+                  variant="text"
+                  theme="lightText"
+                  size="default"
+                  iconCenter={<AttachFileIcon />}
+                  className={`add-annotation__insert-photo ${this.state.fileMode ? 'add-annotation__file' : ''}`}
+                  buttonProps={{
+                    id: 'add-annotation__switcher',
+                  }}
+                  onClick={this.switchMode.bind(this)}
+                />
+              </span>
             </Tooltip>
             { editMode ?
               <Button onClick={this.props.handleCloseEdit} >

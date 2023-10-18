@@ -13,7 +13,7 @@ const MediaChip = ({
 
   const mediaType = mediaTypeFromFilename(label) || mediaTypeFromUrl(url);
 
-  // Shortens url by hiding https://wwww.
+  // Shortens url by hiding https://www.
   const shortUrl = !isFile ? url.match(/https?:\/\/www.?([^ ]+)/)?.[1] : null;
 
   return (

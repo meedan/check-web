@@ -12,7 +12,7 @@
   {
     "id": "smoochBot.addResource",
     "description": "Button label to add a resource to this bot",
-    "defaultMessage": "Add resource"
+    "defaultMessage": "Resource"
   },
   {
     "id": "smoochBotConfig.subscriptionHeader",

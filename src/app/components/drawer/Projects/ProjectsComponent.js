@@ -278,7 +278,7 @@ const ProjectsComponent = ({
           <ListItemText disableTypography className={styles.listHeaderLabel}>
             <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
             <Can permissions={team.permissions} permission="create Project">
-              <Tooltip title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
+              <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
                 <IconButton id="projects-list__add-filtered-list" onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
                   <AddCircleIcon />
                 </IconButton>
@@ -321,7 +321,7 @@ const ProjectsComponent = ({
           <ListItemText disableTypography className={styles.listHeaderLabel}>
             <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
             <Can permissions={team.permissions} permission="create Feed">
-              <Tooltip title={<FormattedMessage id="projectsComponent.newSharedFeed" defaultMessage="New shared feed" description="Tooltip for the button that navigates to shared feed creation page" />}>
+              <Tooltip arrow title={<FormattedMessage id="projectsComponent.newSharedFeed" defaultMessage="New shared feed" description="Tooltip for the button that navigates to shared feed creation page" />}>
                 <IconButton onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-feed'].join(' ')}>
                   <AddCircleIcon />
                 </IconButton>

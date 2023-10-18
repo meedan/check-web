@@ -121,7 +121,9 @@ const NewsletterComponent = ({
       // We have to do `new Date` twice here -- the `Date.parse` gives us a date object with no timezone associated. We wrap that in `new Date` to turn it from a string to a Date object. That object then uses `toLocaleString` to localize it to a string with the correct time derived from our `timezone` which is either `'Region/Zone'` or `'Region/Zone (GMT+xx:xx)'`, which we extract via regex. This gives us a second string, which we then convert back to Date object so we can compare it to the current unix epoch time. We specify 'en-US' for the localeString conversion since that is how the database is storing the datetime.
       const date = new Date(Date.parse(`${sendOn} ${time} +0000`));
       const utcDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
-      const tzDate = new Date(date.toLocaleString('en-US', { timeZone: timezone.match(/^\w*\/\w*/) && timezone.match(/^\w*\/\w*/)[0] }));
+      // Parse for `Foo/Bar` and `Foo/Bar/Baz`
+      const timeZoneRegex = /^\w*\/\w*(\/\w*)?/;
+      const tzDate = new Date(date.toLocaleString('en-US', { timeZone: timezone.match(/^\w*\/\w*/) && timezone.match(timeZoneRegex)[0] }));
       const offset = utcDate.getTime() - tzDate.getTime();
       date.setTime(date.getTime() + offset);
       const scheduledDateTime = date;
@@ -253,7 +255,6 @@ const NewsletterComponent = ({
   const handleSuccess = (response) => {
     setScheduled(response?.updateTiplineNewsletter?.tipline_newsletter?.enabled);
     setSaving(false);
-    setErrors({});
     setFlashMessage((
       <FormattedMessage
         id="newsletterComponent.success"
@@ -376,6 +377,10 @@ const NewsletterComponent = ({
               handleError(err);
             } else {
               handleSuccess(response);
+              // Clear errors only if the action is "schedule" or "paused", if it is just the "save" action then we want to keep displaying the errors
+              if (scheduledOrPaused === 'paused' || scheduledOrPaused === 'scheduled') {
+                setErrors({});
+              }
               // FIXME: Find a better way to refresh the local store when a newsletter is created
               if (!input.id) {
                 window.location.assign(`/${team.slug}/settings/newsletter`);
@@ -455,8 +460,8 @@ const NewsletterComponent = ({
       />
       <div className={cx('newsletter-component', settingsStyles['setting-details-wrapper'])}>
         <div className={cx(settingsStyles['setting-content-container'])}>
-          <div className={styles.settings}>
-            <div className="typography-subtitle2">
+          <div className={cx(styles.settings, settingsStyles['setting-content-container-inner'])}>
+            <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage id="newsletterComponent.content" defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" />
             </div>
             <NewsletterHeader
@@ -505,7 +510,7 @@ const NewsletterComponent = ({
                 />
               )}
             </FormattedMessage>
-            <div className={styles['newsletter-body']}>
+            <div className={cx(settingsStyles['setting-content-container-inner-accent'], styles['newsletter-body'])}>
               <div className={styles.switcher}>
                 <SwitchComponent
                   key={`newsletter-rss-feed-enabled-${language}`}

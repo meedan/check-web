@@ -41,6 +41,12 @@ const TextField = React.forwardRef(({
 }, ref) => {
   const [internalError, setInternalError] = React.useState(suppressInitialError ? false : error);
 
+  React.useEffect(() => {
+    if (ref?.current && textArea) {
+      ref.current.parentNode.setAttribute('data-replicated-value', ref.current.value);
+    }
+  }, []);
+
   useEffectSkipFirst(() => {
     setInternalError(error);
   });

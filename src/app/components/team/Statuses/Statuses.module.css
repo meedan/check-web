@@ -4,47 +4,19 @@
   gap: 2px;
 
   :global(.check-icon) {
-    font-size: 28px; /* stylelint-disable-line scale-unlimited/declaration-strict-value */
+    font-size: var(--iconSizeDefault);
   }
 
   small {
-    @mixin typography-subtitle1;
+    @mixin typography-subtitle2;
     color: var(--textSecondary);
     margin: 3px 0 0 3px;
   }
 }
 
-.settings-status-listitem {
-  align-items: flex-start;
-  border-bottom: solid 2px var(--grayBorderMain);
-  display: flex;
-  gap: 16px;
-  margin: 0 0 16px;
-  padding: 0 0 16px;
-
-  &:last-of-type {
-    border-bottom: 0;
-    margin: 0;
-    padding: 0;
-  }
-
-  > div {
-    flex: 1 1 auto;
-
-    p {
-      color: var(--textSecondary);
-      margin: 3px 0 0 32px;
-    }
-
-    .status-message {
-      margin: 6px 0 0 28px;
-      width: calc(100% - 28px);
-    }
-
-    &.settings-status-menu {
-      flex: 0 0 auto;
-    }
-  }
+.status-message {
+  margin: 6px 0 0 28px;
+  width: calc(100% - 28px);
 }
 
 .settings-translated-statuses {

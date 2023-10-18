@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { breakWordStyles } from '../../styles/js/shared';
 
-const LongShort = styled.div`
+const LongShort = styled.p`
   ${breakWordStyles}
   overflow: hidden;
   display: -webkit-box;

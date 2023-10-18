@@ -134,5 +134,5 @@ Search.propTypes = {
   defaultQuery: PropTypes.object.isRequired, // may be empty
   showExpand: PropTypes.bool,
   resultType: PropTypes.string, // 'default' or 'feed', for now
-  extra: PropTypes.node, // or null
+  extra: PropTypes.oneOfType([PropTypes.node, PropTypes.func]), // or null
 };
