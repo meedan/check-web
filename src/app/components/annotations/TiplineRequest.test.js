@@ -13,12 +13,15 @@ const media = {
 
 const annotation = {
   created_at: '1692731080',
+  annotation_id: 12345,
   smooch_report_received_at: 1692731090,
   smooch_report_update_received_at: 1692731095,
   smooch_user_slack_channel_url: 'https://test.slack.com/user/123',
   smooch_user_external_identifier: 'test',
   associated_graphql_id: 'UHJvamVjdE1lZGlhLzE=\n',
   value_json: {
+    name: 'Bli',
+    authorId: 'blo',
     text: 'Hello Meedan',
     source: {
       type: 'whatsapp',
@@ -35,7 +38,7 @@ describe('<TiplineRequest />', () => {
       />
     ));
     expect(wrapper.find(Request).length).toEqual(1);
-    expect(wrapper.html()).toMatch('Report update sent on Aug 22, 2023');
+    expect(wrapper.html()).toMatch('Correction delivered on Aug 22, 2023');
     expect(wrapper.html()).toMatch('Hello Meedan');
   });
 

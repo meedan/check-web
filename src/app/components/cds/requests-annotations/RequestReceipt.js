@@ -62,17 +62,36 @@ const RequestReceipt = ({
       color: 'yellow',
     },
     update_delivered: {
-      label: <FormattedMessage id="requestReceipt.updateDelivered" defaultMessage="Correction delivered on {date}" description="Message displayed when user request has a fact-check update delivered" />,
+      label: (
+        <FormattedMessage
+          id="requestReceipt.updateDelivered"
+          defaultMessage="Correction delivered on {date}"
+          description="Message displayed when user request has a fact-check update delivered"
+          values={{ date: timestamp }}
+        />
+      ),
       icon: <EditNoteIcon />,
       color: 'green',
     },
     search_result_no_feedback: {
-      label: <FormattedMessage id="requestReceipt.noFeedback" defaultMessage="Search result – no feedback" description="Message displayed when user has given no feedback over the fact-check sent for this request" />,
+      label: (
+        <FormattedMessage
+          id="requestReceipt.noFeedback"
+          defaultMessage="Search result – no feedback"
+          description="Message displayed when user has given no feedback over the fact-check sent for this request"
+        />
+      ),
       icon: <SearchIcon />,
       color: 'yellow',
     },
     search_result_positive_feedback: {
-      label: <FormattedMessage id="requestReceipt.positiveFeedback" defaultMessage="Search result – positive feedback" description="Message displayed when user has given a positive feedback over the fact-check sent for this request" />,
+      label: (
+        <FormattedMessage
+          id="requestReceipt.positiveFeedback"
+          defaultMessage="Search result – positive feedback"
+          description="Message displayed when user has given a positive feedback over the fact-check sent for this request"
+        />
+      ),
       icon: <RecommendIcon />,
       color: 'green',
     },
