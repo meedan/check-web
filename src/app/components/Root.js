@@ -35,6 +35,7 @@ import SavedSearch from './search/SavedSearch';
 import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
 import Sandbox from './Sandbox';
+import SandboxCrash from './SandboxCrash';
 
 class Root extends Component {
   static logPageView() {
@@ -76,6 +77,7 @@ class Root extends Component {
                   <Route path="check/user/:userId(/:tab)" component={User} />
                   <Route path="check/me/edit" isEditing component={Me} />
                   <Route path="check/me/ui-sandbox" component={Sandbox} />
+                  <Route path="check/me/ui-sandbox/crash" component={SandboxCrash} />
                   <Route path="check/me(/:tab)" component={Me} />
                   <Route path="check/feed/:feedId/cluster/:clusterId" component={FeedItem} />
                   <Route path="check/feed/:feedId/request/:requestId" component={FeedClusterPage} />
