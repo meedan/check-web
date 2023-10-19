@@ -25,7 +25,7 @@ module AppSpecHelpers
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
 
-  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false, ignore_raise = false, print_beat = false)
+  def wait_for_selector_list(selector, type = :css, timeout = 20, reload = false, ignore_raise = false, print_beat = false)
     elements = []
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
@@ -33,7 +33,7 @@ module AppSpecHelpers
     while elements.empty? && attempts < 3
       attempts += 1
       sleep 0.5
-      puts("#{Time.now}: wait_for_selector_list(#{selector}, #{type}, #{timeout}, #{_test}, #{reload}, #{ignore_raise}, #{print_beat}), attempt ##{attempts}...") if print_beat
+      puts("#{Time.now}: wait_for_selector_list(#{selector}, #{type}, #{timeout}, #{reload}, #{ignore_raise}, #{print_beat}), attempt ##{attempts}...") if print_beat
       begin
         retries ||= 0
         wait.until { @driver.find_elements(type, selector).length.positive? }
@@ -61,7 +61,7 @@ module AppSpecHelpers
     start = Time.now.to_i
     while elements.length < size && attempts < retries
       attempts += 1
-      elements = wait_for_selector_list(selector, type, timeout, test, reload, ignore_raise, print_beat)
+      elements = wait_for_selector_list(selector, type, timeout, reload, ignore_raise, print_beat)
     end
     finish = Time.now.to_i - start
     raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size && !ignore_raise
