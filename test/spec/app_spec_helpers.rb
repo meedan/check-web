@@ -54,6 +54,10 @@ module AppSpecHelpers
     elements
   end
 
+  def wait_for_audio
+    wait_for_selector_list_size('.media__relationship', 1, :css, 20, 10_000, 'unknown', false, false)
+  end
+
   def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false, ignore_raise = false)
     elements = []
     attempts = 0
