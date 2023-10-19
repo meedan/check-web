@@ -1,6 +1,7 @@
 // DESIGNS: https://www.figma.com/file/bQWUXJItRRX8xO3uQ9FWdg/Multimedia-Newsletter-%2B-Report?type=design&node-id=656-50446&mode=design&t=PjtorENpol0lp5QG-://www.figma.com/file/swpcrmbyoYJXMnqhsVT5sr/Conversation-history-and-messaging-via-request?type=design&node-id=110-15572&mode=design&t=3zQWKZA3YXye2rWF-0
 import React from 'react';
 import PropTypes from 'prop-types';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import cx from 'classnames/bind';
 import IconClose from '../../icons/cancel.svg';
 import IconDone from '../../icons/done.svg';
@@ -14,7 +15,16 @@ import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ParsedText from '../ParsedText';
 import styles from './ChatHistory.module.css';
 
+const messages = defineMessages({
+  unsupportedMessage: {
+    id: 'chatHistory.unsupportedMessage',
+    defaultMessage: 'Unsupported message',
+    description: 'Fallback used in the conversation history when a type of message is not supported',
+  },
+});
+
 const ChatHistory = ({
+  intl,
   title,
   history,
   handleClose,
@@ -78,7 +88,7 @@ const ChatHistory = ({
     return output;
   };
 
-  const convertSentAtToLocaleDateString = sent_at => new Date(+sent_at * 1000).toLocaleDateString();
+  const convertSentAtToLocaleDateString = sent_at => new Date(+sent_at * 1000).toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' });
 
   const parseCapiTemplate = content => (
     content.components.map(
@@ -112,7 +122,12 @@ const ChatHistory = ({
 
     // Concatenate with a media URL if there is one
     if (mediaUrl) {
-      preParsedText = `${mediaUrl}\n\n${preParsedText}`;
+      preParsedText = [mediaUrl, preParsedText].filter(contentSection => !!contentSection).join('\n\n');
+    }
+
+    // Unsupported message (for example, a document, reaction, etc.
+    if (!preParsedText) {
+      preParsedText = intl.formatMessage(messages.unsupportedMessage);
     }
 
     // Return a proper icon for the message event type
@@ -130,6 +145,7 @@ const ChatHistory = ({
         break;
       case 'custom_message':
       case 'newsletter':
+      case 'status_change':
         icon = <IconSend />;
         break;
       default:
@@ -145,7 +161,7 @@ const ChatHistory = ({
           { [styles['bot-message']]: !userMessage },
         )}
       >
-        { content ?
+        { preParsedText ?
           <div className={cx(
             'typography-body1',
             styles[`message-event-${messageEvent ? messageEvent.replaceAll('_', '-') : 'default'}`],
@@ -161,7 +177,7 @@ const ChatHistory = ({
         <div className={`typography-body2 ${styles.time}`}>
           {icon}
           <Tooltip title={d.toLocaleString()}>
-            <time dateTime={d.toISOString()}>{d.toLocaleTimeString()}</time>
+            <time dateTime={d.toISOString()}>{d.toLocaleTimeString(intl.locale)}</time>
           </Tooltip>
           {isDelivered && <IconDone className={styles.delivered} />}
         </div>
@@ -234,6 +250,7 @@ ChatHistory.propTypes = {
   title: PropTypes.string.isRequired,
   history: PropTypes.object.isRequired,
   handleClose: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default ChatHistory;
+export default injectIntl(ChatHistory);

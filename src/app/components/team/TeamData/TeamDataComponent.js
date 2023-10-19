@@ -330,7 +330,9 @@ const TeamDataComponent = ({
                               {' '}
                               { helpMessages[header] ?
                                 <Tooltip key={header} title={helpMessages[header]} arrow>
-                                  <HelpIcon fontSize="small" className={classes.helpIcon} />
+                                  <span>
+                                    <HelpIcon fontSize="small" className={classes.helpIcon} />
+                                  </span>
                                 </Tooltip> : null }
                             </Box>
                           </TableSortLabel>
