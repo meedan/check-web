@@ -45,14 +45,14 @@
     "defaultMessage": "Briefly contextualize the fact-check rating"
   },
   {
-    "id": "mediaFactCheck.errorSummary",
-    "description": "Caption that informs that a fact-check could not be saved and that the summary field has to be filled",
-    "defaultMessage": "Fact-check summary is required"
-  },
-  {
     "id": "mediaFactCheck.summary",
     "description": "Label for fact-check summary field",
     "defaultMessage": "Summary"
+  },
+  {
+    "id": "mediaFactCheck.errorSummary",
+    "description": "Caption that informs that a fact-check could not be saved and that the summary field has to be filled",
+    "defaultMessage": "Fact-check summary is required"
   },
   {
     "id": "mediaFactCheck.urlPlaceholder",

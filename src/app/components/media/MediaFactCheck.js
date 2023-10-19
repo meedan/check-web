@@ -11,7 +11,8 @@ import TimeBefore from '../TimeBefore';
 import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
 import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
 import { can } from '../Can';
-import MediaFactCheckField from './MediaFactCheckField';
+import LimitedTextArea from '../layout/inputs/LimitedTextArea';
+import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import styles from './media.module.css';
@@ -198,59 +199,73 @@ const MediaFactCheck = ({ projectMedia }) => {
             /> : null }
         </div>
       </div>
-      <FormattedMessage
-        id="mediaFactCheck.titlePlaceholder"
-        defaultMessage="Objectively message to readers"
-        description="Placeholder instructions for fact-check title field"
-      >
-        { placeholder => (
-          <MediaFactCheckField
-            required
-            helpContent={error && <FormattedMessage id="mediaFactCheck.errorTitle" defaultMessage="Fact-check title is required" description="Caption that informs that a fact-check could not be saved and that the title field has to be filled" />}
-            error={error}
-            label={<FormattedMessage id="mediaFactCheck.title" defaultMessage="Title" description="Label for fact-check title field" />}
-            name="title"
-            placeholder={placeholder}
-            value={title}
-            onBlur={(newValue) => {
-              setTitle(newValue);
-              handleBlur('title', newValue);
-            }}
-            hasClaimDescription={Boolean(claimDescription?.description)}
-            hasPermission={hasPermission}
-            disabled={isDisabled}
-            rows="1"
-            key={`title-${claimDescription}`}
-          />
-        )}
-      </FormattedMessage>
-      <FormattedMessage
-        id="mediaFactCheck.summaryPlaceholder"
-        defaultMessage="Briefly contextualize the fact-check rating"
-        description="Placeholder instructions for fact-check summary field"
-      >
-        { placeholder => (
-          <MediaFactCheckField
-            required
-            helpContent={error && <FormattedMessage id="mediaFactCheck.errorSummary" defaultMessage="Fact-check summary is required" description="Caption that informs that a fact-check could not be saved and that the summary field has to be filled" />}
-            error={error}
-            limit={900 - title.length - url.length}
-            label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
-            placeholder={placeholder}
-            name="summary"
-            value={truncateLength(summary, 900 - title.length - url.length - 3)}
-            onBlur={(newValue) => {
-              setSummary(newValue);
-              handleBlur('summary', newValue);
-            }}
-            hasClaimDescription={Boolean(claimDescription?.description)}
-            hasPermission={hasPermission}
-            disabled={isDisabled}
-            rows="1"
-            key={`summary-${claimDescription}-${title.length}-${url.length}`}
-          />
-        )}
-      </FormattedMessage>
+      <div className={inputStyles['form-fieldset-field']}>
+        <FormattedMessage
+          id="mediaFactCheck.titlePlaceholder"
+          defaultMessage="Objectively message to readers"
+          description="Placeholder instructions for fact-check title field"
+        >
+          { placeholder => (
+            <TextArea
+              defaultValue={title}
+              componentProps={{
+                id: 'media-fact-check__title',
+              }}
+              className="media-fact-check__title"
+              name="title"
+              required
+              rows="1"
+              helpContent={error && <FormattedMessage id="mediaFactCheck.errorTitle" defaultMessage="Fact-check title is required" description="Caption that informs that a fact-check could not be saved and that the title field has to be filled" />}
+              error={error}
+              autoGrow
+              maxHeight="266px"
+              placeholder={placeholder}
+              label={<FormattedMessage id="mediaFactCheck.title" defaultMessage="Title" description="Label for fact-check title field" />}
+              key={`media-fact-check__title-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
+              disabled={(!hasPermission || isDisabled)}
+              onBlur={(e) => {
+                const newValue = e.target.value;
+                console.log(`Brian ${newValue}`); // eslint-disable-line no-console
+                setTitle(newValue);
+                handleBlur('title', newValue);
+              }}
+            />
+          )}
+        </FormattedMessage>
+      </div>
+      <div className={inputStyles['form-fieldset-field']}>
+        <FormattedMessage
+          id="mediaFactCheck.summaryPlaceholder"
+          defaultMessage="Briefly contextualize the fact-check rating"
+          description="Placeholder instructions for fact-check summary field"
+        >
+          { placeholder => (
+            <LimitedTextArea
+              required
+              value={truncateLength(summary, 900 - title.length - url.length - 3)}
+              componentProps={{
+                id: 'media-fact-check__summary',
+              }}
+              className="media-fact-check__summary"
+              key={`media-fact-check__summary-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
+              name="summary"
+              maxChars={900 - title.length - url.length}
+              rows="1"
+              label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
+              helpContent={error && <FormattedMessage id="mediaFactCheck.errorSummary" defaultMessage="Fact-check summary is required" description="Caption that informs that a fact-check could not be saved and that the summary field has to be filled" />}
+              error={error}
+              autoGrow
+              placeholder={placeholder}
+              disabled={(!hasPermission || isDisabled)}
+              onBlur={(e) => {
+                const newValue = e.target.value;
+                setSummary(newValue);
+                handleBlur('summary', newValue);
+              }}
+            />
+          )}
+        </FormattedMessage>
+      </div>
       <div className={inputStyles['form-fieldset-field']}>
         <FormattedMessage
           id="mediaFactCheck.urlPlaceholder"
