@@ -143,7 +143,7 @@ shared_examples 'similarity' do
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('.media__more-medias')
-    wait_for_selector_list_size('.media__relationship', 1, retries: 10000, print_beat: true)
+    wait_for_selector_list_size('.media__relationship', 1, retries: 10_000, print_beat: true)
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 end
