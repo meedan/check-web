@@ -111,7 +111,7 @@ const MediaContext = ({
     <div id="media__context" className={inputStyles['form-fieldset-field']}>
       <FormattedMessage
         id="mediaContext.placeholder"
-        defaultMessage="Type something"
+        defaultMessage="Add claim context"
         description="Placeholder for claim context field."
       >
         { placeholder => (

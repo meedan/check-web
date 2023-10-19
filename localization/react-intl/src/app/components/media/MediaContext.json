@@ -2,7 +2,7 @@
   {
     "id": "mediaContext.placeholder",
     "description": "Placeholder for claim context field.",
-    "defaultMessage": "Type something"
+    "defaultMessage": "Add claim context"
   },
   {
     "id": "mediaContext.title",

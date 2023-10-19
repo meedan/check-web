@@ -1,19 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextArea from '../cds/inputs/TextArea';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import inputStyles from '../../styles/css/inputs.module.css';
 
-const messages = defineMessages({
-  placeholder: {
-    id: 'mediaFactCheckField.noClaimDescription',
-    defaultMessage: 'Add a claim to access the fact-check',
-    description: 'Placeholder for fact-check field when there is no claim description filled.',
-  },
-});
-
 const MediaFactCheckField = ({
+  helpContent,
+  error,
   limit,
   hasClaimDescription,
   hasPermission,
@@ -23,15 +16,9 @@ const MediaFactCheckField = ({
   disabled,
   rows,
   onBlur,
-  intl,
   required,
+  placeholder,
 }) => {
-  let defaultValue = intl.formatMessage(messages.placeholder);
-
-  if (hasClaimDescription) {
-    defaultValue = value || undefined;
-  }
-
   const textFieldProps = {
     required,
     rows,
@@ -45,18 +32,24 @@ const MediaFactCheckField = ({
     <div className={inputStyles['form-fieldset-field']}>
       { limit !== null ?
         <LimitedTextArea
+          rows={rows}
+          helpContent={helpContent}
+          error={error}
           autoGrow
           maxChars={limit}
           label={label}
-          placeholder={name}
-          value={defaultValue}
+          placeholder={placeholder}
+          defaultValue={value}
           onUpdate={(newValue) => { onBlur(newValue); }}
           {...textFieldProps}
         /> :
         <TextArea
+          rows={rows}
+          helpContent={helpContent}
+          error={error}
           autoGrow
           maxHeight="266px"
-          placeholder={name}
+          placeholder={placeholder}
           label={label}
           onBlur={(e) => { onBlur(e.target.value.trim()); }}
           defaultValue={value}
@@ -68,14 +61,19 @@ const MediaFactCheckField = ({
 };
 
 MediaFactCheckField.defaultProps = {
+  helpContent: null,
+  error: false,
   disabled: false,
-  rows: 3,
+  rows: '3',
   required: false,
   limit: null,
   value: '',
+  placeholder: null,
 };
 
 MediaFactCheckField.propTypes = {
+  helpContent: PropTypes.element,
+  error: PropTypes.bool,
   limit: PropTypes.number, // or null (no limit)
   hasClaimDescription: PropTypes.bool.isRequired,
   hasPermission: PropTypes.bool.isRequired,
@@ -83,10 +81,10 @@ MediaFactCheckField.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   disabled: PropTypes.bool,
-  rows: PropTypes.number,
+  rows: PropTypes.string,
   onBlur: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
   required: PropTypes.bool,
+  placeholder: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
 
-export default injectIntl(MediaFactCheckField);
+export default MediaFactCheckField;

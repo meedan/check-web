@@ -115,30 +115,38 @@ const MediaClaim = ({ projectMedia }) => {
 
   return (
     <div id="media__claim" className={cx(styles['media-item-claim-inner'], inputStyles['form-fieldset'])}>
-      <div id="media__claim-title">
-        <div className="typography-subtitle2">
-          <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
-        </div>
-        { error ?
-          <div className="typography-caption">
+      <div id="media__claim-title" className={inputStyles['form-fieldset-title']}>
+        <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
+        <div className={inputStyles['form-fieldset-title-extra']}>
+          { error ?
             <FormattedMessage
               id="mediaClaim.error"
               defaultMessage="error"
               description="Caption that informs that a claim could not be saved"
             />
-          </div>
-          : null
-        }
-        { saving && !error ?
-          <div className="typography-caption">
+            : null
+          }
+          { saving && !error ?
             <FormattedMessage
               id="mediaClaim.saving"
               defaultMessage="saving…"
               description="Caption that informs that a claim is being saved"
             />
-          </div>
-          : null
-        }
+            : null
+          }
+          { !saving && !error && claimDescription &&
+            <FormattedMessage
+              className="media-claim__saved-by"
+              id="mediaClaim.saved"
+              defaultMessage="saved by {userName} {timeAgo}"
+              values={{
+                userName: claimDescription.user.name,
+                timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
+              }}
+              description="Caption that informs who last saved this claim and when it happened."
+            />
+          }
+        </div>
       </div>
       <div className={inputStyles['form-fieldset-field']}>
         <FormattedMessage
@@ -155,19 +163,12 @@ const MediaClaim = ({ projectMedia }) => {
               defaultValue={claimDescription ? claimDescription.description : ''}
               onBlur={(e) => { handleBlur(e.target.value); }}
               disabled={!hasPermission || readOnly}
-              helpContent={!saving && !error && claimDescription &&
-                <div className="typography-caption">
-                  <FormattedMessage
-                    className="media-claim__saved-by"
-                    id="mediaClaim.saved"
-                    defaultMessage="saved by {userName} {timeAgo}"
-                    values={{
-                      userName: claimDescription.user.name,
-                      timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
-                    }}
-                    description="Caption that informs who last saved this claim and when it happened."
-                  />
-                </div>
+              label={
+                <FormattedMessage
+                  id="mediaClaim.title"
+                  defaultMessage="Title"
+                  description="Title for the text input for claim title"
+                />
               }
             />
           )}

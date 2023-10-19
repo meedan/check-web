@@ -4,7 +4,6 @@ import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import Box from '@material-ui/core/Box';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconReport from '../../icons/playlist_add_check.svg';
 import IconUnpublishedReport from '../../icons/unpublished_report.svg';
@@ -13,8 +12,8 @@ import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
 import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
 import { can } from '../Can';
 import MediaFactCheckField from './MediaFactCheckField';
+import TextField from '../cds/inputs/TextField';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import styles from './media.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 
@@ -30,7 +29,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [url, setUrl] = React.useState((factCheck && factCheck.url) ? factCheck.url : '');
   const [language, setLanguage] = React.useState(factCheck ? factCheck.language : defaultFactCheckLanguage);
   const [saving, setSaving] = React.useState(false);
-  const [showDialog, setShowDialog] = React.useState(false);
+
   const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
@@ -46,11 +45,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const isDisabled = Boolean(readOnly || published);
 
   const handleGoToReport = () => {
-    if (!claimDescription || claimDescription.description?.trim()?.length === 0) {
-      setShowDialog(true);
-    } else {
-      window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
-    }
+    window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
   };
 
   const handleBlur = (field, value) => {
@@ -158,18 +153,11 @@ const MediaFactCheck = ({ projectMedia }) => {
     handleBlur('language', languageCode);
   };
 
-  const errorMessage = (
-    <FormattedMessage
-      id="mediaFactCheck.error"
-      defaultMessage="Title and description have to be filled"
-      description="Caption that informs that a fact-check could not be saved and that the fields have to be filled"
-    />
-  );
-
   return (
     <div id="media__fact-check" className={cx(styles['media-item-claim-inner'], inputStyles['form-fieldset'])}>
       { (!claimDescription || claimDescription.description?.trim()?.length === 0) ?
         <Alert
+          className={styles['media-item-claim-inner-alert']}
           variant="warning"
           title={
             <FormattedMessage
@@ -188,19 +176,16 @@ const MediaFactCheck = ({ projectMedia }) => {
         />
         : null
       }
-      <div id="media__fact-check-title">
-        <div className="typography-subtitle2">
-          <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
-        </div>
-        <div className="typography-caption">
-          { error ? errorMessage : null }
-          { saving && !error ?
+      <div id="media__fact-check-title" className={inputStyles['form-fieldset-title']}>
+        <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
+        <div className={inputStyles['form-fieldset-title-extra']}>
+          { saving ?
             <FormattedMessage
               id="mediaFactCheck.saving"
               defaultMessage="saving…"
               description="Caption that informs that a fact-check is being saved"
             /> : null }
-          { !saving && !error && factCheck ?
+          { !saving && factCheck ?
             <FormattedMessage
               className="media-fact-check__saved-by"
               id="mediaFactCheck.saved"
@@ -211,57 +196,91 @@ const MediaFactCheck = ({ projectMedia }) => {
               }}
               description="Caption that informs who last saved this fact-check and when it happened."
             /> : null }
-          { !saving && !factCheck && !error ? <span>&nbsp;</span> : null }
         </div>
       </div>
-      <MediaFactCheckField
-        label={<FormattedMessage id="mediaFactCheck.title" defaultMessage="Title" description="Label for fact-check title field" />}
-        name="title"
-        value={title}
-        onBlur={(newValue) => {
-          setTitle(newValue);
-          handleBlur('title', newValue);
-        }}
-        hasClaimDescription={Boolean(claimDescription?.description)}
-        hasPermission={hasPermission}
-        disabled={isDisabled}
-        rows={1}
-        key={`title-${claimDescription}`}
-      />
-      <MediaFactCheckField
-        limit={900 - title.length - url.length}
-        label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
-        name="summary"
-        value={truncateLength(summary, 900 - title.length - url.length - 3)}
-        onBlur={(newValue) => {
-          setSummary(newValue);
-          handleBlur('summary', newValue);
-        }}
-        hasClaimDescription={Boolean(claimDescription?.description)}
-        hasPermission={hasPermission}
-        disabled={isDisabled}
-        rows={1}
-        key={`summary-${claimDescription}-${title.length}-${url.length}`}
-      />
-      <MediaFactCheckField
-        label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Article URL" description="Label for fact-check URL field" />}
-        name="url"
-        value={url}
-        onBlur={(newValue) => {
-          let newUrl = newValue;
-          if (!/^https?:\/\//.test(newValue) && newValue && newValue.length > 0) {
-            newUrl = `https://${newValue}`;
-          }
-          setUrl(newUrl);
-          handleBlur('url', newUrl);
-        }}
-        hasClaimDescription={Boolean(claimDescription?.description)}
-        hasPermission={hasPermission}
-        disabled={isDisabled}
-        rows={1}
-        key={`url-${claimDescription}-${url}`}
-      />
-
+      <FormattedMessage
+        id="mediaFactCheck.titlePlaceholder"
+        defaultMessage="Objectively message to readers"
+        description="Placeholder instructions for fact-check title field"
+      >
+        { placeholder => (
+          <MediaFactCheckField
+            required
+            helpContent={error && <FormattedMessage id="mediaFactCheck.errorTitle" defaultMessage="Fact-check title is required" description="Caption that informs that a fact-check could not be saved and that the title field has to be filled" />}
+            error={error}
+            label={<FormattedMessage id="mediaFactCheck.title" defaultMessage="Title" description="Label for fact-check title field" />}
+            name="title"
+            placeholder={placeholder}
+            value={title}
+            onBlur={(newValue) => {
+              setTitle(newValue);
+              handleBlur('title', newValue);
+            }}
+            hasClaimDescription={Boolean(claimDescription?.description)}
+            hasPermission={hasPermission}
+            disabled={isDisabled}
+            rows="1"
+            key={`title-${claimDescription}`}
+          />
+        )}
+      </FormattedMessage>
+      <FormattedMessage
+        id="mediaFactCheck.summaryPlaceholder"
+        defaultMessage="Briefly contextualize the fact-check rating"
+        description="Placeholder instructions for fact-check summary field"
+      >
+        { placeholder => (
+          <MediaFactCheckField
+            required
+            helpContent={error && <FormattedMessage id="mediaFactCheck.errorSummary" defaultMessage="Fact-check summary is required" description="Caption that informs that a fact-check could not be saved and that the summary field has to be filled" />}
+            error={error}
+            limit={900 - title.length - url.length}
+            label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
+            placeholder={placeholder}
+            name="summary"
+            value={truncateLength(summary, 900 - title.length - url.length - 3)}
+            onBlur={(newValue) => {
+              setSummary(newValue);
+              handleBlur('summary', newValue);
+            }}
+            hasClaimDescription={Boolean(claimDescription?.description)}
+            hasPermission={hasPermission}
+            disabled={isDisabled}
+            rows="1"
+            key={`summary-${claimDescription}-${title.length}-${url.length}`}
+          />
+        )}
+      </FormattedMessage>
+      <div className={inputStyles['form-fieldset-field']}>
+        <FormattedMessage
+          id="mediaFactCheck.urlPlaceholder"
+          defaultMessage="Add a URL to this fact-check article"
+          description="Placeholder instructions for fact-check URL field"
+        >
+          { placeholder => (
+            <TextField
+              label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Article URL" description="Label for fact-check URL field" />}
+              placeholder={placeholder}
+              defaultValue={url}
+              componentProps={{
+                id: 'media-fact-check__url',
+              }}
+              className="media-fact-check__url"
+              disabled={(!hasPermission || isDisabled)}
+              key={`media-fact-check__url-${claimDescription?.description ? '-with-claim' : '-no-claim'}`}
+              onBlur={(e) => {
+                const newValue = e.target.value;
+                let newUrl = newValue;
+                if (!/^https?:\/\//.test(newValue) && newValue && newValue.length > 0) {
+                  newUrl = `https://${newValue}`;
+                }
+                setUrl(newUrl);
+                handleBlur('url', newUrl);
+              }}
+            />
+          )}
+        </FormattedMessage>
+      </div>
       { languages.length > 1 ?
         <div className={inputStyles['form-fieldset-field']}>
           <LanguagePickerSelect
@@ -274,7 +293,7 @@ const MediaFactCheck = ({ projectMedia }) => {
       }
 
       { projectMedia.team.smooch_bot ?
-        <Box mt={1}>
+        <div className={inputStyles['form-fieldset-field']}>
           <ButtonMain
             onClick={handleGoToReport}
             className="media-fact-check__report-designer"
@@ -282,7 +301,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             theme={published ? 'brand' : 'alert'}
             size="default"
             iconLeft={published ? <IconReport /> : <IconUnpublishedReport />}
-            disabled={saving || readOnly}
+            disabled={saving || readOnly || (!claimDescription || claimDescription.description?.trim()?.length === 0)}
             label={published ?
               <FormattedMessage
                 className="media-fact-check__published-report"
@@ -298,39 +317,7 @@ const MediaFactCheck = ({ projectMedia }) => {
               />
             }
           />
-        </Box> : null }
-
-      <ConfirmProceedDialog
-        open={showDialog}
-        title={
-          <FormattedMessage
-            id="mediaFactCheck.claimMissingTitle"
-            defaultMessage="Claim missing"
-            description="Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
-          />
-        }
-        body={
-          <div>
-            <p variant="typography-body1">
-              <FormattedMessage
-                id="mediaFactCheck.claimMissingDesc"
-                data-testid="media-fact-check__confirm-button-label"
-                defaultMessage="You must add a claim to access the fact-check report."
-                description="Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
-              />
-            </p>
-          </div>
-        }
-        proceedLabel={
-          <FormattedMessage
-            id="mediaFactCheck.confirmButtonLabel"
-            defaultMessage="Go back to editing"
-            description="A label on a button that the user can press to go back to the screen where they edit a fact-check."
-          />
-        }
-        onProceed={() => { setShowDialog(false); }}
-        onCancel={() => { setShowDialog(false); }}
-      />
+        </div> : null }
     </div>
   );
 };

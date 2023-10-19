@@ -103,6 +103,10 @@
           background-color: var(--brandBackground);
           border-radius: 5px;
           padding: 16px;
+
+          .media-item-claim-inner-alert {
+            margin: 0 0 16px;
+          }
         }
       }
     }
