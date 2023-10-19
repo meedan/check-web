@@ -61,7 +61,7 @@ module AppSpecHelpers
     while elements.length < size && attempts < retries
       attempts += 1
       elements = wait_for_selector_list(selector, type, timeout, reload, ignore_raise)
-      puts("#{Time.now}: wait_for_selector_list(#{selector}, #{type}, #{timeout}, #{reload}, #{ignore_raise}), attempt ##{attempts}...") if retries % 100 == 0
+      puts("#{Time.now}: wait_for_selector_list(#{selector}, #{type}, #{timeout}, #{reload}, #{ignore_raise}), attempt ##{attempts}...") if (retries % 100).zero?
     end
     finish = Time.now.to_i - start
     raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size && !ignore_raise
