@@ -133,18 +133,26 @@ shared_examples 'similarity' do
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
-
   it 'should identify audios as similar', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to @config['self_url']
     create_image('files/audio.mp3')
-    sleep 60 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
     create_image('files/audio.ogg')
-    sleep 500 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading', index: 1).click
-    wait_for_selector('.media__more-medias')
+    timeout = 800
+    interval = 5
+    start_time = Time.now
+    loop do
+      break if Time.now - start_time > timeout
+      puts("Waiting for audio similarity to complete...")
+      wait_for_selector_list_size('.media__heading', 2, interval)
+      wait_for_selector('.media__heading', index: 1).click
+      wait_for_selector('.media__more-medias')
+      elements_size = @driver.find_elements(:css, '.media__heading').size
+      break if elements_size > 0
+      sleep interval
+    end
+  
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 end
