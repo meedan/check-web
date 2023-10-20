@@ -54,7 +54,7 @@ const LimitedTextArea = ({
       value={localText}
       helpContent={(
         <>
-          {helpContent && (<>{helpContent}</>)}
+          {helpContent}
           <div className={styles['help-counter']}>
             <FormattedMessage
               id="limitedTextAreaWithCounter.counter"
