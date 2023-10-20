@@ -123,7 +123,7 @@ RequestReceipt.propTypes = {
   icon: PropTypes.node,
   label: PropTypes.node,
   color: PropTypes.oneOf(['gray', 'green', 'yellow']),
-  type: PropTypes.oneOf(['no_search_result', 'fact_check_sent', 'fact_check_delivered', 'update_sent', 'update_delivered', 'search_result_no_feedback', 'search_result_positive_feedback']),
+  type: PropTypes.oneOf(['no_search_result', 'smooch_report_sent_at', 'smooch_report_received_at', 'smooch_report_correction_sent_at', 'smooch_report_update_received_at', 'search_result_no_feedback', 'search_result_positive_feedback']),
   date: PropTypes.string,
 };
 
