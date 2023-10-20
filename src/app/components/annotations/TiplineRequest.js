@@ -74,9 +74,12 @@ const TiplineRequest = ({
   annotated: projectMedia,
   intl,
 }) => {
+  const { locale, formatMessage } = intl;
+
   if (!activity) {
     return null;
   }
+
   const objectValue = activity.value_json;
   const messageType = objectValue.source?.type;
   const messageText = objectValue.text ?
@@ -92,12 +95,8 @@ const TiplineRequest = ({
   if (smoochExternalId && messageType === 'whatsapp') {
     smoochExternalId = smoochExternalId.replace(/^[^:]+:/, '');
   }
-  const smoochReportReceivedAt = activity.smooch_report_received_at ?
-    new Date(parseInt(activity.smooch_report_received_at, 10) * 1000) : null;
-  const smoochReportUpdateReceivedAt = activity.smooch_report_update_received_at ?
-    new Date(parseInt(activity.smooch_report_update_received_at, 10) * 1000) : null;
+
   const smoochRequestLanguage = activity.smooch_user_request_language;
-  const { locale, formatMessage } = intl;
 
   const userName = objectValue.name === 'deleted' ?
     <FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" /> :
@@ -134,15 +133,19 @@ const TiplineRequest = ({
 
   const reportReceiveStatus = {};
 
-  if (smoochReportReceivedAt) {
-    reportReceiveStatus.type = 'fact_check_delivered';
-    reportReceiveStatus.timestamp = smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' });
-  }
-
-  if (smoochReportUpdateReceivedAt) {
-    reportReceiveStatus.type = 'update_delivered';
-    reportReceiveStatus.timestamp = smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' });
-  }
+  [
+    'smooch_report_sent_at',
+    'smooch_report_received_at',
+    'smooch_report_correction_sent_at',
+    'smooch_report_update_received_at',
+  ].forEach((field) => {
+    if (activity[field]) {
+      reportReceiveStatus.type = field;
+      reportReceiveStatus.date =
+        new Date(parseInt(activity[field], 10) * 1000)
+          .toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' });
+    }
+  });
 
   return (
     <div>
@@ -173,7 +176,7 @@ const TiplineRequest = ({
         receipt={
           <RequestReceipt
             type={reportReceiveStatus.type}
-            timestamp={reportReceiveStatus.timestamp}
+            date={reportReceiveStatus.date}
           />
         }
       />

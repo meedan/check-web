@@ -13,7 +13,7 @@ const RequestReceipt = ({
   label,
   color,
   type,
-  timestamp,
+  date,
 }) => {
   if (!type && (!icon || !label)) {
     return null;
@@ -25,49 +25,49 @@ const RequestReceipt = ({
       icon: <SearchIcon />,
       color: 'gray',
     },
-    fact_check_sent: {
+    smooch_report_sent_at: {
       label: (
         <FormattedMessage
           id="requestReceipt.factCheckSent"
           defaultMessage="Fact-check sent on {date}"
           description="Message displayed when user request has a fact-check sent"
-          values={{ date: timestamp }}
+          values={{ date }}
         />
       ),
       icon: <FactCheckIcon />,
       color: 'yellow',
     },
-    fact_check_delivered: {
+    smooch_report_received_at: {
       label: (
         <FormattedMessage
           id="requestReceipt.factCheckDelivered"
           defaultMessage="Fact-check delivered on {date}"
           description="Message displayed when user request has a fact-check delivered"
-          values={{ date: timestamp }}
+          values={{ date }}
         />
       ),
       icon: <FactCheckIcon />,
       color: 'green',
     },
-    update_sent: {
+    smooch_report_correction_sent_at: {
       label: (
         <FormattedMessage
           id="requestReceipt.updateSent"
           defaultMessage="Correction sent on {date}"
           description="Message displayed when user request has a fact-check update sent"
-          values={{ date: timestamp }}
+          values={{ date }}
         />
       ),
       icon: <EditNoteIcon />,
       color: 'yellow',
     },
-    update_delivered: {
+    smooch_report_update_received_at: {
       label: (
         <FormattedMessage
           id="requestReceipt.updateDelivered"
           defaultMessage="Correction delivered on {date}"
           description="Message displayed when user request has a fact-check update delivered"
-          values={{ date: timestamp }}
+          values={{ date }}
         />
       ),
       icon: <EditNoteIcon />,
@@ -116,7 +116,7 @@ RequestReceipt.defaultProps = {
   label: null,
   color: null,
   type: null,
-  timestamp: null,
+  date: null,
 };
 
 RequestReceipt.propTypes = {
@@ -124,7 +124,7 @@ RequestReceipt.propTypes = {
   label: PropTypes.node,
   color: PropTypes.oneOf(['gray', 'green', 'yellow']),
   type: PropTypes.oneOf(['no_search_result', 'fact_check_sent', 'fact_check_delivered', 'update_sent', 'update_delivered', 'search_result_no_feedback', 'search_result_positive_feedback']),
-  timestamp: PropTypes.string,
+  date: PropTypes.string,
 };
 
 export default RequestReceipt;
