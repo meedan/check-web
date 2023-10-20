@@ -74,8 +74,6 @@ const TiplineRequest = ({
   annotated: projectMedia,
   intl,
 }) => {
-  const { locale, formatMessage } = intl;
-
   if (!activity) {
     return null;
   }
@@ -131,7 +129,17 @@ const TiplineRequest = ({
     ));
   }
 
-  const reportReceiveStatus = {};
+  const reportHistory = [];
+
+  if (
+    [
+      'default_requests',
+      'timeout_search_requests',
+      'relevant_search_result_requests',
+    ].includes(activity.smooch_request_type)
+  ) {
+    reportHistory.push({ type: activity.smooch_request_type });
+  }
 
   [
     'smooch_report_sent_at',
@@ -139,17 +147,11 @@ const TiplineRequest = ({
     'smooch_report_correction_sent_at',
     'smooch_report_update_received_at',
   ].forEach((field) => {
-    if (activity[field]) {
-      reportReceiveStatus.type = field;
-      reportReceiveStatus.date =
-        new Date(parseInt(activity[field], 10) * 1000)
-          .toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' });
+    const value = activity[field];
+    if (value) {
+      reportHistory.push({ type: field, date: value });
     }
   });
-
-  if (activity.smooch_request_type) {
-    reportReceiveStatus.type = activity.smooch_request_type;
-  }
 
   return (
     <Request
@@ -158,7 +160,7 @@ const TiplineRequest = ({
       text={messageText ? (
         parseText(messageText, projectMedia, activity)
       ) : (
-        formatMessage(messages.smoochNoMessage)
+        intl.formatMessage(messages.smoochNoMessage)
       )}
       icon={<SmoochIcon name={messageType} />}
       historyButton={
@@ -176,12 +178,7 @@ const TiplineRequest = ({
           annotationId={activity.annotation_id}
         />
       }
-      receipt={
-        <RequestReceipt
-          type={reportReceiveStatus.type}
-          date={reportReceiveStatus.date}
-        />
-      }
+      receipt={<RequestReceipt events={reportHistory} />}
     />
   );
 };
