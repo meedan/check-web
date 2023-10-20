@@ -20,6 +20,14 @@ const StyledAnnotations = styled.div`
     .annotations__list-item {
       position: relative;
 
+      .request-card {
+        border-bottom: solid 1px var(--grayBorderMain);
+      }
+
+      .request-card:last-of-type {
+        border-bottom: 0;
+      }
+
       ${prop => prop.noLink ? null : `
         // The timeline line
         &::before {
