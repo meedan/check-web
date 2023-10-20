@@ -44,6 +44,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
   const isDisabled = Boolean(readOnly || published);
+  const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
 
   const handleGoToReport = () => {
     window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
@@ -156,7 +157,7 @@ const MediaFactCheck = ({ projectMedia }) => {
 
   return (
     <div id="media__fact-check" className={cx(styles['media-item-claim-inner'], inputStyles['form-fieldset'])}>
-      { (!claimDescription || claimDescription.description?.trim()?.length === 0) ?
+      { claimDescriptionMissing ?
         <Alert
           className={styles['media-item-claim-inner-alert']}
           variant="warning"
@@ -316,7 +317,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             theme={published ? 'brand' : 'alert'}
             size="default"
             iconLeft={published ? <IconReport /> : <IconUnpublishedReport />}
-            disabled={saving || readOnly || (!claimDescription || claimDescription.description?.trim()?.length === 0)}
+            disabled={saving || readOnly || claimDescriptionMissing}
             label={published ?
               <FormattedMessage
                 className="media-fact-check__published-report"
