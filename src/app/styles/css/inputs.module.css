@@ -59,5 +59,31 @@
 
   &.error-label {
     color: var(--errorSecondary);
+
+    .help-counter {
+      margin: 4px 0 0;
+    }
+  }
+}
+
+.form-fieldset {
+  .form-fieldset-title {
+    @mixin typography-subtitle2;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 8px;
+
+    .form-fieldset-title-extra {
+      @mixin typography-caption;
+    }
+  }
+
+  .form-fieldset-field {
+    margin: 0 0 16px;
+
+    &:last-of-type {
+      margin: 0;
+    }
   }
 }

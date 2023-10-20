@@ -23,5 +23,10 @@
     "id": "mediaClaim.placeholder",
     "description": "Placeholder for claim description field.",
     "defaultMessage": "For example: The earth is flat"
+  },
+  {
+    "id": "mediaClaim.title",
+    "description": "Title for the text input for claim title",
+    "defaultMessage": "Title"
   }
 ]

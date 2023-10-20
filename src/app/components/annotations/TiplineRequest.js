@@ -157,39 +157,37 @@ const TiplineRequest = ({
   }
 
   return (
-    <div>
-      <Request
-        details={details}
-        time={<TimeBefore date={updatedAt} />}
-        text={messageText ? (
-          parseText(messageText, projectMedia, activity)
-        ) : (
-          formatMessage(messages.smoochNoMessage)
-        )}
-        icon={<SmoochIcon name={messageType} />}
-        historyButton={
-          <TiplineHistoryButton
-            uid={uid}
-            name={userName}
-            channel={channelLabel[messageType] || messageType}
-            messageId={messageId}
-          />
-        }
-        sendMessageButton={
-          <SendTiplineMessage
-            username={userName}
-            channel={channelLabel[messageType] || messageType}
-            annotationId={activity.annotation_id}
-          />
-        }
-        receipt={
-          <RequestReceipt
-            icon={reportReceiveStatus.icon}
-            label={reportReceiveStatus.label}
-          />
-        }
-      />
-    </div>
+    <Request
+      details={details}
+      time={<TimeBefore date={updatedAt} />}
+      text={messageText ? (
+        parseText(messageText, projectMedia, activity)
+      ) : (
+        formatMessage(messages.smoochNoMessage)
+      )}
+      icon={<SmoochIcon name={messageType} />}
+      historyButton={
+        <TiplineHistoryButton
+          uid={uid}
+          name={userName}
+          channel={channelLabel[messageType] || messageType}
+          messageId={messageId}
+        />
+      }
+      sendMessageButton={
+        <SendTiplineMessage
+          username={userName}
+          channel={channelLabel[messageType] || messageType}
+          annotationId={activity.annotation_id}
+        />
+      }
+      receipt={
+        <RequestReceipt
+          icon={reportReceiveStatus.icon}
+          label={reportReceiveStatus.label}
+        />
+      }
+    />
   );
 };
 

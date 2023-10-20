@@ -1,8 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '../../cds/inputs/TextField';
 import LanguageRegistry, { languageLabel } from '../../../LanguageRegistry';
 import LanguageIcon from '../../../icons/language.svg';
 
@@ -62,26 +62,18 @@ const LanguagePickerSelect = ({
         value={value}
         onChange={handleChange}
         renderInput={params => (
-          <FormattedMessage id="LanguagePickerSelect.selectLanguage" defaultMessage="Select language" description="Change language label" >
-            { placeholder => (
-              <TextField
-                {...params}
-                name="language-name"
-                label=""
-                placeholder={placeholder}
-                variant="outlined"
-                InputProps={{
-                  ...params.InputProps,
-                  startAdornment: (
-                    <React.Fragment>
-                      <LanguageIcon fontSize="small" />
-                      {params.InputProps.startAdornment}
-                    </React.Fragment>
-                  ),
-                }}
-              />
-            )}
-          </FormattedMessage>
+          <div ref={params.InputProps.ref}>
+            <FormattedMessage id="LanguagePickerSelect.selectLanguage" defaultMessage="Select language" description="Change language label" >
+              { placeholder => (
+                <TextField
+                  iconLeft={<LanguageIcon />}
+                  label={<FormattedMessage id="LanguagePickerSelect.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language of fact-check" />}
+                  placeholder={placeholder}
+                  {...params.inputProps}
+                />
+              )}
+            </FormattedMessage>
+          </div>
         )}
       />
     </div>
