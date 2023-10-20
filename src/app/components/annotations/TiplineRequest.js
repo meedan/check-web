@@ -147,6 +147,10 @@ const TiplineRequest = ({
     }
   });
 
+  if (activity.smooch_request_type) {
+    reportReceiveStatus.type = activity.smooch_request_type;
+  }
+
   return (
     <Request
       details={details}

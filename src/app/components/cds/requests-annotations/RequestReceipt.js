@@ -20,7 +20,7 @@ const RequestReceipt = ({
   }
 
   const receiptTypes = {
-    no_search_result: {
+    default_requests: {
       label: <FormattedMessage id="requestReceipt.noResult" defaultMessage="No search result" description="Message displayed when user request to tipline returns no result" />,
       icon: <SearchIcon />,
       color: 'gray',
@@ -73,7 +73,7 @@ const RequestReceipt = ({
       icon: <EditNoteIcon />,
       color: 'green',
     },
-    search_result_no_feedback: {
+    timeout_search_requests: {
       label: (
         <FormattedMessage
           id="requestReceipt.noFeedback"
@@ -84,7 +84,7 @@ const RequestReceipt = ({
       icon: <SearchIcon />,
       color: 'yellow',
     },
-    search_result_positive_feedback: {
+    relevant_search_result_requests: {
       label: (
         <FormattedMessage
           id="requestReceipt.positiveFeedback"
