@@ -38,6 +38,9 @@ const TeamIntegrations = () => (<QueryRenderer
               }
             }
           }
+          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+            alegre_settings
+          }
           ...SlackConfig_team
         }
         team_bots_listed(first: 10000) {

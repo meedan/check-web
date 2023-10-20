@@ -109,6 +109,15 @@ class TeamBots extends Component {
             return null;
           }
 
+          // The Tagger bot just works well with the Paraphrase Multilingual model, so let's display it only when that model is in use
+          if (bot.identifier === 'tagger') {
+            const PARAPHRASE_MULTILINGUAL_MODEL = 'paraphrase-multilingual-mpnet-base-v2';
+            const textModel = team?.alegre_bot?.alegre_settings?.text_similarity_model;
+            if (!textModel || (typeof textModel === 'string' && textModel !== PARAPHRASE_MULTILINGUAL_MODEL) || (!textModel.includes(PARAPHRASE_MULTILINGUAL_MODEL))) {
+              return null;
+            }
+          }
+
           const botExpanded = installation && this.state.expanded === bot.dbid;
           return (
             <div key={`bot-${bot.dbid}`} className={cx(settingsStyles['setting-content-container'], styles['integration-bot'])}>
