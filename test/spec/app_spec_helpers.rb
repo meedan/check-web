@@ -25,7 +25,7 @@ module AppSpecHelpers
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
 
-  def wait_for_selector_list(selector, type = :css, timeout = 20, reload = false, ignore_raise = false)
+  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false, ignore_raise = false)
     elements = []
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
@@ -54,18 +54,13 @@ module AppSpecHelpers
     elements
   end
 
-  def wait_for_audio
-    wait_for_selector_list_size('.media__relationship', 1, :css, 20, 10_000, 'unknown', false, false)
-  end
-
   def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false, ignore_raise = false)
     elements = []
     attempts = 0
     start = Time.now.to_i
     while elements.length < size && attempts < retries
       attempts += 1
-      elements = wait_for_selector_list(selector, type, timeout, reload, ignore_raise)
-      puts("#{Time.now}: wait_for_selector_list(#{selector}, #{type}, #{timeout}, #{reload}, #{ignore_raise}), attempt ##{attempts}...") if (retries % 100).zero?
+      elements = wait_for_selector_list(selector, type, timeout, test, reload, ignore_raise)
     end
     finish = Time.now.to_i - start
     raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size && !ignore_raise
