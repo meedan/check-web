@@ -87,7 +87,7 @@ const RequestReceipt = ({ events, intl }) => {
     },
   };
 
-  const lastEvent = events.at(-1);
+  const lastEvent = events.slice(-1)[0];
   const data = receiptTypes[lastEvent?.type];
   data.label = intl.formatMessage(messages[lastEvent?.type], { date: formatDate(lastEvent?.date) });
 
