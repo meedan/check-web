@@ -64,6 +64,7 @@ const SearchFieldChannelComponent = ({
     TELEGRAM: 'Telegram',
     VIBER: 'Viber',
     LINE: 'Line',
+    INSTAGRAM: 'Instagram',
     WEB_FORM: intl.formatMessage(messages.webForm),
     SHARED_DATABASE: intl.formatMessage(messages.sharedDatabase),
   };

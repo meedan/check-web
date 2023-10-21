@@ -9,6 +9,7 @@ import TelegramIcon from '../../icons/telegram.svg';
 import ViberIcon from '../../icons/viber.svg';
 import LineIcon from '../../icons/line.svg';
 import WhatsAppIcon from '../../icons/whatsapp.svg';
+import InstagramIcon from '../../icons/instagram.svg';
 import FactCheckIcon from '../../icons/fact_check.svg';
 import EditNoteIcon from '../../icons/edit_note.svg';
 import SendTiplineMessage from '../SendTiplineMessage';
@@ -48,12 +49,13 @@ const SmoochIcon = ({ name }) => {
   case 'telegram': return <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />;
   case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)' }} />;
   case 'line': return <LineIcon style={{ color: 'var(--lineGreen)' }} />;
+  case 'instagram': return <InstagramIcon style={{ color: 'var(--instagramPink)' }} />;
   default: return null;
   }
 };
 
 SmoochIcon.propTypes = {
-  name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line']).isRequired,
+  name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line', 'instagram']).isRequired,
 };
 
 const channelLabel = {
@@ -63,6 +65,7 @@ const channelLabel = {
   telegram: 'Telegram',
   viber: 'Viber',
   line: 'Line',
+  instagram: 'Instagram',
 };
 
 function parseText(text, projectMedia, activity) {
