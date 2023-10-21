@@ -9,8 +9,6 @@ import TelegramIcon from '../../icons/telegram.svg';
 import ViberIcon from '../../icons/viber.svg';
 import LineIcon from '../../icons/line.svg';
 import WhatsAppIcon from '../../icons/whatsapp.svg';
-import FactCheckIcon from '../../icons/fact_check.svg';
-import EditNoteIcon from '../../icons/edit_note.svg';
 import SendTiplineMessage from '../SendTiplineMessage';
 import TiplineHistoryButton from './TiplineHistoryButton';
 import { languageName } from '../../LanguageRegistry';
@@ -27,16 +25,6 @@ const messages = defineMessages({
     id: 'annotation.smoochNoMessage',
     defaultMessage: 'No message was sent with the request',
     description: 'Replacement for tipline requests without a message',
-  },
-  reportReceived: {
-    id: 'annotation.reportReceived',
-    defaultMessage: 'Report sent on {date}',
-    description: 'Caption for report sent date',
-  },
-  reportUpdateReceived: {
-    id: 'annotation.reportUpdateReceived',
-    defaultMessage: 'Report update sent on {date}',
-    description: 'Caption for report update sent date',
   },
 });
 
@@ -89,6 +77,7 @@ const TiplineRequest = ({
   if (!activity) {
     return null;
   }
+
   const objectValue = activity.value_json;
   const messageType = objectValue.source?.type;
   const messageText = objectValue.text ?
@@ -104,12 +93,8 @@ const TiplineRequest = ({
   if (smoochExternalId && messageType === 'whatsapp') {
     smoochExternalId = smoochExternalId.replace(/^[^:]+:/, '');
   }
-  const smoochReportReceivedAt = activity.smooch_report_received_at ?
-    new Date(parseInt(activity.smooch_report_received_at, 10) * 1000) : null;
-  const smoochReportUpdateReceivedAt = activity.smooch_report_update_received_at ?
-    new Date(parseInt(activity.smooch_report_update_received_at, 10) * 1000) : null;
+
   const smoochRequestLanguage = activity.smooch_user_request_language;
-  const { locale, formatMessage } = intl;
 
   const userName = objectValue.name === 'deleted' ?
     <FormattedMessage id="annotation.deletedUser" defaultMessage="Deleted User" description="Label for deleted user" /> :
@@ -144,17 +129,29 @@ const TiplineRequest = ({
     ));
   }
 
-  const reportReceiveStatus = {};
+  const reportHistory = [];
 
-  if (smoochReportReceivedAt) {
-    reportReceiveStatus.label = formatMessage(messages.reportReceived, { date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }) });
-    reportReceiveStatus.icon = <FactCheckIcon className={styles.icon} />;
+  if (
+    [
+      'default_requests',
+      'timeout_search_requests',
+      'relevant_search_result_requests',
+    ].includes(activity.smooch_request_type)
+  ) {
+    reportHistory.push({ type: activity.smooch_request_type });
   }
 
-  if (smoochReportUpdateReceivedAt) {
-    reportReceiveStatus.label = formatMessage(messages.reportUpdateReceived, { date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }) });
-    reportReceiveStatus.icon = <EditNoteIcon className={styles.icon} />;
-  }
+  [
+    'smooch_report_sent_at',
+    'smooch_report_received_at',
+    'smooch_report_correction_sent_at',
+    'smooch_report_update_received_at',
+  ].forEach((field) => {
+    const value = activity[field];
+    if (value) {
+      reportHistory.push({ type: field, date: value });
+    }
+  });
 
   return (
     <Request
@@ -163,7 +160,7 @@ const TiplineRequest = ({
       text={messageText ? (
         parseText(messageText, projectMedia, activity)
       ) : (
-        formatMessage(messages.smoochNoMessage)
+        intl.formatMessage(messages.smoochNoMessage)
       )}
       icon={<SmoochIcon name={messageType} />}
       historyButton={
@@ -181,12 +178,7 @@ const TiplineRequest = ({
           annotationId={activity.annotation_id}
         />
       }
-      receipt={
-        <RequestReceipt
-          icon={reportReceiveStatus.icon}
-          label={reportReceiveStatus.label}
-        />
-      }
+      receipt={<RequestReceipt events={reportHistory} />}
     />
   );
 };
