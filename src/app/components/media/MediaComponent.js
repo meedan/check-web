@@ -9,7 +9,6 @@ import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaCardLarge from './MediaCardLarge';
 import MediaSidebar from './MediaSidebar';
-import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
 import MediaSlug from './MediaSlug';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
@@ -251,7 +250,6 @@ MediaComponent.contextTypes = {
 
 export default createFragmentContainer(withPusher(MediaComponent), graphql`
   fragment MediaComponent_projectMedia on ProjectMedia {
-    ...MediaAnalysis_projectMedia
     ...MediaSimilaritiesComponent_projectMedia
     ...MediaCardLarge_projectMedia
     id

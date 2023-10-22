@@ -20,6 +20,10 @@ const StyledAnnotations = styled.div`
     .annotations__list-item {
       position: relative;
 
+      .request-card {
+        border-bottom: solid 1px var(--grayBorderMain);
+      }
+
       ${prop => prop.noLink ? null : `
         // The timeline line
         &::before {
@@ -35,8 +39,13 @@ const StyledAnnotations = styled.div`
         &:last-of-type {
           height: ${props => props.noLastItemStretch ? 'auto' : '100%'};
         }
-        `
-}
+        `}
+    }
+
+    .annotations__list-item:last-of-type {
+      .request-card {
+        border-bottom: 0;
+      }
     }
   }
 `;

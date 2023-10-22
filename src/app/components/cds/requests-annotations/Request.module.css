@@ -1,5 +1,4 @@
 .request-card {
-  border-bottom: 1px var(--grayBorderMain) solid;
   display: flex;
   flex-direction: column;
   gap: 8px;

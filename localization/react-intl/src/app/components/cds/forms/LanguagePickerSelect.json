@@ -11,5 +11,10 @@
     "id": "LanguagePickerSelect.selectLanguage",
     "description": "Change language label",
     "defaultMessage": "Select language"
+  },
+  {
+    "id": "LanguagePickerSelect.selectLanguageLabel",
+    "description": "Label for input to select language of fact-check",
+    "defaultMessage": "Language"
   }
 ]
