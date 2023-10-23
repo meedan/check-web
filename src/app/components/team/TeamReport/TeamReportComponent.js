@@ -16,6 +16,7 @@ import TwitterIcon from '../../../icons/twitter.svg';
 import TelegramIcon from '../../../icons/telegram.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import LineIcon from '../../../icons/line.svg';
+import InstagramIcon from '../../../icons/instagram.svg';
 import SettingsHeader from '../SettingsHeader';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -455,6 +456,24 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 iconLeft={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
                 componentProps={{
                   id: 'line',
+                }}
+              />
+              <TextField
+                className={settingsStyles['setting-content-form-field']}
+                key={`instagram-${currentLanguage}`}
+                value={report.instagram || ''}
+                disabled={!report.use_signature}
+                onChange={e => validateSignatureField('instagram', e.target.value)}
+                label={
+                  <FormattedMessage
+                    id="teamReportComponent.instagram"
+                    defaultMessage="Instagram username"
+                    description="Label for Instagram username field"
+                  />
+                }
+                iconLeft={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
+                componentProps={{
+                  id: 'instagram',
                 }}
               />
             </div>

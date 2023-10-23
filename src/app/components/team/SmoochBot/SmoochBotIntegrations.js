@@ -17,6 +17,7 @@ import TelegramIcon from '../../../icons/telegram.svg';
 import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
+import InstagramIcon from '../../../icons/instagram.svg';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
 import styles from '../Settings.module.css';
 
@@ -230,7 +231,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           disabled={!isEnabled}
           type="messenger"
           label="Messenger"
-          url={settings.smooch_facebook_authorization_url}
+          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/messenger')}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7e76e39cac"
           icon={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
           online={isOnline('messenger')}
@@ -240,7 +241,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
               <FormattedMessage
                 id="smoochBotIntegrations.page"
                 defaultMessage="Connected page: {link}"
-                description="Label for the connected facebook page for this bot"
+                description="Label for the connected Facebook page for this bot"
                 values={{
                   link: (
                     <a href={`https://m.me/${enabledIntegrations.messenger.pageId}`} target="_blank" rel="noopener noreferrer">
@@ -346,6 +347,32 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   readOnly: true,
                 }}
                 fullWidth
+              /> : null
+          }
+        />
+        <SmoochBotIntegrationButton
+          installationId={installationId}
+          disabled={!isEnabled}
+          type="instagram"
+          label="Instagram"
+          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
+          helpUrl="https://help.checkmedia.org/en/articles/5189362-connect-a-new-tipline#h_30c95a8357"
+          icon={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
+          online={isOnline('instagram')}
+          readOnly={!isSmoochSet}
+          info={
+            isOnline('instagram') ?
+              <FormattedMessage
+                id="smoochBotIntegrations.instagram"
+                defaultMessage="Connected profile: {link}"
+                description="Label for the connected Instagram profile for this bot"
+                values={{
+                  link: (
+                    <a href={`https://instagram.com/${enabledIntegrations.instagram.businessUsername}`} target="_blank" rel="noopener noreferrer">
+                      {enabledIntegrations.instagram.businessName}
+                    </a>
+                  ),
+                }}
               /> : null
           }
         />
