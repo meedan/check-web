@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import { getErrorMessage } from '../../helpers';
+import styles from '../../styles/css/dialog.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
@@ -36,14 +34,7 @@ const messages = defineMessages({
   },
 });
 
-const useStyles = makeStyles(theme => ({
-  actions: {
-    padding: theme.spacing(3),
-  },
-}));
-
 const CreateTeamDialog = ({ onDismiss, team, intl }) => {
-  const classes = useStyles();
   const [saving, setSaving] = React.useState(false);
   const [name, setName] = React.useState(team ? `Copy of ${team.name}` : '');
   const [slug, setSlug] = React.useState(null);
@@ -153,29 +144,36 @@ const CreateTeamDialog = ({ onDismiss, team, intl }) => {
   }
 
   return (
-    <Dialog open>
-      <DialogTitle>
+    <Dialog className={styles['dialog-window']} open>
+      <div className={styles['dialog-title']}>
         { team ?
+          <>
+            <FormattedMessage
+              tagName="h6"
+              id="createTeamDialog.dialogTitleDuplicate"
+              defaultMessage="Duplicate workspace"
+              description="Title of a dialog box to duplicate the current workspace"
+            />
+            <Alert
+              className={styles['dialog-alert']}
+              variant="info"
+              content={
+                <FormattedMessage
+                  id="createTeamDialog.description"
+                  defaultMessage="All settings from this workspace will be duplicated. No content will be added."
+                  description="Description note to tell the user what information will be duplicated"
+                />
+              }
+            />
+          </> :
           <FormattedMessage
-            id="createTeamDialog.dialogTitleDuplicate"
-            defaultMessage="Duplicate workspace"
-            description="Title of a dialog box to duplicate the current workspace"
-          /> :
-          <FormattedMessage
+            tagName="h6"
             id="createTeamDialog.dialogTitleCreate"
             defaultMessage="Create new workspace"
             description="Dialog title for creating a new workspace"
           /> }
-      </DialogTitle>
-      <DialogContent>
-        { team ?
-          <FormattedMessage
-            id="createTeamDialog.description"
-            tagName="p"
-            defaultMessage="All settings from this workspace will be duplicated. No content will be added."
-            description="Description note to tell the user what information will be duplicated"
-          />
-          : null }
+      </div>
+      <div className={styles['dialog-content']}>
         <div className={inputStyles['form-fieldset']}>
           <div className={inputStyles['form-fieldset-field']}>
             <TextField
@@ -216,8 +214,8 @@ const CreateTeamDialog = ({ onDismiss, team, intl }) => {
             />
           </div>
         </div>
-      </DialogContent>
-      <DialogActions className={classes.actions}>
+      </div>
+      <div className={styles['dialog-actions']}>
         <ButtonMain
           onClick={onDismiss}
           theme="text"
@@ -240,7 +238,7 @@ const CreateTeamDialog = ({ onDismiss, team, intl }) => {
           disabled={saving || !name}
           label={buttonLabel}
         />
-      </DialogActions>
+      </div>
     </Dialog>
   );
 };
