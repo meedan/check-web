@@ -18,8 +18,8 @@
   }
 
   &.contained {
-    border-radius: 5px;
     border: solid 1px var(--brandSecondary);
+    border-radius: 5px;
   }
 
   &.success {
