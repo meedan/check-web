@@ -113,5 +113,10 @@
     "id": "teamReportComponent.line",
     "description": "Label to LINE channel field",
     "defaultMessage": "LINE channel"
+  },
+  {
+    "id": "teamReportComponent.instagram",
+    "description": "Label for Instagram username field",
+    "defaultMessage": "Instagram username"
   }
 ]

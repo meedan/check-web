@@ -106,6 +106,9 @@ function previewFooter(defaultReport) {
   if (defaultReport.line) {
     footer.push(`LINE: ${defaultReport.line}`);
   }
+  if (defaultReport.instagram) {
+    footer.push(`Instagram: instagram.com/${defaultReport.instagram}`);
+  }
   return footer.join('\n');
 }
 
