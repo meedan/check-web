@@ -8,10 +8,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Typography from '@material-ui/core/Typography';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import { getErrorMessage } from '../../helpers';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
   duplicating: {
@@ -37,10 +37,6 @@ const messages = defineMessages({
 });
 
 const useStyles = makeStyles(theme => ({
-  textField: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
   actions: {
     padding: theme.spacing(3),
   },
@@ -142,12 +138,6 @@ const CreateTeamDialog = ({ onDismiss, team, intl }) => {
     });
   };
 
-  const textFieldProps = {
-    className: classes.textField,
-    variant: 'outlined',
-    fullWidth: true,
-  };
-
   const handleSubmit = team ? handleDuplicate : handleCreate;
   const { formatMessage } = intl;
 
@@ -179,46 +169,56 @@ const CreateTeamDialog = ({ onDismiss, team, intl }) => {
       </DialogTitle>
       <DialogContent>
         { team ?
-          <Typography>
-            <FormattedMessage
-              id="createTeamDialog.description"
-              defaultMessage="All settings from this workspace will be duplicated. No content will be added."
-              description="Description note to tell the user what information will be duplicated"
+          <FormattedMessage
+            id="createTeamDialog.description"
+            tagName="p"
+            defaultMessage="All settings from this workspace will be duplicated. No content will be added."
+            description="Description note to tell the user what information will be duplicated"
+          />
+          : null }
+        <div className={inputStyles['form-fieldset']}>
+          <div className={inputStyles['form-fieldset-field']}>
+            <TextField
+              required
+              value={name}
+              id="create-team-dialog__name-input"
+              label={
+                <FormattedMessage
+                  id="createTeamDialog.name"
+                  defaultMessage="Workspace name"
+                  description="Text field label for the name of the new workspace"
+                />
+              }
+              onChange={(e) => { setName(e.target.value); }}
             />
-          </Typography> : null }
-        <TextField
-          value={name}
-          id="create-team-dialog__name-input"
-          label={
-            <FormattedMessage
-              id="createTeamDialog.name"
-              defaultMessage="Workspace name"
-              description="Text field label for the name of the new workspace"
+          </div>
+          <div className={inputStyles['form-fieldset-field']}>
+            <TextField
+              required
+              value={slug || autoSlug}
+              label={
+                <FormattedMessage
+                  id="createTeamDialog.url"
+                  defaultMessage="Workspace URL"
+                  description="Text field label for the URL of the new workspace"
+                />
+              }
+              onChange={(e) => {
+                if (errorMessage) {
+                  setErrorMessage(null);
+                }
+                setSlug(e.target.value);
+              }}
+              onBlur={(e) => {
+                setSlug(e.target.value.toLowerCase().replace(/ /g, '-').replace(/[^-a-z0-9]/g, '').replace(/-+/g, '-'));
+              }}
+              helpContent={errorMessage ? `${errorMessage}
+              https://checkmedia.org/${slug || autoSlug}` : `https://checkmedia.org/${slug || autoSlug}`} // maintain line break to separate error message from help text
+              error={Boolean(errorMessage)}
+              helperText={errorMessage}
             />
-          }
-          onChange={(e) => { setName(e.target.value); }}
-          {...textFieldProps}
-        />
-        <TextField
-          value={slug || autoSlug}
-          label={
-            <FormattedMessage
-              id="createTeamDialog.url"
-              defaultMessage="Workspace URL"
-              description="Text field label for the URL of the new workspace"
-            />
-          }
-          onChange={(e) => {
-            if (errorMessage) {
-              setErrorMessage(null);
-            }
-            setSlug(e.target.value);
-          }}
-          helpContent={`https://checkmedia.org/${slug || autoSlug}`}
-          error={Boolean(errorMessage)}
-          helperText={errorMessage}
-          {...textFieldProps}
-        />
+          </div>
+        </div>
       </DialogContent>
       <DialogActions className={classes.actions}>
         <ButtonMain

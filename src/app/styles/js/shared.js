@@ -316,6 +316,13 @@ export const MuiTheme = {
         fontSize: '1.5em',
       },
     },
+    MuiDialog: {
+      paper: {
+        border: `2px solid ${brandBorder}`,
+        borderRadius: 16,
+        minWidth: '550px',
+      },
+    },
   },
 };
 
