@@ -209,9 +209,6 @@ const CreateTeamDialog = ({ onDismiss, team, intl }) => {
                 }
                 setSlug(e.target.value);
               }}
-              onBlur={(e) => {
-                setSlug(e.target.value.toLowerCase().replace(/ /g, '-').replace(/[^-a-z0-9]/g, '').replace(/-+/g, '-'));
-              }}
               helpContent={errorMessage ? `${errorMessage}
               https://checkmedia.org/${slug || autoSlug}` : `https://checkmedia.org/${slug || autoSlug}`} // maintain line break to separate error message from help text
               error={Boolean(errorMessage)}
