@@ -60,6 +60,7 @@
 
     &.error-label {
       color: var(--errorSecondary);
+      white-space: pre-line;
 
       .help-counter {
         margin: 4px 0 0;
