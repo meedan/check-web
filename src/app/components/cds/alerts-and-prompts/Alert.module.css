@@ -17,6 +17,11 @@
     border-radius: 0;
   }
 
+  &.contained {
+    border-radius: 5px;
+    border: solid 1px var(--brandSecondary);
+  }
+
   &.success {
     background-color: var(--validationLight);
     border-color: var(--validationSecondary);
@@ -30,7 +35,7 @@
   }
 
   &.info {
-    background-color: var(--brandBackground);
+    background-color: var(--brandLight);
     border-color: var(--brandSecondary);
     color: var(--brandSecondary);
   }

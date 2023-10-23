@@ -56,6 +56,8 @@
       }
 
       :global(.Mui-disabled) {
+        color: var(--errroMain);
+
         .thumb {
           color: var(--grayBorderAccent);
           cursor: not-allowed;
@@ -84,8 +86,16 @@
 
     :global(+ .MuiFormControlLabel-label) {
       @mixin typography-body2;
-      color: var(--textPrimary);
+      color: var(--textSecondary);
       margin: 0 0 8px 10px;
+    }
+  }
+
+  &.switch-disabled {
+    .switch {
+      :global(+ .MuiFormControlLabel-label) {
+        color: var(--textPlaceholder);
+      }
     }
   }
 
