@@ -141,7 +141,7 @@ shared_examples 'similarity' do
     sleep 200 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
     create_image('files/audio.ogg')
-    sleep 200 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    sleep 250 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('.media__more-medias')

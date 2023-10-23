@@ -123,7 +123,7 @@ const NewsletterComponent = ({
       const utcDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
       // Parse for `Foo/Bar` and `Foo/Bar/Baz`
       const timeZoneRegex = /^\w*\/\w*(\/\w*)?/;
-      const tzDate = new Date(date.toLocaleString('en-US', { timeZone: timezone.match(/^\w*\/\w*/) && timezone.match(timeZoneRegex)[0] }));
+      const tzDate = new Date(date.toLocaleString('en-US', { timeZone: timezone.match(timeZoneRegex) && timezone.match(timeZoneRegex)[0] }));
       const offset = utcDate.getTime() - tzDate.getTime();
       date.setTime(date.getTime() + offset);
       const scheduledDateTime = date;

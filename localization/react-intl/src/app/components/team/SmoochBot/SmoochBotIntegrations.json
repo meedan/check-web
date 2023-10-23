@@ -41,7 +41,7 @@
   },
   {
     "id": "smoochBotIntegrations.page",
-    "description": "Label for the connected facebook page for this bot",
+    "description": "Label for the connected Facebook page for this bot",
     "defaultMessage": "Connected page: {link}"
   },
   {
@@ -78,5 +78,10 @@
     "id": "smoochBotIntegrations.lineWebhook",
     "description": "Textfield label for the LINE webhook URL",
     "defaultMessage": "Copy this webhook URL to your LINE settings"
+  },
+  {
+    "id": "smoochBotIntegrations.instagram",
+    "description": "Label for the connected Instagram profile for this bot",
+    "defaultMessage": "Connected profile: {link}"
   }
 ]
