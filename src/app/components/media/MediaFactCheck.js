@@ -160,7 +160,8 @@ const MediaFactCheck = ({ projectMedia }) => {
       { claimDescriptionMissing ?
         <Alert
           className={styles['media-item-claim-inner-alert']}
-          variant="warning"
+          variant="info"
+          contained
           title={
             <FormattedMessage
               id="alert.noClaimTitle"
@@ -203,7 +204,7 @@ const MediaFactCheck = ({ projectMedia }) => {
       <div className={inputStyles['form-fieldset-field']}>
         <FormattedMessage
           id="mediaFactCheck.titlePlaceholder"
-          defaultMessage="Objectively message to readers"
+          defaultMessage="Objective message to readers"
           description="Placeholder instructions for fact-check title field"
         >
           { placeholder => (

@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import Tooltip from '@material-ui/core/Tooltip';
 import { FormattedMessage } from 'react-intl';
+import Tooltip from '../alerts-and-prompts/Tooltip';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 import CheckCircleOutlineOutlinedIcon from '../../../icons/check_circle.svg';
@@ -30,6 +30,7 @@ const Alert = ({
   icon,
   floating,
   banner,
+  contained,
   onButtonClick,
   onClose,
 }) => (
@@ -44,6 +45,7 @@ const Alert = ({
         [styles.error]: variant === 'error',
         [styles.floating]: floating,
         [styles.banner]: banner,
+        [styles.contained]: contained,
       })
     }
   >
@@ -74,13 +76,15 @@ const Alert = ({
     </div>
     { onClose &&
       <div className={styles.closeButtonWrapper}>
-        <Tooltip title={
-          <FormattedMessage
-            id="alert.closeButton"
-            defaultMessage="Close alert"
-            description="Tooltip for close alert"
-          />
-        }
+        <Tooltip
+          arrow
+          title={
+            <FormattedMessage
+              id="alert.closeButton"
+              defaultMessage="Close alert"
+              description="Tooltip for close alert"
+            />
+          }
         >
           <span>
             <ButtonMain variant="text" size="small" theme={buttonTheme(variant)} iconCenter={<IconClose />} onClick={onClose} />
@@ -101,6 +105,7 @@ Alert.defaultProps = {
   onClose: null,
   floating: false,
   banner: false,
+  contained: false,
   icon: true,
 };
 
@@ -110,6 +115,7 @@ Alert.propTypes = {
   content: PropTypes.node,
   floating: PropTypes.bool,
   banner: PropTypes.bool,
+  contained: PropTypes.bool,
   icon: PropTypes.bool,
   buttonLabel: PropTypes.string,
   onButtonClick: PropTypes.func,

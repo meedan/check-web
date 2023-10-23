@@ -27,7 +27,7 @@
   {
     "id": "mediaFactCheck.titlePlaceholder",
     "description": "Placeholder instructions for fact-check title field",
-    "defaultMessage": "Objectively message to readers"
+    "defaultMessage": "Objective message to readers"
   },
   {
     "id": "mediaFactCheck.errorTitle",
