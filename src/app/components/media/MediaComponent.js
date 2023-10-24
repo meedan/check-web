@@ -35,6 +35,9 @@ class MediaComponent extends Component {
     let initialTab = 'metadata';
     if (showRequests && this.props.view !== 'similarMedia') {
       initialTab = 'requests';
+      if (this.props.projectMedia.suggested_similar_items_count > 0) {
+        initialTab = 'suggestedMedia';
+      }
     } else if (this.props.view === 'similarMedia') {
       initialTab = 'suggestedMedia';
     }
@@ -268,6 +271,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     creator_name
     user_id
     channel
+    suggested_similar_items_count
     suggested_similar_relationships(first: 10000) {
       edges {
         node {
