@@ -56,33 +56,21 @@ class MediaRequestsComponent extends Component {
 
   render() {
     const { media } = this.props;
+    console.log(media); // eslint-disable-line no-console
 
     return (
       <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>
         <span className="typography-subtitle2">
-          { this.props.all ?
-            media.demand > 0 && (
-              <FormattedMessage
-                id="mediaRequests.allRequests"
-                defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
-                description="The count in a readable sentence of the number of requests for all media listed"
-                values={{
-                  count: media.demand,
-                }}
-              />
-            )
-            :
-            media.requests_count > 0 && (
-              <FormattedMessage
-                id="mediaRequests.thisRequests"
-                defaultMessage="{count, plural, one {# request} other {# requests}}"
-                description="The count in a readable sentence of the number of requests for this media"
-                values={{
-                  count: media.requests_count,
-                }}
-              />
-            )
-          }
+          { (!this.props.all && media.requests_count > 0) && (
+            <FormattedMessage
+              id="mediaRequests.thisRequests"
+              defaultMessage="{count, plural, one {# request} other {# requests}}"
+              description="The count in a readable sentence of the number of requests for this media"
+              values={{
+                count: media.requests_count,
+              }}
+            />
+          )}
         </span>
         <Annotations
           noLink

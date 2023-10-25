@@ -126,9 +126,38 @@
 
   .media-requests,
   .media-suggestions,
-  .media-comments {
+  .media-comments,
+  .media-sources,
+  .media-tasks {
     flex: 1;
     padding: 16px;
+
+    .empty-list {
+      @mixin typography-body1;
+      background-color: var(--brandLight);
+      color: var(--textDisabled);
+      text-align: center;
+    }
+  }
+
+  .media-requests {
+    border: solid 3px var(--brandMain);
+  }
+
+  .media-suggestions {
+    border: dashed 3px var(--alertMain);
+  }
+
+  .media-tasks {
+    border: double 3px var(--errorMain);
+  }
+
+  .media-sources {
+    border: solid 3px var(--validationMain);
+  }
+
+  .media-comments {
+    border: dotted 3px var(--alertMain);
   }
 
   @media (max-width: 1100px) {

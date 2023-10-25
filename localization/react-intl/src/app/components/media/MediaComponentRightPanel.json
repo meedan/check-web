@@ -2,26 +2,26 @@
   {
     "id": "mediaComponent.requests",
     "description": "Label for the Requests tab, as in requests from users",
-    "defaultMessage": "Requests"
+    "defaultMessage": "{requests_count, plural, =0 {Requests} other {Requests [#]}}"
   },
   {
     "id": "mediaComponent.suggestedMedia",
     "description": "Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing",
-    "defaultMessage": "Suggestions"
+    "defaultMessage": "{suggestions_count, plural, =0 {Suggestions} other {Suggestions [#]}}"
   },
   {
     "id": "mediaComponent.annotation",
     "description": "Label for the Annotation tab",
-    "defaultMessage": "Annotation"
+    "defaultMessage": "Annotations"
   },
   {
     "id": "mediaComponent.source",
     "description": "Label for the Source tab, as in source of the information",
-    "defaultMessage": "Source"
+    "defaultMessage": "Sources"
   },
   {
     "id": "mediaComponent.notes",
     "description": "Label for the Notes tab, as in text notes",
-    "defaultMessage": "Notes"
+    "defaultMessage": "{notes_count, plural, =0 {Notes} other {Notes [#]}}"
   }
 ]

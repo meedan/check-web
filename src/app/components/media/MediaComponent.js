@@ -271,6 +271,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     creator_name
     user_id
     channel
+    notes_count: annotations_count(annotation_type: "comment")
     suggested_similar_items_count
     suggested_similar_relationships(first: 10000) {
       edges {

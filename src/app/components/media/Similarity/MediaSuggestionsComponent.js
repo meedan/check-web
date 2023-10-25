@@ -48,10 +48,6 @@ const useStyles = makeStyles(theme => ({
     minWidth: theme.spacing(28), // a number that is arbitrary but looks okay
     textAlign: 'center',
   },
-  break: {
-    flexBasis: '100%',
-    height: 0,
-  },
   helpIconContainer: {
     position: 'absolute',
     top: 0,
@@ -59,53 +55,6 @@ const useStyles = makeStyles(theme => ({
   },
   disabled: {
     opacity: 0.5,
-  },
-  media: {
-    border: '1px solid var(--brandBorder)',
-    borderRadius: 8,
-    color: 'var(--textPrimary)',
-    backgroundColor: 'var(--otherWhite)',
-  },
-  noMedia: {
-    color: 'var(--textPrimary)',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 14,
-    backgroundColor: 'var(--otherWhite)',
-  },
-  spaced: {
-    padding: theme.spacing(1),
-  },
-  suggestionsBackButton: {
-    padding: 0,
-    color: 'var(--textSecondary)',
-  },
-  suggestionsNoMediaBox: {
-    border: '1px solid var(--brandBorder)',
-    borderRadius: theme.spacing(1),
-    paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(5),
-  },
-  spamTrashBox: {
-    width: '100%',
-    textAlign: 'right',
-  },
-  card: {
-    border: '1px solid var(--brandBorder)',
-    borderRadius: theme.spacing(2),
-    color: 'var(--textPrimary)',
-    backgroundColor: 'var(--otherWhite)',
-    margin: theme.spacing(2, 1, 1, 1),
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    overflow: 'hidden',
-  },
-  cardText: {
-    fontSize: '14px',
-    lineHeight: '143%',
-    fontWeight: 400,
   },
 }));
 
@@ -600,9 +549,10 @@ const MediaSuggestionsComponent = ({
 
   if (totalCount === 0) {
     return (
-      <Box className={classes.card}>
-        <span className={cx('typography-subtitle2', 'similarity-media-no-items')}>
+      <div className={cx('media__suggestions-column', styles['media-suggestions'], styles['media-item-content'])}>
+        <div className={cx(styles['empty-list'], 'similarity-media-no-items')}>
           <FormattedMessage
+            tagName="p"
             id="mediaSuggestionsComponent.noItems"
             defaultMessage="{total, plural, one {{total} suggestion} other {{total} suggestions}}"
             description="A header that tells the user there are no items in the list"
@@ -610,8 +560,8 @@ const MediaSuggestionsComponent = ({
               total: 0,
             }}
           />
-        </span>
-      </Box>
+        </div>
+      </div>
     );
   }
 

@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import styled from 'styled-components';
+import MediasLoading from '../media/MediasLoading';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
-import BlankState from '../layout/BlankState';
 import { units, borderWidthMedium } from '../../styles/js/shared';
+import styles from '../media/media.module.css';
 
 const StyledAnnotations = styled.div`
+  border: solid 3px blue;
   display: flex;
   flex-direction: column;
   .annotations__list {
@@ -92,11 +92,9 @@ class Annotations extends React.Component {
           /> : null }
         <div className="annotations__list">
           {!props.annotations.length ?
-            <Box m="auto">
-              <BlankState>
-                { props.noActivityMessage || <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
-              </BlankState>
-            </Box> :
+            <div className={styles['empty-list']}>
+              { props.noActivityMessage || <FormattedMessage tagName="p" id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
+            </div> :
             props.annotations.slice(0).reverse().map(annotation => (
               <div key={annotation.node.dbid} className="annotations__list-item">
                 { props.component ?
@@ -115,24 +113,29 @@ class Annotations extends React.Component {
                 }
               </div>))}
           { hasMore ? (
-            <Button
+            <ButtonMain
+              variant="contained"
+              theme="lightText"
+              size="default"
               onClick={this.loadMore}
               disabled={this.state.loadingMore}
-              endIcon={
+              iconCenter={
                 this.state.loadingMore ?
-                  <CircularProgress color="inherit" size="1em" /> :
+                  <MediasLoading size="icon" theme="white" variant="icon" /> :
                   null
               }
-            >
-              <FormattedMessage
-                id="annotations.loadMore"
-                defaultMessage="Load more"
-                description="Button label to fetch additional annotations in this list"
-              />
-            </Button>
+              label={
+                <FormattedMessage
+                  id="annotations.loadMore"
+                  defaultMessage="Load more"
+                  description="Button label to fetch additional annotations in this list"
+                />
+              }
+            />
           ) : null }
         </div>
-      </StyledAnnotations>);
+      </StyledAnnotations>
+    );
   }
 }
 
