@@ -5,6 +5,9 @@ import { createFragmentContainer, graphql, commitMutation } from 'react-relay/co
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
 import Checkbox from '@material-ui/core/Checkbox';
+import Menu from '@material-ui/core/Menu';
+import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
 import styles from './SaveFeed.module.css';
 import SelectListQueryRenderer from './SelectList';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -24,6 +27,7 @@ import SchoolIcon from '../../icons/school.svg';
 import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import OpenSourceIcon from '../../icons/open_source.svg';
 import RssFeedIcon from '../../icons/rss_feed.svg';
+import ChevronDownIcon from '../../icons/chevron_down.svg';
 
 const LicenseOption = ({
   icon,
@@ -95,6 +99,23 @@ const updateMutation = graphql`
   }
 `;
 
+const destroyMutation = graphql`
+  mutation SaveFeedDestroyFeedMutation($input: DestroyFeedInput!) {
+    destroyFeed(input: $input) {
+      deletedId
+      team {
+        feeds(first: 10000) {
+          edges {
+            node {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 const SaveFeed = (props) => {
   const feed = props.feed || {}; // Editing a feed or creating a new feed
   const [title, setTitle] = React.useState(feed.name || '');
@@ -109,10 +130,21 @@ const SaveFeed = (props) => {
   const [openSourceLicense, setOpenSourceLicense] = React.useState(feedLicenses.includes(3));
   const [tags, setTags] = React.useState(feed.tags || []);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
 
   const handleViewFeed = (feedId) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     browserHistory.push(`/${teamSlug}/feed/${feedId}/feed`);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    setShowDeleteDialog(false);
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteDialog(true);
   };
 
   const onSuccess = (response) => {
@@ -170,6 +202,24 @@ const SaveFeed = (props) => {
     } else {
       handleSave();
     }
+  };
+
+  const handleDelete = () => {
+    setSaving(true);
+
+    const input = { id: feed.id };
+    commitMutation(
+      Relay.Store,
+      {
+        mutation: destroyMutation,
+        variables: { input },
+        onCompleted: () => {
+          const retPath = `/${feed.team.slug}/all-items`;
+          browserHistory.push(retPath);
+        },
+        onError: onFailure,
+      },
+    );
   };
 
   return (
@@ -427,25 +477,69 @@ const SaveFeed = (props) => {
         </div>
       </div>
       <div className={styles.saveFeedContentNarrow}>
-        <ButtonMain
-          theme="brand"
-          size="default"
-          variant="contained"
-          onClick={handleConfirmOrSave}
-          disabled={disableSaveButton}
-          label={feed.id ?
-            <FormattedMessage
-              id="saveFeed.updateSaveButton"
-              defaultMessage="Save"
-              description="Label to the save button of the shared feed update form"
-            /> :
-            <FormattedMessage
-              id="saveFeed.createSaveButton"
-              defaultMessage="Create shared feed"
-              description="Label to the save button of the shared feed creation form"
+        <div className={styles.saveFeedButtonContainer}>
+          <ButtonMain
+            theme="brand"
+            size="default"
+            variant="contained"
+            onClick={handleConfirmOrSave}
+            disabled={disableSaveButton}
+            label={feed.id ?
+              <FormattedMessage
+                id="saveFeed.updateSaveButton"
+                defaultMessage="Save"
+                description="Label to the save button of the shared feed update form"
+              /> :
+              <FormattedMessage
+                id="saveFeed.createSaveButton"
+                defaultMessage="Create shared feed"
+                description="Label to the save button of the shared feed creation form"
+              />
+            }
+          />
+          { feed.id ?
+            <ButtonMain
+              className="typography-button ${styles.saveFeedButtonMoreActions"
+              theme="text"
+              size="default"
+              variant="outlined"
+              onClick={e => setAnchorEl(e.currentTarget)}
+              disabled={disableSaveButton}
+              iconRight={<ChevronDownIcon />}
+              label={
+                <FormattedMessage
+                  id="saveFeed.MoreActionsButton"
+                  defaultMessage="More Actions"
+                  description="Label to the save button of the shared feed update form"
+                />
+              }
             />
-          }
-        />
+            : null }
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            { feed.teams_count > 1 ?
+              <MenuItem disabled>
+                <FormattedHTMLMessage
+                  id="SaveFeed.deleteButtonDisabled"
+                  defaultMessage="Delete shared feed <br />(Remove collaborators to <br /> delete this shared feed)"
+                  description="Menu option to inform user to remove collaborators before deleting the selected shared feed"
+                />
+              </MenuItem>
+              :
+              <MenuItem onClick={handleDeleteClick}>
+                <FormattedMessage
+                  id="SaveFeed.deleteButton"
+                  defaultMessage="Delete shared feed"
+                  description="Menu option to delete the selected shared feed"
+                />
+              </MenuItem>
+
+            }
+          </Menu>
+        </div>
 
         { feed.id ?
           <div className={styles.saveFeedMetadata}>
@@ -473,10 +567,49 @@ const SaveFeed = (props) => {
                 description="On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
               />
             </div>
-          </div> : null
+          </div>
+          : null
         }
       </div>
 
+      {/* "Delete" dialog */}
+      <ConfirmProceedDialog
+        open={showDeleteDialog}
+        title={
+          <FormattedMessage
+            id="projectsComponent.deleteSharedFeed"
+            defaultMessage="Delete Shared Feed?"
+            description="'Delete' here is an infinitive verb"
+          />
+        }
+        body={
+          <div className={styles.saveFeedDialogDivider}>
+            <Typography variant="body1" component="p" paragraph>
+              <FormattedHTMLMessage
+                id="projectsComponent.deleteSharedFeedConfirmation"
+                defaultMessage="Are you sure? This shared feed is accessible by all users of <b>{orgName}</b> After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
+                values={{
+                  orgName: feed.name,
+                }}
+                description="Confirmation dialog message when deleting a feed."
+              />
+            </Typography>
+          </div>
+        }
+        proceedLabel={
+          <FormattedMessage
+            id="projectsComponent.deleteTSharedFeedConfirmation"
+            defaultMessage="Delete Shared Feed"
+            description="'Delete' here is an infinitive verb"
+          />
+        }
+        onProceed={handleDelete}
+        isSaving={saving}
+        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+        onCancel={handleClose}
+      />
+
+      {/* "Update" dialog */}
       <ConfirmProceedDialog
         open={showConfirmationDialog}
         title={
@@ -537,7 +670,9 @@ export default createFragmentContainer(SaveFeed, graphql`
     updated_at
     team {
       name
+      slug
     }
+    teams_count
     user {
       email
     }
