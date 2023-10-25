@@ -6,7 +6,6 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
 import Checkbox from '@material-ui/core/Checkbox';
 import Menu from '@material-ui/core/Menu';
-import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import styles from './SaveFeed.module.css';
 import SelectListQueryRenderer from './SelectList';
@@ -586,18 +585,16 @@ const SaveFeed = (props) => {
           />
         }
         body={
-          <div className={styles.saveFeedDialogDivider}>
-            <Typography variant="body1" component="p" paragraph>
-              <FormattedHTMLMessage
-                id="projectsComponent.deleteSharedFeedConfirmation"
-                defaultMessage="Are you sure? This shared feed is accessible by all users of <b>{orgName}</b> After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
-                values={{
-                  orgName: feed.name,
-                }}
-                description="Confirmation dialog message when deleting a feed."
-              />
-            </Typography>
-          </div>
+          <p className={styles.saveFeedDialogDivider}>
+            <FormattedHTMLMessage
+              id="projectsComponent.deleteSharedFeedConfirmation"
+              defaultMessage="Are you sure? This shared feed is accessible by all users of <b>{orgName}</b> After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
+              values={{
+                orgName: feed.name,
+              }}
+              description="Confirmation dialog message when deleting a feed."
+            />
+          </p>
         }
         proceedLabel={
           <FormattedMessage
