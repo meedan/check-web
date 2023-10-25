@@ -15,6 +15,7 @@ import ExternalLink from '../ExternalLink';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import TimeBefore from '../TimeBefore';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import Can from '../Can'; // eslint-disable-line import/no-duplicates
 import BulletSeparator from '../layout/BulletSeparator';
 import { getErrorMessageForRelayModernProblem, parseStringUnixTimestamp } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
@@ -498,22 +499,24 @@ const SaveFeed = (props) => {
             }
           />
           { feed.id ?
-            <ButtonMain
-              className="typography-button ${styles.saveFeedButtonMoreActions"
-              theme="text"
-              size="default"
-              variant="outlined"
-              onClick={e => setAnchorEl(e.currentTarget)}
-              disabled={disableSaveButton}
-              iconRight={<ChevronDownIcon />}
-              label={
-                <FormattedMessage
-                  id="saveFeed.MoreActionsButton"
-                  defaultMessage="More Actions"
-                  description="Label to the save button of the shared feed update form"
-                />
-              }
-            />
+            <Can permissions={feed.permissions} permission="destroy Feed">
+              <ButtonMain
+                className="typography-button ${styles.saveFeedButtonMoreActions"
+                theme="text"
+                size="default"
+                variant="outlined"
+                onClick={e => setAnchorEl(e.currentTarget)}
+                disabled={disableSaveButton}
+                iconRight={<ChevronDownIcon />}
+                label={
+                  <FormattedMessage
+                    id="saveFeed.MoreActionsButton"
+                    defaultMessage="More Actions"
+                    description="Label to the save button of the shared feed update form"
+                  />
+                }
+              />
+            </Can>
             : null }
           <Menu
             anchorEl={anchorEl}
@@ -668,6 +671,7 @@ export default createFragmentContainer(SaveFeed, graphql`
     tags
     created_at
     updated_at
+    permissions
     team {
       name
       slug
