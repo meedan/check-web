@@ -47,7 +47,7 @@ const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
     !can(projectMedia.permissions, 'update ProjectMedia') ||
     projectMedia.is_secondary ||
     projectMedia.suggested_main_item?.dbid ||
-    projectMedia.archived > CheckArchivedFlags.NONE;
+    projectMedia.archived === CheckArchivedFlags.TRASHED;
 
   const onFailure = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
