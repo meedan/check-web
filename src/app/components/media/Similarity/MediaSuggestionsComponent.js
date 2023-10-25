@@ -10,11 +10,11 @@ import {
   DialogActions,
   DialogTitle,
   Grid,
-  Tooltip,
 } from '@material-ui/core';
 import { browserHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { can } from '../../Can';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
@@ -574,29 +574,33 @@ const MediaSuggestionsComponent = ({
           flexDirection="column"
           mr={1}
         >
-          <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.accept" defaultMessage="Match media" description="Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list." />}>
-            <ButtonMain
-              iconCenter={<AcceptIcon />}
-              onClick={reportType === 'blank' ? () => { handleDestroyAndReplace(relationshipItem); } : () => { handleConfirm(relationshipItem); }}
-              variant="text"
-              size="large"
-              theme="validation"
-              disabled={disableAcceptRejectButtons}
-              className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept} similarity-media-item__accept-relationship`}
-            />
+          <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.accept" defaultMessage="Match media" description="Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list." />}>
+            <span>
+              <ButtonMain
+                iconCenter={<AcceptIcon />}
+                onClick={reportType === 'blank' ? () => { handleDestroyAndReplace(relationshipItem); } : () => { handleConfirm(relationshipItem); }}
+                variant="text"
+                size="large"
+                theme="validation"
+                disabled={disableAcceptRejectButtons}
+                className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept} similarity-media-item__accept-relationship`}
+              />
+            </span>
           </Tooltip>
-          <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.reject" defaultMessage="Reject media" description="Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list." />}>
-            <ButtonMain
-              iconCenter={<RejectIcon />}
-              onClick={() => {
-                handleReject(relationshipItem);
-              }}
-              variant="text"
-              size="large"
-              theme="error"
-              disabled={disableAcceptRejectButtons}
-              className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject} similarity-media-item__reject-relationship`}
-            />
+          <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.reject" defaultMessage="Reject media" description="Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list." />}>
+            <span>
+              <ButtonMain
+                iconCenter={<RejectIcon />}
+                onClick={() => {
+                  handleReject(relationshipItem);
+                }}
+                variant="text"
+                size="large"
+                theme="error"
+                disabled={disableAcceptRejectButtons}
+                className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject} similarity-media-item__reject-relationship`}
+              />
+            </span>
           </Tooltip>
         </Box>
       </Grid>
@@ -636,27 +640,31 @@ const MediaSuggestionsComponent = ({
           flexDirection="column"
           ml={1}
         >
-          <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.spam" defaultMessage="Mark media as spam" description="Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list." />}>
-            <ButtonMain
-              iconCenter={<SpamIcon />}
-              onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM, relationshipItem)}
-              variant="text"
-              size="large"
-              theme="lightText"
-              disabled={disableAcceptRejectButtons}
-              className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
-            />
+          <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.spam" defaultMessage="Mark media as spam" description="Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list." />}>
+            <span>
+              <ButtonMain
+                iconCenter={<SpamIcon />}
+                onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM, relationshipItem)}
+                variant="text"
+                size="large"
+                theme="lightText"
+                disabled={disableAcceptRejectButtons}
+                className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
+              />
+            </span>
           </Tooltip>
-          <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.trash" defaultMessage="Send media to trash" description="Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list." />}>
-            <ButtonMain
-              iconCenter={<TrashIcon />}
-              onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED, relationshipItem)}
-              variant="text"
-              size="large"
-              theme="lightText"
-              disabled={disableAcceptRejectButtons}
-              className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
-            />
+          <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.trash" defaultMessage="Send media to trash" description="Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list." />}>
+            <span>
+              <ButtonMain
+                iconCenter={<TrashIcon />}
+                onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED, relationshipItem)}
+                variant="text"
+                size="large"
+                theme="lightText"
+                disabled={disableAcceptRejectButtons}
+                className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
+              />
+            </span>
           </Tooltip>
         </Box>
       </Grid>
@@ -670,19 +678,21 @@ const MediaSuggestionsComponent = ({
           <>
             <Box className={classes.containerBox} mb={2}>
               <Box display="flex" justifyContent="center" alignItems="center">
-                <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.previous" defaultMessage="Previous" description="Label for the 'go to previous page' button on paginated suggestions" />}>
-                  <ButtonMain
-                    iconCenter={<PreviousIcon />}
-                    onClick={() => {
-                      if (cursor - pageSize >= 0) {
-                        setCursor(cursor - pageSize);
-                      }
-                    }}
-                    variant="text"
-                    size="default"
-                    theme="lightText"
-                    disabled={isPaginationLoading || cursor - pageSize < 0}
-                  />
+                <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.previous" defaultMessage="Previous" description="Label for the 'go to previous page' button on paginated suggestions" />}>
+                  <span>
+                    <ButtonMain
+                      iconCenter={<PreviousIcon />}
+                      onClick={() => {
+                        if (cursor - pageSize >= 0) {
+                          setCursor(cursor - pageSize);
+                        }
+                      }}
+                      variant="text"
+                      size="default"
+                      theme="lightText"
+                      disabled={isPaginationLoading || cursor - pageSize < 0}
+                    />
+                  </span>
                 </Tooltip>
                 <span className={cx('typography-body1', classes.title)}>
                   <FormattedMessage
@@ -696,25 +706,27 @@ const MediaSuggestionsComponent = ({
                     }}
                   />
                 </span>
-                <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.next" defaultMessage="Next" description="Label for the 'go to next page' button on paginated suggestions" />}>
-                  <ButtonMain
-                    iconCenter={<NextIcon />}
-                    onClick={() => {
-                      if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize === relationships.length)) {
-                        setIsPaginationLoading(true);
-                        relay.loadMore(pageSize, () => {
+                <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.next" defaultMessage="Next" description="Label for the 'go to next page' button on paginated suggestions" />}>
+                  <span>
+                    <ButtonMain
+                      iconCenter={<NextIcon />}
+                      onClick={() => {
+                        if (relay.hasMore() && !relay.isLoading() && (cursor + pageSize === relationships.length)) {
+                          setIsPaginationLoading(true);
+                          relay.loadMore(pageSize, () => {
+                            setCursor(cursor + pageSize);
+                            setIsPaginationLoading(false);
+                          });
+                        } else if (cursor + pageSize < relationships.length) {
                           setCursor(cursor + pageSize);
-                          setIsPaginationLoading(false);
-                        });
-                      } else if (cursor + pageSize < relationships.length) {
-                        setCursor(cursor + pageSize);
-                      }
-                    }}
-                    variant="text"
-                    size="default"
-                    theme="lightText"
-                    disabled={isPaginationLoading || cursor + pageSize >= totalCount}
-                  />
+                        }
+                      }}
+                      variant="text"
+                      size="default"
+                      theme="lightText"
+                      disabled={isPaginationLoading || cursor + pageSize >= totalCount}
+                    />
+                  </span>
                 </Tooltip>
               </Box>
               <Box display="flex" justifyContent="center" alignItems="center">
@@ -728,55 +740,63 @@ const MediaSuggestionsComponent = ({
               </Box>
               <Grid container justify="center" direction="row" spacing={1}>
                 <Grid item>
-                  <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.bulkAccept" defaultMessage="Match all media on this page" description="Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media." />}>
-                    <ButtonMain
-                      iconCenter={<AcceptIcon />}
-                      onClick={() => openBulkAcceptDialog()}
-                      variant="text"
-                      size="large"
-                      theme="validation"
-                      disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept}`}
-                    />
+                  <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkAccept" defaultMessage="Match all media on this page" description="Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media." />}>
+                    <span>
+                      <ButtonMain
+                        iconCenter={<AcceptIcon />}
+                        onClick={() => openBulkAcceptDialog()}
+                        variant="text"
+                        size="large"
+                        theme="validation"
+                        disabled={disableAcceptRejectButtons}
+                        className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept}`}
+                      />
+                    </span>
                   </Tooltip>
                 </Grid>
                 <Grid item>
-                  <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.bulkReject" defaultMessage="Reject all medias on this page" description="Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list." />}>
-                    <ButtonMain
-                      iconCenter={<RejectIcon />}
-                      onClick={() => openBulkRejectDialog()}
-                      variant="text"
-                      size="large"
-                      theme="error"
-                      disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject}`}
-                    />
+                  <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkReject" defaultMessage="Reject all medias on this page" description="Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list." />}>
+                    <span>
+                      <ButtonMain
+                        iconCenter={<RejectIcon />}
+                        onClick={() => openBulkRejectDialog()}
+                        variant="text"
+                        size="large"
+                        theme="error"
+                        disabled={disableAcceptRejectButtons}
+                        className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject}`}
+                      />
+                    </span>
                   </Tooltip>
                 </Grid>
                 <Grid item>
-                  <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.bulkSpam" defaultMessage="Mark all medias on this page as spam" description="Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list." />}>
-                    <ButtonMain
-                      iconCenter={<SpamIcon />}
-                      onClick={() => openBulkSpamDialog()}
-                      variant="text"
-                      size="large"
-                      theme="lightText"
-                      disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
-                    />
+                  <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkSpam" defaultMessage="Mark all medias on this page as spam" description="Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list." />}>
+                    <span>
+                      <ButtonMain
+                        iconCenter={<SpamIcon />}
+                        onClick={() => openBulkSpamDialog()}
+                        variant="text"
+                        size="large"
+                        theme="lightText"
+                        disabled={disableAcceptRejectButtons}
+                        className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
+                      />
+                    </span>
                   </Tooltip>
                 </Grid>
                 <Grid item>
-                  <Tooltip title={<FormattedMessage id="mediaSuggestionsComponent.bulkTrash" defaultMessage="Send all medias on this page to trash" description="Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list." />}>
-                    <ButtonMain
-                      iconCenter={<TrashIcon />}
-                      onClick={() => openBulkTrashDialog()}
-                      variant="text"
-                      size="large"
-                      theme="lightText"
-                      disabled={disableAcceptRejectButtons}
-                      className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
-                    />
+                  <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkTrash" defaultMessage="Send all medias on this page to trash" description="Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list." />}>
+                    <span>
+                      <ButtonMain
+                        iconCenter={<TrashIcon />}
+                        onClick={() => openBulkTrashDialog()}
+                        variant="text"
+                        size="large"
+                        theme="lightText"
+                        disabled={disableAcceptRejectButtons}
+                        className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
+                      />
+                    </span>
                   </Tooltip>
                 </Grid>
               </Grid>

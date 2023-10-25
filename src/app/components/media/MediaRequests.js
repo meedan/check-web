@@ -56,7 +56,6 @@ class MediaRequestsComponent extends Component {
 
   render() {
     const { media } = this.props;
-    console.log(media); // eslint-disable-line no-console
 
     return (
       <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>

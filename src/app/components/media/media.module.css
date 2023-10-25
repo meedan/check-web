@@ -191,3 +191,28 @@
     }
   }
 }
+
+.media-timeline-item {
+  position: relative;
+
+  &::before {
+    background-color: var(--grayBorderMain);
+    bottom: 0;
+    content: '';
+    display: block;
+    left: 32px;
+    position: absolute;
+    right: auto;
+    top: 0;
+    width: 1px;
+  }
+}
+
+body[dir='rtl'] {
+  .media-timeline-item {
+    &::before {
+      left: auto;
+      right: 32px;
+    }
+  }
+}

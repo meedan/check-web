@@ -227,7 +227,6 @@ const MediaFactCheck = ({ projectMedia }) => {
               disabled={(!hasPermission || isDisabled)}
               onBlur={(e) => {
                 const newValue = e.target.value;
-                console.log(`Brian ${newValue}`); // eslint-disable-line no-console
                 setTitle(newValue);
                 handleBlur('title', newValue);
               }}

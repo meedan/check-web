@@ -137,7 +137,6 @@ class MediaTasksComponent extends Component {
   render() {
     const { about, media } = this.props;
     const itemTasks = media.item_metadata;
-    console.log(this.props); // eslint-disable-line no-console
 
     return (
       <StyledAnnotationRow className={cx(styles['media-tasks'], styles['media-item-content'])}>

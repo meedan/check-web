@@ -20,7 +20,6 @@ const MediaComponentRightPanel = ({
   const enabledBots = teamBots.edges.map(b => b.node.login);
   const showRequests = (enabledBots.indexOf('smooch') > -1 || projectMedia.requests_count > 0);
   const showSuggestions = (!projectMedia.is_suggested && !projectMedia.is_confirmed_similar_to_another_item);
-  console.log(projectMedia); // eslint-disable-line no-console
 
   return (
     <ErrorBoundary component="MediaComponentRightPanel">
