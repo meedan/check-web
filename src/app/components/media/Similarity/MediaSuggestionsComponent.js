@@ -37,7 +37,7 @@ import styles from '../media.module.css';
 const useStyles = makeStyles(theme => ({
   containerBox: {
     backgroundColor: 'var(--brandBackground)',
-    borderRadius: theme.spacing(2),
+    borderRadius: '5px',
     position: 'relative',
   },
   title: {
@@ -552,9 +552,8 @@ const MediaSuggestionsComponent = ({
       <div className={cx('media__suggestions-column', styles['media-suggestions'], styles['media-item-content'])}>
         <div className={cx(styles['empty-list'], 'similarity-media-no-items')}>
           <FormattedMessage
-            tagName="p"
             id="mediaSuggestionsComponent.noItems"
-            defaultMessage="{total, plural, one {{total} suggestion} other {{total} suggestions}}"
+            defaultMessage="{total, plural, one {{total} Suggestion} other {{total} Suggestions}}"
             description="A header that tells the user there are no items in the list"
             values={{
               total: 0,

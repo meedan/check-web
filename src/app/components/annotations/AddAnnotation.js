@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
 import TextArea from '../cds/inputs/TextArea';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -16,10 +16,10 @@ import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import UploadFile from '../UploadFile';
-import { Row, units } from '../../styles/js/shared';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
   editNote: {
@@ -342,21 +342,6 @@ class AddAnnotation extends Component {
   }
 
   render() {
-    const AddAnnotationButtonGroup = styled(Row)`
-      align-items: center;
-      display: flex;
-      justify-content: flex-end;
-      .add-annotation__insert-photo {
-        svg {
-          path { color: var(--textDisabled); }
-          &:hover path {
-            color: var(--textPrimary);
-            cusor: pointer;
-          }
-        }
-      }
-    `;
-
     const { annotated, annotatedType, editMode } = this.props;
 
     if (annotated.archived > CheckArchivedFlags.NONE) {
@@ -373,7 +358,7 @@ class AddAnnotation extends Component {
 
     return (
       <form
-        className="add-annotation"
+        className={cx('add-annotation', inputStyles['form-inner-wrapper'])}
         onSubmit={this.handleSubmit.bind(this)}
         style={{
           height: '100%',
@@ -382,8 +367,9 @@ class AddAnnotation extends Component {
           zIndex: 0,
         }}
       >
-        <div style={editMode ? null : { padding: `0 ${units(2)}` }}>
+        <div className={inputStyles['form-fieldset']}>
           <TextArea
+            className={inputStyles['form-fieldset-field']}
             label={<FormattedMessage id="addAnnotation.inputLabel" defaultMessage="Note" description="Input label for creating a new note" />}
             onFocus={this.handleFocus.bind(this)}
             ref={(i) => { this.cmd = i; }}
@@ -401,49 +387,55 @@ class AddAnnotation extends Component {
           />
           {this.state.fileMode ? (
             <UploadFile
+              className={inputStyles['form-fieldset-field']}
               type="file"
               value={this.state.file}
               onChange={this.onFileChange}
               onError={this.onFileError}
             />
           ) : null}
-          <AddAnnotationButtonGroup className="add-annotation__buttons">
-            <Tooltip arrow title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" description="Tooltip to tell the user they can add files" />}>
-              <span>
-                <ButtonMain
-                  variant="text"
-                  theme="lightText"
-                  size="default"
-                  iconCenter={<AttachFileIcon />}
-                  className={`add-annotation__insert-photo ${this.state.fileMode ? 'add-annotation__file' : ''}`}
-                  buttonProps={{
-                    id: 'add-annotation__switcher',
-                  }}
-                  onClick={this.switchMode.bind(this)}
-                />
-              </span>
-            </Tooltip>
-            { editMode ?
+        </div>
+        <div
+          className={cx(
+            'add-annotation__buttons',
+            inputStyles['form-footer-actions'],
+          )}
+        >
+          <Tooltip arrow title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" description="Tooltip to tell the user they can add files" />}>
+            <span>
               <ButtonMain
                 variant="text"
-                theme="text"
+                theme="lightText"
                 size="default"
-                onClick={this.props.handleCloseEdit}
-                label={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
-              /> : null
-            }
+                iconCenter={<AttachFileIcon />}
+                className={`add-annotation__insert-photo ${this.state.fileMode ? 'add-annotation__file' : ''}`}
+                buttonProps={{
+                  id: 'add-annotation__switcher',
+                }}
+                onClick={this.switchMode.bind(this)}
+              />
+            </span>
+          </Tooltip>
+          { editMode ?
             <ButtonMain
-              theme="brand"
+              variant="text"
+              theme="text"
               size="default"
-              variant="contained"
-              disabled={!this.state.canSubmit}
-              label={<FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" description="Button text for submitting the annotation form" />}
-              buttonProps={{
-                id: 'add-annotation_submit',
-                type: 'submit',
-              }}
-            />
-          </AddAnnotationButtonGroup>
+              onClick={this.props.handleCloseEdit}
+              label={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+            /> : null
+          }
+          <ButtonMain
+            theme="brand"
+            size="default"
+            variant="contained"
+            disabled={!this.state.canSubmit}
+            label={<FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" description="Button text for submitting the annotation form" />}
+            buttonProps={{
+              id: 'add-annotation_submit',
+              type: 'submit',
+            }}
+          />
         </div>
       </form>
     );

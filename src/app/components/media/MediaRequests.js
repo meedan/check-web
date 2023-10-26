@@ -59,8 +59,8 @@ class MediaRequestsComponent extends Component {
 
     return (
       <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>
-        <span className="typography-subtitle2">
-          { (!this.props.all && media.requests_count > 0) && (
+        { (!this.props.all && media.requests_count > 0) && (
+          <span className="typography-subtitle2">
             <FormattedMessage
               id="mediaRequests.thisRequests"
               defaultMessage="{count, plural, one {# request} other {# requests}}"
@@ -69,8 +69,8 @@ class MediaRequestsComponent extends Component {
                 count: media.requests_count,
               }}
             />
-          )}
-        </span>
+          </span>
+        )}
         <Annotations
           noLink
           component={TiplineRequest}
@@ -82,7 +82,7 @@ class MediaRequestsComponent extends Component {
           noActivityMessage={
             <FormattedMessage
               id="mediaRequests.noRequest"
-              defaultMessage="No requests"
+              defaultMessage="0 Requests"
               description="Empty message when there are zero requests for this item"
             />
           }

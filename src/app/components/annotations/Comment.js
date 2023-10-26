@@ -5,10 +5,9 @@ import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import 'react-image-lightbox/style.css';
-import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
+import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddAnnotation from './AddAnnotation';
 import { can } from '../Can';
@@ -30,6 +29,8 @@ import {
   Row,
 } from '../../styles/js/shared';
 import MoreVertIcon from '../../icons/more_vert.svg';
+import AttachFileIcon from '../../icons/attach_file.svg';
+import styles from '../media/media.module.css';
 
 const StyledAnnotationCardWrapper = styled.div`
   width: 100%;
@@ -146,7 +147,7 @@ class Comment extends Component {
       const canDestroy = can(annotation.permissions, 'destroy Comment');
       const canDoAnnotationActions = canDestroy || canUpdate;
       annotationActions = canDoAnnotationActions ? (
-        <div>
+        <div className={styles['media-comments-actions']}>
           <ButtonMain
             theme="text"
             size="small"
@@ -204,51 +205,43 @@ class Comment extends Component {
     const commentText = annotation.text;
     const commentContent = JSON.parse(annotation.content);
     const contentTemplate = (
-      <div>
-        <div className="annotation__card-content">
-          <div>
-            { this.state.editMode ?
-              <AddAnnotation
-                cmdText={commentText}
-                editMode={this.state.editMode}
-                handleCloseEdit={this.handleCloseEdit}
-                annotated={annotated}
-                annotation={annotation}
-                annotatedType="ProjectMedia"
-                types={['comment']}
-              />
-              : <ParsedText text={commentText} />
-            }
-          </div>
-          {/* comment file */}
-          {commentContent.file_path ?
-            <div>
-              <Box
-                component="a"
-                href={commentContent.file_path}
-                target="_blank"
-                rel="noreferrer noopener"
-                color="var(--brandMain)"
-                className="annotation__card-file"
-              >
-                {commentContent.file_name}
-              </Box>
-            </div> : null }
-        </div>
+      <div className="annotation__card-content">
+        { this.state.editMode ?
+          <AddAnnotation
+            cmdText={commentText}
+            editMode={this.state.editMode}
+            handleCloseEdit={this.handleCloseEdit}
+            annotated={annotated}
+            annotation={annotation}
+            annotatedType="ProjectMedia"
+            types={['comment']}
+          />
+          : <ParsedText text={commentText} />
+        }
+        {/* comment file */}
+        {commentContent.file_path ?
+          <div className={styles['media-comments-attached']}>
+            <AttachFileIcon />
+            <a
+              href={commentContent.file_path}
+              target="_blank"
+              rel="noreferrer noopener"
+              color="var(--brandMain)"
+              className="annotation__card-file"
+            >
+              {commentContent.file_name}
+            </a>
+          </div> : null }
       </div>
     );
 
     return (
       <StyledAnnotationWrapper
-        className="annotation annotation--card annotation--comment"
+        className={cx(styles['media-comment'], 'annotation', 'annotation--card', 'annotation--comment')}
         id={`annotation-${annotation.dbid}`}
       >
         <StyledAnnotationCardWrapper>
-          <Box
-            py={2}
-            borderBottom="1px var(--grayBorderMain) solid"
-            className="annotation__card-text annotation__card-activity-comment"
-          >
+          <div className="annotation__card-text annotation__card-activity-comment">
             { authorName ?
               <RCTooltip placement="top" overlay={<UserTooltip teamUser={user.team_user} />}>
                 <StyledAvatarColumn className="annotation__avatar-col">
@@ -277,11 +270,11 @@ class Comment extends Component {
                   {annotationActions}
                 </StyledAnnotationActionsWrapper>
               </StyledAnnotationMetadata>
-              <Typography variant="body1" component="div">
+              <div className="typography-body1">
                 {contentTemplate}
-              </Typography>
+              </div>
             </StyledPrimaryColumn>
-          </Box>
+          </div>
         </StyledAnnotationCardWrapper>
       </StyledAnnotationWrapper>
     );

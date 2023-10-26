@@ -83,6 +83,12 @@
   }
 }
 
+.form-inner-wrapper {
+  background-color: var(--brandBackground);
+  border-radius: 5px;
+  padding: 16px;
+}
+
 .form-fieldset {
   .form-fieldset-title {
     @mixin typography-subtitle2;
@@ -103,4 +109,11 @@
       margin: 0;
     }
   }
+}
+
+.form-footer-actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
 }

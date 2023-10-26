@@ -7,6 +7,6 @@
   {
     "id": "mediaRequests.noRequest",
     "description": "Empty message when there are zero requests for this item",
-    "defaultMessage": "No requests"
+    "defaultMessage": "0 Requests"
   }
 ]

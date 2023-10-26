@@ -82,8 +82,8 @@ class MediaCommentsComponent extends Component {
           noActivityMessage={
             <FormattedMessage
               id="mediaComments.noNote"
-              defaultMessage="No note"
-              description="Empty message when there are no notees for this item"
+              defaultMessage="0 Notes"
+              description="Empty message when there are no notes for this item"
             />
           }
         />

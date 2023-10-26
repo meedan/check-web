@@ -7,7 +7,6 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
 import styles from '../media/media.module.css';
-import requestStyles from '../cds/requests-annotations/Request.module.css';
 
 const pageSize = 10;
 
@@ -49,16 +48,18 @@ class Annotations extends React.Component {
             annotatedType={props.annotatedType}
             types={props.types}
           /> : null }
-        <div className={cx('annotations__list', requestStyles['request-list'])}>
-          {!props.annotations.length ?
-            <div className={styles['empty-list']}>
-              { props.noActivityMessage || <FormattedMessage tagName="p" id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
-            </div> :
-            props.annotations.slice(0).reverse().map(annotation => (
+
+        {!props.annotations.length ?
+          <div className={styles['empty-list']}>
+            { props.noActivityMessage || <FormattedMessage tagName="p" id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
+          </div> :
+          <div className={cx('annotations__list', styles['media-list'])}>
+            { props.annotations.slice(0).reverse().map(annotation => (
               <div
                 key={annotation.node.dbid}
                 className={cx(
                   'annotations__list-item',
+                  styles['media-list-item'],
                   {
                     [styles['media-timeline-item']]: !props.noLink,
                   })
@@ -80,7 +81,10 @@ class Annotations extends React.Component {
                 }
               </div>
             ))}
-          { hasMore ? (
+          </div>
+        }
+        { hasMore ? (
+          <div className={styles['media-list-actions']}>
             <ButtonMain
               variant="contained"
               theme="lightText"
@@ -100,8 +104,8 @@ class Annotations extends React.Component {
                 />
               }
             />
-          ) : null }
-        </div>
+          </div>
+        ) : null }
       </div>
     );
   }

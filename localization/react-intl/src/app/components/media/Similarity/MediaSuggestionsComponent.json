@@ -47,7 +47,7 @@
   {
     "id": "mediaSuggestionsComponent.noItems",
     "description": "A header that tells the user there are no items in the list",
-    "defaultMessage": "{total, plural, one {{total} suggestion} other {{total} suggestions}}"
+    "defaultMessage": "{total, plural, one {{total} Suggestion} other {{total} Suggestions}}"
   },
   {
     "id": "mediaSuggestionsComponent.accept",
