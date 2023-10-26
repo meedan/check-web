@@ -1,67 +1,84 @@
-.label-container {
-  @mixin typography-body2;
-  color: var(--textSecondary);
-  display: grid;
-  grid-gap: 8px;
-  grid-template-columns: 2fr 1fr;
-  margin-bottom: 4px;
-
-  label {
-    align-self: end;
-    margin-left: 10px;
-  }
-
-  .required {
-    align-self: end;
-    margin-right: 4px;
-    text-align: right;
-  }
-
-  &.error-label {
-    color: var(--errorSecondary);
-  }
-}
-
-.input-container {
-  position: relative;
-
-  .input-icon-left-icon,
-  .input-icon-right-icon {
+.input-wrapper {
+  .label-container {
+    @mixin typography-body2;
     color: var(--textSecondary);
-    font-size: var(--iconSizeDefault);
-    height: 24px;
-    pointer-events: none;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
+    display: grid;
+    grid-gap: 8px;
+    grid-template-columns: 2fr 1fr;
+    margin-bottom: 4px;
+
+    label {
+      align-self: end;
+      margin-left: 10px;
+    }
+
+    .required {
+      align-self: end;
+      margin-right: 4px;
+      text-align: right;
+    }
+
+    &.error-label {
+      color: var(--errorSecondary);
+    }
   }
 
-  .input-icon-left-icon {
-    left: 10px;
-    right: auto;
-  }
-}
-
-.help-container {
-  @mixin typography-caption;
-  margin: 4px 0 0;
-  padding: 0 4px 0 10px;
-
-  .error-icon {
-    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-    font-size: 15px;
-    margin-right: 4px;
+  .input-container {
     position: relative;
-    top: 3px;
+
+    .input-icon-left-icon,
+    .input-icon-right-icon {
+      color: var(--textSecondary);
+      font-size: var(--iconSizeDefault);
+      height: 24px;
+      pointer-events: none;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+    }
+
+    .input-icon-left-icon {
+      left: 10px;
+      right: auto;
+    }
   }
 
-  &.error-label {
-    color: var(--errorSecondary);
+  .help-container {
+    @mixin typography-caption;
+    margin: 4px 0 0;
+    padding: 0 4px 0 10px;
 
-    .help-counter {
-      margin: 4px 0 0;
+    .error-icon {
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 15px;
+      margin-right: 4px;
+      position: relative;
+      top: 3px;
+    }
+
+    &.error-label {
+      color: var(--errorSecondary);
+      white-space: pre-line;
+
+      .help-counter {
+        margin: 4px 0 0;
+      }
+    }
+  }
+
+  &.disabled {
+    .label-container:not(.error-label),
+    .help-container:not(.error-label) {
+      color: var(--textPlaceholder);
+    }
+
+    .input-container {
+      .input-icon-left-icon,
+      .input-icon-right-icon {
+        color: var(--textPlaceholder);
+      }
     }
   }
 }

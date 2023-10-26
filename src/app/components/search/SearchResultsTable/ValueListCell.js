@@ -14,6 +14,7 @@ const useStyles = makeStyles({
   chip: {
     color: 'var(--otherWhite)',
     fontSize: 12,
+    marginTop: '2px',
   },
   noFactCheck: {
     background: 'var(--alertMain)',

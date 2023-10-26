@@ -1,0 +1,24 @@
+.dialog-window {
+  .dialog-title {
+    border-bottom: solid 1px var(--brandBorder);
+    padding: 16px 24px;
+  }
+
+  .dialog-content {
+    flex: 1 1 auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    padding: 16px 24px;
+
+    .dialog-alert {
+      margin: 0 0 16px;
+    }
+  }
+
+  .dialog-actions {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 24px;
+  }
+}

@@ -24,7 +24,17 @@ const SwitchComponent = ({
   };
 
   return (
-    <div className={cx(styles.switchWrapper, className)}>
+    <div
+      className={cx(
+        styles.switchWrapper,
+        inputStyles['input-wrapper'],
+        {
+          [className]: true,
+          [inputStyles.disabled]: disabled,
+          [styles['switch-disabled']]: disabled,
+        })
+      }
+    >
       <FormControlLabel
         control={
           <div className={styles.switch}>
@@ -39,7 +49,6 @@ const SwitchComponent = ({
                 thumb: styles.thumb,
                 track: styles.track,
                 checked: styles.checked,
-                disabled: styles.disabled,
               }}
               {...inputProps}
             />
