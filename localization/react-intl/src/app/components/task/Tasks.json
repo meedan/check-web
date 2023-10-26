@@ -37,11 +37,11 @@
   {
     "id": "metadata.form.cancel",
     "description": "This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form.",
-    "defaultMessage": "Cancel changes"
+    "defaultMessage": "Cancel"
   },
   {
     "id": "metadata.form.edit",
     "description": "This is a label on a button that the user presses in order to edit the items in the attached form.",
-    "defaultMessage": "Edit"
+    "defaultMessage": "Edit Annotations"
   }
 ]

@@ -87,6 +87,12 @@
   background-color: var(--brandBackground);
   border-radius: 5px;
   padding: 16px;
+
+  &.form-inner-sticky {
+    position: sticky;
+    top: -16px;
+    z-index: 1001;
+  }
 }
 
 .form-fieldset {
@@ -116,4 +122,11 @@
   display: flex;
   gap: 8px;
   justify-content: flex-end;
+
+  .form-footer-actions-context {
+    @mixin typography-caption;
+    color: var(--textSecondary);
+    flex: 1 1 auto;
+    text-align: left;
+  }
 }

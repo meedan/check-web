@@ -1,49 +1,14 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
-import {
-  Box,
-  Typography,
-  Button,
-  Divider,
-} from '@material-ui/core';
-import styled from 'styled-components';
 import moment from 'moment';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Task from './Task';
 import NavigateAwayDialog from '../NavigateAwayDialog';
 import BlankState from '../layout/BlankState';
-import { units } from '../../styles/js/shared';
 import { withSetFlashMessage } from '../FlashMessage';
-
-const StyledMetadataContainer = styled.div`
-  .tasks__list > li {
-    margin: ${units(2)};
-  }
-`;
-
-const StyledFormControls = styled.div`
-  padding-left: ${units(2)};
-  button {
-    margin-right: ${units(1)};
-  }
-  display: flex;
-  align-items: center;
-  height: 63px;
-  position: sticky;
-  top: -16px;
-  z-index: 1001;
-  background-color: var(--otherWhite);
-  box-shadow: 0 0 8px 4px rgba(170, 170, 170, 0.25);
-  clip-path: polygon(0% 0%, 100% 0%, 100.94% 107.30%, 0% 120%);
-`;
-
-const StyledAnnotatorInformation = styled.span`
-  display: inline-block;
-  p {
-    font-size: 9px;
-    color: var(--textDisabled);
-  }
-`;
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const Tasks = ({
   tasks,
@@ -65,11 +30,17 @@ const Tasks = ({
           <FormattedMessage id="tasks.blankAnnotation" defaultMessage="No annotation fields" description="A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings." />
         </BlankState>
         { !isBrowserExtension ?
-          <Box display="flex" justifyContent="center" m={2}>
-            <Button variant="contained" color="primary" onClick={goToSettings}>
-              <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" description="Button label to take the user to the settings area of the application" />
-            </Button>
-          </Box>
+          <div>
+            <ButtonMain
+              variant="contained"
+              size="default"
+              theme="brand"
+              onClick={goToSettings}
+              label={
+                <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" description="Button label to take the user to the settings area of the application" />
+              }
+            />
+          </div>
           : null
         }
       </React.Fragment>
@@ -248,57 +219,78 @@ const Tasks = ({
       return <span>...</span>;
     }
     return (
-      <StyledAnnotatorInformation>
-        <Typography variant="body1">
-          Saved {moment(latestEditInfo.latestDate).fromNow()} by{' '}
-          <a
-            href={`/check/user/${latestEditInfo.latestAuthorDbid}`}
-          >
-            {latestEditInfo.latestAuthorName}
-          </a>
-        </Typography>
-      </StyledAnnotatorInformation>
+      <div className={inputStyles['form-footer-actions-context']}>
+        Saved {moment(latestEditInfo.latestDate).fromNow()} by{' '}
+        <a
+          href={`/check/user/${latestEditInfo.latestAuthorDbid}`}
+        >
+          {latestEditInfo.latestAuthorName}
+        </a>
+      </div>
     );
   };
 
   output = (
-    <StyledMetadataContainer>
-      <StyledFormControls>
-        {
-          isEditing ? (
-            <div>
-              <NavigateAwayDialog
-                hasUnsavedChanges
-                title={
-                  <FormattedMessage
-                    id="tasks.confirmLeaveTitle"
-                    defaultMessage="Do you want to leave without saving?"
-                    description="This is a prompt that appears when a user tries to exit a page before saving their work."
-                  />
-                }
-                body={
-                  <FormattedMessage
-                    id="tasks.confirmLeave"
-                    defaultMessage="You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved."
-                    description="This is a prompt that appears when a user tries to exit a page before saving their work."
-                  />
+    <>
+      <div className={cx(inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'])}>
+        <div className={inputStyles['form-footer-actions']}>
+          <LastEditedBy />
+          {
+            isEditing ? (
+              <>
+                <NavigateAwayDialog
+                  hasUnsavedChanges
+                  title={
+                    <FormattedMessage
+                      id="tasks.confirmLeaveTitle"
+                      defaultMessage="Do you want to leave without saving?"
+                      description="This is a prompt that appears when a user tries to exit a page before saving their work."
+                    />
+                  }
+                  body={
+                    <FormattedMessage
+                      id="tasks.confirmLeave"
+                      defaultMessage="You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved."
+                      description="This is a prompt that appears when a user tries to exit a page before saving their work."
+                    />
+                  }
+                />
+                <ButtonMain
+                  className="form-save"
+                  size="default"
+                  variant="contained"
+                  theme="validation"
+                  onClick={handleSaveAnnotations}
+                  style={{ backgroundColor: 'var(--validationMain)', color: 'var(--otherWhite)' }}
+                  label={
+                    <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
+                  }
+                />
+                <ButtonMain
+                  className="form-cancel"
+                  size="default"
+                  variant="text"
+                  theme="lightText"
+                  onClick={handleCancelAnnotations}
+                  label={
+                    <FormattedMessage id="metadata.form.cancel" defaultMessage="Cancel" description="This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form." />
+                  }
+                />
+              </>
+            ) :
+              <ButtonMain
+                className="form-edit"
+                size="default"
+                variant="contained"
+                onClick={handleEditAnnotations}
+                theme="brand"
+                label={
+                  <FormattedMessage id="metadata.form.edit" defaultMessage="Edit Annotations" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
                 }
               />
-              <Button className="form-save" variant="contained" onClick={handleSaveAnnotations} style={{ backgroundColor: 'var(--validationMain)', color: 'var(--otherWhite)' }}>
-                <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
-              </Button>
-              <Button className="form-cancel" onClick={handleCancelAnnotations}>
-                <FormattedMessage id="metadata.form.cancel" defaultMessage="Cancel changes" description="This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form." />
-              </Button>
-            </div>
-          ) :
-            <Button className="form-edit" variant="contained" onClick={handleEditAnnotations} color="primary">
-              <FormattedMessage id="metadata.form.edit" defaultMessage="Edit" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
-            </Button>
-        }
-        <LastEditedBy />
-      </StyledFormControls>
-      <Divider />
+          }
+        </div>
+      </div>
       <ul className="tasks__list">
         {tasks
           .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
@@ -308,12 +300,12 @@ const Tasks = ({
               <li>
                 <Task task={task.node} media={media} about={about} isEditing={isEditing} localResponses={localResponses} setLocalResponses={setLocalResponses} />
               </li>
-              <Divider />
+              <hr />
             </React.Fragment>
           ))
         }
       </ul>
-    </StyledMetadataContainer>
+    </>
   );
 
   return output;

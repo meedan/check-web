@@ -360,12 +360,6 @@ class AddAnnotation extends Component {
       <form
         className={cx('add-annotation', inputStyles['form-inner-wrapper'])}
         onSubmit={this.handleSubmit.bind(this)}
-        style={{
-          height: '100%',
-          width: '100%',
-          position: 'relative',
-          zIndex: 0,
-        }}
       >
         <div className={inputStyles['form-fieldset']}>
           <TextArea

@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import { can } from '../Can';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 function ChangeMediaSource({
   team,
@@ -43,22 +45,27 @@ function ChangeMediaSource({
   let createNew = null;
   if (can(projectMediaPermissions, 'create Source')) {
     createNew = (
-      <Button
-        style={{ color: 'var(--brandMain)' }}
+      <ButtonMain
+        theme="brand"
+        size="default"
+        variant="text"
         onClick={() => { createNewClick(input); }}
-        id="media-source__create-button"
-      >
-        <FormattedMessage
-          id="changeMediaSource.createSource"
-          defaultMessage="Create new"
-          description="allow user to create a new source"
-        />
-      </Button>
+        label={
+          <FormattedMessage
+            id="changeMediaSource.createSource"
+            defaultMessage="Create new"
+            description="allow user to create a new source"
+          />
+        }
+        buttonProps={{
+          id: 'media-source__create-button',
+        }}
+      />
     );
   }
 
   return (
-    <div id="media_source-change">
+    <div id="media_source-change" className={cx(inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'])}>
       <Autocomplete
         autoHighlight
         options={teamSources}
@@ -93,30 +100,36 @@ function ChangeMediaSource({
           />
         )}
       />
-      <div>
-        <Button
-          color="primary"
+      <div className={inputStyles['form-footer-actions']}>
+        <ButtonMain
+          theme="lightText"
+          size="default"
+          variant="text"
           onClick={onCancel}
           className="media-source__cancel-button"
-        >
-          <FormattedMessage
-            id="changeMediaSource.cancelButton"
-            defaultMessage="Cancel"
-            description="Cancel change media source action"
-          />
-        </Button>
-        <Button
-          color="primary"
+          label={
+            <FormattedMessage
+              id="changeMediaSource.cancelButton"
+              defaultMessage="Cancel"
+              description="Cancel change media source action"
+            />
+          }
+        />
+        <ButtonMain
+          theme="brand"
+          size="default"
+          variant="contained"
           className="media-source__save-button"
           onClick={() => { onSubmit(value); }}
           disabled={!value}
-        >
-          <FormattedMessage
-            id="changeMediaSource.saveButton"
-            defaultMessage="Save"
-            description="Save media source label"
-          />
-        </Button>
+          label={
+            <FormattedMessage
+              id="changeMediaSource.saveButton"
+              defaultMessage="Save"
+              description="Save media source label"
+            />
+          }
+        />
       </div>
     </div>
   );
