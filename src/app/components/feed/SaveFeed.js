@@ -6,6 +6,7 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
 import Checkbox from '@material-ui/core/Checkbox';
 import styles from './SaveFeed.module.css';
+import FeedCollaboration from './FeedCollaboration';
 import SelectListQueryRenderer from './SelectList';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ExternalLink from '../ExternalLink';
@@ -76,6 +77,16 @@ const createMutation = graphql`
   }
 `;
 
+const inviteMutation = graphql`
+  mutation SaveFeedCreateFeedInvitationMutation($input: CreateFeedInvitationInput!) {
+    createFeedInvitation(input: $input) {
+      feed_invitation {
+        id
+      }
+    }
+  }
+`;
+
 const updateMutation = graphql`
   mutation SaveFeedUpdateFeedMutation($input: UpdateFeedInput!) {
     updateFeed(input: $input) {
@@ -101,6 +112,8 @@ const SaveFeed = (props) => {
   const [description, setDescription] = React.useState(feed.description || '');
   const [selectedListId, setSelectedListId] = React.useState(feed.saved_search_id);
   const [discoverable, setDiscoverable] = React.useState(Boolean(feed.discoverable));
+  const [showInvitationConfirmationDialog, setShowInvitationConfirmationDialog] = React.useState(false);
+  const [newInvites, setNewInvites] = React.useState([]);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const feedLicenses = feed.licenses || [];
@@ -136,6 +149,21 @@ const SaveFeed = (props) => {
   const noTitle = title.length === 0;
   const disableSaveButton = saving || discoverableNoLicense || noTitle;
 
+  const handleInvite = () => {
+    newInvites.forEach((email) => {
+      const input = {
+        feed_id: feed.dbid,
+        email,
+      };
+      commitMutation(Relay.Store, {
+        mutation: inviteMutation,
+        variables: { input },
+        onCompleted: onSuccess,
+        onError: onFailure,
+      });
+    });
+  };
+
   const handleSave = () => {
     setSaving(true);
     const licenses = [];
@@ -165,12 +193,23 @@ const SaveFeed = (props) => {
   };
 
   const handleConfirmOrSave = () => {
-    if (feed.id) {
+    if (newInvites.length) {
+      setShowInvitationConfirmationDialog(true);
+    } else if (feed.id) {
       setShowConfirmationDialog(true);
     } else {
       handleSave();
     }
   };
+
+  if (feed.id) {
+    // eslint-disable-next-line
+    console.log('feed', feed);
+    // eslint-disable-next-line
+    feed.teams.edges.forEach(t => console.log('t.node', t.node));
+    // eslint-disable-next-line
+    feed.feed_invitations.edges.forEach(i => console.log('i.node', i.node));
+  }
 
   return (
     <div className={styles.saveFeedContainer}>
@@ -475,7 +514,34 @@ const SaveFeed = (props) => {
             </div>
           </div> : null
         }
+        <FeedCollaboration feed={feed} onChange={setNewInvites} />
       </div>
+
+      <ConfirmProceedDialog
+        open={showInvitationConfirmationDialog}
+        title={
+          <FormattedMessage
+            id="saveFeed.invitationConfirmationDialogTitle"
+            defaultMessage="Collaboration invitations"
+            description="Confirmation dialog title for feed collaboration invitations."
+          />
+        }
+        body={
+          <div>
+            <FormattedMessage
+              id="saveFeed.invitationConfirmationDialogBody"
+              defaultMessage="An email will be sent to collaborators listed to invite them to contribute to this shared feed."
+              description="Confirmation dialog message when saving a feed."
+            />
+            <ul>
+              { newInvites.map(email => <li>&bull; {email}</li>) }
+            </ul>
+          </div>
+        }
+        onProceed={handleInvite}
+        onCancel={() => setShowInvitationConfirmationDialog(false)}
+        isSaving={saving}
+      />
 
       <ConfirmProceedDialog
         open={showConfirmationDialog}
@@ -537,6 +603,20 @@ export default createFragmentContainer(SaveFeed, graphql`
     updated_at
     team {
       name
+    }
+    teams(first: 100) {
+      edges {
+        node {
+          name
+        }
+      }
+    }
+    feed_invitations(first: 100) {
+      edges {
+        node {
+          email
+        }
+      }
     }
     user {
       email

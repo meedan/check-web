@@ -1,0 +1,22 @@
+[
+  {
+    "id": "feedCollaboration.placeholder",
+    "description": "Placeholder of the input field for invited organizations",
+    "defaultMessage": "Add collaborator"
+  },
+  {
+    "id": "feedCollaboration.title",
+    "description": "Title of the collaboration box in which feed organizer invites other organizations to a shared feed",
+    "defaultMessage": "Collaboration"
+  },
+  {
+    "id": "feedCollaboration.description",
+    "description": "Description to the feed collaboration management feature",
+    "defaultMessage": "Invite other organizations to contribute data into this shared feed. All contributing organizations to this feed share the same data point. Learn more"
+  },
+  {
+    "id": "feedCollaboration.remove",
+    "description": "Tooltip for button to remove invitation or feed collaborator",
+    "defaultMessage": "Remove"
+  }
+]

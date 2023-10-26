@@ -1,0 +1,34 @@
+.feed-collab-card {
+  background: var(--otherWhite);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.feed-collab-input {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.feed-collab-invites {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feed-collab-row {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.feed-collab-icon {
+  border: 2px solid var(--grayBorderMain);
+  border-radius: 8px;
+  font-size: var(--iconSizeDefault);
+  padding: 8px;
+}

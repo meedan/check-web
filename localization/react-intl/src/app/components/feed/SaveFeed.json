@@ -150,6 +150,16 @@
     "defaultMessage": "Last updated {timeAgo}"
   },
   {
+    "id": "saveFeed.invitationConfirmationDialogTitle",
+    "description": "Confirmation dialog title for feed collaboration invitations.",
+    "defaultMessage": "Collaboration invitations"
+  },
+  {
+    "id": "saveFeed.invitationConfirmationDialogBody",
+    "description": "Confirmation dialog message when saving a feed.",
+    "defaultMessage": "An email will be sent to collaborators listed to invite them to contribute to this shared feed."
+  },
+  {
     "id": "saveFeed.confirmationDialogTitle",
     "description": "Confirmation dialog title when saving a feed.",
     "defaultMessage": "Are you sure you want to update this shared feed?"

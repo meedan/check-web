@@ -18,10 +18,13 @@
   flex-direction: column;
   gap: 16px;
   height: fit-content;
-  max-width: 650px;
 }
 
 .saveFeedContentNarrow {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 350px;
   padding-top: 16px;
 }
 
