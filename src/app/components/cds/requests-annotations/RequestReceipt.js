@@ -10,11 +10,6 @@ import EditNoteIcon from '../../../icons/edit_note.svg';
 import RecommendIcon from '../../../icons/recommend.svg';
 
 const messages = defineMessages({
-  default_requests: {
-    id: 'requestReceipt.noResult',
-    defaultMessage: 'No search result',
-    description: 'Message displayed when user request to tipline returns no result',
-  },
   smooch_report_sent_at: {
     id: 'requestReceipt.factCheckSent',
     defaultMessage: 'Fact-check sent on {date}',
@@ -57,10 +52,6 @@ const RequestReceipt = ({ events, intl }) => {
       .toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' }) : null;
 
   const receiptTypes = {
-    default_requests: {
-      icon: <SearchIcon />,
-      color: 'gray',
-    },
     smooch_report_sent_at: {
       icon: <FactCheckIcon />,
       color: 'yellow',
