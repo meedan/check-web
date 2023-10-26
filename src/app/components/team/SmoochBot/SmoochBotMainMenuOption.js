@@ -4,11 +4,17 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import Select from '../../cds/inputs/Select';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import SmoochBotMenuKeywords from './SmoochBotMenuKeywords';
 
 const SmoochBotMainMenuOption = ({
   currentTitle,
   currentDescription,
   currentValue,
+  currentUser,
+  currentKeywords,
+  currentLanguage,
+  menu,
+  index,
   resources,
   onSave,
   onCancel,
@@ -78,6 +84,14 @@ const SmoochBotMainMenuOption = ({
             onBlur={(e) => { setDescription(e.target.value); }}
             maxChars={72}
             variant="contained"
+          />
+          <br />
+          <SmoochBotMenuKeywords
+            keywords={currentKeywords}
+            currentUser={currentUser}
+            menu={menu}
+            currentLanguage={currentLanguage}
+            index={index}
           />
           <br />
           <FormattedMessage
@@ -161,17 +175,26 @@ const SmoochBotMainMenuOption = ({
 };
 
 SmoochBotMainMenuOption.defaultProps = {
+  resources: [],
   currentTitle: '',
   currentDescription: '',
   currentValue: null,
-  resources: [],
+  currentUser: null,
+  currentLanguage: null,
+  currentKeywords: [],
+  index: null,
 };
 
 SmoochBotMainMenuOption.propTypes = {
+  resources: PropTypes.arrayOf(PropTypes.object),
   currentTitle: PropTypes.string,
   currentDescription: PropTypes.string,
   currentValue: PropTypes.string,
-  resources: PropTypes.arrayOf(PropTypes.object),
+  currentUser: PropTypes.shape({ is_admin: PropTypes.bool.isRequired }),
+  currentKeywords: PropTypes.arrayOf(PropTypes.string),
+  currentLanguage: PropTypes.string,
+  menu: PropTypes.oneOf(['main', 'secondary']).isRequired,
+  index: PropTypes.number,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };
