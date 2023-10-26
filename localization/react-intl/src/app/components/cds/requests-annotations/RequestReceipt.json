@@ -1,10 +1,5 @@
 [
   {
-    "id": "requestReceipt.noResult",
-    "description": "Message displayed when user request to tipline returns no result",
-    "defaultMessage": "No search result"
-  },
-  {
     "id": "requestReceipt.factCheckSent",
     "description": "Message displayed when user request has a fact-check sent",
     "defaultMessage": "Fact-check sent on {date}"
