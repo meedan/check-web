@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ToggleButtonMui from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroupMui from '@material-ui/lab/ToggleButtonGroup';
+import cx from 'classnames/bind';
 import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './ToggleButtonGroup.module.css';
 
@@ -20,7 +21,14 @@ const ToggleButtonGroup = ({
   children,
   ...toggleButtonGroupProps
 }) => (
-  <div className={className}>
+  <div
+    className={cx(
+      inputStyles['input-wrapper'],
+      {
+        [className]: true,
+      })
+    }
+  >
     { (label) && (
       <div className={`${inputStyles['label-container']}`} >
         { label && <label htmlFor="name">{label}</label> }

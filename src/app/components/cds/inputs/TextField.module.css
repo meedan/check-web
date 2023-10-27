@@ -10,7 +10,7 @@
     letter-spacing: .15px;
     line-height: 20px;
     min-height: 48px;
-    padding: 12px 10px;
+    padding: .75rem .625rem .625rem;
     width: 100%;
 
     &.input-icon-left {
@@ -26,6 +26,7 @@
     }
 
     &::placeholder {
+      color: var(--textPlaceholder);
       font: 400 14px var(--fontStackSans);
       letter-spacing: .15px;
       line-height: 20px;
@@ -37,16 +38,6 @@
 
       &::placeholder {
         color: transparent;
-      }
-    }
-
-    &.disabled {
-      background-color: var(--grayDisabledBackground);
-      color: var(--textDisabledInput);
-      cursor: not-allowed;
-
-      &:hover {
-        border-color: var(--grayBorderMain);
       }
     }
 
@@ -107,7 +98,7 @@
         letter-spacing: .15px;
         line-height: 20px;
         margin: 1px 0;
-        padding: .65rem;
+        padding: .75rem .625rem .625rem;
       }
     }
 
@@ -121,6 +112,18 @@
 
     textarea {
       max-width: 100%;
+    }
+  }
+
+  &.disabled {
+    .input {
+      background-color: var(--grayDisabledBackground);
+      color: var(--textDisabledInput);
+      cursor: not-allowed;
+
+      &:hover {
+        border-color: var(--grayBorderMain);
+      }
     }
   }
 }

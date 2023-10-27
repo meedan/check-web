@@ -52,7 +52,15 @@ const TextField = React.forwardRef(({
   });
 
   return (
-    <div className={className}>
+    <div
+      className={cx(
+        inputStyles['input-wrapper'],
+        {
+          [className]: true,
+          [inputStyles.disabled]: disabled,
+        })
+      }
+    >
       { (label || required) && (
         <div className={cx(
           [inputStyles['label-container']],
@@ -70,6 +78,7 @@ const TextField = React.forwardRef(({
           styles['textfield-container'],
           inputStyles['input-container'],
           {
+            [styles.disabled]: disabled,
             [styles['textarea-container']]: textArea,
             [styles['textarea-autoGrow']]: autoGrow,
             [styles['textarea-maxHeight']]: maxHeight,
@@ -90,7 +99,6 @@ const TextField = React.forwardRef(({
               'typography-body1',
               [styles.input],
               {
-                [styles.disabled]: disabled,
                 [styles.error]: internalError,
                 [styles.outlined]: variant === 'outlined',
                 [styles['input-icon-left']]: iconLeft,
@@ -110,7 +118,6 @@ const TextField = React.forwardRef(({
               'typography-body1',
               [styles.input],
               {
-                [styles.disabled]: disabled,
                 [styles.error]: internalError,
                 [styles.outlined]: variant === 'outlined',
                 [styles['input-icon-left']]: iconLeft,

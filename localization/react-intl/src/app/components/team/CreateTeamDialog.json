@@ -30,14 +30,14 @@
     "defaultMessage": "Duplicate workspace"
   },
   {
-    "id": "createTeamDialog.dialogTitleCreate",
-    "description": "Dialog title for creating a new workspace",
-    "defaultMessage": "Create new workspace"
-  },
-  {
     "id": "createTeamDialog.description",
     "description": "Description note to tell the user what information will be duplicated",
     "defaultMessage": "All settings from this workspace will be duplicated. No content will be added."
+  },
+  {
+    "id": "createTeamDialog.dialogTitleCreate",
+    "description": "Dialog title for creating a new workspace",
+    "defaultMessage": "Create new workspace"
   },
   {
     "id": "createTeamDialog.name",

@@ -136,7 +136,6 @@ const TiplineRequest = ({
 
   if (
     [
-      'default_requests',
       'timeout_search_requests',
       'relevant_search_result_requests',
     ].includes(activity.smooch_request_type)
