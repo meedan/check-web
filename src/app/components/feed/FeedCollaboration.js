@@ -132,7 +132,9 @@ const FeedCollaboration = ({
         <ButtonMain
           onClick={() => handleAdd(textValue)}
           iconCenter={<AddIcon />}
-          size="large"
+          variant="contained"
+          size="default"
+          theme="brand"
           disabled={!EmailValidator.validate(textValue)}
         />
       </div>

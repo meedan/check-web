@@ -8,6 +8,7 @@
 }
 
 .feed-collab-input {
+  align-items: center;
   display: flex;
   flex: auto;
   flex-direction: row;
