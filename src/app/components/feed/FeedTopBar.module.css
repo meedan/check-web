@@ -1,10 +1,46 @@
 .feedTopBar {
   align-items: center;
-  border: 2px solid var(--brandMain);
-  border-radius: 6px;
   display: inline-flex;
+  flex-wrap: wrap;
   gap: 12px;
   padding: 6px;
+
+  .feedTopBarItem {
+    align-items: center;
+    border: 2px solid var(--brandMain);
+    border-radius: 6px;
+    display: inline-flex;
+    gap: 12px;
+    padding: 6px;
+  }
+
+  .feedTopBarButton {
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover:not(:has(*:hover.feedListIcon)) {
+      background-color: var(--brandHoverAccent);
+    }
+  }
+
+  .feedTopBarButtonDisabled {
+    background-color: transparent;
+    border: 2px solid var(--grayDisabledBackground);
+    cursor: pointer;
+
+    &:hover:not(:has(*:hover.feedListIcon)) {
+      background-color: var(--grayDisabledBackground);
+      border: 2px solid var(--grayBorderAccent);
+    }
+
+    .feedListTitle {
+      opacity: .2;
+    }
+
+    .feedListAvatar {
+      opacity: .2;
+    }
+  }
 
   .feedTopBarList {
     align-items: center;
@@ -23,6 +59,10 @@
       /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
       font-size: 16px;
       margin-left: 8px;
+
+      &:hover {
+        background-color: var(--grayBorderMain);
+      }
     }
   }
 

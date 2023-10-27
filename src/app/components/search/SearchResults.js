@@ -320,6 +320,11 @@ function SearchResultsComponent({
     count = 0;
   }
 
+  // Return nothing if feed is forced empty (we have deselected all orgs)
+  if (resultType === 'emptyFeed') {
+    count = 0;
+  }
+
   if (count === 0) {
     content = (
       <BlankState>
@@ -330,7 +335,7 @@ function SearchResultsComponent({
         />
       </BlankState>
     );
-    if (resultType === 'factCheck') {
+    if (resultType === 'factCheck' || resultType === 'emptyFeed') {
       content = (
         <FeedBlankState
           teamSlug={team.slug}

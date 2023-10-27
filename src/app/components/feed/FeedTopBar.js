@@ -5,36 +5,181 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
 import ShareIcon from '../../icons/share.svg';
+import AddIcon from '../../icons/add_circle.svg';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TeamAvatar from '../team/TeamAvatar';
 import Can from '../Can';
 import styles from './FeedTopBar.module.css';
 
-const FeedTopBar = ({ team, feed }) => {
+const FeedTopBar = ({
+  team,
+  feed,
+  teamFilters,
+  setTeamFilters,
+}) => {
   const hasList = Boolean(feed.saved_search);
 
   const handleClick = () => {
     browserHistory.push(`/${team.slug}/list/${feed.saved_search.dbid}`);
   };
 
+  const handleClickAdd = () => {
+    browserHistory.push(`/${team.slug}/feed/${feed.dbid}/edit`);
+  };
+
   if (!feed.published) {
     return null;
   }
 
+  const OrgFilterButton = ({
+    avatar,
+    dbid,
+    enabled,
+    slug,
+    name,
+    current,
+  }) => {
+    const handleFilterClick = () => {
+      // remove this team from the filter
+      if (enabled) {
+        const newTeamFilters = teamFilters.filter(item => item !== dbid);
+        setTeamFilters(newTeamFilters);
+      } else {
+        const newTeamFilters = [...teamFilters]; // need to clone array here
+        newTeamFilters.push(dbid);
+        // add this team back to the filter
+        setTeamFilters(newTeamFilters);
+      }
+    };
+
+    let message;
+    if (!enabled) {
+      message = (
+        <FormattedMessage
+          id="feedTopBar.showFactChecks"
+          defaultMessage="Show fact-checks from {orgName}"
+          description="Tooltip message displayed on button that the user presses in order to show fact-checks from an organization."
+          values={{
+            orgName: name,
+          }}
+        />
+      );
+    } else {
+      message = (
+        <FormattedMessage
+          id="feedTopBar.hideFactChecks"
+          defaultMessage="Hide fact-checks from {orgName}"
+          description="Tooltip message displayed on button that the user presses in order to hide fact-checks from an organization."
+          values={{
+            orgName: name,
+          }}
+        />
+      );
+    }
+
+    return (
+      <Tooltip
+        placement="top"
+        title={message}
+        arrow
+      >
+        <button
+          className={`${styles.feedTopBarItem} ${enabled ? styles.feedTopBarButton : styles.feedTopBarButtonDisabled} feed-top-bar-item`}
+          onClick={handleFilterClick}
+        >
+          <TeamAvatar className={styles.feedListAvatar} team={{ avatar, slug }} size="24px" />
+          {
+            current && (
+              <div className="typography-body2">
+                {
+                  hasList ?
+                    <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
+                      <span className={styles.feedListTitle}>{feed.saved_search.title}</span>
+                      <Can permissions={feed.permissions} permission="update Feed">
+                        <Tooltip
+                          placement="right"
+                          title={<FormattedMessage
+                            id="feedTopBar.customList"
+                            defaultMessage="Go to custom list"
+                            description="Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
+                          />}
+                          arrow
+                        >
+                          <IconButton size="small" onClick={handleClick} className={styles.feedListIcon}><ShareIcon /></IconButton>
+                        </Tooltip>
+                      </Can>
+                    </div> :
+                    <span className={styles.feedNoListTitle}><FormattedMessage id="feedTopBar.noListSelected" defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." /></span>
+                }
+              </div>)
+          }
+        </button>
+      </Tooltip>
+    );
+  };
+
+  const currentOrg = feed.teams?.edges.find(feedTeam => feedTeam.node.slug === team.slug).node;
+  const teamsWithoutCurrentOrg = feed.teams?.edges.filter(feedTeam => feedTeam.node.slug !== team.slug);
+  teamsWithoutCurrentOrg.push(teamsWithoutCurrentOrg[0]);
+  teamsWithoutCurrentOrg.push({
+    node: {
+      __dataID__: 'VGVhbS8y\n',
+      dbid: 2,
+      avatar: 'http://localhost:9000/check-api-dev/uploads/team/2/1.png',
+      name: 'aardvark',
+      slug: 'my-workspace',
+    },
+  });
+  // eslint-disable-next-line
+  console.log('~~~twc',teamsWithoutCurrentOrg);
+
   return (
     <div className={`${styles.feedTopBar} feed-top-bar`}>
-      <TeamAvatar team={{ avatar: team.avatar, slug: team.slug }} size="24px" />
-      <div className="typography-body2">
-        {
-          hasList ?
-            <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
-              <span className={styles.feedListTitle}>{feed.saved_search.title}</span>
-              <Can permissions={feed.permissions} permission="update Feed">
-                <IconButton size="small" onClick={handleClick} className={styles.feedListIcon}><ShareIcon /></IconButton>
-              </Can>
-            </div> :
-            <span className={styles.feedNoListTitle}><FormattedMessage id="feedTopBar.noListSelected" defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." /></span>
-        }
-      </div>
+      <OrgFilterButton
+        avatar={currentOrg.avatar}
+        slug={currentOrg.slug}
+        dbid={currentOrg.dbid}
+        enabled={teamFilters.includes(currentOrg.dbid)}
+        name={currentOrg.name}
+        current
+      />
+      { teamsWithoutCurrentOrg.map((feedTeam) => {
+        const {
+          avatar,
+          slug,
+          dbid,
+          name,
+        } = feedTeam.node;
+        return (
+          <OrgFilterButton
+            avatar={avatar}
+            slug={slug}
+            dbid={dbid}
+            enabled={teamFilters.includes(dbid)}
+            name={name}
+          />
+        );
+      // sort the remaining items alphabetically per locale
+      // eslint-disable-next-line
+      }).sort((a, b) => { console.log(a,b); return a.props.name.localeCompare(b.props.name)})}
+      <Can permissions={feed.permissions} permission="update Feed">
+        <Tooltip
+          placement="top"
+          title={
+            <FormattedMessage
+              id="feedTopBar.addOrg"
+              defaultMessage="Add a collaborating organization"
+              description="Tooltip message displayed on a button that takes the user toa page where they can add an organization to this shared feed with an expectation to collaborate with the organization."
+            />
+          }
+          arrow
+        >
+          <span>{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
+            <ButtonMain iconCenter={<AddIcon />} label="Center" size="small" theme="lightText" onClick={handleClickAdd} />
+          </span>
+        </Tooltip>
+      </Can>
     </div>
   );
 };
@@ -66,8 +211,19 @@ export default createFragmentContainer(FeedTopBar, graphql`
     avatar
   }
   fragment FeedTopBar_feed on Feed {
+    dbid
     published
     permissions
+    teams(first: 1000) {
+      edges {
+        node {
+          dbid
+          avatar
+          name
+          slug
+        }
+      }
+    }
     saved_search {
       dbid
       title
