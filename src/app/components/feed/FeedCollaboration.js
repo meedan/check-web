@@ -114,11 +114,13 @@ const FeedCollaboration = ({
           description="Title of the collaboration box in which feed organizer invites other organizations to a shared feed"
         />
       </span>
-      <FormattedMessage
-        id="feedCollaboration.description"
-        defaultMessage="Invite other organizations to contribute data into this shared feed. All contributing organizations to this feed share the same data point."
-        description="Description to the feed collaboration management feature"
-      />
+      { !feed.dbid &&
+        <FormattedMessage
+          id="feedCollaboration.description"
+          defaultMessage="Invite other organizations to contribute data into this shared feed. All contributing organizations to this feed share the same data point."
+          description="Description to the feed collaboration management feature"
+        />
+      }
       { /* TODO add "Learn more" link */}
       <div className={styles['feed-collab-input']}>
         <TextField

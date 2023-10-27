@@ -113,6 +113,7 @@ const SaveFeed = (props) => {
   const [description, setDescription] = React.useState(feed.description || '');
   const [selectedListId, setSelectedListId] = React.useState(feed.saved_search_id);
   const [discoverable, setDiscoverable] = React.useState(Boolean(feed.discoverable));
+  const [createdFeedDbid, setCreatedFeedDbid] = React.useState(null);
   const [showInvitationConfirmationDialog, setShowInvitationConfirmationDialog] = React.useState(false);
   const [newInvites, setNewInvites] = React.useState([]);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
@@ -131,8 +132,17 @@ const SaveFeed = (props) => {
 
   const onSuccess = (response) => {
     const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
-    handleViewFeed(dbid);
+    setCreatedFeedDbid(dbid);
     setSaving(false);
+    if (newInvites.length) {
+      setShowInvitationConfirmationDialog(true);
+    } else {
+      handleViewFeed(dbid);
+    }
+  };
+
+  const onInviteSuccess = () => {
+    handleViewFeed(feed.dbid || createdFeedDbid);
   };
 
   const onFailure = (error) => {
@@ -151,15 +161,16 @@ const SaveFeed = (props) => {
   const disableSaveButton = saving || discoverableNoLicense || noTitle;
 
   const handleInvite = () => {
+    setSaving(true);
     newInvites.forEach((email) => {
       const input = {
-        feed_id: feed.dbid,
+        feed_id: feed.dbid || createdFeedDbid,
         email,
       };
       commitMutation(Relay.Store, {
         mutation: inviteMutation,
         variables: { input },
-        onCompleted: onSuccess,
+        onCompleted: onInviteSuccess,
         onError: onFailure,
       });
     });
@@ -194,9 +205,7 @@ const SaveFeed = (props) => {
   };
 
   const handleConfirmOrSave = () => {
-    if (newInvites.length) {
-      setShowInvitationConfirmationDialog(true);
-    } else if (feed.id) {
+    if (feed.id) {
       setShowConfirmationDialog(true);
     } else {
       handleSave();
