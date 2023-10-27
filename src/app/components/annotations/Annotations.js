@@ -38,7 +38,6 @@ class Annotations extends React.Component {
     return (
       <div
         className="annotations"
-        showAddAnnotation={props.showAddAnnotation}
         noLink={props.noLink}
         noLastItemStretch={hasMore}
       >
@@ -47,7 +46,8 @@ class Annotations extends React.Component {
             annotated={props.annotated}
             annotatedType={props.annotatedType}
             types={props.types}
-          /> : null }
+          /> : null
+        }
 
         {!props.annotations.length ?
           <div className={styles['empty-list']}>

@@ -87,7 +87,6 @@ function ChangeMediaSource({
                 description="Change media source label"
               />
             }
-            variant="outlined"
             InputProps={{
               ...params.InputProps,
               endAdornment: (
