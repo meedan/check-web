@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -201,15 +202,6 @@ const SaveFeed = (props) => {
       handleSave();
     }
   };
-
-  if (feed.id) {
-    // eslint-disable-next-line
-    console.log('feed', feed);
-    // eslint-disable-next-line
-    feed.teams.edges.forEach(t => console.log('t.node', t.node));
-    // eslint-disable-next-line
-    feed.feed_invitations.edges.forEach(i => console.log('i.node', i.node));
-  }
 
   return (
     <div className={styles.saveFeedContainer}>
@@ -528,17 +520,20 @@ const SaveFeed = (props) => {
         }
         body={
           <div>
-            <FormattedMessage
-              id="saveFeed.invitationConfirmationDialogBody"
-              defaultMessage="An email will be sent to collaborators listed to invite them to contribute to this shared feed."
-              description="Confirmation dialog message when saving a feed."
-            />
+            <p>
+              <FormattedMessage
+                id="saveFeed.invitationConfirmationDialogBody"
+                defaultMessage="An email will be sent to collaborators listed to invite them to contribute to this shared feed."
+                description="Confirmation dialog message when saving a feed."
+              />
+            </p>
             <ul>
-              { newInvites.map(email => <li>&bull; {email}</li>) }
+              { newInvites.map(email => <li className={styles.invitedEmail}>&bull; {email}</li>) }
             </ul>
           </div>
         }
         onProceed={handleInvite}
+        proceedLabel={<FormattedMessage id="saveFeed.invitationConfirmationDialogButton" defaultMessage="Send Invitation" description="Button label to confirm updating a feed." />}
         onCancel={() => setShowInvitationConfirmationDialog(false)}
         isSaving={saving}
       />
@@ -602,12 +597,15 @@ export default createFragmentContainer(SaveFeed, graphql`
     created_at
     updated_at
     team {
+      dbid
       name
     }
     teams(first: 100) {
       edges {
         node {
+          avatar
           name
+          dbid
         }
       }
     }

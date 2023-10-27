@@ -9,6 +9,7 @@
 
 .feed-collab-input {
   display: flex;
+  flex: auto;
   flex-direction: row;
   gap: 8px;
 }
@@ -29,6 +30,30 @@
 .feed-collab-icon {
   border: 2px solid var(--grayBorderMain);
   border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
   font-size: var(--iconSizeDefault);
-  padding: 8px;
+  height: 40px;
+  padding: 6px;
+  width: 40px;
+}
+
+.invitationSentIcon {
+  color: var(--alertMain);
+}
+
+.invitationSentLabel {
+  color: var(--alertSecondary);
+}
+
+.feed-collab-label {
+  flex: auto;
+}
+
+.feed-collab-organizer {
+  color: var(--textPlaceholder);
+}
+
+.feed-collab-text-field {
+  flex: auto;
 }

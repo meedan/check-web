@@ -160,6 +160,11 @@
     "defaultMessage": "An email will be sent to collaborators listed to invite them to contribute to this shared feed."
   },
   {
+    "id": "saveFeed.invitationConfirmationDialogButton",
+    "description": "Button label to confirm updating a feed.",
+    "defaultMessage": "Send Invitation"
+  },
+  {
     "id": "saveFeed.confirmationDialogTitle",
     "description": "Confirmation dialog title when saving a feed.",
     "defaultMessage": "Are you sure you want to update this shared feed?"

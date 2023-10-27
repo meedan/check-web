@@ -80,3 +80,7 @@
     font-size: var(--iconSizeSmall);
   }
 }
+
+.invitedEmail {
+  line-height: 20px;
+}
