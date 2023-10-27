@@ -134,6 +134,7 @@ const SmoochBotMenuKeywords = ({
         onClickTag={() => {}}
         options={[]}
         tags={keywords}
+        saving={saving}
       />
     </div>
   );

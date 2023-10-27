@@ -1,7 +1,7 @@
 .grid-wrapper {
   display: grid;
   grid-gap: 0;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr auto;
   grid-template-rows: 1fr;
   width: fit-content;
 }

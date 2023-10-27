@@ -11,6 +11,7 @@ import Chip from '../buttons-checkboxes-chips/Chip';
 import Tooltip from '../alerts-and-prompts/Tooltip';
 import LocalOfferIcon from '../../../icons/local_offer.svg';
 import AddCircleIcon from '../../../icons/add_circle.svg';
+import MediasLoading from '../../media/MediasLoading';
 
 const TagList = ({
   readOnly,
@@ -19,6 +20,7 @@ const TagList = ({
   setTags,
   maxTags,
   onClickTag,
+  saving,
 }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -98,7 +100,7 @@ const TagList = ({
             variant="text"
             theme="text"
             size="small"
-            disabled={readOnly}
+            disabled={readOnly || saving}
             className={`int-tag-list__button--manage ${styles['tag-icon']}`}
             onClick={readOnly ? undefined : handleOpenMenu}
           />
@@ -207,6 +209,7 @@ const TagList = ({
           </span>
         </Tooltip>
       }
+      { saving && <MediasLoading theme="grey" variant="icon" size="icon" /> }
     </div>
   );
 };
@@ -216,6 +219,7 @@ TagList.defaultProps = {
   maxTags: Infinity,
   onClickTag: null,
   options: null,
+  saving: false,
 };
 
 TagList.propTypes = {
@@ -225,6 +229,7 @@ TagList.propTypes = {
   tags: PropTypes.array.isRequired,
   maxTags: PropTypes.number,
   onClickTag: PropTypes.func,
+  saving: PropTypes.bool,
 };
 
 export default TagList;
