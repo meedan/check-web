@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
+import QuickFilterMenu from './QuickFilterMenu';
 import ShareIcon from '../../icons/share.svg';
 import AddIcon from '../../icons/add_circle.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
@@ -121,65 +122,62 @@ const FeedTopBar = ({
 
   const currentOrg = feed.teams?.edges.find(feedTeam => feedTeam.node.slug === team.slug).node;
   const teamsWithoutCurrentOrg = feed.teams?.edges.filter(feedTeam => feedTeam.node.slug !== team.slug);
-  teamsWithoutCurrentOrg.push(teamsWithoutCurrentOrg[0]);
-  teamsWithoutCurrentOrg.push({
-    node: {
-      __dataID__: 'VGVhbS8y\n',
-      dbid: 2,
-      avatar: 'http://localhost:9000/check-api-dev/uploads/team/2/1.png',
-      name: 'aardvark',
-      slug: 'my-workspace',
-    },
-  });
-  // eslint-disable-next-line
-  console.log('~~~twc',teamsWithoutCurrentOrg);
 
   return (
-    <div className={`${styles.feedTopBar} feed-top-bar`}>
-      <OrgFilterButton
-        avatar={currentOrg.avatar}
-        slug={currentOrg.slug}
-        dbid={currentOrg.dbid}
-        enabled={teamFilters.includes(currentOrg.dbid)}
-        name={currentOrg.name}
-        current
-      />
-      { teamsWithoutCurrentOrg.map((feedTeam) => {
-        const {
-          avatar,
-          slug,
-          dbid,
-          name,
-        } = feedTeam.node;
-        return (
-          <OrgFilterButton
-            avatar={avatar}
-            slug={slug}
-            dbid={dbid}
-            enabled={teamFilters.includes(dbid)}
-            name={name}
-          />
-        );
-      // sort the remaining items alphabetically per locale
-      // eslint-disable-next-line
-      }).sort((a, b) => { console.log(a,b); return a.props.name.localeCompare(b.props.name)})}
-      <Can permissions={feed.permissions} permission="update Feed">
-        <Tooltip
-          placement="top"
-          title={
-            <FormattedMessage
-              id="feedTopBar.addOrg"
-              defaultMessage="Add a collaborating organization"
-              description="Tooltip message displayed on a button that takes the user toa page where they can add an organization to this shared feed with an expectation to collaborate with the organization."
+    <div className={styles.feedTopBarContainer}>
+      <div className={`${styles.feedTopBar} feed-top-bar`}>
+        <OrgFilterButton
+          avatar={currentOrg.avatar}
+          slug={currentOrg.slug}
+          dbid={currentOrg.dbid}
+          enabled={teamFilters.includes(currentOrg.dbid)}
+          name={currentOrg.name}
+          current
+        />
+        { teamsWithoutCurrentOrg.map((feedTeam) => {
+          const {
+            avatar,
+            slug,
+            dbid,
+            name,
+          } = feedTeam.node;
+          return (
+            <OrgFilterButton
+              avatar={avatar}
+              slug={slug}
+              dbid={dbid}
+              enabled={teamFilters.includes(dbid)}
+              name={name}
             />
-          }
-          arrow
-        >
-          <span>{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
-            <ButtonMain iconCenter={<AddIcon />} label="Center" size="small" theme="lightText" onClick={handleClickAdd} />
-          </span>
-        </Tooltip>
-      </Can>
+          );
+        // sort the remaining items alphabetically per locale
+        // eslint-disable-next-line
+        }).sort((a, b) => a.props.name.localeCompare(b.props.name))}
+        <Can permissions={feed.permissions} permission="update Feed">
+          <Tooltip
+            placement="top"
+            title={
+              <FormattedMessage
+                id="feedTopBar.addOrg"
+                defaultMessage="Add a collaborating organization"
+                description="Tooltip message displayed on a button that takes the user toa page where they can add an organization to this shared feed with an expectation to collaborate with the organization."
+              />
+            }
+            arrow
+          >
+            <span>{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
+              <ButtonMain iconCenter={<AddIcon />} label="Center" size="small" theme="lightText" onClick={handleClickAdd} />
+            </span>
+          </Tooltip>
+        </Can>
+      </div>
+      <div className={`${styles.feedTopBarRight} feed-top-bar-right`}>
+        <QuickFilterMenu
+          setTeamFilters={setTeamFilters}
+          currentOrg={currentOrg}
+          teamsWithoutCurrentOrg={teamsWithoutCurrentOrg}
+        />
+      </div>
     </div>
   );
 };

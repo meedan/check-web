@@ -1,3 +1,9 @@
+.feedTopBarContainer {
+  align-items: center;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
 .feedTopBar {
   align-items: center;
   display: inline-flex;
@@ -70,4 +76,18 @@
     color: var(--textPlaceholder);
     font-style: italic;
   }
+}
+
+.feedTopBarRight {
+  display: inline-flex;
+  justify-content: flex-end;
+}
+
+.quickFilterHeader {
+  color: var(--textSecondary);
+}
+
+.itemIcon {
+  margin-right: 8px;
+  min-width: fit-content !important;
 }
