@@ -42,9 +42,7 @@ const QuickFilterMenu = ({
             description="Label for button that opens a menu with options for filtering a search"
           />
         }
-        buttonProps={{
-          id: 'int-quick-filter-menu__button--open',
-        }}
+        className="int-quick-filter-menu__button--open"
       />
       <Menu
         anchorEl={anchorEl}
@@ -61,7 +59,7 @@ const QuickFilterMenu = ({
           </span>
         </ListSubheader>
         <MenuItem
-          id="int-quick-filter-menu__menu-item--other-workspaces"
+          className="int-quick-filter-menu__menu-item--other-workspaces"
           onClick={handleSelectNotCurrentOrg}
         >
           <ListItemIcon className={styles.itemIcon}>
@@ -74,7 +72,7 @@ const QuickFilterMenu = ({
           />
         </MenuItem>
         <MenuItem
-          id="int-quick-filter-menu__menu-item--my-workspace"
+          className="int-quick-filter-menu__menu-item--my-workspace"
           onClick={handleSelectCurrentOrg}
         >
           <ListItemIcon className={styles.itemIcon}>

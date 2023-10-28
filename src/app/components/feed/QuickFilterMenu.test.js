@@ -31,12 +31,12 @@ describe('<QuickFilterMenu />', () => {
     ));
 
     // open the menu
-    const menuButton = quickFilterMenuComponent.find('#int-quick-filter-menu__button--open');
+    const menuButton = quickFilterMenuComponent.find('button.int-quick-filter-menu__button--open');
     expect(menuButton).toHaveLength(1);
     menuButton.at(0).simulate('click');
 
     // click the button to filter for only current workspace
-    const myWorkspaceButton = quickFilterMenuComponent.find('li#int-quick-filter-menu__menu-item--my-workspace');
+    const myWorkspaceButton = quickFilterMenuComponent.find('li.int-quick-filter-menu__menu-item--my-workspace');
     expect(myWorkspaceButton).toHaveLength(1);
     myWorkspaceButton.at(0).simulate('click');
     expect(setTeamFilters).toHaveBeenCalledWith([1]);
@@ -56,12 +56,12 @@ describe('<QuickFilterMenu />', () => {
     ));
 
     // open the menu
-    const menuButton = quickFilterMenuComponent.find('#int-quick-filter-menu__button--open');
+    const menuButton = quickFilterMenuComponent.find('button.int-quick-filter-menu__button--open');
     expect(menuButton).toHaveLength(1);
     menuButton.at(0).simulate('click');
 
     // click the button to filter for only current workspace
-    const myWorkspaceButton = quickFilterMenuComponent.find('li#int-quick-filter-menu__menu-item--other-workspaces');
+    const myWorkspaceButton = quickFilterMenuComponent.find('li.int-quick-filter-menu__menu-item--other-workspaces');
     expect(myWorkspaceButton).toHaveLength(1);
     myWorkspaceButton.at(0).simulate('click');
     expect(setTeamFilters).toHaveBeenCalledWith([2, 3, 4]);

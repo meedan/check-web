@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
+import cx from 'classnames/bind';
 import IconButton from '@material-ui/core/IconButton';
 import QuickFilterMenu from './QuickFilterMenu';
 import ShareIcon from '../../icons/share.svg';
@@ -86,7 +87,14 @@ const FeedTopBar = ({
         arrow
       >
         <button
-          className={`${styles.feedTopBarItem} ${enabled ? styles.feedTopBarButton : styles.feedTopBarButtonDisabled} feed-top-bar-item`}
+          className={cx(
+            [
+              styles.feedTopBarItem,
+              enabled ? styles.feedTopBarButton : styles.feedTopBarButtonDisabled,
+            ],
+            'feed-top-bar-item',
+            'int-feed-top-bar__button--filter-org',
+          )}
           onClick={handleFilterClick}
         >
           <TeamAvatar className={styles.feedListAvatar} team={{ avatar, slug }} size="24px" />
