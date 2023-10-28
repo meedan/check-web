@@ -2,7 +2,7 @@
   {
     "id": "feedCollaboration.placeholder",
     "description": "Placeholder of the input field for invited organizations",
-    "defaultMessage": "Add collaborator"
+    "defaultMessage": "Add collaborator email address"
   },
   {
     "id": "feedCollaboration.pending",

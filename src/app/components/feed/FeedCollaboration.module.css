@@ -43,6 +43,10 @@
   color: var(--alertMain);
 }
 
+.invitationNewIcon {
+  color: var(--textSecondary);
+}
+
 .invitationSentLabel {
   color: var(--alertSecondary);
 }

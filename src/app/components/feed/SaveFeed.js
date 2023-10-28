@@ -114,7 +114,6 @@ const SaveFeed = (props) => {
   const [selectedListId, setSelectedListId] = React.useState(feed.saved_search_id);
   const [discoverable, setDiscoverable] = React.useState(Boolean(feed.discoverable));
   const [createdFeedDbid, setCreatedFeedDbid] = React.useState(null);
-  const [showInvitationConfirmationDialog, setShowInvitationConfirmationDialog] = React.useState(false);
   const [newInvites, setNewInvites] = React.useState([]);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
@@ -130,17 +129,6 @@ const SaveFeed = (props) => {
     browserHistory.push(`/${teamSlug}/feed/${feedId}/feed`);
   };
 
-  const onSuccess = (response) => {
-    const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
-    setCreatedFeedDbid(dbid);
-    setSaving(false);
-    if (newInvites.length) {
-      setShowInvitationConfirmationDialog(true);
-    } else {
-      handleViewFeed(dbid);
-    }
-  };
-
   const onInviteSuccess = () => {
     handleViewFeed(feed.dbid || createdFeedDbid);
   };
@@ -150,15 +138,6 @@ const SaveFeed = (props) => {
     setFlashMessage(message, 'error');
     setSaving(false);
   };
-
-  // Error states that cause the save/edit button to disable
-  const discoverableNoLicense = discoverable && (
-    !academicLicense &&
-    !commercialLicense &&
-    !openSourceLicense
-  );
-  const noTitle = title.length === 0;
-  const disableSaveButton = saving || discoverableNoLicense || noTitle;
 
   const handleInvite = () => {
     setSaving(true);
@@ -175,6 +154,26 @@ const SaveFeed = (props) => {
       });
     });
   };
+
+  const onSuccess = (response) => {
+    const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
+    setCreatedFeedDbid(dbid);
+    setSaving(false);
+    if (newInvites.length) {
+      handleInvite();
+    } else {
+      handleViewFeed(dbid);
+    }
+  };
+
+  // Error states that cause the save/edit button to disable
+  const discoverableNoLicense = discoverable && (
+    !academicLicense &&
+    !commercialLicense &&
+    !openSourceLicense
+  );
+  const noTitle = title.length === 0;
+  const disableSaveButton = saving || discoverableNoLicense || noTitle;
 
   const handleSave = () => {
     setSaving(true);
@@ -519,16 +518,23 @@ const SaveFeed = (props) => {
       </div>
 
       <ConfirmProceedDialog
-        open={showInvitationConfirmationDialog}
+        open={showConfirmationDialog}
         title={
           <FormattedMessage
-            id="saveFeed.invitationConfirmationDialogTitle"
-            defaultMessage="Collaboration invitations"
-            description="Confirmation dialog title for feed collaboration invitations."
+            id="saveFeed.confirmationDialogTitle"
+            defaultMessage="Are you sure you want to update this shared feed?"
+            description="Confirmation dialog title when saving a feed."
           />
         }
         body={
           <div>
+            <p>
+              <FormattedMessage
+                id="saveFeed.confirmationDialogBody"
+                defaultMessage="Are you sure you want to update this shared feed?"
+                description="Confirmation dialog message when saving a feed."
+              />
+            </p>
             <p>
               <FormattedMessage
                 id="saveFeed.invitationConfirmationDialogBody"
@@ -540,28 +546,6 @@ const SaveFeed = (props) => {
               { newInvites.map(email => <li className={styles.invitedEmail}>&bull; {email}</li>) }
             </ul>
           </div>
-        }
-        onProceed={handleInvite}
-        proceedLabel={<FormattedMessage id="saveFeed.invitationConfirmationDialogButton" defaultMessage="Send Invitation" description="Button label to confirm updating a feed." />}
-        onCancel={() => setShowInvitationConfirmationDialog(false)}
-        isSaving={saving}
-      />
-
-      <ConfirmProceedDialog
-        open={showConfirmationDialog}
-        title={
-          <FormattedMessage
-            id="saveFeed.confirmationDialogTitle"
-            defaultMessage="Are you sure you want to update this shared feed?"
-            description="Confirmation dialog title when saving a feed."
-          />
-        }
-        body={
-          <FormattedMessage
-            id="saveFeed.confirmationDialogBody"
-            defaultMessage="Are you sure you want to update this shared feed?"
-            description="Confirmation dialog message when saving a feed."
-          />
         }
         proceedLabel={<FormattedMessage id="saveFeed.confirmationDialogButton" defaultMessage="Update Shared Feed" description="Button label to confirm updating a feed." />}
         onProceed={handleSave}
@@ -609,18 +593,22 @@ export default createFragmentContainer(SaveFeed, graphql`
       dbid
       name
     }
-    teams(first: 100) {
+    feed_teams(first: 100) {
       edges {
         node {
-          avatar
-          name
-          dbid
+          id
+          team {
+            dbid
+            avatar
+            name
+          }
         }
       }
     }
     feed_invitations(first: 100) {
       edges {
         node {
+          id
           email
         }
       }
