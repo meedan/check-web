@@ -22,10 +22,9 @@
 
 .saveFeedContentNarrow {
   display: flex;
+  flex: 0 0 350px;
   flex-direction: column;
   gap: 16px;
-  max-width: 350px;
-  min-width: 350px;
   padding-top: 16px;
 }
 
