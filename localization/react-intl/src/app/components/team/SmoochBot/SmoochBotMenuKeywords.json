@@ -17,6 +17,11 @@
   {
     "id": "smoochBotMenuKeywords.helperText",
     "description": "Helper text for tags component on tipline menu option editing screen.",
-    "defaultMessage": "Keywords and phrases that should match this menu item for NLU. This feature is still experimental, and changes take effect immediately. Be sure to Publish your changes before setting keywords, otherwise they can get associated with the wrong menu option."
+    "defaultMessage": "Keywords and phrases that should match this menu item for NLU. Changes take effect immediately."
+  },
+  {
+    "id": "smoochBotMenuKeywords.helperTextUnsavedChanges",
+    "description": "Helper text for tags component on tipline menu option editing screen when there are unsaved changes.",
+    "defaultMessage": "There are unsaved changes to tipline settings. Please 'Publish' the tipline or reload the page and then try again."
   }
 ]
