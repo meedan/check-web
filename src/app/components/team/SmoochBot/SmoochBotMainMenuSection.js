@@ -45,6 +45,8 @@ const SmoochBotMainMenuSection = ({
   readOnly,
   optional,
   noTitleNoDescription,
+  currentUser,
+  currentLanguage,
   canCreate,
   onChangeTitle,
   onChangeMenuOptions,
@@ -55,6 +57,7 @@ const SmoochBotMainMenuSection = ({
   const [showErrorDialog, setShowErrorDialog] = React.useState(false);
 
   const options = value.smooch_menu_options || [];
+  const menu = { 1: 'main', 2: 'secondary' }[number];
 
   const handleAddNewOption = () => {
     if (canCreate) {
@@ -311,17 +314,27 @@ const SmoochBotMainMenuSection = ({
 
       {/* Dialog: Add new option */}
       { showNewOptionDialog ?
-        <SmoochBotMainMenuOption resources={resources} onSave={handleSaveNewOption} onCancel={handleCancel} /> : null }
+        <SmoochBotMainMenuOption
+          menu={menu}
+          resources={resources}
+          onSave={handleSaveNewOption}
+          onCancel={handleCancel}
+        /> : null }
 
       {/* Dialog: Edit option */}
       { editingOptionIndex > -1 ?
         <SmoochBotMainMenuOption
+          menu={menu}
           resources={resources}
+          onSave={handleSaveOption}
+          onCancel={handleCancel}
           currentTitle={options[editingOptionIndex].smooch_menu_option_label}
           currentDescription={options[editingOptionIndex].smooch_menu_option_description}
           currentValue={options[editingOptionIndex].smooch_menu_option_value === 'custom_resource' ? options[editingOptionIndex].smooch_menu_custom_resource_id : options[editingOptionIndex].smooch_menu_option_value}
-          onSave={handleSaveOption}
-          onCancel={handleCancel}
+          currentUser={currentUser}
+          currentKeywords={options[editingOptionIndex].smooch_menu_option_nlu_keywords}
+          index={editingOptionIndex}
+          currentLanguage={currentLanguage}
         /> : null }
 
       {/* Dialog: Can't add more menu options */}
@@ -376,6 +389,8 @@ SmoochBotMainMenuSection.propTypes = {
   optional: PropTypes.bool,
   noTitleNoDescription: PropTypes.bool,
   canCreate: PropTypes.bool,
+  currentUser: PropTypes.shape({ is_admin: PropTypes.bool.isRequired }).isRequired,
+  currentLanguage: PropTypes.string.isRequired,
   onChangeTitle: PropTypes.func.isRequired,
   onChangeMenuOptions: PropTypes.func.isRequired,
 };
