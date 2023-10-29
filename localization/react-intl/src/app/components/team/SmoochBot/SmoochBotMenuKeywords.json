@@ -17,6 +17,6 @@
   {
     "id": "smoochBotMenuKeywords.helperText",
     "description": "Helper text for tags component on tipline menu option editing screen.",
-    "defaultMessage": "Keywords and phrases  that should match this menu item for NLU."
+    "defaultMessage": "Keywords and phrases that should match this menu item for NLU. This feature is still experimental, and changes take effect immediately. Be sure to Publish your changes before setting keywords, otherwise they can get associated with the wrong menu option."
   }
 ]

@@ -24,11 +24,17 @@ const SmoochBotMainMenuOption = ({
   const [description, setDescription] = React.useState(currentDescription);
   const [value, setValue] = React.useState(currentValue);
   const [submitted, setSubmitted] = React.useState(false);
+  const [keywordsUpdated, setKeywordsUpdated] = React.useState(false);
 
   const handleSave = () => {
     setSubmitted(true);
     if (text && value) {
       onSave(text, description, value);
+    }
+    if (keywordsUpdated) {
+      // Reload the page so settings are refreshed
+      // This is necessary because keywords are updated using Relay Modern and tipline settings are still using Relay classic, so they don't share the same store
+      window.location.reload();
     }
   };
 
@@ -92,6 +98,7 @@ const SmoochBotMainMenuOption = ({
             menu={menu}
             currentLanguage={currentLanguage}
             index={index}
+            onUpdateKeywords={() => { setKeywordsUpdated(true); }}
           />
           <br />
           <FormattedMessage

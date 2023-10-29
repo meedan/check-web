@@ -14,6 +14,7 @@ const SmoochBotMenuKeywords = ({
   currentLanguage,
   currentUser,
   keywords: savedKeywords,
+  onUpdateKeywords,
   setFlashMessage,
 }) => {
   const [keywords, setKeywords] = React.useState(savedKeywords);
@@ -46,6 +47,7 @@ const SmoochBotMenuKeywords = ({
     );
     setFlashMessage(message, 'success');
     setSaving(false);
+    onUpdateKeywords();
   };
 
   const handleToggleKeyword = (keyword, mutation) => {
@@ -124,7 +126,7 @@ const SmoochBotMenuKeywords = ({
         <FormattedMessage
           tagName="small"
           id="smoochBotMenuKeywords.helperText"
-          defaultMessage="Keywords and phrases  that should match this menu item for NLU."
+          defaultMessage="Keywords and phrases that should match this menu item for NLU. This feature is still experimental, and changes take effect immediately. Be sure to Publish your changes before setting keywords, otherwise they can get associated with the wrong menu option."
           description="Helper text for tags component on tipline menu option editing screen."
         />
       </p>
@@ -153,6 +155,7 @@ SmoochBotMenuKeywords.propTypes = {
   currentLanguage: PropTypes.string,
   index: PropTypes.number,
   keywords: PropTypes.arrayOf(PropTypes.string),
+  onUpdateKeywords: PropTypes.func.isRequired,
 };
 
 export default withSetFlashMessage(SmoochBotMenuKeywords);
