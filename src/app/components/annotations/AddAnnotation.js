@@ -358,7 +358,7 @@ class AddAnnotation extends Component {
 
     return (
       <form
-        className={cx('add-annotation', inputStyles['form-inner-wrapper'])}
+        className={cx('add-annotation', inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'])}
         onSubmit={this.handleSubmit.bind(this)}
       >
         <div className={inputStyles['form-fieldset']}>

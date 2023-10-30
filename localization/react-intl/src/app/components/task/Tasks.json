@@ -20,6 +20,11 @@
     "defaultMessage": "Could not save, at least one URL is invalid"
   },
   {
+    "id": "tasks.contentTrash",
+    "description": "This message tells the user that the content typically shown in unavailable when the item is in the trash",
+    "defaultMessage": "Annotations unavailable"
+  },
+  {
     "id": "tasks.confirmLeaveTitle",
     "description": "This is a prompt that appears when a user tries to exit a page before saving their work.",
     "defaultMessage": "Do you want to leave without saving?"

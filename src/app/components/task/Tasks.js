@@ -236,7 +236,11 @@ const Tasks = ({
     <>
       { media.archived === CheckArchivedFlags.TRASHED ?
         <div className={styles['empty-list']}>
-          You in da trash bro
+          <FormattedMessage
+            id="tasks.contentTrash"
+            defaultMessage="Annotations unavailable"
+            description="This message tells the user that the content typically shown in unavailable when the item is in the trash"
+          />
         </div> :
         <>
           <div className={cx(inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'])}>

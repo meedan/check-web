@@ -12,10 +12,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
 import LinkifyIt from 'linkify-it';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../icons/add.svg';
 import CancelIcon from '../../icons/clear.svg';
 import KeyboardArrowDown from '../../icons/chevron_down.svg';
@@ -37,34 +38,17 @@ import {
   Row,
   StyledIconButton,
 } from '../../styles/js/shared';
-import {
-  StyledTwoColumns,
-  StyledSmallColumn,
-  StyledBigColumn,
-  StyledName,
-} from '../../styles/js/HeaderCard';
+import inputStyles from '../../styles/css/inputs.module.css';
+import styles from '../media/media.module.css';
 
-const useStyles = makeStyles(theme => ({
-  headerRow: {
-    display: 'flex',
-    alignItems: 'top',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(2),
-  },
-  linkedText: {
-    color: 'var(--textLink)',
-    textDecoration: 'underline',
-  },
-  sourceInfoRight: {
-    textAlign: 'right',
-  },
+const useStyles = makeStyles({
   sourceCardHeader: {
     paddingBottom: 0,
   },
   sourceCardContent: {
     paddingTop: 0,
   },
-}));
+});
 
 function commitCreateAccountSource({
   source, url, onSuccess, onFailure,
@@ -329,20 +313,18 @@ function SourceInfo({
 
   return (
     <div id={`source-${source.dbid}`}>
-      <div className={classes.headerRow}>
-        <StyledTwoColumns>
-          <StyledSmallColumn>
-            <SourcePicture
-              object={source}
-              type="user"
-              className="source__avatar"
-            />
-          </StyledSmallColumn>
-          <StyledBigColumn>
-            <StyledName className="source__name">
+      <div className={cx(inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'], styles['media-sources-header'])}>
+        <div className={styles['media-sources-header-left']}>
+          <SourcePicture
+            object={source}
+            type="user"
+            className="source__avatar"
+          />
+          <div className={styles['media-sources-title']}>
+            <h6 className="source__name">
               {sourceName}
-            </StyledName>
-            <a href={sourceMediasLink} target="_blank" rel="noopener noreferrer">
+            </h6>
+            <a href={sourceMediasLink} target="_blank" rel="noopener noreferrer" className="typography-caption">
               <FormattedMessage
                 id="sourceInfo.mediasCount"
                 defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
@@ -352,10 +334,28 @@ function SourceInfo({
                 }}
               />
             </a>
-          </StyledBigColumn>
-        </StyledTwoColumns>
-        <div className={classes.sourceInfoRight}>
-          <Typography variant="caption" component="div">
+          </div>
+        </div>
+        <div className={styles['media-sources-header-right']}>
+          { can(projectMediaPermissions, 'update ProjectMedia') ?
+            <ButtonMain
+              size="default"
+              variant="contained"
+              theme="brand"
+              onClick={onChangeClick}
+              buttonProps={{
+                id: 'media-source-change',
+              }}
+              label={
+                <FormattedMessage
+                  id="mediaSource.changeSource"
+                  defaultMessage="Change"
+                  description="allow user to change a project media source"
+                />
+              }
+            /> : null
+          }
+          <div className="typography-caption">
             { saving ?
               <FormattedMessage
                 id="sourceInfo.saving"
@@ -371,20 +371,7 @@ function SourceInfo({
                 }}
               />
             }
-          </Typography>
-          { can(projectMediaPermissions, 'update ProjectMedia') ?
-            <Button
-              id="media-source-change"
-              onClick={onChangeClick}
-              className={classes.linkedText}
-            >
-              <FormattedMessage
-                id="mediaSource.changeSource"
-                defaultMessage="Change"
-                description="allow user to change a project media source"
-              />
-            </Button> : null
-          }
+          </div>
         </div>
       </div>
       <Box clone mb={2}>

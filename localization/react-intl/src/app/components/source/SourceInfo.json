@@ -10,6 +10,11 @@
     "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"
   },
   {
+    "id": "mediaSource.changeSource",
+    "description": "allow user to change a project media source",
+    "defaultMessage": "Change"
+  },
+  {
     "id": "sourceInfo.saving",
     "description": "Progress message about a save in progress",
     "defaultMessage": "Saving…"
@@ -18,11 +23,6 @@
     "id": "sourceInfo.saved",
     "description": "Caption value for how long ago a save occured",
     "defaultMessage": "Saved {ago}"
-  },
-  {
-    "id": "mediaSource.changeSource",
-    "description": "allow user to change a project media source",
-    "defaultMessage": "Change"
   },
   {
     "id": "sourceInfo.mainName",

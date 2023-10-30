@@ -270,9 +270,7 @@ class Comment extends Component {
                   {annotationActions}
                 </StyledAnnotationActionsWrapper>
               </StyledAnnotationMetadata>
-              <div className="typography-body1">
-                {contentTemplate}
-              </div>
+              {contentTemplate}
             </StyledPrimaryColumn>
           </div>
         </StyledAnnotationCardWrapper>
