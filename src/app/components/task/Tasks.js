@@ -8,7 +8,9 @@ import Task from './Task';
 import NavigateAwayDialog from '../NavigateAwayDialog';
 import BlankState from '../layout/BlankState';
 import { withSetFlashMessage } from '../FlashMessage';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 import inputStyles from '../../styles/css/inputs.module.css';
+import styles from '../media/media.module.css';
 
 const Tasks = ({
   tasks,
@@ -232,79 +234,86 @@ const Tasks = ({
 
   output = (
     <>
-      <div className={cx(inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'])}>
-        <div className={inputStyles['form-footer-actions']}>
-          <LastEditedBy />
-          {
-            isEditing ? (
-              <>
-                <NavigateAwayDialog
-                  hasUnsavedChanges
-                  title={
-                    <FormattedMessage
-                      id="tasks.confirmLeaveTitle"
-                      defaultMessage="Do you want to leave without saving?"
-                      description="This is a prompt that appears when a user tries to exit a page before saving their work."
+      { media.archived === CheckArchivedFlags.TRASHED ?
+        <div className={styles['empty-list']}>
+          You in da trash bro
+        </div> :
+        <>
+          <div className={cx(inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'])}>
+            <div className={inputStyles['form-footer-actions']}>
+              <LastEditedBy />
+              {
+                isEditing ? (
+                  <>
+                    <NavigateAwayDialog
+                      hasUnsavedChanges
+                      title={
+                        <FormattedMessage
+                          id="tasks.confirmLeaveTitle"
+                          defaultMessage="Do you want to leave without saving?"
+                          description="This is a prompt that appears when a user tries to exit a page before saving their work."
+                        />
+                      }
+                      body={
+                        <FormattedMessage
+                          id="tasks.confirmLeave"
+                          defaultMessage="You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved."
+                          description="This is a prompt that appears when a user tries to exit a page before saving their work."
+                        />
+                      }
                     />
-                  }
-                  body={
-                    <FormattedMessage
-                      id="tasks.confirmLeave"
-                      defaultMessage="You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved."
-                      description="This is a prompt that appears when a user tries to exit a page before saving their work."
+                    <ButtonMain
+                      className="form-save"
+                      size="default"
+                      variant="contained"
+                      theme="validation"
+                      onClick={handleSaveAnnotations}
+                      style={{ backgroundColor: 'var(--validationMain)', color: 'var(--otherWhite)' }}
+                      label={
+                        <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
+                      }
                     />
-                  }
-                />
-                <ButtonMain
-                  className="form-save"
-                  size="default"
-                  variant="contained"
-                  theme="validation"
-                  onClick={handleSaveAnnotations}
-                  style={{ backgroundColor: 'var(--validationMain)', color: 'var(--otherWhite)' }}
-                  label={
-                    <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
-                  }
-                />
-                <ButtonMain
-                  className="form-cancel"
-                  size="default"
-                  variant="text"
-                  theme="lightText"
-                  onClick={handleCancelAnnotations}
-                  label={
-                    <FormattedMessage id="metadata.form.cancel" defaultMessage="Cancel" description="This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form." />
-                  }
-                />
-              </>
-            ) :
-              <ButtonMain
-                className="form-edit"
-                size="default"
-                variant="contained"
-                onClick={handleEditAnnotations}
-                theme="brand"
-                label={
-                  <FormattedMessage id="metadata.form.edit" defaultMessage="Edit Annotations" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
-                }
-              />
-          }
-        </div>
-      </div>
-      <ul className="tasks__list">
-        {tasks
-          .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
-          .filter(showMetadataItem)
-          .map(task => (
-            <React.Fragment key={task.node.dbid}>
-              <li>
-                <Task task={task.node} media={media} about={about} isEditing={isEditing} localResponses={localResponses} setLocalResponses={setLocalResponses} />
-              </li>
-              <hr />
-            </React.Fragment>
-          ))
-        }
-      </ul>
+                    <ButtonMain
+                      className="form-cancel"
+                      size="default"
+                      variant="text"
+                      theme="lightText"
+                      onClick={handleCancelAnnotations}
+                      label={
+                        <FormattedMessage id="metadata.form.cancel" defaultMessage="Cancel" description="This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form." />
+                      }
+                    />
+                  </>
+                ) :
+                  <ButtonMain
+                    className="form-edit"
+                    size="default"
+                    variant="contained"
+                    onClick={handleEditAnnotations}
+                    theme="brand"
+                    label={
+                      <FormattedMessage id="metadata.form.edit" defaultMessage="Edit Annotations" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
+                    }
+                  />
+              }
+            </div>
+          </div>
+          <ul className="tasks__list">
+            {tasks
+              .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
+              .filter(showMetadataItem)
+              .map(task => (
+                <React.Fragment key={task.node.dbid}>
+                  <li>
+                    <Task task={task.node} media={media} about={about} isEditing={isEditing} localResponses={localResponses} setLocalResponses={setLocalResponses} />
+                  </li>
+                  <hr />
+                </React.Fragment>
+              ))
+            }
+          </ul>
+        </>
+      }
     </>
   );
 

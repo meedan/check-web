@@ -193,8 +193,6 @@
 }
 
 .media-list {
-  border: solid 5px var(--alertMain);
-
   .media-list-item {
     border-bottom: solid 1px var(--grayBorderMain);
     padding: 16px 0;

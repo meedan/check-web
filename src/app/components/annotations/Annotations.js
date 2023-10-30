@@ -41,12 +41,12 @@ class Annotations extends React.Component {
         noLink={props.noLink}
         noLastItemStretch={hasMore}
       >
-        { props.showAddAnnotation ?
+        { props.showAddAnnotation &&
           <AddAnnotation
             annotated={props.annotated}
             annotatedType={props.annotatedType}
             types={props.types}
-          /> : null
+          />
         }
 
         {!props.annotations.length ?

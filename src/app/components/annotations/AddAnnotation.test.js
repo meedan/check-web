@@ -9,7 +9,7 @@ describe('<AddAnnotation />', () => {
 
   it('Should hide when media is archived (Trash)', () => {
     const addAnnotation = mountWithIntl(<AddAnnotation annotated={annotated_archived} />);
-    expect(addAnnotation.html()).toEqual(null);
+    expect(addAnnotation.html()).toEqual('');
   });
 
   it('Should render component when media is not archived (not in the trash)', () => {
