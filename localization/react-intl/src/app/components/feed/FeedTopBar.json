@@ -1,7 +1,27 @@
 [
   {
+    "id": "feedTopBar.showFactChecks",
+    "description": "Tooltip message displayed on button that the user presses in order to show fact-checks from an organization.",
+    "defaultMessage": "Show fact-checks from {orgName}"
+  },
+  {
+    "id": "feedTopBar.hideFactChecks",
+    "description": "Tooltip message displayed on button that the user presses in order to hide fact-checks from an organization.",
+    "defaultMessage": "Hide fact-checks from {orgName}"
+  },
+  {
+    "id": "feedTopBar.customList",
+    "description": "Tooltip message displayed on button that the user presses in order to navigate to the custom list page.",
+    "defaultMessage": "Go to custom list"
+  },
+  {
     "id": "feedTopBar.noListSelected",
     "description": "Message displayed on feed top bar when there is no list associated with the feed.",
     "defaultMessage": "no list selected"
+  },
+  {
+    "id": "feedTopBar.addOrg",
+    "description": "Tooltip message displayed on a button that takes the user toa page where they can add an organization to this shared feed with an expectation to collaborate with the organization.",
+    "defaultMessage": "Add a collaborating organization"
   }
 ]
