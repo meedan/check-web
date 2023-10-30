@@ -22,6 +22,7 @@ const SmoochBotMainMenuSection = ({
   currentUser,
   currentLanguage,
   canCreate,
+  hasUnsavedChanges,
   onChangeTitle,
   onChangeMenuOptions,
 }) => {
@@ -288,6 +289,7 @@ const SmoochBotMainMenuSection = ({
           currentValue={options[editingOptionIndex].smooch_menu_option_value === 'custom_resource' ? options[editingOptionIndex].smooch_menu_custom_resource_id : options[editingOptionIndex].smooch_menu_option_value}
           currentUser={currentUser}
           currentKeywords={options[editingOptionIndex].smooch_menu_option_nlu_keywords}
+          hasUnsavedChanges={hasUnsavedChanges}
           index={editingOptionIndex}
           currentLanguage={currentLanguage}
         /> : null }
@@ -332,6 +334,7 @@ SmoochBotMainMenuSection.defaultProps = {
   resources: [],
   readOnly: false,
   optional: false,
+  hasUnsavedChanges: false,
   noTitleNoDescription: false,
   canCreate: true,
 };
@@ -346,6 +349,7 @@ SmoochBotMainMenuSection.propTypes = {
   canCreate: PropTypes.bool,
   currentUser: PropTypes.shape({ is_admin: PropTypes.bool.isRequired }).isRequired,
   currentLanguage: PropTypes.string.isRequired,
+  hasUnsavedChanges: PropTypes.bool,
   onChangeTitle: PropTypes.func.isRequired,
   onChangeMenuOptions: PropTypes.func.isRequired,
 };

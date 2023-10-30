@@ -16,6 +16,7 @@ const SmoochBotMainMenuOption = ({
   menu,
   index,
   resources,
+  hasUnsavedChanges,
   onSave,
   onCancel,
   intl,
@@ -98,6 +99,7 @@ const SmoochBotMainMenuOption = ({
             menu={menu}
             currentLanguage={currentLanguage}
             index={index}
+            hasUnsavedChanges={hasUnsavedChanges}
             onUpdateKeywords={() => { setKeywordsUpdated(true); }}
           />
           <br />
@@ -190,6 +192,7 @@ SmoochBotMainMenuOption.defaultProps = {
   currentLanguage: null,
   currentKeywords: [],
   index: null,
+  hasUnsavedChanges: false,
 };
 
 SmoochBotMainMenuOption.propTypes = {
@@ -202,6 +205,7 @@ SmoochBotMainMenuOption.propTypes = {
   currentLanguage: PropTypes.string,
   menu: PropTypes.oneOf(['main', 'secondary']).isRequired,
   index: PropTypes.number,
+  hasUnsavedChanges: PropTypes.bool,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };

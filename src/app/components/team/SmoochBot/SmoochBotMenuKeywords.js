@@ -14,6 +14,7 @@ const SmoochBotMenuKeywords = ({
   currentLanguage,
   currentUser,
   keywords: savedKeywords,
+  hasUnsavedChanges,
   onUpdateKeywords,
   setFlashMessage,
 }) => {
@@ -126,12 +127,23 @@ const SmoochBotMenuKeywords = ({
         <FormattedMessage
           tagName="small"
           id="smoochBotMenuKeywords.helperText"
-          defaultMessage="Keywords and phrases that should match this menu item for NLU. This feature is still experimental, and changes take effect immediately. Be sure to Publish your changes before setting keywords, otherwise they can get associated with the wrong menu option."
+          defaultMessage="Keywords and phrases that should match this menu item for NLU. Changes take effect immediately."
           description="Helper text for tags component on tipline menu option editing screen."
         />
+        { hasUnsavedChanges ?
+          <span style={{ color: 'var(--alertMain)' }}>
+            <br />
+            <FormattedMessage
+              tagName="small"
+              id="smoochBotMenuKeywords.helperTextUnsavedChanges"
+              defaultMessage="There are unsaved changes to tipline settings. Please 'Publish' the tipline or reload the page and then try again."
+              description="Helper text for tags component on tipline menu option editing screen when there are unsaved changes."
+            />
+          </span> : null
+        }
       </p>
       <TagList
-        readOnly={saving}
+        readOnly={saving || hasUnsavedChanges}
         setTags={handleSetTags}
         onClickTag={() => {}}
         options={[]}
@@ -155,6 +167,7 @@ SmoochBotMenuKeywords.propTypes = {
   currentLanguage: PropTypes.string,
   index: PropTypes.number,
   keywords: PropTypes.arrayOf(PropTypes.string),
+  hasUnsavedChanges: PropTypes.bool.isRequired,
   onUpdateKeywords: PropTypes.func.isRequired,
 };
 
