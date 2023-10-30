@@ -320,6 +320,11 @@ function SearchResultsComponent({
     count = 0;
   }
 
+  // Return nothing if feed is forced empty (we have deselected all orgs)
+  if (resultType === 'emptyFeed') {
+    count = 0;
+  }
+
   if (count === 0) {
     content = (
       <BlankState>
@@ -330,7 +335,7 @@ function SearchResultsComponent({
         />
       </BlankState>
     );
-    if (resultType === 'factCheck') {
+    if (resultType === 'factCheck' || resultType === 'emptyFeed') {
       content = (
         <FeedBlankState
           teamSlug={team.slug}
@@ -593,7 +598,7 @@ SearchResultsComponent.propTypes = {
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   savedSearch: PropTypes.object, // or null
-  extra: PropTypes.node, // or null
+  extra: PropTypes.func, // or null
 };
 
 // eslint-disable-next-line import/no-unused-modules
@@ -737,7 +742,7 @@ SearchResults.propTypes = {
   listSubtitle: PropTypes.object,
   query: PropTypes.object.isRequired,
   teamSlug: PropTypes.string.isRequired,
-  extra: PropTypes.node,
+  extra: PropTypes.func,
 };
 
 SearchResults.defaultProps = {
