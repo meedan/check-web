@@ -18,6 +18,15 @@ const team = {
       dbid: 1,
       shared: true,
     },
+    teams: {
+      edges: [
+        {
+          node: {
+            dbid: 1,
+          },
+        },
+      ],
+    },
   },
 };
 
