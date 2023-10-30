@@ -161,20 +161,17 @@
 
   .media-sources {
     .media-sources-header {
-      border: solid 3px var(--validationMain);
       display: flex;
       gap: 6px;
       justify-content: space-between;
 
       .media-sources-header-left {
-        border: solid 3px var(--errorMain);
         display: flex;
         flex: 1 1 auto;
         flex-direction: row;
         gap: 6px;
 
         .media-sources-title {
-          border: solid 3px var(--brandMain);
           display: flex;
           flex: 1 1 auto;
           flex-direction: column;
@@ -185,7 +182,6 @@
       .media-sources-header-right {
         @mixin typography-caption;
         align-items: flex-end;
-        border: solid 3px var(--alertMain);
         color: var(--textSecondary);
         display: flex;
         flex: 1 0 auto;

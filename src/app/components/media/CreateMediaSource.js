@@ -31,7 +31,6 @@ import {
   StyledTwoColumns,
   StyledSmallColumn,
   StyledBigColumn,
-  StyledName,
 } from '../../styles/js/HeaderCard';
 
 const useStyles = makeStyles(theme => ({
@@ -249,7 +248,7 @@ function CreateMediaSource({
           </StyledSmallColumn>
           <StyledBigColumn>
             <div className="source__primary-info">
-              <StyledName className="source__name">
+              <h6 className="source__name">
                 <Row>
                   {sourceName.length !== 0 ?
                     sourceName :
@@ -260,7 +259,7 @@ function CreateMediaSource({
                     />
                   }
                 </Row>
-              </StyledName>
+              </h6>
               <div className={classes.linkedText}>
                 <FormattedMessage
                   id="sourceInfo.mediasCount"

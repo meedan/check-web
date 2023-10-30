@@ -5,21 +5,14 @@ import { graphql, commitMutation, createFragmentContainer } from 'react-relay/co
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import Collapse from '@material-ui/core/Collapse';
 import LinkifyIt from 'linkify-it';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import TextField2 from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../icons/add.svg';
 import CancelIcon from '../../icons/clear.svg';
-import KeyboardArrowDown from '../../icons/chevron_down.svg';
 import SetSourceDialog from '../media/SetSourceDialog';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
@@ -40,15 +33,6 @@ import {
 } from '../../styles/js/shared';
 import inputStyles from '../../styles/css/inputs.module.css';
 import styles from '../media/media.module.css';
-
-const useStyles = makeStyles({
-  sourceCardHeader: {
-    paddingBottom: 0,
-  },
-  sourceCardContent: {
-    paddingTop: 0,
-  },
-});
 
 function commitCreateAccountSource({
   source, url, onSuccess, onFailure,
@@ -160,8 +144,6 @@ function SourceInfo({
   onChangeClick,
   relateToExistingSource,
 }) {
-  const [expandName, setExpandName] = React.useState(true);
-  const [expandAccounts, setExpandAccounts] = React.useState(true);
   const [sourceName, setSourceName] = React.useState(source.name);
   const [sourceError, setSourceError] = React.useState('');
   const [secondaryUrl, setSecondaryUrl] = React.useState({ url: '', error: '', addNewLink: false });
@@ -169,8 +151,6 @@ function SourceInfo({
   const [saving, setSaving] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [existingSource, setExistingSource] = React.useState({});
-
-  const classes = useStyles();
 
   const handleRemoveLink = (asId) => {
     commitDeleteAccountSource({ source, asId });
@@ -374,221 +354,186 @@ function SourceInfo({
           </div>
         </div>
       </div>
-      <Box clone mb={2}>
-        <Card
+      <div className={inputStyles['form-fieldset']}>
+        <div
           id={`source__card-${source.dbid}`}
-          className="source__card-card"
+          className={cx('source__card-card', inputStyles['form-fieldset-field'])}
         >
-          <CardHeader
-            className={['source__card-header', classes.sourceCardHeader].join(' ')}
-            disableTypography
-            title={
+          <TextField2
+            value={sourceName}
+            disabled={!can(source.permissions, 'update Source') || saving}
+            error={Boolean(sourceError)}
+            helperText={sourceError}
+            onKeyPress={(e) => { handleNameKeyPress(e); }}
+            onChange={(e) => { setSourceName(e.target.value); }}
+            onBlur={handleChangeSourceName}
+            inputProps={{
+              id: 'source__name-input',
+              name: 'source__name-input',
+            }}
+            label={
               <FormattedMessage
                 id="sourceInfo.mainName"
                 defaultMessage="Main name"
                 description="Source name"
               />
             }
-            id={`source__label-${source.id}`}
-            action={
-              <IconButton
-                className="source__card-expand"
-                onClick={() => setExpandName(!expandName)}
-              >
-                <KeyboardArrowDown />
-              </IconButton>
-            }
           />
-          <Collapse in={expandName} timeout="auto">
-            <CardContent className={classes.sourceCardContent}>
-              <TextField
-                id="source__name-input"
-                name="source__name-input"
-                value={sourceName}
-                disabled={!can(source.permissions, 'update Source') || saving}
-                error={Boolean(sourceError)}
-                helperText={sourceError}
-                onKeyPress={(e) => { handleNameKeyPress(e); }}
-                onChange={(e) => { setSourceName(e.target.value); }}
-                onBlur={handleChangeSourceName}
-                margin="normal"
-                variant="outlined"
-                fullWidth
-              />
-            </CardContent>
-            {dialogOpen ?
-              <SetSourceDialog
-                open={dialogOpen}
-                sourceName={existingSource.name}
-                onSubmit={handleSubmitDialog}
-                onCancel={handleCancelDialog}
-              /> : null
-            }
-          </Collapse>
-        </Card>
-      </Box>
-      <Box clone mb={2}>
-        <Card
+          {dialogOpen ?
+            <SetSourceDialog
+              open={dialogOpen}
+              sourceName={existingSource.name}
+              onSubmit={handleSubmitDialog}
+              onCancel={handleCancelDialog}
+            /> : null
+          }
+        </div>
+        <div
           id={`source-accounts-${source.dbid}`}
-          className="source__card-card"
+          className={cx('source__card-card', inputStyles['form-fieldset-field'])}
         >
-          <CardHeader
-            className={['source__card-header', classes.sourceCardHeader].join(' ')}
-            disableTypography
-            title={
-              <FormattedMessage
-                id="sourceInfo.mainAccount"
-                defaultMessage="Main source URL"
-                description="URL for first account related to media souce"
-              />
-            }
-            id={`source__accounts-${source.id}`}
-            action={
-              <IconButton
-                className="source__card-expand"
-                onClick={() => setExpandAccounts(!expandAccounts)}
-              >
-                <KeyboardArrowDown />
-              </IconButton>
-            }
-          />
-          <Collapse in={expandAccounts} timeout="auto">
-            <CardContent className={classes.sourceCardContent}>
-              <Box mb={2}>
-                { mainAccount ?
-                  <Row key={mainAccount.node.id} className="source__url">
-                    <TextField
-                      id="main_source__link"
-                      value={mainAccount.node.account.url}
-                      margin="normal"
-                      variant="outlined"
-                      disabled
-                      fullWidth
-                    />
-                    { can(mainAccount.node.permissions, 'destroy AccountSource') ?
-                      <StyledIconButton
-                        className="source__remove-link-button"
-                        onClick={() => handleRemoveLink(mainAccount.node.id)}
-                      >
-                        <CancelIcon />
-                      </StyledIconButton> : null }
-                  </Row> : null }
-                { !mainAccount && can(source.permissions, 'create Account') ?
-                  <TextField
-                    id="source_primary__link-input"
-                    name="source_primary__link-input"
-                    disabled={saving}
-                    variant="outlined"
-                    label={
-                      <FormattedMessage
-                        id="sourceInfo.primaryLink"
-                        defaultMessage="Add main source URL"
-                        description="Allow user to add a main source URL"
-                      />
-                    }
-                    value={primaryUrl.url}
-                    error={Boolean(primaryUrl.error)}
-                    helperText={primaryUrl.error}
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        createAccountSource(e, 'primary');
-                      }
-                    }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">http(s)://</InputAdornment>
-                      ),
-                    }}
-                    onChange={(e) => { handleChangeLink(e, 'primary'); }}
-                    onBlur={(e) => { createAccountSource(e); }}
-                    margin="normal"
-                    fullWidth
-                  /> : null
-                }
-              </Box>
-              <Box mb={2}>
-                { secondaryAccounts.length === 0 ?
-                  null :
-                  <h2 className="typography-subtitle2">
+          <Box mb={2}>
+            { mainAccount ?
+              <Row key={mainAccount.node.id} className="source__url">
+                <TextField2
+                  value={mainAccount.node.account.url}
+                  disabled
+                  inputProps={{
+                    id: 'main_source__link',
+                  }}
+                  label={
                     <FormattedMessage
-                      id="sourceInfo.secondaryAccounts"
-                      defaultMessage="Secondary source URLs"
-                      description="URLs for source accounts except first account"
+                      id="sourceInfo.mainAccount"
+                      defaultMessage="Main source URL"
+                      description="URL for first account related to media souce"
                     />
-                  </h2>
-                }
-                { secondaryAccounts.map((as, index) => (
-                  <Row key={as.node.id} className="source__url">
-                    <TextField
-                      id={`source__link-item${index.toString()}`}
-                      defaultValue={as.node.account.url}
-                      margin="normal"
-                      variant="outlined"
-                      fullWidth
-                      disabled
-                    />
-                    { can(as.node.permissions, 'destroy AccountSource') ?
-                      <StyledIconButton
-                        className="source__remove-link-button"
-                        onClick={() => handleRemoveLink(as.node.id)}
-                      >
-                        <CancelIcon />
-                      </StyledIconButton> : null
-                    }
-                  </Row>
-                ))}
-              </Box>
-              { secondaryUrl.addNewLink ?
-                <Row key="source-add-new-link" className="source__url-input">
-                  <TextField
-                    id="source__link-input-new"
-                    name="source__link-input-new"
-                    margin="normal"
-                    variant="outlined"
-                    value={secondaryUrl.url}
-                    error={Boolean(secondaryUrl.error)}
-                    helperText={secondaryUrl.error}
-                    disabled={saving}
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        createAccountSource(e, 'secondary');
-                      }
-                    }}
-                    onChange={(e) => { handleChangeLink(e, 'secondary'); }}
-                    onBlur={(e) => { createAccountSource(e); }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">http(s)://</InputAdornment>
-                      ),
-                    }}
-                    fullWidth
-                  />
+                  }
+                />
+                { can(mainAccount.node.permissions, 'destroy AccountSource') ?
                   <StyledIconButton
                     className="source__remove-link-button"
-                    onClick={() => { setSecondaryUrl({ url: '', error: '', addNewLink: false }); }}
+                    onClick={() => handleRemoveLink(mainAccount.node.id)}
                   >
                     <CancelIcon />
-                  </StyledIconButton>
-                </Row> : null
-              }
-              { can(source.permissions, 'create Account') ?
-                <Button
-                  className="source__add-link-button"
-                  onClick={() => { setSecondaryUrl({ url: '', error: '', addNewLink: true }); }}
-                  disabled={Boolean(secondaryUrl.addNewLink || !mainAccount || primaryUrl.error)}
-                  startIcon={<AddIcon />}
-                >
+                  </StyledIconButton> : null }
+              </Row> : null }
+            { !mainAccount && can(source.permissions, 'create Account') ?
+              <TextField
+                id="source_primary__link-input"
+                name="source_primary__link-input"
+                disabled={saving}
+                variant="outlined"
+                label={
                   <FormattedMessage
-                    id="sourceInfo.addLink"
-                    defaultMessage="Add a secondary URL"
-                    description="Allow user to relate a new link to media source"
+                    id="sourceInfo.primaryLink"
+                    defaultMessage="Add main source URL"
+                    description="Allow user to add a main source URL"
                   />
-                </Button> : null
+                }
+                value={primaryUrl.url}
+                error={Boolean(primaryUrl.error)}
+                helperText={primaryUrl.error}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    createAccountSource(e, 'primary');
+                  }
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">http(s)://</InputAdornment>
+                  ),
+                }}
+                onChange={(e) => { handleChangeLink(e, 'primary'); }}
+                onBlur={(e) => { createAccountSource(e); }}
+                margin="normal"
+                fullWidth
+              /> : null
+            }
+          </Box>
+          <Box mb={2}>
+            { secondaryAccounts.length === 0 ?
+              null :
+              <h2 className="typography-subtitle2">
+                <FormattedMessage
+                  id="sourceInfo.secondaryAccounts"
+                  defaultMessage="Secondary source URLs"
+                  description="URLs for source accounts except first account"
+                />
+              </h2>
+            }
+            { secondaryAccounts.map((as, index) => (
+              <Row key={as.node.id} className="source__url">
+                <TextField2
+                  defaultValue={as.node.account.url}
+                  disabled
+                  inputProps={{
+                    id: `source__link-item${index.toString()}`,
+                  }}
+                />
+                { can(as.node.permissions, 'destroy AccountSource') ?
+                  <StyledIconButton
+                    className="source__remove-link-button"
+                    onClick={() => handleRemoveLink(as.node.id)}
+                  >
+                    <CancelIcon />
+                  </StyledIconButton> : null
+                }
+              </Row>
+            ))}
+          </Box>
+          { secondaryUrl.addNewLink ?
+            <Row key="source-add-new-link" className="source__url-input">
+              <TextField
+                id="source__link-input-new"
+                name="source__link-input-new"
+                margin="normal"
+                variant="outlined"
+                value={secondaryUrl.url}
+                error={Boolean(secondaryUrl.error)}
+                helperText={secondaryUrl.error}
+                disabled={saving}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    createAccountSource(e, 'secondary');
+                  }
+                }}
+                onChange={(e) => { handleChangeLink(e, 'secondary'); }}
+                onBlur={(e) => { createAccountSource(e); }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">http(s)://</InputAdornment>
+                  ),
+                }}
+                fullWidth
+              />
+              <StyledIconButton
+                className="source__remove-link-button"
+                onClick={() => { setSecondaryUrl({ url: '', error: '', addNewLink: false }); }}
+              >
+                <CancelIcon />
+              </StyledIconButton>
+            </Row> : null
+          }
+          { can(source.permissions, 'create Account') && Boolean(secondaryUrl.addNewLink || mainAccount || primaryUrl.error) ?
+            <ButtonMain
+              variant="contained"
+              theme="text"
+              size="default"
+              className="source__add-link-button"
+              onClick={() => { setSecondaryUrl({ url: '', error: '', addNewLink: true }); }}
+              disabled={Boolean(secondaryUrl.addNewLink || !mainAccount || primaryUrl.error)}
+              iconLeft={<AddIcon />}
+              label={
+                <FormattedMessage
+                  id="sourceInfo.addLink"
+                  defaultMessage="Add a secondary URL"
+                  description="Allow user to relate a new link to media source"
+                />
               }
-            </CardContent>
-          </Collapse>
-        </Card>
-      </Box>
+            /> : null
+          }
+        </div>
+      </div>
       <Tasks tasks={sourceMetadata} media={source} about={about} />
     </div>
   );
