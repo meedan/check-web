@@ -4,12 +4,19 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import Select from '../../cds/inputs/Select';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import SmoochBotMenuKeywords from './SmoochBotMenuKeywords';
 
 const SmoochBotMainMenuOption = ({
   currentTitle,
   currentDescription,
   currentValue,
+  currentUser,
+  currentKeywords,
+  currentLanguage,
+  menu,
+  index,
   resources,
+  hasUnsavedChanges,
   onSave,
   onCancel,
   intl,
@@ -18,11 +25,17 @@ const SmoochBotMainMenuOption = ({
   const [description, setDescription] = React.useState(currentDescription);
   const [value, setValue] = React.useState(currentValue);
   const [submitted, setSubmitted] = React.useState(false);
+  const [keywordsUpdated, setKeywordsUpdated] = React.useState(false);
 
   const handleSave = () => {
     setSubmitted(true);
     if (text && value) {
       onSave(text, description, value);
+    }
+    if (keywordsUpdated) {
+      // Reload the page so settings are refreshed
+      // This is necessary because keywords are updated using Relay Modern and tipline settings are still using Relay classic, so they don't share the same store
+      window.location.reload();
     }
   };
 
@@ -78,6 +91,16 @@ const SmoochBotMainMenuOption = ({
             onBlur={(e) => { setDescription(e.target.value); }}
             maxChars={72}
             variant="contained"
+          />
+          <br />
+          <SmoochBotMenuKeywords
+            keywords={currentKeywords}
+            currentUser={currentUser}
+            menu={menu}
+            currentLanguage={currentLanguage}
+            index={index}
+            hasUnsavedChanges={hasUnsavedChanges}
+            onUpdateKeywords={() => { setKeywordsUpdated(true); }}
           />
           <br />
           <FormattedMessage
@@ -161,17 +184,28 @@ const SmoochBotMainMenuOption = ({
 };
 
 SmoochBotMainMenuOption.defaultProps = {
+  resources: [],
   currentTitle: '',
   currentDescription: '',
   currentValue: null,
-  resources: [],
+  currentUser: null,
+  currentLanguage: null,
+  currentKeywords: [],
+  index: null,
+  hasUnsavedChanges: false,
 };
 
 SmoochBotMainMenuOption.propTypes = {
+  resources: PropTypes.arrayOf(PropTypes.object),
   currentTitle: PropTypes.string,
   currentDescription: PropTypes.string,
   currentValue: PropTypes.string,
-  resources: PropTypes.arrayOf(PropTypes.object),
+  currentUser: PropTypes.shape({ is_admin: PropTypes.bool.isRequired }),
+  currentKeywords: PropTypes.arrayOf(PropTypes.string),
+  currentLanguage: PropTypes.string,
+  menu: PropTypes.oneOf(['main', 'secondary']).isRequired,
+  index: PropTypes.number,
+  hasUnsavedChanges: PropTypes.bool,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };

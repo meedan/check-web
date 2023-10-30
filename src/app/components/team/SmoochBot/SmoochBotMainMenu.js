@@ -29,8 +29,11 @@ const messages = defineMessages({
 const SmoochBotMainMenu = ({
   value,
   languages,
+  currentLanguage,
   resources,
   enabledIntegrations,
+  currentUser,
+  hasUnsavedChanges,
   intl,
   onChange,
 }) => {
@@ -130,6 +133,9 @@ const SmoochBotMainMenu = ({
         resources={resources}
         noTitleNoDescription={!whatsAppEnabled}
         canCreate={canCreateNewOption}
+        currentUser={currentUser}
+        currentLanguage={currentLanguage}
+        hasUnsavedChanges={hasUnsavedChanges}
         onChangeTitle={(newValue) => { handleChangeTitle(newValue, 'smooch_state_main'); }}
         onChangeMenuOptions={(newOptions) => { handleChangeMenuOptions(newOptions, 'smooch_state_main'); }}
       />
@@ -140,6 +146,9 @@ const SmoochBotMainMenu = ({
           value={value.smooch_state_secondary}
           resources={resources}
           canCreate={canCreateNewOption}
+          currentUser={currentUser}
+          currentLanguage={currentLanguage}
+          hasUnsavedChanges={hasUnsavedChanges}
           onChangeTitle={(newValue) => { handleChangeTitle(newValue, 'smooch_state_secondary'); }}
           onChangeMenuOptions={(newOptions) => { handleChangeMenuOptions(newOptions, 'smooch_state_secondary'); }}
           optional
@@ -175,8 +184,11 @@ SmoochBotMainMenu.defaultProps = {
 SmoochBotMainMenu.propTypes = {
   value: PropTypes.object,
   languages: PropTypes.arrayOf(PropTypes.string),
+  currentLanguage: PropTypes.string.isRequired,
   intl: intlShape.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
+  currentUser: PropTypes.shape({ is_admin: PropTypes.bool.isRequired }).isRequired,
+  hasUnsavedChanges: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   resources: PropTypes.arrayOf(PropTypes.object),
 };
