@@ -16,7 +16,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
   const { feed } = team;
   const { tab } = routeParams;
   // set initial teamFilters to list of all teams OR whatever is from the query
-  const [teamFilters, setTeamFilters] = React.useState(feed.teams?.edges.map(item => item.node.dbid));
+  const [teamFilters, setTeamFilters] = React.useState(feed?.teams?.edges.map(item => item.node.dbid));
 
   if (!feed) {
     browserHistory.push('/check/not-found');
@@ -270,6 +270,10 @@ const Feed = ({ routeParams }) => (
   </ErrorBoundary>
 );
 
+Feed.defaultProps = {
+  team: null,
+};
+
 Feed.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
@@ -277,6 +281,9 @@ Feed.propTypes = {
     tab: PropTypes.oneOf(['shared', 'feed', 'requests']),
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
+  team: PropTypes.shape({
+    feed: PropTypes.object.isRequired,
+  }),
 };
 
 export default Feed;

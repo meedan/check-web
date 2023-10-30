@@ -100,6 +100,7 @@ const FeedTopBar = ({
           <TeamAvatar className={styles.feedListAvatar} team={{ avatar, slug }} size="24px" />
           {
             current && (
+              // FIXME: the <IconButton> embedded in a <button> causes a DOM validation error -- the solution here is to make the "go to custom list" button a sibling of the top-level button. After discussing with product, we are just going to flag this for a later fix.
               <div className="typography-body2">
                 {
                   hasList ?
@@ -115,7 +116,7 @@ const FeedTopBar = ({
                           />}
                           arrow
                         >
-                          <IconButton size="small" onClick={handleClick} className={styles.feedListIcon}><ShareIcon /></IconButton>
+                          <IconButton size="small" onClick={handleClick} className={`${styles.feedListIcon} int-feed-top-bar__icon-button--settings`}><ShareIcon /></IconButton>
                         </Tooltip>
                       </Can>
                     </div> :
@@ -159,7 +160,6 @@ const FeedTopBar = ({
             />
           );
         // sort the remaining items alphabetically per locale
-        // eslint-disable-next-line
         }).sort((a, b) => a.props.name.localeCompare(b.props.name))}
         <Can permissions={feed.permissions} permission="update Feed">
           <Tooltip
