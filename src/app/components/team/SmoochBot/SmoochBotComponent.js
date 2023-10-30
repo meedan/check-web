@@ -39,6 +39,17 @@ const SmoochBotComponent = ({
 
   const [settings, setSettings] = React.useState(installation ? JSON.parse(installation.json_settings) : {});
 
+  const [hasUnsavedChanges, setHasUnsavedChanges] = React.useState(false);
+
+  React.useEffect(() => {
+    setHasUnsavedChanges(false);
+  }, [installation.lock_version]);
+
+  const updateSettings = (newSettings) => {
+    setSettings(newSettings);
+    setHasUnsavedChanges(true);
+  };
+
   const userRole = UserUtil.myRole(currentUser, team.slug);
 
   const handleEditingResource = (value) => {
@@ -136,7 +147,7 @@ const SmoochBotComponent = ({
           smooch_menu_options: [],
         },
       });
-      setSettings(updatedValue);
+      updateSettings(updatedValue);
     }
     setCurrentLanguage(newValue);
   };
@@ -198,7 +209,7 @@ const SmoochBotComponent = ({
               schema={JSON.parse(bot.settings_as_json_schema)}
               uiSchema={JSON.parse(bot.settings_ui_schema)}
               value={settings}
-              onChange={setSettings}
+              onChange={updateSettings}
               currentUser={currentUser}
               userRole={userRole}
               currentLanguage={currentLanguage}
@@ -206,6 +217,7 @@ const SmoochBotComponent = ({
               enabledIntegrations={installation.smooch_enabled_integrations}
               resources={team.tipline_resources.edges.map(edge => edge.node).filter(node => node.language === currentLanguage)}
               onEditingResource={handleEditingResource}
+              hasUnsavedChanges={hasUnsavedChanges}
             /> :
             <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
               { currentUser.is_admin ?
