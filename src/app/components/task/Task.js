@@ -866,7 +866,7 @@ class Task extends Component {
     if (!isArchived) {
       if (!response || task.responses.edges?.length > 1) {
         taskBody = (
-          <div>
+          <>
             <StyledTaskResponses>
               {task.responses.edges.map(singleResponse => this.renderTaskResponse(singleResponse.node))}
             </StyledTaskResponses>
@@ -884,7 +884,7 @@ class Task extends Component {
                 </div>
               </Can>
             ) : null}
-          </div>
+          </>
         );
       } else {
         taskBody = this.renderTaskResponse(task.first_response);

@@ -164,6 +164,7 @@
       display: flex;
       gap: 6px;
       justify-content: space-between;
+      margin: 0 0 16px;
 
       .media-sources-header-left {
         display: flex;

@@ -94,6 +94,17 @@
     top: -16px;
     z-index: 1001;
   }
+
+  .form-inner-wrapper {
+    background: var(--brandBackgroundAccent);
+    border-radius: 3px;
+    padding: 16px;
+  }
+
+  + .form-inner-wrapper {
+    border: solid 3px var(--validationMain);
+    margin: 16px 0 0;
+  }
 }
 
 .form-fieldset {
