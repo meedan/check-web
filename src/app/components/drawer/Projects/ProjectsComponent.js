@@ -339,17 +339,39 @@ const ProjectsComponent = ({
               </ListItemText>
             </ListItem> :
             <>
-              {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map(feed => (
-                <ProjectsListItem
-                  key={feed.id}
-                  routePrefix="feed"
-                  routeSuffix="/feed"
-                  project={feed}
-                  teamSlug={team.slug}
-                  onClick={handleClick}
-                  isActive={isActive('feed', feed.dbid)}
-                />
-              ))}
+              {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
+                let itemProps = {};
+                let itemType = null;
+                switch (feed.type) {
+                // Feeds created by the workspace
+                case 'Feed':
+                  itemProps = { routePrefix: 'feed', routeSuffix: '/feed' };
+                  itemType = 'feed';
+                  break;
+                // Feeds not created by the workspace, but joined upon invitation
+                case 'FeedTeam':
+                  itemProps = { routePrefix: 'feed' };
+                  itemType = 'feed';
+                  break;
+                // Feed invitations received but not processed yet
+                case 'FeedInvitation':
+                  itemProps = { routePrefix: 'feed-invitation' };
+                  itemType = 'feed';
+                  break;
+                default:
+                  break;
+                }
+                return (
+                  <ProjectsListItem
+                    key={feed.id}
+                    project={feed}
+                    teamSlug={team.slug}
+                    onClick={handleClick}
+                    isActive={isActive(itemType, feed.dbid)}
+                    {...itemProps}
+                  />
+                );
+              })}
             </>
           }
         </Collapse>
