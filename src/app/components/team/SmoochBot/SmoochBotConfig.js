@@ -33,6 +33,7 @@ const SmoochBotConfig = (props) => {
     userRole,
     value,
     resources,
+    hasUnsavedChanges,
     onEditingResource,
   } = props;
   const [currentTab, setCurrentTab] = React.useState(0);
@@ -256,6 +257,7 @@ const SmoochBotConfig = (props) => {
                   onChange={handleChangeMenu}
                   resources={resources}
                   currentUser={props.currentUser}
+                  hasUnsavedChanges={hasUnsavedChanges}
                 /> : null }
             </Box>
           </Box>
@@ -287,6 +289,7 @@ SmoochBotConfig.propTypes = {
   enabledIntegrations: PropTypes.object.isRequired,
   resources: PropTypes.arrayOf(PropTypes.object),
   onEditingResource: PropTypes.func.isRequired,
+  hasUnsavedChanges: PropTypes.bool.isRequired,
 };
 
 export default SmoochBotConfig;
