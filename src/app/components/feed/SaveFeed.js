@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -593,26 +592,7 @@ export default createFragmentContainer(SaveFeed, graphql`
       dbid
       name
     }
-    feed_teams(first: 100) {
-      edges {
-        node {
-          id
-          team {
-            dbid
-            avatar
-            name
-          }
-        }
-      }
-    }
-    feed_invitations(first: 100) {
-      edges {
-        node {
-          id
-          email
-        }
-      }
-    }
+    ...FeedCollaboration_feed
     user {
       email
     }

@@ -1,6 +1,7 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import cx from 'classnames/bind';
@@ -83,10 +84,6 @@ const FeedCollaboration = ({
     }
   };
 
-  const onSuccess = () => {
-    console.log('deu bom'); // eslint-disable-line
-  };
-
   const onFailure = (error) => {
     const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
     setFlashMessage(message, 'error');
@@ -103,7 +100,6 @@ const FeedCollaboration = ({
     commitMutation(Relay.Store, {
       mutation: destroyInviteMutation,
       variables: { input: { id } },
-      onCompleted: onSuccess,
       onError: onFailure,
     });
   };
@@ -112,18 +108,18 @@ const FeedCollaboration = ({
     commitMutation(Relay.Store, {
       mutation: removeTeamMutation,
       variables: { input: { id } },
-      onCompleted: onSuccess,
       onError: onFailure,
     });
   };
 
   const FeedCollabRow = ({
+    className,
     label,
     team,
     type,
     onRemove,
   }) => (
-    <div className={styles['feed-collab-row']} key={label}>
+    <div className={cx(styles['feed-collab-row'], className)}>
       { !team &&
         <div
           className={cx(
@@ -167,6 +163,7 @@ const FeedCollaboration = ({
         <Tooltip arrow title={<FormattedMessage id="feedCollaboration.remove" defaultMessage="Remove" description="Tooltip for button to remove invitation or feed collaborator" />}>
           <span>
             <ButtonMain
+              className="int-feed-collab-row__remove-button"
               onClick={onRemove}
               iconCenter={<ClearIcon />}
               variant="contained"
@@ -200,12 +197,13 @@ const FeedCollaboration = ({
       { /* TODO add "Learn more" link */}
       <div className={styles['feed-collab-input']}>
         <TextField
-          className={styles['feed-collab-text-field']}
+          className={cx(styles['feed-collab-text-field'], 'int-feed-collab__text-field')}
           value={textValue}
           placeholder={intl.formatMessage(messages.placeholder)}
           onChange={e => setTextValue(e.target.value)}
         />
         <ButtonMain
+          className="int-feed-collab__add-button"
           onClick={() => handleAdd(textValue)}
           iconCenter={<AddIcon />}
           variant="contained"
@@ -217,6 +215,8 @@ const FeedCollaboration = ({
       <div className={styles['feed-collab-invites']}>
         { feed.feed_teams?.edges.map(ft => (
           <FeedCollabRow
+            key={ft.node.team.name}
+            className="feed-collab-row__member"
             label={ft.node.team.name}
             team={ft.node.team}
             type={ft.node.team.dbid === feed.team.dbid ? 'organizer' : 'collaborator'}
@@ -225,6 +225,8 @@ const FeedCollaboration = ({
         ))}
         { feed.feed_invitations?.edges.map(fi => (
           <FeedCollabRow
+            key={fi.node.email}
+            className="feed-collab-row__invitation-sent"
             label={fi.node.email}
             onRemove={() => handleSubmitDeleteInvite(fi.node.id)}
             type="invitation-sent"
@@ -232,6 +234,8 @@ const FeedCollaboration = ({
         ))}
         { invites.map(email => (
           <FeedCollabRow
+            key={email}
+            className="feed-collab-row__invitation-new"
             label={email}
             onRemove={() => handleDelete(email)}
             type="invitation-new"
@@ -248,4 +252,33 @@ FeedCollaboration.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default injectIntl(FeedCollaboration);
+export { FeedCollaboration }; // eslint-disable-line import/no-unused-modules
+
+export default createFragmentContainer(injectIntl(FeedCollaboration), graphql`
+  fragment FeedCollaboration_feed on Feed {
+    dbid
+    feed_teams(first: 100) {
+      edges {
+        node {
+          id
+          team {
+            dbid
+            avatar
+            name
+          }
+        }
+      }
+    }
+    feed_invitations(first: 100) {
+      edges {
+        node {
+          id
+          email
+        }
+      }
+    }
+    team {
+      dbid
+    }
+  }
+`);
