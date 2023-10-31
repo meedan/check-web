@@ -149,6 +149,7 @@ const SmoochBotMenuKeywords = ({
         options={[]}
         tags={keywords}
         saving={saving}
+        customCreateLabel={<FormattedMessage id="smoochBotMenuKeyword.create" defaultMessage="+ Create keyword" description="A label for a button that allows people to create a new NLU keyword." />}
       />
     </div>
   );
