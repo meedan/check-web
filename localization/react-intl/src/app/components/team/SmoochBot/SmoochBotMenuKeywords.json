@@ -23,5 +23,10 @@
     "id": "smoochBotMenuKeywords.helperTextUnsavedChanges",
     "description": "Helper text for tags component on tipline menu option editing screen when there are unsaved changes.",
     "defaultMessage": "There are unsaved changes to tipline settings. Please 'Publish' the tipline or reload the page and then try again."
+  },
+  {
+    "id": "smoochBotMenuKeyword.create",
+    "description": "A label for a button that allows people to create a new NLU keyword.",
+    "defaultMessage": "+ Create keyword"
   }
 ]
