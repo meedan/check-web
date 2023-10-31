@@ -1,0 +1,28 @@
+.MediaSuggestionReview {
+  background-color: var(--alertLight);
+  border-color: var(--alertLight);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+
+  .MediaSuggestionReviewTitle {
+    @mixin typography-subtitle2;
+
+    + p {
+      @mixin typography-body2;
+    }
+  }
+
+  .MediaSuggestionReviewActions {
+    align-items: center;
+    display: flex;
+
+    .MediaSuggestionReviewActionsConfirm {
+      align-items: center;
+      display: flex;
+      flex: 1 1 auto;
+    }
+  }
+}
