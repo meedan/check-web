@@ -40,7 +40,7 @@ describe('<FeedCollaboration />', () => {
     expect(wrapper.html()).toMatch('Invite other organizations to contribute data into');
   });
 
-  it('should NOT display text for new feed', () => {
+  it('should NOT display text for existing feed', () => {
     let wrapper = shallowWithIntl(<FeedCollaboration feed={feed} onChange={() => {}} />);
     expect(wrapper.html()).not.toMatch('Invite other organizations to contribute data into');
   });
