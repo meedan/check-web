@@ -356,7 +356,7 @@ function CreateMediaSource({
                 label={
                   <FormattedMessage
                     id="sourceInfo.primaryLink"
-                    defaultMessage="Add main source URL"
+                    defaultMessage="Main source URL"
                     description="Allow user to add a main source URL"
                   />
                 }

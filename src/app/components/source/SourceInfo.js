@@ -12,7 +12,7 @@ import cx from 'classnames/bind';
 import TextField2 from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddIcon from '../../icons/add.svg';
-import CancelIcon from '../../icons/clear.svg';
+import ClearIcon from '../../icons/clear.svg';
 import SetSourceDialog from '../media/SetSourceDialog';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
@@ -394,64 +394,52 @@ function SourceInfo({
               id={`source-accounts-${source.dbid}`}
               className={cx('source__card-card', inputStyles['form-fieldset-field'])}
             >
-              <Box mb={2}>
-                { mainAccount ?
-                  <Row key={mainAccount.node.id} className="source__url">
-                    <TextField2
-                      value={mainAccount.node.account.url}
-                      disabled
-                      inputProps={{
-                        id: 'main_source__link',
-                      }}
-                      label={
-                        <FormattedMessage
-                          id="sourceInfo.mainAccount"
-                          defaultMessage="Main source URL"
-                          description="URL for first account related to media souce"
-                        />
-                      }
-                    />
-                    { can(mainAccount.node.permissions, 'destroy AccountSource') ?
-                      <StyledIconButton
-                        className="source__remove-link-button"
-                        onClick={() => handleRemoveLink(mainAccount.node.id)}
-                      >
-                        <CancelIcon />
-                      </StyledIconButton> : null }
-                  </Row> : null }
-                { !mainAccount && can(source.permissions, 'create Account') ?
-                  <TextField
-                    id="source_primary__link-input"
-                    name="source_primary__link-input"
-                    disabled={saving}
-                    variant="outlined"
+              { mainAccount ?
+                <div key={mainAccount.node.id} className={cx('source__url')}>
+                  <TextField2
+                    className={inputStyles['textfield-removable-input']}
+                    value={mainAccount.node.account.url}
+                    disabled
+                    inputProps={{
+                      id: 'main_source__link',
+                    }}
                     label={
                       <FormattedMessage
-                        id="sourceInfo.primaryLink"
-                        defaultMessage="Add main source URL"
-                        description="Allow user to add a main source URL"
+                        id="sourceInfo.mainAccount"
+                        defaultMessage="Main source URL"
+                        description="URL for first account related to media source"
                       />
                     }
-                    value={primaryUrl.url}
-                    error={Boolean(primaryUrl.error)}
-                    helperText={primaryUrl.error}
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        createAccountSource(e, 'primary');
-                      }
-                    }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">http(s)://</InputAdornment>
-                      ),
-                    }}
-                    onChange={(e) => { handleChangeLink(e, 'primary'); }}
-                    onBlur={(e) => { createAccountSource(e); }}
-                    margin="normal"
-                    fullWidth
-                  /> : null
-                }
-              </Box>
+                    onRemove={can(mainAccount.node.permissions, 'destroy AccountSource') ? () => handleRemoveLink(mainAccount.node.id) : null}
+                  />
+                </div> : null }
+              { !mainAccount && can(source.permissions, 'create Account') ?
+                <TextField2
+                  inputProps={{
+                    id: 'source_primary__link-input',
+                    name: 'source_primary__link-input',
+                  }}
+                  disabled={saving}
+                  label={
+                    <FormattedMessage
+                      id="sourceInfo.primaryLink"
+                      defaultMessage="Main source URL"
+                      description="Allow user to add a main source URL"
+                    />
+                  }
+                  value={primaryUrl.url}
+                  error={Boolean(primaryUrl.error)}
+                  helperText={primaryUrl.error}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      createAccountSource(e, 'primary');
+                    }
+                  }}
+                  placeholder="http(s)://"
+                  onChange={(e) => { handleChangeLink(e, 'primary'); }}
+                  onBlur={(e) => { createAccountSource(e); }}
+                /> : null
+              }
               <Box mb={2}>
                 { secondaryAccounts.length === 0 ?
                   null :
@@ -477,7 +465,7 @@ function SourceInfo({
                         className="source__remove-link-button"
                         onClick={() => handleRemoveLink(as.node.id)}
                       >
-                        <CancelIcon />
+                        <ClearIcon />
                       </StyledIconButton> : null
                     }
                   </Row>
@@ -512,7 +500,7 @@ function SourceInfo({
                     className="source__remove-link-button"
                     onClick={() => { setSecondaryUrl({ url: '', error: '', addNewLink: false }); }}
                   >
-                    <CancelIcon />
+                    <ClearIcon />
                   </StyledIconButton>
                 </Row> : null
               }

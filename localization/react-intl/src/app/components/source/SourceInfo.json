@@ -31,13 +31,13 @@
   },
   {
     "id": "sourceInfo.mainAccount",
-    "description": "URL for first account related to media souce",
+    "description": "URL for first account related to media source",
     "defaultMessage": "Main source URL"
   },
   {
     "id": "sourceInfo.primaryLink",
     "description": "Allow user to add a main source URL",
-    "defaultMessage": "Add main source URL"
+    "defaultMessage": "Main source URL"
   },
   {
     "id": "sourceInfo.secondaryAccounts",
