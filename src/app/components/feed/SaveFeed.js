@@ -466,6 +466,7 @@ const SaveFeed = (props) => {
       </div>
       <div className={styles.saveFeedContentNarrow}>
         <ButtonMain
+          className={styles.saveFeedContentNarrowAction}
           theme="brand"
           size="default"
           variant="contained"

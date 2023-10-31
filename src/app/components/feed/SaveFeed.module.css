@@ -15,6 +15,7 @@
 .saveFeedContent {
   --iconSize: 36px;
   display: flex;
+  flex: .2 0 650px;
   flex-direction: column;
   gap: 16px;
   height: fit-content;
@@ -26,6 +27,10 @@
   flex-direction: column;
   gap: 16px;
   padding-top: 16px;
+
+  .saveFeedContentNarrowAction {
+    align-self: flex-start;
+  }
 }
 
 .saveFeedCard {
@@ -63,7 +68,10 @@
 }
 
 .saveFeedMetadata {
-  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0 0;
 
   span {
     color: var(--textSecondary);
