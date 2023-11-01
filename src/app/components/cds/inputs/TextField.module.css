@@ -1,7 +1,6 @@
 /* stylelint-disable no-descending-specificity */
 .textfield-wrapper {
   align-items: center;
-  border: solid 2px var(--errorMain);
   display: flex;
   gap: 8px;
 
