@@ -66,6 +66,8 @@ const SandboxComponent = ({ admin }) => {
   const [textfieldError, setTextfieldError] = React.useState(Boolean(false));
   const [textfieldDisabled, setTextfieldDisabled] = React.useState(Boolean(false));
   const [textfieldRequired, setTextfieldRequired] = React.useState(Boolean(true));
+  const [textfieldRemovable, setTextfieldRemovable] = React.useState(Boolean(true));
+  const [textfieldContent, setTextfieldContent] = React.useState('');
 
 
   const [selectLabel, setSelectLabel] = React.useState(Boolean(true));
@@ -473,6 +475,14 @@ const SandboxComponent = ({ admin }) => {
                   onChange={() => setTextfieldError(!textfieldError)}
                 />
               </li>
+              <li>
+                <SwitchComponent
+                  label="Removable"
+                  labelPlacement="top"
+                  checked={textfieldRemovable}
+                  onChange={() => setTextfieldRemovable(!textfieldRemovable)}
+                />
+              </li>
             </ul>
           </div>
           <div className={styles.componentBlockVariants}>
@@ -485,6 +495,9 @@ const SandboxComponent = ({ admin }) => {
               helpContent={textfieldHelp ? 'I can be of help to textfield' : null}
               disabled={textfieldDisabled}
               error={textfieldError}
+              value={textfieldContent}
+              onChange={e => setTextfieldContent(e.target.value)}
+              onRemove={textfieldRemovable ? () => { setTextfieldContent(''); } : null}
             />
           </div>
         </div>
