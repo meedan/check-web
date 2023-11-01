@@ -17,7 +17,7 @@
   {
     "id": "mediaComponent.source",
     "description": "Label for the Source tab, as in source of the information",
-    "defaultMessage": "Sources"
+    "defaultMessage": "Source"
   },
   {
     "id": "mediaComponent.notes",

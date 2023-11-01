@@ -74,7 +74,7 @@ const MediaComponentRightPanel = ({
           label={
             <FormattedMessage
               id="mediaComponent.source"
-              defaultMessage="Sources"
+              defaultMessage="Source"
               description="Label for the Source tab, as in source of the information"
             />
           }
