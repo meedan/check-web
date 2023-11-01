@@ -6,7 +6,7 @@
   },
   {
     "id": "textfield.removeSelection",
-    "description": "Tooltip for button on Select component to remove current text input",
+    "description": "Tooltip for button on Textfield component to remove current text of the input",
     "defaultMessage": "Clear text"
   }
 ]

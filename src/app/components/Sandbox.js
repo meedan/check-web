@@ -67,7 +67,7 @@ const SandboxComponent = ({ admin }) => {
   const [textfieldDisabled, setTextfieldDisabled] = React.useState(Boolean(false));
   const [textfieldRequired, setTextfieldRequired] = React.useState(Boolean(true));
   const [textfieldRemovable, setTextfieldRemovable] = React.useState(Boolean(true));
-
+  const [textfieldContent, setTextfieldContent] = React.useState('');
 
   const [selectLabel, setSelectLabel] = React.useState(Boolean(true));
   const [selectIconLeft, setSelectIconLeft] = React.useState(Boolean(true));
@@ -494,7 +494,9 @@ const SandboxComponent = ({ admin }) => {
               helpContent={textfieldHelp ? 'I can be of help to textfield' : null}
               disabled={textfieldDisabled}
               error={textfieldError}
-              onRemove={textfieldRemovable ? () => {} : null}
+              value={textfieldContent}
+              onChange={e => setTextfieldContent(e.target.value)}
+              onRemove={textfieldRemovable ? () => { setTextfieldContent(''); } : null}
             />
           </div>
         </div>

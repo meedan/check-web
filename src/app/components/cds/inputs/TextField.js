@@ -146,14 +146,14 @@ const TextField = React.forwardRef(({
           )}
         </div>
         { onRemove ?
-          <Tooltip arrow title={<FormattedMessage id="textfield.removeSelection" defaultMessage="Clear text" description="Tooltip for button on Select component to remove current text input" />}>
+          <Tooltip arrow title={<FormattedMessage id="textfield.removeSelection" defaultMessage="Clear text" description="Tooltip for button on Textfield component to remove current text of the input" />}>
             <span>
               <ButtonMain
                 iconCenter={<ClearIcon />}
                 variant="contained"
                 size="default"
                 theme="lightText"
-                className="select__clear-button"
+                className="int-clear-input__button--textfield"
                 onClick={() => { onRemove(); }}
               />
             </span>
