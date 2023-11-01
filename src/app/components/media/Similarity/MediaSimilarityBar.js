@@ -72,7 +72,6 @@ const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
           return (
             <MediaSimilarityBarComponent
               projectMediaDbid={props.project_media.dbid}
-              suggestionsCount={props.project_media.suggestionsCount}
               confirmedSimilarCount={props.project_media.confirmedSimilarCount}
               hasMain={props.project_media.hasMain}
               isSuggested={props.project_media.isSuggested}

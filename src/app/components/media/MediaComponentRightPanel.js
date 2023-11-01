@@ -37,8 +37,9 @@ const MediaComponentRightPanel = ({
             label={
               <FormattedMessage
                 id="mediaComponent.requests"
-                defaultMessage="Requests"
+                defaultMessage="{requests_count, plural, =0 {Requests} other {Requests [#]}}"
                 description="Label for the Requests tab, as in requests from users"
+                values={{ requests_count: projectMedia.requests_count }}
               />
             }
             value="requests"
@@ -50,8 +51,9 @@ const MediaComponentRightPanel = ({
             label={
               <FormattedMessage
                 id="mediaComponent.suggestedMedia"
-                defaultMessage="Suggestions"
+                defaultMessage="{suggestions_count, plural, =0 {Suggestions} other {Suggestions [#]}}"
                 description="Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
+                values={{ suggestions_count: projectMedia.suggested_similar_items_count }}
               />
             }
             value="suggestedMedia"
@@ -61,7 +63,7 @@ const MediaComponentRightPanel = ({
           label={
             <FormattedMessage
               id="mediaComponent.annotation"
-              defaultMessage="Annotation"
+              defaultMessage="Annotations"
               description="Label for the Annotation tab"
             />
           }
@@ -83,8 +85,9 @@ const MediaComponentRightPanel = ({
           label={
             <FormattedMessage
               id="mediaComponent.notes"
-              defaultMessage="Notes"
+              defaultMessage="{notes_count, plural, =0 {Notes} other {Notes [#]}}"
               description="Label for the Notes tab, as in text notes"
+              values={{ notes_count: projectMedia.notes_count }}
             />
           }
           value="notes"
