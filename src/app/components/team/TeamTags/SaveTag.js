@@ -205,11 +205,11 @@ const SaveTag = ({
         } else if (JSON.stringify(rule) !== JSON.stringify(initialRule)) {
           handleSaveRule();
           // if we have updated the tags, we use refetchConnection to reset the pagination overall (since we can't figure out exactly where it should be relative to this page, anyway)
-          relay.refetchConnection(pageSize);
+          relay?.refetchConnection(pageSize);
         } else {
           handleSuccess(response);
           // if we have updated the tags, we use refetchConnection to reset the pagination overall (since we can't figure out exactly where it should be relative to this page, anyway)
-          relay.refetchConnection(pageSize);
+          relay?.refetchConnection(pageSize);
         }
       },
       onError: () => {
