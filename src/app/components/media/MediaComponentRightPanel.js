@@ -87,12 +87,6 @@ const MediaComponentRightPanel = ({
         />
         <Tab
           label={
-            <FormattedMessage
-              id="mediaComponent.notes"
-              defaultMessage="{notes_count, plural, =0 {Notes} other {Notes [#]}}"
-              description="Label for the Notes tab, as in text notes"
-              values={{ notes_count: projectMedia.notes_count }}
-            />
             <span>
               <FormattedMessage
                 id="mediaComponent.notes"
