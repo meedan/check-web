@@ -2,6 +2,6 @@
   {
     "id": "mediaSimilarityBarComponent.similarMedia",
     "description": "Plural. Heading for the number of media",
-    "defaultMessage": "{media_count, plural, =0 {Media} other {Media [#]}}"
+    "defaultMessage": "Media"
   }
 ]

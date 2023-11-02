@@ -31,10 +31,10 @@ const MediaSimilarityBarComponent = ({
       <Box className="similarity-bar__matches-count typography-subtitle2">
         <FormattedMessage
           id="mediaSimilarityBarComponent.similarMedia"
-          defaultMessage="{media_count, plural, =0 {Media} other {Media [#]}}"
+          defaultMessage="Media"
           description="Plural. Heading for the number of media"
-          values={{ media_count: confirmedSimilarCount }}
         />
+        {confirmedSimilarCount > 0 && ` [${confirmedSimilarCount}]`}
       </Box>
       <Box>
         { canAdd ?

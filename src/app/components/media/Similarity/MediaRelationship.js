@@ -308,16 +308,20 @@ const MediaRelationship = ({
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
         /> : null }
-      <SmallMediaCard
-        key={relationship.id}
-        customTitle={relationship?.target?.title}
-        details={details}
-        media={relationship?.target?.media}
-        description={relationship?.target?.description}
-        maskContent={maskContent}
-        superAdminMask={superAdminMask}
-        onClick={() => setIsSelected(true)}
-      />
+      {
+        relationship?.target && (
+          <SmallMediaCard
+            key={relationship.id}
+            customTitle={relationship?.target?.title}
+            details={details}
+            media={relationship?.target?.media}
+            description={relationship?.target?.description}
+            maskContent={maskContent}
+            superAdminMask={superAdminMask}
+            onClick={() => setIsSelected(true)}
+          />
+        )
+      }
       <div className={`${classes.inner} media__relationship__menu`}>
         <RelationshipMenu
           canDelete={canDelete}

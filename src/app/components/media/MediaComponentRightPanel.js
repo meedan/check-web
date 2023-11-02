@@ -35,12 +35,14 @@ const MediaComponentRightPanel = ({
         { showRequests ?
           <Tab
             label={
-              <FormattedMessage
-                id="mediaComponent.requests"
-                defaultMessage="{requests_count, plural, =0 {Requests} other {Requests [#]}}"
-                description="Label for the Requests tab, as in requests from users"
-                values={{ requests_count: projectMedia.requests_count }}
-              />
+              <span>
+                <FormattedMessage
+                  id="mediaComponent.requests"
+                  defaultMessage="Requests"
+                  description="Label for the Requests tab, as in requests from users"
+                />
+                {projectMedia.requests_count > 0 && ` [${projectMedia.requests_count}]`}
+              </span>
             }
             value="requests"
             className="media-tab__requests"
@@ -49,12 +51,14 @@ const MediaComponentRightPanel = ({
         { showSuggestions ?
           <Tab
             label={
-              <FormattedMessage
-                id="mediaComponent.suggestedMedia"
-                defaultMessage="{suggestions_count, plural, =0 {Suggestions} other {Suggestions [#]}}"
-                description="Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
-                values={{ suggestions_count: projectMedia.suggested_similar_items_count }}
-              />
+              <span>
+                <FormattedMessage
+                  id="mediaComponent.suggestedMedia"
+                  defaultMessage="Suggestions"
+                  description="Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
+                />
+                {projectMedia.suggested_similar_items_count > 0 && ` [${projectMedia.suggested_similar_items_count}]`}
+              </span>
             }
             value="suggestedMedia"
             className="media-tab__sugestedMedia"
@@ -89,6 +93,14 @@ const MediaComponentRightPanel = ({
               description="Label for the Notes tab, as in text notes"
               values={{ notes_count: projectMedia.notes_count }}
             />
+            <span>
+              <FormattedMessage
+                id="mediaComponent.notes"
+                defaultMessage="Notes"
+                description="Label for the Notes tab, as in text notes"
+              />
+              {projectMedia.notes_count > 0 && ` [${projectMedia.notes_count}]`}
+            </span>
           }
           value="notes"
           className="media-tab__comments"
