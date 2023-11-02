@@ -345,7 +345,7 @@ function SourceInfo({
             <a href={sourceMediasLink} target="_blank" rel="noopener noreferrer">
               <FormattedMessage
                 id="sourceInfo.mediasCount"
-                defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
+                defaultMessage="{mediasCount, plural, one {# item} other {# items}}"
                 description="show source media counts"
                 values={{
                   mediasCount: source.medias_count || 0,
