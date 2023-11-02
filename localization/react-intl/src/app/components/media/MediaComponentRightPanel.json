@@ -22,6 +22,6 @@
   {
     "id": "mediaComponent.notes",
     "description": "Label for the Notes tab, as in text notes",
-    "defaultMessage": "{notes_count, plural, =0 {Notes} other {Notes [#]}}"
+    "defaultMessage": "Notes"
   }
 ]
