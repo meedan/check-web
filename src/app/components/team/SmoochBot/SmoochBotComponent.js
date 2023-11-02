@@ -43,7 +43,7 @@ const SmoochBotComponent = ({
 
   React.useEffect(() => {
     setHasUnsavedChanges(false);
-  }, [installation.lock_version]);
+  }, [installation?.lock_version]);
 
   const updateSettings = (newSettings) => {
     setSettings(newSettings);
