@@ -93,9 +93,9 @@ const SmoochBotComponent = ({
 
       Relay.Store.commitUpdate(
         new UpdateTeamBotInstallationMutation({
-          id: installation?.id,
+          id: installation.id,
           json_settings: JSON.stringify(settings),
-          lock_version: installation?.lock_version,
+          lock_version: installation.lock_version,
           files,
         }),
         { onSuccess: handleSuccess, onFailure: handleError },
