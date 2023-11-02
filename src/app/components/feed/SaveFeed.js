@@ -28,6 +28,7 @@ import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import OpenSourceIcon from '../../icons/open_source.svg';
 import RssFeedIcon from '../../icons/rss_feed.svg';
 import ChevronDownIcon from '../../icons/chevron_down.svg';
+// import WarningIcon from '../../icons/report_problem.svg';
 
 const LicenseOption = ({
   icon,
@@ -578,23 +579,57 @@ const SaveFeed = (props) => {
       <ConfirmProceedDialog
         open={showDeleteDialog}
         title={
-          <FormattedMessage
-            id="projectsComponent.deleteSharedFeed"
-            defaultMessage="Delete Shared Feed?"
-            description="'Delete' here is an infinitive verb"
-          />
+          feed.saved_search_id ?
+            <FormattedMessage
+              id="projectsComponent.deleteSharedFeed2"
+              defaultMessage="Are you sure you want to delete this shared feed?"
+              description="'Delete' here is an infinitive verb"
+            />
+            :
+            <FormattedMessage
+              id="projectsComponent.deleteSharedFeed"
+              defaultMessage="Delete Shared Feed?"
+              description="'Delete' here is an infinitive verb"
+            />
         }
         body={
-          <p className={styles.saveFeedDialogDivider}>
-            <FormattedHTMLMessage
-              id="projectsComponent.deleteSharedFeedConfirmation"
-              defaultMessage="Are you sure? This shared feed is accessible by all users of <b>{orgName}</b> After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
-              values={{
-                orgName: feed.name,
-              }}
-              description="Confirmation dialog message when deleting a feed."
-            />
-          </p>
+          feed.saved_search_id ?
+            <p className={styles.saveFeedDialogDivider}>
+              <FormattedHTMLMessage
+                id="projectsComponent.deleteSharedFeedConfirmation"
+                defaultMessage="This shared feed is available to all users of <b>{orgName}</b>. After deleting it, no user will be able to access it.<br /><br />"
+                values={{
+                  orgName: feed.team.name,
+                }}
+                description="Confirmation dialog message when deleting a feed."
+              />
+              <Alert
+                variant="warning"
+                title={
+                  <FormattedHTMLMessage
+                    id="projectsComponent.deleteSharedFeedConfirmation2"
+                    defaultMessage="<b>NOTE: Your custom list and items will remain available and unaffected.</b>"
+                    description="Warning displayed on edit feed page when no list is selected."
+                  />
+                }
+                content={
+                  <ul className="bulleted-list">
+                    <li>{feed.saved_search.title}</li>
+                  </ul>
+                }
+              />
+            </p>
+            :
+            <p className={styles.saveFeedDialogDivider}>
+              <FormattedHTMLMessage
+                id="projectsComponent.deleteSharedFeedConfirmationDialogBody"
+                defaultMessage="This shared feed is available to all users of <b>{orgName}</b>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
+                values={{
+                  orgName: feed.team.name,
+                }}
+                description="Confirmation dialog message when deleting a feed."
+              />
+            </p>
         }
         proceedLabel={
           <FormattedMessage
@@ -676,6 +711,9 @@ export default createFragmentContainer(SaveFeed, graphql`
     teams_count
     user {
       email
+    }
+    saved_search {
+      title
     }
   }
 `);

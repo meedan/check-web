@@ -165,6 +165,11 @@
     "defaultMessage": "Last updated {timeAgo}"
   },
   {
+    "id": "projectsComponent.deleteSharedFeed2",
+    "description": "'Delete' here is an infinitive verb",
+    "defaultMessage": "Are you sure you want to delete this shared feed?"
+  },
+  {
     "id": "projectsComponent.deleteSharedFeed",
     "description": "'Delete' here is an infinitive verb",
     "defaultMessage": "Delete Shared Feed?"
@@ -172,7 +177,17 @@
   {
     "id": "projectsComponent.deleteSharedFeedConfirmation",
     "description": "Confirmation dialog message when deleting a feed.",
-    "defaultMessage": "Are you sure? This shared feed is accessible by all users of <b>{orgName}</b> After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
+    "defaultMessage": "This shared feed is available to all users of <b>{orgName}</b>. After deleting it, no user will be able to access it.<br /><br />"
+  },
+  {
+    "id": "projectsComponent.deleteSharedFeedConfirmation2",
+    "description": "Warning displayed on edit feed page when no list is selected.",
+    "defaultMessage": "<b>NOTE: Your custom list and items will remain available and unaffected.</b>"
+  },
+  {
+    "id": "projectsComponent.deleteSharedFeedConfirmationDialogBody",
+    "description": "Confirmation dialog message when deleting a feed.",
+    "defaultMessage": "This shared feed is available to all users of <b>{orgName}</b>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
   },
   {
     "id": "projectsComponent.deleteTSharedFeedConfirmation",
