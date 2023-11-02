@@ -287,19 +287,5 @@
       @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
     }
   }
-
-  &.counterButton {
-    height: auto;
-    text-transform: uppercase;
-
-    strong {
-      display: block;
-    }
-
-    &:disabled {
-      color: var(--brandMain);
-      cursor: default;
-    }
-  }
 }
 /* stylelint-enable */
