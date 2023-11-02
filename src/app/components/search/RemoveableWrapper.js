@@ -7,6 +7,8 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from './search.module.css';
 import CloseIcon from '../../icons/clear.svg';
 
+// FIXME This should probably not be called RemoveableWrapper as removing can be optional
+// FilterWrapper maybe?
 const RemoveableWrapper = ({
   icon,
   onRemove,
@@ -17,7 +19,7 @@ const RemoveableWrapper = ({
 
   const handleClick = (e) => {
     e.stopPropagation();
-    onRemove();
+    if (onRemove) onRemove();
   };
 
   return (
