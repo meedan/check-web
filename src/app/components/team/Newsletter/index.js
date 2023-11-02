@@ -29,7 +29,7 @@ const Newsletter = () => {
         const environment = createEnvironment(props?.me?.token, props?.team?.slug);
 
         if (props && props.team) {
-          const languages = safelyParseJSON(props.team.get_languages);
+          const languages = safelyParseJSON(props.team.get_languages, []);
           return (
             <NewsletterComponent
               team={props.team}
