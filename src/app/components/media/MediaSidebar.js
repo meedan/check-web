@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MediaClaim from './MediaClaim';
-import MediaTags from './MediaTags';
 import MediaFactCheck from './MediaFactCheck';
 import MediaSuggestionReview from './Similarity/MediaSuggestionReview';
 import styles from './media.module.css';
@@ -14,9 +13,6 @@ const MediaSidebar = ({ projectMedia }) => (
         : null
       }
       <MediaClaim projectMedia={projectMedia} />
-      <div className={styles['media-item-tags']}>
-        <MediaTags projectMediaId={projectMedia.dbid} />
-      </div>
       <MediaFactCheck projectMedia={projectMedia} />
     </div>
   </div>
