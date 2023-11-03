@@ -302,7 +302,8 @@ const Tasks = ({
               }
             </div>
           </div>
-          <ul className="tasks__list">
+          <br />
+          <ul className={cx('tasks__list', styles['media-item-annotations-list'])}>
             {tasks
               .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
               .filter(showMetadataItem)
@@ -311,7 +312,6 @@ const Tasks = ({
                   <li>
                     <Task task={task.node} media={media} about={about} isEditing={isEditing} localResponses={localResponses} setLocalResponses={setLocalResponses} />
                   </li>
-                  <hr />
                 </React.Fragment>
               ))
             }

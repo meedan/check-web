@@ -142,10 +142,6 @@
 
   .media-comments {
     .media-comment {
-      .media-comments-actions {
-        border: solid 3px var(--errorMain);
-      }
-
       .media-comments-attached {
         align-items: center;
         display: flex;
@@ -188,6 +184,21 @@
         flex: 1 0 auto;
         flex-direction: column;
         gap: 6px;
+      }
+    }
+  }
+
+  .media-item-annotations-list {
+    li {
+      border-bottom: solid 1px var(--grayBorderMain);
+      padding: 16px 0;
+
+      &:first-of-type {
+        padding: 0 0 16px;
+      }
+
+      &:last-of-type {
+        border-bottom: 0;
       }
     }
   }
