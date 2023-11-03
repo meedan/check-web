@@ -599,7 +599,7 @@ const SaveFeed = (props) => {
                 id="saveFeed.deleteSharedFeedConfirmationDialogWaningBody"
                 defaultMessage="This shared feed is available to all users of <b>{orgName}</b>. After deleting it, no user will be able to access it.<br /><br />"
                 values={{
-                  orgName: feed.team.name,
+                  orgName: feed.team?.name,
                 }}
                 description="Confirmation dialog message when deleting a feed."
               />
@@ -625,7 +625,7 @@ const SaveFeed = (props) => {
                 id="saveFeed.deleteSharedFeedConfirmationDialogBody"
                 defaultMessage="This shared feed is available to all users of <b>{orgName}</b>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
                 values={{
-                  orgName: feed.team.name,
+                  orgName: feed.team?.name,
                 }}
                 description="Confirmation dialog message when deleting a feed."
               />
