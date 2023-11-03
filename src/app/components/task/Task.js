@@ -22,6 +22,7 @@ import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMuta
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import { units } from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import styles from './Task.module.css';
 
 const StyledWordBreakDiv = styled.div`
   width: 100%;
@@ -63,14 +64,6 @@ const StyledTaskResponses = styled.div`
     border-bottom: 1px solid var(--grayBorderMain);
     padding-bottom: ${units(1)};
     margin-bottom: ${units(1)};
-  }
-`;
-
-const StyledAnnotatorInformation = styled.span`
-  display: inline-block;
-  p {
-    font-size: 9px;
-    color: var(--textDisabled);
   }
 `;
 
@@ -595,7 +588,7 @@ class Task extends Component {
       const timeAgo = moment(updated_at).fromNow();
       return (
         responseObj && responseObj.annotator ? (
-          <StyledAnnotatorInformation>
+          <div className={styles['task-footer']}>
             <Typography variant="body1">
               Saved {timeAgo} by{' '}
               <a
@@ -604,7 +597,7 @@ class Task extends Component {
                 {responseObj.annotator.user?.name}
               </a>
             </Typography>
-          </StyledAnnotatorInformation>)
+          </div>)
           : null
       );
     };
