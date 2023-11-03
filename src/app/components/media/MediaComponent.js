@@ -28,19 +28,19 @@ class MediaComponent extends Component {
   constructor(props) {
     super(props);
 
-    const { team_bots: teamBots } = this.props.projectMedia.team;
-    const enabledBots = teamBots.edges.map(b => b.node.login);
-    const showRequests = (enabledBots.indexOf('smooch') > -1 || this.props.projectMedia.requests_count > 0);
+    // const { team_bots: teamBots } = this.props.projectMedia.team;
+    // const enabledBots = teamBots.edges.map(b => b.node.login);
+    // const showRequests = (enabledBots.indexOf('smooch') > -1 || this.props.projectMedia.requests_count > 0);
 
-    let initialTab = 'metadata';
-    if (showRequests && this.props.view !== 'similarMedia') {
-      initialTab = 'requests';
-      if (this.props.projectMedia.suggested_similar_items_count > 0 && !this.props.projectMedia.is_suggested) {
-        initialTab = 'suggestedMedia';
-      }
-    } else if (this.props.view === 'similarMedia') {
-      initialTab = 'suggestedMedia';
-    }
+    const initialTab = 'metadata';
+    // if (showRequests && this.props.view !== 'similarMedia') {
+    //   initialTab = 'requests';
+    //   if (this.props.projectMedia.suggested_similar_items_count > 0 && !this.props.projectMedia.is_suggested) {
+    //     initialTab = 'suggestedMedia';
+    //   }
+    // } else if (this.props.view === 'similarMedia') {
+    //   initialTab = 'suggestedMedia';
+    // }
 
     this.state = {
       showTab: initialTab,

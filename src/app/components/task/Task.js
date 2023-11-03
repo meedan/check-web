@@ -4,7 +4,6 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -25,11 +24,6 @@ import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './Task.module.css';
 
 const StyledWordBreakDiv = styled.div`
-  width: 100%;
-  hyphens: auto;
-  overflow-wrap: break-word;
-  word-break: break-word;
-
   .task {
     box-shadow: none;
     border: 0;
@@ -53,28 +47,10 @@ const StyledWordBreakDiv = styled.div`
     }
   }
 
-  .task__card-text {
-    padding-bottom: 0 !important;
-    padding-top: 0 !important;
-  }
-`;
-
-const StyledTaskResponses = styled.div`
   .task__resolved {
     border-bottom: 1px solid var(--grayBorderMain);
     padding-bottom: ${units(1)};
     margin-bottom: ${units(1)};
-  }
-`;
-
-const StyledRequired = styled.span`
-  color: var(--errorMain);
-`;
-
-const StyledMapEditor = styled.div`
-  #map-edit {
-    width: 100%;
-    height: 500px;
   }
 `;
 
@@ -84,21 +60,6 @@ const StyledMultiselect = styled.div`
   }
   .Mui-checked {
     color: var(--brandMain) !important;
-  }
-`;
-
-const StyledFieldInformation = styled.div`
-  margin-bottom: ${units(2)};
-`;
-
-const StyledMetadataButton = styled.div`
-  button {
-    background-color: var(--grayBackground);
-    margin-top: ${units(1)};
-    display: none;
-  }
-  button:hover {
-    background-color: var(--grayBorderMain);
   }
 `;
 
@@ -438,7 +399,7 @@ class Task extends Component {
     const messages = this.generateMessages(about);
 
     const EditButton = () => (
-      <StyledMetadataButton>
+      <div className={styles['task-metadata-button']}>
         <Button onClick={() => this.handleAction('edit_response', responseObj)} className="metadata-edit">
           <FormattedMessage
             id="metadata.edit"
@@ -446,11 +407,11 @@ class Task extends Component {
             description="This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
           />
         </Button>
-      </StyledMetadataButton>
+      </div>
     );
 
     const CancelButton = () => (
-      <StyledMetadataButton>
+      <div className={styles['task-metadata-button']}>
         <Button
           className="metadata-cancel"
           onClick={() => {
@@ -464,7 +425,7 @@ class Task extends Component {
             description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
           />
         </Button>
-      </StyledMetadataButton>
+      </div>
     );
 
     const SaveButton = (props) => {
@@ -481,7 +442,7 @@ class Task extends Component {
         mutationPayload?.response_single_choice ||
         null;
       return (
-        <StyledMetadataButton>
+        <div className={styles['task-metadata-button']}>
           <Button
             className="metadata-save"
             data-required={required}
@@ -531,14 +492,14 @@ class Task extends Component {
               description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
             />
           </Button>
-        </StyledMetadataButton>
+        </div>
       );
     };
 
     const DeleteButton = (props) => {
       const { onClick } = props;
       return (
-        <StyledMetadataButton>
+        <div className={styles['task-metadata-button']}>
           <Button
             className="metadata-delete"
             onClick={() => {
@@ -554,28 +515,30 @@ class Task extends Component {
               description="This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
             />
           </Button>
-        </StyledMetadataButton>
+        </div>
       );
     };
 
     const FieldInformation = () => (
-      <StyledFieldInformation>
-        <Typography variant="h6">{task.label}<StyledRequired>{task.team_task.required ? ' *' : null}</StyledRequired></Typography>
-        <Typography variant="subtitle2">
+      <div className={styles['task-header']}>
+        <div className="typography-subtitle2">
+          {task.label}<sup>{task.team_task.required ? ' *' : null}</sup>
+        </div>
+        <div className="typography-body2-bold">
           <ParsedText text={task.description} />
-        </Typography>
-      </StyledFieldInformation>
+        </div>
+      </div>
     );
 
     const ProgressLabel = ({ fileName }) => (
-      <Typography variant="body1" gutterBottom>
+      <p>
         <FormattedMessage
           id="metadata.uploadProgressLabel"
           defaultMessage="Saving {file}…"
           description="This is a label that appears while a file upload is ongoing."
           values={{ file: fileName }}
         />
-      </Typography>
+      </p>
     );
 
     const AnnotatorInformation = () => {
@@ -589,14 +552,13 @@ class Task extends Component {
       return (
         responseObj && responseObj.annotator ? (
           <div className={styles['task-footer']}>
-            <Typography variant="body1">
-              Saved {timeAgo} by{' '}
-              <a
-                href={`/check/user/${responseObj.annotator.user?.dbid}`}
-              >
-                {responseObj.annotator.user?.name}
-              </a>
-            </Typography>
+            Saved {timeAgo} by{' '}
+            <a
+              href={`/check/user/${responseObj.annotator.user?.dbid}`}
+              title={responseObj.annotator.user?.name}
+            >
+              {responseObj.annotator.user?.name}
+            </a>
           </div>)
           : null
       );
@@ -653,7 +615,7 @@ class Task extends Component {
           </div>
         ) : null}
         {task.type === 'geolocation' ? (
-          <StyledMapEditor>
+          <div className={styles['task-map']}>
             <div className="task__response">
               <MetadataLocation
                 node={task}
@@ -677,7 +639,7 @@ class Task extends Component {
                 messages={messages.MetadataLocation}
               />
             </div>
-          </StyledMapEditor>
+          </div>
         ) : null}
         {task.type === 'datetime' ? (
           <div className="task__response">
@@ -860,21 +822,19 @@ class Task extends Component {
       if (!response || task.responses.edges?.length > 1) {
         taskBody = (
           <>
-            <StyledTaskResponses>
+            <div>
               {task.responses.edges.map(singleResponse => this.renderTaskResponse(singleResponse.node))}
-            </StyledTaskResponses>
+            </div>
 
             {zeroAnswer ? (
               <Can permissions={media.permissions} permission="create Dynamic">
-                <div>
-                  <form name={`task-response-${task.id}`}>
-                    <div className="task__response-inputs">
-                      {
-                        this.renderTaskResponse(task.first_response)
-                      }
-                    </div>
-                  </form>
-                </div>
+                <form name={`task-response-${task.id}`}>
+                  <div className="task__response-inputs">
+                    {
+                      this.renderTaskResponse(task.first_response)
+                    }
+                  </div>
+                </form>
               </Can>
             ) : null}
           </>
@@ -896,7 +856,7 @@ class Task extends Component {
     }
 
     return (
-      <div>
+      <div className={styles.task}>
         {taskBody}
       </div>
     );
