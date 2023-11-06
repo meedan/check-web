@@ -14,7 +14,7 @@ import ExternalLink from '../ExternalLink';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import TimeBefore from '../TimeBefore';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import Can from '../Can'; // eslint-disable-line import/no-duplicates
+import Can from '../Can';
 import BulletSeparator from '../layout/BulletSeparator';
 import { getErrorMessageForRelayModernProblem, parseStringUnixTimestamp } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
