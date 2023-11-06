@@ -5,14 +5,11 @@ import cx from 'classnames/bind';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import {
-  Box,
   Dialog,
   DialogActions,
   DialogTitle,
-  Grid,
 } from '@material-ui/core';
 import { browserHistory } from 'react-router';
-import { makeStyles } from '@material-ui/core/styles';
 import { can } from '../../Can';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -25,7 +22,6 @@ import { withSetFlashMessage } from '../../FlashMessage';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import BulkArchiveProjectMediaMutation from '../../../relay/mutations/BulkArchiveProjectMediaMutation';
-import HelpIcon from '../../../icons/help.svg';
 import AcceptIcon from '../../../icons/check_circle.svg';
 import RejectIcon from '../../../icons/cancel.svg';
 import SpamIcon from '../../../icons/report.svg';
@@ -33,30 +29,8 @@ import TrashIcon from '../../../icons/delete.svg';
 import NextIcon from '../../../icons/chevron_right.svg';
 import PreviousIcon from '../../../icons/chevron_left.svg';
 import styles from '../media.module.css';
-
-const useStyles = makeStyles(theme => ({
-  containerBox: {
-    backgroundColor: 'var(--brandBackground)',
-    borderRadius: '5px',
-    position: 'relative',
-  },
-  title: {
-    userSelect: 'none',
-    fontWeight: 'bold',
-    lineHeight: 'normal',
-    letterSpacing: 'normal',
-    minWidth: theme.spacing(28), // a number that is arbitrary but looks okay
-    textAlign: 'center',
-  },
-  helpIconContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-  },
-  disabled: {
-    opacity: 0.5,
-  },
-}));
+import suggestionsStyles from './MediaSuggestions.module.css';
+import inputStyles from '../../../styles/css/inputs.module.css';
 
 const MediaSuggestionsComponent = ({
   mainItem,
@@ -70,7 +44,6 @@ const MediaSuggestionsComponent = ({
   pageSize,
   intl,
 }) => {
-  const classes = useStyles();
   const [selectedItemId, setSelectedItemId] = React.useState(0);
   const [isBulkRejectDialogOpen, setIsBulkRejectDialogOpen] = React.useState(false);
   const [isBulkSpamDialogOpen, setIsBulkSpamDialogOpen] = React.useState(false);
@@ -541,10 +514,6 @@ const MediaSuggestionsComponent = ({
     });
   };
 
-  const handleHelp = () => {
-    window.open('http://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions');
-  };
-
   const disableAcceptRejectButtons = totalCount === 0 || !can(team.permissions, 'update Relationship') || isMutationPending;
 
   if (totalCount === 0) {
@@ -565,45 +534,38 @@ const MediaSuggestionsComponent = ({
   }
 
   const RelationshipItem = ({ relationshipItem, details }) => (
-    <Grid container alignItems="center" className="suggested-media__item">
-      <Grid item xs={1}>
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          flexDirection="column"
-          mr={1}
-        >
-          <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.accept" defaultMessage="Match media" description="Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list." />}>
-            <span>
-              <ButtonMain
-                iconCenter={<AcceptIcon />}
-                onClick={reportType === 'blank' ? () => { handleDestroyAndReplace(relationshipItem); } : () => { handleConfirm(relationshipItem); }}
-                variant="text"
-                size="large"
-                theme="validation"
-                disabled={disableAcceptRejectButtons}
-                className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept} similarity-media-item__accept-relationship`}
-              />
-            </span>
-          </Tooltip>
-          <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.reject" defaultMessage="Reject media" description="Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list." />}>
-            <span>
-              <ButtonMain
-                iconCenter={<RejectIcon />}
-                onClick={() => {
-                  handleReject(relationshipItem);
-                }}
-                variant="text"
-                size="large"
-                theme="error"
-                disabled={disableAcceptRejectButtons}
-                className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject} similarity-media-item__reject-relationship`}
-              />
-            </span>
-          </Tooltip>
-        </Box>
-      </Grid>
-      <Grid item xs={10}>
+    <div className={cx('suggested-media__item', suggestionsStyles['suggestions-item'])}>
+      <div className={suggestionsStyles['suggestions-item-actions']}>
+        <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.accept" defaultMessage="Match media" description="Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list." />}>
+          <span>
+            <ButtonMain
+              iconCenter={<AcceptIcon />}
+              onClick={reportType === 'blank' ? () => { handleDestroyAndReplace(relationshipItem); } : () => { handleConfirm(relationshipItem); }}
+              variant="text"
+              size="large"
+              theme="validation"
+              disabled={disableAcceptRejectButtons}
+              className="similarity-media-item__accept-relationship"
+            />
+          </span>
+        </Tooltip>
+        <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.reject" defaultMessage="Reject media" description="Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list." />}>
+          <span>
+            <ButtonMain
+              iconCenter={<RejectIcon />}
+              onClick={() => {
+                handleReject(relationshipItem);
+              }}
+              variant="text"
+              size="large"
+              theme="error"
+              disabled={disableAcceptRejectButtons}
+              className="similarity-media-item__reject-relationship"
+            />
+          </span>
+        </Tooltip>
+      </div>
+      <div className={suggestionsStyles['suggestions-item-content']}>
         {
           relationshipItem?.target && (
             <SmallMediaCard
@@ -631,52 +593,43 @@ const MediaSuggestionsComponent = ({
             onClose={() => setSelectedItemId(null)}
           />
           : null }
-      </Grid>
-      <Grid item xs={1}>
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          flexDirection="column"
-          ml={1}
-        >
-          <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.spam" defaultMessage="Mark media as spam" description="Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list." />}>
-            <span>
-              <ButtonMain
-                iconCenter={<SpamIcon />}
-                onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM, relationshipItem)}
-                variant="text"
-                size="large"
-                theme="lightText"
-                disabled={disableAcceptRejectButtons}
-                className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
-              />
-            </span>
-          </Tooltip>
-          <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.trash" defaultMessage="Send media to trash" description="Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list." />}>
-            <span>
-              <ButtonMain
-                iconCenter={<TrashIcon />}
-                onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED, relationshipItem)}
-                variant="text"
-                size="large"
-                theme="lightText"
-                disabled={disableAcceptRejectButtons}
-                className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
-              />
-            </span>
-          </Tooltip>
-        </Box>
-      </Grid>
-    </Grid>
+      </div>
+      <div className={suggestionsStyles['suggestions-item-actions']}>
+        <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.spam" defaultMessage="Mark media as spam" description="Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list." />}>
+          <span>
+            <ButtonMain
+              iconCenter={<SpamIcon />}
+              onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM, relationshipItem)}
+              variant="text"
+              size="large"
+              theme="lightText"
+              disabled={disableAcceptRejectButtons}
+            />
+          </span>
+        </Tooltip>
+        <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.trash" defaultMessage="Send media to trash" description="Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list." />}>
+          <span>
+            <ButtonMain
+              iconCenter={<TrashIcon />}
+              onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED, relationshipItem)}
+              variant="text"
+              size="large"
+              theme="lightText"
+              disabled={disableAcceptRejectButtons}
+            />
+          </span>
+        </Tooltip>
+      </div>
+    </div>
   );
 
   return (
     <React.Fragment>
       <div className={cx('media__suggestions-column', styles['media-suggestions'], styles['media-item-content'])}>
-        { relationships.length > 0 ?
+        { relationships.length > 0 &&
           <>
-            <Box className={classes.containerBox} mb={2}>
-              <Box display="flex" justifyContent="center" alignItems="center">
+            <div className={cx(suggestionsStyles['suggestions-bulk-actions-wrapper'], inputStyles['form-inner-wrapper'])}>
+              <div className={suggestionsStyles['suggestions-pagination']}>
                 <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.previous" defaultMessage="Previous" description="Label for the 'go to previous page' button on paginated suggestions" />}>
                   <span>
                     <ButtonMain
@@ -693,10 +646,10 @@ const MediaSuggestionsComponent = ({
                     />
                   </span>
                 </Tooltip>
-                <span className={cx('typography-body1', classes.title)}>
+                <span className="typography-button">
                   <FormattedMessage
                     id="mediaSuggestionsComponent.title"
-                    defaultMessage="{start} to {end} of {total, plural, one {{total} suggestion} other {{total} suggestions}}"
+                    defaultMessage="{total, plural, one {1 / 1} other {{start} - {end} / #}}"
                     description="A header that tells the user how many suggestions items are in the list to follow"
                     values={{
                       total: totalCount,
@@ -727,278 +680,252 @@ const MediaSuggestionsComponent = ({
                     />
                   </span>
                 </Tooltip>
-              </Box>
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <span className="typography-overline">
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.bulkEdit"
-                    defaultMessage="Bulk edit"
-                    description="A header that tells the user the buttons to follow are for bulk editing items (editing more than one item at a time, like marking all as spam)"
-                  />
-                </span>
-              </Box>
-              <Grid container justify="center" direction="row" spacing={1}>
-                <Grid item>
-                  <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkAccept" defaultMessage="Match all media on this page" description="Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media." />}>
-                    <span>
-                      <ButtonMain
-                        iconCenter={<AcceptIcon />}
-                        onClick={() => openBulkAcceptDialog()}
-                        variant="text"
-                        size="large"
-                        theme="validation"
-                        disabled={disableAcceptRejectButtons}
-                        className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.accept}`}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-                <Grid item>
-                  <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkReject" defaultMessage="Reject all medias on this page" description="Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list." />}>
-                    <span>
-                      <ButtonMain
-                        iconCenter={<RejectIcon />}
-                        onClick={() => openBulkRejectDialog()}
-                        variant="text"
-                        size="large"
-                        theme="error"
-                        disabled={disableAcceptRejectButtons}
-                        className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.reject}`}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-                <Grid item>
-                  <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkSpam" defaultMessage="Mark all medias on this page as spam" description="Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list." />}>
-                    <span>
-                      <ButtonMain
-                        iconCenter={<SpamIcon />}
-                        onClick={() => openBulkSpamDialog()}
-                        variant="text"
-                        size="large"
-                        theme="lightText"
-                        disabled={disableAcceptRejectButtons}
-                        className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-                <Grid item>
-                  <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkTrash" defaultMessage="Send all medias on this page to trash" description="Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list." />}>
-                    <span>
-                      <ButtonMain
-                        iconCenter={<TrashIcon />}
-                        onClick={() => openBulkTrashDialog()}
-                        variant="text"
-                        size="large"
-                        theme="lightText"
-                        disabled={disableAcceptRejectButtons}
-                        className={`${disableAcceptRejectButtons ? classes.disabled : ''} ${classes.spamTrash}`}
-                      />
-                    </span>
-                  </Tooltip>
-                </Grid>
-              </Grid>
-              <ButtonMain
-                iconCenter={<HelpIcon />}
-                onClick={handleHelp}
-                variant="text"
-                size="default"
-                theme="brand"
-                className={classes.helpIconContainer}
-              />
-            </Box>
-            <>
-              <Dialog
-                open={isBulkAcceptDialogOpen}
-                onClose={closeBulkAcceptDialog}
-                maxWidth="sm"
-                fullWidth
-              >
-                <DialogTitle>
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.dialogBulkAcceptTitle"
-                    defaultMessage="Are you sure you want to match {number} suggestions?"
-                    description="Prompt to a user when they choose to match media as a bulk action"
-                    values={{
-                      number: relationships.slice(cursor, cursor + pageSize).length,
-                    }}
-                  />
-                </DialogTitle>
-                <DialogActions>
-                  <ButtonMain
-                    variant="text"
-                    size="default"
-                    theme="text"
-                    onClick={closeBulkAcceptDialog}
-                    label={
-                      <FormattedMessage
-                        id="global.cancel"
-                        defaultMessage="Cancel"
-                        description="Regular Cancel action label"
-                      />
-                    }
-                  />
-                  <ButtonMain
-                    variant="contained"
-                    size="default"
-                    theme="brand"
-                    onClick={handleBulkConfirm}
-                    label={
-                      <FormattedMessage
-                        id="mediaSuggestionsComponent.dialogBulkAcceptConfirm"
-                        defaultMessage="Match all"
-                        description="Button that a user presses to confirm that they are going to match all visible suggested media"
-                        values={{
-                          number: relationships.slice(cursor, cursor + pageSize).length,
-                        }}
-                      />
-                    }
-                  />
-                </DialogActions>
-              </Dialog>
-              <Dialog
-                open={isBulkSpamDialogOpen}
-                onClose={closeBulkSpamDialog}
-                maxWidth="sm"
-                fullWidth
-              >
-                <DialogTitle>
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.dialogBulkSpamTitle"
-                    defaultMessage="Are you sure you want to mark {number} suggested media as spam?"
-                    description="Prompt to a user when they choose to mark media as spam in bulk"
-                    values={{
-                      number: relationships.slice(cursor, cursor + pageSize).length,
-                    }}
-                  />
-                </DialogTitle>
-                <DialogActions>
-                  <ButtonMain
-                    variant="text"
-                    size="default"
-                    theme="text"
-                    onClick={closeBulkSpamDialog}
-                    label={
-                      <FormattedMessage
-                        id="global.cancel"
-                        defaultMessage="Cancel"
-                        description="Regular Cancel action label"
-                      />
-                    }
-                  />
-                  <ButtonMain
-                    variant="contained"
-                    size="default"
-                    theme="brand"
-                    onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.SPAM)}
-                    label={
-                      <FormattedMessage
-                        id="mediaSuggestionsComponent.dialogBulkSpamConfirm"
-                        defaultMessage="Mark as spam"
-                        description="Button that a user presses to confirm that they are going to mark all visible suggested media as spam"
-                        values={{
-                          number: relationships.slice(cursor, cursor + pageSize).length,
-                        }}
-                      />
-                    }
-                  />
-                </DialogActions>
-              </Dialog>
-              <Dialog
-                open={isBulkTrashDialogOpen}
-                onClose={closeBulkTrashDialog}
-                maxWidth="sm"
-                fullWidth
-              >
-                <DialogTitle>
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.dialogBulkTrashTitle"
-                    defaultMessage="Are you sure you want to send {number} suggestions to the trash?"
-                    description="Prompt to a user when they choose to send media to trash in bulk"
-                    values={{
-                      number: relationships.slice(cursor, cursor + pageSize).length,
-                    }}
-                  />
-                </DialogTitle>
-                <DialogActions>
-                  <ButtonMain
-                    variant="text"
-                    size="default"
-                    theme="text"
-                    onClick={closeBulkTrashDialog}
-                    label={
-                      <FormattedMessage
-                        id="global.cancel"
-                        defaultMessage="Cancel"
-                        description="Regular Cancel action label"
-                      />
-                    }
-                  />
-                  <ButtonMain
-                    variant="contained"
-                    size="default"
-                    theme="brand"
-                    onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.TRASHED)}
-                    label={
-                      <FormattedMessage
-                        id="mediaSuggestionsComponent.dialogBulkTrashConfirm"
-                        defaultMessage="Send to trash"
-                        description="Button that a user presses to confirm that they are going to send all visible suggested media to trash"
-                        values={{
-                          number: relationships.slice(cursor, cursor + pageSize).length,
-                        }}
-                      />
-                    }
-                  />
-                </DialogActions>
-              </Dialog>
-              <Dialog
-                open={isBulkRejectDialogOpen}
-                onClose={closeBulkRejectDialog}
-                maxWidth="sm"
-                fullWidth
-              >
-                <DialogTitle>
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.dialogBulkRejectTitle"
-                    defaultMessage="Are you sure you want to reject {number} suggestions?"
-                    description="Prompt to a user when they choose to reject media in bulk"
-                    values={{
-                      number: relationships.slice(cursor, cursor + pageSize).length,
-                    }}
-                  />
-                </DialogTitle>
-                <DialogActions>
-                  <ButtonMain
-                    variant="text"
-                    size="default"
-                    theme="text"
-                    onClick={closeBulkRejectDialog}
-                    label={<FormattedMessage
+              </div>
+              <div className={suggestionsStyles['suggestions-bulk-actions']}>
+                <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkAccept" defaultMessage="Match all media on this page" description="Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media." />}>
+                  <span>
+                    <ButtonMain
+                      iconCenter={<AcceptIcon />}
+                      onClick={() => openBulkAcceptDialog()}
+                      variant="text"
+                      size="large"
+                      theme="validation"
+                      disabled={disableAcceptRejectButtons}
+                    />
+                  </span>
+                </Tooltip>
+                <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkReject" defaultMessage="Reject all medias on this page" description="Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list." />}>
+                  <span>
+                    <ButtonMain
+                      iconCenter={<RejectIcon />}
+                      onClick={() => openBulkRejectDialog()}
+                      variant="text"
+                      size="large"
+                      theme="error"
+                      disabled={disableAcceptRejectButtons}
+                    />
+                  </span>
+                </Tooltip>
+                <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkSpam" defaultMessage="Mark all medias on this page as spam" description="Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list." />}>
+                  <span>
+                    <ButtonMain
+                      iconCenter={<SpamIcon />}
+                      onClick={() => openBulkSpamDialog()}
+                      variant="text"
+                      size="large"
+                      theme="lightText"
+                      disabled={disableAcceptRejectButtons}
+                    />
+                  </span>
+                </Tooltip>
+                <Tooltip arrow title={<FormattedMessage id="mediaSuggestionsComponent.bulkTrash" defaultMessage="Send all medias on this page to trash" description="Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list." />}>
+                  <span>
+                    <ButtonMain
+                      iconCenter={<TrashIcon />}
+                      onClick={() => openBulkTrashDialog()}
+                      variant="text"
+                      size="large"
+                      theme="lightText"
+                      disabled={disableAcceptRejectButtons}
+                    />
+                  </span>
+                </Tooltip>
+              </div>
+              <div className={suggestionsStyles['suggestions-sorting']}>
+                {/* Placeholder for coming sorting control, but allow html to layout correctly */}
+                {/* https://meedan.atlassian.net/browse/CV2-2947 */}
+              </div>
+            </div>
+            <Dialog
+              open={isBulkAcceptDialogOpen}
+              onClose={closeBulkAcceptDialog}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.dialogBulkAcceptTitle"
+                  defaultMessage="Are you sure you want to match {number} suggestions?"
+                  description="Prompt to a user when they choose to match media as a bulk action"
+                  values={{
+                    number: relationships.slice(cursor, cursor + pageSize).length,
+                  }}
+                />
+              </DialogTitle>
+              <DialogActions>
+                <ButtonMain
+                  variant="text"
+                  size="default"
+                  theme="text"
+                  onClick={closeBulkAcceptDialog}
+                  label={
+                    <FormattedMessage
                       id="global.cancel"
                       defaultMessage="Cancel"
                       description="Regular Cancel action label"
-                    />}
-                  />
-                  <ButtonMain
-                    variant="contained"
-                    size="default"
-                    theme="brand"
-                    onClick={() => handleBulkReject()}
-                    label={<FormattedMessage
-                      id="mediaSuggestionsComponent.dialogBulkRejectConfirm"
-                      defaultMessage="Reject"
-                      description="Button that a user presses to confirm that they are going to reject all visible suggested media"
+                    />
+                  }
+                />
+                <ButtonMain
+                  variant="contained"
+                  size="default"
+                  theme="brand"
+                  onClick={handleBulkConfirm}
+                  label={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.dialogBulkAcceptConfirm"
+                      defaultMessage="Match all"
+                      description="Button that a user presses to confirm that they are going to match all visible suggested media"
                       values={{
                         number: relationships.slice(cursor, cursor + pageSize).length,
                       }}
-                    />}
-                  />
-                </DialogActions>
-              </Dialog>
-            </>
-          </> : null }
+                    />
+                  }
+                />
+              </DialogActions>
+            </Dialog>
+            <Dialog
+              open={isBulkSpamDialogOpen}
+              onClose={closeBulkSpamDialog}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.dialogBulkSpamTitle"
+                  defaultMessage="Are you sure you want to mark {number} suggested media as spam?"
+                  description="Prompt to a user when they choose to mark media as spam in bulk"
+                  values={{
+                    number: relationships.slice(cursor, cursor + pageSize).length,
+                  }}
+                />
+              </DialogTitle>
+              <DialogActions>
+                <ButtonMain
+                  variant="text"
+                  size="default"
+                  theme="text"
+                  onClick={closeBulkSpamDialog}
+                  label={
+                    <FormattedMessage
+                      id="global.cancel"
+                      defaultMessage="Cancel"
+                      description="Regular Cancel action label"
+                    />
+                  }
+                />
+                <ButtonMain
+                  variant="contained"
+                  size="default"
+                  theme="brand"
+                  onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.SPAM)}
+                  label={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.dialogBulkSpamConfirm"
+                      defaultMessage="Mark as spam"
+                      description="Button that a user presses to confirm that they are going to mark all visible suggested media as spam"
+                      values={{
+                        number: relationships.slice(cursor, cursor + pageSize).length,
+                      }}
+                    />
+                  }
+                />
+              </DialogActions>
+            </Dialog>
+            <Dialog
+              open={isBulkTrashDialogOpen}
+              onClose={closeBulkTrashDialog}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.dialogBulkTrashTitle"
+                  defaultMessage="Are you sure you want to send {number} suggestions to the trash?"
+                  description="Prompt to a user when they choose to send media to trash in bulk"
+                  values={{
+                    number: relationships.slice(cursor, cursor + pageSize).length,
+                  }}
+                />
+              </DialogTitle>
+              <DialogActions>
+                <ButtonMain
+                  variant="text"
+                  size="default"
+                  theme="text"
+                  onClick={closeBulkTrashDialog}
+                  label={
+                    <FormattedMessage
+                      id="global.cancel"
+                      defaultMessage="Cancel"
+                      description="Regular Cancel action label"
+                    />
+                  }
+                />
+                <ButtonMain
+                  variant="contained"
+                  size="default"
+                  theme="brand"
+                  onClick={() => handleBulkArchiveTarget(CheckArchivedFlags.TRASHED)}
+                  label={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.dialogBulkTrashConfirm"
+                      defaultMessage="Send to trash"
+                      description="Button that a user presses to confirm that they are going to send all visible suggested media to trash"
+                      values={{
+                        number: relationships.slice(cursor, cursor + pageSize).length,
+                      }}
+                    />
+                  }
+                />
+              </DialogActions>
+            </Dialog>
+            <Dialog
+              open={isBulkRejectDialogOpen}
+              onClose={closeBulkRejectDialog}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle>
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.dialogBulkRejectTitle"
+                  defaultMessage="Are you sure you want to reject {number} suggestions?"
+                  description="Prompt to a user when they choose to reject media in bulk"
+                  values={{
+                    number: relationships.slice(cursor, cursor + pageSize).length,
+                  }}
+                />
+              </DialogTitle>
+              <DialogActions>
+                <ButtonMain
+                  variant="text"
+                  size="default"
+                  theme="text"
+                  onClick={closeBulkRejectDialog}
+                  label={<FormattedMessage
+                    id="global.cancel"
+                    defaultMessage="Cancel"
+                    description="Regular Cancel action label"
+                  />}
+                />
+                <ButtonMain
+                  variant="contained"
+                  size="default"
+                  theme="brand"
+                  onClick={() => handleBulkReject()}
+                  label={<FormattedMessage
+                    id="mediaSuggestionsComponent.dialogBulkRejectConfirm"
+                    defaultMessage="Reject"
+                    description="Button that a user presses to confirm that they are going to reject all visible suggested media"
+                    values={{
+                      number: relationships.slice(cursor, cursor + pageSize).length,
+                    }}
+                  />}
+                />
+              </DialogActions>
+            </Dialog>
+          </>
+        }
         <div id="suggested-media__items">
           { isPaginationLoading ?
             <MediasLoading theme="grey" variant="inline" size="medium" /> :

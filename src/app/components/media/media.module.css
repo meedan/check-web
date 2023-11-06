@@ -98,7 +98,6 @@
       .media-item-content {
         display: flex;
         flex-direction: column;
-        gap: 16px;
 
         .media-item-claim-alert {
           margin: 0 0 16px;

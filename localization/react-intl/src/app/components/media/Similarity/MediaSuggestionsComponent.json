@@ -77,17 +77,12 @@
   {
     "id": "mediaSuggestionsComponent.title",
     "description": "A header that tells the user how many suggestions items are in the list to follow",
-    "defaultMessage": "{start} to {end} of {total, plural, one {{total} suggestion} other {{total} suggestions}}"
+    "defaultMessage": "{total, plural, one {1 / 1} other {{start} - {end} / #}}"
   },
   {
     "id": "mediaSuggestionsComponent.next",
     "description": "Label for the 'go to next page' button on paginated suggestions",
     "defaultMessage": "Next"
-  },
-  {
-    "id": "mediaSuggestionsComponent.bulkEdit",
-    "description": "A header that tells the user the buttons to follow are for bulk editing items (editing more than one item at a time, like marking all as spam)",
-    "defaultMessage": "Bulk edit"
   },
   {
     "id": "mediaSuggestionsComponent.bulkAccept",
