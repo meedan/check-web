@@ -11,17 +11,17 @@ export default function MediaPageLayout({
 }) {
   return (
     <div className={styles['media-item-wrapper']}>
+      {buildSiblingUrl ? (
+        <NextPreviousLinks
+          buildSiblingUrl={buildSiblingUrl}
+          listQuery={listQuery}
+          listIndex={listIndex}
+          objectType="media"
+          mediaNavList={mediaNavList}
+          count={count}
+        />
+      ) : null}
       <div className={styles['media-actions-bar']}>
-        {buildSiblingUrl ? (
-          <NextPreviousLinks
-            buildSiblingUrl={buildSiblingUrl}
-            listQuery={listQuery}
-            listIndex={listIndex}
-            objectType="media"
-            mediaNavList={mediaNavList}
-            count={count}
-          />
-        ) : null}
         <MediaActionsBar
           key={`${listUrl}-${projectMediaId}` /* TODO test MediaActionsBar is sane, then nix key */}
           listUrl={listUrl}

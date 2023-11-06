@@ -12,6 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import MultiSelector from '../layout/MultiSelector';
 import ItemHistoryDialog from './ItemHistoryDialog';
+import MediaTags from './MediaTags';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
@@ -282,7 +283,8 @@ class MediaActionsBarComponent extends Component {
     }
 
     return (
-      <div className={styles['media-actions']}>
+      <div className={styles['media-actions-wrapper']}>
+        <MediaTags projectMediaId={this.props.media.dbid} />
         { restorProjectMedia ? <div className={styles['media-actions']}> {restorProjectMedia} </div> : null }
         <div className={styles['media-actions']}>
           {isParent ?
