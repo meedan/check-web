@@ -65,15 +65,11 @@ const MediaAndRequestsDialogComponent = ({
       </DialogTitle>
       <DialogContent dividers py={0} className={classes.dialogContent}>
         <Grid container>
-          <Grid item xs={6}>
-            <div className={classes.mediaColumn}>
-              <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
-            </div>
+          <Grid item xs={6} className={classes.mediaColumn}>
+            <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
           </Grid>
-          <Grid item xs={6}>
-            <div className={classes.requestsColumn}>
-              <MediaRequests media={{ dbid: projectMediaId }} />
-            </div>
+          <Grid item xs={6} className={classes.requestsColumn}>
+            <MediaRequests media={{ dbid: projectMediaId }} />
           </Grid>
         </Grid>
       </DialogContent>
