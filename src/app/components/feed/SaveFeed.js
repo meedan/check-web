@@ -71,7 +71,11 @@ const createMutation = graphql`
         feeds(first: 10000) {
           edges {
             node {
+              id
+              dbid
               name
+              team_id
+              type: __typename
             }
           }
         }
@@ -107,7 +111,11 @@ const destroyMutation = graphql`
         feeds(first: 10000) {
           edges {
             node {
+              id
+              dbid
               name
+              team_id
+              type: __typename
             }
           }
         }
