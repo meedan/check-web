@@ -597,7 +597,7 @@ const SaveFeed = (props) => {
             <p className={styles.saveFeedDialogDivider}>
               <FormattedHTMLMessage
                 id="saveFeed.deleteSharedFeedConfirmationDialogWaningBody"
-                defaultMessage="This shared feed is available to all users of <b>{orgName}</b>. After deleting it, no user will be able to access it.<br /><br />"
+                defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
                 values={{
                   orgName: feed.team?.name,
                 }}
@@ -608,7 +608,7 @@ const SaveFeed = (props) => {
                 title={
                   <FormattedHTMLMessage
                     id="saveFeed.deleteSharedFeedWarning"
-                    defaultMessage="<b>NOTE: Your custom list and items will remain available and unaffected.</b>"
+                    defaultMessage="<strong>NOTE: Your custom list and items will remain available and unaffected.</strong>"
                     description="Warning displayed on edit feed page when no list is selected."
                   />
                 }
@@ -623,7 +623,7 @@ const SaveFeed = (props) => {
             <p className={styles.saveFeedDialogDivider}>
               <FormattedHTMLMessage
                 id="saveFeed.deleteSharedFeedConfirmationDialogBody"
-                defaultMessage="This shared feed is available to all users of <b>{orgName}</b>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
+                defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
                 values={{
                   orgName: feed.team?.name,
                 }}
