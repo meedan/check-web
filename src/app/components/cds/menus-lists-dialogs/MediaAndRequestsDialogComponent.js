@@ -21,11 +21,23 @@ const useStyles = makeStyles(theme => ({
     right: theme.spacing(1),
     top: theme.spacing(2),
   },
+  shut: {
+    position: 'relative',
+
+    '&::after': {
+      content: '\'\'',
+      backgroundColor: 'var(--brandBorder)',
+      position: 'absolute',
+      left: '50%',
+      top: '0',
+      bottom: '0',
+      width: '1px',
+    },
+  },
   mediaColumn: {
     height: '100%',
     maxHeight: '700px',
     overflowY: 'auto',
-    borderRight: '1px solid var(--brandBorder)',
     paddingRight: theme.spacing(3),
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
@@ -33,6 +45,9 @@ const useStyles = makeStyles(theme => ({
   requestsColumn: {
     maxHeight: '700px',
     overflowY: 'auto',
+    paddingLeft: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   dialogContent: {
     padding: `0 ${theme.spacing(3)}px`,
@@ -64,7 +79,7 @@ const MediaAndRequestsDialogComponent = ({
         <ButtonMain variant="text" size="small" theme="text" iconCenter={<IconClose />} onClick={onClose} className={classes.closeButton} />
       </DialogTitle>
       <DialogContent dividers py={0} className={classes.dialogContent}>
-        <Grid container>
+        <Grid container className={classes.shut}>
           <Grid item xs={6} className={classes.mediaColumn}>
             <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
           </Grid>
