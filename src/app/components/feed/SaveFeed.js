@@ -28,7 +28,6 @@ import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import OpenSourceIcon from '../../icons/open_source.svg';
 import RssFeedIcon from '../../icons/rss_feed.svg';
 import ChevronDownIcon from '../../icons/chevron_down.svg';
-// import WarningIcon from '../../icons/report_problem.svg';
 
 const LicenseOption = ({
   icon,
