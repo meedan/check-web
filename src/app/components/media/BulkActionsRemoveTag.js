@@ -114,7 +114,7 @@ const BulkActionsRemoveTag = ({
             submitLabel={
               <FormattedMessage
                 id="bulkActionsRemoveTag.submitLabel"
-                defaultMessage="{numItems, plural, one {Remove 1 tag} other {Remove # tags}}"
+                defaultMessage="{numItems, plural, one {Remove # tag} other {Remove # tags}}"
                 values={{ numItems: selectedValue.length }}
                 description="Button for commiting the action of untagging of a number of items in bulk"
               />

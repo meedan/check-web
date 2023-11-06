@@ -5,6 +5,14 @@
   gap: 16px;
   height: 100%;
 
+  .next-prev-pager {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    margin: 16px 32px -32px;
+  }
+
   .media-actions-bar {
     align-items: center;
     background-color: var(--otherWhite);
@@ -17,13 +25,6 @@
     padding: 16px;
     width: auto;
 
-    .next-prev-pager {
-      align-items: center;
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
     .paging-not-found {
       color: var(--textDisabled);
       cursor: not-allowed;
@@ -31,12 +32,17 @@
       font-size: var(--iconSizeSmall);
     }
 
+    .media-actions-wrapper,
     .media-actions {
       align-items: center;
       display: flex;
       flex: 1 1 auto;
-      gap: 8px;
+      gap: 32px;
       justify-content: flex-end;
+    }
+
+    .media-actions {
+      gap: 8px;
     }
   }
 
@@ -93,11 +99,6 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
-
-        .media-item-tags {
-          background-color: var(--otherWhite);
-          border-radius: 5px;
-        }
 
         .media-item-claim-alert {
           margin: 0 0 16px;
