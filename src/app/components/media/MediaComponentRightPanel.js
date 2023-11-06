@@ -41,7 +41,7 @@ const MediaComponentRightPanel = ({
                   defaultMessage="Requests"
                   description="Label for the Requests tab, as in requests from users"
                 />
-                {projectMedia.requests_count > 0 && ` [${projectMedia.requests_count}]`}
+                {projectMedia.demand > 0 && ` [${projectMedia.demand}]`}
               </span>
             }
             value="requests"
