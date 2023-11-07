@@ -389,6 +389,7 @@ class AddAnnotation extends Component {
           />
           {this.state.fileMode ? (
             <UploadFile
+              className="int-note-annotation__upload-file-drop-zone"
               type="file"
               value={this.state.file}
               onChange={this.onFileChange}
