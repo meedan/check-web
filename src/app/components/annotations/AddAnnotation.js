@@ -71,7 +71,7 @@ class AddAnnotation extends Component {
     this.setState({ file, message: null, canSubmit });
   }
 
-  onFileError(file, message) {
+  onFileError = (file, message) => {
     this.setState({ file: null, message });
   }
 
