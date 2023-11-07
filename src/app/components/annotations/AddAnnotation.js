@@ -83,7 +83,7 @@ class AddAnnotation extends Component {
     this.setState({ file, message: null, canSubmit });
   }
 
-  onFileError(file, message) {
+  onFileError = (file, message) => {
     this.setState({ file: null, message });
   }
 
@@ -381,7 +381,7 @@ class AddAnnotation extends Component {
           />
           {this.state.fileMode ? (
             <UploadFile
-              className={inputStyles['form-fieldset-field']}
+              className={cx('int-note-annotation__upload-file-drop-zone', inputStyles['form-fieldset-field'])}
               type="file"
               value={this.state.file}
               onChange={this.onFileChange}
