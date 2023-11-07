@@ -45,6 +45,11 @@
     "defaultMessage": "Secondary source URLs"
   },
   {
+    "id": "sourceInfo.secondaryUrl",
+    "description": "URL for secondary account related to media source",
+    "defaultMessage": "Secondary source URL"
+  },
+  {
     "id": "sourceInfo.addLink",
     "description": "Allow user to relate a new link to media source",
     "defaultMessage": "Add a secondary URL"
