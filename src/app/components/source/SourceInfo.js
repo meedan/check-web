@@ -361,7 +361,7 @@ function SourceInfo({
                 onKeyPress={(e) => { handleNameKeyPress(e); }}
                 onChange={(e) => { setSourceName(e.target.value); }}
                 onBlur={handleChangeSourceName}
-                inputProps={{
+                componentProps={{
                   id: 'source__name-input',
                   name: 'source__name-input',
                 }}

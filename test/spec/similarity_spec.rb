@@ -68,9 +68,9 @@ shared_examples 'similarity' do
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggestions')]", :xpath).click
-    wait_for_selector("//span[contains(text(), '2 suggestion')]", :xpath)
+    wait_for_selector("//span[contains(text(), '2 Suggestions')]", :xpath)
     wait_for_selector('.similarity-media-item__accept-relationship').click
-    wait_for_selector("//span[contains(text(), '1 suggestion')]", :xpath)
+    wait_for_selector("//span[contains(text(), '1 Suggestion')]", :xpath)
     wait_for_selector('.similarity-media-item__reject-relationship').click
     wait_for_selector("//span[contains(text(), '0 Suggestions')]", :xpath)
     wait_for_selector('.media__relationship')
