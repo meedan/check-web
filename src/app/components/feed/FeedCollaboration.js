@@ -1,4 +1,6 @@
 /* eslint-disable relay/unused-fields */
+// FIXME / TODO this relay/unused-fields bypass is simply because TeamAvatar uses team.avatar internally
+// Perhaps a better approach is to have TeamAvatar receive team.avatar value directly as prop
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
