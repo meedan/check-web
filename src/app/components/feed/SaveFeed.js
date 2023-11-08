@@ -138,11 +138,12 @@ const SaveFeed = (props) => {
     setSaving(false);
   };
 
-  const handleInvite = () => {
+  const handleInvite = (dbid) => {
     setSaving(true);
+    // TODO Make createFeedInvitation accept multiple emails
     newInvites.forEach((email) => {
       const input = {
-        feed_id: feed.dbid || createdFeedDbid,
+        feed_id: dbid,
         email,
       };
       commitMutation(Relay.Store, {
@@ -154,13 +155,17 @@ const SaveFeed = (props) => {
     });
   };
 
+  React.useEffect(() => {
+    if (createdFeedDbid && newInvites.length) {
+      handleInvite(createdFeedDbid);
+    }
+  }, [createdFeedDbid]);
+
   const onSuccess = (response) => {
     const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
     setCreatedFeedDbid(dbid);
     setSaving(false);
-    if (newInvites.length) {
-      handleInvite();
-    } else {
+    if (!newInvites.length) {
       handleViewFeed(dbid);
     }
   };
@@ -203,7 +208,7 @@ const SaveFeed = (props) => {
   };
 
   const handleConfirmOrSave = () => {
-    if (feed.id) {
+    if (feed.id || newInvites.length) {
       setShowConfirmationDialog(true);
     } else {
       handleSave();
@@ -520,31 +525,45 @@ const SaveFeed = (props) => {
       <ConfirmProceedDialog
         open={showConfirmationDialog}
         title={
-          <FormattedMessage
-            id="saveFeed.confirmationDialogTitle"
-            defaultMessage="Are you sure you want to update this shared feed?"
-            description="Confirmation dialog title when saving a feed."
-          />
+          feed.id ? (
+            <FormattedMessage
+              id="saveFeed.confirmationDialogTitle"
+              defaultMessage="Are you sure you want to update this shared feed?"
+              description="Confirmation dialog title when saving a feed."
+            />
+          ) : (
+            <FormattedMessage
+              id="saveFeed.invitationConfirmationDialogTitle"
+              defaultMessage="Collaboration invitations"
+              description="Confirmation dialog title for feed collaboration invitations."
+            />
+          )
         }
         body={
           <div>
-            <p>
-              <FormattedMessage
-                id="saveFeed.confirmationDialogBody"
-                defaultMessage="Are you sure you want to update this shared feed?"
-                description="Confirmation dialog message when saving a feed."
-              />
-            </p>
-            <p>
-              <FormattedMessage
-                id="saveFeed.invitationConfirmationDialogBody"
-                defaultMessage="An email will be sent to collaborators listed to invite them to contribute to this shared feed."
-                description="Confirmation dialog message when saving a feed."
-              />
-            </p>
-            <ul>
-              { newInvites.map(email => <li className={styles.invitedEmail}>&bull; {email}</li>) }
-            </ul>
+            { feed.id &&
+              <p>
+                <FormattedMessage
+                  id="saveFeed.confirmationDialogBody"
+                  defaultMessage="Are you sure you want to update this shared feed?"
+                  description="Confirmation dialog message when saving a feed."
+                />
+              </p>
+            }
+            { newInvites.length ?
+              <>
+                <p>
+                  <FormattedMessage
+                    id="saveFeed.invitationConfirmationDialogBody"
+                    defaultMessage="An email will be sent to collaborators listed to invite them to contribute to this shared feed."
+                    description="Confirmation dialog message when saving a feed."
+                  />
+                </p>
+                <ul>
+                  { newInvites.map(email => <li className={styles.invitedEmail}>&bull; {email}</li>) }
+                </ul>
+              </> : null
+            }
           </div>
         }
         proceedLabel={<FormattedMessage id="saveFeed.confirmationDialogButton" defaultMessage="Update Shared Feed" description="Button label to confirm updating a feed." />}

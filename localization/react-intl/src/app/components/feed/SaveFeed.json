@@ -155,6 +155,11 @@
     "defaultMessage": "Are you sure you want to update this shared feed?"
   },
   {
+    "id": "saveFeed.invitationConfirmationDialogTitle",
+    "description": "Confirmation dialog title for feed collaboration invitations.",
+    "defaultMessage": "Collaboration invitations"
+  },
+  {
     "id": "saveFeed.confirmationDialogBody",
     "description": "Confirmation dialog message when saving a feed.",
     "defaultMessage": "Are you sure you want to update this shared feed?"
