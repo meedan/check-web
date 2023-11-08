@@ -1,5 +1,15 @@
 [
   {
+    "id": "addAnnotation.inputEditHint",
+    "description": "Input help text about editing notes",
+    "defaultMessage": "Edit note"
+  },
+  {
+    "id": "addAnnotation.inputHint",
+    "description": "Input help text about adding new notes",
+    "defaultMessage": "Add a note"
+  },
+  {
     "id": "addAnnotation.error",
     "description": "Error message to try action again or contact support for more help",
     "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
@@ -10,14 +20,9 @@
     "defaultMessage": "Invalid command"
   },
   {
-    "id": "addAnnotation.inputEditHint",
-    "description": "Input help text about editing notes",
-    "defaultMessage": "Edit note"
-  },
-  {
-    "id": "addAnnotation.inputHint",
-    "description": "Input help text about adding new notes",
-    "defaultMessage": "Add a note"
+    "id": "addAnnotation.inputLabel",
+    "description": "Input label for creating a new note",
+    "defaultMessage": "Note"
   },
   {
     "id": "addAnnotation.addFile",

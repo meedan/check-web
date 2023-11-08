@@ -83,6 +83,29 @@
   }
 }
 
+.form-inner-wrapper {
+  background-color: var(--brandBackground);
+  border-radius: 5px;
+  padding: 16px;
+
+  &.form-inner-sticky {
+    margin: 0 0 16px;
+    position: sticky;
+    top: -16px;
+    z-index: 1001;
+  }
+
+  .form-inner-wrapper {
+    background: var(--brandBackgroundAccent);
+    border-radius: 3px;
+    padding: 16px;
+  }
+
+  + .form-inner-wrapper {
+    margin: 16px 0 0;
+  }
+}
+
 .form-fieldset {
   .form-fieldset-title {
     @mixin typography-subtitle2;
@@ -99,8 +122,37 @@
   .form-fieldset-field {
     margin: 0 0 16px;
 
+    &.form-autocomplete-create {
+      border: solid 1px var(--errroMain);
+      display: flex;
+      gap: 8px;
+
+      :global(.MuiAutocomplete-root) {
+        flex: 1 1 auto;
+      }
+
+      button {
+        flex: 0 0 auto;
+        margin: 26px 0 0;
+      }
+    }
+
     &:last-of-type {
       margin: 0;
     }
+  }
+}
+
+.form-footer-actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+
+  .form-footer-actions-context {
+    @mixin typography-caption;
+    color: var(--textSecondary);
+    flex: 1 1 auto;
+    text-align: left;
   }
 }

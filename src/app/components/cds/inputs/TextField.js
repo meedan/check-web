@@ -86,7 +86,7 @@ const TextField = React.forwardRef(({
             {
               [styles.disabled]: disabled,
               [styles['textarea-container']]: textArea,
-              [styles['textarea-autoGrow']]: autoGrow,
+              [styles['textarea-autoGrow']]: autoGrow && textArea,
               [styles['textarea-maxHeight']]: maxHeight,
             })
           }
@@ -164,6 +164,7 @@ const TextField = React.forwardRef(({
         <div className={cx(
           [inputStyles['help-container']],
           {
+            'int-error__message--textfield': internalError,
             [inputStyles['error-label']]: internalError,
           })
         }
