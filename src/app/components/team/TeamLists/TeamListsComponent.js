@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
@@ -154,7 +154,14 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
             description="Header for Column settings page, where users can configure the visibility of columns in lists."
           />
         }
-        helpUrl="http://help.checkmedia.org/en/articles/4637158-list-settings"
+        context={
+          <FormattedHTMLMessage
+            id="teamListsComponent.helpContext"
+            defaultMessage='Manage the information displayed about each item. Column settings affect the data displayed for all members of your workspace. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about column settings</a>.'
+            values={{ helpLink: 'http://help.checkmedia.org/en/articles/4637158-list-settings' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           <ButtonMain
             variant="contained"
