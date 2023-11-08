@@ -12,7 +12,7 @@
   {
     "id": "teamMetadataRender.sourceHelpContext",
     "description": "Context description for the functionality of source portion of this page",
-    "defaultMessage": "Customize the source annotation form. Learn more about <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\"> describing sources</a>."
+    "defaultMessage": "Customize the source annotation form. Learn more about <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">describing sources</a>."
   },
   {
     "id": "teamMetadataRender.headerItemButton",

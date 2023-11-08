@@ -35,7 +35,7 @@ function TeamMetadataRender({ team, about }) {
             /> :
             <FormattedHTMLMessage
               id="teamMetadataRender.sourceHelpContext"
-              defaultMessage='Customize the source annotation form. Learn more about <a href="{helpLink}" target="_blank" title="Learn more"> describing sources</a>.'
+              defaultMessage='Customize the source annotation form. Learn more about <a href="{helpLink}" target="_blank" title="Learn more">describing sources</a>.'
               description="Context description for the functionality of source portion of this page"
               values={{ helpLink: 'https://help.checkmedia.org/en/articles/4837896-sources#h_bb2bd143fd' }}
             />
