@@ -10,6 +10,7 @@ import Annotations from '../annotations/Annotations';
 import Comment from '../annotations/Comment';
 import ProfileLink from '../layout/ProfileLink';
 import UserTooltip from '../user/UserTooltip';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './media.module.css';
 
 class MediaCommentsComponent extends Component {
@@ -73,7 +74,7 @@ class MediaCommentsComponent extends Component {
         <Annotations
           noLink
           component={Comment}
-          showAddAnnotation
+          showAddAnnotation={media.archived === CheckArchivedFlags.NONE}
           annotations={media.comments.edges}
           annotated={media}
           annotatedType="ProjectMedia"
@@ -82,8 +83,8 @@ class MediaCommentsComponent extends Component {
           noActivityMessage={
             <FormattedMessage
               id="mediaComments.noNote"
-              defaultMessage="No note"
-              description="Empty message when there are no notees for this item"
+              defaultMessage="0 Notes"
+              description="Empty message when there are no notes for this item"
             />
           }
         />

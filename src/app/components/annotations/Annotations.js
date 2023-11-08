@@ -1,54 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
+import MediasLoading from '../media/MediasLoading';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
-import BlankState from '../layout/BlankState';
-import { units, borderWidthMedium } from '../../styles/js/shared';
-
-const StyledAnnotations = styled.div`
-  display: flex;
-  flex-direction: column;
-  .annotations__list {
-    display: flex;
-    flex-direction: column;
-
-    .annotations__list-item {
-      position: relative;
-
-      .request-card {
-        border-bottom: solid 1px var(--grayBorderMain);
-      }
-
-      ${prop => prop.noLink ? null : `
-        // The timeline line
-        &::before {
-          background-color: var(--grayBorderMain);
-          content: '';
-          display: block;
-          position: absolute;
-          bottom: 0;
-          top: 0;
-          width: ${borderWidthMedium};
-          ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(4)};
-        }
-        &:last-of-type {
-          height: ${props => props.noLastItemStretch ? 'auto' : '100%'};
-        }
-        `}
-    }
-
-    .annotations__list-item:last-of-type {
-      .request-card {
-        border-bottom: 0;
-      }
-    }
-  }
-`;
+import styles from '../media/media.module.css';
 
 const pageSize = 10;
 
@@ -78,27 +36,35 @@ class Annotations extends React.Component {
     const hasMore = props.annotations.length < props.annotationsCount;
 
     return (
-      <StyledAnnotations
+      <div
         className="annotations"
-        showAddAnnotation={props.showAddAnnotation}
         noLink={props.noLink}
         noLastItemStretch={hasMore}
       >
-        { props.showAddAnnotation ?
+        { props.showAddAnnotation &&
           <AddAnnotation
             annotated={props.annotated}
             annotatedType={props.annotatedType}
             types={props.types}
-          /> : null }
-        <div className="annotations__list">
-          {!props.annotations.length ?
-            <Box m="auto">
-              <BlankState>
-                { props.noActivityMessage || <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
-              </BlankState>
-            </Box> :
-            props.annotations.slice(0).reverse().map(annotation => (
-              <div key={annotation.node.dbid} className="annotations__list-item">
+          />
+        }
+
+        {!props.annotations.length ?
+          <div className={cx('annotations__list', styles['empty-list'])}>
+            { props.noActivityMessage || <FormattedMessage tagName="p" id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
+          </div> :
+          <div className={cx('annotations__list', styles['media-list'])}>
+            { props.annotations.slice(0).reverse().map(annotation => (
+              <div
+                key={annotation.node.dbid}
+                className={cx(
+                  'annotations__list-item',
+                  styles['media-list-item'],
+                  {
+                    [styles['media-timeline-item']]: !props.noLink,
+                  })
+                }
+              >
                 { props.component ?
                   <props.component
                     annotated={props.annotated}
@@ -113,26 +79,35 @@ class Annotations extends React.Component {
                     team={props.team}
                   />
                 }
-              </div>))}
-          { hasMore ? (
-            <Button
+              </div>
+            ))}
+          </div>
+        }
+        { hasMore ? (
+          <div className={styles['media-list-actions']}>
+            <ButtonMain
+              variant="contained"
+              theme="lightText"
+              size="default"
               onClick={this.loadMore}
               disabled={this.state.loadingMore}
-              endIcon={
+              iconCenter={
                 this.state.loadingMore ?
-                  <CircularProgress color="inherit" size="1em" /> :
+                  <MediasLoading size="icon" theme="white" variant="icon" /> :
                   null
               }
-            >
-              <FormattedMessage
-                id="annotations.loadMore"
-                defaultMessage="Load more"
-                description="Button label to fetch additional annotations in this list"
-              />
-            </Button>
-          ) : null }
-        </div>
-      </StyledAnnotations>);
+              label={
+                <FormattedMessage
+                  id="annotations.loadMore"
+                  defaultMessage="Load more"
+                  description="Button label to fetch additional annotations in this list"
+                />
+              }
+            />
+          </div>
+        ) : null }
+      </div>
+    );
   }
 }
 
