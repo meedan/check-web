@@ -4,16 +4,13 @@ import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import TeamTaskCardForm from './TeamTaskCardForm'; // eslint-disable-line no-unused-vars
 import TeamMetadataRender from './TeamMetadataRender';
-import { ContentColumn } from '../../styles/js/shared';
 
 const TeamTasksComponent = ({ team, about }) => (
   <div className="team-tasks">
-    <ContentColumn large>
-      <TeamMetadataRender
-        team={team}
-        about={about}
-      />
-    </ContentColumn>
+    <TeamMetadataRender
+      team={team}
+      about={about}
+    />
   </div>
 );
 

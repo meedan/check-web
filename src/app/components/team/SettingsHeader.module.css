@@ -5,13 +5,13 @@
   gap: 8px;
   margin: 0 0 16px;
   max-width: var(--columnWidthLarge);
-  min-height: 48px;
   width: 100%;
 
   .title-actions-wrapper {
     align-items: center;
     display: flex;
     justify-content: space-between;
+    min-height: 48px;
     width: 100%;
 
     .title-wrapper,
@@ -24,7 +24,7 @@
 
     .title-wrapper {
       align-items: center;
-      gap: 40px;
+      gap: 16px;
       justify-content: start;
 
       h6 {
@@ -41,6 +41,7 @@
   }
 
   .settings-header-context {
+    @mixin typography-body2;
     color: var(--textSecondary);
     width: 100%;
   }
