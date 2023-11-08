@@ -1,34 +1,46 @@
 .settings-header-wrapper {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 2px;
   margin: 0 0 16px;
   max-width: var(--columnWidthLarge);
   min-height: 48px;
   width: 100%;
 
-  .title-wrapper,
-  .extra-wrapper,
-  .buttons-wrapper {
+  .title-actions-wrapper {
     align-items: center;
-    align-self: stretch;
     display: flex;
-  }
+    justify-content: space-between;
+    width: 100%;
 
-  .title-wrapper {
-    align-items: center;
-    gap: 40px;
-    justify-content: start;
-
-    h6 {
+    .title-wrapper,
+    .extra-wrapper,
+    .buttons-wrapper {
       align-items: center;
+      align-self: stretch;
       display: flex;
-      gap: 4px;
+    }
+
+    .title-wrapper {
+      align-items: center;
+      gap: 40px;
+      justify-content: start;
+
+      h6 {
+        align-items: center;
+        display: flex;
+        gap: 4px;
+      }
+    }
+
+    .buttons-wrapper {
+      gap: 8px;
+      justify-content: end;
     }
   }
 
-  .buttons-wrapper {
-    gap: 8px;
-    justify-content: end;
+  .settings-header-context {
+    color: var(--textSecondary);
   }
 }

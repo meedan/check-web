@@ -5,6 +5,11 @@
     "defaultMessage": "Members [{membersCount}]"
   },
   {
+    "id": "teamMembers.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage your Check workspace’s members. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about member roles</a>."
+  },
+  {
     "id": "teamMembers.invite",
     "description": "Button label for main action to start the process of inviting team members to this workspace",
     "defaultMessage": "Invite"
