@@ -21,7 +21,6 @@ const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
             permissions
             report_status
             hasMain: is_confirmed_similar_to_another_item
-            isSuggested: is_suggested
             confirmedMainItem: confirmed_main_item {
               id
               dbid

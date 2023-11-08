@@ -363,7 +363,7 @@ class AddAnnotation extends Component {
       >
         <div className={inputStyles['form-fieldset']}>
           <TextArea
-            className={inputStyles['form-fieldset-field']}
+            className={cx('int-note-annotation__add-note--textfield', inputStyles['form-fieldset-field'])}
             label={<FormattedMessage id="addAnnotation.inputLabel" defaultMessage="Note" description="Input label for creating a new note" />}
             onFocus={this.handleFocus.bind(this)}
             ref={(i) => { this.cmd = i; }}
@@ -412,6 +412,7 @@ class AddAnnotation extends Component {
           </Tooltip>
           { editMode ?
             <ButtonMain
+              className="int-add-annotation__button--cancel"
               variant="text"
               theme="text"
               size="default"
@@ -420,6 +421,7 @@ class AddAnnotation extends Component {
             /> : null
           }
           <ButtonMain
+            className="int-add-annotation__button--submit"
             theme="brand"
             size="default"
             variant="contained"

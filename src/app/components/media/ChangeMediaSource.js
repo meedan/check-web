@@ -69,6 +69,7 @@ function ChangeMediaSource({
       <div className={inputStyles['form-fieldset']}>
         <div className={cx(inputStyles['form-fieldset-field'], inputStyles['form-autocomplete-create'])}>
           <Autocomplete
+            className="int-change-source__textfield--autocomplete"
             autoHighlight
             options={teamSources}
             getOptionLabel={option => option.name}
