@@ -50,7 +50,7 @@ class Annotations extends React.Component {
         }
 
         {!props.annotations.length ?
-          <div className={styles['empty-list']}>
+          <div className={cx('annotations__list', styles['empty-list'])}>
             { props.noActivityMessage || <FormattedMessage tagName="p" id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
           </div> :
           <div className={cx('annotations__list', styles['media-list'])}>
