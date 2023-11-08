@@ -217,7 +217,7 @@ const MediaFactCheck = ({ projectMedia }) => {
                 name="title"
                 required
                 rows="1"
-                helpContent={error && <FormattedMessage id="mediaFactCheck.errorTitle" defaultMessage="Fact-check title is required" description="Caption that informs that a fact-check could not be saved and that the title field has to be filled" />}
+                helpContent={error ? <FormattedMessage id="mediaFactCheck.errorTitle" defaultMessage="Fact-check title is required" description="Caption that informs that a fact-check could not be saved and that the title field has to be filled" /> : null}
                 error={error}
                 autoGrow
                 maxHeight="266px"
@@ -253,7 +253,7 @@ const MediaFactCheck = ({ projectMedia }) => {
                 maxChars={900 - title.length - url.length}
                 rows="1"
                 label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
-                helpContent={error && <FormattedMessage id="mediaFactCheck.errorSummary" defaultMessage="Fact-check summary is required" description="Caption that informs that a fact-check could not be saved and that the summary field has to be filled" />}
+                helpContent={error ? <FormattedMessage id="mediaFactCheck.errorSummary" defaultMessage="Fact-check summary is required" description="Caption that informs that a fact-check could not be saved and that the summary field has to be filled" /> : null}
                 error={error}
                 autoGrow
                 placeholder={placeholder}
