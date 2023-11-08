@@ -2,7 +2,7 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
   margin: 0 0 16px;
   max-width: var(--columnWidthLarge);
   min-height: 48px;
@@ -42,5 +42,6 @@
 
   .settings-header-context {
     color: var(--textSecondary);
+    width: 100%;
   }
 }

@@ -23,6 +23,7 @@ const LanguagePickerSelect = ({
   onSubmit,
   languages,
   isDisabled,
+  showLabel,
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
   const options = (languages || []).slice();
@@ -67,7 +68,7 @@ const LanguagePickerSelect = ({
               { placeholder => (
                 <TextField
                   iconLeft={<LanguageIcon />}
-                  label={<FormattedMessage id="LanguagePickerSelect.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language of fact-check" />}
+                  label={showLabel ? <FormattedMessage id="LanguagePickerSelect.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language of fact-check" /> : null}
                   placeholder={placeholder}
                   {...params.inputProps}
                 />
@@ -83,6 +84,7 @@ const LanguagePickerSelect = ({
 LanguagePickerSelect.defaultProps = {
   languages: [],
   isDisabled: false,
+  showLabel: true,
   selectedLanguage: 'und',
 };
 
@@ -92,6 +94,7 @@ LanguagePickerSelect.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string),
   isDisabled: PropTypes.bool,
+  showLabel: PropTypes.bool,
 };
 
 export default injectIntl(LanguagePickerSelect);

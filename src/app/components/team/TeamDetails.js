@@ -229,7 +229,14 @@ const TeamDetails = ({
                     }
                     margin="normal"
                     onChange={e => setUtmCode(e.target.value)}
-                    helpContent={<FormattedMessage id="teamDetails.utmCodeHelp" defaultMessage="Customize the UTM code appended to links. Leave blank to disable UTM codes." description="Helper text for UTM code field" />}
+                    helpContent={
+                      <FormattedHTMLMessage
+                        id="teamDetails.utmCodeHelp"
+                        defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
+                        values={{ helpLink: 'https://help.checkmedia.org/en/articles/5540430-tipline-newsletters' }}
+                        description="Helper text for UTM code field"
+                      />
+                    }
                     variant="outlined"
                     disabled={hasScheduledNewsletters}
                   />
@@ -241,7 +248,7 @@ const TeamDetails = ({
                     content={
                       <FormattedHTMLMessage
                         id="teamDetails.warnContent"
-                        defaultMessage="The rewritten links will also include the UTM code if provided. The UTM code does not change the destination URL.<br /><br /><strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
+                        defaultMessage="<strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
                         values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
                         description="Text displayed in the content of a warning box on team details page when link shortening is on"
                       />

@@ -57,7 +57,7 @@
   {
     "id": "teamDetails.utmCodeHelp",
     "description": "Helper text for UTM code field",
-    "defaultMessage": "Customize the UTM code appended to links. Leave blank to disable UTM codes."
+    "defaultMessage": "Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about UTM codes</a>."
   },
   {
     "id": "teamDetails.warnTitle",
@@ -67,6 +67,6 @@
   {
     "id": "teamDetails.warnContent",
     "description": "Text displayed in the content of a warning box on team details page when link shortening is on",
-    "defaultMessage": "The rewritten links will also include the UTM code if provided. The UTM code does not change the destination URL.<br /><br /><strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
+    "defaultMessage": "<strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
   }
 ]
