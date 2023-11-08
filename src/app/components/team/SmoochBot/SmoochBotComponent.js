@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -167,7 +167,14 @@ const SmoochBotComponent = ({
             description="Page title for tipling settings page"
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/5982401-tipline-bot-settings"
+        context={
+          <FormattedHTMLMessage
+            id="smoochBotComponent.helpContext"
+            defaultMessage='Manage your tipline’s menu, customize its responses, and connect it to messaging services. <a href="{helpLink}" target="_blank" title="Learn more">Learn more</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/5982401-tipline-bot-settings' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           installation && !editingResource ?
             <Can permissions={team.permissions} permission="update Team">
