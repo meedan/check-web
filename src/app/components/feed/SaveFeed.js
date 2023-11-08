@@ -243,11 +243,19 @@ const SaveFeed = (props) => {
             />
           </div>
           <div className="typography-h6">
-            <FormattedMessage
-              id="saveFeed.sharedFeedPageSubtitle"
-              defaultMessage="Create a new shared feed"
-              description="Subtitle of the shared feed creation page"
-            />
+            { feed.dbid ? (
+              <FormattedMessage
+                id="saveFeed.sharedFeedPageEditSubtitle"
+                defaultMessage="Edit shared feed"
+                description="Subtitle of the shared feed editing page"
+              />
+            ) : (
+              <FormattedMessage
+                id="saveFeed.sharedFeedPageSubtitle"
+                defaultMessage="Create a new shared feed"
+                description="Subtitle of the shared feed creation page"
+              />
+            )}
           </div>
           <div className="typography-body1">
             <FormattedMessage
