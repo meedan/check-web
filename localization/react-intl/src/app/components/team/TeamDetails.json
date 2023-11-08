@@ -47,7 +47,7 @@
   {
     "id": "teamDetails.linkManagementRss",
     "description": "Helper text for link management switcher when workspace has RSS newsletters configured",
-    "defaultMessage": "The link service cannot be disabled while RSS newsletters are configured in this workspace"
+    "defaultMessage": "Link shortening makes URLs more readable and a predictable length. If you’re using an RSS feed, the link service cannot be disabled. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about link shortening</a>."
   },
   {
     "id": "teamDetails.utmCode",
