@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
 import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -132,16 +131,15 @@ const BulkActionsRemoveTag = ({
           />
         }
         body={
-          <Typography variant="body1" component="p" paragraph>
-            <FormattedHTMLMessage
-              id="bulkActionsRemoveTag.dialogBody"
-              defaultMessage="The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?"
-              values={{
-                tags: selectedValueText,
-              }}
-              description="Body of dialog warning that bulk untagging items"
-            />
-          </Typography>
+          <FormattedHTMLMessage
+            tagName="p"
+            id="bulkActionsRemoveTag.dialogBody"
+            defaultMessage="The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?"
+            values={{
+              tags: selectedValueText,
+            }}
+            description="Body of dialog warning that bulk untagging items"
+          />
         }
         onProceed={handleSubmit}
         onCancel={handleOnCancel}
