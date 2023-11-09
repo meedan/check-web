@@ -136,7 +136,7 @@ class TeamTaskConfirmDialog extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button
-            id="int-confirm-dialog__cancel-action-button"
+            id="confirm-dialog__cancel-action-button"
             onClick={this.handleCancel}
           >
             <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" description="Dialog box cancel button label" />
