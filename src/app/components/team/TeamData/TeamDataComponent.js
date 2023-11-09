@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -310,7 +310,14 @@ const TeamDataComponent = ({
             }
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/4511362"
+        context={
+          <FormattedHTMLMessage
+            id="teamDataComponent.helpContext"
+            defaultMessage='View and export monthly tipline usage data. Data may take 24 hours to update; all data except for WhatsApp conversations are specific to each tipline language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about engagement data</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4511362' }}
+            description="Context description for the functionality of this page"
+          />
+        }
       />
       { data ?
         <ContentColumn remainingWidth>

@@ -184,7 +184,14 @@ const SimilarityComponent = ({
             description="Title to similarity matching settings page"
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions"
+        context={
+          <FormattedHTMLMessage
+            id="teamDataComponent.helpContext"
+            defaultMessage='Manage settings for automatic matching of similar media. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about automatic matching</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           team.alegre_bot ?
             <Can permissions={team.permissions} permission="update Team">
