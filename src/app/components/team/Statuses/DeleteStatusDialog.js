@@ -47,15 +47,12 @@ export const DeleteStatusDialog = ({
           />
         }
         body={
-          <div>
-            <p>
-              <FormattedMessage
-                id="deleteStatusDialog.statusNotInUseMessage"
-                defaultMessage="Are you sure you want to delete this status?"
-                description="Confirmation message displayed on a modal when a status is deleted from statuses settings page."
-              />
-            </p>
-          </div>
+          <FormattedMessage
+            tagName="p"
+            id="deleteStatusDialog.statusNotInUseMessage"
+            defaultMessage="Are you sure you want to delete this status?"
+            description="Confirmation message displayed on a modal when a status is deleted from statuses settings page."
+          />
         }
         onCancel={onCancel}
         onProceed={handleSubmit}
