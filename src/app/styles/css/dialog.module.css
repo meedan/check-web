@@ -18,6 +18,7 @@
   .dialog-actions {
     align-items: center;
     display: flex;
+    gap: 8px;
     justify-content: flex-end;
     padding: 16px 24px;
   }
