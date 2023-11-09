@@ -228,5 +228,10 @@
     "id": "saveFeed.confirmationDialogButton",
     "description": "Button label to confirm updating a feed.",
     "defaultMessage": "Update Shared Feed"
+  },
+  {
+    "id": "saveFeed.confirmationDialogButtonCreate",
+    "description": "Button label to confirm creating a feed.",
+    "defaultMessage": "Create Shared Feed"
   }
 ]

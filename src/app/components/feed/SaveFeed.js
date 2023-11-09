@@ -749,7 +749,11 @@ const SaveFeed = (props) => {
             }
           </div>
         }
-        proceedLabel={<FormattedMessage id="saveFeed.confirmationDialogButton" defaultMessage="Update Shared Feed" description="Button label to confirm updating a feed." />}
+        proceedLabel={
+          feed.id ?
+            <FormattedMessage id="saveFeed.confirmationDialogButton" defaultMessage="Update Shared Feed" description="Button label to confirm updating a feed." /> :
+            <FormattedMessage id="saveFeed.confirmationDialogButtonCreate" defaultMessage="Create Shared Feed" description="Button label to confirm creating a feed." />
+        }
         onProceed={handleSave}
         onCancel={() => { setShowConfirmationDialog(false); }}
         isSaving={saving}
