@@ -24,7 +24,7 @@ shared_examples 'language' do
     # set as default
     wait_for_selector_list('.language-actions__menu')[1].click
     wait_for_selector('.language-actions__make-default').click
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
+    wait_for_selector('.int-confirm-proceed-dialog__proceed').click
     wait_for_selector('.language-list-item__es-default')
     expect(@driver.page_source.include?('language-list-item__es-default')).to be(true)
     # add untranslated language
@@ -41,13 +41,13 @@ shared_examples 'language' do
     wait_for_selector_list('.language-actions__menu')[2].click
     wait_for_selector('.language-actions__make-default').click
     expect(@driver.page_source.include?('need to translate all')).to be(true)
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
+    wait_for_selector('.int-confirm-proceed-dialog__proceed').click
     # delete language
     wait_for_selector_list('.language-actions__menu')[2].click
     wait_for_selector('.language-actions__delete').click
     wait_for_selector('#confirm-proceed-dialog__confirmation-text').send_keys('Delete Norwegian / Norsk (no) and all content')
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
-    wait_for_selector_none('.confirm-proceed-dialog__proceed')
+    wait_for_selector('.int-confirm-proceed-dialog__proceed').click
+    wait_for_selector_none('.int-confirm-proceed-dialog__proceed')
     expect(@driver.page_source.include?('Nork')).to be(false)
   end
 end

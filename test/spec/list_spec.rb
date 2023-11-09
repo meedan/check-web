@@ -19,7 +19,7 @@ shared_examples 'list' do
     expect(@driver.find_elements(:css, '.medias__item').empty?).to be(true)
     # save list
     wait_for_selector('#save-list__button').click
-    wait_for_selector('.confirm-proceed-dialog__cancel')
+    wait_for_selector('.int-confirm-proceed-dialog__cancel')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     @driver.navigate.refresh
     wait_for_selector('.project-list__link')

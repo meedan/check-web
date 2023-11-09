@@ -15,6 +15,11 @@
     "defaultMessage": "Shared feed"
   },
   {
+    "id": "saveFeed.sharedFeedPageEditSubtitle",
+    "description": "Subtitle of the shared feed editing page",
+    "defaultMessage": "Edit shared feed"
+  },
+  {
     "id": "saveFeed.sharedFeedPageSubtitle",
     "description": "Subtitle of the shared feed creation page",
     "defaultMessage": "Create a new shared feed"
@@ -205,13 +210,28 @@
     "defaultMessage": "Are you sure you want to update this shared feed?"
   },
   {
+    "id": "saveFeed.invitationConfirmationDialogTitle",
+    "description": "Confirmation dialog title for feed collaboration invitations.",
+    "defaultMessage": "Collaboration invitations"
+  },
+  {
     "id": "saveFeed.confirmationDialogBody",
     "description": "Confirmation dialog message when saving a feed.",
     "defaultMessage": "Are you sure you want to update this shared feed?"
   },
   {
+    "id": "saveFeed.invitationConfirmationDialogBody",
+    "description": "Confirmation dialog message when saving a feed.",
+    "defaultMessage": "An email will be sent to collaborators listed to invite them to contribute to this shared feed."
+  },
+  {
     "id": "saveFeed.confirmationDialogButton",
     "description": "Button label to confirm updating a feed.",
     "defaultMessage": "Update Shared Feed"
+  },
+  {
+    "id": "saveFeed.confirmationDialogButtonCreate",
+    "description": "Button label to confirm creating a feed.",
+    "defaultMessage": "Create Shared Feed"
   }
 ]

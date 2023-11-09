@@ -8,6 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import styles from './SaveFeed.module.css';
+import FeedCollaboration from './FeedCollaboration';
 import SelectListQueryRenderer from './SelectList';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ExternalLink from '../ExternalLink';
@@ -84,6 +85,16 @@ const createMutation = graphql`
   }
 `;
 
+const inviteMutation = graphql`
+  mutation SaveFeedCreateFeedInvitationMutation($input: CreateFeedInvitationInput!) {
+    createFeedInvitation(input: $input) {
+      feed_invitation {
+        id
+      }
+    }
+  }
+`;
+
 const updateMutation = graphql`
   mutation SaveFeedUpdateFeedMutation($input: UpdateFeedInput!) {
     updateFeed(input: $input) {
@@ -130,6 +141,8 @@ const SaveFeed = (props) => {
   const [description, setDescription] = React.useState(feed.description || '');
   const [selectedListId, setSelectedListId] = React.useState(feed.saved_search_id);
   const [discoverable, setDiscoverable] = React.useState(Boolean(feed.discoverable));
+  const [createdFeedDbid, setCreatedFeedDbid] = React.useState(null);
+  const [newInvites, setNewInvites] = React.useState([]);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const feedLicenses = feed.licenses || [];
@@ -146,6 +159,10 @@ const SaveFeed = (props) => {
     browserHistory.push(`/${teamSlug}/feed/${feedId}/feed`);
   };
 
+  const onInviteSuccess = () => {
+    handleViewFeed(feed.dbid || createdFeedDbid);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
     setShowDeleteDialog(false);
@@ -155,16 +172,42 @@ const SaveFeed = (props) => {
     setShowDeleteDialog(true);
   };
 
-  const onSuccess = (response) => {
-    const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
-    handleViewFeed(dbid);
-    setSaving(false);
-  };
-
   const onFailure = (error) => {
     const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
     setFlashMessage(message, 'error');
     setSaving(false);
+  };
+
+  const handleInvite = (dbid) => {
+    setSaving(true);
+    // TODO Make createFeedInvitation accept multiple emails
+    newInvites.forEach((email) => {
+      const input = {
+        feed_id: dbid,
+        email,
+      };
+      commitMutation(Relay.Store, {
+        mutation: inviteMutation,
+        variables: { input },
+        onCompleted: onInviteSuccess,
+        onError: onFailure,
+      });
+    });
+  };
+
+  React.useEffect(() => {
+    if (createdFeedDbid && newInvites.length) {
+      handleInvite(createdFeedDbid);
+    }
+  }, [createdFeedDbid]);
+
+  const onSuccess = (response) => {
+    const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
+    setCreatedFeedDbid(dbid);
+    setSaving(false);
+    if (!newInvites.length) {
+      handleViewFeed(dbid);
+    }
   };
 
   // Error states that cause the save/edit button to disable
@@ -205,7 +248,7 @@ const SaveFeed = (props) => {
   };
 
   const handleConfirmOrSave = () => {
-    if (feed.id) {
+    if (feed.id || newInvites.length) {
       setShowConfirmationDialog(true);
     } else {
       handleSave();
@@ -258,11 +301,19 @@ const SaveFeed = (props) => {
             />
           </div>
           <div className="typography-h6">
-            <FormattedMessage
-              id="saveFeed.sharedFeedPageSubtitle"
-              defaultMessage="Create a new shared feed"
-              description="Subtitle of the shared feed creation page"
-            />
+            { feed.dbid ? (
+              <FormattedMessage
+                id="saveFeed.sharedFeedPageEditSubtitle"
+                defaultMessage="Edit shared feed"
+                description="Subtitle of the shared feed editing page"
+              />
+            ) : (
+              <FormattedMessage
+                id="saveFeed.sharedFeedPageSubtitle"
+                defaultMessage="Create a new shared feed"
+                description="Subtitle of the shared feed creation page"
+              />
+            )}
           </div>
           <div className="typography-body1">
             <FormattedMessage
@@ -487,6 +538,7 @@ const SaveFeed = (props) => {
       <div className={styles.saveFeedContentNarrow}>
         <div className={styles.saveFeedButtonContainer}>
           <ButtonMain
+            className={styles.saveFeedContentNarrowAction}
             theme="brand"
             size="default"
             variant="contained"
@@ -580,6 +632,7 @@ const SaveFeed = (props) => {
           </div>
           : null
         }
+        <FeedCollaboration feed={feed} onChange={setNewInvites} />
       </div>
 
       {/* "Delete" dialog */}
@@ -601,7 +654,7 @@ const SaveFeed = (props) => {
         }
         body={
           feed.saved_search_id ?
-            <p className={styles.saveFeedDialogDivider}>
+            <>
               <FormattedHTMLMessage
                 id="saveFeed.deleteSharedFeedConfirmationDialogWaningBody"
                 defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
@@ -625,18 +678,16 @@ const SaveFeed = (props) => {
                   </ul>
                 }
               />
-            </p>
+            </>
             :
-            <p className={styles.saveFeedDialogDivider}>
-              <FormattedHTMLMessage
-                id="saveFeed.deleteSharedFeedConfirmationDialogBody"
-                defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
-                values={{
-                  orgName: feed.team?.name,
-                }}
-                description="Confirmation dialog message when deleting a feed."
-              />
-            </p>
+            <FormattedHTMLMessage
+              id="saveFeed.deleteSharedFeedConfirmationDialogBody"
+              defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
+              values={{
+                orgName: feed.team?.name,
+              }}
+              description="Confirmation dialog message when deleting a feed."
+            />
         }
         proceedLabel={
           <FormattedMessage
@@ -655,20 +706,52 @@ const SaveFeed = (props) => {
       <ConfirmProceedDialog
         open={showConfirmationDialog}
         title={
-          <FormattedMessage
-            id="saveFeed.confirmationDialogTitle"
-            defaultMessage="Are you sure you want to update this shared feed?"
-            description="Confirmation dialog title when saving a feed."
-          />
+          feed.id ? (
+            <FormattedMessage
+              id="saveFeed.confirmationDialogTitle"
+              defaultMessage="Are you sure you want to update this shared feed?"
+              description="Confirmation dialog title when saving a feed."
+            />
+          ) : (
+            <FormattedMessage
+              id="saveFeed.invitationConfirmationDialogTitle"
+              defaultMessage="Collaboration invitations"
+              description="Confirmation dialog title for feed collaboration invitations."
+            />
+          )
         }
         body={
-          <FormattedMessage
-            id="saveFeed.confirmationDialogBody"
-            defaultMessage="Are you sure you want to update this shared feed?"
-            description="Confirmation dialog message when saving a feed."
-          />
+          <div>
+            { feed.id &&
+              <p>
+                <FormattedMessage
+                  id="saveFeed.confirmationDialogBody"
+                  defaultMessage="Are you sure you want to update this shared feed?"
+                  description="Confirmation dialog message when saving a feed."
+                />
+              </p>
+            }
+            { newInvites.length ?
+              <>
+                <p>
+                  <FormattedMessage
+                    id="saveFeed.invitationConfirmationDialogBody"
+                    defaultMessage="An email will be sent to collaborators listed to invite them to contribute to this shared feed."
+                    description="Confirmation dialog message when saving a feed."
+                  />
+                </p>
+                <ul>
+                  { newInvites.map(email => <li className={styles.invitedEmail}>&bull; {email}</li>) }
+                </ul>
+              </> : null
+            }
+          </div>
         }
-        proceedLabel={<FormattedMessage id="saveFeed.confirmationDialogButton" defaultMessage="Update Shared Feed" description="Button label to confirm updating a feed." />}
+        proceedLabel={
+          feed.id ?
+            <FormattedMessage id="saveFeed.confirmationDialogButton" defaultMessage="Update Shared Feed" description="Button label to confirm updating a feed." /> :
+            <FormattedMessage id="saveFeed.confirmationDialogButtonCreate" defaultMessage="Create Shared Feed" description="Button label to confirm creating a feed." />
+        }
         onProceed={handleSave}
         onCancel={() => { setShowConfirmationDialog(false); }}
         isSaving={saving}
@@ -712,9 +795,11 @@ export default createFragmentContainer(SaveFeed, graphql`
     updated_at
     permissions
     team {
+      dbid
       name
       slug
     }
+    ...FeedCollaboration_feed
     teams_count
     user {
       email
