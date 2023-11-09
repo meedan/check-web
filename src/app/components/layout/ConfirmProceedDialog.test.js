@@ -15,7 +15,7 @@ describe('<ConfirmProceedDialog />', () => {
     />);
     expect(wrapper.html()).toMatch('Dialog Title');
     expect(wrapper.html()).toMatch('Body Content');
-    expect(wrapper.find('.confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.confirm-proceed-dialog__proceed').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-confirm-proceed-dialog__proceed').hostNodes()).toHaveLength(1);
   });
 });
