@@ -20,6 +20,7 @@ import ClearIcon from '../../icons/clear.svg';
 import PersonAddIcon from '../../icons/person_add.svg';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import TeamAvatar from '../team/TeamAvatar';
+import ExternalLink from '../ExternalLink';
 
 const messages = defineMessages({
   placeholder: {
@@ -194,9 +195,16 @@ const FeedCollaboration = ({
             defaultMessage="Invite other organizations to contribute data into this shared feed. All contributing organizations to this feed share the same data point."
             description="Description to the feed collaboration management feature"
           />
+          &nbsp;
+          <ExternalLink url="https://help.checkmedia.org/en/articles/8542417-invitation-shared-feed">
+            <FormattedMessage
+              id="feedCollaboration.learnMore"
+              defaultMessage="Learn more"
+              description="Link to knowledge base article on shared feed invitations"
+            />
+          </ExternalLink>
         </span>
       }
-      { /* TODO add "Learn more" link */}
       <div className={styles['feed-collab-input']}>
         <TextField
           className={cx(styles['feed-collab-text-field'], 'int-feed-collab__text-field')}

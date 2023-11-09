@@ -28,5 +28,10 @@
     "id": "feedCollaboration.description",
     "description": "Description to the feed collaboration management feature",
     "defaultMessage": "Invite other organizations to contribute data into this shared feed. All contributing organizations to this feed share the same data point."
+  },
+  {
+    "id": "feedCollaboration.learnMore",
+    "description": "Link to knowledge base article on shared feed invitations",
+    "defaultMessage": "Learn more"
   }
 ]
