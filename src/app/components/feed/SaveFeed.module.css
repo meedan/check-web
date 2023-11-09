@@ -42,13 +42,6 @@
   color: var(--brandMain);
 }
 
-.saveFeedDialogDivider {
-  border-bottom: 1px solid var(--brandBorder);
-  border-top: 1px solid var(--brandBorder);
-  padding-bottom: 16px;
-  padding-top: 16px;
-}
-
 .saveFeedCard {
   background: var(--otherWhite);
   border-radius: 8px;

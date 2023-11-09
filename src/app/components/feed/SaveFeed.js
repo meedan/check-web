@@ -654,7 +654,7 @@ const SaveFeed = (props) => {
         }
         body={
           feed.saved_search_id ?
-            <p className={styles.saveFeedDialogDivider}>
+            <>
               <FormattedHTMLMessage
                 id="saveFeed.deleteSharedFeedConfirmationDialogWaningBody"
                 defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
@@ -678,18 +678,16 @@ const SaveFeed = (props) => {
                   </ul>
                 }
               />
-            </p>
+            </>
             :
-            <p className={styles.saveFeedDialogDivider}>
-              <FormattedHTMLMessage
-                id="saveFeed.deleteSharedFeedConfirmationDialogBody"
-                defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
-                values={{
-                  orgName: feed.team?.name,
-                }}
-                description="Confirmation dialog message when deleting a feed."
-              />
-            </p>
+            <FormattedHTMLMessage
+              id="saveFeed.deleteSharedFeedConfirmationDialogBody"
+              defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
+              values={{
+                orgName: feed.team?.name,
+              }}
+              description="Confirmation dialog message when deleting a feed."
+            />
         }
         proceedLabel={
           <FormattedMessage
