@@ -21,7 +21,6 @@ const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
             permissions
             report_status
             hasMain: is_confirmed_similar_to_another_item
-            isSuggested: is_suggested
             confirmedMainItem: confirmed_main_item {
               id
               dbid
@@ -72,10 +71,8 @@ const MediaSimilarityBar = ({ projectMedia, setShowTab }) => {
           return (
             <MediaSimilarityBarComponent
               projectMediaDbid={props.project_media.dbid}
-              suggestionsCount={props.project_media.suggestionsCount}
               confirmedSimilarCount={props.project_media.confirmedSimilarCount}
               hasMain={props.project_media.hasMain}
-              isSuggested={props.project_media.isSuggested}
               confirmedMainItemId={props.project_media.confirmedMainItem.id}
               canAdd={can(props.project_media.permissions, 'update ProjectMedia')}
               isBlank={props.project_media.type === 'Blank'}

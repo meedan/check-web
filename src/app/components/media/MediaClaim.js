@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import cx from 'classnames/bind';
 import TextArea from '../cds/inputs/TextArea';
 import TimeBefore from '../TimeBefore';
 import MediaContext from './MediaContext';
 import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
-import styles from './media.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 
 const MediaClaim = ({ projectMedia }) => {
@@ -114,72 +112,74 @@ const MediaClaim = ({ projectMedia }) => {
   };
 
   return (
-    <div id="media__claim" className={cx(styles['media-item-claim-inner'], inputStyles['form-fieldset'])}>
-      <div id="media__claim-title" className={inputStyles['form-fieldset-title']}>
-        <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
-        <div className={inputStyles['form-fieldset-title-extra']}>
-          { error ?
-            <FormattedMessage
-              id="mediaClaim.error"
-              defaultMessage="error"
-              description="Caption that informs that a claim could not be saved"
-            />
-            : null
-          }
-          { saving && !error ?
-            <FormattedMessage
-              id="mediaClaim.saving"
-              defaultMessage="saving…"
-              description="Caption that informs that a claim is being saved"
-            />
-            : null
-          }
-          { !saving && !error && claimDescription &&
-            <FormattedMessage
-              className="media-claim__saved-by"
-              id="mediaClaim.saved"
-              defaultMessage="saved by {userName} {timeAgo}"
-              values={{
-                userName: claimDescription.user.name,
-                timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
-              }}
-              description="Caption that informs who last saved this claim and when it happened."
-            />
-          }
+    <div className={inputStyles['form-inner-wrapper']}>
+      <div id="media__claim" className={inputStyles['form-fieldset']}>
+        <div id="media__claim-title" className={inputStyles['form-fieldset-title']}>
+          <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
+          <div className={inputStyles['form-fieldset-title-extra']}>
+            { error ?
+              <FormattedMessage
+                id="mediaClaim.error"
+                defaultMessage="error"
+                description="Caption that informs that a claim could not be saved"
+              />
+              : null
+            }
+            { saving && !error ?
+              <FormattedMessage
+                id="mediaClaim.saving"
+                defaultMessage="saving…"
+                description="Caption that informs that a claim is being saved"
+              />
+              : null
+            }
+            { !saving && !error && claimDescription &&
+              <FormattedMessage
+                className="media-claim__saved-by"
+                id="mediaClaim.saved"
+                defaultMessage="saved by {userName} {timeAgo}"
+                values={{
+                  userName: claimDescription.user.name,
+                  timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
+                }}
+                description="Caption that informs who last saved this claim and when it happened."
+              />
+            }
+          </div>
         </div>
+        <div className={inputStyles['form-fieldset-field']}>
+          <FormattedMessage
+            id="mediaClaim.placeholder"
+            defaultMessage="For example: The earth is flat"
+            description="Placeholder for claim description field."
+          >
+            { placeholder => (
+              <TextArea
+                maxHeight="266px"
+                id="media-claim__description"
+                className="media-claim__description"
+                placeholder={placeholder}
+                defaultValue={claimDescription ? claimDescription.description : ''}
+                onBlur={(e) => { handleBlur(e.target.value); }}
+                disabled={!hasPermission || readOnly}
+                label={
+                  <FormattedMessage
+                    id="mediaClaim.title"
+                    defaultMessage="Title"
+                    description="Title for the text input for claim title"
+                  />
+                }
+              />
+            )}
+          </FormattedMessage>
+        </div>
+        <MediaContext
+          projectMedia={projectMedia}
+          claimDescription={claimDescription}
+          setSaving={setSaving}
+          setError={setError}
+        />
       </div>
-      <div className={inputStyles['form-fieldset-field']}>
-        <FormattedMessage
-          id="mediaClaim.placeholder"
-          defaultMessage="For example: The earth is flat"
-          description="Placeholder for claim description field."
-        >
-          { placeholder => (
-            <TextArea
-              maxHeight="266px"
-              id="media-claim__description"
-              className="media-claim__description"
-              placeholder={placeholder}
-              defaultValue={claimDescription ? claimDescription.description : ''}
-              onBlur={(e) => { handleBlur(e.target.value); }}
-              disabled={!hasPermission || readOnly}
-              label={
-                <FormattedMessage
-                  id="mediaClaim.title"
-                  defaultMessage="Title"
-                  description="Title for the text input for claim title"
-                />
-              }
-            />
-          )}
-        </FormattedMessage>
-      </div>
-      <MediaContext
-        projectMedia={projectMedia}
-        claimDescription={claimDescription}
-        setSaving={setSaving}
-        setError={setError}
-      />
     </div>
   );
 };

@@ -122,7 +122,7 @@ function UserTooltipComponent({ teamUser }) {
               {dateString => (
                 <FormattedHTMLMessage
                   id="userTooltip.dateJoined"
-                  defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No workspaces} one {1 workspace} other {# workspaces}}"
+                  defaultMessage="Joined {date} &bull; {teamsCount, plural, one {# workspace} other {# workspaces}}"
                   values={{
                     date: dateString,
                     teamsCount: user?.number_of_teams,
@@ -140,7 +140,7 @@ function UserTooltipComponent({ teamUser }) {
   );
 }
 // eslint-disable-next-line
-export { UserTooltipComponent }; 
+export { UserTooltipComponent };
 
 export default Relay.createContainer(UserTooltipComponent, {
   fragments: {

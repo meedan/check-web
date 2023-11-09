@@ -21,6 +21,7 @@ const TagList = ({
   maxTags,
   onClickTag,
   saving,
+  customCreateLabel,
 }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -72,7 +73,7 @@ const TagList = ({
       size="default"
       onClick={() => handleAddNew(searchValue)}
       label={
-        <FormattedMessage id="tagList.create" defaultMessage="+ Create search tags" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." />
+        customCreateLabel || <FormattedMessage id="tagList.create" defaultMessage="+ Create search tags" description="A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results." />
       }
       buttonProps={{
         id: 'tag-menu__create-button',
@@ -220,6 +221,7 @@ TagList.defaultProps = {
   onClickTag: null,
   options: null,
   saving: false,
+  customCreateLabel: null,
 };
 
 TagList.propTypes = {
@@ -230,6 +232,7 @@ TagList.propTypes = {
   maxTags: PropTypes.number,
   onClickTag: PropTypes.func,
   saving: PropTypes.bool,
+  customCreateLabel: PropTypes.node,
 };
 
 export default TagList;

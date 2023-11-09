@@ -145,6 +145,21 @@
     "defaultMessage": "Create shared feed"
   },
   {
+    "id": "saveFeed.MoreActionsButton",
+    "description": "Label to the save button of the shared feed update form",
+    "defaultMessage": "More Actions"
+  },
+  {
+    "id": "SaveFeed.deleteButtonDisabled",
+    "description": "Menu option to inform user to remove collaborators before deleting the selected shared feed",
+    "defaultMessage": "Delete shared feed <br />(Remove collaborators to <br /> delete this shared feed)"
+  },
+  {
+    "id": "SaveFeed.deleteButton",
+    "description": "Menu option to delete the selected shared feed",
+    "defaultMessage": "Delete shared feed"
+  },
+  {
     "id": "saveFeed.createdBy",
     "description": "Metadata field displayed on feed edit page.",
     "defaultMessage": "Created by {teamName}"
@@ -153,6 +168,41 @@
     "id": "saveFeed.lastUpdated",
     "description": "On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'.",
     "defaultMessage": "Last updated {timeAgo}"
+  },
+  {
+    "id": "saveFeed.deleteSharedFeedWarningTitle",
+    "description": "'Delete' here is an infinitive verb",
+    "defaultMessage": "Are you sure you want to delete this shared feed?"
+  },
+  {
+    "id": "saveFeed.deleteSharedFeedTitle",
+    "description": "'Delete' here is an infinitive verb",
+    "defaultMessage": "Delete Shared Feed?"
+  },
+  {
+    "id": "saveFeed.deleteSharedFeedConfirmationDialogWaningBody",
+    "description": "Confirmation dialog message when deleting a feed.",
+    "defaultMessage": "This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
+  },
+  {
+    "id": "saveFeed.deleteSharedFeedWarning",
+    "description": "Warning displayed on edit feed page when no list is selected.",
+    "defaultMessage": "<strong>NOTE: Your custom list and items will remain available and unaffected.</strong>"
+  },
+  {
+    "id": "saveFeed.deleteSharedFeedConfirmationDialogBody",
+    "description": "Confirmation dialog message when deleting a feed.",
+    "defaultMessage": "This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
+  },
+  {
+    "id": "saveFeed.deleteSharedFeedConfirmationButton",
+    "description": "'Delete' here is an infinitive verb",
+    "defaultMessage": "Delete Shared Feed"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
   },
   {
     "id": "saveFeed.confirmationDialogTitle",

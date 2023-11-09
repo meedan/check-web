@@ -139,7 +139,7 @@ class MediaTasksComponent extends Component {
     const itemTasks = media.item_metadata;
 
     return (
-      <StyledAnnotationRow className={cx('typography-body1', styles['media-item-content'])}>
+      <StyledAnnotationRow className={cx(styles['media-tasks'], styles['media-item-content'])}>
         <Tasks tasks={itemTasks.edges} media={media} about={about} />
       </StyledAnnotationRow>
     );

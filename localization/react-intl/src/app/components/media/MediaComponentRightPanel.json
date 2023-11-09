@@ -12,7 +12,7 @@
   {
     "id": "mediaComponent.annotation",
     "description": "Label for the Annotation tab",
-    "defaultMessage": "Annotation"
+    "defaultMessage": "Annotations"
   },
   {
     "id": "mediaComponent.source",

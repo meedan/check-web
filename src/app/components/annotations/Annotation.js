@@ -677,7 +677,7 @@ class Annotation extends Component {
           <div>
             <div className="annotation__card-content annotation__bot-response">
               <span>
-                <b>{botResponse.title}</b><br />
+                <strong>{botResponse.title}</strong><br />
                 <ParsedText text={botResponse.description} />
               </span>
               <div>
