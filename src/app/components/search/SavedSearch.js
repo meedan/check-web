@@ -104,7 +104,7 @@ const SavedSearch = ({ routeParams }) => (
                         <FormattedHTMLMessage
                           tagName="p"
                           id="savedSearch.deleteMessage"
-                          defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong> After deleting it, no user will be able to access it."
+                          defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it."
                           description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
                           values={{
                             teamName: props.saved_search?.team ? props.saved_search.team.name : '',

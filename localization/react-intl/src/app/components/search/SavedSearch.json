@@ -12,7 +12,7 @@
   {
     "id": "savedSearch.deleteMessage",
     "description": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace.",
-    "defaultMessage": "Are you sure? This is shared among all users of <strong>{teamName}</strong> After deleting it, no user will be able to access it."
+    "defaultMessage": "Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it."
   },
   {
     "id": "savedSearch.subtitle",
