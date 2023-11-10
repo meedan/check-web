@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import {
   Box,
-  Button,
   Checkbox,
   Dialog,
-  DialogActions,
-  DialogContent,
   FormControl,
   FormControlLabel,
   FormHelperText,
@@ -20,6 +17,8 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { getTimeZones } from '@vvo/tzdb';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import EditTaskAlert from './EditTaskAlert';
 import EditTaskOptions from './EditTaskOptions';
@@ -33,6 +32,7 @@ import LocationIcon from '../../icons/location.svg';
 import RadioButtonCheckedIcon from '../../icons/radio_button_checked.svg';
 import ShortTextIcon from '../../icons/notes.svg';
 import { units } from '../../styles/js/shared';
+import dialogStyles from '../../styles/css/dialog.module.css';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -391,14 +391,22 @@ class EditTaskDialog extends React.Component {
 
     return (
       <Dialog
-        className="create-task__dialog"
+        className={cx('create-task__dialog', dialogStyles['dialog-window'])}
         open
         onClose={this.props.onDismiss}
         scroll="body"
         maxWidth="sm"
         fullWidth
       >
-        <DialogContent>
+        <div className={dialogStyles['dialog-title']}>
+          <FormattedMessage
+            tagName="h6"
+            id="tasks.editAnnotationDialogTitle"
+            defaultMessage="Edit Annotation"
+            description="Title for dialog when editing an annotation"
+          />
+        </div>
+        <div className={dialogStyles['dialog-content']}>
           <Message message={this.props.message} />
           <TextField
             id="task-label-input"
@@ -548,26 +556,30 @@ class EditTaskDialog extends React.Component {
             task={this.props.task}
             diff={this.state.diff}
           />
-        </DialogContent>
-        <DialogActions>
-          <Button
+        </div>
+        <div className={dialogStyles['dialog-actions']}>
+          <ButtonMain
             className="create-task__dialog-cancel-button"
             onClick={this.props.onDismiss}
-          >
-            <FormattedMessage
-              id="tasks.cancelAdd"
-              defaultMessage="Cancel"
-              description="Cancel action button label"
-            />
-          </Button>
-          <Button
+            size="default"
+            variant="text"
+            theme="lightText"
+            label={
+              <FormattedMessage
+                id="tasks.cancelAdd"
+                defaultMessage="Cancel"
+                description="Cancel action button label"
+              />
+            }
+          />
+          <ButtonMain
             className="create-task__dialog-submit-button"
             onClick={this.handleSave}
+            size="default"
             variant="contained"
-            color="primary"
+            theme="brand"
             disabled={this.state.submitDisabled}
-          >
-            { this.state.showWarning ? (
+            label={this.state.showWarning ? (
               <FormattedMessage
                 id="tasks.saveButtonWarning"
                 defaultMessage="I understand, save changes"
@@ -580,8 +592,8 @@ class EditTaskDialog extends React.Component {
                 description="Save action button label"
               />
             )}
-          </Button>
-        </DialogActions>
+          />
+        </div>
       </Dialog>
     );
   }
