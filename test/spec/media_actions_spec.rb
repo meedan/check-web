@@ -74,7 +74,7 @@ shared_examples 'media actions' do
     wait_for_selector('.annotation .menu-button').click
     wait_for_selector('.annotation__delete').click
     wait_for_selector_none('.annotation__avatar-col')
-    expect(@driver.page_source.include?('A comment')).to be(false)
+    expect(@driver.page_source.include?('0 Notes')).to be(true)
   end
 
   it 'should add image to media comment', bin3: true do
