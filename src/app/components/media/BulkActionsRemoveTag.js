@@ -134,7 +134,7 @@ const BulkActionsRemoveTag = ({
           <FormattedHTMLMessage
             tagName="p"
             id="bulkActionsRemoveTag.dialogBody"
-            defaultMessage="The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?"
+            defaultMessage="The <strong>{tags}</strong> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><strong>This action cannot be undone.</strong> Are you sure you want to continue?"
             values={{
               tags: selectedValueText,
             }}
