@@ -240,8 +240,8 @@ const ProjectActions = ({
         open={showDeleteDialog}
         title={
           <FormattedMessage
-            id="projectsComponent.deleteType"
-            defaultMessage="Delete list"
+            id="projectsComponent.deleteTitleType"
+            defaultMessage="Delete list?"
             description="'Delete' here is an infinitive verb"
           />
         }
