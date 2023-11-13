@@ -1,5 +1,10 @@
 [
   {
+    "id": "autoCompleteMediaItem.placeholder",
+    "description": "Placeholder autocomplete search field",
+    "defaultMessage": "Search"
+  },
+  {
     "id": "autoCompleteMediaItem.searching",
     "description": "Status message that a search is active",
     "defaultMessage": "Searching…"

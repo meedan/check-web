@@ -272,6 +272,61 @@
   }
 }
 
+.media-item-autocomplete-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+
+  .media-item-autocomplete {
+    display: flex;
+    flex: 1 1 100%;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+
+    .media-item-autocomplete-inputs {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 8px;
+
+      > div {
+        flex: 1 1 auto;
+      }
+
+      > button {
+        flex: 0 0 auto;
+        margin: 4px 0 0;
+      }
+    }
+
+    .media-item-autocomplete-results {
+      background-color: var(--brandBackground);
+      border: solid 2px var(--brandBackgroundAccent);
+      border-radius: 5px;
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      overflow-y: scroll;
+      padding: 16px;
+
+      .media-item-autocomplete-link {
+        display: contents;
+        text-decoration: none;
+      }
+
+      .media-item-autocomplete-multiple {
+        align-items: center;
+        display: flex;
+      }
+
+      .media-item-autocomplete-selected-item {
+        background-color: var(--grayBackground);
+        outline: solid 2px var(--brandMain);
+      }
+    }
+  }
+}
+
 body[dir='rtl'] {
   .media-timeline-item {
     &::before {

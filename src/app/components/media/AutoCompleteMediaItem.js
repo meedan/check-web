@@ -1,43 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router';
-import Box from '@material-ui/core/Box';
-import Tooltip from '@material-ui/core/Tooltip';
 import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import cx from 'classnames/bind';
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
+import TextField from '../cds/inputs/TextField';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import SettingsIcon from '../../icons/settings.svg';
-
-const useStyles = makeStyles(theme => ({
-  searchSettingsTitle: {
-    fontWeight: 'bold',
-  },
-  searchSettingsBox: {
-    marginLeft: theme.spacing(1),
-    paddingLeft: theme.spacing(1),
-    width: 250,
-  },
-  autocompleteResults: {
-    overflow: 'auto',
-    maxHeight: 400,
-    paddingRight: theme.spacing(1),
-    marginTop: 12,
-  },
-  selectedItem: {
-    background: 'var(--grayBackground)',
-  },
-  link: {
-    textDecoration: 'none',
-    display: 'contents',
-  },
-}));
+import SearchIcon from '../../icons/search.svg';
+import styles from './media.module.css';
 
 // Return { jsonPromise, abort }.
 //
@@ -63,7 +40,6 @@ function fetchJsonEnsuringOkAllowingAbort(url, params) {
 }
 
 const AutoCompleteMediaItem = (props, context) => {
-  const classes = useStyles();
   const teamSlug = context.store.getState().app.context.team.slug; // TODO make it a prop
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [searchText, setSearchText] = React.useState('');
@@ -281,113 +257,115 @@ const AutoCompleteMediaItem = (props, context) => {
   }, [searchText, setSearchResult, props.dbid, keywordFields]);
 
   return (
-    <Box display="flex" alignItems="center" className="autocomplete-media-item">
-      <Box flexGrow="1" width={1}>
-        <Box display="flex" alignItems="flex-start" flexGrow="1">
-          <TextField
-            id="autocomplete-media-item"
-            name="autocomplete-media-item"
-            onKeyPress={handleKeyPress}
-            onChange={handleChangeSearchText}
-            helperText={
-              searchResult ?
-                <React.Fragment>
-                  { searchResult.loading ?
-                    <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" description="Status message that a search is active" /> : null }
-                  { !searchResult.loading && !searchResult.error && !searchResult.items.length ?
-                    <FormattedMessage id="autoCompleteMediaItem.notFound" defaultMessage="No matches found" description="Status message when a search returned no results" /> : null }
-                  { searchResult.error ?
-                    <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." description="Status message when a search resulted in an error" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
-                  { searchResult.items && searchResult.items.length > 0 ?
-                    <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {# result} other {# results}}" description="Count of search results" values={{ count: searchResult.items.length }} /> : null }
-                </React.Fragment> : <FormattedMessage id="autoCompleteMediaItem.type" defaultMessage="Type above to search" description="Helper text displayed next to search field to look for items to be imported" />
-            }
-            variant="outlined"
-            fullWidth
-          />
-          { props.showFilters ?
-            <ButtonMain
-              iconCenter={<SettingsIcon />}
-              variant="outlined"
-              size="small"
-              theme="text"
-              onClick={handleSettingsButton}
-            /> : null }
-        </Box>
-        { searchResult ?
-          <Box>
-            { searchResult.items && searchResult.items.length > 0 ?
-              <Box className={classes.autocompleteResults}>
-                { searchResult.items.map(projectMedia => (
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    key={projectMedia.dbid}
-                    className={props.multiple ? '' : 'autocomplete-media-item__select'}
-                  >
-                    { props.multiple ?
-                      <Tooltip
-                        disableFocusListener
-                        disableTouchListener
-                        disableHoverListener={!projectMedia.isPublished || !props.disablePublished}
-                        title={
-                          <FormattedMessage
-                            id="autoCompleteMediaItem.cantSelectPublished"
-                            defaultMessage="Media cannot be imported from items that have their report published"
-                            description="Tooltip error message about when media can be imported"
-                          />
-                        }
-                      >
-                        <span>
-                          <Checkbox
-                            className="autocomplete-media-item__select"
-                            disabled={projectMedia.isPublished && props.disablePublished}
-                            onChange={(e, checked) => {
-                              handleSelectMany(projectMedia.dbid, checked);
-                            }}
-                          />
-                        </span>
-                      </Tooltip> : null
-                    }
-                    <Link to={projectMedia.full_url} className={classes.link}>
-                      <SmallMediaCard
-                        customTitle={projectMedia.title}
-                        details={[
-                          (
-                            <FormattedMessage
-                              id="autoCompleteMediaItem.lastSubmitted"
-                              defaultMessage="Last submitted {date}"
-                              description="Shows the last time a media was submitted"
-                              values={{
-                                date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
-                              }}
-                            />
-                          ),
-                          <FormattedMessage
-                            id="autoCompleteMediaItem.requestsCount"
-                            defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
-                            description="Header of requests list. Example: 26 requests"
-                            values={{ requestsCount: projectMedia.requests_count }}
-                          />,
-                        ]}
-                        media={projectMedia.media}
-                        maskContent={projectMedia.show_warning_cover}
-                        description={projectMedia.description}
-                        className={selectedDbid === projectMedia.dbid ? classes.selectedItem : null}
-                        onClick={(e) => {
-                          if (!props.multiple) {
-                            handleSelectOne(projectMedia.dbid);
-                          }
-                          e.preventDefault();
-                          e.stopPropagation();
+    <div className={cx('autocomplete-media-item', styles['media-item-autocomplete'])}>
+      <div className={styles['media-item-autocomplete-inputs']}>
+        <FormattedMessage
+          id="autoCompleteMediaItem.placeholder"
+          defaultMessage="Search"
+          description="Placeholder autocomplete search field"
+        >
+          { placeholder => (
+            <TextField
+              id="autocomplete-media-item"
+              name="autocomplete-media-item"
+              onKeyPress={handleKeyPress}
+              onChange={handleChangeSearchText}
+              iconLeft={<SearchIcon />}
+              placeholder={placeholder}
+              helpContent={
+                searchResult ?
+                  <React.Fragment>
+                    { searchResult.loading ?
+                      <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" description="Status message that a search is active" /> : null }
+                    { !searchResult.loading && !searchResult.error && !searchResult.items.length ?
+                      <FormattedMessage id="autoCompleteMediaItem.notFound" defaultMessage="No matches found" description="Status message when a search returned no results" /> : null }
+                    { searchResult.error ?
+                      <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." description="Status message when a search resulted in an error" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
+                    { searchResult.items && searchResult.items.length > 0 ?
+                      <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {# result} other {# results}}" description="Count of search results" values={{ count: searchResult.items.length }} /> : null }
+                  </React.Fragment> : <FormattedMessage id="autoCompleteMediaItem.type" defaultMessage="Type above to search" description="Helper text displayed next to search field to look for items to be imported" />
+              }
+            />
+          )}
+        </FormattedMessage>
+        { props.showFilters ?
+          <ButtonMain
+            iconCenter={<SettingsIcon />}
+            variant="contained"
+            size="default"
+            theme="lightText"
+            onClick={handleSettingsButton}
+          /> : null }
+      </div>
+      { searchResult && searchResult.items && searchResult.items.length > 0 ?
+        <div className={styles['media-item-autocomplete-results']}>
+          { searchResult.items.map(projectMedia => (
+            <div
+              key={projectMedia.dbid}
+              className={props.multiple ? styles['media-item-autocomplete-multiple'] : 'autocomplete-media-item__select'}
+            >
+              { props.multiple ?
+                <Tooltip
+                  arrow
+                  disableFocusListener
+                  disableTouchListener
+                  disableHoverListener={!projectMedia.isPublished || !props.disablePublished}
+                  title={
+                    <FormattedMessage
+                      id="autoCompleteMediaItem.cantSelectPublished"
+                      defaultMessage="Media cannot be imported from items that have their report published"
+                      description="Tooltip error message about when media can be imported"
+                    />
+                  }
+                >
+                  <span>
+                    <Checkbox
+                      className="autocomplete-media-item__select"
+                      disabled={projectMedia.isPublished && props.disablePublished}
+                      onChange={(e, checked) => {
+                        handleSelectMany(projectMedia.dbid, checked);
+                      }}
+                    />
+                  </span>
+                </Tooltip> : null
+              }
+              <Link to={projectMedia.full_url} className={styles['media-item-autocomplete-link']}>
+                <SmallMediaCard
+                  customTitle={projectMedia.title}
+                  details={[
+                    (
+                      <FormattedMessage
+                        id="autoCompleteMediaItem.lastSubmitted"
+                        defaultMessage="Last submitted {date}"
+                        description="Shows the last time a media was submitted"
+                        values={{
+                          date: props.intl.formatDate(+projectMedia.last_seen * 1000, { year: 'numeric', month: 'short', day: '2-digit' }),
                         }}
                       />
-                    </Link>
-                  </Box>
-                ))}
-              </Box> : null }
-          </Box> : null }
-      </Box>
+                    ),
+                    <FormattedMessage
+                      id="autoCompleteMediaItem.requestsCount"
+                      defaultMessage="{requestsCount, plural, one {# request} other {# requests}}"
+                      description="Header of requests list. Example: 26 requests"
+                      values={{ requestsCount: projectMedia.requests_count }}
+                    />,
+                  ]}
+                  media={projectMedia.media}
+                  maskContent={projectMedia.show_warning_cover}
+                  description={projectMedia.description}
+                  className={selectedDbid === projectMedia.dbid ? styles['media-item-autocomplete-selected-item'] : null}
+                  onClick={(e) => {
+                    if (!props.multiple) {
+                      handleSelectOne(projectMedia.dbid);
+                    }
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                />
+              </Link>
+            </div>
+          ))}
+        </div> : null }
       { showFilters ?
         <SearchKeywordContainer
           anchorEl={anchorEl}
@@ -395,7 +373,7 @@ const AutoCompleteMediaItem = (props, context) => {
           onDismiss={handleCloseFilters}
           onSubmit={handleChangeFilters}
         /> : null }
-    </Box>
+    </div>
   );
 };
 

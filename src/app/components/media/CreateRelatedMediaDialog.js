@@ -3,17 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
 import AutoCompleteMediaItem from './AutoCompleteMediaItem';
 import CreateMediaInput from './CreateMediaInput';
 import Message from '../Message';
-import { units } from '../../styles/js/shared';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import dialogStyles from '../../styles/css/dialog.module.css';
-
-const StyledAutoCompleteWrapper = styled.div`
-  height: ${units(10)};
-`;
+import mediaStyles from './media.module.css';
 
 class CreateRelatedMediaDialog extends React.Component {
   constructor(props) {
@@ -102,7 +98,7 @@ class CreateRelatedMediaDialog extends React.Component {
             </Tabs>
           }
         </div>
-        <div className={dialogStyles['dialog-content']} style={{ minHeight: 600 }}>
+        <div className={cx(dialogStyles['dialog-content'], mediaStyles['media-item-autocomplete-wrapper'])}>
           { mode === 'new' &&
             <CreateMediaInput
               message={this.props.message}
@@ -113,7 +109,7 @@ class CreateRelatedMediaDialog extends React.Component {
             />
           }
           { mode === 'existing' &&
-            <StyledAutoCompleteWrapper>
+            <>
               <Message message={this.props.message} />
               <AutoCompleteMediaItem
                 media={media}
@@ -125,7 +121,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 multiple={Boolean(this.props.multiple)}
                 disablePublished={Boolean(this.props.disablePublished)}
               />
-            </StyledAutoCompleteWrapper>
+            </>
           }
         </div>
         <div className={dialogStyles['dialog-actions']}>
