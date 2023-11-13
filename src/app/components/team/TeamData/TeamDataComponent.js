@@ -22,7 +22,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import HelpIcon from '../../../icons/help.svg';
 import GetAppIcon from '../../../icons/file_download.svg';
 import SettingsHeader from '../SettingsHeader';
-import LanguageSwitcher from '../../LanguageSwitcher';
+import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import { ContentColumn } from '../../../styles/js/shared';
 import settingsStyles from '../Settings.module.css';
 
@@ -286,12 +286,13 @@ const TeamDataComponent = ({
                 </Select> : null }
             </FormControl>
             { languages.length > 1 ?
-              <LanguageSwitcher
-                component="dropdown"
-                currentLanguage={currentLanguage}
+              <LanguagePickerSelect
+                selectedLanguage={currentLanguage}
+                onSubmit={newValue => setCurrentLanguage(newValue.languageCode)}
                 languages={languages}
-                onChange={setCurrentLanguage}
-              /> : null }
+                showLabel={false}
+              /> : null
+            }
           </Box>
         }
         actionButton={

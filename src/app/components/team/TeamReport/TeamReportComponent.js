@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
@@ -18,7 +18,7 @@ import ViberIcon from '../../../icons/viber.svg';
 import LineIcon from '../../../icons/line.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
 import SettingsHeader from '../SettingsHeader';
-import LanguageSwitcher from '../../LanguageSwitcher';
+import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import { withSetFlashMessage } from '../../FlashMessage';
 import Can from '../../Can';
 
@@ -37,6 +37,8 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
     newReports[currentLanguage][field] = value;
     setReports(newReports);
   };
+
+  console.log(currentLanguage); // eslint-disable-line no-console
 
   const handleError = () => {
     setSaving(false);
@@ -125,11 +127,18 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
         title={
           <FormattedMessage
             id="teamReportComponent.title"
-            defaultMessage="Report settings"
+            defaultMessage="Reports"
             description="Header for the report settings page"
           />
         }
-        helpUrl="http://help.checkmedia.org/en/articles/3627266-check-message-report"
+        context={
+          <FormattedHTMLMessage
+            id="teamReportComponent.helpContext"
+            defaultMessage='Customize fact-check reports sent to tipline users. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about fact-check reports</a>.'
+            values={{ helpLink: 'http://help.checkmedia.org/en/articles/3627266-check-message-report' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           <Can permissions={team.permissions} permission="update Team">
             <ButtonMain
@@ -152,12 +161,13 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
           </Can>
         }
         extra={
-          <LanguageSwitcher
-            component="dropdown"
-            currentLanguage={currentLanguage}
-            languages={languages}
-            onChange={setCurrentLanguage}
-          />
+          languages.length > 1 ?
+            <LanguagePickerSelect
+              selectedLanguage={currentLanguage}
+              onSubmit={newValue => setCurrentLanguage(newValue.languageCode)}
+              languages={languages}
+              showLabel={false}
+            /> : null
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>

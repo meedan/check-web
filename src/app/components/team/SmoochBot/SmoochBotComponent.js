@@ -7,7 +7,7 @@ import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import UserUtil from '../../user/UserUtil';
 import SettingsHeader from '../SettingsHeader';
-import LanguageSwitcher from '../../LanguageSwitcher';
+import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
 import SmoochBotConfig from './SmoochBotConfig';
 import { placeholders } from './localizables';
 import Can from '../../Can';
@@ -117,11 +117,12 @@ const SmoochBotComponent = ({
   };
 
   const handleChangeLanguage = (newValue) => {
+    const { languageCode } = newValue;
     // If there is no workflow for this language, create a new, empty one
-    if (settings.smooch_workflows.filter(w => w.smooch_workflow_language === newValue).length === 0) {
+    if (settings.smooch_workflows.filter(w => w.smooch_workflow_language === languageCode).length === 0) {
       const updatedValue = JSON.parse(JSON.stringify(settings));
       updatedValue.smooch_workflows.push({
-        smooch_workflow_language: newValue,
+        smooch_workflow_language: languageCode,
         smooch_message_smooch_bot_result_changed:
           intl.formatMessage(placeholders.smooch_message_smooch_bot_result_changed),
         smooch_message_smooch_bot_message_confirmed:
@@ -149,7 +150,7 @@ const SmoochBotComponent = ({
       });
       updateSettings(updatedValue);
     }
-    setCurrentLanguage(newValue);
+    setCurrentLanguage(languageCode);
   };
 
   // Workspace languages for which there is a tipline workflow
@@ -199,11 +200,11 @@ const SmoochBotComponent = ({
         }
         extra={
           installation && bot && languages.length > 1 ?
-            <LanguageSwitcher
-              component="dropdown"
-              currentLanguage={currentLanguage}
+            <LanguagePickerSelect
+              selectedLanguage={currentLanguage}
+              onSubmit={handleChangeLanguage}
               languages={languages}
-              onChange={handleChangeLanguage}
+              showLabel={false}
             /> : null
         }
       />

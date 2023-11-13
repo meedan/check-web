@@ -5,6 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '../../cds/inputs/TextField';
 import LanguageRegistry, { languageLabel } from '../../../LanguageRegistry';
 import LanguageIcon from '../../../icons/language.svg';
+import ChevronDownIcon from '../../../icons/chevron_down.svg';
 
 const messages = defineMessages({
   optionLabel: {
@@ -68,6 +69,7 @@ const LanguagePickerSelect = ({
               { placeholder => (
                 <TextField
                   iconLeft={<LanguageIcon />}
+                  iconRight={<ChevronDownIcon />}
                   label={showLabel ? <FormattedMessage id="LanguagePickerSelect.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language of fact-check" /> : null}
                   placeholder={placeholder}
                   {...params.inputProps}
