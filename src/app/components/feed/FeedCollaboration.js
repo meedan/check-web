@@ -69,6 +69,7 @@ const removeTeamMutation = graphql`
 `;
 
 const FeedCollaboration = ({
+  collaboratorId,
   feed,
   intl,
   onChange,
@@ -161,8 +162,14 @@ const FeedCollaboration = ({
       { type === 'organizer' ?
         <span className={cx('typography-body2', styles['feed-collab-organizer'])}>
           <FormattedMessage id="feedCollaboration.organizer" defaultMessage="organizer" description="Label to highlight the Shared Feed organizer" />
-        </span>
-        :
+        </span> : null
+      }
+      { collaboratorId === team?.dbid ?
+        <span className={cx('typography-body2', styles['feed-collab-organizer'])}>
+          <FormattedMessage id="feedCollaboration.you" defaultMessage="you" description="Label to highlight user's organization in Shared Feed collaboration widget" />
+        </span> : null
+      }
+      { type !== 'organizer' && collaboratorId !== team?.dbid ?
         <Tooltip arrow title={<FormattedMessage id="feedCollaboration.remove" defaultMessage="Remove" description="Tooltip for button to remove invitation or feed collaborator" />}>
           <span>
             <ButtonMain
@@ -174,7 +181,7 @@ const FeedCollaboration = ({
               theme="lightText"
             />
           </span>
-        </Tooltip>
+        </Tooltip> : null
       }
     </div>
   );
@@ -256,7 +263,12 @@ const FeedCollaboration = ({
   );
 };
 
+FeedCollaboration.defaultProps = {
+  collaboratorId: null,
+};
+
 FeedCollaboration.propTypes = {
+  collaboratorId: PropTypes.number,
   feed: PropTypes.object.isRequired,
   intl: intlShape.isRequired,
   onChange: PropTypes.func.isRequired,

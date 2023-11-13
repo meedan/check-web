@@ -136,7 +136,10 @@ const destroyMutation = graphql`
 `;
 
 const SaveFeed = (props) => {
+  const { feedTeam } = props;
   const feed = props.feed || {}; // Editing a feed or creating a new feed
+  const collaboratorId = feedTeam?.team?.dbid;
+
   const [title, setTitle] = React.useState(feed.name || '');
   const [description, setDescription] = React.useState(feed.description || '');
   const [selectedListId, setSelectedListId] = React.useState(feed.saved_search_id);
@@ -273,6 +276,34 @@ const SaveFeed = (props) => {
     );
   };
 
+  let pageTitle = (
+    <FormattedMessage
+      id="saveFeed.sharedFeedPageSubtitle"
+      defaultMessage="Create a new shared feed"
+      description="Subtitle of the shared feed creation page"
+    />
+  );
+
+  if (feed.dbid) {
+    pageTitle = (
+      <FormattedMessage
+        id="saveFeed.sharedFeedPageEditSubtitle"
+        defaultMessage="Edit shared feed"
+        description="Subtitle of the shared feed editing page"
+      />
+    );
+  }
+
+  if (collaboratorId) {
+    pageTitle = (
+      <FormattedMessage
+        id="saveFeed.sharedFeedPageEditCollabSubtitle"
+        defaultMessage="Collab with likeminded organizations"
+        description="Subtitle of the shared feed editing page"
+      />
+    );
+  }
+
   return (
     <div className={styles.saveFeedContainer}>
       <div className={styles.saveFeedContent}>
@@ -292,6 +323,18 @@ const SaveFeed = (props) => {
               }
             />
           </div> : null }
+        { collaboratorId ?
+          <Alert
+            variant="warning"
+            title={
+              <FormattedHTMLMessage
+                id="saveFeed.feedCollaboratorWarning"
+                defaultMessage="To request changes to this shared feed, please contact the creating organization: {organizer}</strong>"
+                description="Warning displayed on edit feed page when logged in as a collaborating org."
+                values={{ organizer: feed?.team?.name }}
+              />
+            }
+          /> : null }
         <div>
           <div className={`typography-caption ${styles.sharedFeedTitle}`}>
             <FormattedMessage
@@ -301,19 +344,7 @@ const SaveFeed = (props) => {
             />
           </div>
           <div className="typography-h6">
-            { feed.dbid ? (
-              <FormattedMessage
-                id="saveFeed.sharedFeedPageEditSubtitle"
-                defaultMessage="Edit shared feed"
-                description="Subtitle of the shared feed editing page"
-              />
-            ) : (
-              <FormattedMessage
-                id="saveFeed.sharedFeedPageSubtitle"
-                defaultMessage="Create a new shared feed"
-                description="Subtitle of the shared feed creation page"
-              />
-            )}
+            { pageTitle }
           </div>
           <div className="typography-body1">
             <FormattedMessage
@@ -323,65 +354,69 @@ const SaveFeed = (props) => {
             />
           </div>
         </div>
-        <div className={styles.saveFeedCard}>
-          <div className="typography-subtitle2">
+        { /* TODO: Extract FeedDetails card to its own component */}
+        { !collaboratorId ? (
+          <div className={styles.saveFeedCard}>
+            <div className="typography-subtitle2">
+              <FormattedMessage
+                id="saveFeed.feedDetailsTitle"
+                defaultMessage="Feed details"
+                description="Title of section where the details of the feed are filled. e.g.: title, description"
+              />
+            </div>
             <FormattedMessage
-              id="saveFeed.feedDetailsTitle"
-              defaultMessage="Feed details"
-              description="Title of section where the details of the feed are filled. e.g.: title, description"
+              id="saveFeed.titlePlaceholder"
+              defaultMessage="Memorable feed title"
+              description="Placeholder text for feed title field"
+            >
+              { placeholder => (
+                <TextField
+                  id="create-feed__title"
+                  placeholder={placeholder}
+                  label={<FormattedMessage
+                    id="saveFeed.titleLabel"
+                    defaultMessage="Title"
+                    description="Label for the shared feed title input"
+                  />}
+                  helpContent={<FormattedMessage
+                    id="saveFeed.titleHelper"
+                    defaultMessage="Great shared feed names are short, memorable, and tell your audience the focus of the media"
+                    description="Title input helper text"
+                  />}
+                  error={noTitle}
+                  suppressInitialError
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                  required
+                />
+              )}
+            </FormattedMessage>
+            <FormattedMessage
+              id="saveFeed.descriptionPlaceholder"
+              defaultMessage="Give this shared feed an optional description."
+              description="Placeholder text for feed description field"
+            >
+              { placeholder => (
+                <TextArea
+                  id="create-feed__description"
+                  placeholder={placeholder}
+                  label={<FormattedMessage
+                    id="saveFeed.descriptionLabel"
+                    defaultMessage="Description"
+                    description="Label for a field where the user inputs text for a description to a shared feed"
+                  />}
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                />
+              )}
+            </FormattedMessage>
+            <TagList
+              tags={tags}
+              setTags={setTags}
             />
-          </div>
-          <FormattedMessage
-            id="saveFeed.titlePlaceholder"
-            defaultMessage="Memorable feed title"
-            description="Placeholder text for feed title field"
-          >
-            { placeholder => (
-              <TextField
-                id="create-feed__title"
-                placeholder={placeholder}
-                label={<FormattedMessage
-                  id="saveFeed.titleLabel"
-                  defaultMessage="Title"
-                  description="Label for the shared feed title input"
-                />}
-                helpContent={<FormattedMessage
-                  id="saveFeed.titleHelper"
-                  defaultMessage="Great shared feed names are short, memorable, and tell your audience the focus of the media"
-                  description="Title input helper text"
-                />}
-                error={noTitle}
-                suppressInitialError
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-                required
-              />
-            )}
-          </FormattedMessage>
-          <FormattedMessage
-            id="saveFeed.descriptionPlaceholder"
-            defaultMessage="Give this shared feed an optional description."
-            description="Placeholder text for feed description field"
-          >
-            { placeholder => (
-              <TextArea
-                id="create-feed__description"
-                placeholder={placeholder}
-                label={<FormattedMessage
-                  id="saveFeed.descriptionLabel"
-                  defaultMessage="Description"
-                  description="Label for a field where the user inputs text for a description to a shared feed"
-                />}
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-              />
-            )}
-          </FormattedMessage>
-          <TagList
-            tags={tags}
-            setTags={setTags}
-          />
-        </div>
+          </div>) : null
+        }
+        {/* TODO: Extract FeedContent card to its own component */}
         <div className={styles.saveFeedCard}>
           <div className="typography-subtitle2">
             <FormattedMessage
@@ -420,120 +455,123 @@ const SaveFeed = (props) => {
             )}
           />
         </div>
-        <div className={styles.saveFeedCard}>
-          <div className="typography-subtitle2">
-            <FormattedHTMLMessage
-              id="saveFeed.publishTitle"
-              defaultMessage="Publish to Marketplace <small>(coming soon)</small>"
-              description="Title of the section where the publishing preferences are set"
-            />
-          </div>
-          <span className="typography-body2">
-            <FormattedMessage
-              id="saveFeed.publishBlurb"
-              defaultMessage="Publish your feed to the marketplace to make it discoverable to third-party organizations, while keeping precise control over your assets."
-              description="Helper text for the publish feed section"
-            />
-          </span>
-          <SwitchComponent
-            label={
-              <FormattedMessage
-                id="saveFeed.publishSwitch"
-                defaultMessage="Publish shared feed to Marketplace"
-                description="Label for a switch where the user publishes a feed"
-              />
-            }
-            checked={discoverable}
-            onChange={() => setDiscoverable(!discoverable)}
-            disabled
-          />
-          { discoverable ?
-            <div className={styles.licenseSection}>
-              <div className="typography-subtitle2">
-                <FormattedMessage
-                  id="saveFeed.licenseTitle"
-                  defaultMessage="License"
-                  description="Title of the section where the publishing preferences such as licenses are selected"
-                />
-              </div>
-              {
-                discoverableNoLicense && (
-                  <Alert
-                    id="save-feed__no-license-error"
-                    title={
-                      <FormattedMessage
-                        id="saveFeed.selectLicense"
-                        defaultMessage="Select a license in order to create and publish this shared feed."
-                        description="Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data."
-                      />
-                    }
-                    content={
-                      <ExternalLink
-                        url="https://www.meedan.com" /* FIXME: Update url */
-                        style={{ color: 'var(--errorSecondary)' }}
-                      >
-                        <FormattedMessage
-                          id="saveFeed.learnMoreLicenses"
-                          defaultMessage="Learn more about licenses."
-                          description="Link to an external page with more information about the data licenses"
-                        />
-                      </ExternalLink>
-                    }
-                    variant="error"
-                  />
-                )
-              }
-              <span className="typography-body2">
-                <FormattedMessage
-                  id="saveFeed.licenseBlurb"
-                  defaultMessage="A license tells others what they can and can't do with your code."
-                  description="Helper text for the license section"
-                />
-                &nbsp;
-                <ExternalLink url="https://www.meedan.com">{ /* FIXME: Update url */}
-                  <FormattedMessage
-                    id="saveFeed.learnMoreLicenses"
-                    defaultMessage="Learn more about licenses."
-                    description="Link to an external page with more information about the data licenses"
-                  />
-                </ExternalLink>
-              </span>
-              <LicenseOption
-                icon={<SchoolIcon />}
-                title={<FormattedMessage
-                  id="saveFeed.licenseAcademic"
-                  defaultMessage="Academic"
-                  description="Label for the academic licensing of shared feed data"
-                />}
-                checked={academicLicense}
-                onChange={() => setAcademicLicense(!academicLicense)}
-                description="Permit the exploration of the data for noncommercial research intended for publication in an academic or other scholarly setting."
-              />
-              <LicenseOption
-                icon={<CorporateFareIcon />}
-                title={<FormattedMessage
-                  id="saveFeed.licenseCommercial"
-                  defaultMessage="Commercial"
-                  description="Label for the academic licensing of shared feed data"
-                />}
-                checked={commercialLicense}
-                onChange={() => setCommercialLicense(!commercialLicense)}
-                description="Permit the use of the data for internal 3rd party business operations, internal research, and development efforts. "
-              />
-              <LicenseOption
-                icon={<OpenSourceIcon />}
-                title={<FormattedMessage
-                  id="saveFeed.licenseOpenSource"
-                  defaultMessage="Open source"
-                  description="Label for the academic licensing of shared feed data"
-                />}
-                checked={openSourceLicense}
-                onChange={() => setOpenSourceLicense(!openSourceLicense)}
-                description="Permits free use and distribution of the data. Enables collaboration and adaptation for various purposes, including commercial uses."
+        {/* TODO: Extract FeedPublish card to its own component */}
+        { !collaboratorId ? (
+          <div className={styles.saveFeedCard}>
+            <div className="typography-subtitle2">
+              <FormattedHTMLMessage
+                id="saveFeed.publishTitle"
+                defaultMessage="Publish to Marketplace <small>(coming soon)</small>"
+                description="Title of the section where the publishing preferences are set"
               />
             </div>
-            : null }
-        </div>
+            <span className="typography-body2">
+              <FormattedMessage
+                id="saveFeed.publishBlurb"
+                defaultMessage="Publish your feed to the marketplace to make it discoverable to third-party organizations, while keeping precise control over your assets."
+                description="Helper text for the publish feed section"
+              />
+            </span>
+            <SwitchComponent
+              label={
+                <FormattedMessage
+                  id="saveFeed.publishSwitch"
+                  defaultMessage="Publish shared feed to Marketplace"
+                  description="Label for a switch where the user publishes a feed"
+                />
+              }
+              checked={discoverable}
+              onChange={() => setDiscoverable(!discoverable)}
+              disabled
+            />
+            { discoverable ?
+              <div className={styles.licenseSection}>
+                <div className="typography-subtitle2">
+                  <FormattedMessage
+                    id="saveFeed.licenseTitle"
+                    defaultMessage="License"
+                    description="Title of the section where the publishing preferences such as licenses are selected"
+                  />
+                </div>
+                {
+                  discoverableNoLicense && (
+                    <Alert
+                      id="save-feed__no-license-error"
+                      title={
+                        <FormattedMessage
+                          id="saveFeed.selectLicense"
+                          defaultMessage="Select a license in order to create and publish this shared feed."
+                          description="Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data."
+                        />
+                      }
+                      content={
+                        <ExternalLink
+                          url="https://www.meedan.com" /* FIXME: Update url */
+                          style={{ color: 'var(--errorSecondary)' }}
+                        >
+                          <FormattedMessage
+                            id="saveFeed.learnMoreLicenses"
+                            defaultMessage="Learn more about licenses."
+                            description="Link to an external page with more information about the data licenses"
+                          />
+                        </ExternalLink>
+                      }
+                      variant="error"
+                    />
+                  )
+                }
+                <span className="typography-body2">
+                  <FormattedMessage
+                    id="saveFeed.licenseBlurb"
+                    defaultMessage="A license tells others what they can and can't do with your code."
+                    description="Helper text for the license section"
+                  />
+                  &nbsp;
+                  <ExternalLink url="https://www.meedan.com">{ /* FIXME: Update url */}
+                    <FormattedMessage
+                      id="saveFeed.learnMoreLicenses"
+                      defaultMessage="Learn more about licenses."
+                      description="Link to an external page with more information about the data licenses"
+                    />
+                  </ExternalLink>
+                </span>
+                <LicenseOption
+                  icon={<SchoolIcon />}
+                  title={<FormattedMessage
+                    id="saveFeed.licenseAcademic"
+                    defaultMessage="Academic"
+                    description="Label for the academic licensing of shared feed data"
+                  />}
+                  checked={academicLicense}
+                  onChange={() => setAcademicLicense(!academicLicense)}
+                  description="Permit the exploration of the data for noncommercial research intended for publication in an academic or other scholarly setting."
+                />
+                <LicenseOption
+                  icon={<CorporateFareIcon />}
+                  title={<FormattedMessage
+                    id="saveFeed.licenseCommercial"
+                    defaultMessage="Commercial"
+                    description="Label for the academic licensing of shared feed data"
+                  />}
+                  checked={commercialLicense}
+                  onChange={() => setCommercialLicense(!commercialLicense)}
+                  description="Permit the use of the data for internal 3rd party business operations, internal research, and development efforts. "
+                />
+                <LicenseOption
+                  icon={<OpenSourceIcon />}
+                  title={<FormattedMessage
+                    id="saveFeed.licenseOpenSource"
+                    defaultMessage="Open source"
+                    description="Label for the academic licensing of shared feed data"
+                  />}
+                  checked={openSourceLicense}
+                  onChange={() => setOpenSourceLicense(!openSourceLicense)}
+                  description="Permits free use and distribution of the data. Enables collaboration and adaptation for various purposes, including commercial uses."
+                />
+              </div>
+              : null }
+          </div>) : null
+        }
       </div>
       <div className={styles.saveFeedContentNarrow}>
         <div className={styles.saveFeedButtonContainer}>
@@ -557,6 +595,7 @@ const SaveFeed = (props) => {
               />
             }
           />
+          {/* TODO: Extract FeedActions to its own component */}
           { feed.id ?
             <Can permissions={feed.permissions} permission="destroy Feed">
               <ButtonMain
@@ -632,7 +671,11 @@ const SaveFeed = (props) => {
           </div>
           : null
         }
-        <FeedCollaboration feed={feed} onChange={setNewInvites} />
+        <FeedCollaboration
+          collaboratorId={collaboratorId}
+          feed={feed}
+          onChange={setNewInvites}
+        />
       </div>
 
       {/* "Delete" dialog */}

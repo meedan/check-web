@@ -350,7 +350,7 @@ const ProjectsComponent = ({
                   break;
                 // Feeds not created by the workspace, but joined upon invitation
                 case 'FeedTeam':
-                  itemProps = { routePrefix: 'feed' };
+                  itemProps = { routePrefix: 'feed-team' };
                   itemType = 'feed';
                   break;
                 // Feed invitations received but not processed yet

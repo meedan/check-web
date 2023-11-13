@@ -5,14 +5,9 @@
     "defaultMessage": "License details"
   },
   {
-    "id": "saveFeed.viewSharedFeed",
-    "description": "Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page.",
-    "defaultMessage": "View Shared Feed"
-  },
-  {
-    "id": "saveFeed.sharedFeedPageTitle",
-    "description": "Title of the shared feed creation page",
-    "defaultMessage": "Shared feed"
+    "id": "saveFeed.sharedFeedPageSubtitle",
+    "description": "Subtitle of the shared feed creation page",
+    "defaultMessage": "Create a new shared feed"
   },
   {
     "id": "saveFeed.sharedFeedPageEditSubtitle",
@@ -20,9 +15,24 @@
     "defaultMessage": "Edit shared feed"
   },
   {
-    "id": "saveFeed.sharedFeedPageSubtitle",
-    "description": "Subtitle of the shared feed creation page",
-    "defaultMessage": "Create a new shared feed"
+    "id": "saveFeed.sharedFeedPageEditCollabSubtitle",
+    "description": "Subtitle of the shared feed editing page",
+    "defaultMessage": "Collab with likeminded organizations"
+  },
+  {
+    "id": "saveFeed.viewSharedFeed",
+    "description": "Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page.",
+    "defaultMessage": "View Shared Feed"
+  },
+  {
+    "id": "saveFeed.feedCollaboratorWarning",
+    "description": "Warning displayed on edit feed page when logged in as a collaborating org.",
+    "defaultMessage": "To request changes to this shared feed, please contact the creating organization: {organizer}</strong>"
+  },
+  {
+    "id": "saveFeed.sharedFeedPageTitle",
+    "description": "Title of the shared feed creation page",
+    "defaultMessage": "Shared feed"
   },
   {
     "id": "createFeed.sharedFeedPageDescription",

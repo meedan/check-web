@@ -25,6 +25,7 @@ import Spam from './team/Spam';
 import Trash from './team/Trash';
 import SaveFeed from './feed/SaveFeed';
 import EditFeed from './feed/EditFeed';
+import EditFeedTeam from './feed/EditFeedTeam';
 import Feed from './feed/Feed';
 import FeedItem from './feed/FeedItem';
 import FeedClusterPage from './feed/FeedClusterPage';
@@ -110,6 +111,7 @@ class Root extends Component {
                   <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
                   <Route path=":team/published(/:query)" component={Published} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeed} />
+                  <Route path=":team/feed-team/:feedTeamId" component={EditFeedTeam} />
                   <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
                   <Route path=":team/feed/create" component={SaveFeed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
