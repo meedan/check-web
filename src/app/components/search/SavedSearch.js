@@ -3,9 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import { safelyParseJSON } from '../../helpers';
 import ProjectActions from '../drawer/Projects/ProjectActions';
 
@@ -70,12 +71,45 @@ const SavedSearch = ({ routeParams }) => (
                       }
                     `}
                     deleteMessage={
-                      <FormattedMessage
-                        id="savedSearch.deleteMessage"
-                        defaultMessage="Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
-                        description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
-                        values={{ teamName: props.saved_search.team ? props.saved_search.team.name : '' }}
-                      />
+                      props.saved_search?.is_part_of_feeds ?
+                        <>
+                          <FormattedHTMLMessage
+                            tagName="p"
+                            id="savedSearch.deleteMessageWarning"
+                            defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it <br /><br />"
+                            description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
+                            values={{
+                              teamName: props.saved_search?.team ? props.saved_search.team.name : '',
+                            }}
+                          />
+                          <Alert
+                            variant="warning"
+                            title={
+                              <FormattedHTMLMessage
+                                id="saveFeed.deleteCustomListWarning"
+                                defaultMessage="<strong>Deleting list will result in no content for the following shared feed(s):</strong>"
+                                description="Warning displayed on edit feed page when no list is selected."
+                              />
+                            }
+                            content={
+                              <ul className="bulleted-list">
+                                {props.saved_search?.feeds?.edges.map(feed => (
+                                  <li key={feed.node.id}>{feed.node.name}</li>
+                                ))}
+                              </ul>
+                            }
+                          />
+                        </>
+                        :
+                        <FormattedHTMLMessage
+                          tagName="p"
+                          id="savedSearch.deleteMessage"
+                          defaultMessage="Are you sure? This is shared among all users of <strong>{teamName}</strong>. After deleting it, no user will be able to access it."
+                          description="A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
+                          values={{
+                            teamName: props.saved_search?.team ? props.saved_search.team.name : '',
+                          }}
+                        />
                     }
                     deleteMutation={graphql`
                       mutation SavedSearchDestroySavedSearchMutation($input: DestroySavedSearchInput!) {
@@ -89,7 +123,7 @@ const SavedSearch = ({ routeParams }) => (
                     `}
                   />
                 }
-                title={props.saved_search.title}
+                title={props.saved_search?.title}
                 listSubtitle={<FormattedMessage id="savedSearch.subtitle" defaultMessage="Custom List" description="Displayed on top of the custom list title on the search results page." />}
                 teamSlug={routeParams.team}
                 query={query}
