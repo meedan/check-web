@@ -5,6 +5,11 @@
     "defaultMessage": "Language"
   },
   {
+    "id": "teamMembers.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage tipline language settings. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about language support</a>."
+  },
+  {
     "id": "languagesComponent.languageDetection",
     "description": "Title of the Language detection section in language settings page",
     "defaultMessage": "Language detection"
@@ -37,6 +42,6 @@
   {
     "id": "languagesComponent.languages",
     "description": "Title of the active languages list section in language settings page",
-    "defaultMessage": "Languages [{languageCount}]"
+    "defaultMessage": "Supported Languages [{languageCount}]"
   }
 ]
