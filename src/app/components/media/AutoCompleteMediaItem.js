@@ -273,17 +273,20 @@ const AutoCompleteMediaItem = (props, context) => {
               iconLeft={<SearchIcon />}
               placeholder={placeholder}
               helpContent={
-                searchResult ?
-                  <React.Fragment>
-                    { searchResult.loading ?
-                      <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" description="Status message that a search is active" /> : null }
-                    { !searchResult.loading && !searchResult.error && !searchResult.items.length ?
-                      <FormattedMessage id="autoCompleteMediaItem.notFound" defaultMessage="No matches found" description="Status message when a search returned no results" /> : null }
-                    { searchResult.error ?
-                      <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." description="Status message when a search resulted in an error" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
-                    { searchResult.items && searchResult.items.length > 0 ?
-                      <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {# result} other {# results}}" description="Count of search results" values={{ count: searchResult.items.length }} /> : null }
-                  </React.Fragment> : <FormattedMessage id="autoCompleteMediaItem.type" defaultMessage="Type above to search" description="Helper text displayed next to search field to look for items to be imported" />
+                <span id="autocomplete-media-item-helper-text">
+                  { searchResult ?
+                    <React.Fragment>
+                      { searchResult.loading ?
+                        <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" description="Status message that a search is active" /> : null }
+                      { !searchResult.loading && !searchResult.error && !searchResult.items.length ?
+                        <FormattedMessage id="autoCompleteMediaItem.notFound" defaultMessage="No matches found" description="Status message when a search returned no results" /> : null }
+                      { searchResult.error ?
+                        <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." description="Status message when a search resulted in an error" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
+                      { searchResult.items && searchResult.items.length > 0 ?
+                        <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {# result} other {# results}}" description="Count of search results" values={{ count: searchResult.items.length }} /> : null }
+                    </React.Fragment> : <FormattedMessage id="autoCompleteMediaItem.type" defaultMessage="Type above to search" description="Helper text displayed next to search field to look for items to be imported" />
+                  }
+                </span>
               }
             />
           )}

@@ -20,6 +20,11 @@
     "defaultMessage": "Language"
   },
   {
+    "id": "addLanguageAction.selectLanguageHelp",
+    "description": "Help text for next steps after selecting a language",
+    "defaultMessage": "After adding this language, be sure to customize the chatbot’s responses in the tipline settings."
+  },
+  {
     "id": "addLanguageAction.addLanguage",
     "description": "Label to submit button of language picker dialog",
     "defaultMessage": "Add language"
