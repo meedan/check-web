@@ -75,7 +75,6 @@ shared_examples 'media actions' do
     wait_for_selector('.annotation__delete').click
     wait_for_selector_none('.annotation__avatar-col')
     expect(@driver.find_elements(:css, '.annotation--comment').size).to eq 0
-
   end
 
   it 'should add image to media comment', bin3: true do
