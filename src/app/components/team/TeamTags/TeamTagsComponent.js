@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -66,7 +66,14 @@ const TeamTagsComponent = ({
             values={{ count: totalTags }}
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/6542134-tags"
+        context={
+          <FormattedHTMLMessage
+            id="rulesTableToolbar.helpContext"
+            defaultMessage='Automatically categorize items by keyword. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about tags</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/6542134-tags' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           <Can permissions={permissions} permission="create TagText">
             <ButtonMain

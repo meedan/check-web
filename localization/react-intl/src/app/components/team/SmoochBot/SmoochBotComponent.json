@@ -10,6 +10,11 @@
     "defaultMessage": "Tipline"
   },
   {
+    "id": "smoochBotComponent.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage your tipline’s menu, customize its responses, and connect it to messaging services. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more</a>."
+  },
+  {
     "id": "smoochBotComponent.save",
     "description": "Button label to save and publish the tipline settings",
     "defaultMessage": "Publish"

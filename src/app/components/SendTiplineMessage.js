@@ -4,9 +4,7 @@ import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Tooltip from './cds/alerts-and-prompts/Tooltip';
 import { FlashMessageSetterContext } from './FlashMessage';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../helpers';
@@ -14,7 +12,8 @@ import IconClose from '../icons/clear.svg';
 import SendIcon from '../icons/send.svg';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
-import styles from './SendTiplineMessage.module.css';
+import styles from '../styles/css/dialog.module.css';
+import inputStyles from '../styles/css/inputs.module.css';
 
 const SendTiplineMessage = ({ annotationId, channel, username }) => {
   const [text, setText] = React.useState();
@@ -65,22 +64,40 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
 
   return (
     <>
-      <ButtonMain
-        className="send-tipline-message__button"
-        iconCenter={<SendIcon />}
-        variant="outlined"
-        size="default"
-        theme="text"
-        onClick={() => setDialogOpen(true)}
-      />
+      <Tooltip
+        arrow
+        title={
+          <FormattedMessage
+            id="sendTiplineMessage.tooltip"
+            defaultMessage="Send message to {username} on {channel}"
+            description="Tooltip for messaging popup"
+            values={{
+              username,
+              channel,
+            }}
+          />
+        }
+      >
+        <span>
+          <ButtonMain
+            className="send-tipline-message__button"
+            iconCenter={<SendIcon />}
+            variant="outlined"
+            size="default"
+            theme="text"
+            onClick={() => setDialogOpen(true)}
+          />
+        </span>
+      </Tooltip>
       { dialogOpen ?
         <Dialog
+          className={styles['dialog-window']}
           open
-          maxWidth="sm"
           fullWidth
         >
-          <DialogTitle>
+          <div className={styles['dialog-title']}>
             <FormattedMessage
+              tagName="h6"
               id="sendTiplineMessage.title"
               defaultMessage="Send message to {username} on {channel}"
               description="Title for messaging popup"
@@ -90,32 +107,38 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
               }}
             />
             <ButtonMain
-              className={styles['close-button']}
+              className={styles['dialog-close-button']}
               variant="text"
               size="small"
               theme="text"
               iconCenter={<IconClose />}
               onClick={() => setDialogOpen(false)}
             />
-          </DialogTitle>
-          <DialogContent>
-            <LimitedTextArea
-              value={text}
-              label={
-                <FormattedMessage
-                  id="sendTiplineMessage.inputLabel"
-                  defaultMessage="Message"
-                  description="Message input label"
+          </div>
+          <div className={styles['dialog-content']}>
+            <div className={inputStyles['form-fieldset']}>
+              <div className={inputStyles['form-fieldset-field']}>
+                <LimitedTextArea
+                  value={text}
+                  label={
+                    <FormattedMessage
+                      id="sendTiplineMessage.inputLabel"
+                      defaultMessage="Message"
+                      description="Message input label"
+                    />
+                  }
+                  maxChars={800}
+                  setValue={m => setText(m)}
                 />
-              }
-              maxChars={800}
-              setValue={m => setText(m)}
-            />
-          </DialogContent>
-          <DialogActions>
+              </div>
+            </div>
+          </div>
+          <div className={styles['dialog-actions']}>
             <ButtonMain
               className="send-tipline-message__cancel-button"
+              size="default"
               variant="text"
+              theme="lightText"
               onClick={() => setDialogOpen(false)}
               label={
                 <FormattedMessage
@@ -128,7 +151,9 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
             <ButtonMain
               className="send-tipline-message__submit-button"
               disabled={isSending}
+              size="default"
               variant="contained"
+              theme="brand"
               onClick={() => submitMessage(annotationId, text)}
               label={
                 <FormattedMessage
@@ -138,7 +163,7 @@ const SendTiplineMessage = ({ annotationId, channel, username }) => {
                 />
               }
             />
-          </DialogActions>
+          </div>
         </Dialog> : null
       }
     </>

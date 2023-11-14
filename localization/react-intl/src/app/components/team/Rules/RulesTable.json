@@ -5,6 +5,11 @@
     "defaultMessage": "Rules [{rulesCount}]"
   },
   {
+    "id": "rulesTableToolbar.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Use rules to automate actions on Check. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about rules</a>."
+  },
+  {
     "id": "rulesTableToolbar.add",
     "description": "Button label for creating a new rule",
     "defaultMessage": "New rule"

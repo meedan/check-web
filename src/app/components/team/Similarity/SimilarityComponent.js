@@ -1,7 +1,7 @@
 /* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { createFragmentContainer, commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
@@ -184,7 +184,14 @@ const SimilarityComponent = ({
             description="Title to similarity matching settings page"
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions"
+        context={
+          <FormattedHTMLMessage
+            id="teamDataComponent.helpContext"
+            defaultMessage='Manage settings for automatic matching of similar media. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about automatic matching</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           team.alegre_bot ?
             <Can permissions={team.permissions} permission="update Team">
@@ -266,7 +273,19 @@ const SimilarityComponent = ({
               onChange={() => handleSettingsChange('single_language_fact_checks_enabled', !settings.single_language_fact_checks_enabled)}
               labelPlacement="end"
               label={
-                <FormattedMessage id="similarityComponent.singleLanguageFactChecksEnabled" description="Label displayed when similarity setting for single language fact-checks is enabled" defaultMessage="Only send fact-checks in the same language as the conversation language" />
+                <FormattedMessage
+                  id="similarityComponent.singleLanguageFactChecksEnabled"
+                  description="Label displayed when similarity setting for single language fact-checks is enabled"
+                  defaultMessage="Only send fact-checks in the same language as the conversation language"
+                />
+              }
+              helperContent={
+                <FormattedHTMLMessage
+                  id="similarityComponent.singleLanguageFactChecksHelp"
+                  description="Help text displayed when similarity setting for single language fact-checks is enabled"
+                  defaultMessage='Media matching groups similar items, even if they are in multiple languages. If enabled, fact-checks will only be sent to users whose chosen language of conversation in the tipline matches the fact-check language. If disabled, fact-checks will be sent to all users whose media matches the claim, regardless of their conversation language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about tipline menus</a>.'
+                  values={{ helpLink: 'https://help.checkmedia.org/en/articles/5982401-tipline-settings#h_d170d3ccb6' }}
+                />
               }
             />
           </Box>

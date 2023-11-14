@@ -2,7 +2,17 @@
   {
     "id": "createMedia.mediaClaimDescription",
     "description": "Section title for the description of a claim",
-    "defaultMessage": "Claim description"
+    "defaultMessage": "Claim"
+  },
+  {
+    "id": "createMedia.mediaClaim",
+    "description": "Placeholder message for the claim text field",
+    "defaultMessage": "For example: The earth is flat"
+  },
+  {
+    "id": "createMedia.mediaClaimLabel",
+    "description": "Label for the text input for claim title",
+    "defaultMessage": "Title"
   },
   {
     "id": "createMedia.mediaClaimDescriptionSubtitle",
@@ -10,24 +20,24 @@
     "defaultMessage": "A description of the claim that needs to be reviewed."
   },
   {
-    "id": "createMedia.mediaClaim",
-    "description": "Placeholder message for the claim text field",
-    "defaultMessage": "Type something"
-  },
-  {
     "id": "createMedia.media.media",
     "description": "Header for the claim media area",
     "defaultMessage": "Media"
   },
   {
-    "id": "createMedia.mediaMediaSubtitle",
-    "description": "Subtitle for the section of the media that contains the claim being created",
-    "defaultMessage": "The media that contains the claim."
-  },
-  {
     "id": "createMedia.mediaInput",
     "description": "Placeholder text for the media URL input",
     "defaultMessage": "Add a URL to a social media post or webpage, or a block of text."
+  },
+  {
+    "id": "createMedia.mediaInputLabel",
+    "description": "Label for the text input for claim title",
+    "defaultMessage": "URL or Text Block"
+  },
+  {
+    "id": "createMedia.mediaMediaSubtitle",
+    "description": "Subtitle for the section of the media that contains the claim being created",
+    "defaultMessage": "The media that contains the claim."
   },
   {
     "id": "createMedia.or",

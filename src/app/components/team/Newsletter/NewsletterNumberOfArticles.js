@@ -17,6 +17,13 @@ const NewsletterNumberOfArticles = ({
         description="Label on an input where the user selects the number of articles to display in their newsletter"
       />
     }
+    helpContent={
+      <FormattedMessage
+        id="newsletterNumberOfArticles.helpContent"
+        defaultMessage="Choose the number of articles that will be published in your newsletter"
+        description="Help context description on an input where the user selects the number of articles to display in their newsletter"
+      />
+    }
     variant="contained"
     value={number}
     onChange={(e, newValue) => { onChangeNumber(newValue); }}

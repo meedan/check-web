@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
 import cx from 'classnames/bind';
@@ -426,12 +426,19 @@ const NewsletterComponent = ({
   return (
     <>
       <SettingsHeader
-        helpUrl="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters"
         title={
           <FormattedMessage
             id="newsletterComponent.title"
             defaultMessage="Newsletter"
             description="Title for newsletter settings page."
+          />
+        }
+        context={
+          <FormattedHTMLMessage
+            id="newsletterComponent.helpContext"
+            defaultMessage='Manage, draft, and schedule newsletters sent to all subscribers. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about newsletters</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/5540430-tipline-newsletters' }}
+            description="Context description for the functionality of this page"
           />
         }
         extra={
@@ -441,6 +448,7 @@ const NewsletterComponent = ({
               onSubmit={handleLanguageChange}
               languages={languages}
               isDisabled={saving}
+              showLabel={false}
             /> : null
         }
         actionButton={

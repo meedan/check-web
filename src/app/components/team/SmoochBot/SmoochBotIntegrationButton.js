@@ -339,21 +339,21 @@ const SmoochBotIntegrationButton = ({
                 </Box>
               ))}
               <Box>
-                <Typography variant="body1" component="p" paragraph>
-                  { url ?
-                    <FormattedMessage
-                      id="smoochBotIntegrationButton.disclaimerForUrl"
-                      defaultMessage="Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline."
-                      values={{ platform: label }}
-                      description="The platform here can be Twitter, Facebook, etc."
-                    /> :
-                    <FormattedMessage
-                      id="smoochBotIntegrationButton.disclaimer"
-                      defaultMessage="We don't store this information. This is just used to configure the integration."
-                      description="Privacy disclaimer statement"
-                    />
-                  }
-                </Typography>
+                { url ?
+                  <FormattedMessage
+                    tagName="p"
+                    id="smoochBotIntegrationButton.disclaimerForUrl"
+                    defaultMessage="Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline."
+                    values={{ platform: label }}
+                    description="The platform here can be Twitter, Facebook, etc."
+                  /> :
+                  <FormattedMessage
+                    tagName="p"
+                    id="smoochBotIntegrationButton.disclaimer"
+                    defaultMessage="We don't store this information. This is just used to configure the integration."
+                    description="Privacy disclaimer statement"
+                  />
+                }
               </Box>
             </Box>
         }
