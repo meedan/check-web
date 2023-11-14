@@ -25,6 +25,7 @@ const LanguagePickerSelect = ({
   languages,
   isDisabled,
   showLabel,
+  helpContent,
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
   const options = (languages || []).slice();
@@ -72,6 +73,7 @@ const LanguagePickerSelect = ({
                   iconRight={<ChevronDownIcon />}
                   label={showLabel ? <FormattedMessage id="LanguagePickerSelect.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language of fact-check" /> : null}
                   placeholder={placeholder}
+                  helpContent={helpContent}
                   {...params.inputProps}
                 />
               )}
@@ -88,6 +90,7 @@ LanguagePickerSelect.defaultProps = {
   isDisabled: false,
   showLabel: true,
   selectedLanguage: 'und',
+  helpContent: null,
 };
 
 LanguagePickerSelect.propTypes = {
@@ -97,6 +100,7 @@ LanguagePickerSelect.propTypes = {
   languages: PropTypes.arrayOf(PropTypes.string),
   isDisabled: PropTypes.bool,
   showLabel: PropTypes.bool,
+  helpContent: PropTypes.element,
 };
 
 export default injectIntl(LanguagePickerSelect);
