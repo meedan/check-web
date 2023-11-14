@@ -62,7 +62,7 @@
   {
     "id": "teamSettings.report",
     "description": "Label for the Report settings tab",
-    "defaultMessage": "Report"
+    "defaultMessage": "Reports"
   },
   {
     "id": "teamSettings.integrations",

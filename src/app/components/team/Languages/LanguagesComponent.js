@@ -80,7 +80,14 @@ const LanguagesComponent = ({ team }) => {
             description="Title of Language settings page"
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/4498863-languages"
+        context={
+          <FormattedHTMLMessage
+            id="teamMembers.helpContext"
+            defaultMessage='Manage tipline language settings. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about language support</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4498863-languages' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           <AddLanguageAction team={team} />
         }
@@ -147,7 +154,7 @@ const LanguagesComponent = ({ team }) => {
           <div className={settingsStyles['setting-content-container-title']}>
             <FormattedMessage
               id="languagesComponent.languages"
-              defaultMessage="Languages [{languageCount}]"
+              defaultMessage="Supported Languages [{languageCount}]"
               description="Title of the active languages list section in language settings page"
               values={{ languageCount: languages.length }}
             />

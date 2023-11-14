@@ -12,7 +12,12 @@
   {
     "id": "teamReportComponent.title",
     "description": "Header for the report settings page",
-    "defaultMessage": "Report settings"
+    "defaultMessage": "Reports"
+  },
+  {
+    "id": "teamReportComponent.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Customize fact-check reports sent to tipline users. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about fact-check reports</a>."
   },
   {
     "id": "teamReportComponent.save",

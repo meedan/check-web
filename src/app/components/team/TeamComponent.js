@@ -257,7 +257,7 @@ class TeamComponent extends Component {
                 label={
                   <FormattedMessage
                     id="teamSettings.report"
-                    defaultMessage="Report"
+                    defaultMessage="Reports"
                     description="Label for the Report settings tab"
                   />
                 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedRelative } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, FormattedRelative } from 'react-intl';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -85,7 +85,14 @@ export default function RulesTable(props) {
             values={{ rulesCount: rows.length }}
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"
+        context={
+          <FormattedHTMLMessage
+            id="rulesTableToolbar.helpContext"
+            defaultMessage='Use rules to automate actions on Check. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about rules</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4842057-rules-and-automation' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           <ButtonMain
             size="default"

@@ -36,6 +36,7 @@ const ConfirmProceedDialog = ({
               <FormattedMessage id="confirmProceedDialog.confirmationTextPlaceholder" defaultMessage="Type confirmation phrase here" description="Placeholder label for confirmation word input">
                 {placeholder => (
                   <TextField
+                    required
                     key={typeTextToConfirm}
                     componentProps={{
                       name: 'confirmation-text',

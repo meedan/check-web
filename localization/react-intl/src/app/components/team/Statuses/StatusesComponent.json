@@ -22,7 +22,12 @@
   {
     "id": "statusesComponent.title",
     "description": "The idea of this sentence is 'statuses written in language <languageName>'",
-    "defaultMessage": "{languageName} statuses [{statusCount}]"
+    "defaultMessage": "{languageName} Statuses [{statusCount}]"
+  },
+  {
+    "id": "statusesComponent.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Statuses represent the position of claims in the editorial workflow. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about statuses</a>."
   },
   {
     "id": "statusesComponent.newStatus",
@@ -32,6 +37,6 @@
   {
     "id": "statusesComponent.blurbSecondary",
     "description": "Message displayed on status translation page.",
-    "defaultMessage": "Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
+    "defaultMessage": "Translate statuses in secondary languages to display them to tipline users in their conversation language."
   }
 ]

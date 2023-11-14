@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
@@ -84,7 +84,14 @@ const TeamMembersComponent = ({
             values={{ membersCount: sortedMembers.filter(tu => !tu.node.user.is_bot).length }}
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/3336431-permissions-in-check"
+        context={
+          <FormattedHTMLMessage
+            id="teamMembers.helpContext"
+            defaultMessage='Manage your Check workspace’s members. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about member roles</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/3336431-permissions-in-check' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           <ButtonMain
             theme="brand"

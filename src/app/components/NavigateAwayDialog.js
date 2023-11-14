@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
-import Typography from '@material-ui/core/Typography';
 import ConfirmProceedDialog from './layout/ConfirmProceedDialog';
 
 const NavigateAwayDialog = ({
@@ -62,11 +61,9 @@ const NavigateAwayDialog = ({
       open={Boolean(leaveLocation)}
       title={title}
       body={
-        <div>
-          <Typography variant="body1" component="p" paragraph>
-            {body}
-          </Typography>
-        </div>
+        <p>
+          {body}
+        </p>
       }
       proceedLabel={proceedLabel}
       onProceed={handleConfirmLeave}

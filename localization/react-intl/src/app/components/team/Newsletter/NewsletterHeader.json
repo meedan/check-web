@@ -30,6 +30,11 @@
     "defaultMessage": "Header"
   },
   {
+    "id": "newsletterHeader.headerHelp",
+    "description": "Input help context for selecting a newsletter header",
+    "defaultMessage": "Use a Header to send an image, video, or link to newsletter subscribers. Header images should be between 300 and 1600 pixels wide. We recommend the aspect ratio for header images be 1.91:1"
+  },
+  {
     "id": "newsletterHeader.overlayPlaceholder",
     "description": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)",
     "defaultMessage": "Add text on top of the image"

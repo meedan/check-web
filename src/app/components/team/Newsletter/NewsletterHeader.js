@@ -65,7 +65,16 @@ const NewsletterHeader = ({
       onChange={(e) => { onUpdateField('headerType', e.target.value); }}
       disabled={disabled}
       error={parentErrors.header_type || error}
-      helpContent={parentErrors.header_type}
+      helpContent={
+        parentErrors.header_type ?
+          parentErrors.header_type
+          :
+          <FormattedMessage
+            id="newsletterHeader.headerHelp"
+            defaultMessage="Use a Header to send an image, video, or link to newsletter subscribers. Header images should be between 300 and 1600 pixels wide. We recommend the aspect ratio for header images be 1.91:1"
+            description="Input help context for selecting a newsletter header"
+          />
+      }
     >
       {Object.keys(headerTypes).map(type => (
         <option key={type} value={type} disabled={!availableHeaderTypes.includes(type)}>
