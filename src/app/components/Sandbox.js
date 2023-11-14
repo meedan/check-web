@@ -73,6 +73,9 @@ const SandboxComponent = ({ admin }) => {
   const [textfieldRemovable, setTextfieldRemovable] = React.useState(Boolean(true));
   const [textfieldContent, setTextfieldContent] = React.useState('');
 
+  const [toggleButtonGroupLabel, setToggleButtonGroupLabel] = React.useState(Boolean(true));
+  const [toggleButtonGroupHelp, setToggleButtonGroupHelp] = React.useState(Boolean(true));
+
   const [timeLabel, setTimeLabel] = React.useState(Boolean(false));
   const [timeHelp, setTimeHelp] = React.useState(Boolean(false));
   const [timeError, setTimeError] = React.useState(Boolean(false));
@@ -389,35 +392,57 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </div>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>
-            ToggleButtonGroup
-            <a
-              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3703-28265&mode=design&t=ZVq51pKdIKdWZicO-4"
-              rel="noopener noreferrer"
-              target="_blank"
-              title="Figma Designs"
-              className={styles.figmaLink}
-            >
-              <FigmaColorLogo />
-            </a>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              ToggleButtonGroup
+              <a
+                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3703-28265&mode=design&t=ZVq51pKdIKdWZicO-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Label"
+                  labelPlacement="top"
+                  checked={toggleButtonGroupLabel}
+                  onChange={() => setToggleButtonGroupLabel(!toggleButtonGroupLabel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Help"
+                  labelPlacement="top"
+                  checked={toggleButtonGroupHelp}
+                  onChange={() => setToggleButtonGroupHelp(!toggleButtonGroupHelp)}
+                />
+              </li>
+            </ul>
           </div>
-          <ToggleButtonGroup
-            label="I am a label"
-            variant="contained"
-            helpContent="I can be of help"
-            value="1"
-            exclusive
-          >
-            <ToggleButton value="1">
-              One
-            </ToggleButton>
-            <ToggleButton value="2">
-              Two
-            </ToggleButton>
-            <ToggleButton value="3">
-              Three
-            </ToggleButton>
-          </ToggleButtonGroup>
+          <div className={styles.componentBlockVariants} style={{ backgroundColor: reorderTheme === 'white' ? 'var(--grayBackground)' : 'var(--otherWhite' }}>
+            <ToggleButtonGroup
+              label={toggleButtonGroupLabel ? 'I am a label' : null}
+              variant="contained"
+              helpContent={toggleButtonGroupHelp ? 'I can be of help to ToggleButtonGroup' : null}
+              value="1"
+              exclusive
+            >
+              <ToggleButton value="1">
+                One
+              </ToggleButton>
+              <ToggleButton value="2">
+                Two
+              </ToggleButton>
+              <ToggleButton value="3">
+                Three
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
         </div>
       </section>
       <section id="sandbox-inputs">
