@@ -1,7 +1,15 @@
 .dialog-window {
+  position: relative;
+
   .dialog-title {
     border-bottom: solid 1px var(--brandBorder);
-    padding: 16px 24px;
+    padding: 16px 48px 16px 24px;
+  }
+
+  .dialog-close-button {
+    position: absolute;
+    right: 8px;
+    top: 16px;
   }
 
   .dialog-content {

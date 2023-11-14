@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { units } from '../../styles/js/shared';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import Select from '../cds/inputs/Select';
 
 const messages = defineMessages({
   collaborator: {
@@ -25,7 +21,7 @@ const messages = defineMessages({
 const RoleSelect = ({
   disabled,
   excludeRoles,
-  fullWidth,
+  showLabel,
   intl,
   onChange,
   value,
@@ -41,40 +37,35 @@ const RoleSelect = ({
     : roles;
 
   return (
-    <FormControl
-      variant="outlined"
-      style={{ minWidth: units(20) }}
-      fullWidth={fullWidth}
+    <Select
+      className="role-select"
+      label={showLabel ? <FormattedMessage id="roleSelect.selectLabel" defaultMessage="Workspace permission" description="Label for select input for user to choose the permissions role for this user" /> : null}
+      disabled={disabled}
+      required={showLabel}
+      onChange={onChange}
+      value={value}
     >
-      <Select
-        className="role-select"
-        disabled={disabled}
-        input={<OutlinedInput name="role-select" labelWidth={0} />}
-        onChange={onChange}
-        value={value}
-      >
-        {
-          filteredRoles.map(r => (
-            <MenuItem className={`role-${r.value}`} key={r.value} value={r.value}>
-              {r.label}
-            </MenuItem>
-          ))
-        }
-      </Select>
-    </FormControl>
+      {
+        filteredRoles.map(r => (
+          <option className={`role-${r.value}`} key={r.value} value={r.value}>
+            {r.label}
+          </option>
+        ))
+      }
+    </Select>
   );
 };
 
 RoleSelect.defaultProps = {
   disabled: false,
   excludeRoles: [],
-  fullWidth: false,
+  showLabel: false,
 };
 
 RoleSelect.propTypes = {
   disabled: PropTypes.bool,
   excludeRoles: PropTypes.arrayOf(PropTypes.string.isRequired),
-  fullWidth: PropTypes.bool,
+  showLabel: PropTypes.bool,
   intl: intlShape.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,

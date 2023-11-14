@@ -90,6 +90,11 @@
     "defaultMessage": "Choose a field type"
   },
   {
+    "id": "tasks.editAnnotationDialogTitle",
+    "description": "Title for dialog when editing an annotation",
+    "defaultMessage": "Edit Annotation"
+  },
+  {
     "id": "tasks.taskPrompt",
     "description": "Title field for custom annotation field",
     "defaultMessage": "Title"

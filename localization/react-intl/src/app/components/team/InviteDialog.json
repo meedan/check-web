@@ -15,9 +15,19 @@
     "defaultMessage": "Invite workspace members"
   },
   {
+    "id": "inviteDialog.textInputPlaceholder",
+    "description": "Placeholder for input for invited emails",
+    "defaultMessage": "example: team_member@example.org, team_member2@example.org"
+  },
+  {
     "id": "inviteDialog.textInputLabel",
     "description": "Label to input for invited emails. Requires that multiple emails be entered separated by comma.",
-    "defaultMessage": "Email addresses, comma separated"
+    "defaultMessage": "Email address(es)"
+  },
+  {
+    "id": "inviteDialog.textInputHelp",
+    "description": "Help to input for invited emails. Requires that multiple emails be entered separated by comma.",
+    "defaultMessage": "To invite multiple members, separate email address with a comma"
   },
   {
     "id": "global.cancel",

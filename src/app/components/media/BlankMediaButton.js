@@ -101,6 +101,7 @@ const BlankMediaButton = ({
         title={
           reverse ?
             <FormattedMessage
+              tagName="h6"
               id="blankMediaButton.addToImportedReport"
               defaultMessage="Add to imported fact-check"
               description="Header to dialog in which the user adds media to already existing (imported) fact-checks"

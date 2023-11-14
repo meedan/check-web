@@ -36,6 +36,7 @@ const MediaSimilarityBarAdd = ({
   if (action === 'addSimilarToThis') {
     label = (
       <FormattedMessage
+        tagName="h6"
         id="mediaSimilarityBarAdd.addSimilarToThisTitle"
         defaultMessage="Import media from other items"
         description="Dialog title for importing media from other items."
@@ -44,6 +45,7 @@ const MediaSimilarityBarAdd = ({
   } else if (action === 'addThisToSimilar') {
     label = (
       <FormattedMessage
+        tagName="h6"
         id="mediaSimilarityBarAdd.addThisToSimilarTitle"
         defaultMessage="Export all media to another item"
         description="Dialog title for exporting media to other item."
