@@ -38,8 +38,6 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
     setReports(newReports);
   };
 
-  console.log(currentLanguage); // eslint-disable-line no-console
-
   const handleError = () => {
     setSaving(false);
     // FIXME: Get error message from backend
