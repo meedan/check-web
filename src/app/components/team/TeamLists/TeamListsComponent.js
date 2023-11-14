@@ -236,6 +236,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
         blurb={
           <FormattedMessage
             id="teamListsComponent.confirmSaveText"
+            tagName="p"
             defaultMessage="Are you sure? Your changes will affect all lists and be visible by all users in your workspace."
             description="Content of 'Save changes' confirmation dialog."
           />

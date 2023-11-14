@@ -5,6 +5,11 @@
     "defaultMessage": "Message sent"
   },
   {
+    "id": "sendTiplineMessage.tooltip",
+    "description": "Tooltip for messaging popup",
+    "defaultMessage": "Send message to {username} on {channel}"
+  },
+  {
     "id": "sendTiplineMessage.title",
     "description": "Title for messaging popup",
     "defaultMessage": "Send message to {username} on {channel}"

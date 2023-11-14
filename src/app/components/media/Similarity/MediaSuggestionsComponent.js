@@ -4,11 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import {
-  Dialog,
-  DialogActions,
-  DialogTitle,
-} from '@material-ui/core';
+import { Dialog } from '@material-ui/core';
 import { browserHistory } from 'react-router';
 import { can } from '../../Can';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
@@ -31,6 +27,7 @@ import PreviousIcon from '../../../icons/chevron_left.svg';
 import styles from '../media.module.css';
 import suggestionsStyles from './MediaSuggestions.module.css';
 import inputStyles from '../../../styles/css/inputs.module.css';
+import dialogStyles from '../../../styles/css/dialog.module.css';
 
 const MediaSuggestionsComponent = ({
   mainItem,
@@ -737,13 +734,15 @@ const MediaSuggestionsComponent = ({
               </div>
             </div>
             <Dialog
+              className={dialogStyles['dialog-window']}
               open={isBulkAcceptDialogOpen}
               onClose={closeBulkAcceptDialog}
               maxWidth="sm"
               fullWidth
             >
-              <DialogTitle>
+              <div className={dialogStyles['dialog-title']}>
                 <FormattedMessage
+                  tagName="h6"
                   id="mediaSuggestionsComponent.dialogBulkAcceptTitle"
                   defaultMessage="Are you sure you want to match {number} suggestions?"
                   description="Prompt to a user when they choose to match media as a bulk action"
@@ -751,8 +750,8 @@ const MediaSuggestionsComponent = ({
                     number: relationships.slice(cursor, cursor + pageSize).length,
                   }}
                 />
-              </DialogTitle>
-              <DialogActions>
+              </div>
+              <div className={dialogStyles['dialog-actions']}>
                 <ButtonMain
                   variant="text"
                   size="default"
@@ -782,16 +781,18 @@ const MediaSuggestionsComponent = ({
                     />
                   }
                 />
-              </DialogActions>
+              </div>
             </Dialog>
             <Dialog
+              className={dialogStyles['dialog-window']}
               open={isBulkSpamDialogOpen}
               onClose={closeBulkSpamDialog}
               maxWidth="sm"
               fullWidth
             >
-              <DialogTitle>
+              <div className={dialogStyles['dialog-title']}>
                 <FormattedMessage
+                  tagName="h6"
                   id="mediaSuggestionsComponent.dialogBulkSpamTitle"
                   defaultMessage="Are you sure you want to mark {number} suggested media as spam?"
                   description="Prompt to a user when they choose to mark media as spam in bulk"
@@ -799,8 +800,8 @@ const MediaSuggestionsComponent = ({
                     number: relationships.slice(cursor, cursor + pageSize).length,
                   }}
                 />
-              </DialogTitle>
-              <DialogActions>
+              </div>
+              <div className={dialogStyles['dialog-actions']}>
                 <ButtonMain
                   variant="text"
                   size="default"
@@ -830,16 +831,18 @@ const MediaSuggestionsComponent = ({
                     />
                   }
                 />
-              </DialogActions>
+              </div>
             </Dialog>
             <Dialog
+              className={dialogStyles['dialog-window']}
               open={isBulkTrashDialogOpen}
               onClose={closeBulkTrashDialog}
               maxWidth="sm"
               fullWidth
             >
-              <DialogTitle>
+              <div className={dialogStyles['dialog-title']}>
                 <FormattedMessage
+                  tagName="h6"
                   id="mediaSuggestionsComponent.dialogBulkTrashTitle"
                   defaultMessage="Are you sure you want to send {number} suggestions to the trash?"
                   description="Prompt to a user when they choose to send media to trash in bulk"
@@ -847,8 +850,8 @@ const MediaSuggestionsComponent = ({
                     number: relationships.slice(cursor, cursor + pageSize).length,
                   }}
                 />
-              </DialogTitle>
-              <DialogActions>
+              </div>
+              <div className={dialogStyles['dialog-actions']}>
                 <ButtonMain
                   variant="text"
                   size="default"
@@ -878,16 +881,18 @@ const MediaSuggestionsComponent = ({
                     />
                   }
                 />
-              </DialogActions>
+              </div>
             </Dialog>
             <Dialog
+              className={dialogStyles['dialog-window']}
               open={isBulkRejectDialogOpen}
               onClose={closeBulkRejectDialog}
               maxWidth="sm"
               fullWidth
             >
-              <DialogTitle>
+              <div className={dialogStyles['dialog-title']}>
                 <FormattedMessage
+                  tagName="h6"
                   id="mediaSuggestionsComponent.dialogBulkRejectTitle"
                   defaultMessage="Are you sure you want to reject {number} suggestions?"
                   description="Prompt to a user when they choose to reject media in bulk"
@@ -895,8 +900,8 @@ const MediaSuggestionsComponent = ({
                     number: relationships.slice(cursor, cursor + pageSize).length,
                   }}
                 />
-              </DialogTitle>
-              <DialogActions>
+              </div>
+              <div className={dialogStyles['dialog-actions']}>
                 <ButtonMain
                   variant="text"
                   size="default"
@@ -922,7 +927,7 @@ const MediaSuggestionsComponent = ({
                     }}
                   />}
                 />
-              </DialogActions>
+              </div>
             </Dialog>
           </>
         }

@@ -79,7 +79,9 @@ const ConfirmProceedDialog = ({
             label={cancelLabel || <FormattedGlobalMessage messageKey="cancel" />}
           /> : null }
         <ButtonMain
-          id="confirm-dialog__confirm-action-button"
+          buttonProps={{
+            id: 'confirm-dialog__confirm-action-button',
+          }}
           className="int-confirm-proceed-dialog__proceed"
           size="default"
           variant="contained"

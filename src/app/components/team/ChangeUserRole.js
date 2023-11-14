@@ -79,39 +79,37 @@ const ChangeUserRole = ({
           />
         }
         body={
-          <div>
-            <p>
-              <FormattedMessage
-                id="changeUserRole.changingTo"
-                defaultMessage="You will be changing {userLabel}'s role to {newRole}."
-                description="Description confirmation of what the current user role is, and what it will be changed to"
-                values={{
-                  userLabel: teamUser.user.name || teamUser.user.email,
-                  newRole,
-                }}
-              />
-            </p>
-            <p>
-              <FormattedMessage
-                id="changeUserRole.learnMore"
-                defaultMessage="To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
-                description="Help link to learn about roles and permissions for this application"
-                values={{
-                  userLabel: teamUser.user.name || teamUser.user.email,
-                  newRole,
-                  helpCenterLink: (
-                    <ExternalLink url="https://help.checkmedia.org/en/articles/3336431-permissions-in-check">
-                      <FormattedMessage
-                        id="changeUserRole.helpCenter"
-                        defaultMessage="Help Center"
-                        description="Link text to go to the help website"
-                      />
-                    </ExternalLink>
-                  ),
-                }}
-              />
-            </p>
-          </div>
+          <>
+            <FormattedMessage
+              tagName="p"
+              id="changeUserRole.changingTo"
+              defaultMessage="You will be changing {userLabel}'s role to {newRole}."
+              description="Description confirmation of what the current user role is, and what it will be changed to"
+              values={{
+                userLabel: teamUser.user.name || teamUser.user.email,
+                newRole,
+              }}
+            />
+            <FormattedMessage
+              tagName="p"
+              id="changeUserRole.learnMore"
+              defaultMessage="To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
+              description="Help link to learn about roles and permissions for this application"
+              values={{
+                userLabel: teamUser.user.name || teamUser.user.email,
+                newRole,
+                helpCenterLink: (
+                  <ExternalLink url="https://help.checkmedia.org/en/articles/3336431-permissions-in-check">
+                    <FormattedMessage
+                      id="changeUserRole.helpCenter"
+                      defaultMessage="Help Center"
+                      description="Link text to go to the help website"
+                    />
+                  </ExternalLink>
+                ),
+              }}
+            />
+          </>
         }
         onCancel={() => setNewRole(null)}
         onProceed={() => handleChangeRole(teamUser.id, newRole)}
