@@ -114,6 +114,17 @@ const updateMutation = graphql`
   }
 `;
 
+const updateFeedTeamMutation = graphql`
+mutation SaveFeedUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {
+  updateFeedTeam(input: $input) {
+    feed_team {
+      dbid
+      saved_search_id
+    }
+  }
+}
+`;
+
 const destroyMutation = graphql`
   mutation SaveFeedDestroyFeedMutation($input: DestroyFeedInput!) {
     destroyFeed(input: $input) {
@@ -138,11 +149,15 @@ const destroyMutation = graphql`
 const SaveFeed = (props) => {
   const { feedTeam } = props;
   const feed = props.feed || {}; // Editing a feed or creating a new feed
+
+  /* Having collaboratorId defined means we're viewing as a collaborating org */
   const collaboratorId = feedTeam?.team?.dbid;
+
+  console.log('feedTeam', feedTeam); // eslint-disable-line
 
   const [title, setTitle] = React.useState(feed.name || '');
   const [description, setDescription] = React.useState(feed.description || '');
-  const [selectedListId, setSelectedListId] = React.useState(feed.saved_search_id);
+  const [selectedListId, setSelectedListId] = React.useState(feedTeam?.saved_search_id || feed.saved_search_id);
   const [discoverable, setDiscoverable] = React.useState(Boolean(feed.discoverable));
   const [createdFeedDbid, setCreatedFeedDbid] = React.useState(null);
   const [newInvites, setNewInvites] = React.useState([]);
@@ -250,8 +265,27 @@ const SaveFeed = (props) => {
     });
   };
 
+  const handleSaveFeedTeam = () => {
+    setSaving(true);
+    const input = {
+      id: feedTeam.id,
+      saved_search_id: selectedListId,
+    };
+
+    console.log('input', input); // eslint-disable-line
+
+    commitMutation(Relay.Store, {
+      mutation: updateFeedTeamMutation,
+      variables: { input },
+      onCompleted: onSuccess,
+      onError: onFailure,
+    });
+  };
+
   const handleConfirmOrSave = () => {
-    if (feed.id || newInvites.length) {
+    if (collaboratorId) {
+      handleSaveFeedTeam();
+    } else if (feed.id || newInvites.length) {
       setShowConfirmationDialog(true);
     } else {
       handleSave();

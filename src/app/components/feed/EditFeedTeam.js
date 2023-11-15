@@ -2,7 +2,7 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import SaveFeed from './SaveFeed';
+import SaveFeedTeam from './SaveFeedTeam';
 
 const EditFeedTeam = ({ routeParams }) => (
   <QueryRenderer
@@ -10,12 +10,7 @@ const EditFeedTeam = ({ routeParams }) => (
     query={graphql`
       query EditFeedTeamQuery($feedTeamId: ID!) {
         feed_team(id: $feedTeamId) {
-          team {
-            dbid
-          }
-          feed {
-            ...SaveFeed_feed
-          }
+          ...SaveFeedTeam_feedTeam
         }
       }
     `}
@@ -24,15 +19,7 @@ const EditFeedTeam = ({ routeParams }) => (
     }}
     render={({ error, props }) => {
       if (!error && props) {
-        return (
-          <SaveFeed
-            feedTeam={props?.feed_team}
-            feed={props?.feed_team?.feed || {}}
-            // This is ugly
-            // I'm think even Feed editing should be done
-            // from the perspective of a FeedTeam.
-          />
-        );
+        return (<SaveFeedTeam feedTeam={props.feed_team} />);
       }
       return null;
     }}

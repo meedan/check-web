@@ -25,6 +25,11 @@
     "defaultMessage": "Remove"
   },
   {
+    "id": "feedCollaboration.titleCollaborator",
+    "description": "Title of the collaboration box in which feed organizer invites other organizations to a shared feed",
+    "defaultMessage": "Collaborating Organizations [{count}]"
+  },
+  {
     "id": "feedCollaboration.title",
     "description": "Title of the collaboration box in which feed organizer invites other organizations to a shared feed",
     "defaultMessage": "Collaboration"
