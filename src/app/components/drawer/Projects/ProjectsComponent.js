@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, withRouter, Link } from 'react-router';
 import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import cx from 'classnames/bind';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import AddCircleIcon from '../../../icons/add_circle.svg';
 import CategoryIcon from '../../../icons/category.svg';
@@ -25,6 +26,7 @@ import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
 import DeleteIcon from '../../../icons/delete.svg';
 import ReportIcon from '../../../icons/report.svg';
+import ScheduleSendIcon from '../../../icons/schedule_send.svg';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { assignedToMeDefaultQuery } from '../../team/AssignedToMe';
 import { suggestedMatchesDefaultQuery } from '../../team/SuggestedMatches';
@@ -279,9 +281,18 @@ const ProjectsComponent = ({
             <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
             <Can permissions={team.permissions} permission="create Project">
               <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
-                <IconButton id="projects-list__add-filtered-list" onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={styles.listHeaderLabelButton}>
-                  <AddCircleIcon />
-                </IconButton>
+                <span className={styles.listHeaderLabelButton}>
+                  <ButtonMain
+                    iconCenter={<AddCircleIcon />}
+                    variant="contained"
+                    size="small"
+                    theme="text"
+                    onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
+                    buttonProps={{
+                      id: 'projects-list__add-filtered-list',
+                    }}
+                  />
+                </span>
               </Tooltip>
             </Can>
           </ListItemText>
@@ -322,9 +333,16 @@ const ProjectsComponent = ({
             <FormattedMessage tagName="span" id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
             <Can permissions={team.permissions} permission="create Feed">
               <Tooltip arrow title={<FormattedMessage id="projectsComponent.newSharedFeed" defaultMessage="New shared feed" description="Tooltip for the button that navigates to shared feed creation page" />}>
-                <IconButton onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }} className={[styles.listHeaderLabelButton, 'projects-list__add-feed'].join(' ')}>
-                  <AddCircleIcon />
-                </IconButton>
+                <span className={styles.listHeaderLabelButton}>
+                  <ButtonMain
+                    className="projects-list__add-feed"
+                    iconCenter={<AddCircleIcon />}
+                    variant="contained"
+                    size="small"
+                    theme="text"
+                    onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }}
+                  />
+                </span>
               </Tooltip>
             </Can>
           </ListItemText>
@@ -342,6 +360,7 @@ const ProjectsComponent = ({
               {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
                 let itemProps = {};
                 let itemType = null;
+                let itemIcon = null;
                 switch (feed.type) {
                 // Feeds created by the workspace
                 case 'Feed':
@@ -351,23 +370,30 @@ const ProjectsComponent = ({
                 // Feeds not created by the workspace, but joined upon invitation
                 case 'FeedTeam':
                   itemProps = { routePrefix: 'feed-team' };
-                  itemType = 'feed';
+                  itemType = 'feed-team';
                   break;
                 // Feed invitations received but not processed yet
                 case 'FeedInvitation':
                   itemProps = { routePrefix: 'feed-invitation' };
-                  itemType = 'feed';
+                  itemType = 'feed-invitation';
+                  itemIcon = <ScheduleSendIcon className={cx(styles.listIcon, styles.listIconInvitedFeed)} />;
                   break;
                 default:
                   break;
                 }
                 return (
                   <ProjectsListItem
+                    className={cx(
+                      {
+                        [styles.listItemInvited]: feed.type === 'FeedInvitation',
+                      })
+                    }
                     key={feed.id}
                     project={feed}
                     teamSlug={team.slug}
                     onClick={handleClick}
                     isActive={isActive(itemType, feed.dbid)}
+                    icon={itemIcon}
                     {...itemProps}
                   />
                 );
