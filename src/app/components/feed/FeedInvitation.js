@@ -77,6 +77,7 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
               </div>
               <span className="typography-body1">{team.node.name}</span>
               <ButtonMain
+                className="int-feed-invitation__button--workspace"
                 label={<FormattedMessage id="feedInvitation.viewButton" defaultMessage="View invitation" description="Label for a button that the user presses to view an invitation that they are going to accept or reject" />}
                 iconLeft={<DoneIcon />}
                 variant="text"
