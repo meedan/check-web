@@ -16,6 +16,7 @@ const ToggleButton = ({ children, ...toggleButtonProps }) => (
 const ToggleButtonGroup = ({
   label,
   helpContent,
+  size,
   variant,
   className,
   children,
@@ -35,7 +36,19 @@ const ToggleButtonGroup = ({
       </div>
     )}
     <div className={`${inputStyles['input-container']}`}>
-      <div className={`typography-button ${styles['toggle-button-group']}`}>
+      <div
+        className={cx(
+          styles['toggle-button-group'],
+          {
+            [className]: true,
+            [styles.sizeDefault]: size === 'default',
+            [styles.sizeSmall]: size === 'small',
+            [styles.sizeLarge]: size === 'large',
+            [styles.contained]: variant === 'contained',
+            [styles.outlined]: variant === 'outlined',
+          })
+        }
+      >
         <ToggleButtonGroupMui
           classes={{
             root: styles.root,
@@ -56,6 +69,7 @@ const ToggleButtonGroup = ({
 
 ToggleButtonGroup.defaultProps = {
   className: '',
+  size: 'default',
   helpContent: null,
   label: '',
   variant: 'outlined',
@@ -63,8 +77,9 @@ ToggleButtonGroup.defaultProps = {
 
 ToggleButtonGroup.propTypes = {
   className: PropTypes.string,
+  size: PropTypes.oneOf(['default', 'small', 'large']),
   helpContent: PropTypes.element,
-  label: PropTypes.string,
+  label: PropTypes.element,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
 

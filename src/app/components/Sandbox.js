@@ -75,6 +75,7 @@ const SandboxComponent = ({ admin }) => {
 
   const [toggleButtonGroupLabel, setToggleButtonGroupLabel] = React.useState(Boolean(true));
   const [toggleButtonGroupHelp, setToggleButtonGroupHelp] = React.useState(Boolean(true));
+  const [toggleButtonGroupDisabled, setToggleButtonGroupDisabled] = React.useState(Boolean(false));
 
   const [timeLabel, setTimeLabel] = React.useState(Boolean(false));
   const [timeHelp, setTimeHelp] = React.useState(Boolean(false));
@@ -130,6 +131,21 @@ const SandboxComponent = ({ admin }) => {
   const [alertVariant, setAlertVariant] = React.useState('info');
   const onChangeAlertVariant = (event) => {
     setAlertVariant(event.target.value);
+  };
+
+  const [toggleButtonGroupVariant, setToggleButtonGroupVariant] = React.useState('contained');
+  const onChangeToggleButtonGroupVariant = (event) => {
+    setToggleButtonGroupVariant(event.target.value);
+  };
+
+  const [toggleButtonGroupValue, setToggleButtonGroupValue] = React.useState('1');
+  const changeToggleButtonGroupExample = (event) => {
+    setToggleButtonGroupValue(event);
+  };
+
+  const [toggleButtonGroupSize, setToggleButtonGroupSize] = React.useState('default');
+  const onChangeToggleButtonGroupSize = (event) => {
+    setToggleButtonGroupSize(event.target.value);
   };
 
   const [alertPlacement, setAlertPlacement] = React.useState('default');
@@ -407,6 +423,27 @@ const SandboxComponent = ({ admin }) => {
             </div>
             <ul>
               <li>
+                <Select
+                  label="Size"
+                  onChange={onChangeToggleButtonGroupSize}
+                  value={toggleButtonGroupSize}
+                >
+                  <option value="default">default</option>
+                  <option value="small">small</option>
+                  <option value="large">large</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={onChangeToggleButtonGroupVariant}
+                  value={toggleButtonGroupVariant}
+                >
+                  <option value="contained">contained</option>
+                  <option value="outlined">outlined</option>
+                </Select>
+              </li>
+              <li>
                 <SwitchComponent
                   label="Label"
                   labelPlacement="top"
@@ -422,23 +459,33 @@ const SandboxComponent = ({ admin }) => {
                   onChange={() => setToggleButtonGroupHelp(!toggleButtonGroupHelp)}
                 />
               </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={toggleButtonGroupDisabled}
+                  onChange={() => setToggleButtonGroupDisabled(!toggleButtonGroupDisabled)}
+                />
+              </li>
             </ul>
           </div>
-          <div className={styles.componentBlockVariants} style={{ backgroundColor: reorderTheme === 'white' ? 'var(--grayBackground)' : 'var(--otherWhite' }}>
+          <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--brandBackground' }}>
             <ToggleButtonGroup
               label={toggleButtonGroupLabel ? 'I am a label' : null}
-              variant="contained"
+              variant={toggleButtonGroupVariant}
               helpContent={toggleButtonGroupHelp ? 'I can be of help to ToggleButtonGroup' : null}
-              value="1"
+              value={toggleButtonGroupValue}
+              onChange={(e, newValue) => changeToggleButtonGroupExample(newValue)}
+              size={toggleButtonGroupSize}
               exclusive
             >
-              <ToggleButton value="1">
+              <ToggleButton value="1" key="1" disabled={toggleButtonGroupDisabled}>
                 One
               </ToggleButton>
-              <ToggleButton value="2">
+              <ToggleButton value="2" key="2" disabled={toggleButtonGroupDisabled}>
                 Two
               </ToggleButton>
-              <ToggleButton value="3">
+              <ToggleButton value="3" key="3" disabled={toggleButtonGroupDisabled}>
                 Three
               </ToggleButton>
             </ToggleButtonGroup>
