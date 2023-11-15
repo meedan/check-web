@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
 import MultiSelector from '../layout/MultiSelector';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -113,14 +112,13 @@ const BulkActionsStatus = ({
           />
         }
         body={
-          <Typography variant="body1" component="p" paragraph>
-            <FormattedMessage
-              id="bulkActionsStatus.dialogBody"
-              defaultMessage="{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}"
-              values={{ publishedCount }}
-              description="Body of dialog warning that bulk updating item statuses could not be performed entirely"
-            />
-          </Typography>
+          <FormattedMessage
+            tagName="p"
+            id="bulkActionsStatus.dialogBody"
+            defaultMessage="{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}"
+            values={{ publishedCount }}
+            description="Body of dialog warning that bulk updating item statuses could not be performed entirely"
+          />
         }
         onProceed={onDismiss}
       />

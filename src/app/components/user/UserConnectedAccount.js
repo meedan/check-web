@@ -79,6 +79,7 @@ class UserConnectedAccount extends Component {
       />,
       blurb: <FormattedMessage
         id="UserConnectedAccount.disconnectAccountConfirmationText"
+        tagName="p"
         defaultMessage="Are you sure? This will disconnect login account."
         description="Confirmation to ensure the user knows they are disconnecting an account"
       />,

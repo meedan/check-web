@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
-import Typography from '@material-ui/core/Typography';
 import EmptyFeedIcon from '../../icons/empty_feed.svg';
 import styles from './FeedBlankState.module.css';
 
@@ -12,7 +11,7 @@ const FeedBlankState = ({ teamSlug, feedDbid, listDbid }) => (
     <h6 className="typography-h6">
       <FormattedMessage id="feedBlankState.title" defaultMessage="No fact-checks" description="Title displayed on feed page when there are no fact-checks to be listed." />
     </h6>
-    <Typography variant="body1" component="p" paragraph>
+    <p>
       <FormattedMessage
         id="feedBlankState.description"
         defaultMessage="Try {resetLink} to find fact-checks or verify that the {listLink} has items"
@@ -40,7 +39,7 @@ const FeedBlankState = ({ teamSlug, feedDbid, listDbid }) => (
           ),
         }}
       />
-    </Typography>
+    </p>
   </div>
 );
 

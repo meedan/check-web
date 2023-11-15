@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Modal } from '@material-ui/core';
 import TiplineHistory from './TiplineHistory';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import QuestionAnswerIcon from '../../icons/question_answer.svg';
 
@@ -24,7 +25,16 @@ const TiplineHistoryButton = ({
 
   return (
     <>
-      <ButtonMain variant="outlined" theme="text" iconCenter={<QuestionAnswerIcon />} onClick={handleClick} className="int-tipline-history__button--open" />
+      <Tooltip
+        arrow
+        title={
+          <FormattedMessage id="tiplineHistory.tooltip" description="Tooltip labeling a chat log with a user" defaultMessage="Chat history with {user} on {channel}" values={{ user: name, channel }} />
+        }
+      >
+        <span>
+          <ButtonMain variant="outlined" theme="text" iconCenter={<QuestionAnswerIcon />} onClick={handleClick} className="int-tipline-history__button--open" />
+        </span>
+      </Tooltip>
       <Modal
         open={dialogOpen}
         onClose={handleClose}
@@ -32,7 +42,7 @@ const TiplineHistoryButton = ({
         <TiplineHistory
           uid={uid}
           handleClose={handleClose}
-          title={<FormattedMessage id="tiplineHistory.title" description="Title field labeling a chat log with a user" defaultMessage="Chat with {user} on {channel}" values={{ user: name, channel }} />}
+          title={<FormattedMessage id="tiplineHistory.title" description="Title field labeling a chat log with a user" defaultMessage="Chat history with {user} on {channel}" values={{ user: name, channel }} />}
         />
       </Modal>
     </>

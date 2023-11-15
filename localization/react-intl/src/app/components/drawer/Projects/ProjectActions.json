@@ -40,6 +40,11 @@
     "defaultMessage": "Cancel"
   },
   {
+    "id": "projectsComponent.deleteTitleType",
+    "description": "'Delete' here is an infinitive verb",
+    "defaultMessage": "Delete list?"
+  },
+  {
     "id": "projectsComponent.deleteType",
     "description": "'Delete' here is an infinitive verb",
     "defaultMessage": "Delete list"

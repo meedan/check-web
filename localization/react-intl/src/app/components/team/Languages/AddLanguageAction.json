@@ -10,9 +10,14 @@
     "defaultMessage": "Choose a new language"
   },
   {
+    "id": "addLanguageAction.selectLanguagePlaceholder",
+    "description": "Placeholder to language selection dropdown",
+    "defaultMessage": "Select a language"
+  },
+  {
     "id": "addLanguageAction.selectLanguage",
     "description": "Label to language selection dropdown",
-    "defaultMessage": "Select a language"
+    "defaultMessage": "Language"
   },
   {
     "id": "addLanguageAction.addLanguage",
