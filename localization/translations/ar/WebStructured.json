@@ -1,15 +1,19 @@
 {
 	"CheckAgreeTerms.agreeTerms": {
-		"string": "إن تسجيل الاشتراك يعني موافقتك على {tosLink}  و {ppLink} لدى {appName}."
+		"string": "إن تسجيل الاشتراك يعني موافقتك على {tosLink}  و {ppLink} لدى {appName}.",
+		"developer_comment": "Sign up agreeent message to ensure the user knows they are accepting the terms of service and privacy policy"
 	},
 	"ConfirmEmail.content": {
-		"string": "يرجى الاطلاع على بريدك الإلكتروني للتحقق من حسابك."
+		"string": "يرجى الاطلاع على بريدك الإلكتروني للتحقق من حسابك.",
+		"developer_comment": "Message to the user to check their email inbox in order to verify their application account"
 	},
 	"ConfirmEmail.resendConfirmation": {
-		"string": "إعادة الإرسال"
+		"string": "إعادة الإرسال",
+		"developer_comment": "Button label to allow the user to resend their email address confirmation"
 	},
 	"ConfirmEmail.title": {
-		"string": "تأكيد بريدك الإلكتروني"
+		"string": "تأكيد بريدك الإلكتروني",
+		"developer_comment": "Container title for confirming user email address"
 	},
 	"CustomFilter.filterBy": {
 		"string": "التصفية عن طريق"
@@ -92,10 +96,12 @@
 		"string": "إتمام"
 	},
 	"ImportedReports.title": {
-		"string": "تقصي الحقائق المُستورَدة"
+		"string": "تقصي الحقائق المُستورَدة",
+		"developer_comment": "Search label for searching fact-checks that were imported into the application"
 	},
 	"ItemHistoryDialog.title": {
-		"string": "تاريخ العنصر"
+		"string": "تاريخ العنصر",
+		"developer_comment": "Dialog window title for the item's history"
 	},
 	"LanguagePickerSelect.optionLabel": {
 		"string": "{languageName} ({languageCode})"
@@ -159,19 +165,24 @@
 		"developer_comment": "Message for confirmed accounts"
 	},
 	"UserConnectedAccount.addAnother": {
-		"string": "إضافة حساب آخر"
+		"string": "إضافة حساب آخر",
+		"developer_comment": "Button label for the user to connect another account"
 	},
 	"UserConnectedAccount.connectButton": {
-		"string": "توصيل حساب"
+		"string": "توصيل حساب",
+		"developer_comment": "Button label for connecting an account"
 	},
 	"UserConnectedAccount.disconnectAccountConfirmationText": {
-		"string": "هل أنت متأكد(ة)؟ هذا سيفصل حساب تسجيل الدّخول؟"
+		"string": "هل أنت متأكد(ة)؟ هذا سيفصل حساب تسجيل الدّخول؟",
+		"developer_comment": "Confirmation to ensure the user knows they are disconnecting an account"
 	},
 	"UserConnectedAccount.disconnectAccountTitle": {
-		"string": "فصل الحساب"
+		"string": "فصل الحساب",
+		"developer_comment": "Dialog title for disconnecting an account"
 	},
 	"UserConnectedAccount.disconnectButton": {
-		"string": "فصل"
+		"string": "فصل",
+		"developer_comment": "Button label for disconnecting an account"
 	},
 	"UserMenu.about": {
 		"string": "حول"
@@ -190,57 +201,71 @@
 		"string": "التدريب والتوثيق"
 	},
 	"UserPrivacy.deleteAccount": {
-		"string": "حذف الحساب"
+		"string": "حذف الحساب",
+		"developer_comment": "Dialog title for deleting a user account"
 	},
 	"UserSecurity.passwordError": {
-		"string": "كلمة السر غير صحيحة"
+		"string": "كلمة السر غير صحيحة",
+		"developer_comment": "Error message output when an incorrect password is entered"
 	},
 	"UserSecurity.passwordInput": {
-		"string": "كلمة السر الحالية"
+		"string": "كلمة السر الحالية",
+		"developer_comment": "Form label for current password field"
 	},
 	"UserSecurity.verifyError": {
-		"string": "رمز التحقق غير صحيح"
+		"string": "رمز التحقق غير صحيح",
+		"developer_comment": "Error message if the login security validation code provided by the user is incorrect"
 	},
 	"UserSecurity.verifyInput": {
-		"string": "رمز التحقق"
+		"string": "رمز التحقق",
+		"developer_comment": "Label for user to know to put in their login security validation code"
 	},
 	"UserUtil.admin": {
-		"string": "المسؤول"
+		"string": "المسؤول",
+		"developer_comment": "User type label for a user with admin privileges"
 	},
 	"UserUtil.collaborator": {
-		"string": "شريك"
+		"string": "شريك",
+		"developer_comment": "User type label for a user without editor or admin privileges"
 	},
 	"UserUtil.editor": {
-		"string": "محرر(ة)"
+		"string": "محرر(ة)",
+		"developer_comment": "User type label for a user with edit privileges"
 	},
 	"addAnnotation.addFile": {
-		"string": "إضافة ملف"
+		"string": "إضافة ملف",
+		"developer_comment": "Tooltip to tell the user they can add files"
 	},
 	"addAnnotation.error": {
-		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+		"developer_comment": "Error message to try action again or contact support for more help"
 	},
 	"addAnnotation.inputEditHint": {
-		"string": "تحرير ملحوظة"
+		"string": "تحرير ملحوظة",
+		"developer_comment": "Input help text about editing notes"
 	},
 	"addAnnotation.inputHint": {
-		"string": "إضافة ملاحظة"
+		"string": "إضافة ملاحظة",
+		"developer_comment": "Input help text about adding new notes"
 	},
 	"addAnnotation.invalidCommand": {
-		"string": " أمر غير صالح"
+		"string": " أمر غير صالح",
+		"developer_comment": "Error message when a command is invalid"
 	},
 	"addAnnotation.submitButton": {
-		"string": "إرسال"
+		"string": "إرسال",
+		"developer_comment": "Button text for submitting the annotation form"
 	},
 	"addFilterMenu.Workspace": {
 		"string": "المؤسسة",
 		"developer_comment": "Menu option to enable searching items by workspace"
 	},
 	"addFilterMenu.addFilter": {
-		"string": "إضافة تصفية",
+		"string": "التصفية",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.annotatedBy": {
-		"string": "تم التعليق من",
+		"string": "بالمُفَسِّر",
 		"developer_comment": "Menu option to enable searching items by annotated by"
 	},
 	"addFilterMenu.annotation": {
@@ -259,28 +284,20 @@
 		"string": "ادعاء",
 		"developer_comment": "Menu option to enable searching items by claim"
 	},
-	"addFilterMenu.collection": {
-		"string": "المجموعة",
-		"developer_comment": "Menu option to enable searching items by collection"
-	},
 	"addFilterMenu.createdBy": {
-		"string": "تم الإنشاء بواسطة",
+		"string": "بالمؤلف",
 		"developer_comment": "Menu option to enable searching items by author"
 	},
 	"addFilterMenu.feedFactCheckedBy": {
-		"string": "تحقَّق من صحته",
+		"string": "بما تم التحقُّق من صحته",
 		"developer_comment": "Menu option to enable searching feed items by whether they were fact-checked"
 	},
 	"addFilterMenu.filterBy": {
 		"string": "التصفية عن طريق",
 		"developer_comment": "Header to menu of filter field types"
 	},
-	"addFilterMenu.folder": {
-		"string": "مجلد",
-		"developer_comment": "Menu option to enable searching items by folder"
-	},
 	"addFilterMenu.itemRead": {
-		"string": "العنصر مقروء/غير مقروء",
+		"string": "بكونه مقروءا (أو غير مقروء)",
 		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
@@ -292,19 +309,19 @@
 		"developer_comment": "Menu option to enable searching items by language"
 	},
 	"addFilterMenu.mediaType": {
-		"string": "نوع المادة الإعلامية",
+		"string": "بـ (نوع) المادة الإعلامية",
 		"developer_comment": "Menu option to enable searching items by media type"
 	},
 	"addFilterMenu.publishedBy": {
-		"string": "منشور بواسطة",
+		"string": "بالناشر",
 		"developer_comment": "Menu option to enable searching items by report published by"
 	},
 	"addFilterMenu.reportStatus": {
-		"string": "حالة التقرير",
+		"string": "بـ (حالة) التقرير",
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "عدد المواد الإعلامية",
+		"string": "بـ (عدد) المواد الإعلامية",
 		"developer_comment": "Menu option to enable searching items by matched medias"
 	},
 	"addFilterMenu.source": {
@@ -312,7 +329,7 @@
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "عدد الاقتراحات",
+		"string": "بـ (عدد) الاقتراحات",
 		"developer_comment": "Menu option to enable searching items by suggestions"
 	},
 	"addFilterMenu.tag": {
@@ -320,16 +337,20 @@
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
-		"string": "نطاق التاريخ",
+		"string": "بالتاريخ",
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addFilterMenu.tiplineRequest": {
-		"string": "طلب من الخط الساخن",
+		"string": "بـ (حالة) الطلب",
 		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
 	},
 	"addFilterMenu.tiplineRequests": {
-		"string": "عدد الطلبات",
+		"string": "بـ (عدد) الطلبات",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
+	},
+	"addFilterMenu.unmatched": {
+		"string": "بالمواد إعلامية (غير مطابقة)",
+		"developer_comment": "Menu option to enable searching items by whether they have media that has been unmatched at some point"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "إضافة لغة",
@@ -392,14 +413,15 @@
 	},
 	"annotation.deleteButton": {
 		"string": "حذف",
-		"developer_comment": "Menu item for deleting an annotation"
+		"developer_comment": "Menu item label to delete a comment"
 	},
 	"annotation.deletedUser": {
 		"string": "المستخدم المحذوف",
 		"developer_comment": "Label for deleted user"
 	},
 	"annotation.editButton": {
-		"string": "تحرير"
+		"string": "تحرير",
+		"developer_comment": "Menu item label to edit a comment"
 	},
 	"annotation.editedBy": {
 		"string": "حُرّر من طرف",
@@ -452,7 +474,8 @@
 		"string": "قام(ت) {author} بإضافة العنصر"
 	},
 	"annotation.noAnnotationsYet": {
-		"string": "لا توجد أنشطة"
+		"string": "لا توجد أنشطة",
+		"developer_comment": "Empty message for no activity in this type of annotation list"
 	},
 	"annotation.openInSlack": {
 		"string": "فتح في Slack",
@@ -464,7 +487,7 @@
 	},
 	"annotation.permalink": {
 		"string": "الرابط الثابت",
-		"developer_comment": "Menu item for getting a permanent url for an annotaion"
+		"developer_comment": "Menu item label to generate the permanent link for this comment"
 	},
 	"annotation.publishedBy": {
 		"string": "منشور من طرف",
@@ -562,7 +585,12 @@
 		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotations.loadMore": {
-		"string": "تحميل المزيد"
+		"string": "تحميل المزيد",
+		"developer_comment": "Button label to fetch additional annotations in this list"
+	},
+	"assignedTo.title": {
+		"string": "تم تعيينه لي",
+		"developer_comment": "Title of the 'assigned to me' list page. It lists items assigned to the current user"
 	},
 	"attribution.noResults": {
 		"string": "لا توجد نتائج"
@@ -571,91 +599,112 @@
 		"string": "البحث في الأعضاء"
 	},
 	"autoCompleteMediaItem.cantSelectPublished": {
-		"string": "لا يمكن استيراد المواد اﻹعلامية من عناصر قد نُشر تقريرها"
+		"string": "لا يمكن استيراد المواد اﻹعلامية من عناصر قد نُشر تقريرها",
+		"developer_comment": "Tooltip error message about when media can be imported"
 	},
 	"autoCompleteMediaItem.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء البحث. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء البحث. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+		"developer_comment": "Status message when a search resulted in an error"
 	},
 	"autoCompleteMediaItem.lastSubmitted": {
 		"string": "آخر إرسال {date}",
 		"developer_comment": "Shows the last time a media was submitted"
 	},
 	"autoCompleteMediaItem.notFound": {
-		"string": "‏‏لم يتم العثور على عناصر مطابقة"
+		"string": "‏‏لم يتم العثور على عناصر مطابقة",
+		"developer_comment": "Status message when a search returned no results"
 	},
 	"autoCompleteMediaItem.requestsCount": {
 		"string": "{requestsCount, plural, zero {ليس هناك أي طلب (#)} one {طلب واحد (#)} two {طلبان (#)} few {# طلبات} many {# طلبا} other {# طلب}}",
 		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
 	"autoCompleteMediaItem.results": {
-		"string": "{count, plural, zero {لا توجد نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجةً} other {# نتيجةٍ}}"
+		"string": "{count, plural, zero {لا توجد نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجةً} other {# نتيجةٍ}}",
+		"developer_comment": "Count of search results"
 	},
 	"autoCompleteMediaItem.searching": {
-		"string": "البحث جارٍ…"
+		"string": "البحث جارٍ…",
+		"developer_comment": "Status message that a search is active"
 	},
 	"autoCompleteMediaItem.type": {
 		"string": "يٌرجى الكتابة أعلاه للقيام بالبحث",
 		"developer_comment": "Helper text displayed next to search field to look for items to be imported"
 	},
 	"blankMediaButton.addItem": {
-		"string": "إضافة عنصر"
+		"string": "إضافة عنصر",
+		"developer_comment": "Button label that opens dialog in which the user can add a media item to an existing fact-check"
 	},
 	"blankMediaButton.addToImportedReport": {
-		"string": "إضافة إلى تقصي الحقائق المُستورَدة"
+		"string": "إضافة إلى تقصي الحقائق المُستورَدة",
+		"developer_comment": "Header to dialog in which the user adds media to already existing (imported) fact-checks"
 	},
 	"blankMediaButton.addToReport": {
-		"string": "إضافة إلى التقرير"
+		"string": "إضافة إلى التقرير",
+		"developer_comment": "Submit button label to dialog in which the user adds media to already existing (imported) fact-check report"
 	},
 	"blankMediaButton.defaultErrorMessage": {
-		"string": "لم يمكن حفظ العنصر"
+		"string": "لم يمكن حفظ العنصر",
+		"developer_comment": "Error message displayed when saving an item fails"
 	},
 	"browserSupport.message": {
-		"string": "يعمل {appName} بأفضل صورة على متصفح كروم نسخة سطح المكتب.  "
+		"string": "يعمل {appName} بأفضل صورة على متصفح كروم نسخة سطح المكتب.  ",
+		"developer_comment": "Banner message encouraging users to use the Google Chrome browser, as their current browser is not supported"
 	},
-	"bulkActions.dialogMoveTitle": {
-		"string": "{mediasCount, plural, zero {لا حاجة إلى نقل أي عنصر} one {يلزمك نقل عنصر واحد إلى مجلد آخر} two {يلزمك نقل عنصرين إلى مجلد آخر} few {يلزمك نقل # عناصر إلى مجلد آخر} many {يلزمك نقل # عنصرا إلى مجلد آخر} other {يلزمك نقل # عنصر إلى مجلد آخر}}"
+	"bulkActions.markAsNotRead": {
+		"string": "وسم كغير مقروء",
+		"developer_comment": "Menu option for bulk marking selected items as unread"
 	},
-	"bulkActions.moveTitle": {
-		"string": "نقل إلى مجلد",
-		"developer_comment": "Label for button to commit action of moving item to the selected folder"
+	"bulkActions.markAsRead": {
+		"string": "وسم كمقروء",
+		"developer_comment": "Menu option for bulk marking selected items as read"
+	},
+	"bulkActions.markAsReadSuccess": {
+		"string": "{count, plural, zero {لا وجود لأي عنصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرا} other {# عنصر}} marked as read successfully.",
+		"developer_comment": "Message that appears when one or more items have been marked as read."
+	},
+	"bulkActions.markAsUnreadSuccess": {
+		"string": "{count, plural, zero {لا وجود لأي عنصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرا} other {# عنصر}} marked as unread successfully.",
+		"developer_comment": "Message that appears when one or more items have been marked as unread."
 	},
 	"bulkActions.moveToSpamSuccessfully": {
-		"string": "نُقلَت العناصر إلى مجلد الإعلانات المزعجة."
+		"string": "{count, plural, zero {لا وجود لأي عنصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرا} other {# عنصر}} moved to Spam.",
+		"developer_comment": "Message that appears when one or more items have been selected and moved to spam."
 	},
 	"bulkActions.moveToTrashSuccessfully": {
-		"string": "تم إرسال العناصر إلى سلة المهملات."
+		"string": "{count, plural, zero {لا وجود لأي عنصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرا} other {# عنصر}} moved to Trash.",
+		"developer_comment": "Message that appears when one or more items have been selected and moved to the trash."
 	},
 	"bulkActions.movedFromSpamSuccessfully": {
-		"string": "لقد نُقلَت العناصر من الإعلانات المزعجة نحو ”{toProject}“",
-		"developer_comment": "Banner displayed after items are moved successfully"
+		"string": "{count, plural, zero {لا وجود لأي عنصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرا} other {# عنصر}} moved from Spam to 'All'",
+		"developer_comment": "Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "تم نقل العناصر من سلة المهملات إلى '{toProject}'",
-		"developer_comment": "Banner displayed after items are moved successfully"
-	},
-	"bulkActions.movedSuccessfully": {
-		"string": "تم إرسال العناصر إلى {toProject}'",
-		"developer_comment": "Banner displayed after items are moved successfully"
+		"string": "{count, plural, zero {لا وجود لأي عنصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرا} other {# عنصر}} moved from Trash to 'All'",
+		"developer_comment": "Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
 	},
 	"bulkActions.notSpam": {
-		"string": "ليس إعلانا مزعجا"
+		"string": "ليس إعلانا مزعجا",
+		"developer_comment": "Label for button that removes one or more items from Spam and puts them back in the normal workspace"
 	},
 	"bulkActions.restore": {
-		"string": "الاستعادة من سلة المهملات"
+		"string": "استعادة من سلة المهملات",
+		"developer_comment": "Label for button that removes one or more items from Trash and puts it back in the normal workspace"
 	},
 	"bulkActions.sendItemsToSpam": {
-		"string": "وسم كإعلان مزعج"
+		"string": "وسم كإعلان مزعج",
+		"developer_comment": "Label for button that sends one or more items to Spam"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "إرسال إلى سلة المهملات"
+		"string": "إرسال إلى سلة المهملات",
+		"developer_comment": "Label for button that sends one or more items to Trash"
 	},
 	"bulkActions.spam": {
-		"string": "وسم العناصر المُحدَّدة على أنها ليست إعلانات مزعجة ثم نقلها إلى مجلد آخر",
-		"developer_comment": "Tooltip message for button that mark items as not spam"
+		"string": "وسم العناصر المُحدَّدة على أنها ليست إعلانات مزعجة ثم نقلها إلى 'الكل'",
+		"developer_comment": "Tooltip message for button that marks items as not spam. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
 	},
 	"bulkActions.trash": {
-		"string": "استعادة العناصر المُحدَّدة ثم نقلها إلى مجلد آخر",
-		"developer_comment": "Tooltip message for button that restores items from Trash"
+		"string": "استعادة العناصر المُحدَّدة ثم نقلها إلى 'الكل'",
+		"developer_comment": "Tooltip message for button that restores items from Trash. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
 	},
 	"bulkActionsAssign.assignmentNotes": {
 		"string": "إضافة ملاحظة لتنبيه البريد الإلكتروني",
@@ -688,10 +737,6 @@
 	"bulkActionsMenu.changeStatus": {
 		"string": "تغيير الحالة",
 		"developer_comment": "Menu option for bulk changing statuses of selected items"
-	},
-	"bulkActionsMenu.moveToFolder": {
-		"string": "نقل إلى مجلد",
-		"developer_comment": "Menu option for bulk moving selected items into a folder"
 	},
 	"bulkActionsMenu.removeTag": {
 		"string": "إزالة الوسم",
@@ -743,7 +788,7 @@
 	},
 	"bulkActionsTag.submitLabel": {
 		"string": "{numItems, plural, zero {لم تتم إضافة أي وسم (#)} one {إضافة وسم واحد (#)} two {إضافة وسمَين (#)} few {إضافة # وسوم} many {إضافة # وسما} other {إضافة # وسم}}",
-		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
+		"developer_comment": "Button for committing the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
 		"string": "تم توسيم العناصر بنجاح",
@@ -782,19 +827,24 @@
 		"developer_comment": "Save media source label"
 	},
 	"changeUserRole.changingTo": {
-		"string": "ستقوم بتغيير دور {userLabel} إلى {newRole}."
+		"string": "ستقوم بتغيير دور {userLabel} إلى {newRole}.",
+		"developer_comment": "Description confirmation of what the current user role is, and what it will be changed to"
 	},
 	"changeUserRole.dialogTitle": {
-		"string": "أأنت على يقين من رغبتك تعديل دور {userLabel} من {currentRole} إلى {newRole}؟"
+		"string": "أأنت على يقين من رغبتك تعديل دور {userLabel} من {currentRole} إلى {newRole}؟",
+		"developer_comment": "Confirmation message to check if the user is sure they want to alter a user role"
 	},
 	"changeUserRole.helpCenter": {
-		"string": "مركز المساعدة"
+		"string": "مركز المساعدة",
+		"developer_comment": "Link text to go to the help website"
 	},
 	"changeUserRole.learnMore": {
-		"string": "يمكنك الاطلاع على المقال حول تصاريح الدور في {helpCenterLink} لمعرفة المزيد عن تصاريح دور {newRole}."
+		"string": "يمكنك الاطلاع على المقال حول تصاريح الدور في {helpCenterLink} لمعرفة المزيد عن تصاريح دور {newRole}.",
+		"developer_comment": "Help link to learn about roles and permissions for this application"
 	},
 	"changeUserRole.proceedLabel": {
-		"string": "تغيير الدور إلى {newRole}"
+		"string": "تغيير الدور إلى {newRole}",
+		"developer_comment": "Dialog continuation label for altering a user role"
 	},
 	"check.error.auth": {
 		"string": "حدث خطأ في الاستيثاق.",
@@ -884,14 +934,21 @@
 		"string": "لم يتم تقصي للحقائق",
 		"developer_comment": "Table cell displayed on feed page when claim is not fact-checked yet"
 	},
+	"chip.tooltipRemove": {
+		"string": "إزالة الوسم",
+		"developer_comment": "Tooltip message displayed on a tag item to let the user know they can click to remove it."
+	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "يُرجى كتابة \"{text}\" لتأكيد هذه العملية."
+		"string": "يُرجى كتابة \"{text}\" لتأكيد هذه العملية.",
+		"developer_comment": "Description of what word to type in to the input in order to continue"
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
-		"string": "يُرجى الكتابة هنا"
+		"string": "يُرجى الكتابة هنا",
+		"developer_comment": "Placeholder label for confirmation word input"
 	},
 	"confirmProceedDialog.continue": {
-		"string": "متابعة"
+		"string": "متابعة",
+		"developer_comment": "Label for the dialog continuation button"
 	},
 	"contentScreen.adult": {
 		"string": "للبالغين",
@@ -904,6 +961,10 @@
 	"contentScreen.medical": {
 		"string": "طبية",
 		"developer_comment": "Content warning type: Medical"
+	},
+	"contentScreen.superAdminMaskMessage": {
+		"string": "شاشة المسؤول المتميز مُفعَّلة",
+		"developer_comment": "Text to show that admin screen is on"
 	},
 	"contentScreen.viewContentButton": {
 		"string": "إظهار المحتوى مؤقتا",
@@ -926,37 +987,48 @@
 		"developer_comment": "Description of the shared feed creation page"
 	},
 	"createMedia.addItem": {
-		"string": "إضافة عنصر"
+		"string": "إضافة عنصر",
+		"developer_comment": "Button label for adding an item"
 	},
 	"createMedia.addNew": {
-		"string": "إضافة عنصر جديد"
+		"string": "إضافة عنصر جديد",
+		"developer_comment": "Tab text for adding a new item"
 	},
 	"createMedia.addNewItem": {
-		"string": "إضافة عنصر"
+		"string": "إضافة عنصر",
+		"developer_comment": "Dialog title for adding a new item"
 	},
 	"createMedia.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء ارسال العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء ارسال العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+		"developer_comment": "Error message for user to know how to reach out for support"
 	},
 	"createMedia.existing": {
-		"string": "إضافة عنصر موجود"
+		"string": "إضافة عنصر موجود",
+		"developer_comment": "Tab text for adding an existing media item"
 	},
 	"createMedia.media.media": {
-		"string": "المواد الإعلامية"
+		"string": "المواد الإعلامية",
+		"developer_comment": "Header for the claim media area"
 	},
 	"createMedia.mediaClaim": {
-		"string": "يُرجى كتابة شيء هنا"
+		"string": "يُرجى كتابة شيء هنا",
+		"developer_comment": "Placeholder message for the claim text field"
 	},
 	"createMedia.mediaClaimDescription": {
-		"string": "وصف الادعاء"
+		"string": "وصف الادعاء",
+		"developer_comment": "Section title for the description of a claim"
 	},
 	"createMedia.mediaClaimDescriptionSubtitle": {
-		"string": "وصف الادعاء المطلوب التحقق منه."
+		"string": "وصف الادعاء المطلوب التحقق منه.",
+		"developer_comment": "Subtitle for the claim's description that is under review"
 	},
 	"createMedia.mediaInput": {
-		"string": "إضافة نص أو رابط مقال مادة إعلامية من مواقع التواصل الاجتماعي أو رابط صفحة على الويب."
+		"string": "إضافة نص أو رابط مقال مادة إعلامية من مواقع التواصل الاجتماعي أو رابط صفحة على الويب.",
+		"developer_comment": "Placeholder text for the media URL input"
 	},
 	"createMedia.mediaMediaSubtitle": {
-		"string": "المادة الإعلامية التي فيها الادعاء."
+		"string": "المادة الإعلامية التي فيها الادعاء.",
+		"developer_comment": "Subtitle for the section of the media that contains the claim being created"
 	},
 	"createMedia.mediaRemoveFile": {
 		"string": "إزالة الملف",
@@ -988,38 +1060,48 @@
 		"string": "إنشاء وسم جديد"
 	},
 	"createTeamDialog.cancel": {
-		"string": "إلغاء"
+		"string": "إلغاء",
+		"developer_comment": "Button label to cancel creating a workspace"
 	},
 	"createTeamDialog.create": {
-		"string": "إنشاء"
+		"string": "إنشاء",
+		"developer_comment": "Button label to start to create a new workspace"
 	},
 	"createTeamDialog.creating": {
-		"string": "يجري الإنشاء…"
+		"string": "يجري الإنشاء…",
+		"developer_comment": "Button label status message while creating a new workspace is in process"
 	},
 	"createTeamDialog.defaultErrorMessage": {
-		"string": "لا يمكن إنشاء مساحة عمل جديدة"
+		"string": "لا يمكن إنشاء مساحة عمل جديدة",
+		"developer_comment": "Error message when a workspace could not be created"
 	},
 	"createTeamDialog.description": {
-		"string": "سيتم تكرار جميع الإعدادات من مساحة العمل هذه. لن يتم إضافة أي محتوى."
+		"string": "سيتم تكرار جميع الإعدادات من مساحة العمل هذه. لن يتم إضافة أي محتوى.",
+		"developer_comment": "Description note to tell the user what information will be duplicated"
 	},
 	"createTeamDialog.dialogTitleCreate": {
 		"string": "إنشاء مساحة عمل جديدة",
 		"developer_comment": "Dialog title for creating a new workspace"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
-		"string": "تكرار مساحة العمل"
+		"string": "تكرار مساحة العمل",
+		"developer_comment": "Title of a dialog box to duplicate the current workspace"
 	},
 	"createTeamDialog.duplicating": {
-		"string": "يجري التكرار…"
+		"string": "يجري التكرار…",
+		"developer_comment": "Button label status message while duplicating a workspace is in process"
 	},
 	"createTeamDialog.duplice": {
-		"string": "تكرار"
+		"string": "تكرار",
+		"developer_comment": "Button label to start to duplicate a workspace"
 	},
 	"createTeamDialog.name": {
-		"string": "اسم مساحة العمل"
+		"string": "اسم مساحة العمل",
+		"developer_comment": "Text field label for the name of the new workspace"
 	},
 	"createTeamDialog.url": {
-		"string": "رابط مساحة العمل"
+		"string": "رابط مساحة العمل",
+		"developer_comment": "Text field label for the URL of the new workspace"
 	},
 	"createTeamTask.addField": {
 		"string": "إضافة حقل تفسير جديد",
@@ -1038,7 +1120,8 @@
 		"developer_comment": "Verb. Label for generic dropdown component"
 	},
 	"customFiltersManager.enterNumber": {
-		"string": "اكتب عددا"
+		"string": "اكتب عددا",
+		"developer_comment": "Placeholder text for the number input in this filter"
 	},
 	"customFiltersManager.errorMessage": {
 		"string": "يجب أن يكون العدد الأول أصغر من العدد الثاني",
@@ -1064,10 +1147,12 @@
 		"string": "اختيار المنطقة الزمنية"
 	},
 	"datetimeTaskResponse.invalidTimestamp": {
-		"string": "ختم التوقيت غير صالح"
+		"string": "ختم التوقيت غير صالح",
+		"developer_comment": "Error message for an invalid timestamp value"
 	},
 	"datetimeTaskResponse.timeIs": {
-		"string": "عرض هذا النطاق الزمني على time.is"
+		"string": "عرض هذا النطاق الزمني على time.is",
+		"developer_comment": "Link text for how to view a timezone on time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
 		"string": "{publishedCount, plural, zero {لا يوجد عنصر منشور حاليا في حالة {statusLabel}.} one {هناك عنصر واحد منشور حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف العنصر المنشور بهذه الحالة. يجب عليك مراجعة هذه العنصر إذا أردت إعادة نشره مرة أخرى.} two {هناك عنصران منشوران حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف العنصرين المنشورين بهذه الحالة. يجب عليك مراجعة هذين العنصرين إذا أردت إعادة نشرهما مرة أخرى.} few {هناك # عناصر منشورة حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.} many {هناك # عنصرا منشورا حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.} other {هناك # عنصر منشور حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.}}",
@@ -1104,16 +1189,9 @@
 		"string": "ليس في أي مجموعة",
 		"developer_comment": "Label used for folders that are not in any collection"
 	},
-	"detachDialog.detached": {
-		"string": "نقل إلى مجلد",
-		"developer_comment": "Button to commit the action of moving item"
-	},
-	"detachDialog.dialogdetachedToListTitle": {
-		"string": "نقل العناصر المفصولة إلى…",
-		"developer_comment": "Dialog title prompting user to select a destination folder for the item"
-	},
 	"editStatusDialog.addButton": {
-		"string": "إضافة حالة"
+		"string": "إضافة حالة",
+		"developer_comment": "Button label to add a new status"
 	},
 	"editStatusDialog.messageDescription": {
 		"string": "إرسال رسالة إلى المستخدم الذي طلب العنصر عندما تقوم بتغيير عنصر إلى هذه الحالة.",
@@ -1128,19 +1206,24 @@
 		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"editStatusDialog.statusDescription": {
-		"string": "الوصف"
+		"string": "الوصف",
+		"developer_comment": "Text field label for the status description value"
 	},
 	"editStatusDialog.statusMessage": {
-		"string": "رسالة"
+		"string": "رسالة",
+		"developer_comment": "Text field label for the message that will be sent to the user when an item is changed to this status value"
 	},
 	"editStatusDialog.statusTitle": {
-		"string": "الحالة (بحد أقصى {maxLength} حرف)"
+		"string": "الحالة (بحد أقصى {maxLength} حرف)",
+		"developer_comment": "Text field label for the status name"
 	},
 	"editStatusDialog.title": {
-		"string": "إضافة حالة جديدة"
+		"string": "إضافة حالة جديدة",
+		"developer_comment": "Dialog title for adding a new status message"
 	},
 	"editStatusDialog.titleEdit": {
-		"string": "تحرير الحالة"
+		"string": "تحرير الحالة",
+		"developer_comment": "Dialog title for editing a status message"
 	},
 	"editStatusDialog.toggleStatusMessage": {
 		"string": "إرسال رسالة إلى الطالب",
@@ -1149,18 +1232,6 @@
 	"errorBoundary.message": {
 		"string": "‫مرحباً، عندي مشكلة في استخدام Check. لقد وقع عطب في واجهة الويب، وذلك يمنعني من مزاولة عملي !",
 		"developer_comment": "Prefilled support request message when Check UI crashes"
-	},
-	"feed.feed": {
-		"string": "تقصي الحقائق",
-		"developer_comment": "Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
-	},
-	"feed.requests": {
-		"string": "الطلبات",
-		"developer_comment": "Tab with label 'Requests' displayed on a feed page. It references all requests submitted to that feed."
-	},
-	"feed.shared": {
-		"string": "المُشارَك",
-		"developer_comment": "Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
 	},
 	"feedBlankState.description": {
 		"string": "يمكنك تجربة {resetLink} للعثور على تقصي الحقائق أو التحقق من أن {listLink} يحتوي على عناصر",
@@ -1227,16 +1298,20 @@
 		"developer_comment": "Tooltip message displayed on feed settings icon."
 	},
 	"feedItem.aboutThisClaim": {
-		"string": "عن هذا الادعاء"
+		"string": "عن هذا الادعاء",
+		"developer_comment": "Label for the about description of a claim"
 	},
 	"feedItem.claimDescription": {
-		"string": "الادعاءات"
+		"string": "الادعاءات",
+		"developer_comment": "Column title for the claims column"
 	},
 	"feedItem.completedAnnotations": {
-		"string": "تعليقات تمت بالفعل"
+		"string": "تعليقات تمت بالفعل",
+		"developer_comment": "Form field label for the number of completed annotations"
 	},
 	"feedItem.couldNotImport": {
-		"string": "لا يمكن استيراد الادعاء لأن المواد الإعلامية المرتبطة بهذا الادعاء موجودة بالفعل في مساحة العمل هذه."
+		"string": "لا يمكن استيراد الادعاء لأن المواد الإعلامية المرتبطة بهذا الادعاء موجودة بالفعل في مساحة العمل هذه.",
+		"developer_comment": "Error message when an import fails"
 	},
 	"feedItem.factCheck": {
 		"string": "تقصي الحقائق",
@@ -1255,7 +1330,8 @@
 		"developer_comment": "Fact-check article URL"
 	},
 	"feedItem.import": {
-		"string": "استيراد"
+		"string": "استيراد",
+		"developer_comment": "Button label to start an import"
 	},
 	"feedItem.importDescription": {
 		"string": "سيتم إنشاء ادعاء جديد يحوي موادا إعلامية في مساحة عملك.",
@@ -1274,7 +1350,8 @@
 		"developer_comment": "Dialog title when importing a claim from feed page."
 	},
 	"feedItem.importedSuccessfully": {
-		"string": "‫تم استيراد الادعاء بنجاح نحو مساحة العمل {workspaceName}"
+		"string": "‫تم استيراد الادعاء بنجاح نحو مساحة العمل {workspaceName}",
+		"developer_comment": "Success message when an import completes"
 	},
 	"feedItem.importingQuestion": {
 		"string": "ما هو المحتوى المطلوب استيراده؟",
@@ -1285,16 +1362,20 @@
 		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
 	},
 	"feedItem.mediaRequests": {
-		"string": "{number} طلب للخط الساخن عبر كل المواد الإعلامية"
+		"string": "{number} طلب للخط الساخن عبر كل المواد الإعلامية",
+		"developer_comment": "Count of requests for all media"
 	},
 	"feedItem.mediasColumnTitleAll": {
-		"string": "{number} مادة إعلامية عبر كل المنظمات"
+		"string": "{number} مادة إعلامية عبر كل المنظمات",
+		"developer_comment": "Count of medias regardless of organization"
 	},
 	"feedItem.mediasColumnTitleSingle": {
-		"string": "{number} مادة إعلامية من {organizationName}"
+		"string": "{number} مادة إعلامية من {organizationName}",
+		"developer_comment": "Count of medias from a specific of organization"
 	},
 	"feedItem.noClaim": {
-		"string": "لم يتم إضافة أي ادعاء حتى الآن"
+		"string": "لم يتم إضافة أي ادعاء حتى الآن",
+		"developer_comment": "Empty message when there is no claim available"
 	},
 	"feedItem.noImportingClaim": {
 		"string": "يُرجى اختيار منظمة لعرض المتاح من كل ما تم التقصي عنه من حقائق وتعليقات.",
@@ -1309,17 +1390,20 @@
 		"developer_comment": "Displayed on feed item page when item has no completed annotations."
 	},
 	"feedItem.notPublished": {
-		"string": "لم يُنشَر بعد"
+		"string": "لم يُنشَر بعد",
+		"developer_comment": "Placeholder when there is no date available for the published state"
 	},
 	"feedItem.proceedImport": {
 		"string": "استيراد",
 		"developer_comment": "Button label to confirm importing claim from feed page"
 	},
 	"feedItem.publishedAt": {
-		"string": "تم نشر التقرير في: {date}"
+		"string": "تم نشر التقرير في: {date}",
+		"developer_comment": "Label and date for when the report was published"
 	},
 	"feedItem.rating": {
-		"string": "التقييم: {rating}"
+		"string": "التقييم: {rating}",
+		"developer_comment": "Label for rating and value of the rating"
 	},
 	"feedItem.request": {
 		"string": "طلب",
@@ -1330,10 +1414,12 @@
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
 	},
 	"feedItem.sortBy": {
-		"string": "ترتيب بواسطة"
+		"string": "ترتيب بواسطة",
+		"developer_comment": "Label for sorting"
 	},
 	"feedItem.tags": {
-		"string": "الوسوم"
+		"string": "الوسوم",
+		"developer_comment": "Form field label for the tags assigned to this item"
 	},
 	"feedRequestedMedia.factChecksSentForAllMedias": {
 		"string": "{factChecksCount, plural, zero {لم يُرسَل أي تقصي (#) للحقيقة} one {لقد أُرسِل تقصٍ واحد (#) للحقيقة} two {لقد أُرسِل تقصيان (#) للحقيقة} few {لقد أُرسِلت # تقصيات للحقيقة} many {لقد أُرسِل # تقصياً للحقيقة} other {لقد أُرسِل # تقصي للحقيقة}}",
@@ -1488,7 +1574,8 @@
 		"developer_comment": "Message displayed on feed top bar when there is no list associated with the feed."
 	},
 	"fetchBot.contactUs": {
-		"string": "الاتصال بنا للإعداد"
+		"string": "الاتصال بنا للإعداد",
+		"developer_comment": "Link text for a contact us link"
 	},
 	"fileUploadRespondTask.answerTask": {
 		"string": "يرجى الاستجابة للمهمة "
@@ -1496,12 +1583,25 @@
 	"fileUploadRespondTask.cancelTask": {
 		"string": "إلغاء"
 	},
+	"filter.addParameter": {
+		"string": "إضافة شرط للتصفية",
+		"developer_comment": "Tooltip to tell the user they can add another argument to the filter they are interacting with"
+	},
+	"filter.removeFilter": {
+		"string": "إزالة التصفية",
+		"developer_comment": "Tooltip to tell the user they can remove this filter"
+	},
+	"filter.removeFilterCondition": {
+		"string": "إزالة شرط التصفية",
+		"developer_comment": "Tooltip to tell the user they can add remove the argument to the filter they are interacting with"
+	},
 	"filter.tag.deleted": {
 		"string": "تم حذف هذه الخاصية",
 		"developer_comment": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted"
 	},
 	"footer.madeBy": {
-		"string": "Check: للتحقق من الأخبار العاجلة على الإنترنت. مطوّر بِ ✨ من {meedan}"
+		"string": "Check: للتحقق من الأخبار العاجلة على الإنترنت. مطوّر بِ ✨ من {meedan}",
+		"developer_comment": "Tagline shown on the bottom of the sign in or registration page"
 	},
 	"geoLocationRespondTask.error": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث المهمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -1531,49 +1631,56 @@
 		"string": "بحث في الخريطة"
 	},
 	"global.appNameHuman": {
-		"string": "Check"
+		"string": "Check",
+		"developer_comment": "The name of the application"
 	},
 	"global.bestViewed": {
-		"string": "التصفح أفضل على <a href=\"https://www.google.com/chrome/browser/desktop/\">كروم للحاسوب</a>."
+		"string": "العرض أفضل على متصفح<a href=\"{chromedownload}\">كْرومْ للحاسوب</a>.",
+		"developer_comment": "Message shown to the user when they are using an unsupported browser"
 	},
 	"global.cancel": {
 		"string": "إلغاء",
-		"developer_comment": "Regular Cancel action label"
+		"developer_comment": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation"
 	},
 	"global.close": {
-		"string": "إغلاق"
+		"string": "إغلاق",
+		"developer_comment": "Generic label for a button or link for a user to press when they wish to close a view"
 	},
 	"global.confirm": {
-		"string": "تأكيد"
+		"string": "تأكيد",
+		"developer_comment": "Generic label for a button or link for a user to press when they wish to confirm an action"
 	},
 	"global.delete": {
-		"string": "حذف"
+		"string": "حذف",
+		"developer_comment": "Generic label for a button or link for a user to press when they wish to delete content or remove functionality"
 	},
 	"global.edit": {
-		"string": "تحرير"
+		"string": "تحرير",
+		"developer_comment": "Generic label for a button or link for a user to press when they wish to edit content or functionality"
 	},
 	"global.ok": {
 		"string": "حسناً",
-		"developer_comment": "Regular OK/confirmation label"
+		"developer_comment": "Generic label for a button or link for a user to press when they wish to confirm an action"
 	},
 	"global.save": {
-		"string": "حفظ"
+		"string": "حفظ",
+		"developer_comment": "Generic label for a button or link for a user to press when they wish to save an action or setting"
 	},
 	"global.submit": {
-		"string": "إرسال"
+		"string": "إرسال",
+		"developer_comment": "Generic label for a button or link for a user to press when they wish to submit and form or action"
 	},
 	"global.submitting": {
-		"string": "الإرسال جارٍ…"
-	},
-	"global.tags": {
-		"string": "الوسوم"
+		"string": "الإرسال جارٍ…",
+		"developer_comment": "Generic loading message when a form is in process of being submitted"
 	},
 	"global.unknownError": {
 		"string": "عذراً ، لقد واجهنا خطأ ما. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
 		"developer_comment": "Message displayed in error notification when an operation fails unexpectedly"
 	},
 	"global.update": {
-		"string": "تحديث"
+		"string": "تحديث",
+		"developer_comment": "Generic label for a button or link for a user to press when they wish to update an action"
 	},
 	"home.invalidExpiredInvitation": {
 		"string": "عذراً ، الدعوة التي تلقيتها منتهية الصلاحية. يرجى التواصل مع {supportEmail} إن كنت تعتقدين ان هناك خطأ ما.",
@@ -1640,7 +1747,8 @@
 		"developer_comment": "Inform your to create a new account for signup"
 	},
 	"inviteNewAccount.invitedBy": {
-		"string": "قام {name} بدعوتك إلى الإنضمام إلى مساحة العمل"
+		"string": "قام {name} بدعوتك إلى الإنضمام إلى مساحة العمل",
+		"developer_comment": "Message to the current user about who has invited them to join this workspace"
 	},
 	"inviteNewAccountemailLabel": {
 		"string": "البريد الإلكتروني",
@@ -1662,17 +1770,24 @@
 		"string": "يجب عليك الموافقة على شروط الاستخدام وسياسة الخصوصية",
 		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
 	},
+	"languageFilter.is": {
+		"string": "هي",
+		"developer_comment": "This connects two selection fields and will read like 'Media language' is 'English'"
+	},
 	"languageListItem.default": {
-		"string": "{language} (الافتراضية)"
+		"string": "{language} (الافتراضية)",
+		"developer_comment": "Label to indicate that this language is the default"
 	},
 	"languageListItem.deleteConfirmationText": {
 		"string": "حذف {language} وكل المحتوى"
 	},
 	"languageSwitcher.makeDefault": {
-		"string": "تعيينها كلغة مفترضة لهذا العنصر"
+		"string": "تعيينها كلغة مفترضة لهذا العنصر",
+		"developer_comment": "Menu item for the user to change the default language"
 	},
 	"languageSwitcher.primaryLanguage": {
-		"string": "(الافتراضية)"
+		"string": "(الافتراضية)",
+		"developer_comment": "Label for the default language choice"
 	},
 	"languagesComponent.description": {
 		"string": "إذا تم <strong>تفعيل</strong> اكتشاف اللغة، فسيتعرف بوت الخط الساخن لـ Check تلقائيا على اللغة، ثم سيجيب باللغة التي يطلبها المستخدم.\nإذا تم <strong>تعطيل</strong>اكتشاف اللغة، فسيجيب بوت الخط الساخن لـ Check باللغة الافتراضية لمساحة العمل : <strong>{defaultLanguage}</strong>",
@@ -1766,10 +1881,6 @@
 		"string": "لقد نُشر تقصي الحقيقة في",
 		"developer_comment": "Table header for fact-check publication date column"
 	},
-	"list.folder": {
-		"string": "المجلد",
-		"developer_comment": "Table header for column that shows the folder title an item is in"
-	},
 	"list.mediaPublishedAt": {
 		"string": "تاريخ نشر المادة الإعلامية",
 		"developer_comment": "Table header for media (singular) published date column"
@@ -1823,37 +1934,48 @@
 		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
 	},
 	"login.alreadyHasAccount": {
-		"string": "ألديك حساب بالفعل ؟"
+		"string": "ألديك حساب بالفعل ؟",
+		"developer_comment": "Description to help the user login instead of signing up"
 	},
 	"login.contactSupport": {
-		"string": "للدعم يمكنك التواصل معنا على <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+		"string": "للدعم يمكنك التواصل معنا على <a href=\"mailto:{supportEmail}\">{supportEmail}</a>.",
+		"developer_comment": "Help text for the user to know how to contact support by email"
 	},
 	"login.emailLabel": {
-		"string": "البريد الإلكتروني"
+		"string": "البريد الإلكتروني",
+		"developer_comment": "Text field label for the user's email address"
 	},
 	"login.emailLogin": {
-		"string": "أو قم بتسجيل الدخول ببريدك الإلكتروني"
+		"string": "أو قم بتسجيل الدخول ببريدك الإلكتروني",
+		"developer_comment": "Button label for the user to sign in to the app using their email address"
 	},
 	"login.nameLabel": {
-		"string": "الاسم"
+		"string": "الاسم",
+		"developer_comment": "Text field label for the user's name"
 	},
 	"login.newAccount": {
-		"string": "أليس لديك حساب ؟"
+		"string": "أليس لديك حساب ؟",
+		"developer_comment": "Description to help the user sign up instead of logging in"
 	},
 	"login.otpAttemptLabel": {
-		"string": "رمز المصادقة الثنائية"
+		"string": "رمز المصادقة الثنائية",
+		"developer_comment": "Text field label for the user's two-factor authentication token"
 	},
 	"login.passwordConfirmLabel": {
-		"string": "تأكيد كلمة السر"
+		"string": "تأكيد كلمة السر",
+		"developer_comment": "Text field label for the to confirm their password"
 	},
 	"login.passwordInputHint": {
-		"string": "كلمة السر"
+		"string": "كلمة السر",
+		"developer_comment": "Text field label for the user's password"
 	},
 	"login.passwordLabel": {
-		"string": "كلمة السر (الحد الأدنى ٨ حروف)"
+		"string": "كلمة السر (الحد الأدنى ٨ حروف)",
+		"developer_comment": "Text field description for password input telling the user it much be at least 8 characters long when signing up"
 	},
 	"login.registerTitle": {
-		"string": "تسجيل حساب جديد"
+		"string": "تسجيل حساب جديد",
+		"developer_comment": "Header title for the new user registration page"
 	},
 	"login.signIn": {
 		"string": "تسجيل الدخول",
@@ -1872,16 +1994,20 @@
 		"developer_comment": "Button label. Switches from 'logging in' to 'create new account' mode"
 	},
 	"login.title": {
-		"string": "تسجيل الدخول"
+		"string": "تسجيل الدخول",
+		"developer_comment": "Header title for the sign in page"
 	},
 	"login.tosMissing": {
-		"string": "يجب عليك الموافقة على شروط الاستخدام وسياسة الخصوصية"
+		"string": "يجب عليك الموافقة على شروط الاستخدام وسياسة الخصوصية",
+		"developer_comment": "Error message to tell the user they must agree to the app terms of service before continuing"
 	},
 	"login.withGoogle": {
-		"string": "تسجيل الدخول باستخدام Google"
+		"string": "تسجيل الدخول باستخدام Google",
+		"developer_comment": "Button label for the user to sign in to the app using their google credentials"
 	},
 	"loginEmail.lostPassword": {
-		"string": "أ نسيت كلمة السر؟"
+		"string": "أ نسيت كلمة السر؟",
+		"developer_comment": "Link for the user to initiate a password reset if they do not know it"
 	},
 	"mainErrorBoundary.cardTitle": {
 		"string": "حدث خطأ غير متوقع",
@@ -1892,43 +2018,56 @@
 		"developer_comment": "Sets video playback rate to original 1x speed"
 	},
 	"media.typeAudio": {
-		"string": "ملف صوتي"
+		"string": "ملف صوتي",
+		"developer_comment": "Label to show that the type of media is an audio file"
 	},
 	"media.typeBlank": {
-		"string": "تقصي الحقيقة المُستورَد"
+		"string": "تقصي الحقيقة المُستورَد",
+		"developer_comment": "Label to show that the type of media is was imported into the application"
 	},
 	"media.typeClaim": {
-		"string": "نص"
+		"string": "نص",
+		"developer_comment": "Label to show that the type of media is text"
 	},
 	"media.typeImage": {
-		"string": "صورة"
+		"string": "صورة",
+		"developer_comment": "Label to show that the type of media is an image"
 	},
 	"media.typeLink": {
-		"string": "رابط"
+		"string": "رابط",
+		"developer_comment": "Label to show that the type of media is a link"
 	},
 	"media.typeVideo": {
-		"string": "فيديو"
+		"string": "فيديو",
+		"developer_comment": "Label to show that the type of media is a video"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "تخصيص لـ…"
+		"string": "تخصيص لـ…",
+		"developer_comment": "Menu item to select a team to assign item"
 	},
 	"mediaActions.history": {
-		"string": "تاريخ العنصر"
+		"string": "تاريخ العنصر",
+		"developer_comment": "Menu item to view the history of changes to the item"
 	},
 	"mediaActions.lockStatus": {
-		"string": "قفل الحالة"
+		"string": "قفل الحالة",
+		"developer_comment": "Menu item to lock an item status so it cannot be changed"
 	},
 	"mediaActions.sendToSpam": {
-		"string": "وسم كإعلان مزعج"
+		"string": "وسم كإعلان مزعج",
+		"developer_comment": "Menu item to move the current item to the spam list"
 	},
 	"mediaActions.sendToTrash": {
-		"string": "إرسال إلى سلة المهملات"
+		"string": "إرسال إلى سلة المهملات",
+		"developer_comment": "Menu item to move the current item to the trash list"
 	},
 	"mediaActions.tooltip": {
-		"string": "إجراءات العنصر"
+		"string": "إجراءات العنصر",
+		"developer_comment": "Button to call of the menu of actions that can be performed on an item"
 	},
 	"mediaActions.unlockStatus": {
-		"string": "فك قفل الحالة"
+		"string": "فك قفل الحالة",
+		"developer_comment": "Menu item to unlock an item status so it can be changed"
 	},
 	"mediaActionsBar.assignmentNotesTitle": {
 		"string": "إضافة ملاحظة للإيميل",
@@ -1942,14 +2081,16 @@
 		"string": "حُدثَ توزيع الأدوار بنجاح",
 		"developer_comment": "Success message displayed when assigned user is updated"
 	},
-	"mediaActionsBar.confirmTo": {
-		"string": "تأكيد"
-	},
 	"mediaActionsBar.dialogMoveTitle": {
 		"string": "نقل إلى مجلد آخر"
 	},
-	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
-		"string": "نقل العنصر إلى مجلد…"
+	"mediaActionsBar.failedmovedRestoreBack": {
+		"string": "عذرا، لقد واجهنا خطأ ما أثناء استعادة العنصر. يُرجى إعادة المحاولة لاحقا.",
+		"developer_comment": "Failure message after attempting to restore an item from Trash."
+	},
+	"mediaActionsBar.failedmovedSpamBack": {
+		"string": "عذرا، لقد واجهنا خطأ ما أثناء وسم العنصر على أنه ليس إعلانا مزعجا. يُرجى إعادة المحاولة لاحقا.",
+		"developer_comment": "Failure message after attempting to mark an item as Not Spam."
 	},
 	"mediaActionsBar.move": {
 		"string": "نقل"
@@ -1957,11 +2098,13 @@
 	"mediaActionsBar.moveTo": {
 		"string": "نقل إلى..."
 	},
-	"mediaActionsBar.movedConfirmBack": {
-		"string": "تم التأكيد، إعادة التوجيه جارية…"
-	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "تمت الاستعادة من سلة المهملات، تجري الآن إعادة التوجيه…"
+		"string": "لقد تمت استعادة العنصر من سلة المهملات",
+		"developer_comment": "Success message after restoring item from Trash."
+	},
+	"mediaActionsBar.movedSpamBack": {
+		"string": "لقد تم وسم العنصر على أنه ليس إعلانا مزعجا",
+		"developer_comment": "Success message after marking item as Not Spam."
 	},
 	"mediaActionsBar.movedToSpam": {
 		"string": "لقد نُقل العنصر إلى {spam}",
@@ -1972,17 +2115,16 @@
 		"developer_comment": "Delete item action success message"
 	},
 	"mediaActionsBar.notSpamTo": {
-		"string": "ليس إعلانا مزعجا"
+		"string": "ليس إعلانا مزعجا",
+		"developer_comment": "Label for button that marks an item as not spam"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "تقرير منشور",
 		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
 	},
-	"mediaActionsBar.restoreOrConfirm": {
-		"string": "نقل إلى مجلد"
-	},
 	"mediaActionsBar.restoreTo": {
-		"string": "الاستعادة من سلة المهملات"
+		"string": "الاستعادة من سلة المهملات",
+		"developer_comment": "Label for button that restores item from Trash"
 	},
 	"mediaActionsBar.unpublishedReport": {
 		"string": "تقرير غير منشور",
@@ -2085,7 +2227,8 @@
 		"developer_comment": "Caption that informs that a claim is being saved"
 	},
 	"mediaComments.noNote": {
-		"string": "لا توجد ملحوظة"
+		"string": "لا توجد ملحوظة",
+		"developer_comment": "Empty message when there are no notees for this item"
 	},
 	"mediaComponent.annotation": {
 		"string": "التفسير",
@@ -2158,7 +2301,8 @@
 		"developer_comment": "Label when transcription is not (yet) available"
 	},
 	"mediaExpanded.requests": {
-		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
+		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}",
+		"developer_comment": "Count of other requests for this media"
 	},
 	"mediaExpanded.transcriptionCompleted": {
 		"string": "التفريغ النصي للصوت من المادة الإعلامية:",
@@ -2173,16 +2317,20 @@
 		"developer_comment": "This is a header that tells the user that what follows is a list of archival services on the internet that they can use to permanently save the content at a URL."
 	},
 	"mediaExpandedMetadata.comments": {
-		"string": "تعليقات فيسبوك"
+		"string": "تعليقات فيسبوك",
+		"developer_comment": "Grid column label for the number of facebook comments"
 	},
 	"mediaExpandedMetadata.publishedOn": {
-		"string": "تم النشر في"
+		"string": "تم النشر في",
+		"developer_comment": "Grid column label for when the meta data was published"
 	},
 	"mediaExpandedMetadata.reactions": {
-		"string": "تفاعلات فيسبوك"
+		"string": "تفاعلات فيسبوك",
+		"developer_comment": "Grid column label for the number of facebook reactions"
 	},
 	"mediaExpandedMetadata.shares": {
-		"string": "مشاركات فيسبوك"
+		"string": "مشاركات فيسبوك",
+		"developer_comment": "Grid column label for then number of shares on facebook"
 	},
 	"mediaFactCheck.claimMissingDesc": {
 		"string": "لا بد من إضافة ادعاء قبل التوجه إلى تقرير تقصي الحقائق.",
@@ -2233,7 +2381,7 @@
 		"developer_comment": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
 	},
 	"mediaItem.detachedSuccessfully": {
-		"string": "تم نقل العنصر إلى '{toProject}'",
+		"string": "لقد تم فصل العنصر",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
@@ -2264,6 +2412,14 @@
 		"string": "فتح الرابط",
 		"developer_comment": "Menu option for navigating to the original media url"
 	},
+	"mediaPlayer.errorContent": {
+		"string": "لا يمكن تشغيل مقطع الفيديو بسبب وجود مشكلة في ملف الفيديو. يٌرجى القيام بتنزيل الملف لتشغيله محليا.",
+		"developer_comment": "Text displayed in an error box on media page when the video cannot be played"
+	},
+	"mediaPlayer.errorTitle": {
+		"string": "لقد حدث خطأ في التشغيل.",
+		"developer_comment": "Text displayed in an error box on media page when the video cannot be played"
+	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "إضافة عنصر ذي صلة"
 	},
@@ -2287,28 +2443,36 @@
 		"developer_comment": "Shows the last time a media was submitted"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, zero {لا يوجد أي طلب عبر جميع المواد الإعلامية} one {طلب واحد عبر جميع المواد الإعلامية} two {طلبان عبر جميع المواد الإعلامية} few {# طلبات عبر جميع المواد الإعلامية} many {# طلبا عبر جميع المواد الإعلامية } other {# طلب عبر جميع المواد الإعلامية }}"
+		"string": "{count, plural, zero {لا يوجد أي طلب عبر جميع المواد الإعلامية} one {طلب واحد عبر جميع المواد الإعلامية} two {طلبان عبر جميع المواد الإعلامية} few {# طلبات عبر جميع المواد الإعلامية} many {# طلبا عبر جميع المواد الإعلامية } other {# طلب عبر جميع المواد الإعلامية }}",
+		"developer_comment": "The count in a readable sentence of the number of requests for all media listed"
 	},
 	"mediaRequests.noRequest": {
-		"string": "لا توجد طلبات"
+		"string": "لا توجد طلبات",
+		"developer_comment": "Empty message when there are zero requests for this item"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
+		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}",
+		"developer_comment": "The count in a readable sentence of the number of requests for this media"
 	},
 	"mediaSearch.error": {
-		"string": "عذراً ، لقد واجهنا الخطأ التالي: {message}. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا الخطأ التالي: {message}. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة.",
+		"developer_comment": "Error message with instructions on how the user should proceed"
 	},
 	"mediaSearch.itemWentAway": {
-		"string": "لم يتم العثور عنه"
+		"string": "لم يتم العثور عنه",
+		"developer_comment": "Tooltip text to let the user know the item has been removed and is no longer availble"
 	},
 	"mediaSearch.nextItem": {
-		"string": "العنصر التالي"
+		"string": "العنصر التالي",
+		"developer_comment": "Tooltip message for a paging button to move to the next item"
 	},
 	"mediaSearch.previousItem": {
-		"string": "العنصر السابق"
+		"string": "العنصر السابق",
+		"developer_comment": "Tooltip message for a paging button to move to the previous item"
 	},
 	"mediaSearch.xOfY": {
-		"string": "{current} من مجموع  {total}"
+		"string": "{current} من مجموع  {total}",
+		"developer_comment": "The current item number and total in the list paging control is showing"
 	},
 	"mediaSimilarities.noMedia": {
 		"string": "لا وجود لأي مادة إعلامية",
@@ -2327,7 +2491,7 @@
 		"developer_comment": "Button label to commit action of importing media from one or more items into the current one"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "استيراد مواد إعلامية نحو عنصر تقصي الحقيقة هذا",
+		"string": "إضافة كافة المواد الإعلامية إلى عنصر تقصي الحقيقة هذا",
 		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
@@ -2335,7 +2499,7 @@
 		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "تصدير مواد إعلامية نحو عنصر آخر لتقصي الحقيقة",
+		"string": "نقل كافة المواد الإعلامية إلى عنصر آخر لتقصي الحقيقة",
 		"developer_comment": "Menu option for exporting media from this item to another"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
@@ -2343,7 +2507,7 @@
 		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "إضافة المادة الإعلامية إلى تقصي حقيقة مُستورَد",
+		"string": "نقل كافة المواد الإعلامية إلى عنصر تقصي حقيقة مُستورَد",
 		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
@@ -2367,7 +2531,8 @@
 		"developer_comment": "allow user to change a project media source"
 	},
 	"mediaStatus.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الحالة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الحالة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+		"developer_comment": "Error message displayed when a status change fails"
 	},
 	"mediaSuggestionReview.matchDescription": {
 		"string": "لقد طابقت هذه المادة الإعلامية الادعاء وتقصي الحقيقة أدناه.",
@@ -2413,17 +2578,13 @@
 		"string": "استبعاد جميع المواد الإعلامية التي في هذه الصفحة",
 		"developer_comment": "Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list."
 	},
-	"mediaSuggestionsComponent.bulkRejectConfirm": {
-		"string": "استبعاد الكل",
-		"developer_comment": "Label for an action button that causes all selected items to be rejected"
-	},
 	"mediaSuggestionsComponent.bulkSpam": {
 		"string": "وسم جميع المواد الإعلامية في هذه الصفحة بأنها إعلان مزعج",
 		"developer_comment": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list."
 	},
 	"mediaSuggestionsComponent.bulkTrash": {
 		"string": "إرسال جميع المواد الإعلامية التي في هذه الصفحة إلى سلة المهملات",
-		"developer_comment": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' folder and removed from the suggestions list."
+		"developer_comment": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list."
 	},
 	"mediaSuggestionsComponent.dialogBulkAcceptConfirm": {
 		"string": "طابقْ الكل",
@@ -2433,9 +2594,13 @@
 		"string": "هل لديك الرغبة في البحث عن توافق مع {number} اقتراحات ؟",
 		"developer_comment": "Prompt to a user when they choose to match media as a bulk action"
 	},
+	"mediaSuggestionsComponent.dialogBulkRejectConfirm": {
+		"string": "رفض",
+		"developer_comment": "Button that a user presses to confirm that they are going to reject all visible suggested media"
+	},
 	"mediaSuggestionsComponent.dialogBulkRejectTitle": {
-		"string": "يُرجى اختيار المجلد النهائي لـ {number} مادة إعلامية مُستبعَدة",
-		"developer_comment": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
+		"string": "أأنت على يقين من رغبتك في استبعاد {number} اقتراح ؟",
+		"developer_comment": "Prompt to a user when they choose to reject media in bulk"
 	},
 	"mediaSuggestionsComponent.dialogBulkSpamConfirm": {
 		"string": "وسم كإعلان مزعج",
@@ -2453,17 +2618,9 @@
 		"string": "هل لديك الرغبة في إرسال {number} اقتراحات إلى سلة المهملات ؟",
 		"developer_comment": "Prompt to a user when they choose to send media to trash in bulk"
 	},
-	"mediaSuggestionsComponent.dialogRejectTitle": {
-		"string": "اختيار مجلد لهذا العنصر",
-		"developer_comment": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on"
-	},
 	"mediaSuggestionsComponent.flashBulkConfirmTitle": {
 		"string": "{number} مادة إعلامية مُقترَحة مطابقة",
 		"developer_comment": "Title that appears in a popup to confirm that a 'bulk accept' action was successful"
-	},
-	"mediaSuggestionsComponent.flashBulkReject": {
-		"string": "لقد أُضيفت إلى القائمة « {folder} »",
-		"developer_comment": "Text that appears in a popup to confirm that a 'bulk reject' action was successful"
 	},
 	"mediaSuggestionsComponent.flashBulkRejectTitle": {
 		"string": "لقد تم استبعاد {number} مادة إعلامية",
@@ -2476,10 +2633,6 @@
 	"mediaSuggestionsComponent.flashBulkTrash": {
 		"string": "لقد أُرسلَت {number} مادة إعلامية إلى سلة المهملات",
 		"developer_comment": "Text that appears in a popup to confirm that a 'bulk move to trash' action was successful"
-	},
-	"mediaSuggestionsComponent.moveItem": {
-		"string": "نقل العنصر",
-		"developer_comment": "Label for an action button that causes a user to move an item into a given folder"
 	},
 	"mediaSuggestionsComponent.movedToSpam": {
 		"string": "لقد نُقل العنصر إلى {spam}",
@@ -2515,7 +2668,11 @@
 	},
 	"mediaSuggestionsComponent.trash": {
 		"string": "إرسال المادة الإعلامية إلى سلة المهملات",
-		"developer_comment": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash folder, and removed from the suggested items list."
+		"developer_comment": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list."
+	},
+	"mediaSuggestionsComponent.updatedSuccessfully": {
+		"string": "لقد تم تحديث الاقتراح بنجاح",
+		"developer_comment": "Banner displayed after items are accepted or rejected successfully"
 	},
 	"metadata.cancel": {
 		"string": "إلغاء",
@@ -2578,7 +2735,7 @@
 		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
 	},
 	"metadata.location.coordinates.helper": {
-		"string": "يجب أن يكون المحتوى مكونا من إحداثيات خطوط العرض والطول بينهما فاصلة مثل: \"‎-12.9, -38.15\". يمكنك سحب دبوس الخريطة إذا وجدت صعوبة في إدخال الإحداثيات.",
+		"string": "يجب أن يكون المحتوى مكونا من إحداثيات خطوط العرض والطول بينهما فاصلة مثل: '‎-12.9, -38.15'. يمكنك سحب دبوس الخريطة إذا وجدت صعوبة في إدخال الإحداثيات.",
 		"developer_comment": "This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
 	},
 	"metadata.location.customize": {
@@ -2602,10 +2759,16 @@
 		"developer_comment": "A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL."
 	},
 	"moreLess.less": {
-		"string": "الأقل"
+		"string": "الأقل",
+		"developer_comment": "Button label to show less content"
 	},
 	"moreLess.more": {
-		"string": "المزيد"
+		"string": "المزيد",
+		"developer_comment": "Button label to show more content"
+	},
+	"multiSelectFilter.noResultsMatching": {
+		"string": "لا توجد نتائج مطابقة لـ {keyword}",
+		"developer_comment": "Label displayed on filter component when no results are found"
 	},
 	"multiSelector.cancel": {
 		"string": "إلغاء"
@@ -2618,13 +2781,16 @@
 		"developer_comment": "The placeholder text in a search box."
 	},
 	"network.noResponse": {
-		"string": "عذراً ، لم نتمكن من الاتصال مع {app}. الرجاء التأكد من الاتصال باﻹنترنت"
+		"string": "عذراً ، لم نتمكن من الاتصال مع {app}. الرجاء التأكد من الاتصال باﻹنترنت",
+		"developer_comment": "Error message when the user cannot connect to the app, possibly being no internet connection detected"
 	},
 	"network.stillWorking": {
-		"string": "العمل جارٍ…"
+		"string": "العمل جارٍ…",
+		"developer_comment": "Status message trying to connect to the network"
 	},
 	"newProject.cancel": {
-		"string": "إلغاء"
+		"string": "إلغاء",
+		"developer_comment": "Dialog label for the cancel button to close the dialog"
 	},
 	"newsletter.error": {
 		"string": "لقد تعذر حفظ الرسالة الإخبارية، يُرجى إعادة المحاولة.",
@@ -2783,8 +2949,12 @@
 		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
 	},
 	"newsletterRssFeed.error": {
-		"string": "يجب التوفر على رابط RSS صالح لتحميل المقالات.",
-		"developer_comment": "Error message displayed under RSS feed URL field"
+		"string": "إن هذا الرابط ليس رابطا صالحا لموجز RSS.",
+		"developer_comment": "Error message displayed under RSS feed URL field."
+	},
+	"newsletterRssFeed.learnMore": {
+		"string": "التعرف على المزيد.",
+		"developer_comment": "This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'"
 	},
 	"newsletterRssFeed.load": {
 		"string": "تحميل",
@@ -2803,11 +2973,11 @@
 		"developer_comment": "This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'"
 	},
 	"newsletterScheduler.errorContentHasntChanged": {
-		"string": "لم يتم نشر الرسالة الإخبارية لأن محتواها لم يتم تحديثه منذ آخر مرة تم إرسالها فيها.",
+		"string": "لم يتم إرسال الرسالة الإخبارية لأن محتواها لم يتم تحديثه منذ آخر تسليم ناجح.",
 		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS content has not changed"
 	},
 	"newsletterScheduler.errorRss": {
-		"string": "لم يتم نشر الرسالة الإخبارية لأنه لا يمكن جلب أي محتوى من موجز RSS.",
+		"string": "لم يتم إرسال الرسالة الإخبارية لأنه لا يمكن جلب أي محتوى من موجز RSS.",
 		"developer_comment": "Text displayed in an error box on newsletter settings page when RSS feed could not be loaded"
 	},
 	"newsletterScheduler.pause": {
@@ -2847,38 +3017,43 @@
 		"developer_comment": "Go to profile page button"
 	},
 	"notFound.pageTitle": {
-		"string": "الصفحة غير موجودة"
+		"string": "الصفحة غير موجودة",
+		"developer_comment": "Page title for the Not found page"
 	},
 	"notFound.text": {
-		"string": "يرجي التواصل مع مالك مساحة العمل إذا كنت تحاول الوصول إلى مساحة عمل موجودة."
+		"string": "يرجي التواصل مع مالك مساحة العمل إذا كنت تحاول الوصول إلى مساحة عمل موجودة.",
+		"developer_comment": "Help text for the user to contact the workspace admin for additional help accessing"
 	},
 	"notFound.title": {
 		"string": "للأسف! هذه الصفحة غير موجودة أو غير مصرح لك بالوصول إليها.",
 		"developer_comment": "Not found page title"
 	},
 	"numericRangeFilter.and": {
-		"string": "و"
+		"string": "و",
+		"developer_comment": "Logical operator AND statement"
 	},
 	"numericRangeFilter.between": {
-		"string": "و"
+		"string": "و",
+		"developer_comment": "Logical operator AND statement"
 	},
 	"numericRangeFilter.enterNumber": {
-		"string": "اكتب عددا"
+		"string": "اكتب عددا",
+		"developer_comment": "Placeholder for text field about entering a number value"
 	},
 	"numericRangeFilter.errorMessage": {
 		"string": "يجب أن يكون العدد الأول أصغر من العدد الثاني",
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "عدد المواد الإعلامية يتراوح بين",
+		"string": "(عدد) المواد الإعلامية يتراوح بين",
 		"developer_comment": "Filter option that refers to number of media"
 	},
 	"numericRangeFilter.suggestedItems": {
-		"string": "عدد الاقتراحات يتراوح بين",
+		"string": "(عدد) الاقتراحات يتراوح بين",
 		"developer_comment": "Filter option that refers to number of suggestions"
 	},
 	"numericRangeFilter.tiplineRequests": {
-		"string": "عدد المواد الإعلامية هو بين",
+		"string": "(عدد) الطلبات يتراوح بين",
 		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {
@@ -2898,54 +3073,68 @@
 		"developer_comment": "Banner displayed when text extraction operation for an image is done"
 	},
 	"passwordChange.changePassword": {
-		"string": "تغيير كلمة السر"
+		"string": "تغيير كلمة السر",
+		"developer_comment": "Button label to initial password change"
 	},
 	"passwordChange.confirmPassword": {
-		"string": "تأكيد كلمة السر"
+		"string": "تأكيد كلمة السر",
+		"developer_comment": "Text field label for the users to confirm their new password"
 	},
 	"passwordChange.currentPassword": {
-		"string": "كلمة السر الحالية"
+		"string": "كلمة السر الحالية",
+		"developer_comment": "Text field label for the users current password"
 	},
 	"passwordChange.newPassword": {
-		"string": "كلمة السر (الحد الأدنى {min} حروف)"
+		"string": "كلمة السر (الحد الأدنى {min} حروف)",
+		"developer_comment": "Text field label for the users new password"
 	},
 	"passwordChange.signIn": {
-		"string": "حسناً "
+		"string": "حسناً ",
+		"developer_comment": "Button label for the user to continue to the sign in page"
 	},
 	"passwordChange.successMsg": {
-		"string": "اكتملت العملية. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة."
+		"string": "اكتملت العملية. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+		"developer_comment": "Success message when the user's password was changed and they can now login using the new password"
 	},
 	"passwordChange.successTitle": {
-		"string": "تمّ تسجيل كلمة السر"
+		"string": "تمّ تسجيل كلمة السر",
+		"developer_comment": "Title message when the user password was successfully updated"
 	},
 	"passwordChange.title": {
-		"string": "تغيير كلمة السر"
+		"string": "تغيير كلمة السر",
+		"developer_comment": "Title message for the user to change their password"
 	},
 	"passwordChange.unmatchingPasswords": {
-		"string": "كلماتي السر غير مطابقتان"
+		"string": "كلماتي السر غير مطابقتان",
+		"developer_comment": "Error message when the supplied password and confirmation of password are not the same"
 	},
 	"passwordReset.confirmedText": {
-		"string": "إذا كان هذا البريد الالكتروني موجودا بالفعل فسوف تصلك رسالة من طرف {adminEmail} تحتوي على إرشادات لإعادة تعيين كلمة السر. يرجى التأكّد من أن هذه الرسالة خارج تصفية البريد الإعلاني المزعج. إن لم تصل إليك رسالة إعادة تعيين كلمة السر، يرجى الاتصال بنا على {supportEmail}."
+		"string": "إذا كان هذا البريد الالكتروني موجودا بالفعل فسوف تصلك رسالة من طرف {adminEmail} تحتوي على إرشادات لإعادة تعيين كلمة السر. يرجى التأكّد من أن هذه الرسالة خارج تصفية البريد الإعلاني المزعج. إن لم تصل إليك رسالة إعادة تعيين كلمة السر، يرجى الاتصال بنا على {supportEmail}.",
+		"developer_comment": "Confirmation text to tell the user what will happen if their password request request was valid"
 	},
 	"passwordReset.email": {
-		"string": "البريد الإلكتروني"
+		"string": "البريد الإلكتروني",
+		"developer_comment": "Textfield label for email address"
 	},
 	"passwordReset.emailNotValid": {
 		"string": "يرجى أدخال عنوان إلكتروني صحيح.",
 		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
-		"string": "تسجيل الدخول"
+		"string": "تسجيل الدخول",
+		"developer_comment": "Sign in button label"
 	},
 	"passwordReset.text": {
-		"string": "يرجى إدخال بريدك إلكتروني لإعادة تعيين كلمة السر."
+		"string": "يرجى إدخال بريدك إلكتروني لإعادة تعيين كلمة السر.",
+		"developer_comment": "Helper text about why the user should enter their email adddress"
 	},
 	"passwordReset.title": {
 		"string": "إعادة تعيين كلمة السر",
 		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
-		"string": "سياسة الخصوصية"
+		"string": "سياسة الخصوصية",
+		"developer_comment": "Link text to go to the app privacy policy document"
 	},
 	"project.deleteMessage": {
 		"string": "{mediasCount, plural, zero {لا توجد عناصر في {folderTitle},} one {هناك عنصر واحد في {folderTitle}. يرجى اختيار مجلد آخر له:} two {هناك عنصران في {folderTitle}. يرجى اختيار مجلد آخر لهما:} few {هناك # عناصر في {folderTitle}. يرجى اختيار مجلد آخر لهم:} many {هناك # عنصرا في {folderTitle}. يرجى اختيار مجلد آخر لهم:} other {هناك # عنصر في {folderTitle}. يرجى اختيار مجلد آخر لهم:}}"
@@ -2959,42 +3148,17 @@
 	"project.onlyAdminsAndEditors": {
 		"string": "المديرون والمحررون فقط"
 	},
+	"project.subtitle": {
+		"string": "المجلد",
+		"developer_comment": "Displayed on top of the folder title on the search results page."
+	},
 	"projectActions.defaultErrorMessage": {
 		"string": "خطأ، يرجى إعادة المحاولة.",
-		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
+		"developer_comment": "Generic error message displayed when it's not possible to update or delete a list"
 	},
 	"projectActions.delete": {
 		"string": "حذف",
 		"developer_comment": "'Delete' here is an infinitive verb"
-	},
-	"projectActions.makeDefault": {
-		"string": "جعلُها الافتراضية",
-		"developer_comment": "Make the folder default"
-	},
-	"projectActions.move": {
-		"string": "نقل إلى...",
-		"developer_comment": "'Move' here is an infinitive verb"
-	},
-	"projectActions.moveOut": {
-		"string": "نقل إلى الخارج",
-		"developer_comment": "Menu option to move a folder out of a collection"
-	},
-	"projectActions.moveTitle": {
-		"string": "نقل العناصر وحذف المجلد",
-		"developer_comment": "Label for button to move items and delete folder"
-	},
-	"projectActions.privacy": {
-		"string": "تغيير التصاريح",
-		"developer_comment": "'Change' here is an infinitive verb"
-	},
-	"projectActions.privacyMessageAdmins": {
-		"string": "إن المحررين والشركاء لن يتمكنوا من مشاهدة أو تصفح هذا المجلد أو أي عناصر فيه. سيُحتفظ بكل التعليقات."
-	},
-	"projectActions.privacyMessageAll": {
-		"string": "سيتمكن أي شخص من مشاهدة هذا المجلد ويتصفح محتوياته ويعقب عليه."
-	},
-	"projectActions.privacyMessageEditors": {
-		"string": "إن الشركاء لن يتمكنوا من مشاهدة أو تصفح هذا المجلد أو أي عناصر فيه. سيُحتفظ بكل التعليقات."
 	},
 	"projectActions.rename": {
 		"string": "تغيير الاسم",
@@ -3002,17 +3166,18 @@
 	},
 	"projectActions.savedSuccessfully": {
 		"string": "تمَّ",
-		"developer_comment": "Generic success message displayed when a collection, folder or list is updated or deleted"
+		"developer_comment": "Generic success message displayed when a list is updated or deleted"
 	},
 	"projectActions.tooltip": {
-		"string": "الإجراءات"
+		"string": "الإجراءات",
+		"developer_comment": "Toolitp for the button that shows actions that can be performed on a list"
 	},
 	"projectAssignment.more": {
 		"string": "+{count} أكثر"
 	},
 	"projectBlankState.blank": {
 		"string": "لا توجد عناصر هنا.",
-		"developer_comment": "Message displayed when there are no items"
+		"developer_comment": "Empty message that is displayed when search results are zero"
 	},
 	"projectGroup.deleteMessage": {
 		"string": "إذا حذفت هذه المجموعة، ستظل جميع المجلدات متاحة خارج هذه المجموعة.",
@@ -3021,6 +3186,10 @@
 	"projectGroup.name": {
 		"string": "المجموعة",
 		"developer_comment": "A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case."
+	},
+	"projectGroup.subtitle": {
+		"string": "المجموعة",
+		"developer_comment": "Displayed on top of the collection title on the search results page."
 	},
 	"projectHeader.Spam": {
 		"string": "إعلان مزعج",
@@ -3099,84 +3268,25 @@
 		"string": "الكل",
 		"developer_comment": "Label for the 'All items' list displayed on the left sidebar"
 	},
-	"projectsComponent.couldNotMove": {
-		"string": "تعذر نقل المجلد إلى المجموعة",
-		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
-	},
-	"projectsComponent.createCollection": {
-		"string": "انشاء مجموعة",
-		"developer_comment": "Button label for creating new collection"
-	},
-	"projectsComponent.createFolder": {
-		"string": "إنشاء مجلد",
-		"developer_comment": "Button label for creating new folder"
+	"projectsComponent.assignedToMe": {
+		"string": "تم تعيينه لي",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that are assigned to the current user"
 	},
 	"projectsComponent.createList": {
 		"string": "إنشاء قائمة",
 		"developer_comment": "Label for a button to create a new list displayed on the left sidebar."
 	},
 	"projectsComponent.deleteType": {
-		"string": "حذف {type}",
-		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
-	},
-	"projectsComponent.description": {
-		"string": "الوصف"
-	},
-	"projectsComponent.folders": {
-		"string": "المجلدات",
-		"developer_comment": "Label for a collapsable panel displayed on the left sidebar."
+		"string": "حذف القائمة",
+		"developer_comment": "'Delete' here is an infinitive verb"
 	},
 	"projectsComponent.importedReports": {
 		"string": "مُستورَد",
 		"developer_comment": "Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel"
 	},
-	"projectsComponent.invalidMove": {
-		"string": "لا يمكن نقل المجلدات إلا إلى مجموعات",
-		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
-	},
 	"projectsComponent.lists": {
 		"string": "قوائم مخصصة",
 		"developer_comment": "List of items with some filters applied"
-	},
-	"projectsComponent.movedSuccessfully": {
-		"string": "لقد نُقل المجلد بنجاح",
-		"developer_comment": "Message displayed when a folder is moved to or from a collection"
-	},
-	"projectsComponent.newCollection": {
-		"string": "مجموعة جديدة",
-		"developer_comment": "Dialog title for creating new collection"
-	},
-	"projectsComponent.newCollectionErrorMessage": {
-		"string": "تعذَّر إنشاء المجموعة، يرجى المحاولة مرة أخرى",
-		"developer_comment": "Error message when creating new collection fails"
-	},
-	"projectsComponent.newCollectionMenu": {
-		"string": "مجموعة جديدة",
-		"developer_comment": "Menu item for creating new collection"
-	},
-	"projectsComponent.newCollectionSuccessMessage": {
-		"string": "لقد أُنشئَت المجموعة بنجاح",
-		"developer_comment": "Success message when new collection is created"
-	},
-	"projectsComponent.newFolder": {
-		"string": "مجلد جديد",
-		"developer_comment": "Dialog title for creating new folder"
-	},
-	"projectsComponent.newFolderErrorMessage": {
-		"string": "تعذَّر إنشاء المجلد، يرجى المحاولة مرة أخرى",
-		"developer_comment": "Error message when creating new folder fails"
-	},
-	"projectsComponent.newFolderMenu": {
-		"string": "مجلد جديد",
-		"developer_comment": "Menu item for creating new folder"
-	},
-	"projectsComponent.newFolderOrCollection": {
-		"string": "مجلد جديد أو مجموعة جديدة",
-		"developer_comment": "Tooltip for the button opens the new folder or collection menu"
-	},
-	"projectsComponent.newFolderSuccessMessage": {
-		"string": "تم إنشاء المجلد بنجاح",
-		"developer_comment": "Success message when new folder is created"
 	},
 	"projectsComponent.newList": {
 		"string": "قائمة جديدة",
@@ -3202,37 +3312,25 @@
 		"string": "لا توجد قوائم مخصصة",
 		"developer_comment": "Displayed under the custom list header when there are no lists in it"
 	},
-	"projectsComponent.noFolders": {
-		"string": "لا توجد مجلدات في هذه المجموعة",
-		"developer_comment": "Displayed under a collection when there are no folders in it"
-	},
 	"projectsComponent.noSharedFeeds": {
 		"string": "لا يوجد موجز تم مشاركته",
 		"developer_comment": "Displayed under the shared feed header when there are no feeds in it"
 	},
-	"projectsComponent.privacyDialogButton": {
-		"string": "تحديث التصاريح"
-	},
-	"projectsComponent.privacyDialogOptionAdmins": {
-		"string": "المديرون فقط"
-	},
-	"projectsComponent.privacyDialogOptionAll": {
-		"string": "كل الأشخاص الذين لديهم تصريح لمساحة العمل هذه"
-	},
-	"projectsComponent.privacyDialogOptionEditors": {
-		"string": "المديرون والمحررون فقط"
-	},
-	"projectsComponent.privacyDialogTitle": {
-		"string": "من يستطيع مشاهدة هذا المجلد ومحتوياته",
-		"developer_comment": "Title for folder privacy dialog"
+	"projectsComponent.published": {
+		"string": "المنشورة",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that have published reports"
 	},
 	"projectsComponent.renameType": {
-		"string": "تغيير اسم {type}",
-		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+		"string": "تغيير اسم القائمة",
+		"developer_comment": "'Rename' here is an infinitive verb"
 	},
 	"projectsComponent.sharedFeeds": {
 		"string": "الموجزات التي تمت مشاركتها",
 		"developer_comment": "Feeds of content shared across workspaces"
+	},
+	"projectsComponent.spam": {
+		"string": "الإعلانات المزعجة",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that have been trashed"
 	},
 	"projectsComponent.suggestedMatches": {
 		"string": "الاقتراحات",
@@ -3243,17 +3341,40 @@
 		"developer_comment": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted"
 	},
 	"projectsComponent.title": {
-		"string": "العنوان"
+		"string": "العنوان",
+		"developer_comment": "Label for the title input when renaming a list"
+	},
+	"projectsComponent.trash": {
+		"string": "سلة المهملات",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items marked as spam"
+	},
+	"projectsComponent.unmatchedMedia": {
+		"string": "المواد إعلامية غير مطابقة",
+		"developer_comment": "Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)"
+	},
+	"published.title": {
+		"string": "المنشورة",
+		"developer_comment": "Title of the Published list page"
 	},
 	"refreshButton.success": {
 		"string": "لقد أُنعشَت المادة الإعلامية بنجاح",
 		"developer_comment": "Notification displayed when refresh action (re-parsing) of media is completed"
 	},
+	"reorder.moveDown": {
+		"string": "نقل العنصر للأسفل ",
+		"developer_comment": "Tooltip for control that moves an item lower in a list"
+	},
+	"reorder.moveUp": {
+		"string": "نقل العنصر للأعلى",
+		"developer_comment": "Tooltip for control that moves an item higher up in a list"
+	},
 	"reportDesigner.addIntro": {
-		"string": "إضافة محتوى إلى المقدمة"
+		"string": "إضافة محتوى إلى المقدمة",
+		"developer_comment": "Help text to tell the user to add content to the introduction"
 	},
 	"reportDesigner.addText": {
-		"string": "إضافة محتوى إلى الرسالة النصية"
+		"string": "إضافة محتوى إلى الرسالة النصية",
+		"developer_comment": "Help text to tell the user to add content to the text message"
 	},
 	"reportDesigner.back": {
 		"string": "العودة إلى التعقيبات",
@@ -3324,7 +3445,8 @@
 		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.content": {
-		"string": "الخلاصة"
+		"string": "الخلاصة",
+		"developer_comment": "Text field label for the report summary input"
 	},
 	"reportDesigner.contentScreenHeader": {
 		"string": "لا يمكن نشر المحتوى الذي يحوي تحذيرا <br /> على هيئة بطاقة مرئية.",
@@ -3338,16 +3460,20 @@
 		"developer_comment": "This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
 	},
 	"reportDesigner.darkOverlay": {
-		"string": "غطاء معتم"
+		"string": "غطاء معتم",
+		"developer_comment": "Check box label to indicate to user the dark overlay or not"
 	},
 	"reportDesigner.datePublished": {
-		"string": "تاريخ النشر"
+		"string": "تاريخ النشر",
+		"developer_comment": "Text field label for the date the report was published"
 	},
 	"reportDesigner.description": {
-		"string": "الخلاصة"
+		"string": "الخلاصة",
+		"developer_comment": "Text field label for the report text summary input"
 	},
 	"reportDesigner.error": {
-		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث إعدادات التقرير. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث إعدادات التقرير. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+		"developer_comment": "Message when an error is returned and how to reach support via email address"
 	},
 	"reportDesigner.firstSent": {
 		"string": "أوّل نشر",
@@ -3358,24 +3484,32 @@
 		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
 	},
 	"reportDesigner.headline": {
-		"string": "العنوان"
+		"string": "العنوان",
+		"developer_comment": "Text field label for the report headline title input"
 	},
 	"reportDesigner.incorrectWarning": {
 		"string": "هل تم تفعيل تحذير المحتوى عن طريق الخطأ؟",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.introduction": {
-		"string": "المقدمة"
+		"string": "المقدمة",
+		"developer_comment": "Section title for the report introduction"
+	},
+	"reportDesigner.introductionInput": {
+		"string": "المقدمة",
+		"developer_comment": "Text field label for the introduction input"
 	},
 	"reportDesigner.introductionSub": {
-		"string": "عليك باستخدام النص النائب {query_date} مبدئيا لعرض تاريخ البحث الأصلي. كما يمكنك استخدام {status} للإخبار عن حالة التقرير."
+		"string": "عليك باستخدام النص النائب {query_date} مبدئيا لعرض تاريخ البحث الأصلي. كما يمكنك استخدام {status} للإخبار عن حالة التقرير.",
+		"developer_comment": "Help text on how to use the query date and status fields"
 	},
 	"reportDesigner.lastPublished": {
 		"string": "آخر نشر",
 		"developer_comment": "Header for last publication date of report"
 	},
 	"reportDesigner.nothingToPreview": {
-		"string": "يرجى البدء بإنشاء التقرير لمعاينة ما سيراه المستخدمون عند استلام التقرير."
+		"string": "يرجى البدء بإنشاء التقرير لمعاينة ما سيراه المستخدمون عند استلام التقرير.",
+		"developer_comment": "Empty message when there is no preview to show"
 	},
 	"reportDesigner.pause": {
 		"string": "إيقاف",
@@ -3386,10 +3520,12 @@
 		"developer_comment": "Label for publish report button"
 	},
 	"reportDesigner.removeImage": {
-		"string": "إزالة الصورة"
+		"string": "إزالة الصورة",
+		"developer_comment": "Button label to remove the image from the report"
 	},
 	"reportDesigner.report": {
-		"string": "تقصي الحقائق"
+		"string": "تقصي الحقائق",
+		"developer_comment": "Section title for the fact-check form fields"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "لمحة عن التقرير ",
@@ -3408,31 +3544,36 @@
 		"developer_comment": "Header for reports sent count"
 	},
 	"reportDesigner.statusLabel": {
-		"string": "تسمية الحالة"
+		"string": "تسمية الحالة",
+		"developer_comment": "Text field label for the status of the report"
 	},
 	"reportDesigner.text": {
 		"string": "نص",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
 	"reportDesigner.textTitle": {
-		"string": "العنوان"
+		"string": "العنوان",
+		"developer_comment": "Text field label for the report text title input"
 	},
 	"reportDesigner.textUrl": {
 		"string": "عنوان المقال",
 		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
-		"string": "تصميم تقريرك"
+		"string": "تصميم تقريرك",
+		"developer_comment": "Section title for inputs to design the report"
 	},
 	"reportDesigner.uploadAlternative": {
 		"string": "يُرجى رفع صورة بديلة <br /> أو إلغاء اختيار البطاقة المرئية.",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.url": {
-		"string": "رابط الموقع الإلكتروني"
+		"string": "رابط الموقع الإلكتروني",
+		"developer_comment": "Text field label for the URL of the report website"
 	},
 	"reportDesigner.useDefaultImage": {
-		"string": "استخدام الصورة الافتراضية"
+		"string": "استخدام الصورة الافتراضية",
+		"developer_comment": "Button label to switch the report to use the default image"
 	},
 	"reportDesigner.visual": {
 		"string": "مرئي",
@@ -3462,13 +3603,16 @@
 		"developer_comment": "Text with a reason why user can not publish a report"
 	},
 	"reportStatusCell.paused": {
-		"string": "موقوف"
+		"string": "موقوف",
+		"developer_comment": "Table cell title for report status of paused"
 	},
 	"reportStatusCell.published": {
-		"string": "منشور"
+		"string": "منشور",
+		"developer_comment": "Table cell title for report status of published"
 	},
 	"reportStatusCell.unpublished": {
-		"string": "غير منشور"
+		"string": "غير منشور",
+		"developer_comment": "Table cell title for report status of unpublished"
 	},
 	"roleSelect.admin": {
 		"string": "المسؤول"
@@ -3483,58 +3627,76 @@
 		"string": "نسخة من {ruleName}"
 	},
 	"ruleBody.if": {
-		"string": "إذا"
+		"string": "إذا",
+		"developer_comment": "Logical operator IF statement label"
 	},
 	"ruleBody.ruleName": {
-		"string": "الاسم"
+		"string": "الاسم",
+		"developer_comment": "Text field label for the rule name"
 	},
 	"ruleBody.ruleNameValidation": {
-		"string": "مطلوب اسم للقاعدة"
+		"string": "مطلوب اسم للقاعدة",
+		"developer_comment": "Help content for the text field"
 	},
 	"ruleBody.then": {
-		"string": "حينئذ"
+		"string": "حينئذ",
+		"developer_comment": "Logical operator THEN statement"
 	},
 	"ruleOperatorWrapper.and": {
-		"string": "و"
+		"string": "و",
+		"developer_comment": "'and' logical operator choice for a rule step"
 	},
 	"ruleOperatorWrapper.or": {
-		"string": "أو"
+		"string": "أو",
+		"developer_comment": "'or' logical operator choice for a rule step"
 	},
 	"ruleOperatorWrapper.removeTheAbove": {
-		"string": "إزالة العنصر أعلاه"
+		"string": "إزالة العنصر أعلاه",
+		"developer_comment": "Button to remove a new rule operator"
 	},
 	"ruleToolbar.back": {
-		"string": "الرجوع"
+		"string": "الرجوع",
+		"developer_comment": "Button label to take the user to the previous view"
 	},
 	"ruleToolbar.delete": {
-		"string": "حذف"
+		"string": "حذف",
+		"developer_comment": "Menu label to delete the current rule"
 	},
 	"ruleToolbar.deleteConfirmationLabel": {
-		"string": "حذف القاعدة"
+		"string": "حذف القاعدة",
+		"developer_comment": "Label to continue deleting the current rule"
 	},
 	"ruleToolbar.deleteConfirmationText": {
-		"string": "لا يمكنك التراجع عن هذا الإجراء."
+		"string": "لا يمكنك التراجع عن هذا الإجراء.",
+		"developer_comment": "Warning message to the user that deletes are permanent"
 	},
 	"ruleToolbar.deleteConfirmationTitle": {
-		"string": "أأنت على يقين من حذف هذه القاعدة؟"
+		"string": "أأنت على يقين من حذف هذه القاعدة؟",
+		"developer_comment": "Confirmation message so the user knows they will delete the current rule"
 	},
 	"ruleToolbar.duplicate": {
-		"string": "تكرار"
+		"string": "تكرار",
+		"developer_comment": "Menu label to duplicate this rule"
 	},
 	"ruleToolbar.leaveConfirmationText": {
-		"string": "إذا تابعت، سيتم فقدان تعديلاتك."
+		"string": "إذا تابعت، سيتم فقدان تعديلاتك.",
+		"developer_comment": "Additional warning text about losing changes if the user navigates away."
 	},
 	"ruleToolbar.leaveConfirmationTitle": {
-		"string": "إغلاق دون حفظ؟"
+		"string": "إغلاق دون حفظ؟",
+		"developer_comment": "Confirmation message for the user to leave the page without saving their changes"
 	},
 	"ruleToolbar.more": {
-		"string": "المزيد"
+		"string": "المزيد",
+		"developer_comment": "Menu item for additional actions that can be performed on the current rule"
 	},
 	"rulesComponent.defaultErrorMessage": {
-		"string": "لم يمكننا حفظ القواعد"
+		"string": "لم يمكننا حفظ القواعد",
+		"developer_comment": "Error message when rule cannot be saved"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "حُفظَت القواعد بنجاح"
+		"string": "حُفظَت القواعد بنجاح",
+		"developer_comment": "Success message when rule has saved"
 	},
 	"rulesTableHead.name": {
 		"string": "الاسم",
@@ -3545,31 +3707,36 @@
 		"developer_comment": "Table header for rule update dates"
 	},
 	"rulesTableToolbar.add": {
-		"string": "قاعدة جديدة"
+		"string": "قاعدة جديدة",
+		"developer_comment": "Button label for creating a new rule"
 	},
 	"rulesTableToolbar.delete": {
-		"string": "حذف"
+		"string": "حذف",
+		"developer_comment": "Tooltip for deleting rules"
 	},
 	"rulesTableToolbar.deleteConfirmationLabel": {
-		"string": "{numSelected, plural, zero {عدم حذف أي قاعدة} one {حذف قاعدة واحدة} two {حذف قاعدتان} few {حذف # قواعد} many {حذف # قاعدة} other {حذف # قاعدة}}"
+		"string": "{numSelected, plural, zero {عدم حذف أي قاعدة} one {حذف قاعدة واحدة} two {حذف قاعدتان} few {حذف # قواعد} many {حذف # قاعدة} other {حذف # قاعدة}}",
+		"developer_comment": "Label for proceeding to delete the selected rules"
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
-		"string": "{numSelected, plural, zero {لم تحدد أي قاعدة للحذف} one {لقد حددت قاعدة واحدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} two {لقد حددت قاعدتان للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} few {لقد حددت # قواعد للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} many {لقد حددت # قاعدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} other {لقد حددت # قاعدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.}}"
+		"string": "{numSelected, plural, zero {لم تحدد أي قاعدة للحذف} one {لقد حددت قاعدة واحدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} two {لقد حددت قاعدتان للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} few {لقد حددت # قواعد للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} many {لقد حددت # قاعدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} other {لقد حددت # قاعدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.}}",
+		"developer_comment": "Details of what will happen when one or more rules are deleted show in a modal confirmation"
 	},
 	"rulesTableToolbar.deleteConfirmationTitle": {
-		"string": "هل تريد حذف القواعد المحددة؟"
+		"string": "هل تريد حذف القواعد المحددة؟",
+		"developer_comment": "Title for the confirmation dialog when the user is trying to delete rules"
 	},
 	"rulesTableToolbar.save": {
-		"string": "حفظ"
+		"string": "حفظ",
+		"developer_comment": "Button label to save the changes to the current rule"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, zero {لا قاعدة محددة} one {# محددة} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}"
-	},
-	"rulesTableToolbar.subtitle": {
-		"string": "إنشاء آليات لتنظيم المجلدات وتخصيص سير العمل."
+		"string": "{numSelected, plural, zero {لا قاعدة محددة} one {# محددة} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}",
+		"developer_comment": "When rules are selected to perform bulk actions on, this text tells the user how many have been selected"
 	},
 	"rulesTableToolbar.title": {
-		"string": "القواعد"
+		"string": "القواعد",
+		"developer_comment": "Title area for the rules admin section of the settings page"
 	},
 	"saveFeed.confirmationDialogBody": {
 		"string": "هل تأكدت من رغبتك في تحديث هذا الموجز الذي تمت مشاركته؟",
@@ -3632,7 +3799,7 @@
 		"developer_comment": "Label for the academic licensing of shared feed data"
 	},
 	"saveFeed.licenseBlurb": {
-		"string": "يخبر الترخيص الآخرين بما يمكنهم وما لا يمكنهم فعله بالبرمجة الخاصة بك.",
+		"string": "يخبر الترخيص الآخرين بما يمكنهم فعله ببرنامجك وما لا يمكنهم فعله به.",
 		"developer_comment": "Helper text for the license section"
 	},
 	"saveFeed.licenseCommercial": {
@@ -3664,7 +3831,7 @@
 		"developer_comment": "Label for a switch where the user publishes a feed"
 	},
 	"saveFeed.publishTitle": {
-		"string": " نشر في 'السوق' <small>(قريبا)</small>",
+		"string": " نشر في 'المتجر' <small>(قريبا)</small>",
 		"developer_comment": "Title of the section where the publishing preferences are set"
 	},
 	"saveFeed.selectHelper": {
@@ -3704,7 +3871,8 @@
 		"developer_comment": "Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page."
 	},
 	"saveList.cancel": {
-		"string": "إلغاء"
+		"string": "إلغاء",
+		"developer_comment": "Cancel list editing button label"
 	},
 	"saveList.create": {
 		"string": "إنشاء قائمة جديدة",
@@ -3715,7 +3883,12 @@
 		"developer_comment": "Error message displayed when it's not possible to save a list"
 	},
 	"saveList.newList": {
-		"string": "حفظ القائمة"
+		"string": "حفظ القائمة",
+		"developer_comment": "Dialog title and submit button label for saving changes to lists"
+	},
+	"saveList.saveAsNewList": {
+		"string": "حفظ كقائمة جديدة",
+		"developer_comment": "Dialog title and submit button label for saving filters as new lists"
 	},
 	"saveList.saveFeed": {
 		"string": "حفظ ثم المشاركة",
@@ -3730,14 +3903,11 @@
 		"developer_comment": "Success message displayed when a list is saved"
 	},
 	"saveList.title": {
-		"string": "إدخال اسم جديد للقائمة"
+		"string": "إدخال اسم جديد للقائمة",
+		"developer_comment": "Prompt for editing list name"
 	},
 	"saveList.update": {
 		"string": "حفظ التغييرات إلى القائمة \"{listName}\"",
-		"developer_comment": "'Save' here is an infinitive verb"
-	},
-	"saveList.updateSpecialPage": {
-		"string": "حفظ التغييرات في القائمة",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"saveList.warningAlert": {
@@ -3749,41 +3919,51 @@
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
 	},
 	"saveTag.name": {
-		"string": "الاسم"
+		"string": "الاسم",
+		"developer_comment": "Text field label for the input name of tag"
 	},
 	"saveTag.rule": {
-		"string": "إضافة الوسم تلقائيا للعناصر التي تحقق الشروط التالية:"
+		"string": "إضافة الوسم تلقائيا للعناصر التي تحقق الشروط التالية:",
+		"developer_comment": "Help text about automatically matching tags to a rule"
 	},
 	"saveTag.save": {
-		"string": "حفظ الوسم"
+		"string": "حفظ الوسم",
+		"developer_comment": "Button label to continue saving a new tag via a dialog message"
 	},
 	"saveTag.savedSuccessfully": {
 		"string": "لقد حُفظ الوسم بنجاح",
 		"developer_comment": "Message displayed when a team tag is saved"
 	},
 	"saveTag.titleCreate": {
-		"string": "إنشاء وسم جديد"
+		"string": "إنشاء وسم جديد",
+		"developer_comment": "Dialog title when creating a new tag"
 	},
 	"saveTag.titleEdit": {
-		"string": "تحرير الوسم"
+		"string": "تحرير الوسم",
+		"developer_comment": "Dialog title when editing a tag"
 	},
 	"savedSearch.deleteMessage": {
 		"string": "أأنت على يقين من ذلك ؟ لقد تمت مشاركة هذه القائمة بين كل مستخدمي {teamName}. لن يتمكن أي مستخدم من الوصول إليها بعد حذفها.",
 		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
+	},
+	"savedSearch.subtitle": {
+		"string": "قائمة مخصصة",
+		"developer_comment": "Displayed on top of the custom list title on the search results page."
 	},
 	"search.afterDate": {
 		"string": "بعد",
 		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
-		"string": "كل العناصر"
+		"string": "كل العناصر",
+		"developer_comment": "Page title for listing all items in check"
 	},
 	"search.and": {
 		"string": "و",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.annotatedBy": {
-		"string": "تم التعليق من",
+		"string": "المُعلِّق هو",
 		"developer_comment": "Prefix label for field to filter by annotated by"
 	},
 	"search.anyDate": {
@@ -3799,7 +3979,7 @@
 		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.archived": {
-		"string": "طلب الخط الساخن هو",
+		"string": "الطلب هو",
 		"developer_comment": "Prefix label for field to filter by Tipline request"
 	},
 	"search.assignedTo": {
@@ -3815,12 +3995,16 @@
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
 	"search.claim": {
-		"string": "حقل الادعاء هو",
+		"string": "الادعاء هو",
 		"developer_comment": "Prefix label for field to filter by claim"
 	},
 	"search.clear": {
 		"string": "محو",
 		"developer_comment": "A label on a button that lets a user clear typing search text, deleting the text in the process."
+	},
+	"search.clearSearch": {
+		"string": "إلغاء البحث",
+		"developer_comment": "Tooltip for button on main search component to remove the current search keywords"
 	},
 	"search.clusterTeams": {
 		"string": "المنظمة هي",
@@ -3835,27 +4019,36 @@
 		"developer_comment": "Allow filtering by confirmed items"
 	},
 	"search.dateLastSubmittedHeading": {
-		"string": "تاريخ نشر المادة الإعلامية"
+		"string": "تاريخ نشر المادة الإعلامية",
+		"developer_comment": "This is a heading in a drop down selector, to filter a search by the last submitted date"
+	},
+	"search.dateLessThan": {
+		"string": "منذ أقل من",
+		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like \"Report published less than 10 months ago\"."
+	},
+	"search.dateMoreThan": {
+		"string": "منذ أكثر من",
+		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like \"Report published more than 10 months ago\"."
 	},
 	"search.datePublishedHeading": {
-		"string": "تم نشر التقرير"
-	},
-	"search.dateRelative": {
-		"string": "منذ أقل من",
-		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'."
+		"string": "تم نشر التقرير",
+		"developer_comment": "This is a heading in a drop down selector, to filter a search by a report published date"
 	},
 	"search.dateRequestHeading": {
-		"string": "الطلب مُرسَل بتاريخ"
+		"string": "الطلب مُرسَل بتاريخ",
+		"developer_comment": "This is a heading in a drop down selector, to filter a search by request created dates"
 	},
 	"search.dateStartEnd": {
 		"string": "بين",
-		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'."
+		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like \"Report published between February 3, 2022 and February 9, 2022\"."
 	},
 	"search.dateSubmittedHeading": {
-		"string": "الطلب مُرسَل بتاريخ"
+		"string": "الطلب مُرسَل بتاريخ",
+		"developer_comment": "This is a header in a drop down selector, to filter a search by the submission date"
 	},
 	"search.dateUpdatedHeading": {
-		"string": "تم تحديث العنصر"
+		"string": "تم تحديث العنصر",
+		"developer_comment": "This is a heading in a drop down selector, to filter a search by date updated"
 	},
 	"search.empty": {
 		"string": "فارغ",
@@ -3864,6 +4057,18 @@
 	"search.emptyAssign": {
 		"string": "غير مُكَلَّف",
 		"developer_comment": "Allow filtering by assigned_to with no value set"
+	},
+	"search.expandSearch": {
+		"string": "توسيع إدخال البحث",
+		"developer_comment": "Tooltip for button on main search component to make the input size larger so the user can write more text"
+	},
+	"search.expandedButton": {
+		"string": "ابحث",
+		"developer_comment": "Button label for the search submit button when entering long text."
+	},
+	"search.expandedSearchLabel": {
+		"string": "إدخال مصطلحات البحث",
+		"developer_comment": "Label for expanded search box with extra room for longer search strings"
 	},
 	"search.facebook": {
 		"string": "منشور فيسبوك",
@@ -3905,8 +4110,17 @@
 		"string": "اللغة هي",
 		"developer_comment": "Prefix label for field to filter by language"
 	},
+	"search.mediaLanguage": {
+		"string": "لغة المواد الإعلامية",
+		"developer_comment": "Label for media language filter"
+	},
+	"search.mediaUnmatched": {
+		"string": "غير مطابقة",
+		"developer_comment": "Describes media that is unmatched as in \"Media is [unmatched]\""
+	},
 	"search.nextPage": {
-		"string": "الصفحة التالية"
+		"string": "الصفحة التالية",
+		"developer_comment": "Pagination button to go to next page"
 	},
 	"search.noResults": {
 		"string": "لم يتم العثور على نتائج.",
@@ -3929,10 +4143,11 @@
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
-		"string": "الصفحة السابقة"
+		"string": "الصفحة السابقة",
+		"developer_comment": "Pagination button to go to previous page"
 	},
 	"search.publishedBy": {
-		"string": "لقد تم نشر التقرير بواسطة",
+		"string": "الناشر هو",
 		"developer_comment": "Prefix label for field to filter by published by"
 	},
 	"search.read": {
@@ -3941,22 +4156,34 @@
 	},
 	"search.relativeDays": {
 		"string": "أيام",
-		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 days ago'."
+		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like \"Report published less than 3 days ago\""
 	},
 	"search.relativeMonths": {
 		"string": "شهور",
-		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 months ago'."
+		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like \"Report published less than 3 months ago\"."
 	},
 	"search.relativeWeeks": {
 		"string": "أسابيع",
-		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 weeks ago'."
+		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like \"Report published less than 3 weeks ago\"."
 	},
 	"search.relativeYears": {
 		"string": "سنين",
-		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 years ago'."
+		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like \"Report published less than 3 years ago\"."
+	},
+	"search.removeEndDateCondition": {
+		"string": "إزالة تاريخ الانتهاء",
+		"developer_comment": "Tooltip to tell the user they can add remove the end date portion of this filter"
+	},
+	"search.removeStartDateCondition": {
+		"string": "إزالة تاريخ البدء",
+		"developer_comment": "Tooltip to tell the user they can add remove the start date portion of this filter"
+	},
+	"search.reportLanguage": {
+		"string": "لغة التقرير ",
+		"developer_comment": "Label for report language filter"
 	},
 	"search.reportStatus": {
-		"string": "حالة التقرير هي",
+		"string": "(حالة) التقرير هي",
 		"developer_comment": "Prefix label for field to filter by report status"
 	},
 	"search.reportStatusPaused": {
@@ -3970,6 +4197,10 @@
 	"search.reportStatusUnpublished": {
 		"string": "غير منشور",
 		"developer_comment": "Refers to a report status"
+	},
+	"search.requestLanguage": {
+		"string": "لغة المحادثة",
+		"developer_comment": "Label for conversation Language filter"
 	},
 	"search.resetFilter": {
 		"string": "إعادة التعيين",
@@ -4007,13 +4238,29 @@
 		"string": "مواقع التواصل الاجتماعي",
 		"developer_comment": "Allow user to filter by social media links"
 	},
+	"search.spam": {
+		"string": "تم وسم العنصر على أنه إعلان مزعج",
+		"developer_comment": "Label for spam filter field"
+	},
 	"search.statusHeading": {
 		"string": "التقييم هو",
 		"developer_comment": "Prefix label for field to filter by status"
 	},
+	"search.switchOperator": {
+		"string": "التبديل بين « و » وبين « أو »",
+		"developer_comment": "Tooltip to tell the user they can switch the logical operator between 'AND/OR' when filtering by multiple fields"
+	},
+	"search.telegram": {
+		"string": "تليجرام",
+		"developer_comment": "Allow user to filter items by Telegram posts"
+	},
 	"search.tiktok": {
 		"string": "‫منشور Tiktok",
 		"developer_comment": "Allow user to filter items by tiktok posts"
+	},
+	"search.trash": {
+		"string": "العنصر في سلة المهملات",
+		"developer_comment": "Label for spam filter field"
 	},
 	"search.twitter": {
 		"string": "منشور تويتر",
@@ -4022,6 +4269,10 @@
 	"search.unconfirmed": {
 		"string": "غير مؤكد",
 		"developer_comment": "Allow filtering by unconfirmed items"
+	},
+	"search.unmatched": {
+		"string": "المادة الإعلامية غير مطابقة",
+		"developer_comment": "Label for field to filter by unmatched media"
 	},
 	"search.userHeading": {
 		"string": "تم الإنشاء بواسطة",
@@ -4136,7 +4387,8 @@
 		"developer_comment": "Label for checkbox to toggle searching for keyword across usernames and phone numbers in Requests"
 	},
 	"searchResults.itemsCount": {
-		"string": "{count, plural, zero {{from} - {to} / #} one {1 / 1} two {{from} - {to} / #} few {{from} - {to} / #} many {{from} - {to} / #} other {{from} - {to} / #}}"
+		"string": "{totalCount, plural, zero {{from} - {to} / #} one {1 / 1} two {{from} - {to} / #} few {{from} - {to} / #} many {{from} - {to} / #} other {{from} - {to} / #}}",
+		"developer_comment": "Pagination count of items returned"
 	},
 	"searchResults.withSelection": {
 		"string": "{selectedCount, plural, zero {(لا عنصر محدد)} one {(واحد محدد)} two {(إثنان محددان)} few {(# محددة)} many {(# محددة)} other {(# محددة)}}",
@@ -4161,6 +4413,22 @@
 	"selectList.select": {
 		"string": "تحديد القائمة…",
 		"developer_comment": "Label for list selector"
+	},
+	"sendTiplineMessage.inputLabel": {
+		"string": "الرسالة",
+		"developer_comment": "Message input label"
+	},
+	"sendTiplineMessage.send": {
+		"string": "إرسال",
+		"developer_comment": "Label for button that commits action of sending a message to a tipline user"
+	},
+	"sendTiplineMessage.success": {
+		"string": "لقد تم إرسال الرسالة",
+		"developer_comment": "Banner displayed when message is sent to tipline user successfully"
+	},
+	"sendTiplineMessage.title": {
+		"string": "إرسال رسالة إلى {username} على {channel}",
+		"developer_comment": "Title for messaging popup"
 	},
 	"sensitiveContentMenuButton.adult": {
 		"string": "إباحي (عري، صور خليعة)",
@@ -4233,40 +4501,45 @@
 	"shortTextRespondTask.responseHint": {
 		"string": "يرجى كتابة اﻹجابة هنا."
 	},
-	"similarityComponent.blurb": {
-		"string": "تجميع العناصر معا تلقائيا إذا كانت متشابهة.",
-		"developer_comment": "Subtitle to similarity matching settings page"
-	},
 	"similarityComponent.dateThreshold": {
-		"string": "سيُقترَح فقط المحتوى المشابه الذي تم إرساله منذ أكثر من {maxTime} شهرا"
+		"string": "سيُقترَح فقط المحتوى المشابه الذي تم إرساله منذ أكثر من {maxTime} شهرا",
+		"developer_comment": "Number input for how many month back similarity suggestions will be processed for"
 	},
 	"similarityComponent.dateThresholdSettings": {
 		"string": "حصر التوافقات في المحتوي الذي تم إرساله حديثا",
 		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
 	},
 	"similarityComponent.languageForSimilarity": {
-		"string": "‫محلل اللغة للتطابق المشابه (مثلا، 'pt'، 'en'، إلخ)"
+		"string": "‫محلل اللغة للتطابق المشابه (مثلا، 'pt'، 'en'، إلخ)",
+		"developer_comment": "Text input for language similarity matching settings"
 	},
 	"similarityComponent.masterSwitchLabelOff": {
-		"string": "خاصية التوافق التلقائي معطَّلة"
+		"string": "خاصية التوافق التلقائي معطَّلة",
+		"developer_comment": "Switch input label when switch is set to not automatic match"
 	},
 	"similarityComponent.masterSwitchLabelOn": {
-		"string": "خاصية التوافق التلقائي مشغَّلة"
+		"string": "خاصية التوافق التلقائي مشغَّلة",
+		"developer_comment": "Switch input label when switch is set to automatic matching"
 	},
 	"similarityComponent.maximumDuration": {
-		"string": "الحد الأقصى للمدة (بالثواني)"
+		"string": "الحد الأقصى للمدة (بالثواني)",
+		"developer_comment": "number input for Automated transcription maximum duration"
 	},
 	"similarityComponent.minEsScore": {
-		"string": "‫درجة الملائمة الدنيا لأجل ElasticSearch"
+		"string": "‫درجة الملائمة الدنيا لأجل ElasticSearch",
+		"developer_comment": "number input for the minimum matching score for ElasticSearch"
 	},
 	"similarityComponent.minimumDuration": {
-		"string": "الحد الأدنى للمدة (بالثواني)"
+		"string": "الحد الأدنى للمدة (بالثواني)",
+		"developer_comment": "number input for Automated transcription minimum duration"
 	},
 	"similarityComponent.minimumRequests": {
-		"string": "العدد الأدنى للطلبات"
+		"string": "العدد الأدنى للطلبات",
+		"developer_comment": "number input for Automated transcription duration requests"
 	},
 	"similarityComponent.save": {
-		"string": "حفظ"
+		"string": "حفظ",
+		"developer_comment": "Label for Save Button on Similarity settings page"
 	},
 	"similarityComponent.savedSuccessfully": {
 		"string": "لقد حُفظَت إعدادات التشابهات بنجاح",
@@ -4299,7 +4572,8 @@
 		"string": "القيمة"
 	},
 	"slackConfig.text": {
-		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة عناصر إلى مجلدات محددة"
+		"string": "إرسال تنبيهات إلى قنوات Slack",
+		"developer_comment": "Description of the slack integration"
 	},
 	"slackConfigDialogComponent.addEvent": {
 		"string": "+ إضافة حدث",
@@ -4310,13 +4584,16 @@
 		"developer_comment": "Selecting this event will trigger notification upon any workspace activity"
 	},
 	"slackConfigDialogComponent.cancel": {
-		"string": "إلغاء"
+		"string": "إلغاء",
+		"developer_comment": "Cancel button label"
 	},
 	"slackConfigDialogComponent.channel": {
-		"string": "قناة Slack"
+		"string": "قناة Slack",
+		"developer_comment": "Text field label for the slack channel name"
 	},
 	"slackConfigDialogComponent.defaultErrorMessage": {
-		"string": "لم يمكننا حفظ إعدادات Slack"
+		"string": "لم يمكننا حفظ إعدادات Slack",
+		"developer_comment": "Error message when the setting did not save correctly"
 	},
 	"slackConfigDialogComponent.defaultLabel": {
 		"string": "التنبيه {number}",
@@ -4326,38 +4603,37 @@
 		"string": "إذا",
 		"developer_comment": "Header to event selector. E.g.: If 'Item is added to' ..."
 	},
-	"slackConfigDialogComponent.itemAdded": {
-		"string": "تمت إضافة العنصر إلى المجلد",
-		"developer_comment": "Selecting this event will trigger notification whenever an item is added to or moved to a folder"
-	},
-	"slackConfigDialogComponent.itemIsAddedTo": {
-		"string": "تمت إضافة العنصر إلى",
-		"developer_comment": "Label to folder selector component"
-	},
 	"slackConfigDialogComponent.label": {
-		"string": "اسم التنبيه"
+		"string": "اسم التنبيه",
+		"developer_comment": "Text field label for the name of the notification"
 	},
 	"slackConfigDialogComponent.new": {
 		"string": "+ جديد",
 		"developer_comment": "Button to create a new notification"
 	},
 	"slackConfigDialogComponent.noChannelError": {
-		"string": "يرجى إضافة قناة Slack التي سيتم إرسال التنبيهات إليها"
+		"string": "يرجى إضافة قناة Slack التي سيتم إرسال التنبيهات إليها",
+		"developer_comment": "Error message to tell the user they need to provide a slack channel name to send notifications to"
 	},
 	"slackConfigDialogComponent.noConditionError": {
-		"string": "يرجى تحديد شرط إرسال التنبيهات"
+		"string": "يرجى تحديد شرط إرسال التنبيهات",
+		"developer_comment": "Error message to tell the user they need to select a notification condition"
 	},
 	"slackConfigDialogComponent.noWebhookError": {
-		"string": "يرجى إضافة عنوان ‫مِشبَك Slack‬"
+		"string": "يرجى إضافة عنوان ‫مِشبَك Slack‬",
+		"developer_comment": "Error message when the user did not provide the slack webhook address"
 	},
 	"slackConfigDialogComponent.notifications": {
-		"string": "التنبيهات"
+		"string": "التنبيهات",
+		"developer_comment": "Table header row for notifiations"
 	},
 	"slackConfigDialogComponent.save": {
-		"string": "حفظ"
+		"string": "حفظ",
+		"developer_comment": "Save button label"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "لقد حُفظَت إعدادات Slack بنجاح"
+		"string": "لقد حُفظَت إعدادات Slack بنجاح",
+		"developer_comment": "Success message when the setting was updated"
 	},
 	"slackConfigDialogComponent.statusChanged": {
 		"string": "تم تغيير الحالة إلى",
@@ -4368,99 +4644,128 @@
 		"developer_comment": "Header to notification destination input. E.g.: Then send notification to '#general'"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة عناصر إلى مجلدات محددة"
+		"string": "إرسال تنبيهات إلى قنوات Slack",
+		"developer_comment": "Description of the slack integration"
 	},
 	"slackConfigDialogComponent.webhook": {
-		"string": "مِشبَك Slack الوارد "
+		"string": "مِشبَك Slack الوارد ",
+		"developer_comment": "Text field label for the incoming webhook address"
 	},
 	"smoochBot.addResource": {
-		"string": "إضافة مورد"
+		"string": "إضافة مورد",
+		"developer_comment": "Button label to add a resource to this bot"
 	},
 	"smoochBot.descriptionGreeting": {
-		"string": "الرسالة الأولى التى سترسل إلى المستخدمين. ستقدّم هذه الرسالة منظمتك والخدمة التي تقدمها من خلال هذا البوت."
+		"string": "الرسالة الأولى التى سترسل إلى المستخدمين. ستقدّم هذه الرسالة منظمتك والخدمة التي تقدمها من خلال هذا البوت.",
+		"developer_comment": "Definition of the bot Greeting content"
 	},
 	"smoochBot.descriptionInactive": {
-		"string": "سيتم إرسال هذه الرسالة إلى أي مستخدم يرسل رسالة إلى الخط السّاخن (Tipline) بينما يكون بوت رسائل Check غير نشط."
+		"string": "سيتم إرسال هذه الرسالة إلى أي مستخدم يرسل رسالة إلى الخط السّاخن (Tipline) بينما يكون بوت رسائل Check غير نشط.",
+		"developer_comment": "Definition of the bot Inactive content"
 	},
 	"smoochBot.descriptionInvalidFormat": {
-		"string": "رسالة تلقائية يتم إرسالها إلى المستخدمين عند إرسالهم لأي ملف غير مدعوم من قبل Check."
+		"string": "رسالة تلقائية يتم إرسالها إلى المستخدمين عند إرسالهم لأي ملف غير مدعوم من قبل Check.",
+		"developer_comment": "Definition of the bot Invalid format content"
 	},
 	"smoochBot.descriptionMainMenu": {
-		"string": "قائمة تطلب من المستخدم الاختيار بين مجموعة من الخيارات.  ستتبع هذه الرسالة رسالة الترحيب تلقائيا. لا يمكن استخدام الخيار 9 في القائمة الرئيسية."
+		"string": "قائمة تطلب من المستخدم الاختيار بين مجموعة من الخيارات.  ستتبع هذه الرسالة رسالة الترحيب تلقائيا. لا يمكن استخدام الخيار 9 في القائمة الرئيسية.",
+		"developer_comment": "Definition of the bot Main menu content"
 	},
 	"smoochBot.descriptionOptionNotAvailable": {
-		"string": "الرسالة التى سيتم إرسالها اذا كان سيناريو رد المستخدم على قائمة ما لا يصلح  للقائمة."
+		"string": "الرسالة التى سيتم إرسالها اذا كان سيناريو رد المستخدم على قائمة ما لا يصلح  للقائمة.",
+		"developer_comment": "Definition of the bot Option not available content"
 	},
 	"smoochBot.descriptionPrivacyStatementContent": {
-		"string": "محتوى بيان الخصوصية. يمكن تحرير النص أدناه أو استبداله بمحتوى مخصص."
+		"string": "محتوى بيان الخصوصية. يمكن تحرير النص أدناه أو استبداله بمحتوى مخصص.",
+		"developer_comment": "Description of the privacy statement content and how to use custom text"
 	},
 	"smoochBot.descriptionPrivacyStatementGreeting": {
-		"string": "سيكون بيان الخصوصية التالي  متاحاً بشكل إفتراضي لجميع المستخدمين. إن أردتم استبداله بآخر مخصص عليكم استبداله في جميع لغات البوت المفعلة."
+		"string": "سيكون بيان الخصوصية التالي  متاحاً بشكل إفتراضي لجميع المستخدمين. إن أردتم استبداله بآخر مخصص عليكم استبداله في جميع لغات البوت المفعلة.",
+		"developer_comment": "Description of the requirement of the privacy statement in regards to translations"
 	},
 	"smoochBot.descriptionPrivacyStatementGreeting2": {
-		"string": "تجب الإشارة إلى الخيار '9' ليتمكن المستخدمين من قراءة بيان الخصوصية عبر القائمة الرئيسية."
+		"string": "تجب الإشارة إلى الخيار '9' ليتمكن المستخدمين من قراءة بيان الخصوصية عبر القائمة الرئيسية.",
+		"developer_comment": "Description of a greeting requirement of a menu option number that must be used for the privacy statement"
 	},
 	"smoochBot.descriptionQueryPrompt": {
-		"string": "الرسالة التي تطلب من المستخدمين إرسال محتوى مرتبط بتقصي الحقائق."
+		"string": "الرسالة التي تطلب من المستخدمين إرسال محتوى مرتبط بتقصي الحقائق.",
+		"developer_comment": "Definition of the bot Query prompt content"
 	},
 	"smoochBot.descriptionQueryReceived": {
-		"string": "التأكيد الذى سيتم إرساله إلى المستخدمين بعد استلام استعلام صالح منهم."
+		"string": "التأكيد الذى سيتم إرساله إلى المستخدمين بعد استلام استعلام صالح منهم.",
+		"developer_comment": "Definition of the bot Query received content"
 	},
 	"smoochBot.descriptionReportUpdated": {
-		"string": "الرسالة التى سيتم إرسالها إلى المستخدمين حينما تتغير حالة تقرير ما. يجب أن يكون التقرير مكتملا حتى يتم إرسال الرسالة."
+		"string": "الرسالة التى سيتم إرسالها إلى المستخدمين حينما تتغير حالة تقرير ما. يجب أن يكون التقرير مكتملا حتى يتم إرسال الرسالة.",
+		"developer_comment": "Definition of the bot Report updated content"
 	},
 	"smoochBot.descriptionSecondaryMenu": {
-		"string": "قائمة اختيارية تطلب من المستخدمين الاختيار بين مجموعة من الخيارات. عندما يرد المستخدمين بأحد الخيارات، يستطيع البوت إرسال تقرير أو توجيه المستخدم إلى رسالة بوت أخرى."
+		"string": "قائمة اختيارية تطلب من المستخدمين الاختيار بين مجموعة من الخيارات. عندما يرد المستخدمين بأحد الخيارات، يستطيع البوت إرسال تقرير أو توجيه المستخدم إلى رسالة بوت أخرى.",
+		"developer_comment": "Definition of the bot Secondary menu content"
 	},
 	"smoochBot.descriptionSubscription": {
-		"string": "يٌرجى القيام بدعاية تظهر فيها أهمية رسالتك الإخبارية للمستخدمين. سيستلم رسالتك الإخبارية تلقائيا كل المستخدمين المشتركين فيها."
+		"string": "يٌرجى القيام بدعاية تظهر فيها أهمية رسالتك الإخبارية للمستخدمين. سيستلم رسالتك الإخبارية تلقائيا كل المستخدمين المشتركين فيها.",
+		"developer_comment": "Definition of the bot Subscription content"
 	},
 	"smoochBot.designYourBot": {
 		"string": "تصميم البوت الخاص بك",
 		"developer_comment": "Title of tipline settings page"
 	},
 	"smoochBot.footnoteGreeting": {
-		"string": "ستتم إضافة البيان والخيار التاليان إلى نهاية الرسالة تلقائياً: 'لن نقوم بمشاركة معلومات شخصية تحدد هويتك أبداً. يرجى الرد بِ 9 لقراءة بيان الخصوصية والغرض'."
+		"string": "ستتم إضافة البيان والخيار التاليان إلى نهاية الرسالة تلقائياً: 'لن نقوم بمشاركة معلومات شخصية تحدد هويتك أبداً. يرجى الرد بِ 9 لقراءة بيان الخصوصية والغرض'.",
+		"developer_comment": "Description of what extra content will be appended to the footer of messages"
 	},
 	"smoochBot.footnoteGreeting2": {
-		"string": "يمكن استبدال بيان الخصوصية المفترض بآخر مخصص تحت خيار 'بيان الخصوصية' في هذه الصفحة."
+		"string": "يمكن استبدال بيان الخصوصية المفترض بآخر مخصص تحت خيار 'بيان الخصوصية' في هذه الصفحة.",
+		"developer_comment": "Description of how to replace the privacy statement content with custom content"
 	},
 	"smoochBot.labelContent": {
 		"string": "المحتوى والترجمة",
 		"developer_comment": "Button label in tipline settings page"
 	},
 	"smoochBot.labelGreeting": {
-		"string": "مرحباً"
+		"string": "مرحباً",
+		"developer_comment": "Label for the bot Greeting content area"
 	},
 	"smoochBot.labelInactive": {
-		"string": "إشعار بعدم الفاعلية"
+		"string": "إشعار بعدم الفاعلية",
+		"developer_comment": "Label for the bot Notice of inactivity content area"
 	},
 	"smoochBot.labelInvalidFormat": {
-		"string": "صيغة غير صالحة"
+		"string": "صيغة غير صالحة",
+		"developer_comment": "Label for the bot Invalid format content area"
 	},
 	"smoochBot.labelMainMenu": {
-		"string": "القائمة الرئيسية"
+		"string": "القائمة الرئيسية",
+		"developer_comment": "Label for the bot Main menu content area"
 	},
 	"smoochBot.labelOptionNotAvailable": {
-		"string": "الخيار غير متاح"
+		"string": "الخيار غير متاح",
+		"developer_comment": "Label for the bot Option not available content area"
 	},
 	"smoochBot.labelPrivacyStatement": {
-		"string": "بيان الخصوصية"
+		"string": "بيان الخصوصية",
+		"developer_comment": "Label for the bot Privacy statement content area"
 	},
 	"smoochBot.labelQueryPrompt": {
-		"string": "موجّه الاستعلامات"
+		"string": "موجّه الاستعلامات",
+		"developer_comment": "Label for the bot Query prompt content area"
 	},
 	"smoochBot.labelQueryReceived": {
-		"string": "تم استلام الاستعلام"
+		"string": "تم استلام الاستعلام",
+		"developer_comment": "Label for the bot Query received content area"
 	},
 	"smoochBot.labelReportUpdated": {
-		"string": "تم تحديث التقرير"
+		"string": "تم تحديث التقرير",
+		"developer_comment": "Label for the bot Report updated content area"
 	},
 	"smoochBot.labelSecondaryMenu": {
-		"string": "القائمة الثانوية"
+		"string": "القائمة الثانوية",
+		"developer_comment": "Label for the bot Secondary menu content area"
 	},
 	"smoochBot.labelSubscription": {
-		"string": "تسجيل الاشتراك"
+		"string": "تسجيل الاشتراك",
+		"developer_comment": "Label for the bot Query Subscription opt-in content area"
 	},
 	"smoochBot.menuKeywords": {
 		"string": "كلمات مفتاحية مفصولة بالفاصلة"
@@ -4499,7 +4804,8 @@
 		"string": "يُرجى كتابة توجيه الاشتراك في رسالتك الإخبارية."
 	},
 	"smoochBot.settings": {
-		"string": "الإعدادات"
+		"string": "الإعدادات",
+		"developer_comment": "Tab label to click to see the settings area"
 	},
 	"smoochBot.tos": {
 		"string": "شروط الاستخدام ({language})"
@@ -4509,10 +4815,12 @@
 		"developer_comment": "Button label to close error dialog on tipline settings page"
 	},
 	"smoochBotComponent.contactUs": {
-		"string": "تواصل معنا للتثبيت"
+		"string": "تواصل معنا للتثبيت",
+		"developer_comment": "Button label for contacting support for help setting up a tipline in this workspace"
 	},
 	"smoochBotComponent.install": {
-		"string": "تثبيت"
+		"string": "تثبيت",
+		"developer_comment": "Button label for action to install the tipline in this workspace"
 	},
 	"smoochBotComponent.missingInformationBody": {
 		"string": "إن الرسالة « الاشتراك وإلغاء الاشتراك في الرسالة الإخبارية » ناقصة في النص النائب.",
@@ -4523,17 +4831,20 @@
 		"developer_comment": "Title of dialog that opens when there is a validation error on tipline settings"
 	},
 	"smoochBotComponent.save": {
-		"string": "نشر"
+		"string": "نشر",
+		"developer_comment": "Button label to save and publish the tipline settings"
 	},
 	"smoochBotComponent.savedSuccessfully": {
 		"string": "لقد حُفظَت إعدادات الخط الساخن بنجاح",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
 	"smoochBotComponent.title": {
-		"string": "الخط الساخن"
+		"string": "الخط الساخن",
+		"developer_comment": "Page title for tipling settings page"
 	},
 	"smoochBotConfig.subscriptionHeader": {
-		"string": "أنت حاليا {subscription_status} في رسالتنا الإخبارية."
+		"string": "أنت حاليا {subscription_status} في رسالتنا الإخبارية.",
+		"developer_comment": "Status message for the user to know if they are subscribed or not to the newsletter"
 	},
 	"smoochBotContentAndTranslation.addMoreInformationDefault": {
 		"string": "هل أصبح كل شيء جاهزا للإرسال؟",
@@ -4700,10 +5011,12 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotIntegrationButton.cancel": {
-		"string": "إلغاء"
+		"string": "إلغاء",
+		"developer_comment": "Button label to cancel connection"
 	},
 	"smoochBotIntegrationButton.confirm": {
-		"string": "تأكيد"
+		"string": "تأكيد",
+		"developer_comment": "Button label to confirm connection"
 	},
 	"smoochBotIntegrationButton.confirmDisconnectText": {
 		"string": "فصل الحساب {platform} سيمنع أي مستخدم من التفاعل مع الخط الساخن من خلال هذا الحساب.",
@@ -4726,41 +5039,52 @@
 		"developer_comment": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
-		"string": "اتصل"
+		"string": "اتصل",
+		"developer_comment": "Status of bot when its not connected"
+	},
+	"smoochBotIntegrationButton.connectButton": {
+		"string": "اتصل",
+		"developer_comment": "Button label to connect bot"
 	},
 	"smoochBotIntegrationButton.connectTipline": {
-		"string": "وصل بالخط الساخن الخاص بمنصة {platform}"
+		"string": "وصل بالخط الساخن الخاص بمنصة {platform}",
+		"developer_comment": "Settings header for connecting a platform to a tipline"
 	},
 	"smoochBotIntegrationButton.defaultErrorMessage": {
-		"string": "حدث شيء غير جيد."
+		"string": "حدث شيء غير جيد.",
+		"developer_comment": "Default error message"
 	},
 	"smoochBotIntegrationButton.disclaimer": {
-		"string": "نحن لا نحفظ هذه المعلومة. إنها تٌستخدَم فقط لتهيئة التكاملات."
+		"string": "نحن لا نحفظ هذه المعلومة. إنها تٌستخدَم فقط لتهيئة التكاملات.",
+		"developer_comment": "Privacy disclaimer statement"
 	},
 	"smoochBotIntegrationButton.disclaimerForUrl": {
 		"string": "قبل المضي قدما، يُرجى التأكد أنك سجلت الدخول إلى حساب {platform} الذي لديك الرغبة بوصله بالخط الساخن.",
 		"developer_comment": "The platform here can be Twitter, Facebook, etc."
 	},
 	"smoochBotIntegrationButton.disconnect": {
-		"string": "فصل الحساب."
+		"string": "فصل الحساب.",
+		"developer_comment": "Button label to disconnect a bot from an account"
 	},
 	"smoochBotIntegrationButton.online": {
-		"string": "متصل"
+		"string": "متصل",
+		"developer_comment": "Status of bot when its online"
 	},
 	"smoochBotIntegrationButton.readyToConnect": {
-		"string": "أنا جاهز للتوصيل"
+		"string": "أنا جاهز للتوصيل",
+		"developer_comment": "Button label to indicate user is ready to connect"
 	},
 	"smoochBotIntegrationButton.savedSuccessfully": {
-		"string": "تمَّ"
+		"string": "تمَّ",
+		"developer_comment": "Button label after a successful save"
 	},
 	"smoochBotIntegrationButton.status": {
-		"string": "الحالة : متصل"
+		"string": "الحالة : متصل",
+		"developer_comment": "Button label for online bot"
 	},
 	"smoochBotIntegrationButton.tipline": {
-		"string": "الخط الساخن الخاص بمنصة {platform}"
-	},
-	"smoochBotIntegrations.account": {
-		"string": "الحساب المتصل : {link}"
+		"string": "الخط الساخن الخاص بمنصة {platform}",
+		"developer_comment": "Platform name for heading"
 	},
 	"smoochBotIntegrations.copied": {
 		"string": "‏‏تم النسخ",
@@ -4775,19 +5099,24 @@
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
 	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
-		"string": "شارة الوصول لقناة LINE"
+		"string": "شارة الوصول لقناة LINE",
+		"developer_comment": "Output of the LINE bot token"
 	},
 	"smoochBotIntegrations.lineChannelSecret": {
-		"string": "مفتاح قناة LINE"
+		"string": "مفتاح قناة LINE",
+		"developer_comment": "Output of the LINE channel secret paired with the token"
 	},
 	"smoochBotIntegrations.lineWebhook": {
-		"string": "انسخ رابط الوصل webhook هذا إلى إعدادات LINE"
+		"string": "انسخ رابط الوصل webhook هذا إلى إعدادات LINE",
+		"developer_comment": "Textfield label for the LINE webhook URL"
 	},
 	"smoochBotIntegrations.page": {
-		"string": "الصفحة المتصلة: {link}"
+		"string": "الصفحة المتصلة: {link}",
+		"developer_comment": "Label for the connected facebook page for this bot"
 	},
 	"smoochBotIntegrations.phoneNumber": {
-		"string": "رقم الهاتف المتصل: {link}"
+		"string": "رقم الهاتف المتصل: {link}",
+		"developer_comment": "Label showing the whatsapp phone number connected to this bot"
 	},
 	"smoochBotIntegrations.qrCodeDescription": {
 		"string": "يُرجى استخدام هذا الرمز أو تنزيل الصورة لعرض الرمز المربع على إعلان الاتصال بالانترنت أو عدم الاتصال بها. إن المسح الضوئي للرمز المربع يقوم بفتح واتساب، ثم يبدأ محادثة مع الخط الساخن.",
@@ -4798,20 +5127,28 @@
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.telegramBot": {
-		"string": "بوت تليجرام المتصل: {link}"
+		"string": "بوت تليجرام المتصل: {link}",
+		"developer_comment": "Label for the connected Telegram link for this bot"
 	},
 	"smoochBotIntegrations.telegramBotToken": {
-		"string": "شارة بوت تليجرام"
+		"string": "شارة بوت تليجرام",
+		"developer_comment": "Output of the telegram bot token"
 	},
 	"smoochBotIntegrations.title": {
 		"string": "خدمات الرسائل",
 		"developer_comment": "Title of Settings tab in the tipline settings page"
 	},
+	"smoochBotIntegrations.twitterDisabled": {
+		"string": "التكامل مع تويتر غير متوفر حاليا بعد التغييرات التي أُدخلَت على واجهة برمجة تطبيقات تويتر في 21 أبريل 2023.",
+		"developer_comment": "Disclaimer displayed on Twitter tipline settings page."
+	},
 	"smoochBotIntegrations.viberPublicAccount": {
-		"string": "حساب Viber العمومي المتصل: {name}"
+		"string": "حساب Viber العمومي المتصل: {name}",
+		"developer_comment": "Name of the connected viber account for this bot"
 	},
 	"smoochBotIntegrations.viberPublicAccountToken": {
-		"string": "شارة حساب Viber العمومي"
+		"string": "شارة حساب Viber العمومي",
+		"developer_comment": "Output of the viber bot token"
 	},
 	"smoochBotMainMenu.alertTitle": {
 		"string": "هناك {numberOfOptions} خيارا يتضمن جميع اللغات الموجودة في مساحة العمل هذه. سوف تُرسَل فقط{numberOfLanguages} لغة إلى المستخدمين، عند تحديدهم الخيار « اللغات ».",
@@ -4898,28 +5235,16 @@
 		"developer_comment": "Button label to cancel adding a new tipline menu option"
 	},
 	"smoochBotMainMenuOption.description": {
-		"string": "الوصف - أقصى حد هو  72 حرفا",
+		"string": "الوصف",
 		"developer_comment": "Description field label on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.label": {
-		"string": "نص الزر - حده الأقصى 24 حرفا",
+		"string": "نص الزر",
 		"developer_comment": "Text field label on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.labelError": {
 		"string": "يُرجى إضافة نص لتسمية الزر",
 		"developer_comment": "Error message displayed when user tries to save tipline menu option with a blank label"
-	},
-	"smoochBotMainMenuOption.main": {
-		"string": "الرئيسية",
-		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
-	},
-	"smoochBotMainMenuOption.queryState": {
-		"string": "موجه الإرسال",
-		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
-	},
-	"smoochBotMainMenuOption.resources": {
-		"string": "الموارد",
-		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.response": {
 		"string": "الإجابة",
@@ -4934,20 +5259,12 @@
 		"developer_comment": "Button label to save new tipline menu option"
 	},
 	"smoochBotMainMenuOption.scenario": {
-		"string": "سيناريو",
+		"string": "خيار القائمة",
 		"developer_comment": "Title of dialog that opens to add a new option to tipline bot main menu"
-	},
-	"smoochBotMainMenuOption.selectAction": {
-		"string": "تحديد الإجراء",
-		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.send": {
 		"string": "إذا ضغطت على الزر، فيُرجى إرسال :",
 		"developer_comment": "Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu"
-	},
-	"smoochBotMainMenuOption.subscriptionState": {
-		"string": "تسجيل الاشتراك",
-		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuSection.defaultSectionTitle": {
 		"string": "خيارات القائمة",
@@ -4982,22 +5299,28 @@
 		"developer_comment": "Label for a main menu section title field on tipline bot settings."
 	},
 	"smoochBotMenuEditor.scenario": {
-		"string": "سيناريو"
+		"string": "سيناريو",
+		"developer_comment": "Button label for the menu editor scenario"
 	},
 	"smoochBotMenuOption.action": {
-		"string": "الإجابة ب"
+		"string": "الإجابة ب",
+		"developer_comment": "Label for the field describing how the bot should respond"
 	},
 	"smoochBotMenuOption.add": {
-		"string": "إنشاء \"{resourceName}\""
+		"string": "إنشاء \"{resourceName}\"",
+		"developer_comment": "Suggestion for creating a new resource of the name listed"
 	},
 	"smoochBotMenuOption.condition": {
-		"string": "تطابقت الكلمة المفتاحية التالية"
+		"string": "تطابقت الكلمة المفتاحية التالية",
+		"developer_comment": "Label for keyword matching rule"
 	},
 	"smoochBotMenuOption.errorTos": {
-		"string": "'9' ستقوم بإعادة التوجيه إلى شروط الاستخدام. لا يمكن استخدامها كخيار في القائمة الرئيسية."
+		"string": "'9' ستقوم بإعادة التوجيه إلى شروط الاستخدام. لا يمكن استخدامها كخيار في القائمة الرئيسية.",
+		"developer_comment": "Help text for an text field input"
 	},
 	"smoochBotMenuOption.if": {
-		"string": "إذا"
+		"string": "إذا",
+		"developer_comment": "Logical operator IF statement"
 	},
 	"smoochBotMenuOption.languageAction": {
 		"string": "{languageName} (القائمة الرئيسية)"
@@ -5015,7 +5338,8 @@
 		"string": "القائمة الثانوية"
 	},
 	"smoochBotMenuOption.selectMessage": {
-		"string": "اختيار رسالة"
+		"string": "اختيار رسالة",
+		"developer_comment": "Text field label to select a message to send"
 	},
 	"smoochBotMenuOption.subscription": {
 		"string": "تسجيل الاشتراك"
@@ -5024,10 +5348,12 @@
 		"string": "تأكيد الاشتراك"
 	},
 	"smoochBotMenuOption.then": {
-		"string": "حينئذ"
+		"string": "حينئذ",
+		"developer_comment": "Logical operator THEN statement"
 	},
 	"smoochBotMultiTextEditor.errorNine": {
-		"string": "لا بد من تضمين خيار '9' حتى يتمكن المستخدمون من الوصول إلى بيان الخصوصية"
+		"string": "لا بد من تضمين خيار '9' حتى يتمكن المستخدمون من الوصول إلى بيان الخصوصية",
+		"developer_comment": "Error message about a missing option"
 	},
 	"smoochBotNewsletterAt": {
 		"string": "في",
@@ -5130,42 +5456,73 @@
 	"smoochBotNewsletterEditor.wednesday": {
 		"string": "الأربعاء"
 	},
-	"smoochBotResourceEditor.addContent": {
-		"string": "يُرجى كتابة شيء هنا",
-		"developer_comment": "Placeholder for manual content entry"
+	"smoochBotResourceEditor.confirmationDialogBody": {
+		"string": "لن يكون هذا المحتوى متاحا لمستخدمي الخط الساخن بعد الآن. لا يمكن التراجع عن هذا الإجراء.",
+		"developer_comment": "Confirmation dialog message when deleting a tipline resource."
 	},
-	"smoochBotResourceEditor.charsCounter": {
-		"string": "‫{count}/{max} حرف متاح",
-		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
+	"smoochBotResourceEditor.confirmationDialogButton": {
+		"string": "حذف",
+		"developer_comment": "Button label to confirm tipline resource deletion."
+	},
+	"smoochBotResourceEditor.confirmationDialogTitle": {
+		"string": "أأنت على يقين من حذف هذا المورد؟",
+		"developer_comment": "Confirmation dialog title when deleting a tipline resource."
 	},
 	"smoochBotResourceEditor.content": {
 		"string": "المحتوى",
-		"developer_comment": "Header for the bot resource's content textfield"
+		"developer_comment": "Title for the resource content section on a tipline resource settings page"
 	},
 	"smoochBotResourceEditor.delete": {
-		"string": "حذف مورد"
+		"string": "حذف",
+		"developer_comment": "Label for action button to delete a tipline resource."
+	},
+	"smoochBotResourceEditor.deleted": {
+		"string": "لقد تم حذف المورد بنجاح.",
+		"developer_comment": "Success message displayed when a resource is deleted."
 	},
 	"smoochBotResourceEditor.error": {
-		"string": " لا يبدو هذا الرابط صالحًا لموجز RSS"
+		"string": "لقد تعذر حفظ المورد، يُرجى إعادة المحاولة.",
+		"developer_comment": "Error message displayed when it's not possible to save a resource."
 	},
-	"smoochBotResourceEditor.load": {
-		"string": "تحميل"
+	"smoochBotResourceEditor.errorHeaderFile": {
+		"string": "يجب أن يكون الملف من الأنواع التالية المسموح بها : {fileTypes}",
+		"developer_comment": "Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
 	},
-	"smoochBotResourceEditor.numberOfArticles": {
-		"string": "عدد المقالات المرتجعة"
+	"smoochBotResourceEditor.errorRssFeedUrl": {
+		"string": "عنوان الصفحة غير صالح لموجز RSS.",
+		"developer_comment": "Error message displayed when a user submits a form with a URL that the server does not recognize."
+	},
+	"smoochBotResourceEditor.errorTitle": {
+		"string": "لا يمكن ترك العنوان فارغا",
+		"developer_comment": "Error message displayed when a user submits a form with a blank title."
+	},
+	"smoochBotResourceEditor.introduction": {
+		"string": "المقدمة",
+		"developer_comment": "Label for a field where the user inputs text for an introduction to a tipline resource that has an RSS feed"
 	},
 	"smoochBotResourceEditor.rss": {
-		"string": "‫تحميل المحتوى من موجز RSS",
-		"developer_comment": "Label of switch that toggles loading of content from a RSS feed"
+		"string": "RSS",
+		"developer_comment": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'"
 	},
-	"smoochBotResourceEditor.rssPlaceholder": {
-		"string": "الرابط العام الذى يرجع عدد من المقالات بصيغة RSS"
+	"smoochBotResourceEditor.rssFeed": {
+		"string": "يُرجى استخدام موجز RSS لتحميل محتوى جديد لموردك تلقائيا.",
+		"developer_comment": "Message on tipline resource settings page that explains how RSS feeds work there."
+	},
+	"smoochBotResourceEditor.save": {
+		"string": "حفظ",
+		"developer_comment": "Label for action button to save a tipline resource."
+	},
+	"smoochBotResourceEditor.success": {
+		"string": "لقد تم حفظ المورد بنجاح.",
+		"developer_comment": "Success message displayed when a resource is saved."
+	},
+	"smoochBotResourceEditor.text": {
+		"string": "النص",
+		"developer_comment": "Label for a field where the user inputs text for the contents of a static tipline resource"
 	},
 	"smoochBotResourceEditor.title": {
-		"string": "عنوان مورد البوت"
-	},
-	"smoochBotResourceEditor.url": {
-		"string": "الرّابط"
+		"string": "العنوان",
+		"developer_comment": "Label for tipline resource title field"
 	},
 	"smoochBotSettings.capiSettings": {
 		"string": "‫إعدادات WhatsApp Cloud API",
@@ -5246,10 +5603,12 @@
 		"developer_comment": "Allow user to add a main source URL"
 	},
 	"sourceInfo.saved": {
-		"string": "تم الحفظ {ago}"
+		"string": "تم الحفظ {ago}",
+		"developer_comment": "Caption value for how long ago a save occured"
 	},
 	"sourceInfo.saving": {
-		"string": "الحفظ جارٍ…"
+		"string": "الحفظ جارٍ…",
+		"developer_comment": "Progress message about a save in progress"
 	},
 	"sourceInfo.secondaryAccounts": {
 		"string": "روابط المصدر الثانوي",
@@ -5264,60 +5623,80 @@
 		"developer_comment": "Spam, as in junk, unsolicited content"
 	},
 	"statusListItem.confirmDefaultBody1": {
-		"string": "هذا سيغير اللغة الإفتراضية من {currentDefaultLanguage} إلى {newDefaultLanguage}."
+		"string": "هذا سيغير اللغة الإفتراضية من {currentDefaultLanguage} إلى {newDefaultLanguage}.",
+		"developer_comment": "Confirmation message of the change in default language"
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "إذا قام المستخدمون بالتفاعل مع البوت باستخدام لغة ليست في هذه القائمة، أو لم تكن هناك ترجمة متاحة لهذه اللغة، فستصبح اللغة الافتراضية هي اللغة {language} للرد على المستخدمين في بوت الخط الساخن أو الحالة أو التقرير."
+		"string": "إذا قام المستخدمون بالتفاعل مع البوت باستخدام لغة ليست في هذه القائمة، أو لم تكن هناك ترجمة متاحة لهذه اللغة، فستصبح اللغة الافتراضية هي اللغة {language} للرد على المستخدمين في بوت الخط الساخن أو الحالة أو التقرير.",
+		"developer_comment": "Description of what will happen when a new language becomes the default"
 	},
 	"statusListItem.confirmDefaultButton": {
-		"string": "ضبط {language} كلغة افتراضية"
+		"string": "ضبط {language} كلغة افتراضية",
+		"developer_comment": "Button label to continue to set a language as default"
 	},
 	"statusListItem.confirmDefaultTitle": {
-		"string": "ألديك الرغبة في ضبط {language} كلغة افتراضية ؟"
+		"string": "ألديك الرغبة في ضبط {language} كلغة افتراضية ؟",
+		"developer_comment": "Dialog title to confirm the user wants to set a new default language"
 	},
 	"statusListItem.confirmDeleteBody1": {
 		"string": "ستُحذَف كل المحتويات باللغة {language} في كل من تبويبات « الخط الساخن » و« الحالات » و« التقرير » نهائيا.",
 		"developer_comment": "Warning about content being lost after deleting a language"
 	},
 	"statusListItem.confirmDeleteBody2": {
-		"string": "سوف يتلقى المستخدمون، بدل ذلك، المحتويات باللغة الافتراضية « {language} »."
+		"string": "سوف يتلقى المستخدمون، بدل ذلك، المحتويات باللغة الافتراضية « {language} ».",
+		"developer_comment": "Description of which language a user will see by default"
 	},
 	"statusListItem.confirmDeleteDefaultBody": {
 		"string": "لا يمكنك حذف اللغة الافتراضية. يجب عليك ضبط لغة افتراضية أخرى قبل حذف اللغة {language}.",
 		"developer_comment": "Message warning user to set a new default language before deleting the current one"
 	},
 	"statusListItem.confirmDeleteDefaultLabel": {
-		"string": "العودة ثم التغيير"
+		"string": "العودة ثم التغيير",
+		"developer_comment": "Button label to go back a step"
 	},
 	"statusListItem.confirmDeleteDefaultTitle": {
-		"string": "يجب عليك أولا تغيير اللغة الافتراضية"
+		"string": "يجب عليك أولا تغيير اللغة الافتراضية",
+		"developer_comment": "Title for a dialog telling the user they must return to a previous process"
 	},
 	"statusListItem.confirmDeleteLabel": {
-		"string": "حذف اللغة وجميع المحتويات"
+		"string": "حذف اللغة وجميع المحتويات",
+		"developer_comment": "Button label for continuing to delete language content"
 	},
 	"statusListItem.confirmDeleteTitle": {
-		"string": "ألديك رغبة في حذف محتوى هذه اللغة ؟"
+		"string": "ألديك رغبة في حذف محتوى هذه اللغة ؟",
+		"developer_comment": "Title for the dialog of deleting language content"
 	},
 	"statusListItem.default": {
-		"string": "{statusLabel} (الإفتراضية)"
+		"string": "{statusLabel}",
+		"developer_comment": "The label of the user created status, with an additional note in parenthesis if the label is the default"
 	},
 	"statusListItem.makeDefault": {
-		"string": "جعلها اﻹفتراضية"
+		"string": "جعلها اﻹفتراضية",
+		"developer_comment": "Menu item choice for making the label the default choice"
+	},
+	"statusListItem.messageTooltip": {
+		"string": "عند تغيير عنصر إلى هذه الحالة، سيتلقى المستخدم الذي طلبه الرسالة التالية :",
+		"developer_comment": "Tooltip to tell the user when this message will be sent out"
 	},
 	"statusListItem.noDescription": {
-		"string": "لا يوجد وصف"
+		"string": "لا يوجد وصف",
+		"developer_comment": "Empty state message if a status has no additional description"
 	},
 	"statusListItem.translationNeededBody1": {
-		"string": "ليست كل الحالات مترجمة حاليا إلى اللغة {language}!"
+		"string": "ليست كل الحالات مترجمة حاليا إلى اللغة {language}!",
+		"developer_comment": "Warning message to tell the user there are missing translations for a status"
 	},
 	"statusListItem.translationNeededBody2": {
-		"string": "قبل قيامك بجعل « {language} » لغتك الافتراضية، بجب عليك أولا ترجمة كل الحالات الموجودة إلى  « {language} » في تبويب إعدادات الحالات."
+		"string": "قبل قيامك بجعل « {language} » لغتك الافتراضية، بجب عليك أولا ترجمة كل الحالات الموجودة إلى  « {language} » في تبويب إعدادات الحالات.",
+		"developer_comment": "Warning message that a language cannot be default until all statuses are translated into that language"
 	},
 	"statusListItem.translationNeededLabel": {
-		"string": "العودة ثم ترجمة الحالات"
+		"string": "العودة ثم ترجمة الحالات",
+		"developer_comment": "Button label to return to the status translations area"
 	},
 	"statusListItem.translationNeededTitle": {
-		"string": "يلزمك ترجمة كل الحالات إلى « {language} »"
+		"string": "يلزمك ترجمة كل الحالات إلى « {language} »",
+		"developer_comment": "Dialog title warning message that a language cannot be default until all statuses are translated into that language"
 	},
 	"statusesComponent.blurbSecondary": {
 		"string": "بإمكانكم ترجمة الحالات إلى اللغات الثانوية لتظهر باللغات المحلية في تقارير تقصي الحقائق الخاصة بكم.",
@@ -5359,35 +5738,48 @@
 		"string": "الاقتراحات",
 		"developer_comment": "Header for suggested media page"
 	},
+	"superAdminControls.apply": {
+		"string": "تطبيق شاشة الإدارة على هذه الصفحة",
+		"developer_comment": "A label on a button that apply admin screen."
+	},
+	"superAdminControls.pause": {
+		"string": "إيقاف شاشة الإدارة مؤقتا لهذه الجلسة",
+		"developer_comment": "A label on a button that pause admin screen for current session."
+	},
+	"superAdminControls.play": {
+		"string": "استئناف شاشة الإدارة لهذه الجلسة",
+		"developer_comment": "A label on a button that pause admin screen for current session."
+	},
+	"superAdminControls.remove": {
+		"string": "إزالة شاشة الإدارة في هذه الصفحة",
+		"developer_comment": "A label on a button that remove admin screen."
+	},
 	"switchTeams.cancelJoinRequest": {
-		"string": "إلغاء"
+		"string": "إلغاء",
+		"developer_comment": "Button label to cancel a request to join a workspace"
 	},
 	"switchTeams.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث مساحة العمل. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث مساحة العمل. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+		"developer_comment": "Error message with instructions on how to contact support"
 	},
 	"switchTeams.joinRequestMessage": {
-		"string": "لقد أرسلت طلب انضمام للفريق"
+		"string": "لقد أرسلت طلب انضمام للفريق",
+		"developer_comment": "Status message of a request to join a workspace"
 	},
 	"switchTeams.member": {
-		"string": "{membersCount, plural, zero {لا يوجد أي عضو} one {عضو واحد} two {عضوان} few {# أعضاء} many {# عضوا} other {# عضو}}"
+		"string": "{membersCount, plural, zero {لا يوجد أي عضو} one {عضو واحد} two {عضوان} few {# أعضاء} many {# عضوا} other {# عضو}}",
+		"developer_comment": "Count of members of a workspace"
 	},
 	"switchTeams.newTeamLink": {
-		"string": "إنشاء"
+		"string": "إنشاء",
+		"developer_comment": "Button label for initiating creating a new team workspace"
 	},
 	"switchTeams.noTeams": {
-		"string": "ليس عضو في أي مساحة عمل"
-	},
-	"tagInput.addTag": {
-		"string": "إضافة الوسم"
-	},
-	"tagInput.error": {
-		"string": "عذراً، لقد حدث خطأ ما أثناء تحديث الوسم. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"tagInput.search": {
-		"string": "للبحث عن الوسوم أو لإضافة وسوم جديدة"
+		"string": "ليس عضو في أي مساحة عمل",
+		"developer_comment": "Empty message when the user is not a member of a workspace"
 	},
 	"tagList.create": {
-		"string": "+ إنشاء هذا الوسم",
+		"string": "+ إنشاء وسوم البحث",
 		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
 	},
 	"tagList.empty": {
@@ -5404,29 +5796,23 @@
 	},
 	"tagMenu.create": {
 		"string": "+ إنشاء هذا الوسم",
-		"developer_comment": "A label for a button that allows people to create a new tag based on text they have typed into an adjacent tag search bar when there are no search results."
+		"developer_comment": "Button label for creating a new tag"
 	},
 	"tagMenu.notFound": {
 		"string": "‏‏لم يعثر على وسوم",
-		"developer_comment": "A message that appears when a user has searched for tag text but no matches have been found."
+		"developer_comment": "Empty message when a search results in no tags"
 	},
 	"tagMenu.search": {
 		"string": "البحث...",
-		"developer_comment": "Search in tags list"
+		"developer_comment": "Placeholder text for searching tags"
 	},
-	"tagMenu.submit": {
-		"string": "الوسم",
-		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
+	"taglist.tooltipAdd": {
+		"string": "إضافة الوسوم",
+		"developer_comment": "Tooltip message displayed on a tag item to let the user know they can add new tags to the list"
 	},
-	"tagMenu.tooltip": {
-		"string": "تحرير الوسوم",
-		"developer_comment": "A tooltip that appears over an icon a user is supposed to press when they want to edit the tags associated with an item."
-	},
-	"tagPicker.emptyTags": {
-		"string": "لا توجد وسوم حاليا في مساحة العمل هذه."
-	},
-	"tagPicker.tagNotFound": {
-		"string": "إن الوسم {tag}# غير موجود."
+	"taglist.tooltipManage": {
+		"string": "إدارة الوسوم",
+		"developer_comment": "Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
 	},
 	"task.assignOrUnassign": {
 		"string": "التخصيص أو إلغاؤه"
@@ -5570,7 +5956,8 @@
 		"string": "الموقع"
 	},
 	"tasks.goToSettings": {
-		"string": "إلى الإعدادات"
+		"string": "إلى الإعدادات",
+		"developer_comment": "Button label to take the user to the settings area of the application"
 	},
 	"tasks.locationDescription": {
 		"string": "يتيح لك إضافة إحداثيات موقع معين أو البحث عن مكان باسمه",
@@ -5643,31 +6030,24 @@
 		"developer_comment": "We have a form that says in English, 'When [selected field] [is / is not] [user-selected value]'. Where the parts between brackets are interactive drop-downs. The word for this field should indicate that the following user-selected conditions hold true."
 	},
 	"teamBots.fail": {
-		"string": "خطأ! يرجى إعادة المحاولة."
+		"string": "خطأ! يرجى إعادة المحاولة.",
+		"developer_comment": "Error message when an integration setting did not update correctly"
 	},
 	"teamBots.noSettings": {
-		"string": "لا يوجد إعدادات لهذا البوت,"
+		"string": "لا يوجد إعدادات لهذا البوت,",
+		"developer_comment": "message to the the user that there are no additional settings for an integration"
 	},
 	"teamBots.save": {
-		"string": "حفظ"
+		"string": "حفظ",
+		"developer_comment": "Save button on an individual integration settings"
 	},
 	"teamBots.settings": {
-		"string": "الإعدادات"
+		"string": "الإعدادات",
+		"developer_comment": "section title for the settings of an individual integration"
 	},
 	"teamBots.success": {
-		"string": "تم حفظ الإعدادات"
-	},
-	"teamDataComponent.averageMessagesPerDay": {
-		"string": "متوسط عدد الرسائل المُرسَلة يوميا بين المستخدمين والبوت.",
-		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
-	},
-	"teamDataComponent.claimsAnsweredWithAReport": {
-		"string": "مثلا، إذا طلب مستخدمان نفس الادعاء وتلقيا نفس التقرير، سوف يُحسَب كأنه تقرير واحد.",
-		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
-	},
-	"teamDataComponent.conversations": {
-		"string": "‫البدء بأي رسالة للمستخدم (سواء الواردة منها أو الصادرة)، ثم إنهاء ذلك بعد 24 ساعة. سيتم جمع تلك البيانات انطلاقا من فاتح أبريل 2023.",
-		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+		"string": "تم حفظ الإعدادات",
+		"developer_comment": "Success message when an integration setting has been updated"
 	},
 	"teamDataComponent.currentSubscribers": {
 		"string": "عدد الاشتراكات الحالية في الرسائل الإخبارية",
@@ -5678,22 +6058,35 @@
 		"developer_comment": "Label for action button displayed on workspace data report page."
 	},
 	"teamDataComponent.formLinkText": {
-		"string": "هذه الاستمارة قصيرة"
+		"string": "هذه الاستمارة قصيرة",
+		"developer_comment": "Link text taking the user to a form to fill out in order to request this feature be enabled"
 	},
-	"teamDataComponent.newNewsletterSubscriptions": {
-		"string": "الاشتراكات الجديدة في الرسائل الإخبارية.",
+	"teamDataComponent.negativeSearches": {
+		"string": "عدد عمليات البحث من طرف المستخدمين التي لم ترجع أي تقرير.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.newsletterCancellations": {
-		"string": "إلغاءات الاشتراك الجديدة في الرسائل الإخبارية",
+		"string": "إلغاءات الاشتراك في الرسائل الإخبارية.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDataComponent.publishedImportedReports": {
-		"string": "التقارير الجديدة التي تم استيرادها من مواقع الويب (لجميع اللغات والمنصات).",
+	"teamDataComponent.newsletterSubscriptions": {
+		"string": "الاشتراكات في الرسائل الإخبارية.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDataComponent.publishedNativeReports": {
-		"string": "التقارير الجديدة التي تم إنشاؤها في Check (لجميع المنصات).",
+	"teamDataComponent.newslettersDelivered": {
+		"string": "عدد الرسائل الإخبارية التي تم تسليمها بنجاح للمشتركين، مع مراعاة أخطاء المستخدم.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.newslettersSent": {
+		"string": "إجمالي عدد الرسائل الإخبارية المُرسَلة إلى المشتركين.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.positiveSearches": {
+		"string": "عدد عمليات البحث من طرف المستخدمين التي أرجعت تقريرا واحدا على الأقل.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.publishedReports": {
+		"string": "التقارير الجديدة التي تم إنشاؤها في Check أو تم استيرادها نحو Check (لجميع المنصات).",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
@@ -5709,17 +6102,19 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.set1": {
-		"string": "قم بملأ {thisShortForm} لتقديم طلب الوصول إلى تقرير بياناتك."
+		"string": "قم بملأ {thisShortForm} لتقديم طلب الوصول إلى تقرير بياناتك.",
+		"developer_comment": "Paragraph text informing the user what they need to do to enable this feature"
 	},
 	"teamDataComponent.set2": {
-		"string": "سوف يصبح تقرير بياناتك ممكنا خلال يوم عمل واحد."
+		"string": "سوف يصبح تقرير بياناتك ممكنا خلال يوم عمل واحد.",
+		"developer_comment": "Informational message to let the user know when their report will be available to view"
 	},
 	"teamDataComponent.title": {
 		"string": "بيانات الالتزام للخط الساخن",
 		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.uniqueNewslettersSent": {
-		"string": "الرسائل الإخبارية الوحيدة المُرسلَة، لجميع المنصات. لقد بدأ التقاط هذه المعلومة خلال الفاتح من يونيو 2022.",
+		"string": "الرسائل الإخبارية فريدة المُرسَلة لجميع المنصات.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsers": {
@@ -5730,8 +6125,8 @@
 		"string": "المستخدمون الفريدون الذي استلموا التقرير. مثلا، لو استلم مستخدم ثلاثة تقارير، سوف تُحسَب كأنها تقرير واحد.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDataComponent.validNewRequests": {
-		"string": "طلبات المستخدمين المرتبطة بهذه الادعاءات، والتي ليست في سلة المهملات.",
+	"teamDataComponent.whatsappConversations": {
+		"string": "المحادثات هي عبارة عن سلسلة رسائل مدتها 24 ساعة بينك وبين المستخدمين. يتم فتحها عند تلقي الرسائل المُرسَلة عبر Check من طرف المستخدمين.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDetails.duplicateWorkspace": {
@@ -5762,10 +6157,6 @@
 		"string": "حُفظَت تفاصيل مساحة العمل بنجاح",
 		"developer_comment": "Success message displayed when workspace settings are saved"
 	},
-	"teamDetails.subtitle": {
-		"string": "إضافة التفاصيل إلى مساحة عملك في Check.",
-		"developer_comment": "Subtitle for details page of current workspace"
-	},
 	"teamDetails.title": {
 		"string": "مساحة العمل",
 		"developer_comment": "Title for details page of current workspace"
@@ -5775,7 +6166,7 @@
 		"developer_comment": "Label of the button that saves workspace details"
 	},
 	"teamDetails.utmCode": {
-		"string": "رمز UTM",
+		"string": "رمز UTM (اختياري)",
 		"developer_comment": "Label for 'UTM code' field"
 	},
 	"teamDetails.utmCodeHelp": {
@@ -5794,14 +6185,12 @@
 		"string": "اسم مساحة العمل",
 		"developer_comment": "Label for workspace name field"
 	},
-	"teamIntegrations.subtitle": {
-		"string": "أدوات الأطراف الأخرى لتحسين الإنتاجية."
-	},
 	"teamIntegrations.title": {
-		"string": "التكاملات"
+		"string": "التكاملات",
+		"developer_comment": "Settings page title for the Integrations section"
 	},
 	"teamListsColumn.none": {
-		"string": "لا يوجد شيء متاح",
+		"string": "لا توجد أعمدة متاحة",
 		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
 	},
 	"teamListsComponent.buttonLabel": {
@@ -5809,7 +6198,7 @@
 		"developer_comment": "Button label for saving changes"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "أأنت على يقين من ذلك؟ ستؤثر تغييراتك على جميع المجلدات، كما ستكون المجموعات والقوائم ظاهرة لجميع المستخدمين في مساحة عملك.",
+		"string": "أأنت على يقين من ذلك؟ ستؤثر تغييراتك على جميع القوائم، كما ستكون ظاهرة لجميع المستخدمين في مساحة عملك.",
 		"developer_comment": "Content of 'Save changes' confirmation dialog."
 	},
 	"teamListsComponent.confirmSaveTitle": {
@@ -5824,21 +6213,17 @@
 		"string": "تعذَّر حفظ إعدادات الأعمدة",
 		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
-	"teamListsComponent.description": {
-		"string": "يرجى تحديد جميع الأعمدة التي لديك الحاجة لعرضها في جميع مجلداتك ومجموعاتك وقوائمك.",
-		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
-	},
 	"teamListsComponent.displayedColumns": {
-		"string": "الأعمدة المعروضة",
-		"developer_comment": "Columns that are displayed for users in folders, collections and lists."
+		"string": "المعروضة",
+		"developer_comment": "Columns that are displayed for users in lists."
 	},
 	"teamListsComponent.generalColumns": {
-		"string": "عام",
-		"developer_comment": "Columns not currently displayed for users in folders, collections and lists."
+		"string": " العامة (مخفية)",
+		"developer_comment": "Columns not currently displayed for users in lists."
 	},
 	"teamListsComponent.metadataColumns": {
-		"string": "التفسيرات",
-		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in folders, collections and lists."
+		"string": "التعليقات (مخفية)",
+		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists."
 	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "لقد حُفظَت إعدادات الأعمدة بنجاح",
@@ -5846,22 +6231,27 @@
 	},
 	"teamListsComponent.title": {
 		"string": "إعدادات الأعمدة",
-		"developer_comment": "Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
+		"developer_comment": "Header for Column settings page, where users can configure the visibility of columns in lists."
 	},
 	"teamListsItem.general": {
-		"string": "عام"
+		"string": "عام",
+		"developer_comment": "label to show that this type of task is a general task"
 	},
 	"teamListsItem.hide": {
-		"string": "إخفاء"
+		"string": "إخفاء",
+		"developer_comment": "Button label to hide this item from the list"
 	},
 	"teamListsItem.metadata": {
-		"string": "التفسيرات"
+		"string": "التفسيرات",
+		"developer_comment": "label to show that this type of task is an annotation"
 	},
 	"teamListsItem.show": {
-		"string": "عرض"
+		"string": "عرض",
+		"developer_comment": "Button label to show this item in the list"
 	},
 	"teamMemberActions.copiedToClipboard": {
-		"string": "لقد نُسخَت الرسالة الإلكترونية إلى الحافظة"
+		"string": "لقد نُسخَت الرسالة الإلكترونية إلى الحافظة",
+		"developer_comment": "success message fro when an email address has been copied to the clipboard"
 	},
 	"teamMemberActions.invitationCanceled": {
 		"string": "أُلغيَت الدعوة !",
@@ -5872,33 +6262,40 @@
 		"developer_comment": "Success notification confirming that invitation was sent to user"
 	},
 	"teamMemberActions.userRemoved": {
-		"string": "لقد أُزيل المستخدم"
+		"string": "لقد أُزيل المستخدم",
+		"developer_comment": "Success message when a user is removed from the workspace"
 	},
 	"teamMembers.copyEmail": {
-		"string": "نسخ الرسالة الإلكترونية"
+		"string": "نسخ الرسالة الإلكترونية",
+		"developer_comment": "Menu item for copying email address to the clipboard"
 	},
 	"teamMembers.invite": {
-		"string": "إرسال دعوة"
+		"string": "إرسال دعوة",
+		"developer_comment": "Button label for main action to start the process of inviting team members to this workspace"
 	},
 	"teamMembers.pending": {
 		"string": "مُعَلَّق",
 		"developer_comment": "Label for invite pending acceptance"
 	},
 	"teamMembers.remove": {
-		"string": "إزالة"
+		"string": "إزالة",
+		"developer_comment": "Menu item for removing a team member from the workspace"
+	},
+	"teamMembers.removeConfrm": {
+		"string": "إزالة",
+		"developer_comment": "Confirmation label action for removing team member"
 	},
 	"teamMembers.removeDialogBody": {
-		"string": "لن يكون بإمكان المستخدم {userLabel} الوصول إلى مساحة عمل {teamName}، بما في ذلك جميع : محتوياته ومجلداته وملفاته."
+		"string": "لن يكون بإمكان {userLabel} الوصول إلى مساحة عمل {teamName} بكل محتوياتها وملفاتها.",
+		"developer_comment": "explanation text about what will happen when a team member is removed from the workspace"
 	},
 	"teamMembers.removeDialogTitle": {
-		"string": "إزالة {userLabel}"
+		"string": "إزالة {userLabel}",
+		"developer_comment": "Confirmation title for removing a team member"
 	},
 	"teamMembers.resendInvite": {
-		"string": "إعادة إرسال الدعوة"
-	},
-	"teamMembers.subtitle": {
-		"string": "إضافة المستخدمين وإدارتهم",
-		"developer_comment": "Subtitle for workspace members management page"
+		"string": "إعادة إرسال الدعوة",
+		"developer_comment": "Menu item text to initiate an invitation email sent to the selected user"
 	},
 	"teamMembers.tableHeaderLastActive": {
 		"string": "آخر نشاط",
@@ -5917,7 +6314,8 @@
 		"developer_comment": "Title for workspace members management page"
 	},
 	"teamMembers.tooltip": {
-		"string": "إدارة الأعضاء"
+		"string": "إدارة الأعضاء",
+		"developer_comment": "Tooltip to call the menu for actions to perform on a single user"
 	},
 	"teamMenu.teamSettings": {
 		"string": "إعدادات مساحة العمل",
@@ -5930,14 +6328,6 @@
 	"teamMetadataRender.itemTitle": {
 		"string": "استمارة تفسيرات العنصر",
 		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
-	},
-	"teamMetadataRender.metadataItemSubtitle": {
-		"string": "إضافة حقول لتكوين نماذج ديناميكية للتعقيب على العناصر.",
-		"developer_comment": "Subtitle for annotation settings screen applied to Items"
-	},
-	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "إضافة حقول لتكوين نماذج ديناميكية للتعقيب على المصادر.",
-		"developer_comment": "Subtitle for annotation settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
 		"string": "استمارة تعقيبات المصدر",
@@ -6140,29 +6530,36 @@
 		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
 	},
 	"teamTagsActions.delete": {
-		"string": "حذف"
+		"string": "حذف",
+		"developer_comment": "Menu item to delete a tag"
 	},
 	"teamTagsActions.deletedSuccessfully": {
 		"string": "لقد حُذف الوسم بنجاح",
 		"developer_comment": "Message displayed when a team tag is deleted"
 	},
 	"teamTagsActions.edit": {
-		"string": "تحرير"
+		"string": "تحرير",
+		"developer_comment": "Menu item to edit a tag"
 	},
 	"teamTagsActions.remove": {
-		"string": "حذف الوسم"
+		"string": "حذف الوسم",
+		"developer_comment": "Dialog action text for continuing with the delete tag action"
 	},
 	"teamTagsActions.removeDialogBody": {
-		"string": "سوف يُحذَف الوسم \"{tag}\" من {count} عنصر."
+		"string": "سوف يُحذَف الوسم \"{tag}\" من {count} عنصر.",
+		"developer_comment": "Description of what will happen when a tag is deleted"
 	},
 	"teamTagsActions.removeDialogTitle": {
-		"string": "حذف الوسم \"{tag}\""
+		"string": "حذف الوسم \"{tag}\"",
+		"developer_comment": "Title for the dialog box when deleting a tag"
 	},
 	"teamTagsActions.tooltip": {
-		"string": "إدارة الوسم"
+		"string": "إدارة الوسم",
+		"developer_comment": "Tooltip to call menu for actions to perform on a tag"
 	},
 	"teamTagsComponent.newTag": {
-		"string": "وسم جديد"
+		"string": "وسم جديد",
+		"developer_comment": "Button label for calling the new tag creation modal"
 	},
 	"teamTagsComponent.tableHeaderName": {
 		"string": "الاسم",
@@ -6177,7 +6574,7 @@
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.title": {
-		"string": "الوسوم",
+		"string": "الوسوم [{count}]",
 		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTaskCard.menu": {
@@ -6193,17 +6590,20 @@
 		"developer_comment": "Toggle switch to make field visible in the browser extension"
 	},
 	"teamTasks.cancelAction": {
-		"string": "إلغاء"
+		"string": "إلغاء",
+		"developer_comment": "Dialog box cancel button label"
 	},
 	"teamTasks.confirmAction": {
-		"string": "نعم"
+		"string": "نعم",
+		"developer_comment": "Positive label for a checkbox field"
 	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
 		"string": "{itemsNumber, plural, zero {‫لا توجد عناصر فيها الحقل {fieldLabel}.} one {‫تم الانتهاء من الحقل {fieldLabel} في عنصر واحد.} two {‫تم الانتهاء من الحقل {fieldLabel} في عنصرين.} few {‫تم الانتهاء من الحقل {fieldLabel} في # عناصر.} many {‫تم الانتهاء من الحقل {fieldLabel} في # عنصرا.} other {‫تم الانتهاء من الحقل {fieldLabel} في # عنصر.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
-		"string": "هل أنت على يقين من حذف هذا الحقل؟"
+		"string": "هل أنت على يقين من حذف هذا الحقل؟",
+		"developer_comment": "Delete confirmation message"
 	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
 		"string": "الإبقاء على هذا الحقل بإجاباته في العناصر التي تم الانتهاء منها.",
@@ -6214,20 +6614,24 @@
 		"developer_comment": "Warning about existing instances of a field before performing changes to it"
 	},
 	"teamTasks.confirmEditMetadataTitle": {
-		"string": "هل أنت على يقين من تحرير هذا الحقل؟"
+		"string": "هل أنت على يقين من تحرير هذا الحقل؟",
+		"developer_comment": "Editing confirmation message"
 	},
 	"teamTasks.confirmEditkeepCompletedMetadata": {
 		"string": "يُرجى عدم إلحاق أي تغيير على الحقول المكتملة، كما يجب الاحتفاظ بإجاباتها الحالية.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
-		"string": "متابعة"
+		"string": "متابعة",
+		"developer_comment": "Button label to continue a process"
 	},
 	"teamTasks.continueMetadata": {
-		"string": "تحرير الحقل"
+		"string": "تحرير الحقل",
+		"developer_comment": "Button label to edit a field"
 	},
 	"teamTasks.deleteMetadata": {
-		"string": "حذف الحقل"
+		"string": "حذف الحقل",
+		"developer_comment": "Button label to delete a field"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة} other {# مهام}}"
@@ -6263,27 +6667,36 @@
 		"string": "مساحات العمل"
 	},
 	"teams.userTeams": {
-		"string": "مساحات العمل لدى {name}"
+		"string": "مساحات العمل لدى {name}",
+		"developer_comment": "Label for the list of another user's workspaces they are a member of"
 	},
 	"teams.yourTeams": {
-		"string": "مساحات العمل"
+		"string": "مساحات العمل",
+		"developer_comment": "Label for the list of the current user's workspaces they are a member of"
 	},
 	"textfield.required": {
 		"string": "إجباري",
 		"developer_comment": "A label to indicate that a form field must be filled out"
 	},
 	"thresholdControl.matchingExplainer": {
-		"string": "إذا كانت درجة الملائمة أعلى من هذا المعدل فسيتم إعداد توافق للعناصر وإرسال تقارير عن ذلك تلقائيا إلى المستخدمين."
+		"string": "إذا كانت درجة الملائمة أعلى من هذا المعدل فسيتم إعداد توافق للعناصر وإرسال تقارير عن ذلك تلقائيا إلى المستخدمين.",
+		"developer_comment": "Description of the confidence score automatically triggering a report being sent to the user"
 	},
 	"thresholdControl.suggestionExplainer": {
-		"string": "إذا كانت درجة الملائمة أعلى من هذا المعدل فسيتم اقتراح تشابه العناصر."
+		"string": "إذا كانت درجة الملائمة أعلى من هذا المعدل فسيتم اقتراح تشابه العناصر.",
+		"developer_comment": "Description of the confidence score automatically suggesting an item to a system editor"
 	},
 	"thresholdControl.suggestionGreaterThanMatchingError": {
 		"string": "لا يمكن أن تزيد العتبة التي يظهر عندها الاقتراح عن المعدل الذي يتم عنده التوافق.",
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
+	"tiplineHistory.title": {
+		"string": "المحادثة مع {user}",
+		"developer_comment": "Title field labeling a chat log with a user"
+	},
 	"tiplineInbox.title": {
-		"string": "صندوق بريد الخط الساخن"
+		"string": "صندوق بريد الخط الساخن",
+		"developer_comment": "Title for the tipline inbox listing of items"
 	},
 	"toolbar.viewModeLonger": {
 		"string": "رؤية عناوين أطول",
@@ -6294,7 +6707,8 @@
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"tos.title": {
-		"string": "شروط الاستخدام"
+		"string": "شروط الاستخدام",
+		"developer_comment": "Link text to go to the app terms of service document"
 	},
 	"transcriptionButton.defaultErrorMessage": {
 		"string": "لا يمكن الحصول على تفريغ نصي",
@@ -6313,25 +6727,32 @@
 		"developer_comment": "Banner displayed when transcription operation starts"
 	},
 	"translateStatuses.continueAndSave": {
-		"string": "متابعة و حفظ"
+		"string": "متابعة و حفظ",
+		"developer_comment": "Label for confirmation to save the updated status translations"
 	},
 	"translateStatuses.message": {
-		"string": "رسالة"
+		"string": "رسالة",
+		"developer_comment": "Label for the textarea where user can provide a translation for the automated message"
 	},
 	"translateStatuses.missingTranslations": {
-		"string": "الترجمة غير موجودة"
+		"string": "الترجمة غير موجودة",
+		"developer_comment": "Modal Title informing the user that there are missing translations"
 	},
 	"translateStatuses.missingTranslationsBody": {
-		"string": "هناك بعض الحالات التي ينقصها الترجمة. قد لا يستطيع المستخدمون قراءة الحالات الغير مترجمة."
+		"string": "هناك بعض الحالات التي ينقصها الترجمة. قد لا يستطيع المستخدمون قراءة الحالات الغير مترجمة.",
+		"developer_comment": "Modal paragraph description informing the user that there are missing translations"
 	},
 	"translateStatuses.missingTranslationsBody2": {
-		"string": "إذا كانت رسالة لحالة معينة غير مترجمة، فلن يستلم الرسالة أي شخص يتقدم بطلب باللغة غير المترجمة."
+		"string": "إذا كانت رسالة لحالة معينة غير مترجمة، فلن يستلم الرسالة أي شخص يتقدم بطلب باللغة غير المترجمة.",
+		"developer_comment": "Description paragraph telling the user what will happen is a translation is missing"
 	},
 	"translateStatuses.status": {
-		"string": "الحالة"
+		"string": "الحالة",
+		"developer_comment": "Label for TextField for the status translation"
 	},
 	"trash.title": {
-		"string": "سلة المهملات"
+		"string": "سلة المهملات",
+		"developer_comment": "Title for the trash listing of items"
 	},
 	"trendItem.aboutThisClaim": {
 		"string": "عن هذا الادعاء"
@@ -6457,6 +6878,10 @@
 	"unconfirmed.title": {
 		"string": "غير مؤكد"
 	},
+	"unmatchedMedia.title": {
+		"string": "المواد الإعلامية غير المطابقة",
+		"developer_comment": "Title of the unmatched media list page"
+	},
 	"upload.dragMessage": {
 		"string": "اسحب ملفا هنا أو",
 		"developer_comment": "A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'."
@@ -6470,50 +6895,59 @@
 		"developer_comment": "Tooltip message displayed on upload component. Cancel file selected for upload"
 	},
 	"upload.selectFile": {
-		"string": "حدد ملفا محليا",
+		"string": "تحديد الملف المحلي",
 		"developer_comment": "Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system."
 	},
 	"uploadFile.audioMessage": {
-		"string": "يرجى اسقاط ملف صوتي هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {audio_max_size}، الأنواع المسموحة: {audio_extensions})"
+		"string": "يرجى اسقاط ملف صوتي هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {audio_max_size}، الأنواع المسموحة: {audio_extensions})",
+		"developer_comment": "Message to the user describing the requirements for uploading an audio file"
 	},
 	"uploadFile.changeFile": {
-		"string": "{filename} (لتغيير الصورة انقري هنا أو اسقطي صورة جديدة)"
+		"string": "{filename} (لتغيير الصورة انقري هنا أو اسقطي صورة جديدة)",
+		"developer_comment": "Output of the uploaded filename and how to change the file"
 	},
 	"uploadFile.fileMessage": {
-		"string": "يرجى إسقاط ملف هنا، أو الضغط على زر الفأرة لتحميل ملف (الحجم الأقصى:  {file_max_size}، الأنواع المسموحة: {file_extensions})"
+		"string": "يرجى إسقاط ملف هنا، أو الضغط على زر الفأرة لتحميل ملف (الحجم الأقصى:  {file_max_size}، الأنواع المسموحة: {file_extensions})",
+		"developer_comment": "Message to the user describing the requirements for uploading a file using this component"
 	},
 	"uploadFile.fileTooLarge": {
-		"string": "لا يمكن إضافة ملف حجمه اكبر من {size}. يرجى إعادة المحاولة مع ملف ذو حجم مناسب."
+		"string": "لا يمكن إضافة ملف حجمه اكبر من {size}. يرجى إعادة المحاولة مع ملف ذو حجم مناسب.",
+		"developer_comment": "Error message when the user tries to upload a file that is over the size limit"
 	},
 	"uploadFile.imageVideoAudioMessage": {
-		"string": "يرجى إسقاط ملف هنا، أو الضغط على زر الفأرة لتحميل ملف (الحجم الأقصى:  {file_max_size}، الأنواع المسموحة: {file_extensions})"
+		"string": "يرجى إسقاط ملف هنا، أو الضغط على زر الفأرة لتحميل ملف (الحجم الأقصى:  {file_max_size}، الأنواع المسموحة: {file_extensions})",
+		"developer_comment": "Message to the user describing the requirements for uploading an image, video, or audio file using this component"
 	},
 	"uploadFile.invalidExtension": {
-		"string": "لا يمكن إضافة ملف من الصنف ({extension}). يرجى إعادة المحاولة مع ملف من الأصناف المسموحة بها التالية : ({allowed_types})"
+		"string": "لا يمكن إضافة ملف من الصنف ({extension}). يرجى إعادة المحاولة مع ملف من الأصناف المسموحة بها التالية : ({allowed_types})",
+		"developer_comment": "Error message when the user tries to upload a file with a not accepted file extension"
 	},
 	"uploadFile.message": {
-		"string": "يرجى إسقاط صورة هنا، أو الضغط على زر الفأرة لتحميل ملف (الحجم الأقصى:  {upload_max_size}، الأصناف المسموح بها: {upload_extensions}، الأبعاد المسموح بها تتراوح بين {upload_min_dimensions} و {upload_max_dimensions} بِكسل)"
+		"string": "يرجى إسقاط صورة هنا، أو الضغط على زر الفأرة لتحميل ملف (الحجم الأقصى:  {upload_max_size}، الأصناف المسموح بها: {upload_extensions}، الأبعاد المسموح بها تتراوح بين {upload_min_dimensions} و {upload_max_dimensions} بِكسل)",
+		"developer_comment": "Message to the user describing the requirements for uploading an image"
 	},
 	"uploadFile.videoMessage": {
-		"string": "يرجى إسقاط مقطع مرئي هنا، أو الضغط على زر الفأرة لتحميل ملف (الحجم الأقصى:  {video_max_size}، الأصناف المسموح بها: {video_extensions})"
+		"string": "يرجى إسقاط مقطع مرئي هنا، أو الضغط على زر الفأرة لتحميل ملف (الحجم الأقصى:  {video_max_size}، الأصناف المسموح بها: {video_extensions})",
+		"developer_comment": "Message to the user describing the requirements for uploading a video"
 	},
 	"userAssignments.blank": {
-		"string": "لا توجد أنشطة"
+		"string": "لا توجد أنشطة",
+		"developer_comment": "Text for empty state when there are no user assignments"
 	},
 	"userAssignments.filterByTeam": {
 		"string": "التصفية عن طريق مساحة العمل"
 	},
 	"userComponent.teams": {
-		"string": "مساحات العمل"
-	},
-	"userComponents.assignments": {
-		"string": "التخصيصات"
+		"string": "مساحات العمل",
+		"developer_comment": "Label of the workspaces tab in the user profile page"
 	},
 	"userComponents.privacy": {
-		"string": "الخصوصية"
+		"string": "الخصوصية",
+		"developer_comment": "Label of the privacy tab in the user profile page"
 	},
 	"userComponents.security": {
-		"string": "الأمان"
+		"string": "الأمان",
+		"developer_comment": "Label of the security tab in the user profile page"
 	},
 	"userConfirmPage.signIn": {
 		"string": "تسجيل الدخول",
@@ -6532,34 +6966,44 @@
 		"developer_comment": "Message for unconfirmed users"
 	},
 	"userEmail.emailInputHint": {
-		"string": "email@example.com"
+		"string": "email@example.com",
+		"developer_comment": "Text field input help text about the format of an email address"
 	},
 	"userEmail.emailInputLabel": {
-		"string": "البريد الإلكتروني"
+		"string": "البريد الإلكتروني",
+		"developer_comment": "Text field label for the email address field"
 	},
 	"userEmail.skip": {
-		"string": "تخطي"
+		"string": "تخطي",
+		"developer_comment": "Button label for skipping step"
 	},
 	"userEmail.submit": {
-		"string": "إرسال"
+		"string": "إرسال",
+		"developer_comment": "Button label to submit the email form"
 	},
 	"userEmail.text": {
-		"string": "يرجى إدخال البريد اﻹلكتروني لتلقي الإشعارات. وإلا، يكفي الضغط على \"تخطي\""
+		"string": "يرجى إدخال البريد اﻹلكتروني لتلقي التنبيهات. وإلا، فيكفي الضغط على 'تخطي'",
+		"developer_comment": "Message to the user on how to receive notifications to their email address"
 	},
 	"userEmail.title": {
-		"string": "إضافة بريد إلكتروني"
+		"string": "إضافة بريد إلكتروني",
+		"developer_comment": "Title for the user adding their email address"
 	},
 	"userInfo.dateJoined": {
-		"string": "تاريخ الانضمام {date}"
+		"string": "تاريخ الانضمام {date}",
+		"developer_comment": "Informational line showing the user the date their account was created on check"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, zero {لا وجود لأي مساحة للعمل} one {مساحة واحدة للعمل} two {مساحتان للعمل} few {# مساحات للعمل} many {# مساحة للعمل} other {# مساحة للعمل}}"
+		"string": "{teamsCount, plural, zero {لا وجود لأي مساحة للعمل} one {مساحة واحدة للعمل} two {مساحتان للعمل} few {# مساحات للعمل} many {# مساحة للعمل} other {# مساحة للعمل}}",
+		"developer_comment": "Count of how many work spaces this user account can access"
 	},
 	"userInfoEdit.addLink": {
-		"string": "إضافة رابط"
+		"string": "إضافة رابط",
+		"developer_comment": "Button label for adding a new link"
 	},
 	"userInfoEdit.addLinkHelper": {
-		"string": "يرجى إضافة رابط لصفحة ويب أو لِحساب في وسيلة إعلام اجتماعي. ملاحظة: لن يغير هذا من طريقة تسجيل الدخول بالنسبة لك."
+		"string": "يرجى إضافة رابط لصفحة ويب أو لِحساب في وسيلة إعلام اجتماعي. ملاحظة: لن يغير هذا من طريقة تسجيل الدخول بالنسبة لك.",
+		"developer_comment": "Help text about adding a social media profile link to this user account"
 	},
 	"userInfoEdit.addLinkLabel": {
 		"string": "إضافة رابط"
@@ -6592,145 +7036,191 @@
 		"string": "استلام تنبيهات عبر البريد اﻹلكتروني"
 	},
 	"userPrivacy.connectedAccounts": {
-		"string": "الحسابات المتصلة"
+		"string": "الحسابات المتصلة",
+		"developer_comment": "Title for social accounts connected to their app account"
 	},
 	"userPrivacy.delete": {
-		"string": "حذف حسابك"
+		"string": "حذف حسابك",
+		"developer_comment": "Page title for the user to delete their account"
 	},
 	"userPrivacy.deleteAccountButton": {
-		"string": "حذف حسابي"
+		"string": "حذف حسابي",
+		"developer_comment": "Button text for the user to delete their account"
 	},
 	"userPrivacy.deleteAccountConfirmationText": {
-		"string": "هل أنت متأكد(ة)؟ سيتم حذف حسابك وتسجيل خروجك من التطبيق."
+		"string": "هل أنت متأكد(ة)؟ سيتم حذف حسابك وتسجيل خروجك من التطبيق.",
+		"developer_comment": "Confirmation for the user to know what will happen when they remove their account"
 	},
 	"userPrivacy.deleteAccountText": {
-		"string": "إذا حذفت حسابك، سيتم حذف معلوماتك الشخصية كذلك. ستُنسب تعليقاتك، تعقيباتك، ونشاطاتك فى مساحات العمل الى اسم مستعار وستبقى في {appName}."
+		"string": "إذا حذفت حسابك، سيتم حذف معلوماتك الشخصية كذلك. ستُنسب تعليقاتك، تعقيباتك، ونشاطاتك فى مساحات العمل الى اسم مستعار وستبقى في {appName}.",
+		"developer_comment": "Text to tell the user what will happen to their personal information when their account is removed"
 	},
 	"userPrivacy.description": {
-		"string": "يرجى مراجعة {ppLink} لمعرفة كيفية استخدام وتخزين معلوماتك في {appName}."
+		"string": "يرجى مراجعة {ppLink} لمعرفة كيفية استخدام وتخزين معلوماتك في {appName}.",
+		"developer_comment": "Description text to tell the user why they should review the privacy policy"
 	},
 	"userPrivacy.ppLink": {
-		"string": "سياسة الخصوصية"
+		"string": "سياسة الخصوصية",
+		"developer_comment": "Link text for the privacy policy"
 	},
 	"userPrivacy.seeInformationButton": {
-		"string": "رؤية معلوماتي "
+		"string": "رؤية معلوماتي ",
+		"developer_comment": "Button text for the user to see their privacy information"
 	},
 	"userPrivacy.seeInformationText": {
-		"string": "سنرسل إليكم ملفًا يتضمن المحتوى والبيانات التي قمتم بإنشائها وتوليدها على {appName}. بإمكانكم الاحتفاظ بها لسجلاتكم أو نقلها إلى خدمة أخرى."
+		"string": "سنرسل إليكم ملفًا يتضمن المحتوى والبيانات التي قمتم بإنشائها وتوليدها على {appName}. بإمكانكم الاحتفاظ بها لسجلاتكم أو نقلها إلى خدمة أخرى.",
+		"developer_comment": "Description of what the app will do when the user requests their information"
 	},
 	"userPrivacy.stopProcessingButton": {
-		"string": "طلب لوقف المعالجة"
+		"string": "طلب لوقف المعالجة",
+		"developer_comment": "Button text for the user to request a change to their privacy settings"
 	},
 	"userPrivacy.stopProcessingText": {
-		"string": "يمكنك إرسال طلب لِ {appName} لإيقاف معالجة معلوماتك تحت ظروف معينة."
+		"string": "يمكنك إرسال طلب لِ {appName} لإيقاف معالجة معلوماتك تحت ظروف معينة.",
+		"developer_comment": "Help text to tell the user how they can request a change to their privacy settings"
 	},
 	"userPrivacy.title": {
-		"string": "المعلومات الخاصة بك"
+		"string": "المعلومات الخاصة بك",
+		"developer_comment": "Page title for the user's privacy information"
 	},
 	"userSecurity.authenticateDescription": {
-		"string": "برجاء إدخال كلمة السر  لتأكيد هويتك:"
+		"string": "برجاء إدخال كلمة السر  لتأكيد هويتك:",
+		"developer_comment": "Sub title for current password confirmation step in two-factor authentication settings"
 	},
 	"userSecurity.authenticateHeader": {
-		"string": "خطوة ١: المصادقة"
+		"string": "خطوة ١: المصادقة",
+		"developer_comment": "Sub title for first step in two-factor authentication settings"
 	},
 	"userSecurity.backupDescription": {
-		"string": "نقترح بشدة إنشاء رموز احتياطية وطباعتها باستخدام الزّر أدناه. في حال عدم القدرة على المصادقة الثنائيّة من خلال جهازك، سيكون بإمكانك استخدام كل من هذه الرّموز مرّة واحدة لتسجيل الدّخول بدون مصادقة ثنائيّة. أي ستغني هذه الرّموز عن تطبيق المصادقة الثنائيّة على هاتفك. "
+		"string": "نقترح بشدة إنشاء رموز احتياطية وطباعتها باستخدام الزّر أدناه. في حال عدم القدرة على المصادقة الثنائيّة من خلال جهازك، سيكون بإمكانك استخدام كل من هذه الرّموز مرّة واحدة لتسجيل الدّخول بدون مصادقة ثنائيّة. أي ستغني هذه الرّموز عن تطبيق المصادقة الثنائيّة على هاتفك. ",
+		"developer_comment": "Help text description on the importance of backing up two-factor authentication codes"
 	},
 	"userSecurity.backupHeader": {
-		"string": "خطوة ٤: الرموز الاحتياطية"
+		"string": "خطوة ٤: الرموز الاحتياطية",
+		"developer_comment": "Sub title for forth step in two-factor authentication settings"
 	},
 	"userSecurity.backupNote": {
-		"string": "ملاحظة: سيتم إبطال الرموز الاحتياطية الحالية عند النقر علي هذا الزر."
+		"string": "ملاحظة: سيتم إبطال الرموز الاحتياطية الحالية عند النقر علي هذا الزر.",
+		"developer_comment": "Warning on the removal of existing two-factor authentication codes"
 	},
 	"userSecurity.changePassword": {
-		"string": "تغيير كلمة السر"
+		"string": "تغيير كلمة السر",
+		"developer_comment": "Section title for making password changes"
 	},
 	"userSecurity.disableAuthenticateDescription": {
-		"string": "برجاء إدخال كلمة السر لتعطيل المصادقة الثنائية:"
+		"string": "برجاء إدخال كلمة السر لتعطيل المصادقة الثنائية:",
+		"developer_comment": "Sub title for current password confirmation step in order to disable two-factor authentication"
 	},
 	"userSecurity.disableTwofactor": {
-		"string": "تعطيل"
+		"string": "تعطيل",
+		"developer_comment": "Button label to disable two-factor authentication settings"
 	},
 	"userSecurity.downloadDescription": {
-		"string": "ستحتاجين إلى تطبيق مصادقة ثنائية مثل Google Authenticator على هاتفك الذكي للمتابعة:"
+		"string": "ستحتاجين إلى تطبيق مصادقة ثنائية مثل Google Authenticator على هاتفك الذكي للمتابعة:",
+		"developer_comment": "Help message to tell the user how they can get a two factor authentication code using their smartphone"
 	},
 	"userSecurity.downloadHeader": {
-		"string": "خطوة ٢: التنزيل"
+		"string": "خطوة ٢: التنزيل",
+		"developer_comment": "Sub title for second step in two-factor authentication settings"
 	},
 	"userSecurity.enableTwofactor": {
-		"string": "تفعيل"
+		"string": "تفعيل",
+		"developer_comment": "Button label to enabled two-factor authentication settings"
 	},
 	"userSecurity.failedfulLoginText": {
-		"string": "استلام تنبيه بعد {loginTrial} محاولات فاشلة متتالية لتسجيل الدخول"
+		"string": "استلام تنبيه بعد {loginTrial} محاولات فاشلة متتالية لتسجيل الدخول",
+		"developer_comment": "Label for switch input to allow users to receive a notification if there are multiple failed login attempts with their credentials"
 	},
 	"userSecurity.generateGackup": {
-		"string": "إنشاء الرموز الاحتياطية"
+		"string": "إنشاء الرموز الاحتياطية",
+		"developer_comment": "Button label to generate two-factor authentication backup codes"
 	},
 	"userSecurity.notification": {
-		"string": "تنبيه"
+		"string": "تنبيه",
+		"developer_comment": "Section header title for security notification settings"
 	},
 	"userSecurity.qrcodeDescription": {
-		"string": "يرجى مسح شيفرة الاستجابة السريعة هذه باستخدام تطبيقك للمصادقة الثنائية:"
+		"string": "يرجى مسح شيفرة الاستجابة السريعة هذه باستخدام تطبيقك للمصادقة الثنائية:",
+		"developer_comment": "Help text to tell the user to scan the QR code from the app they downloaded in a previous step"
 	},
 	"userSecurity.qrcodeHeader": {
-		"string": "خطوة ٣: مسح الرّمز"
+		"string": "خطوة ٣: مسح الرّمز",
+		"developer_comment": "Sub title for third step in two-factor authentication settings"
 	},
 	"userSecurity.requireTwoFactorAuth": {
-		"string": "تفعيل المصادقة الثنائية"
+		"string": "تفعيل المصادقة الثنائية",
+		"developer_comment": "Section header title for security two-factor authentication settings"
 	},
 	"userSecurity.successfulLoginText": {
-		"string": "استلام تنبيه بعد كل تسجيل الدخول من موقع أو جهاز جديد"
+		"string": "استلام تنبيه بعد كل تسجيل الدخول من موقع أو جهاز جديد",
+		"developer_comment": "Label for switch input to allow users to determine if they get notifications on new logins"
 	},
 	"userSecurity.suggestTwoFactorForSocialAccounts": {
-		"string": "من أجل تمكين المصادقة الثنائية، يجب عليك إنشاء كلمة السر في Check. يرجى القيام بذلك في قسم \"تغيير كلمة السر\" أدناه."
+		"string": "من أجل تمكين المصادقة الثنائية، يجب عليك إنشاء كلمة السر في Check. يرجى القيام بذلك في قسم \"تغيير كلمة السر\" أدناه.",
+		"developer_comment": "Help text on how the user can generate a new password in order to set up two-factor authentication"
 	},
 	"userSecurity.twoFactorAuthentication": {
-		"string": "مصادقة ثنائية"
+		"string": "مصادقة ثنائية",
+		"developer_comment": "Sectiom title for two-factor authentication settings"
 	},
 	"userSecurity.verifyDescription": {
-		"string": "لتفعيل المصادقة الثنائية، يرجى إدخال الرمز المكون من 6 أرقام الموجود في تطبيق المصادقة الثنائية:"
+		"string": "لتفعيل المصادقة الثنائية، يرجى إدخال الرمز المكون من 6 أرقام الموجود في تطبيق المصادقة الثنائية:",
+		"developer_comment": "Help text to let the user know where to get their authentication code to enter"
 	},
 	"userSecurity.verifyHeader": {
-		"string": "خطوة ٥: التحقق"
+		"string": "خطوة ٥: التحقق",
+		"developer_comment": "Sub title for fifth step in two-factor authentication settings"
 	},
 	"userTooltip.dateJoined": {
 		"string": "انضم في  {date} • {teamsCount, plural, =0 {ليس عضواً في أي مساحة عمل} one {مساحة عمل واحدة} other {# مساحات عمل}}"
 	},
 	"userTos.agreeTos": {
-		"string": "أوافق على شروط الاستخدام."
+		"string": "أوافق على شروط الاستخدام.",
+		"developer_comment": "Checkbox label for the user to agree to the terms of service"
 	},
 	"userTos.commGuidelines": {
-		"string": "يرجى قراءة {communityGuidelinesLink} أيضاً قبل استخدام {appName}."
+		"string": "يرجى قراءة {communityGuidelinesLink} أيضاً قبل استخدام {appName}.",
+		"developer_comment": "Message to encourage the user to read the application community guidelines document"
 	},
 	"userTos.commGuidelinesLink": {
-		"string": "إرشادات المجتمع"
+		"string": "إرشادات المجتمع",
+		"developer_comment": "Link text to take the user to the application community guidelines at the Meedan website"
 	},
 	"userTos.disclaimer": {
-		"string": "يرجى مراجعة {tosLink} و{ppLink} للموافقة على اﻵتي:"
+		"string": "يرجى مراجعة {tosLink} و{ppLink} للموافقة على اﻵتي:",
+		"developer_comment": "Message for the user to review the terms of service and privacy policy"
 	},
 	"userTos.disclaimerUpdate": {
-		"string": "قمنا بتحديث {tosLink} و{ppLink} - يرجى المراجعة والموافقة على اﻵتي:"
+		"string": "قمنا بتحديث {tosLink} و{ppLink} - يرجى المراجعة والموافقة على اﻵتي:",
+		"developer_comment": "Message to the user that the terms of service and privacy policy have been updated"
 	},
 	"userTos.ppLink": {
-		"string": "سياسة الخصوصية"
+		"string": "سياسة الخصوصية",
+		"developer_comment": "Link text to take the user to the privacy policy"
 	},
 	"userTos.save": {
-		"string": "حفظ"
+		"string": "حفظ",
+		"developer_comment": "Button label for the user to save their review of the terms of service"
 	},
 	"userTos.termsLastUpdatedAt": {
-		"string": "آخر تحديث في {lastUpdated}"
+		"string": "آخر تحديث في {lastUpdated}",
+		"developer_comment": "Date of the last terms of service update"
 	},
 	"userTos.title": {
-		"string": "شروط الاستخدام وسياسة الخصوصية"
+		"string": "شروط الاستخدام وسياسة الخصوصية",
+		"developer_comment": "Page title for the terms of service"
 	},
 	"userTos.titleUpdated": {
-		"string": "شروط الاستخدام وسياسة الخصوصية المحدثة"
+		"string": "شروط الاستخدام وسياسة الخصوصية المحدثة",
+		"developer_comment": "Page title for the updated terms of service and privacy policy messages"
 	},
 	"userTos.tosLink": {
-		"string": "شروط الاستخدام"
+		"string": "شروط الاستخدام",
+		"developer_comment": "Link text to take the user to the terms of service"
 	},
 	"userTos.validation": {
-		"string": "تجب الموافقة على شروط الاستخدام وسياسة الخصوصية"
+		"string": "تجب الموافقة على شروط الاستخدام وسياسة الخصوصية",
+		"developer_comment": "Message to the user that they must review the application terms of service"
 	},
 	"valueListCell.more": {
 		"string": "+{number} أيضا",
