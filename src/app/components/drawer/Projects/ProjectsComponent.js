@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { browserHistory, withRouter, Link } from 'react-router';
 import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
@@ -37,12 +37,21 @@ import { tiplineInboxDefaultQuery } from '../../team/TiplineInbox';
 import ProjectsCoreListCounter from './ProjectsCoreListCounter';
 import styles from './Projects.module.css';
 
+const messages = defineMessages({
+  pendingInvitationFeedTooltip: {
+    id: 'projectsComponent.pendingInvitationFeedTitle',
+    defaultMessage: 'Pending invitation: {feedTitle}',
+    description: 'Tooltip for a navigation item that has a status of a pending invitation',
+  },
+});
+
 const ProjectsComponent = ({
   currentUser,
   team,
   savedSearches,
   feeds,
   location,
+  intl,
 }) => {
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
@@ -312,6 +321,7 @@ const ProjectsComponent = ({
               <>
                 {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
                   <ProjectsListItem
+                    tooltip={search.title}
                     key={search.id}
                     routePrefix="list"
                     project={search}
@@ -394,6 +404,7 @@ const ProjectsComponent = ({
                     onClick={handleClick}
                     isActive={isActive(itemType, feed.dbid)}
                     icon={itemIcon}
+                    tooltip={feed.type === 'FeedInvitation' ? intl.formatMessage(messages.pendingInvitationFeedTooltip, { feedTitle: feed.title }) : feed.title}
                     {...itemProps}
                   />
                 );
@@ -491,4 +502,4 @@ ProjectsComponent.propTypes = {
   }).isRequired).isRequired,
 };
 
-export default withSetFlashMessage(withRouter(ProjectsComponent));
+export default withSetFlashMessage(withRouter(injectIntl(ProjectsComponent)));
