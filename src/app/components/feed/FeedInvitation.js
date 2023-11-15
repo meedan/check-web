@@ -32,6 +32,8 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
     browserHistory.push(`/${team.node.slug}/feed-invitation/${feedInvitationId}/respond`);
   }
 
+  const handleClick = team => browserHistory.push(`/${team.node.slug}/feed-invitation/${feedInvitationId}/respond`);
+
   return (
     <div className={cx('feed-invitation-container', styles['feed-invitation-container'])}>
       <div className={cx('feed-invitation-container-card', styles['feed-invitation-container-card'])}>
@@ -70,8 +72,13 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
         )}
         { !noAdminWorkspaces && !alreadyAccepted && props.me.teams?.edges
           .filter(team => can(team.node.permissions, 'update Team'))
+          .sort((a, b) => a.node.name.localeCompare(b.node.name))
           .map(team => (
-            <div className={cx(styles.workspace)}>
+            <div
+              className={cx(styles.workspace)}
+              onKeyDown={() => handleClick(team)}
+              onClick={() => handleClick(team)}
+            >
               <div className={cx(styles.avatar)}>
                 <img src={team.node.avatar} alt={team.node.name} />
               </div>
@@ -83,7 +90,6 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
                 variant="text"
                 size="small"
                 theme="validation"
-                onClick={() => browserHistory.push(`/${team.node.slug}/feed-invitation/${feedInvitationId}/respond`)}
               />
             </div>
           ))

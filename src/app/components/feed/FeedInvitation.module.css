@@ -78,6 +78,7 @@
     background: var(--otherWhite);
     border: 1px solid var(--grayBorderMain);
     border-radius: 8px;
+    cursor: pointer;
     display: flex;
     gap: 16px;
     padding: 8px;
