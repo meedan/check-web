@@ -28,6 +28,8 @@ import EditFeed from './feed/EditFeed';
 import Feed from './feed/Feed';
 import FeedItem from './feed/FeedItem';
 import FeedClusterPage from './feed/FeedClusterPage';
+import FeedInvitation from './feed/FeedInvitation';
+import FeedInvitationRespond from './feed/FeedInvitationRespond';
 import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
@@ -112,6 +114,8 @@ class Root extends Component {
                   <Route path=":team/feed/:feedId/edit" component={EditFeed} />
                   <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
                   <Route path=":team/feed/create" component={SaveFeed} />
+                  <Route path=":team/feed-invitation/:feedInvitationId" component={FeedInvitation} splash />
+                  <Route path=":team/feed-invitation/:feedInvitationId/respond" component={FeedInvitationRespond} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
                   <Route path="*" component={NotFound} public />
