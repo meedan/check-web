@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import { withSetFlashMessage } from '../FlashMessage';
 import { safelyParseJSON } from '../../helpers';
 

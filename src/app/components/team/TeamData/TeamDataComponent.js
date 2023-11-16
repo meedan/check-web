@@ -22,7 +22,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import HelpIcon from '../../../icons/help.svg';
 import GetAppIcon from '../../../icons/file_download.svg';
 import SettingsHeader from '../SettingsHeader';
-import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { ContentColumn } from '../../../styles/js/shared';
 import settingsStyles from '../Settings.module.css';
 

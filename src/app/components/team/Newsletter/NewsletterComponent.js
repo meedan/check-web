@@ -13,7 +13,7 @@ import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import settingsStyles from '../Settings.module.css';
 import styles from './NewsletterComponent.module.css';
-import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import SettingsHeader from '../SettingsHeader';
 import { getTimeZoneOptions } from '../../../helpers';
 import { can } from '../../Can';

@@ -13,7 +13,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ReportDesignerFormSection from './ReportDesignerFormSection';
 import ColorPicker from '../../layout/ColorPicker';
 import UploadFile from '../../UploadFile';
-import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { formatDate } from './reportDesignerHelpers';
 import LimitedTextFieldWithCounter from '../../layout/LimitedTextFieldWithCounter';
 import { safelyParseJSON } from '../../../helpers';

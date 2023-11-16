@@ -12,7 +12,7 @@ import TextField from './cds/inputs/TextField';
 import ListSort from './cds/inputs/ListSort';
 import TextArea from './cds/inputs/TextArea';
 import DatePicker from './cds/inputs/DatePicker';
-import LanguagePickerSelect from './cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from './cds/inputs/LanguagePickerSelect';
 import Time from './cds/inputs/Time';
 import { ToggleButton, ToggleButtonGroup } from './cds/inputs/ToggleButtonGroup';
 import Select from './cds/inputs/Select';

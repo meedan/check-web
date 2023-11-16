@@ -11,7 +11,7 @@ import DeleteStatusDialog from './DeleteStatusDialog';
 import EditStatusDialog from './EditStatusDialog';
 import StatusListItem from './StatusListItem';
 import TranslateStatuses from './TranslateStatuses';
-import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { stringHelper } from '../../../customHelpers';
 import { getErrorMessage } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
