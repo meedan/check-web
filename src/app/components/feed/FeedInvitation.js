@@ -20,7 +20,6 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
     return <NotFound />;
   }
 
-  const feedInvitationId = parseInt(routeParams.feedInvitationId, 10);
   // display an error if the user is not an admin on any workspaces
   const noAdminWorkspaces = props.me.teams?.edges.filter(team => can(team.node.permissions, 'update Team')).length === 0;
   const oneAdminWorkspace = props.me.teams?.edges.filter(team => can(team.node.permissions, 'update Team')).length === 1;
@@ -29,10 +28,10 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
   // redirect to the accept/decline page if the user only administers one workspace
   if (oneAdminWorkspace) {
     const team = props.me.teams.edges[0];
-    browserHistory.push(`/${team.node.slug}/feed-invitation/${feedInvitationId}/respond`);
+    browserHistory.push(`/${team.node.slug}/feed/${routeParams.feedId}/invitation`);
   }
 
-  const handleClick = team => browserHistory.push(`/${team.node.slug}/feed-invitation/${feedInvitationId}/respond`);
+  const handleClick = team => browserHistory.push(`/${team.node.slug}/feed/${routeParams.feedId}/invitation`);
 
   return (
     <div className={cx('feed-invitation-container', styles['feed-invitation-container'])}>
@@ -101,8 +100,7 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
 
 FeedInvitationComponent.propTypes = {
   routeParams: PropTypes.shape({
-    team: PropTypes.string.isRequired,
-    feedInvitationId: PropTypes.string.isRequired,
+    feedId: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -111,8 +109,8 @@ const FeedInvitation = ({ routeParams }) => (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query FeedInvitationQuery($feedInvitationId: ID!) {
-          feed_invitation(id: $feedInvitationId) {
+        query FeedInvitationQuery($feedId: Int) {
+          feed_invitation(feedId: $feedId) {
             state
             feed {
               name
@@ -137,7 +135,7 @@ const FeedInvitation = ({ routeParams }) => (
         }
       `}
       variables={{
-        feedInvitationId: parseInt(routeParams.feedInvitationId, 10),
+        feedId: parseInt(routeParams.feedId, 10),
       }}
       render={({ error, props }) => {
         if (!error && props) {
@@ -151,8 +149,7 @@ const FeedInvitation = ({ routeParams }) => (
 
 FeedInvitation.propTypes = {
   routeParams: PropTypes.shape({
-    team: PropTypes.string.isRequired,
-    feedInvitationId: PropTypes.string.isRequired,
+    feedId: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -45,7 +45,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
     return <NotFound />;
   }
 
-  const feedInvitationId = parseInt(routeParams.feedInvitationId, 10);
+  const feedInvitationId = props.feed_invitation.dbid;
   // determine if the current user is an admin of the current team
   const notAdmin = !can(props.me.current_team?.permissions, 'update Team');
   const alreadyAccepted = props.feed_invitation?.state === 'accepted';
@@ -180,7 +180,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
 FeedInvitationRespondComponent.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
-    feedInvitationId: PropTypes.string.isRequired,
+    feedId: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -189,9 +189,10 @@ const FeedInvitationRespond = ({ routeParams }) => (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query FeedInvitationRespondQuery($feedInvitationId: ID!) {
-          feed_invitation(id: $feedInvitationId) {
+        query FeedInvitationRespondQuery($feedId: Int) {
+          feed_invitation(feedId: $feedId) {
             state
+            dbid
             feed {
               dbid
               name
@@ -212,7 +213,7 @@ const FeedInvitationRespond = ({ routeParams }) => (
         }
       `}
       variables={{
-        feedInvitationId: parseInt(routeParams.feedInvitationId, 10),
+        feedId: parseInt(routeParams.feedId, 10),
       }}
       render={({ error, props }) => {
         if (!error && props) {
@@ -227,7 +228,7 @@ const FeedInvitationRespond = ({ routeParams }) => (
 FeedInvitationRespond.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
-    feedInvitationId: PropTypes.string.isRequired,
+    feedId: PropTypes.string.isRequired,
   }).isRequired,
 };
 
