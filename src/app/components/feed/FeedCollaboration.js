@@ -40,6 +40,7 @@ const destroyInviteMutation = graphql`
             node {
               id
               email
+              state
             }
           }
         }
@@ -252,7 +253,7 @@ const FeedCollaboration = ({
             onRemove={() => handleSubmitRemoveTeam(ft.node.id)}
           />
         ))}
-        { feed.feed_invitations?.edges.map(fi => (
+        { feed.feed_invitations?.edges.filter(fi => fi.node.state === 'invited').map(fi => (
           <FeedCollabRow
             key={fi.node.email}
             className="feed-collab-row__invitation-sent"
@@ -308,6 +309,7 @@ export default createFragmentContainer(injectIntl(FeedCollaboration), graphql`
         node {
           id
           email
+          state
         }
       }
     }
