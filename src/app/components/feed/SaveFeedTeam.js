@@ -3,19 +3,17 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import styles from './SaveFeed.module.css';
 import FeedCollaboration from './FeedCollaboration';
+import FeedMetadata from './FeedMetadata';
 import SelectListQueryRenderer from './SelectList';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ExternalLink from '../ExternalLink';
 import { FlashMessageSetterContext } from '../FlashMessage';
-import TimeBefore from '../TimeBefore';
-import BulletSeparator from '../layout/BulletSeparator';
-import { getErrorMessageForRelayModernProblem, parseStringUnixTimestamp } from '../../helpers';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import RssFeedIcon from '../../icons/rss_feed.svg';
 
 const updateFeedTeamMutation = graphql`
 mutation SaveFeedTeamUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {
@@ -174,33 +172,7 @@ const SaveFeedTeam = ({ feedTeam }) => {
           />
         </div>
 
-        {/* TODO: Extract FeedMetadata card to its own component */}
-        <div className={styles.saveFeedMetadata}>
-          <BulletSeparator
-            compact
-            details={[
-              <FormattedMessage
-                id="saveFeed.createdBy"
-                defaultMessage="Created by {teamName}"
-                values={{ teamName: feed.team?.name }}
-                description="Metadata field displayed on feed edit page."
-              />,
-              <span>{feed.user?.email}</span>,
-              <FormattedDate value={parseInt(feed.created_at, 10) * 1000} year="numeric" month="long" day="numeric" />,
-            ]}
-          />
-          <div className={styles.saveFeedLastUpdated}>
-            <RssFeedIcon />
-            <FormattedMessage
-              id="saveFeed.lastUpdated"
-              defaultMessage="Last updated {timeAgo}"
-              values={{
-                timeAgo: <TimeBefore date={parseStringUnixTimestamp(feed.updated_at)} />,
-              }}
-              description="On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
-            />
-          </div>
-        </div>
+        <FeedMetadata feed={feed} />
 
         <FeedCollaboration
           collaboratorId={collaboratorId}
@@ -236,15 +208,11 @@ export default createFragmentContainer(SaveFeedTeam, graphql`
     }
     feed {
       dbid
-      created_at
-      updated_at
       team {
         name
       }
-      user {
-        email
-      }
       ...FeedCollaboration_feed
+      ...FeedMetadata_feed
     }
   }
 `);

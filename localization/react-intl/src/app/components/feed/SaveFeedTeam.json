@@ -53,15 +53,5 @@
     "id": "saveFeed.updateSaveButton",
     "description": "Label to the save button of the shared feed update form",
     "defaultMessage": "Save"
-  },
-  {
-    "id": "saveFeed.createdBy",
-    "description": "Metadata field displayed on feed edit page.",
-    "defaultMessage": "Created by {teamName}"
-  },
-  {
-    "id": "saveFeed.lastUpdated",
-    "description": "On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'.",
-    "defaultMessage": "Last updated {timeAgo}"
   }
 ]

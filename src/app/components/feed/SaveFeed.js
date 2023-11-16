@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, FormattedHTMLMessage, FormattedDate } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Checkbox from '@material-ui/core/Checkbox';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,11 +13,9 @@ import SelectListQueryRenderer from './SelectList';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ExternalLink from '../ExternalLink';
 import { FlashMessageSetterContext } from '../FlashMessage';
-import TimeBefore from '../TimeBefore';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import Can from '../Can';
-import BulletSeparator from '../layout/BulletSeparator';
-import { getErrorMessageForRelayModernProblem, parseStringUnixTimestamp } from '../../helpers';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -27,8 +25,8 @@ import TagList from '../cds/menus-lists-dialogs/TagList';
 import SchoolIcon from '../../icons/school.svg';
 import CorporateFareIcon from '../../icons/corporate_fare.svg';
 import OpenSourceIcon from '../../icons/open_source.svg';
-import RssFeedIcon from '../../icons/rss_feed.svg';
 import ChevronDownIcon from '../../icons/chevron_down.svg';
+import FeedMetadata from './FeedMetadata';
 
 const LicenseOption = ({
   icon,
@@ -603,35 +601,8 @@ const SaveFeed = (props) => {
           </Menu>
         </div>
 
-        { feed.id ?
-          <div className={styles.saveFeedMetadata}>
-            <BulletSeparator
-              compact
-              details={[
-                <FormattedMessage
-                  id="saveFeed.createdBy"
-                  defaultMessage="Created by {teamName}"
-                  values={{ teamName: feed.team?.name }}
-                  description="Metadata field displayed on feed edit page."
-                />,
-                <span>{feed.user?.email}</span>,
-                <FormattedDate value={parseInt(feed.created_at, 10) * 1000} year="numeric" month="long" day="numeric" />,
-              ]}
-            />
-            <div className={styles.saveFeedLastUpdated}>
-              <RssFeedIcon />
-              <FormattedMessage
-                id="saveFeed.lastUpdated"
-                defaultMessage="Last updated {timeAgo}"
-                values={{
-                  timeAgo: <TimeBefore date={parseStringUnixTimestamp(feed.updated_at)} />,
-                }}
-                description="On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
-              />
-            </div>
-          </div>
-          : null
-        }
+        <FeedMetadata feed={feed} />
+
         <FeedCollaboration feed={feed} onChange={setNewInvites} />
       </div>
 
@@ -791,8 +762,6 @@ export default createFragmentContainer(SaveFeed, graphql`
     saved_search_id
     licenses
     tags
-    created_at
-    updated_at
     permissions
     team {
       dbid
@@ -800,10 +769,8 @@ export default createFragmentContainer(SaveFeed, graphql`
       slug
     }
     ...FeedCollaboration_feed
+    ...FeedMetadata_feed
     teams_count
-    user {
-      email
-    }
     saved_search {
       title
     }
