@@ -11,15 +11,9 @@ import styles from './FeedInvitation.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import DoneIcon from '../../icons/done.svg';
-import NotFound from '../NotFound';
 import { can } from '../Can';
 
 const FeedInvitationComponent = ({ routeParams, ...props }) => {
-  // `feed_invitation` is null when attempting to view a feed invitation that doesn't exist or that you don't have permission to view
-  if (!props.feed_invitation) {
-    return <NotFound />;
-  }
-
   // display an error if the user is not an admin on any workspaces
   const noAdminWorkspaces = props.me.teams?.edges.filter(team => can(team.node.permissions, 'update Team')).length === 0;
   const oneAdminWorkspace = props.me.teams?.edges.filter(team => can(team.node.permissions, 'update Team')).length === 1;

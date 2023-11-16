@@ -14,7 +14,6 @@ import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import styles from './FeedInvitation.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
-import NotFound from '../NotFound';
 import MediasLoading from '../media/MediasLoading';
 import { can } from '../Can';
 
@@ -40,10 +39,6 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
   const [saving, setSaving] = React.useState(false);
   const [confirmReject, setConfirmReject] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
-  // `feed_invitation` is null when attempting to view a feed invitation that doesn't exist or that you don't have permission to view
-  if (!props.feed_invitation) {
-    return <NotFound />;
-  }
 
   const feedInvitationId = props.feed_invitation.dbid;
   // determine if the current user is an admin of the current team
