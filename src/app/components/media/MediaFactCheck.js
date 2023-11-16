@@ -300,6 +300,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         { languages.length > 1 ?
           <div className={inputStyles['form-fieldset-field']}>
             <LanguagePickerSelect
+              label={<FormattedMessage id="mediaFactCheck.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language" />}
               isDisabled={(!hasPermission || isDisabled)}
               selectedLanguage={language}
               onSubmit={handleLanguageSubmit}

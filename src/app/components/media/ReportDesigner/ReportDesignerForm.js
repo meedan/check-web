@@ -104,6 +104,7 @@ const ReportDesignerForm = (props) => {
         { languages.length > 1 ?
           <Box my={3} >
             <LanguagePickerSelect
+              label={<FormattedMessage id="reportDesigner.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language" />}
               selectedLanguage={currentLanguage}
               languages={JSON.parse(team.get_languages || '[]')}
               onSubmit={handleLanguageSubmit}

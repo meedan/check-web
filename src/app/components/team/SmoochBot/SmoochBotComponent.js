@@ -204,7 +204,6 @@ const SmoochBotComponent = ({
               selectedLanguage={currentLanguage}
               onSubmit={handleChangeLanguage}
               languages={languages}
-              showLabel={false}
             /> : null
         }
       />

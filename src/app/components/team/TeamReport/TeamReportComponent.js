@@ -164,7 +164,6 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
               selectedLanguage={currentLanguage}
               onSubmit={newValue => setCurrentLanguage(newValue.languageCode)}
               languages={languages}
-              showLabel={false}
             /> : null
         }
       />

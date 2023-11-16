@@ -1026,7 +1026,7 @@ const SandboxComponent = ({ admin }) => {
             <LanguagePickerSelect
               selectedLanguage="en"
               languages={JSON.parse('["en", "af", "zn"]')}
-              showLabel={languagePickerSelectLabel}
+              label={languagePickerSelectLabel ? 'I am a LanguagePickerSelect label' : null}
               isDisabled={languagePickerSelectDisabled}
               helpContent={languagePickerSelectHelp ? 'I can be of help to LanguagePickerSelect' : null}
             />

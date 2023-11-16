@@ -448,7 +448,6 @@ const NewsletterComponent = ({
               onSubmit={handleLanguageChange}
               languages={languages}
               isDisabled={saving}
-              showLabel={false}
             /> : null
         }
         actionButton={

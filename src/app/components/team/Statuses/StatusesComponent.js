@@ -244,7 +244,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
               selectedLanguage={currentLanguage}
               onSubmit={handleChangeLanguage}
               languages={languages}
-              showLabel={false}
             /> : null
         }
       />
