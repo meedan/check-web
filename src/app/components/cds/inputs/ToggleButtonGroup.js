@@ -31,11 +31,11 @@ const ToggleButtonGroup = ({
     }
   >
     { (label) && (
-      <div className={`${inputStyles['label-container']}`} >
+      <div className={inputStyles['label-container']}>
         { label && <label htmlFor="name">{label}</label> }
       </div>
     )}
-    <div className={`${inputStyles['input-container']}`}>
+    <div className={inputStyles['input-container']}>
       <div
         className={cx(
           styles['toggle-button-group'],
@@ -60,7 +60,7 @@ const ToggleButtonGroup = ({
       </div>
     </div>
     { helpContent && (
-      <div className={`${inputStyles['help-container']}`}>
+      <div className={inputStyles['help-container']}>
         {helpContent}
       </div>
     )}

@@ -4,8 +4,11 @@
     color: var(--textSecondary);
     display: grid;
     grid-gap: 8px;
-    grid-template-columns: 2fr 1fr;
     margin-bottom: 4px;
+
+    &.label-container-label.label-container-required {
+      grid-template-columns: 2fr 1fr;
+    }
 
     label {
       align-self: end;

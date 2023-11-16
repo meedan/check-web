@@ -43,6 +43,8 @@ const Select = ({
             {
               [inputStyles['error-label']]: error,
               [styles['select-removeable']]: onRemove,
+              [inputStyles['label-container-label']]: label,
+              [inputStyles['label-container-required']]: required,
             })
           }
         >

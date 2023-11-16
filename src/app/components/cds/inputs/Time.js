@@ -24,7 +24,13 @@ const Time = ({
     }
   >
     { label && (
-      <div className={`${inputStyles['label-container']} ${error && inputStyles['error-label']}`}>
+      <div className={cx(
+        [inputStyles['label-container']],
+        {
+          [inputStyles['error-label']]: error,
+        })
+      }
+      >
         { label && <label htmlFor="name">{label}</label> }
       </div>
     )}
@@ -38,7 +44,13 @@ const Time = ({
       />
     </div>
     { helpContent && (
-      <div className={`${inputStyles['help-container']} ${error && inputStyles['error-label']}`}>
+      <div className={cx(
+        [inputStyles['help-container']],
+        {
+          [inputStyles['error-label']]: error,
+        })
+      }
+      >
         { error && <ErrorIcon className={inputStyles['error-icon']} />}
         {helpContent}
       </div>
