@@ -18,7 +18,7 @@ import ViberIcon from '../../../icons/viber.svg';
 import LineIcon from '../../../icons/line.svg';
 import InstagramIcon from '../../../icons/instagram.svg';
 import SettingsHeader from '../SettingsHeader';
-import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { withSetFlashMessage } from '../../FlashMessage';
 import Can from '../../Can';
 
@@ -164,7 +164,6 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
               selectedLanguage={currentLanguage}
               onSubmit={newValue => setCurrentLanguage(newValue.languageCode)}
               languages={languages}
-              showLabel={false}
             /> : null
         }
       />

@@ -65,6 +65,11 @@
     "defaultMessage": "Article URL"
   },
   {
+    "id": "mediaFactCheck.selectLanguageLabel",
+    "description": "Label for input to select language",
+    "defaultMessage": "Language"
+  },
+  {
     "id": "mediaActionsBar.publishedReport",
     "description": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state.",
     "defaultMessage": "Published report"

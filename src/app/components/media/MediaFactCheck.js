@@ -7,7 +7,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import IconReport from '../../icons/playlist_add_check.svg';
 import IconUnpublishedReport from '../../icons/unpublished_report.svg';
 import TimeBefore from '../TimeBefore';
-import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import { parseStringUnixTimestamp, truncateLength, safelyParseJSON } from '../../helpers';
 import { can } from '../Can';
 import LimitedTextArea from '../layout/inputs/LimitedTextArea';
@@ -300,6 +300,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         { languages.length > 1 ?
           <div className={inputStyles['form-fieldset-field']}>
             <LanguagePickerSelect
+              label={<FormattedMessage id="mediaFactCheck.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language" />}
               isDisabled={(!hasPermission || isDisabled)}
               selectedLanguage={language}
               onSubmit={handleLanguageSubmit}

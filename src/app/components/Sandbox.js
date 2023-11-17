@@ -9,7 +9,11 @@ import Alert from './cds/alerts-and-prompts/Alert';
 import Chip from './cds/buttons-checkboxes-chips/Chip';
 import TagList from './cds/menus-lists-dialogs/TagList';
 import TextField from './cds/inputs/TextField';
+import ListSort from './cds/inputs/ListSort';
 import TextArea from './cds/inputs/TextArea';
+import DatePicker from './cds/inputs/DatePicker';
+import LanguagePickerSelect from './cds/inputs/LanguagePickerSelect';
+import Time from './cds/inputs/Time';
 import { ToggleButton, ToggleButtonGroup } from './cds/inputs/ToggleButtonGroup';
 import Select from './cds/inputs/Select';
 import SwitchComponent from './cds/inputs/SwitchComponent';
@@ -69,6 +73,23 @@ const SandboxComponent = ({ admin }) => {
   const [textfieldRemovable, setTextfieldRemovable] = React.useState(Boolean(true));
   const [textfieldContent, setTextfieldContent] = React.useState('');
 
+  const [toggleButtonGroupLabel, setToggleButtonGroupLabel] = React.useState(Boolean(true));
+  const [toggleButtonGroupHelp, setToggleButtonGroupHelp] = React.useState(Boolean(true));
+  const [toggleButtonGroupDisabled, setToggleButtonGroupDisabled] = React.useState(Boolean(false));
+
+  const [timeLabel, setTimeLabel] = React.useState(Boolean(false));
+  const [timeHelp, setTimeHelp] = React.useState(Boolean(false));
+  const [timeError, setTimeError] = React.useState(Boolean(false));
+  const [timeDisabled, setTimeDisabled] = React.useState(Boolean(false));
+
+  const [datepickerLabel, setDatepickerLabel] = React.useState(Boolean(false));
+  const [datepickerHelp, setDatepickerHelp] = React.useState(Boolean(false));
+  const [datepickerError, setDatepickerError] = React.useState(Boolean(false));
+  const [datepickerDisabled, setDatepickerDisabled] = React.useState(Boolean(false));
+
+  const [languagePickerSelectLabel, setLanguagePickerSelectLabel] = React.useState(Boolean(true));
+  const [languagePickerSelectDisabled, setLanguagePickerSelectDisabled] = React.useState(Boolean(false));
+  const [languagePickerSelectHelp, setLanguagePickerSelectHelp] = React.useState(Boolean(false));
 
   const [selectLabel, setSelectLabel] = React.useState(Boolean(true));
   const [selectIconLeft, setSelectIconLeft] = React.useState(Boolean(true));
@@ -79,6 +100,7 @@ const SandboxComponent = ({ admin }) => {
   const [selectRemovable, setSelectRemovable] = React.useState(Boolean(true));
 
   const [limitedText, setLimitedText] = React.useState('DRF envisions a place where all people, and especially women, are able to exercise their right of expression without being threatened. We believe that free internet with access to information and impeccable privacy policies can encourage such a healthy and productive environment that would eventually help not only women, but the world at large. \n Digital Rights Foundation aims to strengthen protections for human rights defenders (HRDs), with a focus on women\'s rights, in digital spaces through policy advocacy & digital security awareness-raising. In addition, one of our aims at the Foundation is also to protect women from work and cyber-harassment that they have to deal with through out their lives.');
+  const [textareaLabel, setTextareaLabel] = React.useState(Boolean(true));
   const [textareaHelp, setTextareaHelp] = React.useState(Boolean(true));
   const [textareaError, setTextareaError] = React.useState(Boolean(false));
   const [textareaAutogrow, setTextareaAutogrow] = React.useState(Boolean(true));
@@ -109,6 +131,21 @@ const SandboxComponent = ({ admin }) => {
   const [alertVariant, setAlertVariant] = React.useState('info');
   const onChangeAlertVariant = (event) => {
     setAlertVariant(event.target.value);
+  };
+
+  const [toggleButtonGroupVariant, setToggleButtonGroupVariant] = React.useState('contained');
+  const onChangeToggleButtonGroupVariant = (event) => {
+    setToggleButtonGroupVariant(event.target.value);
+  };
+
+  const [toggleButtonGroupValue, setToggleButtonGroupValue] = React.useState('1');
+  const changeToggleButtonGroupExample = (event) => {
+    setToggleButtonGroupValue(event);
+  };
+
+  const [toggleButtonGroupSize, setToggleButtonGroupSize] = React.useState('default');
+  const onChangeToggleButtonGroupSize = (event) => {
+    setToggleButtonGroupSize(event.target.value);
   };
 
   const [alertPlacement, setAlertPlacement] = React.useState('default');
@@ -371,35 +408,88 @@ const SandboxComponent = ({ admin }) => {
           </div>
         </div>
         <div className={styles.componentWrapper}>
-          <div className={cx('typography-subtitle2', [styles.componentName])}>
-            ToggleButtonGroup
-            <a
-              href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3703-28265&mode=design&t=ZVq51pKdIKdWZicO-4"
-              rel="noopener noreferrer"
-              target="_blank"
-              title="Figma Designs"
-              className={styles.figmaLink}
-            >
-              <FigmaColorLogo />
-            </a>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              ToggleButtonGroup
+              <a
+                href="https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=3703-28265&mode=design&t=ZVq51pKdIKdWZicO-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <Select
+                  label="Size"
+                  onChange={onChangeToggleButtonGroupSize}
+                  value={toggleButtonGroupSize}
+                >
+                  <option value="default">default</option>
+                  <option value="small">small</option>
+                  <option value="large">large</option>
+                </Select>
+              </li>
+              <li>
+                <Select
+                  label="Variant"
+                  onChange={onChangeToggleButtonGroupVariant}
+                  value={toggleButtonGroupVariant}
+                >
+                  <option value="contained">contained</option>
+                  <option value="outlined">outlined</option>
+                </Select>
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Label"
+                  labelPlacement="top"
+                  checked={toggleButtonGroupLabel}
+                  onChange={() => setToggleButtonGroupLabel(!toggleButtonGroupLabel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Help"
+                  labelPlacement="top"
+                  checked={toggleButtonGroupHelp}
+                  onChange={() => setToggleButtonGroupHelp(!toggleButtonGroupHelp)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={toggleButtonGroupDisabled}
+                  onChange={() => setToggleButtonGroupDisabled(!toggleButtonGroupDisabled)}
+                />
+              </li>
+            </ul>
           </div>
-          <ToggleButtonGroup
-            label="I am a label"
-            variant="contained"
-            helpContent="I can be of help"
-            value="1"
-            exclusive
-          >
-            <ToggleButton value="1">
-              One
-            </ToggleButton>
-            <ToggleButton value="2">
-              Two
-            </ToggleButton>
-            <ToggleButton value="3">
-              Three
-            </ToggleButton>
-          </ToggleButtonGroup>
+          <div className={styles.componentBlockVariants} style={{ backgroundColor: 'var(--brandBackground' }}>
+            <ToggleButtonGroup
+              label={toggleButtonGroupLabel ? 'I am a toggleButtonGroup label' : null}
+              variant={toggleButtonGroupVariant}
+              helpContent={toggleButtonGroupHelp ? 'I can be of help to ToggleButtonGroup' : null}
+              value={toggleButtonGroupValue}
+              onChange={(e, newValue) => changeToggleButtonGroupExample(newValue)}
+              size={toggleButtonGroupSize}
+              exclusive
+            >
+              <ToggleButton value="1" key="1" disabled={toggleButtonGroupDisabled}>
+                One
+              </ToggleButton>
+              <ToggleButton value="2" key="2" disabled={toggleButtonGroupDisabled}>
+                Two
+              </ToggleButton>
+              <ToggleButton value="3" key="3" disabled={toggleButtonGroupDisabled}>
+                Three
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
         </div>
       </section>
       <section id="sandbox-inputs">
@@ -635,6 +725,14 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  label="Label"
+                  labelPlacement="top"
+                  checked={textareaLabel}
+                  onChange={() => setTextareaLabel(!textareaLabel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
                   label="AutoGrow"
                   labelPlacement="top"
                   checked={textareaAutogrow}
@@ -689,7 +787,7 @@ const SandboxComponent = ({ admin }) => {
                 maxChars={500}
                 setValue={setLimitedText}
                 placeholder="I am a placeholder for limited textarea"
-                label="I am a limited textarea title"
+                label={textareaLabel ? 'I am a limited textarea title' : null}
                 value={limitedText}
                 helpContent={textareaHelp ? 'I can be of help to limited textarea' : null}
                 autoGrow={textareaAutogrow}
@@ -701,7 +799,7 @@ const SandboxComponent = ({ admin }) => {
               :
               <TextArea
                 placeholder="I am a placeholder for textarea"
-                label="I am a textarea title"
+                label={textareaLabel ? 'I am a textarea title' : null}
                 helpContent={textareaHelp ? 'I can be of help to textarea' : null}
                 autoGrow={textareaAutogrow}
                 rows={textareaRows === 'none' ? undefined : textareaRows}
@@ -766,6 +864,171 @@ const SandboxComponent = ({ admin }) => {
               checked={switched}
               disabled={switchesDisabled}
               onChange={() => setSwitchExample(!switched)}
+            />
+          </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              List Sort
+              <a
+                href="https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=1475-46077&mode=design&t=GXBsN674hkLPLGfM-4"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <ListSort
+              sortType="DESC"
+            />
+          </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Time
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Label"
+                  labelPlacement="top"
+                  checked={timeLabel}
+                  onChange={() => setTimeLabel(!timeLabel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Help"
+                  labelPlacement="top"
+                  checked={timeHelp}
+                  onChange={() => setTimeHelp(!timeHelp)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={timeDisabled}
+                  onChange={() => setTimeDisabled(!timeDisabled)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Error"
+                  labelPlacement="top"
+                  checked={timeError}
+                  onChange={() => setTimeError(!timeError)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <Time
+              label={timeLabel ? 'I am a time label' : null}
+              error={timeError}
+              value="09:00"
+              helpContent={timeHelp ? 'I can be of help to time' : null}
+              disabled={timeDisabled}
+              required
+            />
+          </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              DatePicker
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Label"
+                  labelPlacement="top"
+                  checked={datepickerLabel}
+                  onChange={() => setDatepickerLabel(!datepickerLabel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Help"
+                  labelPlacement="top"
+                  checked={datepickerHelp}
+                  onChange={() => setDatepickerHelp(!datepickerHelp)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={datepickerDisabled}
+                  onChange={() => setDatepickerDisabled(!datepickerDisabled)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Error"
+                  labelPlacement="top"
+                  checked={datepickerError}
+                  onChange={() => setDatepickerError(!datepickerError)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <DatePicker
+              label={datepickerLabel ? 'I am a datepicker label' : null}
+              value="2023-12-17"
+              error={datepickerError}
+              helpContent={datepickerHelp ? 'I can be of help to datepicker' : null}
+              disabled={datepickerDisabled}
+              required
+            />
+          </div>
+        </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              LanguagePickerSelect
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Label"
+                  labelPlacement="top"
+                  checked={languagePickerSelectLabel}
+                  onChange={() => setLanguagePickerSelectLabel(!languagePickerSelectLabel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={languagePickerSelectDisabled}
+                  onChange={() => setLanguagePickerSelectDisabled(!languagePickerSelectDisabled)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Help"
+                  labelPlacement="top"
+                  checked={languagePickerSelectHelp}
+                  onChange={() => setLanguagePickerSelectHelp(!languagePickerSelectHelp)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <LanguagePickerSelect
+              selectedLanguage="en"
+              languages={JSON.parse('["en", "af", "zn"]')}
+              label={languagePickerSelectLabel ? 'I am a LanguagePickerSelect label' : null}
+              isDisabled={languagePickerSelectDisabled}
+              helpContent={languagePickerSelectHelp ? 'I can be of help to LanguagePickerSelect' : null}
             />
           </div>
         </div>

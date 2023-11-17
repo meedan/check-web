@@ -7,7 +7,7 @@ import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import UserUtil from '../../user/UserUtil';
 import SettingsHeader from '../SettingsHeader';
-import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import SmoochBotConfig from './SmoochBotConfig';
 import { placeholders } from './localizables';
 import Can from '../../Can';
@@ -204,7 +204,6 @@ const SmoochBotComponent = ({
               selectedLanguage={currentLanguage}
               onSubmit={handleChangeLanguage}
               languages={languages}
-              showLabel={false}
             /> : null
         }
       />
