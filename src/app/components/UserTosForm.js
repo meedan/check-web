@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedDate, defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { units } from '../styles/js/shared';
 import { stringHelper } from '../customHelpers';
+
+const messages = defineMessages({
+  tos: {
+    id: 'userTos.tosLink',
+    defaultMessage: 'Terms of Service',
+    description: 'Link text to take the user to the terms of service',
+  },
+  pp: {
+    id: 'userTos.ppLink"',
+    defaultMessage: 'Privacy Policy',
+    description: 'Link text to take the user to the privacy policy',
+  },
+});
 
 class UserTosForm extends Component {
   constructor(props) {
@@ -14,18 +27,14 @@ class UserTosForm extends Component {
   }
 
   render() {
-    const linkStyle = {
-      textDecoration: 'underline',
-    };
-
     const tosLink = (
       <a
         target="_blank"
         rel="noopener noreferrer"
-        style={linkStyle}
         href={stringHelper('TOS_URL')}
+        title={this.props.intl.formatMessage(messages.tos)}
       >
-        <FormattedMessage id="userTos.tosLink" defaultMessage="Terms of Service" description="Link text to take the user to the terms of service" />
+        {this.props.intl.formatMessage(messages.tos)}
       </a>
     );
 
@@ -33,10 +42,10 @@ class UserTosForm extends Component {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        style={linkStyle}
         href={stringHelper('PP_URL')}
+        title={this.props.intl.formatMessage(messages.pp)}
       >
-        <FormattedMessage id="userTos.ppLink" defaultMessage="Privacy Policy" description="Link text to take the user to the privacy policy" />
+        {this.props.intl.formatMessage(messages.pp)}
       </a>
     );
 
@@ -139,4 +148,4 @@ UserTosForm.defaultProps = {
   showTitle: false,
 };
 
-export default UserTosForm;
+export default injectIntl(UserTosForm);

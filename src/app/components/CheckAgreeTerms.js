@@ -1,12 +1,11 @@
 import React from 'react';
 import { FormattedHTMLMessage, FormattedMessage, injectIntl } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
 
 const CheckAgreeTerms = props => (
-  <Typography component="div" variant="body1">
+  <div className="typography-body2">
     <Box my={2} align="center">
       <FormattedMessage
         id="CheckAgreeTerms.agreeTerms"
@@ -28,7 +27,7 @@ const CheckAgreeTerms = props => (
         description="Help text for the user to know how to contact support by email"
       />
     </Box>
-  </Typography>
+  </div>
 );
 
 export default injectIntl(CheckAgreeTerms);

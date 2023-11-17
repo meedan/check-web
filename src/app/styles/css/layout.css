@@ -1,5 +1,6 @@
 html {
-  background: var(--otherWhite);
+  background-color: var(--grayBackground);
+  border: solid 2px var(--errorMain);
 }
 
 *,
