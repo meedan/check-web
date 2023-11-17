@@ -1,5 +1,10 @@
 [
   {
+    "id": "reportDesigner.selectLanguageLabel",
+    "description": "Label for input to select language",
+    "defaultMessage": "Language"
+  },
+  {
     "id": "reportDesigner.introduction",
     "description": "Section title for the report introduction",
     "defaultMessage": "Introduction"

@@ -8,5 +8,10 @@
     "id": "mediaLanguageSwitcher.success",
     "description": "Success message displayed when an item language is changed",
     "defaultMessage": "Language updated"
+  },
+  {
+    "id": "mediaLanguageSwitcher.selectLanguageLabel",
+    "description": "Label for input to select language",
+    "defaultMessage": "Language"
   }
 ]

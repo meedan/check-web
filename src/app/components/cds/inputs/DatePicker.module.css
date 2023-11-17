@@ -14,12 +14,6 @@
       background-color: transparent;
     }
 
-    &:disabled,
-    &.disabled {
-      background-color: var(--grayDisabledBackground);
-      color: var(--textDisabledInput);
-    }
-
     &:hover {
       border-color: var(--grayBorderAccent);
     }
@@ -36,6 +30,22 @@
 
       &::placeholder {
         color: transparent;
+      }
+    }
+
+    &:disabled,
+    &.disabled {
+      background-color: var(--grayDisabledBackground);
+      color: var(--textDisabledInput);
+      cursor: not-allowed;
+      opacity: 1;
+
+      &.outlined {
+        background-color: transparent;
+      }
+
+      &:hover {
+        border-color: var(--grayBorderMain);
       }
     }
 
