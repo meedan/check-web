@@ -67,7 +67,7 @@ Time.defaultProps = {
 Time.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  label: PropTypes.element,
+  label: PropTypes.node,
 };
 
 export default Time;

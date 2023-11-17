@@ -70,8 +70,8 @@ DatePicker.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   error: PropTypes.bool,
-  helpContent: PropTypes.element,
-  label: PropTypes.element,
+  helpContent: PropTypes.node,
+  label: PropTypes.node,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
 

@@ -78,8 +78,8 @@ ToggleButtonGroup.defaultProps = {
 ToggleButtonGroup.propTypes = {
   className: PropTypes.string,
   size: PropTypes.oneOf(['default', 'small', 'large']),
-  helpContent: PropTypes.element,
-  label: PropTypes.element,
+  helpContent: PropTypes.node,
+  label: PropTypes.node,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
 

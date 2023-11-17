@@ -99,8 +99,8 @@ LanguagePickerSelect.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string),
   isDisabled: PropTypes.bool,
-  label: PropTypes.element,
-  helpContent: PropTypes.element,
+  label: PropTypes.node,
+  helpContent: PropTypes.node,
 };
 
 export default injectIntl(LanguagePickerSelect);
