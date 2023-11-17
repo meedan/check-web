@@ -71,7 +71,7 @@ const LanguagePickerSelect = ({
                 <TextField
                   iconLeft={<LanguageIcon />}
                   iconRight={<ChevronDownIcon />}
-                  label={label && <FormattedMessage id="LanguagePickerSelect.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language of fact-check" />}
+                  label={label}
                   placeholder={placeholder}
                   helpContent={helpContent}
                   {...params.inputProps}
