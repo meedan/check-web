@@ -182,7 +182,7 @@ class Login extends React.Component {
           }
           {this.state.message &&
             <Alert
-              className={styles['login-form-alert']}
+              className={cx('message', styles['login-form-alert'])}
               content={this.state.message}
               variant={this.state.registrationSubmitted ? 'info' : 'error'}
             />
