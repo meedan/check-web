@@ -236,7 +236,7 @@ const ChatHistory = ({
           );
         }).sort((a, b) => +b.props.dateTime - +a.props.dateTime)}
         <div className={`typography-body2 ${styles.date}`}>
-          {convertSentAtToLocaleDateString(history[history.length - 1].sent_at)}
+          {history.length > 0 ? convertSentAtToLocaleDateString(history[history.length - 1].sent_at) : null}
         </div>
       </div>
     </div>
