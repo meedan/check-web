@@ -32,7 +32,7 @@ describe('<InviteNewAccount />', () => {
       user={user}
     />);
     expect(wrapper.find('#login')).toHaveLength(1);
-    expect(wrapper.find('.login__password-confirmation')).toHaveLength(1);
+    expect(wrapper.find('.login__password-confirmation-input')).toHaveLength(1);
     expect(wrapper.html()).toMatch('has invited you to join the workspace');
   });
 });
