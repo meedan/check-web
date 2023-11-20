@@ -71,6 +71,8 @@ const TextField = React.forwardRef(({
           {
             [inputStyles['error-label']]: internalError,
             [styles['textfield-removeable']]: onRemove,
+            [inputStyles['label-container-label']]: label,
+            [inputStyles['label-container-required']]: required,
           })
         }
         >

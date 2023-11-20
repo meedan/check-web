@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import LanguagePickerSelect from '../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
 import { withSetFlashMessage } from '../FlashMessage';
 import { safelyParseJSON } from '../../helpers';
 
@@ -67,6 +67,7 @@ const MediaLanguageSwitcher = ({ projectMedia, setFlashMessage }) => {
 
   return (
     <LanguagePickerSelect
+      label={<FormattedMessage id="mediaLanguageSwitcher.selectLanguageLabel" defaultMessage="Language" description="Label for input to select language" />}
       selectedLanguage={projectMedia.language_code}
       onSubmit={handleUpdate}
       languages={safelyParseJSON(projectMedia.team?.get_languages)}

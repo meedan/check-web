@@ -143,6 +143,7 @@ const AddLanguageAction = ({ team }) => {
                           description="Label to language selection dropdown"
                         />
                       }
+                      helpContent={<FormattedMessage id="addLanguageAction.selectLanguageHelp" defaultMessage="After adding this language, be sure to customize the chatbot’s responses in the tipline settings." description="Help text for next steps after selecting a language" />}
                       placeholder={placeholder}
                       {...params.inputProps}
                     />
