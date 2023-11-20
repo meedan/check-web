@@ -232,6 +232,7 @@ class HomeComponent extends Component {
     const routeSlug = HomeComponent.routeSlug(children);
 
     const routeIsPublic = children && children.props.route.public;
+    const routeIsSplash = children && children.props.route.splash;
 
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {
@@ -308,7 +309,7 @@ class HomeComponent extends Component {
               bemClass('home', routeSlug, `--${routeSlug}`),
             ].join(' ')}
           >
-            {loggedIn ? (
+            {loggedIn && !routeIsSplash ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}
