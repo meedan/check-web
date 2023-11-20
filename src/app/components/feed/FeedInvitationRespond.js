@@ -166,7 +166,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
           </>
         )}
         // proceedDisabled={!selectedImportingTeam || (!importingClaimDescription && !importingClaim?.description)}
-        proceedLabel={<FormattedMessage id="feedItem.proceedImport" defaultMessage="Import" description="Button label to confirm importing claim from feed page" />}
+        proceedLabel={<FormattedMessage id="feedItem.promptDeclineConfirm" defaultMessage="Decline invitation" description="Button label to confirm declining an invitation" />}
         onProceed={handleRejectInvite}
         onCancel={() => { setConfirmReject(false); }}
         isSaving={saving}
