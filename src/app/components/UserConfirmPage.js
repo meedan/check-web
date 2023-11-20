@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { Link } from 'react-router';
 import cx from 'classnames/bind';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
@@ -54,14 +54,14 @@ function UserConfirmPage({ params }) {
                 { params.confirmType === 'already-confirmed' ?
                   (<FormattedMessage
                     id="userConfirmed.alreadyConfrimMessage"
-                    defaultMessage="Oops! Your account is already confirmed. Please sign in to get started."
+                    defaultMessage="Your account is already confirmed. Please sign in to get started."
                     description="Message for user who already confirmed before"
                   />) : null
                 }
                 { params.confirmType === 'unconfirmed' ?
-                  (<FormattedMessage
+                  (<FormattedHTMLMessage
                     id="userConfirmed.unConfrimMessage"
-                    defaultMessage="Sorry, an error occurred while confirming your account. Please try again and contact {supportEmail} if the condition persists."
+                    defaultMessage='Sorry, an error occurred while confirming your account. Please try again and contact <a href="mailto:{supportEmail}">{supportEmail}</a> if the condition persists.'
                     values={{
                       supportEmail: stringHelper('SUPPORT_EMAIL'),
                     }}
