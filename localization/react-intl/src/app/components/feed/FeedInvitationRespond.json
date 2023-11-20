@@ -35,8 +35,8 @@
     "defaultMessage": "You will need to contact {creator} in order to rejoin."
   },
   {
-    "id": "feedItem.proceedImport",
-    "description": "Button label to confirm importing claim from feed page",
-    "defaultMessage": "Import"
+    "id": "feedItem.promptDeclineConfirm",
+    "description": "Button label to confirm declining an invitation",
+    "defaultMessage": "Decline invitation"
   }
 ]
