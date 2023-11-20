@@ -6,7 +6,6 @@ import BrowserSupport from '../BrowserSupport';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import FooterRelay from '../../relay/containers/FooterRelay';
 import Login from './Login';
-import CheckAgreeTerms from '../CheckAgreeTerms';
 import PageTitle from '../PageTitle';
 import styles from './login.module.css';
 
@@ -16,7 +15,6 @@ const LoginContainer = props => (
       <BrowserSupport />
       <div id="login-container" className={cx('login-container', styles['login-container'])}>
         <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
-
         {props.message &&
           <Alert
             content={props.message}
@@ -24,9 +22,6 @@ const LoginContainer = props => (
           />
         }
         <Login loginCallback={props.loginCallback} />
-
-        <CheckAgreeTerms />
-
         <FooterRelay {...props} />
       </div>
     </div>

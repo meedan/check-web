@@ -1,12 +1,16 @@
-html {
-  background-color: var(--grayBackground);
-  border: solid 2px var(--errorMain);
-}
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  background-color: var(--grayBackground);
 }
 
 body {

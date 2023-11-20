@@ -1,39 +1,20 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import cx from 'classnames/bind';
 import GoogleColorIcon from '../../icons/google_color.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import TextField from '../cds/inputs/TextField';
 import UserTosForm from '../UserTosForm';
 import { login, request } from '../../redux/actions';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorObjects } from '../../helpers';
 import CheckError from '../../CheckError';
-import {
-  units,
-  StyledSubHeader,
-} from '../../styles/js/shared';
-import styles2 from './login.module.css';
+import CheckAgreeTerms from '../CheckAgreeTerms';
+import styles from './login.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
-
-const styles = {
-  logo: {
-    margin: '0 auto',
-    display: 'block',
-  },
-  primaryButton: {
-    display: 'block',
-    margin: `${units(2)} auto`,
-    width: '80%',
-  },
-  orDivider: {
-    padding: `${units(3)} 0`,
-  },
-};
 
 class Login extends React.Component {
   constructor(props) {
@@ -148,20 +129,19 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div id="login" className={cx('login', styles2['login-form'])}>
+      <div id="login" className={cx('login', styles['login-form'])}>
         <form onSubmit={this.onFormSubmit.bind(this)} className="login__form">
           <FormattedGlobalMessage messageKey="appNameHuman">
             {appNameHuman => (
               <img
-                style={styles.logo}
+                className={cx('login__icon', styles['login-logo'])}
                 alt={appNameHuman}
-                width="120"
-                className="login__icon"
                 src={stringHelper('LOGO_URL')}
+                width="120"
               />
             )}
           </FormattedGlobalMessage>
-          <StyledSubHeader className="login__heading">
+          <h6 className="login__heading">
             {this.state.type === 'login' ?
               <FormattedMessage
                 id="login.title"
@@ -173,90 +153,81 @@ class Login extends React.Component {
                 defaultMessage="Register"
                 description="Header title for the new user registration page"
               />}
-          </StyledSubHeader>
+          </h6>
           {this.state.type === 'login' ?
-            <ButtonMain
-              size="default"
-              theme="lightText"
-              variant="outlined"
-              onClick={this.oAuthLogin.bind(this, 'google_oauth2')}
-              iconLeft={<GoogleColorIcon />}
-              label={
+            <div className={styles['login-form-choice']}>
+              <ButtonMain
+                size="default"
+                theme="lightText"
+                variant="outlined"
+                onClick={this.oAuthLogin.bind(this, 'google_oauth2')}
+                iconLeft={<GoogleColorIcon />}
+                label={
+                  <FormattedMessage
+                    id="login.withGoogle"
+                    defaultMessage="Sign in with Google"
+                    description="Button label for the user to sign in to the app using their google credentials"
+                  />
+                }
+              />
+              <div className={styles['login-form-choice-divider']}>
                 <FormattedMessage
-                  id="login.withGoogle"
-                  defaultMessage="Sign in with Google"
-                  description="Button label for the user to sign in to the app using their google credentials"
-                />
-              }
-            /> : null
-          }
-          {this.state.type === 'login' ?
-            <Grid container alignItems="center" spacing={3} style={styles.orDivider}>
-              <Grid item xs>
-                <hr />
-              </Grid>
-              <Grid item>
-                <FormattedMessage
+                  tagName="p"
                   id="login.emailLogin"
                   defaultMessage="Or, sign in with your email"
                   description="Button label for the user to sign in to the app using their email address"
                 />
-              </Grid>
-              <Grid item xs>
-                <hr />
-              </Grid>
-            </Grid> : null
+              </div>
+            </div> : null
           }
           {this.state.message &&
             <Alert
+              className={styles['login-form-alert']}
               content={this.state.message}
               variant={this.state.registrationSubmitted ? 'info' : 'error'}
             />
           }
           {this.state.registrationSubmitted ?
             null :
-            <div className={inputStyles['form-fieldset']}>
-              {this.state.type === 'login' ?
-                null :
-                <div className="login__name">
+            <>
+              <div className={inputStyles['form-fieldset']}>
+                {this.state.type === 'login' ?
+                  null :
                   <TextField
-                    margin="normal"
-                    fullWidth
-                    variant="outlined"
-                    name="name"
+                    required
+                    componentProps={{
+                      name: 'name',
+                    }}
                     value={this.state.name}
                     className={cx('login__name-input', inputStyles['form-fieldset-field'])}
-                    inputRef={(i) => { this.inputName = i; }}
+                    ref={(i) => { this.inputName = i; }}
                     onChange={this.handleFieldChange.bind(this)}
                     label={<FormattedMessage id="login.nameLabel" defaultMessage="Name" description="Text field label for the user's name" />}
                   />
-                </div>}
+                }
 
-              <div className="login__email">
                 <TextField
-                  margin="normal"
-                  fullWidth
-                  variant="outlined"
-                  type="email"
-                  name="email"
+                  required
+                  componentProps={{
+                    type: 'email',
+                    name: 'email',
+                  }}
                   value={this.state.email}
                   className={cx('login__email-input', inputStyles['form-fieldset-field'])}
-                  inputRef={(i) => { this.inputEmail = i; }}
+                  ref={(i) => { this.inputEmail = i; }}
                   onChange={this.handleFieldChange.bind(this)}
                   label={
                     <FormattedMessage id="login.emailLabel" defaultMessage="Email" description="Text field label for the user's email address" />
                   }
                   autoFocus
                 />
-              </div>
 
-              <div className="login__password">
                 <TextField
-                  margin="normal"
-                  fullWidth
-                  variant="outlined"
-                  type="password"
-                  name="password"
+                  required
+                  componentProps={{
+                    type: 'password',
+                    name: 'password',
+                  }}
                   value={this.state.password}
                   className={cx('login__password-input', inputStyles['form-fieldset-field'])}
                   onChange={this.handleFieldChange.bind(this)}
@@ -270,144 +241,141 @@ class Login extends React.Component {
                     />
                   )}
                 />
-              </div>
 
-              {this.state.type === 'login' && this.state.showOtp ?
-                <div className="login__otp_attempt">
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    variant="outlined"
-                    name="otp_attempt"
-                    value={this.state.otp_attempt}
-                    className={cx('login__otp_attempt-input', inputStyles['form-fieldset-field'])}
-                    onChange={this.handleFieldChange.bind(this)}
-                    label={
-                      <FormattedMessage
-                        id="login.otpAttemptLabel"
-                        defaultMessage="Two-Factor Authentication Token"
-                        description="Text field label for the user's two-factor authentication token"
-                      />
-                    }
-                  />
-                </div> : null}
-
-              {this.state.type === 'login' ?
-                null :
-                <div className="login__password-confirmation">
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    variant="outlined"
-                    type="password"
-                    name="passwordConfirmation"
-                    value={this.state.passwordConfirmation}
-                    className={cx('login__password-confirmation-input', inputStyles['form-fieldset-field'])}
-                    onChange={this.handleFieldChange.bind(this)}
-                    label={
-                      <FormattedMessage
-                        id="login.passwordConfirmLabel"
-                        defaultMessage="Password confirmation"
-                        description="Text field label for the to confirm their password"
-                      />
-                    }
-                  />
-                </div>}
-
-              {this.state.type === 'login' ?
-                null :
-                <UserTosForm
-                  user={{}}
-                  showTitle={false}
-                  handleCheckTos={this.handleCheckTos.bind(this)}
-                  checkedTos={this.state.checkedTos}
-                />}
-
-              <div className="login__actions">
-                <ButtonMain
-                  size="default"
-                  theme="brand"
-                  variant="contained"
-                  buttonProps={{
-                    id: 'submit-register-or-login',
-                    type: 'submit',
-                  }}
-                  className={`login__submit login__submit--${this.state.type}`}
-                  label={this.state.type === 'login' ?
-                    <FormattedMessage
-                      id="login.signIn"
-                      defaultMessage="Sign in"
-                      description="Sign in button label"
-                    /> :
-                    <FormattedMessage
-                      id="login.signUp"
-                      defaultMessage="Sign up"
-                      description="Sign up button label"
+                {this.state.type === 'login' && this.state.showOtp ?
+                  <div className="login__otp_attempt">
+                    <TextField
+                      required
+                      componentProps={{
+                        name: 'otp_attempt',
+                      }}
+                      value={this.state.otp_attempt}
+                      className={cx('login__otp_attempt-input', inputStyles['form-fieldset-field'])}
+                      onChange={this.handleFieldChange.bind(this)}
+                      label={
+                        <FormattedMessage
+                          id="login.otpAttemptLabel"
+                          defaultMessage="Two-Factor Authentication Token"
+                          description="Text field label for the user's two-factor authentication token"
+                        />
+                      }
                     />
-                  }
-                />
+                  </div> : null
+                }
+
                 {this.state.type === 'login' ?
-                  <span className="login__forgot-password">
-                    <Link to="/check/user/password-reset">
+                  null :
+                  <div className="login__password-confirmation">
+                    <TextField
+                      required
+                      componentProps={{
+                        type: 'password',
+                        name: 'passwordConfirmation',
+                      }}
+                      value={this.state.passwordConfirmation}
+                      className={cx('login__password-confirmation-input', inputStyles['form-fieldset-field'])}
+                      onChange={this.handleFieldChange.bind(this)}
+                      label={
+                        <FormattedMessage
+                          id="login.passwordConfirmLabel"
+                          defaultMessage="Password confirmation"
+                          description="Text field label for the to confirm their password"
+                        />
+                      }
+                    />
+                  </div>
+                }
+
+                {this.state.type === 'login' ?
+                  null :
+                  <div className={cx(styles['login-agree-terms'])}>
+                    <UserTosForm
+                      user={{}}
+                      showTitle={false}
+                      handleCheckTos={this.handleCheckTos.bind(this)}
+                      checkedTos={this.state.checkedTos}
+                    />
+                  </div>
+                }
+                {this.state.type === 'login' ?
+                  <div className={cx(styles['login-agree-terms'])}>
+                    <CheckAgreeTerms />
+                  </div>
+                  : null
+                }
+                <div className="login__actions">
+                  <ButtonMain
+                    size="default"
+                    theme="brand"
+                    variant="contained"
+                    buttonProps={{
+                      id: 'submit-register-or-login',
+                      type: 'submit',
+                    }}
+                    className={`login__submit login__submit--${this.state.type}`}
+                    label={this.state.type === 'login' ?
+                      <FormattedMessage
+                        id="login.signIn"
+                        defaultMessage="Sign in"
+                        description="Sign in button label"
+                      /> :
+                      <FormattedMessage
+                        id="login.signUp"
+                        defaultMessage="Sign up"
+                        description="Sign up button label"
+                      />
+                    }
+                  />
+                  {this.state.type === 'login' ?
+                    <Link to="/check/user/password-reset" className={cx('login__forgot-password', styles['login-forgot-password-action'])}>
                       <FormattedMessage
                         id="loginEmail.lostPassword"
                         defaultMessage="Forgot your password?"
                         description="Link for the user to initiate a password reset if they do not know it"
                       />
                     </Link>
-                  </span>
-                  : null}
+                    : null}
+                </div>
               </div>
               {this.state.type === 'login' ? (
-                <div>
-                  <FormattedMessage
-                    id="login.newAccount"
-                    defaultMessage="Don't have an account?"
-                    description="Description to help the user sign up instead of logging in"
-                  />
-                  <ButtonMain
-                    size="default"
-                    theme="lightBrand"
-                    variant="contained"
-                    onClick={this.handleSwitchToRegister}
-                    buttonProps={{
-                      id: 'register',
-                    }}
-                    label={
-                      <FormattedMessage
-                        id="login.signUpLink"
-                        defaultMessage="Sign up"
-                        description="Button label. Switches from 'logging in' to 'create new account' mode"
-                      />
-                    }
-                  />
-                </div>
+                <ButtonMain
+                  className={styles['login-secondary-action']}
+                  size="default"
+                  theme="lightText"
+                  variant="outlined"
+                  onClick={this.handleSwitchToRegister}
+                  buttonProps={{
+                    id: 'register',
+                  }}
+                  label={
+                    <FormattedHTMLMessage
+                      id="login.signUpLink"
+                      defaultMessage="Don't have an account? <strong>Sign up</strong>"
+                      description="Button label. Switches from 'logging in' to 'create new account' mode"
+                    />
+                  }
+                />
               ) : (
-                <div>
-                  <FormattedMessage
-                    id="login.alreadyHasAccount"
-                    defaultMessage="Already have an account?"
-                    description="Description to help the user login instead of signing up"
-                  />
-                  <ButtonMain
-                    size="default"
-                    theme="lightBrand"
-                    variant="contained"
-                    buttonProps={{
-                      id: 'login',
-                    }}
-                    onClick={this.handleSwitchToLogin}
-                    label={
-                      <FormattedMessage
-                        id="login.signInLink"
-                        defaultMessage="Sign in"
-                        description="Button label. Switches from 'create new account' to 'logging in' mode"
-                      />
-                    }
-                  />
-                </div>
+                <ButtonMain
+                  className={styles['login-secondary-action']}
+                  size="default"
+                  theme="lightText"
+                  variant="outlined"
+                  buttonProps={{
+                    id: 'login',
+                  }}
+                  onClick={this.handleSwitchToLogin}
+                  label={
+                    <FormattedHTMLMessage
+                      id="login.signInLink"
+                      defaultMessage="Already have an account? <strong>Sign in</strong>"
+                      description="Button label. Switches from 'create new account' to 'logging in' mode"
+                    />
+                  }
+                />
               )}
-            </div>}
+            </>
+          }
         </form>
       </div>
     );

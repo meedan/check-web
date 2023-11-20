@@ -70,23 +70,13 @@
     "defaultMessage": "Forgot your password?"
   },
   {
-    "id": "login.newAccount",
-    "description": "Description to help the user sign up instead of logging in",
-    "defaultMessage": "Don't have an account?"
-  },
-  {
     "id": "login.signUpLink",
     "description": "Button label. Switches from 'logging in' to 'create new account' mode",
-    "defaultMessage": "Sign up"
-  },
-  {
-    "id": "login.alreadyHasAccount",
-    "description": "Description to help the user login instead of signing up",
-    "defaultMessage": "Already have an account?"
+    "defaultMessage": "Don't have an account? <strong>Sign up</strong>"
   },
   {
     "id": "login.signInLink",
     "description": "Button label. Switches from 'create new account' to 'logging in' mode",
-    "defaultMessage": "Sign in"
+    "defaultMessage": "Already have an account? <strong>Sign in</strong>"
   }
 ]

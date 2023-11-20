@@ -4,19 +4,20 @@ import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Message from './Message';
+import cx from 'classnames/bind';
+import TextField from './cds/inputs/TextField';
+import Alert from './cds/alerts-and-prompts/Alert';
 import UserTosForm from './UserTosForm';
 import { FormattedGlobalMessage } from './MappedMessage';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
 import { stringHelper } from '../customHelpers';
 import { getErrorMessageForRelayModernProblem } from '../helpers';
+import styles from './login/login.module.css';
+import inputStyles from '../styles/css/inputs.module.css';
 import {
   units,
-  ContentColumn,
-  StyledCard,
 } from '../styles/js/shared';
 
 const useStyles = makeStyles({
@@ -51,7 +52,7 @@ const InviteNewAccountComponent = ({ user }) => {
     if (checkedTos) {
       const onFailure = (errors) => {
         const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
-        setMessage(errorMessage);
+        setMessage(errorMessage[0].message);
       };
 
       const onSuccess = () => {
@@ -113,9 +114,9 @@ const InviteNewAccountComponent = ({ user }) => {
   const classes = useStyles();
 
   return (
-    <div className="login" id="login">
-      <ContentColumn center>
-        <StyledCard>
+    <div className={styles['login-wrapper']}>
+      <div className={styles['login-container']}>
+        <div id="login" className={cx('login', styles['login-form'])}>
           <form onSubmit={(e) => { onFormSubmit(e); }} className="login__form">
             <FormattedGlobalMessage messageKey="appNameHuman">
               {appNameHuman => (
@@ -152,17 +153,23 @@ const InviteNewAccountComponent = ({ user }) => {
               />
             </Typography>
 
-            <Message message={message} />
+            {message &&
+              <Alert
+                className={styles['login-form-alert']}
+                content={message}
+                variant="error"
+              />
+            }
 
-            <div className="login__email">
+            <div className={inputStyles['form-fieldset']}>
               <TextField
-                margin="normal"
-                fullWidth
-                variant="outlined"
-                type="email"
-                name="email"
+                required
+                componentProps={{
+                  type: 'email',
+                  name: 'email',
+                }}
                 value={email}
-                className="login__email-input"
+                className={cx('login__email-input', inputStyles['form-fieldset-field'])}
                 onChange={(e) => { setEmail(e.target.value); }}
                 label={
                   <FormattedMessage
@@ -173,17 +180,14 @@ const InviteNewAccountComponent = ({ user }) => {
                 }
                 disabled
               />
-            </div>
 
-            <div className="login__name">
               <TextField
                 required
-                margin="normal"
-                fullWidth
-                variant="outlined"
-                name="name"
+                componentProps={{
+                  name: 'name',
+                }}
                 value={name}
-                className="login__name-input"
+                className={cx('login__name-input', inputStyles['form-fieldset-field'])}
                 onChange={(e) => { setName(e.target.value); }}
                 label={
                   <FormattedMessage
@@ -194,18 +198,15 @@ const InviteNewAccountComponent = ({ user }) => {
                 }
                 autoFocus
               />
-            </div>
 
-            <div className="login__password">
               <TextField
                 required
-                margin="normal"
-                fullWidth
-                variant="outlined"
-                type="password"
-                name="password"
+                componentProps={{
+                  type: 'password',
+                  name: 'password',
+                }}
                 value={password}
-                className="login__password-input"
+                className={cx('login__password-input', inputStyles['form-fieldset-field'])}
                 onChange={(e) => { setPassword(e.target.value); }}
                 label={
                   <FormattedMessage
@@ -215,18 +216,15 @@ const InviteNewAccountComponent = ({ user }) => {
                   />
                 }
               />
-            </div>
 
-            <div className="login__password-confirmation">
               <TextField
                 required
-                margin="normal"
-                fullWidth
-                variant="outlined"
-                type="password"
-                name="passwordConfirmation"
+                componentProps={{
+                  type: 'password',
+                  name: 'passwordConfirmation',
+                }}
                 value={passwordConfirmation}
-                className="login__password-confirmation-input"
+                className={cx('login__password-confirmation-input', inputStyles['form-fieldset-field'])}
                 onChange={(e) => { setPasswordConfirmation(e.target.value); }}
                 label={
                   <FormattedMessage
@@ -237,13 +235,14 @@ const InviteNewAccountComponent = ({ user }) => {
                 }
               />
             </div>
-
-            <UserTosForm
-              user={{}}
-              showTitle={false}
-              handleCheckTos={handleCheckTos}
-              checkedTos={checkedTos}
-            />
+            <div className={cx(styles['login-agree-terms'])}>
+              <UserTosForm
+                user={{}}
+                showTitle={false}
+                handleCheckTos={handleCheckTos}
+                checkedTos={checkedTos}
+              />
+            </div>
             <div className="login__actions">
               <Button
                 variant="contained"
@@ -259,10 +258,9 @@ const InviteNewAccountComponent = ({ user }) => {
                 />
               </Button>
             </div>
-
           </form>
-        </StyledCard>
-      </ContentColumn>
+        </div>
+      </div>
     </div>
   );
 };
