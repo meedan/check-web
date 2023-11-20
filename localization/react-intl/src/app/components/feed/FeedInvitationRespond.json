@@ -25,14 +25,14 @@
     "defaultMessage": "Decline Invitation"
   },
   {
-    "id": "feedItem.importTitle",
-    "description": "Dialog title when importing a claim from feed page.",
-    "defaultMessage": "Import data to workspace"
+    "id": "feedInvitation.promptDeclineTitle",
+    "description": "Dialog title when a user is prompted to confirm that they wish to decline (reject) an invitation.",
+    "defaultMessage": "Decline Invitation?"
   },
   {
-    "id": "feedItem.importDescription",
-    "description": "Dialog description when importing a claim from feed page.",
-    "defaultMessage": "A new claim will be created in your workspace with media."
+    "id": "feedItem.promptDeclineInfo",
+    "description": "Dialog description when a user declines an invitation, telling them who to contact if they change their mind and want another invitation.",
+    "defaultMessage": "You will need to contact {creator} in order to rejoin."
   },
   {
     "id": "feedItem.proceedImport",
