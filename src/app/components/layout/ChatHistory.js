@@ -242,7 +242,6 @@ const ChatHistory = ({
         {
           history.length === 0 && (
             <Alert
-              id="save-feed__no-license-error"
               title={
                 <FormattedMessage
                   id="chatHistory.noMessages"
