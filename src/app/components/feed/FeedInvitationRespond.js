@@ -146,18 +146,21 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
         open={confirmReject}
         title={
           <FormattedMessage
-            id="feedItem.importTitle"
-            defaultMessage="Import data to workspace"
-            description="Dialog title when importing a claim from feed page."
+            id="feedInvitation.promptDeclineTitle"
+            defaultMessage="Decline Invitation?"
+            description="Dialog title when a user is prompted to confirm that they wish to decline (reject) an invitation."
           />
         }
         body={(
           <>
             <span className="typography-title">
               <FormattedMessage
-                id="feedItem.importDescription"
-                defaultMessage="A new claim will be created in your workspace with media."
-                description="Dialog description when importing a claim from feed page."
+                id="feedItem.promptDeclineInfo"
+                defaultMessage="You will need to contact {creator} in order to rejoin."
+                description="Dialog description when a user declines an invitation, telling them who to contact if they change their mind and want another invitation."
+                values={{
+                  creator: `${props.feed_invitation.user.name} (${props.feed_invitation.user.email})`,
+                }}
               />
             </span>
           </>
