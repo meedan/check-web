@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntlProvider } from '../../../test/unit/helpers/intl-test';
+import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
 import Login from './Login';
 

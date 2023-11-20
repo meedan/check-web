@@ -50,6 +50,11 @@
         }
       }
 
+      .login-form-invited {
+        margin: 24px 0;
+        text-align: center;
+      }
+
       .login-form-choice {
         color: var(--textSecondary);
         display: flex;
