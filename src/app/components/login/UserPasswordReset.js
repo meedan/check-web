@@ -48,7 +48,7 @@ const UserPasswordReset = (props) => {
 
   const handleSubmit = (e) => {
     const onFailure = (error) => {
-      const message = getErrorMessageForRelayModernProblem(error) || <GenericUnknownErrorMessage />;
+      const message = getErrorMessageForRelayModernProblem(error)[0].message || <GenericUnknownErrorMessage />;
       setErrorMsg(message);
       setSubmitDisabled(true);
     };
