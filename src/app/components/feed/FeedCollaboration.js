@@ -79,7 +79,7 @@ const FeedCollaboration = ({
   const [invites, setInvites] = React.useState([]);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
-  const readOnly = Boolean(collaboratorId);
+  const readOnly = (collaboratorId !== feed.team.dbid);
 
   const handleAdd = (email) => {
     if (EmailValidator.validate(email)) {
@@ -167,7 +167,7 @@ const FeedCollaboration = ({
           <FormattedMessage id="feedCollaboration.organizer" defaultMessage="organizer" description="Label to highlight the Shared Feed organizer" />
         </span> : null
       }
-      { collaboratorId === team?.dbid ?
+      { type !== 'organizer' && collaboratorId === team?.dbid ?
         <span className={cx('typography-body2', styles['feed-collab-organizer'])}>
           <FormattedMessage id="feedCollaboration.you" defaultMessage="you" description="Label to highlight user's organization in Shared Feed collaboration widget" />
         </span> : null

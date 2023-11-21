@@ -379,12 +379,12 @@ const ProjectsComponent = ({
                   break;
                 // Feeds not created by the workspace, but joined upon invitation
                 case 'FeedTeam':
-                  itemProps = { routePrefix: 'feed-team' };
+                  itemProps = { routePrefix: 'feed', routeSuffix: '/edit' };
                   itemType = 'feed-team';
                   break;
                 // Feed invitations received but not processed yet
                 case 'FeedInvitation':
-                  itemProps = { routePrefix: 'feed-invitation' };
+                  itemProps = { routePrefix: 'feed', routeSuffix: '/invitation' };
                   itemType = 'feed-invitation';
                   itemIcon = <ScheduleSendIcon className={cx(styles.listIcon, styles.listIconInvitedFeed)} />;
                   break;

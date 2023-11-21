@@ -1,24 +1,25 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import SaveFeedTeam from './SaveFeedTeam';
+import SaveFeed from './SaveFeed';
 
 const EditFeedTeam = ({ routeParams }) => (
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query EditFeedTeamQuery($feedTeamId: ID!) {
-        feed_team(id: $feedTeamId) {
-          ...SaveFeedTeam_feedTeam
+      query EditFeedTeamQuery($feedId: Int, $teamSlug: String) {
+        feed_team(feedId: $feedId, teamSlug: $teamSlug) {
+          ...SaveFeed_feedTeam
         }
       }
     `}
     variables={{
-      feedTeamId: parseInt(routeParams.feedTeamId, 10),
+      feedId: parseInt(routeParams.feedId, 10),
+      teamSlug: routeParams.team,
     }}
     render={({ error, props }) => {
       if (!error && props) {
-        return (<SaveFeedTeam feedTeam={props.feed_team} />);
+        return (<SaveFeed feedTeam={props.feed_team} />);
       }
       return null;
     }}
