@@ -1,0 +1,42 @@
+[
+  {
+    "id": "feedInvitation.invited",
+    "description": "This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence.",
+    "defaultMessage": "has invited your organization to contribute to a Check Shared Feed"
+  },
+  {
+    "id": "feedInvitation.notAdmin",
+    "description": "An error message that informs the user that they are not the administrator of this workspace and as such cannot perform any actions on this page.",
+    "defaultMessage": "You are not the admin of this workspace. Please contact your workspace administrator if you think this is in error."
+  },
+  {
+    "id": "feedInvitation.alreadyAccepted",
+    "description": "An informational message that appears if the user tries to accept an invitation that they have already accepted.",
+    "defaultMessage": "You have already accepted this invitation."
+  },
+  {
+    "id": "feedInvitation.accept",
+    "description": "Label for a button that the user presses to accept an invitation they have received to collaborate with another organization",
+    "defaultMessage": "Accept Invitation"
+  },
+  {
+    "id": "feedInvitation.decline",
+    "description": "Label for a button that the user presses to decline an invitation they have received to collaborate with another organization",
+    "defaultMessage": "Decline Invitation"
+  },
+  {
+    "id": "feedInvitation.promptDeclineTitle",
+    "description": "Dialog title when a user is prompted to confirm that they wish to decline (reject) an invitation.",
+    "defaultMessage": "Decline Invitation?"
+  },
+  {
+    "id": "feedItem.promptDeclineInfo",
+    "description": "Dialog description when a user declines an invitation, telling them who to contact if they change their mind and want another invitation.",
+    "defaultMessage": "You will need to contact {creator} in order to rejoin."
+  },
+  {
+    "id": "feedItem.promptDeclineConfirm",
+    "description": "Button label to confirm declining an invitation",
+    "defaultMessage": "Decline invitation"
+  }
+]
