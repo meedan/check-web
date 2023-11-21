@@ -8,7 +8,7 @@ describe('<ChangePasswordComponent />', () => {
       type="reset-password"
       showCurrentPassword="OldPaswword"
     />);
-    expect(wrapper.find('.user-password-change__password-input')).toHaveLength(1);
+    expect(wrapper.find('.int-user-password-change__password-input')).toHaveLength(1);
     expect(wrapper.html()).toMatch('New password (minimum 8 characters)');
   });
 });

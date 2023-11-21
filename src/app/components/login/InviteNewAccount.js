@@ -143,7 +143,7 @@ const InviteNewAccountComponent = ({ user }) => {
                   name: 'email',
                 }}
                 value={email}
-                className={cx('login__email-input', inputStyles['form-fieldset-field'])}
+                className={cx('int-login__email-input', inputStyles['form-fieldset-field'])}
                 onChange={(e) => { setEmail(e.target.value); }}
                 label={
                   <FormattedMessage
@@ -180,7 +180,7 @@ const InviteNewAccountComponent = ({ user }) => {
                   name: 'password',
                 }}
                 value={password}
-                className={cx('login__password-input', inputStyles['form-fieldset-field'])}
+                className={cx('int-login__password-input', inputStyles['form-fieldset-field'])}
                 onChange={(e) => { setPassword(e.target.value); }}
                 label={
                   <FormattedMessage
@@ -198,7 +198,7 @@ const InviteNewAccountComponent = ({ user }) => {
                   name: 'passwordConfirmation',
                 }}
                 value={passwordConfirmation}
-                className={cx('login__password-confirmation-input', inputStyles['form-fieldset-field'])}
+                className={cx('int-login__password-confirmation-input', inputStyles['form-fieldset-field'])}
                 onChange={(e) => { setPasswordConfirmation(e.target.value); }}
                 label={
                   <FormattedMessage

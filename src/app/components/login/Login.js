@@ -213,7 +213,7 @@ class Login extends React.Component {
                     name: 'email',
                   }}
                   value={this.state.email}
-                  className={cx('login__email-input', inputStyles['form-fieldset-field'])}
+                  className={cx('int-login__email-input', inputStyles['form-fieldset-field'])}
                   ref={(i) => { this.inputEmail = i; }}
                   onChange={this.handleFieldChange.bind(this)}
                   label={
@@ -229,7 +229,7 @@ class Login extends React.Component {
                     name: 'password',
                   }}
                   value={this.state.password}
-                  className={cx('login__password-input', inputStyles['form-fieldset-field'])}
+                  className={cx('int-login__password-input', inputStyles['form-fieldset-field'])}
                   onChange={this.handleFieldChange.bind(this)}
                   label={this.state.type === 'login' ? (
                     <FormattedMessage id="login.passwordInputHint" defaultMessage="Password" description="Text field label for the user's password" />
@@ -265,7 +265,7 @@ class Login extends React.Component {
 
                 {this.state.type === 'login' ?
                   null :
-                  <div className="login__password-confirmation">
+                  <div className="int-login__password-confirmation">
                     <TextField
                       required
                       componentProps={{
@@ -273,7 +273,7 @@ class Login extends React.Component {
                         name: 'passwordConfirmation',
                       }}
                       value={this.state.passwordConfirmation}
-                      className={cx('login__password-confirmation-input', inputStyles['form-fieldset-field'])}
+                      className={cx('int-login__password-confirmation-input', inputStyles['form-fieldset-field'])}
                       onChange={this.handleFieldChange.bind(this)}
                       label={
                         <FormattedMessage

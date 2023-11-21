@@ -105,12 +105,12 @@ function ChangePasswordComponent({
   };
 
   return (
-    <div className={cx('user-password-change__password-input', inputStyles['form-fieldset'])}>
+    <div className={cx('int-user-password-change__password-input', inputStyles['form-fieldset'])}>
       <Message message={errorMsg} />
       {showCurrentPassword === true ? (
         <TextField
           required
-          className={cx('user-password-change__password-input-field', inputStyles['form-fieldset-field'])}
+          className={cx('int-user-password-change__password-input-field', inputStyles['form-fieldset-field'])}
           componentProps={{
             id: 'password-change-password-input-current',
             type: 'password',
@@ -127,7 +127,7 @@ function ChangePasswordComponent({
       ) : null}
       <TextField
         required
-        className={cx('user-password-change__password-input-field', inputStyles['form-fieldset-field'])}
+        className={cx('int-user-password-change__password-input-field', inputStyles['form-fieldset-field'])}
         componentProps={{
           id: 'password-change-password-input',
           type: 'password',
@@ -144,7 +144,7 @@ function ChangePasswordComponent({
       />
       <TextField
         required
-        className="user-password-change__password-input-field"
+        className="int-user-password-change__password-input-field"
         componentProps={{
           id: 'password-change-password-input-confirm',
           type: 'password',

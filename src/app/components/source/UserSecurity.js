@@ -356,7 +356,7 @@ class UserSecurity extends Component {
                     type="password"
                     name="password"
                     required
-                    className="login__password-input"
+                    className="int-login__password-input"
                     onChange={this.handleFieldChange.bind(this)}
                     error={!this.state.errors.password}
                     helperText={this.state.errors.password ? null : this.renderMessage('passwordError')}
