@@ -10,9 +10,9 @@
     "defaultMessage": "Edit shared feed"
   },
   {
-    "id": "saveFeed.sharedFeedPageEditCollabSubtitle",
-    "description": "Subtitle of the shared feed editing page",
-    "defaultMessage": "Collab with likeminded organizations"
+    "id": "createFeed.sharedFeedPageDescription",
+    "description": "Description of the shared feed creation page",
+    "defaultMessage": "Share data feeds with other organizations to unlock new insights across audiences and languages."
   },
   {
     "id": "saveFeed.viewSharedFeed",
@@ -28,11 +28,6 @@
     "id": "saveFeed.sharedFeedPageTitle",
     "description": "Title of the shared feed creation page",
     "defaultMessage": "Shared feed"
-  },
-  {
-    "id": "createFeed.sharedFeedPageDescription",
-    "description": "Description of the shared feed creation page",
-    "defaultMessage": "Share data feeds with other organizations to unlock new insights across audiences and languages."
   },
   {
     "id": "saveFeed.feedDetailsTitle",

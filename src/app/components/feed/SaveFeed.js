@@ -295,24 +295,22 @@ const SaveFeed = (props) => {
   );
 
   if (feed.dbid) {
-    pageTitle = (
+    pageTitle = isFeedOwner ? (
       <FormattedMessage
         id="saveFeed.sharedFeedPageEditSubtitle"
         defaultMessage="Edit shared feed"
         description="Subtitle of the shared feed editing page"
       />
-    );
+    ) : feed.name;
   }
 
-  if (feed.dbid && !isFeedOwner) {
-    pageTitle = (
-      <FormattedMessage
-        id="saveFeed.sharedFeedPageEditCollabSubtitle"
-        defaultMessage="Collab with likeminded organizations"
-        description="Subtitle of the shared feed editing page"
-      />
-    );
-  }
+  const pageDescription = isFeedOwner ? (
+    <FormattedMessage
+      id="createFeed.sharedFeedPageDescription"
+      defaultMessage="Share data feeds with other organizations to unlock new insights across audiences and languages."
+      description="Description of the shared feed creation page"
+    />
+  ) : feed.description;
 
   return (
     <div className={styles.saveFeedContainer}>
@@ -324,6 +322,7 @@ const SaveFeed = (props) => {
               size="default"
               theme="brand"
               onClick={() => { handleViewFeed(feed.dbid); }}
+              disabled={!isFeedOwner && !selectedListId}
               label={
                 <FormattedMessage
                   id="saveFeed.viewSharedFeed"
@@ -360,13 +359,11 @@ const SaveFeed = (props) => {
             { pageTitle }
           </div>
           <div className="typography-body1">
-            <FormattedMessage
-              id="createFeed.sharedFeedPageDescription"
-              defaultMessage="Share data feeds with other organizations to unlock new insights across audiences and languages."
-              description="Description of the shared feed creation page"
-            />
+            { pageDescription }
           </div>
         </div>
+
+        { (!isFeedOwner && tags.length > 0) && <TagList tags={tags} readOnly /> }
 
         { isFeedOwner && (
           <div className={styles.saveFeedCard}>
@@ -593,8 +590,8 @@ export default createFragmentContainer(SaveFeed, graphql`
       id
       dbid
       name
-      discoverable
       description
+      discoverable
       licenses
       tags
       team {

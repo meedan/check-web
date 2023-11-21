@@ -14,7 +14,7 @@ import { safelyParseJSON } from '../../helpers';
 export const FeedComponent = ({ routeParams, ...props }) => {
   const { team } = props;
   const { feed } = team;
-  const { tab } = routeParams;
+  const tab = routeParams.tab || 'feed';
   // set initial teamFilters to list of all teams OR whatever is from the query
   const [teamFilters, setTeamFilters] = React.useState(feed?.teams?.edges.map(item => item.node.dbid));
 

@@ -17,7 +17,8 @@ const FeedHeader = ({ feed }) => {
   };
 
   const handleClickSettings = () => {
-    browserHistory.push(`/${feed.team.slug}/feed/${feed.dbid}/edit`);
+    const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/)[1];
+    browserHistory.push(`/${teamSlugFromUrl}/feed/${feed.dbid}/edit`);
   };
 
   return (
@@ -94,8 +95,5 @@ export default createFragmentContainer(FeedHeader, graphql`
     dbid
     licenses
     permissions
-    team {
-      slug
-    }
   }
 `);

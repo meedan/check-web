@@ -114,7 +114,7 @@ class Root extends Component {
                   <Route path=":team/published(/:query)" component={Published} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
                   <Route path=":team/feed/:feedId/invitation" component={FeedInvitationRespond} />
-                  <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
+                  <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />
                   <Route path=":team/feed/create" component={SaveFeed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
