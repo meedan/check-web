@@ -274,7 +274,7 @@ class HomeComponent extends Component {
       return false;
     })();
 
-    if (loggedIn && user.completed_signup) {
+    if (loggedIn && !user.completed_signup) {
       return (
         <InviteNewAccount teamSlug={teamSlug} />
       );
