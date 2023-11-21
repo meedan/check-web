@@ -12,15 +12,21 @@ import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
 export const FeedComponent = ({ routeParams, ...props }) => {
-  const { team } = props;
+  const { team, feed_team } = props;
   const { feed } = team;
   const tab = routeParams.tab || 'feed';
+  const isFeedOwner = feed_team.team_id === feed.team_id;
   // set initial teamFilters to list of all teams OR whatever is from the query
   const [teamFilters, setTeamFilters] = React.useState(feed?.teams?.edges.map(item => item.node.dbid));
 
   if (!feed) {
     browserHistory.push('/check/not-found');
     return null;
+  }
+
+  // Redirect to edit FeedTeam if we're not sharing a list and we're not the feed creator
+  if (!isFeedOwner && feed_team && !feed_team.saved_search_id) {
+    browserHistory.push(`/${routeParams.team}/feed/${feed.dbid}/edit`);
   }
 
   const feedTeam = feed.current_feed_team;
@@ -227,9 +233,14 @@ const Feed = ({ routeParams }) => (
       environment={Relay.Store}
       query={graphql`
         query FeedQuery($slug: String!, $feedId: Int!) {
+          feed_team(teamSlug: $slug, feedId: $feedId) {
+            team_id
+            saved_search_id
+          }
           team(slug: $slug) {
             feed(dbid: $feedId) {
               dbid
+              team_id
               name
               published
               filters

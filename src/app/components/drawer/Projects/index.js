@@ -100,6 +100,7 @@ const Projects = () => {
                   id
                   dbid
                   feed_id
+                  saved_search_id
                   feed {
                     name
                   }

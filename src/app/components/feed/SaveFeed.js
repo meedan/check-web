@@ -322,7 +322,7 @@ const SaveFeed = (props) => {
               size="default"
               theme="brand"
               onClick={() => { handleViewFeed(feed.dbid); }}
-              disabled={!isFeedOwner && !selectedListId}
+              disabled={!isFeedOwner && !feedTeam.saved_search_id}
               label={
                 <FormattedMessage
                   id="saveFeed.viewSharedFeed"

@@ -112,10 +112,10 @@ class Root extends Component {
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
                   <Route path=":team/published(/:query)" component={Published} />
+                  <Route path=":team/feed/create" component={SaveFeed} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
                   <Route path=":team/feed/:feedId/invitation" component={FeedInvitationRespond} />
                   <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />
-                  <Route path=":team/feed/create" component={SaveFeed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
                   <Route path="*" component={NotFound} public />
