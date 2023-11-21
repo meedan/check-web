@@ -140,13 +140,24 @@ const SaveFeed = (props) => {
   const [tags, setTags] = React.useState(feed.tags || []);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
+  // tracking pending messages to the API for bulk email invites
+  // this is not tracked as state, but rather outside the component lifecycle
+  // because it all happens in one batch update that doesn't, and shouldn't,
+  // trigger rerender
+  let pendingMessages = 0;
+
   const handleViewFeed = (feedId) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     browserHistory.push(`/${teamSlug}/feed/${feedId}/feed`);
   };
 
   const onInviteSuccess = () => {
-    handleViewFeed(feed.dbid || createdFeedDbid);
+    pendingMessages -= 1;
+    // if we have successfully processed all messages (number of success callbacks
+    // equals number of calls) then we redirect
+    if (pendingMessages === 0) {
+      handleViewFeed(feed.dbid || createdFeedDbid);
+    }
   };
 
   const onFailure = (error) => {
@@ -157,7 +168,10 @@ const SaveFeed = (props) => {
 
   const handleInvite = (dbid) => {
     setSaving(true);
+
     // TODO Make createFeedInvitation accept multiple emails
+    pendingMessages = newInvites.length;
+
     newInvites.forEach((email) => {
       const input = {
         feed_id: dbid,
