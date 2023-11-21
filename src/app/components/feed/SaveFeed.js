@@ -1,4 +1,3 @@
-/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
@@ -476,7 +475,6 @@ const SaveFeed = (props) => {
           />
           { feed.id ?
             <FeedActions
-              permissions={feed.permissions}
               disableSaveButton={disableSaveButton}
               saving={saving}
               handleDelete={handleDelete}
@@ -599,19 +597,15 @@ export default createFragmentContainer(SaveFeed, graphql`
       description
       licenses
       tags
-      permissions
       team {
         dbid
         name
         slug
       }
-      teams_count
       saved_search_id
-      saved_search {
-        title
-      }
       ...FeedCollaboration_feed
       ...FeedMetadata_feed
     }
+    ...FeedActions_feedTeam
   }
 `);

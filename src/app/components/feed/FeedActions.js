@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import styles from './SaveFeed.module.css';
 import Can from '../Can';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -10,8 +12,6 @@ import ChevronDownIcon from '../../icons/chevron_down.svg';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 
 const FeedActions = ({
-  permissions,
-  disableSaveButton,
   saving,
   handleDelete,
   handleLeaveFeed,
@@ -20,7 +20,7 @@ const FeedActions = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
   const [showLeaveDialog, setShowLeaveDialog] = useState(false);
-  const feed = feedTeam?.feed || {};
+  const { feed } = feedTeam;
   const isFeedOwner = feedTeam.team_id === feed.team.dbid;
 
   const handleMenuClick = (event) => {
@@ -57,7 +57,6 @@ const FeedActions = ({
     menuItem = (
       <MenuItem disabled>
         <FormattedHTMLMessage
-          permissions={feed.permissions}
           id="SaveFeed.deleteButtonDisabled"
           defaultMessage="Delete shared feed <br />(Remove collaborators to <br /> delete this shared feed)"
           description="Menu option to inform user to remove collaborators before deleting the selected shared feed"
@@ -78,14 +77,14 @@ const FeedActions = ({
 
   return (
     <>
-      <Can permissions={permissions} permission="destroy Feed">
+      {/* FIXME: Review actual permissions for creator org vs invited org */}
+      <Can permissions={feed.permissions} permission="destroy Feed">
         <ButtonMain
-          className="typography-button ${styles.saveFeedButtonMoreActions"
+          className={`typography-button ${styles.saveFeedButtonMoreActions}`}
           theme="text"
           size="default"
           variant="outlined"
           onClick={handleMenuClick}
-          disabled={disableSaveButton}
           iconRight={<ChevronDownIcon />}
           label={
             <FormattedMessage
@@ -192,7 +191,7 @@ const FeedActions = ({
         body={
           <FormattedHTMLMessage
             id="saveFeed.leaveFeedConfirmationBod"
-            defaultMessage="Are you sure you? Any content you are currently sharing with this feed will no longer be acessible by collaboriting organization.<br /><br />You will need to contact <strong>{orgName}</strong> in order to rejoin."
+            defaultMessage="Are you sure you? Any content you are currently sharing with this feed will no longer be acessible by collaborating organizations.<br /><br />You will need to contact <strong>{orgName}</strong> in order to rejoin."
             values={{
               orgName: feed.team?.name,
             }}
@@ -222,12 +221,40 @@ const FeedActions = ({
 };
 
 FeedActions.propTypes = {
-  // permissions: PropTypes.array.isRequired,
-  disableSaveButton: PropTypes.bool.isRequired,
   saving: PropTypes.bool.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleLeaveFeed: PropTypes.func.isRequired,
-  feedTeam: PropTypes.object.isRequired,
+  feedTeam: PropTypes.shape({
+    team_id: PropTypes.number.isRequired,
+    feed: PropTypes.shape({
+      permissions: PropTypes.string.isRequired,
+      saved_search_id: PropTypes.number.isRequired,
+      saved_search: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }).isRequired,
+      teams_count: PropTypes.number.isRequired,
+      team: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        dbid: PropTypes.number.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
-export default FeedActions;
+export default createFragmentContainer(FeedActions, graphql`
+  fragment FeedActions_feedTeam on FeedTeam {
+    team_id
+    feed {
+      permissions
+      saved_search_id
+      saved_search {
+        title
+      }
+      teams_count
+      team {
+        name
+        dbid
+      }
+    }
+  }
+`);
