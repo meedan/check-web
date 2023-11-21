@@ -29,8 +29,8 @@ const InviteNewAccountComponent = ({ user }) => {
     e.preventDefault();
     if (checkedTos) {
       const onFailure = (errors) => {
-        const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
-        setMessage(errorMessage[0].message);
+        const errorMessage = getErrorMessageForRelayModernProblem(errors)[0].message || <GenericUnknownErrorMessage />;
+        setMessage(errorMessage);
       };
 
       const onSuccess = () => {
