@@ -1,27 +1,25 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import styles from './SaveFeed.module.css';
 import FeedCollaboration from './FeedCollaboration';
 import FeedContent from './FeedContent';
 import FeedMetadata from './FeedMetadata';
+import FeedActions from './FeedActions';
 import FeedPublish from './FeedPublish';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import Can from '../Can';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import TagList from '../cds/menus-lists-dialogs/TagList';
-import ChevronDownIcon from '../../icons/chevron_down.svg';
 
 const createMutation = graphql`
   mutation SaveFeedCreateFeedMutation($input: CreateFeedInput!) {
@@ -107,10 +105,26 @@ mutation SaveFeedUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {
 }
 `;
 
+const destroyFeedTeamMutation = graphql`
+  mutation SaveFeedDestroyFeedTeamMutation($input: DestroyFeedTeamInput!) {
+    destroyFeedTeam(input: $input) {
+      deletedId
+      feed {
+        name
+        dbid
+        id
+        team_id
+        type: __typename
+      }
+    }
+  }
+`;
+
+
 const SaveFeed = (props) => {
   const { feedTeam } = props;
-  const feed = feedTeam.feed || {}; // Editing a feed or creating a new feed
-  const isFeedOwner = feedTeam.team_id === feed.team.dbid;
+  const feed = feedTeam?.feed || {}; // Editing a feed or creating a new feed
+  const isFeedOwner = feedTeam?.team_id === feed?.team?.dbid;
 
   const [title, setTitle] = React.useState(feed.name || '');
   const [description, setDescription] = React.useState(feed.description || '');
@@ -126,8 +140,6 @@ const SaveFeed = (props) => {
   const [openSourceLicense, setOpenSourceLicense] = React.useState(feedLicenses.includes(3));
   const [tags, setTags] = React.useState(feed.tags || []);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
 
   const handleViewFeed = (feedId) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
@@ -136,15 +148,6 @@ const SaveFeed = (props) => {
 
   const onInviteSuccess = () => {
     handleViewFeed(feed.dbid || createdFeedDbid);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-    setShowDeleteDialog(false);
-  };
-
-  const handleDeleteClick = () => {
-    setShowDeleteDialog(true);
   };
 
   const onFailure = (error) => {
@@ -264,6 +267,25 @@ const SaveFeed = (props) => {
       },
     );
   };
+
+  const handleLeaveFeed = () => {
+    setSaving(true);
+
+    const input = { id: feedTeam.id };
+    commitMutation(
+      Relay.Store,
+      {
+        mutation: destroyFeedTeamMutation,
+        variables: { input },
+        onCompleted: () => {
+          const retPath = `/${feedTeam.team.slug}/all-items`;
+          browserHistory.push(retPath);
+        },
+        onError: onFailure,
+      },
+    );
+  };
+
 
   let pageTitle = (
     <FormattedMessage
@@ -453,126 +475,25 @@ const SaveFeed = (props) => {
             }
           />
           { feed.id ?
-            <Can permissions={feed.permissions} permission="destroy Feed">
-              <ButtonMain
-                className="typography-button ${styles.saveFeedButtonMoreActions"
-                theme="text"
-                size="default"
-                variant="outlined"
-                onClick={e => setAnchorEl(e.currentTarget)}
-                disabled={disableSaveButton}
-                iconRight={<ChevronDownIcon />}
-                label={
-                  <FormattedMessage
-                    id="saveFeed.MoreActionsButton"
-                    defaultMessage="More Actions"
-                    description="Label to the save button of the shared feed update form"
-                  />
-                }
-              />
-            </Can>
+            <FeedActions
+              permissions={feed.permissions}
+              disableSaveButton={disableSaveButton}
+              saving={saving}
+              handleDelete={handleDelete}
+              handleLeaveFeed={handleLeaveFeed}
+              feedTeam={feedTeam}
+            />
             : null }
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            { feed.teams_count > 1 ?
-              <MenuItem disabled>
-                <FormattedHTMLMessage
-                  id="SaveFeed.deleteButtonDisabled"
-                  defaultMessage="Delete shared feed <br />(Remove collaborators to <br /> delete this shared feed)"
-                  description="Menu option to inform user to remove collaborators before deleting the selected shared feed"
-                />
-              </MenuItem>
-              :
-              <MenuItem onClick={handleDeleteClick}>
-                <FormattedMessage
-                  id="SaveFeed.deleteButton"
-                  defaultMessage="Delete shared feed"
-                  description="Menu option to delete the selected shared feed"
-                />
-              </MenuItem>
-
-            }
-          </Menu>
         </div>
 
         <FeedMetadata feed={feed} />
 
         <FeedCollaboration
-          collaboratorId={feedTeam.team_id}
+          collaboratorId={feedTeam?.team_id}
           feed={feed}
           onChange={setNewInvites}
         />
       </div>
-
-      {/* "Delete" dialog */}
-      <ConfirmProceedDialog
-        open={showDeleteDialog}
-        title={
-          feed.saved_search_id ?
-            <FormattedMessage
-              id="saveFeed.deleteSharedFeedWarningTitle"
-              defaultMessage="Are you sure you want to delete this shared feed?"
-              description="'Delete' here is an infinitive verb"
-            />
-            :
-            <FormattedMessage
-              id="saveFeed.deleteSharedFeedTitle"
-              defaultMessage="Delete Shared Feed?"
-              description="'Delete' here is an infinitive verb"
-            />
-        }
-        body={
-          feed.saved_search_id ?
-            <>
-              <FormattedHTMLMessage
-                id="saveFeed.deleteSharedFeedConfirmationDialogWaningBody"
-                defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />"
-                values={{
-                  orgName: feed.team?.name,
-                }}
-                description="Confirmation dialog message when deleting a feed."
-              />
-              <Alert
-                variant="warning"
-                title={
-                  <FormattedHTMLMessage
-                    id="saveFeed.deleteSharedFeedWarning"
-                    defaultMessage="<strong>NOTE: Your custom list and items will remain available and unaffected.</strong>"
-                    description="Warning displayed on edit feed page when no list is selected."
-                  />
-                }
-                content={
-                  <ul className="bulleted-list">
-                    <li>{feed.saved_search.title}</li>
-                  </ul>
-                }
-              />
-            </>
-            :
-            <FormattedHTMLMessage
-              id="saveFeed.deleteSharedFeedConfirmationDialogBody"
-              defaultMessage="This shared feed is available to all users of <strong>{orgName}</strong>. After deleting it, no user will be able to access it.<br /><br />Note: Deleting this shared feed will not remove any items or list from your workspace."
-              values={{
-                orgName: feed.team?.name,
-              }}
-              description="Confirmation dialog message when deleting a feed."
-            />
-        }
-        proceedLabel={
-          <FormattedMessage
-            id="saveFeed.deleteSharedFeedConfirmationButton"
-            defaultMessage="Delete Shared Feed"
-            description="'Delete' here is an infinitive verb"
-          />
-        }
-        onProceed={handleDelete}
-        isSaving={saving}
-        cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
-        onCancel={handleClose}
-      />
 
       {/* "Update" dialog */}
       <ConfirmProceedDialog
@@ -667,6 +588,9 @@ export default createFragmentContainer(SaveFeed, graphql`
     id
     saved_search_id
     team_id
+    team {
+      slug
+    }
     feed {
       id
       dbid
