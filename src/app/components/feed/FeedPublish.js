@@ -92,7 +92,7 @@ const FeedPublish = ({
         {
           discoverableNoLicense && (
             <Alert
-              id="save-feed__no-license-error"
+              id="feed-publish__no-license-error"
               title={
                 <FormattedMessage
                   id="saveFeed.selectLicense"
