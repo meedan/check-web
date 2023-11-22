@@ -15,7 +15,7 @@ const renderQuery = ({ error, props }) => {
         currentUser={props.me}
         team={props.team}
         savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
-        feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name) }))}
+        feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
       />
     );
   }
@@ -46,6 +46,7 @@ const Projects = () => {
                   id
                   dbid
                   state
+                  feed_id
                   feed {
                     name
                   }
@@ -99,6 +100,7 @@ const Projects = () => {
                   id
                   dbid
                   feed_id
+                  saved_search_id
                   feed {
                     name
                   }

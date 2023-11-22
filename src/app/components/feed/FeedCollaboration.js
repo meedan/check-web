@@ -40,6 +40,7 @@ const destroyInviteMutation = graphql`
             node {
               id
               email
+              state
             }
           }
         }
@@ -69,6 +70,7 @@ const removeTeamMutation = graphql`
 `;
 
 const FeedCollaboration = ({
+  collaboratorId,
   feed,
   intl,
   onChange,
@@ -76,6 +78,8 @@ const FeedCollaboration = ({
   const [textValue, setTextValue] = React.useState(null);
   const [invites, setInvites] = React.useState([]);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
+
+  const readOnly = (collaboratorId !== feed?.team?.dbid);
 
   const handleAdd = (email) => {
     if (EmailValidator.validate(email)) {
@@ -161,8 +165,14 @@ const FeedCollaboration = ({
       { type === 'organizer' ?
         <span className={cx('typography-body2', styles['feed-collab-organizer'])}>
           <FormattedMessage id="feedCollaboration.organizer" defaultMessage="organizer" description="Label to highlight the Shared Feed organizer" />
-        </span>
-        :
+        </span> : null
+      }
+      { type !== 'organizer' && collaboratorId === team?.dbid ?
+        <span className={cx('typography-body2', styles['feed-collab-organizer'])}>
+          <FormattedMessage id="feedCollaboration.you" defaultMessage="you" description="Label to highlight user's organization in Shared Feed collaboration widget" />
+        </span> : null
+      }
+      { type !== 'organizer' && !readOnly ?
         <Tooltip arrow title={<FormattedMessage id="feedCollaboration.remove" defaultMessage="Remove" description="Tooltip for button to remove invitation or feed collaborator" />}>
           <span>
             <ButtonMain
@@ -174,7 +184,7 @@ const FeedCollaboration = ({
               theme="lightText"
             />
           </span>
-        </Tooltip>
+        </Tooltip> : null
       }
     </div>
   );
@@ -182,11 +192,19 @@ const FeedCollaboration = ({
   return (
     <div className={styles['feed-collab-card']}>
       <span className="typography-subtitle2">
-        <FormattedMessage
-          id="feedCollaboration.title"
-          defaultMessage="Collaboration"
-          description="Title of the collaboration box in which feed organizer invites other organizations to a shared feed"
-        />
+        { readOnly ?
+          <FormattedMessage
+            id="feedCollaboration.titleCollaborator"
+            defaultMessage="Collaborating Organizations [{count}]"
+            description="Title of the collaboration box in which feed organizer invites other organizations to a shared feed"
+            values={{ count: feed.feed_teams?.edges.length + feed.feed_invitations?.edges.length }}
+          /> :
+          <FormattedMessage
+            id="feedCollaboration.title"
+            defaultMessage="Collaboration"
+            description="Title of the collaboration box in which feed organizer invites other organizations to a shared feed"
+          />
+        }
       </span>
       { !feed.dbid &&
         <span className="typography-body2">
@@ -205,23 +223,25 @@ const FeedCollaboration = ({
           </ExternalLink>
         </span>
       }
-      <div className={styles['feed-collab-input']}>
-        <TextField
-          className={cx(styles['feed-collab-text-field'], 'int-feed-collab__text-field')}
-          value={textValue}
-          placeholder={intl.formatMessage(messages.placeholder)}
-          onChange={e => setTextValue(e.target.value)}
-        />
-        <ButtonMain
-          className="int-feed-collab__add-button"
-          onClick={() => handleAdd(textValue)}
-          iconCenter={<AddIcon />}
-          variant="contained"
-          size="default"
-          theme="brand"
-          disabled={!EmailValidator.validate(textValue)}
-        />
-      </div>
+      { !readOnly && (
+        <div className={styles['feed-collab-input']}>
+          <TextField
+            className={cx(styles['feed-collab-text-field'], 'int-feed-collab__text-field')}
+            value={textValue}
+            placeholder={intl.formatMessage(messages.placeholder)}
+            onChange={e => setTextValue(e.target.value)}
+          />
+          <ButtonMain
+            className="int-feed-collab__add-button"
+            onClick={() => handleAdd(textValue)}
+            iconCenter={<AddIcon />}
+            variant="contained"
+            size="default"
+            theme="brand"
+            disabled={!EmailValidator.validate(textValue)}
+          />
+        </div>
+      )}
       <div className={styles['feed-collab-invites']}>
         { feed.feed_teams?.edges.map(ft => (
           <FeedCollabRow
@@ -233,7 +253,7 @@ const FeedCollaboration = ({
             onRemove={() => handleSubmitRemoveTeam(ft.node.id)}
           />
         ))}
-        { feed.feed_invitations?.edges.map(fi => (
+        { feed.feed_invitations?.edges.filter(fi => fi.node.state === 'invited').map(fi => (
           <FeedCollabRow
             key={fi.node.email}
             className="feed-collab-row__invitation-sent"
@@ -256,7 +276,12 @@ const FeedCollaboration = ({
   );
 };
 
+FeedCollaboration.defaultProps = {
+  collaboratorId: null,
+};
+
 FeedCollaboration.propTypes = {
+  collaboratorId: PropTypes.number,
   feed: PropTypes.object.isRequired,
   intl: intlShape.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -284,6 +309,7 @@ export default createFragmentContainer(injectIntl(FeedCollaboration), graphql`
         node {
           id
           email
+          state
         }
       }
     }

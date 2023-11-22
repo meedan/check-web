@@ -7,7 +7,7 @@
   {
     "id": "feedInvitation.prompt",
     "description": "A question prompting the user to pick one of several workspaces from a list, reminding them that this will contribute data to a shared feed.",
-    "defaultMessage": "Which workspace will you use to contribute fact-checks to this shared feed?"
+    "defaultMessage": "Which workspace will you use to contribute to this shared feed?"
   },
   {
     "id": "feedInvitation.alreadyAccepted",

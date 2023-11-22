@@ -12,8 +12,8 @@ const feed = {
   },
   feed_invitations: {
     edges: [
-      { node: { email: 'foo@bar.com' } },
-      { node: { email: 'baz@zaz.com' } },
+      { node: { email: 'foo@bar.com', state: 'invited' } },
+      { node: { email: 'baz@zaz.com', state: 'invited' } },
     ],
   },
   team: { dbid: 123 },
@@ -45,8 +45,8 @@ describe('<FeedCollaboration />', () => {
     expect(wrapper.html()).not.toMatch('Invite other organizations to contribute data into');
   });
 
-  it('should invite emails', () => {
-    const wrapper = shallowWithIntl(<FeedCollaboration feed={feed} onChange={() => {}} />);
+  it('should invite emails as feed creator', () => {
+    const wrapper = shallowWithIntl(<FeedCollaboration collaboratorId={123} feed={feed} onChange={() => {}} />);
     const input = wrapper.find('.int-feed-collab__text-field');
     input.simulate('change', { target: { value: 'bar@foo.com' } });
     wrapper.find('.int-feed-collab__add-button').simulate('click');
