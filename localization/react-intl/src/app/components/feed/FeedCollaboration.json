@@ -15,9 +15,19 @@
     "defaultMessage": "organizer"
   },
   {
+    "id": "feedCollaboration.you",
+    "description": "Label to highlight user's organization in Shared Feed collaboration widget",
+    "defaultMessage": "you"
+  },
+  {
     "id": "feedCollaboration.remove",
     "description": "Tooltip for button to remove invitation or feed collaborator",
     "defaultMessage": "Remove"
+  },
+  {
+    "id": "feedCollaboration.titleCollaborator",
+    "description": "Title of the collaboration box in which feed organizer invites other organizations to a shared feed",
+    "defaultMessage": "Collaborating Organizations [{count}]"
   },
   {
     "id": "feedCollaboration.title",

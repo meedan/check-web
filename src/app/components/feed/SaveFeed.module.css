@@ -3,15 +3,6 @@
   text-transform: uppercase;
 }
 
-.saveFeedContainer {
-  background: var(--grayBackground);
-  display: flex;
-  gap: 32px;
-  height: 100%;
-  overflow: auto;
-  padding: 16px 32px 32px;
-}
-
 .saveFeedContent {
   --iconSize: 36px;
   display: flex;
@@ -19,6 +10,21 @@
   flex-direction: column;
   gap: 16px;
   height: fit-content;
+}
+
+.saveFeedContainer {
+  background: var(--grayBackground);
+  display: flex;
+  gap: 32px;
+  height: 100%;
+  overflow: auto;
+  padding: 16px 32px 32px;
+
+  &.saveFeedInvitationRespondContainer {
+    .saveFeedContent {
+      margin: 32px 0 0;
+    }
+  }
 }
 
 .saveFeedContentNarrow {
@@ -77,10 +83,13 @@
 }
 
 .saveFeedMetadata {
+  background-color: var(--otherWhite);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 4px;
   margin: 8px 0 0;
+  padding: 16px;
 
   span {
     color: var(--textSecondary);

@@ -1,5 +1,10 @@
 [
   {
+    "id": "projectsComponent.pendingInvitationFeedTitle",
+    "description": "Tooltip for a navigation item that has a status of a pending invitation",
+    "defaultMessage": "Pending invitation: {feedTitle}"
+  },
+  {
     "id": "projectsComponent.allItems",
     "description": "Label for the 'All items' list displayed on the left sidebar",
     "defaultMessage": "All"

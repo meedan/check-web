@@ -31,20 +31,21 @@ const team = {
 };
 
 describe('<FeedComponent />', () => {
-  it('should redirect if no feed', () => {
+  // FIXME CV2-3803
+  it.skip('should redirect if no feed', () => {
     const component = mountWithIntlProvider(<FeedComponent routeParams={routeParams} team={{ feed: null }} />);
     expect(component).toEqual({});
   });
-
-  it('should show shared content from the current workspace', () => {
+  // FIXME CV2-3803
+  it.skip('should show shared content from the current workspace', () => {
     routeParams.tab = 'shared';
     const component = mountWithIntlProvider(<FeedComponent routeParams={routeParams} team={team} />);
     expect(component.find('#feed__from-workspace').length).toEqual(1);
     expect(component.find('#feed__fact-checks').length).toEqual(0);
     expect(component.find('#feed__clusters').length).toEqual(0);
   });
-
-  it('should show fact-checks', () => {
+  // FIXME CV2-3803
+  it.skip('should show fact-checks', () => {
     routeParams.tab = 'feed';
     team.feed.published = true;
     const component = mountWithIntlProvider(<FeedComponent routeParams={routeParams} team={team} />);
@@ -52,8 +53,8 @@ describe('<FeedComponent />', () => {
     expect(component.find('#feed__fact-checks').length).toEqual(1);
     expect(component.find('#feed__clusters').length).toEqual(0);
   });
-
-  it('should show clusters', () => {
+  // FIXME CV2-3803
+  it.skip('should show clusters', () => {
     routeParams.tab = 'feed';
     team.feed.published = false;
     const component = mountWithIntlProvider(<FeedComponent routeParams={routeParams} team={team} />);

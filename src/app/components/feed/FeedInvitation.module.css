@@ -1,11 +1,3 @@
-.feed-invitation-container {
-  align-self: stretch;
-  display: flex;
-  gap: 32px;
-  justify-content: center;
-  padding: 100px 0;
-}
-
 .feed-invitation-container-card {
   align-items: flex-start;
   align-self: stretch;
@@ -15,10 +7,9 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin: 0 32px 16px;
+  margin: 0 0 16px;
   padding: 16px;
   text-align: center;
-  width: 650px;
 
   div {
     width: 100%;
@@ -82,7 +73,6 @@
     display: flex;
     gap: 16px;
     padding: 8px;
-    width: 618px;
 
     button {
       margin-left: auto;
@@ -91,6 +81,7 @@
 
     &:hover {
       border: 1px solid var(--textLink);
+      outline: 1px solid var(--textLink);
 
       button {
         visibility: visible;
@@ -111,5 +102,17 @@
         width: 24px;
       }
     }
+  }
+}
+
+.feed-invitation-container {
+  align-self: stretch;
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  padding: 100px 0;
+
+  .feed-invitation-container-card {
+    width: 650px;
   }
 }
