@@ -11,7 +11,10 @@ import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import FeedMetadata from './FeedMetadata';
+import FeedCollaboration from './FeedCollaboration';
 import styles from './FeedInvitation.module.css';
+import saveFeedStyles from './SaveFeed.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import MediasLoading from '../media/MediasLoading';
@@ -80,67 +83,73 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
   };
 
   return (
-    <div className={cx('feed-invitation-container', styles['feed-invitation-container'])}>
-      <div className={cx('feed-invitation-container-card', styles['feed-invitation-container-card'])}>
-        <div className={styles['header-icon']}>
-          <ScheduleSendIcon />
-        </div>
-        <div>
-          <div className={cx('typography-h6')}>
-            {props.feed_invitation.user.name}, <span className={styles.email}>{props.feed_invitation.user.email}</span>
-          </div>
-          <div className={cx('typography-body1', styles.invited)}>
-            <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Check Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
+    <div className={cx('feed-invitation-container', saveFeedStyles.saveFeedContainer)}>
+      <div className={saveFeedStyles.saveFeedContent}>
+        <div className={cx('feed-invitation-container-card', styles['feed-invitation-container-card'])}>
+          <div className={styles['header-icon']}>
+            <ScheduleSendIcon />
           </div>
           <div>
-            <span className={cx('typography-body1-bold')}>&ldquo;{props.feed_invitation.feed.name}&rdquo;</span>
-          </div>
-        </div>
-        <div className={cx('typography-body2', styles.description)}>
-          {props.feed_invitation.feed.description}
-        </div>
-        { notAdmin && (
-          <Alert
-            className={cx(styles['no-admin-alert'])}
-            contained
-            content={<FormattedMessage id="feedInvitation.notAdmin" defaultMessage="You are not the admin of this workspace. Please contact your workspace administrator if you think this is in error." description="An error message that informs the user that they are not the administrator of this workspace and as such cannot perform any actions on this page." />}
-            variant="error"
-          />
-        )}
-        {alreadyAccepted && (
-          <Alert
-            className={cx(styles['no-admin-alert'])}
-            contained
-            content={<FormattedMessage id="feedInvitation.alreadyAccepted" defaultMessage="You have already accepted this invitation." description="An informational message that appears if the user tries to accept an invitation that they have already accepted." />}
-            variant="info"
-          />
-        )}
-        { !notAdmin && !alreadyAccepted && (
-          <div className={cx(styles['accept-decline'])}>
-            <div className={cx(styles['action-container'])}>
-              <ButtonMain
-                className="int-feed-invitation-respond__button--accept"
-                label={<FormattedMessage id="feedInvitation.accept" defaultMessage="Accept Invitation" description="Label for a button that the user presses to accept an invitation they have received to collaborate with another organization" />}
-                variant="contained"
-                theme="brand"
-                onClick={handleAcceptInvite}
-                disabled={saving}
-              />
-              { saving && <MediasLoading theme="grey" variant="icon" size="icon" /> }
+            <div className={cx('typography-h6')}>
+              {props.feed_invitation.user.name}, <span className={styles.email}>{props.feed_invitation.user.email}</span>
             </div>
-            <div className={cx(styles['action-container'])}>
-              { saving && <MediasLoading theme="grey" variant="icon" size="icon" /> }
-              <ButtonMain
-                className="int-feed-invitation-respond__button--reject"
-                label={<FormattedMessage id="feedInvitation.decline" defaultMessage="Decline Invitation" description="Label for a button that the user presses to decline an invitation they have received to collaborate with another organization" />}
-                variant="outlined"
-                theme="text"
-                disabled={saving}
-                onClick={() => { setConfirmReject(true); }}
-              />
+            <div className={cx('typography-body1', styles.invited)}>
+              <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Check Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
+            </div>
+            <div>
+              <span className={cx('typography-body1-bold')}>&ldquo;{props.feed_invitation.feed.name}&rdquo;</span>
             </div>
           </div>
-        )}
+          <div className={cx('typography-body2', styles.description)}>
+            {props.feed_invitation.feed.description}
+          </div>
+          { notAdmin && (
+            <Alert
+              className={cx(styles['no-admin-alert'])}
+              contained
+              content={<FormattedMessage id="feedInvitation.notAdmin" defaultMessage="You are not the admin of this workspace. Please contact your workspace administrator if you think this is in error." description="An error message that informs the user that they are not the administrator of this workspace and as such cannot perform any actions on this page." />}
+              variant="error"
+            />
+          )}
+          {alreadyAccepted && (
+            <Alert
+              className={cx(styles['no-admin-alert'])}
+              contained
+              content={<FormattedMessage id="feedInvitation.alreadyAccepted" defaultMessage="You have already accepted this invitation." description="An informational message that appears if the user tries to accept an invitation that they have already accepted." />}
+              variant="info"
+            />
+          )}
+          { !notAdmin && !alreadyAccepted && (
+            <div className={cx(styles['accept-decline'])}>
+              <div className={cx(styles['action-container'])}>
+                <ButtonMain
+                  className="int-feed-invitation-respond__button--accept"
+                  label={<FormattedMessage id="feedInvitation.accept" defaultMessage="Accept Invitation" description="Label for a button that the user presses to accept an invitation they have received to collaborate with another organization" />}
+                  variant="contained"
+                  theme="brand"
+                  onClick={handleAcceptInvite}
+                  disabled={saving}
+                />
+                { saving && <MediasLoading theme="grey" variant="icon" size="icon" /> }
+              </div>
+              <div className={cx(styles['action-container'])}>
+                { saving && <MediasLoading theme="grey" variant="icon" size="icon" /> }
+                <ButtonMain
+                  className="int-feed-invitation-respond__button--reject"
+                  label={<FormattedMessage id="feedInvitation.decline" defaultMessage="Decline Invitation" description="Label for a button that the user presses to decline an invitation they have received to collaborate with another organization" />}
+                  variant="outlined"
+                  theme="text"
+                  disabled={saving}
+                  onClick={() => { setConfirmReject(true); }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className={saveFeedStyles.saveFeedContentNarrow}>
+        <FeedMetadata feed={props.feed_invitation.feed_metadata} />
+        <FeedCollaboration feed={props.feed_invitation.feed_collaboration} />
       </div>
       <ConfirmProceedDialog
         open={confirmReject}
@@ -195,6 +204,12 @@ const FeedInvitationRespond = ({ routeParams }) => (
               dbid
               name
               description
+            }
+            feed_metadata: feed {
+              ...FeedMetadata_feed
+            }
+            feed_collaboration: feed {
+              ...FeedCollaboration_feed
             }
             user {
               name
