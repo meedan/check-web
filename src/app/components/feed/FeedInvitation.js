@@ -45,7 +45,7 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
           </div>
         </div>
         <div className={cx('typography-h6')}>
-          <FormattedMessage id="feedInvitation.prompt" defaultMessage="Which workspace will you use to contribute fact-checks to this shared feed?" description="A question prompting the user to pick one of several workspaces from a list, reminding them that this will contribute data to a shared feed." />
+          <FormattedMessage id="feedInvitation.prompt" defaultMessage="Which workspace will you use to contribute to this shared feed?" description="A question prompting the user to pick one of several workspaces from a list, reminding them that this will contribute data to a shared feed." />
         </div>
         {alreadyAccepted && (
           <Alert
