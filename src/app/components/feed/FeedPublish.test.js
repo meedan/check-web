@@ -1,6 +1,6 @@
 import React from 'react';
-import FeedPublish from './FeedPublish';
 import { shallow } from 'enzyme';
+import FeedPublish from './FeedPublish';
 
 describe('<FeedPublish />', () => {
   it('should not render license checkboxes', () => {
@@ -9,13 +9,13 @@ describe('<FeedPublish />', () => {
   });
 
   it('should render license checkboxes when discoverable', () => {
-    const component = shallow(<FeedPublish discoverable={true} discoverableNoLicense={true} />);
+    const component = shallow(<FeedPublish discoverable discoverableNoLicense />);
     expect(component.find('LicenseOption').length).toEqual(3);
     expect(component.find('#feed-publish__no-license-error').length).toEqual(1);
   });
 
   it('should render license checkboxes and no error when discoverable and licenses selected', () => {
-    const component = shallow(<FeedPublish discoverable={true} academicLicense={true} />);
+    const component = shallow(<FeedPublish discoverable academicLicense />);
     expect(component.find('LicenseOption').length).toEqual(3);
     expect(component.find('#feed-publish__no-license-error').length).toEqual(0);
   });

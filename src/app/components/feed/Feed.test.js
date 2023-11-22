@@ -31,7 +31,6 @@ const team = {
 };
 
 describe('<FeedComponent />', () => {
-
   it('should redirect if no feed', () => {
     const component = mountWithIntlProvider(<FeedComponent routeParams={routeParams} team={{ feed: null }} />);
     expect(component).toEqual({});
