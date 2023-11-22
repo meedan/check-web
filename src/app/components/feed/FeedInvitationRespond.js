@@ -83,7 +83,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
   };
 
   return (
-    <div className={cx('feed-invitation-container', saveFeedStyles.saveFeedContainer)}>
+    <div className={cx('feed-invitation-container', saveFeedStyles.saveFeedContainer, saveFeedStyles.saveFeedInvitationRespondContainer)}>
       <div className={saveFeedStyles.saveFeedContent}>
         <div className={cx('feed-invitation-container-card', styles['feed-invitation-container-card'])}>
           <div className={styles['header-icon']}>
