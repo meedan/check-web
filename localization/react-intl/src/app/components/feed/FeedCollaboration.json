@@ -25,6 +25,21 @@
     "defaultMessage": "Remove"
   },
   {
+    "id": "feedCollaboration.alreadyInvited",
+    "description": "Error message displayed when attempting to send a Shared Feed invitation to an already invited address",
+    "defaultMessage": "Email address is already invited"
+  },
+  {
+    "id": "feedCollaboration.alreadyAdded",
+    "description": "Error message displayed when attempting to send a Shared Feed invitation to an already invited address",
+    "defaultMessage": "Email address is already added to invitations list"
+  },
+  {
+    "id": "feedCollaboration.invalidEmail",
+    "description": "Error message displayed when attempting to send a Shared Feed invitation to an invalid address",
+    "defaultMessage": "Invalid email address"
+  },
+  {
     "id": "feedCollaboration.titleCollaborator",
     "description": "Title of the collaboration box in which feed organizer invites other organizations to a shared feed",
     "defaultMessage": "Collaborating Organizations [{count}]"

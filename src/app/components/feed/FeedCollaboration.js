@@ -75,7 +75,7 @@ const FeedCollaboration = ({
   intl,
   onChange,
 }) => {
-  const [textValue, setTextValue] = React.useState(null);
+  const [textValue, setTextValue] = React.useState('');
   const [invites, setInvites] = React.useState([]);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -189,6 +189,38 @@ const FeedCollaboration = ({
     </div>
   );
 
+  let error = null;
+  const alreadyInvited = feed.feed_invitations?.edges.filter(fi => fi.node.email === textValue).length > 0;
+  const alreadyAdded = invites.includes(textValue);
+
+  if (alreadyInvited) {
+    error = (
+      <FormattedMessage
+        id="feedCollaboration.alreadyInvited"
+        defaultMessage="Email address is already invited"
+        description="Error message displayed when attempting to send a Shared Feed invitation to an already invited address"
+      />
+    );
+  }
+  if (alreadyAdded) {
+    error = (
+      <FormattedMessage
+        id="feedCollaboration.alreadyAdded"
+        defaultMessage="Email address is already added to invitations list"
+        description="Error message displayed when attempting to send a Shared Feed invitation to an already invited address"
+      />
+    );
+  }
+  if (textValue.trim() && !EmailValidator.validate(textValue)) {
+    error = (
+      <FormattedMessage
+        id="feedCollaboration.invalidEmail"
+        defaultMessage="Invalid email address"
+        description="Error message displayed when attempting to send a Shared Feed invitation to an invalid address"
+      />
+    );
+  }
+
   return (
     <div className={styles['feed-collab-card']}>
       <span className="typography-subtitle2">
@@ -230,15 +262,17 @@ const FeedCollaboration = ({
             value={textValue}
             placeholder={intl.formatMessage(messages.placeholder)}
             onChange={e => setTextValue(e.target.value)}
+            helpContent={error}
+            error={error}
           />
           <ButtonMain
-            className="int-feed-collab__add-button"
+            className={cx(styles['feed-collab-add-button'], 'int-feed-collab__add-button')}
             onClick={() => handleAdd(textValue)}
             iconCenter={<AddIcon />}
             variant="contained"
             size="default"
             theme="brand"
-            disabled={!EmailValidator.validate(textValue)}
+            disabled={error}
           />
         </div>
       )}

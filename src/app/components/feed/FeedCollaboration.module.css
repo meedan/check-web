@@ -8,11 +8,14 @@
 }
 
 .feed-collab-input {
-  align-items: center;
   display: flex;
   flex: auto;
   flex-direction: row;
   gap: 8px;
+}
+
+.feed-collab-add-button {
+  margin-top: 5px;
 }
 
 .feed-collab-invites {
