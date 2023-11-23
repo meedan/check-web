@@ -23,6 +23,9 @@ const FeedActions = ({
   const { feed } = feedTeam;
   const isFeedOwner = feedTeam.team_id === feed.team.dbid;
 
+  const permissionRequired = isFeedOwner ? 'destroy Feed' : 'destroy FeedTeam';
+  const mergedPermissions = { ...JSON.parse(feed?.permissions), ...JSON.parse(feedTeam.permissions) };
+
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -77,8 +80,7 @@ const FeedActions = ({
 
   return (
     <>
-      {/* FIXME: Review actual permissions for creator org vs invited org */}
-      <Can permissions={feed.permissions} permission="destroy Feed">
+      <Can permissions={JSON.stringify(mergedPermissions)} permission={permissionRequired}>
         <ButtonMain
           className={`typography-button ${styles.saveFeedButtonMoreActions}`}
           theme="text"
@@ -244,6 +246,7 @@ FeedActions.propTypes = {
 export default createFragmentContainer(FeedActions, graphql`
   fragment FeedActions_feedTeam on FeedTeam {
     team_id
+    permissions
     feed {
       permissions
       saved_search_id
