@@ -130,7 +130,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             {...commonSearchProps}
             title={feed.name}
             listActions={
-              <FeedHeader feed={feed} />
+              <FeedHeader feedTeam={feedTeam} feed={feed} />
             }
           />
         </div>
@@ -258,6 +258,7 @@ const Feed = ({ routeParams }) => (
                 filters
                 shared
                 requests_filters
+                ...FeedHeader_feedTeam
               }
               ...FeedTopBar_feed
               ...FeedHeader_feed
