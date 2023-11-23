@@ -81,6 +81,10 @@ const FeedHeader = ({ feed, feedTeam }) => {
 FeedHeader.defaultProps = {};
 
 FeedHeader.propTypes = {
+  feedTeam: PropTypes.shape({
+    team_id: PropTypes.number.isRequired,
+    permissions: PropTypes.string.isRequired, // e.g., '{"update FeedTeam":true}'
+  }).isRequired,
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
