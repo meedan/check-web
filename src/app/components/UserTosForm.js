@@ -12,7 +12,7 @@ const messages = defineMessages({
     description: 'Link text to take the user to the terms of service',
   },
   pp: {
-    id: 'userTos.ppLink"',
+    id: 'userTos.ppLink',
     defaultMessage: 'Privacy Policy',
     description: 'Link text to take the user to the privacy policy',
   },
