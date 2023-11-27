@@ -12,24 +12,25 @@ import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
 export const FeedComponent = ({ routeParams, ...props }) => {
-  const { team, feed_team } = props;
+  const { team } = props;
   const { feed } = team;
-  const tab = routeParams.tab || 'feed';
-  const isFeedOwner = feed_team.team_id === feed.team_id;
-  // set initial teamFilters to list of all teams OR whatever is from the query
-  const [teamFilters, setTeamFilters] = React.useState(feed?.teams?.edges.map(item => item.node.dbid));
 
   if (!feed) {
     browserHistory.push('/check/not-found');
     return null;
   }
 
+  const tab = routeParams.tab || 'feed';
+  const feedTeam = feed.current_feed_team;
+  const isFeedOwner = feedTeam.team_id === feed.team_id;
+
+  // set initial teamFilters to list of all teams OR whatever is from the query
+  const [teamFilters, setTeamFilters] = React.useState(feed?.teams?.edges.map(item => item.node.dbid));
+
   // Redirect to edit FeedTeam if we're not sharing a list and we're not the feed creator
-  if (!isFeedOwner && feed_team && !feed_team.saved_search_id) {
+  if (!isFeedOwner && feedTeam && !feedTeam.saved_search_id) {
     browserHistory.push(`/${routeParams.team}/feed/${feed.dbid}/edit`);
   }
-
-  const feedTeam = feed.current_feed_team;
 
   const commonSearchProps = {
     searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
@@ -129,7 +130,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             {...commonSearchProps}
             title={feed.name}
             listActions={
-              <FeedHeader feed={feed} />
+              <FeedHeader feedTeam={feedTeam} feed={feed} />
             }
           />
         </div>
@@ -233,10 +234,6 @@ const Feed = ({ routeParams }) => (
       environment={Relay.Store}
       query={graphql`
         query FeedQuery($slug: String!, $feedId: Int!) {
-          feed_team(teamSlug: $slug, feedId: $feedId) {
-            team_id
-            saved_search_id
-          }
           team(slug: $slug) {
             feed(dbid: $feedId) {
               dbid
@@ -256,9 +253,12 @@ const Feed = ({ routeParams }) => (
               }
               current_feed_team {
                 id
+                team_id
+                saved_search_id
                 filters
                 shared
                 requests_filters
+                ...FeedHeader_feedTeam
               }
               ...FeedTopBar_feed
               ...FeedHeader_feed

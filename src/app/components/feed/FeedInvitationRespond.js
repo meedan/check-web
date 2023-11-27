@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import ErrorBoundary from '../error/ErrorBoundary';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -63,7 +62,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
     commitMutation(Relay.Store, {
       mutation: acceptMutation,
       variables: { input },
-      onCompleted: () => browserHistory.push(`/${props.me.current_team?.slug}/feed/${props.feed_invitation?.feed.dbid}/edit`),
+      onCompleted: () => window.location.assign(`/${props.me.current_team?.slug}/feed/${props.feed_invitation?.feed.dbid}/edit`),
       onError: onFailure,
     });
   };
@@ -77,7 +76,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
     commitMutation(Relay.Store, {
       mutation: rejectMutation,
       variables: { input },
-      onCompleted: () => browserHistory.push(`/${props.me.current_team?.slug}/all-items`),
+      onCompleted: () => window.location.assign(`/${props.me.current_team?.slug}/all-items`),
       onError: onFailure,
     });
   };

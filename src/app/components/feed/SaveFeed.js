@@ -291,8 +291,8 @@ const SaveFeed = (props) => {
         mutation: destroyFeedTeamMutation,
         variables: { input },
         onCompleted: () => {
-          const retPath = `/${feedTeam.team.slug}/all-items`;
-          browserHistory.push(retPath);
+          const path = `/${feedTeam.team.slug}/all-items`;
+          window.location.assign(path);
         },
         onError: onFailure,
       },
@@ -486,11 +486,11 @@ const SaveFeed = (props) => {
           />
           { feed.id ?
             <FeedActions
+              feedTeam={{ ...feedTeam, permissions: feedTeam.permissions }}
               disableSaveButton={disableSaveButton}
               saving={saving}
               handleDelete={handleDelete}
               handleLeaveFeed={handleLeaveFeed}
-              feedTeam={feedTeam}
             />
             : null }
         </div>
@@ -597,6 +597,7 @@ export default createFragmentContainer(SaveFeed, graphql`
     id
     saved_search_id
     team_id
+    permissions
     team {
       slug
     }
