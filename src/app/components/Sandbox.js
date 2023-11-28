@@ -415,17 +415,58 @@ const SandboxComponent = ({ admin }) => {
             </ul>
           </div>
           <div className={styles.componentBlockVariants}>
-            <div>
-              { listItemUnread ? <>UNREAD<br /></> : null }
-              { listItemMedia ? <>THUMBNAIL<br /></> : null }
-              { listItemFactCheck ? <>FACT-CHECK<br /></> : null }
-              { listItemFactCheckPublished ? <>PUBLISHED<br /></> : null }
-              { listItemFactCheckLink ? <>FACT-CHECK LINK<br /></> : null }
-              { listItemShared ? <>WORKPACES<br /></> : null }
-              { listItemSuggestions ? <>SUGGESTIONS<br /></> : null }
-              { listItemMedia ? <>MEDIA<br /></> : null }
-              { listItemRequests ? <>REQUESTS<br /></> : null }
-              { listItemRequests ? <>PLATFORMS<br /></> : null }
+            <div
+              className={cx(
+                styles.listItem,
+                {
+                  [styles.listItemUnread]: listItemUnread && !listItemShared,
+                })
+              }
+            >
+              { (listItemUnread && !listItemShared) &&
+                <ins className={styles.unread} />
+              }
+              { !listItemShared &&
+                <div className={styles.checkbox}>
+                  checkbox
+                </div>
+              }
+              { ((listItemMedia && !listItemShared) || (listItemShared && listItemCluster)) &&
+                <div className={styles.thumbail}>
+                  thumbail
+                </div>
+              }
+              <div className={styles.content}>
+                content
+                { listItemFactCheckLink &&
+                  <div className={styles.factCheckLink}>
+                    FACT-CHECK LINK
+                  </div>
+                }
+                { listItemShared &&
+                  <div className={styles.workspaces}>
+                    WORKPACES
+                  </div>
+                }
+                <div className={styles.mediaAndRequest}>
+                  { listItemMedia ? <div>MEDIA</div> : null }
+                  { listItemSuggestions ? <div>SUGGESTIONS</div> : null }
+                  { listItemRequests ? <div>REQUESTS</div> : null }
+                  { listItemRequests ? <div>PLATFORMS</div> : null }
+                </div>
+              </div>
+              <div className={styles.factCheckLastUpdated}>
+                <div className={styles.factCheck}>
+                  { listItemShared && listItemFactCheck &&
+                    <>FACT-CHECK COUNT</>
+                  }
+                  { !listItemShared && listItemFactCheck &&
+                    <>WORKSPACE FACT-CHECK</>
+                  }
+                  { listItemFactCheckPublished && !listItemShared ? <>PUBLISHED</> : null }
+                </div>
+                May 27, 2022
+              </div>
             </div>
           </div>
         </div>

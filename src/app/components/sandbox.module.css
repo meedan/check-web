@@ -89,3 +89,77 @@
     }
   }
 }
+
+.listItem {
+  border: solid 1px var(--grayBorderMain);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding: 16px;
+  position: relative;
+
+  &:hover {
+    border-color: var(--brandMain);
+    outline: solid 1px var(--brandMain);
+  }
+
+  &.listItemUnread {
+    background-color: var(--brandBackground);
+  }
+
+  .unread {
+    background-color: var(--textPlaceholder);
+    border-radius: 3px;
+    bottom: 6px;
+    flex: 0 0 5px;
+    left: 6px;
+    overflow: hidden;
+    position: absolute;
+    right: auto;
+    top: 6px;
+    width: 5px;
+  }
+
+  .checkbox {
+    background-color: var(--errorLight);
+    flex: 0 0 42px;
+    overflow: hidden;
+  }
+
+  .thumbail {
+    background-color: var(--errorLight);
+    border-radius: 5px;
+    flex: 0 0 96px;
+    height: 96px;
+    overflow: hidden;
+  }
+
+  .content {
+    background-color: var(--errorLight);
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+
+    .workspaces {
+      background-color: var(--alertLight);
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    .mediaAndRequest {
+      background-color: var(--errorLight);
+      display: flex;
+      flex-flow: row wrap;
+    }
+  }
+
+  .factCheckLastUpdated {
+    background-color: var(--errorLight);
+    flex: 0 0 160px;
+
+    .factCheck {
+      background-color: var(--validationLight);
+    }
+  }
+}
