@@ -72,7 +72,6 @@ const SandboxComponent = ({ admin }) => {
       setListItemRequests(false);
       setListItemMedia(false);
     }
-    console.log(cluster); // eslint-disable-line no-console
     setListItemCluster(cluster);
   };
 
@@ -104,7 +103,6 @@ const SandboxComponent = ({ admin }) => {
       setListItemFactCheckLink(false);
       setListItemFactCheckPublished(false);
     }
-
     setListItemFactCheck(factcheck);
   };
 
@@ -344,7 +342,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
-                  label="Cluster"
+                  label="Cluster of Media"
                   labelPlacement="top"
                   checked={listItemCluster && listItemShared}
                   disabled={!listItemShared}
