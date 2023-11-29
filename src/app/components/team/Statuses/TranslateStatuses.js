@@ -11,6 +11,7 @@ import { FormattedGlobalMessage } from '../../MappedMessage';
 import StatusLabel from './StatusLabel';
 import StatusMessage from './StatusMessage';
 import styles from './Statuses.module.css';
+import settingsStyles from '../Settings.module.css';
 
 const TranslateStatuses = ({
   statuses,
@@ -118,8 +119,8 @@ const TranslateStatuses = ({
       {statuses.map(s => (
         <div className={styles['settings-translated-rows']} key={s.id}>
           <div>
-            <ul>
-              <li className={styles['settings-status-listitem']}>
+            <ul className={settingsStyles['setting-content-list']}>
+              <li>
                 <div>
                   <StatusLabel color={s.style.color}>
                     { s.locales[defaultLanguage] ?

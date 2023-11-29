@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import { commitMutation } from 'react-relay';
 import cx from 'classnames/bind';
@@ -13,7 +13,7 @@ import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import settingsStyles from '../Settings.module.css';
 import styles from './NewsletterComponent.module.css';
-import LanguagePickerSelect from '../../cds/forms/LanguagePickerSelect';
+import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import SettingsHeader from '../SettingsHeader';
 import { getTimeZoneOptions } from '../../../helpers';
 import { can } from '../../Can';
@@ -123,7 +123,7 @@ const NewsletterComponent = ({
       const utcDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
       // Parse for `Foo/Bar` and `Foo/Bar/Baz`
       const timeZoneRegex = /^\w*\/\w*(\/\w*)?/;
-      const tzDate = new Date(date.toLocaleString('en-US', { timeZone: timezone.match(/^\w*\/\w*/) && timezone.match(timeZoneRegex)[0] }));
+      const tzDate = new Date(date.toLocaleString('en-US', { timeZone: timezone.match(timeZoneRegex) && timezone.match(timeZoneRegex)[0] }));
       const offset = utcDate.getTime() - tzDate.getTime();
       date.setTime(date.getTime() + offset);
       const scheduledDateTime = date;
@@ -255,7 +255,6 @@ const NewsletterComponent = ({
   const handleSuccess = (response) => {
     setScheduled(response?.updateTiplineNewsletter?.tipline_newsletter?.enabled);
     setSaving(false);
-    setErrors({});
     setFlashMessage((
       <FormattedMessage
         id="newsletterComponent.success"
@@ -378,6 +377,10 @@ const NewsletterComponent = ({
               handleError(err);
             } else {
               handleSuccess(response);
+              // Clear errors only if the action is "schedule" or "paused", if it is just the "save" action then we want to keep displaying the errors
+              if (scheduledOrPaused === 'paused' || scheduledOrPaused === 'scheduled') {
+                setErrors({});
+              }
               // FIXME: Find a better way to refresh the local store when a newsletter is created
               if (!input.id) {
                 window.location.assign(`/${team.slug}/settings/newsletter`);
@@ -423,12 +426,19 @@ const NewsletterComponent = ({
   return (
     <>
       <SettingsHeader
-        helpUrl="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters"
         title={
           <FormattedMessage
             id="newsletterComponent.title"
             defaultMessage="Newsletter"
             description="Title for newsletter settings page."
+          />
+        }
+        context={
+          <FormattedHTMLMessage
+            id="newsletterComponent.helpContext"
+            defaultMessage='Manage, draft, and schedule newsletters sent to all subscribers. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about newsletters</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/5540430-tipline-newsletters' }}
+            description="Context description for the functionality of this page"
           />
         }
         extra={
@@ -457,8 +467,8 @@ const NewsletterComponent = ({
       />
       <div className={cx('newsletter-component', settingsStyles['setting-details-wrapper'])}>
         <div className={cx(settingsStyles['setting-content-container'])}>
-          <div className={styles.settings}>
-            <div className="typography-subtitle2">
+          <div className={cx(styles.settings, settingsStyles['setting-content-container-inner'])}>
+            <div className={settingsStyles['setting-content-container-title']}>
               <FormattedMessage id="newsletterComponent.content" defaultMessage="Content" description="Title for newsletter content section on newsletter settings page" />
             </div>
             <NewsletterHeader
@@ -507,7 +517,7 @@ const NewsletterComponent = ({
                 />
               )}
             </FormattedMessage>
-            <div className={styles['newsletter-body']}>
+            <div className={cx(settingsStyles['setting-content-container-inner-accent'], styles['newsletter-body'])}>
               <div className={styles.switcher}>
                 <SwitchComponent
                   key={`newsletter-rss-feed-enabled-${language}`}

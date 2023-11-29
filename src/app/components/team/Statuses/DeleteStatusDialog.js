@@ -7,7 +7,6 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 /* Exported for unit test */
@@ -48,15 +47,12 @@ export const DeleteStatusDialog = ({
           />
         }
         body={
-          <div>
-            <Typography variant="body1" component="p" paragraph>
-              <FormattedMessage
-                id="deleteStatusDialog.statusNotInUseMessage"
-                defaultMessage="Are you sure you want to delete this status?"
-                description="Confirmation message displayed on a modal when a status is deleted from statuses settings page."
-              />
-            </Typography>
-          </div>
+          <FormattedMessage
+            tagName="p"
+            id="deleteStatusDialog.statusNotInUseMessage"
+            defaultMessage="Are you sure you want to delete this status?"
+            description="Confirmation message displayed on a modal when a status is deleted from statuses settings page."
+          />
         }
         onCancel={onCancel}
         onProceed={handleSubmit}
@@ -92,30 +88,27 @@ export const DeleteStatusDialog = ({
       }
       body={
         <div>
-          <Typography variant="body1" component="p" paragraph>
+          <FormattedMessage
+            tagName="p"
+            id="deleteStatusDialog.statusInUseMessage"
+            defaultMessage="{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
+            values={{
+              itemsCount: deleteStatus.items_count,
+              statusLabel: <strong>{deleteStatus.label}</strong>,
+            }}
+            description="Message of a modal that is displayed when a status in use is being deleted."
+          />
+          { deleteStatus.published_reports_count ?
             <FormattedMessage
-              id="deleteStatusDialog.statusInUseMessage"
-              defaultMessage="{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
+              tagName="p"
+              id="deleteStatusDialog.itemsPublishedMessage"
+              defaultMessage="{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
               values={{
-                itemsCount: deleteStatus.items_count,
+                publishedCount: deleteStatus.published_reports_count,
                 statusLabel: <strong>{deleteStatus.label}</strong>,
               }}
               description="Message of a modal that is displayed when a status in use is being deleted."
-            />
-          </Typography>
-          { deleteStatus.published_reports_count ?
-            <Typography variant="body1" component="p" paragraph>
-              <FormattedMessage
-                id="deleteStatusDialog.itemsPublishedMessage"
-                defaultMessage="{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
-                values={{
-                  publishedCount: deleteStatus.published_reports_count,
-                  statusLabel: <strong>{deleteStatus.label}</strong>,
-                }}
-                description="Message of a modal that is displayed when a status in use is being deleted."
-              />
-            </Typography>
-            : null
+            /> : null
           }
           <div>
             <FormControl variant="outlined" fullWidth>

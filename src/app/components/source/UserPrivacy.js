@@ -121,6 +121,7 @@ class UserPrivacy extends Component {
     const confirmDialog = {
       blurb: <FormattedMessage
         id="userPrivacy.deleteAccountConfirmationText"
+        tagName="p"
         defaultMessage="Are you sure? This will remove your account and log you out of the app."
         description="Confirmation for the user to know what will happen when they remove their account"
       />,

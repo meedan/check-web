@@ -1,124 +1,141 @@
 /* stylelint-disable no-descending-specificity */
-.textfield-container {
-  .input {
-    background-color: var(--otherWhite);
-    border: 2px solid var(--grayBorderMain);
-    border-radius: 8px;
-    color: var(--textPrimary);
-    font: inherit;
-    height: 100%;
-    letter-spacing: .15px;
-    line-height: 20px;
-    min-height: 48px;
-    padding: 12px 10px;
+.textfield-wrapper {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+
+  .textfield-container {
     width: 100%;
 
-    &.input-icon-left {
-      padding-left: 38px;
-    }
-
-    &.input-icon-right {
-      padding-right: 34px;
-    }
-
-    &:hover {
-      border-color: var(--grayBorderAccent);
-    }
-
-    &::placeholder {
-      font: 400 14px var(--fontStackSans);
+    .input {
+      background-color: var(--otherWhite);
+      border: 2px solid var(--grayBorderMain);
+      border-radius: 8px;
+      color: var(--textPrimary);
+      font: inherit;
+      height: 100%;
       letter-spacing: .15px;
       line-height: 20px;
-    }
+      min-height: 48px;
+      padding: .75rem .625rem .625rem;
+      width: 100%;
 
-    &:focus {
-      border-color: var(--brandMain);
-      outline: none;
+      &.input-icon-left {
+        padding-left: 38px;
+      }
+
+      &.input-icon-right {
+        padding-right: 34px;
+      }
+
+      &:hover {
+        border-color: var(--grayBorderAccent);
+      }
 
       &::placeholder {
-        color: transparent;
+        color: var(--textPlaceholder);
+        font: 400 14px var(--fontStackSans);
+        letter-spacing: .15px;
+        line-height: 20px;
+      }
+
+      &:focus {
+        border-color: var(--brandMain);
+        outline: none;
+
+        &::placeholder {
+          color: transparent;
+        }
+      }
+
+      &.outlined {
+        background-color: transparent;
+      }
+
+      &.error {
+        border-color: var(--errorMain) !important;
+
+        &:hover {
+          border-color: var(--errorSecondary) !important;
+        }
+
+        &:focus {
+          border-color: var(--errorMain) !important;
+        }
+      }
+    }
+
+    &.textarea-container {
+      &.textarea-autoGrow {
+        display: grid;
+
+        &::after {
+          border: 2px solid transparent;
+
+          /* Note the weird space! Needed to preventy jumpy behavior */
+          content: attr(data-replicated-value) ' ';
+          margin-top: 1px;
+          max-height: inherit;
+          overflow-wrap: anywhere;
+
+          /* Hidden from view, clicks, and screen readers */
+          visibility: hidden;
+
+          /* This is how textarea text behaves */
+          white-space: pre-wrap;
+        }
+
+        > textarea {
+          height: auto;
+
+          /* Firefox shows scrollbar on growth, you can hide like this. */
+          overflow: hidden;
+          overflow-wrap: anywhere;
+
+          /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+          resize: none;
+        }
+
+        > textarea,
+        &::after {
+          font: inherit;
+
+          /* Place on top of each other */
+          grid-area: 1 / 1 / 2 / 2;
+          letter-spacing: .15px;
+          line-height: 20px;
+          margin: 1px 0;
+          padding: .75rem .625rem .625rem;
+        }
+      }
+
+      &.textarea-maxHeight {
+        > textarea,
+        &::after {
+          max-height: inherit;
+          overflow-y: auto;
+        }
+      }
+
+      textarea {
+        max-width: 100%;
       }
     }
 
     &.disabled {
-      background-color: var(--grayDisabledBackground);
-      color: var(--textDisabledInput);
-      cursor: not-allowed;
+      .input {
+        background-color: var(--grayDisabledBackground);
+        color: var(--textDisabledInput);
+        cursor: not-allowed;
 
-      &:hover {
-        border-color: var(--grayBorderMain);
-      }
-    }
-
-    &.outlined {
-      background-color: transparent;
-    }
-
-    &.error {
-      border-color: var(--errorMain) !important;
-
-      &:hover {
-        border-color: var(--errorSecondary) !important;
-      }
-
-      &:focus {
-        border-color: var(--errorMain) !important;
+        &:hover {
+          border-color: var(--grayBorderMain);
+        }
       }
     }
   }
+}
 
-  &.textarea-container {
-    &.textarea-autoGrow {
-      display: grid;
-
-      &::after {
-
-        /* Note the weird space! Needed to preventy jumpy behavior */
-        content: attr(data-replicated-value) ' ';
-        max-height: inherit;
-        overflow-wrap: anywhere;
-
-        /* Hidden from view, clicks, and screen readers */
-        visibility: hidden;
-
-        /* This is how textarea text behaves */
-        white-space: pre-wrap;
-      }
-
-      > textarea {
-        height: auto;
-
-        /* Firefox shows scrollbar on growth, you can hide like this. */
-        overflow: hidden;
-        overflow-wrap: anywhere;
-
-        /* You could leave this, but after a user resizes, then it ruins the auto sizing */
-        resize: none;
-      }
-
-      > textarea,
-      &::after {
-
-        /* Identical styling required!! */
-        border: 1px solid inherit;
-        font: inherit;
-
-        /* Place on top of each other */
-        grid-area: 1 / 1 / 2 / 2;
-        line-height: 20px;
-        padding: .5rem;
-      }
-    }
-
-    &.textarea-maxHeight {
-      > textarea {
-        max-height: inherit;
-        overflow: auto;
-      }
-    }
-
-    textarea {
-      max-width: 100%;
-    }
-  }
+.textfield-removeable {
+  padding: 0 46px 0 0;
 }

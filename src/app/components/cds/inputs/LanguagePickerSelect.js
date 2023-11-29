@@ -1,10 +1,11 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '../../cds/inputs/TextField';
 import LanguageRegistry, { languageLabel } from '../../../LanguageRegistry';
 import LanguageIcon from '../../../icons/language.svg';
+import ChevronDownIcon from '../../../icons/chevron_down.svg';
 
 const messages = defineMessages({
   optionLabel: {
@@ -23,6 +24,8 @@ const LanguagePickerSelect = ({
   onSubmit,
   languages,
   isDisabled,
+  label,
+  helpContent,
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
   const options = (languages || []).slice();
@@ -62,26 +65,20 @@ const LanguagePickerSelect = ({
         value={value}
         onChange={handleChange}
         renderInput={params => (
-          <FormattedMessage id="LanguagePickerSelect.selectLanguage" defaultMessage="Select language" description="Change language label" >
-            { placeholder => (
-              <TextField
-                {...params}
-                name="language-name"
-                label=""
-                placeholder={placeholder}
-                variant="outlined"
-                InputProps={{
-                  ...params.InputProps,
-                  startAdornment: (
-                    <React.Fragment>
-                      <LanguageIcon fontSize="small" />
-                      {params.InputProps.startAdornment}
-                    </React.Fragment>
-                  ),
-                }}
-              />
-            )}
-          </FormattedMessage>
+          <div ref={params.InputProps.ref}>
+            <FormattedMessage id="LanguagePickerSelect.selectLanguage" defaultMessage="Select language" description="Change language label" >
+              { placeholder => (
+                <TextField
+                  iconLeft={<LanguageIcon />}
+                  iconRight={<ChevronDownIcon />}
+                  label={label}
+                  placeholder={placeholder}
+                  helpContent={helpContent}
+                  {...params.inputProps}
+                />
+              )}
+            </FormattedMessage>
+          </div>
         )}
       />
     </div>
@@ -91,7 +88,9 @@ const LanguagePickerSelect = ({
 LanguagePickerSelect.defaultProps = {
   languages: [],
   isDisabled: false,
+  label: null,
   selectedLanguage: 'und',
+  helpContent: null,
 };
 
 LanguagePickerSelect.propTypes = {
@@ -100,6 +99,8 @@ LanguagePickerSelect.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string),
   isDisabled: PropTypes.bool,
+  label: PropTypes.node,
+  helpContent: PropTypes.node,
 };
 
 export default injectIntl(LanguagePickerSelect);

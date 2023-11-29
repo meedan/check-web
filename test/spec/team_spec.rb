@@ -41,8 +41,8 @@ shared_examples 'team' do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}/settings/integrations"
-    wait_for_selector('.team-bots__keep-uninstalled').click
-    wait_for_selector('.team-bots__keep-installed').click
+    wait_for_selector('#team-bots__keep-uninstalled').click
+    wait_for_selector('#team-bots__keep-installed').click
   end
 
   it 'should add introduction to team report settings', bin4: true do
@@ -66,7 +66,7 @@ shared_examples 'team' do
     wait_for_selector("//span[contains(text(), 'Slack')]", :xpath)
     expect(@driver.find_elements(:css, '.Mui-checked').empty?)
     @driver.execute_script('window.scrollTo(10, 10000)')
-    wait_for_selector('.slack-config__switch').click
+    wait_for_selector('#slack-config__switch').click
     wait_for_selector('.Mui-checked')
     wait_for_selector('.slack-config__settings').click
     wait_for_selector('div[role=dialog]')

@@ -7,6 +7,7 @@ import {
   Typography,
   TextField,
 } from '@material-ui/core';
+import styles from '../../team/Settings.module.css';
 
 const StyledTextField = withStyles({
   root: {
@@ -41,16 +42,6 @@ const StyledTextField = withStyles({
 })(TextField);
 
 const useStyles = makeStyles(theme => ({
-  // FIXME: Once Typography is implemented according to specs from the design system, this custom style can be removed
-  title: {
-    fontWeight: 600,
-    fontSize: 14,
-  },
-  // FIXME: Once Typography is implemented according to specs from the design system, this custom style can be removed
-  description: {
-    fontWeight: 400,
-    fontSize: 12,
-  },
   defaultString: {
     borderTopLeftRadius: theme.spacing(1),
     borderTopRightRadius: theme.spacing(1),
@@ -99,12 +90,12 @@ const TiplineContentTranslation = ({
     <Box>
 
       {/* Text and description about this field */}
-      <Typography variant="body1" className={classes.title}>
+      <div className={styles['setting-content-container-title']}>
         {title}
-      </Typography>
-      <Typography variant="body1" className={classes.description}>
+      </div>
+      <p>
         {description}
-      </Typography>
+      </p>
 
       <Box mt={1}>
 

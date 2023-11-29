@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 
@@ -11,7 +11,7 @@ import DeleteStatusDialog from './DeleteStatusDialog';
 import EditStatusDialog from './EditStatusDialog';
 import StatusListItem from './StatusListItem';
 import TranslateStatuses from './TranslateStatuses';
-import LanguageSwitcher from '../../LanguageSwitcher';
+import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { stringHelper } from '../../../customHelpers';
 import { getErrorMessage } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -43,7 +43,8 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   };
 
   const handleChangeLanguage = (newValue) => {
-    setCurrentLanguage(newValue);
+    const { languageCode } = newValue;
+    setCurrentLanguage(languageCode);
   };
 
   const handleMenuEdit = (status) => {
@@ -205,14 +206,22 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         title={
           <FormattedMessage
             id="statusesComponent.title"
-            defaultMessage="{languageName} statuses"
+            defaultMessage="{languageName} Statuses [{statusCount}]"
             values={{
               languageName: languageName(currentLanguage),
+              statusCount: statuses.length,
             }}
             description="The idea of this sentence is 'statuses written in language <languageName>'"
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/4838891-status-settings"
+        context={
+          <FormattedHTMLMessage
+            id="statusesComponent.helpContext"
+            defaultMessage='Statuses represent the position of claims in the editorial workflow. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about statuses</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4838891-status-settings' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           <ButtonMain
             className="team-statuses__add-button"
@@ -230,19 +239,19 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
           />
         }
         extra={
-          <LanguageSwitcher
-            component="dropdown"
-            currentLanguage={currentLanguage}
-            languages={languages}
-            onChange={handleChangeLanguage}
-          />
+          languages.length > 1 ?
+            <LanguagePickerSelect
+              selectedLanguage={currentLanguage}
+              onSubmit={handleChangeLanguage}
+              languages={languages}
+            /> : null
         }
       />
       <div className={cx('status-settings', settingsStyles['setting-details-wrapper'])}>
         <div className={cx(settingsStyles['setting-content-container'])}>
           {
             currentLanguage === defaultLanguage ? (
-              <ul>
+              <ul className={settingsStyles['setting-content-list']}>
                 { statuses.map(s => (
                   <StatusListItem
                     defaultLanguage={defaultLanguage}
@@ -261,7 +270,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
                 <FormattedMessage
                   tagName="p"
                   id="statusesComponent.blurbSecondary"
-                  defaultMessage="Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
+                  defaultMessage="Translate statuses in secondary languages to display them to tipline users in their conversation language."
                   description="Message displayed on status translation page."
                 />
                 <TranslateStatuses

@@ -24,10 +24,12 @@ import Published from './team/Published';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
 import SaveFeed from './feed/SaveFeed';
-import EditFeed from './feed/EditFeed';
+import EditFeedTeam from './feed/EditFeedTeam';
 import Feed from './feed/Feed';
 import FeedItem from './feed/FeedItem';
 import FeedClusterPage from './feed/FeedClusterPage';
+import FeedInvitation from './feed/FeedInvitation';
+import FeedInvitationRespond from './feed/FeedInvitationRespond';
 import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
@@ -35,6 +37,7 @@ import SavedSearch from './search/SavedSearch';
 import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
 import Sandbox from './Sandbox';
+import SandboxCrash from './SandboxCrash';
 
 class Root extends Component {
   static logPageView() {
@@ -76,7 +79,9 @@ class Root extends Component {
                   <Route path="check/user/:userId(/:tab)" component={User} />
                   <Route path="check/me/edit" isEditing component={Me} />
                   <Route path="check/me/ui-sandbox" component={Sandbox} />
+                  <Route path="check/me/ui-sandbox/crash" component={SandboxCrash} />
                   <Route path="check/me(/:tab)" component={Me} />
+                  <Route path="check/feed/:feedId/invitation" component={FeedInvitation} splash />
                   <Route path="check/feed/:feedId/cluster/:clusterId" component={FeedItem} />
                   <Route path="check/feed/:feedId/request/:requestId" component={FeedClusterPage} />
                   <Route path=":team" component={Team} />
@@ -107,9 +112,10 @@ class Root extends Component {
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
                   <Route path=":team/published(/:query)" component={Published} />
-                  <Route path=":team/feed/:feedId/edit" component={EditFeed} />
-                  <Route path=":team/feed/:feedId/:tab(/:query)" component={Feed} />
                   <Route path=":team/feed/create" component={SaveFeed} />
+                  <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
+                  <Route path=":team/feed/:feedId/invitation" component={FeedInvitationRespond} />
+                  <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
                   <Route path="*" component={NotFound} public />

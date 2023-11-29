@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import SlackConfig from './SlackConfig';
 import SettingsHeader from './SettingsHeader';
@@ -85,13 +85,18 @@ const TeamIntegrations = () => (<QueryRenderer
                 description="Settings page title for the Integrations section"
               />
             }
-            helpUrl="https://help.checkmedia.org/en/articles/6925397-integrations"
+            context={
+              <FormattedHTMLMessage
+                id="teamIntegrations.helpContext"
+                defaultMessage='Connect your Check workflow with third-party services. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about integrations</a>.'
+                values={{ helpLink: 'https://help.checkmedia.org/en/articles/6925397-integrations' }}
+                description="Context description for the functionality of this page"
+              />
+            }
           />
           <div className={cx('team-integrations', settingsStyles['setting-details-wrapper'])}>
-            <div className={cx('team-integrations__integrations')}>
-              <TeamBots {...props} />
-              <SlackConfig team={props.root.current_team} />
-            </div>
+            <TeamBots {...props} />
+            <SlackConfig team={props.root.current_team} />
           </div>
         </>
       );

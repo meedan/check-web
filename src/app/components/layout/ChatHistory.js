@@ -1,7 +1,7 @@
 // DESIGNS: https://www.figma.com/file/bQWUXJItRRX8xO3uQ9FWdg/Multimedia-Newsletter-%2B-Report?type=design&node-id=656-50446&mode=design&t=PjtorENpol0lp5QG-://www.figma.com/file/swpcrmbyoYJXMnqhsVT5sr/Conversation-history-and-messaging-via-request?type=design&node-id=110-15572&mode=design&t=3zQWKZA3YXye2rWF-0
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
 import IconClose from '../../icons/cancel.svg';
 import IconDone from '../../icons/done.svg';
@@ -12,6 +12,7 @@ import IconSend from '../../icons/send.svg';
 import IconMenuOpen from '../../icons/menu_open.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import ParsedText from '../ParsedText';
 import styles from './ChatHistory.module.css';
 
@@ -236,8 +237,22 @@ const ChatHistory = ({
           );
         }).sort((a, b) => +b.props.dateTime - +a.props.dateTime)}
         <div className={`typography-body2 ${styles.date}`}>
-          {convertSentAtToLocaleDateString(history[history.length - 1].sent_at)}
+          {history.length > 0 ? convertSentAtToLocaleDateString(history[history.length - 1].sent_at) : null}
         </div>
+        {
+          history.length === 0 && (
+            <Alert
+              title={
+                <FormattedMessage
+                  id="chatHistory.noMessages"
+                  defaultMessage="Chat history is available beginning March 2023. Contact support for more information."
+                  description="Informational message that appears when a user accesses a chat history but the messages are too old to display."
+                />
+              }
+              variant="info"
+            />
+          )
+        }
       </div>
     </div>
   );

@@ -3,19 +3,17 @@ import { PropTypes } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import MediasLoading from '../../media/MediasLoading';
+import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
 import LanguageRegistry, { compareLanguages, languageLabelFull } from '../../../LanguageRegistry';
+import dialogStyles from '../../../styles/css/dialog.module.css';
 
 function submitAddLanguage({
   team,
@@ -111,18 +109,20 @@ const AddLanguageAction = ({ team }) => {
         }
       />
       <Dialog
+        className={dialogStyles['dialog-window']}
         open={dialogOpen}
         maxWidth="xs"
         fullWidth
       >
-        <DialogTitle>
+        <div className={dialogStyles['dialog-title']}>
           <FormattedMessage
+            tagName="h6"
             id="addLanguageAction.title"
             defaultMessage="Choose a new language"
             description="Title of language picker dialog"
           />
-        </DialogTitle>
-        <DialogContent>
+        </div>
+        <div className={dialogStyles['dialog-content']}>
           <Autocomplete
             id="autocomplete-add-language"
             name="autocomplete-add-language"
@@ -130,24 +130,31 @@ const AddLanguageAction = ({ team }) => {
             openOnFocus
             getOptionLabel={getOptionLabel}
             value={value}
-            renderInput={
-              params => (<TextField
-                variant="outlined"
-                label={
-                  <FormattedMessage
-                    id="addLanguageAction.selectLanguage"
-                    defaultMessage="Select a language"
-                    description="Label to language selection dropdown"
-                  />
-                }
-                {...params}
-              />)
-            }
+            renderInput={params => (
+              <div ref={params.InputProps.ref}>
+                <FormattedMessage id="addLanguageAction.selectLanguagePlaceholder" defaultMessage="Select a language" description="Placeholder to language selection dropdown">
+                  { placeholder => (
+                    <TextField
+                      variant="outlined"
+                      label={
+                        <FormattedMessage
+                          id="addLanguageAction.selectLanguage"
+                          defaultMessage="Language"
+                          description="Label to language selection dropdown"
+                        />
+                      }
+                      helpContent={<FormattedMessage id="addLanguageAction.selectLanguageHelp" defaultMessage="After adding this language, be sure to customize the chatbot’s responses in the tipline settings." description="Help text for next steps after selecting a language" />}
+                      placeholder={placeholder}
+                      {...params.inputProps}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+            )}
             onChange={handleChange}
-            fullWidth
           />
-        </DialogContent>
-        <DialogActions>
+        </div>
+        <div className={dialogStyles['dialog-actions']}>
           <ButtonMain
             className="add-language-action__cancel"
             size="default"
@@ -162,7 +169,7 @@ const AddLanguageAction = ({ team }) => {
             className="add-language-action__submit"
             theme="brand"
             size="default"
-            iconRight={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
+            iconLeft={isSaving ? <MediasLoading size="icon" theme="white" variant="icon" /> : null}
             disabled={!value || isSaving}
             onClick={handleSubmit}
             variant="contained"
@@ -174,7 +181,7 @@ const AddLanguageAction = ({ team }) => {
               />
             }
           />
-        </DialogActions>
+        </div>
       </Dialog>
     </React.Fragment>
   );

@@ -10,5 +10,10 @@
   {
     "id": "roleSelect.admin",
     "defaultMessage": "Admin"
+  },
+  {
+    "id": "roleSelect.selectLabel",
+    "description": "Label for select input for user to choose the permissions role for this user",
+    "defaultMessage": "Workspace permission"
   }
 ]

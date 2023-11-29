@@ -28,9 +28,11 @@ const ListSort = ({ sort, sortType, onChange }) => {
           { label => (<option value="status_index">{label}</option>) }
         </FormattedMessage>
       </Select>
-      <Tooltip title={
-        <FormattedMessage id="listSort.changeDirection" defaultMessage="Change list sorting direction" description="Tooltip to tell the user they can change the direction of the list sort" />
-      }
+      <Tooltip
+        arrow
+        title={
+          <FormattedMessage id="listSort.changeDirection" defaultMessage="Change list sorting direction" description="Tooltip to tell the user they can change the direction of the list sort" />
+        }
       >
         <button type="button" onClick={handleChangeSortDirection} className={`${styles.listSortDirectionButton} ${sortType === 'ASC' ? styles.listSortAsc : styles.listSortDesc} ${sortType === 'ASC' ? 'list-sort-asc' : 'list-sort-desc'}`}>
           <ArrowDropUpIcon />

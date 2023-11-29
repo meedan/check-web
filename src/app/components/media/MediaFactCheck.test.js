@@ -115,25 +115,19 @@ describe('<MediaFactCheck>', () => {
     expect(wrapper.find('time').text()).toContain('May 26, 2022');
   });
 
-  it('should render missing claim dialog when clicking the report button with a claim with empty description', () => {
+  it('should render a disabled report button with a claim with empty description', () => {
     const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia4} />);
     expect(wrapper.find('.media-fact-check__unpublished-report').text()).toEqual('Unpublished report');
-    wrapper.find('.media-fact-check__report-designer').hostNodes().simulate('click');
-    expect(wrapper.find('#confirm-dialog__confirm-action-button').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('[data-testid="media-fact-check__confirm-button-label"]').text()).toContain('You must add a claim to access the fact-check report');
+    expect(wrapper.find('ButtonMain.media-fact-check__report-designer').prop('disabled')).toBeTruthy();
   });
 
-  it('should render missing claim dialog when clicking the report button with a claim with blank spaces description', () => {
+  it('should render a disabled report button with a claim with blank spaces description', () => {
     const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia5} />);
-    expect(wrapper.find('.media-fact-check__unpublished-report').text()).toEqual('Unpublished report');
-    wrapper.find('.media-fact-check__report-designer').hostNodes().simulate('click');
-    expect(wrapper.find('#confirm-dialog__confirm-action-button').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('[data-testid="media-fact-check__confirm-button-label"]').text()).toContain('You must add a claim to access the fact-check report');
+    expect(wrapper.find('ButtonMain.media-fact-check__report-designer').prop('disabled')).toBeTruthy();
   });
 
-  it('should not render missing claim dialog when clicking the report button with a claim that have description', () => {
+  it('should not render a disabled report button with a claim that have description', () => {
     const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia3} />);
-    wrapper.find('.media-fact-check__report-designer').hostNodes().simulate('click');
-    expect(wrapper.find('#confirm-dialog__confirm-action-button').hostNodes()).toHaveLength(0);
+    expect(wrapper.find('ButtonMain.media-fact-check__report-designer').prop('disabled')).toBeFalsy();
   });
 });

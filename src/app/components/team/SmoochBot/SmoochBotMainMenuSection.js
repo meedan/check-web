@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import cx from 'classnames/bind';
-import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../../cds/inputs/TextField';
 import CancelIcon from '../../../icons/cancel.svg';
 import EditIcon from '../../../icons/edit.svg';
 import LockIcon from '../../../icons/lock.svg';
@@ -14,29 +10,7 @@ import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import Reorder from '../../layout/Reorder';
 import AddIcon from '../../../icons/add.svg';
-
-const useStyles = makeStyles(theme => ({
-  box: {
-    background: 'var(--brandBackground)',
-    borderRadius: theme.spacing(1),
-  },
-  textField: {
-    background: 'var(--otherWhite)',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  title: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  lock: {
-    color: 'var(--textSecondary)',
-    fontSize: '20px',
-  },
-  noDescription: {
-    fontStyle: 'italic',
-  },
-}));
+import styles from '../Settings.module.css';
 
 const SmoochBotMainMenuSection = ({
   number,
@@ -52,7 +26,6 @@ const SmoochBotMainMenuSection = ({
   onChangeTitle,
   onChangeMenuOptions,
 }) => {
-  const classes = useStyles();
   const [showNewOptionDialog, setShowNewOptionDialog] = React.useState(false);
   const [editingOptionIndex, setEditingOptionIndex] = React.useState(-1);
   const [showErrorDialog, setShowErrorDialog] = React.useState(false);
@@ -156,59 +129,40 @@ const SmoochBotMainMenuSection = ({
   };
 
   return (
-    <Box className={classes.box} my={2}>
-      <Box display="flex" alignItems="center" justifyContent="space-between" p={1}>
-        <Box display="flex" alignItems="center" pt={1} pb={1}>
-
-          {/* Title */}
-          { readOnly ?
-            <Box pt={1} pb={1}>
-              <div className={cx('typography-body1', classes.title)}>
-                <strong>
-                  {value.smooch_menu_title}
-                </strong>
-              </div>
-            </Box> : null }
-          { noTitleNoDescription ?
-            <Box p={1}>
-              <div className={cx('typography-body1', classes.title)}>
-                <strong>
-                  <FormattedMessage
-                    id="smoochBotMainMenuSection.defaultSectionTitle"
-                    defaultMessage="Menu options"
-                    description="Default label for a main menu section title field on tipline bot settings."
-                  />
-                </strong>
-              </div>
-            </Box> : null }
-          { !readOnly && !noTitleNoDescription ?
-            <TextField
-              key={`title-${number}`}
-              className={classes.textField}
-              label={
-                <FormattedMessage
-                  id="smoochBotMainMenuSection.sectionTitle"
-                  defaultMessage="Title - 24 characters limit"
-                  description="Label for a main menu section title field on tipline bot settings."
-                />
-              }
-              variant="outlined"
-              inputProps={{
-                size: 24,
-                minLength: 1,
-                maxLength: 24,
-                required: true,
-              }}
-              size="small"
-              disabled={readOnly}
-              onBlur={(e) => { onChangeTitle(e.target.value); }}
-              defaultValue={value.smooch_menu_title}
-              error={options.length > 0 && !value.smooch_menu_title}
-            /> : null }
-        </Box>
-
+    <div className={styles['setting-content-container-inner']}>
+      <div className={styles['setting-content-container-title']}>
+        {/* Title */}
+        { readOnly ? value.smooch_menu_title : null }
+        { noTitleNoDescription ?
+          <FormattedMessage
+            id="smoochBotMainMenuSection.defaultSectionTitle"
+            defaultMessage="Menu options"
+            description="Default label for a main menu section title field on tipline bot settings."
+          /> : null}
+        { !readOnly && !noTitleNoDescription ?
+          <TextField
+            key={`title-${number}`}
+            label={
+              <FormattedMessage
+                id="smoochBotMainMenuSection.sectionTitle"
+                defaultMessage="Title - 24 characters limit"
+                description="Label for a main menu section title field on tipline bot settings."
+              />
+            }
+            variant="contained"
+            componentProps={{
+              size: 24,
+              minLength: 1,
+              maxLength: 24,
+            }}
+            required
+            disabled={readOnly}
+            onBlur={(e) => { onChangeTitle(e.target.value); }}
+            defaultValue={value.smooch_menu_title}
+            error={options.length > 0 && !value.smooch_menu_title}
+          /> : null }
         {/* Add a new menu option */}
-        <Box pr={1}>
+        <div className={styles['setting-content-container-actions']}>
           <ButtonMain
             theme="brand"
             variant="text"
@@ -224,94 +178,95 @@ const SmoochBotMainMenuSection = ({
               />
             }
           />
-        </Box>
-      </Box>
+        </div>
+      </div>
 
-      <Divider />
+      <hr />
 
       {/* No options */}
       { options.length === 0 ?
-        <Box pl={2} pt={2}>
-          <FormattedMessage
-            id="smoochBotMainMenuSection.noOptions"
-            defaultMessage="There is currently no option in this section."
-            description="Message displayed when there is no menu option on tipline bot settings."
-          />
-        </Box> : null }
+        <FormattedMessage
+          tagName="p"
+          id="smoochBotMainMenuSection.noOptions"
+          defaultMessage="There is currently no option in this section."
+          description="Message displayed when there is no menu option on tipline bot settings."
+        /> : null }
 
       {/* Each menu option */}
-      <Box p={1}>
-        { options.map((option, i) => (
-          <Box display="flex" alignItems="center" justifyContent="space-between" my={1} key={formatOptionLabel(option)}>
+      { options.map((option, i) => (
+        <div my={1} key={formatOptionLabel(option)} className={styles['tipline-menu-option']}>
 
-            {/* Menu option label and reordering */}
-            <Box display="flex" alignItems="center" style={{ gap: '10px' }}>
-              { !readOnly &&
-                <Reorder
-                  variant="horizontal"
-                  theme="white"
-                  onMoveUp={() => { handleMoveUp(i); }}
-                  onMoveDown={() => { handleMoveDown(i); }}
-                  disableUp={i === 0}
-                  disableDown={i === options.length - 1}
-                />
-              }
-              <Box m={readOnly ? 1 : 0}>
-                {/* Menu option label */}
-                <div className="typography-body1">
-                  <strong>{formatOptionLabel(option)}</strong>
-                </div>
+          {/* Menu option label and reordering */}
+          <div className={styles['tipline-menu-option-content']}>
+            { !readOnly &&
+              <Reorder
+                variant="horizontal"
+                theme="white"
+                onMoveUp={() => { handleMoveUp(i); }}
+                onMoveDown={() => { handleMoveDown(i); }}
+                disableUp={i === 0}
+                disableDown={i === options.length - 1}
+              />
+            }
+            <div className="typography-body1-bold">
+              {/* Menu option label */}
+              {formatOptionLabel(option)}
 
-                {/* Menu option description */}
+              {/* Menu option description */}
+              { !readOnly && !option.smooch_menu_option_description &&
                 <div className="typography-caption">
-                  { !readOnly && !option.smooch_menu_option_description ?
-                    <span className={classes.noDescription}>
-                      <FormattedMessage
-                        id="smoochBotMainMenuSection.optionNoDescription"
-                        defaultMessage="no description"
-                        description="Displayed when a tipline bot menu option doesn't have a description."
-                      />
-                    </span> : option.smooch_menu_option_description }
+                  <em>
+                    <FormattedMessage
+                      id="smoochBotMainMenuSection.optionNoDescription"
+                      defaultMessage="no description"
+                      description="Displayed when a tipline bot menu option doesn't have a description."
+                    />
+                  </em>
                 </div>
-              </Box>
-            </Box>
-
-            {/* Menu option buttons: edit and delete */}
-            <Box display="flex" alignItems="center">
-
-              {/* Edit */}
-              { readOnly ?
-                null :
-                <ButtonMain
-                  iconCenter={<EditIcon />}
-                  variant="text"
-                  theme="lightText"
-                  size="default"
-                  disabled={readOnly}
-                  onClick={() => { handleEditOption(i); }}
-                />
               }
-              {' '}
-
-              {/* Delete */}
-              { readOnly || (!optional && options.length === 1) ?
-                null :
-                <ButtonMain
-                  iconCenter={<CancelIcon />}
-                  variant="text"
-                  theme="lightText"
-                  size="default"
-                  onClick={() => { handleDeleteOption(i); }}
-                />
-
+              { !readOnly && option.smooch_menu_option_description &&
+                <div className="typography-caption">
+                  { option.smooch_menu_option_description }
+                </div>
               }
+            </div>
+          </div>
 
-              {/* Locked */}
-              { readOnly || (!optional && options.length === 1) ? <LockIcon className={classes.lock} /> : null }
-            </Box>
-          </Box>
-        ))}
-      </Box>
+          {/* Menu option buttons: edit and delete */}
+          <div className={styles['tipline-menu-option-actions']}>
+            { readOnly ?
+              null :
+              <ButtonMain
+                iconCenter={<EditIcon />}
+                variant="contained"
+                theme="lightBrand"
+                size="default"
+                disabled={readOnly}
+                onClick={() => { handleEditOption(i); }}
+              />
+            }
+            { readOnly || (!optional && options.length === 1) ?
+              null :
+              <ButtonMain
+                iconCenter={<CancelIcon />}
+                variant="contained"
+                theme="lightBrand"
+                size="default"
+                onClick={() => { handleDeleteOption(i); }}
+              />
+            }
+            { readOnly || (!optional && options.length === 1) ?
+              <ButtonMain
+                iconCenter={<LockIcon />}
+                variant="text"
+                theme="lightText"
+                size="default"
+                disabled
+              />
+              : null }
+          </div>
+        </div>
+      ))}
 
       {/* Dialog: Add new option */}
       { showNewOptionDialog ?
@@ -370,7 +325,7 @@ const SmoochBotMainMenuSection = ({
         onProceed={() => { setShowErrorDialog(false); }}
         onCancel={() => { setShowErrorDialog(false); }}
       />
-    </Box>
+    </div>
   );
 };
 

@@ -5,6 +5,11 @@
     "defaultMessage": "Tags [{count}]"
   },
   {
+    "id": "rulesTableToolbar.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Automatically categorize items by keyword. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about tags</a>."
+  },
+  {
     "id": "teamTagsComponent.newTag",
     "description": "Button label for calling the new tag creation modal",
     "defaultMessage": "New tag"

@@ -138,10 +138,10 @@ const InviteNewAccountComponent = ({ user }) => {
                 }}
               />
             </Typography>
-            <Typography component="div" align="center" className={classes.bold} paragraph="true">
+            <Typography component="div" align="center" className={classes.bold} paragraph>
               {teamUser?.team?.name}
             </Typography>
-            <Typography component="div" align="center" paragraph="true">
+            <Typography component="div" align="center" paragraph>
               <FormattedHTMLMessage
                 id="inviteNewAccount.createMessage"
                 defaultMessage="You need to create an account for <b>{email}</b>"

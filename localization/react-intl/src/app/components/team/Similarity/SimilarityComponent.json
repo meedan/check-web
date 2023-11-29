@@ -10,6 +10,11 @@
     "defaultMessage": "Similarity matching"
   },
   {
+    "id": "teamDataComponent.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage settings for automatic matching of similar media. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about automatic matching</a>."
+  },
+  {
     "id": "similarityComponent.save",
     "description": "Label for Save Button on Similarity settings page",
     "defaultMessage": "Save"
@@ -38,6 +43,11 @@
     "id": "similarityComponent.singleLanguageFactChecksEnabled",
     "description": "Label displayed when similarity setting for single language fact-checks is enabled",
     "defaultMessage": "Only send fact-checks in the same language as the conversation language"
+  },
+  {
+    "id": "similarityComponent.singleLanguageFactChecksHelp",
+    "description": "Help text displayed when similarity setting for single language fact-checks is enabled",
+    "defaultMessage": "Media matching groups similar items, even if they are in multiple languages. If enabled, fact-checks will only be sent to users whose chosen language of conversation in the tipline matches the fact-check language. If disabled, fact-checks will be sent to all users whose media matches the claim, regardless of their conversation language. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about tipline menus</a>."
   },
   {
     "id": "similarityComponent.textLength",

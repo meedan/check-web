@@ -2,32 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import { lighten, makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import DeleteIcon from '../../../icons/delete.svg';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-
-const useToolbarStyles = makeStyles(theme => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  highlight: {
-    color: theme.palette.secondary.main,
-    backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-  },
-  title: {
-    flex: '1 1 100%',
-    alignSelf: 'center',
-  },
-}));
+import styles from '../Settings.module.css';
 
 const RulesTableToolbar = (props) => {
-  const classes = useToolbarStyles();
   const { numSelected } = props;
   const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = React.useState(false);
 
@@ -47,15 +28,8 @@ const RulesTableToolbar = (props) => {
   return (
     <React.Fragment>
       { numSelected > 0 ?
-        <Toolbar
-          className={cx(
-            classes.root,
-            {
-              [classes.highlight]: numSelected > 0,
-            })
-          }
-        >
-          <div className={cx('typography-subtitle1', classes.title)}>
+        <div className={cx(styles['table-toolbar'])}>
+          <div className={cx(styles['table-toolbar-summary'])}>
             <FormattedMessage
               id="rulesTableToolbar.selected"
               defaultMessage="{numSelected, plural, one {# selected} other {# selected}}"
@@ -63,22 +37,25 @@ const RulesTableToolbar = (props) => {
               values={{ numSelected }}
             />
           </div>
-          <Tooltip
-            title={
-              <FormattedMessage id="rulesTableToolbar.delete" defaultMessage="Delete" description="Tooltip for deleting rules" />
-            }
-          >
-            <span>
-              <ButtonMain
-                iconCenter={<DeleteIcon />}
-                variant="text"
-                theme="text"
-                size="default"
-                onClick={handleConfirmDelete}
-              />
-            </span>
-          </Tooltip>
-        </Toolbar> : null }
+          <div className={cx(styles['table-toolbar-actions'])}>
+            <Tooltip
+              arrow
+              title={
+                <FormattedMessage id="rulesTableToolbar.delete" defaultMessage="Delete" description="Tooltip for deleting rules" />
+              }
+            >
+              <span>
+                <ButtonMain
+                  iconCenter={<DeleteIcon />}
+                  variant="text"
+                  theme="text"
+                  size="default"
+                  onClick={handleConfirmDelete}
+                />
+              </span>
+            </Tooltip>
+          </div>
+        </div> : null }
       <ConfirmProceedDialog
         open={showDeleteConfirmationDialog}
         title={

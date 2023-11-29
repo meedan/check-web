@@ -15,7 +15,7 @@
 
   .buttonMainLabel {
     display: inline-block;
-    max-width: 150px;
+    max-width: 250px;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -28,6 +28,7 @@
     display: flex;
     /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
     font-size: 20px;
+    width: fit-content;
   }
 
   &.sizeSmall {
@@ -285,20 +286,6 @@
 
     &.textVariant {
       @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
-    }
-  }
-
-  &.counterButton {
-    height: auto;
-    text-transform: uppercase;
-
-    strong {
-      display: block;
-    }
-
-    &:disabled {
-      color: var(--brandMain);
-      cursor: default;
     }
   }
 }

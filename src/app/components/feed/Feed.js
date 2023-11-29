@@ -14,19 +14,35 @@ import { safelyParseJSON } from '../../helpers';
 export const FeedComponent = ({ routeParams, ...props }) => {
   const { team } = props;
   const { feed } = team;
-  const { tab } = routeParams;
 
   if (!feed) {
     browserHistory.push('/check/not-found');
     return null;
   }
 
+  const tab = routeParams.tab || 'feed';
   const feedTeam = feed.current_feed_team;
+  const isFeedOwner = feedTeam.team_id === feed.team_id;
+
+  // set initial teamFilters to list of all teams OR whatever is from the query
+  const [teamFilters, setTeamFilters] = React.useState(feed?.teams?.edges.map(item => item.node.dbid));
+
+  // Redirect to edit FeedTeam if we're not sharing a list and we're not the feed creator
+  if (!isFeedOwner && feedTeam && !feedTeam.saved_search_id) {
+    browserHistory.push(`/${routeParams.team}/feed/${feed.dbid}/edit`);
+  }
 
   const commonSearchProps = {
     searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
     title: feed.name,
-    extra: () => (<FeedTopBar team={team} feed={feed} />),
+    extra: () => (
+      <FeedTopBar
+        team={team}
+        feed={feed}
+        teamFilters={teamFilters}
+        setTeamFilters={setTeamFilters}
+      />
+    ),
     listSubtitle: <FormattedMessage id="feedHeader.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />,
     icon: null,
     teamSlug: routeParams.team,
@@ -79,11 +95,13 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             mediaUrlPrefix="media"
             query={{
               ...safelyParseJSON(routeParams.query, {}),
+              feed_team_ids: teamFilters,
               feed_id: feed.dbid,
               ...feed.filters,
             }}
             defaultQuery={feed.filters}
-            resultType="factCheck"
+            // if all filters are empty, force an empty result
+            resultType={teamFilters.length === 0 ? 'emptyFeed' : 'factCheck'}
             hideFields={[
               'feed_fact_checked_by',
               'tags',
@@ -112,7 +130,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             {...commonSearchProps}
             title={feed.name}
             listActions={
-              <FeedHeader feed={feed} />
+              <FeedHeader feedTeam={feedTeam} feed={feed} />
             }
           />
         </div>
@@ -219,15 +237,28 @@ const Feed = ({ routeParams }) => (
           team(slug: $slug) {
             feed(dbid: $feedId) {
               dbid
+              team_id
               name
               published
               filters
               saved_search_id
+              teams(first: 1000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    name
+                  }
+                }
+              }
               current_feed_team {
                 id
+                team_id
+                saved_search_id
                 filters
                 shared
                 requests_filters
+                ...FeedHeader_feedTeam
               }
               ...FeedTopBar_feed
               ...FeedHeader_feed
@@ -250,6 +281,10 @@ const Feed = ({ routeParams }) => (
   </ErrorBoundary>
 );
 
+Feed.defaultProps = {
+  team: null,
+};
+
 Feed.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
@@ -257,6 +292,9 @@ Feed.propTypes = {
     tab: PropTypes.oneOf(['shared', 'feed', 'requests']),
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
+  team: PropTypes.shape({
+    feed: PropTypes.object.isRequired,
+  }),
 };
 
 export default Feed;

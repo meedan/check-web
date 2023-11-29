@@ -6,14 +6,16 @@ import ProjectsComponent from './ProjectsComponent';
 
 const renderQuery = ({ error, props }) => {
   if (!error && props) {
+    const feedsCreated = props.team.feeds.edges.map(f => f.node).filter(f => f.team_id === props.team.dbid);
+    const feedsJoined = props.team.feed_teams.edges.map(ft => ft.node).filter(ft => !feedsCreated.find(f => f.dbid === ft.feed_id));
+    const feedsInvited = props.me.feed_invitations.edges.map(f => f.node).filter(fi => fi.state === 'invited');
+    const feeds = [].concat(feedsCreated, feedsJoined, feedsInvited);
     return (
       <ProjectsComponent
         currentUser={props.me}
         team={props.team}
-        projects={props.team.projects.edges.map(p => p.node)}
-        projectGroups={props.team.project_groups.edges.map(pg => pg.node)}
         savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
-        feeds={props.team.feeds.edges.map(f => f.node)}
+        feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
       />
     );
   }
@@ -38,6 +40,20 @@ const Projects = () => {
         query ProjectsQuery($teamSlug: String!) {
           me {
             dbid
+            feed_invitations(first: 10000) {
+              edges {
+                node {
+                  id
+                  dbid
+                  state
+                  feed_id
+                  feed {
+                    name
+                  }
+                  type: __typename
+                }
+              }
+            }
           }
           team(slug: $teamSlug) {
             dbid
@@ -54,27 +70,6 @@ const Projects = () => {
             alegre_bot: team_bot_installation(bot_identifier: "alegre") {
               id
               alegre_settings
-            }
-            projects(first: 10000) {
-              edges {
-                node {
-                  id
-                  dbid
-                  title
-                  medias_count
-                  project_group_id
-                }
-              }
-            }
-            project_groups(first: 10000) {
-              edges {
-                node {
-                  id
-                  dbid
-                  title
-                  medias_count
-                }
-              }
             }
             saved_searches(first: 10000) {
               edges {
@@ -94,6 +89,22 @@ const Projects = () => {
                   id
                   dbid
                   name
+                  team_id
+                  type: __typename
+                }
+              }
+            }
+            feed_teams(first: 10000) {
+              edges {
+                node {
+                  id
+                  dbid
+                  feed_id
+                  saved_search_id
+                  feed {
+                    name
+                  }
+                  type: __typename
                 }
               }
             }

@@ -37,6 +37,7 @@ function tweakIframeDom({
   fillInOrHide('#telegram', defaultReport.telegram ? `t.me/${defaultReport.telegram}` : null);
   fillInOrHide('#viber', defaultReport.viber ? defaultReport.viber : null);
   fillInOrHide('#line', defaultReport.line ? defaultReport.line : null);
+  fillInOrHide('#instagram', defaultReport.instagram ? `instagram.com/${defaultReport.instagram}` : null);
 }
 
 function ReportImagePreview({

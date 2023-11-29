@@ -69,12 +69,12 @@ shared_examples 'media actions' do
     wait_for_selector('.annotations__list')
     fill_field('#cmd-input', 'A comment')
     @driver.action.send_keys(:enter).perform
-    wait_for_selector('.annotation--comment')
-    expect(@driver.page_source.include?('A comment')).to be(true)
+    wait_for_selector('.annotation__avatar-col')
+    expect(@driver.find_elements(:css, '.annotation--comment').size).to eq 1
     wait_for_selector('.annotation .menu-button').click
     wait_for_selector('.annotation__delete').click
     wait_for_selector_none('.annotation__avatar-col')
-    expect(@driver.page_source.include?('A comment')).to be(false)
+    expect(@driver.find_elements(:css, '.annotation--comment').size).to eq 0
   end
 
   it 'should add image to media comment', bin3: true do

@@ -35,11 +35,14 @@ const MediaComponentRightPanel = ({
         { showRequests ?
           <Tab
             label={
-              <FormattedMessage
-                id="mediaComponent.requests"
-                defaultMessage="Requests"
-                description="Label for the Requests tab, as in requests from users"
-              />
+              <span>
+                <FormattedMessage
+                  id="mediaComponent.requests"
+                  defaultMessage="Requests"
+                  description="Label for the Requests tab, as in requests from users"
+                />
+                {projectMedia.demand > 0 && ` [${projectMedia.demand}]`}
+              </span>
             }
             value="requests"
             className="media-tab__requests"
@@ -48,11 +51,14 @@ const MediaComponentRightPanel = ({
         { showSuggestions ?
           <Tab
             label={
-              <FormattedMessage
-                id="mediaComponent.suggestedMedia"
-                defaultMessage="Suggestions"
-                description="Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
-              />
+              <span>
+                <FormattedMessage
+                  id="mediaComponent.suggestedMedia"
+                  defaultMessage="Suggestions"
+                  description="Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
+                />
+                {projectMedia.suggested_similar_items_count > 0 && ` [${projectMedia.suggested_similar_items_count}]`}
+              </span>
             }
             value="suggestedMedia"
             className="media-tab__sugestedMedia"
@@ -61,7 +67,7 @@ const MediaComponentRightPanel = ({
           label={
             <FormattedMessage
               id="mediaComponent.annotation"
-              defaultMessage="Annotation"
+              defaultMessage="Annotations"
               description="Label for the Annotation tab"
             />
           }
@@ -81,11 +87,14 @@ const MediaComponentRightPanel = ({
         />
         <Tab
           label={
-            <FormattedMessage
-              id="mediaComponent.notes"
-              defaultMessage="Notes"
-              description="Label for the Notes tab, as in text notes"
-            />
+            <span>
+              <FormattedMessage
+                id="mediaComponent.notes"
+                defaultMessage="Notes"
+                description="Label for the Notes tab, as in text notes"
+              />
+              {projectMedia.notes_count > 0 && ` [${projectMedia.notes_count}]`}
+            </span>
           }
           value="notes"
           className="media-tab__comments"

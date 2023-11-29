@@ -15,7 +15,7 @@ const StatusMessage = ({ message }) => {
       className={cx(styles['status-message'], 'test__status-message')}
       variant="info"
       icon
-      title={<FormattedMessage id="statusListItem.messageTooltip" defaultMessage="When you change and item to this status, the user who requested will receive the following message:" description="Tooltip to tell the user when this message will be sent out" />}
+      title={<FormattedMessage id="statusListItem.messageTooltip" defaultMessage="When you change an item to this status, the user who requested will receive the following message:" description="Tooltip to tell the user when this message will be sent out" />}
       content={message}
     />
   );
@@ -26,7 +26,7 @@ StatusMessage.defaultProps = {
 };
 
 StatusMessage.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.node,
 };
 
 export default StatusMessage;

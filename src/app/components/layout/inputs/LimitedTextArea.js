@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import TextArea from '../../cds/inputs/TextArea';
+import styles from '../../../styles/css/inputs.module.css';
 
 const LimitedTextArea = ({
   maxChars,
@@ -53,13 +54,15 @@ const LimitedTextArea = ({
       value={localText}
       helpContent={(
         <>
-          {helpContent && (<>{helpContent}<br /></>)}
-          <FormattedMessage
-            id="limitedTextAreaWithCounter.counter"
-            defaultMessage="{remaining, plural, one {# character left} other {# characters left}}"
-            description="Label that displays how many characters more can be typed"
-            values={{ remaining: maxChars - (localText.length || 0) }}
-          />
+          {helpContent}
+          <div className={styles['help-counter']}>
+            <FormattedMessage
+              id="limitedTextAreaWithCounter.counter"
+              defaultMessage="{remaining, plural, one {# character left} other {# characters left}}"
+              description="Label that displays how many characters more can be typed"
+              values={{ remaining: maxChars - (localText.length || 0) }}
+            />
+          </div>
         </>
       )}
       onChange={handleChange}
@@ -75,7 +78,6 @@ LimitedTextArea.defaultProps = {
   value: '',
   setValue: null,
   helpContent: null,
-  textFieldProps: {},
   onErrorTooLong: () => {},
 };
 
@@ -85,7 +87,6 @@ LimitedTextArea.propTypes = {
   setValue: PropTypes.func,
   helpContent: PropTypes.element,
   onErrorTooLong: PropTypes.func,
-  textFieldProps: PropTypes.object,
   required: PropTypes.bool,
 };
 

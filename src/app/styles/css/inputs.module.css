@@ -1,63 +1,161 @@
-.label-container {
-  @mixin typography-body2;
-  color: var(--textSecondary);
-  display: grid;
-  grid-gap: 8px;
-  grid-template-columns: 2fr 1fr;
-  margin-bottom: 4px;
-
-  label {
-    align-self: end;
-    margin-left: 10px;
-  }
-
-  .required {
-    align-self: end;
-    margin-right: 4px;
-    text-align: right;
-  }
-
-  &.error-label {
-    color: var(--errorSecondary);
-  }
-}
-
-.input-container {
-  position: relative;
-
-  .input-icon-left-icon,
-  .input-icon-right-icon {
+.input-wrapper {
+  .label-container {
+    @mixin typography-body2;
     color: var(--textSecondary);
-    font-size: var(--iconSizeDefault);
-    height: 24px;
-    pointer-events: none;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
+    display: grid;
+    grid-gap: 8px;
+    margin-bottom: 4px;
+
+    &.label-container-label.label-container-required {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    label {
+      align-self: end;
+      margin-left: 10px;
+    }
+
+    .required {
+      align-self: end;
+      margin-right: 4px;
+      text-align: right;
+    }
+
+    &.error-label {
+      color: var(--errorSecondary);
+    }
   }
 
-  .input-icon-left-icon {
-    left: 10px;
-    right: auto;
+  .input-container {
+    position: relative;
+
+    .input-icon-left-icon,
+    .input-icon-right-icon {
+      color: var(--textSecondary);
+      font-size: var(--iconSizeDefault);
+      height: 24px;
+      pointer-events: none;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+    }
+
+    .input-icon-left-icon {
+      left: 10px;
+      right: auto;
+    }
+  }
+
+  .help-container {
+    @mixin typography-caption;
+    margin: 4px 0 0;
+    padding: 0 4px 0 10px;
+
+    .error-icon {
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 15px;
+      margin-right: 4px;
+      position: relative;
+      top: 3px;
+    }
+
+    &.error-label {
+      color: var(--errorSecondary);
+      white-space: pre-line;
+
+      .help-counter {
+        margin: 4px 0 0;
+      }
+    }
+  }
+
+  &.disabled {
+    .label-container:not(.error-label),
+    .help-container:not(.error-label) {
+      color: var(--textPlaceholder);
+    }
+
+    .input-container {
+      .input-icon-left-icon,
+      .input-icon-right-icon {
+        color: var(--textPlaceholder);
+      }
+    }
   }
 }
 
-.help-container {
-  @mixin typography-caption;
-  margin: 4px 0 0;
-  padding: 0 4px 0 10px;
+.form-inner-wrapper {
+  background-color: var(--brandBackground);
+  border-radius: 5px;
+  padding: 16px;
 
-  .error-icon {
-    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-    font-size: 15px;
-    margin-right: 4px;
-    position: relative;
-    top: 3px;
+  &.form-inner-sticky {
+    margin: 0 0 16px;
+    position: sticky;
+    top: -16px;
+    z-index: 1001;
   }
 
-  &.error-label {
-    color: var(--errorSecondary);
+  .form-inner-wrapper {
+    background: var(--brandBackgroundAccent);
+    border-radius: 3px;
+    padding: 16px;
+  }
+
+  + .form-inner-wrapper {
+    margin: 16px 0 0;
+  }
+}
+
+.form-fieldset {
+  .form-fieldset-title {
+    @mixin typography-subtitle2;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 8px;
+
+    .form-fieldset-title-extra {
+      @mixin typography-caption;
+    }
+  }
+
+  .form-fieldset-field {
+    margin: 0 0 16px;
+
+    &.form-autocomplete-create {
+      border: solid 1px var(--errroMain);
+      display: flex;
+      gap: 8px;
+
+      :global(.MuiAutocomplete-root) {
+        flex: 1 1 auto;
+      }
+
+      button {
+        flex: 0 0 auto;
+        margin: 26px 0 0;
+      }
+    }
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}
+
+.form-footer-actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+
+  .form-footer-actions-context {
+    @mixin typography-caption;
+    color: var(--textSecondary);
+    flex: 1 1 auto;
+    text-align: left;
   }
 }

@@ -227,11 +227,14 @@ export const MuiTheme = {
         border: `2px solid ${brandBorder}`,
       },
       rounded: {
-        borderRadius: 16,
+        borderRadius: 8,
       },
       elevation8: {
         boxShadow: '0 5px 5px -3px rgba(0, 0, 0, .20), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12)',
         border: `2px solid ${brandBorder}`,
+      },
+      elevation24: {
+        boxShadow: '0 5px 5px -3px rgba(0, 0, 0, 0.20), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, .12)',
       },
     },
     MuiTabs: {
@@ -314,6 +317,13 @@ export const MuiTheme = {
     MuiListItemIcon: {
       root: {
         fontSize: '1.5em',
+      },
+    },
+    MuiDialog: {
+      paper: {
+        border: `2px solid ${brandBorder}`,
+        borderRadius: 16,
+        minWidth: '550px',
       },
     },
   },

@@ -4,18 +4,17 @@ import Relay from 'react-relay/classic';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import * as EmailValidator from 'email-validator';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import TextField from '@material-ui/core/TextField';
 import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '../cds/inputs/TextField';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import RoleSelect from './RoleSelect';
 import Message from '../Message';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import styles from '../../styles/css/dialog.module.css';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const InviteDialog = ({
   open,
@@ -137,53 +136,83 @@ const InviteDialog = ({
 
   return (
     <Dialog
+      className={styles['dialog-window']}
       open={open}
       onClose={onClose}
       fullWidth
     >
-      <DialogTitle>
+      <div className={styles['dialog-title']}>
         <FormattedMessage
+          tagName="h6"
           id="inviteDialog.title"
           defaultMessage="Invite workspace members"
           description="Dialog title for inviting members to workspace"
         />
-      </DialogTitle>
-      <DialogContent>
+      </div>
+      <div className={styles['dialog-content']}>
         <Message message={errorMessage} />
-        <TextField
-          id="invite-dialog__email-input"
-          name="invite-dialog__email-input"
-          label={
-            <FormattedMessage
-              id="inviteDialog.textInputLabel"
-              defaultMessage="Email addresses, comma separated"
-              description="Label to input for invited emails. Requires that multiple emails be entered separated by comma."
-            />
-          }
-          margin="normal"
-          onChange={handleChangeEmails}
-          fullWidth
-          variant="outlined"
-        />
-        <RoleSelect value={inviteRole} onChange={handleChangeRole} fullWidth />
-      </DialogContent>
-      <DialogActions>
-        <Button
-          id="invite-dialog__cancel"
+        <div className={inputStyles['form-fieldset']}>
+          <div className={inputStyles['form-fieldset-field']}>
+            <FormattedMessage id="inviteDialog.textInputPlaceholder" defaultMessage="example: team_member@example.org, team_member2@example.org" description="Placeholder for input for invited emails">
+              {placeholder => (
+                <TextField
+                  label={
+                    <FormattedMessage
+                      id="inviteDialog.textInputLabel"
+                      defaultMessage="Email address(es)"
+                      description="Label to input for invited emails. Requires that multiple emails be entered separated by comma."
+                    />
+                  }
+                  helpContent={
+                    <FormattedMessage
+                      id="inviteDialog.textInputHelp"
+                      defaultMessage="To invite multiple members, separate email address with a comma"
+                      description="Help to input for invited emails. Requires that multiple emails be entered separated by comma."
+                    />
+                  }
+                  required
+                  placeholder={placeholder}
+                  onChange={handleChangeEmails}
+                  componentProps={{
+                    name: 'invite-dialog__email-input',
+                    id: 'invite-dialog__email-input',
+                  }}
+                />
+              )}
+            </FormattedMessage>
+          </div>
+          <div className={inputStyles['form-fieldset-field']}>
+            <RoleSelect value={inviteRole} onChange={handleChangeRole} showLabel />
+          </div>
+        </div>
+      </div>
+      <div className={styles['dialog-actions']}>
+        <ButtonMain
+          buttonProps={{
+            id: 'invite-dialog__cancel',
+          }}
           onClick={onClose}
-        >
-          <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
-        </Button>
-        <Button
-          id="invite-dialog__submit"
+          size="default"
+          variant="text"
+          theme="lightText"
+          label={
+            <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
+          }
+        />
+        <ButtonMain
+          buttonProps={{
+            id: 'invite-dialog__submit',
+          }}
           onClick={handleSubmit}
-          color="primary"
+          size="default"
           variant="contained"
+          theme="brand"
           disabled={inviteEmails.length < 1}
-        >
-          <FormattedMessage id="inviteDialog.submit" defaultMessage="Invite" description="Button to submit invitations." />
-        </Button>
-      </DialogActions>
+          label={
+            <FormattedMessage id="inviteDialog.submit" defaultMessage="Invite" description="Button to submit invitations." />
+          }
+        />
+      </div>
     </Dialog>
   );
 };

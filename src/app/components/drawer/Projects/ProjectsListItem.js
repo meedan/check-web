@@ -15,6 +15,7 @@ const ProjectsListItem = ({
   icon,
   routePrefix,
   routeSuffix,
+  tooltip,
 }) => {
   const handleClick = () => {
     if (onClick) {
@@ -31,7 +32,7 @@ const ProjectsListItem = ({
       to={`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`}
     >
       <ListItem
-        title={project.title}
+        title={tooltip}
         key={`${project.id}-${project.title}`}
         className={[
           defaultClassName,
@@ -67,6 +68,7 @@ ProjectsListItem.defaultProps = {
   isActive: false,
   className: '',
   routeSuffix: '',
+  tooltip: null,
 };
 
 ProjectsListItem.propTypes = {
@@ -85,6 +87,7 @@ ProjectsListItem.propTypes = {
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
   className: PropTypes.string,
+  tooltip: PropTypes.element,
 };
 
 export default ProjectsListItem;

@@ -3,10 +3,5 @@
     "id": "mediaSimilarityBarComponent.similarMedia",
     "description": "Plural. Heading for the number of media",
     "defaultMessage": "Media"
-  },
-  {
-    "id": "mediaSimilarityBarComponent.suggestedMatches",
-    "description": "Plural. Heading for the number of suggestions",
-    "defaultMessage": "Suggestions"
   }
 ]

@@ -2,13 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
@@ -45,9 +44,6 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  actionsCell: {
-    gap: `${theme.spacing(3)}px`,
-  },
 }));
 
 const TeamMembersComponent = ({
@@ -83,11 +79,19 @@ const TeamMembersComponent = ({
         title={
           <FormattedMessage
             id="teamMembers.title"
-            defaultMessage="Members"
+            defaultMessage="Members [{membersCount}]"
             description="Title for workspace members management page"
+            values={{ membersCount: sortedMembers.filter(tu => !tu.node.user.is_bot).length }}
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/3336431-permissions-in-check"
+        context={
+          <FormattedHTMLMessage
+            id="teamMembers.helpContext"
+            defaultMessage='Manage your Check workspace’s members. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about member roles</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/3336431-permissions-in-check' }}
+            description="Context description for the functionality of this page"
+          />
+        }
         actionButton={
           <ButtonMain
             theme="brand"
@@ -109,7 +113,7 @@ const TeamMembersComponent = ({
         }
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
-        <TableContainer>
+        <div className={settingsStyles['setting-content-container']}>
           <Table>
             <TableHead>
               <TableRow>
@@ -167,6 +171,7 @@ const TeamMembersComponent = ({
                     )}
                   </FormattedMessage>
                 </TableCell>
+                <TableCell padding="checkbox" />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -217,21 +222,21 @@ const TeamMembersComponent = ({
                     }
                   </TableCell>
                   <TableCell>
-                    <Box display="flex" className={classes.actionsCell} alignItems="center">
-                      <ChangeUserRole teamUser={tu.node} />
-                      <TeamMemberActions team={team} teamUser={tu.node} />
-                    </Box>
+                    <ChangeUserRole teamUser={tu.node} />
+                  </TableCell>
+                  <TableCell>
+                    <TeamMemberActions team={team} teamUser={tu.node} />
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
-        <InviteDialog
-          team={team}
-          open={inviteDialogOpen}
-          onClose={() => setInviteDialogOpen(false)}
-        />
+          <InviteDialog
+            team={team}
+            open={inviteDialogOpen}
+            onClose={() => setInviteDialogOpen(false)}
+          />
+        </div>
       </div>
     </>
   );

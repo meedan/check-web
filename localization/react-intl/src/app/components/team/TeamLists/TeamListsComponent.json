@@ -15,6 +15,11 @@
     "defaultMessage": "Column settings"
   },
   {
+    "id": "teamListsComponent.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage the information displayed about each item. Column settings affect the data displayed for all members of your workspace. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about column settings</a>."
+  },
+  {
     "id": "settingsHeader.save",
     "description": "Button label for save columns settings",
     "defaultMessage": "Save"

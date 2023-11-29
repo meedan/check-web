@@ -1,0 +1,27 @@
+[
+  {
+    "id": "saveFeed.feedContentTitle",
+    "description": "Title of section where a list can be selected as the content of the feed",
+    "defaultMessage": "Feed content"
+  },
+  {
+    "id": "saveFeed.feedContentBlurb",
+    "description": "Helper text for the feed content section",
+    "defaultMessage": "Select a filtered list of fact-checks from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+  },
+  {
+    "id": "saveFeed.feedContentBlurb2",
+    "description": "Helper text for the feed content section",
+    "defaultMessage": "<strong>Note:</strong> Your list must contain <strong>published fact-checks</strong> in order to be part of this shared feed."
+  },
+  {
+    "id": "saveFeed.selectHelper",
+    "description": "Helper text for shared feed list selector",
+    "defaultMessage": "Fact-check title, summary, and URL will be shared with the feed."
+  },
+  {
+    "id": "saveFeed.learnMore",
+    "description": "Link to external page with more details about shared feeds",
+    "defaultMessage": "Learn more."
+  }
+]

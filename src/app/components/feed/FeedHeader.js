@@ -11,14 +11,20 @@ import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import Can from '../Can';
 import searchResultsStyles from '../search/SearchResults.module.css';
 
-const FeedHeader = ({ feed }) => {
+const FeedHeader = ({ feed, feedTeam }) => {
   const handleClickLicense = () => {
     window.open('https://meedan.com'); // FIXME: Open page about the license
   };
 
   const handleClickSettings = () => {
-    browserHistory.push(`/${feed.team.slug}/feed/${feed.dbid}/edit`);
+    const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/)[1];
+    browserHistory.push(`/${teamSlugFromUrl}/feed/${feed.dbid}/edit`);
   };
+
+  const isFeedOwner = feedTeam.team_id === feed.team_id;
+
+  const permissionRequired = isFeedOwner ? 'update Feed' : 'update FeedTeam';
+  const mergedPermissions = { ...JSON.parse(feed?.permissions), ...JSON.parse(feedTeam.permissions) };
 
   return (
     <div className={cx('feed-header', searchResultsStyles.searchHeaderActions)}>
@@ -51,7 +57,7 @@ const FeedHeader = ({ feed }) => {
         </Tooltip>
       ))}
 
-      <Can permissions={feed.permissions} permission="update Feed">
+      <Can permissions={JSON.stringify(mergedPermissions)} permission={permissionRequired}>
         <Tooltip
           placement="right"
           title={
@@ -75,6 +81,10 @@ const FeedHeader = ({ feed }) => {
 FeedHeader.defaultProps = {};
 
 FeedHeader.propTypes = {
+  feedTeam: PropTypes.shape({
+    team_id: PropTypes.number.isRequired,
+    permissions: PropTypes.string.isRequired, // e.g., '{"update FeedTeam":true}'
+  }).isRequired,
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
@@ -90,12 +100,14 @@ FeedHeader.propTypes = {
 export { FeedHeader };
 
 export default createFragmentContainer(FeedHeader, graphql`
+  fragment FeedHeader_feedTeam on FeedTeam {
+    team_id
+    permissions
+  }
   fragment FeedHeader_feed on Feed {
     dbid
+    team_id
     licenses
     permissions
-    team {
-      slug
-    }
   }
 `);

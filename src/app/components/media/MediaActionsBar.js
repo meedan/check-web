@@ -4,14 +4,13 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import MultiSelector from '../layout/MultiSelector';
 import ItemHistoryDialog from './ItemHistoryDialog';
+import MediaTags from './MediaTags';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
@@ -24,6 +23,7 @@ import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './media.module.css';
+import dialogStyles from '../../styles/css/dialog.module.css';
 
 const Styles = theme => ({
   spacedButton: {
@@ -282,7 +282,8 @@ class MediaActionsBarComponent extends Component {
     }
 
     return (
-      <div className={styles['media-actions']}>
+      <div className={styles['media-actions-wrapper']}>
+        <MediaTags projectMediaId={this.props.media.dbid} />
         { restorProjectMedia ? <div className={styles['media-actions']}> {restorProjectMedia} </div> : null }
         <div className={styles['media-actions']}>
           {isParent ?
@@ -317,18 +318,19 @@ class MediaActionsBarComponent extends Component {
 
         {/* FIXME Extract to dedicated AssignmentDialog component */}
         <Dialog
-          className="project__assignment-menu"
+          className={cx('project__assignment-menu', dialogStyles['dialog-window'])}
           open={this.state.assignmentDialogOpened}
           onClose={this.handleCloseDialogs.bind(this)}
         >
-          <DialogTitle>
+          <div className={dialogStyles['dialog-title']}>
             <FormattedMessage
+              tagName="h6"
               id="mediaActionsBar.assignmentTitle"
               defaultMessage="Assign item to collaborators"
               description="Assignment dialog title"
             />
-          </DialogTitle>
-          <DialogContent>
+          </div>
+          <div className={dialogStyles['dialog-content']}>
             <Box display="flex" style={{ outline: 0 }}>
               <FormattedMessage
                 id="multiSelector.search"
@@ -376,7 +378,7 @@ class MediaActionsBarComponent extends Component {
                 />
               </div>
             </Box>
-          </DialogContent>
+          </div>
         </Dialog>
       </div>
     );

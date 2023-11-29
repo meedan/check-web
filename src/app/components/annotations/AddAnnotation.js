@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
+import TextArea from '../cds/inputs/TextArea';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import AttachFileIcon from '../../icons/attach_file.svg';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
@@ -17,10 +16,23 @@ import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import UploadFile from '../UploadFile';
-import { Row, units } from '../../styles/js/shared';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import inputStyles from '../../styles/css/inputs.module.css';
+
+const messages = defineMessages({
+  editNote: {
+    id: 'addAnnotation.inputEditHint',
+    defaultMessage: 'Edit note',
+    description: 'Input help text about editing notes',
+  },
+  addNote: {
+    id: 'addAnnotation.inputHint',
+    defaultMessage: 'Add a note',
+    description: 'Input help text about adding new notes',
+  },
+});
 
 class AddAnnotation extends Component {
   static parseCommand(input) {
@@ -71,7 +83,7 @@ class AddAnnotation extends Component {
     this.setState({ file, message: null, canSubmit });
   }
 
-  onFileError(file, message) {
+  onFileError = (file, message) => {
     this.setState({ file: null, message });
   }
 
@@ -330,21 +342,6 @@ class AddAnnotation extends Component {
   }
 
   render() {
-    const AddAnnotationButtonGroup = styled(Row)`
-      align-items: center;
-      display: flex;
-      justify-content: flex-end;
-      .add-annotation__insert-photo {
-        svg {
-          path { color: var(--textDisabled); }
-          &:hover path {
-            color: var(--textPrimary);
-            cusor: pointer;
-          }
-        }
-      }
-    `;
-
     const { annotated, annotatedType, editMode } = this.props;
 
     if (annotated.archived > CheckArchivedFlags.NONE) {
@@ -357,46 +354,49 @@ class AddAnnotation extends Component {
       return null;
     }
 
-    const inputHint = editMode ? (<FormattedMessage id="addAnnotation.inputEditHint" defaultMessage="Edit note" description="Input help text about editing notes" />)
-      : (<FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note" description="Input help text about adding new notes" />);
+    const inputHint = editMode ? this.props.intl.formatMessage(messages.editNote) : this.props.intl.formatMessage(messages.addNote);
+
     return (
       <form
-        className="add-annotation"
+        className={cx('add-annotation', inputStyles['form-inner-wrapper'], inputStyles['form-inner-sticky'])}
         onSubmit={this.handleSubmit.bind(this)}
-        style={{
-          height: '100%',
-          width: '100%',
-          position: 'relative',
-          zIndex: 0,
-        }}
       >
-        <div style={editMode ? null : { padding: `0 ${units(2)}` }}>
-          <TextField
-            label={inputHint}
+        <div className={inputStyles['form-fieldset']}>
+          <TextArea
+            className={cx('int-note-annotation__add-note--textfield', inputStyles['form-fieldset-field'])}
+            label={<FormattedMessage id="addAnnotation.inputLabel" defaultMessage="Note" description="Input label for creating a new note" />}
             onFocus={this.handleFocus.bind(this)}
             ref={(i) => { this.cmd = i; }}
             error={Boolean(this.state.message)}
-            helperText={this.state.message}
+            placeholder={inputHint}
+            helpContent={this.state.message ? this.state.message : inputHint}
             name="cmd"
-            id="cmd-input"
-            multiline
-            fullWidth
+            componentProps={{
+              id: 'cmd-input',
+            }}
             onKeyPress={this.handleKeyPress.bind(this)}
             onKeyUp={this.handleKeyUp.bind(this)}
             value={this.state.cmd}
             onChange={this.handleChange.bind(this)}
-            variant="outlined"
           />
           {this.state.fileMode ? (
             <UploadFile
+              className={cx('int-note-annotation__upload-file-drop-zone', inputStyles['form-fieldset-field'])}
               type="file"
               value={this.state.file}
               onChange={this.onFileChange}
               onError={this.onFileError}
             />
           ) : null}
-          <AddAnnotationButtonGroup className="add-annotation__buttons">
-            <Tooltip title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" description="Tooltip to tell the user they can add files" />} >
+        </div>
+        <div
+          className={cx(
+            'add-annotation__buttons',
+            inputStyles['form-footer-actions'],
+          )}
+        >
+          <Tooltip arrow title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" description="Tooltip to tell the user they can add files" />}>
+            <span>
               <ButtonMain
                 variant="text"
                 theme="lightText"
@@ -408,22 +408,30 @@ class AddAnnotation extends Component {
                 }}
                 onClick={this.switchMode.bind(this)}
               />
-            </Tooltip>
-            { editMode ?
-              <Button onClick={this.props.handleCloseEdit} >
-                <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
-              </Button> : null
-            }
-            <Button
-              color="primary"
-              type="submit"
-              id="add-annotation_submit"
-              variant="contained"
-              disabled={!this.state.canSubmit}
-            >
-              <FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" description="Button text for submitting the annotation form" />
-            </Button>
-          </AddAnnotationButtonGroup>
+            </span>
+          </Tooltip>
+          { editMode ?
+            <ButtonMain
+              className="int-add-annotation__button--cancel"
+              variant="text"
+              theme="text"
+              size="default"
+              onClick={this.props.handleCloseEdit}
+              label={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+            /> : null
+          }
+          <ButtonMain
+            className="int-add-annotation__button--submit"
+            theme="brand"
+            size="default"
+            variant="contained"
+            disabled={!this.state.canSubmit}
+            label={<FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" description="Button text for submitting the annotation form" />}
+            buttonProps={{
+              id: 'add-annotation_submit',
+              type: 'submit',
+            }}
+          />
         </div>
       </form>
     );
@@ -434,4 +442,4 @@ AddAnnotation.contextTypes = {
   store: PropTypes.object,
 };
 
-export default AddAnnotation;
+export default injectIntl(AddAnnotation);

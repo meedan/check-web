@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
+import TextArea from '../cds/inputs/TextArea';
 import TimeBefore from '../TimeBefore';
 import MediaContext from './MediaContext';
 import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const MediaClaim = ({ projectMedia }) => {
   // If the item we are viewing is being suggested to a main item, show the claim for the main item. Otherwise show the claim associated with this item
@@ -112,88 +112,75 @@ const MediaClaim = ({ projectMedia }) => {
   };
 
   return (
-    <Box id="media__claim">
-      <Box id="media__claim-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <div className="typography-subtitle2">
+    <div className={inputStyles['form-inner-wrapper']}>
+      <div id="media__claim" className={inputStyles['form-fieldset']}>
+        <div id="media__claim-title" className={inputStyles['form-fieldset-title']}>
           <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
+          <div className={inputStyles['form-fieldset-title-extra']}>
+            { error ?
+              <FormattedMessage
+                id="mediaClaim.error"
+                defaultMessage="error"
+                description="Caption that informs that a claim could not be saved"
+              />
+              : null
+            }
+            { saving && !error ?
+              <FormattedMessage
+                id="mediaClaim.saving"
+                defaultMessage="saving…"
+                description="Caption that informs that a claim is being saved"
+              />
+              : null
+            }
+            { !saving && !error && claimDescription &&
+              <FormattedMessage
+                className="media-claim__saved-by"
+                id="mediaClaim.saved"
+                defaultMessage="saved by {userName} {timeAgo}"
+                values={{
+                  userName: claimDescription.user.name,
+                  timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
+                }}
+                description="Caption that informs who last saved this claim and when it happened."
+              />
+            }
+          </div>
         </div>
-        {' '}
-        { error ?
-          <div className="typography-caption">
-            <FormattedMessage
-              id="mediaClaim.error"
-              defaultMessage="error"
-              description="Caption that informs that a claim could not be saved"
-            />
-          </div>
-          : null
-        }
-        { saving && !error ?
-          <div className="typography-caption">
-            <FormattedMessage
-              id="mediaClaim.saving"
-              defaultMessage="saving…"
-              description="Caption that informs that a claim is being saved"
-            />
-          </div>
-          : null
-        }
-        { !saving && !error && claimDescription ?
-          <div className="typography-caption">
-            <FormattedMessage
-              className="media-claim__saved-by"
-              id="mediaClaim.saved"
-              defaultMessage="saved by {userName} {timeAgo}"
-              values={{
-                userName: claimDescription.user.name,
-                timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
-              }}
-              description="Caption that informs who last saved this claim and when it happened."
-            />
-          </div>
-          : null
-        }
-        { !saving && !claimDescription && !error ?
-          <div className="typography-caption">
-            <span>&nbsp;</span>
-          </div>
-          : null
-        }
-      </Box>
-
-      <Box>
-        <FormattedMessage
-          id="mediaClaim.placeholder"
-          defaultMessage="For example: The earth is flat"
-          description="Placeholder for claim description field."
-        >
-          { placeholder => (
-            <TextField
-              id="media-claim__description"
-              className="media-claim__description"
-              placeholder={placeholder}
-              defaultValue={claimDescription ? claimDescription.description : ''}
-              onBlur={(e) => { handleBlur(e.target.value); }}
-              variant="outlined"
-              inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
-              rows={1}
-              rowsMax={Infinity}
-              disabled={!hasPermission || readOnly}
-              multiline
-              fullWidth
-            />
-          )}
-        </FormattedMessage>
-      </Box>
-      <Box>
+        <div className={inputStyles['form-fieldset-field']}>
+          <FormattedMessage
+            id="mediaClaim.placeholder"
+            defaultMessage="For example: The earth is flat"
+            description="Placeholder for claim description field."
+          >
+            { placeholder => (
+              <TextArea
+                maxHeight="266px"
+                id="media-claim__description"
+                className="media-claim__description"
+                placeholder={placeholder}
+                defaultValue={claimDescription ? claimDescription.description : ''}
+                onBlur={(e) => { handleBlur(e.target.value); }}
+                disabled={!hasPermission || readOnly}
+                label={
+                  <FormattedMessage
+                    id="mediaClaim.title"
+                    defaultMessage="Title"
+                    description="Title for the text input for claim title"
+                  />
+                }
+              />
+            )}
+          </FormattedMessage>
+        </div>
         <MediaContext
           projectMedia={projectMedia}
           claimDescription={claimDescription}
           setSaving={setSaving}
           setError={setError}
         />
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

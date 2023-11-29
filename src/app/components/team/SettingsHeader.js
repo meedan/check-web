@@ -7,6 +7,7 @@ import styles from './SettingsHeader.module.css';
 
 const SettingsHeader = ({
   title,
+  context,
   helpUrl,
   actionButton,
   extra,
@@ -28,22 +29,29 @@ const SettingsHeader = ({
       }
       style={style}
     >
-      <div className={styles['title-wrapper']}>
-        <h6 className="component__settings-header">
-          {title}
-          { helpUrl &&
-            <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
+      <div className={styles['title-actions-wrapper']}>
+        <div className={styles['title-wrapper']}>
+          <h6 className="component__settings-header">
+            {title}
+            { helpUrl &&
+              <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
+            }
+          </h6>
+          { extra &&
+            <div className={styles['extra-wrapper']}>
+              {extra}
+            </div>
           }
-        </h6>
-        { extra &&
-          <div className={styles['extra-wrapper']}>
-            {extra}
+        </div>
+        { actionButton &&
+          <div className={styles['buttons-wrapper']}>
+            {actionButton}
           </div>
         }
       </div>
-      { actionButton &&
-        <div className={styles['buttons-wrapper']}>
-          {actionButton}
+      { context &&
+        <div className={styles['settings-header-context']}>
+          {context}
         </div>
       }
     </div>
@@ -51,6 +59,7 @@ const SettingsHeader = ({
 };
 
 SettingsHeader.defaultProps = {
+  context: null,
   actionButton: null,
   extra: null,
   helpUrl: null,
@@ -60,6 +69,7 @@ SettingsHeader.defaultProps = {
 
 SettingsHeader.propTypes = {
   title: PropTypes.node.isRequired,
+  context: PropTypes.element,
   helpUrl: PropTypes.string,
   actionButton: PropTypes.node,
   extra: PropTypes.node,

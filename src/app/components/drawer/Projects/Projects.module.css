@@ -89,6 +89,7 @@
     position: relative;
 
     .listIcon {
+      color: var(--textSecondary);
       display: flex;
       font-size: var(--drawerListIconSize);
       margin: 0 10px 0 0;
@@ -124,6 +125,14 @@
     &.listItem_active:hover {
       background-color: var(--brandLight);
       color: var(--brandSecondary);
+
+      .listIcon {
+        color: var(--brandSecondary);
+
+        &.listIconInvitedFeed {
+          color: var(--alertMain);
+        }
+      }
     }
 
     &.listItem_empty {
@@ -145,6 +154,10 @@
       &:hover {
         background-color: var(--otherWhite);
       }
+    }
+
+    &.listItemInvited {
+      font-style: italic;
     }
   }
 

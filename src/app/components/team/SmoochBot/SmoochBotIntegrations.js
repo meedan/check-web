@@ -1,32 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import GetAppIcon from '../../../icons/file_download.svg';
 import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
 import FacebookIcon from '../../../icons/facebook.svg';
 import LineIcon from '../../../icons/line.svg';
+import HelpIcon from '../../../icons/help.svg';
 import TelegramIcon from '../../../icons/telegram.svg';
 import TwitterIcon from '../../../icons/twitter.svg';
 import ViberIcon from '../../../icons/viber.svg';
 import WhatsAppIcon from '../../../icons/whatsapp.svg';
-import SettingsHeader from '../SettingsHeader';
+import InstagramIcon from '../../../icons/instagram.svg';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
-
-const useStyles = makeStyles(() => ({
-  smoochBotIntegrationsHeader: {
-    marginBottom: 0,
-  },
-}));
+import styles from '../Settings.module.css';
 
 const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }) => {
-  const classes = useStyles();
   const [copied, setCopied] = React.useState(null);
 
   const isWabaSet = settings.turnio_host && settings.turnio_secret && settings.turnio_token;
@@ -45,17 +40,24 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
     link.click();
   };
 
+  const handleHelp = () => {
+    window.open('https://help.checkmedia.org/en/articles/5189362-connect-a-new-tipline', '_blank');
+  };
+
   return (
     <React.Fragment>
-      <SettingsHeader
-        title={
-          <div className="typography-subtitle2">
-            <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
-          </div>
-        }
-        helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline"
-        className={classes.smoochBotIntegrationsHeader}
-      />
+      <div className={styles['setting-content-container-title']}>
+        <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
+        <div className={styles['setting-content-container-actions']}>
+          <ButtonMain
+            variant="text"
+            size="small"
+            theme="text"
+            iconCenter={<HelpIcon />}
+            onClick={handleHelp}
+          />
+        </div>
+      </div>
       <Box display="flex" justifyContent="space-between" flexWrap="wrap">
         <SmoochBotIntegrationButton
           installationId={installationId}
@@ -229,7 +231,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           disabled={!isEnabled}
           type="messenger"
           label="Messenger"
-          url={settings.smooch_facebook_authorization_url}
+          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/messenger')}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7e76e39cac"
           icon={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
           online={isOnline('messenger')}
@@ -239,7 +241,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
               <FormattedMessage
                 id="smoochBotIntegrations.page"
                 defaultMessage="Connected page: {link}"
-                description="Label for the connected facebook page for this bot"
+                description="Label for the connected Facebook page for this bot"
                 values={{
                   link: (
                     <a href={`https://m.me/${enabledIntegrations.messenger.pageId}`} target="_blank" rel="noopener noreferrer">
@@ -345,6 +347,32 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   readOnly: true,
                 }}
                 fullWidth
+              /> : null
+          }
+        />
+        <SmoochBotIntegrationButton
+          installationId={installationId}
+          disabled={!isEnabled}
+          type="instagram"
+          label="Instagram"
+          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
+          helpUrl="https://help.checkmedia.org/en/articles/5189362-connect-a-new-tipline#h_30c95a8357"
+          icon={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
+          online={isOnline('instagram')}
+          readOnly={!isSmoochSet}
+          info={
+            isOnline('instagram') ?
+              <FormattedMessage
+                id="smoochBotIntegrations.instagram"
+                defaultMessage="Connected profile: {link}"
+                description="Label for the connected Instagram profile for this bot"
+                values={{
+                  link: (
+                    <a href={`https://instagram.com/${enabledIntegrations.instagram.businessUsername}`} target="_blank" rel="noopener noreferrer">
+                      {enabledIntegrations.instagram.businessName}
+                    </a>
+                  ),
+                }}
               /> : null
           }
         />

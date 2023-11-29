@@ -1,24 +1,22 @@
 .request-card {
-  border-bottom: 1px var(--grayBorderMain) solid;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 24px 8px;
-}
 
-.request-time {
-  color: var(--textSecondary);
-}
+  .request-time {
+    color: var(--textSecondary);
+  }
 
-.request-content {
-  background-color: var(--grayBackground);
-  border-radius: 8px;
-  gap: 8px;
-  padding: 12px;
-  width: 100%;
-}
+  .request-content {
+    background-color: var(--grayBackground);
+    border-radius: 8px;
+    gap: 8px;
+    padding: 12px;
+    width: 100%;
+  }
 
-.buttons {
-  display: flex;
-  gap: 8px;
+  .buttons {
+    display: flex;
+    gap: 8px;
+  }
 }

@@ -91,7 +91,7 @@ const BulkActionsAssign = ({
           submitLabel={
             <FormattedMessage
               id="bulkActionsAssign.submitLabel"
-              defaultMessage="{numItems, plural, one {Assign 1 item} other {Assign # items}}"
+              defaultMessage="{numItems, plural, one {Assign # item} other {Assign # items}}"
               values={{ numItems: selectedMedia.length }}
               description="Button for commiting the action of assigning of a number of items in bulk"
             />

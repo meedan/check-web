@@ -9,7 +9,6 @@ import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaCardLarge from './MediaCardLarge';
 import MediaSidebar from './MediaSidebar';
-import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
 import MediaSlug from './MediaSlug';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
@@ -36,6 +35,9 @@ class MediaComponent extends Component {
     let initialTab = 'metadata';
     if (showRequests && this.props.view !== 'similarMedia') {
       initialTab = 'requests';
+      if (this.props.projectMedia.suggested_similar_items_count > 0 && !this.props.projectMedia.is_suggested) {
+        initialTab = 'suggestedMedia';
+      }
     } else if (this.props.view === 'similarMedia') {
       initialTab = 'suggestedMedia';
     }
@@ -251,7 +253,6 @@ MediaComponent.contextTypes = {
 
 export default createFragmentContainer(withPusher(MediaComponent), graphql`
   fragment MediaComponent_projectMedia on ProjectMedia {
-    ...MediaAnalysis_projectMedia
     ...MediaSimilaritiesComponent_projectMedia
     ...MediaCardLarge_projectMedia
     id
@@ -264,12 +265,15 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     pusher_channel
     project_id
     last_seen
+    demand
     requests_count
     picture
     show_warning_cover
     creator_name
     user_id
     channel
+    notes_count: annotations_count(annotation_type: "comment")
+    suggested_similar_items_count
     suggested_similar_relationships(first: 10000) {
       edges {
         node {

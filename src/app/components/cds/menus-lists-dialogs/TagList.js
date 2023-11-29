@@ -165,7 +165,7 @@ const TagList = ({
         )).slice(0, maxTags)}
         {
           (tags.length > maxTags) && (
-            <Tooltip title={tags.slice(maxTags).join(', ')}>
+            <Tooltip arrow title={tags.slice(maxTags).join(', ')}>
               <div id="hidden-tags" className={styles['tooltip-container']}>
                 <Chip
                   label={`+${tags.length - maxTags}`}

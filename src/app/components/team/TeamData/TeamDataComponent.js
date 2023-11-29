@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -22,7 +22,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import HelpIcon from '../../../icons/help.svg';
 import GetAppIcon from '../../../icons/file_download.svg';
 import SettingsHeader from '../SettingsHeader';
-import LanguageSwitcher from '../../LanguageSwitcher';
+import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { ContentColumn } from '../../../styles/js/shared';
 import settingsStyles from '../Settings.module.css';
 
@@ -286,12 +286,12 @@ const TeamDataComponent = ({
                 </Select> : null }
             </FormControl>
             { languages.length > 1 ?
-              <LanguageSwitcher
-                component="dropdown"
-                currentLanguage={currentLanguage}
+              <LanguagePickerSelect
+                selectedLanguage={currentLanguage}
+                onSubmit={newValue => setCurrentLanguage(newValue.languageCode)}
                 languages={languages}
-                onChange={setCurrentLanguage}
-              /> : null }
+              /> : null
+            }
           </Box>
         }
         actionButton={
@@ -310,7 +310,14 @@ const TeamDataComponent = ({
             }
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/4511362"
+        context={
+          <FormattedHTMLMessage
+            id="teamDataComponent.helpContext"
+            defaultMessage='View and export monthly tipline usage data. Data may take 24 hours to update; all data except for WhatsApp conversations are specific to each tipline language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about engagement data</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4511362' }}
+            description="Context description for the functionality of this page"
+          />
+        }
       />
       { data ?
         <ContentColumn remainingWidth>
@@ -330,7 +337,9 @@ const TeamDataComponent = ({
                               {' '}
                               { helpMessages[header] ?
                                 <Tooltip key={header} title={helpMessages[header]} arrow>
-                                  <HelpIcon fontSize="small" className={classes.helpIcon} />
+                                  <span>
+                                    <HelpIcon fontSize="small" className={classes.helpIcon} />
+                                  </span>
                                 </Tooltip> : null }
                             </Box>
                           </TableSortLabel>
