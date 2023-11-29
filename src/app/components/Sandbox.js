@@ -48,12 +48,15 @@ const SandboxComponent = ({ admin }) => {
   const [listItemRequests, setListItemRequests] = React.useState(Boolean(true));
   const [listItemFactCheck, setListItemFactCheck] = React.useState(Boolean(true));
   const [listItemFactCheckLink, setListItemFactCheckLink] = React.useState(Boolean(true));
+  const [listItemDescriptionLink, setListItemDescriptionLink] = React.useState(Boolean(true));
+  const [listItemDescription, setListItemDescription] = React.useState(Boolean(true));
   const [listItemFactCheckPublished, setListItemFactCheckPublished] = React.useState(Boolean(true));
   const [listItemSuggestions, setListItemSuggestions] = React.useState(Boolean(true));
   const [listItemUnread, setListItemUnread] = React.useState(Boolean(true));
 
   const onSetListItemShared = (shared) => {
     if (!listItemCluster) {
+      setListItemDescriptionLink(false);
       setListItemRequests(false);
       setListItemMedia(false);
     }
@@ -69,6 +72,7 @@ const SandboxComponent = ({ admin }) => {
       setListItemRequests(true);
       setListItemMedia(true);
     } else {
+      setListItemDescriptionLink(false);
       setListItemFactCheck(true);
       setListItemFactCheckPublished(true);
       setListItemRequests(false);
@@ -371,6 +375,14 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  label="Description"
+                  labelPlacement="top"
+                  checked={listItemDescription}
+                  onChange={() => setListItemDescription(!listItemDescription)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
                   label="Fact-Check"
                   labelPlacement="top"
                   checked={listItemFactCheck}
@@ -394,6 +406,15 @@ const SandboxComponent = ({ admin }) => {
                   checked={listItemFactCheckLink}
                   disabled={!listItemFactCheck}
                   onChange={() => setListItemFactCheckLink(!listItemFactCheckLink)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Description Link"
+                  labelPlacement="top"
+                  checked={listItemDescriptionLink}
+                  disabled={listItemShared && !listItemCluster}
+                  onChange={() => setListItemDescriptionLink(!listItemDescriptionLink)}
                 />
               </li>
               <li>
@@ -436,11 +457,21 @@ const SandboxComponent = ({ admin }) => {
                 </div>
               }
               <div className={styles.content}>
-                content
+                <h6>Item Title</h6>
+                { listItemDescription &&
+                  <p>
+                    DESCRIPTION
+                  </p>
+                }
+                { listItemDescriptionLink &&
+                  <a href="www.meedan.com" className={styles.factDescriptionLink}>
+                    DESCRIPTION LINK
+                  </a>
+                }
                 { listItemFactCheckLink &&
-                  <div className={styles.factCheckLink}>
+                  <a href="www.meedan.com" className={styles.factCheckLink}>
                     FACT-CHECK LINK
-                  </div>
+                  </a>
                 }
                 { listItemShared &&
                   <div className={styles.workspaces}>

@@ -141,6 +141,14 @@
     flex: 1 1 auto;
     flex-direction: column;
 
+    h6 {
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
     .workspaces {
       background-color: var(--alertLight);
       display: flex;
@@ -151,6 +159,7 @@
       background-color: var(--errorLight);
       display: flex;
       flex-flow: row wrap;
+      gap: 4px;
     }
   }
 
