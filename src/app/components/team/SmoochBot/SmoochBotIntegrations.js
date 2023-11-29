@@ -214,15 +214,15 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           online={false}
           installationId={installationId}
           type="twitter"
-          label="Twitter"
+          label="X (Twitter)"
           url={null}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_5cfcbe09c7"
-          icon={<TwitterIcon style={{ color: 'var(--twitterBlue)' }} />}
+          icon={<TwitterIcon style={{ color: 'var(--xBlack)' }} />}
           deprecationNotice={
             <FormattedMessage
               id="smoochBotIntegrations.twitterDisabled"
-              defaultMessage="The integration with Twitter is currently not available, following changes to the Twitter API on April 21, 2023."
-              description="Disclaimer displayed on Twitter tipline settings page."
+              defaultMessage="The integration with X is currently not available, following changes to the X API on April 21, 2023."
+              description="Disclaimer displayed on X tipline settings page."
             />
           }
         />

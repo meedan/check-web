@@ -393,11 +393,11 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 label={
                   <FormattedMessage
                     id="teamReportComponent.twitter"
-                    defaultMessage="Twitter account name"
+                    defaultMessage="X (Twitter) account name"
                     description="Label to twitter username field"
                   />
                 }
-                iconLeft={<><TwitterIcon style={{ color: 'var(--twitterBlue)' }} /></>}
+                iconLeft={<><TwitterIcon style={{ color: 'var(--xBlack)' }} /></>}
                 componentProps={{
                   id: 'twitter',
                 }}

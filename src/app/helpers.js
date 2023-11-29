@@ -353,6 +353,7 @@ function getMediaType(media) {
   let { type } = media;
   if (media.url && media.domain === 'youtube.com') type = 'Youtube';
   if (media.url && media.domain === 'twitter.com') type = 'Twitter';
+  if (media.url && media.domain === 'x.com') type = 'Twitter';
   if (media.url && media.domain === 'facebook.com') type = 'Facebook';
   if (media.url && media.domain === 'instagram.com') type = 'Instagram';
 
