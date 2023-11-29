@@ -106,19 +106,19 @@
 
   &.listItemUnread {
     background-color: var(--brandBackground);
-  }
 
-  .unread {
-    background-color: var(--textPlaceholder);
-    border-radius: 3px;
-    bottom: 6px;
-    flex: 0 0 5px;
-    left: 6px;
-    overflow: hidden;
-    position: absolute;
-    right: auto;
-    top: 6px;
-    width: 5px;
+    &::before {
+      background-color: var(--textPlaceholder);
+      border-radius: 3px;
+      bottom: 6px;
+      content: '';
+      left: 6px;
+      overflow: hidden;
+      position: absolute;
+      right: auto;
+      top: 6px;
+      width: 5px;
+    }
   }
 
   .checkbox {

@@ -57,6 +57,8 @@ const SandboxComponent = ({ admin }) => {
       setListItemRequests(false);
       setListItemMedia(false);
     }
+    setListItemSuggestions(false);
+    setListItemUnread(false);
     setListItemFactCheck(true);
     setListItemFactCheckPublished(true);
     setListItemShared(shared);
@@ -344,7 +346,7 @@ const SandboxComponent = ({ admin }) => {
                 <SwitchComponent
                   label="Cluster of Media"
                   labelPlacement="top"
-                  checked={listItemCluster && listItemShared}
+                  checked={listItemCluster}
                   disabled={!listItemShared}
                   onChange={() => onSetListItemCluster(!listItemCluster)}
                 />
@@ -390,7 +392,7 @@ const SandboxComponent = ({ admin }) => {
                   label="Fact-Check Link"
                   labelPlacement="top"
                   checked={listItemFactCheckLink}
-                  disabled={!listItemFactCheck || (listItemShared && !listItemCluster)}
+                  disabled={!listItemFactCheck}
                   onChange={() => setListItemFactCheckLink(!listItemFactCheckLink)}
                 />
               </li>
@@ -398,7 +400,7 @@ const SandboxComponent = ({ admin }) => {
                 <SwitchComponent
                   label="Suggestions"
                   labelPlacement="top"
-                  checked={listItemSuggestions && !listItemShared}
+                  checked={listItemSuggestions}
                   disabled={listItemShared}
                   onChange={() => setListItemSuggestions(!listItemSuggestions)}
                 />
@@ -407,7 +409,7 @@ const SandboxComponent = ({ admin }) => {
                 <SwitchComponent
                   label="Unread"
                   labelPlacement="top"
-                  checked={listItemUnread && !listItemShared}
+                  checked={listItemUnread}
                   disabled={listItemShared}
                   onChange={() => setListItemUnread(!listItemUnread)}
                 />
@@ -423,9 +425,6 @@ const SandboxComponent = ({ admin }) => {
                 })
               }
             >
-              { (listItemUnread && !listItemShared) &&
-                <ins className={styles.unread} />
-              }
               { !listItemShared &&
                 <div className={styles.checkbox}>
                   checkbox
