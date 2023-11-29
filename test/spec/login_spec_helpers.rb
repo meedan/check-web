@@ -15,8 +15,8 @@ module LoginSpecHelpers
   def login_with_email(should_create_team = true, email = @email)
     @driver.navigate.to @config['self_url']
     sleep 2
-    fill_field('.login__email input', email)
-    fill_field('.login__password input', '12345678')
+    fill_field('.int-login__email-input input', email)
+    fill_field('.int-login__password-input input', '12345678')
     press_button('#submit-register-or-login')
     sleep 3
     create_team if should_create_team
@@ -25,11 +25,11 @@ module LoginSpecHelpers
   def register_with_email(_should_create_team = true, email = @email, should_login = true)
     @driver.navigate.to @config['self_url']
     wait_for_selector('#register').click
-    wait_for_selector('.login__name input')
-    fill_field('.login__name input', 'User With Email')
-    fill_field('.login__email input', email)
-    fill_field('.login__password input', '12345678')
-    fill_field('.login__password-confirmation input', '12345678')
+    wait_for_selector('.login__name-input input')
+    fill_field('.login__name-input input', 'User With Email')
+    fill_field('.int-login__email-input input', email)
+    fill_field('.int-login__password-input input', '12345678')
+    fill_field('.int-login__password-confirmation input', '12345678')
     agree_to_tos(false)
     press_button('#submit-register-or-login')
     wait_for_selector('.message')
@@ -39,7 +39,7 @@ module LoginSpecHelpers
   end
 
   def reset_password(email)
-    wait_for_selector('.login__forgot-password a').click
+    wait_for_selector('.login__forgot-password').click
     wait_for_selector('#password-reset-email-input').send_keys(email)
     wait_for_selector('.user-password-reset__actions button + button').click
   end
