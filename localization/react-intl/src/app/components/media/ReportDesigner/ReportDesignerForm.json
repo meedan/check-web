@@ -10,14 +10,14 @@
     "defaultMessage": "Introduction"
   },
   {
-    "id": "reportDesigner.introductionSub",
-    "description": "Help text on how to use the query date and status fields",
-    "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
-  },
-  {
     "id": "reportDesigner.introductionInput",
     "description": "Text field label for the introduction input",
     "defaultMessage": "Introduction"
+  },
+  {
+    "id": "reportDesigner.introductionSub",
+    "description": "Help text on how to use the query date and status fields",
+    "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
   },
   {
     "id": "reportDesigner.report",
