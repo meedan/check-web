@@ -33,7 +33,7 @@ const SmoochIcon = ({ name }) => {
   switch (name) {
   case 'whatsapp': return <WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />;
   case 'messenger': return <FacebookIcon style={{ color: 'var(--facebookBlue)' }} />;
-  case 'twitter': return <TwitterIcon style={{ color: 'var(--twitterBlue)' }} />;
+  case 'twitter': return <TwitterIcon style={{ color: 'var(--xBlack)' }} />;
   case 'telegram': return <TelegramIcon style={{ color: 'var(--telegramBlue)' }} />;
   case 'viber': return <ViberIcon style={{ color: 'var(--viberPurple)' }} />;
   case 'line': return <LineIcon style={{ color: 'var(--lineGreen)' }} />;
