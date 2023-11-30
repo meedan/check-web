@@ -42,7 +42,6 @@ const breakpointDesktop = `${columnWidthLarge}`;
 // Borders
 export const borderWidthSmall = '1px';
 export const borderWidthMedium = '2px';
-export const borderWidthLarge = '3px';
 
 // Border radius
 export const defaultBorderRadius = '2px';
