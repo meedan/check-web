@@ -1,8 +1,8 @@
 [
   {
     "id": "CheckAgreeTerms.agreeTerms",
-    "description": "Sign up agreeent message to ensure the user knows they are accepting the terms of service and privacy policy",
-    "defaultMessage": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
+    "description": "Sign up agreement message to ensure the user knows they are accepting the terms of service and privacy policy",
+    "defaultMessage": "By continuing, you agree to the {appName} {tosLink} and {ppLink}."
   },
   {
     "id": "tos.title",
