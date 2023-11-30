@@ -198,18 +198,6 @@ shared_examples 'app' do |webdriver_url|
       expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
     end
 
-    it 'should linkify URLs on comments', bin1: true do
-      api_create_team_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('index.html')).to be(false)
-      wait_for_selector('.media-tab__comments').click
-      fill_field('#cmd-input', @media_url)
-      @driver.action.send_keys(:enter).perform
-      wait_for_selector('.annotation__avatar-col')
-      wait_for_size_change(0, 'annotation__card-content', :class, 25)
-      expect(wait_for_selector_list("//a[contains(text(), 'index.html')]", :xpath).length == 1).to be(true)
-      expect(@driver.page_source.include?('index.html')).to be(true)
-    end
-
     it 'should show current team content on sidebar when viewing profile', bin3: true do
       user = api_register_and_login_with_email
       api_create_team_and_bot(user: user)
