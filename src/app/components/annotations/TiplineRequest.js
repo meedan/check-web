@@ -81,7 +81,7 @@ const TiplineRequest = ({
     return null;
   }
 
-  const objectValue = activity.value_json;
+  const objectValue = activity.smooch_data;
   const messageType = objectValue.source?.type;
   const messageText = objectValue.text ?
     objectValue.text.trim()
@@ -177,7 +177,7 @@ const TiplineRequest = ({
         <SendTiplineMessage
           username={userName}
           channel={channelLabel[messageType] || messageType}
-          annotationId={activity.annotation_id}
+          annotationId={activity.dbid}
         />
       }
       receipt={<RequestReceipt events={reportHistory} />}
@@ -187,13 +187,14 @@ const TiplineRequest = ({
 
 TiplineRequest.propTypes = {
   annotation: PropTypes.shape({
-    value_json: PropTypes.object.isRequired,
+    smooch_data: PropTypes.object.isRequired,
     created_at: PropTypes.string.isRequired,
     smooch_user_slack_channel_url: PropTypes.string,
     smooch_user_external_identifier: PropTypes.string.isRequired,
     smooch_report_received_at: PropTypes.number,
     smooch_report_update_received_at: PropTypes.number,
     associated_graphql_id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
   }).isRequired,
   annotated: PropTypes.shape({
     id: PropTypes.string.isRequired,
