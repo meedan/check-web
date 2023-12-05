@@ -6,7 +6,6 @@ import { browserHistory } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import MediaStatus from '../MediaStatus';
@@ -146,48 +145,42 @@ const ReportDesignerTopBar = (props) => {
         label={
           <FormattedMessage
             id="reportDesigner.back"
-            defaultMessage="Back to annotation"
-            description="Button label to navigate back to annotation mode"
+            defaultMessage="Back"
+            description="Button label to navigate back to item page"
           />
         }
       />
       <div className={styles['report-header-meta']}>
-        <div>
-          <Typography variant="subtitle2">
-            <FormattedMessage
-              id="reportDesigner.firstSent"
-              defaultMessage="First published"
-              description="Header for first publication date of report"
-            />
-          </Typography>
-          <Typography variant="body1">
+        <div className="typography-subtitle2">
+          <FormattedMessage
+            id="reportDesigner.firstSent"
+            defaultMessage="First published"
+            description="Header for first publication date of report"
+          />
+          <div className="typography-body1">
             {firstSent || '-'}
-          </Typography>
+          </div>
         </div>
-        <div>
-          <Typography variant="subtitle2">
-            <FormattedMessage
-              id="reportDesigner.lastPublished"
-              defaultMessage="Last published"
-              description="Header for last publication date of report"
-            />
-          </Typography>
-          <Typography variant="body1">
+        <div className="typography-subtitle2">
+          <FormattedMessage
+            id="reportDesigner.lastPublished"
+            defaultMessage="Last published"
+            description="Header for last publication date of report"
+          />
+          <div className="typography-body1">
             {lastSent || firstSent || '-'}
-          </Typography>
+          </div>
         </div>
-        <div>
-          <Typography variant="subtitle2">
-            <FormattedMessage
-              id="reportDesigner.sentCount"
-              defaultMessage="Reports sent"
-              description="Header for reports sent count"
-            />
-          </Typography>
-          <Typography variant="body1">
+        <div className="typography-subtitle2">
+          <FormattedMessage
+            id="reportDesigner.sentCount"
+            defaultMessage="Reports sent"
+            description="Header for reports sent count"
+          />
+          <div className="typography-body1">
             { media.dynamic_annotation_report_design ?
               media.dynamic_annotation_report_design.sent_count : 0 }
-          </Typography>
+          </div>
         </div>
       </div>
       <div className={styles['report-actions']}>
@@ -241,52 +234,49 @@ const ReportDesignerTopBar = (props) => {
             content={
               <Box>
                 {/* Can't publish report */}
-                { cantPublishReason ? <Typography>{cantPublishReason}</Typography> : null }
+                { cantPublishReason ? <p>{cantPublishReason}</p> : null }
                 {/* Sending report for the first time */}
                 { !cantPublishReason && !data.last_published && media.demand > 0 ?
-                  <Typography>
-                    <FormattedMessage
-                      id="reportDesigner.confirmPublishText"
-                      defaultMessage="{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
-                      description="Helper message to publishing report action"
-                      values={{ demand: media.demand }}
-                    />
-                  </Typography> : null }
+                  <FormattedMessage
+                    tagName="p"
+                    id="reportDesigner.confirmPublishText"
+                    defaultMessage="{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
+                    description="Helper message to publishing report action"
+                    values={{ demand: media.demand }}
+                  /> : null }
 
                 { !cantPublishReason ?
-                  <Typography paragraph>
-                    <FormattedMessage
-                      id="reportDesigner.confirmPublishText2"
-                      defaultMessage="Future users who request this item will receive this version of the report while it remains published."
-                      description="Helper message to publishing report action"
-                    />
-                  </Typography> : null }
+                  <FormattedMessage
+                    tagName="p"
+                    id="reportDesigner.confirmPublishText2"
+                    defaultMessage="Future users who request this item will receive this version of the report while it remains published."
+                    description="Helper message to publishing report action"
+                  /> : null }
 
                 {/* Re-sending a report after a status change */}
                 { !cantPublishReason && statusChanged && media.demand > 0 ?
-                  <Typography>
-                    <FormattedMessage
-                      id="reportDesigner.confirmRepublishResendText"
-                      defaultMessage="{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
-                      description="Helper message to publishing report action"
-                      values={{
-                        demand: media.demand,
-                        correctionLink: (
-                          <React.Fragment>
-                            <a href="https://help.checkmedia.org/en/articles/5013901-tipline-report-confirmation-updates-and-corrections" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
-                              <FormattedMessage
-                                id="reportDesigner.correction"
-                                defaultMessage="correction"
-                                description="This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
-                              />
-                              {' '}
-                              <HelpIcon />
-                            </a>
-                          </React.Fragment>
-                        ),
-                      }}
-                    />
-                  </Typography> : null }
+                  <FormattedMessage
+                    tagName="p"
+                    id="reportDesigner.confirmRepublishResendText"
+                    defaultMessage="{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
+                    description="Helper message to publishing report action"
+                    values={{
+                      demand: media.demand,
+                      correctionLink: (
+                        <React.Fragment>
+                          <a href="https://help.checkmedia.org/en/articles/5013901-tipline-report-confirmation-updates-and-corrections" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
+                            <FormattedMessage
+                              id="reportDesigner.correction"
+                              defaultMessage="correction"
+                              description="This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
+                            />
+                            {' '}
+                            <HelpIcon />
+                          </a>
+                        </React.Fragment>
+                      ),
+                    }}
+                  /> : null }
 
                 {/* Re-sending a report with the same status */}
                 { !cantPublishReason && data.last_published && !statusChanged && media.demand > 0 ?
@@ -412,13 +402,12 @@ const ReportDesignerTopBar = (props) => {
               />
             }
             content={
-              <Typography>
-                <FormattedMessage
-                  id="reportDesigner.confirmPauseText"
-                  defaultMessage="This will stop the report from being sent out to users until it is published again."
-                  description="Pause report publication action helper text"
-                />
-              </Typography>
+              <FormattedMessage
+                tagName="p"
+                id="reportDesigner.confirmPauseText"
+                defaultMessage="This will stop the report from being sent out to users until it is published again."
+                description="Pause report publication action helper text"
+              />
             }
             cancelLabel={
               <FormattedMessage
