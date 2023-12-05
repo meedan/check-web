@@ -21,7 +21,7 @@ import FileDownloadIcon from '../../../icons/file_download.svg';
 import InboxIcon from '../../../icons/inbox.svg';
 import LightbulbIcon from '../../../icons/lightbulb.svg';
 import PersonIcon from '../../../icons/person.svg';
-import PublishedIcon from '../../../icons/playlist_add_check.svg';
+import PublishedIcon from '../../../icons/fact_check.svg';
 import UnmatchedIcon from '../../../icons/unmatched.svg';
 import Can from '../../Can';
 import DeleteIcon from '../../../icons/delete.svg';
