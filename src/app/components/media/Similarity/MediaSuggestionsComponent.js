@@ -542,6 +542,7 @@ const MediaSuggestionsComponent = ({
               size="large"
               theme="validation"
               disabled={disableAcceptRejectButtons}
+              customStyle={relationshipItem.target.media ? {} : { display: 'none' }}
               className="similarity-media-item__accept-relationship"
             />
           </span>
@@ -557,6 +558,7 @@ const MediaSuggestionsComponent = ({
               size="large"
               theme="error"
               disabled={disableAcceptRejectButtons}
+              customStyle={relationshipItem.target.media ? {} : { display: 'none' }}
               className="similarity-media-item__reject-relationship"
             />
           </span>
@@ -601,6 +603,7 @@ const MediaSuggestionsComponent = ({
               size="large"
               theme="lightText"
               disabled={disableAcceptRejectButtons}
+              customStyle={relationshipItem.target.media ? {} : { display: 'none' }}
             />
           </span>
         </Tooltip>
@@ -613,6 +616,7 @@ const MediaSuggestionsComponent = ({
               size="large"
               theme="lightText"
               disabled={disableAcceptRejectButtons}
+              customStyle={relationshipItem.target.media ? {} : { display: 'none' }}
             />
           </span>
         </Tooltip>

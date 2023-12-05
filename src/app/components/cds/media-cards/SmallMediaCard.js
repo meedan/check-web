@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,
 } from '@material-ui/core';
+import Alert from '../alerts-and-prompts/Alert';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
@@ -75,6 +77,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: '40px',
     color: 'var(--otherWhite)',
   },
+  alert: {
+    marginTop: '16px',
+  },
 }));
 
 const SmallMediaCard = ({
@@ -89,6 +94,29 @@ const SmallMediaCard = ({
   className,
 }) => {
   const classes = useStyles();
+
+  if (!media) {
+    return (
+      <Alert
+        className={classes.alert}
+        title={
+          <FormattedMessage
+            id="smallMediaCard.noMediaTitle"
+            defaultMessage="There was an error loading the media for this card."
+            description="Title for an error message that appears when media fails to load."
+          />
+        }
+        content={
+          <FormattedMessage
+            id="smallMediaCard.noMediaDescription"
+            defaultMessage="Please reload the page and try again. Contact support if the error continues."
+            description="Description for an error message that appears when media fails to load."
+          />
+        }
+        variant="error"
+      />
+    );
+  }
 
   return (
     <Box

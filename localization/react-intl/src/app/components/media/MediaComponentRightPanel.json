@@ -18,10 +18,5 @@
     "id": "mediaComponent.source",
     "description": "Label for the Source tab, as in source of the information",
     "defaultMessage": "Source"
-  },
-  {
-    "id": "mediaComponent.notes",
-    "description": "Label for the Notes tab, as in text notes",
-    "defaultMessage": "Notes"
   }
 ]
