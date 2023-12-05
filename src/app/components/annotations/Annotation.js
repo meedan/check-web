@@ -5,8 +5,6 @@ import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -220,22 +218,6 @@ const messages = defineMessages({
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Annotation extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      zoomedCommentImage: false,
-    };
-  }
-
-  handleCloseCommentImage() {
-    this.setState({ zoomedCommentImage: false });
-  }
-
-  handleOpenCommentImage(image) {
-    this.setState({ zoomedCommentImage: image });
-  }
-
   handleOpenMenu = (e) => {
     e.stopPropagation();
     this.setState({ anchorEl: e.currentTarget });
@@ -697,12 +679,6 @@ class Annotation extends Component {
                   /> : null }
               </div>
             </div>
-
-            { botResponse.image_url && !!this.state.zoomedCommentImage ?
-              <Lightbox
-                onCloseRequest={this.handleCloseCommentImage.bind(this)}
-                mainSrc={this.state.zoomedCommentImage}
-              /> : null}
           </div>
         );
       }

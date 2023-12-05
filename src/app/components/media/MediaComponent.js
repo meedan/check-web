@@ -360,39 +360,6 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
       id
       data
     }
-    comments: annotations(first: 10000, annotation_type: "comment") {
-      edges {
-        node {
-          ... on Comment {
-            id
-            dbid
-            text
-            parsed_fragment
-            annotator {
-              id
-              name
-              profile_image
-            }
-            comments: annotations(first: 10000, annotation_type: "comment") {
-              edges {
-                node {
-                  ... on Comment {
-                    id
-                    created_at
-                    text
-                    annotator {
-                      id
-                      name
-                      profile_image
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
     tags(first: 10000) {
       edges {
         node {

@@ -120,7 +120,6 @@
 
   .media-requests,
   .media-suggestions,
-  .media-comments,
   .media-sources,
   .media-tasks {
     flex: 1;
@@ -137,21 +136,6 @@
       display: flex;
       justify-content: center;
       padding: 16px;
-    }
-  }
-
-  .media-comments {
-    .media-comment {
-      .media-comments-attached {
-        align-items: center;
-        display: flex;
-        gap: 3px;
-        margin: 6px 0 0;
-      }
-
-      &:last-of-type {
-        border-bottom: 0;
-      }
     }
   }
 
