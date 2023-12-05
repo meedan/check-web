@@ -19,7 +19,7 @@ const annotation = {
   smooch_user_slack_channel_url: 'https://test.slack.com/user/123',
   smooch_user_external_identifier: 'test',
   associated_graphql_id: 'UHJvamVjdE1lZGlhLzE=\n',
-  value_json: {
+  smooch_data: {
     name: 'Bli',
     authorId: 'blo',
     text: 'Hello Meedan',
