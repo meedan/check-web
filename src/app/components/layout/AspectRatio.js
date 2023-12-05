@@ -146,6 +146,7 @@ const AspectRatio = ({
       { expandedImage || isVideoFile ?
         <div>
           <IconButton
+            className="int-aspect-ratio__button--fullscreen"
             classes={{ root: classes.iconButton }}
             onClick={handleOnExpand}
             size="small"
@@ -158,6 +159,7 @@ const AspectRatio = ({
           <a href={downloadUrl} download>
             <IconButton
               classes={{ root: classes.iconButton }}
+              className="int-aspect-ratio__button--download"
               size="small"
             >
               <DownloadIcon />
