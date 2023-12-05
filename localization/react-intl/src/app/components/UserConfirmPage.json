@@ -1,10 +1,5 @@
 [
   {
-    "id": "global.bestViewed",
-    "description": "Message shown to the user when they are using an unsupported browser",
-    "defaultMessage": "Best viewed with <a href=\"{chromedownload}\">Chrome for Desktop</a>."
-  },
-  {
     "id": "UserConfirmPage.confirmed",
     "description": "Message for confirmed accounts",
     "defaultMessage": "Account Confirmed"
@@ -22,12 +17,12 @@
   {
     "id": "userConfirmed.alreadyConfrimMessage",
     "description": "Message for user who already confirmed before",
-    "defaultMessage": "Oops! Your account is already confirmed. Please sign in to get started."
+    "defaultMessage": "Your account is already confirmed. Please sign in to get started."
   },
   {
     "id": "userConfirmed.unConfrimMessage",
     "description": "Message for unconfirmed users",
-    "defaultMessage": "Sorry, an error occurred while confirming your account. Please try again and contact {supportEmail} if the condition persists."
+    "defaultMessage": "Sorry, an error occurred while confirming your account. Please try again and contact <a href=\"mailto:{supportEmail}\">{supportEmail}</a> if the condition persists."
   },
   {
     "id": "userConfirmPage.signIn",

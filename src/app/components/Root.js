@@ -10,7 +10,7 @@ import RootLocale from './RootLocale';
 import NotFound from './NotFound';
 import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
-import UserPasswordReset from './UserPasswordReset';
+import UserPasswordReset from './login/UserPasswordReset';
 import ErrorBoundary from './error/ErrorBoundary';
 import User from './source/User';
 import Me from './source/Me';

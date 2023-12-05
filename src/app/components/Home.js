@@ -10,8 +10,8 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import * as Sentry from '@sentry/react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import LoginContainer from './LoginContainer';
-import InviteNewAccount from './InviteNewAccount';
+import LoginContainer from './login/LoginContainer';
+import InviteNewAccount from './login/InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';

@@ -14,8 +14,9 @@ const SocialIcon = ({ domain, inColor }) => {
   case 'slack':
     return <SlackIcon className="logo" style={{ color: inColor ? 'var(--slackGreen)' : '' }} />;
   case 'twitter.com':
+  case 'x.com':
   case 'twitter':
-    return <TwitterIcon className="logo" style={{ color: inColor ? 'var(--twitterBlue)' : '' }} />;
+    return <TwitterIcon className="logo" style={{ color: inColor ? 'var(--xBlack)' : '' }} />;
   case 'youtube.com':
   case 'youtube':
     return <YouTubeIcon className="logo" style={{ color: inColor ? 'var(--youTubeRed)' : '' }} />;
@@ -47,6 +48,7 @@ SocialIcon.propTypes = {
     'slack.com',
     'twitter',
     'twitter.com',
+    'x.com',
     'youtube',
     'youtube.com',
     '', // "link"

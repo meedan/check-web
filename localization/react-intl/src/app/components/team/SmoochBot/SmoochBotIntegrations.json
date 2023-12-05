@@ -36,8 +36,8 @@
   },
   {
     "id": "smoochBotIntegrations.twitterDisabled",
-    "description": "Disclaimer displayed on Twitter tipline settings page.",
-    "defaultMessage": "The integration with Twitter is currently not available, following changes to the Twitter API on April 21, 2023."
+    "description": "Disclaimer displayed on X tipline settings page.",
+    "defaultMessage": "The integration with X is currently not available, following changes to the X API on April 21, 2023."
   },
   {
     "id": "smoochBotIntegrations.page",

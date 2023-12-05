@@ -57,7 +57,7 @@ shared_examples 'login' do
     @driver.quit
     @driver = new_driver
     @driver.navigate.to @config['self_url']
-    wait_for_selector('.login__forgot-password a').click
+    wait_for_selector('.login__forgot-password').click
     wait_for_selector('#password-reset-email-input').send_keys(user.email)
     wait_for_selector('.user-password-reset__actions button + button').click
     wait_for_selector_none('.user-password-reset__email-input')

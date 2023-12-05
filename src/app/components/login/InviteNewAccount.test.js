@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntlProvider } from '../../../test/unit/helpers/intl-test';
+import { mountWithIntlProvider } from '../../../../test/unit/helpers/intl-test';
 
 import { InviteNewAccountComponent } from './InviteNewAccount';
 
@@ -32,7 +32,7 @@ describe('<InviteNewAccount />', () => {
       user={user}
     />);
     expect(wrapper.find('#login')).toHaveLength(1);
-    expect(wrapper.find('.login__password-confirmation')).toHaveLength(1);
+    expect(wrapper.find('.int-login__password-confirmation-input input')).toHaveLength(1);
     expect(wrapper.html()).toMatch('has invited you to join the workspace');
   });
 });

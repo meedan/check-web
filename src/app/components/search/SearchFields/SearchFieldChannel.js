@@ -60,7 +60,7 @@ const SearchFieldChannelComponent = ({
     ZAPIER: 'Zapier',
     WHATSAPP: 'WhatsApp',
     MESSENGER: 'Messenger',
-    TWITTER: 'Twitter',
+    TWITTER: 'X (Twitter)',
     TELEGRAM: 'Telegram',
     VIBER: 'Viber',
     LINE: 'Line',
