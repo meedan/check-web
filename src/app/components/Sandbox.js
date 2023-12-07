@@ -42,6 +42,76 @@ const SandboxComponent = ({ admin }) => {
     'This is Six',
   ]);
 
+  const [listItemShared, setListItemShared] = React.useState(Boolean(false));
+  const [listItemCluster, setListItemCluster] = React.useState(Boolean(false));
+  const [listItemMedia, setListItemMedia] = React.useState(Boolean(true));
+  const [listItemRequests, setListItemRequests] = React.useState(Boolean(true));
+  const [listItemFactCheck, setListItemFactCheck] = React.useState(Boolean(true));
+  const [listItemFactCheckLink, setListItemFactCheckLink] = React.useState(Boolean(true));
+  const [listItemDescriptionLink, setListItemDescriptionLink] = React.useState(Boolean(true));
+  const [listItemDescription, setListItemDescription] = React.useState(Boolean(true));
+  const [listItemFactCheckPublished, setListItemFactCheckPublished] = React.useState(Boolean(true));
+  const [listItemSuggestions, setListItemSuggestions] = React.useState(Boolean(true));
+  const [listItemUnread, setListItemUnread] = React.useState(Boolean(true));
+
+  const onSetListItemShared = (shared) => {
+    if (!listItemCluster) {
+      setListItemDescriptionLink(false);
+      setListItemRequests(false);
+      setListItemMedia(false);
+    }
+    setListItemSuggestions(false);
+    setListItemUnread(false);
+    setListItemFactCheck(true);
+    setListItemFactCheckPublished(true);
+    setListItemShared(shared);
+  };
+
+  const onSetListItemCluster = (cluster) => {
+    if (cluster) {
+      setListItemRequests(true);
+      setListItemMedia(true);
+    } else {
+      setListItemDescriptionLink(false);
+      setListItemFactCheck(true);
+      setListItemFactCheckPublished(true);
+      setListItemRequests(false);
+      setListItemMedia(false);
+    }
+    setListItemCluster(cluster);
+  };
+
+  const onSetListItemMedia = (media) => {
+    if (media && listItemShared && listItemCluster) {
+      setListItemRequests(true);
+    } else if (!media && listItemShared && listItemCluster) {
+      setListItemRequests(false);
+    }
+    setListItemMedia(media);
+  };
+
+  const onSetListItemRequests = (requests) => {
+    if (requests && listItemShared && listItemCluster) {
+      setListItemMedia(true);
+    } else if (!requests && listItemShared && listItemCluster) {
+      setListItemMedia(false);
+    }
+    setListItemRequests(requests);
+  };
+
+  const onSetListItemFactCheck = (factcheck) => {
+    if (!factcheck && listItemShared) {
+      setListItemFactCheckLink(false);
+      setListItemFactCheckPublished(false);
+    } else if (factcheck && listItemShared) {
+      setListItemFactCheckPublished(true);
+    } else if (!factcheck) {
+      setListItemFactCheckLink(false);
+      setListItemFactCheckPublished(false);
+    }
+    setListItemFactCheck(factcheck);
+  };
+
   const [alertIcon, setAlertIcon] = React.useState(Boolean(true));
   const [alertButton, setAlertButton] = React.useState(Boolean(true));
   const [alertTitle, setAlertTitle] = React.useState(Boolean(true));
@@ -251,6 +321,186 @@ const SandboxComponent = ({ admin }) => {
           <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
         </li>
       </ul>
+      <section id="sandbox-row">
+        <h6>List Item</h6>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              ListItem
+              <a
+                href="https://www.figma.com/file/N1W1p7anE8xxekD7EyepVE/Shared-Feeds?type=design&node-id=2411-37415&mode=design"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Shared Feed"
+                  labelPlacement="top"
+                  checked={listItemShared}
+                  onChange={() => onSetListItemShared(!listItemShared)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Cluster of Media"
+                  labelPlacement="top"
+                  checked={listItemCluster}
+                  disabled={!listItemShared}
+                  onChange={() => onSetListItemCluster(!listItemCluster)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Media"
+                  labelPlacement="top"
+                  checked={listItemMedia}
+                  disabled={listItemShared && !listItemCluster}
+                  onChange={() => onSetListItemMedia(!listItemMedia)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Requests"
+                  labelPlacement="top"
+                  checked={listItemRequests}
+                  disabled={listItemShared && !listItemCluster}
+                  onChange={() => onSetListItemRequests(!listItemRequests)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Description"
+                  labelPlacement="top"
+                  checked={listItemDescription}
+                  onChange={() => setListItemDescription(!listItemDescription)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact-Check"
+                  labelPlacement="top"
+                  checked={listItemFactCheck}
+                  disabled={listItemShared && !listItemCluster}
+                  onChange={() => onSetListItemFactCheck(!listItemFactCheck)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact-Check Published"
+                  labelPlacement="top"
+                  checked={listItemFactCheckPublished}
+                  disabled={!listItemFactCheck || listItemShared}
+                  onChange={() => setListItemFactCheckPublished(!listItemFactCheckPublished)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact-Check Link"
+                  labelPlacement="top"
+                  checked={listItemFactCheckLink}
+                  disabled={!listItemFactCheck}
+                  onChange={() => setListItemFactCheckLink(!listItemFactCheckLink)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Description Link"
+                  labelPlacement="top"
+                  checked={listItemDescriptionLink}
+                  disabled={listItemShared && !listItemCluster}
+                  onChange={() => setListItemDescriptionLink(!listItemDescriptionLink)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Suggestions"
+                  labelPlacement="top"
+                  checked={listItemSuggestions}
+                  disabled={listItemShared}
+                  onChange={() => setListItemSuggestions(!listItemSuggestions)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Unread"
+                  labelPlacement="top"
+                  checked={listItemUnread}
+                  disabled={listItemShared}
+                  onChange={() => setListItemUnread(!listItemUnread)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <div
+              className={cx(
+                styles.listItem,
+                {
+                  [styles.listItemUnread]: listItemUnread && !listItemShared,
+                })
+              }
+            >
+              { !listItemShared &&
+                <div className={styles.checkbox}>
+                  checkbox
+                </div>
+              }
+              { ((listItemMedia && !listItemShared) || (listItemShared && listItemCluster)) &&
+                <div className={styles.thumbail}>
+                  thumbail
+                </div>
+              }
+              <div className={styles.content}>
+                <h6>Item Title</h6>
+                { listItemDescription &&
+                  <p>
+                    DESCRIPTION
+                  </p>
+                }
+                { listItemDescriptionLink &&
+                  <a href="www.meedan.com" className={styles.factDescriptionLink}>
+                    DESCRIPTION LINK
+                  </a>
+                }
+                { listItemFactCheckLink &&
+                  <a href="www.meedan.com" className={styles.factCheckLink}>
+                    FACT-CHECK LINK
+                  </a>
+                }
+                { listItemShared &&
+                  <div className={styles.workspaces}>
+                    WORKPACES
+                  </div>
+                }
+                <div className={styles.mediaAndRequest}>
+                  { listItemMedia ? <div>MEDIA</div> : null }
+                  { listItemSuggestions ? <div>SUGGESTIONS</div> : null }
+                  { listItemRequests ? <div>REQUESTS</div> : null }
+                  { listItemRequests ? <div>PLATFORMS</div> : null }
+                </div>
+              </div>
+              <div className={styles.factCheckLastUpdated}>
+                <div className={styles.factCheck}>
+                  { listItemShared && listItemFactCheck &&
+                    <>FACT-CHECK COUNT</>
+                  }
+                  { !listItemShared && listItemFactCheck &&
+                    <>WORKSPACE FACT-CHECK</>
+                  }
+                  { listItemFactCheckPublished && !listItemShared ? <>PUBLISHED</> : null }
+                </div>
+                May 27, 2022
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section id="sandbox-buttons">
         <h6>Buttons</h6>
         <div className={styles.componentWrapper}>
