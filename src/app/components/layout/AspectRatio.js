@@ -124,6 +124,7 @@ const AspectRatio = ({
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
   const classes = useStyles({ contentWarning: contentWarning && maskContent, superAdminMask });
+  const uniqueClassName = projectMedia.id;
 
   const handleOnExpand = () => {
     // If this is video, use the button to enter or exit fullscreen for the container div depending on whether we are already in fullscreen
@@ -132,7 +133,7 @@ const AspectRatio = ({
         document.exitFullscreen();
         setIsFullscreenVideo(false);
       } else {
-        document.querySelectorAll('.video-media-card')[0].requestFullscreen();
+        document.querySelectorAll(`.${uniqueClassName}`)[0].parentElement.requestFullscreen();
         setIsFullscreenVideo(true);
       }
     } else {
@@ -145,6 +146,7 @@ const AspectRatio = ({
       { expandedImage || isVideoFile ?
         <div>
           <IconButton
+            className="int-aspect-ratio__button--fullscreen"
             classes={{ root: classes.iconButton }}
             onClick={handleOnExpand}
             size="small"
@@ -157,6 +159,7 @@ const AspectRatio = ({
           <a href={downloadUrl} download>
             <IconButton
               classes={{ root: classes.iconButton }}
+              className="int-aspect-ratio__button--download"
               size="small"
             >
               <DownloadIcon />
@@ -194,7 +197,7 @@ const AspectRatio = ({
   const warningCategory = warningType;
 
   return (
-    <div className={classes.container}>
+    <div className={`${uniqueClassName} ${classes.container}`}>
       { expandedContent ?
         <Lightbox
           onCloseRequest={() => setExpandedContent(null)}
@@ -297,6 +300,7 @@ AspectRatio.defaultProps = {
 
 export default createFragmentContainer(injectIntl(AspectRatio), graphql`
   fragment AspectRatio_projectMedia on ProjectMedia {
+    id
     show_warning_cover
     dynamic_annotation_flag {
       data
