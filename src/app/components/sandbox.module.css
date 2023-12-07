@@ -94,7 +94,7 @@
   border: solid 1px var(--grayBorderMain);
   border-radius: 8px;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   gap: 16px;
   padding: 16px;
   position: relative;
