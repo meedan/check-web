@@ -46,7 +46,7 @@ const ChatHistory = ({
 
       // Apply a `userSelection` to items where the user selected from a menu of options
       // if a user message has a "payload" sub-item then it was a user selection from a menu of options
-      if (item.payload.messages && item.payload.messages[0]?.payload) {
+      if (item.payload?.messages && item.payload?.messages[0]?.payload) {
         newItem.userSelection = true;
       }
 
@@ -60,11 +60,11 @@ const ChatHistory = ({
     let output = '';
 
     // Items from us have text directly in the payload, items from users have it in a messages sub-object
-    if (item.payload?.text && typeof item.payload.text === 'string') {
+    if (item.payload?.text && typeof item.payload?.text === 'string') {
       // Smooch templates are raw text objects that start with the text `&((namespace` and look like
       // &((namespace=[[abc_123_def_456]]template=[[manual_4oct23]]fallback=[[Thank you!]]language=[[en]]body_text=[[09 Oct 16:23]]body_text=[[Thank you!]]))&
       // and we extract the 'fallback' to render this
-      if (item.payload.text.match(/^&\(\(namespace/)) {
+      if (item.payload?.text.match(/^&\(\(namespace/)) {
         const fallbackMatch = item.payload.text.match(/fallback=\[\[([^\]]+)\]\]/m);
         if (fallbackMatch !== null) {
           // eslint-disable-next-line prefer-destructuring
@@ -75,8 +75,11 @@ const ChatHistory = ({
       } else {
         output = item.payload.text;
       }
-    } else if (item.payload.messages?.length) {
-      output = item.payload.messages.map(message => message.text).join('//');
+    // parse the payload for a button message to get the text from the capi structure
+    } else if (item.payload?.capi?.entry?.[0]?.changes?.[0]?.value?.messages?.length) {
+      output = item.payload?.capi?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]?.button?.text;
+    } else if (item.payload?.messages?.length) {
+      output = item.payload?.messages?.map(message => message.text).join('//');
     } else if (item.payload?.text && typeof item.payload.text === 'object') {
       output = item.payload.text;
     }
@@ -92,7 +95,7 @@ const ChatHistory = ({
   const convertSentAtToLocaleDateString = sent_at => new Date(+sent_at * 1000).toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' });
 
   const parseCapiTemplate = content => (
-    content.components.map(
+    content?.components.map(
       // for each sub-object we check to see if it is of a certain type, return the appropriate value given the object
       // type, then flatten the array and join with a double line break
       item => item.parameters.map(
