@@ -75,13 +75,15 @@ const ChatHistory = ({
       } else {
         output = item.payload.text;
       }
-    // parse the payload for a button message to get the text from the capi structure
-    } else if (item.payload?.capi?.entry?.[0]?.changes?.[0]?.value?.messages?.length) {
-      output = item.payload?.capi?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]?.button?.text;
     } else if (item.payload?.messages?.length) {
       output = item.payload?.messages?.map(message => message.text).join('//');
     } else if (item.payload?.text && typeof item.payload.text === 'object') {
       output = item.payload.text;
+    }
+
+    // parse the payload for a button message to get the text from the capi structure
+    if (output === '' && item.payload?.capi?.entry?.[0]?.changes?.[0]?.value?.messages?.length) {
+      output = item.payload?.capi?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]?.button?.text;
     }
 
     // Hide the machine label for the positive feedback button
