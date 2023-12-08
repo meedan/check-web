@@ -1,13 +1,23 @@
 [
   {
+    "id": "reportDesigner.languageTitle",
+    "description": "Section title for the report language",
+    "defaultMessage": "Report Language"
+  },
+  {
     "id": "reportDesigner.selectLanguageLabel",
     "description": "Label for input to select language",
     "defaultMessage": "Language"
   },
   {
-    "id": "reportDesigner.introduction",
+    "id": "reportDesigner.introductionTitle",
     "description": "Section title for the report introduction",
     "defaultMessage": "Introduction"
+  },
+  {
+    "id": "reportDesigner.introduction",
+    "description": "Switch title to toggle on or off the report introduction",
+    "defaultMessage": "Include Introduction with Report"
   },
   {
     "id": "reportDesigner.introductionInput",
@@ -35,14 +45,34 @@
     "defaultMessage": "Visual"
   },
   {
+    "id": "reportDesigner.darkOverlay",
+    "description": "Check box label to indicate to user the dark overlay or not",
+    "defaultMessage": "Dark overlay"
+  },
+  {
+    "id": "reportDesigner.textTitlePlaceholder",
+    "description": "Placeholder url for report title field",
+    "defaultMessage": "Add a title to this report"
+  },
+  {
     "id": "reportDesigner.textTitle",
     "description": "Text field label for the report text title input",
     "defaultMessage": "Title"
   },
   {
+    "id": "reportDesigner.summaryPlaceholder",
+    "description": "Placeholder instructions for report summary field",
+    "defaultMessage": "Briefly contextualize the report"
+  },
+  {
     "id": "reportDesigner.content",
     "description": "Text field label for the report summary input",
     "defaultMessage": "Summary"
+  },
+  {
+    "id": "reportDesigner.textURLPlaceholder",
+    "description": "Placeholder url for report summary field",
+    "defaultMessage": "Add a URL to this report"
   },
   {
     "id": "reportDesigner.textUrl",
@@ -58,11 +88,6 @@
     "id": "reportDesigner.description",
     "description": "Text field label for the report text summary input",
     "defaultMessage": "Summary"
-  },
-  {
-    "id": "reportDesigner.darkOverlay",
-    "description": "Check box label to indicate to user the dark overlay or not",
-    "defaultMessage": "Dark overlay"
   },
   {
     "id": "reportDesigner.useDefaultImage",

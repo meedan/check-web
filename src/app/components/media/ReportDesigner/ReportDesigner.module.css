@@ -47,16 +47,66 @@
       flex-direction: column;
       overflow: auto;
       padding: 0 16px 16px;
-    }
 
-    .report-preview {
-      border-left: solid 2px var(--brandBorder);
-    }
-
-    .report-editor {
       h6 {
         align-items: center;
         display: flex;
+        margin: 0 0 16px;
+      }
+    }
+
+    .report-editor {
+      .report-designer-form {
+        background-color: var(--otherWhite);
+        border-radius: 8px;
+        padding: 16px;
+
+        .report-designer-form-container {
+          background-color: var(--brandBackground);
+          border-radius: 5px;
+          padding: 16px;
+          position: relative;
+
+          .report-designer-form-container-title {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            margin: 0 0 8px;
+            min-height: 34px;
+
+            > span {
+              @mixin typography-subtitle1;
+              align-items: center;
+              display: flex;
+              flex: 1 1 auto;
+              gap: 2px;
+
+              :global(.check-icon) {
+                font-size: var(--iconSizeDefault);
+              }
+            }
+          }
+
+          + .report-designer-form-container {
+            margin: 16px 0 0;
+          }
+
+          &.report-designer-form-disabled {
+            &::after {
+              background-color: var(--textPrimary);
+              border-radius: 8px;
+              bottom: 0;
+              content: '';
+              cursor: not-allowed;
+              left: 0;
+              opacity: .2;
+              position: absolute;
+              right: 0;
+              top: 0;
+              z-index: 2;
+            }
+          }
+        }
       }
     }
   }
