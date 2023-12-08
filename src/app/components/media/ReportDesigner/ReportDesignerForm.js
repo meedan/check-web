@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../../cds/inputs/TextArea';
@@ -11,7 +10,6 @@ import UploadFile from '../../UploadFile';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import { formatDate } from './reportDesignerHelpers';
-import LimitedTextFieldWithCounter from '../../layout/LimitedTextFieldWithCounter';
 import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
 import { safelyParseJSON } from '../../../helpers';
 import styles from './ReportDesigner.module.css';
@@ -57,11 +55,6 @@ const ReportDesignerForm = (props) => {
     props.onUpdate('theme_color', event.target.value);
   };
 
-  const textFieldProps = {
-    fullWidth: true,
-    disabled: props.pending,
-  };
-
   return (
     <div className={styles['report-designer-form']}>
       { languages.length > 1 ?
@@ -83,6 +76,7 @@ const ReportDesignerForm = (props) => {
               selectedLanguage={currentLanguage}
               languages={JSON.parse(team.get_languages || '[]')}
               onSubmit={handleLanguageSubmit}
+              isDisabled={props.pending || props.disabled}
             />
           </div>
         </div> : null
@@ -114,34 +108,42 @@ const ReportDesignerForm = (props) => {
             onChange={(enabled) => { props.onUpdate('use_introduction', enabled); }}
           />
           { data.use_introduction &&
-            <TextArea
-              className={inputStyles['form-fieldset-field']}
-              autoGrow
-              key={`introduction-${data.language}`}
-              label={
-                <FormattedMessage
-                  id="reportDesigner.introductionInput"
-                  defaultMessage="Introduction"
-                  description="Text field label for the introduction input"
+            <FormattedMessage
+              id="reportDesigner.introductionPlaceholder"
+              defaultMessage="Add an introduction to this report"
+              description="Placeholder for report introduction field"
+            >
+              { placeholder => (
+                <TextArea
+                  className={inputStyles['form-fieldset-field']}
+                  autoGrow
+                  key={`introduction-${data.language}`}
+                  placeholder={placeholder}
+                  label={
+                    <FormattedMessage
+                      id="reportDesigner.introductionInput"
+                      defaultMessage="Introduction"
+                      description="Text field label for the introduction input"
+                    />
+                  }
+                  defaultValue={data.introduction}
+                  onBlur={(e) => { props.onUpdate('introduction', e.target.value); }}
+                  maxHeight="120px"
+                  disabled={props.pending || props.disabled}
+                  helpContent={
+                    <FormattedMessage
+                      id="reportDesigner.introductionSub"
+                      defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+                      description="Help text on how to use the query date and status fields"
+                      values={{
+                        query_date: <strong>{'{{query_date}}'}</strong>,
+                        status: <strong>{'{{status}}'}</strong>,
+                      }}
+                    />
+                  }
                 />
-              }
-              defaultValue={data.introduction}
-              onBlur={(e) => { props.onUpdate('introduction', e.target.value); }}
-              maxHeight="120px"
-              disabled={props.pending || props.disabled}
-              helpContent={
-                <FormattedMessage
-                  id="reportDesigner.introductionSub"
-                  defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
-                  description="Help text on how to use the query date and status fields"
-                  values={{
-                    query_date: <strong>{'{{query_date}}'}</strong>,
-                    status: <strong>{'{{status}}'}</strong>,
-                  }}
-                />
-              }
-              {...textFieldProps}
-            />
+              )}
+            </FormattedMessage>
           }
         </div>
       </div>
@@ -160,64 +162,46 @@ const ReportDesignerForm = (props) => {
               defaultMessage="Fact-check"
               description="Section title for the fact-check form fields"
             />
-          </div>
-          <ToggleButtonGroup
-            className={inputStyles['form-fieldset-field']}
-            variant="contained"
-            onChange={(e, newValue) => {
-              props.onUpdate({ use_text_message: newValue === 'text', use_visual_card: newValue === 'visual' });
-            }}
-            exclusive
-          >
-            <ToggleButton
-              selected={Boolean(data.use_text_message)}
-              value="text"
-              key="text"
-              className="int-report__button--report-type"
-            >
-              <FormattedMessage id="reportDesigner.text" defaultMessage="Text" description="Label used for radio button that toggles the report mode to text" />
-            </ToggleButton>
-            <ToggleButton
-              selected={Boolean(data.use_visual_card) && !data.use_text_message}
-              value="visual"
-              key="visual"
-              className="int-report__button--report-type"
-            >
-              <FormattedMessage id="reportDesigner.visual" defaultMessage="Visual" description="Label used for radio button that toggles the report mode to visual" />
-            </ToggleButton>
-          </ToggleButtonGroup>
-          { data.use_visual_card && !data.use_text_message ?
-            <SwitchComponent
-              key={`dark-overlay-${data.language}`}
+            <ToggleButtonGroup
               className={inputStyles['form-fieldset-field']}
-              label={
-                <FormattedMessage
-                  id="reportDesigner.darkOverlay"
-                  defaultMessage="Dark overlay"
-                  description="Check box label to indicate to user the dark overlay or not"
-                />
-              }
-              labelPlacement="end"
-              checked={data.dark_overlay || false}
-              onChange={(e) => { props.onUpdate('dark_overlay', e); }}
-            /> : null
-          }
+              variant="contained"
+              onChange={(e, newValue) => {
+                props.onUpdate({ use_text_message: newValue === 'text', use_visual_card: newValue === 'visual' });
+              }}
+              exclusive
+            >
+              <ToggleButton
+                selected={Boolean(data.use_text_message)}
+                value="text"
+                key="text"
+                className="int-report__button--report-type"
+              >
+                <FormattedMessage id="reportDesigner.text" defaultMessage="Text" description="Label used for radio button that toggles the report mode to text" />
+              </ToggleButton>
+              <ToggleButton
+                selected={Boolean(data.use_visual_card) && !data.use_text_message}
+                value="visual"
+                key="visual"
+                className="int-report__button--report-type"
+              >
+                <FormattedMessage id="reportDesigner.visual" defaultMessage="Visual" description="Label used for radio button that toggles the report mode to visual" />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
           { data.use_text_message ?
             <>
               <div className={inputStyles['form-fieldset-field']}>
                 <FormattedMessage
                   id="reportDesigner.textTitlePlaceholder"
                   defaultMessage="Add a title to this report"
-                  description="Placeholder url for report title field"
+                  description="Placeholder for report title field"
                 >
                   { placeholder => (
                     <LimitedTextArea
                       required={Boolean(false)}
                       value={data.title}
-                      componentProps={{
-                        id: 'report-designer__text-url',
-                      }}
                       maxChars={140}
+                      maxlength="140"
                       key={`text-title-${data.language}`}
                       rows={1}
                       label={
@@ -254,6 +238,7 @@ const ReportDesignerForm = (props) => {
                       key={`text-${data.language}`}
                       name="summary"
                       maxChars={620}
+                      maxlength="620"
                       rows={5}
                       label={
                         <FormattedMessage
@@ -277,7 +262,7 @@ const ReportDesignerForm = (props) => {
                 <FormattedMessage
                   id="reportDesigner.textURLPlaceholder"
                   defaultMessage="Add a URL to this report"
-                  description="Placeholder url for report summary field"
+                  description="Placeholder for report url field"
                 >
                   { placeholder => (
                     <LimitedTextArea
@@ -287,6 +272,7 @@ const ReportDesignerForm = (props) => {
                         id: 'report-designer__text-url',
                       }}
                       maxChars={140}
+                      maxlength="140"
                       key={`text-url-${data.language}-${data.published_article_url}`}
                       rows={1}
                       label={
@@ -312,135 +298,244 @@ const ReportDesignerForm = (props) => {
                   )}
                 </FormattedMessage>
               </div>
-            </> : null }
-
+            </> : null
+          }
           { data.use_visual_card && !data.use_text_message ?
             <>
-              <LimitedTextFieldWithCounter
-                limit={85}
-                label={
-                  <FormattedMessage
-                    id="reportDesigner.headline"
-                    defaultMessage="Title"
-                    description="Text field label for the report headline title input"
-                  />
-                }
-                onUpdate={(newValue) => { props.onUpdate('headline', newValue); }}
-                value={data.headline}
-                textFieldProps={{
-                  key: `headline-${data.language}`,
-                  ...textFieldProps,
+              <ToggleButtonGroup
+                key={`dark-overlay-${data.language}`}
+                label={<FormattedMessage id="reportDesigner.theme" defaultMessage="Theme" description="Label used for choice on theme of report light versus dark" />}
+                className={inputStyles['form-fieldset-field']}
+                variant="contained"
+                onChange={(e, newValue) => {
+                  props.onUpdate('dark_overlay', Boolean(newValue));
                 }}
-              />
-              <LimitedTextFieldWithCounter
-                limit={240}
-                label={
-                  <FormattedMessage
-                    id="reportDesigner.description"
-                    defaultMessage="Summary"
-                    description="Text field label for the report text summary input"
+                exclusive
+              >
+                <ToggleButton
+                  selected={Boolean(!data.dark_overlay)}
+                  value={Boolean(false)}
+                  key="false"
+                  className="int-report__button--report-type"
+                >
+                  <FormattedMessage id="reportDesigner.lightTheme" defaultMessage="Light" description="Label used for button toggling on the light themed report" />
+                </ToggleButton>
+                <ToggleButton
+                  selected={Boolean(data.dark_overlay)}
+                  value={Boolean(true)}
+                  key="true"
+                  className="int-report__button--report-type"
+                >
+                  <FormattedMessage id="reportDesigner.darkTheme" defaultMessage="Dark" description="Label used for button toggling on the light themed report" />
+                </ToggleButton>
+              </ToggleButtonGroup>
+              <div className={styles['report-rating-wrapper']}>
+                <div className={styles['report-rating-headline']}>
+                  <ColorPicker
+                    color={data.theme_color}
+                    onChange={handleChangeColor}
                   />
-                }
-                onUpdate={(newValue) => { props.onUpdate('description', newValue); }}
-                value={data.description}
-                rows={3}
-                textFieldProps={{
-                  key: `description-${data.language}`,
-                  ...textFieldProps,
-                }}
-              />
-              <UploadFile onChange={handleImageChange} onError={handleImageError} type="image" />
-              <Box display="flex" justifyContent="space-between">
-                <Box display="flex">
-                  { media.media.picture ?
-                    <ButtonMain
-                      onClick={handleDefaultImage}
-                      variant="text"
-                      size="default"
-                      theme="text"
-                      disabled={media.media.picture === data.image}
+                  <FormattedMessage
+                    id="reportDesigner.textStatusPlaceholder"
+                    defaultMessage="Add a status to this report"
+                    description="Placeholder for report status field"
+                  >
+                    { placeholder => (
+                      <LimitedTextArea
+                        required={Boolean(false)}
+                        value={data.status_label}
+                        maxChars={25}
+                        maxlength="25"
+                        key={`status-${data.language}`}
+                        rows={1}
+                        label={
+                          <FormattedMessage
+                            id="reportDesigner.statusLabel"
+                            defaultMessage="Status label"
+                            description="Text field label for the status of the report"
+                          />
+                        }
+                        disabled={props.pending || props.disabled}
+                        maxHeight="48px"
+                        autoGrow="false"
+                        placeholder={placeholder}
+                        onBlur={(e) => {
+                          const newValue = e.target.value;
+                          props.onUpdate('status_label', newValue);
+                        }}
+                      />
+                    )}
+                  </FormattedMessage>
+                  <FormattedMessage
+                    id="reportDesigner.datePublishedPlaceholder"
+                    defaultMessage="Add a date when this report was published"
+                    description="Placeholder for report date published field"
+                  >
+                    { placeholder => (
+                      <LimitedTextArea
+                        required={Boolean(false)}
+                        value={data.date || formatDate(new Date(), data.language)}
+                        maxChars={100}
+                        maxlength="100"
+                        key={`date-${data.language}`}
+                        rows={1}
+                        label={
+                          <FormattedMessage
+                            id="reportDesigner.datePublished"
+                            defaultMessage="Date published"
+                            description="Text field label for the date the report was published"
+                          />
+                        }
+                        disabled={props.pending || props.disabled}
+                        maxHeight="48px"
+                        autoGrow="false"
+                        placeholder={placeholder}
+                        onBlur={(e) => {
+                          const newValue = e.target.value;
+                          props.onUpdate('date', newValue);
+                        }}
+                      />
+                    )}
+                  </FormattedMessage>
+                </div>
+              </div>
+              <div className={inputStyles['form-fieldset-field']}>
+                <FormattedMessage
+                  id="reportDesigner.headlinePlaceholder"
+                  defaultMessage="Add a title to this report"
+                  description="Placeholder for report title field"
+                >
+                  { placeholder => (
+                    <LimitedTextArea
+                      required={Boolean(false)}
+                      value={data.headline}
+                      maxChars={85}
+                      maxlength="85"
+                      key={`headline-${data.language}`}
+                      rows={1}
                       label={
                         <FormattedMessage
-                          id="reportDesigner.useDefaultImage"
-                          defaultMessage="Use default image"
-                          description="Button label to switch the report to use the default image"
+                          id="reportDesigner.headline"
+                          defaultMessage="Title"
+                          description="Text field label for the report headline title input"
                         />
                       }
-                    /> : null }
+                      disabled={props.pending || props.disabled}
+                      maxHeight="48px"
+                      autoGrow="false"
+                      placeholder={placeholder}
+                      onBlur={(e) => {
+                        const newValue = e.target.value;
+                        props.onUpdate('headline', newValue);
+                      }}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+              <div className={inputStyles['form-fieldset-field']}>
+                <FormattedMessage
+                  id="reportDesigner.visualSummaryPlaceholder"
+                  defaultMessage="Briefly contextualize the report"
+                  description="Placeholder instructions for visual report summary field"
+                >
+                  { placeholder => (
+                    <LimitedTextArea
+                      required={Boolean(false)}
+                      value={data.description}
+                      componentProps={{
+                        id: 'report-designer__text',
+                      }}
+                      key={`description-${data.language}`}
+                      name="summary"
+                      maxChars={240}
+                      maxlength="240"
+                      rows={3}
+                      label={
+                        <FormattedMessage
+                          id="reportDesigner.description"
+                          defaultMessage="Summary"
+                          description="Text field label for the report text summary input"
+                        />
+                      }
+                      autoGrow
+                      disabled={props.pending || props.disabled}
+                      placeholder={placeholder}
+                      onBlur={(e) => {
+                        const newValue = e.target.value;
+                        props.onUpdate('description', newValue);
+                      }}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+              <div className={inputStyles['form-fieldset-field']}>
+                <FormattedMessage
+                  id="reportDesigner.visualURLPlaceholder"
+                  defaultMessage="Add a URL to this report"
+                  description="Placeholder for visual report url field"
+                >
+                  { placeholder => (
+                    <LimitedTextArea
+                      required={Boolean(false)}
+                      value={data.url}
+                      maxChars={40}
+                      maxlength="40"
+                      key={`url-${data.language}`}
+                      rows={1}
+                      label={
+                        <FormattedMessage
+                          id="reportDesigner.url"
+                          defaultMessage="Website URL"
+                          description="Text field label for the URL of the report website"
+                        />
+                      }
+                      disabled={props.pending || props.disabled}
+                      maxHeight="48px"
+                      autoGrow="false"
+                      placeholder={placeholder}
+                      onBlur={(e) => {
+                        const newValue = e.target.value;
+                        props.onUpdate('url', newValue);
+                      }}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+              <div className={inputStyles['form-fieldset-field']}>
+                <UploadFile onChange={handleImageChange} onError={handleImageError} type="image" />
+              </div>
+              <div className={styles['report-image-buttons']}>
+                { media.media.picture ?
                   <ButtonMain
-                    onClick={handleRemoveImage}
-                    variant="text"
+                    onClick={handleDefaultImage}
+                    variant="contained"
                     size="default"
-                    theme="brand"
+                    theme="lightBrand"
+                    disabled={media.media.picture === data.image}
                     label={
                       <FormattedMessage
-                        id="reportDesigner.removeImage"
-                        defaultMessage="Remove image"
-                        description="Button label to remove the image from the report"
+                        id="reportDesigner.useDefaultImage"
+                        defaultMessage="Use default image"
+                        description="Button label to switch the report to use the default image"
                       />
                     }
-                  />
-                </Box>
-              </Box>
-              <Box display="flex">
-                <ColorPicker
-                  color={data.theme_color}
-                  onChange={handleChangeColor}
+                  /> : null }
+                <ButtonMain
+                  onClick={handleRemoveImage}
+                  variant="contained"
+                  size="default"
+                  theme="brand"
+                  label={
+                    <FormattedMessage
+                      id="reportDesigner.removeImage"
+                      defaultMessage="Remove image"
+                      description="Button label to remove the image from the report"
+                    />
+                  }
                 />
-                <Box display="flex" flexWrap="wrap" flexGrow="1">
-                  <Box display="flex" width="100%">
-                    <LimitedTextFieldWithCounter
-                      limit={25}
-                      value={data.status_label}
-                      onUpdate={(newValue) => { props.onUpdate('status_label', newValue); }}
-                      label={
-                        <FormattedMessage
-                          id="reportDesigner.statusLabel"
-                          defaultMessage="Status label"
-                          description="Text field label for the status of the report"
-                        />
-                      }
-                      textFieldProps={{
-                        key: `status-${data.language}`,
-                        ...textFieldProps,
-                      }}
-                    />
-                    <LimitedTextFieldWithCounter
-                      limit={100}
-                      value={data.date || formatDate(new Date(), data.language)}
-                      onUpdate={(newValue) => { props.onUpdate('date', newValue); }}
-                      label={
-                        <FormattedMessage
-                          id="reportDesigner.datePublished"
-                          defaultMessage="Date published"
-                          description="Text field label for the date the report was published"
-                        />
-                      }
-                      textFieldProps={{
-                        key: `date-${data.language}`,
-                        ...textFieldProps,
-                      }}
-                    />
-                  </Box>
-                  <LimitedTextFieldWithCounter
-                    limit={40}
-                    value={data.url}
-                    onUpdate={(newValue) => { props.onUpdate('url', newValue); }}
-                    label={
-                      <FormattedMessage
-                        id="reportDesigner.url"
-                        defaultMessage="Website URL"
-                        description="Text field label for the URL of the report website"
-                      />
-                    }
-                    textFieldProps={{
-                      key: `url-${data.language}`,
-                      ...textFieldProps,
-                    }}
-                  />
-                </Box>
-              </Box>
-            </> : null }
+              </div>
+            </> : null
+          }
         </div>
       </div>
     </div>
