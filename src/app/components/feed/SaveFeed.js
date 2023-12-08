@@ -77,6 +77,20 @@ const destroyMutation = graphql`
     destroyFeed(input: $input) {
       deletedId
       team {
+        feed_teams(first: 10000) {
+          edges {
+            node {
+              id
+              dbid
+              feed_id
+              saved_search_id
+              feed {
+                name
+              }
+              type: __typename
+            }
+          }
+        }
         feeds(first: 10000) {
           edges {
             node {
