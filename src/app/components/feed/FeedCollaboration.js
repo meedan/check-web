@@ -36,6 +36,7 @@ const destroyInviteMutation = graphql`
     destroyFeedInvitation(input: $input) {
       deletedId
       feed {
+        teams_count
         feed_invitations(first: 100) {
           edges {
             node {
@@ -55,6 +56,7 @@ const removeTeamMutation = graphql`
     destroyFeedTeam(input: $input) {
       deletedId
       feed {
+        teams_count
         feed_teams(first: 100) {
           edges {
             node {

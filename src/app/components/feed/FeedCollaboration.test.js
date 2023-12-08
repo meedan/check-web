@@ -46,7 +46,7 @@ describe('<FeedCollaboration />', () => {
   });
 
   it('should invite emails as feed creator', () => {
-    const wrapper = shallowWithIntl(<FeedCollaboration collaboratorId={123} feed={feed} onChange={() => {}} />);
+    const wrapper = shallowWithIntl(<FeedCollaboration collaboratorId={123} feed={feed} onChange={() => {}} permissions={{ 'create FeedInvitation': true }} />);
     const input = wrapper.find('.int-feed-collab__text-field');
     input.simulate('change', { target: { value: 'bar@foo.com' } });
     wrapper.find('.int-feed-collab__add-button').simulate('click');
