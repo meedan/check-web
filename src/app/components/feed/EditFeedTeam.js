@@ -2,6 +2,7 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import SaveFeed from './SaveFeed';
+import { safelyParseJSON } from '../../helpers';
 
 const EditFeedTeam = ({ routeParams }) => (
   <QueryRenderer
@@ -22,7 +23,7 @@ const EditFeedTeam = ({ routeParams }) => (
     }}
     render={({ error, props }) => {
       if (!error && props) {
-        return (<SaveFeed feedTeam={props.feed_team} permissions={JSON.parse(props.team.permissions)} />);
+        return (<SaveFeed feedTeam={props.feed_team} permissions={safelyParseJSON(props.team.permissions)} />);
       }
       return null;
     }}
