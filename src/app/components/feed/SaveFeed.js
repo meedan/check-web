@@ -121,7 +121,7 @@ const destroyFeedTeamMutation = graphql`
 
 
 const SaveFeed = (props) => {
-  const { feedTeam } = props;
+  const { feedTeam, permissions } = props;
   const feed = feedTeam?.feed || {}; // Editing a feed or creating a new feed
   const isFeedOwner = feedTeam?.team_id === feed?.team?.dbid;
 
@@ -501,6 +501,7 @@ const SaveFeed = (props) => {
           collaboratorId={feedTeam?.team_id}
           feed={feed}
           onChange={setNewInvites}
+          permissions={permissions}
         />
       </div>
 
@@ -568,6 +569,7 @@ const SaveFeed = (props) => {
 
 SaveFeed.defaultProps = {
   feedTeam: {},
+  permissions: {},
 };
 
 SaveFeed.propTypes = {
@@ -586,6 +588,7 @@ SaveFeed.propTypes = {
       tags: PropTypes.arrayOf(PropTypes.string),
     }),
   }),
+  permissions: PropTypes.object, // { key => value } (e.g., { 'create FeedTeam' => true })
 };
 
 // Used in unit test

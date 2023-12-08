@@ -11,6 +11,9 @@ const EditFeedTeam = ({ routeParams }) => (
         feed_team(feedId: $feedId, teamSlug: $teamSlug) {
           ...SaveFeed_feedTeam
         }
+        team {
+          permissions
+        }
       }
     `}
     variables={{
@@ -19,7 +22,7 @@ const EditFeedTeam = ({ routeParams }) => (
     }}
     render={({ error, props }) => {
       if (!error && props) {
-        return (<SaveFeed feedTeam={props.feed_team} />);
+        return (<SaveFeed feedTeam={props.feed_team} permissions={JSON.parse(props.team.permissions)} />);
       }
       return null;
     }}
