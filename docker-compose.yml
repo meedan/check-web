@@ -94,9 +94,6 @@ services:
       - postgres
       - redis
       - pender
-      - presto-server
-      - presto-image
-      - presto-audio
     volumes:
       - "./check-api:/app"
     environment:
