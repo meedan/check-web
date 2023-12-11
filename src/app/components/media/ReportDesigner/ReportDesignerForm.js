@@ -267,7 +267,7 @@ const ReportDesignerForm = (props) => {
                   { placeholder => (
                     <LimitedTextArea
                       required={Boolean(false)}
-                      value={data.published_article_url}
+                      value={data.published_article_url || ''}
                       componentProps={{
                         'data-testid': 'report-designer__text-url',
                       }}
