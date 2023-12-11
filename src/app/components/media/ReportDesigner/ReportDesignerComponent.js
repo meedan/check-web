@@ -228,13 +228,12 @@ const ReportDesignerComponent = (props) => {
             />
           </div>
           <div className={styles['report-preview']}>
-            <h6>
-              <FormattedMessage
-                id="reportDesigner.previewTitle"
-                defaultMessage="Preview your report"
-                description="Section title for the visual preview of the report being created"
-              />
-            </h6>
+            <FormattedMessage
+              tagName="h6"
+              id="reportDesigner.previewTitle"
+              defaultMessage="Preview your report"
+              description="Section title for the visual preview of the report being created"
+            />
             <ReportDesignerPreview data={data.options} media={media} />
           </div>
         </div>
