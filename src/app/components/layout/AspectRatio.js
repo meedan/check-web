@@ -196,7 +196,7 @@ const AspectRatio = ({
 
   const warningCategory = warningType;
 
-  const isPenderCard = children.type.name === 'PenderCard';
+  const isPenderCard = children.type?.name === 'PenderCard';
   const showStraightPenderCard = !maskContent && !superAdminMask && isPenderCard;
 
   if (showStraightPenderCard) {
