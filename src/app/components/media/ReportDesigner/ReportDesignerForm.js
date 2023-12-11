@@ -269,7 +269,7 @@ const ReportDesignerForm = (props) => {
                       required={Boolean(false)}
                       value={data.published_article_url}
                       componentProps={{
-                        id: 'report-designer__text-url',
+                        'data-testid': 'report-designer__text-url',
                       }}
                       maxChars={140}
                       maxlength="140"
