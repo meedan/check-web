@@ -56,7 +56,7 @@ const FeedActions = ({
         />
       </MenuItem>
     );
-  } else if (feed.teams_count > 1) {
+  } else if (feed.teams_count > 1 || feed.feed_invitations.edges.find(invitation => invitation.node.state === 'invited')) {
     menuItem = (
       <MenuItem disabled>
         <FormattedHTMLMessage
@@ -239,6 +239,13 @@ FeedActions.propTypes = {
         name: PropTypes.string.isRequired,
         dbid: PropTypes.number.isRequired,
       }).isRequired,
+      feed_invitations: PropTypes.shape({
+        edges: PropTypes.arrayOf(PropTypes.shape({
+          node: PropTypes.shape({
+            state: PropTypes.string.isRequired,
+          }),
+        })).isRequired,
+      }).isRequired,
     }).isRequired,
   }).isRequired,
 };
@@ -254,6 +261,13 @@ export default createFragmentContainer(FeedActions, graphql`
         title
       }
       teams_count
+      feed_invitations(first: 100) {
+        edges {
+          node {
+            state
+          }
+        }
+      }
       team {
         name
         dbid

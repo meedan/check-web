@@ -12,6 +12,7 @@ import styles from './FeedCollaboration.module.css';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
@@ -35,6 +36,7 @@ const destroyInviteMutation = graphql`
     destroyFeedInvitation(input: $input) {
       deletedId
       feed {
+        teams_count
         feed_invitations(first: 100) {
           edges {
             node {
@@ -54,6 +56,7 @@ const removeTeamMutation = graphql`
     destroyFeedTeam(input: $input) {
       deletedId
       feed {
+        teams_count
         feed_teams(first: 100) {
           edges {
             node {
@@ -73,6 +76,7 @@ const FeedCollaboration = ({
   collaboratorId,
   feed,
   intl,
+  permissions,
   onChange,
 }) => {
   const [textValue, setTextValue] = React.useState('');
@@ -172,7 +176,7 @@ const FeedCollaboration = ({
           <FormattedMessage id="feedCollaboration.you" defaultMessage="you" description="Label to highlight user's organization in Shared Feed collaboration widget" />
         </span> : null
       }
-      { type !== 'organizer' && !readOnly ?
+      { type !== 'organizer' && !readOnly && ((team && permissions['destroy FeedTeam']) || (!team && permissions['destroy FeedInvitation'])) ?
         <Tooltip arrow title={<FormattedMessage id="feedCollaboration.remove" defaultMessage="Remove" description="Tooltip for button to remove invitation or feed collaborator" />}>
           <span>
             <ButtonMain
@@ -255,7 +259,7 @@ const FeedCollaboration = ({
           </ExternalLink>
         </span>
       }
-      { !readOnly && (
+      { !readOnly && permissions['create FeedInvitation'] && (
         <div className={styles['feed-collab-input']}>
           <TextField
             className={cx(styles['feed-collab-text-field'], 'int-feed-collab__text-field')}
@@ -275,6 +279,18 @@ const FeedCollaboration = ({
             disabled={error}
           />
         </div>
+      )}
+      { !feed.dbid && !permissions['create FeedInvitation'] && (
+        <Alert
+          variant="warning"
+          title={
+            <FormattedMessage
+              id="feedCollaboration.editorWarningCreateFeed"
+              defaultMessage="Contact your workspace admin to add other organizations to this shared feed."
+              description="Warning displayed on feed collaboration box on create feed page when user is an editor and can't invite people to the feed."
+            />
+          }
+        />
       )}
       <div className={styles['feed-collab-invites']}>
         { feed.feed_teams?.edges.map(ft => (
@@ -306,18 +322,32 @@ const FeedCollaboration = ({
           />
         ))}
       </div>
+      { feed.dbid && !permissions['create FeedInvitation'] && (
+        <Alert
+          variant="warning"
+          title={
+            <FormattedMessage
+              id="feedCollaboration.editorWarningUpdateFeed"
+              defaultMessage="Contact your workspace admin to manage Collaborating organizations."
+              description="Warning displayed on feed collaboration box on edit feed page when user is an editor and can't invite people to the feed."
+            />
+          }
+        />
+      )}
     </div>
   );
 };
 
 FeedCollaboration.defaultProps = {
   collaboratorId: null,
+  permissions: {},
 };
 
 FeedCollaboration.propTypes = {
   collaboratorId: PropTypes.number,
   feed: PropTypes.object.isRequired,
   intl: intlShape.isRequired,
+  permissions: PropTypes.object, // { key => value } (e.g., { 'create FeedTeam' => true })
   onChange: PropTypes.func.isRequired,
 };
 
