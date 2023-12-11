@@ -2,6 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
@@ -188,6 +189,17 @@ const ReportDesignerComponent = (props) => {
   return (
     <React.Fragment>
       <div className={styles['report-designer-wrapper']}>
+        {data.state === 'published' ?
+          <>
+            <Alert
+              title={<span>Report is Paused</span>}
+              banner
+              icon
+              content={<span>To make edits, unpause this report. This will stop the report from being sent out to users until it is published again.</span>}
+              variant="warning"
+            />
+          </> : null
+        }
         <ReportDesignerTopBar
           media={media}
           defaultLanguage={currentLanguage}
