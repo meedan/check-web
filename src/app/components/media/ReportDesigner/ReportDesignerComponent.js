@@ -192,11 +192,23 @@ const ReportDesignerComponent = (props) => {
         {data.state === 'published' ?
           <>
             <Alert
-              title={<span>Report is Paused</span>}
+              title={
+                <FormattedMessage
+                  id="reportDesigner.alertTitle"
+                  defaultMessage="Report is published"
+                  description="Title of a page level alert telling the user the report is currently in the published state"
+                />
+              }
               banner
               icon
-              content={<span>To make edits, unpause this report. This will stop the report from being sent out to users until it is published again.</span>}
-              variant="warning"
+              content={
+                <FormattedMessage
+                  id="reportDesigner.alertContent"
+                  defaultMessage="To make edits, pause this report. This will stop the report from being sent out to users until it is published again."
+                  description="Content of a page level alert telling the user the report is currently in the published state and they need to change the state to pause in order to edit"
+                />
+              }
+              variant="success"
             />
           </> : null
         }
