@@ -347,7 +347,7 @@ const SensitiveContentMenuButton = ({
 };
 
 SensitiveContentMenuButton.propTypes = {
-  currentUserRole: PropTypes.object.isRequired,
+  currentUserRole: PropTypes.string.isRequired,
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     show_warning_cover: PropTypes.bool.isRequired,
