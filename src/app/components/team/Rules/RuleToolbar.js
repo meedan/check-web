@@ -128,13 +128,12 @@ const RuleToolbar = (props) => {
         }
         body={(
           <div>
-            <p variant="typography-body1">
-              <FormattedMessage
-                id="ruleToolbar.deleteConfirmationText"
-                defaultMessage="You cannot undo this action."
-                description="Warning message to the user that deletes are permanent"
-              />
-            </p>
+            <FormattedMessage
+              tagName="p"
+              id="ruleToolbar.deleteConfirmationText"
+              defaultMessage="You cannot undo this action."
+              description="Warning message to the user that deletes are permanent"
+            />
           </div>
         )}
         proceedLabel={<FormattedMessage id="ruleToolbar.deleteConfirmationLabel" defaultMessage="Delete rule" description="Label to continue deleting the current rule" />}
@@ -152,6 +151,7 @@ const RuleToolbar = (props) => {
         }
         blurb={
           <FormattedMessage
+            tagName="p"
             id="ruleToolbar.leaveConfirmationText"
             defaultMessage="If you continue, you will lose your changes."
             description="Additional warning text about losing changes if the user navigates away."
