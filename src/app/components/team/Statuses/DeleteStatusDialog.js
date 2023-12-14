@@ -3,10 +3,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import Select from '../../cds/inputs/Select';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 /* Exported for unit test */
@@ -111,30 +108,32 @@ export const DeleteStatusDialog = ({
             /> : null
           }
           <div>
-            <FormControl variant="outlined" fullWidth>
-              <InputLabel id="delete-status-dialog__select">
-                {inputLabel}
-              </InputLabel>
-              <Select
-                id="delete-status-dialog__select"
-                defaultValue=""
-                label={inputLabel}
-                onChange={handleSelect}
-              >
-                { statuses
-                  .filter(s => s.id !== deleteStatus.id)
-                  .map(s => (
-                    <MenuItem
-                      className={`delete-status-dialog__select-item-${s.id}`}
-                      key={s.id}
-                      value={s.id}
-                    >
-                      {s.label}
-                    </MenuItem>
-                  ))
-                }
-              </Select>
-            </FormControl>
+            <Select
+              id="delete-status-dialog__select"
+              defaultValue=""
+              label={inputLabel}
+              onChange={handleSelect}
+            >
+              <FormattedMessage id="deleteStatusDialog.moveItemsToPlaceholder" defaultMessage="Select status..." description="This is a field placeholder. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field." >
+                { placeholder => (
+                  <option hidden>
+                    {placeholder}
+                  </option>
+                )}
+              </FormattedMessage>
+              { statuses
+                .filter(s => s.id !== deleteStatus.id)
+                .map(s => (
+                  <option
+                    className={`delete-status-dialog__select-item-${s.id}`}
+                    key={s.id}
+                    value={s.id}
+                  >
+                    {s.label}
+                  </option>
+                ))
+              }
+            </Select>
           </div>
         </div>
       }
