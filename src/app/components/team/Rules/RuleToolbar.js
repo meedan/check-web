@@ -85,6 +85,7 @@ const RuleToolbar = (props) => {
         </div>
         <div className={classes.side}>
           <ButtonMain
+            className="int-rules-toolbar__button--more-menu"
             disabled={props.actionsDisabled}
             variant="outlined"
             size="default"
