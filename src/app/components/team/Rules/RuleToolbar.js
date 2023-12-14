@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import IconArrowBack from '../../../icons/arrow_back.svg';
@@ -21,6 +20,7 @@ const useToolbarStyles = makeStyles(theme => ({
   side: {
     display: 'flex',
     alignItems: 'center',
+    gap: '8px',
   },
   select: {
     marginLeft: theme.spacing(1),
@@ -36,6 +36,7 @@ const useToolbarStyles = makeStyles(theme => ({
 
 const RuleToolbar = (props) => {
   const classes = useToolbarStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = React.useState(false);
   const [showLeaveConfirmationDialog, setShowLeaveConfirmationDialog] = React.useState(false);
 
@@ -61,15 +62,6 @@ const RuleToolbar = (props) => {
     props.onGoBack();
   };
 
-  const handleChange = (event) => {
-    const { value } = event.target;
-    if (value === 'duplicate') {
-      props.onDuplicateRule();
-    } else if (value === 'delete') {
-      handleConfirmDelete();
-    }
-  };
-
   const handleCloseDialogs = () => {
     setShowDeleteConfirmationDialog(false);
     setShowLeaveConfirmationDialog(false);
@@ -92,24 +84,26 @@ const RuleToolbar = (props) => {
           />
         </div>
         <div className={classes.side}>
-          <FormControl variant="outlined" disabled={props.actionsDisabled}>
-            <Select
-              inputProps={{ className: classes.input }}
-              className={classes.select}
-              onChange={handleChange}
-              value="more"
-            >
-              <MenuItem value="more">
-                <FormattedMessage id="ruleToolbar.more" defaultMessage="More" description="Menu item for additional actions that can be performed on the current rule" />
-              </MenuItem>
-              <MenuItem value="duplicate">
-                <FormattedMessage id="ruleToolbar.duplicate" defaultMessage="Duplicate" description="Menu label to duplicate this rule" />
-              </MenuItem>
-              <MenuItem value="delete">
-                <FormattedMessage id="ruleToolbar.delete" defaultMessage="Delete" description="Menu label to delete the current rule" />
-              </MenuItem>
-            </Select>
-          </FormControl>
+          <ButtonMain
+            disabled={props.actionsDisabled}
+            variant="outlined"
+            size="default"
+            theme="text"
+            label={<FormattedMessage id="ruleToolbar.more" defaultMessage="More" description="Menu item for additional actions that can be performed on the current rule" />}
+            onClick={e => setAnchorEl(e.currentTarget)}
+          />
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(null)}
+          >
+            <MenuItem onClick={() => { props.onDuplicateRule(); setAnchorEl(null); }}>
+              <FormattedMessage id="ruleToolbar.duplicate" defaultMessage="Duplicate" description="Menu label to duplicate this rule" />
+            </MenuItem>
+            <MenuItem onClick={() => { handleConfirmDelete(); setAnchorEl(null); }}>
+              <FormattedMessage id="ruleToolbar.delete" defaultMessage="Delete" description="Menu label to delete the current rule" />
+            </MenuItem>
+          </Menu>
           <ButtonMain
             theme="brand"
             variant="contained"
