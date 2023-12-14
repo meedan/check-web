@@ -32,3 +32,13 @@
     text-align: left;
   }
 }
+
+.task-conditions {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+
+  > div {
+    flex: 1 1 auto;
+  }
+}
