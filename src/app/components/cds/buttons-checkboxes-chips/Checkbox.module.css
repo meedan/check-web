@@ -1,0 +1,43 @@
+.checkboxWrapper {
+  label {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    gap: 1px;
+    user-select: none;
+
+    span {
+      color: var(--textPrimary);
+    }
+  }
+
+  input[type='checkbox'] {
+    appearance: none;
+    display: none;
+  }
+
+  .checkboxIcon {
+    font-size: var(--iconSizeDefault);
+    padding: 9px;
+
+    &:hover {
+      background-color: var(--brandHoverAccent);
+      border-radius: 50px;
+      color: var(--brandMain);
+    }
+  }
+
+  .checked {
+    color: var(--brandMain);
+  }
+
+  .disabled {
+    color: var(--textDisabled);
+
+    &:hover {
+      background-color: transparent;
+      border-radius: 50px;
+      color: var(--textDisabled);
+    }
+  }
+}
