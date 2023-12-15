@@ -1,11 +1,11 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import CircularProgress from '../components/CircularProgress';
+import MediasLoading from '../components/media/MediasLoading';
 
 const RelayContainer = props => (
   <Relay.RootContainer
     {...props}
-    renderLoading={() => <CircularProgress />}
+    renderLoading={() => <MediasLoading theme="white" variant="page" size="large" />}
   />
 );
 
