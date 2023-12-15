@@ -8,10 +8,5 @@
     "id": "annotation.deletedUser",
     "description": "Label for deleted user",
     "defaultMessage": "Deleted User"
-  },
-  {
-    "id": "annotation.openInSlack",
-    "description": "Label for link to conversation in Slack",
-    "defaultMessage": "Open in Slack"
   }
 ]
