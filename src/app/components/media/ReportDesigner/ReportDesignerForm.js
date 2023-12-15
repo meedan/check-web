@@ -174,7 +174,7 @@ const ReportDesignerForm = (props) => {
                 selected={Boolean(data.use_text_message)}
                 value="text"
                 key="text"
-                className="int-report__button--report-type"
+                className="int-report__button--report-type-text"
               >
                 <FormattedMessage id="reportDesigner.text" defaultMessage="Text" description="Label used for radio button that toggles the report mode to text" />
               </ToggleButton>
@@ -182,7 +182,7 @@ const ReportDesignerForm = (props) => {
                 selected={Boolean(data.use_visual_card) && !data.use_text_message}
                 value="visual"
                 key="visual"
-                className="int-report__button--report-type"
+                className="int-report__button--report-type-visual"
               >
                 <FormattedMessage id="reportDesigner.visual" defaultMessage="Visual" description="Label used for radio button that toggles the report mode to visual" />
               </ToggleButton>
@@ -316,7 +316,7 @@ const ReportDesignerForm = (props) => {
                   selected={Boolean(!data.dark_overlay)}
                   value={Boolean(false)}
                   key="false"
-                  className="int-report__button--report-type"
+                  className="int-report__button--report-theme-light"
                 >
                   <FormattedMessage id="reportDesigner.lightTheme" defaultMessage="Light" description="Label used for button toggling on the light themed report" />
                 </ToggleButton>
@@ -324,7 +324,7 @@ const ReportDesignerForm = (props) => {
                   selected={Boolean(data.dark_overlay)}
                   value={Boolean(true)}
                   key="true"
-                  className="int-report__button--report-type"
+                  className="int-report__button--report-theme-dark"
                 >
                   <FormattedMessage id="reportDesigner.darkTheme" defaultMessage="Dark" description="Label used for button toggling on the light themed report" />
                 </ToggleButton>
