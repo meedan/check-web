@@ -26,8 +26,8 @@
   },
   {
     "id": "reportDesigner.back",
-    "description": "Button label to navigate back to annotation mode",
-    "defaultMessage": "Back to annotation"
+    "description": "Button label to navigate back to item page",
+    "defaultMessage": "Back"
   },
   {
     "id": "reportDesigner.firstSent",

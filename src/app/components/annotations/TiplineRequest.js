@@ -18,7 +18,6 @@ import {
   parseStringUnixTimestamp,
 } from '../../helpers';
 import Request from '../cds/requests-annotations/Request';
-import { units } from '../../styles/js/shared';
 import RequestReceipt from '../cds/requests-annotations/RequestReceipt';
 
 const messages = defineMessages({
@@ -91,7 +90,6 @@ const TiplineRequest = ({
       .join('\n')
     : null;
   const updatedAt = parseStringUnixTimestamp(activity.created_at);
-  const smoochSlackUrl = activity.smooch_user_slack_channel_url;
   let smoochExternalId = activity.smooch_user_external_identifier;
   if (smoochExternalId && messageType === 'whatsapp') {
     smoochExternalId = smoochExternalId.replace(/^[^:]+:/, '');
@@ -114,22 +112,6 @@ const TiplineRequest = ({
   }
   if (smoochRequestLanguage) {
     details.push(languageName(smoochRequestLanguage));
-  }
-  if (messageType !== 'telegram' && smoochSlackUrl) {
-    details.push((
-      <a
-        target="_blank"
-        style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
-        rel="noopener noreferrer"
-        href={smoochSlackUrl}
-      >
-        <FormattedMessage
-          id="annotation.openInSlack"
-          defaultMessage="Open in Slack"
-          description="Label for link to conversation in Slack"
-        />
-      </a>
-    ));
   }
 
   const reportHistory = [];
@@ -189,7 +171,6 @@ TiplineRequest.propTypes = {
   annotation: PropTypes.shape({
     smooch_data: PropTypes.object.isRequired,
     created_at: PropTypes.string.isRequired,
-    smooch_user_slack_channel_url: PropTypes.string,
     smooch_user_external_identifier: PropTypes.string.isRequired,
     smooch_report_received_at: PropTypes.number,
     smooch_report_update_received_at: PropTypes.number,
