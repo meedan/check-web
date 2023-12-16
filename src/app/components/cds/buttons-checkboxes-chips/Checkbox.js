@@ -41,6 +41,7 @@ const Checkbox = ({
         }
       >
         <input
+          className="int-checkbox__input"
           type="checkbox"
           checked={checked}
           onChange={handleChange}
@@ -50,6 +51,7 @@ const Checkbox = ({
         {
           checked ? <CheckboxCheckedIcon
             className={cx(
+              'int-checkbox__input-icon--checked',
               styles.checkboxIcon,
               styles.checked,
               {
@@ -58,6 +60,7 @@ const Checkbox = ({
             )}
           /> : <CheckboxUncheckedIcon
             className={cx(
+              'int-checkbox__input-icon--unchecked',
               styles.checkboxIcon,
               {
                 [styles.disabled]: disabled,
