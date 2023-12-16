@@ -38,10 +38,16 @@ services:
     environment:
       BOILERPLATE_ENV: test
       ALEGRE_PORT: 3100
-  presto:
+  presto-server:
     environment:
       BOILERPLATE_ENV: test
       PRESTO_PORT: 8000
+  presto-audio:
+    environment:
+      BOILERPLATE_ENV: test
+  presto-image:
+    environment:
+      BOILERPLATE_ENV: test
   web:
     environment:
       PLATFORM: web

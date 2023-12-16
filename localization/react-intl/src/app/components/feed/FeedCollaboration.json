@@ -58,5 +58,15 @@
     "id": "feedCollaboration.learnMore",
     "description": "Link to knowledge base article on shared feed invitations",
     "defaultMessage": "Learn more"
+  },
+  {
+    "id": "feedCollaboration.editorWarningCreateFeed",
+    "description": "Warning displayed on feed collaboration box on create feed page when user is an editor and can't invite people to the feed.",
+    "defaultMessage": "Contact your workspace admin to add other organizations to this shared feed."
+  },
+  {
+    "id": "feedCollaboration.editorWarningUpdateFeed",
+    "description": "Warning displayed on feed collaboration box on edit feed page when user is an editor and can't invite people to the feed.",
+    "defaultMessage": "Contact your workspace admin to manage Collaborating organizations."
   }
 ]

@@ -2,6 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import Alert from '../../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
@@ -188,6 +189,29 @@ const ReportDesignerComponent = (props) => {
   return (
     <React.Fragment>
       <div className={styles['report-designer-wrapper']}>
+        {data.state === 'published' ?
+          <>
+            <Alert
+              title={
+                <FormattedMessage
+                  id="reportDesigner.alertTitle"
+                  defaultMessage="Report is published"
+                  description="Title of a page level alert telling the user the report is currently in the published state"
+                />
+              }
+              banner
+              icon
+              content={
+                <FormattedMessage
+                  id="reportDesigner.alertContent"
+                  defaultMessage="To make edits, pause this report. This will stop the report from being sent out to users until it is published again."
+                  description="Content of a page level alert telling the user the report is currently in the published state and they need to change the state to pause in order to edit"
+                />
+              }
+              variant="success"
+            />
+          </> : null
+        }
         <ReportDesignerTopBar
           media={media}
           defaultLanguage={currentLanguage}
@@ -228,6 +252,12 @@ const ReportDesignerComponent = (props) => {
             />
           </div>
           <div className={styles['report-preview']}>
+            <FormattedMessage
+              tagName="h6"
+              id="reportDesigner.previewTitle"
+              defaultMessage="Preview your report"
+              description="Section title for the visual preview of the report being created"
+            />
             <ReportDesignerPreview data={data.options} media={media} />
           </div>
         </div>
