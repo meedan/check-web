@@ -115,6 +115,7 @@ const AspectRatio = ({
   children,
   projectMedia,
   isVideoFile,
+  isPenderCard,
   superAdminMask,
   intl,
 }) => {
@@ -195,8 +196,6 @@ const AspectRatio = ({
   }
 
   const warningCategory = warningType;
-
-  const isPenderCard = children.type?.name === 'PenderCard';
   const showStraightPenderCard = !maskContent && !superAdminMask && isPenderCard;
 
   if (showStraightPenderCard) {
@@ -301,6 +300,7 @@ AspectRatio.propTypes = {
   children: PropTypes.node.isRequired,
   downloadUrl: PropTypes.string,
   expandedImage: PropTypes.string,
+  isPenderCard: PropTypes.bool,
   isVideoFile: PropTypes.bool,
   superAdminMask: PropTypes.bool,
   currentUserRole: PropTypes.string.isRequired,
@@ -315,6 +315,7 @@ AspectRatio.propTypes = {
 AspectRatio.defaultProps = {
   downloadUrl: '',
   expandedImage: '',
+  isPenderCard: false,
   isVideoFile: false,
   superAdminMask: false,
 };
