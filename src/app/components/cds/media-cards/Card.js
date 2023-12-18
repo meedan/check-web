@@ -23,6 +23,7 @@ const Card = ({
   title,
   description,
   factCheckUrl,
+  cardUrl,
   tag,
   tagColor,
   date,
@@ -75,7 +76,7 @@ const Card = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <MaybeLink to={factCheckUrl}>
+      <MaybeLink to={cardUrl}>
         <div className={styles.cardContent}>
           <div className={styles.cardLeft}>
             <h6 className={`typography-button ${styles.cardTitle}`}>{title}</h6>
@@ -133,6 +134,7 @@ const Card = ({
 Card.defaultProps = {
   description: null,
   factCheckUrl: null,
+  cardUrl: null,
   tag: null,
   tagColor: 'black',
   date: null,
@@ -143,6 +145,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   factCheckUrl: PropTypes.string,
+  cardUrl: PropTypes.string,
   tag: PropTypes.node,
   tagColor: PropTypes.string,
   date: PropTypes.number, // Timestamp
