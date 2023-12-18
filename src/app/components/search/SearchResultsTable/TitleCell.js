@@ -7,7 +7,8 @@ import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { units } from '../../../styles/js/shared';
 import ContentCopyIcon from '../../../icons/content_copy.svg';
-import VisibilityOffIcon from '../../../icons/visibility_off.svg';
+// import VisibilityOffIcon from '../../../icons/visibility_off.svg';
+import ItemThumbnail from './ItemThumbnail';
 
 const isFeedPage = () => (/\/feed/.test(window.location.pathname));
 
@@ -19,15 +20,6 @@ const useStyles = makeStyles({
     minWidth: units(45),
     maxWidth: units(110),
     textDecoration: 'none',
-  },
-  thumbnail: {
-    display: 'block',
-    width: units(10),
-    height: units(10),
-    marginRight: units(1),
-    objectFit: 'cover',
-    flexShrink: 0,
-    flexGrow: 0,
   },
   contentScreen: {
     minWidth: units(10),
@@ -143,16 +135,20 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
   } = projectMedia;
   const classes = useStyles({ isRead });
 
+  // eslint-disable-next-line
+  console.log("projectMedia TitleCell", projectMedia)
+
   return (
     <TableCell className="media__heading" component="th" scope="row">
       <MaybeLink className={classes.root} to={projectMediaUrl}>
-        {picture && !maskContent ? (
+        {/* {picture && !maskContent ? (
           <Box display="flex" alignItems="center">
-            <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
+          <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
           </Box>
-        ) : null}
-        { maskContent ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null }
-        <Box display="flex" alignItems="center">
+          ) : null}
+        { maskContent ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null } */}
+        <Box display="flex" alignItems="center" >
+          <ItemThumbnail picture={picture} maskContent={maskContent} type={projectMedia.type} url={projectMedia?.media?.url} />
           <TitleText
             classes={classes}
             title={

@@ -52,32 +52,32 @@ export function mediaTypeFromFilename(fileName) {
   return mediaType;
 }
 
-export default function MediaTypeDisplayIcon({ mediaType }) {
+export default function MediaTypeDisplayIcon({ mediaType, fontSize = 'var(--iconSizeSmall)' }) {
   switch (mediaType) {
   case 'Claim':
-    return <Description style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Description style={{ fontSize }} />;
   case 'Link':
-    return <Public style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Public style={{ fontSize }} />;
   case 'UploadedImage':
-    return <Image style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Image style={{ fontSize }} />;
   case 'UploadedVideo':
-    return <Movie style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Movie style={{ fontSize }} />;
   case 'UploadedAudio':
-    return <Audiotrack style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Audiotrack style={{ fontSize }} />;
   case 'Facebook':
-    return <Facebook style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Facebook style={{ fontSize }} />;
   case 'Instagram':
-    return <Instagram style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Instagram style={{ fontSize }} />;
   case 'Telegram':
-    return <Telegram style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Telegram style={{ fontSize }} />;
   case 'Tiktok':
-    return <Tiktok style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Tiktok style={{ fontSize }} />;
   case 'Twitter':
-    return <Twitter style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Twitter style={{ fontSize }} />;
   case 'Youtube':
-    return <YouTube style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <YouTube style={{ fontSize }} />;
   case 'Blank':
-    return <PlaylistAddCheck style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <PlaylistAddCheck style={{ fontSize }} />;
   case '-':
   default:
     return null;

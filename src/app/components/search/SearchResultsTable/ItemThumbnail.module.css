@@ -1,0 +1,25 @@
+.thumbnail {
+  border: 2px solid var(--grayBorderMain);
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 92px;
+  margin-right: 1rem;
+  object-fit: cover;
+  width: 92px;
+}
+
+.contentScreen {
+  align-items: center;
+  background-color: var(--textPrimary);
+  display: flex;
+  height: 92px;
+  justify-content: center;
+  margin-right: 1rem;
+  width: 92px;
+}
+
+.icon {
+  color: var(--otherWhite);
+  font-size: var(--fontSizeSmall);
+}

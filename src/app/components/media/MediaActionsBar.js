@@ -23,6 +23,7 @@ import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './media.module.css';
+import ItemThumbnail from '../search/SearchResultsTable/ItemThumbnail';
 import dialogStyles from '../../styles/css/dialog.module.css';
 
 const Styles = theme => ({
@@ -283,6 +284,7 @@ class MediaActionsBarComponent extends Component {
 
     return (
       <div className={styles['media-actions-wrapper']}>
+        <ItemThumbnail picture={media.media.picture} maskContent={media.show_warning_cover} type={media.media.type} url={media.media.url} />
         <MediaTags projectMediaId={this.props.media.dbid} />
         { restorProjectMedia ? <div className={styles['media-actions']}> {restorProjectMedia} </div> : null }
         <div className={styles['media-actions']}>
@@ -422,6 +424,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           id
           data
         }
+        show_warning_cover
         project {
           id
           dbid
@@ -431,7 +434,9 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           medias_count
         }
         media {
+          type
           url
+          picture
           embed_path
           metadata
         }
