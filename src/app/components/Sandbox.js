@@ -17,12 +17,14 @@ import { ToggleButton, ToggleButtonGroup } from './cds/inputs/ToggleButtonGroup'
 import Select from './cds/inputs/Select';
 import SwitchComponent from './cds/inputs/SwitchComponent';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import Checkbox from './cds/buttons-checkboxes-chips/Checkbox';
 import Reorder from './layout/Reorder';
 import AddIcon from '../icons/settings.svg';
 import CalendarIcon from '../icons/calendar_month.svg';
 import ListIcon from '../icons/list.svg';
 import FigmaColorLogo from '../icons/figma_color.svg';
 import Card from './cds/media-cards/Card.js';
+import FactCheckCard from './search/SearchResultsCards/FactCheckCard';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
@@ -159,6 +161,10 @@ const SandboxComponent = ({ admin }) => {
   const [languagePickerSelectLabel, setLanguagePickerSelectLabel] = React.useState(Boolean(true));
   const [languagePickerSelectDisabled, setLanguagePickerSelectDisabled] = React.useState(Boolean(false));
   const [languagePickerSelectHelp, setLanguagePickerSelectHelp] = React.useState(Boolean(false));
+
+  const [checkboxLabel, setCheckboxLabel] = React.useState(Boolean(true));
+  const [checkboxDisabled, setCheckboxDisabled] = React.useState(Boolean(false));
+  const [checkboxChecked, setCheckboxChecked] = React.useState(Boolean(false));
 
   const [selectLabel, setSelectLabel] = React.useState(Boolean(true));
   const [selectIconLeft, setSelectIconLeft] = React.useState(Boolean(true));
@@ -448,7 +454,11 @@ const SandboxComponent = ({ admin }) => {
             >
               { !listItemShared &&
                 <div className={styles.checkbox}>
-                  checkbox
+                  <Checkbox
+                    disabled={checkboxDisabled}
+                    checked={checkboxChecked}
+                    onChange={() => setCheckboxChecked(!checkboxChecked)}
+                  />
                 </div>
               }
               { ((listItemMedia && !listItemShared) || (listItemShared && listItemCluster)) &&
@@ -1281,6 +1291,39 @@ const SandboxComponent = ({ admin }) => {
             />
           </div>
         </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Checkbox
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Label"
+                  labelPlacement="top"
+                  checked={checkboxLabel}
+                  onChange={() => setCheckboxLabel(!checkboxLabel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={checkboxDisabled}
+                  onChange={() => setCheckboxDisabled(!checkboxDisabled)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <Checkbox
+              label={checkboxLabel ? 'I am a Checkbox label' : null}
+              disabled={checkboxDisabled}
+              checked={checkboxChecked}
+              onChange={() => setCheckboxChecked(!checkboxChecked)}
+            />
+          </div>
+        </div>
       </section>
       <section id="sandbox-chips">
         <h6>Chips</h6>
@@ -1325,6 +1368,16 @@ const SandboxComponent = ({ admin }) => {
             description="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
             footer="I still haven't finished this"
             tag="Novel"
+          />
+        </div>
+        <div className={styles.componentWrapper}>
+          <FactCheckCard
+            title="Moby-Dick; or, The Whale."
+            statusLabel="The Status"
+            statusColor="#ff0000"
+            summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
+            date={1702677106.846}
+            url="https://example.com"
           />
         </div>
       </section>
