@@ -7,7 +7,6 @@ import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { units } from '../../../styles/js/shared';
 import ContentCopyIcon from '../../../icons/content_copy.svg';
-// import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import ItemThumbnail from './ItemThumbnail';
 
 const isFeedPage = () => (/\/feed/.test(window.location.pathname));
@@ -20,16 +19,6 @@ const useStyles = makeStyles({
     minWidth: units(45),
     maxWidth: units(110),
     textDecoration: 'none',
-  },
-  contentScreen: {
-    minWidth: units(10),
-    minHeight: units(10),
-    height: units(10),
-    marginRight: units(1),
-    backgroundColor: 'var(--textPrimary)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   icon: {
     fontSize: '40px',
@@ -141,12 +130,6 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
   return (
     <TableCell className="media__heading" component="th" scope="row">
       <MaybeLink className={classes.root} to={projectMediaUrl}>
-        {/* {picture && !maskContent ? (
-          <Box display="flex" alignItems="center">
-          <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
-          </Box>
-          ) : null}
-        { maskContent ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null } */}
         <Box display="flex" alignItems="center" >
           <ItemThumbnail picture={picture} maskContent={maskContent} type={projectMedia.type} url={projectMedia?.media?.url} />
           <TitleText

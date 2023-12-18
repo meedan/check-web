@@ -129,9 +129,6 @@ function SearchResultsComponent({
     setSelectedProjectMediaIds(newSelectedProjectMediaIds);
   };
 
-  // eslint-disable-next-line
-  console.log("search result")
-
   const navigateToQuery = (newQuery) => {
     const path = Object.keys(newQuery).length > 0
       ? `${searchUrlPrefix}/${encodeURIComponent(JSON.stringify(newQuery))}`

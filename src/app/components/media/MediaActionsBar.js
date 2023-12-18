@@ -284,8 +284,8 @@ class MediaActionsBarComponent extends Component {
 
     return (
       <div className={styles['media-actions-wrapper']}>
-        <ItemThumbnail picture={media.media.picture} maskContent={media.show_warning_cover} type={media.media.type} url={media.media.url} />
-        <MediaTags projectMediaId={this.props.media.dbid} />
+        <ItemThumbnail picture={media.media?.picture} maskContent={media.show_warning_cover} type={media.media?.type} url={media.media?.url} />
+        <MediaTags projectMediaId={this.props.media?.dbid} />
         { restorProjectMedia ? <div className={styles['media-actions']}> {restorProjectMedia} </div> : null }
         <div className={styles['media-actions']}>
           {isParent ?

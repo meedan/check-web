@@ -4,20 +4,10 @@ import Box from '@material-ui/core/Box';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import styles from './ItemThumbnail.module.css';
 import MediaTypeDisplayIcon, { mediaTypeFromUrl } from '../../media/MediaTypeDisplayIcon';
-import { getSuperAdminMask } from '../../../helpers';
-
 
 const ItemThumbnail = ({
-  type, picture, maskContent, url, superAdminMask,
+  type, picture, maskContent, url,
 }) => {
-  // const [superAdminMask, setSuperAdminMask] = useState(false);
-
-  // const superAdminMask2 = getSuperAdminMask();
-  // eslint-disable-next-line
-  console.log(getSuperAdminMask)
-  // eslint-disable-next-line
-  console.log(superAdminMask)
-
   if (!maskContent) {
     if (picture) {
       return (
@@ -39,8 +29,6 @@ const ItemThumbnail = ({
       // use mediaTypeFromUrl to get the specific social icon
       mediaType = mediaTypeFromUrl(url);
     }
-    // eslint-disable-next-line
-    console.log("mediaType", mediaType)
     return (
       <Box display="flex" alignItems="center" justifyContent="center" className={`${styles.thumbnail}`}>
         <MediaTypeDisplayIcon mediaType={mediaType} fontSize="var(--iconSizeDefault)" />
@@ -57,7 +45,6 @@ const ItemThumbnail = ({
 };
 
 ItemThumbnail.propTypes = {
-  superAdminMask: PropTypes.bool.isRequired,
   url: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
