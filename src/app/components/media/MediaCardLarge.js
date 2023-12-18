@@ -97,12 +97,19 @@ const MediaCardLarge = ({
           />
         ) : null }
         { isPender ? (
-          <PenderCard
-            url={media.url}
-            fallback={null}
-            domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
-            mediaVersion={data.refreshes_count}
-          />
+          <AspectRatio
+            projectMedia={projectMedia}
+            currentUserRole={currentUserRole}
+            superAdminMask={superAdminMask}
+            isPenderCard={isPender}
+          >
+            <PenderCard
+              url={media.url}
+              fallback={null}
+              domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
+              mediaVersion={data.refreshes_count}
+            />
+          </AspectRatio>
         ) : null }
         { isBlank ? (
           <Box

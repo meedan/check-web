@@ -31,13 +31,13 @@ function sort(items) {
   return items.slice().sort((a, b) => b.node.target.requests_count - a.node.target.requests_count);
 }
 
-const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting, superAdminMask }) => {
+const MediaSimilaritiesComponent = ({ projectMedia, superAdminMask }) => {
   const classes = useStyles();
 
   return (
     <div className="media__more-medias" id="matched-media">
       <div className={classes.container}>
-        <span className={`${classes.overlay} ${isHighlighting ? classes.animation : ''}`} id="matched-overlay" />
+        <span id="matched-overlay" />
         { sort(projectMedia.confirmed_similar_relationships?.edges).map(relationship => (
           <MediaRelationship
             key={relationship.node.id}

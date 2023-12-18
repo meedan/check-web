@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage, injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { graphql, createFragmentContainer } from 'react-relay/compat';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
@@ -115,6 +115,7 @@ const AspectRatio = ({
   children,
   projectMedia,
   isVideoFile,
+  isPenderCard,
   superAdminMask,
   intl,
 }) => {
@@ -195,6 +196,16 @@ const AspectRatio = ({
   }
 
   const warningCategory = warningType;
+  const showStraightPenderCard = !maskContent && !superAdminMask && isPenderCard;
+
+  if (showStraightPenderCard) {
+    return (
+      <div style={{ position: 'relative' }}>
+        <ButtonsContainer />
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div className={`${uniqueClassName} ${classes.container}`}>
@@ -288,12 +299,23 @@ const AspectRatio = ({
 AspectRatio.propTypes = {
   children: PropTypes.node.isRequired,
   downloadUrl: PropTypes.string,
+  expandedImage: PropTypes.string,
+  isPenderCard: PropTypes.bool,
   isVideoFile: PropTypes.bool,
   superAdminMask: PropTypes.bool,
+  currentUserRole: PropTypes.string.isRequired,
+  projectMedia: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    show_warning_cover: PropTypes.bool.isRequired,
+    dynamic_annotation_flag: PropTypes.object.isRequired,
+  }).isRequired,
+  intl: intlShape.isRequired,
 };
 
 AspectRatio.defaultProps = {
   downloadUrl: '',
+  expandedImage: '',
+  isPenderCard: false,
   isVideoFile: false,
   superAdminMask: false,
 };
