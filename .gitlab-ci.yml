@@ -14,7 +14,6 @@ build_qa:
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
-    - apt-get install -y curl jq python3 git
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
     - docker build --build-arg DEPLOY_BRANCH=develop --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
