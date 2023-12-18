@@ -454,7 +454,11 @@ const SandboxComponent = ({ admin }) => {
             >
               { !listItemShared &&
                 <div className={styles.checkbox}>
-                  <Checkbox />
+                  <Checkbox
+                    disabled={checkboxDisabled}
+                    checked={checkboxChecked}
+                    onChange={() => setCheckboxChecked(!checkboxChecked)}
+                  />
                 </div>
               }
               { ((listItemMedia && !listItemShared) || (listItemShared && listItemCluster)) &&
