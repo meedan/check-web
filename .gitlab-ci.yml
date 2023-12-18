@@ -3,7 +3,7 @@ stages:
   - deploy
 
 build_qa:
-  image: docker:latest
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   services:
     - docker:dind
   tags:
@@ -14,10 +14,7 @@ build_qa:
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
-    - apk add --no-cache curl jq python3 py3-pip git
-    - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    - unzip awscliv2.zip
-    - ./aws/install
+    - apk add --no-cache curl jq python3 git
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
     - docker build --build-arg DEPLOY_BRANCH=develop --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
