@@ -9,35 +9,42 @@
     span {
       color: var(--textPrimary);
     }
-  }
 
-  input[type='checkbox'] {
-    appearance: none;
-    display: none;
-  }
-
-  .checkboxIcon {
-    font-size: var(--iconSizeDefault);
-    padding: 9px;
-
-    &:hover {
-      background-color: var(--brandHoverAccent);
-      border-radius: 50px;
-      color: var(--brandMain);
+    input[type='checkbox'] {
+      appearance: none;
+      display: none;
     }
-  }
 
-  .checked {
-    color: var(--brandMain);
-  }
+    .checkboxIcon {
+      border-radius: 50px;
+      font-size: var(--iconSizeDefault);
+      padding: 9px;
+      transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
 
-  .disabled {
-    color: var(--textDisabled);
+      &.checked {
+        color: var(--brandMain);
+      }
+    }
+
+    &.disabled {
+      color: var(--textDisabled);
+
+      &:hover {
+        background-color: transparent;
+        border-radius: 50px;
+        color: var(--textDisabled);
+      }
+    }
 
     &:hover {
-      background-color: transparent;
-      border-radius: 50px;
-      color: var(--textDisabled);
+      .checkboxIcon {
+        background-color: var(--brandHoverAccent);
+        color: var(--brandMain);
+
+        &.checked {
+          color: var(--brandSecondary);
+        }
+      }
     }
   }
 }
