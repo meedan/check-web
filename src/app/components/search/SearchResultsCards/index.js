@@ -18,6 +18,7 @@ const SearchResultsCards = ({ projectMedias, team }) => (
             statusLabel={status.label || values.status}
             statusColor={status.style?.color}
             url={values.fact_check_url}
+            teamAvatar={values.team_avatar}
           />
         </div>
       );
@@ -44,6 +45,7 @@ SearchResultsCards.propTypes = {
       status: PropTypes.string.isRequired,
       fact_check_summary: PropTypes.string,
       fact_check_url: PropTypes.string,
+      team_avatar: PropTypes.string.isRequired, // URL
     }).isRequired,
   }).isRequired).isRequired,
 };

@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { FormattedDate } from 'react-intl';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import styles from './Card.module.css';
 import UnfoldLessIcon from '../../../icons/unfold_less.svg';
 import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
+import FactCheckIcon from '../../../icons/fact_check.svg';
+import EllipseIcon from '../../../icons/ellipse.svg';
 
 const MaybeLink = ({ to, children }) => {
   if (to) {
@@ -19,9 +22,11 @@ const MaybeLink = ({ to, children }) => {
 const Card = ({
   title,
   description,
-  url,
+  factCheckUrl,
+  cardUrl,
   tag,
   tagColor,
+  date,
   footer,
 }) => {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
@@ -71,14 +76,25 @@ const Card = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <MaybeLink to={url}>
+      <MaybeLink to={cardUrl}>
         <div className={styles.cardContent}>
           <div className={styles.cardLeft}>
             <h6 className={`typography-button ${styles.cardTitle}`}>{title}</h6>
             { description ?
-              <p className={`typography-body2 description-text ${styles.cardDescription} ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} ref={descriptionRef}>{description}</p>
+              <p className="typography-body2">
+                <span className={`description-text ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} ref={descriptionRef}>
+                  {description}
+                </span>
+                { factCheckUrl ?
+                  <span className={styles.factCheckLink}>
+                    <FactCheckIcon />
+                    {' '}
+                    <a href={factCheckUrl} target="_blank" rel="noreferrer noopener">{factCheckUrl}</a>
+                  </span>
+                  : null }
+              </p>
               : null }
-
+            { footer ? <div className={styles.cardFooter}>{footer}</div> : null }
           </div>
           { shouldShowButton ?
             <div>
@@ -88,10 +104,25 @@ const Card = ({
             </div>
             : null
           }
-          { (tag || footer) ?
+          { (tag || date) ?
             <div className={styles.cardRight}>
-              { tag ? <div title={tag}><ButtonMain variant="outlined" size="default" theme="text" disabled customStyle={{ color: tagColor }} label={tag} /></div> : null }
-              { footer ? <div className={`typography-body2 ${styles.cardFooter}`}>{footer}</div> : null }
+              { tag ?
+                <div title={tag} className={styles.cardTag}>
+                  <ButtonMain
+                    disabled
+                    variant="outlined"
+                    size="default"
+                    theme="text"
+                    label={<span className={styles.cardTagLabel}><EllipseIcon style={{ color: tagColor }} /> {tag}</span>}
+                    customStyle={{
+                      borderColor: tagColor,
+                      color: 'var(--textPrimary)',
+                    }}
+                  />
+                </div>
+                : null
+              }
+              { date ? <div className={`typography-body2 ${styles.cardDate}`}><FormattedDate value={date * 1000} year="numeric" month="long" day="numeric" /></div> : null }
             </div> : null
           }
         </div>
@@ -102,18 +133,22 @@ const Card = ({
 
 Card.defaultProps = {
   description: null,
-  url: null,
+  factCheckUrl: null,
+  cardUrl: null,
   tag: null,
   tagColor: 'black',
+  date: null,
   footer: null,
 };
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
-  url: PropTypes.string,
+  factCheckUrl: PropTypes.string,
+  cardUrl: PropTypes.string,
   tag: PropTypes.node,
   tagColor: PropTypes.string,
+  date: PropTypes.number, // Timestamp
   footer: PropTypes.node,
 };
 
