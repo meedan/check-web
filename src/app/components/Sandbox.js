@@ -26,6 +26,7 @@ import Card from './cds/media-cards/Card.js';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
+import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -41,6 +42,15 @@ const SandboxComponent = ({ admin }) => {
     'fifth!',
     'This is Six',
   ]);
+
+  const mediaThumbnail = {
+    media: {
+      picture: 'https://example.com/image.jpg',
+      type: 'image',
+      url: 'https://example.com/image.jpg',
+    },
+    show_warning_cover: false,
+  };
 
   const [listItemShared, setListItemShared] = React.useState(Boolean(false));
   const [listItemCluster, setListItemCluster] = React.useState(Boolean(false));
@@ -452,9 +462,14 @@ const SandboxComponent = ({ admin }) => {
                 </div>
               }
               { ((listItemMedia && !listItemShared) || (listItemShared && listItemCluster)) &&
+              <>
                 <div className={styles.thumbail}>
-                  thumbail
+                  <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent={mediaThumbnail.show_warning_cover} type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
                 </div>
+                <div className={styles.thumbail}>
+                  <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
+                </div>
+              </>
               }
               <div className={styles.content}>
                 <h6>Item Title</h6>

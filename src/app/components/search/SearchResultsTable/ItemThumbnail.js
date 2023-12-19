@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import styles from './ItemThumbnail.module.css';
 import MediaTypeDisplayIcon, { mediaTypeFromUrl } from '../../media/MediaTypeDisplayIcon';
@@ -11,17 +10,19 @@ const ItemThumbnail = ({
   if (!maskContent) {
     if (picture) {
       return (
-        <Box display="flex" alignItems="center">
-          <img
-            className={styles.thumbnail}
-            alt=""
-            src={picture}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = '/images/image_placeholder.svg';
-            }}
-          />
-        </Box>
+        <div className={`${styles.thumbnail} ${styles.container}`}>
+          <div className={styles.iconContainer}>
+            <img
+              className={styles.thumbnail}
+              alt={type}
+              src={picture}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '/images/image_placeholder.svg';
+              }}
+            />
+          </div>
+        </div>
       );
     }
     let mediaType = type;
@@ -30,17 +31,19 @@ const ItemThumbnail = ({
       mediaType = mediaTypeFromUrl(url);
     }
     return (
-      <Box display="flex" alignItems="center" justifyContent="center" className={`${styles.thumbnail}`}>
-        <MediaTypeDisplayIcon mediaType={mediaType} fontSize="var(--iconSizeDefault)" />
-      </Box>
+      <div className={`${styles.thumbnail} ${styles.container}`}>
+        <div className={styles.iconContainer}>
+          <MediaTypeDisplayIcon mediaType={mediaType} className={styles.mediaIcon} fontSize="var(--iconSizeDefault)" />
+        </div>
+      </div>
     );
   }
   return (
-    <Box display="flex" alignItems="center">
-      <div className={styles.contentScreen}>
-        <VisibilityOffIcon className={styles.icon} />
+    <div className={`${styles.thumbnail} ${styles.container} ${styles.contentScreen}`}>
+      <div className={`${styles.iconContainer}`}>
+        <VisibilityOffIcon className={styles.visibilityOffIcon} />
       </div>
-    </Box>
+    </div>
   );
 };
 

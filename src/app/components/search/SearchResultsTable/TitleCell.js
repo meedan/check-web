@@ -66,6 +66,9 @@ const useStyles = makeStyles({
   cellViewModeShorter: {
     height: units(10),
   },
+  itemThumbnail: {
+    marginRight: units(1),
+  },
 });
 
 const TitleText = ({
@@ -124,14 +127,13 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
   } = projectMedia;
   const classes = useStyles({ isRead });
 
-  // eslint-disable-next-line
-  console.log("projectMedia TitleCell", projectMedia)
-
   return (
     <TableCell className="media__heading" component="th" scope="row">
       <MaybeLink className={classes.root} to={projectMediaUrl}>
         <Box display="flex" alignItems="center" >
-          <ItemThumbnail picture={picture} maskContent={maskContent} type={projectMedia.type} url={projectMedia?.media?.url} />
+          <div className={classes.itemThumbnail}>
+            <ItemThumbnail picture={picture} maskContent={maskContent} type={projectMedia.type} url={projectMedia?.media?.url} />
+          </div>
           <TitleText
             classes={classes}
             title={

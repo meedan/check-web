@@ -52,32 +52,32 @@ export function mediaTypeFromFilename(fileName) {
   return mediaType;
 }
 
-export default function MediaTypeDisplayIcon({ mediaType, fontSize = 'var(--iconSizeSmall)' }) {
+export default function MediaTypeDisplayIcon({ mediaType, fontSize = 'var(--iconSizeSmall)', color = 'var(--textPlaceholder)' }) {
   switch (mediaType) {
   case 'Claim':
-    return <Description style={{ fontSize }} />;
+    return <Description style={{ fontSize, color }} />;
   case 'Link':
-    return <Public style={{ fontSize }} />;
+    return <Public style={{ fontSize, color }} />;
   case 'UploadedImage':
-    return <Image style={{ fontSize }} />;
+    return <Image style={{ fontSize, color }} />;
   case 'UploadedVideo':
-    return <Movie style={{ fontSize }} />;
+    return <Movie style={{ fontSize, color }} />;
   case 'UploadedAudio':
-    return <Audiotrack style={{ fontSize }} />;
+    return <Audiotrack style={{ fontSize, color }} />;
   case 'Facebook':
-    return <Facebook style={{ fontSize }} />;
+    return <Facebook style={{ fontSize, color }} />;
   case 'Instagram':
-    return <Instagram style={{ fontSize }} />;
+    return <Instagram style={{ fontSize, color }} />;
   case 'Telegram':
-    return <Telegram style={{ fontSize }} />;
+    return <Telegram style={{ fontSize, color }} />;
   case 'Tiktok':
-    return <Tiktok style={{ fontSize }} />;
+    return <Tiktok style={{ fontSize, color }} />;
   case 'Twitter':
-    return <Twitter style={{ fontSize }} />;
+    return <Twitter style={{ fontSize, color }} />;
   case 'Youtube':
-    return <YouTube style={{ fontSize }} />;
+    return <YouTube style={{ fontSize, color }} />;
   case 'Blank':
-    return <PlaylistAddCheck style={{ fontSize }} />;
+    return <PlaylistAddCheck style={{ fontSize, color }} />;
   case '-':
   default:
     return null;
