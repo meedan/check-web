@@ -14,7 +14,7 @@ build_qa:
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
-    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "848416313321.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
+    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_API_BASE_URL
     - docker build --build-arg DEPLOY_BRANCH=develop --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
@@ -42,7 +42,7 @@ deploy_qa:
     - develop
 
 build_live:
-  image: docker:latest
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   services:
     - docker:dind
   tags:
@@ -53,9 +53,7 @@ build_live:
     AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
-    - apk add --no-cache curl jq python3 py3-pip git
-    - pip install awscli==1.29.59
-    - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_API_BASE_URL
     - docker build --build-arg DEPLOY_BRANCH=master --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"
   only:
