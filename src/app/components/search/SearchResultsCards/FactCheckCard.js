@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate } from 'react-intl';
 import Card from '../../cds/media-cards/Card';
+import TeamAvatar from '../../team/TeamAvatar';
 import styles from './FactCheckCard.module.css';
 
 const FactCheckCard = ({
@@ -11,6 +11,7 @@ const FactCheckCard = ({
   date,
   summary,
   url,
+  teamAvatar,
 }) => (
   <div className={`${styles.factCheckCard} fact-check-card`}>
     <Card
@@ -18,8 +19,9 @@ const FactCheckCard = ({
       description={summary}
       tag={statusLabel}
       tagColor={statusColor}
-      url={url}
-      footer={<FormattedDate value={date * 1000} year="numeric" month="long" day="numeric" />}
+      factCheckUrl={url}
+      date={date}
+      footer={<TeamAvatar team={{ avatar: teamAvatar }} size="30px" />}
     />
   </div>
 );
@@ -37,6 +39,7 @@ FactCheckCard.propTypes = {
   date: PropTypes.number.isRequired, // Timestamp
   summary: PropTypes.string,
   url: PropTypes.string,
+  teamAvatar: PropTypes.string.isRequired, // URL
 };
 
 export default FactCheckCard;

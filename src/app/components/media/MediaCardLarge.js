@@ -101,6 +101,7 @@ const MediaCardLarge = ({
             projectMedia={projectMedia}
             currentUserRole={currentUserRole}
             superAdminMask={superAdminMask}
+            isPenderCard={isPender}
           >
             <PenderCard
               url={media.url}

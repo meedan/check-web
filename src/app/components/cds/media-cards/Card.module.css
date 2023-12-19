@@ -39,11 +39,21 @@
   }
 
   .cardRight {
-    text-align: right;
     min-width: 150px;
+    text-align: right;
   }
 
-  .cardFooter {
+  .cardTag {
+    display: flex;
+    justify-content: end;
+  }
+
+  .cardTagLabel {
+    display: flex;
+    align-items: center;
+  }
+
+  .cardDate {
     color: var(--textPrimary);
     margin-top: 8px;
   }
@@ -52,6 +62,24 @@
     color: inherit;
     cursor: pointer;
     text-decoration: none;
+  }
+
+  .factCheckLink {
+    align-items: center;
+    color: var(--textLink);
+    display: flex;
+    gap: 4px;
+    font-size: var(--fontSizeSmall);
+
+    svg {
+      font-size: var(--iconSizeTiny);
+    }
+
+    a {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
 

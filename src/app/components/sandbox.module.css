@@ -122,8 +122,11 @@
   }
 
   .checkbox {
+    align-items: center;
     background-color: var(--errorLight);
+    display: flex;
     flex: 0 0 42px;
+    flex-direction: row;
     overflow: hidden;
   }
 
