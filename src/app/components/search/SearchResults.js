@@ -647,6 +647,8 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               description
               is_read
               is_main
+              type
+              url
               is_secondary
               is_suggested
               is_confirmed
@@ -656,6 +658,11 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               feed_columns_values
               last_seen
               source_id
+              media {
+                type
+                url
+                domain
+              }
               cluster {
                 dbid
                 size
