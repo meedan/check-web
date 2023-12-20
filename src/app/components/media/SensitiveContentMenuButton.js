@@ -6,13 +6,13 @@ import { FormattedMessage } from 'react-intl';
 import {
   Box,
   Button,
-  IconButton,
   FormControlLabel,
   Popover,
   Radio,
   RadioGroup,
   TextField,
 } from '@material-ui/core';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -314,7 +314,6 @@ const SensitiveContentMenuButton = ({
   currentUserRole,
   projectMedia,
   setFlashMessage,
-  iconButtonClasses,
 }) => {
   const { show_warning_cover } = projectMedia;
   const [anchorEl, setAnchorEl] = React.useState();
@@ -322,18 +321,18 @@ const SensitiveContentMenuButton = ({
 
   return (
     <div ref={containerRef}>
-      <IconButton
-        classes={iconButtonClasses}
+      <ButtonMain
+        theme="black"
+        size="default"
+        variant="contained"
         disabled={(
           show_warning_cover &&
           currentUserRole !== 'admin' &&
           currentUserRole !== 'editor'
         )}
         onClick={e => setAnchorEl(e.currentTarget)}
-        size="small"
-      >
-        <VisibilityOffIcon />
-      </IconButton>
+        iconCenter={<VisibilityOffIcon />}
+      />
       <SensitiveContentMenu
         key={anchorEl}
         anchorEl={anchorEl}
@@ -353,11 +352,6 @@ SensitiveContentMenuButton.propTypes = {
     show_warning_cover: PropTypes.bool.isRequired,
   }).isRequired,
   setFlashMessage: PropTypes.func.isRequired,
-  iconButtonClasses: PropTypes.object,
-};
-
-SensitiveContentMenuButton.defaultProps = {
-  iconButtonClasses: null,
 };
 
 export default createFragmentContainer(withSetFlashMessage(SensitiveContentMenuButton), graphql`
