@@ -476,9 +476,6 @@ const SandboxComponent = ({ admin }) => {
                 <div className={styles.thumbail}>
                   <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent={mediaThumbnail.show_warning_cover} type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
                 </div>
-                <div className={styles.thumbail}>
-                  <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
-                </div>
               </>
               }
               <div className={styles.content}>

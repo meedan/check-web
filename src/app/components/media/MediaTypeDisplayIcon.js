@@ -6,7 +6,7 @@ import Facebook from '../../icons/facebook.svg';
 import Image from '../../icons/image.svg';
 import Instagram from '../../icons/instagram.svg';
 import Movie from '../../icons/movie.svg';
-import PlaylistAddCheck from '../../icons/playlist_add_check.svg';
+import EmptyMedia from '../../icons/empty_media.svg';
 import Public from '../../icons/public.svg';
 import Telegram from '../../icons/telegram.svg';
 import Tiktok from '../../icons/tiktok.svg';
@@ -77,7 +77,7 @@ export default function MediaTypeDisplayIcon({ mediaType, fontSize = 'var(--icon
   case 'Youtube':
     return <YouTube style={{ fontSize, color }} />;
   case 'Blank':
-    return <PlaylistAddCheck style={{ fontSize, color }} />;
+    return <EmptyMedia style={{ fontSize, color }} />;
   case '-':
   default:
     return null;
