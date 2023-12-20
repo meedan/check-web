@@ -5,10 +5,9 @@ import { graphql, createFragmentContainer } from 'react-relay/compat';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SensitiveContentMenuButton from '../media/SensitiveContentMenuButton.js';
 import FullscreenIcon from '../../icons/fullscreen.svg';
 import FullscreenExitIcon from '../../icons/fullscreen_exit.svg';
@@ -78,7 +77,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   button: props => ({
-    pointerEvents: 'auto',
     bottom: 0,
     color: 'var(--otherWhite)',
     minWidth: theme.spacing(22),
@@ -199,13 +197,13 @@ const AspectRatio = ({
   const skipAspectRatio = !maskContent && !superAdminMask && isPenderCard;
 
   const ToggleShowHideButton = () => (
-    <Button
+    <ButtonMain
       className={classes.button}
       onClick={() => setMaskContent(!maskContent)}
-      color="primary"
-      variant="contained"
-    >
-      { maskContent ? (
+      variant="outlined"
+      size="default"
+      theme="text"
+      label={maskContent ? (
         <FormattedMessage
           id="contentScreen.viewContentButton"
           defaultMessage="Temporarily view content"
@@ -218,7 +216,7 @@ const AspectRatio = ({
           description="Button to disable view of sensitive content"
         />
       )}
-    </Button>
+    />
   );
 
   const SensitiveScreen = () => (
@@ -234,39 +232,36 @@ const AspectRatio = ({
       >
         <VisibilityOffIcon className={classes.visibilityIcon} />
         { superAdminMask ? (
-          <div >
-            <Typography variant="body1">
-              <FormattedMessage
-                id="contentScreen.superAdminMaskMessage"
-                defaultMessage="Super admin screen is on"
-                description="Text to show that admin screen is on"
-              />
-            </Typography>
-          </div>
+          <FormattedMessage
+            tagName="p"
+            id="contentScreen.superAdminMaskMessage"
+            defaultMessage="Super admin screen is on"
+            description="Text to show that admin screen is on"
+          />
         ) : null }
         <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
-          <Typography variant="body1">
-            { warningCreator !== 'Alegre' ? (
-              <FormattedHTMLMessage
-                id="contentScreen.warning"
-                defaultMessage={'<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>'}
-                description="Content warning displayed over sensitive content"
-                values={{
-                  user_name: warningCreator,
-                  warning_category: (
-                    (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
-                  warningCategory
-                  ),
-                }}
-              />
-            ) : (
-              <FormattedHTMLMessage
-                id="contentScreen.warningByAutomationRule"
-                defaultMessage="An automation rule has detected this content as sensitive"
-                description="Content warning displayed over sensitive content"
-              />
-            )}
-          </Typography>
+          { warningCreator !== 'Alegre' ? (
+            <FormattedHTMLMessage
+              tagName="p"
+              id="contentScreen.warning"
+              defaultMessage={'<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>'}
+              description="Content warning displayed over sensitive content"
+              values={{
+                user_name: warningCreator,
+                warning_category: (
+                  (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
+                warningCategory
+                ),
+              }}
+            />
+          ) : (
+            <FormattedHTMLMessage
+              tagName="p"
+              id="contentScreen.warningByAutomationRule"
+              defaultMessage="An automation rule has detected this content as sensitive"
+              description="Content warning displayed over sensitive content"
+            />
+          )}
         </div>
         { contentWarning && !superAdminMask ? <ToggleShowHideButton /> : null }
       </Box>
