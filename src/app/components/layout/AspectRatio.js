@@ -196,13 +196,89 @@ const AspectRatio = ({
   }
 
   const warningCategory = warningType;
-  const showStraightPenderCard = !maskContent && !superAdminMask && isPenderCard;
+  const skipAspectRatio = !maskContent && !superAdminMask && isPenderCard;
 
-  if (showStraightPenderCard) {
+  const ToggleShowHideButton = () => (
+    <Button
+      className={classes.button}
+      onClick={() => setMaskContent(!maskContent)}
+      color="primary"
+      variant="contained"
+    >
+      { maskContent ? (
+        <FormattedMessage
+          id="contentScreen.viewContentButton"
+          defaultMessage="Temporarily view content"
+          description="Button to enable view of sensitive content"
+        />
+      ) : (
+        <FormattedMessage
+          id="contentScreen.hideContentButton"
+          defaultMessage="Hide content"
+          description="Button to disable view of sensitive content"
+        />
+      )}
+    </Button>
+  );
+
+  const SensitiveScreen = () => (
+    <div className={classes.sensitiveScreen}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+        height="100%"
+        alignItems="center"
+        pt={8}
+        pb={4}
+      >
+        <VisibilityOffIcon className={classes.visibilityIcon} />
+        { superAdminMask ? (
+          <div >
+            <Typography variant="body1">
+              <FormattedMessage
+                id="contentScreen.superAdminMaskMessage"
+                defaultMessage="Super admin screen is on"
+                description="Text to show that admin screen is on"
+              />
+            </Typography>
+          </div>
+        ) : null }
+        <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
+          <Typography variant="body1">
+            { warningCreator !== 'Alegre' ? (
+              <FormattedHTMLMessage
+                id="contentScreen.warning"
+                defaultMessage={'<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>'}
+                description="Content warning displayed over sensitive content"
+                values={{
+                  user_name: warningCreator,
+                  warning_category: (
+                    (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
+                  warningCategory
+                  ),
+                }}
+              />
+            ) : (
+              <FormattedHTMLMessage
+                id="contentScreen.warningByAutomationRule"
+                defaultMessage="An automation rule has detected this content as sensitive"
+                description="Content warning displayed over sensitive content"
+              />
+            )}
+          </Typography>
+        </div>
+        { contentWarning && !superAdminMask ? <ToggleShowHideButton /> : null }
+      </Box>
+    </div>
+  );
+
+  if (skipAspectRatio) {
     return (
       <div style={{ position: 'relative' }}>
         <ButtonsContainer />
         {children}
+        <SensitiveScreen />
       </div>
     );
   }
@@ -219,78 +295,7 @@ const AspectRatio = ({
       <div className={classes.innerWrapper}>
         { !superAdminMask ? <ButtonsContainer /> : null }
         { !maskContent && !superAdminMask ? children : null }
-        { contentWarning || superAdminMask ?
-          <div className={classes.sensitiveScreen}>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="space-between"
-              height="100%"
-              alignItems="center"
-              pt={8}
-              pb={4}
-            >
-              <VisibilityOffIcon className={classes.visibilityIcon} />
-              { superAdminMask ? (
-                <div >
-                  <Typography variant="body1">
-                    <FormattedMessage
-                      id="contentScreen.superAdminMaskMessage"
-                      defaultMessage="Super admin screen is on"
-                      description="Text to show that admin screen is on"
-                    />
-                  </Typography>
-                </div>
-              ) : null }
-              <div style={{ visibility: contentWarning && maskContent && !superAdminMask ? 'visible' : 'hidden' }}>
-                <Typography variant="body1">
-                  { warningCreator !== 'Alegre' ? (
-                    <FormattedHTMLMessage
-                      id="contentScreen.warning"
-                      defaultMessage={'<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>'}
-                      description="Content warning displayed over sensitive content"
-                      values={{
-                        user_name: warningCreator,
-                        warning_category: (
-                          (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
-                        warningCategory
-                        ),
-                      }}
-                    />
-                  ) : (
-                    <FormattedHTMLMessage
-                      id="contentScreen.warningByAutomationRule"
-                      defaultMessage="An automation rule has detected this content as sensitive"
-                      description="Content warning displayed over sensitive content"
-                    />
-                  )}
-                </Typography>
-              </div>
-              { contentWarning && !superAdminMask ? (
-                <Button
-                  className={classes.button}
-                  onClick={() => setMaskContent(!maskContent)}
-                  color="primary"
-                  variant="contained"
-                >
-                  { maskContent ? (
-                    <FormattedMessage
-                      id="contentScreen.viewContentButton"
-                      defaultMessage="Temporarily view content"
-                      description="Button to enable view of sensitive content"
-                    />
-                  ) : (
-                    <FormattedMessage
-                      id="contentScreen.hideContentButton"
-                      defaultMessage="Hide content"
-                      description="Button to disable view of sensitive content"
-                    />
-                  )}
-                </Button>
-              ) : null }
-            </Box>
-          </div> : null
-        }
+        { contentWarning || superAdminMask ? <SensitiveScreen /> : null }
       </div>
     </div>
   );
