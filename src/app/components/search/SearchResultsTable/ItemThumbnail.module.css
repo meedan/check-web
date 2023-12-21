@@ -1,0 +1,40 @@
+.thumbnail {
+  border: 2px solid var(--grayBorderMain);
+  border-radius: 6px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 92px;
+  object-fit: cover;
+  width: 92px;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.iconContainer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.contentScreen {
+  align-items: center;
+  background-color: var(--textPrimary);
+  display: flex;
+  height: 92px;
+  justify-content: center;
+  width: 92px;
+}
+
+.mediaIcon {
+  color: var(--textPlaceholder);
+  font-size: var(--fontSizeSmall);
+}
+
+.visibilityOffIcon {
+  color: var(--otherWhite);
+  font-size: var(--fontSizeSmall);
+}
