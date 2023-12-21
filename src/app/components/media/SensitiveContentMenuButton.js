@@ -4,20 +4,20 @@ import Relay from 'react-relay/classic';
 import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import {
-  Box,
-  Button,
   FormControlLabel,
   Popover,
   Radio,
   RadioGroup,
-  TextField,
 } from '@material-ui/core';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import LimitedTextArea from '../layout/inputs/LimitedTextArea';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
 import VisibilityOffIcon from '../../icons/visibility_off.svg';
+import dialogStyles from '../../styles/css/dialog.module.css';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const SensitiveContentMenu = ({
   anchorEl,
@@ -203,14 +203,16 @@ const SensitiveContentMenu = ({
 
   return (
     <Popover
+      className={dialogStyles['dialog-window']}
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
       onClose={onDismiss}
       container={container}
     >
-      <Box p={2}>
-        <Box color={!enableSwitch && (formError === 'no_switch_enabled') ? 'red' : null}>
+      <div className={dialogStyles['dialog-content']}>
+        <div className={inputStyles['form-fieldset']} style={{ color: !enableSwitch && (formError === 'no_switch_enabled') ? 'red' : null }}>
           <SwitchComponent
+            className={inputStyles['form-fieldset-field']}
             checked={enableSwitch}
             onChange={() => handleSwitch(!enableSwitch)}
             labelPlacement="end"
@@ -220,92 +222,105 @@ const SensitiveContentMenu = ({
               description="Switch to enable sensitive content screen"
             />}
           />
-        </Box>
-        <Box
-          my={2}
-          fontWeight="bold"
-          color={formError === 'no_warning_type' ? 'red' : null}
-        >
-          <FormattedMessage
-            id="sensitiveContentMenuButton.selectCategory"
-            defaultMessage="Select a category"
-            description="Header for sensitive content types"
-          />
-        </Box>
-        <RadioGroup
-          name="select-sensitive-content-type"
-          value={contentType}
-          onChange={e => handleSetContentType(e.target.value)}
-        >
-          <FormControlLabel
-            value="adult"
-            control={<Radio />}
-            label={<FormattedMessage
-              id="sensitiveContentMenuButton.adult"
-              defaultMessage="Adult (nudity, pornographic)"
-              description="Label for adult content type"
-            />}
-          />
-          <FormControlLabel
-            value="medical"
-            control={<Radio />}
-            label={<FormattedMessage
-              id="sensitiveContentMenuButton.medical"
-              defaultMessage="Medical conditions/procedures"
-              description="Label for medical content type"
-            />}
-          />
-          <FormControlLabel
-            value="violence"
-            control={<Radio />}
-            label={<FormattedMessage
-              id="sensitiveContentMenuButton.violence"
-              defaultMessage="Violence"
-              description="Label for violence content type"
-            />}
-          />
-          <FormControlLabel
-            value="other"
-            control={<Radio />}
-            label={(
-              <FormattedMessage
-                id="sensitiveContentMenuButton.typeOther"
-                defaultMessage="Type other"
-                description="Label for other content type"
-              >
-                { label => (
-                  <TextField
-                    label={label}
-                    error={(
-                      formError &&
-                      contentType === 'other' &&
-                      !customType
+        </div>
+        { enableSwitch &&
+          <>
+            <RadioGroup
+              className={inputStyles['form-fieldset']}
+              name="select-sensitive-content-type"
+              value={contentType}
+              onChange={e => handleSetContentType(e.target.value)}
+            >
+              <div className={inputStyles['form-fieldset-title']} style={{ color: formError === 'no_warning_type' ? 'red' : null }}>
+                <FormattedMessage
+                  tagName="strong"
+                  id="sensitiveContentMenuButton.selectCategory"
+                  defaultMessage="Select a category"
+                  description="Header for sensitive content types"
+                />
+              </div>
+              <FormControlLabel
+                value="adult"
+                control={<Radio />}
+                label={<FormattedMessage
+                  id="sensitiveContentMenuButton.adult"
+                  defaultMessage="Adult (nudity, pornographic)"
+                  description="Label for adult content type"
+                />}
+              />
+              <FormControlLabel
+                value="medical"
+                control={<Radio />}
+                label={<FormattedMessage
+                  id="sensitiveContentMenuButton.medical"
+                  defaultMessage="Medical conditions/procedures"
+                  description="Label for medical content type"
+                />}
+              />
+              <FormControlLabel
+                value="violence"
+                control={<Radio />}
+                label={<FormattedMessage
+                  id="sensitiveContentMenuButton.violence"
+                  defaultMessage="Violence"
+                  description="Label for violence content type"
+                />}
+              />
+              <FormControlLabel
+                value="other"
+                control={<Radio />}
+                label={(
+                  <FormattedMessage
+                    id="sensitiveContentMenuButton.typeOther"
+                    defaultMessage="Type other"
+                    description="Label for other content type"
+                  >
+                    { placeholder => (
+                      <LimitedTextArea
+                        className={inputStyles['form-fieldset-field']}
+                        required={Boolean(false)}
+                        value={customType || ''}
+                        maxChars={48}
+                        maxLength="48"
+                        rows={1}
+                        maxHeight="48px"
+                        autoGrow="false"
+                        placeholder={placeholder}
+                        error={(
+                          formError &&
+                          contentType === 'other' &&
+                          !customType
+                        )}
+                        onBlur={handleChangeCustom}
+                      />
                     )}
-                    inputProps={{ maxLength: 48 }}
-                    value={customType}
-                    onChange={handleChangeCustom}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                  />
+                  </FormattedMessage>
                 )}
-              </FormattedMessage>
-            )}
-          />
-        </RadioGroup>
-        <Box mt={2} display="flex" justifyContent="flex-end">
-          <Button onClick={onDismiss}>
+              />
+            </RadioGroup>
+          </>
+        }
+      </div>
+      <div className={dialogStyles['dialog-actions']}>
+        <ButtonMain
+          size="default"
+          variant="text"
+          theme="lightText"
+          onClick={onDismiss}
+          label={
             <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
-          </Button>
-          <Button
-            color="primary"
-            onClick={submitFlagAnnotation}
-            variant="contained"
-          >
+          }
+        />
+        <ButtonMain
+          size="default"
+          variant="contained"
+          theme="brand"
+          onClick={submitFlagAnnotation}
+          label={
             <FormattedMessage id="global.save" defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" />
-          </Button>
-        </Box>
-      </Box>
+          }
+        />
+      </div>
     </Popover>
   );
 };
