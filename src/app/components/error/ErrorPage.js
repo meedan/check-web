@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { stringHelper } from '../../customHelpers';
@@ -31,5 +32,17 @@ const ErrorPage = ({
     </div>
   </PageTitle>
 );
+
+ErrorPage.defaultProps = {
+  pageTitle: null,
+  cardTitle: null,
+  cardText: null,
+};
+
+ErrorPage.propTypes = {
+  pageTitle: PropTypes.string,
+  cardTitle: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  cardText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+};
 
 export default ErrorPage;
