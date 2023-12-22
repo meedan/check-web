@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { FormattedDate } from 'react-intl';
-import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
+import ItemDate from './ItemDate';
+import ItemRating from './ItemRating';
+import ItemDescription from './ItemDescription';
 import styles from './Card.module.css';
-import UnfoldLessIcon from '../../../icons/unfold_less.svg';
-import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
-import FactCheckIcon from '../../../icons/fact_check.svg';
-import EllipseIcon from '../../../icons/ellipse.svg';
 
 const MaybeLink = ({ to, children }) => {
   if (to) {
@@ -29,15 +26,7 @@ const Card = ({
   date,
   footer,
 }) => {
-  const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isHovered, setIsHovered] = React.useState(false);
-  const [isTextOverflowing, setIsTextOverflowing] = React.useState(false);
-  const descriptionRef = React.useRef(null);
-
-  const toggleCollapse = (e) => {
-    e.preventDefault();
-    setIsCollapsed(!isCollapsed);
-  };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -47,29 +36,6 @@ const Card = ({
     setIsHovered(false);
   };
 
-  const checkTextOverflow = () => {
-    const descriptionElement = descriptionRef.current;
-    if (descriptionElement) {
-      if (descriptionElement.offsetHeight < descriptionElement.scrollHeight ||
-        descriptionElement.offsetWidth < descriptionElement.scrollWidth) {
-        setIsTextOverflowing(true);
-      } else {
-        setIsTextOverflowing(false);
-      }
-    }
-  };
-
-  React.useEffect(() => {
-    checkTextOverflow();
-    window.addEventListener('resize', checkTextOverflow);
-
-    return () => {
-      window.removeEventListener('resize', checkTextOverflow);
-    };
-  }, [description]);
-
-  const shouldShowButton = isHovered && (!isCollapsed || (isCollapsed && isTextOverflowing));
-
   return (
     <div
       className={`${styles.card} card`}
@@ -78,51 +44,14 @@ const Card = ({
     >
       <MaybeLink to={cardUrl}>
         <div className={styles.cardContent}>
-          <div className={styles.cardLeft}>
-            <h6 className={`typography-button ${styles.cardTitle}`}>{title}</h6>
-            { description ?
-              <p className="typography-body2">
-                <span className={`description-text ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} ref={descriptionRef}>
-                  {description}
-                </span>
-                { factCheckUrl ?
-                  <span className={styles.factCheckLink}>
-                    <FactCheckIcon />
-                    {' '}
-                    <a href={factCheckUrl} target="_blank" rel="noreferrer noopener">{factCheckUrl}</a>
-                  </span>
-                  : null }
-              </p>
-              : null }
+          <div>
+            <ItemDescription title={title} description={description} factCheckUrl={factCheckUrl} showCollapseButton={isHovered} />
             { footer ? <div className={styles.cardFooter}>{footer}</div> : null }
           </div>
-          { shouldShowButton ?
-            <div>
-              <button type="button" onClick={toggleCollapse} className={`${styles.toggleCollapse}`}>
-                { isCollapsed ? <UnfoldMoreIcon /> : <UnfoldLessIcon /> }
-              </button>
-            </div>
-            : null
-          }
           { (tag || date) ?
             <div className={styles.cardRight}>
-              { tag ?
-                <div title={tag} className={styles.cardTag}>
-                  <ButtonMain
-                    disabled
-                    variant="outlined"
-                    size="default"
-                    theme="text"
-                    label={<span className={styles.cardTagLabel}><EllipseIcon style={{ color: tagColor }} /> {tag}</span>}
-                    customStyle={{
-                      borderColor: tagColor,
-                      color: 'var(--textPrimary)',
-                    }}
-                  />
-                </div>
-                : null
-              }
-              { date ? <div className={`typography-body2 ${styles.cardDate}`}><FormattedDate value={date * 1000} year="numeric" month="long" day="numeric" /></div> : null }
+              { tag ? <ItemRating rating={tag} ratingColor={tagColor} /> : null }
+              { date ? <ItemDate date={date} /> : null }
             </div> : null
           }
         </div>
