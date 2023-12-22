@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
-import { units, Row, FlexRow } from '../../styles/js/shared';
+import { units, Row } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
   background-color: var(--otherWhite);
@@ -53,7 +53,7 @@ const Toolbar = ({
 
   return (
     <StyledToolbar className={`toolbar toolbar__${resultType}`}>
-      <FlexRow className="toolbar__flex-row">
+      <Row className="toolbar__flex-row">
         <Row className="toolbar__row">
           <span className="toolbar__title">{title}</span>
           {actions}
@@ -65,7 +65,7 @@ const Toolbar = ({
             </OffsetButton>
           </Can>
         ) : null}
-      </FlexRow>
+      </Row>
     </StyledToolbar>
   );
 };

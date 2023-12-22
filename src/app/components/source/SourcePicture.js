@@ -5,10 +5,6 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/mutations/UpdateAccountMutation';
 import {
-  avatarSizeLarge,
-  avatarSize,
-  avatarSizeSmall,
-  avatarSizeExtraSmall,
   defaultBorderRadius,
 } from '../../styles/js/shared';
 
@@ -31,23 +27,23 @@ const StyledImage = styled.div`
   ${props => (() => {
     if (props.size === 'large') {
       return (`
-        width: ${avatarSizeLarge};
-        height: ${avatarSizeLarge};
+        width: 72px;
+        height: 72px;
         `);
     } else if (props.size === 'small') {
       return (`
-        width: ${avatarSizeSmall};
-        height: ${avatarSizeSmall};
+        width: 32px;
+        height: 32px;
         `);
     } else if (props.size === 'extraSmall') {
       return (`
-        width: ${avatarSizeExtraSmall};
-        height: ${avatarSizeExtraSmall};
+        width: 24px;
+        height: 24px;
         `);
     }
     return (`
-        width: ${avatarSize};
-        height: ${avatarSize};
+        width: 40px;
+        height: 40px;
       `);
   })()}
 `;

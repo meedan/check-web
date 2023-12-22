@@ -23,25 +23,10 @@ export function units(unit) {
   return `${unit * 8}px`;
 }
 
-const columnWidthSmall = units(56);
-const columnWidthMedium = units(85);
-const columnWidthLarge = units(110);
-const columnWidthWide = units(152);
-
-// Layout
-export const gutterLarge = units(5);
-export const gutterMedium = units(3);
-export const gutterSmall = units(2);
-
 // Breakpoints
-export const breakpointMobile = `${columnWidthSmall}`;
-const breakpointTablet = `${columnWidthMedium}`;
-const breakpointDesktop = `${columnWidthLarge}`;
-
-// Borders
-export const borderWidthSmall = '1px';
-export const borderWidthMedium = '2px';
-export const borderWidthLarge = '3px';
+export const breakpointMobile = '448px';
+const breakpointTablet = '680px';
+const breakpointDesktop = '880px';
 
 // Border radius
 export const defaultBorderRadius = '2px';
@@ -56,8 +41,6 @@ export const defaultBorderRadius = '2px';
 
 export const avatarSizeLarge = units(9);
 export const avatarSize = units(5);
-export const avatarSizeSmall = units(4);
-export const avatarSizeExtraSmall = units(3);
 
 export const MuiTheme = {
   palette: {
@@ -359,16 +342,6 @@ export const Row = styled.div`
   ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
 `;
 
-// A Flexbox row, center aligned
-//
-// Deprecated: just use Row — CGB 2017 Sept 15
-//
-export const FlexRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 // FadeIn
 //
 // 1. This is a styled component that uses their keyframes function
@@ -396,10 +369,10 @@ export const ContentColumn = styled.div`
   margin: ${props => props.center ? 'auto' : '0 0 0 32px'};
   padding: 0;
   width: 100%;
-  max-width: ${columnWidthMedium};
-  ${props => props.narrow ? `max-width: ${columnWidthSmall}` : ''}
-  ${props => props.large ? `max-width: ${columnWidthLarge}` : ''}
-  ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
+  max-width: 680px;
+  ${props => props.narrow ? 'max-width: 448px' : ''}
+  ${props => props.large ? 'max-width: 880px' : ''}
+  ${props => props.wide ? 'max-width: 1216px' : ''}
   ${props => props.fullWidth ? 'max-width: 100%' : ''}
   ${props => props.remainingWidth ? 'max-width: calc(100vw - 320px)' : '' /* 320px = 32px (margin left) + 256px (left bar width) + 32px (margin right) */}
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}

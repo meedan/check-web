@@ -39,15 +39,12 @@ import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   units,
-  borderWidthLarge,
   breakWordStyles,
   Row,
   defaultBorderRadius,
 } from '../../styles/js/shared';
 
-const dotSize = borderWidthLarge;
-
-const dotOffset = stripUnit(units(4)) - stripUnit(dotSize);
+const dotOffset = stripUnit(units(4)) - stripUnit(3);
 
 const StyledDefaultAnnotation = styled.div`
   color: var(--textPrimary);
@@ -115,7 +112,7 @@ const StyledAnnotationWrapper = styled.section`
       border-radius: 100%;
       content: '';
       height: ${units(1)};
-      outline: ${dotSize} solid var(--otherWhite);
+      outline: 3px solid var(--otherWhite);
       position: absolute;
       top: ${units(2)};
       width: ${units(1)};

@@ -11,7 +11,6 @@ import { unhumanizeSize } from '../helpers';
 import {
   Row,
   units,
-  borderWidthMedium,
   StyledIconButton,
 } from '../styles/js/shared';
 
@@ -25,7 +24,7 @@ const StyledUploader = styled.div`
     .with-file,
     .without-file {
       align-items: center;
-      border: ${borderWidthMedium} dashed var(--textDisabled);
+      border: 2px dashed var(--textDisabled);
       color: var(--textDisabled);
       cursor: pointer;
       display: flex;

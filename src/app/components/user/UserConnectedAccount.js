@@ -11,7 +11,7 @@ import ConfirmDialog from '../layout/ConfirmDialog';
 import UserDisconnectLoginAccountMutation from '../../relay/mutations/UserDisconnectLoginAccountMutation';
 import { login } from '../../redux/actions';
 import SocialIcon from '../SocialIcon';
-import { FlexRow } from '../../styles/js/shared';
+import { Row } from '../../styles/js/shared';
 
 class UserConnectedAccount extends Component {
   static renderLabel(userAction) {
@@ -120,7 +120,7 @@ class UserConnectedAccount extends Component {
           );
         })}
         { provider.add_another === true ?
-          <FlexRow style={{ padding: '0px 10px' }} >
+          <Row style={{ padding: '0px 10px', justifyContent: 'space-between' }} >
             <Button
               style={buttonStyle}
               onClick={this.handleUserClick.bind(this, 'connect')}
@@ -128,7 +128,7 @@ class UserConnectedAccount extends Component {
             >
               <FormattedMessage id="UserConnectedAccount.addAnother" defaultMessage="Add another account" description="Button label for the user to connect another account" />
             </Button>
-          </FlexRow>
+          </Row>
           : null}
       </div>
     );
