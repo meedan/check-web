@@ -1,8 +1,9 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import cx from 'classnames/bind';
+import { FormattedGlobalMessage } from '../MappedMessage';
+import { stringHelper } from '../../customHelpers';
 import PageTitle from '../PageTitle';
-import CheckStyledCard from '../layout/CheckStyledCard';
-import { ContentColumn } from '../../styles/js/shared';
+import styles from './ErrorPage.module.css';
 
 const ErrorPage = ({
   pageTitle,
@@ -12,16 +13,22 @@ const ErrorPage = ({
   <PageTitle
     prefix={pageTitle}
   >
-    <ContentColumn center className="error-page__component" style={{ marginTop: 80 }}>
-      <CheckStyledCard
-        title={cardTitle}
-        body={
-          <Typography variant="body1">
-            {cardText}
-          </Typography>
-        }
-      />
-    </ContentColumn>
+    <div className={cx('error-page__component', styles['error-page'])}>
+      <FormattedGlobalMessage messageKey="appNameHuman">
+        {appNameHuman => (
+          <img
+            className={styles.logo}
+            alt={appNameHuman}
+            width="120"
+            src={stringHelper('LOGO_URL')}
+          />
+        )}
+      </FormattedGlobalMessage>
+      <h6>{cardTitle}</h6>
+      <p>
+        {cardText}
+      </p>
+    </div>
   </PageTitle>
 );
 
