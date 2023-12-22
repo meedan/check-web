@@ -20,7 +20,7 @@ const FactCheckCard = ({
     <Card
       footer={<TeamAvatar team={{ avatar: teamAvatar }} size="30px" />}
     >
-      <div>
+      <div className={styles.factCheckCardDescription}>
         <CardHoverContext.Consumer>
           { isHovered => (
             <ItemDescription title={title} description={summary} factCheckUrl={url} showCollapseButton={isHovered} />
