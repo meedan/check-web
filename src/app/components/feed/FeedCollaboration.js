@@ -233,7 +233,7 @@ const FeedCollaboration = ({
             id="feedCollaboration.titleCollaborator"
             defaultMessage="Collaborating Organizations [{count}]"
             description="Title of the collaboration box in which feed organizer invites other organizations to a shared feed"
-            values={{ count: feed.feed_teams?.edges.length + feed.feed_invitations?.edges.length }}
+            values={{ count: feed.feed_teams?.edges.length }}
           /> :
           <FormattedMessage
             id="feedCollaboration.title"
