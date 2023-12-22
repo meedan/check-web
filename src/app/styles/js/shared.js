@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
-import Card from '@material-ui/core/Card';
 
 // Styles for overriding material UI
 // Check Design System Colors
