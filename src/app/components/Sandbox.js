@@ -27,7 +27,7 @@ import FactCheckCard from './search/SearchResultsCards/FactCheckCard';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
-import SharedItemCard from './search/SearchResultsCards/SharedItemCard';
+import ItemCard from './search/SearchResultsCards/ItemCard';
 import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
 
 const SandboxComponent = ({ admin }) => {
