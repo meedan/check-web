@@ -47,12 +47,47 @@ const SandboxComponent = ({ admin }) => {
 
   const mediaThumbnail = {
     media: {
-      picture: 'https://example.com/image.jpg',
+      picture: 'https://placekitten.com/200/300',
       type: 'image',
-      url: 'https://example.com/image.jpg',
+      url: 'https://placekitten.com/200/300',
     },
     show_warning_cover: false,
   };
+
+  const workspaces = [
+    {
+      url: 'https://placekitten.com/200/200',
+      name: 'First Workspace',
+    },
+    {
+      url: 'https://placekitten.com/300/300',
+      name: 'Second Workspace',
+    },
+    {
+      url: 'https://placekitten.com/301/300',
+      name: 'Third Workspace',
+    },
+    {
+      url: 'https://placekitten.com/302/300',
+      name: 'Fourth Workspace',
+    },
+    {
+      url: 'https://placekitten.com/303/300',
+      name: 'Fifth Workspace',
+    },
+    {
+      url: 'https://placekitten.com/304/300',
+      name: 'Sixth Workspace',
+    },
+    {
+      url: 'https://placekitten.com/305/300',
+      name: 'Seventh Workspace',
+    },
+    {
+      url: 'https://placekitten.com/306/300',
+      name: 'Eighth Workspace',
+    },
+  ];
 
   const [listItemShared, setListItemShared] = React.useState(Boolean(true));
   const [listItemCluster, setListItemCluster] = React.useState(Boolean(false));
@@ -455,7 +490,12 @@ const SandboxComponent = ({ admin }) => {
           </div>
           <div className={styles.componentBlockVariants}>
             <SharedItemCard
-              description="Hello"
+              title="Title"
+              description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
+              mediaThumbnail={(listItemShared && listItemCluster) && mediaThumbnail}
+              workspaces={workspaces}
+              date={1702677106.846}
+              factCheckUrl={listItemFactCheckLink && 'https://example.com'}
             />
             <div
               className={cx(

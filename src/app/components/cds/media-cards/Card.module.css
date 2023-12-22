@@ -50,6 +50,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    p {
+      margin: 0;
+    }
   }
 
   .cardTitle {
@@ -96,6 +100,10 @@
   .cardDate {
     color: var(--textPrimary);
     margin-top: 8px;
+  }
+
+  .cardFooter {
+    margin-top: 6px;
   }
 
   .clickableCard {
