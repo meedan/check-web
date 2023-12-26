@@ -6,7 +6,7 @@ import Facebook from '../../icons/facebook.svg';
 import Image from '../../icons/image.svg';
 import Instagram from '../../icons/instagram.svg';
 import Movie from '../../icons/movie.svg';
-import PlaylistAddCheck from '../../icons/playlist_add_check.svg';
+import EmptyMedia from '../../icons/empty_media.svg';
 import Public from '../../icons/public.svg';
 import Telegram from '../../icons/telegram.svg';
 import Tiktok from '../../icons/tiktok.svg';
@@ -52,32 +52,32 @@ export function mediaTypeFromFilename(fileName) {
   return mediaType;
 }
 
-export default function MediaTypeDisplayIcon({ mediaType }) {
+export default function MediaTypeDisplayIcon({ mediaType, fontSize = 'var(--iconSizeSmall)', color = 'var(--textPlaceholder)' }) {
   switch (mediaType) {
   case 'Claim':
-    return <Description style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Description style={{ fontSize, color }} />;
   case 'Link':
-    return <Public style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Public style={{ fontSize, color }} />;
   case 'UploadedImage':
-    return <Image style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Image style={{ fontSize, color }} />;
   case 'UploadedVideo':
-    return <Movie style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Movie style={{ fontSize, color }} />;
   case 'UploadedAudio':
-    return <Audiotrack style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Audiotrack style={{ fontSize, color }} />;
   case 'Facebook':
-    return <Facebook style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Facebook style={{ fontSize, color }} />;
   case 'Instagram':
-    return <Instagram style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Instagram style={{ fontSize, color }} />;
   case 'Telegram':
-    return <Telegram style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Telegram style={{ fontSize, color }} />;
   case 'Tiktok':
-    return <Tiktok style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Tiktok style={{ fontSize, color }} />;
   case 'Twitter':
-    return <Twitter style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <Twitter style={{ fontSize, color }} />;
   case 'Youtube':
-    return <YouTube style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <YouTube style={{ fontSize, color }} />;
   case 'Blank':
-    return <PlaylistAddCheck style={{ fontSize: 'var(--iconSizeSmall)' }} />;
+    return <EmptyMedia style={{ fontSize, color }} />;
   case '-':
   default:
     return null;

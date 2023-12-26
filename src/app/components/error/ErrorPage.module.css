@@ -1,0 +1,14 @@
+.error-page {
+  align-items: center;
+  background-color: var(--otherWhite);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: auto;
+  margin-top: 80px;
+  max-width: 650px;
+  padding: 16px;
+  text-align: center;
+  width: 100%;
+}

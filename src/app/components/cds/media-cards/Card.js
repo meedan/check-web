@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
+import ItemDate from './ItemDate';
+import ItemRating from './ItemRating';
+import ItemDescription from './ItemDescription';
 import styles from './Card.module.css';
-import UnfoldLessIcon from '../../../icons/unfold_less.svg';
-import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
 
 const MaybeLink = ({ to, children }) => {
   if (to) {
@@ -19,20 +19,14 @@ const MaybeLink = ({ to, children }) => {
 const Card = ({
   title,
   description,
-  url,
+  factCheckUrl,
+  cardUrl,
   tag,
   tagColor,
+  date,
   footer,
 }) => {
-  const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isHovered, setIsHovered] = React.useState(false);
-  const [isTextOverflowing, setIsTextOverflowing] = React.useState(false);
-  const descriptionRef = React.useRef(null);
-
-  const toggleCollapse = (e) => {
-    e.preventDefault();
-    setIsCollapsed(!isCollapsed);
-  };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -42,56 +36,22 @@ const Card = ({
     setIsHovered(false);
   };
 
-  const checkTextOverflow = () => {
-    const descriptionElement = descriptionRef.current;
-    if (descriptionElement) {
-      if (descriptionElement.offsetHeight < descriptionElement.scrollHeight ||
-        descriptionElement.offsetWidth < descriptionElement.scrollWidth) {
-        setIsTextOverflowing(true);
-      } else {
-        setIsTextOverflowing(false);
-      }
-    }
-  };
-
-  React.useEffect(() => {
-    checkTextOverflow();
-    window.addEventListener('resize', checkTextOverflow);
-
-    return () => {
-      window.removeEventListener('resize', checkTextOverflow);
-    };
-  }, [description]);
-
-  const shouldShowButton = isHovered && (!isCollapsed || (isCollapsed && isTextOverflowing));
-
   return (
     <div
       className={`${styles.card} card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <MaybeLink to={url}>
+      <MaybeLink to={cardUrl}>
         <div className={styles.cardContent}>
-          <div className={styles.cardLeft}>
-            <h6 className={`typography-button ${styles.cardTitle}`}>{title}</h6>
-            { description ?
-              <p className={`typography-body2 description-text ${styles.cardDescription} ${styles.cardDescription} ${isCollapsed ? styles.cardDescriptionCollapse : ''}`} ref={descriptionRef}>{description}</p>
-              : null }
-
+          <div>
+            <ItemDescription title={title} description={description} factCheckUrl={factCheckUrl} showCollapseButton={isHovered} />
+            { footer ? <div className={styles.cardFooter}>{footer}</div> : null }
           </div>
-          { shouldShowButton ?
-            <div>
-              <button type="button" onClick={toggleCollapse} className={`${styles.toggleCollapse}`}>
-                { isCollapsed ? <UnfoldMoreIcon /> : <UnfoldLessIcon /> }
-              </button>
-            </div>
-            : null
-          }
-          { (tag || footer) ?
+          { (tag || date) ?
             <div className={styles.cardRight}>
-              { tag ? <div title={tag}><ButtonMain variant="outlined" size="default" theme="text" disabled customStyle={{ color: tagColor }} label={tag} /></div> : null }
-              { footer ? <div className={`typography-body2 ${styles.cardFooter}`}>{footer}</div> : null }
+              { tag ? <ItemRating rating={tag} ratingColor={tagColor} /> : null }
+              { date ? <ItemDate date={date} /> : null }
             </div> : null
           }
         </div>
@@ -102,18 +62,22 @@ const Card = ({
 
 Card.defaultProps = {
   description: null,
-  url: null,
+  factCheckUrl: null,
+  cardUrl: null,
   tag: null,
   tagColor: 'black',
+  date: null,
   footer: null,
 };
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
-  url: PropTypes.string,
+  factCheckUrl: PropTypes.string,
+  cardUrl: PropTypes.string,
   tag: PropTypes.node,
   tagColor: PropTypes.string,
+  date: PropTypes.number, // Timestamp
   footer: PropTypes.node,
 };
 

@@ -90,11 +90,11 @@ const MediaSuggestionsComponent = ({
         }
       }
     `;
-
     commitMutation(Store, {
       mutation,
       variables: {
         input: {
+          skip_send_report: true,
           project_media_to_be_replaced_id: mainItem.id,
           new_project_media_id: relationship.target?.id,
         },
