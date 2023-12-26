@@ -16,7 +16,6 @@ const annotation = {
   annotation_id: 12345,
   smooch_report_received_at: 1692731090,
   smooch_report_update_received_at: 1692731095,
-  smooch_user_slack_channel_url: 'https://test.slack.com/user/123',
   smooch_user_external_identifier: 'test',
   associated_graphql_id: 'UHJvamVjdE1lZGlhLzE=\n',
   smooch_data: {
