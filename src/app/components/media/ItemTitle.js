@@ -249,6 +249,8 @@ const ItemTitle = ({
 ItemTitle.propTypes = {
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
+    permissions: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired, // { key => value } (e.g., { 'update ProjectMedia' => true }), as an object or serialized object
+    archived: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     title_field: PropTypes.oneOf(['custom_title', 'pinned_media_id', 'claim_title', 'fact_check_title']),
     custom_title: PropTypes.string,
