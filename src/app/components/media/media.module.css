@@ -34,7 +34,7 @@
 
     .media-actions-wrapper,
     .media-actions {
-      align-items: center;
+      align-items: flex-start;
       display: flex;
       flex: 1 1 auto;
       gap: 32px;
@@ -54,6 +54,13 @@
     button:disabled > span:first-of-type {
       color: var(--textSecondary);
     }
+  }
+
+  .media-actions-title {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 16px;
   }
 
   .status-label {

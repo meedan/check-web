@@ -1,0 +1,42 @@
+[
+  {
+    "id": "itemTitle.itemTitleError",
+    "description": "Error message displayed underneath the text field when an item title settings cannot be saved.",
+    "defaultMessage": "Could not update the title. Please try again and contact the support if the error persists"
+  },
+  {
+    "id": "itemTitle.menuHeader",
+    "description": "Header for a menu containing content options for item title",
+    "defaultMessage": "Select Item Name"
+  },
+  {
+    "id": "itemTitle.customTitle",
+    "description": "Label for a menu item that selects Custom Title as the title field for an item.",
+    "defaultMessage": "Custom Title"
+  },
+  {
+    "id": "itemTitle.pinnedMediaId",
+    "description": "Label for a menu item that selects Pinned Media ID as the title field for an item.",
+    "defaultMessage": "Pinned Media ID"
+  },
+  {
+    "id": "itemTitle.claimTitle",
+    "description": "Label for a menu item that selects Claim Title as the title field for an item.",
+    "defaultMessage": "Claim Title"
+  },
+  {
+    "id": "itemTitle.claimTitleHelper",
+    "description": "Helper text displayed under the Claim Title option for an item title when the item has no claim.",
+    "defaultMessage": "(Add a claim to enable)"
+  },
+  {
+    "id": "itemTitle.factCheckTitle",
+    "description": "Label for a menu item that selects Fact-Check Title as the title field for an item.",
+    "defaultMessage": "Fact-Check Title"
+  },
+  {
+    "id": "itemTitle.factCheckTitleHelper",
+    "description": "Helper text displayed under the Fact-Check Title option for an item title when the item has no fact-check.",
+    "defaultMessage": "(Add a fact-check to enable)"
+  }
+]

@@ -1,0 +1,48 @@
+.itemTitle {
+  display: flex;
+  flex: 0 0 100%;
+  gap: 8px;
+}
+
+.itemTitleInputField {
+  width: 100%;
+}
+
+.itemTitleMenuHeader {
+  color: var(--textSecondary);
+}
+
+.itemTitleOptionIcon {
+  margin-right: 8px;
+  min-width: fit-content !important;
+}
+
+.itemTitleOption {
+  align-items: flex-start !important;
+  padding: 12px 16px !important;
+
+  div {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+  }
+}
+
+.itemTitleOptionHelperText {
+  color: var(--textDisabled);
+  font-style: italic;
+}
+
+.itemTitleOptionSelected {
+  span,
+  svg {
+    color: var(--brandMain);
+    font-weight: 700;
+  }
+}
+
+.itemTitleOptionNotSelected {
+  span,
+  svg {
+    color: var(--textPrimary);
+  }
+}

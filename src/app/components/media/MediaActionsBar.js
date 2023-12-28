@@ -24,6 +24,7 @@ import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './media.module.css';
 import ItemThumbnail from '../search/SearchResultsTable/ItemThumbnail';
+import ItemTitle from './ItemTitle';
 import dialogStyles from '../../styles/css/dialog.module.css';
 
 const Styles = theme => ({
@@ -270,9 +271,9 @@ class MediaActionsBarComponent extends Component {
 
     const context = this.getContext();
 
-    let restorProjectMedia = '';
+    let restoreProjectMedia = '';
     if (media.archived === CheckArchivedFlags.TRASHED || media.archived === CheckArchivedFlags.SPAM) {
-      restorProjectMedia = (
+      restoreProjectMedia = (
         <RestoreProjectMedia
           team={this.props.media.team}
           projectMedia={this.props.media}
@@ -285,8 +286,11 @@ class MediaActionsBarComponent extends Component {
     return (
       <div className={styles['media-actions-wrapper']}>
         <ItemThumbnail picture={media.media?.picture} maskContent={media.show_warning_cover} type={media.media?.type} url={media.media?.url} />
-        <MediaTags projectMediaId={this.props.media?.dbid} />
-        { restorProjectMedia ? <div className={styles['media-actions']}> {restorProjectMedia} </div> : null }
+        <div className={styles['media-actions-title']}>
+          <ItemTitle projectMedia={this.props.media} />
+          <MediaTags projectMediaId={this.props.media?.dbid} />
+        </div>
+        { restoreProjectMedia ? <div className={styles['media-actions']}> {restoreProjectMedia} </div> : null }
         <div className={styles['media-actions']}>
           {isParent ?
             <MediaStatus
@@ -409,6 +413,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         id
         ${MediaActionsMenuButton.getFragment('projectMedia')}
         ${RestoreProjectMedia.getFragment('projectMedia')}
+        ${ItemTitle.getFragment('projectMedia')}
         dbid
         project_id
         title
