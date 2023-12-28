@@ -26,11 +26,11 @@ const ItemTitle = ({
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
+  const [titleField, setTitleField] = React.useState(projectMedia.title_field);
+  const [customTitle, setCustomTitle] = React.useState(projectMedia.custom_title);
 
   const canChange = can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived !== CheckArchivedFlags.TRASHED;
 
-  const titleField = projectMedia.title_field;
-  const customTitle = projectMedia.custom_title;
   const pinnedMediaId = projectMedia.media_slug;
   const claimTitle = projectMedia.claim_description?.description;
   const factCheckTitle = projectMedia.claim_description?.fact_check?.title;
@@ -93,12 +93,14 @@ const ItemTitle = ({
       } else {
         handleUpdate({ title_field: newTitleField });
       }
+      setTitleField(newTitleField);
     }
   };
 
   const handleUpdateCustomTitle = (newCustomTitle) => {
     if (newCustomTitle !== customTitle) {
       handleUpdate({ custom_title: newCustomTitle });
+      setCustomTitle(newCustomTitle);
     }
   };
 
