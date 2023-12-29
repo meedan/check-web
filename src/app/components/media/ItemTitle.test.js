@@ -25,12 +25,12 @@ describe('<ItemTitle />', () => {
 
   it('should not have a claim title option if item has no claim', () => {
     const wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: null }} />);
-    expect(wrapper.find('ItemTitleOption').at(2).render().text()).toMatch('Add a claim to enable')
+    expect(wrapper.find('ItemTitleOption').at(2).render().text()).toMatch('Add a claim to enable');
   });
 
   it('should not have a fact-check title option if item has no fact-check', () => {
     const wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: { description: 'Test', fact_check: null } }} />);
-    expect(wrapper.find('ItemTitleOption').last().render().text()).toMatch('Add a fact-check to enable')
+    expect(wrapper.find('ItemTitleOption').last().render().text()).toMatch('Add a fact-check to enable');
   });
 
   it('should have default title', () => {
