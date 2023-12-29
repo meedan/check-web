@@ -142,19 +142,19 @@ const ItemTitle = ({
         key={`${titleField}-${title}-${saving}`}
         fullWidth
         className={cx(styles.itemTitleInputField, 'int-item-title__textfield--title')}
-        defaultValue={saving ? null : title}
+        defaultValue={title}
         margin="normal"
         variant="outlined"
         disabled={titleField !== 'custom_title' || saving || !canChange}
-        iconLeft={saving ? null : icon}
+        iconLeft={icon}
         error={error}
         helpContent={
-          error &&
-          <FormattedMessage
-            id="itemTitle.itemTitleError"
-            defaultMessage="Could not update the title. Please try again and contact the support if the error persists"
-            description="Error message displayed underneath the text field when an item title settings cannot be saved."
-          />
+          error ?
+            <FormattedMessage
+              id="itemTitle.itemTitleError"
+              defaultMessage="Could not update the title. Please try again and contact the support if the error persists"
+              description="Error message displayed underneath the text field when an item title settings cannot be saved."
+            /> : null
         }
         onBlur={e => handleUpdateCustomTitle(e.target.value)}
       />
@@ -251,7 +251,7 @@ const ItemTitle = ({
 ItemTitle.propTypes = {
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    permissions: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired, // { key => value } (e.g., { 'update ProjectMedia' => true }), as an object or serialized object
+    permissions: PropTypes.string.isRequired, // { key => value } (e.g., { 'update ProjectMedia' => true }), as a JSON string
     archived: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     title_field: PropTypes.oneOf(['custom_title', 'pinned_media_id', 'claim_title', 'fact_check_title']),
@@ -265,6 +265,10 @@ ItemTitle.propTypes = {
     }),
   }).isRequired,
 };
+
+// For unit tests
+// eslint-disable-next-line import/no-unused-modules
+export { ItemTitle };
 
 export default createFragmentContainer(ItemTitle, {
   projectMedia: graphql`

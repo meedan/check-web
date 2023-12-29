@@ -1,0 +1,80 @@
+import React from 'react';
+import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
+import { ItemTitle } from './ItemTitle';
+
+describe('<ItemTitle />', () => {
+  const projectMedia = {
+    id: 'UHJvamVjdE1lZGlhLzEK',
+    permissions: JSON.stringify({ 'update ProjectMedia': true }),
+    archived: 0,
+    title: 'Title',
+    custom_title: 'Custom Title',
+    media_slug: 'test-text-1',
+    claim_description: {
+      description: 'Claim Title',
+      fact_check: {
+        title: 'Fact-Check Title',
+      },
+    },
+  };
+
+  it('should have options', () => {
+    const wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia }} />);
+    expect(wrapper.find('ItemTitleOption')).toHaveLength(4);
+  });
+
+  it('should not have a claim title option if item has no claim', () => {
+    const wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: null }} />);
+    expect(wrapper.find('ItemTitleOption').at(2).render().text()).toMatch('Add a claim to enable')
+  });
+
+  it('should not have a fact-check title option if item has no fact-check', () => {
+    const wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: { description: 'Test', fact_check: null } }} />);
+    expect(wrapper.find('ItemTitleOption').last().render().text()).toMatch('Add a fact-check to enable')
+  });
+
+  it('should have default title', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: null }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Title');
+  });
+
+  it('should have custom title', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title' }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Custom Title');
+  });
+
+  it('should have pinned media ID title', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'pinned_media_id' }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('test-text-1');
+  });
+
+  it('should have claim title', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'claim_title' }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Claim Title');
+  });
+
+  it('should have fact-check title', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'fact_check_title' }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Fact-Check Title');
+  });
+
+  it('should be disabled if title field is not custom title', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'fact_check_title' }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+  });
+
+  it('should be disabled if title field is custom title but user has no permission', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title', permissions: JSON.stringify({ 'update ProjectMedia': false }) }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+  });
+
+  it('should be disabled if title field is custom title but item is in the trash', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title', archived: 1 }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe('disabled');
+  });
+
+  it('should not be disabled if title field is custom title', () => {
+    const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: 'custom_title' }} />);
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('disabled')).toBe(undefined);
+  });
+});
