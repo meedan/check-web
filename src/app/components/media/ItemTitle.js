@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { createFragmentContainer, commitMutation, graphql } from 'react-relay/compat';
+import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -20,7 +20,7 @@ import CheckArchivedFlags from '../../CheckArchivedFlags';
 import { can } from '../Can';
 import styles from './ItemTitle.module.css';
 
-const ItemTitle = ({
+const ItemTitleComponent = ({
   projectMedia,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -89,7 +89,9 @@ const ItemTitle = ({
   const handleUpdateTitleField = (newTitleField) => {
     if (newTitleField !== titleField) {
       if (newTitleField === 'custom_title') {
-        handleUpdate({ title_field: newTitleField, custom_title: customTitle || projectMedia.title });
+        const newCustomTitle = customTitle || projectMedia.title;
+        handleUpdate({ title_field: newTitleField, custom_title: newCustomTitle });
+        setCustomTitle(newCustomTitle);
       } else {
         handleUpdate({ title_field: newTitleField });
       }
@@ -140,10 +142,8 @@ const ItemTitle = ({
     <div className={styles.itemTitle}>
       <TextField
         key={`${titleField}-${title}-${saving}`}
-        fullWidth
         className={cx(styles.itemTitleInputField, 'int-item-title__textfield--title')}
         defaultValue={title}
-        margin="normal"
         variant="outlined"
         disabled={titleField !== 'custom_title' || saving || !canChange}
         iconLeft={icon}
@@ -158,17 +158,18 @@ const ItemTitle = ({
         }
         onBlur={e => handleUpdateCustomTitle(e.target.value)}
       />
-      <ButtonMain
-        iconCenter={<EditIcon />}
-        size="large"
-        variant="outlined"
-        theme="text"
-        disabled={saving || !canChange}
-        onClick={(e) => {
-          setError(false);
-          setAnchorEl(e.currentTarget);
-        }}
-      />
+      { canChange ?
+        <ButtonMain
+          iconCenter={<EditIcon />}
+          variant="outlined"
+          theme="text"
+          disabled={saving}
+          onClick={(e) => {
+            setError(false);
+            setAnchorEl(e.currentTarget);
+          }}
+        /> : null
+      }
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -200,8 +201,8 @@ const ItemTitle = ({
           label={
             <FormattedMessage
               id="itemTitle.pinnedMediaId"
-              defaultMessage="Pinned Media ID"
-              description="Label for a menu item that selects Pinned Media ID as the title field for an item."
+              defaultMessage="Pinned Media Title"
+              description="Label for a menu item that selects Pinned Media Title as the title field for an item."
             />
           }
         />
@@ -248,7 +249,7 @@ const ItemTitle = ({
   );
 };
 
-ItemTitle.propTypes = {
+ItemTitleComponent.propTypes = {
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired, // { key => value } (e.g., { 'update ProjectMedia' => true }), as a JSON string
@@ -268,24 +269,44 @@ ItemTitle.propTypes = {
 
 // For unit tests
 // eslint-disable-next-line import/no-unused-modules
-export { ItemTitle };
+export { ItemTitleComponent };
 
-export default createFragmentContainer(ItemTitle, {
-  projectMedia: graphql`
-    fragment ItemTitle_projectMedia on ProjectMedia {
-      id
-      permissions
-      archived
-      title
-      title_field
-      custom_title
-      media_slug
-      claim_description {
-        description
-        fact_check {
+const ItemTitle = ({ projectMediaId }) => (
+  <QueryRenderer
+    environment={Relay.Store}
+    query={graphql`
+      query ItemTitleQuery($id: String!) {
+        projectMedia: project_media(ids: $id) {
+          id
+          permissions
+          archived
           title
+          title_field
+          custom_title
+          media_slug
+          claim_description {
+            description
+            fact_check {
+              title
+            }
+          }
         }
       }
-    }
-  `,
-});
+    `}
+    variables={{
+      id: `${projectMediaId},,`,
+    }}
+    render={({ error, props }) => {
+      if (!error && props) {
+        return (<ItemTitleComponent projectMedia={props.projectMedia} />);
+      }
+      return null;
+    }}
+  />
+);
+
+ItemTitle.propTypes = {
+  projectMediaId: PropTypes.number.isRequired,
+};
+
+export default ItemTitle;

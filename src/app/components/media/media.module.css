@@ -42,6 +42,7 @@
     }
 
     .media-actions {
+      flex: 0 1 auto;
       gap: 8px;
     }
   }

@@ -16,8 +16,8 @@
   },
   {
     "id": "itemTitle.pinnedMediaId",
-    "description": "Label for a menu item that selects Pinned Media ID as the title field for an item.",
-    "defaultMessage": "Pinned Media ID"
+    "description": "Label for a menu item that selects Pinned Media Title as the title field for an item.",
+    "defaultMessage": "Pinned Media Title"
   },
   {
     "id": "itemTitle.claimTitle",

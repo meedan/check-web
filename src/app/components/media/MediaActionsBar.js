@@ -287,7 +287,7 @@ class MediaActionsBarComponent extends Component {
       <div className={styles['media-actions-wrapper']}>
         <ItemThumbnail picture={media.media?.picture} maskContent={media.show_warning_cover} type={media.media?.type} url={media.media?.url} />
         <div className={styles['media-actions-title']}>
-          <ItemTitle projectMedia={this.props.media} />
+          <ItemTitle projectMediaId={this.props.media?.dbid} />
           <MediaTags projectMediaId={this.props.media?.dbid} />
         </div>
         { restoreProjectMedia ? <div className={styles['media-actions']}> {restoreProjectMedia} </div> : null }
@@ -413,7 +413,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         id
         ${MediaActionsMenuButton.getFragment('projectMedia')}
         ${RestoreProjectMedia.getFragment('projectMedia')}
-        ${ItemTitle.getFragment('projectMedia')}
         dbid
         project_id
         title

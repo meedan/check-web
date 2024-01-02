@@ -1,6 +1,6 @@
 import React from 'react';
 import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
-import { ItemTitle } from './ItemTitle';
+import { ItemTitleComponent as ItemTitle } from './ItemTitle';
 
 describe('<ItemTitle />', () => {
   const projectMedia = {
