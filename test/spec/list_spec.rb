@@ -38,5 +38,4 @@ shared_examples 'list' do
     wait_for_selector("//span[contains(text(), '51 - 51 / 51')]", :xpath)
     expect(@driver.page_source.include?('51 - 51 / 51')).to be(true)
   end
-
 end
