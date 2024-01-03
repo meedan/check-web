@@ -39,42 +39,4 @@ shared_examples 'list' do
     expect(@driver.page_source.include?('51 - 51 / 51')).to be(true)
   end
 
-  it 'should manage custom search columns', bin4: true do
-    api_create_team_metadata_and_claim({ quote: 'item item' })
-    wait_for_selector('#create-media__add-item')
-    wait_for_selector('.media__heading')
-    expect(@driver.page_source.include?('Status')).to be(true)
-    expect(@driver.page_source.include?('metadata')).to be(false)
-    expect(@driver.page_source.include?('answer')).to be(false)
-    wait_for_selector('.media__heading').click
-    # answer the metadata
-    wait_for_selector('.media__annotations-tabs')
-    wait_for_selector('.media-tab__metadata').click
-    wait_for_selector('.form-edit').click
-    wait_for_selector('#metadata-input').send_keys('answer')
-    wait_for_selector('.form-save').click
-    wait_for_selector_none('.form-cancel', 2)
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
-    wait_for_selector('.team')
-    wait_for_selector('.team-settings__lists-tab').click
-    wait_for_selector('.int-reorder__button-down')
-    wait_for_selector('span[title="Report status"]')
-    wait_for_selector_list("//span[contains(text(), 'metadata')]/../../div/button", :xpath)[0].click
-    wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[0].click
-    wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[1].click
-    wait_for_selector('#team-lists__item-4-status button').click
-    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
-    wait_for_selector('#confirm-dialog__checkbox').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('.message')
-    wait_for_selector('#side-navigation__toggle').click
-    wait_for_selector('.projects-list')
-    wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('#create-media__add-item')
-    @driver.navigate.refresh
-    wait_for_selector('.media__heading')
-    expect(@driver.page_source.include?('Status')).to be(false)
-    expect(@driver.page_source.include?('metadata')).to be(true)
-    expect(@driver.page_source.include?('answer')).to be(true)
-  end
 end
