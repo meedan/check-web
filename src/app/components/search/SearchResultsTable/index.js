@@ -217,7 +217,7 @@ function buildColumnDefs(team, resultType) {
     // "demand" only appears if smooch bot is installed
     .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? Boolean(team.smooch_bot) : true);
   const columns = [possibleColumns[0]];
-  team.list_columns.forEach((listColumn) => {
+  team?.list_columns?.forEach((listColumn) => {
     // Force legacy data to show "Submitted" field
     if (listColumn.show || listColumn.key === 'created_at_timestamp') {
       let column = possibleColumns.find(c => c.field === listColumn.key);

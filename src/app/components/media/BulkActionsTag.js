@@ -99,7 +99,6 @@ const BulkActionsTag = ({
                 edges {
                   node {
                     id
-                    list_columns_values
                   }
                 }
               }
