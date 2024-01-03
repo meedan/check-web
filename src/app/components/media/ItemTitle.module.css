@@ -1,0 +1,54 @@
+.itemTitle {
+  align-items: center;
+  display: flex;
+  flex: 0 0 100%;
+  gap: 8px;
+}
+
+.itemTitleInputField {
+  width: 100%;
+}
+
+.itemTitleMenuHeader {
+  color: var(--textSecondary);
+}
+
+.itemTitleOptionIcon {
+  margin-right: 8px;
+
+  &:global(.MuiListItemIcon-root) {
+    min-width: fit-content;
+  }
+}
+
+.itemTitleOption {
+  &:global(.MuiMenuItem-root) {
+    align-items: flex-start;
+    padding: 12px 16px;
+  }
+
+  :global(.MuiListItemText-root) {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}
+
+.itemTitleOptionHelperText {
+  color: var(--textDisabled);
+  font-style: italic;
+}
+
+.itemTitleOptionSelected {
+  span,
+  svg {
+    color: var(--brandMain);
+    font-weight: 700;
+  }
+}
+
+.itemTitleOptionNotSelected {
+  span,
+  svg {
+    color: var(--textPrimary);
+  }
+}
