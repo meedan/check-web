@@ -32,4 +32,8 @@
       }
     }
   }
+
+  .bulletSeparator > div {
+    color: var(--grayBorderAccent);
+  }
 }

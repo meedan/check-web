@@ -1,24 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedDate } from 'react-intl';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemDate from '../../cds/media-cards/ItemDate';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
+import BulletSeparator from '../../layout/BulletSeparator';
+import MediaIcon from '../../../icons/perm_media.svg';
+import SuggestionsIcon from '../../../icons/question_answer.svg';
 import styles from './ItemCard.module.css';
 
 const SharedItemCard = ({
-  title,
-  description,
   date,
+  description,
   factCheckUrl,
+  lastRequestDate,
+  mediaCount,
   mediaThumbnail,
+  suggestionsCount,
+  title,
   workspaces,
 }) => {
   const maxWorkspaces = 5;
   const renderedWorkspaces = workspaces.slice(0, maxWorkspaces);
   const extraWorkspaces = workspaces.slice(maxWorkspaces, Infinity).map(workspace => <li>{workspace.name}</li>);
+
+  const numberFormatter = Intl.NumberFormat('en', { notation: 'compact' }).format;
 
   return (
     <div className={`${styles.itemCard} shared-item--card`}>
@@ -52,6 +62,38 @@ const SharedItemCard = ({
               </Tooltip>
             </div>
           </div>
+          <div>
+            <BulletSeparator
+              className={styles.bulletSeparator}
+              compact
+              details={[
+                mediaCount && <ButtonMain
+                  disabled
+                  size="small"
+                  theme="brand"
+                  iconLeft={<MediaIcon />}
+                  variant="contained"
+                  label={numberFormatter(mediaCount)}
+                />,
+                <ButtonMain
+                  disabled
+                  size="small"
+                  theme="brand"
+                  iconLeft={<SuggestionsIcon />}
+                  variant="contained"
+                  label={numberFormatter(suggestionsCount)}
+                />,
+                <ButtonMain
+                  disabled
+                  size="small"
+                  theme="brand"
+                  iconLeft={<MediaIcon />}
+                  variant="contained"
+                  label={<FormattedDate value={lastRequestDate * 1000} year="numeric" month="long" day="numeric" />}
+                />,
+              ]}
+            />
+          </div>
         </div>
         <div className={styles.sharedItemCardRight}>
           { date ? <ItemDate date={date} /> : null }
@@ -65,6 +107,8 @@ SharedItemCard.defaultProps = {
   description: null,
   factCheckUrl: null,
   date: null,
+  mediaCount: null,
+  suggestionsCount: null,
 };
 
 SharedItemCard.propTypes = {
@@ -72,6 +116,8 @@ SharedItemCard.propTypes = {
   description: PropTypes.string,
   factCheckUrl: PropTypes.string,
   date: PropTypes.number, // Timestamp
+  mediaCount: PropTypes.number,
+  suggestionsCount: PropTypes.number,
 };
 
 export default SharedItemCard;

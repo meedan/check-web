@@ -27,7 +27,7 @@ import FactCheckCard from './search/SearchResultsCards/FactCheckCard';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
-import ItemCard from './search/SearchResultsCards/ItemCard';
+import SharedItemCard from './search/SearchResultsCards/SharedItemCard';
 import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
 
 const SandboxComponent = ({ admin }) => {
@@ -495,6 +495,9 @@ const SandboxComponent = ({ admin }) => {
               mediaThumbnail={(listItemShared && listItemCluster) && mediaThumbnail}
               workspaces={workspaces}
               date={1702677106.846}
+              mediaCount={12345}
+              suggestionsCount={567890}
+              lastRequestDate={1702977106.846}
               factCheckUrl={listItemFactCheckLink && 'https://example.com'}
             />
             <div
