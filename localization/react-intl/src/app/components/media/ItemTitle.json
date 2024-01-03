@@ -20,6 +20,11 @@
     "defaultMessage": "Pinned Media Title"
   },
   {
+    "id": "itemTitle.pinnedMediaIdHelper",
+    "description": "Helper text displayed under the Pinned Media Title option for an item title when the item has no media.",
+    "defaultMessage": "(Add a media to enable)"
+  },
+  {
     "id": "itemTitle.claimTitle",
     "description": "Label for a menu item that selects Claim Title as the title field for an item.",
     "defaultMessage": "Claim Title"

@@ -23,6 +23,11 @@ describe('<ItemTitle />', () => {
     expect(wrapper.find('ItemTitleOption')).toHaveLength(4);
   });
 
+  it('should not have a pinned media title option if item has no media', () => {
+    const wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, media_slug: '' }} />);
+    expect(wrapper.find('ItemTitleOption').at(1).render().text()).toMatch('Add a media to enable');
+  });
+
   it('should not have a claim title option if item has no claim', () => {
     const wrapper = shallowWithIntl(<ItemTitle projectMedia={{ ...projectMedia, claim_description: null }} />);
     expect(wrapper.find('ItemTitleOption').at(2).render().text()).toMatch('Add a claim to enable');

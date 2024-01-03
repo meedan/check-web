@@ -89,7 +89,7 @@ const ItemTitleComponent = ({
   const handleUpdateTitleField = (newTitleField) => {
     if (newTitleField !== titleField) {
       if (newTitleField === 'custom_title') {
-        const newCustomTitle = customTitle || projectMedia.title;
+        const newCustomTitle = customTitle || projectMedia.title || '-';
         handleUpdate({ title_field: newTitleField, custom_title: newCustomTitle });
         setCustomTitle(newCustomTitle);
       } else {
@@ -198,11 +198,19 @@ const ItemTitleComponent = ({
         <ItemTitleOption
           fieldName="pinned_media_id"
           optionIcon={<PermMediaIcon />}
+          disabled={!projectMedia.media_slug}
           label={
             <FormattedMessage
               id="itemTitle.pinnedMediaId"
               defaultMessage="Pinned Media Title"
               description="Label for a menu item that selects Pinned Media Title as the title field for an item."
+            />
+          }
+          helperText={
+            <FormattedMessage
+              id="itemTitle.pinnedMediaIdHelper"
+              defaultMessage="(Add a media to enable)"
+              description="Helper text displayed under the Pinned Media Title option for an item title when the item has no media."
             />
           }
         />
