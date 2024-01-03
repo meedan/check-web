@@ -19,7 +19,6 @@ import TeamData from './TeamData';
 import TeamTasks from './TeamTasks';
 import TeamReport from './TeamReport';
 import TeamMembers from './TeamMembers';
-import TeamLists from './TeamLists';
 import TeamIntegrations from './TeamIntegrations';
 import TeamSimilarity from './Similarity';
 import Newsletter from './Newsletter';
@@ -122,19 +121,6 @@ class TeamComponent extends Component {
               }
               value="members"
             />
-            { isAdminOrEditor ?
-              <Tab
-                className="team-settings__lists-tab"
-                label={
-                  <FormattedMessage
-                    id="teamSettings.lists"
-                    defaultMessage="Columns"
-                    description="Label for the Columns settings tab"
-                  />
-                }
-                value="columns"
-              /> : null
-            }
             { can(team.permissions, 'manage TeamTask') ?
               <Tab
                 className="team-settings__metadata-tab"
@@ -284,9 +270,6 @@ class TeamComponent extends Component {
               : null }
             { tab === 'members'
               ? <TeamMembers teamSlug={team.slug} />
-              : null }
-            { tab === 'columns'
-              ? <TeamLists key={tab} />
               : null }
             { tab === 'annotation'
               ? <TeamTasks key={tab} team={team} fieldset="metadata" />
