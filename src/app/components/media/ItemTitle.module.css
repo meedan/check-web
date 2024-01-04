@@ -25,6 +25,10 @@
   &:global(.MuiMenuItem-root) {
     align-items: flex-start;
     padding: 12px 16px;
+
+    &:hover {
+      background: var(--brandHoverAccent);
+    }
   }
 
   :global(.MuiListItemText-root) {
@@ -50,5 +54,12 @@
   span,
   svg {
     color: var(--textPrimary);
+  }
+}
+
+.itemTitleOptionNotSelected:hover {
+  span,
+  svg {
+    color: var(--brandSecondary);
   }
 }
