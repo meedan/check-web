@@ -29,7 +29,10 @@ const ItemTitleComponent = ({
   const [titleField, setTitleField] = React.useState(projectMedia.title_field);
   const [customTitle, setCustomTitle] = React.useState(projectMedia.custom_title);
 
-  const canChange = can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived !== CheckArchivedFlags.TRASHED;
+  const canChange = can(projectMedia.permissions, 'update ProjectMedia') &&
+                    !projectMedia.is_suggested &&
+                    projectMedia.archived !== CheckArchivedFlags.TRASHED &&
+                    projectMedia.archived !== CheckArchivedFlags.SPAM;
 
   const pinnedMediaId = projectMedia.media_slug;
   const claimTitle = projectMedia.claim_description?.description;
@@ -120,7 +123,7 @@ const ItemTitleComponent = ({
         styles.itemTitleOption,
         titleField === fieldName ? styles.itemTitleOptionSelected : styles.itemTitleOptionNotSelected,
       )}
-      disabled={disabled || false}
+      disabled={Boolean(disabled) || false}
       onClick={() => handleUpdateTitleField(fieldName)}
     >
       <ListItemIcon className={styles.itemTitleOptionIcon}>
@@ -198,7 +201,7 @@ const ItemTitleComponent = ({
         <ItemTitleOption
           fieldName="pinned_media_id"
           optionIcon={<PermMediaIcon />}
-          disabled={!projectMedia.media_slug}
+          disabled={!pinnedMediaId}
           label={
             <FormattedMessage
               id="itemTitle.pinnedMediaId"
@@ -217,7 +220,7 @@ const ItemTitleComponent = ({
         <ItemTitleOption
           fieldName="claim_title"
           optionIcon={<NoteAltIcon />}
-          disabled={!projectMedia.claim_description}
+          disabled={!claimTitle}
           label={
             <FormattedMessage
               id="itemTitle.claimTitle"
@@ -236,7 +239,7 @@ const ItemTitleComponent = ({
         <ItemTitleOption
           fieldName="fact_check_title"
           optionIcon={<FactCheckIcon />}
-          disabled={!projectMedia.claim_description?.fact_check}
+          disabled={!factCheckTitle}
           label={
             <FormattedMessage
               id="itemTitle.factCheckTitle"
@@ -266,6 +269,7 @@ ItemTitleComponent.propTypes = {
     title_field: PropTypes.oneOf(['custom_title', 'pinned_media_id', 'claim_title', 'fact_check_title']),
     custom_title: PropTypes.string,
     media_slug: PropTypes.string,
+    is_suggested: PropTypes.bool.isRequired,
     claim_description: PropTypes.shape({
       description: PropTypes.string.isRequired,
       fact_check: PropTypes.shape({
@@ -292,6 +296,7 @@ const ItemTitle = ({ projectMediaId }) => (
           title_field
           custom_title
           media_slug
+          is_suggested
           claim_description {
             description
             fact_check {
