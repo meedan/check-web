@@ -84,13 +84,13 @@ shared_examples 'similarity' do
     wait_for_selector('#side-navigation__toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
-    create_image('files/test.png')
+    create_image('files/ocr.png')
     verbose_wait 5
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
     wait_for_selector('.image-media-card')
     expect(@driver.page_source.include?('Extracted text')).to be(true)
-    expect(@driver.page_source.include?('RAILS')).to be(true)
+    expect(@driver.page_source.include?('Test')).to be(true)
   end
 
   it 'should identify texts as similar', bin7: true do

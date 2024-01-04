@@ -23,7 +23,7 @@ module AppSpecHelpers
 
   def verbose_wait(minutes = 1)
     minutes.times do |i|
-      puts "Waiting... (#{i + 1} / minutes)"
+      puts "Waiting... (#{i + 1} / #{minutes})"
       sleep 60
     end
   end
