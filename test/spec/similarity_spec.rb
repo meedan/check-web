@@ -76,19 +76,19 @@ shared_examples 'similarity' do
   end
 
   it 'should extract text from a image', bin7: true do
-    verbose_wait 2
     api_create_team_and_bot(bot: 'alegre', score: {})
     @driver.navigate.to @config['self_url']
-    verbose_wait 5
+    verbose_wait 3
     wait_for_selector('.team-settings__workspace-tab')
     wait_for_selector('#side-navigation__toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     create_image('files/ocr.png')
-    verbose_wait 5
+    verbose_wait 3
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
     wait_for_selector('.image-media-card')
+    verbose_wait 3
     expect(@driver.page_source.include?('Extracted text')).to be(true)
     expect(@driver.page_source.include?('Test')).to be(true)
   end
