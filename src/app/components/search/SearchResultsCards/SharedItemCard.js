@@ -11,8 +11,10 @@ import ItemChannels from '../../cds/media-cards/ItemChannels';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
 import BulletSeparator from '../../layout/BulletSeparator';
 import { getCompactNumber } from '../../../helpers';
+import MediaTypeDisplayIcon from '../../media/MediaTypeDisplayIcon';
 import MediaIcon from '../../../icons/perm_media.svg';
 import SuggestionsIcon from '../../../icons/question_answer.svg';
+import CalendarMonthIcon from '../../../icons/calendar_month.svg';
 import styles from './ItemCard.module.css';
 
 const SharedItemCard = ({
@@ -24,6 +26,7 @@ const SharedItemCard = ({
   lastRequestDate,
   mediaCount,
   mediaThumbnail,
+  mediaType,
   suggestionsCount,
   title,
   workspaces,
@@ -73,7 +76,7 @@ const SharedItemCard = ({
                   disabled
                   size="small"
                   theme="brand"
-                  iconLeft={<MediaIcon />}
+                  iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} /> : <MediaIcon />}
                   variant="contained"
                   label={getCompactNumber(intl.locale, mediaCount)}
                 />,
@@ -89,7 +92,7 @@ const SharedItemCard = ({
                   disabled
                   size="small"
                   theme="brand"
-                  iconLeft={<MediaIcon />}
+                  iconLeft={<CalendarMonthIcon />}
                   variant="contained"
                   label={<FormattedDate value={lastRequestDate * 1000} year="numeric" month="long" day="numeric" />}
                 />,

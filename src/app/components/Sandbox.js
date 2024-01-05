@@ -495,7 +495,8 @@ const SandboxComponent = ({ admin }) => {
               mediaThumbnail={(listItemShared && listItemCluster) && mediaThumbnail}
               workspaces={workspaces}
               date={1702677106.846}
-              mediaCount={12345}
+              mediaCount={1}
+              mediaType="UploadedAudio"
               suggestionsCount={567890}
               lastRequestDate={1702977106.846}
               factCheckUrl={listItemFactCheckLink && 'https://example.com'}
