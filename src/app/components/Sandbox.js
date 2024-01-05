@@ -499,6 +499,7 @@ const SandboxComponent = ({ admin }) => {
               suggestionsCount={567890}
               lastRequestDate={1702977106.846}
               factCheckUrl={listItemFactCheckLink && 'https://example.com'}
+              channels={{ main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
             />
             <div
               className={cx(

@@ -7,6 +7,7 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemDate from '../../cds/media-cards/ItemDate';
+import ItemChannels from '../../cds/media-cards/ItemChannels';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
 import BulletSeparator from '../../layout/BulletSeparator';
 import { getCompactNumber } from '../../../helpers';
@@ -15,6 +16,7 @@ import SuggestionsIcon from '../../../icons/question_answer.svg';
 import styles from './ItemCard.module.css';
 
 const SharedItemCard = ({
+  channels,
   date,
   description,
   factCheckUrl,
@@ -91,6 +93,7 @@ const SharedItemCard = ({
                   variant="contained"
                   label={<FormattedDate value={lastRequestDate * 1000} year="numeric" month="long" day="numeric" />}
                 />,
+                <ItemChannels channels={channels} />,
               ]}
             />
           </div>
@@ -109,6 +112,7 @@ SharedItemCard.defaultProps = {
   date: null,
   mediaCount: null,
   suggestionsCount: null,
+  channels: null,
 };
 
 SharedItemCard.propTypes = {
@@ -119,6 +123,10 @@ SharedItemCard.propTypes = {
   mediaCount: PropTypes.number,
   suggestionsCount: PropTypes.number,
   intl: intlShape.isRequired,
+  channels: PropTypes.exact({
+    main: PropTypes.number,
+    others: PropTypes.arrayOf(PropTypes.number),
+  }),
 };
 
 export default injectIntl(SharedItemCard);

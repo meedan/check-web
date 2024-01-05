@@ -102,6 +102,20 @@
     margin-top: 8px;
   }
 
+  .cardChannels {
+    align-items: center;
+    display: flex;
+    gap: 3px;
+
+    span {
+      display: flex;
+    }
+
+    svg {
+      font-size: var(--fontSizeLarge);
+    }
+  }
+
   .cardFooter {
     margin-top: 6px;
   }
