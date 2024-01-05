@@ -16,8 +16,6 @@ const grayDisabledBackground = '#f3f3f3';
 const grayBorderMain = '#e4e4e4';
 const grayBorderAccent = '#b4b4b4';
 
-const otherWhite = '#fff';
-
 // Units
 export function units(unit) {
   return `${unit * 8}px`;
@@ -146,7 +144,7 @@ export const MuiTheme = {
         // @material-ui/core sets #fafafa, only for sticky header. Undo that.
         // We do need a color, though -- if we choose "transparent" the tbody
         // will show through.
-        backgroundColor: otherWhite,
+        backgroundColor: '#fff',
       },
       root: {
         fontSize: 14,
