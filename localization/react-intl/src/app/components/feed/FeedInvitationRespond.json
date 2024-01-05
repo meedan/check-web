@@ -1,5 +1,15 @@
 [
   {
+    "id": "feedInvitation.noPermissionTitle",
+    "description": "Title of the error page that is displayed when a user does not have permission to accept or reject a feed invitation.",
+    "defaultMessage": "You don't have access to this invitation"
+  },
+  {
+    "id": "feedInvitation.noPermissionDescription",
+    "description": "Description of the error page that is displayed when a user does not have permission to accept or reject a feed invitation.",
+    "defaultMessage": "Make sure you are an admin of the Check workspace to accept invitations. If not, ask your Check workspace admin for asssitance."
+  },
+  {
     "id": "feedInvitation.invited",
     "description": "This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence.",
     "defaultMessage": "has invited your organization to contribute to a Check Shared Feed"

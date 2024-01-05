@@ -17,6 +17,7 @@ import saveFeedStyles from './SaveFeed.module.css';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import MediasLoading from '../media/MediasLoading';
+import NotFound from '../NotFound';
 import { can } from '../Can';
 
 const acceptMutation = graphql`
@@ -81,6 +82,28 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
     });
   };
 
+  const canAcceptFeedInvitation = can(props.me.current_team?.permissions, 'create FeedTeam');
+  if (!canAcceptFeedInvitation) {
+    return (
+      <NotFound
+        title={
+          <FormattedMessage
+            id="feedInvitation.noPermissionTitle"
+            defaultMessage="You don't have access to this invitation"
+            description="Title of the error page that is displayed when a user does not have permission to accept or reject a feed invitation."
+          />
+        }
+        description={
+          <FormattedMessage
+            id="feedInvitation.noPermissionDescription"
+            defaultMessage="Make sure you are an admin of the Check workspace to accept invitations. If not, ask your Check workspace admin for asssitance."
+            description="Description of the error page that is displayed when a user does not have permission to accept or reject a feed invitation."
+          />
+        }
+      />
+    );
+  }
+
   return (
     <div className={cx('feed-invitation-container', saveFeedStyles.saveFeedContainer, saveFeedStyles.saveFeedInvitationRespondContainer)}>
       <div className={saveFeedStyles.saveFeedContent}>
@@ -106,7 +129,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
             <Alert
               className={cx(styles['no-admin-alert'])}
               contained
-              content={<FormattedMessage id="feedInvitation.notAdmin" defaultMessage="You are not the admin of this workspace. Please contact your workspace administrator if you think this is in error." description="An error message that informs the user that they are not the administrator of this workspace and as such cannot perform any actions on this page." />}
+              title={<FormattedMessage id="feedInvitation.notAdmin" defaultMessage="You are not the admin of this workspace. Please contact your workspace administrator if you think this is in error." description="An error message that informs the user that they are not the administrator of this workspace and as such cannot perform any actions on this page." />}
               variant="error"
             />
           )}
@@ -114,7 +137,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
             <Alert
               className={cx(styles['no-admin-alert'])}
               contained
-              content={<FormattedMessage id="feedInvitation.alreadyAccepted" defaultMessage="You have already accepted this invitation." description="An informational message that appears if the user tries to accept an invitation that they have already accepted." />}
+              title={<FormattedMessage id="feedInvitation.alreadyAccepted" defaultMessage="You have already accepted this invitation." description="An informational message that appears if the user tries to accept an invitation that they have already accepted." />}
               variant="info"
             />
           )}

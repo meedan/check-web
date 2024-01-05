@@ -794,7 +794,8 @@ class Task extends Component {
     const data = getResponseData(task.first_response);
     const { response } = data;
     const currentUser = this.getCurrentUser();
-    const isArchived = !(media.archived === CheckArchivedFlags.NONE);
+    const isArchived = (media.archived === CheckArchivedFlags.TRASHED || media.archived === CheckArchivedFlags.SPAM);
+
 
     task.cannotAct =
       !response &&

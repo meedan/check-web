@@ -87,7 +87,7 @@ const MediaCardLarge = ({
             superAdminMask={superAdminMask}
           />
         ) : null }
-        { isWebPage ? (
+        { isWebPage && !isYoutube ? (
           <WebPageMediaCard
             projectMedia={projectMedia}
             currentUserRole={currentUserRole}
