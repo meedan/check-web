@@ -38,6 +38,13 @@ const ItemTitleComponent = ({
   const claimTitle = projectMedia.claim_description?.description;
   const factCheckTitle = projectMedia.claim_description?.fact_check?.title;
 
+  React.useEffect(() => {
+    if ((titleField === 'claim_title' && claimTitle === '') || (titleField === 'fact_check_title' && factCheckTitle === '')) {
+      setTitleField('custom_title');
+      setCustomTitle(projectMedia.title);
+    }
+  }, [claimTitle, factCheckTitle]);
+
   const title = titleField ? {
     custom_title: customTitle,
     pinned_media_id: pinnedMediaId,
