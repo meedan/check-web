@@ -4,7 +4,6 @@ import {
   mediaQuery,
   units,
   Row,
-  avatarSizeLarge,
 } from './shared';
 
 // FIXME: Highly deprecated stuff
@@ -38,7 +37,7 @@ export const StyledHelper = styled.div`
 
 export const StyledAvatarEditButton = styled.div`
   button {
-    min-width: ${avatarSizeLarge}!important;
+    min-width: 72px!important;
   }
 `;
 

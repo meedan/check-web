@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {
-  defaultBorderRadius,
-  FadeIn,
-} from '../styles/js/shared';
+import { FadeIn } from '../styles/js/shared';
 
 const StyledMessage = styled(FadeIn)`
   background: var(--textSecondary);
-  border-radius: ${defaultBorderRadius};
+  border-radius: 2px;
   color: var(--otherWhite);
   margin: 24px auto;
   padding: 16px 40px;

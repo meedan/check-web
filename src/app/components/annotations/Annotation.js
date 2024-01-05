@@ -39,9 +39,7 @@ import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   units,
-  breakWordStyles,
   Row,
-  defaultBorderRadius,
 } from '../../styles/js/shared';
 
 const dotOffset = stripUnit(units(4)) - stripUnit(3);
@@ -54,7 +52,9 @@ const StyledDefaultAnnotation = styled.div`
 
   .annotation__default-content {
     width: 100%;
-    @extend ${breakWordStyles};
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
     display: block;
     margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
   }
@@ -81,7 +81,9 @@ const StyledPrimaryColumn = styled.div`
   flex: 1;
 
   .annotation__card-content {
-    ${breakWordStyles}
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
     display: flex;
     width: 100%;
 
@@ -128,7 +130,7 @@ const StyledAnnotationWrapper = styled.section`
   .annotation__card-activity-move-to-trash {
     background: var(--brandMain);
     color: var(--otherWhite);
-    border-radius: ${defaultBorderRadius};
+    border-radius: 2px;
 
     .annotation__timestamp {
       color: var(--otherWhite);
@@ -151,7 +153,9 @@ const StyledAnnotationWrapper = styled.section`
   }
 
   .annotation__body {
-    ${breakWordStyles}
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .annotation__embedded-media {

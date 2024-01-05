@@ -23,24 +23,10 @@ export function units(unit) {
   return `${unit * 8}px`;
 }
 
-// Breakpoints
-export const breakpointMobile = '448px';
-const breakpointTablet = '680px';
-const breakpointDesktop = '880px';
-
-// Border radius
-export const defaultBorderRadius = '2px';
-
 // CSS Helpers
 //
 // Can be applied in a stylesheet or added to a styled component.
-// For an ellipsis without fixed width, a parent should have overflow: hidden
-// And that parent (or any descendants) should not be display: flex
-// See: https://codepen.io/unthinkingly/pen/XMwJLG
 //
-
-export const avatarSizeLarge = units(9);
-export const avatarSize = units(5);
 
 export const MuiTheme = {
   palette: {
@@ -312,16 +298,10 @@ export const MuiTheme = {
 };
 
 export const mediaQuery = {
-  handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
-  tablet: (...args) => css`@media (max-width: ${breakpointTablet}) { ${css(...args)} }`,
-  desktop: (...args) => css`@media (min-width: ${breakpointDesktop}) { ${css(...args)} }`,
+  handheld: (...args) => css`@media (max-width: 448px) { ${css(...args)} }`,
+  tablet: (...args) => css`@media (max-width: 680px) { ${css(...args)} }`,
+  desktop: (...args) => css`@media (min-width: 880px) { ${css(...args)} }`,
 };
-
-export const breakWordStyles = `
-  hyphens: auto;
-  overflow-wrap: break-word;
-  word-break: break-word;
-`;
 
 // ===================================================================
 // Styled Components
