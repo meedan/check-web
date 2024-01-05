@@ -77,7 +77,7 @@ const SharedItemCard = ({
                   variant="contained"
                   label={getCompactNumber(intl.locale, mediaCount)}
                 />,
-                <ButtonMain
+                suggestionsCount && <ButtonMain
                   disabled
                   size="small"
                   theme="brand"
@@ -93,7 +93,7 @@ const SharedItemCard = ({
                   variant="contained"
                   label={<FormattedDate value={lastRequestDate * 1000} year="numeric" month="long" day="numeric" />}
                 />,
-                <ItemChannels channels={channels} />,
+                channels && <ItemChannels channels={channels} />,
               ]}
             />
           </div>
@@ -112,6 +112,7 @@ SharedItemCard.defaultProps = {
   date: null,
   mediaCount: null,
   suggestionsCount: null,
+  lastRequestDate: null,
   channels: null,
 };
 
@@ -120,6 +121,7 @@ SharedItemCard.propTypes = {
   description: PropTypes.string,
   factCheckUrl: PropTypes.string,
   date: PropTypes.number, // Timestamp
+  lastRequestDate: PropTypes.number, // Timestamp
   mediaCount: PropTypes.number,
   suggestionsCount: PropTypes.number,
   intl: intlShape.isRequired,
