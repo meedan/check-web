@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, injectIntl, intlShape } from 'react-intl';
+import { FormattedDate, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -10,10 +10,10 @@ import ItemDate from '../../cds/media-cards/ItemDate';
 import ItemChannels from '../../cds/media-cards/ItemChannels';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
 import BulletSeparator from '../../layout/BulletSeparator';
-import { getCompactNumber } from '../../../helpers';
+import { getCompactNumber, getSeparatedNumber } from '../../../helpers';
 import MediaTypeDisplayIcon from '../../media/MediaTypeDisplayIcon';
 import MediaIcon from '../../../icons/perm_media.svg';
-import SuggestionsIcon from '../../../icons/question_answer.svg';
+import RequestsIcon from '../../../icons/question_answer.svg';
 import CalendarMonthIcon from '../../../icons/calendar_month.svg';
 import styles from './ItemCard.module.css';
 
@@ -27,7 +27,7 @@ const SharedItemCard = ({
   mediaCount,
   mediaThumbnail,
   mediaType,
-  suggestionsCount,
+  requestsCount,
   title,
   workspaces,
 }) => {
@@ -52,7 +52,15 @@ const SharedItemCard = ({
           <div className={styles.sharedItemCardWorkspaces}>
             {
               renderedWorkspaces.map(workspace => (
-                <TeamAvatar team={{ avatar: workspace.url }} size="30px" />
+                <Tooltip
+                  arrow
+                  title={workspace.name}
+                  placement="top"
+                >
+                  <span>
+                    <TeamAvatar team={{ avatar: workspace.url }} size="30px" />
+                  </span>
+                </Tooltip>
               ))
             }
             <div className={styles.extraWorkspaces}>
@@ -72,37 +80,85 @@ const SharedItemCard = ({
               className={styles.bulletSeparator}
               compact
               details={[
-                mediaCount && <ButtonMain
-                  disabled
-                  size="small"
-                  theme="brand"
-                  iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} /> : <MediaIcon />}
-                  variant="contained"
-                  label={getCompactNumber(intl.locale, mediaCount)}
-                />,
-                suggestionsCount && <ButtonMain
-                  disabled
-                  size="small"
-                  theme="brand"
-                  iconLeft={<SuggestionsIcon />}
-                  variant="contained"
-                  label={getCompactNumber(intl.locale, suggestionsCount)}
-                />,
-                <ButtonMain
-                  disabled
-                  size="small"
-                  theme="brand"
-                  iconLeft={<CalendarMonthIcon />}
-                  variant="contained"
-                  label={<FormattedDate value={lastRequestDate * 1000} year="numeric" month="long" day="numeric" />}
-                />,
+                mediaCount && (
+                  <FormattedMessage id="sharedItemCard.medias" defaultMessage="Medias" description="This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item .">
+                    { mediasLabel => (
+                      <Tooltip
+                        arrow
+                        title={`${getSeparatedNumber(intl.locale, mediaCount)} ${mediasLabel}`}
+                        placement="top"
+                      >
+                        <span>
+                          <ButtonMain
+                            disabled
+                            size="small"
+                            theme="brand"
+                            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} /> : <MediaIcon />}
+                            variant="contained"
+                            label={getCompactNumber(intl.locale, mediaCount)}
+                          />
+                        </span>
+                      </Tooltip>
+                    )}
+                  </FormattedMessage>),
+                requestsCount && (
+                  <FormattedMessage id="sharedItemCard.requests" defaultMessage="Requests" description="This appears as a label next to a number, like '1,234 Requests'. It should indicate to the user that whatever number they are viewing represents the number of requests an item has gotten.">
+                    { requestsLabel => (
+                      <Tooltip
+                        arrow
+                        title={`${getSeparatedNumber(intl.locale, requestsCount)} ${requestsLabel}`}
+                        placement="top"
+                      >
+                        <span>
+                          <ButtonMain
+                            disabled
+                            size="small"
+                            theme="brand"
+                            iconLeft={<RequestsIcon />}
+                            variant="contained"
+                            label={getCompactNumber(intl.locale, requestsCount)}
+                          />
+                        </span>
+                      </Tooltip>
+                    )}
+                  </FormattedMessage>),
+                lastRequestDate && (
+                  <FormattedMessage id="sharedItemCard.lastRequested" defaultMessage="Last Requested" description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'.">
+                    { lastRequestDateLabel => (
+                      <Tooltip
+                        arrow
+                        title={(
+                          <>
+                            <span>{lastRequestDateLabel}:</span>
+                            <ul>
+                              <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(lastRequestDate * 1000)}</li>
+                              <li>{Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(lastRequestDate * 1000)}</li>
+                            </ul>
+                          </>
+                        )}
+
+                        placement="top"
+                      >
+                        <span>
+                          <ButtonMain
+                            disabled
+                            size="small"
+                            theme="brand"
+                            iconLeft={<CalendarMonthIcon />}
+                            variant="contained"
+                            label={<FormattedDate value={lastRequestDate * 1000} year="numeric" month="long" day="numeric" />}
+                          />
+                        </span>
+                      </Tooltip>
+                    )}
+                  </FormattedMessage>),
                 channels && <ItemChannels channels={channels} sortMainFirst />,
               ]}
             />
           </div>
         </div>
         <div className={styles.sharedItemCardRight}>
-          { date ? <ItemDate date={date} /> : null }
+          { date ? <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} /> : null }
         </div>
       </Card>
     </div>
@@ -114,7 +170,7 @@ SharedItemCard.defaultProps = {
   factCheckUrl: null,
   date: null,
   mediaCount: null,
-  suggestionsCount: null,
+  requestsCount: null,
   lastRequestDate: null,
   channels: null,
 };
@@ -126,7 +182,7 @@ SharedItemCard.propTypes = {
   date: PropTypes.number, // Timestamp
   lastRequestDate: PropTypes.number, // Timestamp
   mediaCount: PropTypes.number,
-  suggestionsCount: PropTypes.number,
+  requestsCount: PropTypes.number,
   intl: intlShape.isRequired,
   channels: PropTypes.exact({
     main: PropTypes.number,
