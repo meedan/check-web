@@ -21,6 +21,13 @@ module AppSpecHelpers
     false
   end
 
+  def verbose_wait(minutes = 1)
+    minutes.times do |i|
+      puts "Waiting... (#{i + 1} / #{minutes})"
+      sleep 60
+    end
+  end
+
   def wait_for_selector(selector, type = :css, timeout = 20, reload = false, index: 0)
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end

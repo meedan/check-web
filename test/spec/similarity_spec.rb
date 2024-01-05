@@ -75,23 +75,6 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
   end
 
-  it 'should extract text from a image', bin7: true do
-    api_create_team_and_bot(bot: 'alegre', score: {})
-    @driver.navigate.to @config['self_url']
-    sleep 240
-    wait_for_selector('.team-settings__workspace-tab')
-    wait_for_selector('#side-navigation__toggle').click
-    wait_for_selector('.projects-list')
-    wait_for_selector('.projects-list__all-items').click
-    create_image('files/test.png')
-    sleep 120 # wait for the text extraction
-    wait_for_selector('.medias__item')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.image-media-card')
-    expect(@driver.page_source.include?('Extracted text')).to be(true)
-    expect(@driver.page_source.include?('RAILS')).to be(true)
-  end
-
   it 'should identify texts as similar', bin7: true do
     data = api_create_team_and_bot(bot: 'alegre', score: { min_es_score: 0 })
     pm1 = api_create_claim(data: data, quote: 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1502s.')
@@ -116,6 +99,19 @@ shared_examples 'similarity' do
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('.media__more-medias')
     expect(@driver.find_elements(:css, '.media__relationship').size).to eq 1
+  end
+
+  it 'should extract text from a image', bin7: true do
+    api_create_team_and_bot(bot: 'alegre')
+    @driver.navigate.to @config['self_url']
+    create_image('files/ocr.png')
+    verbose_wait 5
+    wait_for_selector('.medias__item')
+    wait_for_selector('.media__heading').click
+    wait_for_selector('.image-media-card')
+    verbose_wait 5
+    expect(@driver.page_source.include?('Extracted text')).to be(true)
+    expect(@driver.page_source.include?('Test')).to be(true)
   end
 
   it 'should identify videos as similar', bin7: true do
