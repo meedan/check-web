@@ -93,7 +93,7 @@ const SharedItemCard = ({
                   variant="contained"
                   label={<FormattedDate value={lastRequestDate * 1000} year="numeric" month="long" day="numeric" />}
                 />,
-                channels && <ItemChannels channels={channels} />,
+                channels && <ItemChannels channels={channels} sortMainFirst />,
               ]}
             />
           </div>

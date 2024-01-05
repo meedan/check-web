@@ -14,21 +14,32 @@ import styles from './Card.module.css';
 
 const ItemChannels = ({
   className,
+  sortMainFirst,
   channels,
 }) => {
-  function ChannelIcon({ channel }) {
-    const tiplines = CheckChannels.TIPLINE;
-    const tipline = Object.entries(tiplines).find(item => item[1] === channel.toString())[0];
+  const tiplines = CheckChannels.TIPLINE;
 
-    const humanTiplineNames = {
-      WHATSAPP: 'WhatsApp',
-      MESSENGER: 'Messenger',
-      TWITTER: 'X (Twitter)',
-      TELEGRAM: 'Telegram',
-      VIBER: 'Viber',
-      LINE: 'Line',
-      INSTAGRAM: 'Instagram',
-    };
+  const humanTiplineNames = {
+    WHATSAPP: 'WhatsApp',
+    MESSENGER: 'Messenger',
+    TWITTER: 'X (Twitter)',
+    TELEGRAM: 'Telegram',
+    VIBER: 'Viber',
+    LINE: 'Line',
+    INSTAGRAM: 'Instagram',
+  };
+
+  function getTiplineNameFromChannelNumber(channel) {
+    return Object.entries(tiplines).find(item => item[1] === channel.toString())[0];
+  }
+
+  function getHumanNameFromChannelNumber(channel) {
+    const tipline = Object.entries(tiplines).find(item => item[1] === channel.toString())[0];
+    return humanTiplineNames[tipline];
+  }
+
+  function ChannelIcon({ channel }) {
+    const tipline = getTiplineNameFromChannelNumber(channel);
 
     function tiplineIcon(name) {
       switch (name) {
@@ -48,7 +59,6 @@ const ItemChannels = ({
         arrow
         title={humanTiplineNames[tipline]}
         placement="top"
-        className="foobar"
       >
         <span>
           { tiplineIcon(tipline) }
@@ -59,10 +69,18 @@ const ItemChannels = ({
 
   return (
     <div className={cx(styles.cardChannels, className)}>
-      <ChannelIcon channel={channels.main} />
+      { /* return these blocks if we are sorting a main channel first with the remainder alphabetical */ }
+      { sortMainFirst && <ChannelIcon channel={channels.main} />}
       {
-        channels.others
+        sortMainFirst && channels.others
+          .sort((a, b) => getHumanNameFromChannelNumber(a).localeCompare(getHumanNameFromChannelNumber(b)))
           .filter(channel => channel !== channels.main)
+          .map(channel => <ChannelIcon channel={channel} />)
+      }
+      { /* return this block if we are just sorting alphabetical */ }
+      {
+        !sortMainFirst && channels.others
+          .sort((a, b) => getHumanNameFromChannelNumber(a).localeCompare(getHumanNameFromChannelNumber(b)))
           .map(channel => <ChannelIcon channel={channel} />)
       }
     </div>
@@ -71,10 +89,12 @@ const ItemChannels = ({
 
 ItemChannels.defaultProps = {
   className: null,
+  sortMainFirst: false,
 };
 
 ItemChannels.propTypes = {
   className: PropTypes.string,
+  sortMainFirst: PropTypes.bool,
   channels: PropTypes.exact({
     main: PropTypes.number,
     others: PropTypes.arrayOf(PropTypes.number),
