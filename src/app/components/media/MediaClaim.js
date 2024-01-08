@@ -43,6 +43,11 @@ const MediaClaim = ({ projectMedia }) => {
                   user {
                     name
                   }
+                  project_media {
+                    title
+                    title_field
+                    custom_title
+                  }
                 }
               }
             }
