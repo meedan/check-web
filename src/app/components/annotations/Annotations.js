@@ -35,11 +35,7 @@ class Annotations extends React.Component {
     const hasMore = props.annotations.length < props.annotationsCount;
 
     return (
-      <div
-        className="annotations"
-        noLink={props.noLink}
-        noLastItemStretch={hasMore}
-      >
+      <div className="annotations">
         {!props.annotations.length ?
           <div className={cx('annotations__list', styles['empty-list'])}>
             { props.noActivityMessage || <FormattedMessage tagName="p" id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}
