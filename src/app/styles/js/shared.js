@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
-import Card from '@material-ui/core/Card';
 
 // Styles for overriding material UI
 // Check Design System Colors
@@ -344,26 +343,9 @@ export const breakWordStyles = `
 // ===================================================================
 // Styled Components
 //
-// Used as components, like: <StyledSubHeader />
+// Used as components, like: <Row />
 //
 // ===================================================================
-
-// FIXME: use Typography and/or a dedicated component under components/layout
-export const StyledSubHeader = styled.h2`
-  font: 500 ${units(2.5)}/${units(4)} var(--fontStackSans);
-  font-weight: 600;
-  color: var(--textSecondary);
-  text-align: center;
-  margin-top: ${units(2)};
-`;
-
-// FIXME: rename and use dedicated component under components/layout
-export const StyledCard = styled(Card)`
-  padding: ${units(11)} ${units(15)} ${units(3)} !important;
-  ${mediaQuery.handheld`
-    padding: ${units(8)} ${units(4)} ${units(3)} !important;
-  `}
-`;
 
 // <Row />
 //

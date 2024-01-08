@@ -1,3 +1,30 @@
+.toggleCollapse {
+  align-items: center;
+  background-color: var(--brandHoverAccent);
+  border: 0 solid var(--grayBorderMain);
+  border-radius: 8px;
+  color: var(--textSecondary);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 28px;
+  justify-content: center;
+  margin-top: 8px;
+  padding: 2px;
+  width: 28px;
+
+  svg {
+    font-size: var(--iconSizeSmall);
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    background-color: var(--brandHoverAccent);
+    color: var(--brandMain);
+  }
+}
+
 .card {
   border: 1px solid var(--grayBorderMain);
   border-radius: 8px;
@@ -15,21 +42,31 @@
     justify-content: space-between;
   }
 
-  .cardLeft {
+  .cardSummary {
+    display: flex;
+    gap: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .cardTitle {
-    display: contents;
+    -webkit-box-orient: vertical;
+    display: -webkit-box; /* stylelint-disable-line */
     margin: 0;
+    white-space: normal;
+  }
+
+  .cardTitleCollapse {
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    white-space: normal;
   }
 
   .cardDescription {
     -webkit-box-orient: vertical;
-    display: -webkit-box; /* stylelint-disable */
     color: var(--textSecondary);
+    display: -webkit-box; /* stylelint-disable-line */
     white-space: pre-line;
   }
 
@@ -45,12 +82,18 @@
 
   .cardTag {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
 
   .cardTagLabel {
-    display: flex;
     align-items: center;
+    display: flex;
+    font-weight: 400;
+    gap: 4px;
+  }
+
+  .cardTagIcon {
+    font-size: var(--iconSizeTiny);
   }
 
   .cardDate {
@@ -68,8 +111,8 @@
     align-items: center;
     color: var(--textLink);
     display: flex;
-    gap: 4px;
     font-size: var(--fontSizeSmall);
+    gap: 3px;
 
     svg {
       font-size: var(--iconSizeTiny);
@@ -80,32 +123,5 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-  }
-}
-
-.toggleCollapse {
-  align-items: center;
-  background-color: var(--brandHoverAccent);
-  border: 0px solid var(--grayBorderMain);
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2px 2px;
-  width: 28px;
-  height: 28px;
-  margin-top: 8px;
-  color: var(--textSecondary);
-
-  svg {
-    font-size: var(--iconSizeSmall);
-    margin: 0;
-    vertical-align: middle;
-  }
-
-  &:hover {
-    background-color: var(--brandHoverAccent);
-    color: var(--brandMain);
   }
 }

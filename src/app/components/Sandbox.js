@@ -28,6 +28,8 @@ import FactCheckCard from './search/SearchResultsCards/FactCheckCard';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
+import ItemCard from './search/SearchResultsCards/ItemCard';
+import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -44,7 +46,16 @@ const SandboxComponent = ({ admin }) => {
     'This is Six',
   ]);
 
-  const [listItemShared, setListItemShared] = React.useState(Boolean(false));
+  const mediaThumbnail = {
+    media: {
+      picture: 'https://example.com/image.jpg',
+      type: 'image',
+      url: 'https://example.com/image.jpg',
+    },
+    show_warning_cover: false,
+  };
+
+  const [listItemShared, setListItemShared] = React.useState(Boolean(true));
   const [listItemCluster, setListItemCluster] = React.useState(Boolean(false));
   const [listItemMedia, setListItemMedia] = React.useState(Boolean(true));
   const [listItemRequests, setListItemRequests] = React.useState(Boolean(true));
@@ -444,6 +455,9 @@ const SandboxComponent = ({ admin }) => {
             </ul>
           </div>
           <div className={styles.componentBlockVariants}>
+            <ItemCard
+              description="Hello"
+            />
             <div
               className={cx(
                 styles.listItem,
@@ -462,9 +476,11 @@ const SandboxComponent = ({ admin }) => {
                 </div>
               }
               { ((listItemMedia && !listItemShared) || (listItemShared && listItemCluster)) &&
+              <>
                 <div className={styles.thumbail}>
-                  thumbail
+                  <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent={mediaThumbnail.show_warning_cover} type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
                 </div>
+              </>
               }
               <div className={styles.content}>
                 <h6>Item Title</h6>
@@ -576,6 +592,10 @@ const SandboxComponent = ({ admin }) => {
                     <option value="alert">alert</option>
                     <option value="lightAlert">lightAlert</option>
                   </optgroup>
+                  <optgroup label="primary">
+                    <option value="black">black</option>
+                    <option value="white">white</option>
+                  </optgroup>
                 </Select>
               </li>
               <li>
@@ -588,7 +608,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentInlineVariants}>
+          <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--textPrimary)' : null }}>
             <ButtonMain label="Default" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
@@ -1364,7 +1384,7 @@ const SandboxComponent = ({ admin }) => {
         <h6>Media Cards</h6>
         <div className={styles.componentWrapper}>
           <Card
-            title="Moby-Dick; or, The Whale."
+            title="Moby-Dick; or, The Whale. This is a very long title to test what happens when titles are very, very long. Hopefully we only see one line truncated but the whole thing shows up when we expand."
             description="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
             footer="I still haven't finished this"
             tag="Novel"

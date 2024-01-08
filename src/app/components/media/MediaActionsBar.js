@@ -23,6 +23,8 @@ import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import styles from './media.module.css';
+import ItemThumbnail from '../search/SearchResultsTable/ItemThumbnail';
+import ItemTitle from './ItemTitle';
 import dialogStyles from '../../styles/css/dialog.module.css';
 
 const Styles = theme => ({
@@ -269,9 +271,9 @@ class MediaActionsBarComponent extends Component {
 
     const context = this.getContext();
 
-    let restorProjectMedia = '';
+    let restoreProjectMedia = '';
     if (media.archived === CheckArchivedFlags.TRASHED || media.archived === CheckArchivedFlags.SPAM) {
-      restorProjectMedia = (
+      restoreProjectMedia = (
         <RestoreProjectMedia
           team={this.props.media.team}
           projectMedia={this.props.media}
@@ -283,8 +285,12 @@ class MediaActionsBarComponent extends Component {
 
     return (
       <div className={styles['media-actions-wrapper']}>
-        <MediaTags projectMediaId={this.props.media.dbid} />
-        { restorProjectMedia ? <div className={styles['media-actions']}> {restorProjectMedia} </div> : null }
+        <ItemThumbnail picture={media.media?.picture} maskContent={media.show_warning_cover} type={media.media?.type} url={media.media?.url} />
+        <div className={styles['media-actions-title']}>
+          <ItemTitle projectMediaId={this.props.media?.dbid} />
+          <MediaTags projectMediaId={this.props.media?.dbid} />
+        </div>
+        { restoreProjectMedia ? <div className={styles['media-actions']}> {restoreProjectMedia} </div> : null }
         <div className={styles['media-actions']}>
           {isParent ?
             <MediaStatus
@@ -422,6 +428,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           id
           data
         }
+        show_warning_cover
         project {
           id
           dbid
@@ -431,7 +438,9 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           medias_count
         }
         media {
+          type
           url
+          picture
           embed_path
           metadata
         }
