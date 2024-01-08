@@ -10,6 +10,7 @@ import FeedContent from './FeedContent';
 import FeedMetadata from './FeedMetadata';
 import FeedActions from './FeedActions';
 import FeedPublish from './FeedPublish';
+import FeedDataPointsSelection from './FeedDataPointsSelection';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -455,6 +456,8 @@ const SaveFeed = (props) => {
           </div>
         )}
 
+        <FeedDataPointsSelection dataPoints={feed.data_points} />
+
         <FeedContent
           listId={selectedListId}
           onChange={e => setSelectedListId(+e.target.value)}
@@ -632,6 +635,7 @@ export default createFragmentContainer(SaveFeed, graphql`
         slug
       }
       saved_search_id
+      data_points
       ...FeedCollaboration_feed
       ...FeedMetadata_feed
     }
