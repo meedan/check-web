@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -23,6 +20,7 @@ import HelpIcon from '../../../icons/help.svg';
 import GetAppIcon from '../../../icons/file_download.svg';
 import SettingsHeader from '../SettingsHeader';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
+import Select from '../../cds/inputs/Select';
 import { ContentColumn } from '../../../styles/js/shared';
 import settingsStyles from '../Settings.module.css';
 
@@ -277,14 +275,15 @@ const TeamDataComponent = ({
         }
         extra={(platforms.length > 1 || languages.length > 1) &&
           <Box display="flex" className={classes.dropDowns}>
-            <FormControl variant="outlined">
-              { platforms.length > 1 ?
-                <Select value={currentPlatform} onChange={(e) => { setCurrentPlatform(e.target.value); }} margin="dense">
-                  {platforms.map(platform => (
-                    <MenuItem value={platform} key={platform}>{platform}</MenuItem>
-                  ))}
-                </Select> : null }
-            </FormControl>
+            { platforms.length > 1 ?
+              <Select
+                value={currentPlatform}
+                onChange={(e) => { setCurrentPlatform(e.target.value); }}
+              >
+                {platforms.map(platform => (
+                  <option value={platform} key={platform}>{platform}</option>
+                ))}
+              </Select> : null }
             { languages.length > 1 ?
               <LanguagePickerSelect
                 selectedLanguage={currentLanguage}

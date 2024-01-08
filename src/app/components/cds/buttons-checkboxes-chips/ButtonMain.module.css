@@ -91,7 +91,8 @@
   &.theme-validation,
   &.theme-lightValidation,
   &.theme-alert,
-  &.theme-lightAlert {
+  &.theme-lightAlert,
+  &.theme-white, {
     &:disabled {
       color: var(--textDisabled);
       cursor: not-allowed;
@@ -286,6 +287,34 @@
 
     &.textVariant {
       @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
+    }
+  }
+
+  &.theme-black:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--textPrimary), var(--textDisabledInput), var(--otherWhite), var(--otherWhite);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--textPrimary), var(--textSecondary), var(--textPrimary), var(--textSecondary), transparent;
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--textPrimary), var(--textSecondary), var(--grayDisabledBackground);
+    }
+  }
+
+  &.theme-white:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--otherWhite), var(--grayDisabledBackground), var(--textPrimary), var(--textSecondary);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--otherWhite), var(--grayBorderMain), var(--otherWhite), var(--grayBorderMain), transparent;
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--otherWhite), var(--textSecondary), var(--grayDisabledBackground);
     }
   }
 }
