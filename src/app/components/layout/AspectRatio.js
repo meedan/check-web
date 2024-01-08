@@ -141,11 +141,18 @@ const AspectRatio = ({
       className={cx(
         styles.sensitiveScreen,
         {
-          [styles.contentWarning]: maskContent,
+          [styles.contentWarning]: maskContent || superAdminMask,
         })
       }
     >
-      <VisibilityOffIcon className={styles.visibilityIcon} />
+      <VisibilityOffIcon
+        className={cx(
+          styles.visibilityIcon,
+          {
+            [styles.warningIcon]: contentWarning || superAdminMask,
+          })
+        }
+      />
       { superAdminMask ? (
         <FormattedMessage
           tagName="p"
