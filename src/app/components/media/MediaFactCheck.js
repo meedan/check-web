@@ -75,6 +75,13 @@ const MediaFactCheck = ({ projectMedia }) => {
                   user {
                     name
                   }
+                  claim_description {
+                    project_media {
+                      title
+                      title_field
+                      custom_title
+                    }
+                  }
                 }
               }
             }
