@@ -11,13 +11,16 @@
 
     .user-info-wrapper {
       align-items: flex-start;
+      background-color: var(--otherWhite);
+      border-radius: 8px;
       display: flex;
+      padding: 16px;
 
       .user-info-avatar {
         flex: 0;
         flex-shrink: 0;
         justify-content: center;
-        margin: 0 16px;
+        margin: 0 16px 0 0;
       }
 
       .user-info-primary {
@@ -44,12 +47,6 @@
           margin: 0 0 16px;
         }
       }
-    }
-
-    .user-info-edit {
-      background-color: var(--otherWhite);
-      border-radius: 8px;
-      padding: 16px;
     }
   }
 }

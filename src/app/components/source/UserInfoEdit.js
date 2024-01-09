@@ -3,13 +3,14 @@ import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
 import LinkifyIt from 'linkify-it';
 import cx from 'classnames/bind';
+import Alert from '../cds/alerts-and-prompts/Alert';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import SwitchComponent from '../cds/inputs/SwitchComponent';
+import TextArea from '../cds/inputs/TextArea';
+import TextField from '../cds/inputs/TextField';
 import SourcePicture from './SourcePicture';
-import Message from '../Message';
 import UploadFile from '../UploadFile';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
@@ -17,20 +18,12 @@ import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSour
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import { getErrorMessage, capitalize } from '../../helpers';
 import {
-  StyledIconButton,
-  Row,
-} from '../../styles/js/shared';
-import {
-  StyledButtonGroup,
-  StyledTwoColumns,
-  StyledSmallColumn,
-  StyledBigColumn,
   StyledAvatarEditButton,
-  StyledHelper,
 } from '../../styles/js/HeaderCard';
 import { stringHelper } from '../../customHelpers';
-import CancelIcon from '../../icons/cancel.svg';
 import styles from './User.module.css';
+import AddIcon from '../../icons/add.svg';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
   sourceName: {
@@ -151,7 +144,7 @@ class UserInfoEdit extends React.Component {
     this.setState({ links });
   }
 
-  handleSendEmail(e, inputChecked) {
+  handleSendEmail(inputChecked) {
     this.setState({ sendEmail: inputChecked });
   }
 
@@ -395,55 +388,55 @@ class UserInfoEdit extends React.Component {
     return (
       <div key="renderAccountsEdit">
         {showNonLoginAccount.map((as, index) => (
-          <div key={as.node.id} className="source__url">
-            <Row>
-              <TextField
-                id={`source__link-item${index.toString()}`}
-                defaultValue={as.node.account.url}
-                label={capitalize(as.node.account.provider)}
-                style={{ width: '85%' }}
-                margin="normal"
-                disabled
-              />
-              <StyledIconButton
-                className="source__remove-link-button"
-                onClick={() => this.handleRemoveLink(as.node.id)}
-              >
-                <CancelIcon style={{ fontSize: '24px' }} />
-              </StyledIconButton>
-            </Row>
-          </div>))}
+          <TextField
+            className={cx('source__url', inputStyles['form-fieldset-field'])}
+            key={as.node.id}
+            componentProps={{
+              id: `source__link-item${index.toString()}`,
+            }}
+            defaultValue={as.node.account.url}
+            label={capitalize(as.node.account.provider)}
+            onRemove={() => this.handleRemoveLink(as.node.id)}
+          />
+        ))}
         {links.map((link, index) => (
-          <div key={index.toString()} className="source__url-input">
-            <Row>
-              <TextField
-                id={`source__link-input${index.toString()}`}
-                name={`source__link-input${index.toString()}`}
-                value={link.url}
-                error={link.error}
-                helperText={link.error}
-                label={this.props.intl.formatMessage(messages.addLinkLabel)}
-                onChange={e => this.handleChangeLink(e, index)}
-                style={{ width: '85%' }}
-                margin="normal"
-              />
-              <StyledIconButton
-                className="source__remove-link-button"
-                onClick={() => this.handleRemoveNewLink(index)}
-              >
-                <CancelIcon style={{ fontSize: '24px' }} />
-              </StyledIconButton>
-            </Row>
-            {link.error ?
-              null :
-              <StyledHelper>
+          <TextField
+            key={index.toString()}
+            className={cx('source__url-input', inputStyles['form-fieldset-field'])}
+            componentProps={{
+              id: `source__link-input${index.toString()}`,
+              name: `source__link-input${index.toString()}`,
+            }}
+            value={link.url}
+            error={link.error}
+            helpContent={
+              link.error ?
+                link.error :
                 <FormattedMessage
                   id="userInfoEdit.addLinkHelper"
                   defaultMessage="Add a link to a web page or social media profile. Note: this does not affect your login method."
                   description="Help text about adding a social media profile link to this user account"
                 />
-              </StyledHelper>}
-          </div>))}
+            }
+            label={this.props.intl.formatMessage(messages.addLinkLabel)}
+            onRemove={() => this.handleRemoveNewLink(index)}
+          />
+        ))}
+        <br />
+        <ButtonMain
+          size="default"
+          variant="text"
+          theme="brand"
+          onClick={this.handleAddLink.bind(this)}
+          iconLeft={<AddIcon />}
+          label={
+            <FormattedMessage
+              id="userInfoEdit.addLink"
+              defaultMessage="Add Link"
+              description="Button label for adding a new link"
+            />
+          }
+        />
       </div>
     );
   }
@@ -460,10 +453,15 @@ class UserInfoEdit extends React.Component {
     }
 
     return (
-      <div className={cx(styles['user-info-wrapper'], styles['user-info-edit'])}>
-        <Message message={this.state.message} />
-        <StyledTwoColumns>
-          <StyledSmallColumn>
+      <>
+        { this.state.message &&
+          <Alert
+            content={this.state.message}
+            variant="error"
+          />
+        }
+        <div className={styles['user-info-wrapper']}>
+          <div className={styles['user-info-avatar']}>
             <SourcePicture
               size="large"
               object={source}
@@ -480,101 +478,90 @@ class UserInfoEdit extends React.Component {
                 </Button>
               </StyledAvatarEditButton>
               : null}
-          </StyledSmallColumn>
+          </div>
 
-          <StyledBigColumn>
+          <div className={styles['user-info-primary']}>
             <form
               onSubmit={this.handleSubmit.bind(this)}
               name="edit-source-form"
             >
-              {this.state.editProfileImg ?
-                <UploadFile
-                  type="image"
-                  value={this.state.image}
-                  onChange={this.handleImageChange}
-                  onError={this.handleImageError}
-                  noPreview
+              <div className={inputStyles['form-fieldset']}>
+                {this.state.editProfileImg ?
+                  <UploadFile
+                    type="image"
+                    value={this.state.image}
+                    onChange={this.handleImageChange}
+                    onError={this.handleImageError}
+                    noPreview
+                  />
+                  : null}
+                <TextField
+                  required
+                  componentProps={{
+                    id: 'source__name-container',
+                    name: 'name',
+                  }}
+                  className={cx('source__name-input', inputStyles['form-fieldset-field'])}
+                  defaultValue={user.name}
+                  label={this.props.intl.formatMessage(messages.sourceName)}
                 />
-                : null}
-              <TextField
-                className="source__name-input"
-                name="name"
-                id="source__name-container"
-                defaultValue={user.name}
-                label={this.props.intl.formatMessage(messages.sourceName)}
-                style={{ width: '85%' }}
-                margin="normal"
-              />
-              <TextField
-                className="source__bio-input"
-                name="description"
-                id="source__bio-container"
-                defaultValue={source.description}
-                label={this.props.intl.formatMessage(messages.sourceBio)}
-                multiline
-                rowsMax={4}
-                style={{ width: '85%' }}
-                margin="normal"
-              />
-              <TextField
-                className="source__email-input"
-                name="email"
-                id="source__email-container"
-                defaultValue={user.unconfirmed_email || user.email}
-                label={this.props.intl.formatMessage(messages.userEmail)}
-                style={{ width: '85%' }}
-                margin="normal"
-              />
-              <StyledHelper>
-                {emailHelperText}
-              </StyledHelper>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={this.state.sendEmail}
-                    onChange={this.handleSendEmail.bind(this)}
-                    name="sendNotification"
-                  />
-                }
-                label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
-              />
-              {this.renderAccountsEdit()}
+                <TextArea
+                  maxHeight="266px"
+                  id="source__bio-container"
+                  name="description"
+                  className={cx('source__bio-input', inputStyles['form-fieldset-field'])}
+                  defaultValue={source.description}
+                  rows={4}
+                  label={this.props.intl.formatMessage(messages.sourceBio)}
+                />
+                <TextField
+                  componentProps={{
+                    id: 'source__email-container',
+                    name: 'email',
+                  }}
+                  className={cx('source__email-input', inputStyles['form-fieldset-field'])}
+                  defaultValue={user.unconfirmed_email || user.email}
+                  label={this.props.intl.formatMessage(messages.userEmail)}
+                  helpContent={emailHelperText}
+                />
+                <SwitchComponent
+                  className={inputStyles['form-fieldset-field']}
+                  checked={Boolean(this.state.sendEmail)}
+                  onChange={this.handleSendEmail.bind(this, Boolean(!this.state.sendEmail))}
+                  label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
+                  labelPlacement="end"
+                  inputProps={{
+                    name: 'sendNotification',
+                  }}
+                />
+                {this.renderAccountsEdit()}
+              </div>
             </form>
-
-            <StyledButtonGroup>
-              <div>
-                <Button
-                  color="primary"
-                  onClick={this.handleAddLink.bind(this)}
-                >
-                  <FormattedMessage
-                    id="userInfoEdit.addLink"
-                    defaultMessage="Add Link"
-                    description="Button label for adding a new link"
-                  />
-                </Button>
-              </div>
-
-              <div className="source__edit-buttons-cancel-save">
-                <Button
-                  className="source__edit-cancel-button"
-                  onClick={handleLeaveEditMode}
-                >
+            <div className={cx('source__edit-buttons-cancel-save', inputStyles['form-footer-actions'])}>
+              <ButtonMain
+                className="source__edit-cancel-button"
+                size="default"
+                variant="text"
+                theme="lightText"
+                onClick={handleLeaveEditMode}
+                label={
                   <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
-                </Button>
-                <Button
-                  variant="contained"
-                  className="source__edit-save-button"
-                  color="primary"
-                  onClick={this.handleSubmit.bind(this)}
-                >
+                }
+              />
+              <ButtonMain
+                className="source__edit-save-button"
+                size="default"
+                variant="contained"
+                theme="brand"
+                onClick={this.handleSubmit.bind(this)}
+                label={
                   <FormattedMessage id="global.save" defaultMessage="Save" description="Generic label for a button or link for a user to press when they wish to save an action or setting" />
-                </Button>
-              </div>
-            </StyledButtonGroup>
-          </StyledBigColumn>
-        </StyledTwoColumns>
-      </div>
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
 }

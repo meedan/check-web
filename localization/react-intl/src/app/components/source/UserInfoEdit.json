@@ -45,14 +45,14 @@
     "defaultMessage": "Add a link to a web page or social media profile. Note: this does not affect your login method."
   },
   {
-    "id": "global.edit",
-    "description": "Generic label for a button or link for a user to press when they wish to edit content or functionality",
-    "defaultMessage": "Edit"
-  },
-  {
     "id": "userInfoEdit.addLink",
     "description": "Button label for adding a new link",
     "defaultMessage": "Add Link"
+  },
+  {
+    "id": "global.edit",
+    "description": "Generic label for a button or link for a user to press when they wish to edit content or functionality",
+    "defaultMessage": "Edit"
   },
   {
     "id": "global.cancel",
