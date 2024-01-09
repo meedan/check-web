@@ -22,6 +22,8 @@ import ListSort from '../cds/inputs/ListSort';
 import SearchResultsTable from './SearchResultsTable';
 import SearchResultsCards from './SearchResultsCards';
 import SearchRoute from '../../relay/SearchRoute';
+import CreateMedia from '../media/CreateMedia';
+import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 
 /**
@@ -333,6 +335,12 @@ function SearchResultsComponent({
           defaultMessage="There are no items here."
           description="Empty message that is displayed when search results are zero"
         />
+        { page === 'all-items' ?
+          <Can permissions={team.permissions} permission="create ProjectMedia">
+            <div className={styles['no-search-results-add']}>
+              <CreateMedia search={search} team={team} />
+            </div>
+          </Can> : null }
       </BlankState>
     );
     if (resultType === 'factCheck' || resultType === 'emptyFeed') {
