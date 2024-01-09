@@ -129,7 +129,6 @@ const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequests
               associated_graphql_id
               created_at
               smooch_data
-              smooch_user_slack_channel_url
               smooch_user_request_language
               smooch_user_external_identifier
               smooch_report_sent_at
@@ -175,7 +174,6 @@ const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequests
               associated_graphql_id
               created_at
               smooch_data
-              smooch_user_slack_channel_url
               smooch_user_request_language
               smooch_user_external_identifier
               smooch_report_sent_at
