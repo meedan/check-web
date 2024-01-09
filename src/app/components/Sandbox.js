@@ -48,7 +48,7 @@ const SandboxComponent = ({ admin }) => {
   const mediaThumbnail = {
     media: {
       picture: 'https://placekitten.com/200/300',
-      type: 'image',
+      type: 'UploadedImage',
       url: 'https://placekitten.com/200/300',
     },
     show_warning_cover: false,

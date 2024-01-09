@@ -173,6 +173,8 @@ SharedItemCard.defaultProps = {
   requestsCount: null,
   lastRequestDate: null,
   channels: null,
+  mediaThumbnail: null,
+  mediaType: null,
 };
 
 SharedItemCard.propTypes = {
@@ -188,6 +190,19 @@ SharedItemCard.propTypes = {
     main: PropTypes.number,
     others: PropTypes.arrayOf(PropTypes.number),
   }),
+  mediaType: PropTypes.string,
+  mediaThumbnail: PropTypes.exact({
+    media: PropTypes.exact({
+      picture: PropTypes.string, // url
+      type: PropTypes.string,
+      url: PropTypes.string,
+    }),
+    show_warning_cover: PropTypes.bool,
+  }),
+  workspaces: PropTypes.arrayOf(PropTypes.exact({
+    url: PropTypes.string,
+    name: PropTypes.string,
+  })).isRequired,
 };
 
 export default injectIntl(SharedItemCard);
