@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     color: 'var(--textSecondary)',
     lineHeight: '20px',
+    gap: '8px 0',
   },
   detailSpan: {
     display: 'flex',
