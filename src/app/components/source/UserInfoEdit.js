@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import LinkifyIt from 'linkify-it';
+import cx from 'classnames/bind';
 import SourcePicture from './SourcePicture';
 import Message from '../Message';
 import UploadFile from '../UploadFile';
@@ -18,7 +19,6 @@ import { getErrorMessage, capitalize } from '../../helpers';
 import {
   StyledIconButton,
   Row,
-  ContentColumn,
 } from '../../styles/js/shared';
 import {
   StyledButtonGroup,
@@ -30,6 +30,7 @@ import {
 } from '../../styles/js/HeaderCard';
 import { stringHelper } from '../../customHelpers';
 import CancelIcon from '../../icons/cancel.svg';
+import styles from './User.module.css';
 
 const messages = defineMessages({
   sourceName: {
@@ -459,7 +460,7 @@ class UserInfoEdit extends React.Component {
     }
 
     return (
-      <ContentColumn>
+      <div className={cx(styles['user-info-wrapper'], styles['user-info-edit'])}>
         <Message message={this.state.message} />
         <StyledTwoColumns>
           <StyledSmallColumn>
@@ -573,7 +574,7 @@ class UserInfoEdit extends React.Component {
             </StyledButtonGroup>
           </StyledBigColumn>
         </StyledTwoColumns>
-      </ContentColumn>
+      </div>
     );
   }
 }

@@ -21,11 +21,6 @@ export function units(unit) {
   return `${unit * 8}px`;
 }
 
-// CSS Helpers
-//
-// Can be applied in a stylesheet or added to a styled component.
-//
-
 export const MuiTheme = {
   palette: {
     type: 'light',
@@ -339,21 +334,6 @@ export const FadeIn = styled.div`
   animation-duration: .3s;
   animation-fill-mode: forwards;
   opacity: 0;
-`;
-
-// content column used in  settings
-// We want to align left together with the setting menu
-export const ContentColumn = styled.div`
-  margin: ${props => props.center ? 'auto' : '0 0 0 32px'};
-  padding: 0;
-  width: 100%;
-  max-width: 680px;
-  ${props => props.narrow ? 'max-width: 448px' : ''}
-  ${props => props.large ? 'max-width: 880px' : ''}
-  ${props => props.wide ? 'max-width: 1216px' : ''}
-  ${props => props.fullWidth ? 'max-width: 100%' : ''}
-  ${props => props.remainingWidth ? 'max-width: calc(100vw - 320px)' : '' /* 320px = 32px (margin left) + 256px (left bar width) + 32px (margin right) */}
-  ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;
 
 export const Column = styled.div`

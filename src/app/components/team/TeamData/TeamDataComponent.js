@@ -1,63 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import cx from 'classnames/bind';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import HelpIcon from '../../../icons/help.svg';
 import GetAppIcon from '../../../icons/file_download.svg';
 import SettingsHeader from '../SettingsHeader';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import LanguagePickerSelect from '../../cds/inputs/LanguagePickerSelect';
 import Select from '../../cds/inputs/Select';
-import { ContentColumn } from '../../../styles/js/shared';
 import settingsStyles from '../Settings.module.css';
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    maxHeight: 720,
-  },
-  dropDowns: {
-    gap: `${theme.spacing(2)}px`,
-  },
-  tableCell: {
-    whiteSpace: 'nowrap',
-  },
-  helpIcon: {
-    marginLeft: theme.spacing(1),
-    color: 'var(--textSecondary)',
-    cursor: 'help',
-  },
-  typographyButton: {
-    fontSize: 14,
-    textTransform: 'none',
-  },
-  typographyBody1: {
-    fontSize: 14,
-  },
-  sticky: {
-    position: 'sticky',
-    left: 0,
-    background: 'var(--otherWhite)',
-  },
-  stickyHeader: {
-    position: 'sticky',
-    left: 0,
-    background: 'var(--otherWhite)',
-    zIndex: '9999',
-  },
-}));
 
 const messagesDescription = 'Explanation on table header, when hovering the "help" icon, on data settings page';
 const messages = defineMessages({
@@ -186,7 +144,6 @@ const TeamDataComponent = ({
   data,
   defaultLanguage,
 }) => {
-  const classes = useStyles();
   const defaultOrder = 'Month';
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState(defaultOrder);
@@ -195,6 +152,7 @@ const TeamDataComponent = ({
 
   const languages = [];
   const platforms = [];
+
   if (data) {
     data.forEach((row) => {
       if (platforms.indexOf(row.Platform) === -1) {
@@ -274,7 +232,7 @@ const TeamDataComponent = ({
           />
         }
         extra={(platforms.length > 1 || languages.length > 1) &&
-          <Box display="flex" className={classes.dropDowns}>
+          <>
             { platforms.length > 1 ?
               <Select
                 value={currentPlatform}
@@ -291,7 +249,7 @@ const TeamDataComponent = ({
                 languages={languages}
               /> : null
             }
-          </Box>
+          </>
         }
         actionButton={
           <ButtonMain
@@ -319,71 +277,74 @@ const TeamDataComponent = ({
         }
       />
       { data ?
-        <ContentColumn remainingWidth>
-          <Card>
-            <CardContent>
-              <TableContainer className={[classes.container, 'team-data-component__with-data'].join(' ')}>
-                <Table stickyHeader>
-                  <TableHead>
-                    <TableRow>
-                      {headers.map(header => (
-                        <TableCell key={header} className={[classes.tableCell, header === 'Month' ? classes.stickyHeader : ''].join(' ')} sortDirection={orderBy === header ? order : false}>
-                          <TableSortLabel active={orderBy === header} direction={orderBy === header ? order : 'asc'} onClick={createSortHandler(header)}>
-                            <Box display="flex" alignItems="center">
-                              <Typography variant="button" className={classes.typographyButton}>
-                                {header}
-                              </Typography>
-                              {' '}
-                              { helpMessages[header] ?
-                                <Tooltip key={header} title={helpMessages[header]} arrow>
-                                  <span>
-                                    <HelpIcon fontSize="small" className={classes.helpIcon} />
-                                  </span>
-                                </Tooltip> : null }
-                            </Box>
-                          </TableSortLabel>
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map(row => (
-                      <TableRow key={row.ID}>
-                        {headers.map(header => (
-                          <TableCell key={`${row.ID}-${header}`} className={[classes.tableCell, header === 'Month' ? classes.sticky : ''].join(' ')}>
-                            <Typography variant="body1" className={classes.typographyBody1}>
-                              {formatValue(header, row[header])}
-                            </Typography>
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </CardContent>
-          </Card>
-        </ContentColumn> :
+        <TableContainer className={cx('team-data-component__with-data', settingsStyles['engagement-data-table-wrapper'])}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                {headers.map(header => (
+                  <TableCell
+                    key={header}
+                    className={cx(
+                      [settingsStyles.tableCell],
+                      {
+                        [settingsStyles.stickyTableCell]: header === 'Month',
+                      })
+                    }
+                    sortDirection={orderBy === header ? order : false}
+                  >
+                    <TableSortLabel active={orderBy === header} direction={orderBy === header ? order : 'asc'} onClick={createSortHandler(header)}>
+                      <span>{header}</span>
+                      { helpMessages[header] ?
+                        <Tooltip key={header} title={helpMessages[header]} arrow>
+                          <span className={settingsStyles['table-header-tooltip']}>
+                            <HelpIcon />
+                          </span>
+                        </Tooltip> : null }
+                    </TableSortLabel>
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <tbody>
+              {rows.map(row => (
+                <TableRow key={row.ID}>
+                  {headers.map(header => (
+                    <TableCell
+                      key={`${row.ID}-${header}`}
+                      className={cx(
+                        [settingsStyles.tableCell],
+                        {
+                          [settingsStyles.stickyTableCell]: header === 'Month',
+                        })
+                      }
+                    >
+                      {formatValue(header, row[header])}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        </TableContainer> :
         <div className={cx(settingsStyles['setting-details-wrapper'])}>
           <div className={cx(settingsStyles['setting-content-container'], 'team-data-component__no-data')}>
-            <p className="typography-body1">
-              <FormattedMessage
-                id="teamDataComponent.set1"
-                defaultMessage="Fill {thisShortForm} to request access to your data report."
-                description="Paragraph text informing the user what they need to do to enable this feature"
-                values={{
-                  thisShortForm: (
-                    <a href="https://airtable.com/shrWpaztZ2SzD5TrA" target="_blank" rel="noopener noreferrer">
-                      <FormattedMessage
-                        id="teamDataComponent.formLinkText"
-                        defaultMessage="this short form"
-                        description="Link text taking the user to a form to fill out in order to request this feature be enabled"
-                      />
-                    </a>
-                  ),
-                }}
-              />
-            </p>
+            <FormattedMessage
+              tagName="p"
+              id="teamDataComponent.set1"
+              defaultMessage="Fill {thisShortForm} to request access to your data report."
+              description="Paragraph text informing the user what they need to do to enable this feature"
+              values={{
+                thisShortForm: (
+                  <a href="https://airtable.com/shrWpaztZ2SzD5TrA" target="_blank" rel="noopener noreferrer">
+                    <FormattedMessage
+                      id="teamDataComponent.formLinkText"
+                      defaultMessage="this short form"
+                      description="Link text taking the user to a form to fill out in order to request this feature be enabled"
+                    />
+                  </a>
+                ),
+              }}
+            />
             <span className="typography-body1">
               <FormattedMessage
                 id="teamDataComponent.set2"
