@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Running only unit tests
-if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ '[full ci]' ]]
-then
-  docker-compose build web
-  docker-compose -f docker-compose.yml -f docker-test.yml up -d web
-  until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
-# Running all tests
-else
+## Running only unit tests
+#if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ '[full ci]' ]]
+#then
+#  docker-compose build web
+#  docker-compose -f docker-compose.yml -f docker-test.yml up -d web
+#  until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
+## Running all tests
+#else
   if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]
   then
     docker-compose build web api api-background pender pender-background
@@ -42,14 +42,14 @@ else
     docker-compose -f docker-compose.yml -f docker-test.yml up -d
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
     until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
-  fi
+#  fi
   until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
   until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
-  # Uncomment to debug Check API and Alegre. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
-  # tail -f check-api/log/test.log &
-  # docker-compose logs -f api &
-  # docker-compose logs -f alegre &
-  # docker-compose logs -f presto-server &
-  # docker-compose logs -f presto-image &
-  # docker-compose logs -f presto-audio &
+   Uncomment to debug Check API and Alegre. Warning: This can lead to Travis error "The job exceeded the maximum log length, and has been terminated.".
+   tail -f check-api/log/test.log &
+   docker-compose logs -f api &
+   docker-compose logs -f alegre &
+   docker-compose logs -f presto-server &
+   docker-compose logs -f presto-image &
+   docker-compose logs -f presto-audio &
 fi
