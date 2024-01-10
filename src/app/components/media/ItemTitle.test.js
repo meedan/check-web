@@ -47,7 +47,7 @@ describe('<ItemTitle />', () => {
 
   it('should have default title', () => {
     const wrapper = mountWithIntl(<ItemTitle projectMedia={{ ...projectMedia, title_field: null }} />);
-    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Title');
+    expect(wrapper.find('.int-item-title__textfield--title input').render().attr('value')).toBe('Claim Title');
   });
 
   it('should have custom title', () => {

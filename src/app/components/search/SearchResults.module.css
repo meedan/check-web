@@ -1,3 +1,9 @@
+.no-search-results-add {
+  display: flex;
+  justify-content: center;
+  margin: 64px 0;
+}
+
 .search-results-status-cell {
   max-width: 224px;
   overflow: hidden;

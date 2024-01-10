@@ -592,6 +592,10 @@ const SandboxComponent = ({ admin }) => {
                     <option value="alert">alert</option>
                     <option value="lightAlert">lightAlert</option>
                   </optgroup>
+                  <optgroup label="primary">
+                    <option value="black">black</option>
+                    <option value="white">white</option>
+                  </optgroup>
                 </Select>
               </li>
               <li>
@@ -604,7 +608,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentInlineVariants}>
+          <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--textPrimary)' : null }}>
             <ButtonMain label="Default" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />

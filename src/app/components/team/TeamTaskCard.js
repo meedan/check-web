@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
-import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -118,7 +117,7 @@ const TeamTaskCard = ({
           />
         </MenuItem>
       </Menu>
-      <Divider />
+      <hr />
       <Box display="flex" ml={1}>
         <ButtonMain
           iconCenter={<ExpandMoreIcon />}
@@ -139,7 +138,7 @@ const TeamTaskCard = ({
       <Collapse in={expanded}>
         <TeamTaskCardForm task={task} about={about} />
       </Collapse>
-      <Divider />
+      <hr />
       <Box px={2} py={1}>
         {children}
       </Box>
