@@ -50,7 +50,7 @@ const ItemTitleComponent = ({
     pinned_media_id: pinnedMediaId,
     claim_title: claimTitle,
     fact_check_title: factCheckTitle,
-  }[titleField] : projectMedia.title;
+  }[titleField] : (claimTitle || factCheckTitle || projectMedia.title);
 
   const icon = {
     custom_title: <TextFieldsIcon />,
