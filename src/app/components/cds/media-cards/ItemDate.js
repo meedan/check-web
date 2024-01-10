@@ -14,8 +14,8 @@ const ItemDate = ({
     <>
       <span>{tooltipLabel}:</span>
       <ul>
-        <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(date * 1000)}</li>
-        <li>{Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date * 1000)}</li>
+        <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(date)}</li>
+        <li>{Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(date)}</li>
       </ul>
     </>
   );
@@ -27,7 +27,7 @@ const ItemDate = ({
       placement="top"
     >
       <div className={cx('typography-body2', styles.cardDate, className)}>
-        <FormattedDate value={date * 1000} year="numeric" month="long" day="numeric" />
+        <FormattedDate value={date} year="numeric" month="long" day="numeric" />
       </div>
     </Tooltip>
   );
@@ -39,7 +39,7 @@ ItemDate.defaultProps = {
 };
 
 ItemDate.propTypes = {
-  date: PropTypes.number.isRequired, // Timestamp
+  date: PropTypes.instanceOf(Date).isRequired, // Timestamp
   className: PropTypes.string,
   tooltipLabel: PropTypes.string,
 };

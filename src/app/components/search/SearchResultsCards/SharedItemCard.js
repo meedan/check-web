@@ -131,8 +131,8 @@ const SharedItemCard = ({
                           <>
                             <span>{lastRequestDateLabel}:</span>
                             <ul>
-                              <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(lastRequestDate * 1000)}</li>
-                              <li>{Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(lastRequestDate * 1000)}</li>
+                              <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(lastRequestDate)}</li>
+                              <li>{Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(lastRequestDate)}</li>
                             </ul>
                           </>
                         )}
@@ -181,8 +181,8 @@ SharedItemCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   factCheckUrl: PropTypes.string,
-  date: PropTypes.number, // Timestamp
-  lastRequestDate: PropTypes.number, // Timestamp
+  date: PropTypes.instanceOf(Date),
+  lastRequestDate: PropTypes.instanceOf(Date),
   mediaCount: PropTypes.number,
   requestsCount: PropTypes.number,
   intl: intlShape.isRequired,
