@@ -266,12 +266,13 @@ const FeedDataPoints = ({ readOnly, dataPoints, onChange }) => {
 FeedDataPoints.defaultProps = {
   readOnly: false,
   dataPoints: [],
+  onChange: () => {},
 };
 
 FeedDataPoints.propTypes = {
   readOnly: PropTypes.bool,
   dataPoints: PropTypes.arrayOf(PropTypes.number.isRequired),
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
 };
 
 export default FeedDataPoints;
