@@ -1,25 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Alert from '../cds/alerts-and-prompts/Alert';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import TextField from '../cds/inputs/TextField';
 import ConfirmEmail from './ConfirmEmail';
 import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
-import { units } from '../../styles/js/shared';
+import styles from './user.module.css';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
-  title: {
-    id: 'userEmail.title',
-    defaultMessage: 'Add your email',
-    description: 'Title for the user adding their email address',
-  },
   emailHint: {
     id: 'userEmail.emailInputHint',
     defaultMessage: 'email@example.com',
@@ -85,43 +78,59 @@ class UserEmail extends React.Component {
       return <><ConfirmEmail user={this.props.user} /><br /></>;
     } else if (!this.props.user.email && window.storage.getValue('dismiss-user-email-nudge') !== '1') {
       return (
-        <Card style={{ marginBottom: units(2) }}>
-          <CardHeader title={this.props.intl.formatMessage(messages.title)} />
-          <CardContent>
-            <FormattedMessage
-              id="userEmail.text"
-              defaultMessage="To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click 'Skip'"
-              description="Message to the user on how to receive notifications to their email address"
-            />
-            <div>
-              <TextField
-                id="user-email__input"
-                label={
-                  <FormattedMessage
-                    id="userEmail.emailInputLabel"
-                    defaultMessage="Email"
-                    description="Text field label for the email address field"
-                  />
-                }
-                placeholder={
-                  this.props.intl.formatMessage(messages.emailHint)
-                }
-                helperText={this.state.message}
-                error={this.state.message}
-                margin="normal"
-                fullWidth
+        <div className={styles['user-email']}>
+          <Alert
+            variant="warning"
+            title={<FormattedMessage id="userEmail.alertTitle" defaultMessage="Add your email" description="Alert title for prompting the user to add their email address in order to receive notifications" />}
+            content={
+              <FormattedMessage
+                id="userEmail.text"
+                defaultMessage="To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click 'Skip'"
+                description="Message to the user on how to receive notifications to their email address"
               />
-            </div>
-          </CardContent>
-          <CardActions>
-            <Button onClick={this.handleClickSkip}>
-              <FormattedMessage id="userEmail.skip" defaultMessage="Skip" description="Button label for skipping step" />
-            </Button>
-            <Button onClick={this.handleSubmit} color="primary">
-              <FormattedMessage id="userEmail.submit" defaultMessage="Submit" description="Button label to submit the email form" />
-            </Button>
-          </CardActions>
-        </Card>
+            }
+          />
+          <br />
+          <div className={inputStyles['form-fieldset']}>
+            <TextField
+              className={inputStyles['form-fieldset-field']}
+              componentProps={{
+                id: 'user-email__input',
+              }}
+              label={
+                <FormattedMessage
+                  id="userEmail.emailInputLabel"
+                  defaultMessage="Email"
+                  description="Text field label for the email address field"
+                />
+              }
+              placeholder={
+                this.props.intl.formatMessage(messages.emailHint)
+              }
+              helpContent={this.state.message}
+            />
+          </div>
+          <div className={inputStyles['form-footer-actions']}>
+            <ButtonMain
+              size="default"
+              variant="text"
+              theme="lightText"
+              onClick={this.handleClickSkip}
+              label={
+                <FormattedMessage id="userEmail.skip" defaultMessage="Skip" description="Button label for skipping step" />
+              }
+            />
+            <ButtonMain
+              onClick={this.handleSubmit}
+              size="default"
+              variant="contained"
+              theme="brand"
+              label={
+                <FormattedMessage id="userEmail.submit" defaultMessage="Submit" description="Button label to submit the email form" />
+              }
+            />
+          </div>
+        </div>
       );
     }
 
