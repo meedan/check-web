@@ -82,7 +82,7 @@ class UserEmail extends React.Component {
     }
 
     if (this.props.user.unconfirmed_email) {
-      return <ConfirmEmail user={this.props.user} />;
+      return <><ConfirmEmail user={this.props.user} /><br /></>;
     } else if (!this.props.user.email && window.storage.getValue('dismiss-user-email-nudge') !== '1') {
       return (
         <Card style={{ marginBottom: units(2) }}>

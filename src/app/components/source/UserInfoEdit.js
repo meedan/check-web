@@ -8,7 +8,6 @@ import cx from 'classnames/bind';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
-import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import SourcePicture from './SourcePicture';
 import UploadFile from '../UploadFile';
@@ -30,13 +29,14 @@ const messages = defineMessages({
     id: 'userInfoEdit.sourceName',
     defaultMessage: 'Name',
   },
-  sourceBio: {
-    id: 'userInfoEdit.sourceBio',
-    defaultMessage: 'Bio',
-  },
   userEmail: {
     id: 'userInfoEdit.userEmail',
     defaultMessage: 'Email',
+  },
+  emailHint: {
+    id: 'userInfoEdit.emailInputHint',
+    defaultMessage: 'email@example.com',
+    description: 'Text field input help text about the format of an email address',
   },
   userSendEmailNotification: {
     id: 'userInfoEdit.userSendEmailNotification',
@@ -505,15 +505,6 @@ class UserInfoEdit extends React.Component {
                   defaultValue={user.name}
                   label={this.props.intl.formatMessage(messages.sourceName)}
                 />
-                <TextArea
-                  maxHeight="266px"
-                  id="source__bio-container"
-                  name="description"
-                  className={cx('source__bio-input', inputStyles['form-fieldset-field'])}
-                  defaultValue={source.description}
-                  rows={4}
-                  label={this.props.intl.formatMessage(messages.sourceBio)}
-                />
                 <TextField
                   componentProps={{
                     id: 'source__email-container',
@@ -522,6 +513,9 @@ class UserInfoEdit extends React.Component {
                   className={cx('source__email-input', inputStyles['form-fieldset-field'])}
                   defaultValue={user.unconfirmed_email || user.email}
                   label={this.props.intl.formatMessage(messages.userEmail)}
+                  placeholder={
+                    this.props.intl.formatMessage(messages.emailHint)
+                  }
                   helpContent={emailHelperText}
                 />
                 <SwitchComponent

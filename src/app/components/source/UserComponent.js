@@ -55,66 +55,69 @@ class UserComponent extends React.Component {
         <div className={cx('source', styles['user-settings-wrapper'])}>
           <div className={styles['user-content']}>
             { isEditing ?
-              <UserInfoEdit user={user} /> : (
-                <>
-                  <UserInfo user={user} context={context} />
-                  <Tabs
-                    indicatorColor="primary"
-                    textColor="primary"
-                    value={this.state.showTab}
-                    onChange={this.handleTabChange}
-                  >
+              <UserInfoEdit user={user} /> :
+              <>
+                <div className={styles['user-info-wrapper']}>
+                  <UserEmail user={user} />
+                </div>
+                <UserInfo user={user} context={context} />
+              </>
+            }
+            { isEditing ?
+              null :
+              <div className={styles['user-info-tabs-wrapper']}>
+                <Tabs
+                  indicatorColor="primary"
+                  textColor="primary"
+                  value={this.state.showTab}
+                  onChange={this.handleTabChange}
+                >
+                  <Tab
+                    id="teams-tab"
+                    label={
+                      <FormattedMessage
+                        id="userComponent.teams"
+                        defaultMessage="Workspaces"
+                        description="Label of the workspaces tab in the user profile page"
+                      />
+                    }
+                    value="workspaces"
+                  />
+                  { isUserSelf ?
                     <Tab
-                      id="teams-tab"
+                      id="privacy-tab"
                       label={
                         <FormattedMessage
-                          id="userComponent.teams"
-                          defaultMessage="Workspaces"
-                          description="Label of the workspaces tab in the user profile page"
+                          id="userComponents.privacy"
+                          defaultMessage="Privacy"
+                          description="Label of the privacy tab in the user profile page"
                         />
                       }
-                      value="workspaces"
-                    />
-                    { isUserSelf ?
-                      <Tab
-                        id="privacy-tab"
-                        label={
-                          <FormattedMessage
-                            id="userComponents.privacy"
-                            defaultMessage="Privacy"
-                            description="Label of the privacy tab in the user profile page"
-                          />
-                        }
-                        value="privacy"
-                      /> : null
-                    }
-                    { isUserSelf ?
-                      <Tab
-                        id="security-tab"
-                        label={
-                          <FormattedMessage
-                            id="userComponents.security"
-                            defaultMessage="Security"
-                            description="Label of the security tab in the user profile page"
-                          />
-                        }
-                        value="security"
-                      /> : null
-                    }
-                  </Tabs>
-                </>
-              )
+                      value="privacy"
+                    /> : null
+                  }
+                  { isUserSelf ?
+                    <Tab
+                      id="security-tab"
+                      label={
+                        <FormattedMessage
+                          id="userComponents.security"
+                          defaultMessage="Security"
+                          description="Label of the security tab in the user profile page"
+                        />
+                      }
+                      value="security"
+                    /> : null
+                  }
+                </Tabs>
+                <div className={styles['user-info-tabs-content']}>
+                  { this.state.showTab === 'teams' || this.state.showTab === 'workspaces' ? <SwitchTeamsComponent user={user} /> : null}
+                  { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
+                  { this.state.showTab === 'security' ? <UserSecurity user={user} /> : null}
+                </div>
+              </div>
             }
           </div>
-          { isEditing ?
-            null :
-            <div className={styles['user-content']}>
-              <UserEmail user={user} />
-              { this.state.showTab === 'teams' || this.state.showTab === 'workspaces' ? <SwitchTeamsComponent user={user} /> : null}
-              { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
-              { this.state.showTab === 'security' ? <UserSecurity user={user} /> : null}
-            </div>
-          }
         </div>
       </PageTitle>
     );

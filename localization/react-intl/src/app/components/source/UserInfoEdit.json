@@ -4,12 +4,13 @@
     "defaultMessage": "Name"
   },
   {
-    "id": "userInfoEdit.sourceBio",
-    "defaultMessage": "Bio"
-  },
-  {
     "id": "userInfoEdit.userEmail",
     "defaultMessage": "Email"
+  },
+  {
+    "id": "userInfoEdit.emailInputHint",
+    "description": "Text field input help text about the format of an email address",
+    "defaultMessage": "email@example.com"
   },
   {
     "id": "userInfoEdit.userSendEmailNotification",

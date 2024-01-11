@@ -9,7 +9,8 @@
     padding: 16px;
     width: 100%;
 
-    .user-info-wrapper {
+    .user-info-wrapper,
+    .user-info-tabs-wrapper {
       align-items: flex-start;
       background-color: var(--otherWhite);
       border-radius: 8px;
@@ -46,6 +47,20 @@
           gap: 8px;
           margin: 0 0 16px;
         }
+      }
+
+      + .user-info-wrapper {
+        margin: 16px 0 0;
+      }
+    }
+
+    .user-info-tabs-wrapper {
+      flex-direction: column;
+      gap: 16px;
+      margin: 16px 0 0;
+
+      .user-info-tabs-content {
+        width: 100%;
       }
     }
   }
