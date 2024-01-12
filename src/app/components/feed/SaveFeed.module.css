@@ -114,3 +114,46 @@
 .invitedEmail {
   line-height: 20px;
 }
+
+.dataPointsTitle {
+  margin-bottom: 16px;
+}
+
+.dataPointsSection {
+  border: 1px solid var(--grayBorderMain);
+  border-radius: 5px;
+  margin-top: 8px;
+  padding: 8px 8px 0;
+
+  ul {
+    padding: 8px 16px;
+  }
+
+  li {
+    list-style-type: disc;
+  }
+}
+
+.dataPointsSectionHeader {
+  display: flex;
+  gap: 16px;
+}
+
+.dataPointsSectionBody {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s;
+}
+
+.dataPointsSectionBodyContent {
+  padding: 8px 0;
+}
+
+.dataPointsSectionExpanded {
+  max-height: 800px; /* Just for the animation */
+  overflow: visible;
+}
+
+.feedContentCard {
+  background: var(--brandBackground);
+}
