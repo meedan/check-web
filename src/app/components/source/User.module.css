@@ -9,6 +9,11 @@
     padding: 16px;
     width: 100%;
 
+    .StyledAvatarEditButton {
+      margin: 8px 0 0;
+      width: 100%;
+    }
+
     .user-info-wrapper,
     .user-info-tabs-wrapper {
       align-items: flex-start;

@@ -2,7 +2,6 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import LinkifyIt from 'linkify-it';
 import cx from 'classnames/bind';
 import Alert from '../cds/alerts-and-prompts/Alert';
@@ -16,9 +15,6 @@ import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMu
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import { getErrorMessage, capitalize } from '../../helpers';
-import {
-  StyledAvatarEditButton,
-} from '../../styles/js/HeaderCard';
 import { stringHelper } from '../../customHelpers';
 import styles from './User.module.css';
 import AddIcon from '../../icons/add.svg';
@@ -469,14 +465,16 @@ class UserInfoEdit extends React.Component {
               className="source__avatar"
             />
             {!this.state.editProfileImg ?
-              <StyledAvatarEditButton className="source__edit-avatar-button">
-                <Button
-                  onClick={this.handleEditProfileImg.bind(this)}
-                  color="primary"
-                >
+              <ButtonMain
+                className={styles.StyledAvatarEditButton}
+                theme="brand"
+                variant="text"
+                size="default"
+                onClick={this.handleEditProfileImg.bind(this)}
+                label={
                   <FormattedMessage id="global.edit" defaultMessage="Edit" description="Generic label for a button or link for a user to press when they wish to edit content or functionality" />
-                </Button>
-              </StyledAvatarEditButton>
+                }
+              />
               : null}
           </div>
 

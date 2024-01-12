@@ -7,13 +7,6 @@ import {
 
 // FIXME: Highly deprecated stuff
 // TODO: Do not reuse these components and replace any usage with updated solutions
-
-export const StyledAvatarEditButton = styled.div`
-  button {
-    min-width: 72px!important;
-  }
-`;
-
 export const StyledTwoColumns = styled(Row)`
   align-items: flex-start;
 `;
