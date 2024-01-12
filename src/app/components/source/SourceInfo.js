@@ -338,7 +338,7 @@ function SourceInfo({
                 <FormattedMessage
                   id="sourceInfo.saved"
                   defaultMessage="Saved {ago}"
-                  description="Caption value for how long ago a save occured"
+                  description="Caption value for how long ago a save occurred"
                   values={{
                     ago: <TimeBefore date={parseStringUnixTimestamp(source.updated_at)} />,
                   }}

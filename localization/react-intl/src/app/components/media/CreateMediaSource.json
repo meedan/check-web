@@ -5,16 +5,6 @@
     "defaultMessage": "Please enter a valid URL"
   },
   {
-    "id": "global.cancel",
-    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "createMediaSource.createSource",
-    "description": "Label for button to create a new source",
-    "defaultMessage": "Create source"
-  },
-  {
     "id": "sourceInfo.createNew",
     "description": "Create a new media source label",
     "defaultMessage": "Create new"
@@ -25,19 +15,19 @@
     "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"
   },
   {
-    "id": "sourceInfo.mainName",
-    "description": "Source name",
-    "defaultMessage": "Main name"
+    "id": "sourceInfo.sourceNamePlaceholder",
+    "description": "placeholder for create source name",
+    "defaultMessage": "Add a name for this source"
   },
   {
     "id": "sourceInfo.sourceName",
     "description": "label for create source name",
-    "defaultMessage": "Add name"
+    "defaultMessage": "Main Source Name"
   },
   {
-    "id": "sourceInfo.mainAccount",
-    "description": "URL for first account related to media souce",
-    "defaultMessage": "Main source URL"
+    "id": "sourceInfo.primaryLinkPlaceholder",
+    "description": "placeholder for create source main url",
+    "defaultMessage": "Add a main URL for this source"
   },
   {
     "id": "sourceInfo.primaryLink",
@@ -58,5 +48,15 @@
     "id": "sourceInfo.addLink",
     "description": "allow user to relate a new link to media source",
     "defaultMessage": "Add a secondary URL"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "createMediaSource.createSource",
+    "description": "Label for button to create a new source",
+    "defaultMessage": "Create source"
   }
 ]
