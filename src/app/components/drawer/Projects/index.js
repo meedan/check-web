@@ -3,20 +3,27 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import ProjectsComponent from './ProjectsComponent';
+import FeedsComponent from './FeedsComponent';
 
-const renderQuery = ({ error, props }) => {
+const renderQuery = ({ error, props, drawerType }) => {
   if (!error && props) {
     const feedsCreated = props.team.feeds.edges.map(f => f.node).filter(f => f.team_id === props.team.dbid);
     const feedsJoined = props.team.feed_teams.edges.map(ft => ft.node).filter(ft => !feedsCreated.find(f => f.dbid === ft.feed_id));
     const feedsInvited = props.me.feed_invitations.edges.map(f => f.node).filter(fi => fi.state === 'invited');
     const feeds = [].concat(feedsCreated, feedsJoined, feedsInvited);
     return (
-      <ProjectsComponent
-        currentUser={props.me}
-        team={props.team}
-        savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
-        feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
-      />
+      drawerType === 'default' ?
+        <ProjectsComponent
+          currentUser={props.me}
+          team={props.team}
+          savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
+          feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
+        />
+        :
+        <FeedsComponent
+          team={props.team}
+          feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
+        />
     );
   }
 
@@ -24,7 +31,7 @@ const renderQuery = ({ error, props }) => {
   return null;
 };
 
-const Projects = () => {
+const Projects = ({ drawerType }) => {
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
 
@@ -116,7 +123,7 @@ const Projects = () => {
       variables={{
         teamSlug,
       }}
-      render={renderQuery}
+      render={({ error, props }) => renderQuery({ error, props, drawerType })}
     />
   );
 };

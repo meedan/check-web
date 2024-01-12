@@ -7,6 +7,7 @@ import HelpIcon from '../../icons/help.svg';
 import InfoIcon from '../../icons/info.svg';
 import QuestionAnswerIcon from '../../icons/question_answer.svg';
 import SettingsIcon from '../../icons/settings.svg';
+import FeedIcon from '../../icons/dynamic_feed.svg';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
 import ChevronLeftIcon from '../../icons/chevron_left.svg';
 import styles from './DrawerRail.module.css';
@@ -48,14 +49,29 @@ const DrawerRail = (props) => {
 
   const {
     drawerOpen,
+    drawerType,
+    onDrawerTypeChange,
     onDrawerOpenChange,
     team,
     currentUserIsMember,
   } = props;
 
-  const setDrawerOpenChange = () => {
-    onDrawerOpenChange(!drawerOpen);
-    window.storage.set('drawer.isOpen', !drawerOpen);
+
+  const setDrawerOpenChange = (newDrawerType) => {
+    const currentDrawerType = drawerType;
+    // if drawer is open and we click on the other button, change it
+    if (drawerOpen && currentDrawerType !== newDrawerType) {
+      onDrawerTypeChange(newDrawerType);
+      onDrawerOpenChange(drawerOpen);
+    // if drawer is open and we click on the same button that opened it, close it
+    } else if (drawerOpen && currentDrawerType === newDrawerType) {
+      onDrawerOpenChange(!drawerOpen);
+      onDrawerTypeChange(newDrawerType);
+    // if drawer is close we can click on any button to open it
+    } else if (!drawerOpen) {
+      onDrawerOpenChange(!drawerOpen);
+      onDrawerTypeChange(newDrawerType);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +96,7 @@ const DrawerRail = (props) => {
             >
               <TeamAvatar className={styles.teamLogo} size="44px" team={props.team} />
             </Link>
-            <button type="button" className={`${styles.railIconButton} ${drawerOpen ? 'side-navigation__toggle-open' : 'side-navigation__toggle-closed'}`} id="side-navigation__toggle" onClick={setDrawerOpenChange}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
+            <button type="button" className={`${styles.railIconButton} ${drawerOpen ? 'side-navigation__toggle-open' : 'side-navigation__toggle-closed'}`} id="side-navigation__toggle" onClick={() => setDrawerOpenChange('default')}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
           </div>
           <div className={styles.drawerRailMiddle}>
             <Link
@@ -90,6 +106,9 @@ const DrawerRail = (props) => {
             >
               <QuestionAnswerIcon />
             </Link>
+            <button type="button" className={`${styles.railIconButton} ${drawerOpen ? 'side-navigation__toggle-open' : 'side-navigation__toggle-closed'}`} id="side-navigation__toggle" onClick={() => setDrawerOpenChange('feed')}>
+              <FeedIcon />
+            </button>
             <Link
               className={[styles.railIconLink, isSettingsPage ? styles.railIconLinkActive : ''].join(' ')}
               to={`/${props.team.slug}/settings`}
