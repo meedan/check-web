@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import {
   mediaQuery,
-  units,
   Row,
 } from './shared';
 
@@ -21,9 +20,9 @@ export const StyledTwoColumns = styled(Row)`
 
 export const StyledSmallColumn = styled.div`
   flex: 0;
-  margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
+  margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: 16px;
   ${mediaQuery.desktop`
-    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(3)};
+    margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: 24px;
   `}
   justify-content: center;
   flex-shrink: 0;

@@ -5,20 +5,15 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import HighlightOffIcon from '../icons/cancel.svg';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import ClearIcon from '../icons/clear.svg';
 import CircularProgress from './CircularProgress';
 import { unhumanizeSize } from '../helpers';
-import {
-  Row,
-  units,
-  StyledIconButton,
-} from '../styles/js/shared';
-
-const previewSize = units(10);
 
 const StyledUploader = styled.div`
     display: flex;
-    margin: ${units(1)} 0 ${units(2)};
+    gap: 8px;
+    margin: 8px 0 16px;
     align-items: center;
 
     .with-file,
@@ -30,15 +25,9 @@ const StyledUploader = styled.div`
       display: flex;
       height: auto;
       justify-content: center;
-      padding: ${units(3)};
+      padding: 24px;
       text-align: center;
       width: 100%;
-    }
-
-    #remove-image {
-      color: var(--textDisabled);
-      cursor: pointer;
-      margin: 0;
     }
 `;
 
@@ -48,7 +37,7 @@ const NoPreview = styled.span`
   height: 0;
   width: 0;
   display: block;
-  margin: ${units(2)} 0 0;
+  margin: 16px 0 0;
   position: relative;
 `;
 
@@ -59,8 +48,8 @@ const Preview = styled.span`
   background-size: contain;
   display: block;
   position: relative;
-  height: ${previewSize};
-  width: ${previewSize};
+  height: 80px;
+  width: 80px;
 `;
 
 const UploadMessage = ({ type, about }) => {
@@ -213,13 +202,20 @@ class UploadFileComponent extends React.PureComponent {
 
     if (value) {
       return (
-        <Row>
+        <div style={{ display: 'flex' }}>
           {noPreview ? <NoPreview /> : <Preview image={value.preview} />}
           <span className="no-preview" />
-          <StyledIconButton id="remove-image" onClick={this.onDelete}>
-            <HighlightOffIcon />
-          </StyledIconButton>
-        </Row>
+          <ButtonMain
+            iconCenter={<ClearIcon />}
+            variant="contained"
+            size="small"
+            theme="text"
+            onClick={this.onDelete}
+            buttonProps={{
+              id: 'remove-image',
+            }}
+          />
+        </div>
       );
     }
     return null;

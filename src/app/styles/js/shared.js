@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from 'styled-components';
-import IconButton from '@material-ui/core/IconButton';
 
 // Styles for overriding material UI
 // Check Design System Colors
@@ -344,14 +343,4 @@ export const Column = styled.div`
   height: calc(100vh - 64px);
   max-height: calc(100vh - 64px);
   overflow: ${props => props.overflow ? props.overflow : 'auto'};
-`;
-
-// It seems that this component is not centered in Material UI 0.x
-// So we must always use this wrapper, or similar.
-export const StyledIconButton = styled(IconButton)`
-  font-size: 20px !important;
-  svg {
-    color: var(--textDisabled) !important;
-    margin: 0!important;
-  }
 `;
