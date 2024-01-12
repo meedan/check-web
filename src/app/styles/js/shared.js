@@ -310,8 +310,6 @@ export const mediaQuery = {
 export const Row = styled.div`
   display: flex;
   ${props => props.flexWrap ? 'flex-wrap: wrap;' : 'flex-wrap: nowrap;'}
-  ${props => props.alignTop ? 'align-items: top;' : 'align-items: center;'}
-  ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
 `;
 
 // FadeIn
