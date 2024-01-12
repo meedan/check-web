@@ -10,7 +10,7 @@ import styles from './SelectList.module.css';
 
 const SelectListQueryRenderer = ({
   required,
-  helperText,
+  label,
   onChange,
   onRemove,
   value,
@@ -87,7 +87,7 @@ const SelectListQueryRenderer = ({
                   value={value}
                   onChange={onChange}
                   onRemove={onRemove}
-                  helpContent={helperText}
+                  label={label}
                 >
                   <option value={null}>{selectLabel}</option>
                   { props.team.saved_searches.edges.map(l => (
@@ -106,14 +106,16 @@ const SelectListQueryRenderer = ({
 );
 
 SelectListQueryRenderer.defaultProps = {
-  helperText: null,
+  required: true,
+  label: null,
   onChange: null,
   onRemove: null,
   value: null,
 };
 
 SelectListQueryRenderer.propTypes = {
-  helperText: PropTypes.node,
+  required: PropTypes.bool,
+  label: PropTypes.node,
   onChange: PropTypes.func,
   onRemove: PropTypes.func,
   value: PropTypes.oneOfType([
