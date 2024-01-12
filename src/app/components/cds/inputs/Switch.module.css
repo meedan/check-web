@@ -95,6 +95,7 @@
     .switch {
       :global(+ .MuiFormControlLabel-label) {
         color: var(--textPlaceholder);
+        cursor: default;
       }
     }
   }
