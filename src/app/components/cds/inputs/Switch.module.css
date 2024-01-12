@@ -92,10 +92,13 @@
   }
 
   &.switch-disabled {
+    :global(.MuiFormControlLabel-root) {
+      cursor: default;
+    }
+
     .switch {
       :global(+ .MuiFormControlLabel-label) {
         color: var(--textPlaceholder);
-        cursor: default;
       }
     }
   }
