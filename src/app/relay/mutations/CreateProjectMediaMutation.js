@@ -119,7 +119,6 @@ class CreateProjectMediaMutation extends Relay.Mutation {
             medias_count
             team {
               id
-              medias_count
             }
           },
           project_group {
