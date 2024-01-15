@@ -11,20 +11,23 @@ const renderQuery = ({ error, props, drawerType }) => {
     const feedsJoined = props.team.feed_teams.edges.map(ft => ft.node).filter(ft => !feedsCreated.find(f => f.dbid === ft.feed_id));
     const feedsInvited = props.me.feed_invitations.edges.map(f => f.node).filter(fi => fi.state === 'invited');
     const feeds = [].concat(feedsCreated, feedsJoined, feedsInvited);
-    return (
-      drawerType === 'default' ?
+    if (drawerType === 'default') {
+      return (
         <ProjectsComponent
           currentUser={props.me}
           team={props.team}
           savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
           feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
         />
-        :
+      );
+    } else if (drawerType === 'feed') {
+      return (
         <FeedsComponent
           team={props.team}
           feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
         />
-    );
+      );
+    }
   }
 
   // TODO: We need a better error handling in the future, standardized with other components

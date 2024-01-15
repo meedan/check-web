@@ -7,7 +7,7 @@
   {
     "id": "projectsComponent.sharedFeeds",
     "description": "Feeds of content shared across workspaces",
-    "defaultMessage": "Colaborating [{feedsLength}]"
+    "defaultMessage": "Collaborating [{feedsLength}]"
   },
   {
     "id": "projectsComponent.newSharedFeed",

@@ -33,17 +33,22 @@ const messages = defineMessages({
     defaultMessage: 'About',
     description: 'Legal link tooltip in drawer rail navigation',
   },
+  feedDescription: {
+    id: 'workspaceMenu.teamFeeds',
+    defaultMessage: 'Shared Feeds',
+    description: 'Tooltip for drawer navigation to shared feeds',
+  },
 });
 
 const DrawerRail = (props) => {
   const testPath = window.location.pathname;
   const isSettingsPage = /\/settings\/[a-zA-Z0-9]+/.test(testPath);
   const isMediaPage = /\/media\/[0-9]+/.test(testPath);
-  const isFeedPage = /\/feed\/[0-9]+\/(request|cluster)\/[0-9]+/.test(testPath);
+  const isFeedPage = /\/team-2408\/feed\//.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
   const isUserSettingsPage = teamSlug === 'check';
-  const isTipline = !isUserSettingsPage && !isSettingsPage;
+  const isTipline = !isUserSettingsPage && !isSettingsPage && !isFeedPage;
   const pathParts = testPath.split('/');
   const [activeItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
 
@@ -57,32 +62,33 @@ const DrawerRail = (props) => {
   } = props;
 
 
-  const setDrawerOpenChange = (newDrawerType) => {
+  const setDrawerTypeChange = (newDrawerType) => {
     const currentDrawerType = drawerType;
-    // if drawer is open and we click on the other button, change it
+    // if drawer is open and we click on the other button, change the content
     if (drawerOpen && currentDrawerType !== newDrawerType) {
-      onDrawerTypeChange(newDrawerType);
-      onDrawerOpenChange(drawerOpen);
-    // if drawer is open and we click on the same button that opened it, close it
-    } else if (drawerOpen && currentDrawerType === newDrawerType) {
-      onDrawerOpenChange(!drawerOpen);
-      onDrawerTypeChange(newDrawerType);
-    // if drawer is close we can click on any button to open it
-    } else if (!drawerOpen) {
-      onDrawerOpenChange(!drawerOpen);
       onDrawerTypeChange(newDrawerType);
     }
   };
 
+  const setDrawerOpenChange = () => {
+    onDrawerOpenChange(!drawerOpen);
+  };
+
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
-      if (isMediaPage || isFeedPage || isSettingsPage || teamSlug === 'check' || !teamSlug) {
+      if (isMediaPage || isSettingsPage || teamSlug === 'check' || !teamSlug) {
         onDrawerOpenChange(false);
       } else if (window.storage.getValue('drawer.isOpen')) {
         onDrawerOpenChange(true);
       }
+      if (isFeedPage) {
+        onDrawerTypeChange('feed');
+      } else {
+        onDrawerTypeChange('default');
+      }
     }
   }, [testPath, teamSlug, activeItem]);
+
 
   return (
     <div className={styles.drawerRail}>
@@ -96,17 +102,24 @@ const DrawerRail = (props) => {
             >
               <TeamAvatar className={styles.teamLogo} size="44px" team={props.team} />
             </Link>
-            <button type="button" className={`${styles.railIconButton} ${drawerOpen ? 'side-navigation__toggle-open' : 'side-navigation__toggle-closed'}`} id="side-navigation__toggle" onClick={() => setDrawerOpenChange('default')}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
+            <button type="button" className={`${styles.railIconButton} ${drawerOpen ? 'side-navigation__toggle-open' : 'side-navigation__toggle-closed'}`} id="side-navigation__toggle" onClick={() => setDrawerOpenChange()}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
           </div>
           <div className={styles.drawerRailMiddle}>
             <Link
               className={[styles.railIconLink, isTipline ? styles.railIconLinkActive : ''].join(' ')}
               to={`/${props.team.slug}/all-items`}
+              onClick={() => setDrawerTypeChange('default')}
               title={props.intl.formatMessage(messages.tiplineDescription)}
             >
               <QuestionAnswerIcon />
             </Link>
-            <button type="button" className={`${styles.railIconButton} ${drawerOpen ? 'side-navigation__toggle-open' : 'side-navigation__toggle-closed'}`} id="side-navigation__toggle" onClick={() => setDrawerOpenChange('feed')}>
+            <button
+              type="button"
+              className={`${styles.railIconLink} ${isFeedPage ? styles.railIconLinkActive : ''}`}
+              id="side-navigation__feed-toggle"
+              onClick={() => setDrawerTypeChange('feed')}
+              title={props.intl.formatMessage(messages.feedDescription)}
+            >
               <FeedIcon />
             </button>
             <Link

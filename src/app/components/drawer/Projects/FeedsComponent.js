@@ -39,9 +39,6 @@ const FeedsComponent = ({
     return (inStore === 'true');
   };
 
-  // eslint-disable-next-line
-  console.log("feedss: ", feeds)
-
   const [feedsExpanded, setFeedsExpanded] =
     React.useState(getBooleanPref('drawer.feedsExpanded', true));
 
@@ -88,11 +85,10 @@ const FeedsComponent = ({
             <FormattedMessage
               tagName="span"
               id="projectsComponent.sharedFeeds"
-              defaultMessage="Colaborating [{feedsLength}]"
+              defaultMessage="Collaborating [{feedsLength}]"
               description="Feeds of content shared across workspaces"
               values={{ feedsLength: feeds.length }}
             />
-
             <Can permissions={team.permissions} permission="create Feed">
               <Tooltip arrow title={<FormattedMessage id="projectsComponent.newSharedFeed" defaultMessage="New shared feed" description="Tooltip for the button that navigates to shared feed creation page" />}>
                 <span className={styles.listHeaderLabelButton}>
