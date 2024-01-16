@@ -499,7 +499,7 @@ const SandboxComponent = ({ admin }) => {
               suggestionsCount={567890}
               requestsCount={7890}
               lastRequestDate={new Date('2023-12-15T17:19:40Z')}
-              factCheckUrl={listItemFactCheckLink && 'https://example.com'}
+              factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
             />
             <div

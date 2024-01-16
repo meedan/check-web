@@ -133,6 +133,12 @@
     font-size: var(--fontSizeSmall);
     gap: 3px;
 
+    div {
+      display: grid;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     svg {
       font-size: var(--iconSizeTiny);
     }

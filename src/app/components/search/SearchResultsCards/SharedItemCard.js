@@ -20,7 +20,9 @@ import styles from './ItemCard.module.css';
 const SharedItemCard = ({
   channels,
   date,
+  dataPoints,
   description,
+  factCheckCount,
   factCheckUrl,
   intl,
   lastRequestDate,
@@ -34,6 +36,10 @@ const SharedItemCard = ({
   const maxWorkspaces = 5;
   const renderedWorkspaces = workspaces.slice(0, maxWorkspaces);
   const extraWorkspaces = workspaces.slice(maxWorkspaces, Infinity).map(workspace => <li>{workspace.name}</li>);
+
+  // TODO: base off mapping in Caio's PR
+  const feedContainsMediaRequests = dataPoints.includes(1);
+  const feedContainsFactChecks = dataPoints.includes(2);
 
   return (
     <div className={`${styles.itemCard} shared-item--card`}>
@@ -158,7 +164,17 @@ const SharedItemCard = ({
           </div>
         </div>
         <div className={styles.sharedItemCardRight}>
-          { date ? <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} /> : null }
+          { (date && feedContainsMediaRequests && !feedContainsFactChecks) ? <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} /> : null }
+          { (factCheckCount && feedContainsMediaRequests && feedContainsFactChecks) ? (
+            <ButtonMain
+              disabled
+              size="small"
+              theme="brand"
+              iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} /> : <MediaIcon />}
+              variant="contained"
+              label={getCompactNumber(intl.locale, mediaCount)}
+            />
+          ) : null }
         </div>
       </Card>
     </div>
@@ -166,31 +182,32 @@ const SharedItemCard = ({
 };
 
 SharedItemCard.defaultProps = {
-  description: null,
-  factCheckUrl: null,
-  date: null,
-  mediaCount: null,
-  requestsCount: null,
-  lastRequestDate: null,
   channels: null,
+  dataPoints: [],
+  date: null,
+  description: null,
+  factCheckCount: null,
+  factCheckUrl: null,
+  lastRequestDate: null,
+  mediaCount: null,
   mediaThumbnail: null,
   mediaType: null,
+  requestsCount: null,
 };
 
 SharedItemCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  factCheckUrl: PropTypes.string,
-  date: PropTypes.instanceOf(Date),
-  lastRequestDate: PropTypes.instanceOf(Date),
-  mediaCount: PropTypes.number,
-  requestsCount: PropTypes.number,
-  intl: intlShape.isRequired,
   channels: PropTypes.exact({
     main: PropTypes.number,
     others: PropTypes.arrayOf(PropTypes.number),
   }),
-  mediaType: PropTypes.string,
+  dataPoints: PropTypes.arrayOf(PropTypes.number),
+  date: PropTypes.instanceOf(Date),
+  description: PropTypes.string,
+  factCheckCount: PropTypes.number,
+  factCheckUrl: PropTypes.string,
+  intl: intlShape.isRequired,
+  lastRequestDate: PropTypes.instanceOf(Date),
+  mediaCount: PropTypes.number,
   mediaThumbnail: PropTypes.exact({
     media: PropTypes.exact({
       picture: PropTypes.string, // url
@@ -199,9 +216,12 @@ SharedItemCard.propTypes = {
     }),
     show_warning_cover: PropTypes.bool,
   }),
+  mediaType: PropTypes.string,
+  requestsCount: PropTypes.number,
+  title: PropTypes.string.isRequired,
   workspaces: PropTypes.arrayOf(PropTypes.exact({
-    url: PropTypes.string,
     name: PropTypes.string,
+    url: PropTypes.string,
   })).isRequired,
 };
 
