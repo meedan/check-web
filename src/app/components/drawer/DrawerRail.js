@@ -44,7 +44,7 @@ const DrawerRail = (props) => {
   const testPath = window.location.pathname;
   const isSettingsPage = /\/settings\/[a-zA-Z0-9]+/.test(testPath);
   const isMediaPage = /\/media\/[0-9]+/.test(testPath);
-  const isFeedPage = /\/team-2408\/feed\//.test(testPath);
+  const isFeedPage = /^\/[^/]+\/feed\//.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
   const isUserSettingsPage = teamSlug === 'check';

@@ -17,7 +17,6 @@ const renderQuery = ({ error, props, drawerType }) => {
           currentUser={props.me}
           team={props.team}
           savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
-          feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
         />
       );
     } else if (drawerType === 'feed') {
