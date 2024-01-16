@@ -60,6 +60,16 @@
     "defaultMessage": "Conversations are 24-hour message threads between you and your users. They are opened when messages sent by Check to users are delivered."
   },
   {
+    "id": "teamDataComponent.whatsappConversationsUser",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Service conversations are user-initiated. They are opened by the first message sent by the bot in response to a customer's message."
+  },
+  {
+    "id": "teamDataComponent.whatsappConversationsBusiness",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Marketing conversations are business-initiated, and opened by the first message sent by the bot in response to a customer's message."
+  },
+  {
     "id": "teamDataComponent.positiveSearches",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
     "defaultMessage": "Number of user searches that returned at least one report."

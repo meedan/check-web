@@ -79,6 +79,16 @@ const messages = defineMessages({
     defaultMessage: 'Conversations are 24-hour message threads between you and your users. They are opened when messages sent by Check to users are delivered.',
     description: messagesDescription,
   },
+  whatsappConversationsUser: {
+    id: 'teamDataComponent.whatsappConversationsUser',
+    defaultMessage: "Service conversations are user-initiated. They are opened by the first message sent by the bot in response to a customer's message.",
+    description: messagesDescription,
+  },
+  whatsappConversationsBusiness: {
+    id: 'teamDataComponent.whatsappConversationsBusiness',
+    defaultMessage: "Marketing conversations are business-initiated, and opened by the first message sent by the bot in response to a customer's message.",
+    description: messagesDescription,
+  },
   positiveSearches: {
     id: 'teamDataComponent.positiveSearches',
     defaultMessage: 'Number of user searches that returned at least one report.',
@@ -168,6 +178,8 @@ const TeamDataComponent = ({
 
   const helpMessages = {
     'WhatsApp conversations': intl.formatMessage(messages.whatsappConversations),
+    'WhatsApp marketing conversations (business-initiated)': intl.formatMessage(messages.whatsappConversationsBusiness),
+    'WhatsApp service conversations (user-initiated)': intl.formatMessage(messages.whatsappConversationsUser),
     'Unique users': intl.formatMessage(messages.uniqueUsers),
     'Returning users': intl.formatMessage(messages.returningUsers),
     'Published reports': intl.formatMessage(messages.publishedReports),
