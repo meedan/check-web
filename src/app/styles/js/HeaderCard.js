@@ -20,7 +20,3 @@ export const StyledSmallColumn = styled.div`
   justify-content: center;
   flex-shrink: 0;
 `;
-
-export const StyledBigColumn = styled.div`
-  flex: 3;
-`;

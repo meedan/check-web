@@ -14,7 +14,6 @@ import { truncateLength } from '../../helpers';
 import { units } from '../../styles/js/shared';
 import {
   StyledTwoColumns,
-  StyledBigColumn,
 } from '../../styles/js/HeaderCard';
 
 const StyledMdLaunch = styled.div`
@@ -98,7 +97,7 @@ function UserTooltipComponent({ teamUser }) {
           />
         </StyledSmallColumnTooltip>
 
-        <StyledBigColumn>
+        <div style={{ flex: '3' }}>
           <div className="tooltip__primary-info">
             <strong className="tooltip__name typography-body2" style={{ fontWeight: 500 }}>
               {user.name}
@@ -134,7 +133,7 @@ function UserTooltipComponent({ teamUser }) {
           {source?.account_sources?.edges.map(({ node: { account: { id, url, provider } } }) => (
             <AccountLink key={id} url={url} provider={provider} />
           ))}
-        </StyledBigColumn>
+        </div>
       </StyledTwoColumns>
     </StyledTooltip>
   );

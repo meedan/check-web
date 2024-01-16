@@ -20,7 +20,7 @@ import SettingsHeader from './SettingsHeader';
 import TeamMemberActions from './TeamMemberActions';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
+import { StyledTwoColumns, StyledSmallColumn } from '../../styles/js/HeaderCard';
 import settingsStyles from './Settings.module.css';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 
@@ -182,7 +182,7 @@ const TeamMembersComponent = ({
                       <StyledSmallColumn>
                         <Avatar alt={tu.node.user.name} src={tu.node.user.profile_image} />
                       </StyledSmallColumn>
-                      <StyledBigColumn>
+                      <div style={{ flex: '3' }}>
                         { tu.node.status === 'invited' ? (
                           <React.Fragment>
                             <div
@@ -212,7 +212,7 @@ const TeamMembersComponent = ({
                             </div>
                           </React.Fragment>
                         )}
-                      </StyledBigColumn>
+                      </div>
                     </StyledTwoColumns>
                   </TableCell>
                   <TableCell className={classes.dateCell}>
