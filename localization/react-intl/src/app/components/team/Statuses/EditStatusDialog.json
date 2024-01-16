@@ -10,9 +10,14 @@
     "defaultMessage": "Add a new status"
   },
   {
+    "id": "editStatusDialog.statusTitlePlaceholder",
+    "description": "Text field placeholder for the status name",
+    "defaultMessage": "Enter status label"
+  },
+  {
     "id": "editStatusDialog.statusTitle",
     "description": "Text field label for the status name",
-    "defaultMessage": "Status ({maxLength} characters max)"
+    "defaultMessage": "Status"
   },
   {
     "id": "editStatusDialog.statusDescription",

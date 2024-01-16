@@ -1,5 +1,4 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
@@ -40,7 +39,7 @@ const BlankMediaButton = ({
   const handleSuccess = (projectMediaDbid) => {
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     const newPath = `/${teamSlug}/media/${projectMediaDbid}`;
-    browserHistory.push(newPath);
+    window.location.assign(newPath);
   };
 
   const handleSubmitExisting = (projectMedia) => {
