@@ -15,21 +15,6 @@
     "defaultMessage": "published by"
   },
   {
-    "id": "annotation.menuTooltip",
-    "description": "Tooltip for the annotation actions menu icon button",
-    "defaultMessage": "Annotation actions"
-  },
-  {
-    "id": "annotation.deleteButton",
-    "description": "Menu item for deleting an annotation",
-    "defaultMessage": "Delete"
-  },
-  {
-    "id": "annotation.permalink",
-    "description": "Menu item for getting a permanent url for an annotaion",
-    "defaultMessage": "Permalink"
-  },
-  {
     "id": "annotation.taggedHeader",
     "description": "Log entry indicating a tag was added",
     "defaultMessage": "Tag #{tag} added by {author}"
