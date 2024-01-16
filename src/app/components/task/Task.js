@@ -913,9 +913,6 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
                     id
                     dbid
                     name
-                    team_user(team_slug: $teamSlug) {
-                      ${ProfileLink.getFragment('teamUser')},
-                    },
                     source {
                       id
                       dbid
@@ -932,9 +929,6 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
                   dbid,
                   name,
                   is_active
-                  team_user(team_slug: $teamSlug) {
-                    ${ProfileLink.getFragment('teamUser')},
-                  },
                   source {
                     id,
                     dbid,
@@ -951,9 +945,6 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
               name
               id
               dbid
-              team_user(team_slug: $teamSlug) {
-                ${ProfileLink.getFragment('teamUser')},
-              },
               source {
                 id
                 dbid
@@ -975,9 +966,6 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
                 id
                 dbid
                 name
-                team_user(team_slug: $teamSlug) {
-                  ${ProfileLink.getFragment('teamUser')},
-                },
                 source {
                   id
                   dbid
@@ -994,9 +982,6 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
               dbid,
               name,
               is_active
-              team_user(team_slug: $teamSlug) {
-                ${ProfileLink.getFragment('teamUser')},
-              },
               source {
                 id,
                 dbid,
