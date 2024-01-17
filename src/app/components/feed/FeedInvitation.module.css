@@ -106,13 +106,19 @@
 }
 
 .feed-invitation-container {
-  align-self: stretch;
+  align-items: center;
+  align-self: center;
   display: flex;
+  flex-direction: column;
   gap: 32px;
-  justify-content: center;
+  height: 100%;
+  justify-content: flex-start;
+  overflow: auto;
   padding: 100px 0;
+  width: 100%;
 
   .feed-invitation-container-card {
+    align-self: center;
     width: 650px;
   }
 }

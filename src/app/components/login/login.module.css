@@ -1,0 +1,108 @@
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+
+  .login-logo {
+    display: block;
+    margin: 0 auto;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .login-container {
+    margin: 32px auto;
+    max-width: 500px;
+    padding: 0 16px;
+    width: 100%;
+
+    .login-form-alert {
+      margin: 0 0 16px;
+    }
+
+    .login-form {
+      background-color: var(--otherWhite);
+      border-radius: 16px;
+      margin: 16px auto;
+      padding: 32px;
+
+      h6 {
+        margin: 16px 0;
+        text-align: center;
+      }
+
+      .login-agree-terms {
+        margin: 16px 0;
+
+        p {
+          @mixin typography-body2;
+        }
+
+        label p {
+          margin: 0;
+        }
+
+        p:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      .login-form-invited {
+        margin: 24px 0;
+        text-align: center;
+      }
+
+      .login-form-choice {
+        color: var(--textSecondary);
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin: 0 0 24px;
+
+        .login-form-choice-divider {
+          align-items: center;
+          display: flex;
+          margin: 0 8px;
+          text-align: center;
+
+          &::before,
+          &::after {
+            background-color: var(--grayBorderMain);
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            width: auto;
+          }
+
+          p {
+            margin: 0;
+            padding-left: 16px;
+            padding-right: 16px;
+          }
+        }
+      }
+
+      .user-password-reset__actions,
+      .login-secondary-action {
+        margin: 16px 0 0;
+      }
+
+      .login-forgot-password-action {
+        display: block;
+        margin: 16px 0;
+        padding: 8px 0;
+        text-align: center;
+      }
+    }
+  }
+
+  footer {
+    @mixin typography-caption;
+    color: var(--textDisabled);
+    padding: 0 0 16px;
+    text-align: center;
+  }
+}

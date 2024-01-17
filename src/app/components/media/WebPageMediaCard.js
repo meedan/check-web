@@ -48,7 +48,7 @@ class WebPageMediaCard extends Component {
             }}
           />
           :
-          <div>
+          <>
             { projectMedia.picture ?
               <AspectRatio
                 key={contentWarning}
@@ -73,7 +73,7 @@ class WebPageMediaCard extends Component {
                 </Box>
               </div> : null
             }
-          </div>
+          </>
         }
       </article>
     );

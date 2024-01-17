@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import IconReport from '../../icons/playlist_add_check.svg';
+import IconReport from '../../icons/fact_check.svg';
 import IconUnpublishedReport from '../../icons/unpublished_report.svg';
 import TimeBefore from '../TimeBefore';
 import LanguagePickerSelect from '../cds/inputs/LanguagePickerSelect';
@@ -74,6 +74,13 @@ const MediaFactCheck = ({ projectMedia }) => {
                   language
                   user {
                     name
+                  }
+                  claim_description {
+                    project_media {
+                      title
+                      title_field
+                      custom_title
+                    }
                   }
                 }
               }

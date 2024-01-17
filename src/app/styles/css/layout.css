@@ -1,11 +1,16 @@
-html {
-  background: var(--otherWhite);
-}
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  background-color: var(--grayBackground);
 }
 
 body {

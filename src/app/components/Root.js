@@ -10,7 +10,7 @@ import RootLocale from './RootLocale';
 import NotFound from './NotFound';
 import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
-import UserPasswordReset from './UserPasswordReset';
+import UserPasswordReset from './login/UserPasswordReset';
 import ErrorBoundary from './error/ErrorBoundary';
 import User from './source/User';
 import Me from './source/Me';
@@ -23,7 +23,7 @@ import UnmatchedMedia from './team/UnmatchedMedia';
 import Published from './team/Published';
 import Spam from './team/Spam';
 import Trash from './team/Trash';
-import SaveFeed from './feed/SaveFeed';
+import CreateFeed from './feed/CreateFeed';
 import EditFeedTeam from './feed/EditFeedTeam';
 import Feed from './feed/Feed';
 import FeedItem from './feed/FeedItem';
@@ -112,7 +112,7 @@ class Root extends Component {
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
                   <Route path=":team/published(/:query)" component={Published} />
-                  <Route path=":team/feed/create" component={SaveFeed} />
+                  <Route path=":team/feed/create" component={CreateFeed} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
                   <Route path=":team/feed/:feedId/invitation" component={FeedInvitationRespond} />
                   <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />

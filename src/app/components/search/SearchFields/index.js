@@ -66,8 +66,8 @@ const messages = defineMessages({
   },
   twitter: {
     id: 'search.twitter',
-    defaultMessage: 'Twitter post',
-    description: 'Allow user to filter items by twitter posts',
+    defaultMessage: 'X (Twitter) post',
+    description: 'Allow user to filter items by x (twitter) posts',
   },
   tiktok: {
     id: 'search.tiktok',

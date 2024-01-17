@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import MediaTasks from './MediaTasks';
-import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaSource from './MediaSource';
 import MediaSuggestions from './Similarity/MediaSuggestions';
@@ -85,27 +84,11 @@ const MediaComponentRightPanel = ({
           value="source"
           className="media-tab__source"
         />
-        <Tab
-          label={
-            <span>
-              <FormattedMessage
-                id="mediaComponent.notes"
-                defaultMessage="Notes"
-                description="Label for the Notes tab, as in text notes"
-              />
-              {projectMedia.notes_count > 0 && ` [${projectMedia.notes_count}]`}
-            </span>
-          }
-          value="notes"
-          className="media-tab__comments"
-        />
       </Tabs>
-      { /* Set maxHeight to screen height - (media bar + tabs) */ }
       { showTab === 'requests' ? <MediaRequests media={projectMedia} all={!projectMedia.is_confirmed_similar_to_another_item} /> : null }
       { showTab === 'suggestedMedia' ? <MediaSuggestions dbid={projectMedia.dbid} teamDbid={projectMedia.team?.dbid} superAdminMask={superAdminMask} /> : null }
       { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
       { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
-      { showTab === 'notes' ? <MediaComments media={projectMedia} /> : null }
     </ErrorBoundary>
   );
 };

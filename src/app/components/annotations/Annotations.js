@@ -4,7 +4,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import cx from 'classnames/bind';
 import MediasLoading from '../media/MediasLoading';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
 import styles from '../media/media.module.css';
 
@@ -36,19 +35,7 @@ class Annotations extends React.Component {
     const hasMore = props.annotations.length < props.annotationsCount;
 
     return (
-      <div
-        className="annotations"
-        noLink={props.noLink}
-        noLastItemStretch={hasMore}
-      >
-        { props.showAddAnnotation &&
-          <AddAnnotation
-            annotated={props.annotated}
-            annotatedType={props.annotatedType}
-            types={props.types}
-          />
-        }
-
+      <div className="annotations">
         {!props.annotations.length ?
           <div className={cx('annotations__list', styles['empty-list'])}>
             { props.noActivityMessage || <FormattedMessage tagName="p" id="annotation.noAnnotationsYet" defaultMessage="No activity" description="Empty message for no activity in this type of annotation list" />}

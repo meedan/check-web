@@ -97,7 +97,7 @@
   {
     "id": "teamReportComponent.twitter",
     "description": "Label to twitter username field",
-    "defaultMessage": "Twitter account name"
+    "defaultMessage": "X (Twitter) account name"
   },
   {
     "id": "teamReportComponent.telegramFieldError",

@@ -15,6 +15,7 @@ else
   else
     i=0
     NGROK_URL=""
+    ngrok config add-authtoken $NGROK_AUTH
     while [ -z "$NGROK_URL" -a $i -lt 5 ]; do
       i=$(($i + 1))
       ngrok http 9000 >/dev/null &
@@ -48,5 +49,7 @@ else
   # tail -f check-api/log/test.log &
   # docker-compose logs -f api &
   # docker-compose logs -f alegre &
-  # docker-compose logs -f presto &
+  # docker-compose logs -f presto-server &
+  # docker-compose logs -f presto-image &
+  # docker-compose logs -f presto-audio &
 fi

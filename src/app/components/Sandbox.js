@@ -17,15 +17,19 @@ import { ToggleButton, ToggleButtonGroup } from './cds/inputs/ToggleButtonGroup'
 import Select from './cds/inputs/Select';
 import SwitchComponent from './cds/inputs/SwitchComponent';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import Checkbox from './cds/buttons-checkboxes-chips/Checkbox';
 import Reorder from './layout/Reorder';
 import AddIcon from '../icons/settings.svg';
 import CalendarIcon from '../icons/calendar_month.svg';
 import ListIcon from '../icons/list.svg';
 import FigmaColorLogo from '../icons/figma_color.svg';
 import Card from './cds/media-cards/Card.js';
+import FactCheckCard from './search/SearchResultsCards/FactCheckCard';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
+import ItemCard from './search/SearchResultsCards/ItemCard';
+import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -41,6 +45,85 @@ const SandboxComponent = ({ admin }) => {
     'fifth!',
     'This is Six',
   ]);
+
+  const mediaThumbnail = {
+    media: {
+      picture: 'https://example.com/image.jpg',
+      type: 'image',
+      url: 'https://example.com/image.jpg',
+    },
+    show_warning_cover: false,
+  };
+
+  const [listItemShared, setListItemShared] = React.useState(Boolean(true));
+  const [listItemCluster, setListItemCluster] = React.useState(Boolean(false));
+  const [listItemMedia, setListItemMedia] = React.useState(Boolean(true));
+  const [listItemRequests, setListItemRequests] = React.useState(Boolean(true));
+  const [listItemFactCheck, setListItemFactCheck] = React.useState(Boolean(true));
+  const [listItemFactCheckLink, setListItemFactCheckLink] = React.useState(Boolean(true));
+  const [listItemDescriptionLink, setListItemDescriptionLink] = React.useState(Boolean(true));
+  const [listItemDescription, setListItemDescription] = React.useState(Boolean(true));
+  const [listItemFactCheckPublished, setListItemFactCheckPublished] = React.useState(Boolean(true));
+  const [listItemSuggestions, setListItemSuggestions] = React.useState(Boolean(true));
+  const [listItemUnread, setListItemUnread] = React.useState(Boolean(true));
+
+  const onSetListItemShared = (shared) => {
+    if (!listItemCluster) {
+      setListItemDescriptionLink(false);
+      setListItemRequests(false);
+      setListItemMedia(false);
+    }
+    setListItemSuggestions(false);
+    setListItemUnread(false);
+    setListItemFactCheck(true);
+    setListItemFactCheckPublished(true);
+    setListItemShared(shared);
+  };
+
+  const onSetListItemCluster = (cluster) => {
+    if (cluster) {
+      setListItemRequests(true);
+      setListItemMedia(true);
+    } else {
+      setListItemDescriptionLink(false);
+      setListItemFactCheck(true);
+      setListItemFactCheckPublished(true);
+      setListItemRequests(false);
+      setListItemMedia(false);
+    }
+    setListItemCluster(cluster);
+  };
+
+  const onSetListItemMedia = (media) => {
+    if (media && listItemShared && listItemCluster) {
+      setListItemRequests(true);
+    } else if (!media && listItemShared && listItemCluster) {
+      setListItemRequests(false);
+    }
+    setListItemMedia(media);
+  };
+
+  const onSetListItemRequests = (requests) => {
+    if (requests && listItemShared && listItemCluster) {
+      setListItemMedia(true);
+    } else if (!requests && listItemShared && listItemCluster) {
+      setListItemMedia(false);
+    }
+    setListItemRequests(requests);
+  };
+
+  const onSetListItemFactCheck = (factcheck) => {
+    if (!factcheck && listItemShared) {
+      setListItemFactCheckLink(false);
+      setListItemFactCheckPublished(false);
+    } else if (factcheck && listItemShared) {
+      setListItemFactCheckPublished(true);
+    } else if (!factcheck) {
+      setListItemFactCheckLink(false);
+      setListItemFactCheckPublished(false);
+    }
+    setListItemFactCheck(factcheck);
+  };
 
   const [alertIcon, setAlertIcon] = React.useState(Boolean(true));
   const [alertButton, setAlertButton] = React.useState(Boolean(true));
@@ -89,6 +172,10 @@ const SandboxComponent = ({ admin }) => {
   const [languagePickerSelectLabel, setLanguagePickerSelectLabel] = React.useState(Boolean(true));
   const [languagePickerSelectDisabled, setLanguagePickerSelectDisabled] = React.useState(Boolean(false));
   const [languagePickerSelectHelp, setLanguagePickerSelectHelp] = React.useState(Boolean(false));
+
+  const [checkboxLabel, setCheckboxLabel] = React.useState(Boolean(true));
+  const [checkboxDisabled, setCheckboxDisabled] = React.useState(Boolean(false));
+  const [checkboxChecked, setCheckboxChecked] = React.useState(Boolean(false));
 
   const [selectLabel, setSelectLabel] = React.useState(Boolean(true));
   const [selectIconLeft, setSelectIconLeft] = React.useState(Boolean(true));
@@ -251,6 +338,195 @@ const SandboxComponent = ({ admin }) => {
           <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
         </li>
       </ul>
+      <section id="sandbox-row">
+        <h6>List Item</h6>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              ListItem
+              <a
+                href="https://www.figma.com/file/N1W1p7anE8xxekD7EyepVE/Shared-Feeds?type=design&node-id=2411-37415&mode=design"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Shared Feed"
+                  labelPlacement="top"
+                  checked={listItemShared}
+                  onChange={() => onSetListItemShared(!listItemShared)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Cluster of Media"
+                  labelPlacement="top"
+                  checked={listItemCluster}
+                  disabled={!listItemShared}
+                  onChange={() => onSetListItemCluster(!listItemCluster)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Media"
+                  labelPlacement="top"
+                  checked={listItemMedia}
+                  disabled={listItemShared && !listItemCluster}
+                  onChange={() => onSetListItemMedia(!listItemMedia)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Requests"
+                  labelPlacement="top"
+                  checked={listItemRequests}
+                  disabled={listItemShared && !listItemCluster}
+                  onChange={() => onSetListItemRequests(!listItemRequests)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Description"
+                  labelPlacement="top"
+                  checked={listItemDescription}
+                  onChange={() => setListItemDescription(!listItemDescription)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact-Check"
+                  labelPlacement="top"
+                  checked={listItemFactCheck}
+                  disabled={listItemShared && !listItemCluster}
+                  onChange={() => onSetListItemFactCheck(!listItemFactCheck)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact-Check Published"
+                  labelPlacement="top"
+                  checked={listItemFactCheckPublished}
+                  disabled={!listItemFactCheck || listItemShared}
+                  onChange={() => setListItemFactCheckPublished(!listItemFactCheckPublished)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact-Check Link"
+                  labelPlacement="top"
+                  checked={listItemFactCheckLink}
+                  disabled={!listItemFactCheck}
+                  onChange={() => setListItemFactCheckLink(!listItemFactCheckLink)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Description Link"
+                  labelPlacement="top"
+                  checked={listItemDescriptionLink}
+                  disabled={listItemShared && !listItemCluster}
+                  onChange={() => setListItemDescriptionLink(!listItemDescriptionLink)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Suggestions"
+                  labelPlacement="top"
+                  checked={listItemSuggestions}
+                  disabled={listItemShared}
+                  onChange={() => setListItemSuggestions(!listItemSuggestions)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Unread"
+                  labelPlacement="top"
+                  checked={listItemUnread}
+                  disabled={listItemShared}
+                  onChange={() => setListItemUnread(!listItemUnread)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <ItemCard
+              description="Hello"
+            />
+            <div
+              className={cx(
+                styles.listItem,
+                {
+                  [styles.listItemUnread]: listItemUnread && !listItemShared,
+                })
+              }
+            >
+              { !listItemShared &&
+                <div className={styles.checkbox}>
+                  <Checkbox
+                    disabled={checkboxDisabled}
+                    checked={checkboxChecked}
+                    onChange={() => setCheckboxChecked(!checkboxChecked)}
+                  />
+                </div>
+              }
+              { ((listItemMedia && !listItemShared) || (listItemShared && listItemCluster)) &&
+              <>
+                <div className={styles.thumbail}>
+                  <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent={mediaThumbnail.show_warning_cover} type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
+                </div>
+              </>
+              }
+              <div className={styles.content}>
+                <h6>Item Title</h6>
+                { listItemDescription &&
+                  <p>
+                    DESCRIPTION
+                  </p>
+                }
+                { listItemDescriptionLink &&
+                  <a href="www.meedan.com" className={styles.factDescriptionLink}>
+                    DESCRIPTION LINK
+                  </a>
+                }
+                { listItemFactCheckLink &&
+                  <a href="www.meedan.com" className={styles.factCheckLink}>
+                    FACT-CHECK LINK
+                  </a>
+                }
+                { listItemShared &&
+                  <div className={styles.workspaces}>
+                    WORKPACES
+                  </div>
+                }
+                <div className={styles.mediaAndRequest}>
+                  { listItemMedia ? <div>MEDIA</div> : null }
+                  { listItemSuggestions ? <div>SUGGESTIONS</div> : null }
+                  { listItemRequests ? <div>REQUESTS</div> : null }
+                  { listItemRequests ? <div>PLATFORMS</div> : null }
+                </div>
+              </div>
+              <div className={styles.factCheckLastUpdated}>
+                <div className={styles.factCheck}>
+                  { listItemShared && listItemFactCheck &&
+                    <>FACT-CHECK COUNT</>
+                  }
+                  { !listItemShared && listItemFactCheck &&
+                    <>WORKSPACE FACT-CHECK</>
+                  }
+                  { listItemFactCheckPublished && !listItemShared ? <>PUBLISHED</> : null }
+                </div>
+                May 27, 2022
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section id="sandbox-buttons">
         <h6>Buttons</h6>
         <div className={styles.componentWrapper}>
@@ -316,6 +592,10 @@ const SandboxComponent = ({ admin }) => {
                     <option value="alert">alert</option>
                     <option value="lightAlert">lightAlert</option>
                   </optgroup>
+                  <optgroup label="primary">
+                    <option value="black">black</option>
+                    <option value="white">white</option>
+                  </optgroup>
                 </Select>
               </li>
               <li>
@@ -328,7 +608,7 @@ const SandboxComponent = ({ admin }) => {
               </li>
             </ul>
           </div>
-          <div className={styles.componentInlineVariants}>
+          <div className={styles.componentInlineVariants} style={{ backgroundColor: buttonTheme === 'white' ? 'var(--textPrimary)' : null }}>
             <ButtonMain label="Default" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconLeft={<AddIcon />} label="Left" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
             <ButtonMain iconRight={<AddIcon />} label="Right" variant={buttonVariant} size={buttonSize} theme={buttonTheme} disabled={buttonDisabled} />
@@ -1031,6 +1311,39 @@ const SandboxComponent = ({ admin }) => {
             />
           </div>
         </div>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Checkbox
+            </div>
+            <ul>
+              <li>
+                <SwitchComponent
+                  label="Label"
+                  labelPlacement="top"
+                  checked={checkboxLabel}
+                  onChange={() => setCheckboxLabel(!checkboxLabel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Disabled"
+                  labelPlacement="top"
+                  checked={checkboxDisabled}
+                  onChange={() => setCheckboxDisabled(!checkboxDisabled)}
+                />
+              </li>
+            </ul>
+          </div>
+          <div className={styles.componentBlockVariants}>
+            <Checkbox
+              label={checkboxLabel ? 'I am a Checkbox label' : null}
+              disabled={checkboxDisabled}
+              checked={checkboxChecked}
+              onChange={() => setCheckboxChecked(!checkboxChecked)}
+            />
+          </div>
+        </div>
       </section>
       <section id="sandbox-chips">
         <h6>Chips</h6>
@@ -1071,10 +1384,20 @@ const SandboxComponent = ({ admin }) => {
         <h6>Media Cards</h6>
         <div className={styles.componentWrapper}>
           <Card
-            title="Moby-Dick; or, The Whale."
+            title="Moby-Dick; or, The Whale. This is a very long title to test what happens when titles are very, very long. Hopefully we only see one line truncated but the whole thing shows up when we expand."
             description="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
             footer="I still haven't finished this"
             tag="Novel"
+          />
+        </div>
+        <div className={styles.componentWrapper}>
+          <FactCheckCard
+            title="Moby-Dick; or, The Whale."
+            statusLabel="The Status"
+            statusColor="#ff0000"
+            summary="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
+            date={1702677106.846}
+            url="https://example.com"
           />
         </div>
       </section>
