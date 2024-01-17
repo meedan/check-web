@@ -32,6 +32,6 @@
   {
     "id": "teamMembers.pending",
     "description": "Label for invite pending acceptance",
-    "defaultMessage": "Pending"
+    "defaultMessage": "Invitation Sent - pending"
   }
 ]
