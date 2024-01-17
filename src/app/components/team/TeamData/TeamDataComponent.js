@@ -123,12 +123,12 @@ const messages = defineMessages({
   },
   whatsappConversationsUser: {
     id: 'teamDataComponent.whatsappConversationsUser',
-    defaultMessage: "Service conversations are user-initiated. They are opened by the first message sent by the bot in response to a customer's message.",
+    defaultMessage: 'Conversations are 24-hour message threads between you and your users. User conversations are initiated when no conversation exists between you and a user and a user messages you, triggering a message from the bot. If a user is blocked, no user conversation is created.',
     description: messagesDescription,
   },
   whatsappConversationsBusiness: {
     id: 'teamDataComponent.whatsappConversationsBusiness',
-    defaultMessage: "Marketing conversations are business-initiated, and opened by the first message sent by the bot in response to a customer's message.",
+    defaultMessage: 'Conversations are 24-hour message threads between you and your users. Business conversations are initiated when no open conversation exists between you and a user, and a message you send is received by that user.',
     description: messagesDescription,
   },
   positiveSearches: {
@@ -220,8 +220,8 @@ const TeamDataComponent = ({
 
   const helpMessages = {
     'WhatsApp conversations': intl.formatMessage(messages.whatsappConversations),
-    'WhatsApp marketing conversations (business-initiated)': intl.formatMessage(messages.whatsappConversationsBusiness),
-    'WhatsApp service conversations (user-initiated)': intl.formatMessage(messages.whatsappConversationsUser),
+    'Business Conversations': intl.formatMessage(messages.whatsappConversationsBusiness),
+    'User Conversations': intl.formatMessage(messages.whatsappConversationsUser),
     'Unique users': intl.formatMessage(messages.uniqueUsers),
     'Returning users': intl.formatMessage(messages.returningUsers),
     'Published reports': intl.formatMessage(messages.publishedReports),
