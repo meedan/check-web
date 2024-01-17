@@ -8,6 +8,7 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemDate from '../../cds/media-cards/ItemDate';
 import ItemChannels from '../../cds/media-cards/ItemChannels';
+import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
 import BulletSeparator from '../../layout/BulletSeparator';
 import { getCompactNumber, getSeparatedNumber } from '../../../helpers';
@@ -15,6 +16,8 @@ import MediaTypeDisplayIcon from '../../media/MediaTypeDisplayIcon';
 import MediaIcon from '../../../icons/perm_media.svg';
 import RequestsIcon from '../../../icons/question_answer.svg';
 import CalendarMonthIcon from '../../../icons/calendar_month.svg';
+import FactCheckIcon from '../../../icons/fact_check.svg';
+import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
 import styles from './ItemCard.module.css';
 
 const SharedItemCard = ({
@@ -37,9 +40,8 @@ const SharedItemCard = ({
   const renderedWorkspaces = workspaces.slice(0, maxWorkspaces);
   const extraWorkspaces = workspaces.slice(maxWorkspaces, Infinity).map(workspace => <li>{workspace.name}</li>);
 
-  // TODO: base off mapping in Caio's PR
-  const feedContainsMediaRequests = dataPoints.includes(1);
-  const feedContainsFactChecks = dataPoints.includes(2);
+  const feedContainsFactChecks = dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS);
+  const feedContainsMediaRequests = dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS);
 
   return (
     <div className={`${styles.itemCard} shared-item--card`}>
@@ -170,10 +172,23 @@ const SharedItemCard = ({
               disabled
               size="small"
               theme="brand"
-              iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} /> : <MediaIcon />}
+              iconLeft={<FactCheckIcon />}
               variant="contained"
-              label={getCompactNumber(intl.locale, mediaCount)}
+              label={<FormattedMessage
+                id="sharedItemCard.factCheckCount"
+                defaultMessage="{count} Fact-checks"
+                description="A label showing the number of fact-checks represented in an item."
+                values={{
+                  count: getCompactNumber(intl.locale, factCheckCount),
+                }}
+              />}
             />
+          ) : null }
+          { (date && !feedContainsMediaRequests && feedContainsFactChecks) ? (
+            <>
+              <ItemRating rating="False" ratingColor="#f00" size="small" />
+              <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} />
+            </>
           ) : null }
         </div>
       </Card>

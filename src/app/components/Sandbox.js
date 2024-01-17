@@ -29,6 +29,7 @@ import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
 import SharedItemCard from './search/SearchResultsCards/SharedItemCard';
 import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
+import CheckFeedDataPoints from '../CheckFeedDataPoints';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -100,6 +101,23 @@ const SandboxComponent = ({ admin }) => {
   const [listItemFactCheckPublished, setListItemFactCheckPublished] = React.useState(Boolean(true));
   const [listItemSuggestions, setListItemSuggestions] = React.useState(Boolean(true));
   const [listItemUnread, setListItemUnread] = React.useState(Boolean(true));
+  const [listItemDataPointsFactCheck, setListItemDataPointsFactCheck] = React.useState(Boolean(false));
+  const [listItemDataPointsMediaRequests, setListItemDataPointsMediaRequests] = React.useState(Boolean(false));
+  const [listItemDataPoints, setListItemDataPoints] = React.useState([]);
+  const [listItemFactCheckCount, setListItemFactCheckCount] = React.useState(1);
+
+  // This triggers when the list item data points are changed
+  React.useEffect(() => {
+    if (listItemDataPointsFactCheck && listItemDataPointsMediaRequests) {
+      setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
+    } else if (!listItemDataPointsFactCheck && listItemDataPointsMediaRequests) {
+      setListItemDataPoints([CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
+    } else if (listItemDataPointsFactCheck && !listItemDataPointsMediaRequests) {
+      setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS]);
+    } else if (!listItemDataPointsFactCheck && !listItemDataPointsMediaRequests) {
+      setListItemDataPoints([]);
+    }
+  }, [listItemDataPointsFactCheck, listItemDataPointsMediaRequests]);
 
   const onSetListItemShared = (shared) => {
     if (!listItemCluster) {
@@ -486,6 +504,42 @@ const SandboxComponent = ({ admin }) => {
                   onChange={() => setListItemUnread(!listItemUnread)}
                 />
               </li>
+              <li>
+                <SwitchComponent
+                  label="Shared Feed Data Points - Fact Checks"
+                  labelPlacement="top"
+                  checked={listItemDataPointsFactCheck}
+                  disabled={!listItemShared}
+                  onChange={() => setListItemDataPointsFactCheck(!listItemDataPointsFactCheck)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Shared Feed Data Points - Media & Requests"
+                  labelPlacement="top"
+                  checked={listItemDataPointsMediaRequests}
+                  disabled={!listItemShared}
+                  onChange={() => setListItemDataPointsMediaRequests(!listItemDataPointsMediaRequests)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact Check Count - More than 1"
+                  labelPlacement="top"
+                  checked={listItemFactCheckCount > 1}
+                  onChange={() => {
+                    if (listItemFactCheckCount === 1) {
+                      // eslint-disable-next-line
+                      console.log('~~~SET TO 12345');
+                      setListItemFactCheckCount(12345);
+                    } else {
+                      // eslint-disable-next-line
+                      console.log('~~~SET TO 1');
+                      setListItemFactCheckCount(1);
+                    }
+                  }}
+                />
+              </li>
             </ul>
           </div>
           <div className={styles.componentBlockVariants}>
@@ -495,11 +549,13 @@ const SandboxComponent = ({ admin }) => {
               mediaThumbnail={(listItemShared && listItemCluster) && mediaThumbnail}
               workspaces={workspaces}
               date={new Date('2023-12-15T17:19:40Z')}
+              dataPoints={listItemDataPoints}
               mediaCount={12345}
               suggestionsCount={567890}
               requestsCount={7890}
               lastRequestDate={new Date('2023-12-15T17:19:40Z')}
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
+              factCheckCount={listItemFactCheckCount}
               channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
             />
             <div
