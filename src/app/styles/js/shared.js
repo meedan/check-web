@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 // Styles for overriding material UI
 // Check Design System Colors
@@ -287,12 +287,6 @@ export const MuiTheme = {
       },
     },
   },
-};
-
-export const mediaQuery = {
-  handheld: (...args) => css`@media (max-width: 448px) { ${css(...args)} }`,
-  tablet: (...args) => css`@media (max-width: 680px) { ${css(...args)} }`,
-  desktop: (...args) => css`@media (min-width: 880px) { ${css(...args)} }`,
 };
 
 // ===================================================================
