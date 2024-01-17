@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
-import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
 import { withSetFlashMessage } from '../FlashMessage';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
-import SourcePicture from '../source/SourcePicture';
 import ProfileLink from '../layout/ProfileLink';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
-import UserTooltip from '../user/UserTooltip';
 import { languageLabel } from '../../LanguageRegistry';
 import {
   getErrorMessage,
@@ -27,10 +21,7 @@ import {
   safelyParseJSON,
 } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import {
-  units,
-  Row,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const dotOffset = stripUnit(units(4)) - stripUnit(3);
 
@@ -47,47 +38,6 @@ const StyledDefaultAnnotation = styled.div`
     word-break: break-word;
     display: block;
     margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
-  }
-`;
-
-const StyledAnnotationCardWrapper = styled.div`
-  width: 100%;
-  z-index: initial !important;
-
-  > div > div {
-    padding-bottom: 0 !important;
-  }
-
-  img {
-    cursor: pointer;
-  }
-`;
-
-const StyledAvatarColumn = styled.div`
-  margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(3)};
-`;
-
-const StyledPrimaryColumn = styled.div`
-  flex: 1;
-
-  .annotation__card-content {
-    hyphens: auto;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    display: flex;
-    width: 100%;
-
-    & > span:first-child {
-      flex: 1;
-    }
-  }
-
-  .annotation__card-thumbnail {
-    padding: ${units(1)};
-  }
-
-  .annotation__status {
-    margin: 0 3px;
   }
 `;
 
@@ -170,17 +120,6 @@ const StyledAnnotationWrapper = styled.section`
 
   .annotation__keep a {
     text-decoration: underline;
-  }
-`;
-
-const StyledAnnotationMetadata = styled(Row)`
-  color: var(--textSecondary);
-  flex-flow: wrap row;
-  margin-top: ${units(3)};
-
-  .annotation__card-author {
-    color: var(--textPrimary);
-    padding-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
   }
 `;
 
@@ -824,53 +763,12 @@ class Annotation extends Component {
         className={`annotation ${templateClass} ${typeClass}`}
         id={`annotation-${activity.dbid}`}
       >
-        { useCardTemplate ?
-          <StyledAnnotationCardWrapper>
-            <Card>
-              <CardContent
-                className={`annotation__card-text annotation__card-activity-${activityType.replace(
-                  /_/g,
-                  '-',
-                )}`}
-              >
-                { authorName ?
-                  <RCTooltip placement="top" overlay={<UserTooltip teamUser={activity.user.team_user} />}>
-                    <StyledAvatarColumn className="annotation__avatar-col">
-                      <SourcePicture
-                        className="avatar"
-                        type="user"
-                        size="small"
-                        object={activity.user.source}
-                      />
-                    </StyledAvatarColumn>
-                  </RCTooltip> : null }
-
-                <StyledPrimaryColumn>
-                  <Typography variant="body1" component="div">
-                    {contentTemplate}
-                  </Typography>
-                  <StyledAnnotationMetadata className="typography-caption">
-                    <span className="annotation__card-footer">
-                      { authorName ?
-                        <ProfileLink
-                          className="annotation__card-author"
-                          teamUser={activity.user.team_user}
-                        /> : null }
-                      <span>
-                        {timestamp}
-                      </span>
-                    </span>
-                  </StyledAnnotationMetadata>
-                </StyledPrimaryColumn>
-              </CardContent>
-            </Card>
-          </StyledAnnotationCardWrapper> :
-          <StyledDefaultAnnotation className="annotation__default typography-caption">
-            <span>
-              <span className="annotation__default-content">{contentTemplate}</span>
-              {timestamp}
-            </span>
-          </StyledDefaultAnnotation>}
+        <StyledDefaultAnnotation className="annotation__default typography-caption">
+          <span>
+            <span className="annotation__default-content">{contentTemplate}</span>
+            {timestamp}
+          </span>
+        </StyledDefaultAnnotation>
       </StyledAnnotationWrapper>
     );
   }
