@@ -14,10 +14,9 @@ import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
-import { getErrorMessage, capitalize } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import styles from './User.module.css';
-import AddIcon from '../../icons/add.svg';
 import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
@@ -110,36 +109,6 @@ class UserInfoEdit extends React.Component {
     }
   }
 
-  handleAddLink() {
-    const links = this.state.links ? this.state.links.slice(0) : [];
-    const newEntry = {};
-    newEntry.url = '';
-    newEntry.error = '';
-    links.push(newEntry);
-    this.setState({ links });
-  }
-
-  handleChangeLink(e, index) {
-    const links = this.state.links ? this.state.links.slice(0) : [];
-    links[index].url = e.target.value;
-    links[index].error = '';
-    this.setState({ links });
-  }
-
-  handleRemoveLink(id) {
-    const deleteLinks = this.state.deleteLinks
-      ? this.state.deleteLinks.slice(0)
-      : [];
-    deleteLinks.push(id);
-    this.setState({ deleteLinks });
-  }
-
-  handleRemoveNewLink(index) {
-    const links = this.state.links ? this.state.links.slice(0) : [];
-    links.splice(index, 1);
-    this.setState({ links });
-  }
-
   handleSendEmail(inputChecked) {
     this.setState({ sendEmail: inputChecked });
   }
@@ -196,9 +165,7 @@ class UserInfoEdit extends React.Component {
       this.success(response, 'updateSource');
     };
 
-    const form = document.forms['edit-source-form'];
-
-    if (source.description === form.description.value && !this.state.image) {
+    if (!this.state.image) {
       return false;
     }
 
@@ -209,7 +176,6 @@ class UserInfoEdit extends React.Component {
         source: {
           id: source.id,
           image: this.state.image,
-          description: form.description.value,
         },
       }),
       { onSuccess, onFailure },
@@ -370,73 +336,6 @@ class UserInfoEdit extends React.Component {
     return account.uid === null || account.user_id !== this.props.user.dbid;
   }
 
-  renderAccountsEdit() {
-    const { source } = this.props.user;
-    const links = this.state.links ? this.state.links.slice(0) : [];
-    const deleteLinks = this.state.deleteLinks
-      ? this.state.deleteLinks.slice(0)
-      : [];
-    const showAccounts =
-      source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
-
-    const showNonLoginAccount = showAccounts.filter(as => this.filterNonLoginAccount(as));
-
-    return (
-      <div key="renderAccountsEdit">
-        {showNonLoginAccount.map((as, index) => (
-          <TextField
-            className={cx('source__url', inputStyles['form-fieldset-field'])}
-            key={as.node.id}
-            componentProps={{
-              id: `source__link-item${index.toString()}`,
-            }}
-            defaultValue={as.node.account.url}
-            label={capitalize(as.node.account.provider)}
-            onRemove={() => this.handleRemoveLink(as.node.id)}
-          />
-        ))}
-        {links.map((link, index) => (
-          <TextField
-            key={index.toString()}
-            className={cx('source__url-input', inputStyles['form-fieldset-field'])}
-            componentProps={{
-              id: `source__link-input${index.toString()}`,
-              name: `source__link-input${index.toString()}`,
-            }}
-            value={link.url}
-            error={link.error}
-            helpContent={
-              link.error ?
-                link.error :
-                <FormattedMessage
-                  id="userInfoEdit.addLinkHelper"
-                  defaultMessage="Add a link to a web page or social media profile. Note: this does not affect your login method."
-                  description="Help text about adding a social media profile link to this user account"
-                />
-            }
-            label={this.props.intl.formatMessage(messages.addLinkLabel)}
-            onRemove={() => this.handleRemoveNewLink(index)}
-          />
-        ))}
-        <br />
-        <ButtonMain
-          size="default"
-          variant="text"
-          theme="brand"
-          onClick={this.handleAddLink.bind(this)}
-          iconLeft={<AddIcon />}
-          label={
-            <FormattedMessage
-              id="userInfoEdit.addLink"
-              defaultMessage="Add Link"
-              description="Button label for adding a new link"
-            />
-          }
-        />
-      </div>
-    );
-  }
-
   render() {
     const { user } = this.props;
     const { source } = this.props.user;
@@ -526,7 +425,6 @@ class UserInfoEdit extends React.Component {
                     name: 'sendNotification',
                   }}
                 />
-                {this.renderAccountsEdit()}
               </div>
             </form>
             <div className={cx('source__edit-buttons-cancel-save', inputStyles['form-footer-actions'])}>

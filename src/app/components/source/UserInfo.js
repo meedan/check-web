@@ -3,10 +3,8 @@ import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import AccountChips from './AccountChips';
 import Can from '../Can';
-import ParsedText from '../ParsedText';
-import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
+import { parseStringUnixTimestamp } from '../../helpers';
 import SourcePicture from './SourcePicture';
 import { logout } from '../../redux/actions.js';
 import IconEdit from '../../icons/edit.svg';
@@ -56,17 +54,7 @@ const UserInfo = (props) => {
               />
             </Can>
           </div>
-          <div className={styles['user-info-description']}>
-            <p className="typography-subtitle1">
-              <ParsedText text={truncateLength(props.user.source.description, 600)} />
-            </p>
-          </div>
         </div>
-
-        <AccountChips
-          accounts={props.user.source.account_sources.edges.map(as => as.node.account)}
-        />
-
         <div className={styles['contact-info']}>
           <FormattedMessage
             id="userInfo.dateJoined"
