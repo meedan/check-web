@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -10,7 +10,15 @@ import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
 import { logout } from '../../redux/actions.js';
 import IconEdit from '../../icons/edit.svg';
-import styles from './UserInfo.module.css';
+import styles from './User.module.css';
+
+const messages = defineMessages({
+  editTooltip: {
+    id: 'global.edit',
+    defaultMessage: 'Edit',
+    description: 'Generic label for a button or link for a user to press when they wish to edit content or functionality',
+  },
+});
 
 const UserInfo = (props) => {
   if (props.user.source === null) return null;
@@ -44,7 +52,7 @@ const UserInfo = (props) => {
                     browserHistory.push(`/check/user/${props.user.dbid}/edit`);
                   }
                 }}
-                title={<FormattedMessage id="global.edit" defaultMessage="Edit" description="Generic label for a button or link for a user to press when they wish to edit content or functionality" />}
+                title={props.intl.formatMessage(messages.editTooltip)}
               />
             </Can>
           </div>

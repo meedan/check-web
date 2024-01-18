@@ -5,7 +5,6 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
-import UserTooltip from '../user/UserTooltip';
 import ProfileLink from '../layout/ProfileLink';
 
 class MediaLogComponent extends Component {
@@ -115,7 +114,6 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                 is_active,
                 team_user(team_slug: $teamSlug) {
                   ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
-                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
                 },
                 source {
                   id,
