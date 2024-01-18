@@ -63,4 +63,11 @@
       margin: 12px 0 0;
     }
   }
+
+  a,
+  a:hover,
+  a:visited,
+  a:active {
+    color: inherit;
+  }
 }

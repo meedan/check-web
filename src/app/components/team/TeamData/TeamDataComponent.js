@@ -121,6 +121,16 @@ const messages = defineMessages({
     defaultMessage: 'Conversations are 24-hour message threads between you and your users. They are opened when messages sent by Check to users are delivered.',
     description: messagesDescription,
   },
+  whatsappConversationsUser: {
+    id: 'teamDataComponent.whatsappConversationsUser',
+    defaultMessage: 'Conversations are 24-hour message threads between you and your users. User conversations are initiated when no conversation exists between you and a user and a user messages you, triggering a message from the bot. If a user is blocked, no user conversation is created.',
+    description: messagesDescription,
+  },
+  whatsappConversationsBusiness: {
+    id: 'teamDataComponent.whatsappConversationsBusiness',
+    defaultMessage: 'Conversations are 24-hour message threads between you and your users. Business conversations are initiated when no open conversation exists between you and a user, and a message you send is received by that user.',
+    description: messagesDescription,
+  },
   positiveSearches: {
     id: 'teamDataComponent.positiveSearches',
     defaultMessage: 'Number of user searches that returned at least one report.',
@@ -210,6 +220,8 @@ const TeamDataComponent = ({
 
   const helpMessages = {
     'WhatsApp conversations': intl.formatMessage(messages.whatsappConversations),
+    'Business Conversations': intl.formatMessage(messages.whatsappConversationsBusiness),
+    'User Conversations': intl.formatMessage(messages.whatsappConversationsUser),
     'Unique users': intl.formatMessage(messages.uniqueUsers),
     'Returning users': intl.formatMessage(messages.returningUsers),
     'Published reports': intl.formatMessage(messages.publishedReports),

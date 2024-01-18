@@ -37,11 +37,14 @@ const ItemTitleComponent = ({
   const pinnedMediaId = projectMedia.media_slug;
   const claimTitle = projectMedia.claim_description?.description;
   const factCheckTitle = projectMedia.claim_description?.fact_check?.title;
+  const fallbackTitle = claimTitle || factCheckTitle || projectMedia.title;
 
   React.useEffect(() => {
     if ((titleField === 'claim_title' && claimTitle === '') || (titleField === 'fact_check_title' && factCheckTitle === '')) {
       setTitleField('custom_title');
       setCustomTitle(projectMedia.title);
+    } else if (!titleField) {
+      setCustomTitle(fallbackTitle);
     }
   }, [claimTitle, factCheckTitle]);
 
@@ -50,7 +53,7 @@ const ItemTitleComponent = ({
     pinned_media_id: pinnedMediaId,
     claim_title: claimTitle,
     fact_check_title: factCheckTitle,
-  }[titleField] : projectMedia.title;
+  }[titleField] : fallbackTitle;
 
   const icon = {
     custom_title: <TextFieldsIcon />,

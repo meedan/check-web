@@ -10,6 +10,7 @@ import FeedContent from './FeedContent';
 import FeedMetadata from './FeedMetadata';
 import FeedActions from './FeedActions';
 import FeedPublish from './FeedPublish';
+import FeedDataPoints from './FeedDataPoints';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -152,6 +153,7 @@ const SaveFeed = (props) => {
   const [commercialLicense, setCommercialLicense] = React.useState(feedLicenses.includes(2));
   const [openSourceLicense, setOpenSourceLicense] = React.useState(feedLicenses.includes(3));
   const [tags, setTags] = React.useState(feed.tags || []);
+  const [dataPoints, setDataPoints] = React.useState(feed.data_points || []);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   // tracking pending messages to the API for bulk email invites
@@ -222,7 +224,7 @@ const SaveFeed = (props) => {
     !openSourceLicense
   );
   const noTitle = title.length === 0;
-  const disableSaveButton = saving || discoverableNoLicense || noTitle;
+  const disableSaveButton = saving || discoverableNoLicense || noTitle || dataPoints.length === 0;
 
   const handleSave = () => {
     setSaving(true);
@@ -237,12 +239,14 @@ const SaveFeed = (props) => {
       tags,
       licenses,
       discoverable,
+      dataPoints,
       published: true,
     };
     if (feed.id) {
       setShowConfirmationDialog(false);
       input.id = feed.id;
       delete input.licenses;
+      delete input.dataPoints;
     }
     commitMutation(Relay.Store, {
       mutation: (feed.id ? updateMutation : createMutation),
@@ -455,11 +459,23 @@ const SaveFeed = (props) => {
           </div>
         )}
 
-        <FeedContent
-          listId={selectedListId}
-          onChange={e => setSelectedListId(+e.target.value)}
-          onRemove={() => setSelectedListId(null)}
-        />
+        <div className={styles.saveFeedCard}>
+          <FeedDataPoints
+            readOnly={Boolean(feed.id)}
+            dataPoints={dataPoints}
+            onChange={setDataPoints}
+          />
+
+          { dataPoints.length > 0 ?
+            <FeedContent
+              listId={selectedListId}
+              dataPoints={dataPoints}
+              onChange={e => setSelectedListId(+e.target.value)}
+              onRemove={() => setSelectedListId(null)}
+            />
+            : null
+          }
+        </div>
 
         { isFeedOwner && (
           <FeedPublish
@@ -599,6 +615,7 @@ SaveFeed.propTypes = {
       description: PropTypes.string,
       saved_search_id: PropTypes.number,
       licenses: PropTypes.arrayOf(PropTypes.number),
+      data_points: PropTypes.arrayOf(PropTypes.number),
       tags: PropTypes.arrayOf(PropTypes.string),
     }),
   }),
@@ -632,6 +649,7 @@ export default createFragmentContainer(SaveFeed, graphql`
         slug
       }
       saved_search_id
+      data_points
       ...FeedCollaboration_feed
       ...FeedMetadata_feed
     }

@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Tooltip from '@material-ui/core/Tooltip';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import ParsedText from '../ParsedText';
@@ -24,9 +18,6 @@ import ProfileLink from '../layout/ProfileLink';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import UserTooltip from '../user/UserTooltip';
 import { languageLabel } from '../../LanguageRegistry';
-import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
-import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
-import MoreVertIcon from '../../icons/more_vert.svg';
 import {
   getErrorMessage,
   getStatus,
@@ -36,7 +27,6 @@ import {
   safelyParseJSON,
 } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   units,
   borderWidthLarge,
@@ -193,10 +183,6 @@ const StyledAnnotationMetadata = styled(Row)`
   }
 `;
 
-const StyledAnnotationActionsWrapper = styled.div`
-  margin-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: auto;
-`;
-
 const messages = defineMessages({
   editedBy: {
     id: 'annotation.editedBy',
@@ -218,38 +204,6 @@ const messages = defineMessages({
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Annotation extends Component {
-  handleOpenMenu = (e) => {
-    e.stopPropagation();
-    this.setState({ anchorEl: e.currentTarget });
-  };
-
-  handleCloseMenu = () => {
-    this.setState({ anchorEl: null });
-  };
-
-  handleDelete(id) {
-    const onSuccess = () => {};
-
-    // Either to destroy versions or annotations
-    const destroy_attr = {
-      parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
-      annotated: this.props.annotated,
-      id,
-    };
-    if (this.props.annotation.annotation.version === null) {
-      Relay.Store.commitUpdate(
-        new DeleteAnnotationMutation(destroy_attr),
-        { onSuccess, onFailure: this.fail },
-      );
-    } else {
-      destroy_attr.id = this.props.annotation.annotation.version.id;
-      Relay.Store.commitUpdate(
-        new DeleteVersionMutation(destroy_attr),
-        { onSuccess, onFailure: this.fail },
-      );
-    }
-  }
-
   fail = (transaction) => {
     const message = getErrorMessage(
       transaction,
@@ -294,71 +248,7 @@ class Annotation extends Component {
   }
 
   render() {
-    const { annotation: activity, annotated, annotation: { annotation } } = this.props;
-
-    let annotationActions = null;
-    if (annotation && annotation.annotation_type) {
-      const permission = `destroy ${annotation.annotation_type
-        .charAt(0)
-        .toUpperCase()}${annotation.annotation_type.slice(1)}`;
-      // TODO: Improve hide when item is archived logic. Not all annotated types have archived flag.
-      const canDoAnnotationActions = can(annotation.permissions, permission) &&
-        annotated.archived === CheckArchivedFlags.NONE;
-      annotationActions = canDoAnnotationActions ? (
-        <div>
-          <Tooltip title={
-            <FormattedMessage
-              id="annotation.menuTooltip"
-              defaultMessage="Annotation actions"
-              description="Tooltip for the annotation actions menu icon button"
-            />
-          }
-          >
-            <ButtonMain
-              theme="text"
-              size="small"
-              variant="contained"
-              iconCenter={<MoreVertIcon />}
-              className="menu-button"
-              onClick={this.handleOpenMenu}
-            />
-          </Tooltip>
-          <Menu
-            id="customized-menu"
-            anchorEl={this.state.anchorEl}
-            keepMounted
-            open={Boolean(this.state.anchorEl)}
-            onClose={this.handleCloseMenu}
-          >
-            {can(annotation.permissions, permission) ? (
-              <MenuItem
-                className="annotation__delete"
-                onClick={this.handleDelete.bind(this, annotation.id)}
-              >
-                <FormattedMessage
-                  id="annotation.deleteButton"
-                  defaultMessage="Delete"
-                  description="Menu item for deleting an annotation"
-                />
-              </MenuItem>
-            ) : null}
-            <MenuItem>
-              <a
-                href={`#annotation-${activity.dbid}`}
-                style={{ textDecoration: 'none', color: 'var(--textPrimary)' }}
-              >
-                <FormattedMessage
-                  id="annotation.permalink"
-                  defaultMessage="Permalink"
-                  description="Menu item for getting a permanent url for an annotaion"
-                />
-              </a>
-            </MenuItem>
-          </Menu>
-        </div>)
-        : null;
-    }
-
+    const { annotation: activity, annotation: { annotation } } = this.props;
     const updatedAt = parseStringUnixTimestamp(activity.created_at);
     const timestamp = updatedAt
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
@@ -969,10 +859,6 @@ class Annotation extends Component {
                         {timestamp}
                       </span>
                     </span>
-
-                    <StyledAnnotationActionsWrapper>
-                      {annotationActions}
-                    </StyledAnnotationActionsWrapper>
                   </StyledAnnotationMetadata>
                 </StyledPrimaryColumn>
               </CardContent>
