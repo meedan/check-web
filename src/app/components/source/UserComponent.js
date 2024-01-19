@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import cx from 'classnames/bind';
 import UserEmail from '../user/UserEmail';
 import UserInfo from './UserInfo';
 import UserPrivacy from './UserPrivacy';
@@ -14,7 +14,7 @@ import { can } from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
-import { ContentColumn, units } from '../../styles/js/shared';
+import styles from './User.module.css';
 
 class UserComponent extends React.Component {
   constructor(props) {
@@ -50,28 +50,22 @@ class UserComponent extends React.Component {
     const context = this.getContext();
     const isUserSelf = (user.id === context.currentUser.id);
 
-    const StyledUserContent = {
-      height: '100%',
-      overflow: 'auto',
-      padding: `${units(2)} 0`,
-    };
-
-    const HeaderContent = () => (
-      <Box pt={3} pb={3}>
-        { isEditing ?
-          <UserInfoEdit user={user} /> :
-          <UserInfo user={user} context={context} />
-        }
-      </Box>
-    );
-
     return (
       <PageTitle prefix={user.name}>
-        <div className="source" style={StyledUserContent}>
-          <ContentColumn>
-            <HeaderContent />
+        <div className={cx('source', styles['user-settings-wrapper'])}>
+          <div className={styles['user-content']}>
             { isEditing ?
-              null : (
+              <UserInfoEdit user={user} /> :
+              <>
+                <div className={styles['user-info-wrapper']}>
+                  <UserEmail user={user} />
+                </div>
+                <UserInfo user={user} context={context} />
+              </>
+            }
+            { isEditing ?
+              null :
+              <div className={styles['user-info-tabs-wrapper']}>
                 <Tabs
                   indicatorColor="primary"
                   textColor="primary"
@@ -116,20 +110,14 @@ class UserComponent extends React.Component {
                     /> : null
                   }
                 </Tabs>
-              )
-            }
-          </ContentColumn>
-          <ContentColumn>
-            { isEditing ?
-              null :
-              <div>
-                <UserEmail user={user} />
-                { this.state.showTab === 'teams' || this.state.showTab === 'workspaces' ? <SwitchTeamsComponent user={user} /> : null}
-                { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
-                { this.state.showTab === 'security' ? <UserSecurity user={user} /> : null}
+                <div className={styles['user-info-tabs-content']}>
+                  { this.state.showTab === 'teams' || this.state.showTab === 'workspaces' ? <SwitchTeamsComponent user={user} /> : null}
+                  { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
+                  { this.state.showTab === 'security' ? <UserSecurity user={user} /> : null}
+                </div>
               </div>
             }
-          </ContentColumn>
+          </div>
         </div>
       </PageTitle>
     );
