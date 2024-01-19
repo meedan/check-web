@@ -10,11 +10,6 @@
     "defaultMessage": "Members"
   },
   {
-    "id": "teamSettings.lists",
-    "description": "Label for the Columns settings tab",
-    "defaultMessage": "Columns"
-  },
-  {
     "id": "teamSettings.metadata",
     "description": "Label for annotation settings tab",
     "defaultMessage": "Annotation"
