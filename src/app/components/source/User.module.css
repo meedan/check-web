@@ -39,11 +39,6 @@
           margin-bottom: 8px;
         }
 
-        .user-info-description {
-          color: var(--textSecondary);
-          margin-bottom: 8px;
-        }
-
         .contact-info {
           align-items: center;
           color: var(--textSecondary);
