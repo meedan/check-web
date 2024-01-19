@@ -76,12 +76,15 @@ const DrawerRail = (props) => {
 
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
-      if (isMediaPage || isSettingsPage || teamSlug === 'check' || !teamSlug) {
+      if (isMediaPage || teamSlug === 'check' || !teamSlug) {
         onDrawerOpenChange(false);
       } else if (window.storage.getValue('drawer.isOpen')) {
         onDrawerOpenChange(true);
       }
-      if (isFeedPage) {
+
+      if (isSettingsPage) {
+        onDrawerTypeChange('settings');
+      } else if (isFeedPage) {
         onDrawerTypeChange('feed');
       } else {
         onDrawerTypeChange('default');

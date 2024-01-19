@@ -1,8 +1,8 @@
 import React from 'react';
-import { shallowWithIntl, getStore } from '../../../../test/unit/helpers/intl-test';
-import { TeamComponentTest } from './TeamComponent';
+import { shallowWithIntl, getStore } from '../../../../../test/unit/helpers/intl-test';
+import { SettingsComponent } from './SettingsComponent';
 
-describe('<TeamComponent />', () => {
+describe('<SettingsComponent />', () => {
   const permissions = JSON.stringify({ 'update Team': true, 'read Team': true });
 
   const currentUser = {
@@ -37,7 +37,7 @@ describe('<TeamComponent />', () => {
     });
     getStore().currentUser = currentUser;
     getStore().team = team;
-    const wrapper = shallowWithIntl(<TeamComponentTest
+    const wrapper = shallowWithIntl(<SettingsComponent
       team={team}
       params={{ tab: '' }}
     />);
@@ -54,7 +54,7 @@ describe('<TeamComponent />', () => {
     });
     getStore().currentUser = currentUser;
     getStore().team = team;
-    const wrapper = shallowWithIntl(<TeamComponentTest
+    const wrapper = shallowWithIntl(<SettingsComponent
       team={team2}
       params={{ tab: 'report' }}
     />);

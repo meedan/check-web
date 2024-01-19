@@ -13,7 +13,11 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  list-style: none;
+  margin: 0;
   overflow: auto;
+  padding: 16px 6px;
+  position: relative;
 
   &:global(.MuiList-root) {
     padding: 16px 6px;

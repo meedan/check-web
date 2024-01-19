@@ -173,7 +173,6 @@ const TeamDetails = ({
               id="team-details__name-input"
               defaultValue={team.name}
               disabled={!canEditTeam}
-              fullWidth
               label={
                 <FormattedMessage
                   id="teamDetails.workspaceName"
@@ -181,9 +180,7 @@ const TeamDetails = ({
                   description="Label for workspace name field"
                 />
               }
-              margin="normal"
               onChange={e => setName(e.target.value)}
-              variant="outlined"
               required
             />
           </div>
