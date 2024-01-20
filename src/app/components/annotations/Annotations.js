@@ -58,7 +58,8 @@ class Annotations extends React.Component {
                     annotatedType={props.annotatedType}
                     annotation={annotation.node}
                     team={props.team}
-                  /> :
+                  />
+                  :
                   <Annotation
                     annotated={props.annotated}
                     annotatedType={props.annotatedType}

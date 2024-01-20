@@ -1,5 +1,4 @@
-import styled, { css, keyframes } from 'styled-components';
-import IconButton from '@material-ui/core/IconButton';
+import styled, { keyframes } from 'styled-components';
 
 // Styles for overriding material UI
 // Check Design System Colors
@@ -16,48 +15,10 @@ const grayDisabledBackground = '#f3f3f3';
 const grayBorderMain = '#e4e4e4';
 const grayBorderAccent = '#b4b4b4';
 
-const otherWhite = '#fff';
-
 // Units
 export function units(unit) {
   return `${unit * 8}px`;
 }
-
-const columnWidthSmall = units(56);
-const columnWidthMedium = units(85);
-const columnWidthLarge = units(110);
-const columnWidthWide = units(152);
-
-// Layout
-export const gutterLarge = units(5);
-export const gutterMedium = units(3);
-export const gutterSmall = units(2);
-
-// Breakpoints
-export const breakpointMobile = `${columnWidthSmall}`;
-const breakpointTablet = `${columnWidthMedium}`;
-const breakpointDesktop = `${columnWidthLarge}`;
-
-// Borders
-export const borderWidthSmall = '1px';
-export const borderWidthMedium = '2px';
-export const borderWidthLarge = '3px';
-
-// Border radius
-export const defaultBorderRadius = '2px';
-
-// CSS Helpers
-//
-// Can be applied in a stylesheet or added to a styled component.
-// For an ellipsis without fixed width, a parent should have overflow: hidden
-// And that parent (or any descendants) should not be display: flex
-// See: https://codepen.io/unthinkingly/pen/XMwJLG
-//
-
-export const avatarSizeLarge = units(9);
-export const avatarSize = units(5);
-export const avatarSizeSmall = units(4);
-export const avatarSizeExtraSmall = units(3);
 
 export const MuiTheme = {
   palette: {
@@ -177,7 +138,7 @@ export const MuiTheme = {
         // @material-ui/core sets #fafafa, only for sticky header. Undo that.
         // We do need a color, though -- if we choose "transparent" the tbody
         // will show through.
-        backgroundColor: otherWhite,
+        backgroundColor: '#fff',
       },
       root: {
         fontSize: 14,
@@ -328,18 +289,6 @@ export const MuiTheme = {
   },
 };
 
-export const mediaQuery = {
-  handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
-  tablet: (...args) => css`@media (max-width: ${breakpointTablet}) { ${css(...args)} }`,
-  desktop: (...args) => css`@media (min-width: ${breakpointDesktop}) { ${css(...args)} }`,
-};
-
-export const breakWordStyles = `
-  hyphens: auto;
-  overflow-wrap: break-word;
-  word-break: break-word;
-`;
-
 // ===================================================================
 // Styled Components
 //
@@ -355,18 +304,6 @@ export const breakWordStyles = `
 export const Row = styled.div`
   display: flex;
   ${props => props.flexWrap ? 'flex-wrap: wrap;' : 'flex-wrap: nowrap;'}
-  ${props => props.alignTop ? 'align-items: top;' : 'align-items: center;'}
-  ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
-`;
-
-// A Flexbox row, center aligned
-//
-// Deprecated: just use Row — CGB 2017 Sept 15
-//
-export const FlexRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 // FadeIn
@@ -390,21 +327,6 @@ export const FadeIn = styled.div`
   opacity: 0;
 `;
 
-// content column used in  settings
-// We want to align left together with the setting menu
-export const ContentColumn = styled.div`
-  margin: ${props => props.center ? 'auto' : '0 0 0 32px'};
-  padding: 0;
-  width: 100%;
-  max-width: ${columnWidthMedium};
-  ${props => props.narrow ? `max-width: ${columnWidthSmall}` : ''}
-  ${props => props.large ? `max-width: ${columnWidthLarge}` : ''}
-  ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
-  ${props => props.fullWidth ? 'max-width: 100%' : ''}
-  ${props => props.remainingWidth ? 'max-width: calc(100vw - 320px)' : '' /* 320px = 32px (margin left) + 256px (left bar width) + 32px (margin right) */}
-  ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
-`;
-
 export const Column = styled.div`
   flex: 1;
   min-width: 340px;
@@ -413,14 +335,4 @@ export const Column = styled.div`
   height: calc(100vh - 64px);
   max-height: calc(100vh - 64px);
   overflow: ${props => props.overflow ? props.overflow : 'auto'};
-`;
-
-// It seems that this component is not centered in Material UI 0.x
-// So we must always use this wrapper, or similar.
-export const StyledIconButton = styled(IconButton)`
-  font-size: 20px !important;
-  svg {
-    color: var(--textDisabled) !important;
-    margin: 0!important;
-  }
 `;

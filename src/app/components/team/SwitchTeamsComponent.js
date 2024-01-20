@@ -15,7 +15,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateTeamDialog from './CreateTeamDialog';
-import { defaultBorderRadius } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
@@ -93,7 +92,7 @@ class SwitchTeamsComponent extends Component {
 
     const teamAvatarStyle = {
       border: '1px solid var(--grayDisabledBackground)',
-      borderRadius: `${defaultBorderRadius}`,
+      borderRadius: '2px',
       backgroundColor: 'var(--otherWhite)',
     };
 

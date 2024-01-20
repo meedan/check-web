@@ -245,22 +245,23 @@
     &:only-child {
       padding: 0;
     }
-  }
 
-  .media-timeline-item {
-    border-bottom: 0;
-    position: relative;
+    &.media-timeline-item {
+      border-bottom: 0;
+      padding: 0;
+      position: relative;
 
-    &::before {
-      background-color: var(--grayBorderMain);
-      bottom: 0;
-      content: '';
-      display: block;
-      left: 32px;
-      position: absolute;
-      right: auto;
-      top: 0;
-      width: 1px;
+      &::before {
+        background-color: var(--grayBorderMain);
+        bottom: 0;
+        content: '';
+        display: block;
+        left: 32px;
+        position: absolute;
+        right: auto;
+        top: 0;
+        width: 1px;
+      }
     }
   }
 }
