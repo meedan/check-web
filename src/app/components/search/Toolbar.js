@@ -4,21 +4,27 @@ import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
-import { units, Row, FlexRow } from '../../styles/js/shared';
 
 const StyledToolbar = styled.div`
   background-color: var(--otherWhite);
-  height: ${units(7)};
-  padding: 0 ${units(2)} 0 0;
+  height: 88px;
+  padding: 0 16px 0 0;
   margin: 0;
 
   .toolbar__title {
     color: var(--textPrimary);
-    margin: ${units(2)};
+    margin: 16px;
   }
 
   .toolbar__flex-row {
+    align-items: center;
+    display: flex;
     height: 100%;
+
+    .toolbar__row {
+      align-items: center;
+      display: flex;
+    }
   }
 
   &.toolbar__factCheck {
@@ -29,7 +35,8 @@ const StyledToolbar = styled.div`
     background: white;
     z-index: 100;
 
-    .toolbar__row, .toolbar__title {
+    .toolbar__row,
+    .toolbar__title {
       width: 100%;
     }
   }
@@ -53,11 +60,11 @@ const Toolbar = ({
 
   return (
     <StyledToolbar className={`toolbar toolbar__${resultType}`}>
-      <FlexRow className="toolbar__flex-row">
-        <Row className="toolbar__row">
+      <div className="toolbar__flex-row">
+        <div className="toolbar__row">
           <span className="toolbar__title">{title}</span>
           {actions}
-        </Row>
+        </div>
         { page === 'all-items' ? (
           <Can {...perms}>
             <OffsetButton>
@@ -65,7 +72,7 @@ const Toolbar = ({
             </OffsetButton>
           </Can>
         ) : null}
-      </FlexRow>
+      </div>
     </StyledToolbar>
   );
 };

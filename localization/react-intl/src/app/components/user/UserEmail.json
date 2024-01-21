@@ -1,10 +1,5 @@
 [
   {
-    "id": "userEmail.title",
-    "description": "Title for the user adding their email address",
-    "defaultMessage": "Add your email"
-  },
-  {
     "id": "userEmail.emailInputHint",
     "description": "Text field input help text about the format of an email address",
     "defaultMessage": "email@example.com"
@@ -13,6 +8,11 @@
     "id": "global.unknownError",
     "description": "Message displayed in error notification when an operation fails unexpectedly",
     "defaultMessage": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "userEmail.alertTitle",
+    "description": "Alert title for prompting the user to add their email address in order to receive notifications",
+    "defaultMessage": "Add your email"
   },
   {
     "id": "userEmail.text",

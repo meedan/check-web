@@ -18,7 +18,6 @@ import { getErrorMessage, getErrorObjects } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import {
-  ContentColumn,
   units,
 } from '../../styles/js/shared';
 
@@ -520,17 +519,15 @@ class UserSecurity extends Component {
         <div className="typography-subtitle2" style={style}>
           <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" description="Section title for making password changes" />
         </div>
-        <ContentColumn center className="user-password-reset__component">
-          <Card>
-            <CardContent>
-              <ChangePasswordComponent
-                type="update-password"
-                showCurrentPassword={can_enable_otp}
-                user={this.props.user}
-              />
-            </CardContent>
-          </Card>
-        </ContentColumn>
+        <Card className="user-password-reset__component">
+          <CardContent>
+            <ChangePasswordComponent
+              type="update-password"
+              showCurrentPassword={can_enable_otp}
+              user={this.props.user}
+            />
+          </CardContent>
+        </Card>
       </div>
     );
   }
