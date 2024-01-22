@@ -1,0 +1,12 @@
+[
+  {
+    "id": "{titleId}",
+    "description": "{titleDescription}",
+    "defaultMessage": "{titleDefault}"
+  },
+  {
+    "id": "{contentId}",
+    "description": "{contentDescription}",
+    "defaultMessage": "{contentDefault}"
+  }
+]

@@ -44,7 +44,7 @@ const DrawerRail = (props) => {
   const testPath = window.location.pathname;
   const isSettingsPage = /\/settings\/[a-zA-Z0-9]+/.test(testPath);
   const isMediaPage = /\/media\/[0-9]+/.test(testPath);
-  const isFeedPage = /^\/[^/]+\/feed\//.test(testPath);
+  const isFeedPage = /^\/[^/]+\/feed(s)?($|\/)/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
   const isUserSettingsPage = teamSlug === 'check';
@@ -89,6 +89,8 @@ const DrawerRail = (props) => {
     }
   }, [testPath, teamSlug, activeItem]);
 
+  // eslint-disable-next-line
+  console.log(isFeedPage)
 
   return (
     <div className={styles.drawerRail}>
@@ -113,15 +115,15 @@ const DrawerRail = (props) => {
             >
               <QuestionAnswerIcon />
             </Link>
-            <button
-              type="button"
+            <Link
               className={`${styles.railIconLink} ${isFeedPage ? styles.railIconLinkActive : ''}`}
               id="side-navigation__feed-toggle"
               onClick={() => setDrawerTypeChange('feed')}
+              to={`/${props.team.slug}/feeds`}
               title={props.intl.formatMessage(messages.feedDescription)}
             >
               <FeedIcon />
-            </button>
+            </Link>
             <Link
               className={[styles.railIconLink, isSettingsPage ? styles.railIconLinkActive : ''].join(' ')}
               to={`/${props.team.slug}/settings`}
