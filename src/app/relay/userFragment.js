@@ -2,7 +2,7 @@ import Relay from 'react-relay/classic';
 import sourceFragment from './sourceFragment';
 
 const userFragment = Relay.QL`
-  fragment on User {
+  fragment on Me {
     id,
     dbid,
     name,

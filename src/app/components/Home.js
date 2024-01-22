@@ -347,7 +347,7 @@ const ConnectedHomeComponent = withSetFlashMessage(withClientSessionId(withRoute
 const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
   fragments: {
     user: () => Relay.QL`
-      fragment on User {
+      fragment on Me {
         id
         dbid
         name

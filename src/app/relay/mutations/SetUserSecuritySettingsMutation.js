@@ -8,7 +8,7 @@ class SetUserSecuritySettingsMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateUserPayload {
-        user {
+        me {
           get_send_successful_login_notifications,
           get_send_failed_login_notifications
         }

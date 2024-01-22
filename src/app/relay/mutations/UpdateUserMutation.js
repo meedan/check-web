@@ -34,7 +34,7 @@ class UpdateUserMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateUserPayload {
-        user {
+        me {
           id
           dbid
           accepted_terms
