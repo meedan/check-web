@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import urlRegex from 'url-regex';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../cds/inputs/TextArea';
 import ClearIcon from '../../icons/clear.svg';
 import MediaStatusCommon from './MediaStatusCommon';
-import Message from '../Message';
 import UploadFile from '../UploadFile';
 import inputStyles from '../../styles/css/inputs.module.css';
 
@@ -268,7 +268,13 @@ class CreateMediaInput extends React.Component {
   render() {
     return (
       <>
-        <Message className="create-media__message" message={this.currentErrorMessageOrNull} />
+        { this.state.mediaMessage &&
+          <Alert
+            className="create-media__message"
+            content={this.currentErrorMessageOrNull}
+            variant="error"
+          />
+        }
         <form
           name="media"
           id={this.props.formId /* so outsiders can write <button type="submit" form="...id"> */}

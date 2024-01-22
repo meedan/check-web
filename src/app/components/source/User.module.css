@@ -1,0 +1,67 @@
+.user-settings-wrapper {
+  height: 100%;
+  overflow: auto;
+  padding: 16px 32px 32px;
+
+  .user-content {
+    margin: 0 0 16px;
+    max-width: var(--columnWidthLarge);
+    padding: 16px;
+    width: 100%;
+
+    .StyledAvatarEditButton {
+      margin: 8px 0 0;
+      width: 100%;
+    }
+
+    .user-info-wrapper,
+    .user-info-tabs-wrapper {
+      align-items: flex-start;
+      background-color: var(--otherWhite);
+      border-radius: 8px;
+      display: flex;
+      padding: 16px;
+
+      .user-info-avatar {
+        flex: 0;
+        flex-shrink: 0;
+        justify-content: center;
+        margin: 0 16px 0 0;
+      }
+
+      .user-info-primary {
+        flex: 3;
+
+        .user-info-name {
+          align-items: center;
+          display: flex;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+
+        .contact-info {
+          align-items: center;
+          color: var(--textSecondary);
+          display: flex;
+          flex-flow: wrap row;
+          gap: 8px;
+          margin: 0 0 16px;
+        }
+      }
+
+      + .user-info-wrapper {
+        margin: 16px 0 0;
+      }
+    }
+
+    .user-info-tabs-wrapper {
+      flex-direction: column;
+      gap: 16px;
+      margin: 16px 0 0;
+
+      .user-info-tabs-content {
+        width: 100%;
+      }
+    }
+  }
+}

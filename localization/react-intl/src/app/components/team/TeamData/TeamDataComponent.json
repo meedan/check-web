@@ -62,12 +62,12 @@
   {
     "id": "teamDataComponent.whatsappConversationsUser",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Service conversations are user-initiated. They are opened by the first message sent by the bot in response to a customer's message."
+    "defaultMessage": "Conversations are 24-hour message threads between you and your users. User conversations are initiated when no conversation exists between you and a user and a user messages you, triggering a message from the bot. If a user is blocked, no user conversation is created."
   },
   {
     "id": "teamDataComponent.whatsappConversationsBusiness",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Marketing conversations are business-initiated, and opened by the first message sent by the bot in response to a customer's message."
+    "defaultMessage": "Conversations are 24-hour message threads between you and your users. Business conversations are initiated when no open conversation exists between you and a user, and a message you send is received by that user."
   },
   {
     "id": "teamDataComponent.positiveSearches",
