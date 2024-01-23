@@ -1,4 +1,8 @@
-.feedPageTitleWrapper {
+.feed-page-header {
+  margin: 32px 32px 16px;
+}
+
+.feed-page-title-wrapper {
   align-items: flex-start;
   color: var(--textSecondary);
   display: flex;
@@ -6,7 +10,7 @@
   flex-direction: column;
   margin: 0 32px 0 0;
 
-  .feedHeaderTitle {
+  .feed-header-title {
     align-items: flex-start;
     display: flex;
     gap: 12px;
@@ -27,12 +31,15 @@
       > span {
         vertical-align: middle;
       }
+
+      :global(.check-icon) {
+        color: var(--textSecondary);
+        font-size: var(--iconSizeDefault);
+        margin: 0 2px 2px 0;
+        vertical-align: middle;
+      }
     }
   }
-}
-
-.feed-page-header {
-  margin: 16px 32px;
 }
 
 .feed-container {

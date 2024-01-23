@@ -15,7 +15,7 @@ const FeedSection = ({
     <h2 className="typography-subtitle2">
       {title}
     </h2>
-    <p className="typography-body1">
+    <p>
       {content}
     </p>
   </div>
@@ -29,15 +29,13 @@ const FeedPageContent = ({ permissions, slug }) => {
 
   return (
     <>
-      <div className={styles['feed-page-header']}>
-        <div>
-          <div className={cx(styles.feedPageTitleWrapper)}>
-            <div className={cx(styles.feedHeaderTitle)}>
-              <h6>
-                <FeedIcon />
-                Shared Feeds
-              </h6>
-            </div>
+      <div className={cx(styles['feed-page-header'])}>
+        <div className={cx(styles['feed-page-title-wrapper'])}>
+          <div className={cx(styles['feed-header-title'])}>
+            <h6>
+              <FeedIcon />
+              Shared Feeds
+            </h6>
           </div>
         </div>
       </div>
@@ -118,7 +116,7 @@ const FeedPageContent = ({ permissions, slug }) => {
             }
             iconLeft={<AddIcon />}
             variant="contained"
-            size="small"
+            size="default"
             theme="brand"
             onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }}
           />
