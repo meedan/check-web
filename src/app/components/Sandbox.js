@@ -529,12 +529,8 @@ const SandboxComponent = ({ admin }) => {
                   checked={listItemFactCheckCount > 1}
                   onChange={() => {
                     if (listItemFactCheckCount === 1) {
-                      // eslint-disable-next-line
-                      console.log('~~~SET TO 12345');
                       setListItemFactCheckCount(12345);
                     } else {
-                      // eslint-disable-next-line
-                      console.log('~~~SET TO 1');
                       setListItemFactCheckCount(1);
                     }
                   }}
