@@ -61,7 +61,6 @@ const DrawerRail = (props) => {
     currentUserIsMember,
   } = props;
 
-
   const setDrawerTypeChange = (newDrawerType) => {
     const currentDrawerType = drawerType;
     // if drawer is open and we click on the other button, change the content

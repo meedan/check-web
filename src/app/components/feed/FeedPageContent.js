@@ -34,9 +34,9 @@ const FeedSection = ({
 );
 
 
-const FeedPageContent = ({ team }) => {
+const FeedPageContent = ({ permissions, slug }) => {
   const handleCreateFeed = () => {
-    browserHistory.push(`/${team.slug}/feed/create`);
+    browserHistory.push(`/${slug}/feed/create`);
   };
 
   return (
@@ -89,7 +89,7 @@ const FeedPageContent = ({ team }) => {
           />
         </div>
       </div>
-      <Can permissions={team.permissions} permission="create Feed">
+      <Can permissions={permissions} permission="create Feed">
         <span className={styles.createFeedButton}>
           <ButtonMain
             className="projects-list__add-feed"

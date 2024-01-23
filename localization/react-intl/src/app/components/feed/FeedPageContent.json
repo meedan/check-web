@@ -1,0 +1,17 @@
+[
+  {
+    "id": "{titleId}",
+    "description": "{titleDescription}",
+    "defaultMessage": "{titleDefault}"
+  },
+  {
+    "id": "{contentId}",
+    "description": "{contentDescription}",
+    "defaultMessage": "{contentDefault}"
+  },
+  {
+    "id": "feedComponent.newSharedFeed",
+    "description": "Button label create new shared feed",
+    "defaultMessage": "New Shared Feed"
+  }
+]

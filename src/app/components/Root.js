@@ -38,7 +38,7 @@ import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
 import Sandbox from './Sandbox';
 import SandboxCrash from './SandboxCrash';
-import FeedPage from './drawer/FeedPage';
+import FeedPage from './feed/FeedPage';
 
 class Root extends Component {
   static logPageView() {

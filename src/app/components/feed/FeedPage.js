@@ -12,7 +12,8 @@ const FeedPage = ({ routeParams }) => (
         query={graphql`
           query FeedPageQuery($slug: String!) {
             team(slug: $slug) {
-              permissions
+              permissions,
+              slug
             }
           }
         `}
@@ -21,7 +22,7 @@ const FeedPage = ({ routeParams }) => (
         }}
         render={({ error, props }) => {
           if (!error && props) {
-            return <FeedPageContent routeParams={routeParams} {...props} permissions={props.team.permissions} />;
+            return <FeedPageContent routeParams={routeParams} permissions={props?.team.permissions} slug={props?.team.slug} />;
           }
           return null;
         }}
