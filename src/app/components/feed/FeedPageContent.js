@@ -8,27 +8,15 @@ import styles from './FeedPage.module.css';
 import Can from '../Can';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
-// eslint-disable-next-line
-console.log('FeedPage.js')
 const FeedSection = ({
-  titleId, titleDefault, titleDescription, contentId, contentDefault, contentDescription,
+  title, content,
 }) => (
   <div className={cx(styles['feed-content-wrapper'], styles['feed-content'])}>
     <h2 className="typography-subtitle2">
-      <FormattedMessage
-        id="{titleId}"
-        defaultMessage="{titleDefault}"
-        description="{titleDescription}"
-        values={{ titleId, titleDefault, titleDescription }}
-      />
+      {title}
     </h2>
     <p className="typography-body1">
-      <FormattedHTMLMessage
-        id="{contentId}"
-        defaultMessage="{contentDefault}"
-        description="{contentDescription}"
-        values={{ contentId, contentDefault, contentDescription }}
-      />
+      {content}
     </p>
   </div>
 );
@@ -56,36 +44,68 @@ const FeedPageContent = ({ permissions, slug }) => {
       <div className={cx(styles['feed-container'])}>
         <div className={cx(styles['feed-section'])}>
           <FeedSection
-            titleId="feedSection.sharedFeedsTitle"
-            titleDefault="What are Shared Feeds?"
-            titleDescription="Title of section about what shared feeds are"
-            contentId="feedSection.sharedFeedsContent"
-            contentDefault="Unlock new insights across audiences and languages by combining your Tipline data with other workspaces into a single shared view."
-            contentDescription="Text explaining what Shared Feeds are"
+            title={
+              <FormattedMessage
+                id="feedSection.sharedFeedsTitle"
+                defaultMessage="What are Shared Feeds?"
+                description="Title of section about what shared feeds are"
+              />
+            }
+            content={
+              <FormattedHTMLMessage
+                id="feedSection.sharedFeedsContent"
+                defaultMessage="Unlock new insights across audiences and languages by combining your Tipline data with other workspaces into a single shared view."
+                description="Text explaining what shared feeds are"
+              />
+            }
           />
           <FeedSection
-            titleId="feedSection.whatCanBeSharedTitle"
-            titleDefault="What can be shared?"
-            titleDescription="Title of section about what can be shared in the shared feeds"
-            contentId="feedSection.whatCanBeSharedContent"
-            contentDefault="Fully control what data each organization will contribute to the shared feed. Share anonymized request information from your Tipline, or create a shared pool of fact-checks, or choose to share everything with your partner workspaces."
-            contentDescription="Text explaining what can be shared in the shared feeds"
+            title={
+              <FormattedMessage
+                id="feedSection.whatCanBeSharedTitle"
+                defaultMessage="What can be shared?"
+                description="Title of section about what can be shared in the shared feeds"
+              />
+            }
+            content={
+              <FormattedHTMLMessage
+                id="feedSection.whatCanBeSharedContent"
+                defaultMessage="Fully control what data each organization will contribute to the shared feed. Share anonymized request information from your Tipline, or create a shared pool of fact-checks, or choose to share everything with your partner workspaces."
+                description="Text explaining what can be shared in the shared feeds"
+              />
+            }
           />
           <FeedSection
-            titleId="feedSection.howToGetStartedTitle"
-            titleDefault="How do you get started?"
-            titleDescription="Title of section about how to get started with shared feeds"
-            contentId="feedSection.howToGetStartedContent"
-            contentDefault="Create a new shared feed, and select which data from your workspace you would like to contribute. Then invite one or more other workspaces to participate. All contributing workspaces will share the same data."
-            contentDescription="Text explaining how to get started with shared feeds"
+            title={
+              <FormattedMessage
+                id="feedSection.howToGetStartedTitle"
+                defaultMessage="How do you get started?"
+                description="Title of section about how to get started with shared feeds"
+              />
+            }
+            content={
+              <FormattedHTMLMessage
+                id="feedSection.howToGetStartedContent"
+                defaultMessage="Create a new shared feed, and select which data from your workspace you would like to contribute. </br> Then invite one or more other workspaces to participate. All contributing workspaces will share the same data."
+                description="Text explaining how to use shared feeds."
+              />
+            }
           />
           <FeedSection
-            titleId="feedSection.whatComesNextTitle"
-            titleDefault="What comes next?"
-            titleDescription="Title of section about what is coming next for the shared feeds"
-            contentId="feedSection.whatComesNextContent"
-            contentDefault="With a single view into multiple Tiplines, each workspace accesses a new level of insights including trend narratives across audiences."
-            contentDescription="Text about what is coming next for the shared feeds"
+            title={
+              <FormattedMessage
+                id="feedSection.whatComesNextTitle"
+                defaultMessage="What comes next?"
+                description="Title of section about what is coming next for the shared feeds"
+              />
+            }
+            content={
+              <FormattedHTMLMessage
+                id="feedSection.whatComesNextContent"
+                defaultMessage="With a single view into multiple Tiplines, each workspace accesses a new level of insights including trend narratives across audiences."
+                description="Text about what is coming next for the shared feeds"
+              />
+            }
           />
         </div>
       </div>
