@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ItemDate from './ItemDate';
-import ItemRating from './ItemRating';
-import ItemDescription from './ItemDescription';
 import styles from './Card.module.css';
+
+const CardHoverContext = React.createContext(false);
 
 const MaybeLink = ({ to, children }) => {
   if (to) {
@@ -17,14 +16,9 @@ const MaybeLink = ({ to, children }) => {
 };
 
 const Card = ({
-  title,
-  description,
-  factCheckUrl,
   cardUrl,
-  tag,
-  tagColor,
-  date,
   footer,
+  children,
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -44,16 +38,10 @@ const Card = ({
     >
       <MaybeLink to={cardUrl}>
         <div className={styles.cardContent}>
-          <div>
-            <ItemDescription title={title} description={description} factCheckUrl={factCheckUrl} showCollapseButton={isHovered} />
-            { footer ? <div className={styles.cardFooter}>{footer}</div> : null }
-          </div>
-          { (tag || date) ?
-            <div className={styles.cardRight}>
-              { tag ? <ItemRating rating={tag} ratingColor={tagColor} /> : null }
-              { date ? <ItemDate date={date} /> : null }
-            </div> : null
-          }
+          <CardHoverContext.Provider value={isHovered}>
+            { children }
+          </CardHoverContext.Provider>
+          { footer ? <div className={styles.cardFooter}>{footer}</div> : null }
         </div>
       </MaybeLink>
     </div>
@@ -61,24 +49,16 @@ const Card = ({
 };
 
 Card.defaultProps = {
-  description: null,
-  factCheckUrl: null,
   cardUrl: null,
-  tag: null,
-  tagColor: 'black',
-  date: null,
   footer: null,
+  children: null,
 };
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  factCheckUrl: PropTypes.string,
   cardUrl: PropTypes.string,
-  tag: PropTypes.node,
-  tagColor: PropTypes.string,
-  date: PropTypes.number, // Timestamp
   footer: PropTypes.node,
+  children: PropTypes.node,
 };
 
+export { CardHoverContext };
 export default Card;

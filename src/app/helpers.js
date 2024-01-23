@@ -400,6 +400,20 @@ function getSuperAdminMask(state) {
   return superAdminMaskSession !== 'false';
 }
 
+/**
+ * Return a number formatted 12.2K, 130M, etc. Mostly to ensure same options across the app
+ */
+function getCompactNumber(locale, number) {
+  return new Intl.NumberFormat(locale, { notation: 'compact', compactDisplay: 'short' }).format(number);
+}
+
+/**
+ * Return a number formatted like 1,234,567 -- locale-appropriate.
+ */
+function getSeparatedNumber(locale, number) {
+  return new Intl.NumberFormat(locale, {}).format(number);
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -425,4 +439,6 @@ export { // eslint-disable-line import/no-unused-modules
   escapeHtml,
   getTimeZoneOptions,
   getSuperAdminMask,
+  getCompactNumber,
+  getSeparatedNumber,
 };

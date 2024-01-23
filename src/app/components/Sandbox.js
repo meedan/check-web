@@ -23,13 +23,13 @@ import AddIcon from '../icons/settings.svg';
 import CalendarIcon from '../icons/calendar_month.svg';
 import ListIcon from '../icons/list.svg';
 import FigmaColorLogo from '../icons/figma_color.svg';
-import Card from './cds/media-cards/Card.js';
 import FactCheckCard from './search/SearchResultsCards/FactCheckCard';
 import LimitedTextArea from './layout/inputs/LimitedTextArea';
 import MediasLoading from './media/MediasLoading';
 import ParsedText from './ParsedText';
-import ItemCard from './search/SearchResultsCards/ItemCard';
+import SharedItemCard from './search/SearchResultsCards/SharedItemCard';
 import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
+import CheckFeedDataPoints from '../CheckFeedDataPoints';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -48,12 +48,47 @@ const SandboxComponent = ({ admin }) => {
 
   const mediaThumbnail = {
     media: {
-      picture: 'https://example.com/image.jpg',
-      type: 'image',
-      url: 'https://example.com/image.jpg',
+      picture: 'https://placekitten.com/200/300',
+      type: 'UploadedImage',
+      url: 'https://placekitten.com/200/300',
     },
     show_warning_cover: false,
   };
+
+  const workspaces = [
+    {
+      url: 'https://placekitten.com/200/200',
+      name: 'First Workspace',
+    },
+    {
+      url: 'https://placekitten.com/300/300',
+      name: 'Second Workspace',
+    },
+    {
+      url: 'https://placekitten.com/301/300',
+      name: 'Third Workspace',
+    },
+    {
+      url: 'https://placekitten.com/302/300',
+      name: 'Fourth Workspace',
+    },
+    {
+      url: 'https://placekitten.com/303/300',
+      name: 'Fifth Workspace',
+    },
+    {
+      url: 'https://placekitten.com/304/300',
+      name: 'Sixth Workspace',
+    },
+    {
+      url: 'https://placekitten.com/305/300',
+      name: 'Seventh Workspace',
+    },
+    {
+      url: 'https://placekitten.com/306/300',
+      name: 'Eighth Workspace',
+    },
+  ];
 
   const [listItemShared, setListItemShared] = React.useState(Boolean(true));
   const [listItemCluster, setListItemCluster] = React.useState(Boolean(false));
@@ -66,6 +101,23 @@ const SandboxComponent = ({ admin }) => {
   const [listItemFactCheckPublished, setListItemFactCheckPublished] = React.useState(Boolean(true));
   const [listItemSuggestions, setListItemSuggestions] = React.useState(Boolean(true));
   const [listItemUnread, setListItemUnread] = React.useState(Boolean(true));
+  const [listItemDataPointsFactCheck, setListItemDataPointsFactCheck] = React.useState(Boolean(false));
+  const [listItemDataPointsMediaRequests, setListItemDataPointsMediaRequests] = React.useState(Boolean(false));
+  const [listItemDataPoints, setListItemDataPoints] = React.useState([]);
+  const [listItemFactCheckCount, setListItemFactCheckCount] = React.useState(1);
+
+  // This triggers when the list item data points are changed
+  React.useEffect(() => {
+    if (listItemDataPointsFactCheck && listItemDataPointsMediaRequests) {
+      setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS, CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
+    } else if (!listItemDataPointsFactCheck && listItemDataPointsMediaRequests) {
+      setListItemDataPoints([CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]);
+    } else if (listItemDataPointsFactCheck && !listItemDataPointsMediaRequests) {
+      setListItemDataPoints([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS]);
+    } else if (!listItemDataPointsFactCheck && !listItemDataPointsMediaRequests) {
+      setListItemDataPoints([]);
+    }
+  }, [listItemDataPointsFactCheck, listItemDataPointsMediaRequests]);
 
   const onSetListItemShared = (shared) => {
     if (!listItemCluster) {
@@ -452,11 +504,55 @@ const SandboxComponent = ({ admin }) => {
                   onChange={() => setListItemUnread(!listItemUnread)}
                 />
               </li>
+              <li>
+                <SwitchComponent
+                  label="Shared Feed Data Points - Fact Checks"
+                  labelPlacement="top"
+                  checked={listItemDataPointsFactCheck}
+                  disabled={!listItemShared}
+                  onChange={() => setListItemDataPointsFactCheck(!listItemDataPointsFactCheck)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Shared Feed Data Points - Media & Requests"
+                  labelPlacement="top"
+                  checked={listItemDataPointsMediaRequests}
+                  disabled={!listItemShared}
+                  onChange={() => setListItemDataPointsMediaRequests(!listItemDataPointsMediaRequests)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Fact Check Count - More than 1"
+                  labelPlacement="top"
+                  checked={listItemFactCheckCount > 1}
+                  onChange={() => {
+                    if (listItemFactCheckCount === 1) {
+                      setListItemFactCheckCount(12345);
+                    } else {
+                      setListItemFactCheckCount(1);
+                    }
+                  }}
+                />
+              </li>
             </ul>
           </div>
           <div className={styles.componentBlockVariants}>
-            <ItemCard
-              description="Hello"
+            <SharedItemCard
+              title="Title of a Shared Item Card Item"
+              description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
+              mediaThumbnail={(listItemShared && listItemCluster) && mediaThumbnail}
+              workspaces={workspaces}
+              date={new Date('2023-12-15T17:19:40Z')}
+              dataPoints={listItemDataPoints}
+              mediaCount={12345}
+              suggestionsCount={567890}
+              requestsCount={7890}
+              lastRequestDate={new Date('2023-12-15T17:19:40Z')}
+              factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
+              factCheckCount={listItemFactCheckCount}
+              channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
             />
             <div
               className={cx(
@@ -1382,14 +1478,6 @@ const SandboxComponent = ({ admin }) => {
       </section>
       <section id="sandbox-cards">
         <h6>Media Cards</h6>
-        <div className={styles.componentWrapper}>
-          <Card
-            title="Moby-Dick; or, The Whale. This is a very long title to test what happens when titles are very, very long. Hopefully we only see one line truncated but the whole thing shows up when we expand."
-            description="Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can."
-            footer="I still haven't finished this"
-            tag="Novel"
-          />
-        </div>
         <div className={styles.componentWrapper}>
           <FactCheckCard
             title="Moby-Dick; or, The Whale."
