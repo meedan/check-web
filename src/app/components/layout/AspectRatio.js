@@ -47,7 +47,7 @@ const AspectRatio = ({
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const [expandedContent, setExpandedContent] = React.useState(null);
   const [isFullscreenVideo, setIsFullscreenVideo] = React.useState(false);
-  const uniqueClassName = projectMedia.id;
+  const uniqueClassName = projectMedia.id.replace(/[^a-zA-Z0-9]/g, '');
 
   const handleOnExpand = () => {
     // If this is video, use the button to enter or exit fullscreen for the container div depending on whether we are already in fullscreen
