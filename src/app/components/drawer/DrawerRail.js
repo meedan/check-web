@@ -115,15 +115,6 @@ const DrawerRail = (props) => {
             >
               <QuestionAnswerIcon />
             </Link>
-            <button
-              type="button"
-              className={`${styles.railIconLink} ${isFeedPage ? styles.railIconLinkActive : ''}`}
-              id="side-navigation__feed-toggle"
-              onClick={() => setDrawerTypeChange('feed')}
-              title={props.intl.formatMessage(messages.feedDescription)}
-            >
-              <FeedIcon />
-            </button>
             <Link
               className={`${styles.railIconLink} ${isFeedPage ? styles.railIconLinkActive : ''}`}
               id="side-navigation__feed-toggle"
