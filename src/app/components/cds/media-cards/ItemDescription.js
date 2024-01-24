@@ -57,7 +57,9 @@ const ItemDescription = ({
             { factCheckUrl ?
               <span className={styles.factCheckLink}>
                 <FactCheckIcon />
-                <a href={factCheckUrl} target="_blank" rel="noreferrer noopener">{factCheckUrl}</a>
+                <div>
+                  <a href={factCheckUrl} target="_blank" rel="noreferrer noopener">{factCheckUrl}</a>
+                </div>
               </span>
               : null }
           </p>

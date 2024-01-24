@@ -6,6 +6,11 @@
     box-shadow: var(--dropShadowMedium);
     color: var(--textPrimary);
     padding: 4px 8px;
+
+    ul {
+      list-style-type: disc;
+      margin-left: 16px;
+    }
   }
 
   :global(.MuiTooltip-arrow) {

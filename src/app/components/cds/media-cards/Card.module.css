@@ -26,9 +26,10 @@
 }
 
 .card {
+  background-color: var(--otherWhite);
   border: 1px solid var(--grayBorderMain);
   border-radius: 8px;
-  padding: 8px;
+  padding: 16px;
   width: 100%;
 
   &:hover {
@@ -38,7 +39,8 @@
   .cardContent {
     align-items: flex-start;
     display: flex;
-    gap: 16px;
+    flex-wrap: wrap;
+    gap: 0 16px;
     justify-content: space-between;
   }
 
@@ -48,6 +50,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    p {
+      margin: 0;
+    }
   }
 
   .cardTitle {
@@ -75,11 +81,6 @@
     overflow: hidden;
   }
 
-  .cardRight {
-    min-width: 150px;
-    text-align: right;
-  }
-
   .cardTag {
     display: flex;
     justify-content: flex-end;
@@ -101,6 +102,24 @@
     margin-top: 8px;
   }
 
+  .cardChannels {
+    align-items: center;
+    display: flex;
+    gap: 3px;
+
+    span {
+      display: flex;
+    }
+
+    svg {
+      font-size: var(--fontSizeLarge);
+    }
+  }
+
+  .cardFooter {
+    margin-top: 6px;
+  }
+
   .clickableCard {
     color: inherit;
     cursor: pointer;
@@ -113,6 +132,12 @@
     display: flex;
     font-size: var(--fontSizeSmall);
     gap: 3px;
+
+    div {
+      display: grid;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     svg {
       font-size: var(--iconSizeTiny);
