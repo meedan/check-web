@@ -88,9 +88,6 @@ const DrawerRail = (props) => {
     }
   }, [testPath, teamSlug, activeItem]);
 
-  // eslint-disable-next-line
-  console.log(isFeedPage)
-
   return (
     <div className={styles.drawerRail}>
       {!!team && (currentUserIsMember || !team.private) ? (
