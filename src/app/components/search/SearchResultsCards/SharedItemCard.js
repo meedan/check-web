@@ -11,9 +11,9 @@ import ItemChannels from '../../cds/media-cards/ItemChannels';
 import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
 import MediaCount from '../../cds/media-cards/MediaCount';
+import RequestsCount from '../../cds/media-cards/RequestsCount';
 import BulletSeparator from '../../layout/BulletSeparator';
-import { getCompactNumber, getSeparatedNumber } from '../../../helpers';
-import RequestsIcon from '../../../icons/question_answer.svg';
+import { getCompactNumber } from '../../../helpers';
 import CalendarMonthIcon from '../../../icons/calendar_month.svg';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
@@ -94,26 +94,10 @@ const SharedItemCard = ({
                   />
                 ),
                 requestsCount && (
-                  <FormattedMessage id="sharedItemCard.requests" defaultMessage="Requests" description="This appears as a label next to a number, like '1,234 Requests'. It should indicate to the user that whatever number they are viewing represents the number of requests an item has gotten.">
-                    { requestsLabel => (
-                      <Tooltip
-                        arrow
-                        title={`${getSeparatedNumber(intl.locale, requestsCount)} ${requestsLabel}`}
-                        placement="top"
-                      >
-                        <span>
-                          <ButtonMain
-                            disabled
-                            size="small"
-                            theme="brand"
-                            iconLeft={<RequestsIcon />}
-                            variant="contained"
-                            label={getCompactNumber(intl.locale, requestsCount)}
-                          />
-                        </span>
-                      </Tooltip>
-                    )}
-                  </FormattedMessage>),
+                  <RequestsCount
+                    requestsCount={requestsCount}
+                  />
+                ),
                 lastRequestDate && (
                   <FormattedMessage id="sharedItemCard.lastRequested" defaultMessage="Last Requested" description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'.">
                     { lastRequestDateLabel => (
