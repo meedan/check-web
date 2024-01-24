@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -12,9 +12,9 @@ import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
 import MediaCount from '../../cds/media-cards/MediaCount';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
+import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import BulletSeparator from '../../layout/BulletSeparator';
 import { getCompactNumber } from '../../../helpers';
-import CalendarMonthIcon from '../../../icons/calendar_month.svg';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
 import styles from './ItemCard.module.css';
@@ -99,35 +99,10 @@ const SharedItemCard = ({
                   />
                 ),
                 lastRequestDate && (
-                  <FormattedMessage id="sharedItemCard.lastRequested" defaultMessage="Last Requested" description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'.">
-                    { lastRequestDateLabel => (
-                      <Tooltip
-                        arrow
-                        title={(
-                          <>
-                            <span>{lastRequestDateLabel}:</span>
-                            <ul>
-                              <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(lastRequestDate)}</li>
-                              <li>{Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(lastRequestDate)}</li>
-                            </ul>
-                          </>
-                        )}
-
-                        placement="top"
-                      >
-                        <span>
-                          <ButtonMain
-                            disabled
-                            size="small"
-                            theme="brand"
-                            iconLeft={<CalendarMonthIcon />}
-                            variant="contained"
-                            label={<FormattedDate value={lastRequestDate * 1000} year="numeric" month="long" day="numeric" />}
-                          />
-                        </span>
-                      </Tooltip>
-                    )}
-                  </FormattedMessage>),
+                  <LastRequestDate
+                    lastRequestDate={lastRequestDate}
+                  />
+                ),
                 channels && <ItemChannels channels={channels} sortMainFirst />,
               ]}
             />
