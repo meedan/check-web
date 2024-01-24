@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
+import cx from 'classnames/bind';
 import { makeStyles } from '@material-ui/core/styles';
 import EllipseIcon from '../../icons/ellipse.svg';
 
@@ -17,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     color: 'var(--textSecondary)',
     lineHeight: '20px',
+    gap: '8px 0',
   },
   detailSpan: {
     display: 'flex',
@@ -32,6 +34,7 @@ const BulletSeparator = ({
   icon,
   details,
   compact,
+  className,
 }) => {
   const classes = useStyles();
   const subtitleDetails = details.filter(d => !!d).map((d, index) => (
@@ -42,7 +45,7 @@ const BulletSeparator = ({
   ));
 
   return (
-    <div className="typography-body1">
+    <div className={cx('typography-body1', className)}>
       <Box display="flex" alignItems="center" mb={compact ? 0 : 2} className={classes.details}>
         { icon ? <div className={classes.icon}>{icon}</div> : null }
         {subtitleDetails}

@@ -44,7 +44,7 @@ const DrawerRail = (props) => {
   const testPath = window.location.pathname;
   const isSettingsPage = /\/settings\/[a-zA-Z0-9]+/.test(testPath);
   const isMediaPage = /\/media\/[0-9]+/.test(testPath);
-  const isFeedPage = /^\/[^/]+\/feed\//.test(testPath);
+  const isFeedPage = /^\/[^/]+\/feed(s)?($|\/)/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
   const teamSlug = teamRegex ? teamRegex[1] : null;
   const isUserSettingsPage = teamSlug === 'check';
@@ -60,7 +60,6 @@ const DrawerRail = (props) => {
     team,
     currentUserIsMember,
   } = props;
-
 
   const setDrawerTypeChange = (newDrawerType) => {
     const currentDrawerType = drawerType;
@@ -125,6 +124,15 @@ const DrawerRail = (props) => {
             >
               <FeedIcon />
             </button>
+            <Link
+              className={`${styles.railIconLink} ${isFeedPage ? styles.railIconLinkActive : ''}`}
+              id="side-navigation__feed-toggle"
+              onClick={() => setDrawerTypeChange('feed')}
+              to={`/${props.team.slug}/feeds`}
+              title={props.intl.formatMessage(messages.feedDescription)}
+            >
+              <FeedIcon />
+            </Link>
             <Link
               className={[styles.railIconLink, isSettingsPage ? styles.railIconLinkActive : ''].join(' ')}
               to={`/${props.team.slug}/settings`}
