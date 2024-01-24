@@ -1,10 +1,5 @@
 [
   {
-    "id": "projectsComponent.pendingInvitationFeedTitle",
-    "description": "Tooltip for a navigation item that has a status of a pending invitation",
-    "defaultMessage": "Pending invitation: {feedTitle}"
-  },
-  {
     "id": "projectsComponent.allItems",
     "description": "Label for the 'All items' list displayed on the left sidebar",
     "defaultMessage": "All"
@@ -53,21 +48,6 @@
     "id": "projectsComponent.noCustomLists",
     "description": "Displayed under the custom list header when there are no lists in it",
     "defaultMessage": "No custom lists"
-  },
-  {
-    "id": "projectsComponent.sharedFeeds",
-    "description": "Feeds of content shared across workspaces",
-    "defaultMessage": "Shared feeds"
-  },
-  {
-    "id": "projectsComponent.newSharedFeed",
-    "description": "Tooltip for the button that navigates to shared feed creation page",
-    "defaultMessage": "New shared feed"
-  },
-  {
-    "id": "projectsComponent.noSharedFeeds",
-    "description": "Displayed under the shared feed header when there are no feeds in it",
-    "defaultMessage": "No shared feeds"
   },
   {
     "id": "projectsComponent.spam",
