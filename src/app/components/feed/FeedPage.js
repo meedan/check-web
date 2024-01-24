@@ -22,7 +22,7 @@ const FeedPage = ({ routeParams }) => (
         }}
         render={({ error, props }) => {
           if (!error && props) {
-            return <FeedPageContent routeParams={routeParams} permissions={props?.team.permissions} slug={props?.team.slug} />;
+            return <FeedPageContent routeParams={routeParams} permissions={props.team.permissions} slug={props.team.slug} />;
           }
           return null;
         }}

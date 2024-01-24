@@ -1,5 +1,10 @@
 [
   {
+    "id": "sharedFeeds",
+    "description": "Title for the shared feeds page",
+    "defaultMessage": "Shared Feeds"
+  },
+  {
     "id": "feedSection.sharedFeedsTitle",
     "description": "Title of section about what shared feeds are",
     "defaultMessage": "What are Shared Feeds?"

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import AddIcon from '../../icons/add.svg';
@@ -21,6 +22,10 @@ const FeedSection = ({
   </div>
 );
 
+FeedSection.propTypes = {
+  title: PropTypes.node.isRequired,
+  content: PropTypes.node.isRequired,
+};
 
 const FeedPageContent = ({ permissions, slug }) => {
   const handleCreateFeed = () => {
@@ -34,7 +39,7 @@ const FeedPageContent = ({ permissions, slug }) => {
           <div className={cx(styles['feed-header-title'])}>
             <h6>
               <FeedIcon />
-              Shared Feeds
+              <FormattedMessage id="sharedFeeds" defaultMessage="Shared Feeds" description="Title for the shared feeds page" />
             </h6>
           </div>
         </div>
@@ -124,6 +129,11 @@ const FeedPageContent = ({ permissions, slug }) => {
       </Can>
     </>
   );
+};
+
+FeedPageContent.propTypes = {
+  permissions: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
 };
 
 export default FeedPageContent;
