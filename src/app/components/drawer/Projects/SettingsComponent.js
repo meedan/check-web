@@ -120,7 +120,7 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdminOrEditor ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/columns`} title={intl.formatMessage(messages.columns)}>
+          <Link className={cx('team-settings__lists-tab', styles.linkList)} to={`/${team.slug}/settings/columns`} title={intl.formatMessage(messages.columns)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'columns' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.columns)}
@@ -199,7 +199,7 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdminOrEditor ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/statuses`} title={intl.formatMessage(messages.statuses)}>
+          <Link className={cx('team-settings__statuses-tab', styles.linkList)} to={`/${team.slug}/settings/statuses`} title={intl.formatMessage(messages.statuses)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'statuses' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.statuses)}
@@ -208,7 +208,7 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdminOrEditor ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/tags`} title={intl.formatMessage(messages.tags)}>
+          <Link className={cx('team-settings__tags-tab', styles.linkList)} to={`/${team.slug}/settings/tags`} title={intl.formatMessage(messages.tags)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'tags' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.tags)}
