@@ -53,10 +53,10 @@ shared_examples 'tag' do
     wait_for_selector('textarea').send_keys('new media')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.team-tags__row')
-    wait_for_selector('#side-navigation__workspace-toggle').click
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
     # check that it does not have a item using this tag
     expect(wait_for_selector('td > a').text == '0').to be(true)
+    wait_for_selector('#side-navigation__workspace-toggle').click
     # create a media
     create_media('new media')
     sleep 30 # wait for the items to be indexed in the Elasticsearch

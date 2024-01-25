@@ -125,7 +125,7 @@ const DrawerRail = (props) => {
                   [styles.railIconButton],
                   {
                     'side-navigation__toggle-open': drawerOpen,
-                    'ide-navigation__toggle-closed': !drawerOpen,
+                    'side-navigation__toggle-closed': !drawerOpen,
                   })
                 }
                 onClick={() => setDrawerOpenChange()}

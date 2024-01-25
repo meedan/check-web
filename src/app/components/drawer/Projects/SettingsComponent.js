@@ -102,7 +102,7 @@ const SettingsComponent = ({
       <div className={styles.listTitle}>
         {intl.formatMessage(messages.settings)}
       </div>
-      <ul className={cx(styles.listWrapper, 'projects-list')}>
+      <ul className={styles.listWrapper}>
         <Link className={cx('team-settings__workspace-tab', styles.linkList)} to={`/${team.slug}/settings/workspace`} title={intl.formatMessage(messages.workspace)}>
           <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'workspace' })}>
             <div className={styles.listLabel}>
