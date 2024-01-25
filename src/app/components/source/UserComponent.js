@@ -27,7 +27,9 @@ class UserComponent extends React.Component {
   }
 
   componentWillMount() {
-    const { user } = this.props;
+    // eslint-disable-next-line no-console
+    console.log('componentWillMount', this.props);
+    const user = this.props.me || this.props.user;
     if (!user.is_active) {
       browserHistory.push('/check/not-found');
     }
@@ -38,14 +40,15 @@ class UserComponent extends React.Component {
   }
 
   handleTabChange = (e, value) => {
-    browserHistory.push(`/check/user/${this.props.user.dbid}/${value}`);
+    const userId = this.props.me.dbid || this.props.user.dbid;
+    browserHistory.push(`/check/user/${userId}/${value}`);
     this.setState({
       showTab: value,
     });
   };
 
   render() {
-    const { user } = this.props;
+    const user = this.props.me || this.props.user;
     const isEditing = this.props.route.isEditing && can(user.permissions, 'update User');
     const context = this.getContext();
     const isUserSelf = (user.id === context.currentUser.id);

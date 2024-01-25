@@ -4,11 +4,11 @@ import UserComponent from './UserComponent';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import MeRoute from '../../relay/MeRoute';
-import userFragment from '../../relay/userFragment';
+import meFragment from '../../relay/meFragment';
 
 const MeContainer = Relay.createContainer(UserComponent, {
   fragments: {
-    user: () => userFragment,
+    me: () => meFragment,
   },
 });
 
