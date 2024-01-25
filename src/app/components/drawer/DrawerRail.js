@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router';
 import { injectIntl, defineMessages } from 'react-intl';
 import Avatar from '@material-ui/core/Avatar';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import TeamAvatar from '../team/TeamAvatar';
 import HelpIcon from '../../icons/help.svg';
 import InfoIcon from '../../icons/info.svg';
@@ -107,30 +108,36 @@ const DrawerRail = (props) => {
             <button type="button" className={`${styles.railIconButton} ${drawerOpen ? 'side-navigation__toggle-open' : 'side-navigation__toggle-closed'}`} id="side-navigation__toggle" onClick={() => setDrawerOpenChange()}>{drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}</button>
           </div>
           <div className={styles.drawerRailMiddle}>
-            <Link
-              className={[styles.railIconLink, isTipline ? styles.railIconLinkActive : ''].join(' ')}
-              to={`/${props.team.slug}/all-items`}
-              onClick={() => setDrawerTypeChange('default')}
-              title={props.intl.formatMessage(messages.tiplineDescription)}
-            >
-              <QuestionAnswerIcon />
-            </Link>
-            <Link
-              className={`${styles.railIconLink} ${isFeedPage ? styles.railIconLinkActive : ''}`}
-              id="side-navigation__feed-toggle"
-              onClick={() => setDrawerTypeChange('feed')}
-              to={`/${props.team.slug}/feeds`}
-              title={props.intl.formatMessage(messages.feedDescription)}
-            >
-              <FeedIcon />
-            </Link>
-            <Link
-              className={[styles.railIconLink, isSettingsPage ? styles.railIconLinkActive : ''].join(' ')}
-              to={`/${props.team.slug}/settings`}
-              title={props.intl.formatMessage(messages.settingsDescription)}
-            >
-              <SettingsIcon />
-            </Link>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.tiplineDescription)}>
+              <Link
+                className={[styles.railIconLink, isTipline ? styles.railIconLinkActive : ''].join(' ')}
+                to={`/${props.team.slug}/all-items`}
+                onClick={() => setDrawerTypeChange('default')}
+                title={props.intl.formatMessage(messages.tiplineDescription)}
+              >
+                <QuestionAnswerIcon />
+              </Link>
+            </Tooltip>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.feedDescription)}>
+              <Link
+                className={`${styles.railIconLink} ${isFeedPage ? styles.railIconLinkActive : ''}`}
+                id="side-navigation__feed-toggle"
+                onClick={() => setDrawerTypeChange('feed')}
+                to={`/${props.team.slug}/feeds`}
+                title={props.intl.formatMessage(messages.feedDescription)}
+              >
+                <FeedIcon />
+              </Link>
+            </Tooltip>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.settingsDescription)}>
+              <Link
+                className={[styles.railIconLink, isSettingsPage ? styles.railIconLinkActive : ''].join(' ')}
+                to={`/${props.team.slug}/settings`}
+                title={props.intl.formatMessage(messages.settingsDescription)}
+              >
+                <SettingsIcon />
+              </Link>
+            </Tooltip>
           </div>
         </>
       ) :
