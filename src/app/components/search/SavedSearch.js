@@ -10,12 +10,16 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import { safelyParseJSON } from '../../helpers';
 import ProjectActions from '../drawer/Projects/ProjectActions';
 
-const SavedSearch = ({ routeParams }) => (
-  <ErrorBoundary component="SavedSearch">
-    <QueryRenderer
-      environment={Relay.Store}
-      query={graphql`
-        query SavedSearchQuery($id: ID!) {
+
+const SavedSearch = ({ routeParams }) => {
+  const [random] = React.useState(String(Math.random()));
+
+  return (
+    <ErrorBoundary component="SavedSearch">
+      <QueryRenderer
+        environment={Relay.Store}
+        query={graphql`
+        query SavedSearchQuery($id: ID!, $random: String!) {
           saved_search(id: $id) {
             id
             dbid
@@ -40,26 +44,27 @@ const SavedSearch = ({ routeParams }) => (
           }
         }
       `}
-      variables={{
-        id: routeParams.savedSearchId,
-        timestamp: new Date().getTime(), // Invalidate Relay cache
-      }}
-      render={({ error, props }) => {
-        if (!error && props) {
+        variables={{
+          id: routeParams.savedSearchId,
+          timestamp: new Date().getTime(), // Invalidate Relay cache
+          random,
+        }}
+        render={({ error, props }) => {
+          if (!error && props) {
           // Weird Relay error happens here if "filters" is a JSON object instead of a JSON string...
           // "Uncaught TypeError: Cannot assign to read only property '<filter name>' of object '#<Object>'"
-          const defaultQuery = safelyParseJSON(props.saved_search.filters, {});
-          const query = routeParams.query ? safelyParseJSON(routeParams.query, {}) : defaultQuery;
+            const defaultQuery = safelyParseJSON(props.saved_search.filters, {});
+            const query = routeParams.query ? safelyParseJSON(routeParams.query, {}) : defaultQuery;
 
-          return (
-            <div className="saved-search search-results-wrapper">
-              <Search
-                searchUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}`}
-                mediaUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}/media`}
-                listActions={
-                  <ProjectActions
-                    object={props.saved_search}
-                    updateMutation={graphql`
+            return (
+              <div className="saved-search search-results-wrapper">
+                <Search
+                  searchUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}`}
+                  mediaUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}/media`}
+                  listActions={
+                    <ProjectActions
+                      object={props.saved_search}
+                      updateMutation={graphql`
                       mutation SavedSearchUpdateSavedSearchMutation($input: UpdateSavedSearchInput!) {
                         updateSavedSearch(input: $input) {
                           saved_search {
@@ -70,7 +75,7 @@ const SavedSearch = ({ routeParams }) => (
                         }
                       }
                     `}
-                    deleteMessage={
+                      deleteMessage={
                       props.saved_search?.is_part_of_feeds ?
                         <>
                           <FormattedHTMLMessage
@@ -110,8 +115,8 @@ const SavedSearch = ({ routeParams }) => (
                             teamName: props.saved_search?.team ? props.saved_search.team.name : '',
                           }}
                         />
-                    }
-                    deleteMutation={graphql`
+                      }
+                      deleteMutation={graphql`
                       mutation SavedSearchDestroySavedSearchMutation($input: DestroySavedSearchInput!) {
                         destroySavedSearch(input: $input) {
                           deletedId
@@ -121,25 +126,26 @@ const SavedSearch = ({ routeParams }) => (
                         }
                       }
                     `}
-                  />
-                }
-                title={props.saved_search?.title}
-                listSubtitle={<FormattedMessage id="savedSearch.subtitle" defaultMessage="Custom List" description="Displayed on top of the custom list title on the search results page." />}
-                teamSlug={routeParams.team}
-                query={query}
-                defaultQuery={defaultQuery}
-                savedSearch={props.saved_search}
-                hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
-                page="list"
-              />
-            </div>
-          );
-        }
-        return null;
-      }}
-    />
-  </ErrorBoundary>
-);
+                    />
+                  }
+                  title={props.saved_search?.title}
+                  listSubtitle={<FormattedMessage id="savedSearch.subtitle" defaultMessage="Custom List" description="Displayed on top of the custom list title on the search results page." />}
+                  teamSlug={routeParams.team}
+                  query={query}
+                  defaultQuery={defaultQuery}
+                  savedSearch={props.saved_search}
+                  hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
+                  page="list"
+                />
+              </div>
+            );
+          }
+          return null;
+        }}
+      />
+    </ErrorBoundary>
+  );
+};
 
 SavedSearch.propTypes = {
   routeParams: PropTypes.shape({
