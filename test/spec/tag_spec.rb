@@ -56,7 +56,6 @@ shared_examples 'tag' do
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
     # check that it does not have a item using this tag
     expect(wait_for_selector('td > a').text == '0').to be(true)
-    wait_for_selector('#side-navigation__workspace-toggle').click
     # create a media
     create_media('new media')
     sleep 30 # wait for the items to be indexed in the Elasticsearch
