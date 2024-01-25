@@ -1,3 +1,39 @@
 .itemCard {
   background-color: transparent;
+
+  .sharedItemCardMiddle {
+    align-items: flex-start;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    gap: 6px;
+
+    .sharedItemCardWorkspaces {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+
+      .extraWorkspaces {
+        align-items: center;
+        background-color: var(--otherWhite);
+        border: 2px solid var(--grayBorderMain);
+        border-radius: 6px;
+        color: var(--textSecondary);
+        cursor: pointer;
+        display: flex;
+        flex-shrink: 0;
+        font-feature-settings: 'clig' off, 'liga' off;
+        gap: 12px;
+        height: 30px;
+        justify-content: center;
+        padding: 6px;
+        text-align: center;
+        width: 30px;
+      }
+    }
+  }
+
+  .bulletSeparator > div {
+    color: var(--grayBorderAccent);
+  }
 }
