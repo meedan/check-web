@@ -143,6 +143,7 @@ const DrawerRail = (props) => {
                     [styles.railIconLinkActive]: isTipline,
                   })
                 }
+                id="side-navigation__workspace-toggle"
                 to={`/${props.team.slug}/all-items`}
                 onClick={() => setDrawerTypeChange('default')}
                 title={props.intl.formatMessage(messages.tiplineDescription)}

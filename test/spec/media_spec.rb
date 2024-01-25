@@ -29,7 +29,7 @@ shared_examples 'media' do |type|
     wait_for_selector('#bulk-actions-menu__button').click
     wait_for_selector('.bulk-actions-menu__restore').click
     wait_for_selector('.message')
-    wait_for_selector('#side-navigation__toggle').click
+    wait_for_selector('#side-navigation__workspace-toggle').click
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector_list_size('.medias__item', 1, :css)
     expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
