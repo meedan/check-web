@@ -28,15 +28,16 @@ describe('<SettingsComponent />', () => {
     },
   };
 
-  it('Should not render report tab or data tab when smooch is not installed on the team', () => {
-    global.window = Object.create(window);
-    Object.defineProperty(window, 'location', {
-      value: {
-        pathname: '/team/settings/workspace/',
+  const windowSpy = jest.spyOn(window, 'window', 'get');
+  windowSpy.mockImplementation(() => ({
+    Check: {
+      store: {
+        getState: () => ({ app: { context: { currentUser } } }),
       },
-    });
-    getStore().currentUser = currentUser;
-    getStore().team = team;
+    },
+  }));
+
+  it('should not render report tab or data tab when smooch is not installed on the team', () => {
     const wrapper = shallowWithIntl(<SettingsComponent
       team={team}
       params={{ tab: '' }}
@@ -45,15 +46,7 @@ describe('<SettingsComponent />', () => {
     expect(wrapper.find('.team-settings__data-tab')).toHaveLength(0);
   });
 
-  it('Should render report tab and data tab when smooch is installed on the team', () => {
-    global.window = Object.create(window);
-    Object.defineProperty(window, 'location', {
-      value: {
-        pathname: '/team/settings/workspace/',
-      },
-    });
-    getStore().currentUser = currentUser;
-    getStore().team = team;
+  it('should render report tab and data tab when smooch is installed on the team', () => {
     const wrapper = shallowWithIntl(<SettingsComponent
       team={team2}
       params={{ tab: 'report' }}
