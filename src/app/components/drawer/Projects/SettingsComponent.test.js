@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallowWithIntl, getStore } from '../../../../../test/unit/helpers/intl-test';
+import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import { SettingsComponent } from './SettingsComponent';
 
 describe('<SettingsComponent />', () => {
