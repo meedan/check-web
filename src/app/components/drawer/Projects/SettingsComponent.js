@@ -103,7 +103,7 @@ const SettingsComponent = ({
         {intl.formatMessage(messages.settings)}
       </div>
       <ul className={cx(styles.listWrapper, 'projects-list')}>
-        <Link className={styles.linkList} to={`/${team.slug}/settings/workspace`} title={intl.formatMessage(messages.workspace)}>
+        <Link className={cx('team-settings__workspace-tab', styles.linkList)} to={`/${team.slug}/settings/workspace`} title={intl.formatMessage(messages.workspace)}>
           <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'workspace' })}>
             <div className={styles.listLabel}>
               {intl.formatMessage(messages.workspace)}
@@ -111,7 +111,7 @@ const SettingsComponent = ({
           </li>
         </Link>
         { can(team.permissions, 'manage TeamTask') ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/annotation`} title={intl.formatMessage(messages.annotations)}>
+          <Link className={cx('team-settings__metadata-tab', styles.linkList)} to={`/${team.slug}/settings/annotation`} title={intl.formatMessage(messages.annotations)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'annotation' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.annotations)}
@@ -129,8 +129,8 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdminOrEditor && Boolean(team.smooch_bot) ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/data`} title={intl.formatMessage(messages.data)}>
-            <li className={cx(['team-settings__data-tab', styles.listItem], { [styles.listItem_active]: tab === 'data' })}>
+          <Link className={cx('team-settings__data-tab', styles.linkList)} to={`/${team.slug}/settings/data`} title={intl.formatMessage(messages.data)}>
+            <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'data' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.data)}
               </div>
@@ -138,7 +138,7 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdmin ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/integrations`} title={intl.formatMessage(messages.integrations)}>
+          <Link className={cx('team-settings__integrations-tab', styles.linkList)} to={`/${team.slug}/settings/integrations`} title={intl.formatMessage(messages.integrations)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'integrations' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.integrations)}
@@ -147,7 +147,7 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdmin ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/languages`} title={intl.formatMessage(messages.languages)}>
+          <Link className={cx('team-settings__languages-tab', styles.linkList)} to={`/${team.slug}/settings/languages`} title={intl.formatMessage(messages.languages)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'languages' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.languages)}
@@ -155,7 +155,7 @@ const SettingsComponent = ({
             </li>
           </Link> : null
         }
-        <Link className={styles.linkList} to={`/${team.slug}/settings/members`} title={intl.formatMessage(messages.members)}>
+        <Link className={cx('team-settings__members-tab', styles.linkList)} to={`/${team.slug}/settings/members`} title={intl.formatMessage(messages.members)}>
           <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'members' })}>
             <div className={styles.listLabel}>
               {intl.formatMessage(messages.members)}
@@ -163,7 +163,7 @@ const SettingsComponent = ({
           </li>
         </Link>
         { isAdminOrEditor ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/newsletter`} title={intl.formatMessage(messages.newsletter)}>
+          <Link className={cx('team-settings__newsletter-tab', styles.linkList)} to={`/${team.slug}/settings/newsletter`} title={intl.formatMessage(messages.newsletter)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'newsletter' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.newsletter)}
@@ -172,8 +172,8 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdminOrEditor && Boolean(team.smooch_bot) ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/report`} title={intl.formatMessage(messages.reports)}>
-            <li className={cx(['team-settings__report-tab', styles.listItem], { [styles.listItem_active]: tab === 'report' })}>
+          <Link className={cx('team-settings__report-tab', styles.linkList)} to={`/${team.slug}/settings/report`} title={intl.formatMessage(messages.reports)}>
+            <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'report' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.reports)}
               </div>
@@ -181,7 +181,7 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdminOrEditor ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/rules`} title={intl.formatMessage(messages.rules)}>
+          <Link className={cx('team-settings__rules-tab', styles.linkList)} to={`/${team.slug}/settings/rules`} title={intl.formatMessage(messages.rules)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'rules' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.rules)}
@@ -190,7 +190,7 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdmin && isAlegreBotInstalled ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/similarity`} title={intl.formatMessage(messages.tags)}>
+          <Link className={cx('team-settings__similarity-tab', styles.linkList)} to={`/${team.slug}/settings/similarity`} title={intl.formatMessage(messages.tags)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'similarity' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.similarity)}
@@ -217,7 +217,7 @@ const SettingsComponent = ({
           </Link> : null
         }
         { isAdminOrEditor ?
-          <Link className={styles.linkList} to={`/${team.slug}/settings/tipline`} title={intl.formatMessage(messages.tipline)}>
+          <Link className={cx('team-settings__tipline-tab', styles.linkList)} to={`/${team.slug}/settings/tipline`} title={intl.formatMessage(messages.tipline)}>
             <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'tipline' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.tipline)}
