@@ -291,7 +291,7 @@ const SaveFeed = (props) => {
         mutation: destroyMutation,
         variables: { input },
         onCompleted: () => {
-          const retPath = `/${feed.team.slug}/all-items`;
+          const retPath = `/${feed.team.slug}/feeds`;
           browserHistory.push(retPath);
         },
         onError: onFailure,
