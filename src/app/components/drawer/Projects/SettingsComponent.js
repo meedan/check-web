@@ -148,7 +148,7 @@ const SettingsComponent = ({
         }
         { isAdmin ?
           <Link className={styles.linkList} to={`/${team.slug}/settings/languages`} title={intl.formatMessage(messages.languages)}>
-            <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'languages' })}>
+            <li className={cx(['team-settings__languages-tab', styles.listItem], { [styles.listItem_active]: tab === 'languages' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.languages)}
               </div>
@@ -200,7 +200,7 @@ const SettingsComponent = ({
         }
         { isAdminOrEditor ?
           <Link className={styles.linkList} to={`/${team.slug}/settings/statuses`} title={intl.formatMessage(messages.statuses)}>
-            <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'statuses' })}>
+            <li className={cx(['team-settings__statuses-tab', styles.listItem], { [styles.listItem_active]: tab === 'statuses' })}>
               <div className={styles.listLabel}>
                 {intl.formatMessage(messages.statuses)}
               </div>
