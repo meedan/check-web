@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames/bind';
 import { Link } from 'react-router';
 import styles from './Card.module.css';
 
@@ -19,6 +20,7 @@ const Card = ({
   cardUrl,
   footer,
   children,
+  className,
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -32,7 +34,7 @@ const Card = ({
 
   return (
     <div
-      className={`${styles.card} card`}
+      className={cx(styles.card, 'card', className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -52,10 +54,12 @@ Card.defaultProps = {
   cardUrl: null,
   footer: null,
   children: null,
+  className: null,
 };
 
 Card.propTypes = {
   cardUrl: PropTypes.string,
+  className: PropTypes.string,
   footer: PropTypes.node,
   children: PropTypes.node,
 };

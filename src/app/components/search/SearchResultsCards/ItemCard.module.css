@@ -1,5 +1,23 @@
 .itemCard {
   background-color: transparent;
+  position: relative;
+
+  .listItemUnread {
+    background-color: var(--brandBackground);
+
+    &::before {
+      background-color: var(--textPlaceholder);
+      border-radius: 3px;
+      bottom: 6px;
+      content: '';
+      left: 6px;
+      overflow: hidden;
+      position: absolute;
+      right: auto;
+      top: 6px;
+      width: 5px;
+    }
+  }
 
   .sharedItemCardMiddle {
     align-items: flex-start;
