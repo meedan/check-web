@@ -112,7 +112,6 @@ const DrawerRail = (props) => {
               <Link
                 className="team-header__drawer-team-link"
                 to={`/${props.team.slug}/settings/workspace`}
-                title={props.intl.formatMessage(messages.settingsDescription)}
               >
                 <TeamAvatar className={styles.teamLogo} size="44px" team={props.team} />
               </Link>
@@ -145,7 +144,6 @@ const DrawerRail = (props) => {
                 id="side-navigation__tipline-toggle"
                 to={`/${props.team.slug}/all-items`}
                 onClick={() => setDrawerTypeChange('default')}
-                title={props.intl.formatMessage(messages.tiplineDescription)}
               >
                 <QuestionAnswerIcon />
               </Link>
@@ -161,7 +159,6 @@ const DrawerRail = (props) => {
                 id="side-navigation__feed-toggle"
                 onClick={() => setDrawerTypeChange('feed')}
                 to={`/${props.team.slug}/feeds`}
-                title={props.intl.formatMessage(messages.feedDescription)}
               >
                 <FeedIcon />
               </Link>
@@ -175,7 +172,6 @@ const DrawerRail = (props) => {
                   })
                 }
                 to={`/${props.team.slug}/settings`}
-                title={props.intl.formatMessage(messages.settingsDescription)}
               >
                 <SettingsIcon />
               </Link>
@@ -199,7 +195,6 @@ const DrawerRail = (props) => {
             className={styles.railIconLink}
             target="_blank"
             rel="noopener noreferrer"
-            title={props.intl.formatMessage(messages.trainingDescription)}
           >
             <HelpIcon />
           </a>
@@ -210,7 +205,6 @@ const DrawerRail = (props) => {
             className={styles.railIconLink}
             target="_blank"
             rel="noopener noreferrer"
-            title={props.intl.formatMessage(messages.legalDescription)}
           >
             <InfoIcon />
           </a>
