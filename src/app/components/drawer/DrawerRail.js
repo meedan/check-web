@@ -119,7 +119,6 @@ const DrawerRail = (props) => {
             </Tooltip>
             <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.railToggleDescription)}>
               <button
-                id="side-navigation__toggle"
                 type="button"
                 className={cx(
                   [styles.railIconButton],
