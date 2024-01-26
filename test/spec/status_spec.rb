@@ -13,12 +13,12 @@ shared_examples 'status' do
     wait_for_selector('.team-settings__statuses-tab').click
     wait_for_selector("//small[contains(text(), 'default')]", :xpath)
     expect(@driver.page_source.include?('Unstarted')).to be(true)
-    wait_for_selector('.status-actions__menu')[0].click
+    wait_for_selector_list('.status-actions__menu')[0].click
     # edit status name
     wait_for_selector('.status-actions__edit').click
     update_field('#edit-status-dialog__status-name', 'newerstatus')
     wait_for_selector('.edit-status-dialog__submit').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').clickf
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('.edit-status-dialog__dismiss')
     expect(@driver.page_source.include?('newerstatus')).to be(true)
     expect(@driver.page_source.include?('Unstarted')).to be(false)
