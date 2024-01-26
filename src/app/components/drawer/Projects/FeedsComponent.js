@@ -77,7 +77,7 @@ const FeedsComponent = ({
       <div className={styles.listTitle}>
         Shared Feeds
       </div>
-      <List dense disablePadding className={[styles.listWrapper, 'projects-list'].join(' ')}>
+      <List dense disablePadding className={styles.listWrapper}>
         {/* Shared feeds */}
         <ListItem onClick={handleToggleFeedsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
           { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
