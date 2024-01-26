@@ -57,12 +57,6 @@ class TeamComponent extends Component {
     return new CheckContext(this).getContextStore().currentUser;
   }
 
-  handleTabChange = (e, tab) => {
-    const { team } = this.props;
-    const path = `/${team.slug}/settings/${tab}`;
-    browserHistory.push(path);
-  };
-
   render() {
     const { team } = this.props;
 
