@@ -27,8 +27,6 @@ class MeComponent extends React.Component {
   }
 
   componentWillMount() {
-    // eslint-disable-next-line no-console
-    console.log('componentWillMount', this.props);
     const user = this.props.me;
     if (!user.is_active) {
       browserHistory.push('/check/not-found');
