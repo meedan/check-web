@@ -26,7 +26,6 @@ class UserComponent extends React.Component {
   render() {
     const { user } = this.props;
     const context = this.getContext();
-    // const isUserSelf = (user.id === context.currentUser.id);
 
     return (
       <PageTitle prefix={user.name}>

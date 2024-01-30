@@ -20,7 +20,7 @@ const messages = defineMessages({
 
 const UserInfo = (props) => {
   if (props.user.source === null) return null;
-  const isUserSelf = (props.user.dbid === props.context.currentUser.dbid);
+  const isUserSelf = (props.user?.dbid && props.user?.dbid === props.context?.currentUser?.dbid);
 
   return (
     <div className={styles['user-info-wrapper']}>
@@ -74,7 +74,7 @@ const UserInfo = (props) => {
             defaultMessage="{teamsCount, plural, one {# workspace} other {# workspaces}}"
             description="Count of how many work spaces this user account can access"
             values={{
-              teamsCount: props.user.number_of_teams || 0,
+              teamsCount: props.user?.number_of_teams || 0,
             }}
           />
         </div>
