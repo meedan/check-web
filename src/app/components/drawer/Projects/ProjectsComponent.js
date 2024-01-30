@@ -54,7 +54,6 @@ const ProjectsComponent = ({
   intl,
 }) => {
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
-  const [collapsed, setCollapsed] = React.useState(false);
   const getBooleanPref = (key, fallback) => {
     const inStore = window.storage.getValue(key);
     if (inStore === null) return fallback;
@@ -75,7 +74,6 @@ const ProjectsComponent = ({
       setActiveItem({ type: path[2], id: parseInt(path[3], 10) });
     }
   }, [location.pathname]);
-  const isActive = (type, id) => type === activeItem.type && id === activeItem.id;
 
   const handleAllItems = () => {
     setActiveItem({ type: 'all-items', id: null });
@@ -87,15 +85,6 @@ const ProjectsComponent = ({
 
   const handleSpecialLists = (listId) => {
     setActiveItem({ type: listId, id: null });
-  };
-
-  const handleClick = (route, id) => {
-    if (route !== activeItem.type || id !== activeItem.id) {
-      setActiveItem({ type: route, id });
-      if (collapsed) {
-        setCollapsed(false);
-      }
-    }
   };
 
   const handleToggleListsExpand = () => {
@@ -326,9 +315,8 @@ const ProjectsComponent = ({
                     routePrefix="list"
                     project={search}
                     teamSlug={team.slug}
-                    onClick={handleClick}
                     icon={search.is_part_of_feeds && <FeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} />}
-                    isActive={isActive('list', search.dbid)}
+                    isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
                   />
                 ))}
               </>
