@@ -33,7 +33,7 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: {
-          user: this.props.id,
+          me: this.props.id,
         },
       },
     ];

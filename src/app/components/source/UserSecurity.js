@@ -137,27 +137,27 @@ const UserSecurity = (props, context) => {
   const handleSecuritySettings = (type, e, inputChecked) => {
     const onSuccess = () => {
     };
+    const input = { id: user.id };
     if (type === 'successfulLogin') {
       setSendSuccessfulLogin(inputChecked);
+      input.send_successful_login_notifications = inputChecked;
     } else {
       setSendFailedLogin(inputChecked);
+      input.send_failed_login_notifications = inputChecked;
     }
     commitMutation(Relay.Store, {
       mutation: graphql`
         mutation UserSecurityUpdateUserMutation($input: UpdateUserInput!) {
           updateUser(input: $input) {
-            user {
-              dbid
+            me {
+              get_send_successful_login_notifications
+              get_send_failed_login_notifications
             }
           }
         }
       `,
       variables: {
-        input: {
-          id: user.id,
-          send_successful_login_notifications: sendSuccessfulLogin,
-          send_failed_login_notifications: sendFailedLogin,
-        },
+        input,
       },
       onCompleted: onSuccess,
       onError: fail,
