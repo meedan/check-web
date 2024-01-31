@@ -204,7 +204,7 @@ const TeamDetails = ({
                     id="teamDetails.linkManagementRss"
                     defaultMessage='Link shortening makes URLs more readable and a predictable length. If you’re using an RSS feed, the link service cannot be disabled. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about link shortening</a>.'
                     description="Helper text for link management switcher when workspace has RSS newsletters configured"
-                    values={{ helpLink: 'https://help.checkmedia.org/en/articles/5540430-tipline-newsletters' }}
+                    values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_99c0776acf' }}
                   />
                 }
                 onChange={setShortenOutgoingUrls}
@@ -229,7 +229,7 @@ const TeamDetails = ({
                       <FormattedHTMLMessage
                         id="teamDetails.utmCodeHelp"
                         defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
-                        values={{ helpLink: 'https://help.checkmedia.org/en/articles/5540430-tipline-newsletters' }}
+                        values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_9bfd0e654f' }}
                         description="Helper text for UTM code field"
                       />
                     }
