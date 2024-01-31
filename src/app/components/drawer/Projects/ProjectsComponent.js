@@ -370,7 +370,7 @@ const ProjectsComponent = ({
         onClose={() => { setShowNewListDialog(false); }}
         title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New list" description="Title for a dialog to create a new list displayed on the left sidebar." />}
         buttonLabel={<FormattedMessage id="projectsComponent.createList" defaultMessage="Create list" description="Label for a button to create a new list displayed on the left sidebar." />}
-        helpUrl="http://help.checkmedia.org/en/articles/8720927-custom-lists"
+        helpUrl="https://help.checkmedia.org/en/articles/8720927-custom-lists"
         errorMessage={<FormattedMessage id="projectsComponent.newListErrorMessage" defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" />}
         successMessage={<FormattedMessage id="projectsComponent.newListSuccessMessage" defaultMessage="List created successfully" description="Success message when new list is created" />}
       />

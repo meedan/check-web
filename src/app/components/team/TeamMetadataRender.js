@@ -31,7 +31,7 @@ function TeamMetadataRender({ team, about }) {
               id="teamMetadataRender.itemHelpContext"
               defaultMessage='Customize the item annotation form. Learn more about <a href="{helpLink}" target="_blank" title="Learn more">using annotations</a> to add context to items.'
               description="Context description for the functionality of the item portion of this page"
-              values={{ helpLink: 'http://help.checkmedia.org/en/articles/4346772-annotation' }}
+              values={{ helpLink: 'https://help.checkmedia.org/en/articles/4346772-annotation' }}
             /> :
             <FormattedHTMLMessage
               id="teamMetadataRender.sourceHelpContext"
