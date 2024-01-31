@@ -188,7 +188,7 @@ const SimilarityComponent = ({
           <FormattedHTMLMessage
             id="teamDataComponent.helpContext"
             defaultMessage='Manage settings for automatic matching of similar media. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about automatic matching</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8720702-similarity-matching#h_1a3e308d49' }}
             description="Context description for the functionality of this page"
           />
         }
@@ -284,7 +284,7 @@ const SimilarityComponent = ({
                   id="similarityComponent.singleLanguageFactChecksHelp"
                   description="Help text displayed when similarity setting for single language fact-checks is enabled"
                   defaultMessage='Media matching groups similar items, even if they are in multiple languages. If enabled, fact-checks will only be sent to users whose chosen language of conversation in the tipline matches the fact-check language. If disabled, fact-checks will be sent to all users whose media matches the claim, regardless of their conversation language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about tipline menus</a>.'
-                  values={{ helpLink: 'https://help.checkmedia.org/en/articles/5982401-tipline-settings#h_d170d3ccb6' }}
+                  values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772787-design-your-tipline' }}
                 />
               }
             />
