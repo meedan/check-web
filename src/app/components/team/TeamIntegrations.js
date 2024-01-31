@@ -89,7 +89,7 @@ const TeamIntegrations = () => (<QueryRenderer
               <FormattedHTMLMessage
                 id="teamIntegrations.helpContext"
                 defaultMessage='Connect your Check workflow with third-party services. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about integrations</a>.'
-                values={{ helpLink: 'https://help.checkmedia.org/en/articles/6925397-integrations' }}
+                values={{ helpLink: 'http://help.checkmedia.org/en/articles/6925397-integrations' }}
                 description="Context description for the functionality of this page"
               />
             }

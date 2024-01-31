@@ -31,13 +31,13 @@ function TeamMetadataRender({ team, about }) {
               id="teamMetadataRender.itemHelpContext"
               defaultMessage='Customize the item annotation form. Learn more about <a href="{helpLink}" target="_blank" title="Learn more">using annotations</a> to add context to items.'
               description="Context description for the functionality of the item portion of this page"
-              values={{ helpLink: 'https://help.checkmedia.org/en/articles/4346772-metadata' }}
+              values={{ helpLink: 'http://help.checkmedia.org/en/articles/4346772-annotation' }}
             /> :
             <FormattedHTMLMessage
               id="teamMetadataRender.sourceHelpContext"
               defaultMessage='Customize the source annotation form. Learn more about <a href="{helpLink}" target="_blank" title="Learn more">describing sources</a>.'
               description="Context description for the functionality of source portion of this page"
-              values={{ helpLink: 'https://help.checkmedia.org/en/articles/4837896-sources#h_bb2bd143fd' }}
+              values={{ helpLink: 'https://help.checkmedia.org/en/articles/8721689-column-settings#h_89be06d8e2' }}
             />
         }
         extra={
