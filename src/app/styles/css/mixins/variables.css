@@ -2,7 +2,7 @@
 :root {
   --columnWidthMedium: 680px;
   --columnWidthLarge: 880px;
-  --fontStackSans: 'Roboto', -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
+  --fontStackSans: inter, -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
 
   --fontSizeSmall: 12px;
   --fontSizeDefault: 14px;
