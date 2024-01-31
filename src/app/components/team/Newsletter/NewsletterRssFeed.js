@@ -104,7 +104,7 @@ const NewsletterRssFeed = ({
                             description="Error message displayed under RSS feed URL field."
                           />
                           {' '}
-                          <a href="https://help.checkmedia.org/en/articles/5540430-tipline-newsletters#h_03610322d5" target="_blank" rel="noopener noreferrer" className={styles['error-label']}>
+                          <a href="https://help.checkmedia.org/en/articles/8722205-newsletter" target="_blank" rel="noopener noreferrer" className={styles['error-label']}>
                             <FormattedMessage
                               id="newsletterRssFeed.learnMore"
                               defaultMessage="Learn more."
