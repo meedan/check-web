@@ -325,7 +325,7 @@ const TeamDataComponent = ({
           <FormattedHTMLMessage
             id="teamDataComponent.helpContext"
             defaultMessage='View and export monthly tipline usage data. Data may take 24 hours to update; all data except for WhatsApp conversations are specific to each tipline language. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about engagement data</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4511362' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772823-tipline-engagement-data' }}
             description="Context description for the functionality of this page"
           />
         }
