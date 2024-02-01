@@ -34,7 +34,7 @@ class UpdateUserMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateUserPayload {
-        user {
+        me {
           id
           dbid
           accepted_terms
@@ -49,7 +49,7 @@ class UpdateUserMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    const fieldIds = { user: this.props.current_user_id };
+    const fieldIds = { me: this.props.current_user_id };
 
     return [{
       type: 'FIELDS_CHANGE',
