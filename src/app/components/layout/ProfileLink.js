@@ -1,12 +1,8 @@
 import { Link } from 'react-router';
 import React from 'react';
-import Relay from 'react-relay/classic';
 
-export const ProfileLink = ({ className, teamUser }) => {
-  if (!teamUser) return null;
-
-  const { user } = teamUser;
-
+const ProfileLink = ({ className, user }) => {
+  if (!user) return null;
   let url = '';
   if (user.dbid && user.is_active) {
     url = `/check/user/${user.dbid}`;
@@ -21,18 +17,4 @@ export const ProfileLink = ({ className, teamUser }) => {
     </span>;
 };
 
-export default Relay.createContainer(ProfileLink, {
-  fragments: {
-    teamUser: () => Relay.QL`
-      fragment on TeamUser {
-        id
-        user {
-          id
-          dbid
-          name
-          is_active
-        }
-      }
-    `,
-  },
-});
+export default ProfileLink;

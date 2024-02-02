@@ -8,7 +8,7 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateUserPayload {
-        user {
+        me {
           id,
           name,
           get_send_email_notifications,
@@ -33,7 +33,7 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: {
-          user: this.props.id,
+          me: this.props.id,
         },
       },
     ];
