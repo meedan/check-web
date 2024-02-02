@@ -33,7 +33,6 @@ const mockIntl = {
 };
 
 describe('<FeedCollaboration />', () => {
-
   it('should display a row for each feed member', () => {
     const wrapper = shallowWithIntl(<FeedCollaboration feed={feed} intl={mockIntl} onChange={() => {}} />);
     expect(wrapper.find('.feed-collab-row__member').length).toEqual(2);
@@ -82,7 +81,7 @@ describe('<FeedCollaboration />', () => {
       'create FeedInvitation': false,
     };
 
-    const wrapper = mountWithIntl(<FeedCollaboration feed={feed} onChange={() => {}} permissions={permissions} intl={mockIntl} readOnly/>);
+    const wrapper = mountWithIntl(<FeedCollaboration feed={feed} onChange={() => {}} permissions={permissions} intl={mockIntl} readOnly />);
     expect(wrapper.html()).toMatch('Contact your workspace admin to manage Collaborating organizations.');
   });
 });
