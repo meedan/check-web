@@ -78,12 +78,11 @@ const FeedCollaboration = ({
   intl,
   permissions,
   onChange,
+  readOnly,
 }) => {
   const [textValue, setTextValue] = React.useState('');
   const [invites, setInvites] = React.useState([]);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
-
-  const readOnly = collaboratorId ? (collaboratorId !== feed?.team?.dbid) : false;
 
   const handleAdd = (email) => {
     if (EmailValidator.validate(email)) {
