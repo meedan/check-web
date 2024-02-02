@@ -125,7 +125,7 @@ const FeedDataPoints = ({ readOnly, dataPoints, onChange }) => {
                   defaultMessage="Learn more about {factCheckDataArticleLink}."
                   values={{
                     factCheckDataArticleLink: (
-                      <a href="https://help.checkmedia.org/en/articles/8542417-shared-feed-creation#h_7414a7ab59" rel="noopener noreferrer" target="_blank"> {/* FIXME: Put the correct link here */}
+                      <a href="https://help.checkmedia.org/" rel="noopener noreferrer" target="_blank"> {/* FIXME: Put the correct link here */}
                         <FormattedMessage
                           id="feedDataPoints.factCheckDataArticleLink"
                           defaultMessage="fact-check data"
@@ -243,7 +243,7 @@ const FeedDataPoints = ({ readOnly, dataPoints, onChange }) => {
                   defaultMessage="Learn more about {mediaDataArticleLink}."
                   values={{
                     mediaDataArticleLink: (
-                      <a href="https://help.checkmedia.org/en/articles/8542417-shared-feed-creation#h_7414a7ab59" rel="noopener noreferrer" target="_blank"> {/* FIXME: Put the correct link here */}
+                      <a href="https://help.checkmedia.org/" rel="noopener noreferrer" target="_blank"> {/* FIXME: Put the correct link here */}
                         <FormattedMessage
                           id="feedDataPoints.mediaDataArticleLink"
                           defaultMessage="media & requests data"

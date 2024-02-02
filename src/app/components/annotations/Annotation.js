@@ -194,7 +194,7 @@ class Annotation extends Component {
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
     const authorName = activity.user
-      ? <ProfileLink className="annotation__author-name" user={activity.user} /> : null;
+      ? <ProfileLink className="annotation__author-name" teamUser={activity.user.team_user} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;

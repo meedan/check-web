@@ -172,7 +172,7 @@ const SmoochBotComponent = ({
           <FormattedHTMLMessage
             id="smoochBotComponent.helpContext"
             defaultMessage='Manage your tipline’s menu, customize its responses, and connect it to messaging services. <a href="{helpLink}" target="_blank" title="Learn more">Learn more</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/5982401-tipline-bot-settings' }}
             description="Context description for the functionality of this page"
           />
         }

@@ -89,7 +89,7 @@ export default function RulesTable(props) {
           <FormattedHTMLMessage
             id="rulesTableToolbar.helpContext"
             defaultMessage='Use rules to automate actions on Check. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about rules</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772836-rules' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4842057-rules-and-automation' }}
             description="Context description for the functionality of this page"
           />
         }

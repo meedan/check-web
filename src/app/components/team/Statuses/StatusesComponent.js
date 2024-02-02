@@ -218,7 +218,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
           <FormattedHTMLMessage
             id="statusesComponent.helpContext"
             defaultMessage='Statuses represent the position of claims in the editorial workflow. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about statuses</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/3623387-item-status' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/4838891-status-settings' }}
             description="Context description for the functionality of this page"
           />
         }

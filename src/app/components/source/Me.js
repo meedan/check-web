@@ -1,14 +1,14 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import MeComponent from './MeComponent';
+import UserComponent from './UserComponent';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import MeRoute from '../../relay/MeRoute';
-import meFragment from '../../relay/meFragment';
+import userFragment from '../../relay/userFragment';
 
-const MeContainer = Relay.createContainer(MeComponent, {
+const MeContainer = Relay.createContainer(UserComponent, {
   fragments: {
-    me: () => meFragment,
+    user: () => userFragment,
   },
 });
 

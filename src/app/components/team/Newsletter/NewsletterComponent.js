@@ -437,7 +437,7 @@ const NewsletterComponent = ({
           <FormattedHTMLMessage
             id="newsletterComponent.helpContext"
             defaultMessage='Manage, draft, and schedule newsletters sent to all subscribers. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about newsletters</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8722205-newsletter' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/5540430-tipline-newsletters' }}
             description="Context description for the functionality of this page"
           />
         }
