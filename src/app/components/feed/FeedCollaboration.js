@@ -192,6 +192,14 @@ const FeedCollaboration = ({
     </div>
   );
 
+  FeedCollabRow.propTypes = {
+    className: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    team: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    onRemove: PropTypes.func.isRequired,
+  };
+
   let error = null;
   const alreadyInvited = feed.feed_invitations?.edges.filter(fi => fi.node.email === textValue).length > 0;
   const alreadyAdded = invites.includes(textValue);
@@ -345,6 +353,7 @@ FeedCollaboration.defaultProps = {
 FeedCollaboration.propTypes = {
   collaboratorId: PropTypes.number,
   feed: PropTypes.object.isRequired,
+  readOnly: PropTypes.bool.isRequired,
   intl: intlShape.isRequired,
   permissions: PropTypes.object, // { key => value } (e.g., { 'create FeedTeam' => true })
   onChange: PropTypes.func.isRequired,

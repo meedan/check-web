@@ -171,7 +171,11 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
       </div>
       <div className={saveFeedStyles.saveFeedContentNarrow}>
         <FeedMetadata feed={props.feed_invitation.feed_metadata} />
-        <FeedCollaboration feed={props.feed_invitation.feed_collaboration} permissions={JSON.parse(props.me.current_team?.permissions)} readOnly />
+        <FeedCollaboration
+          feed={props.feed_invitation.feed_collaboration}
+          permissions={JSON.parse(props.me.current_team?.permissions)}
+          readOnly={!alreadyAccepted}
+        />
       </div>
       <ConfirmProceedDialog
         open={confirmReject}
