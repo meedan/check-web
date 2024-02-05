@@ -72,7 +72,7 @@ function getResponseData(response) {
     if (response.attribution) {
       response.attribution.edges.forEach((user) => {
         const u = user.node;
-        data.by.push(<ProfileLink teamUser={u.team_user || null} />);
+        data.by.push(<ProfileLink user={u || null} />);
         data.byPictures.push(u);
       });
     }
@@ -809,7 +809,7 @@ class Task extends Component {
     const assignmentComponents = [];
     assignments.forEach((assignment) => {
       assignmentComponents.push(
-        <ProfileLink teamUser={assignment.node.team_user || null} />,
+        <ProfileLink user={assignment.node || null} />,
       );
       if (currentUser && assignment.node.dbid === currentUser.dbid) {
         taskAssigned = true;
@@ -913,9 +913,7 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
                     id
                     dbid
                     name
-                    team_user(team_slug: $teamSlug) {
-                      ${ProfileLink.getFragment('teamUser')},
-                    },
+                    is_active
                     source {
                       id
                       dbid
@@ -932,9 +930,6 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
                   dbid,
                   name,
                   is_active
-                  team_user(team_slug: $teamSlug) {
-                    ${ProfileLink.getFragment('teamUser')},
-                  },
                   source {
                     id,
                     dbid,
@@ -951,9 +946,7 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
               name
               id
               dbid
-              team_user(team_slug: $teamSlug) {
-                ${ProfileLink.getFragment('teamUser')},
-              },
+              is_active
               source {
                 id
                 dbid
@@ -975,9 +968,7 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
                 id
                 dbid
                 name
-                team_user(team_slug: $teamSlug) {
-                  ${ProfileLink.getFragment('teamUser')},
-                },
+                is_active
                 source {
                   id
                   dbid
@@ -994,9 +985,6 @@ export default Relay.createContainer(withSetFlashMessage(Task), {
               dbid,
               name,
               is_active
-              team_user(team_slug: $teamSlug) {
-                ${ProfileLink.getFragment('teamUser')},
-              },
               source {
                 id,
                 dbid,
