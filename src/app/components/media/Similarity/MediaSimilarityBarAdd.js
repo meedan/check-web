@@ -214,7 +214,7 @@ const MediaSimilarityBarAdd = ({
             primary={
               <FormattedMessage
                 id="mediaSimilarityBarAdd.addSimilarToThis"
-                defaultMessage="Add all media to this fact-check"
+                defaultMessage="Add media to this fact-check"
                 description="Menu item for importing (one or more) media matched as similar"
               />
             }

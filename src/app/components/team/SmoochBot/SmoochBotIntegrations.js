@@ -41,7 +41,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
   };
 
   const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/5189362-connect-a-new-tipline', '_blank');
+    window.open('https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot', '_blank');
   };
 
   return (
@@ -65,7 +65,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="whatsapp"
           label="WhatsApp"
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7122ffbcd0"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ec472becaf"
           icon={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
           online={isOnline('whatsapp')}
           readOnly={isWabaSet || isCapiSet}
@@ -216,7 +216,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="twitter"
           label="X (Twitter)"
           url={null}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_5cfcbe09c7"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot"
           icon={<TwitterIcon style={{ color: 'var(--xBlack)' }} />}
           deprecationNotice={
             <FormattedMessage
@@ -232,7 +232,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="messenger"
           label="Messenger"
           url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/messenger')}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7e76e39cac"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
           icon={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
           online={isOnline('messenger')}
           readOnly={!isSmoochSet}
@@ -260,7 +260,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<TelegramIcon style={{ color: 'var(--telegramBlue)' }} />}
           online={isOnline('telegram')}
           readOnly={!isSmoochSet}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_6aa3557c62"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ff25899cc2"
           params={[
             {
               key: 'token',
@@ -291,7 +291,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<ViberIcon style={{ color: 'var(--viberPurple)' }} />}
           online={isOnline('viber')}
           readOnly={!isSmoochSet}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_895bbda0a6"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_71c06164f3"
           params={[
             {
               key: 'token',
@@ -318,7 +318,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
           online={isOnline('line')}
           readOnly={!isSmoochSet}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_351dd4f960"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
           params={[
             {
               key: 'channelAccessToken',
@@ -356,7 +356,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="instagram"
           label="Instagram"
           url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
-          helpUrl="https://help.checkmedia.org/en/articles/5189362-connect-a-new-tipline#h_30c95a8357"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_b872d32c4d"
           icon={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
           online={isOnline('instagram')}
           readOnly={!isSmoochSet}
