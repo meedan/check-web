@@ -532,6 +532,7 @@ const SaveFeed = (props) => {
           feed={feed}
           onChange={setNewInvites}
           permissions={permissions}
+          readOnly={feedTeam?.team_id && feedTeam?.team_id !== feed?.team?.dbid}
         />
       </div>
 
