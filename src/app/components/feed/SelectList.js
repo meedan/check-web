@@ -61,7 +61,7 @@ const SelectListQueryRenderer = ({
                   description="Helper link in a warning displayed on edit feed page when the workspace has no lists."
                 />
               }
-              onButtonClick={() => { window.open('https://help.checkmedia.org/en/articles/5229474-filtered-lists#h_0ab5b97e97'); }}
+              onButtonClick={() => { window.open('https://help.checkmedia.org/en/articles/8720927-custom-lists'); }}
             />
           );
         }

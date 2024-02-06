@@ -463,7 +463,7 @@ const NewsletterComponent = ({
             }
           />
         }
-        // helpUrl="https://help.checkmedia.org/en/articles/123456" // FIXME: Add the real KB article URL here
+        helpUrl="https://help.checkmedia.org/en/articles/8722205-newsletter"
       />
       <div className={cx('newsletter-component', settingsStyles['setting-details-wrapper'])}>
         <div className={cx(settingsStyles['setting-content-container'])}>

@@ -99,7 +99,7 @@ const ChangeUserRole = ({
                 userLabel: teamUser.user.name || teamUser.user.email,
                 newRole,
                 helpCenterLink: (
-                  <ExternalLink url="https://help.checkmedia.org/en/articles/3336431-permissions-in-check">
+                  <ExternalLink url="https://help.checkmedia.org/en/articles/8712107-team-settings">
                     <FormattedMessage
                       id="changeUserRole.helpCenter"
                       defaultMessage="Help Center"
