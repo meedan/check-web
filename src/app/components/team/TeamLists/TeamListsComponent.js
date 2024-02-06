@@ -158,7 +158,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
           <FormattedHTMLMessage
             id="teamListsComponent.helpContext"
             defaultMessage='Manage the information displayed about each item. Column settings affect the data displayed for all members of your workspace. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about column settings</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8721689-column-settings' }}
+            values={{ helpLink: 'http://help.checkmedia.org/en/articles/4637158-list-settings' }}
             description="Context description for the functionality of this page"
           />
         }

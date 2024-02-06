@@ -54,6 +54,7 @@ const ProjectsComponent = ({
   intl,
 }) => {
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
+  const [collapsed, setCollapsed] = React.useState(false);
   const getBooleanPref = (key, fallback) => {
     const inStore = window.storage.getValue(key);
     if (inStore === null) return fallback;
@@ -74,6 +75,7 @@ const ProjectsComponent = ({
       setActiveItem({ type: path[2], id: parseInt(path[3], 10) });
     }
   }, [location.pathname]);
+  const isActive = (type, id) => type === activeItem.type && id === activeItem.id;
 
   const handleAllItems = () => {
     setActiveItem({ type: 'all-items', id: null });
@@ -85,6 +87,15 @@ const ProjectsComponent = ({
 
   const handleSpecialLists = (listId) => {
     setActiveItem({ type: listId, id: null });
+  };
+
+  const handleClick = (route, id) => {
+    if (route !== activeItem.type || id !== activeItem.id) {
+      setActiveItem({ type: route, id });
+      if (collapsed) {
+        setCollapsed(false);
+      }
+    }
   };
 
   const handleToggleListsExpand = () => {
@@ -315,8 +326,9 @@ const ProjectsComponent = ({
                     routePrefix="list"
                     project={search}
                     teamSlug={team.slug}
+                    onClick={handleClick}
                     icon={search.is_part_of_feeds && <FeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} />}
-                    isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
+                    isActive={isActive('list', search.dbid)}
                   />
                 ))}
               </>
@@ -458,7 +470,7 @@ const ProjectsComponent = ({
         onClose={() => { setShowNewListDialog(false); }}
         title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New list" description="Title for a dialog to create a new list displayed on the left sidebar." />}
         buttonLabel={<FormattedMessage id="projectsComponent.createList" defaultMessage="Create list" description="Label for a button to create a new list displayed on the left sidebar." />}
-        helpUrl="https://help.checkmedia.org/en/articles/8720927-custom-lists"
+        helpUrl="https://help.checkmedia.org/en/articles/5229474-filtered-lists"
         errorMessage={<FormattedMessage id="projectsComponent.newListErrorMessage" defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" />}
         successMessage={<FormattedMessage id="projectsComponent.newListSuccessMessage" defaultMessage="List created successfully" description="Success message when new list is created" />}
       />

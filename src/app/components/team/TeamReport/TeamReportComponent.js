@@ -133,7 +133,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
           <FormattedHTMLMessage
             id="teamReportComponent.helpContext"
             defaultMessage='Customize fact-check reports sent to tipline users. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about fact-check reports</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide' }}
+            values={{ helpLink: 'http://help.checkmedia.org/en/articles/3627266-check-message-report' }}
             description="Context description for the functionality of this page"
           />
         }

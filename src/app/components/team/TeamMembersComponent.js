@@ -88,7 +88,7 @@ const TeamMembersComponent = ({
           <FormattedHTMLMessage
             id="teamMembers.helpContext"
             defaultMessage='Manage your Check workspace’s members. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about member roles</a>.'
-            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8712107-team-settings#h_2767b2d557' }}
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/3336431-permissions-in-check' }}
             description="Context description for the functionality of this page"
           />
         }

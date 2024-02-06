@@ -264,7 +264,7 @@ const ReportDesignerTopBar = (props) => {
                       demand: media.demand,
                       correctionLink: (
                         <React.Fragment>
-                          <a href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
+                          <a href="https://help.checkmedia.org/en/articles/5013901-tipline-report-confirmation-updates-and-corrections" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
                             <FormattedMessage
                               id="reportDesigner.correction"
                               defaultMessage="correction"
@@ -307,7 +307,7 @@ const ReportDesignerTopBar = (props) => {
                               demand: media.demand,
                               correctionLink: (
                                 <React.Fragment>
-                                  <a href="https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_ad3678e1ff" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
+                                  <a href="https://help.checkmedia.org" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
                                     <FormattedMessage
                                       id="reportDesigner.correction"
                                       defaultMessage="correction"
