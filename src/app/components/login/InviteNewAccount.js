@@ -44,6 +44,12 @@ const InviteNewAccountComponent = ({ user }) => {
               user {
                 id
                 dbid
+                accepted_terms
+                current_team_id
+                current_team {
+                  id
+                  dbid
+                }
               }
             }
           }

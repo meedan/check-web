@@ -603,6 +603,39 @@ export default createFragmentContainer(SourceInfo, {
                         id
                         dbid
                         name
+                        team_user(team_slug: $teamSlug) {
+                          id
+                          status
+                          role
+                          team {
+                            id
+                            slug
+                          }
+                          user {
+                            id
+                            dbid
+                            name
+                            is_active
+                            number_of_teams
+                            source {
+                              id
+                              image
+                              description
+                              created_at
+                              account_sources(first: 10000) {
+                                edges {
+                                  node {
+                                    account {
+                                      id
+                                      url
+                                      provider
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
                         source {
                           id
                           dbid
@@ -619,6 +652,39 @@ export default createFragmentContainer(SourceInfo, {
                       dbid,
                       name,
                       is_active
+                      team_user(team_slug: $teamSlug) {
+                        id
+                        status
+                        role
+                        team {
+                          id
+                          slug
+                        }
+                        user {
+                          id
+                          dbid
+                          name
+                          is_active
+                          number_of_teams
+                          source {
+                            id
+                            image
+                            description
+                            created_at
+                            account_sources(first: 10000) {
+                              edges {
+                                node {
+                                  account {
+                                    id
+                                    url
+                                    provider
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                       source {
                         id,
                         dbid,
@@ -635,6 +701,39 @@ export default createFragmentContainer(SourceInfo, {
                   name
                   id
                   dbid
+                  team_user(team_slug: $teamSlug) {
+                    id
+                    status
+                    role
+                    team {
+                      id
+                      slug
+                    }
+                    user {
+                      id
+                      dbid
+                      name
+                      is_active
+                      number_of_teams
+                      source {
+                        id
+                        image
+                        description
+                        created_at
+                        account_sources(first: 10000) {
+                          edges {
+                            node {
+                              account {
+                                id
+                                url
+                                provider
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                   source {
                     id
                     dbid
@@ -656,6 +755,39 @@ export default createFragmentContainer(SourceInfo, {
                     id
                     dbid
                     name
+                    team_user(team_slug: $teamSlug) {
+                      id
+                      status
+                      role
+                      team {
+                        id
+                        slug
+                      }
+                      user {
+                        id
+                        dbid
+                        name
+                        is_active
+                        number_of_teams
+                        source {
+                          id
+                          image
+                          description
+                          created_at
+                          account_sources(first: 10000) {
+                            edges {
+                              node {
+                                account {
+                                  id
+                                  url
+                                  provider
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                     source {
                       id
                       dbid
@@ -672,6 +804,39 @@ export default createFragmentContainer(SourceInfo, {
                   dbid,
                   name,
                   is_active
+                  team_user(team_slug: $teamSlug) {
+                    id
+                    status
+                    role
+                    team {
+                      id
+                      slug
+                    }
+                    user {
+                      id
+                      dbid
+                      name
+                      is_active
+                      number_of_teams
+                      source {
+                        id
+                        image
+                        description
+                        created_at
+                        account_sources(first: 10000) {
+                          edges {
+                            node {
+                              account {
+                                id
+                                url
+                                provider
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                   source {
                     id,
                     dbid,

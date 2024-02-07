@@ -159,8 +159,8 @@ class HomeComponent extends Component {
     );
 
     // Init sentry if a user is logged in
-    if (this.props.me && config.sentryDsn) {
-      const { dbid, email, name } = this.props.me;
+    if (this.props.user && config.sentryDsn) {
+      const { dbid, email, name } = this.props.user;
       Sentry.init({
         dsn: config.sentryDsn,
         environment: config.sentryEnvironment || 'none',
@@ -201,7 +201,7 @@ class HomeComponent extends Component {
     const { clientSessionId, setFlashMessage } = this.props;
     const context = new CheckContext(this);
     if (!this.state.token && !this.state.error) {
-      context.startSession(this.props.me, clientSessionId, setFlashMessage);
+      context.startSession(this.props.user, clientSessionId, setFlashMessage);
     }
     context.setContext();
     context.startNetwork(this.state.token, clientSessionId, setFlashMessage);
@@ -255,7 +255,7 @@ class HomeComponent extends Component {
       return null;
     }
 
-    const user = this.props.me || {};
+    const user = this.props.user || {};
     const loggedIn = !!this.state.token;
     const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/);
     const userTeamSlug = ((user.current_team && user.current_team.slug) ?
@@ -316,7 +316,6 @@ class HomeComponent extends Component {
                 inTeamContext={inTeamContext}
                 currentUserIsMember={currentUserIsMember}
                 {...this.props}
-                user={this.props.me}
               />
             ) : null}
             <main className={styles.main}>
@@ -347,8 +346,8 @@ const ConnectedHomeComponent = withSetFlashMessage(withClientSessionId(withRoute
 
 const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
   fragments: {
-    me: () => Relay.QL`
-      fragment on Me {
+    user: () => Relay.QL`
+      fragment on User {
         id
         dbid
         name

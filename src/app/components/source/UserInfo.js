@@ -20,7 +20,6 @@ const messages = defineMessages({
 
 const UserInfo = (props) => {
   if (props.user.source === null) return null;
-  const isUserSelf = (props.user?.dbid && props.user?.dbid === props.context?.currentUser?.dbid);
 
   return (
     <div className={styles['user-info-wrapper']}>
@@ -45,7 +44,7 @@ const UserInfo = (props) => {
                 size="default"
                 className="source__edit-source-button"
                 onClick={() => {
-                  if (isUserSelf) {
+                  if (props.user.dbid === props.context.currentUser.dbid) {
                     browserHistory.push('/check/me/edit');
                   } else {
                     browserHistory.push(`/check/user/${props.user.dbid}/edit`);
@@ -74,27 +73,24 @@ const UserInfo = (props) => {
             defaultMessage="{teamsCount, plural, one {# workspace} other {# workspaces}}"
             description="Count of how many work spaces this user account can access"
             values={{
-              teamsCount: props.user?.number_of_teams || 0,
+              teamsCount: props.user.team_users.edges.length || 0,
             }}
           />
         </div>
-        {
-          isUserSelf ?
-            <ButtonMain
-              className="user-menu__logout"
-              variant="contained"
-              theme="lightText"
-              size="default"
-              onClick={logout}
-              label={
-                <FormattedMessage
-                  id="UserMenu.signOut"
-                  defaultMessage="Sign Out"
-                  description="This is the sign out button on the user profile page"
-                />
-              }
-            /> : null
-        }
+        <ButtonMain
+          className="user-menu__logout"
+          variant="contained"
+          theme="lightText"
+          size="default"
+          onClick={logout}
+          label={
+            <FormattedMessage
+              id="UserMenu.signOut"
+              defaultMessage="Sign Out"
+              description="This is the sign out button on the user profile page"
+            />
+          }
+        />
       </div>
     </div>
   );
