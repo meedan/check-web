@@ -129,6 +129,17 @@
             :global(.check-icon) {
               font-size: var(--iconSizeDefault);
             }
+
+            &.tooltip-icon {
+              color: var(--textSecondary);
+              flex: 0 0 var(--iconSizeSmall);
+              font-size: var(--iconSizeSmall);
+              margin: 0 0 1px 6px;
+
+              svg {
+                display: inline-block;
+              }
+            }
           }
 
           .setting-content-container-actions {
