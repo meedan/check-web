@@ -291,7 +291,7 @@ const SaveFeed = (props) => {
         mutation: destroyMutation,
         variables: { input },
         onCompleted: () => {
-          const retPath = `/${feed.team.slug}/all-items`;
+          const retPath = `/${feed.team.slug}/feeds`;
           browserHistory.push(retPath);
         },
         onError: onFailure,
@@ -532,6 +532,7 @@ const SaveFeed = (props) => {
           feed={feed}
           onChange={setNewInvites}
           permissions={permissions}
+          readOnly={feedTeam?.team_id && feedTeam?.team_id !== feed?.team?.dbid}
         />
       </div>
 

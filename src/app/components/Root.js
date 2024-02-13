@@ -38,6 +38,7 @@ import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
 import Sandbox from './Sandbox';
 import SandboxCrash from './SandboxCrash';
+import FeedPage from './feed/FeedPage';
 
 class Root extends Component {
   static logPageView() {
@@ -113,6 +114,7 @@ class Root extends Component {
                   <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
                   <Route path=":team/published(/:query)" component={Published} />
                   <Route path=":team/feed/create" component={CreateFeed} />
+                  <Route path=":team/feeds" component={FeedPage} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
                   <Route path=":team/feed/:feedId/invitation" component={FeedInvitationRespond} />
                   <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />

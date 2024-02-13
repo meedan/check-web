@@ -25,6 +25,7 @@ const getBooleanPref = (key, fallback) => {
 
 const DrawerNavigation = (props) => {
   const [drawerOpen, setDrawerOpen] = React.useState(getBooleanPref('drawer.isOpen', true));
+  const [drawerType, setDrawerType] = React.useState('default');
 
   if (props.teamSlug) {
     const { teamSlug } = props;
@@ -39,7 +40,9 @@ const DrawerNavigation = (props) => {
           renderFetched={
             data => (<DrawerRailContainer
               drawerOpen={drawerOpen}
+              drawerType={drawerType}
               onDrawerOpenChange={setDrawerOpen}
+              onDrawerTypeChange={setDrawerType}
               {...props}
               {...data}
             />)
@@ -52,6 +55,7 @@ const DrawerNavigation = (props) => {
             renderFetched={
               data => (<DrawerNavigationContainer
                 drawerOpen={drawerOpen}
+                drawerType={drawerType}
                 {...props}
                 {...data}
               />)

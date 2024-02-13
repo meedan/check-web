@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -12,109 +13,110 @@ import Message from './Message';
 import { stringHelper } from '../customHelpers';
 import AboutRoute from '../relay/AboutRoute';
 import RelayContainer from '../relay/RelayContainer';
-import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
 
-class UserTosComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checkedTos: false,
+const UserTosComponent = (props) => {
+  const [checkedTos, setCheckedTos] = React.useState(false);
+  const [message, setMessage] = React.useState('');
+
+  const handleCheckTos = () => {
+    setCheckedTos(!checkedTos);
+  };
+
+  const handleSubmit = () => {
+    const onSuccess = () => {
     };
-  }
-
-  handleCheckTos() {
-    this.setState({ checkedTos: !this.state.checkedTos });
-  }
-
-  handleSubmit() {
     const onFailure = () => {
-      this.setState({
-        message: <FormattedMessage id="global.unknownError" defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists." description="Message displayed in error notification when an operation fails unexpectedly" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />,
-      });
+      setMessage(<FormattedMessage id="global.unknownError" defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists." description="Message displayed in error notification when an operation fails unexpectedly" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />);
     };
-
-    if (this.state.checkedTos) {
-      Relay.Store.commitUpdate(
-        new UpdateUserMutation({
-          current_user_id: this.props.user.id,
-          accept_terms: true,
-        }),
-        { onFailure },
-      );
-    }
-  }
-
-  handleValidate() {
-    if (!this.state.checkedTos) {
-      this.setState({
-        message: <FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" description="Message to the user that they must review the application terms of service" />,
+    if (checkedTos) {
+      commitMutation(Relay.Store, {
+        mutation: graphql`
+          mutation UserTosUpdateUserMutation($input: UpdateUserInput!) {
+            updateUser(input: $input) {
+              me {
+                accepted_terms
+              }
+            }
+          }
+        `,
+        variables: {
+          input: {
+            id: props.user.id,
+            accept_terms: true,
+          },
+        },
+        onCompleted: onSuccess,
+        onError: onFailure,
       });
     }
-  }
+  };
 
-  render() {
-    const { user, about } = this.props;
+  const handleValidate = () => {
+    if (!checkedTos) {
+      setMessage(<FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" description="Message to the user that they must review the application terms of service" />);
+    }
+  };
+  const { user, about } = props;
 
-    const actions = [
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <div onClick={this.handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
-        <Button
-          id="tos__save"
-          color="primary"
-          onClick={this.handleSubmit.bind(this)}
-          disabled={!this.state.checkedTos}
-        >
-          <FormattedMessage id="userTos.save" defaultMessage="Save" description="Button label for the user to save their review of the terms of service" />
-        </Button>
-      </div>,
-    ];
-
-    const linkStyle = {
-      textDecoration: 'underline',
-    };
-
-    const communityGuidelinesLink = (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        style={linkStyle}
-        href="https://meedan.com/en/community_guidelines/"
+  const actions = [
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <div onClick={handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
+      <Button
+        id="tos__save"
+        color="primary"
+        onClick={handleSubmit.bind(this)}
+        disabled={!checkedTos}
       >
-        <FormattedMessage id="userTos.commGuidelinesLink" defaultMessage="Community Guidelines" description="Link text to take the user to the application community guidelines at the Meedan website" />
-      </a>
-    );
+        <FormattedMessage id="userTos.save" defaultMessage="Save" description="Button label for the user to save their review of the terms of service" />
+      </Button>
+    </div>,
+  ];
 
-    return (
-      <React.Fragment>
-        <DialogContent>
-          <Message message={this.state.message} />
-          <UserTosForm
-            user={user}
-            showTitle
-            termsLastUpdatedAt={about.terms_last_updated_at}
-            handleCheckTos={this.handleCheckTos.bind(this)}
-            checkedTos={this.state.checkedTos}
-          />
-          { user && !user.last_accepted_terms_at ?
-            <p>
-              <FormattedMessage
-                id="userTos.commGuidelines"
-                defaultMessage="We ask that you also read our {communityGuidelinesLink} for using {appName}."
-                description="Message to encourage the user to read the application community guidelines document"
-                values={{
-                  communityGuidelinesLink,
-                  appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
-                }}
-              />
-            </p> : null }
-        </DialogContent>
-        <DialogActions>
-          {actions}
-        </DialogActions>
-      </React.Fragment>
-    );
-  }
-}
+  const linkStyle = {
+    textDecoration: 'underline',
+  };
+
+  const communityGuidelinesLink = (
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      style={linkStyle}
+      href="https://meedan.com/en/community_guidelines/"
+    >
+      <FormattedMessage id="userTos.commGuidelinesLink" defaultMessage="Community Guidelines" description="Link text to take the user to the application community guidelines at the Meedan website" />
+    </a>
+  );
+
+  return (
+    <React.Fragment>
+      <DialogContent>
+        <Message message={message} />
+        <UserTosForm
+          user={user}
+          showTitle
+          termsLastUpdatedAt={about.terms_last_updated_at}
+          handleCheckTos={handleCheckTos.bind(this)}
+          checkedTos={checkedTos}
+        />
+        { user && !user.last_accepted_terms_at ?
+          <p>
+            <FormattedMessage
+              id="userTos.commGuidelines"
+              defaultMessage="We ask that you also read our {communityGuidelinesLink} for using {appName}."
+              description="Message to encourage the user to read the application community guidelines document"
+              values={{
+                communityGuidelinesLink,
+                appName: mapGlobalMessage(props.intl, 'appNameHuman'),
+              }}
+            />
+          </p> : null }
+      </DialogContent>
+      <DialogActions>
+        {actions}
+      </DialogActions>
+    </React.Fragment>
+  );
+};
 
 UserTosComponent.propTypes = {
   user: PropTypes.object.isRequired,

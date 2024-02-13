@@ -73,7 +73,7 @@ const SmoochBotMainMenu = ({
   const whatsAppEnabled = (enabledIntegrations.whatsapp && enabledIntegrations.whatsapp.status === 'active');
 
   const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/5982401-tipline-bot-settings');
+    window.open('https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot');
   };
 
   return (

@@ -73,7 +73,7 @@ class DrawerNavigationComponent extends Component {
 
   render() {
     const {
-      team, currentUserIsMember, classes, drawerOpen,
+      team, currentUserIsMember, classes, drawerOpen, drawerType,
     } = this.props;
 
     // This component now renders based on teamPublicFragment
@@ -94,7 +94,7 @@ class DrawerNavigationComponent extends Component {
         <React.Fragment>
           {!!team && (currentUserIsMember || !team.private) ? (
             <>
-              <DrawerProjects team={team.slug} />
+              <DrawerProjects team={team.slug} drawerType={drawerType} />
             </>
           ) : null }
         </React.Fragment>
