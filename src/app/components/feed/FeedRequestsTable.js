@@ -27,17 +27,6 @@ import BlankState from '../layout/BlankState';
 import styles from '../search/SearchResults.module.css';
 
 const useStyles = makeStyles({
-  root: {
-    cursor: 'pointer',
-    background: 'var(--grayBackground)',
-    textDecoration: 'none',
-    height: '96px',
-    '&:hover': {
-      boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
-      background: 'var(--grayBackground)',
-      transform: 'scale(1)',
-    },
-  },
   pager: {
     color: 'var(--textPrimary)',
     fontSize: 'larger',
@@ -316,7 +305,7 @@ const FeedRequestsTable = ({
                   return (
                     <TableRow
                       key={r.node.id}
-                      classes={{ root: classes.root }}
+                      className={cx(styles['search-results-row'], styles['search-results-read'])}
                       onClick={() => browserHistory.push(buildItemUrl(r.node.dbid))}
                     >
                       <TitleCell
