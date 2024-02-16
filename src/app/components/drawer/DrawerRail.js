@@ -77,7 +77,6 @@ const DrawerRail = (props) => {
     const currentDrawerType = drawerType;
     // if drawer is open and we click on the other button, change the content
     if (drawerOpen && currentDrawerType !== newDrawerType) {
-      console.log(`is open?: ${window.storage.getValue('drawer.isOpen')}`); // eslint-disable-line no-console
       onDrawerTypeChange(newDrawerType);
     }
   };
@@ -89,7 +88,7 @@ const DrawerRail = (props) => {
 
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
-      if (isMediaPage || teamSlug === 'check' || !teamSlug) {
+      if (isMediaPage || !teamSlug) {
         onDrawerOpenChange(false);
         window.storage.set('drawer.isOpen', false);
       } else if (window.storage.getValue('drawer.isOpen')) {
@@ -101,6 +100,8 @@ const DrawerRail = (props) => {
         onDrawerTypeChange('settings');
       } else if (isFeedPage) {
         onDrawerTypeChange('feed');
+      } else if (isUserSettingsPage) {
+        onDrawerTypeChange('user');
       } else {
         onDrawerTypeChange('default');
       }
@@ -222,7 +223,7 @@ const DrawerRail = (props) => {
                 [styles.railUserSettingsActive]: isUserSettingsPage,
               })
             }
-            to="/check/me"
+            to="/check/me/workspaces"
           >
             <Avatar alt={props.user.name} src={props.user.profile_image} />
           </Link>
