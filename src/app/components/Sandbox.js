@@ -550,7 +550,7 @@ const SandboxComponent = ({ admin }) => {
               mediaCount={12345}
               suggestionsCount={567890}
               requestsCount={7890}
-              lastRequestDate={new Date('2023-12-15T17:19:40Z')}
+              lastRequestDate={new Date('2024-01-15T12:00:22Z')}
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               factCheckCount={listItemFactCheckCount}
               channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
@@ -559,8 +559,14 @@ const SandboxComponent = ({ admin }) => {
             />
             <WorkspaceItemCard
               title="Title of a Workspace Item Card Item"
+              date={new Date('2023-12-15T17:19:40Z')}
               description={listItemDescription && 'Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can.'}
+              lastRequestDate={new Date('2024-01-15T12:00:22Z')}
+              mediaCount={1}
+              mediaType="UploadedImage"
               mediaThumbnail={listItemMedia && mediaThumbnail}
+              channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
+              requestsCount={7890}
               isUnread={listItemUnread}
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
             />

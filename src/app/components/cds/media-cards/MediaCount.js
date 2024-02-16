@@ -34,10 +34,14 @@ const MediaCount = ({
   </FormattedMessage>
 );
 
+MediaCount.defaultProps = {
+  mediaType: null,
+};
+
 MediaCount.propTypes = {
   intl: intlShape.isRequired,
   mediaCount: PropTypes.number.isRequired,
-  mediaType: PropTypes.string.isRequired,
+  mediaType: PropTypes.string,
 };
 
 export default injectIntl(MediaCount);
