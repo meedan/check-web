@@ -186,7 +186,7 @@ shared_examples 'app' do |webdriver_url|
 
     it 'should redirect to 404 page if id does not exist', bin4: true do
       api_create_team_and_bot
-      @driver.navigate.to @config['self_url']
+      @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
       wait_for_selector('#side-navigation__toggle').click
       wait_for_selector('.projects-list')
       wait_for_selector('.projects-list__all-items').click
