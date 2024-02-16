@@ -8,7 +8,7 @@ import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import TextArea from '../../cds/inputs/TextArea';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { FormattedGlobalMessage } from '../../MappedMessage';
-import ColorPicker from '../../layout/ColorPicker';
+import ColorPicker from '../../cds/inputs/ColorPicker';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import dialogStyles from '../../../styles/css/dialog.module.css';
 import styles from './Statuses.module.css';
