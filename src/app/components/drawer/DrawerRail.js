@@ -77,20 +77,24 @@ const DrawerRail = (props) => {
     const currentDrawerType = drawerType;
     // if drawer is open and we click on the other button, change the content
     if (drawerOpen && currentDrawerType !== newDrawerType) {
+      console.log(`is open?: ${window.storage.getValue('drawer.isOpen')}`); // eslint-disable-line no-console
       onDrawerTypeChange(newDrawerType);
     }
   };
 
   const setDrawerOpenChange = () => {
     onDrawerOpenChange(!drawerOpen);
+    window.storage.set('drawer.isOpen', !drawerOpen);
   };
 
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
       if (isMediaPage || teamSlug === 'check' || !teamSlug) {
         onDrawerOpenChange(false);
+        window.storage.set('drawer.isOpen', false);
       } else if (window.storage.getValue('drawer.isOpen')) {
         onDrawerOpenChange(true);
+        window.storage.set('drawer.isOpen', true);
       }
 
       if (isSettingsPage) {
