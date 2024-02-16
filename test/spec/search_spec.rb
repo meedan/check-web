@@ -103,7 +103,7 @@ shared_examples 'search' do
 
   it 'should search for reverse images', bin2: true do
     api_create_team_and_bot
-    @driver.navigate.to @config['self_url']
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/test.png')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
