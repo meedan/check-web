@@ -77,7 +77,6 @@ const DrawerRail = (props) => {
     const currentDrawerType = drawerType;
     // if drawer is open and we click on the other button, change the content
     if (drawerOpen && currentDrawerType !== newDrawerType) {
-      console.log(`is open?: ${window.storage.getValue('drawer.isOpen')}`); // eslint-disable-line no-console
       onDrawerTypeChange(newDrawerType);
     }
   };
