@@ -27,16 +27,16 @@
   {
     "id": "feedFilters.applyFilters",
     "description": "Button to perform query with specified filters",
-    "defaultMessage": "Apply filter"
+    "defaultMessage": "Apply"
   },
   {
     "id": "feedFilters.clear",
     "description": "Tooltip for button to remove any applied filters",
-    "defaultMessage": "Clear filters"
+    "defaultMessage": "Clear"
   },
   {
     "id": "feedFilters.saveFilters",
     "description": "'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters.",
-    "defaultMessage": "Save filters"
+    "defaultMessage": "Save"
   }
 ]

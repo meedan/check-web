@@ -14,6 +14,7 @@ import {
   TableRow,
   TableContainer,
   TableSortLabel,
+  Typography,
 } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import DynamicFeedIcon from '../../icons/dynamic_feed.svg';
@@ -22,7 +23,6 @@ import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import FeedFilters from './FeedFilters';
-import ListHeader from '../layout/ListHeader';
 import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
@@ -166,7 +166,17 @@ const FeedRequestsTable = ({
     <React.Fragment>
       <Box mb={2}>
         <Box display="flex" alignItems="flex-start" justifyContent="space-between">
-          <ListHeader listName={feed.name} icon={<DynamicFeedIcon />} />
+          <Box p={2} height="102px">
+            <Box
+              className="list-header__top-header"
+              color="var(--textSecondary)"
+              display="flex"
+              alignItems="center"
+            >
+              <Box mr={2}><DynamicFeedIcon /></Box>
+              <Typography variant="h5" className={classes.bold}>{feed.name}</Typography>
+            </Box>
+          </Box>
           <Box p={2}>
             <SearchKeyword
               query={{ keyword: filters.keyword }}
