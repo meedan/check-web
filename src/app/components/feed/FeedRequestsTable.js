@@ -6,9 +6,7 @@ import { browserHistory } from 'react-router';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import {
   Box,
-  IconButton,
   Table,
-  TableBody,
   TableCell,
   TableHead,
   TableRow,
@@ -16,6 +14,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import KeyboardArrowUpIcon from '../../icons/chevron_up.svg';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import NextIcon from '../../icons/chevron_right.svg';
@@ -192,15 +191,28 @@ const FeedRequestsTable = ({
       <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} feedTeam={feedTeam} />
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         {totalCount ?
-          <Box display="flex" alignItems="center">
-            <IconButton onClick={onGoToThePreviousPage} disabled={!hasPreviousPage}>
-              <PrevIcon />
-            </IconButton>
-            <Box className={classes.pager}>{rangeStart > totalCount ? totalCount : rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</Box>
-            <IconButton onClick={onGoToTheNextPage} disabled={!hasNextPage}>
-              <NextIcon />
-            </IconButton>
-          </Box>
+          <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
+            <span className={styles['search-pagination']}>
+              <ButtonMain
+                size="small"
+                variant="text"
+                theme="text"
+                className={styles['search-nav']}
+                onClick={onGoToThePreviousPage}
+                disabled={!hasPreviousPage}
+                iconCenter={<PrevIcon />}
+              />
+              <span className="typography-button">{rangeStart > totalCount ? totalCount : rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</span>
+              <ButtonMain
+                size="small"
+                variant="text"
+                theme="text"
+                onClick={onGoToTheNextPage}
+                disabled={!hasNextPage}
+                iconCenter={<NextIcon />}
+              />
+            </span>
+          </span>
           : null }
         {totalCount === 0 ?
           <BlankState>
@@ -287,7 +299,7 @@ const FeedRequestsTable = ({
                   </TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
+              <tbody>
                 { feed?.requests?.edges?.map((r) => {
                   let requestTitle = '';
                   if (r.node.request_type === 'text') {
@@ -346,7 +358,7 @@ const FeedRequestsTable = ({
                     </TableRow>
                   );
                 }) }
-              </TableBody>
+              </tbody>
             </Table>
           </div>
         }
