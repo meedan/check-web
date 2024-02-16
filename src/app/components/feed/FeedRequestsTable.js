@@ -5,7 +5,6 @@ import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import {
-  Box,
   Table,
   TableCell,
   TableHead,
@@ -342,16 +341,16 @@ const FeedRequestsTable = ({
                       <TableCell align="left">
                         {
                           r.node.fact_checked_by ?
-                            <Box className={classes.hasFactCheck}>
+                            <div className={classes.hasFactCheck}>
                               {r.node.fact_checked_by.split(', ').map(teamName => (<span key={teamName}>{teamName}<br /></span>))}
-                            </Box> :
-                            <Box className={classes.noFactCheck}>
+                            </div> :
+                            <div className={classes.noFactCheck}>
                               <FormattedMessage
                                 id="feedRequestsTable.noFactCheck"
                                 defaultMessage="No fact-check"
                                 description="Displayed on feed requests table when a request was not fact-checked yet."
                               />
-                            </Box>
+                            </div>
                         }
                       </TableCell>
                       <TableCell align="left">{r.node.medias_count}</TableCell>
