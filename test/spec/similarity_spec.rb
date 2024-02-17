@@ -88,7 +88,7 @@ shared_examples 'similarity' do
 
   it 'should identify images as similar', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
-    @driver.navigate.to @config['self_url']
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/similarity.jpg')
     sleep 60 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
@@ -103,7 +103,7 @@ shared_examples 'similarity' do
 
   it 'should extract text from a image', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
-    @driver.navigate.to @config['self_url']
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/ocr.png')
     verbose_wait 5
     wait_for_selector('.medias__item')
@@ -116,7 +116,7 @@ shared_examples 'similarity' do
 
   it 'should identify videos as similar', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
-    @driver.navigate.to @config['self_url']
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/video.mp4')
     sleep 60 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')
@@ -131,7 +131,7 @@ shared_examples 'similarity' do
 
   it 'should identify audios as similar', bin7: true do
     api_create_team_and_bot(bot: 'alegre')
-    @driver.navigate.to @config['self_url']
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/audio.mp3')
     sleep 200 # Wait for the item to be indexed by Alegre
     wait_for_selector('.medias__item')

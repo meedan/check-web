@@ -13,15 +13,5 @@
     "id": "userTos.save",
     "description": "Button label for the user to save their review of the terms of service",
     "defaultMessage": "Save"
-  },
-  {
-    "id": "userTos.commGuidelinesLink",
-    "description": "Link text to take the user to the application community guidelines at the Meedan website",
-    "defaultMessage": "Community Guidelines"
-  },
-  {
-    "id": "userTos.commGuidelines",
-    "description": "Message to encourage the user to read the application community guidelines document",
-    "defaultMessage": "We ask that you also read our {communityGuidelinesLink} for using {appName}."
   }
 ]
