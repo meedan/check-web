@@ -4,15 +4,13 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
-import { mapGlobalMessage } from './MappedMessage';
+import Alert from './cds/alerts-and-prompts/Alert';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import UserTosForm from './UserTosForm';
-import Message from './Message';
 import { stringHelper } from '../customHelpers';
 import AboutRoute from '../relay/AboutRoute';
 import RelayContainer from '../relay/RelayContainer';
+import dialogStyles from '../styles/css/dialog.module.css';
 
 const UserTosComponent = (props) => {
   const [checkedTos, setCheckedTos] = React.useState(false);
@@ -61,59 +59,35 @@ const UserTosComponent = (props) => {
   const actions = [
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <div onClick={handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
-      <Button
-        id="tos__save"
-        color="primary"
+      <ButtonMain
+        buttonProps={{
+          id: 'tos__save',
+        }}
+        size="default"
+        variant="contained"
+        theme="brand"
         onClick={handleSubmit.bind(this)}
         disabled={!checkedTos}
-      >
-        <FormattedMessage id="userTos.save" defaultMessage="Save" description="Button label for the user to save their review of the terms of service" />
-      </Button>
+        label={
+          <FormattedMessage id="userTos.save" defaultMessage="Save" description="Button label for the user to save their review of the terms of service" />
+        }
+      />
     </div>,
   ];
 
-  const linkStyle = {
-    textDecoration: 'underline',
-  };
-
-  const communityGuidelinesLink = (
-    <a
-      target="_blank"
-      rel="noopener noreferrer"
-      style={linkStyle}
-      href="https://meedan.com/en/community_guidelines/"
-    >
-      <FormattedMessage id="userTos.commGuidelinesLink" defaultMessage="Community Guidelines" description="Link text to take the user to the application community guidelines at the Meedan website" />
-    </a>
-  );
-
   return (
     <React.Fragment>
-      <DialogContent>
-        <Message message={message} />
-        <UserTosForm
-          user={user}
-          showTitle
-          termsLastUpdatedAt={about.terms_last_updated_at}
-          handleCheckTos={handleCheckTos.bind(this)}
-          checkedTos={checkedTos}
-        />
-        { user && !user.last_accepted_terms_at ?
-          <p>
-            <FormattedMessage
-              id="userTos.commGuidelines"
-              defaultMessage="We ask that you also read our {communityGuidelinesLink} for using {appName}."
-              description="Message to encourage the user to read the application community guidelines document"
-              values={{
-                communityGuidelinesLink,
-                appName: mapGlobalMessage(props.intl, 'appNameHuman'),
-              }}
-            />
-          </p> : null }
-      </DialogContent>
-      <DialogActions>
+      { message && <Alert variant="error" className={dialogStyles['dialog-alert']} content={message} /> }
+      <UserTosForm
+        user={user}
+        showTitle
+        termsLastUpdatedAt={about.terms_last_updated_at}
+        handleCheckTos={handleCheckTos.bind(this)}
+        checkedTos={checkedTos}
+      />
+      <div className={dialogStyles['dialog-actions']}>
         {actions}
-      </DialogActions>
+      </div>
     </React.Fragment>
   );
 };
@@ -139,7 +113,7 @@ const UserTos = (props) => {
   const openDialog = user && user.dbid && !user.accepted_terms;
 
   return (
-    <Dialog open={openDialog}>
+    <Dialog className={dialogStyles['dialog-window']} open={openDialog}>
       <RelayContainer
         Component={UserTosContainer}
         route={route}
