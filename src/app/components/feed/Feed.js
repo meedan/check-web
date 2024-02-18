@@ -140,43 +140,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
       {/* If it's not a "published" feed, then it's a clustered view from workspace data */}
       { tab === 'feed' && !feed.published ?
         <div id="feed__clusters" className="search-results-wrapper">
-          <Search
-            mediaUrlPrefix={`/check/feed/${feed.dbid}`}
-            query={{
-              ...safelyParseJSON(routeParams.query, {}),
-              sort: 'cluster_last_item_at',
-              feed_id: feed.dbid,
-              clusterize: true,
-              ...feed.filters,
-            }}
-            defaultQuery={feed.filters}
-            resultType="feed"
-            hideFields={[
-              'feed_fact_checked_by',
-              'tags',
-              'verification_status',
-              'users',
-              'assigned_to',
-              'published_by',
-              'team_tasks',
-              'channels',
-              'linked_items_count',
-              'suggestions_count',
-              'demand',
-              'sources',
-              'dynamic',
-              'annotated_by',
-              'language',
-              'published_by',
-              'has_claim',
-              'cluster_published_reports',
-              'cluster_teams',
-              'archived',
-              'read',
-              'unmatched',
-            ]}
-            {...commonSearchProps}
-          />
+          <p>Deprecated.</p>
         </div>
         : null
       }

@@ -274,11 +274,7 @@ function SearchResultsComponent({
       urlPrefix = `/${projectMedia.team.slug}/${urlPrefix}`;
     }
 
-    let result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
-    if (resultType === 'feed') {
-      result = `${mediaUrlPrefix}/cluster/${projectMedia.cluster?.dbid}?${urlParams.toString()}`;
-    }
-
+    const result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
     return result;
   };
 
@@ -670,15 +666,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
                 type
                 url
                 domain
-              }
-              cluster {
-                dbid
-                size
-                team_names
-                fact_checked_by_team_names
-                requests_count
-                first_item_at
-                last_item_at
               }
               team {
                 slug
