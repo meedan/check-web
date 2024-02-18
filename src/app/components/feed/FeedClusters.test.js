@@ -83,4 +83,4 @@ describe('<FeedClusters />', () => {
     const wrapper = shallowWithIntl(<FeedClusters feed={feed} feedTeam={feedTeam} />);
     expect(wrapper.find('.feed-clusters__card')).toHaveLength(2);
   });
-}); 
+});
