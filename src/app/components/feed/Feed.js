@@ -4,10 +4,12 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import ErrorBoundary from '../error/ErrorBoundary';
 import FeedRequestsTable from './FeedRequestsTable';
 import FeedTopBar from './FeedTopBar';
 import FeedHeader from './FeedHeader';
+import FeedClusters from './FeedClusters';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
@@ -88,8 +90,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
       {/* The "Feed" tab displays content from the feed itself */}
 
-      {/* For a "published" feed, it's just all the fact-checks from the workspaces */}
-      { tab === 'feed' && feed.published ?
+      {/* Feed is sharing only fact-checks */}
+      { tab === 'feed' && feed.published && JSON.stringify(feed.data_points) === JSON.stringify([CheckFeedDataPoints.PUBLISHED_FACT_CHECKS]) ?
         <div id="feed__fact-checks" className="feed__fact-checks search-results-wrapper">
           <Search
             mediaUrlPrefix="media"
@@ -137,10 +139,13 @@ export const FeedComponent = ({ routeParams, ...props }) => {
         : null
       }
 
-      {/* If it's not a "published" feed, then it's a clustered view from workspace data */}
-      { tab === 'feed' && !feed.published ?
+      {/* Feed is sharing only medias */}
+      { tab === 'feed' && feed.published && JSON.stringify(feed.data_points) === JSON.stringify([CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]) ?
         <div id="feed__clusters" className="search-results-wrapper">
-          <p>Deprecated.</p>
+          <FeedClusters
+            feed={feed}
+            feedTeam={feedTeam}
+          />
         </div>
         : null
       }
@@ -183,6 +188,7 @@ FeedComponent.propTypes = {
       published: PropTypes.bool,
       filters: PropTypes.object,
       teams_count: PropTypes.number,
+      data_points: PropTypes.arrayOf(PropTypes.number),
       current_feed_team: PropTypes.shape({
         id: PropTypes.string,
         filters: PropTypes.object,
@@ -206,6 +212,7 @@ const Feed = ({ routeParams }) => (
               published
               filters
               saved_search_id
+              data_points
               teams(first: 1000) {
                 edges {
                   node {
@@ -223,9 +230,11 @@ const Feed = ({ routeParams }) => (
                 shared
                 requests_filters
                 ...FeedHeader_feedTeam
+                ...FeedClusters_feedTeam
               }
               ...FeedTopBar_feed
               ...FeedHeader_feed
+              ...FeedClusters_feed
             }
             ...FeedTopBar_team
           }
