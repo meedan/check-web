@@ -139,8 +139,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
         : null
       }
 
-      {/* Feed is sharing only medias */}
-      { tab === 'feed' && feed.published && JSON.stringify(feed.data_points) === JSON.stringify([CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS]) ?
+      {/* Feed is sharing media */}
+      { tab === 'feed' && feed.published && feed.data_points.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
         <div id="feed__clusters" className="search-results-wrapper">
           <FeedClusters
             feed={feed}
