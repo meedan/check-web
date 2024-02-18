@@ -5,8 +5,9 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import FeedHeader from './FeedHeader';
 import SharedItemCard from '../search/SearchResultsCards/SharedItemCard';
-import searchResultsStyles from '../search/SearchResults.module.css';
 import CheckChannels from '../../CheckChannels';
+import searchResultsStyles from '../search/SearchResults.module.css';
+import styles from './FeedClusters.module.css';
 
 const FeedClusters = ({ feed, feedTeam }) => {
   const clusters = feed.clusters.edges.map(edge => edge.node);
@@ -30,13 +31,13 @@ const FeedClusters = ({ feed, feedTeam }) => {
           </div>
         </div>
       </div>
-      <div className={cx('search__results', 'results', searchResultsStyles['search-results-wrapper'])}>
+      <div className={cx('search__results', 'results', searchResultsStyles['search-results-wrapper'], styles.feedClusters)}>
         {clusters.map((cluster) => {
           const { media } = cluster.center;
           const channels = cluster.channels.filter(channel => Object.values(CheckChannels.TIPLINE).includes(channel.toString()));
 
           return (
-            <div>
+            <div key={cluster.id} className="feed-clusters__card">
               <SharedItemCard
                 title={cluster.center.title}
                 description={cluster.center.description}
@@ -70,18 +71,40 @@ FeedClusters.propTypes = {
     name: PropTypes.string.isRequired,
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
+    data_points: PropTypes.arrayOf(PropTypes.number).isRequired,
     team: PropTypes.shape({
       slug: PropTypes.string.isRequired,
     }).isRequired,
-    clusters: PropTypes.arrayOf(PropTypes.shape({
-      edges: PropTypes.shape({
+    clusters: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          channels: PropTypes.arrayOf(PropTypes.number),
+          last_request_date: PropTypes.number,
+          last_fact_check_date: PropTypes.number,
+          media_count: PropTypes.number.isRequired,
+          requests_count: PropTypes.number.isRequired,
+          fact_checks_count: PropTypes.number.isRequired,
           center: PropTypes.shape({
             title: PropTypes.string.isRequired,
+            description: PropTypes.string,
+            media: PropTypes.shape({
+              url: PropTypes.string,
+              type: PropTypes.string.isRequired,
+              picture: PropTypes.string,
+            }),
+          }).isRequired,
+          teams: PropTypes.shape({
+            edges: PropTypes.arrayOf(PropTypes.shape({
+              node: PropTypes.shape({
+                name: PropTypes.string.isRequired,
+                avatar: PropTypes.string.isRequired,
+              }).isRequired,
+            })).isRequired,
           }).isRequired,
         }).isRequired,
-      }).isRequired,
-    }).isRequired).isRequired,
+      })).isRequired,
+    }),
   }).isRequired,
 };
 
@@ -99,6 +122,7 @@ export default createFragmentContainer(FeedClusters, graphql`
     clusters(first: 50) {
       edges {
         node {
+          id
           channels
           last_request_date
           last_fact_check_date

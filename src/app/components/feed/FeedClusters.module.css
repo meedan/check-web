@@ -1,0 +1,7 @@
+.feedClusters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: auto;
+  padding: 16px;
+}
