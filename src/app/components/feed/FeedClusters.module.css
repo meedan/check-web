@@ -5,3 +5,14 @@
   overflow: auto;
   padding: 16px;
 }
+
+.feedClustersToolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedClustersPagination {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}

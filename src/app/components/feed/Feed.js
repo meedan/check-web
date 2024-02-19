@@ -143,8 +143,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
       { tab === 'feed' && feed.published && feed.data_points.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
         <div id="feed__clusters" className="search-results-wrapper">
           <FeedClusters
-            feed={feed}
-            feedTeam={feedTeam}
+            teamSlug={routeParams.team}
+            feedId={parseInt(routeParams.feedId, 10)}
           />
         </div>
         : null
@@ -230,11 +230,9 @@ const Feed = ({ routeParams }) => (
                 shared
                 requests_filters
                 ...FeedHeader_feedTeam
-                ...FeedClusters_feedTeam
               }
               ...FeedTopBar_feed
               ...FeedHeader_feed
-              ...FeedClusters_feed
             }
             ...FeedTopBar_team
           }

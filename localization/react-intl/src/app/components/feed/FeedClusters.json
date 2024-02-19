@@ -1,7 +1,57 @@
 [
   {
+    "id": "searchResults.sortMediaCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Number of media items"
+  },
+  {
+    "id": "searchResults.sortRequestsCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Number of requests"
+  },
+  {
+    "id": "searchResults.sortFactChecksCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Number of fact-checks"
+  },
+  {
+    "id": "searchResults.sortLastRequestDate",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Last request date"
+  },
+  {
+    "id": "searchResults.sortLastFactCheckDate",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Last fact-check date"
+  },
+  {
+    "id": "searchResults.sortLastItemAt",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Last item date"
+  },
+  {
+    "id": "searchResults.sortFirstItemAt",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "First item date"
+  },
+  {
     "id": "feedClusters.sharedFeed",
     "description": "Displayed on top of the feed title on the feed page.",
     "defaultMessage": "Shared Feed"
+  },
+  {
+    "id": "feedClusters.previousPage",
+    "description": "Pagination button to go to previous page",
+    "defaultMessage": "Previous page"
+  },
+  {
+    "id": "feedClusters.itemsCount",
+    "description": "Pagination count of items returned",
+    "defaultMessage": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+  },
+  {
+    "id": "feedClusters.nextPage",
+    "description": "Pagination button to go to next page",
+    "defaultMessage": "Next page"
   }
 ]
