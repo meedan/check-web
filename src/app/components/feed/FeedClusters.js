@@ -61,8 +61,7 @@ const FeedClustersComponent = ({
   page,
   sort,
   sortType,
-  onChangePage,
-  onChangeSort,
+  onChangeSearchParams,
   intl,
 }) => {
   const clusters = feed.clusters.edges.map(edge => edge.node);
@@ -70,18 +69,18 @@ const FeedClustersComponent = ({
   const endingIndex = startingIndex + (clusters.length - 1);
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
-    onChangeSort(newSort, newSortType);
+    onChangeSearchParams({ page: 1, sort: newSort, sortType: newSortType });
   };
 
   const handleGoToPreviousPage = () => {
     if (page > 1) {
-      onChangePage(page - 1);
+      onChangeSearchParams({ page: (page - 1), sort, sortType });
     }
   };
 
   const handleGoToNextPage = () => {
     if (endingIndex + 1 < feed.clusters_count) {
-      onChangePage(page + 1);
+      onChangeSearchParams({ page: (page + 1), sort, sortType });
     }
   };
 
@@ -192,8 +191,7 @@ FeedClustersComponent.propTypes = {
   page: PropTypes.number,
   sort: PropTypes.oneOf(['media_count', 'requests_count', 'fact_checks_count', 'last_request_date', 'last_fact_check_date', 'last_item_at', 'first_item_at']),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
-  onChangePage: PropTypes.func.isRequired,
-  onChangeSort: PropTypes.func.isRequired,
+  onChangeSearchParams: PropTypes.func.isRequired,
   feedTeam: PropTypes.shape({
     team_id: PropTypes.number.isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update FeedTeam":true}'
@@ -248,23 +246,11 @@ export { FeedClustersComponent };
 const ConnectedFeedClustersComponent = injectIntl(FeedClustersComponent); // FIXME: Upgrade react-intl so we can use useIntl()
 
 const FeedClusters = ({ teamSlug, feedId }) => {
-  const [page, setPage] = React.useState(1);
-  const [sort, setSort] = React.useState('last_item_at');
-  const [sortType, setSortType] = React.useState('DESC');
+  const [searchParams, setSearchParams] = React.useState({ page: 1, sort: 'last_item_at', sortType: 'DESC' });
+  const { page, sort, sortType } = searchParams;
 
-  const handleChangePage = (pageNumber) => {
-    if (pageNumber !== page) {
-      setPage(pageNumber);
-    }
-  };
-
-  const handleChangeSort = (newSort, newSortType) => {
-    if (newSort !== sort) {
-      setSort(newSort);
-    }
-    if (newSortType !== sortType) {
-      setSortType(newSortType);
-    }
+  const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType }
+    setSearchParams(newSearchParams);
   };
 
   return (
@@ -332,8 +318,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
               page={page}
               sort={sort}
               sortType={sortType}
-              onChangePage={handleChangePage}
-              onChangeSort={handleChangeSort}
+              onChangeSearchParams={handleChangeSearchParams}
             />
           );
         }

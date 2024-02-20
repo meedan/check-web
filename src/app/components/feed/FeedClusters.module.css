@@ -3,12 +3,17 @@
   flex-direction: column;
   gap: 16px;
   overflow: auto;
-  padding: 16px;
+  padding: 0 16px 16px;
 }
 
 .feedClustersToolbar {
+  background: var(--otherWhite);
   display: flex;
   justify-content: space-between;
+  padding: 16px 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .feedClustersPagination {
