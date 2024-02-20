@@ -244,3 +244,23 @@
     }
   }
 }
+
+/* INE styles can be removed when deprecating the INE style shared feed */
+.ine-pager {
+  min-height: 88px;
+}
+
+.ine-fact-check {
+  white-space: nowrap;
+}
+
+.ine-no-fact-check {
+  background: var(--alertMain);
+  border-radius: 50px;
+  color: var(--otherWhite);
+  display: inline-block;
+  font-size: var(--fontSizeSmall);
+  font-weight: 400;
+  padding: 3px 10px;
+  white-space: nowrap;
+}

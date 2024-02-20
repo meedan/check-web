@@ -11,7 +11,6 @@ import {
   TableRow,
   TableSortLabel,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import KeyboardArrowUpIcon from '../../icons/chevron_up.svg';
@@ -25,31 +24,6 @@ import MediasLoading from '../media/MediasLoading';
 import SearchKeyword from '../search/SearchKeyword';
 import BlankState from '../layout/BlankState';
 import styles from '../search/SearchResults.module.css';
-
-const useStyles = makeStyles({
-  pager: {
-    color: 'var(--textPrimary)',
-    fontSize: 'larger',
-    fontWeight: 'bolder',
-    textAlign: 'center',
-  },
-  noFactCheck: {
-    fontSize: 12,
-    fontWeight: 400,
-    color: 'var(--otherWhite)',
-    background: 'var(--alertMain)',
-    display: 'inline-block',
-    borderRadius: '50px',
-    padding: '3px 10px',
-    whiteSpace: 'nowrap',
-  },
-  hasFactCheck: {
-    whiteSpace: 'nowrap',
-  },
-  tableHeadCell: {
-    whiteSpace: 'nowrap',
-  },
-});
 
 const FeedRequestsTable = ({
   tabs,
@@ -69,8 +43,6 @@ const FeedRequestsTable = ({
   hasNextPage,
   hasPreviousPage,
 }) => {
-  const classes = useStyles();
-
   const buildItemUrl = (requestDbid) => {
     const urlParams = new URLSearchParams();
     urlParams.set('listPath', searchUrlPrefix);
@@ -180,7 +152,7 @@ const FeedRequestsTable = ({
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         {totalCount ?
           <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
-            <span className={styles['search-pagination']}>
+            <span className={cx(styles['search-pagination'], styles['ine-pager'])}>
               <ButtonMain
                 size="small"
                 variant="text"
@@ -215,14 +187,14 @@ const FeedRequestsTable = ({
             <Table stickyHeader size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell className={classes.tableHeadCell}>
+                  <TableCell>
                     <FormattedMessage
                       id="feedRequestsTable.media"
                       defaultMessage="Media"
                       description="Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text"
                     />
                   </TableCell>
-                  <TableCell className={classes.tableHeadCell}>
+                  <TableCell>
                     <TableSort field="last_submitted">
                       <FormattedMessage
                         id="feedRequestsTable.lastSubmitted"
@@ -231,7 +203,7 @@ const FeedRequestsTable = ({
                       />
                     </TableSort>
                   </TableCell>
-                  <TableCell className={classes.tableHeadCell}>
+                  <TableCell>
                     <TableSort field="media_type">
                       <FormattedMessage
                         id="feedRequestsTable.mediaType"
@@ -240,7 +212,7 @@ const FeedRequestsTable = ({
                       />
                     </TableSort>
                   </TableCell>
-                  <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableCell align="left">
                     <TableSort field="requests">
                       <FormattedMessage
                         id="feedRequestsTable.requests"
@@ -249,7 +221,7 @@ const FeedRequestsTable = ({
                       />
                     </TableSort>
                   </TableCell>
-                  <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableCell align="left">
                     <TableSort field="subscriptions">
                       <FormattedMessage
                         id="feedRequestsTable.subscriptions"
@@ -258,7 +230,7 @@ const FeedRequestsTable = ({
                       />
                     </TableSort>
                   </TableCell>
-                  <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableCell align="left">
                     <TableSort field="fact_checks">
                       <FormattedMessage
                         id="feedRequestsTable.factChecksSent"
@@ -267,7 +239,7 @@ const FeedRequestsTable = ({
                       />
                     </TableSort>
                   </TableCell>
-                  <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableCell align="left">
                     <TableSort field="fact_checked_by">
                       <FormattedMessage
                         id="feedRequestsTable.factCheckBy"
@@ -276,7 +248,7 @@ const FeedRequestsTable = ({
                       />
                     </TableSort>
                   </TableCell>
-                  <TableCell align="left" className={classes.tableHeadCell}>
+                  <TableCell align="left">
                     <TableSort field="medias">
                       <FormattedMessage
                         id="feedRequestsTable.matchedMedia"
@@ -330,10 +302,10 @@ const FeedRequestsTable = ({
                       <TableCell align="left">
                         {
                           r.node.fact_checked_by ?
-                            <div className={classes.hasFactCheck}>
+                            <div className={styles['ine-fact-check']}>
                               {r.node.fact_checked_by.split(', ').map(teamName => (<span key={teamName}>{teamName}<br /></span>))}
                             </div> :
-                            <div className={classes.noFactCheck}>
+                            <div className={styles['ine-no-fact-check']}>
                               <FormattedMessage
                                 id="feedRequestsTable.noFactCheck"
                                 defaultMessage="No fact-check"
