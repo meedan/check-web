@@ -151,28 +151,30 @@ const FeedRequestsTable = ({
       <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} feedTeam={feedTeam} />
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         {totalCount ?
-          <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
-            <span className={cx(styles['search-pagination'], styles['ine-pager'])}>
-              <ButtonMain
-                size="small"
-                variant="text"
-                theme="text"
-                className={styles['search-nav']}
-                onClick={onGoToThePreviousPage}
-                disabled={!hasPreviousPage}
-                iconCenter={<PrevIcon />}
-              />
-              <span className="typography-button">{rangeStart > totalCount ? totalCount : rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</span>
-              <ButtonMain
-                size="small"
-                variant="text"
-                theme="text"
-                onClick={onGoToTheNextPage}
-                disabled={!hasNextPage}
-                iconCenter={<NextIcon />}
-              />
+          <div className={styles['search-results-toolbar']}>
+            <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
+              <span className={cx(styles['search-pagination'], styles['ine-pager'])}>
+                <ButtonMain
+                  size="small"
+                  variant="text"
+                  theme="text"
+                  className={styles['search-nav']}
+                  onClick={onGoToThePreviousPage}
+                  disabled={!hasPreviousPage}
+                  iconCenter={<PrevIcon />}
+                />
+                <span className="typography-button">{rangeStart > totalCount ? totalCount : rangeStart} - {rangeEnd > totalCount ? totalCount : rangeEnd} / {totalCount}</span>
+                <ButtonMain
+                  size="small"
+                  variant="text"
+                  theme="text"
+                  onClick={onGoToTheNextPage}
+                  disabled={!hasNextPage}
+                  iconCenter={<NextIcon />}
+                />
+              </span>
             </span>
-          </span>
+          </div>
           : null }
         {totalCount === 0 ?
           <BlankState>
