@@ -1,8 +1,10 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { defineMessages, injectIntl } from 'react-intl';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import { logout } from '../../../redux/actions.js';
 import { withSetFlashMessage } from '../../FlashMessage';
 import styles from './Projects.module.css';
 
@@ -68,6 +70,24 @@ const UserSettingsComponent = ({
             </Link>
           </> : null
         }
+      </ul>
+      <ul className={cx(styles.listWrapper, styles.listFooter)}>
+        <li className={styles.listItem}>
+          <ButtonMain
+            className="user-menu__logout"
+            variant="contained"
+            theme="lightText"
+            size="default"
+            onClick={logout}
+            label={
+              <FormattedMessage
+                id="UserMenu.signOut"
+                defaultMessage="Sign Out"
+                description="This is the sign out button on the user profile page"
+              />
+            }
+          />
+        </li>
       </ul>
     </React.Fragment>
   );

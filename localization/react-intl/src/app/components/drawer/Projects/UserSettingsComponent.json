@@ -18,5 +18,10 @@
     "id": "userSettingsNavigation.security",
     "description": "Label for the security user settings navigation menu item",
     "defaultMessage": "Security"
+  },
+  {
+    "id": "UserMenu.signOut",
+    "description": "This is the sign out button on the user profile page",
+    "defaultMessage": "Sign Out"
   }
 ]

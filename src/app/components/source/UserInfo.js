@@ -6,7 +6,6 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Can from '../Can';
 import { parseStringUnixTimestamp } from '../../helpers';
 import SourcePicture from './SourcePicture';
-import { logout } from '../../redux/actions.js';
 import IconEdit from '../../icons/edit.svg';
 import styles from './User.module.css';
 
@@ -78,23 +77,6 @@ const UserInfo = (props) => {
             }}
           />
         </div>
-        {
-          isUserSelf ?
-            <ButtonMain
-              className="user-menu__logout"
-              variant="contained"
-              theme="lightText"
-              size="default"
-              onClick={logout}
-              label={
-                <FormattedMessage
-                  id="UserMenu.signOut"
-                  defaultMessage="Sign Out"
-                  description="This is the sign out button on the user profile page"
-                />
-              }
-            /> : null
-        }
       </div>
     </div>
   );
