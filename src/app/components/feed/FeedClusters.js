@@ -159,7 +159,7 @@ const FeedClustersComponent = ({
           const channels = cluster.channels.filter(channel => Object.values(CheckChannels.TIPLINE).includes(channel.toString()));
 
           return (
-            <div key={cluster.id} className="feed-clusters__card">
+            <div key={cluster.id} className={cx('feed-clusters__card', styles.feedClusterCard)}>
               <SharedItemCard
                 title={cluster.center.title}
                 description={cluster.center.description}

@@ -1,16 +1,19 @@
 .feedClusters {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   overflow: auto;
-  padding: 0 16px 16px;
+  padding: 0 16px;
+}
+
+.feedClusterCard {
+  margin-bottom: 16px;
 }
 
 .feedClustersToolbar {
   background: var(--otherWhite);
   display: flex;
   justify-content: space-between;
-  padding: 16px 0 0;
+  padding: 16px;
   position: sticky;
   top: 0;
   z-index: 1;
