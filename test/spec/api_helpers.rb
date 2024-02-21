@@ -45,7 +45,8 @@ module ApiHelpers
 
   def api_create_team_and_bot(params = {})
     user = params[:user] || api_register_and_login_with_email
-    team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(10_000).to_i}", email: user.email }
+    @slug = "test-team-#{Time.now.to_i}-#{rand(10_000).to_i}"
+    team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: @slug, email: user.email }
     api_install_bot(params[:bot], team[:slug], params[:score]) if params[:bot]
     sleep 5
     { user: user, team: team }
