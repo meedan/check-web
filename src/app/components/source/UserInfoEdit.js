@@ -1,6 +1,5 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { browserHistory } from 'react-router';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import cx from 'classnames/bind';
@@ -65,10 +64,6 @@ const messages = defineMessages({
   },
 });
 
-function handleLeaveEditMode() {
-  browserHistory.push('/check/me');
-}
-
 class UserInfoEdit extends React.Component {
   constructor(props) {
     super(props);
@@ -131,9 +126,6 @@ class UserInfoEdit extends React.Component {
     const message = isEditing ? this.state.message : null;
 
     this.setState({ submitDisabled, message });
-    if (!isEditing) {
-      handleLeaveEditMode();
-    }
   };
 
   registerPendingMutation(mutation) {
@@ -428,16 +420,6 @@ class UserInfoEdit extends React.Component {
               </div>
             </form>
             <div className={cx('source__edit-buttons-cancel-save', inputStyles['form-footer-actions'])}>
-              <ButtonMain
-                className="source__edit-cancel-button"
-                size="default"
-                variant="text"
-                theme="lightText"
-                onClick={handleLeaveEditMode}
-                label={
-                  <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
-                }
-              />
               <ButtonMain
                 className="source__edit-save-button"
                 size="default"

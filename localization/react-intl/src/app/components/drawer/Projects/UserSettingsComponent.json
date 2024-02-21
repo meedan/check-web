@@ -5,6 +5,11 @@
     "defaultMessage": "User Settings"
   },
   {
+    "id": "userSettingsNavigation.profile",
+    "description": "Label for the Profile user settings navigation menu item",
+    "defaultMessage": "Profile"
+  },
+  {
     "id": "userSettingsNavigation.workspaces",
     "description": "Label for the Workspaces user settings navigation menu item",
     "defaultMessage": "Workspaces"

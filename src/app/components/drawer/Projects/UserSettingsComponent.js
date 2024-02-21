@@ -14,6 +14,11 @@ const messages = defineMessages({
     defaultMessage: 'User Settings',
     description: 'Navigation list title for user settings',
   },
+  profile: {
+    id: 'userSettingsNavigation.profile',
+    defaultMessage: 'Profile',
+    description: 'Label for the Profile user settings navigation menu item',
+  },
   workspaces: {
     id: 'userSettingsNavigation.workspaces',
     defaultMessage: 'Workspaces',
@@ -45,6 +50,15 @@ const UserSettingsComponent = ({
         {intl.formatMessage(messages.userSettings)}
       </div>
       <ul className={styles.listWrapper}>
+        { isUserSelf ?
+          <Link className={cx('user-settings__profile-tab', styles.linkList)} to="/check/me/profile" title={intl.formatMessage(messages.profile)}>
+            <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'profile' })}>
+              <div className={styles.listLabel}>
+                {intl.formatMessage(messages.profile)}
+              </div>
+            </li>
+          </Link> : null
+        }
         <Link className={cx('user-settings__workspaces-tab', styles.linkList)} to="/check/me/workspaces" title={intl.formatMessage(messages.workspaces)}>
           <li className={cx([styles.listItem], { [styles.listItem_active]: tab === 'workspaces' })}>
             <div className={styles.listLabel}>

@@ -2,14 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
-import UserEmail from '../user/UserEmail';
-import UserInfo from './UserInfo';
+import UserProfile from './UserProfile';
 import UserPrivacy from './UserPrivacy';
 import UserSecurity from './UserSecurity';
-import UserInfoEdit from './UserInfoEdit';
-import { can } from '../Can';
 import PageTitle from '../PageTitle';
-import CheckContext from '../../CheckContext';
 import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
 import styles from './User.module.css';
 
@@ -21,18 +17,12 @@ class MeComponent extends React.Component {
     }
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
-  }
-
   render() {
     const user = this.props.me;
-    const isEditing = this.props.route.isEditing && can(user.permissions, 'update User');
-    const context = this.getContext();
     let { tab } = this.props.params;
 
     if (!tab) {
-      tab = 'workspaces';
+      tab = 'profile';
       browserHistory.push(`/check/me/${tab}`);
     }
 
@@ -40,25 +30,14 @@ class MeComponent extends React.Component {
       <PageTitle prefix={user.name}>
         <div className={cx('source', styles['user-settings-wrapper'])}>
           <div className={styles['user-content']}>
-            { isEditing ?
-              <UserInfoEdit user={user} /> :
-              <>
-                <div className={styles['user-info-wrapper']}>
-                  <UserEmail user={user} />
-                </div>
-                <UserInfo user={user} context={context} />
-              </>
-            }
-            { isEditing ?
-              null :
-              <div className={styles['user-info-tabs-wrapper']}>
-                <div className={styles['user-info-tabs-content']}>
-                  { tab === 'teams' || tab === 'workspaces' ? <SwitchTeamsComponent user={user} /> : null}
-                  { tab === 'privacy' ? <UserPrivacy user={user} /> : null}
-                  { tab === 'security' ? <UserSecurity user={user} /> : null}
-                </div>
+            <div className={styles['user-info-tabs-wrapper']}>
+              <div className={styles['user-info-tabs-content']}>
+                { tab === 'profile' ? <UserProfile user={user} /> : null}
+                { tab === 'teams' || tab === 'workspaces' ? <SwitchTeamsComponent user={user} /> : null}
+                { tab === 'privacy' ? <UserPrivacy user={user} /> : null}
+                { tab === 'security' ? <UserSecurity user={user} /> : null}
               </div>
-            }
+            </div>
           </div>
         </div>
       </PageTitle>
