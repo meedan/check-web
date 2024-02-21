@@ -39,7 +39,7 @@ else
     sed -i "s~similarity_media_file_url_host: ''~similarity_media_file_url_host: '$NGROK_URL'~g" check-api/config/config.yml
     cat check-api/config/config.yml | grep similarity_media_file_url_host
     docker-compose build
-    docker-compose -f docker-compose.yml -f docker-test.yml up -d
+    docker-compose -f docker-compose.yml -f docker-test.yml up --abort-on-container-exit
     until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
     until curl --silent -I -f --fail http://localhost:8000/ping; do printf .; sleep 1; done
   fi
