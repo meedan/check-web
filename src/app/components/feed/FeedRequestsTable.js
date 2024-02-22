@@ -279,7 +279,7 @@ const FeedRequestsTable = ({
                   return (
                     <TableRow
                       key={r.node.id}
-                      className={cx(styles['search-results-row'], styles['search-results-read'])}
+                      className={cx(styles['search-results-row'], styles['search-results-read'], styles['ine-search-results-row'])}
                       onClick={() => browserHistory.push(buildItemUrl(r.node.dbid))}
                     >
                       <TitleCell

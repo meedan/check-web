@@ -274,6 +274,10 @@
   white-space: nowrap;
 }
 
+.ine-search-results-row:hover {
+  cursor: pointer;
+}
+
 .ine-no-fact-check {
   background: var(--alertMain);
   border-radius: 50px;
