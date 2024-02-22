@@ -1,0 +1,26 @@
+.feedClusters {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding: 0 16px;
+}
+
+.feedClusterCard {
+  margin-bottom: 16px;
+}
+
+.feedClustersToolbar {
+  background: var(--otherWhite);
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.feedClustersPagination {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
