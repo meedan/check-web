@@ -95,7 +95,6 @@ export default function MediaSearchRedirect({
                 node {
                   id
                   dbid
-                  cluster_id
                 }
               }
             }

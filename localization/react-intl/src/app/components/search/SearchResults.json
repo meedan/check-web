@@ -1,5 +1,15 @@
 [
   {
+    "id": "searchResults.sortDateUpdated",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Date updated"
+  },
+  {
+    "id": "searchResults.sortRating",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Rating"
+  },
+  {
     "id": "projectBlankState.blank",
     "description": "Empty message that is displayed when search results are zero",
     "defaultMessage": "There are no items here."

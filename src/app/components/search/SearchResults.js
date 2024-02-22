@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
@@ -25,6 +25,19 @@ import SearchRoute from '../../relay/SearchRoute';
 import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
+
+const messages = defineMessages({
+  sortDateUpdated: {
+    id: 'searchResults.sortDateUpdated',
+    defaultMessage: 'Date updated',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
+  sortRating: {
+    id: 'searchResults.sortRating',
+    defaultMessage: 'Rating',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
+});
 
 /**
  * Delete `esoffset`, `timestamp` and `channels` -- whenever
@@ -71,6 +84,7 @@ function SearchResultsComponent({
   readOnlyFields,
   savedSearch,
   extra,
+  intl,
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
@@ -274,11 +288,7 @@ function SearchResultsComponent({
       urlPrefix = `/${projectMedia.team.slug}/${urlPrefix}`;
     }
 
-    let result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
-    if (resultType === 'feed') {
-      result = `${mediaUrlPrefix}/cluster/${projectMedia.cluster?.dbid}?${urlParams.toString()}`;
-    }
-
+    const result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
     return result;
   };
 
@@ -488,6 +498,10 @@ function SearchResultsComponent({
                   <ListSort
                     sort={stateQuery.sort}
                     sortType={stateQuery.sort_type}
+                    options={[
+                      { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
+                      { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
+                    ]}
                     onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
                   /> : null
                 }
@@ -614,7 +628,7 @@ SearchResultsComponent.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchResultsComponent as SearchResultsComponentTest };
 
-const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
+const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(SearchResultsComponent)), {
   initialVariables: {
     pageSize,
   },
@@ -670,15 +684,6 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
                 type
                 url
                 domain
-              }
-              cluster {
-                dbid
-                size
-                team_names
-                fact_checked_by_team_names
-                requests_count
-                first_item_at
-                last_item_at
               }
               team {
                 slug
