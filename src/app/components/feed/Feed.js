@@ -151,23 +151,21 @@ export const FeedComponent = ({ routeParams, ...props }) => {
       }
 
       { tab === 'requests' && feed.published ?
-        <div id="feed__requests">
-          <FeedRequestsTable
-            tabs={null}
-            teamSlug={routeParams.team}
-            feedId={parseInt(routeParams.feedId, 10)}
-            feedTeam={{
-              id: feedTeam.id,
-              requests_filters: feedTeam.requests_filters || {},
-            }}
-            searchUrlPrefix={commonSearchProps.searchUrlPrefix}
-            filters={
-              routeParams.query ?
-                { ...safelyParseJSON(routeParams.query, {}) } :
-                (feedTeam.requests_filters || {})
-            }
-          />
-        </div>
+        <FeedRequestsTable
+          tabs={null}
+          teamSlug={routeParams.team}
+          feedId={parseInt(routeParams.feedId, 10)}
+          feedTeam={{
+            id: feedTeam.id,
+            requests_filters: feedTeam.requests_filters || {},
+          }}
+          searchUrlPrefix={commonSearchProps.searchUrlPrefix}
+          filters={
+            routeParams.query ?
+              { ...safelyParseJSON(routeParams.query, {}) } :
+              (feedTeam.requests_filters || {})
+          }
+        />
         : null
       }
     </React.Fragment>
