@@ -72,17 +72,18 @@ const SharedItemCard = ({
                 </Tooltip>
               ))
             }
-            <div className={styles.extraWorkspaces}>
-              <Tooltip
-                arrow
-                title={<ul>{extraWorkspaces}</ul>}
-                placement="right"
-              >
-                <span className="typography-body2">
-                  +3
-                </span>
-              </Tooltip>
-            </div>
+            { extraWorkspaces.length > 0 ?
+              <div className={styles.extraWorkspaces}>
+                <Tooltip
+                  arrow
+                  title={<ul>{extraWorkspaces}</ul>}
+                  placement="right"
+                >
+                  <span className="typography-body2">
+                    +{extraWorkspaces.length}
+                  </span>
+                </Tooltip>
+              </div> : null }
           </div>
           <div>
             <BulletSeparator
@@ -114,9 +115,8 @@ const SharedItemCard = ({
           { (date && feedContainsMediaRequests && !feedContainsFactChecks) ? <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} /> : null }
           { (factCheckCount && feedContainsMediaRequests && feedContainsFactChecks) ? (
             <ButtonMain
-              disabled
               size="small"
-              theme="brand"
+              theme="lightBrand"
               iconLeft={<FactCheckIcon />}
               variant="contained"
               label={<FormattedMessage

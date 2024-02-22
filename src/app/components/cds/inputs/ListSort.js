@@ -8,7 +8,12 @@ import Tooltip from '../alerts-and-prompts/Tooltip';
 import Select from './Select';
 import styles from './ListSort.module.css';
 
-const ListSort = ({ sort, sortType, onChange }) => {
+const ListSort = ({
+  options,
+  sort,
+  sortType,
+  onChange,
+}) => {
   const handleChangeSortCriteria = (e) => {
     onChange({ sort: e.target.value, sortType });
   };
@@ -21,12 +26,9 @@ const ListSort = ({ sort, sortType, onChange }) => {
     <div className={`${styles.listSort} list-sort`}>
       <FormattedMessage id="listSort.sort" defaultMessage="Sort" description="Label for sort criteria drop-down field displayed on fact-checks page." />
       <Select onChange={handleChangeSortCriteria} value={sort}>
-        <FormattedMessage id="listSort.date" defaultMessage="Date updated" description="Label for sort criteria option displayed in a drop-down in the fact-checks page.">
-          { label => (<option value="recent_activity">{label}</option>) }
-        </FormattedMessage>
-        <FormattedMessage id="listSort.status" defaultMessage="Rating" description="Label for sort criteria option displayed in a drop-down in the fact-checks page.">
-          { label => (<option value="status_index">{label}</option>) }
-        </FormattedMessage>
+        {options.map(({ label, value }) => (
+          <option value={value}>{label}</option>
+        ))}
       </Select>
       <Tooltip
         arrow
@@ -44,12 +46,17 @@ const ListSort = ({ sort, sortType, onChange }) => {
 };
 
 ListSort.defaultProps = {
+  options: [],
   sort: 'recent_activity',
   sortType: 'ASC',
   onChange: () => {},
 };
 
 ListSort.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.exact({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  })),
   sort: PropTypes.string,
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   onChange: PropTypes.func,

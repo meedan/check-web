@@ -1,6 +1,11 @@
 .dialog-window {
   position: relative;
 
+  .dialog-alert {
+    margin: 8px;
+    width: auto;
+  }
+
   .dialog-title {
     border-bottom: solid 1px var(--brandBorder);
     padding: 16px 48px 16px 24px;
