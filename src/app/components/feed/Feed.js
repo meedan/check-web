@@ -4,10 +4,12 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import ErrorBoundary from '../error/ErrorBoundary';
 import FeedRequestsTable from './FeedRequestsTable';
 import FeedTopBar from './FeedTopBar';
 import FeedHeader from './FeedHeader';
+import FeedClusters from './FeedClusters';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
@@ -88,8 +90,8 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
       {/* The "Feed" tab displays content from the feed itself */}
 
-      {/* For a "published" feed, it's just all the fact-checks from the workspaces */}
-      { tab === 'feed' && feed.published ?
+      {/* Feed is sharing only fact-checks */}
+      { tab === 'feed' && feed.published && !feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
         <div id="feed__fact-checks" className="feed__fact-checks search-results-wrapper">
           <Search
             mediaUrlPrefix="media"
@@ -137,68 +139,33 @@ export const FeedComponent = ({ routeParams, ...props }) => {
         : null
       }
 
-      {/* If it's not a "published" feed, then it's a clustered view from workspace data */}
-      { tab === 'feed' && !feed.published ?
+      {/* Feed is sharing media */}
+      { tab === 'feed' && feed.published && feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
         <div id="feed__clusters" className="search-results-wrapper">
-          <Search
-            mediaUrlPrefix={`/check/feed/${feed.dbid}`}
-            query={{
-              ...safelyParseJSON(routeParams.query, {}),
-              sort: 'cluster_last_item_at',
-              feed_id: feed.dbid,
-              clusterize: true,
-              ...feed.filters,
-            }}
-            defaultQuery={feed.filters}
-            resultType="feed"
-            hideFields={[
-              'feed_fact_checked_by',
-              'tags',
-              'verification_status',
-              'users',
-              'assigned_to',
-              'published_by',
-              'team_tasks',
-              'channels',
-              'linked_items_count',
-              'suggestions_count',
-              'demand',
-              'sources',
-              'dynamic',
-              'annotated_by',
-              'language',
-              'published_by',
-              'has_claim',
-              'cluster_published_reports',
-              'cluster_teams',
-              'archived',
-              'read',
-              'unmatched',
-            ]}
-            {...commonSearchProps}
+          <FeedClusters
+            teamSlug={routeParams.team}
+            feedId={parseInt(routeParams.feedId, 10)}
           />
         </div>
         : null
       }
 
       { tab === 'requests' && feed.published ?
-        <div id="feed__requests">
-          <FeedRequestsTable
-            tabs={null}
-            teamSlug={routeParams.team}
-            feedId={parseInt(routeParams.feedId, 10)}
-            feedTeam={{
-              id: feedTeam.id,
-              requests_filters: feedTeam.requests_filters || {},
-            }}
-            searchUrlPrefix={commonSearchProps.searchUrlPrefix}
-            filters={
-              routeParams.query ?
-                { ...safelyParseJSON(routeParams.query, {}) } :
-                (feedTeam.requests_filters || {})
-            }
-          />
-        </div>
+        <FeedRequestsTable
+          tabs={null}
+          teamSlug={routeParams.team}
+          feedId={parseInt(routeParams.feedId, 10)}
+          feedTeam={{
+            id: feedTeam.id,
+            requests_filters: feedTeam.requests_filters || {},
+          }}
+          searchUrlPrefix={commonSearchProps.searchUrlPrefix}
+          filters={
+            routeParams.query ?
+              { ...safelyParseJSON(routeParams.query, {}) } :
+              (feedTeam.requests_filters || {})
+          }
+        />
         : null
       }
     </React.Fragment>
@@ -219,6 +186,7 @@ FeedComponent.propTypes = {
       published: PropTypes.bool,
       filters: PropTypes.object,
       teams_count: PropTypes.number,
+      data_points: PropTypes.arrayOf(PropTypes.number),
       current_feed_team: PropTypes.shape({
         id: PropTypes.string,
         filters: PropTypes.object,
@@ -242,6 +210,7 @@ const Feed = ({ routeParams }) => (
               published
               filters
               saved_search_id
+              data_points
               teams(first: 1000) {
                 edges {
                   node {
