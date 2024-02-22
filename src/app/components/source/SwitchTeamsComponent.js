@@ -14,7 +14,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import CreateTeamDialog from './CreateTeamDialog';
+import CreateTeamDialog from '../team/CreateTeamDialog';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';

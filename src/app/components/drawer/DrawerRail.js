@@ -224,7 +224,7 @@ const DrawerRail = (props) => {
                 [styles.railUserSettingsActive]: isUserSettingsPage,
               })
             }
-            to="/check/me/workspaces"
+            to="/check/me/profile"
           >
             <Avatar alt={props.user.name} src={props.user.profile_image} />
           </Link>

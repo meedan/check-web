@@ -6,7 +6,7 @@ import UserProfile from './UserProfile';
 import UserPrivacy from './UserPrivacy';
 import UserSecurity from './UserSecurity';
 import PageTitle from '../PageTitle';
-import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
+import Workspaces from './SwitchTeamsComponent';
 import styles from './User.module.css';
 
 class MeComponent extends React.Component {
@@ -33,7 +33,7 @@ class MeComponent extends React.Component {
             <div className={styles['user-info-tabs-wrapper']}>
               <div className={styles['user-info-tabs-content']}>
                 { tab === 'profile' ? <UserProfile user={user} /> : null}
-                { tab === 'teams' || tab === 'workspaces' ? <SwitchTeamsComponent user={user} /> : null}
+                { tab === 'teams' || tab === 'workspaces' ? <Workspaces user={user} /> : null}
                 { tab === 'privacy' ? <UserPrivacy user={user} /> : null}
                 { tab === 'security' ? <UserSecurity user={user} /> : null}
               </div>
