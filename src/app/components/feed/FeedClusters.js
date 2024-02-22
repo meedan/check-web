@@ -13,6 +13,7 @@ import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
 import FeedHeader from './FeedHeader';
+import FeedBlankState from './FeedBlankState';
 import styles from './FeedClusters.module.css';
 
 const pageSize = 10;
@@ -56,6 +57,7 @@ const messages = defineMessages({
 });
 
 const FeedClustersComponent = ({
+  teamSlug,
   feed,
   feedTeam,
   page,
@@ -102,7 +104,7 @@ const FeedClustersComponent = ({
         </div>
       </div>
       <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClusters)}>
-        { feed.clusters_count > 0 ?
+        { clusters.length > 0 ?
           <div className={styles.feedClustersToolbar}>
             <ListSort
               sort={sort}
@@ -154,6 +156,15 @@ const FeedClustersComponent = ({
           : null
         }
 
+        { clusters.length === 0 ?
+          <FeedBlankState
+            teamSlug={teamSlug}
+            feedDbid={feed.dbid}
+            listDbid={feedTeam.saved_search_id || feed.saved_search_id}
+          />
+          : null
+        }
+
         {clusters.map((cluster) => {
           const { media } = cluster.center;
           const channels = cluster.channels.filter(channel => Object.values(CheckChannels.TIPLINE).includes(channel.toString()));
@@ -188,12 +199,14 @@ FeedClustersComponent.defaultProps = {
 };
 
 FeedClustersComponent.propTypes = {
+  teamSlug: PropTypes.string.isRequired,
   page: PropTypes.number,
   sort: PropTypes.oneOf(['media_count', 'requests_count', 'fact_checks_count', 'last_request_date', 'last_fact_check_date', 'last_item_at', 'first_item_at']),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   onChangeSearchParams: PropTypes.func.isRequired,
   feedTeam: PropTypes.shape({
     team_id: PropTypes.number.isRequired,
+    saved_search_id: PropTypes.number,
     permissions: PropTypes.string.isRequired, // e.g., '{"update FeedTeam":true}'
   }).isRequired,
   feed: PropTypes.shape({
@@ -202,6 +215,7 @@ FeedClustersComponent.propTypes = {
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
     data_points: PropTypes.arrayOf(PropTypes.number).isRequired,
+    saved_search_id: PropTypes.number,
     team: PropTypes.shape({
       slug: PropTypes.string.isRequired,
     }).isRequired,
@@ -260,9 +274,12 @@ const FeedClusters = ({ teamSlug, feedId }) => {
         query FeedClustersQuery($slug: String!, $feedId: Int!, $pageSize: Int!, $offset: Int!, $sort: String, $sortType: String) {
           team(slug: $slug) {
             feed(dbid: $feedId) {
+              dbid
               name
               data_points
+              saved_search_id
               current_feed_team {
+                saved_search_id
                 ...FeedHeader_feedTeam
               }
               clusters_count
@@ -313,6 +330,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
         if (!error && props) {
           return (
             <ConnectedFeedClustersComponent
+              teamSlug={teamSlug}
               feed={props.team.feed}
               feedTeam={props.team.feed.current_feed_team}
               page={page}
