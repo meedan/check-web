@@ -19,7 +19,7 @@ class UpdateTeamMutation extends Relay.Mutation {
           description
           avatar
           get_shorten_outgoing_urls
-          get_outgoing_urls_utm_code\
+          get_outgoing_urls_utm_code
           get_report
           get_rules
           public_team
