@@ -5,6 +5,7 @@ import cx from 'classnames/bind';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import MediaCount from '../../cds/media-cards/MediaCount';
+import SuggestionsCount from '../../cds/media-cards/SuggestionsCount';
 import RequestsCount from '../../cds/media-cards/RequestsCount';
 import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
@@ -30,6 +31,7 @@ const WorkspaceItemCard = ({
   rating,
   ratingColor,
   requestsCount,
+  suggestionsCount,
   title,
 }) => {
   // eslint-disable-next-line
@@ -56,6 +58,11 @@ const WorkspaceItemCard = ({
                   <MediaCount
                     mediaCount={mediaCount}
                     mediaType={mediaType}
+                  />
+                ),
+                suggestionsCount && (
+                  <SuggestionsCount
+                    suggestionsCount={suggestionsCount}
                   />
                 ),
                 requestsCount && (
@@ -95,6 +102,7 @@ WorkspaceItemCard.defaultProps = {
   mediaType: null,
   rating: null,
   ratingColor: null,
+  suggestionsCount: null,
 };
 
 
@@ -116,6 +124,7 @@ WorkspaceItemCard.propTypes = {
   mediaType: PropTypes.string,
   rating: PropTypes.string,
   ratingColor: PropTypes.string,
+  suggestionsCount: PropTypes.number,
   title: PropTypes.string.isRequired,
 };
 

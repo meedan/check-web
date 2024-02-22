@@ -581,6 +581,7 @@ const SandboxComponent = ({ admin }) => {
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
               rating="False"
               ratingColor="#f00"
+              suggestionsCount={567890}
             />
             <div
               className={cx(
