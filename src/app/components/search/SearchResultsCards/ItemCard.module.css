@@ -54,4 +54,15 @@
   .bulletSeparator > div {
     color: var(--grayBorderAccent);
   }
+
+  .workspaceItemCardRating {
+    align-items: end;
+    display: flex;
+    gap: 3px;
+    justify-content: flex-end;
+
+    .publishedLabel > button > div > svg {
+      color: var(--validationMain);
+    }
+  }
 }

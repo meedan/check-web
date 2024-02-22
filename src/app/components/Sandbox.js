@@ -102,6 +102,7 @@ const SandboxComponent = ({ admin }) => {
   const [listItemFactCheckPublished, setListItemFactCheckPublished] = React.useState(Boolean(true));
   const [listItemSuggestions, setListItemSuggestions] = React.useState(Boolean(true));
   const [listItemUnread, setListItemUnread] = React.useState(Boolean(true));
+  const [listItemPublished, setListItemPublished] = React.useState(Boolean(true));
   const [listItemDataPointsFactCheck, setListItemDataPointsFactCheck] = React.useState(Boolean(false));
   const [listItemDataPointsMediaRequests, setListItemDataPointsMediaRequests] = React.useState(Boolean(false));
   const [listItemDataPoints, setListItemDataPoints] = React.useState([]);
@@ -507,6 +508,14 @@ const SandboxComponent = ({ admin }) => {
               </li>
               <li>
                 <SwitchComponent
+                  label="Published"
+                  labelPlacement="top"
+                  checked={listItemPublished}
+                  onChange={() => setListItemPublished(!listItemPublished)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
                   label="Shared Feed Data Points - Fact Checks"
                   labelPlacement="top"
                   checked={listItemDataPointsFactCheck}
@@ -568,7 +577,10 @@ const SandboxComponent = ({ admin }) => {
               channels={listItemRequests && { main: 8, others: [5, 8, 7, 6, 9, 10, 13] }}
               requestsCount={7890}
               isUnread={listItemUnread}
+              isPublished={listItemPublished}
               factCheckUrl={listItemFactCheckLink && 'https://example.com/this-is-a/very-long-url/that-could-break-some-layout/if-we-let-it'}
+              rating="False"
+              ratingColor="#f00"
             />
             <div
               className={cx(

@@ -100,6 +100,7 @@
   .cardDate {
     color: var(--textPrimary);
     margin-top: 8px;
+    padding-right: 8px;
   }
 
   .cardChannels {
