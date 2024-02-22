@@ -5,7 +5,6 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import SlackConfig from './SlackConfig';
 import SettingsHeader from './SettingsHeader';
 import TeamBots from './TeamBots';
 import settingsStyles from './Settings.module.css';
@@ -38,7 +37,6 @@ const TeamIntegrations = () => (<QueryRenderer
               }
             }
           }
-          ...SlackConfig_team
         }
         team_bots_listed(first: 10000) {
           edges {
@@ -96,7 +94,6 @@ const TeamIntegrations = () => (<QueryRenderer
           />
           <div className={cx('team-integrations', settingsStyles['setting-details-wrapper'])}>
             <TeamBots {...props} />
-            <SlackConfig team={props.root.current_team} />
           </div>
         </>
       );
