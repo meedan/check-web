@@ -93,7 +93,6 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   //
   // * /my-team/media/${projectMediaId} (for all-items or trash)
   // * /my-team/project/3/media/${projectMediaId} (for project)
-  // * /check/feed/${feedId}/cluster/${clusterId} (for feeds)
   let siblingUrlPrefix = '';
   if (objectType === 'feed') {
     siblingUrlPrefix = `/check/feed/${routeParams.feedId}/cluster`;

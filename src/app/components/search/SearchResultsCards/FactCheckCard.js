@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
 import ItemDate from '../../cds/media-cards/ItemDate';
@@ -30,7 +31,12 @@ const FactCheckCard = ({
       { (statusLabel || date) ?
         <div className={styles.cardRight}>
           { statusLabel ? <ItemRating rating={statusLabel} ratingColor={statusColor} /> : null }
-          { date ? <ItemDate date={date} /> : null }
+          { date ?
+            <ItemDate
+              date={date * 1000}
+              tooltipLabel={<FormattedMessage id="factCheckCard.dateLabel" defaultMessage="Published at" description="Date tooltip label for fact-check cards" />}
+            /> : null
+          }
         </div> : null
       }
     </Card>

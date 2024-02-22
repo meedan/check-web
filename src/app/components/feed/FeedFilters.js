@@ -2,31 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import PlayArrowIcon from '../../icons/play_arrow.svg';
+import Divider from '@material-ui/core/Divider';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import HowToRegIcon from '../../icons/person_check.svg';
-import ListIcon from '../../icons/list.svg';
-import ClearIcon from '../../icons/clear.svg';
 import AddFilterMenu from '../search/AddFilterMenu';
 import NumericRangeFilter from '../search/NumericRangeFilter';
 import DateRangeFilter from '../search/DateRangeFilter';
 import MultiSelectFilter from '../search/MultiSelectFilter';
 import { withSetFlashMessage } from '../FlashMessage';
-
-const useStyles = makeStyles(theme => ({
-  flex: {
-    gap: `${theme.spacing(1)}px`,
-    flexWrap: 'wrap',
-  },
-  saveButton: {
-    color: 'var(--brandMain)',
-  },
-}));
+import styles from '../search/SearchResults.module.css';
+import searchStyles from '../search/search.module.css';
 
 const FeedFilters = ({
   onSubmit,
@@ -35,7 +21,6 @@ const FeedFilters = ({
   setFlashMessage,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
-  const classes = useStyles();
 
   const handleError = () => {
     setFlashMessage((
@@ -139,103 +124,126 @@ const FeedFilters = ({
   let filtersCount = 0;
 
   return (
-    <Box display="flex" p={2} pt={0} className={classes.flex}>
-      {Object.keys(filters).map((filter) => {
-        const value = filters[filter];
+    <div className={styles['search-results-top']}>
+      <div className={searchStyles['filters-wrapper']}>
+        {Object.keys(filters).map((filter) => {
+          const value = filters[filter];
 
-        if (filter === 'linked_items_count') {
-          filtersCount += 1;
-          return (
-            <NumericRangeFilter
-              key={filter}
-              filterKey="linked_items_count"
-              onChange={handleNumericRange}
-              value={value}
-              onRemove={() => handleRemoveFilter('linked_items_count')}
-            />
-          );
-        }
+          if (filter === 'linked_items_count') {
+            filtersCount += 1;
+            return (
+              <NumericRangeFilter
+                key={filter}
+                filterKey="linked_items_count"
+                onChange={handleNumericRange}
+                value={value}
+                onRemove={() => handleRemoveFilter('linked_items_count')}
+              />
+            );
+          }
 
-        if (filter === 'demand') {
-          filtersCount += 1;
-          return (
-            <NumericRangeFilter
-              key={filter}
-              filterKey="demand"
-              onChange={handleNumericRange}
-              value={value}
-              onRemove={() => handleRemoveFilter('demand')}
-            />
-          );
-        }
+          if (filter === 'demand') {
+            filtersCount += 1;
+            return (
+              <NumericRangeFilter
+                key={filter}
+                filterKey="demand"
+                onChange={handleNumericRange}
+                value={value}
+                onRemove={() => handleRemoveFilter('demand')}
+              />
+            );
+          }
 
-        if (filter === 'range') {
-          filtersCount += 1;
-          return (
-            <DateRangeFilter
-              key={filter}
-              filterKey="range"
-              onChange={handleDateRange}
-              value={value || { request_created_at: {} }}
-              optionsToHide={['created_at', 'media_published_at', 'updated_at', 'report_published_at']}
-              onRemove={() => handleRemoveFilter('range')}
-            />
-          );
-        }
+          if (filter === 'range') {
+            filtersCount += 1;
+            return (
+              <DateRangeFilter
+                key={filter}
+                filterKey="range"
+                onChange={handleDateRange}
+                value={value || { request_created_at: {} }}
+                optionsToHide={['created_at', 'media_published_at', 'updated_at', 'report_published_at']}
+                onRemove={() => handleRemoveFilter('range')}
+              />
+            );
+          }
 
-        if (filter === 'feed_fact_checked_by') {
-          filtersCount += 1;
-          return (
-            <MultiSelectFilter
-              key={filter}
-              label={<FormattedMessage id="feedFilters.factCheckedBy" defaultMessage="Fact-checked by" description="Field label for feed filter" />}
-              icon={<HowToRegIcon />}
-              selected={['ANY', 'NONE'].includes(value) ? [value] : []}
-              options={[
-                { key: 'ANY', label: <FormattedMessage id="feedFilters.factCheckByAny" defaultMessage="Any organization" description="Filter option for feed filter 'Fact-checked by'" />, value: 'ANY' },
-                { key: 'NONE', label: <FormattedMessage id="feedFilters.factCheckByNone" defaultMessage="No organization" description="Filter option for feed filter 'Fact-checked by'" />, value: 'NONE' },
-              ]}
-              onChange={newValue => handleOptionChange('feed_fact_checked_by', newValue)}
-              onRemove={() => handleRemoveFilter('feed_fact_checked_by')}
-              allowSearch={false}
-              single
-            />
-          );
-        }
+          if (filter === 'feed_fact_checked_by') {
+            filtersCount += 1;
+            return (
+              <MultiSelectFilter
+                key={filter}
+                label={<FormattedMessage id="feedFilters.factCheckedBy" defaultMessage="Fact-checked by" description="Field label for feed filter" />}
+                icon={<HowToRegIcon />}
+                selected={['ANY', 'NONE'].includes(value) ? [value] : []}
+                options={[
+                  { key: 'ANY', label: <FormattedMessage id="feedFilters.factCheckByAny" defaultMessage="Any organization" description="Filter option for feed filter 'Fact-checked by'" />, value: 'ANY' },
+                  { key: 'NONE', label: <FormattedMessage id="feedFilters.factCheckByNone" defaultMessage="No organization" description="Filter option for feed filter 'Fact-checked by'" />, value: 'NONE' },
+                ]}
+                onChange={newValue => handleOptionChange('feed_fact_checked_by', newValue)}
+                onRemove={() => handleRemoveFilter('feed_fact_checked_by')}
+                allowSearch={false}
+                single
+              />
+            );
+          }
 
-        return null;
-      })}
-      <AddFilterMenu
-        team={{}}
-        showOptions={['linked_items_count', 'demand', 'range', 'feed_fact_checked_by']}
-        addedFields={Object.keys(filters)}
-        onSelect={handleAddFilter}
-      />
-      <Tooltip title={<FormattedMessage id="feedFilters.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
-        <IconButton id="search-fields__submit-button" onClick={handleSubmit} size="small">
-          <PlayArrowIcon color="primary" />
-        </IconButton>
-      </Tooltip>
-      { filtersCount > 0 ? (
-        <Tooltip title={<FormattedMessage id="feedFilters.clear" defaultMessage="Clear filters" description="Tooltip for button to remove any applied filters" />}>
-          <IconButton id="search-fields__clear-button" onClick={handleClear} size="small">
-            <ClearIcon color="primary" />
-          </IconButton>
-        </Tooltip>
-      ) : null }
-      <Button
-        id="save-list__button"
-        className={classes.saveButton}
-        startIcon={<ListIcon />}
-        onClick={handleSaveFilters}
-      >
-        <FormattedMessage
-          id="feedFilters.saveFilters"
-          defaultMessage="Save filters"
-          description="'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
+          return null;
+        })}
+        <AddFilterMenu
+          team={{}}
+          showOptions={['linked_items_count', 'demand', 'range', 'feed_fact_checked_by']}
+          addedFields={Object.keys(filters)}
+          onSelect={handleAddFilter}
         />
-      </Button>
-    </Box>
+        <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
+        <ButtonMain
+          className="int-search-fields__button--apply-feedfilter"
+          variant="contained"
+          size="default"
+          theme="lightValidation"
+          onClick={handleSubmit}
+          label={
+            <FormattedMessage id="feedFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
+          }
+          buttonProps={{
+            id: 'search-fields__submit-button',
+          }}
+        />
+        { filtersCount > 0 ? (
+          <ButtonMain
+            className="int-search-fields__button--reset-feedfilter"
+            variant="contained"
+            size="default"
+            theme="lightText"
+            onClick={handleClear}
+            label={
+              <FormattedMessage id="feedFilters.clear" defaultMessage="Clear" description="Tooltip for button to remove any applied filters" />
+            }
+            buttonProps={{
+              id: 'search-fields__clear-button',
+            }}
+          />
+        ) : null }
+        <ButtonMain
+          variant="contained"
+          size="default"
+          theme="lightBrand"
+          buttonProps={{
+            id: 'save-list__button',
+          }}
+          onClick={handleSaveFilters}
+          label={
+            <FormattedMessage
+              id="feedFilters.saveFilters"
+              defaultMessage="Save"
+              description="'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
+            />
+          }
+        />
+      </div>
+    </div>
   );
 };
 
