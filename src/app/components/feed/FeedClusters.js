@@ -12,6 +12,7 @@ import ListSort from '../cds/inputs/ListSort';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
+import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import FeedHeader from './FeedHeader';
 import FeedBlankState from './FeedBlankState';
 import styles from './FeedClusters.module.css';
@@ -19,39 +20,29 @@ import styles from './FeedClusters.module.css';
 const pageSize = 10;
 
 const messages = defineMessages({
-  sortMediaCount: {
-    id: 'searchResults.sortMediaCount',
-    defaultMessage: 'Number of media items',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-  sortRequestsCount: {
-    id: 'searchResults.sortRequestsCount',
-    defaultMessage: 'Number of requests',
+  sortTitle: {
+    id: 'searchResults.sortTitle',
+    defaultMessage: 'Title',
     description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
   },
   sortFactChecksCount: {
     id: 'searchResults.sortFactChecksCount',
-    defaultMessage: 'Number of fact-checks',
+    defaultMessage: 'Fact-checks (count)',
+    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
+  },
+  sortRequestsCount: {
+    id: 'searchResults.sortRequestsCount',
+    defaultMessage: 'Requests (count)',
+    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
+  },
+  sortMediaCount: {
+    id: 'searchResults.sortMediaCount',
+    defaultMessage: 'Media (count)',
     description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
   },
   sortLastRequestDate: {
     id: 'searchResults.sortLastRequestDate',
-    defaultMessage: 'Last request date',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-  sortLastFactCheckDate: {
-    id: 'searchResults.sortLastFactCheckDate',
-    defaultMessage: 'Last fact-check date',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-  sortLastItemAt: {
-    id: 'searchResults.sortLastItemAt',
-    defaultMessage: 'Last item date',
-    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
-  },
-  sortFirstItemAt: {
-    id: 'searchResults.sortFirstItemAt',
-    defaultMessage: 'First item date',
+    defaultMessage: 'Date updated',
     description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
   },
 });
@@ -86,6 +77,16 @@ const FeedClustersComponent = ({
     }
   };
 
+  const sortOptions = [
+    { value: 'title', label: intl.formatMessage(messages.sortTitle) },
+    { value: 'requests_count', label: intl.formatMessage(messages.sortRequestsCount) },
+    { value: 'media_count', label: intl.formatMessage(messages.sortMediaCount) },
+    { value: 'last_request_date', label: intl.formatMessage(messages.sortLastRequestDate) },
+  ];
+  if (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)) {
+    sortOptions.push({ value: 'fact_checks_count', label: intl.formatMessage(messages.sortFactChecksCount) });
+  }
+
   return (
     <React.Fragment>
       <div className={searchResultsStyles['search-results-header']}>
@@ -109,15 +110,7 @@ const FeedClustersComponent = ({
             <ListSort
               sort={sort}
               sortType={sortType}
-              options={[
-                { value: 'media_count', label: intl.formatMessage(messages.sortMediaCount) },
-                { value: 'requests_count', label: intl.formatMessage(messages.sortRequestsCount) },
-                { value: 'fact_checks_count', label: intl.formatMessage(messages.sortFactChecksCount) },
-                { value: 'last_request_date', label: intl.formatMessage(messages.sortLastRequestDate) },
-                { value: 'last_fact_check_date', label: intl.formatMessage(messages.sortLastFactCheckDate) },
-                { value: 'last_item_at', label: intl.formatMessage(messages.sortLastItemAt) },
-                { value: 'first_item_at', label: intl.formatMessage(messages.sortFirstItemAt) },
-              ]}
+              options={sortOptions}
               onChange={handleChangeSort}
             />
             <div className={styles.feedClustersPagination}>
@@ -172,7 +165,7 @@ const FeedClustersComponent = ({
           return (
             <div key={cluster.id} className={cx('feed-clusters__card', styles.feedClusterCard)}>
               <SharedItemCard
-                title={cluster.center.title}
+                title={cluster.title || cluster.center.title}
                 description={cluster.center.description}
                 mediaThumbnail={{ media: { url: media.url, picture: media.picture, type: media.type } }}
                 workspaces={cluster.teams.edges.map(edge => ({ name: edge.node.name, url: edge.node.avatar }))}
@@ -194,14 +187,14 @@ const FeedClustersComponent = ({
 
 FeedClustersComponent.defaultProps = {
   page: 1,
-  sort: 'last_item_at',
-  sortType: 'DESC',
+  sort: 'title',
+  sortType: 'ASC',
 };
 
 FeedClustersComponent.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   page: PropTypes.number,
-  sort: PropTypes.oneOf(['media_count', 'requests_count', 'fact_checks_count', 'last_request_date', 'last_fact_check_date', 'last_item_at', 'first_item_at']),
+  sort: PropTypes.oneOf(['title', 'media_count', 'requests_count', 'fact_checks_count', 'last_request_date']),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   onChangeSearchParams: PropTypes.func.isRequired,
   feedTeam: PropTypes.shape({
@@ -223,6 +216,7 @@ FeedClustersComponent.propTypes = {
       edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
           id: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired,
           channels: PropTypes.arrayOf(PropTypes.number),
           last_request_date: PropTypes.number,
           last_fact_check_date: PropTypes.number,
@@ -260,7 +254,7 @@ export { FeedClustersComponent };
 const ConnectedFeedClustersComponent = injectIntl(FeedClustersComponent); // FIXME: Upgrade react-intl so we can use useIntl()
 
 const FeedClusters = ({ teamSlug, feedId }) => {
-  const [searchParams, setSearchParams] = React.useState({ page: 1, sort: 'last_item_at', sortType: 'DESC' });
+  const [searchParams, setSearchParams] = React.useState({ page: 1, sort: 'title', sortType: 'ASC' });
   const { page, sort, sortType } = searchParams;
 
   const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType }
@@ -287,6 +281,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                 edges {
                   node {
                     id
+                    title
                     channels
                     last_request_date
                     last_fact_check_date
