@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
-import IconButton from '@material-ui/core/IconButton';
 import QuickFilterMenu from './QuickFilterMenu';
 import ShareIcon from '../../icons/share.svg';
 import AddIcon from '../../icons/add_circle.svg';
@@ -81,51 +80,65 @@ const FeedTopBar = ({
     }
 
     return (
-      <Tooltip
-        placement="top"
-        title={message}
-        arrow
-      >
-        <button
-          className={cx(
-            [
-              styles.feedTopBarItem,
-              enabled ? styles.feedTopBarButton : styles.feedTopBarButtonDisabled,
-            ],
-            'feed-top-bar-item',
-            'int-feed-top-bar__button--filter-org',
-          )}
-          onClick={handleFilterClick}
+      <div style={{ position: 'relative' }}>
+        <Tooltip
+          placement="top"
+          title={message}
+          arrow
         >
-          <TeamAvatar className={styles.feedListAvatar} team={{ avatar, slug }} size="24px" />
-          {
-            current && (
-              // FIXME: the <IconButton> embedded in a <button> causes a DOM validation error -- the solution here is to make the "go to custom list" button a sibling of the top-level button. After discussing with product, we are just going to flag this for a later fix.
-              <div className="typography-body2">
-                {
-                  hasList ?
-                    <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
-                      <span className={styles.feedListTitle}>{feed.saved_search.title}</span>
-                      <Can permissions={feed.permissions} permission="update Feed">
-                        <Tooltip
-                          placement="right"
-                          title={<FormattedMessage
-                            id="feedTopBar.customList"
-                            defaultMessage="Go to custom list"
-                            description="Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
-                          />}
-                          arrow
-                        >
-                          <IconButton size="small" onClick={handleClick} className={`${styles.feedListIcon} int-feed-top-bar__icon-button--settings`}><ShareIcon /></IconButton>
-                        </Tooltip>
-                      </Can>
-                    </div> :
-                    <span className={styles.feedNoListTitle}><FormattedMessage id="feedTopBar.noListSelected" defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." /></span>
-                }
-              </div>)
-          }
-        </button>
-      </Tooltip>
+          <button
+            className={cx(
+              'feed-top-bar-item',
+              'int-feed-top-bar__button--filter-org',
+              styles.feedTopBarItem,
+              {
+                [styles.feedTopBarButton]: enabled,
+                [styles.feedTopBarButtonDisabled]: !enabled,
+                [styles.feedTopBarButtonHasList]: current && hasList,
+              })
+            }
+            onClick={handleFilterClick}
+          >
+            <TeamAvatar className={styles.feedListAvatar} team={{ avatar, slug }} size="24px" />
+            {
+              current && (
+                <div className="typography-body2">
+                  {
+                    hasList ?
+                      <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
+                        <span className={styles.feedListTitle}>{feed.saved_search.title}</span>
+                      </div> :
+                      <span className={styles.feedNoListTitle}><FormattedMessage id="feedTopBar.noListSelected" defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." /></span>
+                  }
+                </div>)
+            }
+          </button>
+        </Tooltip>
+        { current && hasList && (
+          <Can permissions={feed.permissions} permission="update Feed">
+            <Tooltip
+              placement="right"
+              title={<FormattedMessage
+                id="feedTopBar.customList"
+                defaultMessage="Go to custom list"
+                description="Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
+              />}
+              arrow
+            >
+              <span className={styles.feedTopBarCustomListButton}>
+                <ButtonMain
+                  size="small"
+                  variant="contained"
+                  theme="lightText"
+                  onClick={handleClick}
+                  className={cx(styles.feedListIcon, 'int-feed-top-bar__icon-button--settings')}
+                  iconCenter={<ShareIcon />}
+                />
+              </span>
+            </Tooltip>
+          </Can>
+        )}
+      </div>
     );
   };
 
