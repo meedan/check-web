@@ -31,9 +31,7 @@ class UserComponent extends React.Component {
       <PageTitle prefix={user.name}>
         <div className={cx('source', styles['user-settings-wrapper'])}>
           <div className={styles['user-content']}>
-            <div className={styles['user-info-wrapper']}>
-              <UserEmail user={user} />
-            </div>
+            <UserEmail user={user} />
             <UserInfo user={user} context={context} />
           </div>
         </div>

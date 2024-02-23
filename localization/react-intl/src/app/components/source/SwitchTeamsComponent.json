@@ -5,14 +5,9 @@
     "defaultMessage": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
   },
   {
-    "id": "teams.yourTeams",
-    "description": "Label for the list of the current user's workspaces they are a member of",
+    "id": "userSettings.workspacesTitle",
+    "description": "Title for user settings area for user workspaces list they are a memeber of",
     "defaultMessage": "Workspaces"
-  },
-  {
-    "id": "teams.userTeams",
-    "description": "Label for the list of another user's workspaces they are a member of",
-    "defaultMessage": "{name}'s workspaces"
   },
   {
     "id": "switchTeams.newTeamLink",

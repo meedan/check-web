@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
+import SettingsHeader from '../team/SettingsHeader';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserConnectedAccount from '../user/UserConnectedAccount';
 import { logout } from '../../redux/actions';
@@ -141,103 +142,114 @@ const UserPrivacy = (props, context) => {
   const { providers } = props.user;
 
   return (
-    <div id="user__privacy">
-      <div className={`typography-subtitle2 ${classes.style}`}>
-        <FormattedMessage id="userPrivacy.title" defaultMessage="Your information" description="Page title for the user's privacy information" />
-      </div>
-      <p className={classes.style}>
-        <FormattedMessage
-          id="userPrivacy.description"
-          defaultMessage="Please review our {ppLink} to learn how {appName} uses and stores your information."
-          description="Description text to tell the user why they should review the privacy policy"
-          values={{
-            ppLink,
-            appName,
-          }}
-        />
-      </p>
-      <Card className={classes.cardStyle}>
-        <CardContent className={classes.cardTextStyle}>
+    <>
+      <SettingsHeader
+        title={
           <FormattedMessage
-            id="userPrivacy.seeInformationText"
-            defaultMessage="We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
-            description="Description of what the app will do when the user requests their information"
-            values={{ appName }}
+            id="userSettings.privacyTitle"
+            defaultMessage="Privacy"
+            description="Title for user settings area for user privacy settings"
           />
-          <Button
-            id="user-privacy__see-info"
-            className={classes.buttonStyle}
-            color="primary"
-            onClick={handleSubmit.bind(this, 'Send information')}
-          >
-            <FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" description="Button text for the user to see their privacy information" />
-          </Button>
-        </CardContent>
-      </Card>
-      <Card className={classes.cardStyle}>
-        <CardContent className={classes.cardTextStyle}>
+        }
+      />
+      <div id="user__privacy">
+        <div className={`typography-subtitle2 ${classes.style}`}>
+          <FormattedMessage id="userPrivacy.title" defaultMessage="Your information" description="Page title for the user's privacy information" />
+        </div>
+        <p className={classes.style}>
           <FormattedMessage
-            id="userPrivacy.stopProcessingText"
-            defaultMessage="You can request {appName} to stop processing your information under certain conditions."
-            description="Help text to tell the user how they can request a change to their privacy settings"
-            values={{ appName }}
+            id="userPrivacy.description"
+            defaultMessage="Please review our {ppLink} to learn how {appName} uses and stores your information."
+            description="Description text to tell the user why they should review the privacy policy"
+            values={{
+              ppLink,
+              appName,
+            }}
           />
-          <Button
-            id="user-privacy__stop-processing"
-            className={classes.buttonStyle}
-            color="primary"
-            onClick={handleSubmit.bind(this, 'Stop processing')}
-          >
-            <FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" description="Button text for the user to request a change to their privacy settings" />
-          </Button>
-        </CardContent>
-      </Card>
-      <div className={`typography-subtitle2 ${classes.style}`}>
-        <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" description="Title for social accounts connected to their app account" />
+        </p>
+        <Card className={classes.cardStyle}>
+          <CardContent className={classes.cardTextStyle}>
+            <FormattedMessage
+              id="userPrivacy.seeInformationText"
+              defaultMessage="We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
+              description="Description of what the app will do when the user requests their information"
+              values={{ appName }}
+            />
+            <Button
+              id="user-privacy__see-info"
+              className={classes.buttonStyle}
+              color="primary"
+              onClick={handleSubmit.bind(this, 'Send information')}
+            >
+              <FormattedMessage id="userPrivacy.seeInformationButton" defaultMessage="See my information" description="Button text for the user to see their privacy information" />
+            </Button>
+          </CardContent>
+        </Card>
+        <Card className={classes.cardStyle}>
+          <CardContent className={classes.cardTextStyle}>
+            <FormattedMessage
+              id="userPrivacy.stopProcessingText"
+              defaultMessage="You can request {appName} to stop processing your information under certain conditions."
+              description="Help text to tell the user how they can request a change to their privacy settings"
+              values={{ appName }}
+            />
+            <Button
+              id="user-privacy__stop-processing"
+              className={classes.buttonStyle}
+              color="primary"
+              onClick={handleSubmit.bind(this, 'Stop processing')}
+            >
+              <FormattedMessage id="userPrivacy.stopProcessingButton" defaultMessage="Request to stop processing" description="Button text for the user to request a change to their privacy settings" />
+            </Button>
+          </CardContent>
+        </Card>
+        <div className={`typography-subtitle2 ${classes.style}`}>
+          <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" description="Title for social accounts connected to their app account" />
+        </div>
+        <Card className={classes.cardStyle}>
+          <CardContent className={classes.cardTextStyle}>
+            <List>
+              { providers.map(provider => (
+                <UserConnectedAccount
+                  provider={provider}
+                  user={user}
+                  key={provider.key}
+                />
+              ))}
+            </List>
+          </CardContent>
+        </Card>
+        <div className={`typography-subtitle2 ${classes.headerStyle}`}>
+          <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" description="Page title for the user to delete their account" />
+        </div>
+        <Card className={classes.cardStyle}>
+          <CardContent className={classes.cardTextStyle}>
+            <FormattedMessage
+              id="userPrivacy.deleteAccountText"
+              defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
+              description="Text to tell the user what will happen to their personal information when their account is removed"
+              values={{ appName }}
+            />
+            <Button
+              id="user-privacy__delete-account"
+              className={classes.buttonStyle}
+              color="primary"
+              onClick={handleOpenDialog.bind(this)}
+            >
+              <FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" description="Button text for the user to delete their account" />
+            </Button>
+            <ConfirmDialog
+              message={message}
+              open={dialogOpen}
+              title={props.intl.formatMessage(messages.deleteAccount)}
+              blurb={confirmDialog.blurb}
+              handleClose={handleCloseDialog.bind(this)}
+              handleConfirm={handleDeleteAccount.bind(this)}
+            />
+          </CardContent>
+        </Card>
       </div>
-      <Card className={classes.cardStyle}>
-        <CardContent className={classes.cardTextStyle}>
-          <List>
-            { providers.map(provider => (
-              <UserConnectedAccount
-                provider={provider}
-                user={user}
-                key={provider.key}
-              />
-            ))}
-          </List>
-        </CardContent>
-      </Card>
-      <div className={`typography-subtitle2 ${classes.headerStyle}`}>
-        <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" description="Page title for the user to delete their account" />
-      </div>
-      <Card className={classes.cardStyle}>
-        <CardContent className={classes.cardTextStyle}>
-          <FormattedMessage
-            id="userPrivacy.deleteAccountText"
-            defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
-            description="Text to tell the user what will happen to their personal information when their account is removed"
-            values={{ appName }}
-          />
-          <Button
-            id="user-privacy__delete-account"
-            className={classes.buttonStyle}
-            color="primary"
-            onClick={handleOpenDialog.bind(this)}
-          >
-            <FormattedMessage id="userPrivacy.deleteAccountButton" defaultMessage="Delete my account" description="Button text for the user to delete their account" />
-          </Button>
-          <ConfirmDialog
-            message={message}
-            open={dialogOpen}
-            title={props.intl.formatMessage(messages.deleteAccount)}
-            blurb={confirmDialog.blurb}
-            handleClose={handleCloseDialog.bind(this)}
-            handleConfirm={handleDeleteAccount.bind(this)}
-          />
-        </CardContent>
-      </Card>
-    </div>
+    </>
   );
 };
 

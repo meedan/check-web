@@ -20,6 +20,11 @@
     "defaultMessage": "Privacy Policy"
   },
   {
+    "id": "userSettings.privacyTitle",
+    "description": "Title for user settings area for user privacy settings",
+    "defaultMessage": "Privacy"
+  },
+  {
     "id": "userPrivacy.title",
     "description": "Page title for the user's privacy information",
     "defaultMessage": "Your information"

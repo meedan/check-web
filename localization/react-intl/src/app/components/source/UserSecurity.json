@@ -25,6 +25,11 @@
     "defaultMessage": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
   },
   {
+    "id": "userSettings.securityTitle",
+    "description": "Title for user settings area for user security settings",
+    "defaultMessage": "Security"
+  },
+  {
     "id": "userSecurity.notification",
     "description": "Section header title for security notification settings",
     "defaultMessage": "Notification"

@@ -22,7 +22,7 @@ const UserInfo = (props) => {
   const isUserSelf = (props.user?.dbid && props.user?.dbid === props.context?.currentUser?.dbid);
 
   return (
-    <div className={styles['user-info-wrapper']}>
+    <>
       <div className={styles['user-info-avatar']}>
         <SourcePicture
           size="large"
@@ -78,7 +78,7 @@ const UserInfo = (props) => {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

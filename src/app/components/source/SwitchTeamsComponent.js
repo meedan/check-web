@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
@@ -13,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import SettingsHeader from '../team/SettingsHeader';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateTeamDialog from '../team/CreateTeamDialog';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
@@ -110,15 +110,17 @@ class SwitchTeamsComponent extends Component {
       }
     });
 
-    const cardTitle = isUserSelf ?
-      <FormattedMessage id="teams.yourTeams" defaultMessage="Workspaces" description="Label for the list of the current user's workspaces they are a member of" /> :
-      <FormattedMessage id="teams.userTeams" defaultMessage="{name}'s workspaces" description="Label for the list of another user's workspaces they are a member of" values={{ name: user.name }} />;
-
     return (
-      <Card>
-        <CardHeader
-          title={cardTitle}
-          action={
+      <>
+        <SettingsHeader
+          title={
+            <FormattedMessage
+              id="userSettings.workspacesTitle"
+              defaultMessage="Workspaces"
+              description="Title for user settings area for user workspaces list they are a memeber of"
+            />
+          }
+          actionButton={
             isUserSelf ?
               <ButtonMain
                 theme="brand"
@@ -132,84 +134,86 @@ class SwitchTeamsComponent extends Component {
               null
           }
         />
-        { (joinedTeams.length + pendingTeams.length) ?
-          <List className="teams">
-            {joinedTeams.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })).map(team => (
-              <ListItem
-                key={team.slug}
-                className="switch-teams__joined-team"
-                onClick={this.setCurrentTeam.bind(this, team, currentUser)}
-                component={Link}
-                to={`/${team.slug}/all-items`}
-                id={`switch-teams__link-to-${team.slug}`}
-              >
-                <ListItemAvatar>
-                  <Avatar style={teamAvatarStyle} src={team.avatar} />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={team.name}
-                  style={{ color: 'var(--textPrimary)' }}
-                  secondary={
-                    <FormattedMessage
-                      id="switchTeams.member"
-                      defaultMessage="{membersCount, plural, one {# member} other {# members}}"
-                      description="Count of members of a workspace"
-                      values={{ membersCount: team.members_count }}
-                    />
-                  }
-                />
-                <ListItemSecondaryAction>
-                  <ButtonMain
-                    iconCenter={<KeyboardArrowRight />}
-                    theme="text"
-                    variant="text"
-                    size="default"
-                    onClick={this.setCurrentTeam.bind(this, team, currentUser)}
+        <Card>
+          { (joinedTeams.length + pendingTeams.length) ?
+            <List className="teams">
+              {joinedTeams.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })).map(team => (
+                <ListItem
+                  key={team.slug}
+                  className="switch-teams__joined-team"
+                  onClick={this.setCurrentTeam.bind(this, team, currentUser)}
+                  component={Link}
+                  to={`/${team.slug}/all-items`}
+                  id={`switch-teams__link-to-${team.slug}`}
+                >
+                  <ListItemAvatar>
+                    <Avatar style={teamAvatarStyle} src={team.avatar} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={team.name}
+                    style={{ color: 'var(--textPrimary)' }}
+                    secondary={
+                      <FormattedMessage
+                        id="switchTeams.member"
+                        defaultMessage="{membersCount, plural, one {# member} other {# members}}"
+                        description="Count of members of a workspace"
+                        values={{ membersCount: team.members_count }}
+                      />
+                    }
                   />
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-
-            {pendingTeams.map(team => (
-              <ListItem
-                key={team.slug}
-                className="switch-teams__pending-team"
-                component={Link}
-                to={`/${team.slug}`}
-              >
-                <ListItemAvatar>
-                  <Avatar style={teamAvatarStyle} src={team.avatar} />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={team.name}
-                  secondary={
-                    <FormattedMessage
-                      id="switchTeams.joinRequestMessage"
-                      defaultMessage="You requested to join"
-                      description="Status message of a request to join a workspace"
+                  <ListItemSecondaryAction>
+                    <ButtonMain
+                      iconCenter={<KeyboardArrowRight />}
+                      theme="text"
+                      variant="text"
+                      size="default"
+                      onClick={this.setCurrentTeam.bind(this, team, currentUser)}
                     />
-                  }
-                />
-                <ListItemSecondaryAction>
-                  <Button
-                    className="switch-team__cancel-request"
-                    onClick={this.cancelRequest.bind(this, team)}
-                  >
-                    <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" description="Button label to cancel a request to join a workspace" />
-                  </Button>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List> :
-          <CardContent>
-            <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." description="Empty message when the user is not a member of a workspace" />
-          </CardContent>
-        }
-        { this.state.showCreateTeamDialog ?
-          <CreateTeamDialog onDismiss={this.handleCancelCreateTeam.bind(this)} /> :
-          null
-        }
-      </Card>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+
+              {pendingTeams.map(team => (
+                <ListItem
+                  key={team.slug}
+                  className="switch-teams__pending-team"
+                  component={Link}
+                  to={`/${team.slug}`}
+                >
+                  <ListItemAvatar>
+                    <Avatar style={teamAvatarStyle} src={team.avatar} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={team.name}
+                    secondary={
+                      <FormattedMessage
+                        id="switchTeams.joinRequestMessage"
+                        defaultMessage="You requested to join"
+                        description="Status message of a request to join a workspace"
+                      />
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <Button
+                      className="switch-team__cancel-request"
+                      onClick={this.cancelRequest.bind(this, team)}
+                    >
+                      <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" description="Button label to cancel a request to join a workspace" />
+                    </Button>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </List> :
+            <CardContent>
+              <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." description="Empty message when the user is not a member of a workspace" />
+            </CardContent>
+          }
+          { this.state.showCreateTeamDialog ?
+            <CreateTeamDialog onDismiss={this.handleCancelCreateTeam.bind(this)} /> :
+            null
+          }
+        </Card>
+      </>
     );
   }
 }

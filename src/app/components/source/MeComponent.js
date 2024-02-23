@@ -30,13 +30,11 @@ class MeComponent extends React.Component {
       <PageTitle prefix={user.name}>
         <div className={cx('source', styles['user-settings-wrapper'])}>
           <div className={styles['user-content']}>
-            <div className={styles['user-info-tabs-wrapper']}>
-              <div className={styles['user-info-tabs-content']}>
-                { tab === 'profile' ? <UserProfile user={user} /> : null}
-                { tab === 'teams' || tab === 'workspaces' ? <Workspaces user={user} /> : null}
-                { tab === 'privacy' ? <UserPrivacy user={user} /> : null}
-                { tab === 'security' ? <UserSecurity user={user} /> : null}
-              </div>
+            <div className={styles['user-info-tabs-content']}>
+              { tab === 'profile' ? <UserProfile user={user} /> : null}
+              { tab === 'teams' || tab === 'workspaces' ? <Workspaces user={user} /> : null}
+              { tab === 'privacy' ? <UserPrivacy user={user} /> : null}
+              { tab === 'security' ? <UserSecurity user={user} /> : null}
             </div>
           </div>
         </div>
