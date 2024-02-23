@@ -52,6 +52,27 @@
         }
       }
 
+      .user-setting-content-list {
+        li {
+          align-items: flex-start;
+          border-bottom: solid 1px var(--grayBorderMain);
+          display: flex;
+          gap: 16px;
+          margin: 0 0 8px;
+          padding: 8px 0 16px;
+
+          &.setting-content-list-language {
+            align-items: center;
+          }
+
+          &:last-of-type {
+            border-bottom: 0;
+            margin: 0;
+            padding: 8px 0 0;
+          }
+        }
+      }
+
       .StyledAvatarEditButton {
         margin: 8px 0 0;
         width: 100%;
