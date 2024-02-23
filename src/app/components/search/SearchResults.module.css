@@ -128,7 +128,7 @@
     .search-results-add-item {
       display: flex;
       flex: 1 1 100%;
-      justify-content: end;
+      justify-content: flex-end;
     }
   }
 
@@ -267,7 +267,7 @@
 /* ine- styles can be removed when deprecating the INE style shared feed */
 .ine-pager {
   flex: 1 1 auto;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .ine-fact-check {

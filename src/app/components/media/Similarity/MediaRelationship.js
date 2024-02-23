@@ -5,14 +5,13 @@ import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
-import RemoveCircleOutlineIcon from '../../../icons/cancel.svg';
+import ClearIcon from '../../../icons/clear.svg';
 import IconMoreVert from '../../../icons/more_vert.svg';
 import MediaSlug from '../MediaSlug';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -245,10 +244,16 @@ const RelationshipMenu = ({
       }
       { canDelete && !canSwitch ?
         <Box>
-          <IconButton onClick={event => swallowClick(event, handleDelete)}>
-            <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
-          </IconButton>
-        </Box> : null }
+          <ButtonMain
+            iconCenter={<ClearIcon />}
+            onClick={event => swallowClick(event, handleDelete)}
+            className="related-media-item__delete-relationship"
+            size="small"
+            variant="contained"
+            theme="text"
+          />
+        </Box> : null
+      }
     </>
   );
 };

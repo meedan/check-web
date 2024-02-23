@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import IconButton from '@material-ui/core/IconButton';
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import reactStringReplace from 'react-string-replace';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import IconClose from '../icons/clear.svg';
 import ErrorIcon from '../icons/error.svg';
 import Message from './Message';
@@ -74,7 +74,7 @@ const useSnackBarStyles = makeStyles({
     marginTop: '8px !important',
     paddingTop: '0px !important',
     '&:hover': {
-      color: 'var(--otherWhite) !important',
+      backgroundColor: 'transparent !important',
     },
   },
   root: {
@@ -119,12 +119,14 @@ const FlashMessageProvider = ({ children }) => {
         error: <ErrorIcon />,
       }}
       action={key => (
-        <IconButton
+        <ButtonMain
           className={`message message__dismiss-button ${classes.icon}`}
           onClick={onClickDismiss(key)}
-        >
-          <IconClose />
-        </IconButton>
+          variant="text"
+          size="small"
+          theme="white"
+          iconCenter={<IconClose />}
+        />
       )}
       classes={{
         variantInfo: classes.info,
