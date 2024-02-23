@@ -10,14 +10,14 @@
     "defaultMessage": "Hide fact-checks from {orgName}"
   },
   {
-    "id": "feedTopBar.customList",
-    "description": "Tooltip message displayed on button that the user presses in order to navigate to the custom list page.",
-    "defaultMessage": "Go to custom list"
-  },
-  {
     "id": "feedTopBar.noListSelected",
     "description": "Message displayed on feed top bar when there is no list associated with the feed.",
     "defaultMessage": "no list selected"
+  },
+  {
+    "id": "feedTopBar.customList",
+    "description": "Tooltip message displayed on button that the user presses in order to navigate to the custom list page.",
+    "defaultMessage": "Go to custom list"
   },
   {
     "id": "feedTopBar.addOrg",
