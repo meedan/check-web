@@ -12,35 +12,76 @@
     overflow: auto;
     padding: 16px 32px 32px;
 
-    .StyledAvatarEditButton {
-      margin: 8px 0 0;
+    .user-setting-details-wrapper {
+      max-width: var(--columnWidthLarge);
       width: 100%;
-    }
 
-    .user-info-avatar {
-      flex: 0;
-      flex-shrink: 0;
-      justify-content: center;
-      margin: 0 16px 0 0;
-    }
+      .user-setting-content-container {
+        background-color: var(--otherWhite);
+        border-radius: 8px;
+        padding: 16px;
 
-    .user-info-primary {
-      flex: 3;
+        .user-setting-content-container-title {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+          margin: 0 0 8px;
+          min-height: 34px;
 
-      .user-info-name {
-        align-items: center;
-        display: flex;
-        gap: 8px;
-        margin-bottom: 8px;
+          > span {
+            @mixin typography-subtitle1;
+            align-items: center;
+            display: flex;
+            flex: 1 1 auto;
+            gap: 2px;
+          }
+        }
+
+        .user-setting-content-container-inner {
+          background-color: var(--brandBackground);
+          border-radius: 5px;
+          padding: 16px;
+
+          + .user-setting-content-container-inner {
+            margin: 16px 0 0;
+          }
+        }
+
+        + .user-setting-content-container {
+          margin: 16px 0 0;
+        }
       }
 
-      .contact-info {
-        align-items: center;
-        color: var(--textSecondary);
-        display: flex;
-        flex-flow: wrap row;
-        gap: 8px;
-        margin: 0 0 16px;
+      .StyledAvatarEditButton {
+        margin: 8px 0 0;
+        width: 100%;
+      }
+
+      .user-info-avatar {
+        flex: 0;
+        flex-shrink: 0;
+        justify-content: center;
+        margin: 0 16px 0 0;
+      }
+
+      .user-info-primary {
+        flex: 3;
+
+        .user-info-name {
+          align-items: center;
+          display: flex;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+
+        .contact-info {
+          align-items: center;
+          color: var(--textSecondary);
+          display: flex;
+          flex-flow: wrap row;
+          gap: 8px;
+          margin: 0 0 16px;
+        }
       }
     }
   }

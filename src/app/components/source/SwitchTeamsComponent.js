@@ -23,6 +23,7 @@ import { getErrorMessage } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import KeyboardArrowRight from '../../icons/chevron_right.svg';
+import styles from './User.module.css';
 
 class SwitchTeamsComponent extends Component {
   constructor(props) {
@@ -134,85 +135,87 @@ class SwitchTeamsComponent extends Component {
               null
           }
         />
-        <Card>
-          { (joinedTeams.length + pendingTeams.length) ?
-            <List className="teams">
-              {joinedTeams.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })).map(team => (
-                <ListItem
-                  key={team.slug}
-                  className="switch-teams__joined-team"
-                  onClick={this.setCurrentTeam.bind(this, team, currentUser)}
-                  component={Link}
-                  to={`/${team.slug}/all-items`}
-                  id={`switch-teams__link-to-${team.slug}`}
-                >
-                  <ListItemAvatar>
-                    <Avatar style={teamAvatarStyle} src={team.avatar} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={team.name}
-                    style={{ color: 'var(--textPrimary)' }}
-                    secondary={
-                      <FormattedMessage
-                        id="switchTeams.member"
-                        defaultMessage="{membersCount, plural, one {# member} other {# members}}"
-                        description="Count of members of a workspace"
-                        values={{ membersCount: team.members_count }}
-                      />
-                    }
-                  />
-                  <ListItemSecondaryAction>
-                    <ButtonMain
-                      iconCenter={<KeyboardArrowRight />}
-                      theme="text"
-                      variant="text"
-                      size="default"
-                      onClick={this.setCurrentTeam.bind(this, team, currentUser)}
+        <div className={styles['user-setting-details-wrapper']}>
+          <Card>
+            { (joinedTeams.length + pendingTeams.length) ?
+              <List className="teams">
+                {joinedTeams.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })).map(team => (
+                  <ListItem
+                    key={team.slug}
+                    className="switch-teams__joined-team"
+                    onClick={this.setCurrentTeam.bind(this, team, currentUser)}
+                    component={Link}
+                    to={`/${team.slug}/all-items`}
+                    id={`switch-teams__link-to-${team.slug}`}
+                  >
+                    <ListItemAvatar>
+                      <Avatar style={teamAvatarStyle} src={team.avatar} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={team.name}
+                      style={{ color: 'var(--textPrimary)' }}
+                      secondary={
+                        <FormattedMessage
+                          id="switchTeams.member"
+                          defaultMessage="{membersCount, plural, one {# member} other {# members}}"
+                          description="Count of members of a workspace"
+                          values={{ membersCount: team.members_count }}
+                        />
+                      }
                     />
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-
-              {pendingTeams.map(team => (
-                <ListItem
-                  key={team.slug}
-                  className="switch-teams__pending-team"
-                  component={Link}
-                  to={`/${team.slug}`}
-                >
-                  <ListItemAvatar>
-                    <Avatar style={teamAvatarStyle} src={team.avatar} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={team.name}
-                    secondary={
-                      <FormattedMessage
-                        id="switchTeams.joinRequestMessage"
-                        defaultMessage="You requested to join"
-                        description="Status message of a request to join a workspace"
+                    <ListItemSecondaryAction>
+                      <ButtonMain
+                        iconCenter={<KeyboardArrowRight />}
+                        theme="text"
+                        variant="text"
+                        size="default"
+                        onClick={this.setCurrentTeam.bind(this, team, currentUser)}
                       />
-                    }
-                  />
-                  <ListItemSecondaryAction>
-                    <Button
-                      className="switch-team__cancel-request"
-                      onClick={this.cancelRequest.bind(this, team)}
-                    >
-                      <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" description="Button label to cancel a request to join a workspace" />
-                    </Button>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List> :
-            <CardContent>
-              <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." description="Empty message when the user is not a member of a workspace" />
-            </CardContent>
-          }
-          { this.state.showCreateTeamDialog ?
-            <CreateTeamDialog onDismiss={this.handleCancelCreateTeam.bind(this)} /> :
-            null
-          }
-        </Card>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+
+                {pendingTeams.map(team => (
+                  <ListItem
+                    key={team.slug}
+                    className="switch-teams__pending-team"
+                    component={Link}
+                    to={`/${team.slug}`}
+                  >
+                    <ListItemAvatar>
+                      <Avatar style={teamAvatarStyle} src={team.avatar} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={team.name}
+                      secondary={
+                        <FormattedMessage
+                          id="switchTeams.joinRequestMessage"
+                          defaultMessage="You requested to join"
+                          description="Status message of a request to join a workspace"
+                        />
+                      }
+                    />
+                    <ListItemSecondaryAction>
+                      <Button
+                        className="switch-team__cancel-request"
+                        onClick={this.cancelRequest.bind(this, team)}
+                      >
+                        <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" description="Button label to cancel a request to join a workspace" />
+                      </Button>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+              </List> :
+              <CardContent>
+                <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." description="Empty message when the user is not a member of a workspace" />
+              </CardContent>
+            }
+            { this.state.showCreateTeamDialog ?
+              <CreateTeamDialog onDismiss={this.handleCancelCreateTeam.bind(this)} /> :
+              null
+            }
+          </Card>
+        </div>
       </>
     );
   }

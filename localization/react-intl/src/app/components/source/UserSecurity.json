@@ -32,7 +32,7 @@
   {
     "id": "userSecurity.notification",
     "description": "Section header title for security notification settings",
-    "defaultMessage": "Notification"
+    "defaultMessage": "Notifications"
   },
   {
     "id": "userSecurity.successfulLoginText",

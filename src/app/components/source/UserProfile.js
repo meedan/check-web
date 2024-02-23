@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import SettingsHeader from '../team/SettingsHeader';
 import UserEmail from '../user/UserEmail';
 import UserInfoEdit from './UserInfoEdit';
+import styles from './User.module.css';
 
 const UserProfile = (props) => {
   const { user } = props;
@@ -18,8 +19,10 @@ const UserProfile = (props) => {
           />
         }
       />
-      <UserInfoEdit user={user} />
-      <UserEmail user={user} />
+      <div className={styles['user-setting-details-wrapper']}>
+        <UserInfoEdit user={user} />
+        <UserEmail user={user} />
+      </div>
     </>
   );
 };
