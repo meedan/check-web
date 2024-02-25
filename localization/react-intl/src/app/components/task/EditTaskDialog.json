@@ -95,9 +95,19 @@
     "defaultMessage": "Edit Annotation"
   },
   {
+    "id": "task.TitlePlaceholder",
+    "description": "Input Placeholder for the Title field for custom annotation field",
+    "defaultMessage": "Enter a title for this annotation"
+  },
+  {
     "id": "tasks.taskPrompt",
     "description": "Title field for custom annotation field",
     "defaultMessage": "Title"
+  },
+  {
+    "id": "task.DescriptionPlaceholder",
+    "description": "Input Placeholder for the Description field for custom annotation field",
+    "defaultMessage": "Enter an optional description for this annotation"
   },
   {
     "id": "tasks.description",
