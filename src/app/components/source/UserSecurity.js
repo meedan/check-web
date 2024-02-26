@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import CardContent from '@material-ui/core/CardContent';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SettingsHeader from '../team/SettingsHeader';
@@ -15,10 +13,8 @@ import CheckContext from '../../CheckContext';
 import { getErrorMessage, getErrorObjects } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import {
-  units,
-} from '../../styles/js/shared';
 import styles from './User.module.css';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
   passwordInput: {
@@ -77,7 +73,7 @@ const UserSecurity = (props, context) => {
     props.setFlashMessage(message, 'error');
   };
 
-  const handleTwoFactorAuthenticationForm = (e, inputChecked) => {
+  const handleTwoFactorAuthenticationForm = (type, e, inputChecked) => {
     setShowFactorCommonFields(twoFactorAuthentication || inputChecked);
     setShowFactorAuthForm(inputChecked);
   };
@@ -213,24 +209,6 @@ const UserSecurity = (props, context) => {
     return null;
   }
 
-  const cardTextAuthStyle = {
-    display: 'table-row',
-    alignItems: 'center',
-  };
-
-  const subTitleStyle = {
-    margin: '5px 0px',
-  };
-
-  const divBackupStyle = {
-    lineHeight: units(3),
-    fontWeight: 'bold',
-    fontSize: units(1.5),
-    backgroundColor: 'var(--grayBorderMain)',
-    margin: '5px',
-    textAlign: 'center',
-  };
-
   const appsUrls = {
     apple: 'https://apps.apple.com/us/app/google-authenticator/id388497605',
     play: 'https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2',
@@ -257,33 +235,37 @@ const UserSecurity = (props, context) => {
           <div className={styles['user-setting-content-container-title']}>
             <FormattedMessage id="userSecurity.notification" defaultMessage="Notifications" description="Section header title for security notification settings" />
           </div>
-          <SwitchComponent
-            inputProps={{
-              id: 'edit-security__successfull-login-switch',
-            }}
-            checked={Boolean(sendSuccessfulLogin)}
-            onChange={handleSecuritySettings.bind(this, 'successfulLogin', Boolean(sendSuccessfulLogin))}
-            labelPlacement="start"
-            label={<FormattedMessage
-              id="userSecurity.successfulLoginText"
-              defaultMessage="Receive a notification for logins from a new location or device"
-              description="Label for switch input to allow users to determine if they get notifications on new logins"
-            />}
-          />
-          <SwitchComponent
-            inputProps={{
-              id: 'edit-security__failed-login-switch',
-            }}
-            checked={Boolean(sendFailedLogin)}
-            onChange={handleSecuritySettings.bind(this, 'failedLogin', Boolean(sendFailedLogin))}
-            labelPlacement="start"
-            label={<FormattedMessage
-              id="userSecurity.failedfulLoginText"
-              defaultMessage="Receive a notification for {loginTrial} consecutive failed login attempts"
-              values={{ loginTrial }}
-              description="Label for switch input to allow users to receive a notification if there are multiple failed login attempts with their credentials"
-            />}
-          />
+          <div className={inputStyles['form-fieldset']}>
+            <SwitchComponent
+              inputProps={{
+                id: 'edit-security__successfull-login-switch',
+              }}
+              className={inputStyles['form-fieldset-field']}
+              checked={Boolean(sendSuccessfulLogin)}
+              onChange={handleSecuritySettings.bind(this, 'successfulLogin', Boolean(sendSuccessfulLogin))}
+              labelPlacement="end"
+              label={<FormattedMessage
+                id="userSecurity.successfulLoginText"
+                defaultMessage="Receive a notification for logins from a new location or device"
+                description="Label for switch input to allow users to determine if they get notifications on new logins"
+              />}
+            />
+            <SwitchComponent
+              inputProps={{
+                id: 'edit-security__failed-login-switch',
+              }}
+              className={inputStyles['form-fieldset-field']}
+              checked={Boolean(sendFailedLogin)}
+              onChange={handleSecuritySettings.bind(this, 'failedLogin', Boolean(sendFailedLogin))}
+              labelPlacement="end"
+              label={<FormattedMessage
+                id="userSecurity.failedfulLoginText"
+                defaultMessage="Receive a notification for {loginTrial} consecutive failed login attempts"
+                values={{ loginTrial }}
+                description="Label for switch input to allow users to receive a notification if there are multiple failed login attempts with their credentials"
+              />}
+            />
+          </div>
         </div>
         <div className={styles['user-setting-content-container']}>
           <div className={styles['user-setting-content-container-title']}>
@@ -294,19 +276,17 @@ const UserSecurity = (props, context) => {
               id="userSecurity.suggestTwoFactorForSocialAccounts"
               defaultMessage="In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below."
               description="Help text on how the user can generate a new password in order to set up two-factor authentication"
-              style={{ minWidth: units(64), padding: '0px' }}
             />
             :
             <>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="userSecurity-require"
-                    checked={twoFactorAuthentication || showFactorAuthForm}
-                    onChange={handleTwoFactorAuthenticationForm.bind(this)}
-                    disabled={twoFactorAuthentication}
-                  />
-                }
+              <SwitchComponent
+                inputProps={{
+                  id: 'userSecurity-require',
+                }}
+                className={inputStyles['form-fieldset-field']}
+                checked={Boolean(twoFactorAuthentication || showFactorAuthForm)}
+                onChange={handleTwoFactorAuthenticationForm.bind(this, 'twoFactor', Boolean(twoFactorAuthentication || showFactorAuthForm))}
+                labelPlacement="end"
                 label={
                   <FormattedMessage
                     id="userSecurity.requireTwoFactorAuth"
@@ -315,201 +295,179 @@ const UserSecurity = (props, context) => {
                   />
                 }
               />
-              <div className="two-f-a-container" style={{ padding: '0px 25px 25px 25px' }}>
-                <CardContent style={cardTextAuthStyle}>
-                  {!showFactorAuthForm ?
-                    null :
-                    <div>
-                      <h3 style={subTitleStyle}>
-                        <FormattedMessage
-                          id="userSecurity.authenticateHeader"
-                          defaultMessage="Step 1: Authenticate"
-                          description="Sub title for first step in two-factor authentication settings"
-                        />
-                      </h3>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.authenticateDescription"
-                          defaultMessage="Enter your current password to confirm your identity:"
-                          description="Sub title for current password confirmation step in two-factor authentication settings"
-                        />
-                      </span>
-                    </div>
-                  }
-                  {twoFactorAuthentication ?
-                    <span style={{ lineHeight: units(3) }}>
+              <CardContent>
+                {!showFactorAuthForm ?
+                  null :
+                  <div>
+                    <FormattedMessage
+                      tagName="h6"
+                      id="userSecurity.authenticateHeader"
+                      defaultMessage="Step 1: Authenticate"
+                      description="Sub title for first step in two-factor authentication settings"
+                    />
+                    <FormattedMessage
+                      id="userSecurity.authenticateDescription"
+                      defaultMessage="Enter your current password to confirm your identity:"
+                      description="Sub title for current password confirmation step in two-factor authentication settings"
+                    />
+                  </div>
+                }
+                {twoFactorAuthentication ?
+                  <FormattedMessage
+                    id="userSecurity.disableAuthenticateDescription"
+                    defaultMessage="Enter your password to disable two-factor authentication:"
+                    description="Sub title for current password confirmation step in order to disable two-factor authentication"
+                  />
+                  : null }
+                {showFactorCommonFields ?
+                  <TextField
+                    fullWidth
+                    type="password"
+                    name="password"
+                    required
+                    className="int-login__password-input"
+                    onChange={e => setPassword(e.target.value)}
+                    error={!errors.password}
+                    helperText={errors.password ? null : renderMessage('passwordError')}
+                    placeholder={renderMessage('passwordInput')}
+                  />
+                  : null
+                }
+                {twoFactorAuthentication ?
+                  <CardContent>
+                    <Button
+                      variant="contained"
+                      onClick={handleSubmitTwoFactorAuthentication.bind(this, false)}
+                      className="user-two-factor__enable-button"
+                    >
+                      <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" description="Button label to disable two-factor authentication settings" />
+                    </Button>
+                  </CardContent>
+                  : null
+                }
+              </CardContent>
+              {showFactorAuthForm ?
+                <div>
+                  <CardContent>
+                    <FormattedMessage
+                      tagName="h6"
+                      id="userSecurity.downloadHeader"
+                      defaultMessage="Step 2: Download"
+                      description="Sub title for second step in two-factor authentication settings"
+                    />
+                    <FormattedMessage
+                      id="userSecurity.downloadDescription"
+                      defaultMessage="You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
+                      description="Help message to tell the user how they can get a two factor authentication code using their smartphone"
+                    />
+                    <a href={appsUrls.apple} rel="noopener noreferrer" target="_blank">
+                      <img src={appsUrls.appleImage} alt="" />
+                    </a>
+                    <a href={appsUrls.play} rel="noopener noreferrer" target="_blank">
+                      <img src={appsUrls.playImage} alt="" />
+                    </a>
+                  </CardContent>
+                  <CardContent>
+                    <FormattedMessage
+                      tagName="h6"
+                      id="userSecurity.qrcodeHeader"
+                      defaultMessage="Step 3: Scan"
+                      description="Sub title for third step in two-factor authentication settings"
+                    />
+                    <FormattedMessage
+                      id="userSecurity.qrcodeDescription"
+                      defaultMessage="Using your two-factor app, scan this QR code:"
+                      description="Help text to tell the user to scan the QR code from the app they downloaded in a previous step"
+                    />
+                    <div
+                      id="svg-container"
+                      dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+                        __html: qrcode_svg,
+                      }}
+                    />
+                  </CardContent>
+                </div>
+                : null
+              }
+              <CardContent>
+                {showFactorAuthForm ?
+                  <FormattedMessage
+                    tagName="h6"
+                    id="userSecurity.backupHeader"
+                    defaultMessage="Step 4: Backup codes"
+                    description="Sub title for forth step in two-factor authentication settings"
+                  />
+                  : null
+                }
+                {showFactorCommonFields ?
+                  <div>
+                    <FormattedMessage
+                      id="userSecurity.backupDescription"
+                      defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use codes to be used instead of 2FA login in the event that you lose access to your 2FA device."
+                      description="Help text description on the importance of backing up two-factor authentication codes"
+                    />
+                    <p>
                       <FormattedMessage
-                        id="userSecurity.disableAuthenticateDescription"
-                        defaultMessage="Enter your password to disable two-factor authentication:"
-                        description="Sub title for current password confirmation step in order to disable two-factor authentication"
+                        id="userSecurity.backupNote"
+                        defaultMessage="Note: Existing backup codes will be invalidated by clicking this button."
+                        description="Warning on the removal of existing two-factor authentication codes"
                       />
-                    </span>
-                    : null }
-                  {showFactorCommonFields ?
+                    </p>
+                    <Button
+                      variant="contained"
+                      onClick={handleGenerateBackupCodes.bind(this)}
+                      className="user-two-factor__backup-button"
+                    >
+                      <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" description="Button label to generate two-factor authentication backup codes" />
+                    </Button>
+                    {backupCodes.length === 0 ?
+                      null :
+                      <div>
+                        {backupCodes.join(' - ')}
+                      </div>
+                    }
+                  </div>
+                  : null
+                }
+              </CardContent>
+              {showFactorAuthForm ?
+                <div>
+                  <CardContent>
+                    <FormattedMessage
+                      tagName="h6"
+                      id="userSecurity.verifyHeader"
+                      defaultMessage="Step 5: Verify"
+                      description="Sub title for fifth step in two-factor authentication settings"
+                    />
+                    <FormattedMessage
+                      id="userSecurity.verifyDescription"
+                      defaultMessage="To enable two-factor authentication, enter the 6-digit code from your two-factor app:"
+                      description="Help text to let the user know where to get their authentication code to enter"
+                    />
                     <TextField
                       fullWidth
-                      type="password"
-                      name="password"
+                      type="text"
+                      name="qrcode"
                       required
-                      className="int-login__password-input"
-                      onChange={e => setPassword(e.target.value)}
-                      error={!errors.password}
-                      helperText={errors.password ? null : renderMessage('passwordError')}
-                      placeholder={renderMessage('passwordInput')}
+                      className="2fa__verify-code-input"
+                      onChange={e => setQrcode(e.target.value)}
+                      error={!errors.qrcode}
+                      helperText={errors.qrcode ? null : renderMessage('verifyError')}
+                      placeholder={renderMessage('verifyInput')}
                     />
-                    : null
-                  }
-                  {twoFactorAuthentication ?
-                    <CardContent style={cardTextAuthStyle}>
-                      <Button
-                        variant="contained"
-                        style={{ marginLeft: 'auto', marginRight: units(2) }}
-                        onClick={handleSubmitTwoFactorAuthentication.bind(this, false)}
-                        className="user-two-factor__enable-button"
-                      >
-                        <FormattedMessage id="userSecurity.disableTwofactor" defaultMessage="Disable" description="Button label to disable two-factor authentication settings" />
-                      </Button>
-                    </CardContent>
-                    : null
-                  }
-                </CardContent>
-                {showFactorAuthForm ?
-                  <div>
-                    <CardContent style={cardTextAuthStyle}>
-                      <h3 style={subTitleStyle}>
-                        <FormattedMessage
-                          id="userSecurity.downloadHeader"
-                          defaultMessage="Step 2: Download"
-                          description="Sub title for second step in two-factor authentication settings"
-                        />
-                      </h3>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.downloadDescription"
-                          defaultMessage="You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
-                          description="Help message to tell the user how they can get a two factor authentication code using their smartphone"
-                        />
-                      </span>
-                      <a href={appsUrls.apple} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }} >
-                        <img src={appsUrls.appleImage} alt="" />
-                      </a>
-                      <a href={appsUrls.play} rel="noopener noreferrer" target="_blank" style={{ padding: '5px' }}>
-                        <img src={appsUrls.playImage} alt="" />
-                      </a>
-                    </CardContent>
-                    <CardContent style={cardTextAuthStyle}>
-                      <h3 style={subTitleStyle}>
-                        <FormattedMessage
-                          id="userSecurity.qrcodeHeader"
-                          defaultMessage="Step 3: Scan"
-                          description="Sub title for third step in two-factor authentication settings"
-                        />
-                      </h3>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.qrcodeDescription"
-                          defaultMessage="Using your two-factor app, scan this QR code:"
-                          description="Help text to tell the user to scan the QR code from the app they downloaded in a previous step"
-                        />
-                      </span>
-                      <div
-                        id="svg-container"
-                        dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-                          __html: qrcode_svg,
-                        }}
-                      />
-                    </CardContent>
-                  </div>
-                  : null
-                }
-                <CardContent style={cardTextAuthStyle}>
-                  {showFactorAuthForm ?
-                    <h3 style={subTitleStyle}>
-                      <FormattedMessage
-                        id="userSecurity.backupHeader"
-                        defaultMessage="Step 4: Backup codes"
-                        description="Sub title for forth step in two-factor authentication settings"
-                      />
-                    </h3>
-                    : null
-                  }
-                  {showFactorCommonFields ?
-                    <div>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.backupDescription"
-                          defaultMessage="We strongly suggest that you generate and print backup codes using the button below. These are single-use codes to be used instead of 2FA login in the event that you lose access to your 2FA device."
-                          description="Help text description on the importance of backing up two-factor authentication codes"
-                        />
-                      </span>
-                      <p>
-                        <FormattedMessage
-                          id="userSecurity.backupNote"
-                          defaultMessage="Note: Existing backup codes will be invalidated by clicking this button."
-                          description="Warning on the removal of existing two-factor authentication codes"
-                        />
-                      </p>
-                      <Button
-                        variant="contained"
-                        style={{ marginLeft: 'auto', marginRight: units(2) }}
-                        onClick={handleGenerateBackupCodes.bind(this)}
-                        className="user-two-factor__backup-button"
-                      >
-                        <FormattedMessage id="userSecurity.generateGackup" defaultMessage="Generate backup code" description="Button label to generate two-factor authentication backup codes" />
-                      </Button>
-                      {backupCodes.length === 0 ?
-                        null :
-                        <div style={divBackupStyle}>
-                          {backupCodes.join(' - ')}
-                        </div>
-                      }
-                    </div>
-                    : null
-                  }
-                </CardContent>
-                {showFactorAuthForm ?
-                  <div>
-                    <CardContent style={cardTextAuthStyle}>
-                      <h3 style={subTitleStyle}>
-                        <FormattedMessage
-                          id="userSecurity.verifyHeader"
-                          defaultMessage="Step 5: Verify"
-                          description="Sub title for fifth step in two-factor authentication settings"
-                        />
-                      </h3>
-                      <span style={{ lineHeight: units(3) }}>
-                        <FormattedMessage
-                          id="userSecurity.verifyDescription"
-                          defaultMessage="To enable two-factor authentication, enter the 6-digit code from your two-factor app:"
-                          description="Help text to let the user know where to get their authentication code to enter"
-                        />
-                      </span>
-                      <TextField
-                        fullWidth
-                        type="text"
-                        name="qrcode"
-                        required
-                        className="2fa__verify-code-input"
-                        onChange={e => setQrcode(e.target.value)}
-                        error={!errors.qrcode}
-                        helperText={errors.qrcode ? null : renderMessage('verifyError')}
-                        placeholder={renderMessage('verifyInput')}
-                      />
-                    </CardContent>
-                    <CardContent style={cardTextAuthStyle}>
-                      <Button
-                        variant="contained"
-                        style={{ marginLeft: 'auto', marginRight: units(2) }}
-                        onClick={handleSubmitTwoFactorAuthentication.bind(this, true)}
-                        className="user-two-factor__enable-button"
-                      >
-                        <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" description="Button label to enabled two-factor authentication settings" />
-                      </Button>
-                    </CardContent>
-                  </div>
-                  : null
-                }
-              </div>
+                  </CardContent>
+                  <CardContent>
+                    <Button
+                      variant="contained"
+                      onClick={handleSubmitTwoFactorAuthentication.bind(this, true)}
+                      className="user-two-factor__enable-button"
+                    >
+                      <FormattedMessage id="userSecurity.enableTwofactor" defaultMessage="Enable" description="Button label to enabled two-factor authentication settings" />
+                    </Button>
+                  </CardContent>
+                </div>
+                : null
+              }
             </>
           }
         </div>
