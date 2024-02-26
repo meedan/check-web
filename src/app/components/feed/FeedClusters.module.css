@@ -9,11 +9,16 @@
   margin-bottom: 16px;
 }
 
+.feedClustersFilters {
+  overflow: visible;
+  padding: 16px;
+}
+
 .feedClustersToolbar {
   background: var(--otherWhite);
   display: flex;
   justify-content: space-between;
-  padding: 16px;
+  padding: 16px 0;
   position: sticky;
   top: 0;
   z-index: 1;

@@ -14,6 +14,7 @@ import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import FeedHeader from './FeedHeader';
+import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import styles from './FeedClusters.module.css';
 
@@ -48,12 +49,13 @@ const messages = defineMessages({
 });
 
 const FeedClustersComponent = ({
-  teamSlug,
+  team,
   feed,
   feedTeam,
   page,
   sort,
   sortType,
+  teamFilters,
   onChangeSearchParams,
   intl,
 }) => {
@@ -62,19 +64,43 @@ const FeedClustersComponent = ({
   const endingIndex = startingIndex + (clusters.length - 1);
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
-    onChangeSearchParams({ page: 1, sort: newSort, sortType: newSortType });
+    onChangeSearchParams({
+      page: 1,
+      sort: newSort,
+      sortType: newSortType,
+      teamFilters,
+    });
   };
 
   const handleGoToPreviousPage = () => {
     if (page > 1) {
-      onChangeSearchParams({ page: (page - 1), sort, sortType });
+      onChangeSearchParams({
+        page: (page - 1),
+        sort,
+        sortType,
+        teamFilters,
+      });
     }
   };
 
   const handleGoToNextPage = () => {
     if (endingIndex + 1 < feed.clusters_count) {
-      onChangeSearchParams({ page: (page + 1), sort, sortType });
+      onChangeSearchParams({
+        page: (page + 1),
+        sort,
+        sortType,
+        teamFilters,
+      });
     }
+  };
+
+  const handleChangeTeamFilters = (newTeamFilters) => {
+    onChangeSearchParams({
+      page: 1,
+      sort,
+      sortType,
+      teamFilters: newTeamFilters,
+    });
   };
 
   const sortOptions = [
@@ -103,6 +129,15 @@ const FeedClustersComponent = ({
             </div>
           </div>
         </div>
+      </div>
+      <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClustersFilters)}>
+        <FeedTopBar
+          team={team}
+          feed={feed}
+          teamFilters={teamFilters}
+          setTeamFilters={handleChangeTeamFilters}
+          hideQuickFilterMenu
+        />
       </div>
       <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClusters)}>
         { clusters.length > 0 ?
@@ -151,7 +186,7 @@ const FeedClustersComponent = ({
 
         { clusters.length === 0 ?
           <FeedBlankState
-            teamSlug={teamSlug}
+            teamSlug={team.slug}
             feedDbid={feed.dbid}
             listDbid={feedTeam.saved_search_id || feed.saved_search_id}
           />
@@ -192,11 +227,15 @@ FeedClustersComponent.defaultProps = {
 };
 
 FeedClustersComponent.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
   page: PropTypes.number,
   sort: PropTypes.oneOf(['title', 'media_count', 'requests_count', 'fact_checks_count', 'last_request_date']),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
+  teamFilters: PropTypes.arrayOf(PropTypes.number).isRequired, // Array of team DBIDs
   onChangeSearchParams: PropTypes.func.isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+  }).isRequired,
   feedTeam: PropTypes.shape({
     team_id: PropTypes.number.isRequired,
     saved_search_id: PropTypes.number,
@@ -254,10 +293,20 @@ export { FeedClustersComponent };
 const ConnectedFeedClustersComponent = injectIntl(FeedClustersComponent); // FIXME: Upgrade react-intl so we can use useIntl()
 
 const FeedClusters = ({ teamSlug, feedId }) => {
-  const [searchParams, setSearchParams] = React.useState({ page: 1, sort: 'title', sortType: 'ASC' });
-  const { page, sort, sortType } = searchParams;
+  const [searchParams, setSearchParams] = React.useState({
+    page: 1,
+    sort: 'title',
+    sortType: 'ASC',
+    teamFilters: null,
+  });
+  const {
+    page,
+    sort,
+    sortType,
+    teamFilters,
+  } = searchParams;
 
-  const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType }
+  const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType, teamFilters } - a single state for a single query/render
     setSearchParams(newSearchParams);
   };
 
@@ -265,8 +314,10 @@ const FeedClusters = ({ teamSlug, feedId }) => {
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query FeedClustersQuery($slug: String!, $feedId: Int!, $pageSize: Int!, $offset: Int!, $sort: String, $sortType: String) {
+        query FeedClustersQuery($slug: String!, $feedId: Int!, $pageSize: Int!, $offset: Int!, $sort: String, $sortType: String, $teamFilters: [Int]) {
           team(slug: $slug) {
+            slug
+            ...FeedTopBar_team
             feed(dbid: $feedId) {
               dbid
               name
@@ -276,8 +327,15 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                 saved_search_id
                 ...FeedHeader_feedTeam
               }
-              clusters_count
-              clusters(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType) {
+              teams(first: 1000) {
+                edges {
+                  node {
+                    dbid
+                  }
+                }
+              }
+              clusters_count(team_ids: $teamFilters)
+              clusters(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, team_ids: $teamFilters) {
                 edges {
                   node {
                     id
@@ -309,6 +367,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                 }
               }
               ...FeedHeader_feed
+              ...FeedTopBar_feed
             }
           }
         }
@@ -320,17 +379,19 @@ const FeedClusters = ({ teamSlug, feedId }) => {
         sort,
         sortType,
         offset: pageSize * (page - 1),
+        teamFilters,
       }}
       render={({ error, props }) => {
         if (!error && props) {
           return (
             <ConnectedFeedClustersComponent
-              teamSlug={teamSlug}
+              team={props.team}
               feed={props.team.feed}
               feedTeam={props.team.feed.current_feed_team}
               page={page}
               sort={sort}
               sortType={sortType}
+              teamFilters={teamFilters || props.team.feed.teams.edges.map(team => team.node.dbid)}
               onChangeSearchParams={handleChangeSearchParams}
             />
           );
