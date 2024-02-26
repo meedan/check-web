@@ -46,7 +46,7 @@
   },
   {
     "id": "userSecurity.twoFactorAuthentication",
-    "description": "Sectiom title for two-factor authentication settings",
+    "description": "Section title for two-factor authentication settings",
     "defaultMessage": "Two factor authentication"
   },
   {
@@ -103,6 +103,11 @@
     "id": "userSecurity.backupHeader",
     "description": "Sub title for forth step in two-factor authentication settings",
     "defaultMessage": "Step 4: Backup codes"
+  },
+  {
+    "id": "userSecurity.backupCodesHeader",
+    "description": "Sub title for backup codes section when two-factor authentication is already enabled",
+    "defaultMessage": "Backup codes"
   },
   {
     "id": "userSecurity.backupDescription",

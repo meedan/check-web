@@ -47,6 +47,16 @@
           }
         }
 
+        .user-setting-content-container-inner-accent {
+          background: var(--brandBackgroundAccent);
+          border-radius: 3px;
+          padding: 16px;
+
+          + .user-setting-content-container-inner-accent {
+            margin: 16px 0 0;
+          }
+        }
+
         + .user-setting-content-container {
           margin: 16px 0 0;
         }
