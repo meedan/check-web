@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import cx from 'classnames/bind';
+import AppleAppStoreIcon from '../../icons/apple_appstore_download.svg';
+import GooglePlayAppStoreIcon from '../../icons/googleplay_appstore_download.svg';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import SettingsHeader from '../team/SettingsHeader';
@@ -209,13 +211,6 @@ const UserSecurity = (props, context) => {
     return null;
   }
 
-  const appsUrls = {
-    apple: 'https://apps.apple.com/us/app/google-authenticator/id388497605',
-    play: 'https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2',
-    appleImage: '/images/two_factor/apple.png',
-    playImage: '/images/two_factor/play.png',
-  };
-
   // TODO: Read loginTrail from config
   const loginTrial = 4;
 
@@ -373,12 +368,14 @@ const UserSecurity = (props, context) => {
                           defaultMessage="You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
                           description="Help message to tell the user how they can get a two factor authentication code using their smartphone"
                         />
-                        <a href={appsUrls.apple} rel="noopener noreferrer" target="_blank">
-                          <img src={appsUrls.appleImage} alt="" />
-                        </a>
-                        <a href={appsUrls.play} rel="noopener noreferrer" target="_blank">
-                          <img src={appsUrls.playImage} alt="" />
-                        </a>
+                        <div className={styles['appstore-badges']}>
+                          <a href="https://apps.apple.com/us/app/google-authenticator/id388497605" rel="noopener noreferrer" target="_blank">
+                            <AppleAppStoreIcon className={styles['appstore-apple']} />
+                          </a>
+                          <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" rel="noopener noreferrer" target="_blank">
+                            <GooglePlayAppStoreIcon className={styles['appstore-play']} />
+                          </a>
+                        </div>
                       </div>
                       <div className={styles['user-setting-content-container-inner-accent']}>
                         <FormattedMessage
