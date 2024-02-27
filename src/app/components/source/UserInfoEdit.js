@@ -340,7 +340,7 @@ class UserInfoEdit extends React.Component {
     }
 
     return (
-      <>
+      <div className={styles['user-info-edit']}>
         { this.state.message &&
           <Alert
             content={this.state.message}
@@ -368,7 +368,7 @@ class UserInfoEdit extends React.Component {
             : null}
         </div>
 
-        <div className={styles['user-info-primary']}>
+        <div className={cx(styles['user-info-primary'], styles['user-setting-content-container'])}>
           <form
             onSubmit={this.handleSubmit.bind(this)}
             name="edit-source-form"
@@ -431,7 +431,7 @@ class UserInfoEdit extends React.Component {
             />
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

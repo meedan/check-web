@@ -81,6 +81,26 @@
           }
         }
 
+        &.user-info-primary {
+          flex: 3;
+
+          .user-info-name {
+            align-items: center;
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+          }
+
+          .contact-info {
+            align-items: center;
+            color: var(--textSecondary);
+            display: flex;
+            flex-flow: wrap row;
+            gap: 8px;
+            margin: 0 0 16px;
+          }
+        }
+
         + .user-setting-content-container {
           margin: 16px 0 0;
         }
@@ -107,6 +127,15 @@
         }
       }
 
+      .user-info-edit {
+        display: flex;
+        gap: 32px;
+
+        .user-info-primary {
+          width: 100%;
+        }
+      }
+
       .StyledAvatarEditButton {
         margin: 8px 0 0;
         width: 100%;
@@ -117,26 +146,6 @@
         flex-shrink: 0;
         justify-content: center;
         margin: 0 16px 0 0;
-      }
-
-      .user-info-primary {
-        flex: 3;
-
-        .user-info-name {
-          align-items: center;
-          display: flex;
-          gap: 8px;
-          margin-bottom: 8px;
-        }
-
-        .contact-info {
-          align-items: center;
-          color: var(--textSecondary);
-          display: flex;
-          flex-flow: wrap row;
-          gap: 8px;
-          margin: 0 0 16px;
-        }
       }
     }
   }

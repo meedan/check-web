@@ -20,8 +20,8 @@ const UserProfile = (props) => {
         }
       />
       <div className={styles['user-setting-details-wrapper']}>
-        <UserInfoEdit user={user} />
         <UserEmail user={user} />
+        <UserInfoEdit user={user} />
       </div>
     </>
   );
