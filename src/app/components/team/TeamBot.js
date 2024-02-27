@@ -1,54 +1,6 @@
 import React, { Component } from 'react';
-import Box from '@material-ui/core/Box';
-import styled from 'styled-components';
-import FetchBot from './FetchBot';
 import KeepBot from './KeepBot';
 import TaggerBot from './TaggerBot';
-import { units } from '../../styles/js/shared';
-
-const StyledSchemaForm = styled.div`
-  div {
-    padding: 0 !important;
-    box-shadow: none !important;
-    border: 0 !important;
-  }
-
-  fieldset {
-    border: 0 !important;
-    padding: 0;
-  }
-
-  button {
-    display: none;
-  }
-
-  label + div {
-    margin-top: 36px;
-  }
-
-  fieldset fieldset {
-    padding: ${units(1)};
-    margin-top: ${units(1)};
-    border: 1px solid var(--grayBorderAccent);
-  }
-
-  fieldset fieldset button {
-    display: block !important;
-    width: 32px !important;
-    background: var(--otherWhite) !important;
-    border-radius: 5px !important;
-    color: var(--grayBorderAccent) !important;
-  }
-  
-  #bot-fetch fieldset div {
-    display: none;
-  }
-
-  #bot-fetch fieldset div:last-child {
-    display: block;
-  }
-`;
-
 
 class TeamBot extends Component {
   constructor(props) {
@@ -59,11 +11,6 @@ class TeamBot extends Component {
   render() {
     let botContent = null;
     switch (this.props.bot.identifier) {
-    case 'fetch':
-      botContent = (
-        <FetchBot {...this.props} />
-      );
-      break;
     case 'keep':
       botContent = (
         <KeepBot {...this.props} />
@@ -81,11 +28,9 @@ class TeamBot extends Component {
 
     return (
       <React.Fragment>
-        <StyledSchemaForm>
-          <Box id={`bot-${this.props.bot.identifier}`}>
-            {botContent}
-          </Box>
-        </StyledSchemaForm>
+        <div id={`bot-${this.props.bot.identifier}`}>
+          {botContent}
+        </div>
       </React.Fragment>
     );
   }
