@@ -30,7 +30,7 @@ const SmoochBotMainMenuOption = ({
   const handleSave = () => {
     setSubmitted(true);
     if (text && value) {
-      onSave(text, description, value, currentKeywords);
+      onSave(text, description, value, id, currentKeywords);
     }
     if (keywordsUpdated) {
       // Reload the page so settings are refreshed
