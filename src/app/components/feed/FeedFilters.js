@@ -2,22 +2,57 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
+import cx from 'classnames/bind';
 import Divider from '@material-ui/core/Divider';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import HowToRegIcon from '../../icons/person_check.svg';
+import DescriptionIcon from '../../icons/description.svg';
 import AddFilterMenu from '../search/AddFilterMenu';
 import NumericRangeFilter from '../search/NumericRangeFilter';
 import DateRangeFilter from '../search/DateRangeFilter';
 import MultiSelectFilter from '../search/MultiSelectFilter';
+import SearchFieldChannel from '../search/SearchFields/SearchFieldChannel';
 import { withSetFlashMessage } from '../FlashMessage';
 import styles from '../search/SearchResults.module.css';
 import searchStyles from '../search/search.module.css';
 
+const messages = defineMessages({
+  mediaTypeAudio: {
+    id: 'feedFilters.mediaTypeAudio',
+    defaultMessage: 'Audio',
+    description: 'Describes a media type.',
+  },
+  mediaTypeImage: {
+    id: 'feedFilters.mediaTypeImage',
+    defaultMessage: 'Image',
+    description: 'Describes a media type.',
+  },
+  mediaTypeVideo: {
+    id: 'feedFilters.mediaTypeVideo',
+    defaultMessage: 'Video',
+    description: 'Describes a media type.',
+  },
+  mediaTypeText: {
+    id: 'feedFilters.mediaTypeText',
+    defaultMessage: 'Text',
+    description: 'Describes a media type.',
+  },
+  mediaTypeLink: {
+    id: 'feedFilters.mediaTypeLink',
+    defaultMessage: 'Link',
+    description: 'Describes a media type.',
+  },
+});
+
 const FeedFilters = ({
   onSubmit,
+  filterOptions,
   currentFilters,
   feedTeam,
+  className,
+  disableSave,
+  intl,
   setFlashMessage,
 }) => {
   const [filters, setFilters] = React.useState({ ...currentFilters });
@@ -124,7 +159,7 @@ const FeedFilters = ({
   let filtersCount = 0;
 
   return (
-    <div className={styles['search-results-top']}>
+    <div className={cx(styles['search-results-top'], className)}>
       <div className={searchStyles['filters-wrapper']}>
         {Object.keys(filters).map((filter) => {
           const value = filters[filter];
@@ -163,7 +198,7 @@ const FeedFilters = ({
                 filterKey="range"
                 onChange={handleDateRange}
                 value={value || { request_created_at: {} }}
-                optionsToHide={['created_at', 'media_published_at', 'updated_at', 'report_published_at']}
+                optionsToHide={['created_at', 'media_published_at', 'report_published_at', 'request_created_at']}
                 onRemove={() => handleRemoveFilter('range')}
               />
             );
@@ -189,11 +224,45 @@ const FeedFilters = ({
             );
           }
 
+          if (filter === 'channels') {
+            filtersCount += 1;
+            return (
+              <SearchFieldChannel
+                key={filter}
+                query={{ channels: value }}
+                onChange={newValue => handleOptionChange('channels', newValue)}
+                page="feed"
+                onRemove={() => handleRemoveFilter('channels')}
+              />
+            );
+          }
+
+          if (filter === 'show') {
+            filtersCount += 1;
+            return (
+              <MultiSelectFilter
+                allowSearch={false}
+                label={<FormattedMessage id="feedFilters.mediaType" defaultMessage="Media (type)" description="Field label for feed filter" />}
+                icon={<DescriptionIcon />}
+                selected={value || []}
+                options={[
+                  { value: 'UploadedAudio', label: intl.formatMessage(messages.mediaTypeAudio) },
+                  { value: 'UploadedImage', label: intl.formatMessage(messages.mediaTypeImage) },
+                  { value: 'UploadedVideo', label: intl.formatMessage(messages.mediaTypeVideo) },
+                  { value: 'Claim', label: intl.formatMessage(messages.mediaTypeText) },
+                  { value: 'Link', label: intl.formatMessage(messages.mediaTypeLink) },
+                ]}
+                onChange={newValue => handleOptionChange('show', newValue)}
+                onRemove={() => handleRemoveFilter('show')}
+              />
+            );
+          }
+
           return null;
         })}
         <AddFilterMenu
           team={{}}
-          showOptions={['linked_items_count', 'demand', 'range', 'feed_fact_checked_by']}
+          showOptions={filterOptions}
           addedFields={Object.keys(filters)}
           onSelect={handleAddFilter}
         />
@@ -226,38 +295,47 @@ const FeedFilters = ({
             }}
           />
         ) : null }
-        <ButtonMain
-          variant="contained"
-          size="default"
-          theme="lightBrand"
-          buttonProps={{
-            id: 'save-list__button',
-          }}
-          onClick={handleSaveFilters}
-          label={
-            <FormattedMessage
-              id="feedFilters.saveFilters"
-              defaultMessage="Save"
-              description="'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
-            />
-          }
-        />
+        { !disableSave ?
+          <ButtonMain
+            variant="contained"
+            size="default"
+            theme="lightBrand"
+            buttonProps={{
+              id: 'save-list__button',
+            }}
+            onClick={handleSaveFilters}
+            label={
+              <FormattedMessage
+                id="feedFilters.saveFilters"
+                defaultMessage="Save"
+                description="'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
+              />
+            }
+          />
+          : null }
       </div>
     </div>
   );
 };
 
 FeedFilters.defaultProps = {
+  filterOptions: [],
   currentFilters: {},
+  className: '',
+  disableSave: false,
 };
 
 FeedFilters.propTypes = {
+  filterOptions: PropTypes.arrayOf(PropTypes.string.isRequired),
   currentFilters: PropTypes.object,
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     requests_filters: PropTypes.object,
   }).isRequired,
   onSubmit: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  disableSave: PropTypes.bool,
+  intl: intlShape.isRequired,
 };
 
-export default withSetFlashMessage(FeedFilters);
+export default withSetFlashMessage(injectIntl(FeedFilters));

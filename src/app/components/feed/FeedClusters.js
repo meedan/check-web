@@ -16,6 +16,7 @@ import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import FeedHeader from './FeedHeader';
 import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
+import FeedFilters from './FeedFilters';
 import styles from './FeedClusters.module.css';
 
 const pageSize = 10;
@@ -56,6 +57,7 @@ const FeedClustersComponent = ({
   sort,
   sortType,
   teamFilters,
+  otherFilters,
   onChangeSearchParams,
   intl,
 }) => {
@@ -68,7 +70,6 @@ const FeedClustersComponent = ({
       page: 1,
       sort: newSort,
       sortType: newSortType,
-      teamFilters,
     });
   };
 
@@ -76,9 +77,6 @@ const FeedClustersComponent = ({
     if (page > 1) {
       onChangeSearchParams({
         page: (page - 1),
-        sort,
-        sortType,
-        teamFilters,
       });
     }
   };
@@ -87,9 +85,6 @@ const FeedClustersComponent = ({
     if (endingIndex + 1 < feed.clusters_count) {
       onChangeSearchParams({
         page: (page + 1),
-        sort,
-        sortType,
-        teamFilters,
       });
     }
   };
@@ -97,9 +92,14 @@ const FeedClustersComponent = ({
   const handleChangeTeamFilters = (newTeamFilters) => {
     onChangeSearchParams({
       page: 1,
-      sort,
-      sortType,
       teamFilters: newTeamFilters,
+    });
+  };
+
+  const handleChangeFilters = (newFilters) => {
+    onChangeSearchParams({
+      otherFilters: newFilters,
+      page: 1,
     });
   };
 
@@ -115,7 +115,7 @@ const FeedClustersComponent = ({
 
   return (
     <React.Fragment>
-      <div className={searchResultsStyles['search-results-header']}>
+      <div className={cx(searchResultsStyles['search-results-header'], styles.feedClustersHeader)}>
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
             <FormattedMessage id="feedClusters.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />
@@ -137,6 +137,14 @@ const FeedClustersComponent = ({
           teamFilters={teamFilters}
           setTeamFilters={handleChangeTeamFilters}
           hideQuickFilterMenu
+        />
+        <FeedFilters
+          onSubmit={handleChangeFilters}
+          filterOptions={['channels', 'range', 'linked_items_count', 'show', 'demand']}
+          currentFilters={otherFilters}
+          feedTeam={{ id: feedTeam.id }}
+          className={styles.feedClustersFilterBar}
+          disableSave
         />
       </div>
       <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClusters)}>
@@ -193,28 +201,30 @@ const FeedClustersComponent = ({
           : null
         }
 
-        {clusters.map((cluster) => {
-          const { media } = cluster.center;
-          const channels = cluster.channels.filter(channel => Object.values(CheckChannels.TIPLINE).includes(channel.toString()));
+        <div className={styles.feedClustersList}>
+          {clusters.map((cluster) => {
+            const { media } = cluster.center;
+            const channels = cluster.channels.filter(channel => Object.values(CheckChannels.TIPLINE).includes(channel.toString()));
 
-          return (
-            <div key={cluster.id} className={cx('feed-clusters__card', styles.feedClusterCard)}>
-              <SharedItemCard
-                title={cluster.title || cluster.center.title}
-                description={cluster.center.description}
-                mediaThumbnail={{ media: { url: media.url, picture: media.picture, type: media.type } }}
-                workspaces={cluster.teams.edges.map(edge => ({ name: edge.node.name, url: edge.node.avatar }))}
-                date={cluster.last_fact_check_date && new Date(parseInt(cluster.last_fact_check_date, 10) * 1000)}
-                dataPoints={feed.data_points}
-                mediaCount={cluster.media_count}
-                requestsCount={cluster.requests_count}
-                lastRequestDate={cluster.last_request_date && new Date(parseInt(cluster.last_request_date, 10) * 1000)}
-                factCheckCount={cluster.fact_checks_count}
-                channels={channels.length > 0 && { main: channels[0], others: channels }}
-              />
-            </div>
-          );
-        })}
+            return (
+              <div key={cluster.id} className={cx('feed-clusters__card', styles.feedClusterCard)}>
+                <SharedItemCard
+                  title={cluster.title || cluster.center.title}
+                  description={cluster.center.description}
+                  mediaThumbnail={{ media: { url: media.url, picture: media.picture, type: media.type } }}
+                  workspaces={cluster.teams.edges.map(edge => ({ name: edge.node.name, url: edge.node.avatar }))}
+                  date={cluster.last_fact_check_date && new Date(parseInt(cluster.last_fact_check_date, 10) * 1000)}
+                  dataPoints={feed.data_points}
+                  mediaCount={cluster.media_count}
+                  requestsCount={cluster.requests_count}
+                  lastRequestDate={cluster.last_request_date && new Date(parseInt(cluster.last_request_date, 10) * 1000)}
+                  factCheckCount={cluster.fact_checks_count}
+                  channels={channels.length > 0 && { main: channels[0], others: channels }}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </React.Fragment>
   );
@@ -224,6 +234,7 @@ FeedClustersComponent.defaultProps = {
   page: 1,
   sort: 'title',
   sortType: 'ASC',
+  otherFilters: {},
 };
 
 FeedClustersComponent.propTypes = {
@@ -231,6 +242,7 @@ FeedClustersComponent.propTypes = {
   sort: PropTypes.oneOf(['title', 'media_count', 'requests_count', 'fact_checks_count', 'last_request_date']),
   sortType: PropTypes.oneOf(['ASC', 'DESC']),
   teamFilters: PropTypes.arrayOf(PropTypes.number).isRequired, // Array of team DBIDs
+  otherFilters: PropTypes.object,
   onChangeSearchParams: PropTypes.func.isRequired,
   team: PropTypes.shape({
     slug: PropTypes.string.isRequired,
@@ -298,23 +310,46 @@ const FeedClusters = ({ teamSlug, feedId }) => {
     sort: 'title',
     sortType: 'ASC',
     teamFilters: null,
+    otherFilters: {},
   });
   const {
     page,
     sort,
     sortType,
     teamFilters,
+    otherFilters,
   } = searchParams;
 
-  const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType, teamFilters } - a single state for a single query/render
-    setSearchParams(newSearchParams);
+  const handleChangeSearchParams = (newSearchParams) => { // { page, sort, sortType, teamFilters, ...otherFilters } - a single state for a single query/render
+    setSearchParams(Object.assign({}, searchParams, newSearchParams));
   };
+
+  // Set filters for the query
+  const filters = {};
+  if (otherFilters.channels) {
+    filters.channels = otherFilters.channels.map(channel => parseInt(channel, 10));
+  }
+  if (otherFilters.show) {
+    filters.mediaType = otherFilters.show;
+  }
+  if (otherFilters.range?.request_created_at) {
+    filters.date = JSON.stringify(otherFilters.range.request_created_at);
+  }
+  if (otherFilters.linked_items_count) {
+    filters.mediasCountMin = otherFilters.linked_items_count.min;
+    filters.mediasCountMax = otherFilters.linked_items_count.max;
+  }
+  if (otherFilters.demand) {
+    filters.requestsCountMin = otherFilters.demand.min;
+    filters.requestsCountMax = otherFilters.demand.max;
+  }
 
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query FeedClustersQuery($slug: String!, $feedId: Int!, $pageSize: Int!, $offset: Int!, $sort: String, $sortType: String, $teamFilters: [Int]) {
+        query FeedClustersQuery($slug: String!, $feedId: Int!, $pageSize: Int!, $offset: Int!, $sort: String, $sortType: String, $teamFilters: [Int], $channels: [Int],
+                                $mediaType: [String], $date: String, $mediasCountMin: Int, $mediasCountMax: Int, $requestsCountMin: Int, $requestsCountMax: Int) {
           team(slug: $slug) {
             slug
             ...FeedTopBar_team
@@ -324,6 +359,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
               data_points
               saved_search_id
               current_feed_team {
+                id
                 saved_search_id
                 ...FeedHeader_feedTeam
               }
@@ -334,8 +370,10 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                   }
                 }
               }
-              clusters_count(team_ids: $teamFilters)
-              clusters(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, team_ids: $teamFilters) {
+              clusters_count(team_ids: $teamFilters, channels: $channels, media_type: $mediaType, last_request_date: $date,
+                             medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax, requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax)
+              clusters(first: $pageSize, offset: $offset, sort: $sort, sort_type: $sortType, team_ids: $teamFilters, channels: $channels, media_type: $mediaType, last_request_date: $date,
+                       medias_count_min: $mediasCountMin, medias_count_max: $mediasCountMax, requests_count_min: $requestsCountMin, requests_count_max: $requestsCountMax) {
                 edges {
                   node {
                     id
@@ -380,6 +418,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
         sortType,
         offset: pageSize * (page - 1),
         teamFilters,
+        ...filters,
       }}
       render={({ error, props }) => {
         if (!error && props) {
@@ -392,6 +431,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
               sort={sort}
               sortType={sortType}
               teamFilters={teamFilters || props.team.feed.teams.edges.map(team => team.node.dbid)}
+              otherFilters={otherFilters}
               onChangeSearchParams={handleChangeSearchParams}
             />
           );

@@ -128,6 +128,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'report_status',
               'show',
               'unmatched',
+              'verification_status',
             ]}
             {...commonSearchProps}
             title={feed.name}
