@@ -285,6 +285,7 @@ const SmoochBotMainMenuSection = ({
       { editingOptionIndex > -1 ?
         <SmoochBotMainMenuOption
           menu={menu}
+          id={options[editingOptionIndex].smooch_menu_option_id}
           resources={resources}
           onSave={handleSaveOption}
           onCancel={handleCancel}
