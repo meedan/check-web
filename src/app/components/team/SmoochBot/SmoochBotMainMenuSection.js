@@ -56,7 +56,7 @@ const SmoochBotMainMenuSection = ({
     setEditingOptionIndex(-1);
   };
 
-  const buildOption = (label, description, action) => {
+  const buildOption = (label, description, action, keywords) => {
     // If it's a sequence of digits, then it represents a resource
     if (/^[0-9]+$/.test(action)) {
       return {
@@ -65,6 +65,7 @@ const SmoochBotMainMenuSection = ({
         smooch_menu_custom_resource_id: action,
         smooch_menu_option_label: label,
         smooch_menu_option_description: description,
+        smooch_menu_option_nlu_keywords: keywords,
         smooch_menu_project_media_title: '',
         smooch_menu_project_media_id: '',
       };
@@ -74,6 +75,7 @@ const SmoochBotMainMenuSection = ({
       smooch_menu_option_value: action,
       smooch_menu_option_label: label,
       smooch_menu_option_description: description,
+      smooch_menu_option_nlu_keywords: keywords,
       smooch_menu_project_media_title: '',
       smooch_menu_project_media_id: '',
     };
@@ -87,8 +89,8 @@ const SmoochBotMainMenuSection = ({
     setShowNewOptionDialog(false);
   };
 
-  const handleSaveOption = (label, description, action) => {
-    const newOption = buildOption(label, description, action);
+  const handleSaveOption = (label, description, action, keywords) => {
+    const newOption = buildOption(label, description, action, keywords);
     const newOptions = options.slice();
     newOptions[editingOptionIndex] = newOption;
     onChangeMenuOptions(newOptions);
