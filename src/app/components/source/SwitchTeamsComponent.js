@@ -116,8 +116,9 @@ class SwitchTeamsComponent extends Component {
           title={
             <FormattedMessage
               id="userSettings.workspacesTitle"
-              defaultMessage="Workspaces"
+              defaultMessage="Workspaces [{workspacesCount}]"
               description="Title for user settings area for user workspaces list they are a memeber of"
+              values={{ workspacesCount: user?.number_of_teams || 0 }}
             />
           }
           actionButton={

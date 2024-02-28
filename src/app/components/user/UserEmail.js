@@ -4,8 +4,6 @@ import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
-import ConfirmEmail from './ConfirmEmail';
-import CheckContext from '../../CheckContext';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
@@ -68,14 +66,8 @@ class UserEmail extends React.Component {
   };
 
   render() {
-    const { currentUser } = new CheckContext(this).getContextStore();
-
-    if ((currentUser && currentUser.dbid) !== this.props.user.dbid) {
-      return null;
-    }
-
     if (this.props.user.unconfirmed_email) {
-      return <><ConfirmEmail user={this.props.user} /><br /></>;
+      return null;
     } else if (!this.props.user.email && window.storage.getValue('dismiss-user-email-nudge') !== '1') {
       return (
         <div className={styles['user-email']}>

@@ -8,12 +8,13 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TextField from '../cds/inputs/TextField';
 import SourcePicture from './SourcePicture';
+import ConfirmEmail from '../user/ConfirmEmail';
 import UploadFile from '../UploadFile';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
-import { getErrorMessage } from '../../helpers';
+import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import styles from './User.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
@@ -369,6 +370,10 @@ class UserInfoEdit extends React.Component {
         </div>
 
         <div className={cx(styles['user-info-primary'], styles['user-setting-content-container'])}>
+          { user.unconfirmed_email ?
+            <><ConfirmEmail user={user} /><br /></>
+            : null
+          }
           <form
             onSubmit={this.handleSubmit.bind(this)}
             name="edit-source-form"
@@ -392,6 +397,19 @@ class UserInfoEdit extends React.Component {
                 className={cx('source__name-input', inputStyles['form-fieldset-field'])}
                 defaultValue={user.name}
                 label={this.props.intl.formatMessage(messages.sourceName)}
+                helpContent={
+                  <FormattedMessage
+                    id="userInfoEdit.dateJoined"
+                    defaultMessage="Joined {date}"
+                    description="Informational line showing the user the date their account was created on check"
+                    values={{
+                      date: this.props.intl.formatDate(
+                        parseStringUnixTimestamp(user.source.created_at),
+                        { year: 'numeric', month: 'short', day: '2-digit' },
+                      ),
+                    }}
+                  />
+                }
               />
               <TextField
                 componentProps={{

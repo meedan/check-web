@@ -22,7 +22,7 @@ const UserInfo = (props) => {
   const isUserSelf = (props.user?.dbid && props.user?.dbid === props.context?.currentUser?.dbid);
 
   return (
-    <>
+    <div className={styles['user-info-edit']}>
       <div className={styles['user-info-avatar']}>
         <SourcePicture
           size="large"
@@ -32,7 +32,7 @@ const UserInfo = (props) => {
         />
       </div>
 
-      <div className={styles['user-info-primary']}>
+      <div className={cx(styles['user-info-primary'], styles['user-setting-content-container'])}>
         <div className="source__primary-info">
           <div className={cx(styles['user-info-name'])}>
             <h5 className="source__name">{props.user.name}</h5>
@@ -78,7 +78,7 @@ const UserInfo = (props) => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

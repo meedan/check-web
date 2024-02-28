@@ -7,7 +7,7 @@
   {
     "id": "userSettings.workspacesTitle",
     "description": "Title for user settings area for user workspaces list they are a memeber of",
-    "defaultMessage": "Workspaces"
+    "defaultMessage": "Workspaces [{workspacesCount}]"
   },
   {
     "id": "switchTeams.newTeamLink",
