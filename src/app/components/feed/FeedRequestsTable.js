@@ -148,7 +148,12 @@ const FeedRequestsTable = ({
         </div>
         { typeof tabs === 'function' && tabs({}) }
       </div>
-      <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} feedTeam={feedTeam} />
+      <FeedFilters
+        feedTeam={feedTeam}
+        filterOptions={['linked_items_count', 'demand', 'range', 'feed_fact_checked_by']}
+        currentFilters={filters}
+        onSubmit={onChangeFilters}
+      />
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         {totalCount ?
           <div className={styles['search-results-toolbar']}>
