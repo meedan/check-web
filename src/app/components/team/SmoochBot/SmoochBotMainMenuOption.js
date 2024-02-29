@@ -14,6 +14,7 @@ const SmoochBotMainMenuOption = ({
   currentKeywords,
   currentLanguage,
   menu,
+  id,
   index,
   resources,
   hasUnsavedChanges,
@@ -30,7 +31,7 @@ const SmoochBotMainMenuOption = ({
   const handleSave = () => {
     setSubmitted(true);
     if (text && value) {
-      onSave(text, description, value, currentKeywords);
+      onSave(text, description, value, id, currentKeywords);
     }
     if (keywordsUpdated) {
       // Reload the page so settings are refreshed
@@ -192,6 +193,7 @@ SmoochBotMainMenuOption.defaultProps = {
   currentLanguage: null,
   currentKeywords: [],
   index: null,
+  id: '',
   hasUnsavedChanges: false,
 };
 
@@ -205,6 +207,7 @@ SmoochBotMainMenuOption.propTypes = {
   currentLanguage: PropTypes.string,
   menu: PropTypes.oneOf(['main', 'secondary']).isRequired,
   index: PropTypes.number,
+  id: PropTypes.string,
   hasUnsavedChanges: PropTypes.bool,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
