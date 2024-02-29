@@ -27,6 +27,11 @@ import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 
 const messages = defineMessages({
+  sortTitle: {
+    id: 'searchResults.sortTitle',
+    defaultMessage: 'Title',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
   sortDateUpdated: {
     id: 'searchResults.sortDateUpdated',
     defaultMessage: 'Date updated',
@@ -483,6 +488,7 @@ function SearchResultsComponent({
                       sort={stateQuery.sort}
                       sortType={stateQuery.sort_type}
                       options={[
+                        { value: 'title', label: intl.formatMessage(messages.sortTitle) },
                         { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
                         { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
                       ]}

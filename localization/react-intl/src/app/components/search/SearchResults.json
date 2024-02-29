@@ -1,5 +1,10 @@
 [
   {
+    "id": "searchResults.sortTitle",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Title"
+  },
+  {
     "id": "searchResults.sortDateUpdated",
     "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
     "defaultMessage": "Date updated"

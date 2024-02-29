@@ -1,5 +1,30 @@
 [
   {
+    "id": "feedFilters.mediaTypeAudio",
+    "description": "Describes a media type.",
+    "defaultMessage": "Audio"
+  },
+  {
+    "id": "feedFilters.mediaTypeImage",
+    "description": "Describes a media type.",
+    "defaultMessage": "Image"
+  },
+  {
+    "id": "feedFilters.mediaTypeVideo",
+    "description": "Describes a media type.",
+    "defaultMessage": "Video"
+  },
+  {
+    "id": "feedFilters.mediaTypeText",
+    "description": "Describes a media type.",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "feedFilters.mediaTypeLink",
+    "description": "Describes a media type.",
+    "defaultMessage": "Link"
+  },
+  {
     "id": "feedFilters.defaultErrorMessage",
     "description": "Error message displayed when it's not possible to save feed requests filters",
     "defaultMessage": "Could not save filters, please try again"
@@ -25,14 +50,19 @@
     "defaultMessage": "No organization"
   },
   {
+    "id": "feedFilters.mediaType",
+    "description": "Field label for feed filter",
+    "defaultMessage": "Media (type)"
+  },
+  {
     "id": "feedFilters.applyFilters",
     "description": "Button to perform query with specified filters",
     "defaultMessage": "Apply"
   },
   {
-    "id": "feedFilters.clear",
+    "id": "feedFilters.reset",
     "description": "Tooltip for button to remove any applied filters",
-    "defaultMessage": "Clear"
+    "defaultMessage": "Reset"
   },
   {
     "id": "feedFilters.saveFilters",

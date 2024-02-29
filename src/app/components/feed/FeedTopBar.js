@@ -17,6 +17,7 @@ const FeedTopBar = ({
   team,
   feed,
   teamFilters,
+  hideQuickFilterMenu,
   setTeamFilters,
 }) => {
   const hasList = Boolean(feed.saved_search);
@@ -58,9 +59,9 @@ const FeedTopBar = ({
     if (!enabled) {
       message = (
         <FormattedMessage
-          id="feedTopBar.showFactChecks"
-          defaultMessage="Show fact-checks from {orgName}"
-          description="Tooltip message displayed on button that the user presses in order to show fact-checks from an organization."
+          id="feedTopBar.showItems"
+          defaultMessage="Show items from {orgName}"
+          description="Tooltip message displayed on button that the user presses in order to show items from an organization."
           values={{
             orgName: name,
           }}
@@ -69,9 +70,9 @@ const FeedTopBar = ({
     } else {
       message = (
         <FormattedMessage
-          id="feedTopBar.hideFactChecks"
-          defaultMessage="Hide fact-checks from {orgName}"
-          description="Tooltip message displayed on button that the user presses in order to hide fact-checks from an organization."
+          id="feedTopBar.hideItems"
+          defaultMessage="Hide items from {orgName}"
+          description="Tooltip message displayed on button that the user presses in order to hide items from an organization."
           values={{
             orgName: name,
           }}
@@ -193,17 +194,22 @@ const FeedTopBar = ({
         </Can>
       </div>
       <div className={`${styles.feedTopBarRight} feed-top-bar-right`}>
-        <QuickFilterMenu
-          setTeamFilters={setTeamFilters}
-          currentOrg={currentOrg}
-          teamsWithoutCurrentOrg={teamsWithoutCurrentOrg}
-        />
+        { !hideQuickFilterMenu ?
+          <QuickFilterMenu
+            setTeamFilters={setTeamFilters}
+            currentOrg={currentOrg}
+            teamsWithoutCurrentOrg={teamsWithoutCurrentOrg}
+          /> :
+          null
+        }
       </div>
     </div>
   );
 };
 
-FeedTopBar.defaultProps = {};
+FeedTopBar.defaultProps = {
+  hideQuickFilterMenu: false,
+};
 
 FeedTopBar.propTypes = {
   team: PropTypes.shape({
@@ -218,6 +224,9 @@ FeedTopBar.propTypes = {
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,
+  teamFilters: PropTypes.arrayOf(PropTypes.number).isRequired, // Array of team DBIDs
+  setTeamFilters: PropTypes.func.isRequired,
+  hideQuickFilterMenu: PropTypes.bool,
 };
 
 // Used in unit test
