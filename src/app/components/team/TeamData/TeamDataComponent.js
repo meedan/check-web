@@ -99,6 +99,16 @@ const messages = defineMessages({
     defaultMessage: 'Number of user searches that did not return a report.',
     description: messagesDescription,
   },
+  positiveFeedback: {
+    id: 'teamDataComponent.positiveFeedback',
+    defaultMessage: 'Number of conversations that returned at least one result and the user answered "Yes".',
+    description: messagesDescription,
+  },
+  negativeFeedback: {
+    id: 'teamDataComponent.negativeFeedback',
+    defaultMessage: 'Number of conversations that returned at least one result and the user answered "No".',
+    description: messagesDescription,
+  },
   newslettersSent: {
     id: 'teamDataComponent.newslettersSent',
     defaultMessage: 'The total number of newsletters sent to subscribers.',
@@ -193,6 +203,8 @@ const TeamDataComponent = ({
     'Total newsletters delivered': intl.formatMessage(messages.newslettersDelivered),
     'Positive searches': intl.formatMessage(messages.positiveSearches),
     'Negative searches': intl.formatMessage(messages.negativeSearches),
+    'Positive feedback': intl.formatMessage(messages.positiveFeedback),
+    'Negative feedback': intl.formatMessage(messages.negativeFeedback),
     'Total newsletters sent': intl.formatMessage(messages.newslettersSent),
   };
 
