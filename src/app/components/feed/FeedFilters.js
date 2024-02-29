@@ -156,8 +156,6 @@ const FeedFilters = ({
     setFilters(newFilters);
   };
 
-  let filtersCount = 0;
-
   return (
     <div className={cx(styles['search-results-top'], className)}>
       <div className={searchStyles['filters-wrapper']}>
@@ -165,7 +163,6 @@ const FeedFilters = ({
           const value = filters[filter];
 
           if (filter === 'linked_items_count') {
-            filtersCount += 1;
             return (
               <NumericRangeFilter
                 key={filter}
@@ -178,7 +175,6 @@ const FeedFilters = ({
           }
 
           if (filter === 'demand') {
-            filtersCount += 1;
             return (
               <NumericRangeFilter
                 key={filter}
@@ -191,7 +187,6 @@ const FeedFilters = ({
           }
 
           if (filter === 'range') {
-            filtersCount += 1;
             return (
               <DateRangeFilter
                 key={filter}
@@ -205,7 +200,6 @@ const FeedFilters = ({
           }
 
           if (filter === 'feed_fact_checked_by') {
-            filtersCount += 1;
             return (
               <MultiSelectFilter
                 key={filter}
@@ -225,7 +219,6 @@ const FeedFilters = ({
           }
 
           if (filter === 'channels') {
-            filtersCount += 1;
             return (
               <SearchFieldChannel
                 key={filter}
@@ -238,7 +231,6 @@ const FeedFilters = ({
           }
 
           if (filter === 'show') {
-            filtersCount += 1;
             return (
               <MultiSelectFilter
                 allowSearch={false}
@@ -267,34 +259,33 @@ const FeedFilters = ({
           onSelect={handleAddFilter}
         />
         <Divider orientation="vertical" flexItem style={{ margin: '0 8px' }} />
-        <ButtonMain
-          className="int-search-fields__button--apply-feedfilter"
-          variant="contained"
-          size="default"
-          theme="lightValidation"
-          onClick={handleSubmit}
-          label={
-            <FormattedMessage id="feedFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
-          }
-          buttonProps={{
-            id: 'search-fields__submit-button',
-          }}
-        />
-        { filtersCount > 0 ? (
+        { Object.keys(filters).length > 0 ?
           <ButtonMain
-            className="int-search-fields__button--reset-feedfilter"
+            className="int-search-fields__button--apply-feedfilter"
             variant="contained"
             size="default"
-            theme="lightText"
-            onClick={handleClear}
+            theme="lightValidation"
+            onClick={handleSubmit}
             label={
-              <FormattedMessage id="feedFilters.clear" defaultMessage="Clear" description="Tooltip for button to remove any applied filters" />
+              <FormattedMessage id="feedFilters.applyFilters" defaultMessage="Apply" description="Button to perform query with specified filters" />
             }
             buttonProps={{
-              id: 'search-fields__clear-button',
+              id: 'search-fields__submit-button',
             }}
-          />
-        ) : null }
+          /> : null }
+        <ButtonMain
+          className="int-search-fields__button--reset-feedfilter"
+          variant="contained"
+          size="default"
+          theme="lightText"
+          onClick={handleClear}
+          label={
+            <FormattedMessage id="feedFilters.reset" defaultMessage="Reset" description="Tooltip for button to remove any applied filters" />
+          }
+          buttonProps={{
+            id: 'search-fields__clear-button',
+          }}
+        />
         { !disableSave ?
           <ButtonMain
             variant="contained"

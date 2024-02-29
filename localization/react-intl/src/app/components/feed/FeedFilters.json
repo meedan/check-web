@@ -60,9 +60,9 @@
     "defaultMessage": "Apply"
   },
   {
-    "id": "feedFilters.clear",
+    "id": "feedFilters.reset",
     "description": "Tooltip for button to remove any applied filters",
-    "defaultMessage": "Clear"
+    "defaultMessage": "Reset"
   },
   {
     "id": "feedFilters.saveFilters",
