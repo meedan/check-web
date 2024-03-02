@@ -1,13 +1,13 @@
 [
   {
-    "id": "feedTopBar.showFactChecks",
-    "description": "Tooltip message displayed on button that the user presses in order to show fact-checks from an organization.",
-    "defaultMessage": "Show fact-checks from {orgName}"
+    "id": "feedTopBar.showItems",
+    "description": "Tooltip message displayed on button that the user presses in order to show items from an organization.",
+    "defaultMessage": "Show items from {orgName}"
   },
   {
-    "id": "feedTopBar.hideFactChecks",
-    "description": "Tooltip message displayed on button that the user presses in order to hide fact-checks from an organization.",
-    "defaultMessage": "Hide fact-checks from {orgName}"
+    "id": "feedTopBar.hideItems",
+    "description": "Tooltip message displayed on button that the user presses in order to hide items from an organization.",
+    "defaultMessage": "Hide items from {orgName}"
   },
   {
     "id": "feedTopBar.noListSelected",
