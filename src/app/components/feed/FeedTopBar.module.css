@@ -48,6 +48,16 @@
     }
   }
 
+  .feedTopBarButtonHasList {
+    padding: 6px 42px 6px 6px;
+  }
+
+  .feedTopBarCustomListButton {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+  }
+
   .feedTopBarList {
     align-items: center;
     display: flex;

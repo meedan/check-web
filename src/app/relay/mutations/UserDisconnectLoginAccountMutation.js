@@ -7,8 +7,8 @@ class UserDisconnectLoginAccountMutation extends Relay.Mutation {
 
   getFatQuery() {
     return Relay.QL`fragment on UserDisconnectLoginAccountPayload {
-      success, user
-      {
+      success,
+      user {
         id,
         providers,
         source {

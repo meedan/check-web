@@ -21,7 +21,7 @@
   },
   {
     "id": "sourceInfo.saved",
-    "description": "Caption value for how long ago a save occured",
+    "description": "Caption value for how long ago a save occurred",
     "defaultMessage": "Saved {ago}"
   },
   {

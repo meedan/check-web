@@ -74,7 +74,7 @@ const SearchFieldChannelComponent = ({
   const nonTiplines = Object.keys(channels).filter(key => key !== 'TIPLINE').map(key => ({ label: optionLabels[key], value: `${channels[key]}` }));
   const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: optionLabels[key], value: `${channels.TIPLINE[key]}`, parent: 'any_tipline' }));
 
-  if (page !== 'tipline-inbox') {
+  if (page !== 'tipline-inbox' && page !== 'feed') {
     options = options.concat(nonTiplines);
   }
 

@@ -125,7 +125,7 @@ class CheckContext {
     const newContext = {};
     if (team) {
       newContext.team = team;
-      path += `/${team.slug}`;
+      path += `/${team.slug}/all-items`;
     }
     if (project) {
       newContext.project = project;
@@ -139,7 +139,7 @@ class CheckContext {
   // When accessing Check root, redirect to a friendlier location if needed:
   // - if user was on a previous page before logging in, go to that previous page
   // - if no team, go to `/check/me/workspaces`
-  // - if team go to team root
+  // - if team go to team root all items
   maybeRedirect(location, userData) {
     if (location !== '/' || this.getTeamSlug() || !userData) return;
 

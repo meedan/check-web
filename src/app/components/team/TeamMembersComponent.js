@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChangeUserRole from './ChangeUserRole';
@@ -20,31 +17,9 @@ import SettingsHeader from './SettingsHeader';
 import TeamMemberActions from './TeamMemberActions';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
 import settingsStyles from './Settings.module.css';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
-
-const useStyles = makeStyles(theme => ({
-  pending: {
-    border: '1px solid var(--textPrimary)',
-    padding: theme.spacing(0.5),
-    marginTop: theme.spacing(0.5),
-    borderRadius: '5px',
-  },
-  mainCell: {
-    maxWidth: theme.spacing(60),
-    overflow: 'hidden',
-  },
-  dateCell: {
-    minWidth: theme.spacing(18),
-    whiteSpace: 'nowrap',
-  },
-  textEllipsis: {
-    maxWidth: theme.spacing(40),
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-}));
+import ScheduleSendIcon from '../../icons/schedule_send.svg';
 
 const TeamMembersComponent = ({
   team,
@@ -52,7 +27,6 @@ const TeamMembersComponent = ({
   const [inviteDialogOpen, setInviteDialogOpen] = React.useState(false);
   const [sortParam, setSortParam] = React.useState(null);
   const [sortDirection, setSortDirection] = React.useState('asc');
-  const classes = useStyles();
 
   const toggleSort = (param) => {
     setSortParam(param);
@@ -114,10 +88,10 @@ const TeamMembersComponent = ({
       />
       <div className={cx(settingsStyles['setting-details-wrapper'])}>
         <div className={settingsStyles['setting-content-container']}>
-          <Table>
+          <Table className={settingsStyles['teammembers-table']}>
             <TableHead>
               <TableRow>
-                <TableCell className={classes.mainCell}>
+                <TableCell className={settingsStyles['main-cell']}>
                   <FormattedMessage
                     id="teamMembers.tableHeaderName"
                     defaultMessage="Name"
@@ -135,7 +109,7 @@ const TeamMembersComponent = ({
                     )}
                   </FormattedMessage>
                 </TableCell>
-                <TableCell className={classes.dateCell}>
+                <TableCell className={settingsStyles['date-cell']}>
                   <FormattedMessage
                     id="teamMembers.tableHeaderLastActive"
                     defaultMessage="Last active"
@@ -174,48 +148,59 @@ const TeamMembersComponent = ({
                 <TableCell padding="checkbox" />
               </TableRow>
             </TableHead>
-            <TableBody>
+            <tbody>
               { sortedMembers.filter(tu => !tu.node.user.is_bot).map(tu => (
                 <TableRow key={tu.node.id} className="team-members__user-row">
-                  <TableCell className={classes.mainCell}>
-                    <StyledTwoColumns>
-                      <StyledSmallColumn>
+                  <TableCell className={settingsStyles['main-cell']}>
+                    <div className={settingsStyles['teammembers-table-identity']}>
+                      { tu.node.status === 'invited' ? (
+                        <div className={settingsStyles['teammembers-table-identity-pending']}>
+                          <ScheduleSendIcon />
+                        </div>
+                      ) : (
                         <Avatar alt={tu.node.user.name} src={tu.node.user.profile_image} />
-                      </StyledSmallColumn>
-                      <StyledBigColumn>
+                      )}
+                      <div
+                        className={cx(
+                          settingsStyles['teammembers-table-identity-status'],
+                          {
+                            [settingsStyles['teammembers-table-identity-invited']]: tu.node.status === 'invited',
+                          })
+                        }
+                      >
                         { tu.node.status === 'invited' ? (
                           <React.Fragment>
-                            <div
+                            <FormattedMessage
+                              id="teamMembers.pending"
+                              defaultMessage="Invitation Sent - pending"
+                              description="Label for invite pending acceptance"
+                            />
+                            <small
                               title={tu.node.user.email}
-                              className={classes.textEllipsis}
+                              className={settingsStyles['text-truncate']}
                             >
                               {tu.node.user.email}
-                            </div>
-                            <Box mt={0.5}>
-                              <span className={classes.pending}>
-                                <FormattedMessage
-                                  id="teamMembers.pending"
-                                  defaultMessage="Pending"
-                                  description="Label for invite pending acceptance"
-                                />
-                              </span>
-                            </Box>
+                            </small>
                           </React.Fragment>
                         ) : (
                           <React.Fragment>
-                            <div className={classes.textEllipsis}>{tu.node.user.name}</div>
-                            <div
-                              title={tu.node.user.email}
-                              className={classes.textEllipsis}
-                            >
-                              {tu.node.user.email}
+                            <div className={settingsStyles['text-truncate']}>
+                              {tu.node.user.name}
                             </div>
+                            { tu.node.user.email &&
+                              <div
+                                title={tu.node.user.email}
+                                className={settingsStyles['text-truncate']}
+                              >
+                                {tu.node.user.email}
+                              </div>
+                            }
                           </React.Fragment>
                         )}
-                      </StyledBigColumn>
-                    </StyledTwoColumns>
+                      </div>
+                    </div>
                   </TableCell>
-                  <TableCell className={classes.dateCell}>
+                  <TableCell className={settingsStyles['date-cell']}>
                     { tu.node.user.last_active_at ?
                       <TimeBefore date={new Date(tu.node.user.last_active_at * 1000)} />
                       : '-'
@@ -229,7 +214,7 @@ const TeamMembersComponent = ({
                   </TableCell>
                 </TableRow>
               ))}
-            </TableBody>
+            </tbody>
           </Table>
           <InviteDialog
             team={team}

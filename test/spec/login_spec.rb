@@ -26,7 +26,7 @@ shared_examples 'login' do
     wait_for_selector('#invite-dialog__submit').click
     wait_for_selector_list_size('.team-members__user-row', 2)
     expect(@driver.page_source.include?('user-email@email.com')).to be(true)
-    expect(@driver.page_source.include?('Pending')).to be(true)
+    expect(@driver.page_source.include?('Invitation Sent - pending')).to be(true)
   end
 
   it 'should not reset password', bin2: true do

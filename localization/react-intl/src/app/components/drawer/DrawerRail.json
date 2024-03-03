@@ -18,5 +18,10 @@
     "id": "workspaceMenu.teamLegal",
     "description": "Legal link tooltip in drawer rail navigation",
     "defaultMessage": "About"
+  },
+  {
+    "id": "workspaceMenu.teamFeeds",
+    "description": "Tooltip for drawer navigation to shared feeds",
+    "defaultMessage": "Shared Feeds"
   }
 ]

@@ -26,7 +26,6 @@ import Trash from './team/Trash';
 import CreateFeed from './feed/CreateFeed';
 import EditFeedTeam from './feed/EditFeedTeam';
 import Feed from './feed/Feed';
-import FeedItem from './feed/FeedItem';
 import FeedClusterPage from './feed/FeedClusterPage';
 import FeedInvitation from './feed/FeedInvitation';
 import FeedInvitationRespond from './feed/FeedInvitationRespond';
@@ -38,6 +37,7 @@ import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
 import Sandbox from './Sandbox';
 import SandboxCrash from './SandboxCrash';
+import FeedPage from './feed/FeedPage';
 
 class Root extends Component {
   static logPageView() {
@@ -82,7 +82,6 @@ class Root extends Component {
                   <Route path="check/me/ui-sandbox/crash" component={SandboxCrash} />
                   <Route path="check/me(/:tab)" component={Me} />
                   <Route path="check/feed/:feedId/invitation" component={FeedInvitation} splash />
-                  <Route path="check/feed/:feedId/cluster/:clusterId" component={FeedItem} />
                   <Route path="check/feed/:feedId/request/:requestId" component={FeedClusterPage} />
                   <Route path=":team" component={Team} />
                   <Route path=":team/settings(/:tab)" component={Team} />
@@ -113,6 +112,7 @@ class Root extends Component {
                   <Route path=":team/unmatched-media(/:query)" component={UnmatchedMedia} />
                   <Route path=":team/published(/:query)" component={Published} />
                   <Route path=":team/feed/create" component={CreateFeed} />
+                  <Route path=":team/feeds" component={FeedPage} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
                   <Route path=":team/feed/:feedId/invitation" component={FeedInvitationRespond} />
                   <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />

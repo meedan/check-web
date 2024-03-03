@@ -8,7 +8,6 @@ import TextField from '../cds/inputs/TextField';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessage } from '../../helpers';
-import { avatarSizeLarge } from '../../styles/js/shared';
 import CreateTeamDialog from './CreateTeamDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamAvatar from './TeamAvatar';
@@ -134,7 +133,7 @@ const TeamDetails = ({
         <div className={styles['team-details-avatar']}>
           <TeamAvatar
             team={avatar && avatar.preview ? { avatar: avatar.preview } : { avatar: team.avatar }}
-            size={avatarSizeLarge}
+            size="72px"
           />
           { !editProfileImg ?
             <ButtonMain

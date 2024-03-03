@@ -90,14 +90,6 @@
     .newsletter-scheduler-title {
       align-items: center;
       display: flex;
-
-      .tooltip-icon {
-        color: var(--textSecondary);
-        display: inline-block;
-        font-size: var(--iconSizeSmall);
-        margin: 0 0 1px 6px;
-        vertical-align: middle;
-      }
     }
 
     .newsletter-scheduler-schedule {

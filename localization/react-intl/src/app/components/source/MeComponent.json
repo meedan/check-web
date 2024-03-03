@@ -1,0 +1,17 @@
+[
+  {
+    "id": "meComponent.teams",
+    "description": "Label of the workspaces tab in the user profile page",
+    "defaultMessage": "Workspaces"
+  },
+  {
+    "id": "meComponents.privacy",
+    "description": "Label of the privacy tab in the user profile page",
+    "defaultMessage": "Privacy"
+  },
+  {
+    "id": "meComponents.security",
+    "description": "Label of the security tab in the user profile page",
+    "defaultMessage": "Security"
+  }
+]

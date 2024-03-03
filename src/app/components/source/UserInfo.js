@@ -1,19 +1,26 @@
 import React from 'react';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import AccountChips from './AccountChips';
 import Can from '../Can';
-import ParsedText from '../ParsedText';
-import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
+import { parseStringUnixTimestamp } from '../../helpers';
 import SourcePicture from './SourcePicture';
 import { logout } from '../../redux/actions.js';
 import IconEdit from '../../icons/edit.svg';
-import styles from './UserInfo.module.css';
+import styles from './User.module.css';
+
+const messages = defineMessages({
+  editTooltip: {
+    id: 'global.edit',
+    defaultMessage: 'Edit',
+    description: 'Generic label for a button or link for a user to press when they wish to edit content or functionality',
+  },
+});
 
 const UserInfo = (props) => {
   if (props.user.source === null) return null;
+  const isUserSelf = (props.user?.dbid && props.user?.dbid === props.context?.currentUser?.dbid);
 
   return (
     <div className={styles['user-info-wrapper']}>
@@ -38,27 +45,17 @@ const UserInfo = (props) => {
                 size="default"
                 className="source__edit-source-button"
                 onClick={() => {
-                  if (props.user.dbid === props.context.currentUser.dbid) {
+                  if (isUserSelf) {
                     browserHistory.push('/check/me/edit');
                   } else {
                     browserHistory.push(`/check/user/${props.user.dbid}/edit`);
                   }
                 }}
-                title={<FormattedMessage id="global.edit" defaultMessage="Edit" description="Generic label for a button or link for a user to press when they wish to edit content or functionality" />}
+                title={props.intl.formatMessage(messages.editTooltip)}
               />
             </Can>
           </div>
-          <div className={styles['user-info-description']}>
-            <p className="typography-subtitle1">
-              <ParsedText text={truncateLength(props.user.source.description, 600)} />
-            </p>
-          </div>
         </div>
-
-        <AccountChips
-          accounts={props.user.source.account_sources.edges.map(as => as.node.account)}
-        />
-
         <div className={styles['contact-info']}>
           <FormattedMessage
             id="userInfo.dateJoined"
@@ -77,24 +74,27 @@ const UserInfo = (props) => {
             defaultMessage="{teamsCount, plural, one {# workspace} other {# workspaces}}"
             description="Count of how many work spaces this user account can access"
             values={{
-              teamsCount: props.user.team_users.edges.length || 0,
+              teamsCount: props.user?.number_of_teams || 0,
             }}
           />
         </div>
-        <ButtonMain
-          className="user-menu__logout"
-          variant="contained"
-          theme="lightText"
-          size="default"
-          onClick={logout}
-          label={
-            <FormattedMessage
-              id="UserMenu.signOut"
-              defaultMessage="Sign Out"
-              description="This is the sign out button on the user profile page"
-            />
-          }
-        />
+        {
+          isUserSelf ?
+            <ButtonMain
+              className="user-menu__logout"
+              variant="contained"
+              theme="lightText"
+              size="default"
+              onClick={logout}
+              label={
+                <FormattedMessage
+                  id="UserMenu.signOut"
+                  defaultMessage="Sign Out"
+                  description="This is the sign out button on the user profile page"
+                />
+              }
+            /> : null
+        }
       </div>
     </div>
   );
