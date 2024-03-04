@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import cx from 'classnames/bind';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import { getTimeZoneOptions } from '../../../helpers';
 import Alert from '../../cds/alerts-and-prompts/Alert';
@@ -189,28 +189,30 @@ const NewsletterScheduler = ({
 
       <div className={styles['newsletter-schedule-actions']}>
         { scheduled ?
-          <Button
+          <ButtonMain
             variant="contained"
-            color="primary"
+            theme="alert"
+            size="default"
             className={styles['newsletter-pause-button']}
             onClick={() => { onUpdate('scheduled', false); }}
-            startIcon={<PauseIcon />}
+            iconLeft={<PauseIcon />}
             disabled={disabled}
-            disableElevation
-          >
-            <FormattedMessage id="newsletterScheduler.pause" defaultMessage="Pause" description="Label for a button to pause a newsletter" />
-          </Button> :
-          <Button
+            label={
+              <FormattedMessage id="newsletterScheduler.pause" defaultMessage="Pause" description="Label for a button to pause a newsletter" />
+            }
+          /> :
+          <ButtonMain
             variant="contained"
-            color="primary"
+            theme="validation"
+            size="default"
             className={styles['newsletter-schedule-button']}
             onClick={() => { onUpdate('scheduled', true); }}
-            startIcon={<PlayArrowIcon />}
+            iconLeft={<PlayArrowIcon />}
             disabled={disabled}
-            disableElevation
-          >
-            <FormattedMessage id="newsletterScheduler.schedule" defaultMessage="Schedule" description="Label for a button to schedule a newsletter" />
-          </Button>
+            label={
+              <FormattedMessage id="newsletterScheduler.schedule" defaultMessage="Schedule" description="Label for a button to schedule a newsletter" />
+            }
+          />
         }
         { subscribersCount !== null &&
           <div className={styles['newsletter-schedule-meta']}>
