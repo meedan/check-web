@@ -193,7 +193,6 @@ const NewsletterScheduler = ({
             variant="contained"
             theme="alert"
             size="default"
-            className={styles['newsletter-pause-button']}
             onClick={() => { onUpdate('scheduled', false); }}
             iconLeft={<PauseIcon />}
             disabled={disabled}
@@ -205,7 +204,6 @@ const NewsletterScheduler = ({
             variant="contained"
             theme="validation"
             size="default"
-            className={styles['newsletter-schedule-button']}
             onClick={() => { onUpdate('scheduled', true); }}
             iconLeft={<PlayArrowIcon />}
             disabled={disabled}
