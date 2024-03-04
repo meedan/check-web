@@ -7,8 +7,9 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TextField from '../cds/inputs/TextField';
-import SourcePicture from './SourcePicture';
-import ConfirmEmail from '../user/ConfirmEmail';
+import SourcePicture from '../source/SourcePicture';
+import UserEmail from './UserEmail';
+import ConfirmEmail from './ConfirmEmail';
 import UploadFile from '../UploadFile';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
@@ -16,7 +17,7 @@ import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSour
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import styles from './User.module.css';
+import styles from '../source/User.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({
@@ -374,6 +375,7 @@ class UserInfoEdit extends React.Component {
             <><ConfirmEmail user={user} /><br /></>
             : null
           }
+          <UserEmail user={user} />
           <form
             onSubmit={this.handleSubmit.bind(this)}
             name="edit-source-form"

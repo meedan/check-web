@@ -117,7 +117,7 @@ Alert.propTypes = {
   banner: PropTypes.bool,
   contained: PropTypes.bool,
   icon: PropTypes.bool,
-  buttonLabel: PropTypes.string,
+  buttonLabel: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   onButtonClick: PropTypes.func,
   onClose: PropTypes.func,
   variant: PropTypes.oneOf(['info', 'success', 'warning', 'error']),

@@ -7,7 +7,7 @@ import UserPrivacy from './UserPrivacy';
 import UserSecurity from './UserSecurity';
 import PageTitle from '../PageTitle';
 import Workspaces from './SwitchTeamsComponent';
-import styles from './User.module.css';
+import styles from '../source/User.module.css';
 
 class MeComponent extends React.Component {
   componentWillMount() {

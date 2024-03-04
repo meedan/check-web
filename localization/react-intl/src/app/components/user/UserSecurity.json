@@ -1,0 +1,147 @@
+[
+  {
+    "id": "UserSecurity.passwordInput",
+    "description": "Form label for current password field",
+    "defaultMessage": "Current Password"
+  },
+  {
+    "id": "UserSecurity.passwordError",
+    "description": "Error message output when an incorrect password is entered",
+    "defaultMessage": "Incorrect password"
+  },
+  {
+    "id": "UserSecurity.verifyInput",
+    "description": "Label for user to know to put in their login security validation code",
+    "defaultMessage": "Validation Code"
+  },
+  {
+    "id": "UserSecurity.verifyError",
+    "description": "Error message if the login security validation code provided by the user is incorrect",
+    "defaultMessage": "Incorrect validation code"
+  },
+  {
+    "id": "global.unknownError",
+    "description": "Message displayed in error notification when an operation fails unexpectedly",
+    "defaultMessage": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "userSettings.securityTitle",
+    "description": "Title for user settings area for user security settings",
+    "defaultMessage": "Security"
+  },
+  {
+    "id": "userSecurity.notification",
+    "description": "Section header title for security notification settings",
+    "defaultMessage": "Notifications"
+  },
+  {
+    "id": "userSecurity.successfulLoginText",
+    "description": "Label for switch input to allow users to determine if they get notifications on new logins",
+    "defaultMessage": "Receive a notification for logins from a new location or device"
+  },
+  {
+    "id": "userSecurity.failedfulLoginText",
+    "description": "Label for switch input to allow users to receive a notification if there are multiple failed login attempts with their credentials",
+    "defaultMessage": "Receive a notification for {loginTrial} consecutive failed login attempts"
+  },
+  {
+    "id": "userSecurity.twoFactorAuthentication",
+    "description": "Section title for two-factor authentication settings",
+    "defaultMessage": "Two factor authentication"
+  },
+  {
+    "id": "userSecurity.suggestTwoFactorForSocialAccounts",
+    "description": "Help text on how the user can generate a new password in order to set up two-factor authentication",
+    "defaultMessage": "In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below."
+  },
+  {
+    "id": "userSecurity.requireTwoFactorAuth",
+    "description": "Section header title for security two-factor authentication settings",
+    "defaultMessage": "Require two-factor authentication"
+  },
+  {
+    "id": "userSecurity.authenticateHeader",
+    "description": "Sub title for first step in two-factor authentication settings",
+    "defaultMessage": "Step 1: Authenticate"
+  },
+  {
+    "id": "userSecurity.authenticateDescription",
+    "description": "Sub title for current password confirmation step in two-factor authentication settings",
+    "defaultMessage": "Enter your current password to confirm your identity:"
+  },
+  {
+    "id": "userSecurity.disableAuthenticateDescription",
+    "description": "Sub title for current password confirmation step in order to disable two-factor authentication",
+    "defaultMessage": "Enter your password to disable two-factor authentication:"
+  },
+  {
+    "id": "userSecurity.disableTwofactor",
+    "description": "Button label to disable two-factor authentication settings",
+    "defaultMessage": "Disable"
+  },
+  {
+    "id": "userSecurity.downloadHeader",
+    "description": "Sub title for second step in two-factor authentication settings",
+    "defaultMessage": "Step 2: Download"
+  },
+  {
+    "id": "userSecurity.downloadDescription",
+    "description": "Help message to tell the user how they can get a two factor authentication code using their smartphone",
+    "defaultMessage": "You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
+  },
+  {
+    "id": "userSecurity.qrcodeHeader",
+    "description": "Sub title for third step in two-factor authentication settings",
+    "defaultMessage": "Step 3: Scan"
+  },
+  {
+    "id": "userSecurity.qrcodeDescription",
+    "description": "Help text to tell the user to scan the QR code from the app they downloaded in a previous step",
+    "defaultMessage": "Using your two-factor app, scan this QR code:"
+  },
+  {
+    "id": "userSecurity.backupHeader",
+    "description": "Sub title for forth step in two-factor authentication settings",
+    "defaultMessage": "Step 4: Backup codes"
+  },
+  {
+    "id": "userSecurity.backupCodesHeader",
+    "description": "Sub title for backup codes section when two-factor authentication is already enabled",
+    "defaultMessage": "Backup codes"
+  },
+  {
+    "id": "userSecurity.backupDescription",
+    "description": "Help text description on the importance of backing up two-factor authentication codes",
+    "defaultMessage": "We strongly suggest that you generate and print backup codes using the button below. These are single-use codes to be used instead of 2FA login in the event that you lose access to your 2FA device."
+  },
+  {
+    "id": "userSecurity.backupNote",
+    "description": "Warning on the removal of existing two-factor authentication codes",
+    "defaultMessage": "Note: Existing backup codes will be invalidated by clicking this button."
+  },
+  {
+    "id": "userSecurity.generateGackup",
+    "description": "Button label to generate two-factor authentication backup codes",
+    "defaultMessage": "Generate backup code"
+  },
+  {
+    "id": "userSecurity.verifyHeader",
+    "description": "Sub title for fifth step in two-factor authentication settings",
+    "defaultMessage": "Step 5: Verify"
+  },
+  {
+    "id": "userSecurity.verifyDescription",
+    "description": "Help text to let the user know where to get their authentication code to enter",
+    "defaultMessage": "To enable two-factor authentication, enter the 6-digit code from your two-factor app:"
+  },
+  {
+    "id": "userSecurity.enableTwofactor",
+    "description": "Button label to enabled two-factor authentication settings",
+    "defaultMessage": "Enable"
+  },
+  {
+    "id": "userSecurity.changePassword",
+    "description": "Section title for making password changes",
+    "defaultMessage": "Change password"
+  }
+]

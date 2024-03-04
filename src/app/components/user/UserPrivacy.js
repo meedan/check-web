@@ -12,7 +12,7 @@ import CheckContext from '../../CheckContext';
 import { mapGlobalMessage } from '../MappedMessage';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import styles from './User.module.css';
+import styles from '../source/User.module.css';
 
 const messages = defineMessages({
   deleteAccount: {

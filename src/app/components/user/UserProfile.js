@@ -1,9 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import SettingsHeader from '../team/SettingsHeader';
-import UserEmail from '../user/UserEmail';
 import UserInfoEdit from './UserInfoEdit';
-import styles from './User.module.css';
+import styles from '../source/User.module.css';
 
 const UserProfile = (props) => {
   const { user } = props;
@@ -20,7 +19,6 @@ const UserProfile = (props) => {
         }
       />
       <div className={styles['user-setting-details-wrapper']}>
-        <UserEmail user={user} />
         <UserInfoEdit user={user} />
       </div>
     </>

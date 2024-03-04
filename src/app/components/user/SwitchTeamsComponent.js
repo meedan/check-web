@@ -22,7 +22,7 @@ import { getErrorMessage } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import KeyboardArrowRight from '../../icons/chevron_right.svg';
-import styles from './User.module.css';
+import styles from '../source/User.module.css';
 
 class SwitchTeamsComponent extends Component {
   constructor(props) {

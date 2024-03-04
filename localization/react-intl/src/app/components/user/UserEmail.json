@@ -1,15 +1,5 @@
 [
   {
-    "id": "userEmail.emailInputHint",
-    "description": "Text field input help text about the format of an email address",
-    "defaultMessage": "email@example.com"
-  },
-  {
-    "id": "global.unknownError",
-    "description": "Message displayed in error notification when an operation fails unexpectedly",
-    "defaultMessage": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
-  },
-  {
     "id": "userEmail.alertTitle",
     "description": "Alert title for prompting the user to add their email address in order to receive notifications",
     "defaultMessage": "Add your email"
@@ -20,18 +10,8 @@
     "defaultMessage": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click 'Skip'"
   },
   {
-    "id": "userEmail.emailInputLabel",
-    "description": "Text field label for the email address field",
-    "defaultMessage": "Email"
-  },
-  {
-    "id": "userEmail.skip",
-    "description": "Button label for skipping step",
+    "id": "userEmail.skipNotifications",
+    "description": "Message to the user on how to skip receiving notifications because they did not provide an email address",
     "defaultMessage": "Skip"
-  },
-  {
-    "id": "userEmail.submit",
-    "description": "Button label to submit the email form",
-    "defaultMessage": "Submit"
   }
 ]
