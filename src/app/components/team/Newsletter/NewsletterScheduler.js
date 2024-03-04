@@ -90,8 +90,8 @@ const NewsletterScheduler = ({
             }
             arrow
           >
-            <span>
-              <InfoOutlinedIcon className={styles['tooltip-icon']} />
+            <span className={settingsStyles['tooltip-icon']}>
+              <InfoOutlinedIcon />
             </span>
           </Tooltip> :
           null
