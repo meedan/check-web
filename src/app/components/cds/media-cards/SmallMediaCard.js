@@ -166,11 +166,9 @@ const SmallMediaCard = ({
             <MediaSlug
               mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
               slug={
-                <div className="typography-body1">
-                  <div className={classes.row}>
-                    {customTitle || media.metadata?.title}
-                  </div>
-                </div>
+                <span className="typography-body1">
+                  {customTitle || media.metadata?.title}
+                </span>
               }
               details={details}
             />
