@@ -40,7 +40,7 @@
 
     .buttons-wrapper {
       gap: 8px;
-      justify-content: end;
+      justify-content: flex-end;
     }
   }
 

@@ -117,23 +117,19 @@ const FeedsComponent = ({
             <>
               {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
                 let itemProps = {};
-                let itemType = null;
                 let itemIcon = null;
                 switch (feed.type) {
                 // Feeds created by the workspace
                 case 'Feed':
                   itemProps = { routePrefix: 'feed' };
-                  itemType = 'feed';
                   break;
                 // Feeds not created by the workspace, but joined upon invitation
                 case 'FeedTeam':
                   itemProps = { routePrefix: 'feed' };
-                  itemType = 'feed-team';
                   break;
                 // Feed invitations received but not processed yet
                 case 'FeedInvitation':
                   itemProps = { routePrefix: 'feed', routeSuffix: '/invitation' };
-                  itemType = 'feed-invitation';
                   itemIcon = <ScheduleSendIcon className={cx(styles.listIcon, styles.listIconInvitedFeed)} />;
                   break;
                 default:
@@ -150,7 +146,7 @@ const FeedsComponent = ({
                     project={feed}
                     teamSlug={team.slug}
                     onClick={handleClick}
-                    isActive={isActive(itemType, feed.dbid)}
+                    isActive={isActive('feed', feed.dbid)}
                     icon={itemIcon}
                     tooltip={feed.type === 'FeedInvitation' ? intl.formatMessage(messages.pendingInvitationFeedTooltip, { feedTitle: feed.title }) : feed.title}
                     {...itemProps}

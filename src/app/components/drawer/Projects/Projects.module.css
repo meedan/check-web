@@ -21,7 +21,7 @@
 
   &.listFooter {
     flex: 0 0 auto;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 20px 6px;
   }
 

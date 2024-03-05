@@ -1,0 +1,47 @@
+[
+  {
+    "id": "searchResults.sortTitle",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "searchResults.sortFactChecksCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Fact-checks (count)"
+  },
+  {
+    "id": "searchResults.sortRequestsCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Requests (count)"
+  },
+  {
+    "id": "searchResults.sortMediaCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Media (count)"
+  },
+  {
+    "id": "searchResults.sortLastRequestDate",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Date updated"
+  },
+  {
+    "id": "feedClusters.sharedFeed",
+    "description": "Displayed on top of the feed title on the feed page.",
+    "defaultMessage": "Shared Feed"
+  },
+  {
+    "id": "feedClusters.previousPage",
+    "description": "Pagination button to go to previous page",
+    "defaultMessage": "Previous page"
+  },
+  {
+    "id": "feedClusters.itemsCount",
+    "description": "Pagination count of items returned",
+    "defaultMessage": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+  },
+  {
+    "id": "feedClusters.nextPage",
+    "description": "Pagination button to go to next page",
+    "defaultMessage": "Next page"
+  }
+]

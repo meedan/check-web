@@ -1,0 +1,48 @@
+.feedClusters {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding: 0 16px;
+  padding-right: 0;
+}
+
+.feedClustersHeader {
+  margin-bottom: 24px;
+}
+
+.feedClusterCard {
+  margin-bottom: 16px;
+}
+
+.feedClustersFilters {
+  border: 0;
+  overflow: visible;
+  padding: 16px;
+}
+
+.feedClustersToolbar {
+  background: var(--otherWhite);
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.feedClustersPagination {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  margin: 0 8px;
+}
+
+.feedClustersFilterBar {
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.feedClustersList {
+  overflow: auto;
+  padding-right: 16px;
+}
