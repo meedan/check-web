@@ -67,7 +67,7 @@ shared_examples 'list' do
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.message')
-    wait_for_selector('#side-navigation__tipline-toggle').click
+    wait_for_selector('#side-navigation__toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')

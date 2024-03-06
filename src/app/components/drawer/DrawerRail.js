@@ -125,6 +125,7 @@ const DrawerRail = (props) => {
                     'side-navigation__toggle-closed': !drawerOpen,
                   })
                 }
+                id="side-navigation__toggle"
                 onClick={() => setDrawerOpenChange()}
               >
                 {drawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
