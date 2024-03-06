@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import styles from './ItemThumbnail.module.css';
 import MediaTypeDisplayIcon, { mediaTypeFromUrl } from '../../media/MediaTypeDisplayIcon';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 
 const ItemThumbnail = ({
   type, picture, maskContent, url,
@@ -33,7 +34,9 @@ const ItemThumbnail = ({
     return (
       <div className={`${styles.thumbnail} ${styles.container}`}>
         <div className={styles.iconContainer}>
-          <MediaTypeDisplayIcon mediaType={mediaType} className={styles.mediaIcon} fontSize="var(--iconSizeDefault)" />
+          <Tooltip title={mediaType} arrow>
+            <MediaTypeDisplayIcon mediaType={mediaType} className={styles.mediaIcon} fontSize="var(--iconSizeDefault)" />
+          </Tooltip>
         </div>
       </div>
     );
