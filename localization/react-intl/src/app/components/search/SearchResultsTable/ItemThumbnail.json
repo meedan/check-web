@@ -1,0 +1,7 @@
+[
+  {
+    "id": "ItemThumbnail.mediaType",
+    "description": "type of the media item",
+    "defaultMessage": "{mediaType}"
+  }
+]
