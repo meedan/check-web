@@ -69,7 +69,7 @@ shared_examples 'team' do
     create_media('text')
     api_logout
 
-    # log in as colaborator
+    # log in as collaborator
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}/settings/members")
     wait_for_selector('button#team-members__invite-button')
