@@ -130,18 +130,6 @@
       display: flex;
       padding: 0 0 0 2px;
 
-      .newsletter-schedule-button,
-      .newsletter-schedule-button:hover {
-        background: var(--validationMain);
-        color: var(--otherWhite);
-      }
-
-      .newsletter-pause-button,
-      .newsletter-pause-button:hover {
-        background: var(--alertMain);
-        color: var(--otherWhite);
-      }
-
       .newsletter-schedule-meta {
         align-items: center;
         color: var(--textSecondary);
