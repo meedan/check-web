@@ -184,14 +184,16 @@ const SharedItemCard = ({
               theme="lightBrand"
               iconLeft={<FactCheckIcon />}
               variant="contained"
-              label={<FormattedMessage
-                id="sharedItemCard.factCheckCount"
-                defaultMessage="{count, plural, one {Fact-check} other {Fact-checks}}"
-                description="A label showing the number of fact-checks represented in an item."
-                values={{
-                  count: getCompactNumber(intl.locale, factCheckCount),
-                }}
-              />}
+              label={
+                <FormattedMessage
+                  id="sharedItemCard.factCheckCount"
+                  defaultMessage="{count, plural, one {# Fact-check} other {# Fact-checks}}"
+                  description="A label showing the number of fact-checks represented in an item."
+                  values={{
+                    count: getCompactNumber(intl.locale, factCheckCount),
+                  }}
+                />
+              }
             />
           ) : null }
           { (date && !feedContainsMediaRequests && feedContainsFactChecks) ? (

@@ -22,6 +22,6 @@
   {
     "id": "sharedItemCard.factCheckCount",
     "description": "A label showing the number of fact-checks represented in an item.",
-    "defaultMessage": "{count, plural, one {Fact-check} other {Fact-checks}}"
+    "defaultMessage": "{count, plural, one {# Fact-check} other {# Fact-checks}}"
   }
 ]

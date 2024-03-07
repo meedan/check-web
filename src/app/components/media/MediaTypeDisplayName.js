@@ -16,6 +16,18 @@ export default function MediaTypeDisplayName({ mediaType }) {
     return <FormattedMessage id="media.typeAudio" defaultMessage="Audio" description="Label to show that the type of media is an audio file" />;
   case 'Blank':
     return <FormattedMessage id="media.typeBlank" defaultMessage="Imported fact-check" description="Label to show that the type of media is was imported into the application" />;
+  case 'Facebook':
+    return <FormattedMessage id="media.typeFacebook" defaultMessage="Facebook" description="Label to show that the type of media is a Facebook post" />;
+  case 'Instagram':
+    return <FormattedMessage id="media.typeInstagram" defaultMessage="Instagram" description="Label to show that the type of media is an Instagram post" />;
+  case 'Telegram':
+    return <FormattedMessage id="media.typeTelegram" defaultMessage="Telegram" description="Label to show that the type of media is a Telegram message" />;
+  case 'Tiktok':
+    return <FormattedMessage id="media.typeTiktok" defaultMessage="Tiktok" description="Label to show that the type of media is a Tiktok video" />;
+  case 'Twitter':
+    return <FormattedMessage id="media.typeTwitter" defaultMessage="Twitter" description="Label to show that the type of media is a Twitter tweet" />;
+  case 'Youtube':
+    return <FormattedMessage id="media.typeYoutube" defaultMessage="Youtube" description="Label to show that the type of media is a Youtube video" />;
   case '-':
   default:
     return <React.Fragment>-</React.Fragment>;
