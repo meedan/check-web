@@ -32,12 +32,12 @@
   {
     "id": "media.typeFacebook",
     "description": "Label to show that the type of media is a Facebook post",
-    "defaultMessage": "Facebook"
+    "defaultMessage": "Facebook Post"
   },
   {
     "id": "media.typeInstagram",
     "description": "Label to show that the type of media is an Instagram post",
-    "defaultMessage": "Instagram"
+    "defaultMessage": "Instagram Post"
   },
   {
     "id": "media.typeTelegram",
@@ -47,16 +47,16 @@
   {
     "id": "media.typeTiktok",
     "description": "Label to show that the type of media is a Tiktok video",
-    "defaultMessage": "Tiktok"
+    "defaultMessage": "Tiktok Post"
   },
   {
     "id": "media.typeTwitter",
     "description": "Label to show that the type of media is a Twitter tweet",
-    "defaultMessage": "Twitter"
+    "defaultMessage": "X (Twitter) Post"
   },
   {
     "id": "media.typeYoutube",
     "description": "Label to show that the type of media is a Youtube video",
-    "defaultMessage": "Youtube"
+    "defaultMessage": "Youtube Video"
   }
 ]
