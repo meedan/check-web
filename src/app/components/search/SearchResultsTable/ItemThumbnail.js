@@ -1,8 +1,8 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import styles from './ItemThumbnail.module.css';
+import MediaTypeDisplayName from '../../media/MediaTypeDisplayName';
 import MediaTypeDisplayIcon, { mediaTypeFromUrl } from '../../media/MediaTypeDisplayIcon';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 
@@ -35,11 +35,8 @@ const ItemThumbnail = ({
     return (
       <Tooltip
         title={
-          <FormattedMessage
-            id="ItemThumbnail.mediaType"
-            defaultMessage="{mediaType}"
-            description="type of the media item"
-            values={{ mediaType }}
+          <MediaTypeDisplayName
+            mediaType={mediaType}
           />
         }
       >
