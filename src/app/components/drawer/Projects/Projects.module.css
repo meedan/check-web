@@ -1,9 +1,21 @@
-/* stylelint-disable scale-unlimited/declaration-strict-value */
 .listTitle {
   @mixin typography-subtitle2;
   color: var(--textPrimary);
   padding: 16px 20px 0 18px;
   text-transform: uppercase;
+
+  sup {
+    background-color: var(--validationMain);
+    border-radius: 16px;
+    color: var(--otherWhite);
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    font-size: 50%;
+    line-height: 0;
+    padding: 4px 6px;
+    position: relative;
+    top: -1em;
+    vertical-align: baseline;
+  }
 }
 
 .listWrapper {
@@ -70,7 +82,7 @@
         border-radius: 8px;
         color: var(--textSecondary);
         flex: 0 0 26px;
-        font-size: 20px;
+        font-size: var(--iconSizeSmall);
         height: 26px;
         padding: 0;
         transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
@@ -180,5 +192,3 @@
     width: 100%;
   }
 }
-
-/* stylelint-enable */
