@@ -74,6 +74,8 @@ const FeedHeader = ({ feed, feedTeam }) => {
           </span>
         </Tooltip>
       </Can>
+
+      { feed.requests_count > 0 ? <p style={{ color: 'red' }}>This feed has received API requests.</p> : null }
     </div>
   );
 };
@@ -89,6 +91,7 @@ FeedHeader.propTypes = {
     dbid: PropTypes.number.isRequired,
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
+    requests_count: PropTypes.number.isRequired,
     team: PropTypes.shape({
       slug: PropTypes.string.isRequired,
     }).isRequired,
@@ -109,5 +112,6 @@ export default createFragmentContainer(FeedHeader, graphql`
     team_id
     licenses
     permissions
+    requests_count
   }
 `);
