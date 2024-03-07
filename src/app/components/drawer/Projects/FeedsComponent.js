@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, defineMessages } from 'react-intl';
 import { browserHistory, withRouter } from 'react-router';
 import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
@@ -75,7 +75,11 @@ const FeedsComponent = ({
   return (
     <React.Fragment>
       <div className={styles.listTitle}>
-        Shared Feeds
+        <FormattedHTMLMessage
+          id="projectsComponent.sharedFeedNavHeader"
+          defaultMessage="Shared Feeds <sup>BETA</sup>"
+          description="The navigation name of the shared feeds section with included Beta messaging"
+        />
       </div>
       <List dense disablePadding className={styles.listWrapper}>
         {/* Shared feeds */}
