@@ -43,5 +43,10 @@
     "id": "feedClusters.nextPage",
     "description": "Pagination button to go to next page",
     "defaultMessage": "Next page"
+  },
+  {
+    "id": "feedClusters.noTitle",
+    "description": "No title available",
+    "defaultMessage": "(no title)"
   }
 ]

@@ -42,6 +42,11 @@ const messages = defineMessages({
     defaultMessage: 'Rating',
     description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
   },
+  sortRequestsCount: {
+    id: 'searchResults.sortRequestsCount',
+    defaultMessage: 'Requests (count)',
+    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
+  },
 });
 
 /**
@@ -649,6 +654,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
           ${SearchFields.getFragment('team')}
           id
           slug
+          name
           search_id,
           permissions,
           search { id, number_of_results },

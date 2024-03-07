@@ -15,6 +15,11 @@
     "defaultMessage": "Rating"
   },
   {
+    "id": "searchResults.sortRequestsCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Requests (count)"
+  },
+  {
     "id": "projectBlankState.blank",
     "description": "Empty message that is displayed when search results are zero",
     "defaultMessage": "There are no items here."

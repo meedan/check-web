@@ -93,6 +93,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
 
   const handleDelete = ({ status_id, fallback_status_id }) => {
     const onCompleted = () => {
+      setStatuses(statuses.filter(s => s.id !== status_id));
       setShowDeleteStatusDialogFor(null);
       setSelectedStatus(null);
       setFlashMessage((
