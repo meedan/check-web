@@ -19,6 +19,7 @@ const SearchResultsCards = ({ projectMedias, team }) => (
             statusColor={status.style?.color}
             url={values.fact_check_url}
             teamAvatar={values.team_avatar}
+            teamName={team.name}
           />
         </div>
       );

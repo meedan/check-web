@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
 import ItemDate from '../../cds/media-cards/ItemDate';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import styles from './FactCheckCard.module.css';
@@ -16,10 +17,17 @@ const FactCheckCard = ({
   summary,
   url,
   teamAvatar,
+  teamName,
 }) => (
   <div className={`${styles.factCheckCard} fact-check-card`}>
     <Card
-      footer={<TeamAvatar team={{ avatar: teamAvatar }} size="30px" />}
+      footer={
+        <Tooltip title={teamName}>
+          <span>
+            <TeamAvatar team={{ avatar: teamAvatar }} size="30px" />
+          </span>
+        </Tooltip>
+      }
     >
       <div className={styles.factCheckCardDescription}>
         <CardHoverContext.Consumer>

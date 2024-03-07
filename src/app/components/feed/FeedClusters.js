@@ -19,7 +19,7 @@ import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
 import styles from './FeedClusters.module.css';
 
-const pageSize = 10;
+const pageSize = 50;
 
 const messages = defineMessages({
   sortTitle: {
@@ -104,8 +104,8 @@ const FeedClustersComponent = ({
   };
 
   const sortOptions = [
-    { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'requests_count', label: intl.formatMessage(messages.sortRequestsCount) },
+    { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'media_count', label: intl.formatMessage(messages.sortMediaCount) },
     { value: 'last_request_date', label: intl.formatMessage(messages.sortLastRequestDate) },
   ];
@@ -209,7 +209,12 @@ const FeedClustersComponent = ({
             return (
               <div key={cluster.id} className={cx('feed-clusters__card', styles.feedClusterCard)}>
                 <SharedItemCard
-                  title={cluster.title || cluster.center.title}
+                  title={
+                    cluster.title ||
+                    cluster.center.title ||
+                    cluster.center.media_slug ||
+                    <FormattedMessage id="feedClusters.noTitle" description="No title available" defaultMessage="(no title)" />
+                  }
                   description={cluster.center.description}
                   mediaThumbnail={{ media: { url: media.url, picture: media.picture, type: media.type } }}
                   workspaces={cluster.teams.edges.map(edge => ({ name: edge.node.name, url: edge.node.avatar }))}
@@ -232,8 +237,8 @@ const FeedClustersComponent = ({
 
 FeedClustersComponent.defaultProps = {
   page: 1,
-  sort: 'title',
-  sortType: 'ASC',
+  sort: 'requests_count',
+  sortType: 'DESC',
   otherFilters: {},
 };
 
@@ -307,8 +312,8 @@ const ConnectedFeedClustersComponent = injectIntl(FeedClustersComponent); // FIX
 const FeedClusters = ({ teamSlug, feedId }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
-    sort: 'title',
-    sortType: 'ASC',
+    sort: 'requests_count',
+    sortType: 'DESC',
     teamFilters: null,
     otherFilters: {},
   });
@@ -387,6 +392,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                     center {
                       title
                       description
+                      media_slug
                       media {
                         url
                         type
