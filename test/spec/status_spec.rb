@@ -36,7 +36,7 @@ shared_examples 'status' do
     wait_for_selector('.media-card-large')
     wait_for_selector('.media-status__current').click
     wait_for_selector('.media-status__menu-item')
-    ['newStatus', 'Inconclusive', 'Verified'].each do |status_label|
+    %w[newStatus Inconclusive Verified].each do |status_label|
       expect(@driver.page_source.include?(status_label)).to be(true)
     end
   end
