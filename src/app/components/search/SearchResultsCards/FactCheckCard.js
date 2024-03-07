@@ -23,9 +23,9 @@ const FactCheckCard = ({
     <Card
       footer={
         <Tooltip title={teamName}>
-          <div>
+          <span>
             <TeamAvatar team={{ avatar: teamAvatar }} size="30px" />
-          </div>
+          </span>
         </Tooltip>
       }
     >
