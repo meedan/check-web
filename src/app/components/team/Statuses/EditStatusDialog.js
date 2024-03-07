@@ -14,8 +14,6 @@ import dialogStyles from '../../../styles/css/dialog.module.css';
 import styles from './Statuses.module.css';
 import inputStyles from '../../../styles/css/inputs.module.css';
 
-const maxLength = 35;
-
 const EditStatusDialog = ({
   defaultLanguage,
   onCancel,
@@ -26,10 +24,17 @@ const EditStatusDialog = ({
 }) => {
   const [statusLabel, setStatusLabel] = React.useState(status ? status.label : '');
   const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].description : '');
-  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : 'var(--textPrimary)');
+  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '#567bff');
   const [statusMessage, setStatusMessage] = React.useState(status ? status.locales[defaultLanguage].message : '');
   const [statusMessageEnabled, setStatusMessageEnabled] = React.useState(status ? Boolean(status.should_send_message) : false);
   const [showSaveConfirmDialog, setShowSaveConfirmDialog] = React.useState(false);
+
+  const handleCancel = () => {
+    setStatusLabel('');
+    setStatusMessageEnabled(false);
+    setStatusColor('#567bff');
+    onCancel();
+  };
 
   const handleSubmit = () => {
     const locales = status && status.locales ? { ...status.locales } : {};
@@ -47,7 +52,9 @@ const EditStatusDialog = ({
       description: statusDescription,
       message: statusMessage,
     };
-
+    setStatusLabel('');
+    setStatusMessageEnabled(false);
+    setStatusColor('#567bff');
     onSubmit(newStatus);
   };
 
@@ -94,24 +101,22 @@ const EditStatusDialog = ({
               id="editStatusDialog.statusTitlePlaceholder"
               defaultMessage="Enter status label"
               description="Text field placeholder for the status name"
-              values={{ maxLength }}
             >
               { placeholder => (
                 <LimitedTextArea
                   required
-                  value={statusLabel}
+                  value={status ? statusLabel : ''}
                   componentProps={{
                     id: 'edit-status-dialog__status-name',
                   }}
-                  maxChars={maxLength}
-                  maxLength={maxLength}
+                  maxChars={35}
+                  maxLength={35}
                   rows="1"
                   label={
                     <FormattedMessage
                       id="editStatusDialog.statusTitle"
                       defaultMessage="Status"
                       description="Text field label for the status name"
-                      values={{ maxLength }}
                     />
                   }
                   maxHeight="48px"
@@ -145,7 +150,7 @@ const EditStatusDialog = ({
             onBlur={(e) => {
               setStatusDescription(e.target.value);
             }}
-            defaultValue={statusDescription}
+            defaultValue={status ? statusDescription : ''}
           />
           { team.smooch_bot ?
             <React.Fragment>
@@ -188,7 +193,7 @@ const EditStatusDialog = ({
                     setStatusMessage(e.target.value);
                   }}
                   disabled={!statusMessageEnabled}
-                  defaultValue={statusMessage}
+                  defaultValue={status ? statusMessage : ''}
                 />
               }
             </React.Fragment> : null }
@@ -197,7 +202,7 @@ const EditStatusDialog = ({
       <div className={dialogStyles['dialog-actions']}>
         <ButtonMain
           className="edit-status-dialog__dismiss"
-          onClick={onCancel}
+          onClick={handleCancel}
           size="default"
           variant="text"
           theme="lightText"
