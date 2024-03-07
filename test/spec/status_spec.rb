@@ -7,20 +7,20 @@ shared_examples 'status' do
     ['Unstarted', 'Inconclusive', 'In Progress'].each do |status_label|
       expect(@driver.page_source.include?(status_label)).to be(true)
     end
-    expect(@driver.page_source.include?('newerstatus')).to be(false)
+    expect(@driver.page_source.include?('new status')).to be(false)
     item_page = @driver.current_url
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team-settings__statuses-tab').click
     wait_for_selector("//small[contains(text(), 'default')]", :xpath)
     expect(@driver.page_source.include?('Unstarted')).to be(true)
-    wait_for_selector_list('.status-actions__menu')[0].click
+    wait_for_selector('.status-actions__menu').click
     # edit status name
     wait_for_selector('.status-actions__edit').click
-    update_field('#edit-status-dialog__status-name', 'newerstatus')
+    update_field('#edit-status-dialog__status-name', 'new status')
     wait_for_selector('.edit-status-dialog__submit').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('.edit-status-dialog__dismiss')
-    expect(@driver.page_source.include?('newerstatus')).to be(true)
+    expect(@driver.page_source.include?('new status')).to be(true)
     expect(@driver.page_source.include?('Unstarted')).to be(false)
     # make another status as default
     wait_for_selector_list('.status-actions__menu')[3].click
@@ -39,7 +39,7 @@ shared_examples 'status' do
     wait_for_selector('.media-status__menu-item')
     ['Unstarted', 'Inconclusive', 'In Progress'].each do |status_label|
       expect(@driver.page_source.include?(status_label)).to be(false)
-      expect(@driver.page_source.include?('newerstatus')).to be(true)
+      expect(@driver.page_source.include?('new status')).to be(true)
     end
   end
 end
