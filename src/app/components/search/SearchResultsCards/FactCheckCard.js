@@ -22,8 +22,10 @@ const FactCheckCard = ({
   <div className={`${styles.factCheckCard} fact-check-card`}>
     <Card
       footer={
-        <Tooltip title={teamName} arrow>
-          <TeamAvatar team={{ avatar: teamAvatar }} size="30px" />
+        <Tooltip title={teamName}>
+          <div>
+            <TeamAvatar team={{ avatar: teamAvatar }} size="30px" />
+          </div>
         </Tooltip>
       }
     >

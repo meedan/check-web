@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import styles from './ItemThumbnail.module.css';
@@ -32,13 +33,22 @@ const ItemThumbnail = ({
       mediaType = mediaTypeFromUrl(url);
     }
     return (
-      <div className={`${styles.thumbnail} ${styles.container}`}>
-        <div className={styles.iconContainer}>
-          <Tooltip title={mediaType} arrow>
+      <Tooltip
+        title={
+          <FormattedMessage
+            id="ItemThumbnail.mediaType"
+            defaultMessage="{mediaType}"
+            description="type of the media item"
+            values={{ mediaType }}
+          />
+        }
+      >
+        <div className={`${styles.thumbnail} ${styles.container}`}>
+          <div className={styles.iconContainer}>
             <MediaTypeDisplayIcon mediaType={mediaType} className={styles.mediaIcon} fontSize="var(--iconSizeDefault)" />
-          </Tooltip>
+          </div>
         </div>
-      </div>
+      </Tooltip>
     );
   }
   return (

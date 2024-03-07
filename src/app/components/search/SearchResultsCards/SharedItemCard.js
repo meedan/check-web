@@ -186,7 +186,7 @@ const SharedItemCard = ({
               variant="contained"
               label={<FormattedMessage
                 id="sharedItemCard.factCheckCount"
-                defaultMessage="{count} plural, one {Fact-check} other {Fact-checks}"
+                defaultMessage="{count, plural, one {Fact-check} other {Fact-checks}}"
                 description="A label showing the number of fact-checks represented in an item."
                 values={{
                   count: getCompactNumber(intl.locale, factCheckCount),
