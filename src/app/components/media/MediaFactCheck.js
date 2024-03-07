@@ -40,7 +40,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   }, [factCheck?.title, factCheck?.summary, factCheck?.url, factCheck?.language]);
 
   const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
-  const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
+  const published = (projectMedia.report_status === 'published') || (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
   const isDisabled = Boolean(readOnly || published);
   const claimDescriptionMissing = !claimDescription || claimDescription.description?.trim()?.length === 0;
