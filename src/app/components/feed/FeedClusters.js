@@ -18,6 +18,7 @@ import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
 import styles from './FeedClusters.module.css';
+import MediasLoading from '../media/MediasLoading';
 
 const pageSize = 50;
 
@@ -442,7 +443,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
             />
           );
         }
-        return null;
+        return <MediasLoading theme="grey" variant="page" size="large" />;
       }}
     />
   );
