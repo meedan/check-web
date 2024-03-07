@@ -1,17 +1,3 @@
-.superAdminRemoveButton button {
-  border: 2px solid;
-  border-color: var(--errorMain);
-  color: var(--errorMain);
-  width: 290px;
-}
-
-.superAdminApplyButton button {
-  border: 2px solid;
-  border-color: var(--validationMain);
-  color: var(--validationMain);
-  width: 290px;
-}
-
 .superAdminBox {
   background-color: var(--grayBackground);
   bottom: 0;

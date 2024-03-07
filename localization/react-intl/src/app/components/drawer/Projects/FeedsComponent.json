@@ -5,6 +5,11 @@
     "defaultMessage": "Pending invitation: {feedTitle}"
   },
   {
+    "id": "projectsComponent.sharedFeedNavHeader",
+    "description": "The navigation name of the shared feeds section with included Beta messaging",
+    "defaultMessage": "Shared Feeds <sup>BETA</sup>"
+  },
+  {
     "id": "projectsComponent.sharedFeeds",
     "description": "Feeds of content shared across workspaces",
     "defaultMessage": "Collaborating [{feedsLength}]"
