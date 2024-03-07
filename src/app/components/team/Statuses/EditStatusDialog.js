@@ -22,7 +22,7 @@ const EditStatusDialog = ({
   team,
   defaultValue: status,
 }) => {
-  const [statusLabel, setStatusLabel] = React.useState(status ? status.label : '');
+  const [statusLabel, setStatusLabel] = React.useState(status ? status.locales[defaultLanguage].label : '');
   const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].description : '');
   const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '#567bff');
   const [statusMessage, setStatusMessage] = React.useState(status ? status.locales[defaultLanguage].message : '');
@@ -52,9 +52,7 @@ const EditStatusDialog = ({
       description: statusDescription,
       message: statusMessage,
     };
-    setStatusLabel('');
-    setStatusMessageEnabled(false);
-    setStatusColor('#567bff');
+
     onSubmit(newStatus);
   };
 
