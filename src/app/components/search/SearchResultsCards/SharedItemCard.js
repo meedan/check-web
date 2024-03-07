@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import TeamAvatar from '../../team/TeamAvatar';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -10,12 +10,11 @@ import ItemDate from '../../cds/media-cards/ItemDate';
 import ItemChannels from '../../cds/media-cards/ItemChannels';
 import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
+import MediaCount from '../../cds/media-cards/MediaCount';
+import RequestsCount from '../../cds/media-cards/RequestsCount';
+import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import BulletSeparator from '../../layout/BulletSeparator';
-import { getCompactNumber, getSeparatedNumber } from '../../../helpers';
-import MediaTypeDisplayIcon from '../../media/MediaTypeDisplayIcon';
-import MediaIcon from '../../../icons/perm_media.svg';
-import RequestsIcon from '../../../icons/question_answer.svg';
-import CalendarMonthIcon from '../../../icons/calendar_month.svg';
+import { getCompactNumber } from '../../../helpers';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
 import styles from './ItemCard.module.css';
@@ -32,6 +31,8 @@ const SharedItemCard = ({
   mediaCount,
   mediaThumbnail,
   mediaType,
+  rating,
+  ratingColor,
   requestsCount,
   title,
   workspaces,
@@ -90,77 +91,21 @@ const SharedItemCard = ({
               compact
               details={[
                 mediaCount && (
-                  <FormattedMessage id="sharedItemCard.medias" defaultMessage="Medias" description="This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item .">
-                    { mediasLabel => (
-                      <Tooltip
-                        arrow
-                        title={`${getSeparatedNumber(intl.locale, mediaCount)} ${mediasLabel}`}
-                        placement="top"
-                      >
-                        <span>
-                          <ButtonMain
-                            disabled
-                            size="small"
-                            theme="brand"
-                            iconLeft={mediaCount === 1 && mediaType ? <MediaTypeDisplayIcon mediaType={mediaType} /> : <MediaIcon />}
-                            variant="contained"
-                            label={getCompactNumber(intl.locale, mediaCount)}
-                          />
-                        </span>
-                      </Tooltip>
-                    )}
-                  </FormattedMessage>),
+                  <MediaCount
+                    mediaCount={mediaCount}
+                    mediaType={mediaType}
+                  />
+                ),
                 requestsCount && (
-                  <FormattedMessage id="sharedItemCard.requests" defaultMessage="Requests" description="This appears as a label next to a number, like '1,234 Requests'. It should indicate to the user that whatever number they are viewing represents the number of requests an item has gotten.">
-                    { requestsLabel => (
-                      <Tooltip
-                        arrow
-                        title={`${getSeparatedNumber(intl.locale, requestsCount)} ${requestsLabel}`}
-                        placement="top"
-                      >
-                        <span>
-                          <ButtonMain
-                            disabled
-                            size="small"
-                            theme="brand"
-                            iconLeft={<RequestsIcon />}
-                            variant="contained"
-                            label={getCompactNumber(intl.locale, requestsCount)}
-                          />
-                        </span>
-                      </Tooltip>
-                    )}
-                  </FormattedMessage>),
+                  <RequestsCount
+                    requestsCount={requestsCount}
+                  />
+                ),
                 lastRequestDate && (
-                  <FormattedMessage id="sharedItemCard.lastRequested" defaultMessage="Last Requested" description="This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'.">
-                    { lastRequestDateLabel => (
-                      <Tooltip
-                        arrow
-                        title={(
-                          <>
-                            <span>{lastRequestDateLabel}:</span>
-                            <ul>
-                              <li>{Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(lastRequestDate)}</li>
-                              <li>{Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: 'numeric' }).format(lastRequestDate)}</li>
-                            </ul>
-                          </>
-                        )}
-
-                        placement="top"
-                      >
-                        <span>
-                          <ButtonMain
-                            disabled
-                            size="small"
-                            theme="brand"
-                            iconLeft={<CalendarMonthIcon />}
-                            variant="contained"
-                            label={<FormattedDate value={lastRequestDate} year="numeric" month="long" day="numeric" />}
-                          />
-                        </span>
-                      </Tooltip>
-                    )}
-                  </FormattedMessage>),
+                  <LastRequestDate
+                    lastRequestDate={lastRequestDate}
+                  />
+                ),
                 channels && <ItemChannels channels={channels} sortMainFirst />,
               ]}
             />
@@ -186,7 +131,7 @@ const SharedItemCard = ({
           ) : null }
           { (date && !feedContainsMediaRequests && feedContainsFactChecks) ? (
             <>
-              <ItemRating rating="False" ratingColor="#f00" size="small" />
+              <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
               <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} />
             </>
           ) : null }
@@ -207,6 +152,8 @@ SharedItemCard.defaultProps = {
   mediaCount: null,
   mediaThumbnail: null,
   mediaType: null,
+  rating: null,
+  ratingColor: null,
   requestsCount: null,
 };
 
@@ -232,6 +179,8 @@ SharedItemCard.propTypes = {
     show_warning_cover: PropTypes.bool,
   }),
   mediaType: PropTypes.string,
+  rating: PropTypes.string,
+  ratingColor: PropTypes.string, // a CSS color string like #ff0000 or rbg(255, 0, 0) or 'red' etc.
   requestsCount: PropTypes.number,
   title: PropTypes.string.isRequired,
   workspaces: PropTypes.arrayOf(PropTypes.exact({

@@ -38,3 +38,12 @@
   color: var(--otherWhite);
   font-size: var(--fontSizeSmall);
 }
+
+.emptyMedia {
+  background-color: var(--otherWhite);
+
+  svg {
+    color: var(--textPlaceholder);
+    font-size: var(--iconSizeDefault);
+  }
+}
