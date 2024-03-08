@@ -48,6 +48,9 @@ services:
   presto-image:
     environment:
       BOILERPLATE_ENV: test
+  presto-yake:
+    environment:
+      BOILERPLATE_ENV: test
   web:
     environment:
       PLATFORM: web
