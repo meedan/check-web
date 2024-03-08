@@ -10,27 +10,35 @@ const ItemThumbnail = ({
   type, picture, maskContent, url,
 }) => {
   if (!maskContent) {
-    if (picture) {
-      return (
-        <div className={`${styles.thumbnail} ${styles.container}`}>
-          <div className={styles.iconContainer}>
-            <img
-              className={styles.thumbnail}
-              alt={type}
-              src={picture}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = '/images/image_placeholder.svg';
-              }}
-            />
-          </div>
-        </div>
-      );
-    }
     let mediaType = type;
     if (type === 'Link') {
       // use mediaTypeFromUrl to get the specific social icon
       mediaType = mediaTypeFromUrl(url);
+    }
+    if (picture) {
+      return (
+        <Tooltip
+          title={
+            <MediaTypeDisplayName
+              mediaType={mediaType}
+            />
+          }
+        >
+          <div className={`${styles.thumbnail} ${styles.container}`}>
+            <div className={styles.iconContainer}>
+              <img
+                className={styles.thumbnail}
+                alt={type}
+                src={picture}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = '/images/image_placeholder.svg';
+                }}
+              />
+            </div>
+          </div>
+        </Tooltip>
+      );
     }
     return (
       <Tooltip
