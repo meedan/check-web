@@ -3,9 +3,9 @@ import { withRouter, Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { logout } from '../../../redux/actions.js';
 import { withSetFlashMessage } from '../../FlashMessage';
+import LogoutIcon from '../../../icons/logout.svg';
 import styles from './Projects.module.css';
 
 const messages = defineMessages({
@@ -84,21 +84,20 @@ const UserSettingsComponent = ({
         </Link>
       </ul>
       <ul className={cx(styles.listWrapper, styles.listFooter)}>
-        <li className={styles.listItem}>
-          <ButtonMain
-            className="user-menu__logout"
-            variant="text"
-            theme="text"
-            size="small"
+        <li>
+          <button
+            className={cx('user-menu__logout', styles.listItem)}
             onClick={logout}
-            label={
+          >
+            <LogoutIcon className={styles.listIcon} />
+            <div className={styles.listLabel}>
               <FormattedMessage
                 id="UserMenu.signOut"
                 defaultMessage="Sign Out"
                 description="This is the sign out button on the user profile page"
               />
-            }
-          />
+            </div>
+          </button>
         </li>
       </ul>
     </React.Fragment>

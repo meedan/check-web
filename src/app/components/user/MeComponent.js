@@ -6,8 +6,8 @@ import UserProfile from './UserProfile';
 import UserPrivacy from './UserPrivacy';
 import UserSecurity from './UserSecurity';
 import PageTitle from '../PageTitle';
-import Workspaces from './SwitchTeamsComponent';
-import styles from '../source/User.module.css';
+import UserWorkspaces from './UserWorkspaces';
+import styles from './user.module.css';
 
 class MeComponent extends React.Component {
   componentWillMount() {
@@ -31,7 +31,7 @@ class MeComponent extends React.Component {
         <div className={cx('source', styles['user-settings-wrapper'])}>
           <div className={styles['user-content']}>
             { tab === 'profile' ? <UserProfile user={user} /> : null}
-            { tab === 'teams' || tab === 'workspaces' ? <Workspaces user={user} /> : null}
+            { tab === 'teams' || tab === 'workspaces' ? <UserWorkspaces user={user} /> : null}
             { tab === 'privacy' ? <UserPrivacy user={user} /> : null}
             { tab === 'security' ? <UserSecurity user={user} /> : null}
           </div>

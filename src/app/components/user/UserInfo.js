@@ -1,25 +1,12 @@
 import React from 'react';
-import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
-import Can from '../Can';
 import { parseStringUnixTimestamp } from '../../helpers';
-import SourcePicture from './SourcePicture';
-import IconEdit from '../../icons/edit.svg';
-import styles from './User.module.css';
-
-const messages = defineMessages({
-  editTooltip: {
-    id: 'global.edit',
-    defaultMessage: 'Edit',
-    description: 'Generic label for a button or link for a user to press when they wish to edit content or functionality',
-  },
-});
+import SourcePicture from '../source/SourcePicture';
+import styles from '../user/user.module.css';
 
 const UserInfo = (props) => {
   if (props.user.source === null) return null;
-  const isUserSelf = (props.user?.dbid && props.user?.dbid === props.context?.currentUser?.dbid);
 
   return (
     <div className={styles['user-info-edit']}>
@@ -36,23 +23,6 @@ const UserInfo = (props) => {
         <div className="source__primary-info">
           <div className={cx(styles['user-info-name'])}>
             <h5 className="source__name">{props.user.name}</h5>
-            <Can permissions={props.user.permissions} permission="update User">
-              <ButtonMain
-                iconCenter={<IconEdit />}
-                variant="text"
-                theme="lightText"
-                size="default"
-                className="source__edit-source-button"
-                onClick={() => {
-                  if (isUserSelf) {
-                    browserHistory.push('/check/me/edit');
-                  } else {
-                    browserHistory.push(`/check/user/${props.user.dbid}/edit`);
-                  }
-                }}
-                title={props.intl.formatMessage(messages.editTooltip)}
-              />
-            </Can>
           </div>
         </div>
         <div className={styles['contact-info']}>

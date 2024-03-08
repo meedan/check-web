@@ -17,7 +17,7 @@ import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSour
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import styles from '../source/User.module.css';
+import styles from './user.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 
 const messages = defineMessages({

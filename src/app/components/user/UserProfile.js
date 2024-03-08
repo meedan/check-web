@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import SettingsHeader from '../team/SettingsHeader';
 import UserInfoEdit from './UserInfoEdit';
-import styles from '../source/User.module.css';
+import styles from './user.module.css';
 
 const UserProfile = (props) => {
   const { user } = props;

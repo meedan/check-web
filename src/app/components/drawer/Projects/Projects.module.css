@@ -38,7 +38,18 @@
   &.listFooter {
     flex: 0 0 auto;
     justify-content: flex-end;
-    padding: 20px 6px;
+    padding: 16px 6px;
+    position: relative;
+
+    &::after {
+      background-color: var(--brandBackgroundAccent);
+      content: '';
+      height: 2px;
+      left: 6px;
+      position: absolute;
+      right: 6px;
+      top: 0;
+    }
   }
 
   .listCollapseWrapper {
@@ -97,12 +108,17 @@
   }
 
   .listItem {
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    background-color: unset;
     border: solid 1px var(--otherWhite);
     border-radius: 5px;
+    display: flex;
     height: 42px;
     margin: 0;
     padding: 10px 5px;
     position: relative;
+    text-align: left;
+    width: 100%;
 
     .listIcon {
       color: var(--textSecondary);
@@ -116,7 +132,9 @@
     }
 
     .listLabel {
+      flex: 1 1 auto;
       margin: 0;
+      min-width: 0;
 
       span {
         @mixin text-truncate block;
