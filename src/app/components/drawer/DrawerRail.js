@@ -88,7 +88,7 @@ const DrawerRail = (props) => {
 
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
-      if (isMediaPage || teamSlug === 'check' || !teamSlug) {
+      if (isMediaPage || !teamSlug) {
         onDrawerOpenChange(false);
         window.storage.set('drawer.isOpen', false);
       } else if (window.storage.getValue('drawer.isOpen')) {
@@ -123,7 +123,6 @@ const DrawerRail = (props) => {
             </Tooltip>
             <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.railToggleDescription)}>
               <button
-                id="side-navigation__toggle"
                 type="button"
                 className={cx(
                   [styles.railIconButton],
