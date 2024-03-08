@@ -92,9 +92,8 @@ const SharedItemCard = ({
                 mediaCount && (
                   <FormattedMessage
                     id="sharedItemCard.medias"
-                    defaultMessage="{mediaCount, plural, one {Media} other {Medias}}"
+                    defaultMessage="Media"
                     description="This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item."
-                    values={{ mediaCount }}
                   >
                     { mediasLabel => (
                       <Tooltip
