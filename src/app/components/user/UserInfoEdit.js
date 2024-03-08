@@ -375,7 +375,10 @@ class UserInfoEdit extends React.Component {
             <><ConfirmEmail user={user} /><br /></>
             : null
           }
-          <UserEmail user={user} />
+          { !this.props.user.email && window.storage.getValue('dismiss-user-email-nudge') !== '1' ?
+            <><UserEmail user={user} /><br /></>
+            : null
+          }
           <form
             onSubmit={this.handleSubmit.bind(this)}
             name="edit-source-form"
