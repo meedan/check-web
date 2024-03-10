@@ -52,5 +52,4 @@ else
   # docker-compose logs -f presto-server &
   # docker-compose logs -f presto-image &
   # docker-compose logs -f presto-audio &
-  # docker-compose logs -f presto-yake &
 fi
