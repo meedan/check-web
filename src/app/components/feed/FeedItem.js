@@ -6,12 +6,16 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
 import NotFound from '../NotFound';
 import FeedItemHeader from './FeedItemHeader';
+import FeedItemTeams from './FeedItemTeams';
 
 const FeedItemComponent = ({ teamSlug, feed, cluster }) => (
   <div id="feed-item-page">
     <FeedItemHeader
       teamSlug={teamSlug}
       feed={feed}
+      cluster={cluster}
+    />
+    <FeedItemTeams
       cluster={cluster}
     />
   </div>
@@ -32,6 +36,19 @@ FeedItemComponent.propTypes = {
         url: PropTypes.string,
       }),
     }).isRequired,
+    cluster_teams: PropTypes.exact({
+      edges: PropTypes.arrayOf(PropTypes.exact({
+        node: PropTypes.exact({
+          team: PropTypes.exact({
+            name: PropTypes.string.isRequired,
+            avatar: PropTypes.string.isRequired,
+          }).isRequired,
+          last_request_date: PropTypes.number,
+          media_count: PropTypes.number,
+          requests_count: PropTypes.number,
+        }),
+      }).isRequired).isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
@@ -50,6 +67,7 @@ const FeedItem = ({ routeParams }) => (
               ...FeedItemHeader_feed
               cluster(project_media_id: $projectMediaId) {
                 ...FeedItemHeader_cluster
+                ...FeedItemTeams_cluster
               }
             }
           }

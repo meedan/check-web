@@ -19,6 +19,7 @@ const Card = ({
   cardUrl,
   footer,
   children,
+  className,
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -37,7 +38,7 @@ const Card = ({
       onMouseLeave={handleMouseLeave}
     >
       <MaybeLink to={cardUrl}>
-        <div className={styles.cardContent}>
+        <div className={`${styles.cardContent} ${className}`}>
           <CardHoverContext.Provider value={isHovered}>
             { children }
           </CardHoverContext.Provider>
@@ -52,12 +53,14 @@ Card.defaultProps = {
   cardUrl: null,
   footer: null,
   children: null,
+  className: '',
 };
 
 Card.propTypes = {
   cardUrl: PropTypes.string,
   footer: PropTypes.node,
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 export { CardHoverContext };

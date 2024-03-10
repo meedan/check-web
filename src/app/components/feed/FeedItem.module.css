@@ -28,3 +28,18 @@
     font-size: var(--iconSizeTiny);
   }
 }
+
+.feedItemTeams {
+  background: var(--otherWhite);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 32px;
+  padding: 16px;
+  width: 50%;
+}
+
+.feedItemTeamCard {
+  justify-content: flex-start !important;
+}
