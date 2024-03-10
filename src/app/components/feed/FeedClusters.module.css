@@ -12,6 +12,14 @@
 
 .feedClusterCard {
   margin-bottom: 16px;
+
+  a,
+  a:hover,
+  a:active,
+  a:visited {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 .feedClustersFilters {

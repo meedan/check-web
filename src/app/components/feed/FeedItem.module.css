@@ -1,0 +1,30 @@
+.feedItemHeader {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedItemHeaderMetadata {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  h6 {
+    -webkit-line-clamp: 1 !important;
+  }
+}
+
+.feedItemHeaderMetadataRow {
+  align-items: center;
+  display: flex;
+
+  span {
+    line-height: var(--iconSizeTiny);
+    text-transform: none;
+  }
+
+  svg {
+    font-size: var(--iconSizeTiny);
+  }
+}
