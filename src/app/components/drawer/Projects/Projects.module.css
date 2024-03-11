@@ -230,7 +230,7 @@
 
   .listWrapper {
     overflow: auto;
-    padding: 6px;
+    padding: 6px 6px 0;
 
     &::before {
       background-color: var(--otherWhite);
@@ -250,7 +250,6 @@
       display: block;
       flex-shrink: 0;
       height: 2px;
-      margin-bottom: -6px;
       margin-top: auto;
       position: relative;
       z-index: 2;
