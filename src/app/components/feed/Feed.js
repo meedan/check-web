@@ -134,9 +134,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
             {...commonSearchProps}
             title={feed.name}
             listActions={
-              <div>
-                <FeedHeader feedTeam={feedTeam} feed={feed} />
-              </div>
+              <FeedHeader feedTeam={feedTeam} feed={feed} />
             }
             extra={feed.requests_count > 0 ? () => (
               <FeedSwitcher teamSlug={routeParams.team} feedDbid={routeParams.feedId} value="feed" />
