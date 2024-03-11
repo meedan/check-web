@@ -12,13 +12,13 @@ import {
   TableSortLabel,
 } from '@material-ui/core';
 import cx from 'classnames/bind';
-import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import KeyboardArrowUpIcon from '../../icons/chevron_up.svg';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import FeedFilters from './FeedFilters';
+import FeedSwitcher from './FeedSwitcher';
 import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
@@ -93,10 +93,7 @@ const FeedRequestsTable = ({
     onChangeSortType(sortType === 'desc' ? 'asc' : 'desc');
   };
 
-  const changeRequestsList = () => {
-    const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/)[1];
-    browserHistory.push(`/${teamSlugFromUrl}/feed/${feed.dbid}`);
-  };
+  const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/)[1];
 
   const TableSort = ({ children, field }) => (
     <TableSortLabel
@@ -154,27 +151,12 @@ const FeedRequestsTable = ({
         </div>
         { typeof tabs === 'function' && tabs({}) }
       </div>
-      <div className={styles['ine-feed-switcher']}>
-        <ToggleButtonGroup
-          value="2"
-          variant="contained"
-          onChange={(e, newValue) => changeRequestsList(newValue)}
-          size="small"
-          exclusive
-        >
-          <ToggleButton value="1" key="1">
-            <FormattedMessage id="feedClusters.sharedRequests" defaultMessage="Shared Requests" description="Button label to take the user to the list of requests coming from the standard tipline" />
-          </ToggleButton>
-          <ToggleButton value="2" key="2">
-            <FormattedMessage id="feedClusters.apiRequests" defaultMessage="API Requests" description="Button label to take the user to the list of requests coming from the API" />
-          </ToggleButton>
-        </ToggleButtonGroup>
-      </div>
       <FeedFilters
         feedTeam={feedTeam}
         filterOptions={['linked_items_count', 'demand', 'range', 'feed_fact_checked_by']}
         currentFilters={filters}
         onSubmit={onChangeFilters}
+        extra={<FeedSwitcher teamSlug={teamSlugFromUrl} feedDbid={feed.dbid} value="requests" />}
       />
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         {totalCount ?

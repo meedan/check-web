@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { browserHistory } from 'react-router';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import SharedItemCard from '../search/SearchResultsCards/SharedItemCard';
 import searchResultsStyles from '../search/SearchResults.module.css';
-import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import ListSort from '../cds/inputs/ListSort';
@@ -67,11 +65,6 @@ const FeedClustersComponent = ({
   const clusters = feed.clusters.edges.map(edge => edge.node);
   const startingIndex = (page - 1) * pageSize;
   const endingIndex = startingIndex + (clusters.length - 1);
-
-  const changeRequestsList = () => {
-    const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/)[1];
-    browserHistory.push(`/${teamSlugFromUrl}/feed/${feed.dbid}/requests`);
-  };
 
   const handleChangeSort = ({ sort: newSort, sortType: newSortType }) => {
     onChangeSearchParams({
@@ -138,24 +131,6 @@ const FeedClustersComponent = ({
           </div>
         </div>
       </div>
-      { feed.requests_count > 0 ?
-        <div className={searchResultsStyles['ine-feed-switcher']}>
-          <ToggleButtonGroup
-            value="1"
-            variant="contained"
-            onChange={(e, newValue) => changeRequestsList(newValue)}
-            size="small"
-            exclusive
-          >
-            <ToggleButton value="1" key="1">
-              <FormattedMessage id="feedClusters.sharedRequests" defaultMessage="Shared Requests" description="Button label to take the user to the list of requests coming from the standard tipline" />
-            </ToggleButton>
-            <ToggleButton value="2" key="2">
-              <FormattedMessage id="feedClusters.apiRequests" defaultMessage="API Requests" description="Button label to take the user to the list of requests coming from the API" />
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </div> : null
-      }
       <div className={cx(searchResultsStyles['search-results-wrapper'], styles.feedClustersFilters)}>
         <FeedTopBar
           team={team}
@@ -287,7 +262,6 @@ FeedClustersComponent.propTypes = {
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    requests_count: PropTypes.number.isRequired,
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
     data_points: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -388,7 +362,6 @@ const FeedClusters = ({ teamSlug, feedId }) => {
             feed(dbid: $feedId) {
               dbid
               name
-              requests_count
               data_points
               saved_search_id
               current_feed_team {
