@@ -138,7 +138,7 @@ const FeedClustersComponent = ({
           </div>
         </div>
       </div>
-      { feed.requests_count === 0 ?
+      { feed.requests_count > 0 ?
         <div className={searchResultsStyles['ine-feed-switcher']}>
           <ToggleButtonGroup
             value="1"
