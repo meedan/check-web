@@ -4,6 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import ProjectsComponent from './ProjectsComponent';
 import FeedsComponent from './FeedsComponent';
+import SettingsComponent from './SettingsComponent';
 
 const renderQuery = ({ error, props, drawerType }) => {
   if (!error && props) {
@@ -24,6 +25,13 @@ const renderQuery = ({ error, props, drawerType }) => {
         <FeedsComponent
           team={props.team}
           feeds={feeds.map(f => ({ ...f, title: (f.name || f.feed?.name), dbid: (f.feed_id || f.dbid) }))}
+        />
+      );
+    } else if (drawerType === 'settings') {
+      return (
+        <SettingsComponent
+          team={props.team}
+          params={props.params}
         />
       );
     }

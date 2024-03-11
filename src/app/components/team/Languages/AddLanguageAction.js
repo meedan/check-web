@@ -50,7 +50,7 @@ function submitAddLanguage({
 }
 
 // FIXME rewrite using LanguagePickerDialog
-const AddLanguageAction = ({ team }) => {
+const AddLanguageAction = ({ team, setLanguages }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -69,6 +69,7 @@ const AddLanguageAction = ({ team }) => {
   const handleSubmit = () => {
     const onSuccess = () => {
       setValue(null);
+      setLanguages(languages.concat(value));
       setIsSaving(false);
       setDialogOpen(false);
     };
@@ -192,6 +193,7 @@ AddLanguageAction.propTypes = {
     id: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
+  setLanguages: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(AddLanguageAction, graphql`

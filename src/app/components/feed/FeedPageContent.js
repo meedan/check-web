@@ -39,7 +39,11 @@ const FeedPageContent = ({ permissions, slug }) => {
           <div className={cx(styles['feed-header-title'])}>
             <h6>
               <FeedIcon />
-              <FormattedMessage id="sharedFeeds" defaultMessage="Shared Feeds" description="Title for the shared feeds page" />
+              <FormattedHTMLMessage
+                id="sharedFeeds"
+                defaultMessage="Shared Feeds <sup>BETA</sup>"
+                description="Title for the shared feeds page"
+              />
             </h6>
           </div>
         </div>

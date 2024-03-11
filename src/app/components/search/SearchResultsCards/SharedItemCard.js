@@ -90,7 +90,11 @@ const SharedItemCard = ({
               compact
               details={[
                 mediaCount && (
-                  <FormattedMessage id="sharedItemCard.medias" defaultMessage="Medias" description="This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item .">
+                  <FormattedMessage
+                    id="sharedItemCard.medias"
+                    defaultMessage="Media"
+                    description="This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item."
+                  >
                     { mediasLabel => (
                       <Tooltip
                         arrow
@@ -111,7 +115,12 @@ const SharedItemCard = ({
                     )}
                   </FormattedMessage>),
                 requestsCount && (
-                  <FormattedMessage id="sharedItemCard.requests" defaultMessage="Requests" description="This appears as a label next to a number, like '1,234 Requests'. It should indicate to the user that whatever number they are viewing represents the number of requests an item has gotten.">
+                  <FormattedMessage
+                    id="sharedItemCard.requests"
+                    defaultMessage="{requestsCount, plural, one {Request} other {Requests}}"
+                    description="This appears as a label next to a number, like '1,234 Requests'. It should indicate to the user that whatever number they are viewing represents the number of requests an item has gotten."
+                    values={{ requestsCount }}
+                  >
                     { requestsLabel => (
                       <Tooltip
                         arrow
@@ -174,14 +183,16 @@ const SharedItemCard = ({
               theme="lightBrand"
               iconLeft={<FactCheckIcon />}
               variant="contained"
-              label={<FormattedMessage
-                id="sharedItemCard.factCheckCount"
-                defaultMessage="{count} Fact-checks"
-                description="A label showing the number of fact-checks represented in an item."
-                values={{
-                  count: getCompactNumber(intl.locale, factCheckCount),
-                }}
-              />}
+              label={
+                <FormattedMessage
+                  id="sharedItemCard.factCheckCount"
+                  defaultMessage="{count, plural, one {# Fact-check} other {# Fact-checks}}"
+                  description="A label showing the number of fact-checks represented in an item."
+                  values={{
+                    count: getCompactNumber(intl.locale, factCheckCount),
+                  }}
+                />
+              }
             />
           ) : null }
           { (date && !feedContainsMediaRequests && feedContainsFactChecks) ? (

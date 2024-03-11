@@ -6,9 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconMoreVert from '../../../icons/more_vert.svg';
+import EditIcon from '../../../icons/edit.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsHeader from '../SettingsHeader';
 import RulesTableToolbar from './RulesTableToolbar';
@@ -24,7 +22,6 @@ export default function RulesTable(props) {
     index,
   }));
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [selected, setSelected] = React.useState([]);
   const [orderBy, setOrderBy] = React.useState('updated_at');
   const [order, setOrder] = React.useState('asc');
@@ -144,26 +141,13 @@ export default function RulesTable(props) {
                     </TableCell>
                     <TableCell>
                       <ButtonMain
-                        iconCenter={<IconMoreVert />}
+                        iconCenter={<EditIcon />}
                         className="int-rules-table__button--rule-menu"
                         variant="outlined"
                         size="default"
                         theme="text"
-                        onClick={e => setAnchorEl(e.currentTarget)}
+                        onClick={() => { handleClick(index); }}
                       />
-                      <Menu
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={() => setAnchorEl(null)}
-                      >
-                        <MenuItem onClick={() => { handleClick(index); }} className="int-rules-table__button--rule-menuitem">
-                          <FormattedMessage
-                            id="teamTagsActions.edit"
-                            defaultMessage="Edit"
-                            description="Menu item to edit a rule"
-                          />
-                        </MenuItem>
-                      </Menu>
                     </TableCell>
                   </TableRow>
                 );

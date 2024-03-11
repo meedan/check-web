@@ -119,7 +119,6 @@ shared_examples 'search' do
 
   it 'should find all medias with an empty search', bin4: true do
     api_create_team_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-card-large')
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     create_image('files/test.png')
     @driver.navigate.refresh
