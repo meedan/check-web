@@ -12,6 +12,7 @@ import {
   TableSortLabel,
 } from '@material-ui/core';
 import cx from 'classnames/bind';
+import { ToggleButton, ToggleButtonGroup } from '../cds/inputs/ToggleButtonGroup';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import KeyboardArrowUpIcon from '../../icons/chevron_up.svg';
 import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
@@ -92,6 +93,11 @@ const FeedRequestsTable = ({
     onChangeSortType(sortType === 'desc' ? 'asc' : 'desc');
   };
 
+  const changeRequestsList = () => {
+    const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/)[1];
+    browserHistory.push(`/${teamSlugFromUrl}/feed/${feed.dbid}`);
+  };
+
   const TableSort = ({ children, field }) => (
     <TableSortLabel
       key={`${field}-${sortType}`}
@@ -147,6 +153,22 @@ const FeedRequestsTable = ({
           />
         </div>
         { typeof tabs === 'function' && tabs({}) }
+      </div>
+      <div className={styles['ine-feed-switcher']}>
+        <ToggleButtonGroup
+          value="2"
+          variant="contained"
+          onChange={(e, newValue) => changeRequestsList(newValue)}
+          size="small"
+          exclusive
+        >
+          <ToggleButton value="1" key="1">
+            <FormattedMessage id="feedClusters.sharedRequests" defaultMessage="Shared Requests" description="Button label to take the user to the list of requests coming from the standard tipline" />
+          </ToggleButton>
+          <ToggleButton value="2" key="2">
+            <FormattedMessage id="feedClusters.apiRequests" defaultMessage="API Requests" description="Button label to take the user to the list of requests coming from the API" />
+          </ToggleButton>
+        </ToggleButtonGroup>
       </div>
       <FeedFilters
         feedTeam={feedTeam}

@@ -74,8 +74,6 @@ const FeedHeader = ({ feed, feedTeam }) => {
           </span>
         </Tooltip>
       </Can>
-
-      { feed.requests_count > 0 ? <p style={{ color: 'red' }}>This feed has received API requests.</p> : null }
     </div>
   );
 };
@@ -112,6 +110,5 @@ export default createFragmentContainer(FeedHeader, graphql`
     team_id
     licenses
     permissions
-    requests_count
   }
 `);

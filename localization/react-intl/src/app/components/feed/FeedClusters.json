@@ -30,6 +30,16 @@
     "defaultMessage": "Shared Feed"
   },
   {
+    "id": "feedClusters.sharedRequests",
+    "description": "Button label to take the user to the list of requests coming from the standard tipline",
+    "defaultMessage": "Shared Requests"
+  },
+  {
+    "id": "feedClusters.apiRequests",
+    "description": "Button label to take the user to the list of requests coming from the API",
+    "defaultMessage": "API Requests"
+  },
+  {
     "id": "feedClusters.previousPage",
     "description": "Pagination button to go to previous page",
     "defaultMessage": "Previous page"
