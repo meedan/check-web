@@ -287,6 +287,7 @@ FeedClustersComponent.propTypes = {
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    requests_count: PropTypes.number.isRequired,
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
     data_points: PropTypes.arrayOf(PropTypes.number).isRequired,

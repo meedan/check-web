@@ -89,7 +89,6 @@ FeedHeader.propTypes = {
     dbid: PropTypes.number.isRequired,
     licenses: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     permissions: PropTypes.string.isRequired, // e.g., '{"update Feed":true}'
-    requests_count: PropTypes.number.isRequired,
     team: PropTypes.shape({
       slug: PropTypes.string.isRequired,
     }).isRequired,
