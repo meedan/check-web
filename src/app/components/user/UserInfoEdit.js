@@ -1,6 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import PropTypes from 'prop-types';
+import { FormattedMessage, injectIntl, defineMessages, intlShape } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import cx from 'classnames/bind';
 import Alert from '../cds/alerts-and-prompts/Alert';
@@ -17,6 +18,7 @@ import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSour
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
+import { withSetFlashMessage } from '../FlashMessage';
 import styles from './user.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
 
@@ -119,6 +121,13 @@ class UserInfoEdit extends React.Component {
 
   success(response, mutation) {
     this.removePendingMutation(mutation);
+    this.props.setFlashMessage((
+      <FormattedMessage
+        id="userInfoEdit.savedSuccessfully"
+        defaultMessage="Profile details saved successfully"
+        description="Success message displayed when user profile is saved"
+      />
+    ), 'success');
   }
 
   manageEditingState = () => {
@@ -375,7 +384,7 @@ class UserInfoEdit extends React.Component {
             <><ConfirmEmail user={user} /><br /></>
             : null
           }
-          { !this.props.user.email && window.storage.getValue('dismiss-user-email-nudge') !== '1' ?
+          { !user.email && !user.unconfirmed_email && Boolean(this.state.sendEmail) ?
             <><UserEmail user={user} /><br /></>
             : null
           }
@@ -443,6 +452,7 @@ class UserInfoEdit extends React.Component {
           </form>
           <div className={cx('source__edit-buttons-cancel-save', inputStyles['form-footer-actions'])}>
             <ButtonMain
+              disabled={this.state.submitDisabled}
               className="source__edit-save-button"
               size="default"
               variant="contained"
@@ -459,4 +469,11 @@ class UserInfoEdit extends React.Component {
   }
 }
 
-export default injectIntl(UserInfoEdit);
+UserInfoEdit.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
+  setFlashMessage: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
+};
+
+export default withSetFlashMessage(injectIntl(UserInfoEdit));

@@ -7,11 +7,6 @@
   {
     "id": "userEmail.text",
     "description": "Message to the user on how to receive notifications to their email address",
-    "defaultMessage": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click 'Skip'"
-  },
-  {
-    "id": "userEmail.skipNotifications",
-    "description": "Message to the user on how to skip receiving notifications because they did not provide an email address",
-    "defaultMessage": "Skip"
+    "defaultMessage": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address."
   }
 ]
