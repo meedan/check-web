@@ -8,7 +8,12 @@ import NotFound from '../NotFound';
 import FeedItemHeader from './FeedItemHeader';
 import FeedItemTeams from './FeedItemTeams';
 
-const FeedItemComponent = ({ teamSlug, feed, cluster }) => (
+const FeedItemComponent = ({
+  teamSlug,
+  feed,
+  cluster,
+  team,
+}) => (
   <div id="feed-item-page">
     <FeedItemHeader
       teamSlug={teamSlug}
@@ -16,6 +21,7 @@ const FeedItemComponent = ({ teamSlug, feed, cluster }) => (
       cluster={cluster}
     />
     <FeedItemTeams
+      team={team}
       cluster={cluster}
     />
   </div>
@@ -23,6 +29,11 @@ const FeedItemComponent = ({ teamSlug, feed, cluster }) => (
 
 FeedItemComponent.propTypes = {
   teamSlug: PropTypes.string.isRequired,
+  team: PropTypes.exact({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+  }).isRequired,
   feed: PropTypes.exact({
     dbid: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -40,6 +51,7 @@ FeedItemComponent.propTypes = {
       edges: PropTypes.arrayOf(PropTypes.exact({
         node: PropTypes.exact({
           team: PropTypes.exact({
+            id: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
             avatar: PropTypes.string.isRequired,
           }).isRequired,
@@ -63,6 +75,7 @@ const FeedItem = ({ routeParams }) => (
       query={graphql`
         query FeedItemQuery($slug: String!, $feedId: Int!, $projectMediaId: Int!) {
           team(slug: $slug) {
+            ...FeedItemTeams_team
             feed(dbid: $feedId) {
               ...FeedItemHeader_feed
               cluster(project_media_id: $projectMediaId) {
@@ -82,7 +95,7 @@ const FeedItem = ({ routeParams }) => (
         if (props && !error) {
           const cluster = props.team?.feed?.cluster;
           if (cluster) {
-            return (<FeedItemComponent teamSlug={routeParams.team} feed={props.team.feed} cluster={cluster} />);
+            return (<FeedItemComponent teamSlug={routeParams.team} feed={props.team.feed} cluster={cluster} team={props.team} />);
           }
           return (<NotFound />);
         }

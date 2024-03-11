@@ -43,3 +43,17 @@
 .feedItemTeamCard {
   justify-content: flex-start !important;
 }
+
+.feedItemTeamsTitle {
+  margin: 16px 0;
+}
+
+.feedItemTeamsSubtitle {
+  margin-bottom: 8px;
+}
+
+.feedItemCurrentTeam {
+  background: var(--brandBackground);
+  border-radius: 8px;
+  padding: 8px;
+}

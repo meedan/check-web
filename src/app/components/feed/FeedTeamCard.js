@@ -13,7 +13,7 @@ const FeedTeamCard = ({
   lastRequestDate,
 }) => (
   <Card className={styles.feedItemTeamCard}>
-    <TeamAvatar team={{ avatar: teamAvatar }} size="40px" />
+    <TeamAvatar team={{ avatar: teamAvatar }} size="54px" />
     <div>
       <div>
         <h6 className="typography-button">{teamName}</h6>
