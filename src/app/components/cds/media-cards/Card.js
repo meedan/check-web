@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import cx from 'classnames/bind';
 import styles from './Card.module.css';
 
 const CardHoverContext = React.createContext(false);
@@ -38,7 +39,7 @@ const Card = ({
       onMouseLeave={handleMouseLeave}
     >
       <MaybeLink to={cardUrl}>
-        <div className={`${styles.cardContent} ${className}`}>
+        <div className={cx(styles.cardContent, { [className]: true })}>
           <CardHoverContext.Provider value={isHovered}>
             { children }
           </CardHoverContext.Provider>
