@@ -14,6 +14,7 @@
   :global(.MuiToggleButtonGroup-root) {
     background-color: transparent;
     height: 100%;
+    white-space: nowrap;
   }
 
   :global(.MuiButtonBase-root) {
