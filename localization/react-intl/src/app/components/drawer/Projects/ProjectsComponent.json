@@ -1,5 +1,10 @@
 [
   {
+    "id": "projectsComponent.tiplineNavHeader",
+    "description": "The navigation name of the tipline section",
+    "defaultMessage": "Tipline"
+  },
+  {
     "id": "projectsComponent.allItems",
     "description": "Label for the 'All items' list displayed on the left sidebar",
     "defaultMessage": "All"
