@@ -3,19 +3,13 @@ import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
-import SettingsHeader from '../../team/SettingsHeader';
+import TextField from '../../cds/inputs/TextField';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
-
-const useStyles = makeStyles(theme => ({
-  newProjectHeader: {
-    marginBottom: theme.spacing(-3),
-    paddingBottom: 0,
-  },
-}));
+import HelpIcon from '../../../icons/help.svg';
+import styles from '../../../styles/css/dialog.module.css';
 
 const NewProject = ({
   open,
@@ -28,7 +22,6 @@ const NewProject = ({
   successMessage,
   setFlashMessage,
 }) => {
-  const classes = useStyles();
   const [newTitle, setNewTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);
 
@@ -97,32 +90,50 @@ const NewProject = ({
     });
   };
 
+  const handleHelp = () => {
+    window.open(helpUrl);
+  };
+
   return (
     <ConfirmProceedDialog
       open={open}
       title={
-        <SettingsHeader
-          title={title}
-          helpUrl={helpUrl}
-          className={classes.newProjectHeader}
-        />
+        <>
+          {title}
+          <ButtonMain
+            className={styles['dialog-close-button']}
+            variant="text"
+            size="small"
+            theme="text"
+            iconCenter={<HelpIcon />}
+            onClick={handleHelp}
+          />
+        </>
       }
       body={
-        <TextField
-          id="new-project__title"
-          label={
-            <FormattedMessage
-              id="projectsComponent.title"
-              defaultMessage="Title"
-              description="Text field label for the title input"
+        <FormattedMessage
+          id="projectsComponent.placeholder"
+          defaultMessage="Enter a short, memorable name for this custom list"
+          description="Placeholder for creating a new custom list"
+        >
+          { placeholder => (
+            <TextField
+              componentProps={{
+                id: 'new-project__title',
+              }}
+              placeholder={placeholder}
+              label={
+                <FormattedMessage
+                  id="projectsComponent.title"
+                  defaultMessage="Title"
+                  description="Text field label for the title input"
+                />
+              }
+              onChange={(e) => { setNewTitle(e.target.value); }}
+              className="new-project__title"
             />
-          }
-          onChange={(e) => { setNewTitle(e.target.value); }}
-          variant="outlined"
-          margin="normal"
-          className="new-project__title"
-          fullWidth
-        />
+          )}
+        </FormattedMessage>
       }
       proceedDisabled={!newTitle}
       proceedLabel={buttonLabel}

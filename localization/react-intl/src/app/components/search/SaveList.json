@@ -1,5 +1,20 @@
 [
   {
+    "id": "saveList.title",
+    "description": "Prompt for editing list name",
+    "defaultMessage": "Enter new list name"
+  },
+  {
+    "id": "saveList.saveAsNewList",
+    "description": "Dialog title and submit button label for saving filters as new lists",
+    "defaultMessage": "Create a New List"
+  },
+  {
+    "id": "saveList.newList",
+    "description": "Dialog title and submit button label for saving changes to lists",
+    "defaultMessage": "Save List"
+  },
+  {
     "id": "saveList.defaultErrorMessage",
     "description": "Error message displayed when it's not possible to save a list",
     "defaultMessage": "Could not save filters, please try again"
@@ -18,21 +33,6 @@
     "id": "saveList.saveList",
     "description": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list.",
     "defaultMessage": "Save"
-  },
-  {
-    "id": "saveList.saveAsNewList",
-    "description": "Dialog title and submit button label for saving filters as new lists",
-    "defaultMessage": "Save as new list"
-  },
-  {
-    "id": "saveList.title",
-    "description": "Prompt for editing list name",
-    "defaultMessage": "Enter new list name"
-  },
-  {
-    "id": "saveList.newList",
-    "description": "Dialog title and submit button label for saving changes to lists",
-    "defaultMessage": "Save list"
   },
   {
     "id": "saveList.cancel",

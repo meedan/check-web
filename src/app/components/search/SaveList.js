@@ -4,23 +4,36 @@ import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import { browserHistory } from 'react-router';
-import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
+import TextField from '../cds/inputs/TextField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 
-/*
-  FIXME: defineMessages only once and reuse them with intl.formatMessage
-  instead of multiple FormattedMessage with same id, defaultMessage & description.
-*/
+const messages = defineMessages({
+  saveList: {
+    id: 'saveList.title',
+    defaultMessage: 'Enter new list name',
+    description: 'Prompt for editing list name',
+  },
+  saveAsNewList: {
+    id: 'saveList.saveAsNewList',
+    defaultMessage: 'Create a New List',
+    description: 'Dialog title and submit button label for saving filters as new lists',
+  },
+  newList: {
+    id: 'saveList.newList',
+    defaultMessage: 'Save List',
+    description: 'Dialog title and submit button label for saving changes to lists',
+  },
+});
 
 const createMutation = graphql`
   mutation SaveListCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
@@ -69,6 +82,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SaveList = ({
+  intl,
   team,
   feedTeam,
   savedSearch,
@@ -275,27 +289,16 @@ const SaveList = ({
       {/* Create a new list */}
       <ConfirmProceedDialog
         open={showNewDialog}
-        title={<FormattedMessage id="saveList.saveAsNewList" defaultMessage="Save as new list" description="Dialog title and submit button label for saving filters as new lists" />}
+        title={intl.formatMessage(messages.saveAsNewList)}
         body={
-          <Box>
-            <TextField
-              label={
-                <FormattedMessage
-                  id="saveList.title"
-                  defaultMessage="Enter new list name"
-                  description="Prompt for editing list name"
-                />
-              }
-              onChange={(e) => { setTitle(e.target.value); }}
-              variant="outlined"
-              margin="normal"
-              className="new-list__title"
-              fullWidth
-            />
-          </Box>
+          <TextField
+            placeholder={intl.formatMessage(messages.saveList)}
+            onChange={(e) => { setTitle(e.target.value); }}
+            className="new-list__title"
+          />
         }
         proceedDisabled={!title}
-        proceedLabel={<FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />}
+        proceedLabel={intl.formatMessage(messages.newList)}
         onProceed={handleSave}
         isSaving={saving}
         cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" description="Cancel list editing button label" />}
@@ -306,11 +309,7 @@ const SaveList = ({
       { savedSearch ?
         <ConfirmProceedDialog
           open={showExistingDialog}
-          title={
-            operation === 'CREATE' ?
-              <FormattedMessage id="saveList.saveAsNewList" defaultMessage="Save as new list" description="Dialog title and submit button label for saving filters as new lists" /> :
-              <FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />
-          }
+          title={operation === 'CREATE' ? intl.formatMessage(messages.saveAsNewList) : intl.formatMessage(messages.newList)}
           body={
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
@@ -319,7 +318,7 @@ const SaveList = ({
                   control={<Radio />}
                   label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
                 />
-                { savedSearch?.is_part_of_feeds ?
+                { savedSearch?.is_part_of_feeds && operation === 'UPDATE' ?
                   <Alert
                     variant="warning"
                     title={
@@ -345,20 +344,11 @@ const SaveList = ({
                         <FormattedMessage id="saveList.create" defaultMessage="Create new list" description="'Create' here is an infinitive verb" />
                       </span>
                       <TextField
-                        label={
-                          <FormattedMessage
-                            id="saveList.title"
-                            defaultMessage="Enter new list name"
-                            description="Prompt for editing list name"
-                          />
-                        }
+                        placeholder={intl.formatMessage(messages.saveList)}
                         onChange={(e) => { setTitle(e.target.value); }}
-                        variant="outlined"
-                        margin="normal"
                         className="new-list__title"
                         disabled={operation === 'UPDATE'}
-                        autoFocus={operation === 'CREATE'}
-                        fullWidth
+                        autoFocus
                       />
                     </Box>
                   }
@@ -367,7 +357,7 @@ const SaveList = ({
             </FormControl>
           }
           proceedDisabled={operation === 'CREATE' && !title}
-          proceedLabel={<FormattedMessage id="saveList.newList" defaultMessage="Save list" description="Dialog title and submit button label for saving changes to lists" />}
+          proceedLabel={intl.formatMessage(messages.newList)}
           onProceed={handleSave}
           isSaving={saving}
           cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" description="Cancel list editing button label" />}
@@ -383,6 +373,7 @@ SaveList.defaultProps = {
 };
 
 SaveList.propTypes = {
+  intl: intlShape.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
@@ -404,4 +395,4 @@ SaveList.propTypes = {
   }),
 };
 
-export default withSetFlashMessage(SaveList);
+export default withSetFlashMessage(injectIntl(SaveList));
