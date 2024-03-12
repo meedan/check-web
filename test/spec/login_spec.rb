@@ -12,7 +12,6 @@ shared_examples 'login' do
     email = "sysops+#{Time.now.to_i}@meedan.com"
     register_with_email(true, email, true)
     @driver.navigate.to "#{@config['self_url']}/check/me/profile"
-    wait_for_selector('.user-settings__profile-tab')
     displayed_name = wait_for_selector('#source__name-container')
     expect(displayed_name).to have_selector("input[value='User With Email']")
   end
