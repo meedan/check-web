@@ -1,7 +1,7 @@
 .listTitle {
   @mixin typography-subtitle2;
   color: var(--textPrimary);
-  padding: 16px 20px 0 18px;
+  padding: 16px 20px 16px 18px;
   text-transform: uppercase;
 
   sup {
@@ -27,7 +27,6 @@
   flex-direction: column;
   list-style: none;
   margin: 0;
-  overflow: auto;
   padding: 16px 6px;
   position: relative;
 
@@ -40,16 +39,6 @@
     justify-content: flex-end;
     padding: 16px 6px;
     position: relative;
-
-    &::after {
-      background-color: var(--brandBackgroundAccent);
-      content: '';
-      height: 2px;
-      left: 6px;
-      position: absolute;
-      right: 6px;
-      top: 0;
-    }
   }
 
   .listCollapseWrapper {
@@ -208,5 +197,62 @@
     margin: 0 0 0 1px;
     padding: 6px;
     width: 100%;
+  }
+}
+
+.listWrapperScrollWrapper {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+
+  &::before {
+    background-color: var(--grayBorderMain);
+    content: '';
+    display: block;
+    height: 2px;
+    left: 6px;
+    position: absolute;
+    right: 20px;
+    z-index: 1;
+  }
+
+  &::after {
+    background-color: var(--grayBorderMain);
+    bottom: 0;
+    content: '';
+    height: 2px;
+    left: 6px;
+    position: absolute;
+    right: 20px;
+  }
+
+  .listWrapper {
+    overflow: auto;
+    padding: 6px 6px 0;
+
+    &::before {
+      background-color: var(--otherWhite);
+      content: '';
+      display: block;
+      height: 2px;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 2;
+    }
+
+    &::after {
+      background-color: var(--otherWhite);
+      content: '';
+      display: block;
+      flex-shrink: 0;
+      height: 2px;
+      margin-top: auto;
+      position: relative;
+      z-index: 2;
+    }
   }
 }
