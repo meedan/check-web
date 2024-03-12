@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { Link } from 'react-router';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
@@ -210,26 +209,25 @@ const FeedClustersComponent = ({
 
             return (
               <div key={cluster.id} className={cx('feed-clusters__card', styles.feedClusterCard)}>
-                <Link to={`/${team.slug}/feed/${feed.dbid}/item/${cluster.center.dbid}`}>
-                  <SharedItemCard
-                    title={
-                      cluster.title ||
-                      cluster.center.title ||
-                      cluster.center.media_slug ||
-                      <FormattedMessage id="feedClusters.noTitle" description="No title available" defaultMessage="(no title)" />
-                    }
-                    description={cluster.center.description}
-                    mediaThumbnail={{ media: { url: media.url, picture: media.picture, type: media.type } }}
-                    workspaces={cluster.teams.edges.map(edge => ({ name: edge.node.name, url: edge.node.avatar }))}
-                    date={cluster.last_fact_check_date && new Date(parseInt(cluster.last_fact_check_date, 10) * 1000)}
-                    dataPoints={feed.data_points}
-                    mediaCount={cluster.media_count}
-                    requestsCount={cluster.requests_count}
-                    lastRequestDate={cluster.last_request_date && new Date(parseInt(cluster.last_request_date, 10) * 1000)}
-                    factCheckCount={cluster.fact_checks_count}
-                    channels={channels.length > 0 && { main: channels[0], others: channels }}
-                  />
-                </Link>
+                <SharedItemCard
+                  title={
+                    cluster.title ||
+                    cluster.center.title ||
+                    cluster.center.media_slug ||
+                    <FormattedMessage id="feedClusters.noTitle" description="No title available" defaultMessage="(no title)" />
+                  }
+                  description={cluster.center.description}
+                  mediaThumbnail={{ media: { url: media.url, picture: media.picture, type: media.type } }}
+                  workspaces={cluster.teams.edges.map(edge => ({ name: edge.node.name, url: edge.node.avatar }))}
+                  date={cluster.last_fact_check_date && new Date(parseInt(cluster.last_fact_check_date, 10) * 1000)}
+                  dataPoints={feed.data_points}
+                  mediaCount={cluster.media_count}
+                  requestsCount={cluster.requests_count}
+                  lastRequestDate={cluster.last_request_date && new Date(parseInt(cluster.last_request_date, 10) * 1000)}
+                  factCheckCount={cluster.fact_checks_count}
+                  channels={channels.length > 0 && { main: channels[0], others: channels }}
+                  cardUrl={`/${team.slug}/feed/${feed.dbid}/item/${cluster.center.dbid}`}
+                />
               </div>
             );
           })}

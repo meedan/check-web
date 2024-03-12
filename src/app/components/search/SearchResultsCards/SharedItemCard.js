@@ -30,6 +30,7 @@ const SharedItemCard = ({
   requestsCount,
   title,
   workspaces,
+  cardUrl,
 }) => {
   const maxWorkspaces = 5;
   const renderedWorkspaces = workspaces.slice(0, maxWorkspaces);
@@ -40,7 +41,7 @@ const SharedItemCard = ({
 
   return (
     <div className={`${styles.itemCard} shared-item--card`}>
-      <Card>
+      <Card cardUrl={cardUrl}>
         { mediaThumbnail && (
           <div className={styles.sharedItemCardLeft}>
             <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent={mediaThumbnail.show_warning_cover} type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
@@ -133,6 +134,7 @@ SharedItemCard.defaultProps = {
   mediaThumbnail: null,
   mediaType: null,
   requestsCount: null,
+  cardUrl: null,
 };
 
 SharedItemCard.propTypes = {
@@ -163,6 +165,7 @@ SharedItemCard.propTypes = {
     name: PropTypes.string,
     url: PropTypes.string,
   })).isRequired,
+  cardUrl: PropTypes.string,
 };
 
 export default injectIntl(SharedItemCard);

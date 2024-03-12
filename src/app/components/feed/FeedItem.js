@@ -105,7 +105,7 @@ const FeedItem = ({ routeParams }) => (
   </ErrorBoundary>
 );
 
-FeedItem.proTypes = {
+FeedItem.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired, // slug
     feedId: PropTypes.number.isRequired,
