@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import SettingsHeader from '../team/SettingsHeader';
 import UserInfoEdit from './UserInfoEdit';
 import styles from './user.module.css';
@@ -10,13 +9,7 @@ const UserProfile = (props) => {
   return (
     <>
       <SettingsHeader
-        title={
-          <FormattedMessage
-            id="userSettings.profileTitle"
-            defaultMessage="Profile"
-            description="Title for user settings area for user profile"
-          />
-        }
+        title={user.name}
       />
       <div className={styles['user-setting-details-wrapper']}>
         <UserInfoEdit user={user} />

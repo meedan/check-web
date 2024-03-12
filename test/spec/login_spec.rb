@@ -12,8 +12,8 @@ shared_examples 'login' do
     email = "sysops+#{Time.now.to_i}@meedan.com"
     register_with_email(true, email, true)
     @driver.navigate.to "#{@config['self_url']}/check/me/profile"
-    displayed_name = wait_for_selector('#source__name-container')
-    expect(displayed_name).to have_selector("input[value='User With Email']")
+    displayed_name = wait_for_selector('h6.component__settings-header').text
+    expect(displayed_name == 'User With Email').to be(true)
   end
 
   it 'should invite a user by e-mail to join team', bin3: true do
