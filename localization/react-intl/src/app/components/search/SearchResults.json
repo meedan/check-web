@@ -1,5 +1,10 @@
 [
   {
+    "id": "searchResults.sortTitle",
+    "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
+    "defaultMessage": "Title"
+  },
+  {
     "id": "searchResults.sortDateUpdated",
     "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
     "defaultMessage": "Date updated"
@@ -8,6 +13,11 @@
     "id": "searchResults.sortRating",
     "description": "Label for sort criteria option displayed in a drop-down in the fact-checks page.",
     "defaultMessage": "Rating"
+  },
+  {
+    "id": "searchResults.sortRequestsCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Requests (count)"
   },
   {
     "id": "projectBlankState.blank",

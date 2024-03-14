@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import Tooltip from '@material-ui/core/Tooltip';
 import { browserHistory } from 'react-router';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import BlankMediaButton from '../BlankMediaButton';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
@@ -221,6 +221,7 @@ const MediaSimilarityBarAdd = ({
           />
         </MenuItem>
         <Tooltip
+          arrow
           disableFocusListener
           disableTouchListener
           disableHoverListener={canBeAddedToSimilar}

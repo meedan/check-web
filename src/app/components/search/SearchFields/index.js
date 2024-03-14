@@ -556,6 +556,7 @@ const SearchFields = ({
         readOnly={readOnlyFields.includes('language_filter')}
         onRemove={() => handleRemoveField('language_filter')}
         teamSlug={team.slug}
+        optionsToHide={page === 'feed' ? ['request_language', 'language'] : []}
       />
     ),
     assigned_to: (

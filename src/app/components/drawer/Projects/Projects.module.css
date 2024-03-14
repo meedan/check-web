@@ -1,9 +1,21 @@
-/* stylelint-disable scale-unlimited/declaration-strict-value */
 .listTitle {
   @mixin typography-subtitle2;
   color: var(--textPrimary);
-  padding: 16px 20px 0 18px;
+  padding: 16px 20px 16px 18px;
   text-transform: uppercase;
+
+  sup {
+    background-color: var(--validationMain);
+    border-radius: 16px;
+    color: var(--otherWhite);
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    font-size: 50%;
+    line-height: 0;
+    padding: 4px 6px;
+    position: relative;
+    top: -1em;
+    vertical-align: baseline;
+  }
 }
 
 .listWrapper {
@@ -13,7 +25,10 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  overflow: auto;
+  list-style: none;
+  margin: 0;
+  padding: 16px 6px;
+  position: relative;
 
   &:global(.MuiList-root) {
     padding: 16px 6px;
@@ -22,7 +37,8 @@
   &.listFooter {
     flex: 0 0 auto;
     justify-content: flex-end;
-    padding: 20px 6px;
+    padding: 16px 6px;
+    position: relative;
   }
 
   .listCollapseWrapper {
@@ -66,7 +82,7 @@
         border-radius: 8px;
         color: var(--textSecondary);
         flex: 0 0 26px;
-        font-size: 20px;
+        font-size: var(--iconSizeSmall);
         height: 26px;
         padding: 0;
         transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
@@ -81,12 +97,17 @@
   }
 
   .listItem {
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    background-color: unset;
     border: solid 1px var(--otherWhite);
     border-radius: 5px;
+    display: flex;
     height: 42px;
     margin: 0;
     padding: 10px 5px;
     position: relative;
+    text-align: left;
+    width: 100%;
 
     .listIcon {
       color: var(--textSecondary);
@@ -100,7 +121,9 @@
     }
 
     .listLabel {
+      flex: 1 1 auto;
       margin: 0;
+      min-width: 0;
 
       span {
         @mixin text-truncate block;
@@ -177,4 +200,59 @@
   }
 }
 
-/* stylelint-enable */
+.listWrapperScrollWrapper {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+
+  &::before {
+    background-color: var(--grayBorderMain);
+    content: '';
+    display: block;
+    height: 2px;
+    left: 6px;
+    position: absolute;
+    right: 20px;
+    z-index: 1;
+  }
+
+  &::after {
+    background-color: var(--grayBorderMain);
+    bottom: 0;
+    content: '';
+    height: 2px;
+    left: 6px;
+    position: absolute;
+    right: 20px;
+  }
+
+  .listWrapper {
+    overflow: auto;
+    padding: 6px 6px 0;
+
+    &::before {
+      background-color: var(--otherWhite);
+      content: '';
+      display: block;
+      height: 2px;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 2;
+    }
+
+    &::after {
+      background-color: var(--otherWhite);
+      content: '';
+      display: block;
+      flex-shrink: 0;
+      height: 2px;
+      margin-top: auto;
+      position: relative;
+      z-index: 2;
+    }
+  }
+}

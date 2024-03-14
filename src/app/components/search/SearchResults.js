@@ -27,6 +27,11 @@ import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 
 const messages = defineMessages({
+  sortTitle: {
+    id: 'searchResults.sortTitle',
+    defaultMessage: 'Title',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
   sortDateUpdated: {
     id: 'searchResults.sortDateUpdated',
     defaultMessage: 'Date updated',
@@ -36,6 +41,11 @@ const messages = defineMessages({
     id: 'searchResults.sortRating',
     defaultMessage: 'Rating',
     description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
+  sortRequestsCount: {
+    id: 'searchResults.sortRequestsCount',
+    defaultMessage: 'Requests (count)',
+    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
   },
 });
 
@@ -483,6 +493,7 @@ function SearchResultsComponent({
                       sort={stateQuery.sort}
                       sortType={stateQuery.sort_type}
                       options={[
+                        { value: 'title', label: intl.formatMessage(messages.sortTitle) },
                         { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
                         { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
                       ]}
@@ -643,6 +654,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
           ${SearchFields.getFragment('team')}
           id
           slug
+          name
           search_id,
           permissions,
           search { id, number_of_results },

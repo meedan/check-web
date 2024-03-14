@@ -18,6 +18,7 @@ import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import FeedFilters from './FeedFilters';
+import FeedSwitcher from './FeedSwitcher';
 import TitleCell from '../search/SearchResultsTable/TitleCell';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
@@ -92,6 +93,8 @@ const FeedRequestsTable = ({
     onChangeSortType(sortType === 'desc' ? 'asc' : 'desc');
   };
 
+  const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/)[1];
+
   const TableSort = ({ children, field }) => (
     <TableSortLabel
       key={`${field}-${sortType}`}
@@ -148,7 +151,13 @@ const FeedRequestsTable = ({
         </div>
         { typeof tabs === 'function' && tabs({}) }
       </div>
-      <FeedFilters onSubmit={onChangeFilters} currentFilters={filters} feedTeam={feedTeam} />
+      <FeedFilters
+        feedTeam={feedTeam}
+        filterOptions={['linked_items_count', 'demand', 'range', 'feed_fact_checked_by']}
+        currentFilters={filters}
+        onSubmit={onChangeFilters}
+        extra={<FeedSwitcher teamSlug={teamSlugFromUrl} feedDbid={feed.dbid} value="requests" />}
+      />
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
         {totalCount ?
           <div className={styles['search-results-toolbar']}>
