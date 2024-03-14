@@ -12,13 +12,14 @@ const SearchResultsCards = ({ projectMedias, team }) => (
       return (
         <div className="fact-check-card-wrapper" key={values.fact_check_title}>
           <FactCheckCard
-            title={values.fact_check_title}
+            title={projectMedia.title}
             summary={values.fact_check_summary}
             date={values.updated_at_timestamp}
             statusLabel={status.label || values.status}
             statusColor={status.style?.color}
             url={values.fact_check_url}
             teamAvatar={values.team_avatar}
+            teamName={team.name}
           />
         </div>
       );
@@ -39,6 +40,7 @@ SearchResultsCards.propTypes = {
     }).isRequired,
   }).isRequired,
   projectMedias: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
     feed_columns_values: PropTypes.shape({
       fact_check_title: PropTypes.string.isRequired,
       updated_at_timestamp: PropTypes.number.isRequired,

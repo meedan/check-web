@@ -10,6 +10,7 @@ import FeedRequestsTable from './FeedRequestsTable';
 import FeedTopBar from './FeedTopBar';
 import FeedHeader from './FeedHeader';
 import FeedClusters from './FeedClusters';
+import FeedSwitcher from './FeedSwitcher';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
@@ -128,12 +129,16 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'report_status',
               'show',
               'unmatched',
+              'verification_status',
             ]}
             {...commonSearchProps}
             title={feed.name}
             listActions={
               <FeedHeader feedTeam={feedTeam} feed={feed} />
             }
+            extra={feed.requests_count > 0 ? () => (
+              <FeedSwitcher teamSlug={routeParams.team} feedDbid={routeParams.feedId} value="feed" />
+            ) : null}
           />
         </div>
         : null
@@ -151,23 +156,21 @@ export const FeedComponent = ({ routeParams, ...props }) => {
       }
 
       { tab === 'requests' && feed.published ?
-        <div id="feed__requests">
-          <FeedRequestsTable
-            tabs={null}
-            teamSlug={routeParams.team}
-            feedId={parseInt(routeParams.feedId, 10)}
-            feedTeam={{
-              id: feedTeam.id,
-              requests_filters: feedTeam.requests_filters || {},
-            }}
-            searchUrlPrefix={commonSearchProps.searchUrlPrefix}
-            filters={
-              routeParams.query ?
-                { ...safelyParseJSON(routeParams.query, {}) } :
-                (feedTeam.requests_filters || {})
-            }
-          />
-        </div>
+        <FeedRequestsTable
+          tabs={null}
+          teamSlug={routeParams.team}
+          feedId={parseInt(routeParams.feedId, 10)}
+          feedTeam={{
+            id: feedTeam.id,
+            requests_filters: feedTeam.requests_filters || {},
+          }}
+          searchUrlPrefix={commonSearchProps.searchUrlPrefix}
+          filters={
+            routeParams.query ?
+              { ...safelyParseJSON(routeParams.query, {}) } :
+              (feedTeam.requests_filters || {})
+          }
+        />
         : null
       }
     </React.Fragment>
@@ -188,6 +191,7 @@ FeedComponent.propTypes = {
       published: PropTypes.bool,
       filters: PropTypes.object,
       teams_count: PropTypes.number,
+      requests_count: PropTypes.number.isRequired,
       data_points: PropTypes.arrayOf(PropTypes.number),
       current_feed_team: PropTypes.shape({
         id: PropTypes.string,
@@ -212,6 +216,7 @@ const Feed = ({ routeParams }) => (
               published
               filters
               saved_search_id
+              requests_count
               data_points
               teams(first: 1000) {
                 edges {

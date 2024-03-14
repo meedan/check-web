@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, defineMessages } from 'react-intl';
 import { browserHistory, withRouter } from 'react-router';
 import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
@@ -75,89 +75,94 @@ const FeedsComponent = ({
   return (
     <React.Fragment>
       <div className={styles.listTitle}>
-        Shared Feeds
+        <FormattedHTMLMessage
+          id="projectsComponent.sharedFeedNavHeader"
+          defaultMessage="Shared Feeds <sup>BETA</sup>"
+          description="The navigation name of the shared feeds section with included Beta messaging"
+        />
       </div>
-      <List dense disablePadding className={[styles.listWrapper, 'projects-list'].join(' ')}>
-        {/* Shared feeds */}
-        <ListItem onClick={handleToggleFeedsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
-          { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-          <ListItemText disableTypography className={styles.listHeaderLabel}>
-            <FormattedMessage
-              tagName="span"
-              id="projectsComponent.sharedFeeds"
-              defaultMessage="Collaborating [{feedsLength}]"
-              description="Feeds of content shared across workspaces"
-              values={{ feedsLength: feeds.length }}
-            />
-            <Can permissions={team.permissions} permission="create Feed">
-              <Tooltip arrow title={<FormattedMessage id="projectsComponent.newSharedFeed" defaultMessage="New shared feed" description="Tooltip for the button that navigates to shared feed creation page" />}>
-                <span className={styles.listHeaderLabelButton}>
-                  <ButtonMain
-                    className="projects-list__add-feed"
-                    iconCenter={<AddCircleIcon />}
-                    variant="contained"
-                    size="small"
-                    theme="text"
-                    onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }}
-                  />
-                </span>
-              </Tooltip>
-            </Can>
-          </ListItemText>
-        </ListItem>
-        <Collapse in={feedsExpanded} className={styles.listCollapseWrapper}>
-          { feeds.length === 0 ?
-            <ListItem className={[styles.listItem, styles.listItem_containsCount, styles.listItem_empty].join(' ')}>
-              <ListItemText disableTypography className={styles.listLabel}>
-                <span>
-                  <FormattedMessage tagName="em" id="projectsComponent.noSharedFeeds" defaultMessage="No shared feeds" description="Displayed under the shared feed header when there are no feeds in it" />
-                </span>
-              </ListItemText>
-            </ListItem> :
-            <>
-              {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
-                let itemProps = {};
-                let itemIcon = null;
-                switch (feed.type) {
-                // Feeds created by the workspace
-                case 'Feed':
-                  itemProps = { routePrefix: 'feed' };
-                  break;
-                // Feeds not created by the workspace, but joined upon invitation
-                case 'FeedTeam':
-                  itemProps = { routePrefix: 'feed' };
-                  break;
-                // Feed invitations received but not processed yet
-                case 'FeedInvitation':
-                  itemProps = { routePrefix: 'feed', routeSuffix: '/invitation' };
-                  itemIcon = <ScheduleSendIcon className={cx(styles.listIcon, styles.listIconInvitedFeed)} />;
-                  break;
-                default:
-                  break;
-                }
-                return (
-                  <ProjectsListItem
-                    className={cx(
-                      {
-                        [styles.listItemInvited]: feed.type === 'FeedInvitation',
-                      })
-                    }
-                    key={feed.id}
-                    project={feed}
-                    teamSlug={team.slug}
-                    onClick={handleClick}
-                    isActive={isActive('feed', feed.dbid)}
-                    icon={itemIcon}
-                    tooltip={feed.type === 'FeedInvitation' ? intl.formatMessage(messages.pendingInvitationFeedTooltip, { feedTitle: feed.title }) : feed.title}
-                    {...itemProps}
-                  />
-                );
-              })}
-            </>
-          }
-        </Collapse>
-      </List>
-
+      <div className={styles.listWrapperScrollWrapper}>
+        <List dense disablePadding className={styles.listWrapper}>
+          {/* Shared feeds */}
+          <ListItem onClick={handleToggleFeedsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
+            { feedsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
+            <ListItemText disableTypography className={styles.listHeaderLabel}>
+              <FormattedMessage
+                tagName="span"
+                id="projectsComponent.sharedFeeds"
+                defaultMessage="Collaborating [{feedsLength}]"
+                description="Feeds of content shared across workspaces"
+                values={{ feedsLength: feeds.length }}
+              />
+              <Can permissions={team.permissions} permission="create Feed">
+                <Tooltip arrow title={<FormattedMessage id="projectsComponent.newSharedFeed" defaultMessage="New shared feed" description="Tooltip for the button that navigates to shared feed creation page" />}>
+                  <span className={styles.listHeaderLabelButton}>
+                    <ButtonMain
+                      className="projects-list__add-feed"
+                      iconCenter={<AddCircleIcon />}
+                      variant="contained"
+                      size="small"
+                      theme="text"
+                      onClick={(e) => { handleCreateFeed(); e.stopPropagation(); }}
+                    />
+                  </span>
+                </Tooltip>
+              </Can>
+            </ListItemText>
+          </ListItem>
+          <Collapse in={feedsExpanded} className={styles.listCollapseWrapper}>
+            { feeds.length === 0 ?
+              <ListItem className={[styles.listItem, styles.listItem_containsCount, styles.listItem_empty].join(' ')}>
+                <ListItemText disableTypography className={styles.listLabel}>
+                  <span>
+                    <FormattedMessage tagName="em" id="projectsComponent.noSharedFeeds" defaultMessage="No shared feeds" description="Displayed under the shared feed header when there are no feeds in it" />
+                  </span>
+                </ListItemText>
+              </ListItem> :
+              <>
+                {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
+                  let itemProps = {};
+                  let itemIcon = null;
+                  switch (feed.type) {
+                  // Feeds created by the workspace
+                  case 'Feed':
+                    itemProps = { routePrefix: 'feed' };
+                    break;
+                  // Feeds not created by the workspace, but joined upon invitation
+                  case 'FeedTeam':
+                    itemProps = { routePrefix: 'feed' };
+                    break;
+                  // Feed invitations received but not processed yet
+                  case 'FeedInvitation':
+                    itemProps = { routePrefix: 'feed', routeSuffix: '/invitation' };
+                    itemIcon = <ScheduleSendIcon className={cx(styles.listIcon, styles.listIconInvitedFeed)} />;
+                    break;
+                  default:
+                    break;
+                  }
+                  return (
+                    <ProjectsListItem
+                      className={cx(
+                        {
+                          [styles.listItemInvited]: feed.type === 'FeedInvitation',
+                        })
+                      }
+                      key={feed.id}
+                      project={feed}
+                      teamSlug={team.slug}
+                      onClick={handleClick}
+                      isActive={isActive('feed', feed.dbid)}
+                      icon={itemIcon}
+                      tooltip={feed.type === 'FeedInvitation' ? intl.formatMessage(messages.pendingInvitationFeedTooltip, { feedTitle: feed.title }) : feed.title}
+                      {...itemProps}
+                    />
+                  );
+                })}
+              </>
+            }
+          </Collapse>
+        </List>
+      </div>
     </React.Fragment>
   );
 };

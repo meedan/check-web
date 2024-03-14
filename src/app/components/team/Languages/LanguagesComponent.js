@@ -51,8 +51,7 @@ const LanguagesComponent = ({ team }) => {
   const defaultCode = team.get_language || 'en';
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
-  let languages = safelyParseJSON(team.get_languages) || [];
-  languages = languages.sort((a, b) => compareLanguages(defaultCode, a, b));
+  const [languages, setLanguages] = React.useState(safelyParseJSON(team.get_languages).sort((a, b) => compareLanguages(defaultCode, a, b)) || []);
 
   const toggleLanguageDetection = (value) => {
     const onFailure = (errors) => {
@@ -89,7 +88,7 @@ const LanguagesComponent = ({ team }) => {
           />
         }
         actionButton={
-          <AddLanguageAction team={team} />
+          <AddLanguageAction team={team} setLanguages={setLanguages} />
         }
       />
       <div className={settingsStyles['setting-details-wrapper']}>
@@ -165,6 +164,7 @@ const LanguagesComponent = ({ team }) => {
                 code={l}
                 key={l}
                 team={team}
+                setLanguages={setLanguages}
               />
             ))}
           </ul>

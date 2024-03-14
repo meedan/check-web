@@ -173,7 +173,6 @@ const TeamDetails = ({
               id="team-details__name-input"
               defaultValue={team.name}
               disabled={!canEditTeam}
-              fullWidth
               label={
                 <FormattedMessage
                   id="teamDetails.workspaceName"
@@ -181,9 +180,7 @@ const TeamDetails = ({
                   description="Label for workspace name field"
                 />
               }
-              margin="normal"
               onChange={e => setName(e.target.value)}
-              variant="outlined"
               required
             />
           </div>
@@ -214,31 +211,38 @@ const TeamDetails = ({
               />
               { shortenOutgoingUrls ?
                 <>
-                  <TextField
-                    className={inputStyles['form-fieldset-field']}
-                    id="team-details__utm-code"
-                    defaultValue={utmCode}
-                    fullWidth
-                    label={
-                      <FormattedMessage
-                        id="teamDetails.utmCode"
-                        defaultMessage="UTM code (optional)"
-                        description="Label for 'UTM code' field"
+
+                  <FormattedMessage
+                    id="teamDetails.utmCodePlaceholder"
+                    defaultMessage="Leave blank to disable UTM codes."
+                    description="Placeholder for the optional UTM code text field"
+                  >
+                    { placeholder => (
+                      <TextField
+                        className={inputStyles['form-fieldset-field']}
+                        id="team-details__utm-code"
+                        defaultValue={utmCode}
+                        placeholder={placeholder}
+                        label={
+                          <FormattedMessage
+                            id="teamDetails.utmCode"
+                            defaultMessage="UTM code (optional)"
+                            description="Label for 'UTM code' field"
+                          />
+                        }
+                        onChange={e => setUtmCode(e.target.value)}
+                        helpContent={
+                          <FormattedHTMLMessage
+                            id="teamDetails.utmCodeHelp"
+                            defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
+                            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_9bfd0e654f' }}
+                            description="Helper text for UTM code field"
+                          />
+                        }
+                        disabled={hasScheduledNewsletters}
                       />
-                    }
-                    margin="normal"
-                    onChange={e => setUtmCode(e.target.value)}
-                    helpContent={
-                      <FormattedHTMLMessage
-                        id="teamDetails.utmCodeHelp"
-                        defaultMessage='Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about UTM codes</a>.'
-                        values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772933-manage-links#h_9bfd0e654f' }}
-                        description="Helper text for UTM code field"
-                      />
-                    }
-                    variant="outlined"
-                    disabled={hasScheduledNewsletters}
-                  />
+                    )}
+                  </FormattedMessage>
                   <Alert
                     className={inputStyles['form-fieldset-field']}
                     variant="warning"

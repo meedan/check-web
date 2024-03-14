@@ -1,38 +1,28 @@
 [
   {
-    "id": "searchResults.sortMediaCount",
+    "id": "searchResults.sortTitle",
     "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
-    "defaultMessage": "Number of media items"
-  },
-  {
-    "id": "searchResults.sortRequestsCount",
-    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
-    "defaultMessage": "Number of requests"
+    "defaultMessage": "Title"
   },
   {
     "id": "searchResults.sortFactChecksCount",
     "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
-    "defaultMessage": "Number of fact-checks"
+    "defaultMessage": "Fact-checks (count)"
+  },
+  {
+    "id": "searchResults.sortRequestsCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Requests (count)"
+  },
+  {
+    "id": "searchResults.sortMediaCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Media (count)"
   },
   {
     "id": "searchResults.sortLastRequestDate",
     "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
-    "defaultMessage": "Last request date"
-  },
-  {
-    "id": "searchResults.sortLastFactCheckDate",
-    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
-    "defaultMessage": "Last fact-check date"
-  },
-  {
-    "id": "searchResults.sortLastItemAt",
-    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
-    "defaultMessage": "Last item date"
-  },
-  {
-    "id": "searchResults.sortFirstItemAt",
-    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
-    "defaultMessage": "First item date"
+    "defaultMessage": "Date updated"
   },
   {
     "id": "feedClusters.sharedFeed",
@@ -53,5 +43,10 @@
     "id": "feedClusters.nextPage",
     "description": "Pagination button to go to next page",
     "defaultMessage": "Next page"
+  },
+  {
+    "id": "feedClusters.noTitle",
+    "description": "No title available",
+    "defaultMessage": "(no title)"
   }
 ]

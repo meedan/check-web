@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from './SuperAdminControls.module.css';
 
 const SuperAdminControls = ({
@@ -31,65 +30,68 @@ const SuperAdminControls = ({
 
   return (
     <React.Fragment>
-      <Box
+      <div
         id="super-admin__controls"
         className={styles.superAdminBox}
       >
         {
           superAdminmaskContent ?
-            <div className={styles.superAdminRemoveButton}>
-              <Button
-                variant="outlined"
-                onClick={handleSuperAdminClickPage}
-              >
+            <ButtonMain
+              theme="lightError"
+              size="small"
+              variant="contained"
+              onClick={handleSuperAdminClickPage}
+              label={
                 <FormattedMessage
                   id="superAdminControls.remove"
                   defaultMessage="Remove admin screen on this page"
                   description="A label on a button that remove admin screen."
                 />
-              </Button>
-            </div> :
-            <div className={styles.superAdminApplyButton}>
-              <Button
-                variant="outlined"
-                onClick={handleSuperAdminClickPage}
-              >
+              }
+            /> :
+            <ButtonMain
+              theme="lightError"
+              size="small"
+              variant="contained"
+              onClick={handleSuperAdminClickPage}
+              label={
                 <FormattedMessage
                   id="superAdminControls.apply"
                   defaultMessage="Apply admin screen on this page"
                   description="A label on a button that apply admin screen."
                 />
-              </Button>
-            </div>
+              }
+            />
         }
         {
           superAdminMaskContentSession ?
-            <div className={styles.superAdminRemoveButton}>
-              <Button
-                variant="outlined"
-                onClick={handleSuperAdminClickSession}
-              >
+            <ButtonMain
+              theme="lightError"
+              size="small"
+              variant="contained"
+              onClick={handleSuperAdminClickSession}
+              label={
                 <FormattedMessage
                   id="superAdminControls.pause"
                   defaultMessage="Pause admin screen for this session"
                   description="A label on a button that pause admin screen for current session."
-                />
-              </Button>
-            </div> :
-            <div className={styles.superAdminApplyButton}>
-              <Button
-                variant="outlined"
-                onClick={handleSuperAdminClickSession}
-              >
+                />}
+            /> :
+            <ButtonMain
+              theme="lightError"
+              size="small"
+              variant="contained"
+              onClick={handleSuperAdminClickSession}
+              label={
                 <FormattedMessage
                   id="superAdminControls.play"
                   defaultMessage="Resume admin screen for this session"
                   description="A label on a button that pause admin screen for current session."
                 />
-              </Button>
-            </div>
+              }
+            />
         }
-      </Box>
+      </div>
     </React.Fragment>
   );
 };

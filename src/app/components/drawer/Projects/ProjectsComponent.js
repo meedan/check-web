@@ -85,223 +85,228 @@ const ProjectsComponent = ({
   return (
     <React.Fragment>
       <div className={styles.listTitle}>
-        Tipline
+        <FormattedMessage
+          id="projectsComponent.tiplineNavHeader"
+          defaultMessage="Tipline"
+          description="The navigation name of the tipline section"
+        />
       </div>
-      <List dense disablePadding className={[styles.listWrapper, 'projects-list'].join(' ')}>
-        {/* All items */}
-        <Link
-          onClick={handleAllItems}
-          to={`/${team.slug}/all-items`}
-          className={styles.linkList}
-        >
-          <ListItem
-            className={[
-              'projects-list__all-items',
-              styles.listItem,
-              styles.listItem_containsCount,
-              activeItem.type === 'all-items'
-                ? styles.listItem_active
-                : '',
-            ].join(' ')}
-          >
-            <CategoryIcon className={styles.listIcon} />
-            <ListItemText disableTypography className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
-            </ListItemText>
-            <ListItemSecondaryAction className={styles.listItemCount}>
-              <small>
-                {team.medias_count}
-              </small>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </Link>
-        { /* Assigned to me */}
-        <Link
-          onClick={() => { handleSpecialLists('assigned-to-me'); }}
-          to={`/${team.slug}/assigned-to-me`}
-          className={styles.linkList}
-        >
-          <ListItem
-            className={[
-              'projects-list__assigned-to-me',
-              styles.listItem,
-              styles.listItem_containsCount,
-              activeItem.type === 'assigned-to-me' ? styles.listItem_active : '',
-            ].join(' ')}
-          >
-            <PersonIcon className={styles.listIcon} />
-            <ListItemText disableTypography className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.assignedToMe" defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" />
-            </ListItemText>
-            <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
-          </ListItem>
-        </Link>
-        { team.smooch_bot &&
+      <div className={styles.listWrapperScrollWrapper}>
+        <List dense disablePadding className={[styles.listWrapper, 'projects-list'].join(' ')}>
+          {/* All items */}
           <Link
-            onClick={() => { handleSpecialLists('tipline-inbox'); }}
-            to={`/${team.slug}/tipline-inbox`}
+            onClick={handleAllItems}
+            to={`/${team.slug}/all-items`}
             className={styles.linkList}
           >
             <ListItem
               className={[
-                'projects-list__tipline-inbox',
+                'projects-list__all-items',
                 styles.listItem,
                 styles.listItem_containsCount,
-                activeItem.type === 'tipline-inbox' ? styles.listItem_active : '',
-              ].join(' ')}
-            >
-              <InboxIcon className={styles.listIcon} />
-              <ListItemText disableTypography className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted" />
-              </ListItemText>
-              <ProjectsCoreListCounter query={{ ...tiplineInboxDefaultQuery, verification_status: [team.verification_statuses.default] }} />
-            </ListItem>
-          </Link>
-        }
-        <Link
-          onClick={() => { handleSpecialLists('imported-fact-checks'); }}
-          to={`/${team.slug}/imported-fact-checks`}
-          className={styles.linkList}
-        >
-          <ListItem
-            className={[
-              'projects-list__imported-fact-checks',
-              styles.listItem,
-              styles.listItem_containsCount,
-              activeItem.type === 'imported-fact-checks'
-                ? styles.listItem_active
-                : '',
-            ].join(' ')}
-          >
-            <FileDownloadIcon className={styles.listIcon} />
-            <ListItemText disableTypography className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
-            </ListItemText>
-            <ProjectsCoreListCounter query={importedReportsDefaultQuery} />
-          </ListItem>
-        </Link>
-
-        { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
-          <Link
-            onClick={() => { handleSpecialLists('suggested-matches'); }}
-            to={`/${team.slug}/suggested-matches`}
-            className={styles.linkList}
-          >
-            <ListItem
-              className={[
-                'projects-list__suggested-matches',
-                styles.listItem,
-                styles.listItem_containsCount,
-                activeItem.type === 'suggested-matches'
+                activeItem.type === 'all-items'
                   ? styles.listItem_active
                   : '',
               ].join(' ')}
             >
-              <LightbulbIcon className={styles.listIcon} />
+              <CategoryIcon className={styles.listIcon} />
               <ListItemText disableTypography className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1" />
+                <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
               </ListItemText>
-              <ProjectsCoreListCounter query={suggestedMatchesDefaultQuery} />
+              <ListItemSecondaryAction className={styles.listItemCount}>
+                <small>
+                  {team.medias_count}
+                </small>
+              </ListItemSecondaryAction>
             </ListItem>
           </Link>
-        }
-
-        { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
+          { /* Assigned to me */}
           <Link
-            onClick={() => { handleSpecialLists('unmatched-media'); }}
-            to={`/${team.slug}/unmatched-media`}
+            onClick={() => { handleSpecialLists('assigned-to-me'); }}
+            to={`/${team.slug}/assigned-to-me`}
             className={styles.linkList}
           >
             <ListItem
               className={[
-                'projects-list__unmatched-media',
+                'projects-list__assigned-to-me',
                 styles.listItem,
                 styles.listItem_containsCount,
-                activeItem.type === 'unmatched-media' ? styles.listItem_active : '',
+                activeItem.type === 'assigned-to-me' ? styles.listItem_active : '',
               ].join(' ')}
             >
-              <UnmatchedIcon className={styles.listIcon} />
+              <PersonIcon className={styles.listIcon} />
               <ListItemText disableTypography className={styles.listLabel}>
-                <FormattedMessage tagName="span" id="projectsComponent.unmatchedMedia" defaultMessage="Unmatched media" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" />
+                <FormattedMessage tagName="span" id="projectsComponent.assignedToMe" defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" />
               </ListItemText>
-              <ProjectsCoreListCounter query={unmatchedMediaDefaultQuery} />
+              <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
             </ListItem>
           </Link>
-        }
-        <Link
-          onClick={() => { handleSpecialLists('published'); }}
-          to={`/${team.slug}/published`}
-          className={styles.linkList}
-        >
-          <ListItem
-            className={[
-              'projects-list__published',
-              styles.listItem,
-              styles.listItem_containsCount,
-              activeItem.type === 'published' ? styles.listItem_active : '',
-            ].join(' ')}
-          >
-            <PublishedIcon className={styles.listIcon} />
-            <ListItemText disableTypography className={styles.listLabel}>
-              <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
-            </ListItemText>
-            <ProjectsCoreListCounter query={publishedDefaultQuery} />
-          </ListItem>
-        </Link>
-
-        {/* Lists Header */}
-        <ListItem onClick={handleToggleListsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
-          { listsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-          <ListItemText disableTypography className={styles.listHeaderLabel}>
-            <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
-            <Can permissions={team.permissions} permission="create Project">
-              <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
-                <span className={styles.listHeaderLabelButton}>
-                  <ButtonMain
-                    iconCenter={<AddCircleIcon />}
-                    variant="contained"
-                    size="small"
-                    theme="text"
-                    onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
-                    buttonProps={{
-                      id: 'projects-list__add-filtered-list',
-                    }}
-                  />
-                </span>
-              </Tooltip>
-            </Can>
-          </ListItemText>
-        </ListItem>
-
-        {/* Lists */}
-        <React.Fragment>
-          <Collapse in={listsExpanded} className={styles.listCollapseWrapper}>
-            { savedSearches.length === 0 ?
-              <ListItem className={[styles.listItem, styles.listItem_containsCount, styles.listItem_empty].join(' ')}>
+          { team.smooch_bot &&
+            <Link
+              onClick={() => { handleSpecialLists('tipline-inbox'); }}
+              to={`/${team.slug}/tipline-inbox`}
+              className={styles.linkList}
+            >
+              <ListItem
+                className={[
+                  'projects-list__tipline-inbox',
+                  styles.listItem,
+                  styles.listItem_containsCount,
+                  activeItem.type === 'tipline-inbox' ? styles.listItem_active : '',
+                ].join(' ')}
+              >
+                <InboxIcon className={styles.listIcon} />
                 <ListItemText disableTypography className={styles.listLabel}>
-                  <span>
-                    <FormattedMessage tagName="em" id="projectsComponent.noCustomLists" defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" />
-                  </span>
+                  <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted" />
                 </ListItemText>
-              </ListItem> :
-              <>
-                {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
-                  <ProjectsListItem
-                    tooltip={search.title}
-                    key={search.id}
-                    routePrefix="list"
-                    project={search}
-                    teamSlug={team.slug}
-                    icon={search.is_part_of_feeds && <FeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} />}
-                    isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
-                  />
-                ))}
-              </>
-            }
-          </Collapse>
-        </React.Fragment>
-      </List>
+                <ProjectsCoreListCounter query={{ ...tiplineInboxDefaultQuery, verification_status: [team.verification_statuses.default] }} />
+              </ListItem>
+            </Link>
+          }
+          <Link
+            onClick={() => { handleSpecialLists('imported-fact-checks'); }}
+            to={`/${team.slug}/imported-fact-checks`}
+            className={styles.linkList}
+          >
+            <ListItem
+              className={[
+                'projects-list__imported-fact-checks',
+                styles.listItem,
+                styles.listItem_containsCount,
+                activeItem.type === 'imported-fact-checks'
+                  ? styles.listItem_active
+                  : '',
+              ].join(' ')}
+            >
+              <FileDownloadIcon className={styles.listIcon} />
+              <ListItemText disableTypography className={styles.listLabel}>
+                <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
+              </ListItemText>
+              <ProjectsCoreListCounter query={importedReportsDefaultQuery} />
+            </ListItem>
+          </Link>
 
+          { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
+            <Link
+              onClick={() => { handleSpecialLists('suggested-matches'); }}
+              to={`/${team.slug}/suggested-matches`}
+              className={styles.linkList}
+            >
+              <ListItem
+                className={[
+                  'projects-list__suggested-matches',
+                  styles.listItem,
+                  styles.listItem_containsCount,
+                  activeItem.type === 'suggested-matches'
+                    ? styles.listItem_active
+                    : '',
+                ].join(' ')}
+              >
+                <LightbulbIcon className={styles.listIcon} />
+                <ListItemText disableTypography className={styles.listLabel}>
+                  <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1" />
+                </ListItemText>
+                <ProjectsCoreListCounter query={suggestedMatchesDefaultQuery} />
+              </ListItem>
+            </Link>
+          }
+
+          { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
+            <Link
+              onClick={() => { handleSpecialLists('unmatched-media'); }}
+              to={`/${team.slug}/unmatched-media`}
+              className={styles.linkList}
+            >
+              <ListItem
+                className={[
+                  'projects-list__unmatched-media',
+                  styles.listItem,
+                  styles.listItem_containsCount,
+                  activeItem.type === 'unmatched-media' ? styles.listItem_active : '',
+                ].join(' ')}
+              >
+                <UnmatchedIcon className={styles.listIcon} />
+                <ListItemText disableTypography className={styles.listLabel}>
+                  <FormattedMessage tagName="span" id="projectsComponent.unmatchedMedia" defaultMessage="Unmatched media" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" />
+                </ListItemText>
+                <ProjectsCoreListCounter query={unmatchedMediaDefaultQuery} />
+              </ListItem>
+            </Link>
+          }
+          <Link
+            onClick={() => { handleSpecialLists('published'); }}
+            to={`/${team.slug}/published`}
+            className={styles.linkList}
+          >
+            <ListItem
+              className={[
+                'projects-list__published',
+                styles.listItem,
+                styles.listItem_containsCount,
+                activeItem.type === 'published' ? styles.listItem_active : '',
+              ].join(' ')}
+            >
+              <PublishedIcon className={styles.listIcon} />
+              <ListItemText disableTypography className={styles.listLabel}>
+                <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
+              </ListItemText>
+              <ProjectsCoreListCounter query={publishedDefaultQuery} />
+            </ListItem>
+          </Link>
+
+          {/* Lists Header */}
+          <ListItem onClick={handleToggleListsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
+            { listsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
+            <ListItemText disableTypography className={styles.listHeaderLabel}>
+              <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
+              <Can permissions={team.permissions} permission="create Project">
+                <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
+                  <span className={styles.listHeaderLabelButton}>
+                    <ButtonMain
+                      iconCenter={<AddCircleIcon />}
+                      variant="contained"
+                      size="small"
+                      theme="text"
+                      onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }}
+                      buttonProps={{
+                        id: 'projects-list__add-filtered-list',
+                      }}
+                    />
+                  </span>
+                </Tooltip>
+              </Can>
+            </ListItemText>
+          </ListItem>
+
+          {/* Lists */}
+          <React.Fragment>
+            <Collapse in={listsExpanded} className={styles.listCollapseWrapper}>
+              { savedSearches.length === 0 ?
+                <ListItem className={[styles.listItem, styles.listItem_containsCount, styles.listItem_empty].join(' ')}>
+                  <ListItemText disableTypography className={styles.listLabel}>
+                    <span>
+                      <FormattedMessage tagName="em" id="projectsComponent.noCustomLists" defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" />
+                    </span>
+                  </ListItemText>
+                </ListItem> :
+                <>
+                  {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
+                    <ProjectsListItem
+                      tooltip={search.title}
+                      key={search.id}
+                      routePrefix="list"
+                      project={search}
+                      teamSlug={team.slug}
+                      icon={search.is_part_of_feeds && <FeedIcon className={`${styles.listIcon} ${styles.listIconFeed}`} />}
+                      isActive={activeItem.type === 'list' && activeItem.id === search.dbid}
+                    />
+                  ))}
+                </>
+              }
+            </Collapse>
+          </React.Fragment>
+        </List>
+      </div>
       <List dense disablePadding className={[styles.listWrapper, styles.listFooter].join(' ')}>
         {/* Spam */}
         <Link

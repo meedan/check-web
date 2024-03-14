@@ -27,6 +27,11 @@ import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
 
 const messages = defineMessages({
+  sortTitle: {
+    id: 'searchResults.sortTitle',
+    defaultMessage: 'Title',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
   sortDateUpdated: {
     id: 'searchResults.sortDateUpdated',
     defaultMessage: 'Date updated',
@@ -36,6 +41,11 @@ const messages = defineMessages({
     id: 'searchResults.sortRating',
     defaultMessage: 'Rating',
     description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
+  sortRequestsCount: {
+    id: 'searchResults.sortRequestsCount',
+    defaultMessage: 'Requests (count)',
+    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
   },
 });
 
@@ -475,35 +485,21 @@ function SearchResultsComponent({
           <Toolbar
             resultType={resultType}
             team={team}
-            actions={
-              projectMedias.length && selectedProjectMedia.length ?
-                <BulkActionsMenu
-                /*
-                FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
-                below to contain the PM objects as the tagging mutation currently requires dbids and
-                also for other requirements such as warning about published reports before bulk changing statuses
-                additional data is needed.
-                I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
-                */
-                  team={team}
-                  page={page}
-                  selectedProjectMedia={selectedProjectMedia}
-                  selectedMedia={filteredSelectedProjectMediaIds}
-                  onUnselectAll={onUnselectAll}
-                /> : null
-            }
             title={count ?
               <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
                 { resultType === 'factCheck' && feed ?
-                  <ListSort
-                    sort={stateQuery.sort}
-                    sortType={stateQuery.sort_type}
-                    options={[
-                      { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
-                      { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
-                    ]}
-                    onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
-                  /> : null
+                  <div className={styles['search-results-sorting']}>
+                    <ListSort
+                      sort={stateQuery.sort}
+                      sortType={stateQuery.sort_type}
+                      options={[
+                        { value: 'title', label: intl.formatMessage(messages.sortTitle) },
+                        { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
+                        { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
+                      ]}
+                      onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
+                    />
+                  </div> : null
                 }
                 <span className={styles['search-pagination']}>
                   <Tooltip title={
@@ -563,6 +559,22 @@ function SearchResultsComponent({
                     )}
                   </Tooltip>
                 </span>
+                { projectMedias.length && selectedProjectMedia.length ?
+                  <BulkActionsMenu
+                  /*
+                  FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
+                  below to contain the PM objects as the tagging mutation currently requires dbids and
+                  also for other requirements such as warning about published reports before bulk changing statuses
+                  additional data is needed.
+                  I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
+                  */
+                    team={team}
+                    page={page}
+                    selectedProjectMedia={selectedProjectMedia}
+                    selectedMedia={filteredSelectedProjectMediaIds}
+                    onUnselectAll={onUnselectAll}
+                  /> : null
+                }
               </span> : null
             }
             page={page}
@@ -642,6 +654,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(Searc
           ${SearchFields.getFragment('team')}
           id
           slug
+          name
           search_id,
           permissions,
           search { id, number_of_results },

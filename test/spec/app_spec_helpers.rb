@@ -146,8 +146,8 @@ module AppSpecHelpers
   end
 
   def create_media(url, wait_for_creation = true)
-    # open the side nav if it's closed, use very short retry periods, ignore a raised error if the closed button does not exist (it's fine, not actually an error, just means we don't do the .click)
-    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1, :css, 5, 2, 'unknown', false, true).size == 1
+    # show the side navigation for workspace tipline
+    wait_for_selector('#side-navigation__tipline-toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
@@ -158,8 +158,8 @@ module AppSpecHelpers
   end
 
   def create_image(file)
-    # open the side nav if it's closed, use very short retry periods, ignore a raised error if the closed button does not exist (it's fine, not actually an error, just means we don't do the .click)
-    wait_for_selector('#side-navigation__toggle').click if wait_for_selector_list_size('.side-navigation__toggle-closed', 1, :css, 5, 2, 'unknown', false, true).size == 1
+    # show the side navigation for workspace tipline
+    wait_for_selector('#side-navigation__tipline-toggle').click
     wait_for_selector('.projects-list')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item').click
