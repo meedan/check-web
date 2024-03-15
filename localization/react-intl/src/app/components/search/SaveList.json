@@ -6,8 +6,13 @@
   },
   {
     "id": "saveList.saveAsNewList",
-    "description": "Dialog title and submit button label for saving filters as new lists",
+    "description": "Dialog title for saving filters as new lists",
     "defaultMessage": "Create a New List"
+  },
+  {
+    "id": "saveList.createList",
+    "description": "Dialog submit button label for saving filters as new lists",
+    "defaultMessage": "Create List"
   },
   {
     "id": "saveList.newList",
@@ -42,7 +47,7 @@
   {
     "id": "saveList.update",
     "description": "'Save' here is an infinitive verb",
-    "defaultMessage": "Save changes to the list \"{listName}\""
+    "defaultMessage": "Save changes to the list \"<strong>{listName}</strong>\""
   },
   {
     "id": "saveList.warningAlert",

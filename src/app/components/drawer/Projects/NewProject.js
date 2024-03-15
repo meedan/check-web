@@ -5,18 +5,14 @@ import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import TextField from '../../cds/inputs/TextField';
-import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
-import HelpIcon from '../../../icons/help.svg';
-import styles from '../../../styles/css/dialog.module.css';
 
 const NewProject = ({
   open,
   title,
   team,
   buttonLabel,
-  helpUrl,
   onClose,
   errorMessage,
   successMessage,
@@ -90,26 +86,10 @@ const NewProject = ({
     });
   };
 
-  const handleHelp = () => {
-    window.open(helpUrl);
-  };
-
   return (
     <ConfirmProceedDialog
       open={open}
-      title={
-        <>
-          {title}
-          <ButtonMain
-            className={styles['dialog-close-button']}
-            variant="text"
-            size="small"
-            theme="text"
-            iconCenter={<HelpIcon />}
-            onClick={handleHelp}
-          />
-        </>
-      }
+      title={title}
       body={
         <FormattedMessage
           id="projectsComponent.placeholder"
@@ -155,7 +135,6 @@ NewProject.propTypes = {
   title: PropTypes.object.isRequired,
   buttonLabel: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
-  helpUrl: PropTypes.string.isRequired,
   errorMessage: PropTypes.node.isRequired,
   successMessage: PropTypes.node.isRequired,
 };

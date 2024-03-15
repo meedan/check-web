@@ -9,7 +9,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import TextField from '../cds/inputs/TextField';
@@ -26,7 +26,12 @@ const messages = defineMessages({
   saveAsNewList: {
     id: 'saveList.saveAsNewList',
     defaultMessage: 'Create a New List',
-    description: 'Dialog title and submit button label for saving filters as new lists',
+    description: 'Dialog title for saving filters as new lists',
+  },
+  createList: {
+    id: 'saveList.createList',
+    defaultMessage: 'Create List',
+    description: 'Dialog submit button label for saving filters as new lists',
   },
   newList: {
     id: 'saveList.newList',
@@ -316,7 +321,7 @@ const SaveList = ({
                 <FormControlLabel
                   value="UPDATE"
                   control={<Radio />}
-                  label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
+                  label={<FormattedHTMLMessage id="saveList.update" defaultMessage='Save changes to the list "<strong>{listName}</strong>"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
                 />
                 { savedSearch?.is_part_of_feeds && operation === 'UPDATE' ?
                   <Alert
@@ -343,13 +348,16 @@ const SaveList = ({
                       <span className={classes.saveListCreate}>
                         <FormattedMessage id="saveList.create" defaultMessage="Create new list" description="'Create' here is an infinitive verb" />
                       </span>
-                      <TextField
-                        placeholder={intl.formatMessage(messages.saveList)}
-                        onChange={(e) => { setTitle(e.target.value); }}
-                        className="new-list__title"
-                        disabled={operation === 'UPDATE'}
-                        autoFocus
-                      />
+                      { operation === 'CREATE' ?
+                        <TextField
+                          placeholder={intl.formatMessage(messages.saveList)}
+                          onChange={(e) => { setTitle(e.target.value); }}
+                          className="new-list__title"
+                          disabled={operation === 'UPDATE'}
+                          autoFocus
+                        />
+                        : null
+                      }
                     </Box>
                   }
                 />
@@ -357,7 +365,7 @@ const SaveList = ({
             </FormControl>
           }
           proceedDisabled={operation === 'CREATE' && !title}
-          proceedLabel={intl.formatMessage(messages.newList)}
+          proceedLabel={operation === 'CREATE' ? intl.formatMessage(messages.createList) : intl.formatMessage(messages.newList)}
           onProceed={handleSave}
           isSaving={saving}
           cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" description="Cancel list editing button label" />}
