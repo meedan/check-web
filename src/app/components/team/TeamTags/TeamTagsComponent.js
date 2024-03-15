@@ -108,7 +108,6 @@ const TeamTagsComponent = ({
       { totalTags > pageSize && // only display paginator if there are more than pageSize worth of tags overall in the database
         <div className={styles['tags-wrapper']}>
           <Tooltip
-            disableHoverListener={isPaginationLoading || cursor - pageSize < 0}
             title={
               <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
             }
@@ -141,7 +140,6 @@ const TeamTagsComponent = ({
             />
           </span>
           <Tooltip
-            disableHoverListener={isPaginationLoading || cursor + pageSize >= totalCount}
             title={
               <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
             }
