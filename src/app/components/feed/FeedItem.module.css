@@ -41,7 +41,19 @@
 }
 
 .feedItemTeamCard {
+  cursor: pointer;
   justify-content: flex-start !important;
+  overflow: hidden;
+}
+
+.feedItemTeamCardCollapsed {
+  max-height: 200px;
+  transition: max-height 1s ease-out;
+}
+
+.feedItemTeamCardExpanded {
+  max-height: 800px; /* This is just for the animation - just need to be bigger than the expanded card will ever get */
+  transition: max-height 1s ease-in;
 }
 
 .feedItemTeamsTitle {
@@ -56,4 +68,19 @@
   background: var(--brandBackground);
   border-radius: 8px;
   padding: 8px;
+}
+
+.feedTeamFactCheckCard {
+  border-bottom: 1px solid var(--grayBorderMain);
+  margin-top: 8px;
+  width: 100%;
+}
+
+.feedItemTeamCardNotSharing {
+  color: var(--textPlaceholder);
+  flex-wrap: wrap;
+  font-size: var(--fontSizeSmall);
+  font-style: italic;
+  margin-top: 8px;
+  width: 100%;
 }

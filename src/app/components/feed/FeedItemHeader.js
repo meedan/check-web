@@ -77,6 +77,7 @@ FeedItemHeader.propTypes = {
     title: PropTypes.string.isRequired,
     last_request_date: PropTypes.number,
     center: PropTypes.exact({
+      title: PropTypes.string,
       media: PropTypes.exact({
         picture: PropTypes.string,
         type: PropTypes.string,

@@ -7,9 +7,7 @@ import FeedTeamCard from './FeedTeamCard';
 import styles from './FeedItem.module.css';
 
 const FeedItemTeams = ({ team, cluster }) => {
-  // Create an object that contains the data of the current team and its cluster
-  const currentTeamClusterData = cluster.cluster_teams.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === team.dbid) || {};
-  const currentTeamCluster = { ...currentTeamClusterData, team };
+  const currentClusterTeam = cluster.cluster_teams.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === team.dbid) || {};
 
   return (
     <div id="feed-item-page-teams" className={styles.feedItemTeams}>
@@ -32,11 +30,8 @@ const FeedItemTeams = ({ team, cluster }) => {
           />
         </div>
         <FeedTeamCard
-          teamName={currentTeamCluster.team.name}
-          teamAvatar={currentTeamCluster.team.avatar}
-          mediaCount={currentTeamCluster.media_count}
-          requestsCount={currentTeamCluster.requests_count}
-          lastRequestDate={currentTeamCluster.last_request_date && new Date(parseInt(currentTeamCluster.last_request_date, 10) * 1000)}
+          team={team}
+          clusterTeam={currentClusterTeam}
         />
       </div>
 
@@ -44,11 +39,8 @@ const FeedItemTeams = ({ team, cluster }) => {
       {cluster.cluster_teams.edges.map(edge => edge.node).filter(clusterTeam => clusterTeam.team.dbid !== team.dbid).sort((a, b) => (a.media_count < b.media_count) ? 1 : -1).map(clusterTeam => (
         <div key={clusterTeam.team.dbid}>
           <FeedTeamCard
-            teamName={clusterTeam.team.name}
-            teamAvatar={clusterTeam.team.avatar}
-            mediaCount={clusterTeam.media_count}
-            requestsCount={clusterTeam.requests_count}
-            lastRequestDate={clusterTeam.last_request_date && new Date(parseInt(clusterTeam.last_request_date, 10) * 1000)}
+            team={clusterTeam.team}
+            clusterTeam={clusterTeam}
           />
         </div>
       ))}
@@ -57,23 +49,17 @@ const FeedItemTeams = ({ team, cluster }) => {
 };
 
 FeedItemTeams.propTypes = {
-  team: PropTypes.exact({
+  team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
   }).isRequired,
   cluster: PropTypes.shape({
-    cluster_teams: PropTypes.exact({
-      edges: PropTypes.arrayOf(PropTypes.exact({
-        node: PropTypes.exact({
-          team: PropTypes.exact({
+    cluster_teams: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          team: PropTypes.shape({
             dbid: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            avatar: PropTypes.string.isRequired,
           }).isRequired,
-          last_request_date: PropTypes.number,
           media_count: PropTypes.number,
-          requests_count: PropTypes.number,
         }),
       }).isRequired).isRequired,
     }).isRequired,
@@ -87,8 +73,7 @@ export { FeedItemTeams };
 export default createFragmentContainer(FeedItemTeams, graphql`
   fragment FeedItemTeams_team on Team {
     dbid
-    name
-    avatar
+    ...FeedTeamCard_team
   }
   fragment FeedItemTeams_cluster on Cluster {
     cluster_teams(first: 100) {
@@ -96,12 +81,10 @@ export default createFragmentContainer(FeedItemTeams, graphql`
         node {
           team {
             dbid
-            name
-            avatar
+            ...FeedTeamCard_team
           }
-          last_request_date
           media_count
-          requests_count
+          ...FeedTeamCard_clusterTeam
         }
       }
     }

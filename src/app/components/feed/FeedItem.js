@@ -29,39 +29,9 @@ const FeedItemComponent = ({
 
 FeedItemComponent.propTypes = {
   teamSlug: PropTypes.string.isRequired,
-  team: PropTypes.exact({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-  }).isRequired,
-  feed: PropTypes.exact({
-    dbid: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
-  cluster: PropTypes.exact({
-    title: PropTypes.string.isRequired,
-    center: PropTypes.exact({
-      media: PropTypes.exact({
-        picture: PropTypes.string,
-        type: PropTypes.string,
-        url: PropTypes.string,
-      }),
-    }).isRequired,
-    cluster_teams: PropTypes.exact({
-      edges: PropTypes.arrayOf(PropTypes.exact({
-        node: PropTypes.exact({
-          team: PropTypes.exact({
-            id: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            avatar: PropTypes.string.isRequired,
-          }).isRequired,
-          last_request_date: PropTypes.number,
-          media_count: PropTypes.number,
-          requests_count: PropTypes.number,
-        }),
-      }).isRequired).isRequired,
-    }).isRequired,
-  }).isRequired,
+  feed: PropTypes.object.isRequired,
+  cluster: PropTypes.object.isRequired,
+  team: PropTypes.object.isRequired,
 };
 
 // Used in unit test
