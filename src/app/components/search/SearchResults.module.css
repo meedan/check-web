@@ -26,6 +26,7 @@
 
   .searchHeaderSubtitle {
     @mixin typography-caption;
+    display: flex;
     margin: 0 0 1px;
     text-transform: uppercase;
   }

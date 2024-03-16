@@ -1,0 +1,7 @@
+[
+  {
+    "id": "feedClusters.feedClusterizedTimePendingInitialUpdate",
+    "description": "Informs that the feed is pending initial update",
+    "defaultMessage": "pending initial update"
+  }
+]
