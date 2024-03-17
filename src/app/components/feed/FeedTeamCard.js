@@ -5,17 +5,21 @@ import { FormattedHTMLMessage } from 'react-intl';
 import Card from '../cds/media-cards/Card';
 import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
 import FeedTeamFactCheckCard from './FeedTeamFactCheckCard';
+import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import TeamAvatar from '../team/TeamAvatar';
 import styles from './FeedItem.module.css';
 
 const FeedTeamCard = ({
+  feed,
   team,
   clusterTeam,
 }) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpand = () => {
-    setExpanded(!expanded);
+    if (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS)) {
+      setExpanded(!expanded);
+    }
   };
 
   let uncategorizedMediaCount = clusterTeam.media_count;
@@ -84,6 +88,9 @@ FeedTeamCard.propTypes = {
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
   }).isRequired,
+  feed: PropTypes.shape({
+    data_points: PropTypes.arrayOf(PropTypes.number).isRequired,
+  }).isRequired,
   clusterTeam: PropTypes.shape({
     media_count: PropTypes.number,
     requests_count: PropTypes.number,
@@ -106,6 +113,9 @@ export default createFragmentContainer(FeedTeamCard, graphql`
       name
       avatar
     }
+  }
+  fragment FeedTeamCard_feed on Feed {
+    data_points
   }
   fragment FeedTeamCard_clusterTeam on ClusterTeam {
     media_count

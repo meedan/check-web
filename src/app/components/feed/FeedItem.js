@@ -21,6 +21,7 @@ const FeedItemComponent = ({
       cluster={cluster}
     />
     <FeedItemTeams
+      feed={feed}
       team={team}
       cluster={cluster}
     />
@@ -48,6 +49,7 @@ const FeedItem = ({ routeParams }) => (
             ...FeedItemTeams_team
             feed(dbid: $feedId) {
               ...FeedItemHeader_feed
+              ...FeedItemTeams_feed
               cluster(project_media_id: $projectMediaId) {
                 ...FeedItemHeader_cluster
                 ...FeedItemTeams_cluster

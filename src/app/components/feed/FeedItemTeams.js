@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import FeedTeamCard from './FeedTeamCard';
 import styles from './FeedItem.module.css';
 
-const FeedItemTeams = ({ team, cluster }) => {
+const FeedItemTeams = ({ team, cluster, feed }) => {
   const currentClusterTeam = cluster.cluster_teams.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === team.dbid) || {};
 
   return (
@@ -30,6 +30,7 @@ const FeedItemTeams = ({ team, cluster }) => {
           />
         </div>
         <FeedTeamCard
+          feed={feed}
           team={team}
           clusterTeam={currentClusterTeam}
         />
@@ -39,6 +40,7 @@ const FeedItemTeams = ({ team, cluster }) => {
       {cluster.cluster_teams.edges.map(edge => edge.node).filter(clusterTeam => clusterTeam.team.dbid !== team.dbid).sort((a, b) => (a.media_count < b.media_count) ? 1 : -1).map(clusterTeam => (
         <div key={clusterTeam.team.dbid}>
           <FeedTeamCard
+            feed={feed}
             team={clusterTeam.team}
             clusterTeam={clusterTeam}
           />
@@ -49,6 +51,7 @@ const FeedItemTeams = ({ team, cluster }) => {
 };
 
 FeedItemTeams.propTypes = {
+  feed: PropTypes.object.isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }).isRequired,
@@ -74,6 +77,9 @@ export default createFragmentContainer(FeedItemTeams, graphql`
   fragment FeedItemTeams_team on Team {
     dbid
     ...FeedTeamCard_team
+  }
+  fragment FeedItemTeams_feed on Feed {
+    ...FeedTeamCard_feed
   }
   fragment FeedItemTeams_cluster on Cluster {
     cluster_teams(first: 100) {
