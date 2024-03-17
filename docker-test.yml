@@ -48,9 +48,6 @@ services:
   presto-image:
     environment:
       BOILERPLATE_ENV: test
-  presto-video:
-    environment:
-      BOILERPLATE_ENV: test
   web:
     environment:
       PLATFORM: web
