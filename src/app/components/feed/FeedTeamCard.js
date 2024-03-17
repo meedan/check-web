@@ -22,6 +22,11 @@ const FeedTeamCard = ({
     }
   };
 
+  const handleMore = (e) => {
+    window.alert('I stopped here: display modal when this button is clicked'); // eslint-disable-line
+    e.stopPropagation();
+  };
+
   let uncategorizedMediaCount = clusterTeam.media_count;
   let uncategorizedRequestsCount = clusterTeam.requests_count;
 
@@ -42,6 +47,7 @@ const FeedTeamCard = ({
               mediaCount={clusterTeam.media_count}
               requestsCount={clusterTeam.requests_count}
               lastRequestDate={clusterTeam.last_request_date && new Date(parseInt(clusterTeam.last_request_date, 10) * 1000)}
+              onSeeMore={handleMore}
             />
           </div>
         </div>

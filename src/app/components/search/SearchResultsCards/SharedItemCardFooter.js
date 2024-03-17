@@ -8,6 +8,7 @@ import MediaTypeDisplayIcon from '../../media/MediaTypeDisplayIcon';
 import MediaIcon from '../../../icons/perm_media.svg';
 import CalendarMonthIcon from '../../../icons/calendar_month.svg';
 import RequestsIcon from '../../../icons/question_answer.svg';
+import OpenInNewIcon from '../../../icons/open_in_new.svg';
 import ItemChannels from '../../cds/media-cards/ItemChannels';
 import { getCompactNumber, getSeparatedNumber } from '../../../helpers';
 import styles from './ItemCard.module.css';
@@ -19,6 +20,7 @@ const SharedItemCardFooter = ({
   requestsCount,
   lastRequestDate,
   channels,
+  onSeeMore,
   intl,
 }) => (
   <BulletSeparator
@@ -110,6 +112,15 @@ const SharedItemCardFooter = ({
           )}
         </FormattedMessage>),
       channels && <ItemChannels channels={channels} sortMainFirst />,
+      onSeeMore && (
+        <ButtonMain
+          size="small"
+          theme="text"
+          iconLeft={<OpenInNewIcon />}
+          variant="contained"
+          label={<FormattedMessage id="sharedItemCardFooter.more" defaultMessage="more" description="Label of the a button that opens more details about a feed item" />}
+          onClick={onSeeMore}
+        />),
     ]}
   />
 );
@@ -121,6 +132,7 @@ SharedItemCardFooter.defaultProps = {
   requestsCount: null,
   lastRequestDate: null,
   channels: null,
+  onSeeMore: null,
 };
 
 SharedItemCardFooter.propTypes = {
@@ -133,6 +145,7 @@ SharedItemCardFooter.propTypes = {
     main: PropTypes.number,
     others: PropTypes.arrayOf(PropTypes.number),
   }),
+  onSeeMore: PropTypes.func,
   intl: intlShape.isRequired,
 };
 
