@@ -298,12 +298,28 @@
       }
 
       .tipline-admin-settings {
+        margin: 32px 0 0;
+
         .setting-content-container-inner {
           margin: 0 0 16px;
+
+          &:last-of-type {
+            margin: 0;
+          }
         }
       }
     }
   }
+}
+
+.tipline-settings-toggle {
+  background-color: var(--brandBackground);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 16px;
+  padding: 16px;
+  text-align: center;
 }
 
 .bot-designer {
@@ -313,12 +329,12 @@
 
   .bot-designer-menu {
     flex: 0 0 250px;
-    margin: 16px 0;
+    margin: 0;
   }
 
   .bot-designer-content {
     flex: 1 1 auto;
-    margin: 16px 0;
+    margin: 0;
   }
 
   .tipline-menu-option {

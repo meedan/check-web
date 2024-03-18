@@ -1,5 +1,25 @@
 [
   {
+    "id": "saveList.title",
+    "description": "Prompt for editing list name",
+    "defaultMessage": "Enter new list name"
+  },
+  {
+    "id": "saveList.saveAsNewList",
+    "description": "Dialog title for saving filters as new lists",
+    "defaultMessage": "Create a New List"
+  },
+  {
+    "id": "saveList.createList",
+    "description": "Dialog submit button label for saving filters as new lists",
+    "defaultMessage": "Create List"
+  },
+  {
+    "id": "saveList.newList",
+    "description": "Dialog title and submit button label for saving changes to lists",
+    "defaultMessage": "Save List"
+  },
+  {
     "id": "saveList.defaultErrorMessage",
     "description": "Error message displayed when it's not possible to save a list",
     "defaultMessage": "Could not save filters, please try again"
@@ -20,21 +40,6 @@
     "defaultMessage": "Save"
   },
   {
-    "id": "saveList.saveAsNewList",
-    "description": "Dialog title and submit button label for saving filters as new lists",
-    "defaultMessage": "Save as new list"
-  },
-  {
-    "id": "saveList.title",
-    "description": "Prompt for editing list name",
-    "defaultMessage": "Enter new list name"
-  },
-  {
-    "id": "saveList.newList",
-    "description": "Dialog title and submit button label for saving changes to lists",
-    "defaultMessage": "Save list"
-  },
-  {
     "id": "saveList.cancel",
     "description": "Cancel list editing button label",
     "defaultMessage": "Cancel"
@@ -42,7 +47,7 @@
   {
     "id": "saveList.update",
     "description": "'Save' here is an infinitive verb",
-    "defaultMessage": "Save changes to the list \"{listName}\""
+    "defaultMessage": "Save changes to the list \"<strong>{listName}</strong>\""
   },
   {
     "id": "saveList.warningAlert",

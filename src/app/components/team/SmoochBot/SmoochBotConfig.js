@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -26,7 +25,7 @@ const SmoochBotConfig = (props) => {
     hasUnsavedChanges,
     onEditingResource,
   } = props;
-  const [currentTab, setCurrentTab] = React.useState(0);
+  const [currentTab, setCurrentTab] = React.useState('bot');
   const defaultOption = value.smooch_version === 'v2' ? 'smooch_content' : 'smooch_message_smooch_bot_greetings';
   const [currentOption, setCurrentOption] = React.useState(defaultOption);
   const team = props?.currentUser?.current_team;
@@ -83,7 +82,7 @@ const SmoochBotConfig = (props) => {
   };
 
   const handleChangeTab = (event, newTab) => {
-    if (currentResource && newTab === 1) { // Settings tab
+    if (currentResource && newTab === 'settings') {
       onEditingResource(false);
     }
     setCurrentTab(newTab);
@@ -151,14 +150,25 @@ const SmoochBotConfig = (props) => {
 
   return (
     <React.Fragment>
-      <Tabs value={currentTab} onChange={handleChangeTab} variant="fullWidth">
-        <Tab label={<FormattedMessage id="smoochBot.designYourBot" defaultMessage="Design your bot" description="Title of tipline settings page" />} />
-        { userRole === 'admin' ?
-          <Tab label={<FormattedMessage id="smoochBot.settings" defaultMessage="Settings" description="Tab label to click to see the settings area" />} />
-          : null
-        }
-      </Tabs>
-      { currentTab === 0 ?
+      { userRole === 'admin' ?
+        <div className={styles['tipline-settings-toggle']}>
+          <ToggleButtonGroup
+            value={currentTab}
+            variant="contained"
+            onChange={handleChangeTab}
+            exclusive
+          >
+            <ToggleButton value="bot" key="1">
+              <FormattedMessage id="smoochBot.designYourBot" defaultMessage="Design your bot" description="Title of tipline settings page" />
+            </ToggleButton>
+            <ToggleButton value="settings" key="2">
+              <FormattedMessage id="smoochBot.settings" defaultMessage="Settings" description="Tab label to click to see the settings area" />
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </div>
+        : null
+      }
+      { currentTab === 'bot' ?
         <React.Fragment>
           <div className={styles['bot-designer']}>
             <div className={styles['bot-designer-menu']}>
@@ -251,7 +261,7 @@ const SmoochBotConfig = (props) => {
             </div>
           </div>
         </React.Fragment> : null }
-      { currentTab === 1 ?
+      { currentTab === 'settings' ?
         <SmoochBotSettings
           settings={settings}
           schema={settingsSchema}
