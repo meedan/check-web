@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router';
 import { injectIntl, defineMessages } from 'react-intl';
-import Avatar from '@material-ui/core/Avatar';
 import cx from 'classnames/bind';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import TeamAvatar from '../team/TeamAvatar';
@@ -9,6 +8,7 @@ import HelpIcon from '../../icons/help.svg';
 import InfoIcon from '../../icons/info.svg';
 import QuestionAnswerIcon from '../../icons/question_answer.svg';
 import SettingsIcon from '../../icons/settings.svg';
+import PersonIcon from '../../icons/person.svg';
 import FeedIcon from '../../icons/dynamic_feed.svg';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
 import ChevronLeftIcon from '../../icons/chevron_left.svg';
@@ -88,7 +88,7 @@ const DrawerRail = (props) => {
 
   useEffect(() => {
     if (!!team && (currentUserIsMember || !team.private)) {
-      if (isMediaPage || teamSlug === 'check' || !teamSlug) {
+      if (isMediaPage || !teamSlug) {
         onDrawerOpenChange(false);
         window.storage.set('drawer.isOpen', false);
       } else if (window.storage.getValue('drawer.isOpen')) {
@@ -100,6 +100,8 @@ const DrawerRail = (props) => {
         onDrawerTypeChange('settings');
       } else if (isFeedPage) {
         onDrawerTypeChange('feed');
+      } else if (isUserSettingsPage) {
+        onDrawerTypeChange('user');
       } else {
         onDrawerTypeChange('default');
       }
@@ -180,6 +182,20 @@ const DrawerRail = (props) => {
                 <SettingsIcon />
               </Link>
             </Tooltip>
+            <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.userSettingsDescription)}>
+              <Link
+                className={cx(
+                  'user-menu__avatar',
+                  [styles.railIconLink],
+                  {
+                    [styles.railIconLinkActive]: isUserSettingsPage,
+                  })
+                }
+                to="/check/me/profile"
+              >
+                <PersonIcon />
+              </Link>
+            </Tooltip>
           </div>
         </>
       ) :
@@ -212,20 +228,6 @@ const DrawerRail = (props) => {
           >
             <InfoIcon />
           </a>
-        </Tooltip>
-        <Tooltip arrow placement="right" title={props.intl.formatMessage(messages.userSettingsDescription)}>
-          <Link
-            className={cx(
-              'user-menu__avatar',
-              [styles.railUserSettings],
-              {
-                [styles.railUserSettingsActive]: isUserSettingsPage,
-              })
-            }
-            to="/check/me"
-          >
-            <Avatar alt={props.user.name} src={props.user.profile_image} />
-          </Link>
         </Tooltip>
       </div>
     </div>
