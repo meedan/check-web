@@ -1,47 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import TextField from '../../cds/inputs/TextField';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
-
-const useStyles = makeStyles(theme => ({
-  paper: {
-    width: '100%',
-    padding: theme.spacing(2),
-    boxShadow: 'none',
-    border: 0,
-  },
-  ifGroup: {
-    border: '2px solid var(--brandMain)',
-  },
-  thenGroup: {
-    border: '2px solid var(--brandMain)',
-  },
-  ifTitle: {
-    color: 'var(--brandMain)',
-  },
-  thenTitle: {
-    color: 'var(--brandMain)',
-  },
-  paper2: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  box: {
-    border: '2px solid var(--textPlaceholder)',
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    borderRadius: 4,
-  },
-}));
+import styles from './Rules.module.css';
 
 const RuleBody = (props) => {
-  const classes = useStyles();
   const rule = JSON.parse(JSON.stringify(props.rule));
 
   const getConditionalField = (conditions, key, value) => {
@@ -63,34 +29,32 @@ const RuleBody = (props) => {
   };
 
   return (
-    <Paper className={classes.paper} style={props.noMargin ? { padding: 0 } : {}}>
+    <div className={styles['rule-wrapper']}>
       { !props.hideName ?
-        <TextField
-          key={rule.name}
-          name="rule-name"
-          defaultValue={rule.name}
-          helpContent={
-            <FormattedMessage
-              id="ruleBody.ruleNameValidation"
-              defaultMessage="Rule name is required"
-              description="Help content for the text field"
+        <FormattedMessage id="ruleBody.namePlaceholder" defaultMessage="Enter a descriptive rule name" description="Text field placeholder for the input name of rule" >
+          { placeholder => (
+            <TextField
+              className={styles['rule-name']}
+              key={rule.name}
+              name="rule-name"
+              defaultValue={rule.name}
+              label={
+                <FormattedMessage
+                  id="ruleBody.ruleName"
+                  defaultMessage="Rule Name"
+                  description="Text field label for the rule name"
+                />
+              }
+              placeholder={placeholder}
+              onBlur={handleUpdateRuleName}
+              required
             />
-          }
-          label={
-            <FormattedMessage
-              id="ruleBody.ruleName"
-              defaultMessage="Name"
-              description="Text field label for the rule name"
-            />
-          }
-          onBlur={handleUpdateRuleName}
-          required
-        /> : null }
+          )}
+        </FormattedMessage>
+        : null
+      }
       <RuleOperatorWrapper
         allowRemove={Boolean(props.onResetRule)}
-        center
-        color="var(--brandMain)"
-        deleteIconColor="var(--brandMain)"
         operator={rule.rules.operator}
         onSetOperator={(value) => {
           rule.rules.operator = value;
@@ -113,17 +77,18 @@ const RuleBody = (props) => {
           const rulesDefinition = props.schema.properties.rules.items.properties.rules
             .properties.groups.items.properties.conditions.items.properties.rule_definition;
           return (
-            <Paper className={[classes.paper, classes.paper2, classes.ifGroup].join(' ')} key={Math.random().toString().substring(2, 10)}>
-              <Typography className={[classes.title, classes.ifTitle].join(' ')} component="div" variant="subtitle1">
+            <div
+              className={styles['rule-if-group']}
+              key={Math.random().toString().substring(2, 10)}
+            >
+              <div className={styles['rule-if-title']}>
                 <FormattedMessage
                   id="ruleBody.if"
                   defaultMessage="If"
                   description="Logical operator IF statement label"
                 />
-              </Typography>
+              </div>
               <RuleOperatorWrapper
-                center={false}
-                color="var(--brandMain)"
                 operator={group.operator}
                 onSetOperator={(value) => {
                   rule.rules.groups[i].operator = value;
@@ -144,7 +109,10 @@ const RuleBody = (props) => {
                   const conditionalField = getConditionalField(conditions, 'rule_definition', condition.rule_definition);
 
                   return (
-                    <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>
+                    <div
+                      key={Math.random().toString().substring(2, 10)}
+                      className={styles['rule-field-wrapper']}
+                    >
                       <RuleField
                         definition={rulesDefinition}
                         value={condition.rule_definition}
@@ -163,26 +131,24 @@ const RuleBody = (props) => {
                             props.onChangeRule(rule);
                           }}
                         /> : null }
-                    </Box>
+                    </div>
                   );
                 })}
               </RuleOperatorWrapper>
-            </Paper>
+            </div>
           );
         })}
       </RuleOperatorWrapper>
       { !props.hideActions ?
-        <Paper className={[classes.paper, classes.paper2, classes.thenGroup, 'rules__actions'].join(' ')}>
-          <Typography className={[classes.title, classes.thenTitle].join(' ')} component="div" variant="subtitle1">
+        <div className={cx('rules__actions', styles['rule-then-group'])}>
+          <div className={styles['rule-then-title']}>
             <FormattedMessage
               id="ruleBody.then"
               defaultMessage="Then"
               description="Logical operator THEN statement"
             />
-          </Typography>
+          </div>
           <RuleOperatorWrapper
-            center={false}
-            color="var(--brandMain)"
             operator="and"
             operators={['and']}
             onSetOperator={() => {}}
@@ -201,7 +167,10 @@ const RuleBody = (props) => {
               actionsDefinition.enum = actionsDefinition.enum.filter(a => a.key !== 'add_tag' && a.key !== 'move_to_project');
               const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
               return (
-                <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>
+                <div
+                  key={Math.random().toString().substring(2, 10)}
+                  className={styles['rule-field-wrapper']}
+                >
                   <RuleField
                     definition={actionsDefinition}
                     value={action.action_definition}
@@ -220,19 +189,18 @@ const RuleBody = (props) => {
                         props.onChangeRule(rule);
                       }}
                     /> : null }
-                </Box>
+                </div>
               );
             })}
           </RuleOperatorWrapper>
-        </Paper> : null }
-    </Paper>
+        </div> : null }
+    </div>
   );
 };
 
 RuleBody.defaultProps = {
   hideName: false,
   hideActions: false,
-  noMargin: false,
 };
 
 RuleBody.propTypes = {
@@ -240,7 +208,6 @@ RuleBody.propTypes = {
   schema: PropTypes.object.isRequired,
   hideName: PropTypes.bool,
   hideActions: PropTypes.bool,
-  noMargin: PropTypes.bool,
   onChangeRule: PropTypes.func.isRequired,
 };
 

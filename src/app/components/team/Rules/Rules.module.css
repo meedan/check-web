@@ -1,0 +1,54 @@
+.rule-operator-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px;
+  padding: 0;
+}
+
+.rule-wrapper {
+  background-color: var(--otherWhite);
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+
+  .rule-name {
+    margin: 0 0 16px;
+  }
+
+  .rule-field-wrapper {
+    background: var(--brandBackgroundAccent);
+    border-radius: 3px;
+    padding: 16px;
+  }
+
+  .rule-if-group,
+  .rule-then-group {
+    background-color: var(--brandBackground);
+    border-radius: 5px;
+    padding: 16px;
+
+    .rule-field-wrapper {
+      + .rule-operator-wrapper {
+        background-color: var(--brandBackgroundAccent);
+        border-radius: 5px;
+        margin: -5px 0 16px;
+        padding: 0 16px 16px;
+      }
+
+      &:last-of-type {
+        border: solid 3px var(--errorMain);
+
+        + .rule-operator-wrapper {
+          background-color: var(--alertMain);
+          margin: 0 0 16px;
+        }
+      }
+    }
+  }
+
+  .rule-if-title,
+  .rule-then-title {
+    @mixin typography-subtitle1;
+    margin: 0 0 16px;
+  }
+}
