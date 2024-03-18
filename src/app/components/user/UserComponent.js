@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
-import UserEmail from '../user/UserEmail';
 import UserInfo from './UserInfo';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
-import styles from './User.module.css';
+import styles from './user.module.css';
 
 class UserComponent extends React.Component {
   componentWillMount() {
@@ -15,7 +14,7 @@ class UserComponent extends React.Component {
       browserHistory.push('/check/not-found');
     }
     if (user.dbid === this.getContext().currentUser.dbid) {
-      browserHistory.push('/check/me');
+      browserHistory.push('/check/me/profile');
     }
   }
 
@@ -31,10 +30,9 @@ class UserComponent extends React.Component {
       <PageTitle prefix={user.name}>
         <div className={cx('source', styles['user-settings-wrapper'])}>
           <div className={styles['user-content']}>
-            <div className={styles['user-info-wrapper']}>
-              <UserEmail user={user} />
+            <div className={cx('source', styles['user-setting-details-wrapper'])}>
+              <UserInfo user={user} context={context} />
             </div>
-            <UserInfo user={user} context={context} />
           </div>
         </div>
       </PageTitle>

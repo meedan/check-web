@@ -1,0 +1,37 @@
+[
+  {
+    "id": "switchTeams.error",
+    "description": "Error message with instructions on how to contact support",
+    "defaultMessage": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "userSettings.workspacesTitle",
+    "description": "Title for user settings area for user workspaces list they are a memeber of",
+    "defaultMessage": "Workspaces [{workspacesCount}]"
+  },
+  {
+    "id": "switchTeams.newTeamLink",
+    "description": "Button label for initiating creating a new team workspace",
+    "defaultMessage": "Create"
+  },
+  {
+    "id": "switchTeams.member",
+    "description": "Count of members of a workspace",
+    "defaultMessage": "{membersCount, plural, one {# member} other {# members}}"
+  },
+  {
+    "id": "switchTeams.joinRequestMessage",
+    "description": "Status message of a request to join a workspace",
+    "defaultMessage": "You requested to join"
+  },
+  {
+    "id": "switchTeams.cancelJoinRequest",
+    "description": "Button label to cancel a request to join a workspace",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "switchTeams.noTeams",
+    "description": "Empty message when the user is not a member of a workspace",
+    "defaultMessage": "Not a member of any workspace."
+  }
+]

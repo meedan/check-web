@@ -15,6 +15,7 @@ const ConfirmEmail = (props) => {
 
   return (
     <Alert
+      contained
       variant="warning"
       title={<FormattedMessage id="ConfirmEmail.title" defaultMessage="Confirm your email" description="Container title for confirming user email address" />}
       content={
