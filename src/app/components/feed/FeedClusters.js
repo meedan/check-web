@@ -121,7 +121,7 @@ const FeedClustersComponent = ({
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
             <FormattedMessage id="feedClusters.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />
-            <NextIcon className={styles.feedClustersIcon} />
+            <NextIcon />
             <FeedLastClusterizedAt feed={feed} />
           </div>
           <div className={searchResultsStyles.searchHeaderTitle}>

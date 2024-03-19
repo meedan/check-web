@@ -4,6 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import ScheduleSendIcon from '../../icons/schedule.svg';
 import styles from './FeedLastClusterizedAt.module.css';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 
 const FeedLastClusterizedAt = ({ feed }) => {
   const message = feed.last_clusterized_at ? (
@@ -16,7 +17,7 @@ const FeedLastClusterizedAt = ({ feed }) => {
     />
   ) : (
     <FormattedMessage
-      id="feedClusters.feedClusterizedTimePendingInitialUpdate"
+      id="feedLastClusterizedAt.feedClusterizedTimePendingInitialUpdate"
       defaultMessage="pending initial update"
       description="Informs that the feed is pending initial update"
     />
@@ -27,9 +28,20 @@ const FeedLastClusterizedAt = ({ feed }) => {
       <span className={styles.feedLastClusterizedAtIconWrapper} >
         <ScheduleSendIcon />
       </span>
-      <span className={styles.feedLastClusterizedAtDashedBorder}>
-        {message}
-      </span>
+      <Tooltip
+        arrow
+        title={
+          <FormattedMessage
+            id="feedLastClusterizedAt.tooltip"
+            defaultMessage="Shared Feed data is updated hourly. Data is accurate from the date and time noted"
+            description="Tooltip message dysplayed for letting user know when the feed was last updated"
+          />
+        }
+      >
+        <span className={styles.feedLastClusterizedAtDashedBorder}>
+          {message}
+        </span>
+      </Tooltip>
     </div>
   );
 };

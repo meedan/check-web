@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 import { FeedLastClusterizedAt } from './FeedLastClusterizedAt';
 
 describe('<FeedLastClusterizedAt />', () => {
-  it('should render FormattedDate when last_clusterized_at ', () => {
+  it('should render the information about when the feed was last updated', () => {
     const feed = {
       last_clusterized_at: '2022-01-01T00:00:00Z', // specify a date string
     };
