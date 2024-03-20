@@ -34,7 +34,7 @@ const FeedLastClusterizedAt = ({ feed }) => {
           <FormattedMessage
             id="feedLastClusterizedAt.tooltip"
             defaultMessage="Shared Feed data is updated hourly. Data is accurate from the date and time noted"
-            description="Tooltip message dysplayed for letting user know when the feed was last updated"
+            description="Tooltip message displayed for letting user know when the feed was last updated"
           />
         }
       >
