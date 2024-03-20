@@ -14,6 +14,7 @@ import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import FeedHeader from './FeedHeader';
+import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
@@ -120,6 +121,8 @@ const FeedClustersComponent = ({
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
             <FormattedMessage id="feedClusters.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />
+            <NextIcon />
+            <FeedLastClusterizedAt feed={feed} />
           </div>
           <div className={searchResultsStyles.searchHeaderTitle}>
             <h6>
@@ -414,6 +417,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                 }
               }
               ...FeedHeader_feed
+              ...FeedLastClusterizedAt_feed
               ...FeedTopBar_feed
             }
           }
