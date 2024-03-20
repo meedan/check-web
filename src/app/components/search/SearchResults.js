@@ -25,6 +25,7 @@ import SearchRoute from '../../relay/SearchRoute';
 import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
+import Alert from '../cds/alerts-and-prompts/Alert';
 
 const messages = defineMessages({
   sortTitle: {
@@ -98,6 +99,7 @@ function SearchResultsComponent({
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
+  const [tooManyResults, setTooManyResults] = React.useState(false);
   const [stateQuery, setStateQuery] = React.useState(appliedQuery);
 
   const onUnselectAll = () => {
@@ -302,6 +304,18 @@ function SearchResultsComponent({
     return result;
   };
 
+  /**
+   * After 10k results, Elastic Search stops returning items,
+   * user needs to be prompted to shorten their search
+   */
+  const handleNextPageClick = () => {
+    if (getEndIndex() < 10000) {
+      browserHistory.push(getNextPageLocation());
+    } else {
+      setTooManyResults(true);
+    }
+  };
+
   React.useEffect(() => {
     resubscribe();
 
@@ -481,6 +495,13 @@ function SearchResultsComponent({
         />
       </div>
       <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
+        { tooManyResults ?
+          <Alert
+            contained
+            title={<FormattedMessage id="searchResults.tooManyResults" defaultMessage="Query returned too many results.  Please use the filters to narrow down your search." description="An alert message that informs the user that their query is too large and need to narrow their filters if they want to continue search for items." />}
+            variant="info"
+          /> : null
+        }
         { count > 0 ?
           <Toolbar
             resultType={resultType}
@@ -549,9 +570,9 @@ function SearchResultsComponent({
                   }
                   >
                     {getNextPageLocation() ? (
-                      <Link className={cx('search__next-page', styles['search-nav'])} to={getNextPageLocation()}>
+                      <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
                         <NextIcon />
-                      </Link>
+                      </span>
                     ) : (
                       <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
                         <NextIcon />
