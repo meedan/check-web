@@ -1,0 +1,22 @@
+[
+  {
+    "id": "feedTeamFactCheckDialog.title",
+    "description": "Title for claim and fact-check dialog on the feed item page.",
+    "defaultMessage": "Claim and Fact-check"
+  },
+  {
+    "id": "feedTeamFactCheckDialog.claim",
+    "description": "Title for the claim section on the claim and fact-check dialog on the feed item page.",
+    "defaultMessage": "Claim"
+  },
+  {
+    "id": "feedTeamFactCheckDialog.factCheck",
+    "description": "Title for the fact-check section on the claim and fact-check dialog on the feed item page.",
+    "defaultMessage": "Fact-Check"
+  },
+  {
+    "id": "feedTeamFactCheckDialog.close",
+    "description": "Label of a button to close the claim and fact-check dialog window on the feed item page.",
+    "defaultMessage": "Close"
+  }
+]

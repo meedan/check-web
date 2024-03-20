@@ -15,18 +15,13 @@ const FeedTeamCard = ({
   clusterTeam,
 }) => {
   const [expanded, setExpanded] = React.useState(false);
+  const factChecks = clusterTeam.fact_checks || { edges: [] };
   const isSharingFactChecks = (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS));
-  const hasFactChecks = (clusterTeam?.fact_checks && clusterTeam.fact_checks.edges.length > 0);
 
   const handleExpand = () => {
     if (isSharingFactChecks) {
       setExpanded(!expanded);
     }
-  };
-
-  const handleMore = (e) => {
-    window.alert('I stopped here: display modal when this button is clicked'); // eslint-disable-line
-    e.stopPropagation();
   };
 
   let uncategorizedMediaCount = clusterTeam.media_count;
@@ -49,7 +44,6 @@ const FeedTeamCard = ({
               mediaCount={clusterTeam.media_count}
               requestsCount={clusterTeam.requests_count}
               lastRequestDate={clusterTeam.last_request_date && new Date(parseInt(clusterTeam.last_request_date, 10) * 1000)}
-              onSeeMore={(isSharingFactChecks && hasFactChecks) ? handleMore : null}
             />
           </div>
         </div>
@@ -63,9 +57,9 @@ const FeedTeamCard = ({
           </div>
           : null
         }
-        { expanded && hasFactChecks ?
+        { expanded ?
           <>
-            { clusterTeam.fact_checks.edges.map(edge => edge.node).map((clusterTeamFactCheck) => {
+            { factChecks.edges.map(edge => edge.node).map((clusterTeamFactCheck) => {
               uncategorizedMediaCount -= parseInt(clusterTeamFactCheck.media_count, 10);
               uncategorizedRequestsCount -= parseInt(clusterTeamFactCheck.requests_count, 10);
               return (<FeedTeamFactCheckCard clusterTeamFactCheck={clusterTeamFactCheck} />);

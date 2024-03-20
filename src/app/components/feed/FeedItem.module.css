@@ -73,6 +73,7 @@
 .feedTeamFactCheckCard {
   border-bottom: 1px solid var(--grayBorderMain);
   margin-top: 8px;
+  padding: 8px 0;
   width: 100%;
 }
 
@@ -83,4 +84,34 @@
   font-style: italic;
   margin-top: 8px;
   width: 100%;
+}
+
+.feedItemDialog {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedItemDialogBox {
+  background: var(--brandBackground);
+  border-radius: 5px;
+  padding: 16px;
+}
+
+.feedItemDialogSubtitle {
+  color: var(--textSecondary);
+}
+
+.feedItemDialogSubtitleFactCheck {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedItemDialogBulletSeparator,
+.feedItemDialogBulletSeparatorComponent {
+  align-items: center;
+  display: flex;
+  font-size: var(--fontSizeSmall);
+  gap: 4px;
 }

@@ -25,6 +25,30 @@
   }
 }
 
+.factCheckLink {
+  align-items: center;
+  color: var(--textLink);
+  display: flex;
+  font-size: var(--fontSizeSmall);
+  gap: 3px;
+
+  div {
+    display: grid;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  svg {
+    font-size: var(--iconSizeTiny);
+  }
+
+  a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 .card {
   background-color: var(--otherWhite);
   border: 1px solid var(--grayBorderMain);
@@ -124,29 +148,5 @@
     color: inherit;
     cursor: pointer;
     text-decoration: none;
-  }
-
-  .factCheckLink {
-    align-items: center;
-    color: var(--textLink);
-    display: flex;
-    font-size: var(--fontSizeSmall);
-    gap: 3px;
-
-    div {
-      display: grid;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    svg {
-      font-size: var(--iconSizeTiny);
-    }
-
-    a {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
   }
 }
