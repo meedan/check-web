@@ -5,6 +5,11 @@
     "defaultMessage": "Shared Feeds <sup>BETA</sup>"
   },
   {
+    "id": "feedSection.sharedFeedsTitle",
+    "description": "Title of section about what shared feeds are",
+    "defaultMessage": "What are Shared Feeds?"
+  },
+  {
     "id": "feedSection.sharedFeedsContent",
     "description": "Text explaining what shared feeds are",
     "defaultMessage": "Unlock new insights across audiences and languages by combining your Tipline data with other workspaces into a single shared view."
