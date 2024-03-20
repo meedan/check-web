@@ -10,6 +10,11 @@
     "defaultMessage": "Claim"
   },
   {
+    "id": "feedTeamFactCheckDialog.noFactCheck",
+    "description": "Title for the fact-check section on the claim and fact-check dialog on the feed item page when there is no fact-check available.",
+    "defaultMessage": "No Fact-Check Available"
+  },
+  {
     "id": "feedTeamFactCheckDialog.factCheck",
     "description": "Title for the fact-check section on the claim and fact-check dialog on the feed item page.",
     "defaultMessage": "Fact-Check"

@@ -62,35 +62,47 @@ const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
         </div>
         <div className={styles.feedItemDialogBox}>
           <div className={cx('typography-subtitle2', styles.feedItemDialogSubtitle, styles.feedItemDialogSubtitleFactCheck)}>
-            <FormattedMessage
-              id="feedTeamFactCheckDialog.factCheck"
-              defaultMessage="Fact-Check"
-              description="Title for the fact-check section on the claim and fact-check dialog on the feed item page."
-            />
+            { !claimDescription?.fact_check ?
+              <h5 className={styles.feedContentNotAvailable}>
+                <FormattedMessage
+                  id="feedTeamFactCheckDialog.noFactCheck"
+                  defaultMessage="No Fact-Check Available"
+                  description="Title for the fact-check section on the claim and fact-check dialog on the feed item page when there is no fact-check available."
+                />
+              </h5> :
+              null
+            }
             { claimDescription?.fact_check ?
-              <BulletSeparator
-                className={styles.feedItemDialogBulletSeparator}
-                compact
-                details={[
-                  (
-                    <div className={styles.feedItemDialogBulletSeparatorComponent}>
-                      {rating}
-                    </div>
-                  ),
-                  claimDescription.fact_check.language !== 'und' && (
-                    <div className={styles.feedItemDialogBulletSeparatorComponent}>
-                      <LanguageIcon />
-                      <span>{languageLabel(claimDescription.fact_check.language)}</span>
-                    </div>
-                  ),
-                  (
-                    <div className={styles.feedItemDialogBulletSeparatorComponent}>
-                      <CalendarIcon />
-                      <FormattedDate value={new Date(parseInt(claimDescription.fact_check.updated_at, 10) * 1000)} year="numeric" month="long" day="numeric" />
-                    </div>
-                  ),
-                ]}
-              /> :
+              <>
+                <FormattedMessage
+                  id="feedTeamFactCheckDialog.factCheck"
+                  defaultMessage="Fact-Check"
+                  description="Title for the fact-check section on the claim and fact-check dialog on the feed item page."
+                />
+                <BulletSeparator
+                  className={styles.feedItemDialogBulletSeparator}
+                  compact
+                  details={[
+                    (
+                      <div className={styles.feedItemDialogBulletSeparatorComponent}>
+                        {rating}
+                      </div>
+                    ),
+                    claimDescription.fact_check.language !== 'und' && (
+                      <div className={styles.feedItemDialogBulletSeparatorComponent}>
+                        <LanguageIcon />
+                        <span>{languageLabel(claimDescription.fact_check.language)}</span>
+                      </div>
+                    ),
+                    (
+                      <div className={styles.feedItemDialogBulletSeparatorComponent}>
+                        <CalendarIcon />
+                        <FormattedDate value={new Date(parseInt(claimDescription.fact_check.updated_at, 10) * 1000)} year="numeric" month="long" day="numeric" />
+                      </div>
+                    ),
+                  ]}
+                />
+              </> :
               null
             }
           </div>

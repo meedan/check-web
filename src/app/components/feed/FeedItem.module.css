@@ -115,3 +115,9 @@
   font-size: var(--fontSizeSmall);
   gap: 4px;
 }
+
+.feedContentNotAvailable {
+  color: var(--textPlaceholder);
+  text-align: center;
+  width: 100%;
+}
