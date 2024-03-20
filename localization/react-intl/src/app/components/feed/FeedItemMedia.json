@@ -1,0 +1,7 @@
+[
+  {
+    "id": "feedItemMedia.workspaceNotSelected",
+    "description": "Title for the media section on the feed item page when there is no workspace selected.",
+    "defaultMessage": "No workspace selected"
+  }
+]

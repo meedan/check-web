@@ -10,7 +10,7 @@ const FeedItemTeams = ({ team, cluster, feed }) => {
   const currentClusterTeam = cluster.cluster_teams.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === team.dbid) || {};
 
   return (
-    <div id="feed-item-page-teams" className={styles.feedItemTeams}>
+    <div id="feed-item-page-teams" className={styles.feedItemColumn}>
       <div className={cx('typography-subtitle2', styles.feedItemTeamsTitle)}>
         <FormattedMessage
           id="feedItemTeams.title"

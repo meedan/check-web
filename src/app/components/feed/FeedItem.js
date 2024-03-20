@@ -7,6 +7,8 @@ import MediasLoading from '../media/MediasLoading';
 import NotFound from '../NotFound';
 import FeedItemHeader from './FeedItemHeader';
 import FeedItemTeams from './FeedItemTeams';
+import FeedItemMedia from './FeedItemMedia';
+import styles from './FeedItem.module.css';
 
 const FeedItemComponent = ({
   teamSlug,
@@ -20,11 +22,14 @@ const FeedItemComponent = ({
       feed={feed}
       cluster={cluster}
     />
-    <FeedItemTeams
-      feed={feed}
-      team={team}
-      cluster={cluster}
-    />
+    <div className={styles.feedItemColumns}>
+      <FeedItemTeams
+        feed={feed}
+        team={team}
+        cluster={cluster}
+      />
+      <FeedItemMedia />
+    </div>
   </div>
 );
 

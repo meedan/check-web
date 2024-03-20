@@ -29,15 +29,27 @@
   }
 }
 
-.feedItemTeams {
+.feedItemColumns {
+  display: flex;
+  gap: 16px;
+  margin: 32px;
+}
+
+.feedItemColumn {
   background: var(--otherWhite);
   border-radius: 8px;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 10px;
-  margin: 32px;
+  min-height: 160px;
   padding: 16px;
-  width: 50%;
+}
+
+.feedItemColumn + .feedItemColumn {
+  align-self: flex-start;
+  flex: 1.5;
+  justify-content: center;
 }
 
 .feedItemTeamCard {
