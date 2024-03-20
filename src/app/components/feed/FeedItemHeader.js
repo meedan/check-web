@@ -8,6 +8,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
 import ItemThumbnail from '../search/SearchResultsTable/ItemThumbnail';
+import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import styles from './FeedItem.module.css';
 
@@ -29,6 +30,8 @@ const FeedItemHeader = ({ teamSlug, feed, cluster }) => {
                 <FormattedMessage id="feedItemHeader.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed item page." component="div" />
                 <ChevronRightIcon />
                 <span className={styles.feedItemHeaderLabel}>{feed.name}</span>
+                <ChevronRightIcon />
+                <FeedLastClusterizedAt feed={feed} />
               </div>
             </div>
             <div className={searchResultsStyles.searchHeaderTitle}>
@@ -107,5 +110,6 @@ export default createFragmentContainer(FeedItemHeader, graphql`
   fragment FeedItemHeader_feed on Feed {
     dbid
     name
+    ...FeedLastClusterizedAt_feed
   }
 `);
