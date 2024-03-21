@@ -2,7 +2,7 @@ import React from 'react';
 import DrawerNavigationComponent from './DrawerNavigationComponent';
 import DrawerProjects from './Projects';
 
-import { mountWithIntl, getStore } from '../../../test/unit/helpers/intl-test';
+import { mountWithIntl, getStore } from '../../../../test/unit/helpers/intl-test';
 
 describe('<DrawerNavigationComponent />', () => {
   const currentUser = {
