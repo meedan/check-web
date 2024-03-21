@@ -498,7 +498,15 @@ function SearchResultsComponent({
         { tooManyResults ?
           <Alert
             contained
-            title={<FormattedMessage id="searchResults.tooManyResults" defaultMessage="Query returned too many results.  Please use the filters to narrow down your search." description="An alert message that informs the user that their query is too large and need to narrow their filters if they want to continue search for items." />}
+            title={
+              <FormattedMessage
+                id="searchResults.tooManyResults"
+                defaultMessage="Browsing this list is limited to the first {max, number} results. Use the filters above to refine this list."
+                description="An alert message that informs the user that their query is too large and need to narrow their filters if they want to continue search for items."
+                values={{
+                  max: 10000,
+                }}
+              />}
             variant="info"
           /> : null
         }
