@@ -68,6 +68,10 @@
   transition: max-height 1s ease-in;
 }
 
+.feedItemTeamCardSelected > div {
+  border: 2px solid var(--brandMain);
+}
+
 .feedItemTeamsTitle {
   margin: 16px 0;
 }

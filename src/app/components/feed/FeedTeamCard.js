@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedHTMLMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import Card from '../cds/media-cards/Card';
 import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
 import FeedTeamFactCheckCard from './FeedTeamFactCheckCard';
@@ -13,14 +14,18 @@ const FeedTeamCard = ({
   feed,
   team,
   clusterTeam,
+  selected,
+  onClick,
 }) => {
-  const [expanded, setExpanded] = React.useState(false);
   const factChecks = clusterTeam.fact_checks || { edges: [] };
   const isSharingFactChecks = (feed.data_points?.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS));
+  const expanded = (isSharingFactChecks && selected);
 
-  const handleExpand = () => {
-    if (isSharingFactChecks) {
-      setExpanded(!expanded);
+  const handleClick = () => {
+    if (selected) {
+      onClick(null);
+    } else {
+      onClick(team.slug);
     }
   };
 
@@ -28,8 +33,14 @@ const FeedTeamCard = ({
   let uncategorizedRequestsCount = clusterTeam.requests_count;
 
   return (
-    <div className={expanded ? styles.feedItemTeamCardExpanded : styles.feedItemTeamCardCollapsed} onClick={handleExpand}> {/* eslint-disable-line jsx-a11y/click-events-have-key-events */}
-      <Card className={styles.feedItemTeamCard} onClick={handleExpand}>
+    <div // eslint-disable-line jsx-a11y/click-events-have-key-events
+      className={cx(
+        expanded ? styles.feedItemTeamCardExpanded : styles.feedItemTeamCardCollapsed,
+        selected ? styles.feedItemTeamCardSelected : styles.feedItemTeamCardNotSelected,
+      )}
+      onClick={handleClick}
+    >
+      <Card className={styles.feedItemTeamCard}>
         <TeamAvatar team={{ avatar: team.avatar }} size="54px" />
         <div>
           <div>
@@ -83,6 +94,8 @@ const FeedTeamCard = ({
 
 FeedTeamCard.defaultProps = {
   clusterTeam: {},
+  selected: false,
+  onClick: () => {},
 };
 
 FeedTeamCard.propTypes = {
@@ -103,16 +116,20 @@ FeedTeamCard.propTypes = {
       })),
     }),
   }),
+  selected: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default createFragmentContainer(FeedTeamCard, graphql`
   fragment FeedTeamCard_team on Node {
     ... on Team {
       name
+      slug
       avatar
     }
     ... on PublicTeam {
       name
+      slug
       avatar
     }
   }

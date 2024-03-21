@@ -4,48 +4,63 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 import FeedTeamCard from './FeedTeamCard';
+import FeedItemMedia from './FeedItemMedia';
 import styles from './FeedItem.module.css';
 
-const FeedItemTeams = ({ team, cluster, feed }) => {
+const FeedItemTeams = ({
+  team,
+  cluster,
+  feed,
+}) => {
   const currentClusterTeam = cluster.cluster_teams.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === team.dbid) || {};
+  const [selectedTeam, selectTeam] = React.useState(null); // Slug
 
   return (
-    <div id="feed-item-page-teams" className={styles.feedItemColumn}>
-      <div className={cx('typography-subtitle2', styles.feedItemTeamsTitle)}>
-        <FormattedMessage
-          id="feedItemTeams.title"
-          defaultMessage="Workspaces [{count}]"
-          values={{ count: cluster.cluster_teams.edges.length }}
-          description="Title of the workspaces box on feed item page"
-        />
-      </div>
-
-      {/* Current Workspace */}
-      <div className={styles.feedItemCurrentTeam}>
-        <div className={cx('typography-subtitle2', styles.feedItemTeamsSubtitle)}>
+    <div className={styles.feedItemColumns}>
+      <div id="feed-item-page-teams" className={styles.feedItemColumn}>
+        <div className={cx('typography-subtitle2', styles.feedItemTeamsTitle)}>
           <FormattedMessage
-            id="feedItemTeams.yourWorkspace"
-            defaultMessage="Your Workspace"
-            description="Title of the Your Workspace box on feed item page"
+            id="feedItemTeams.title"
+            defaultMessage="Workspaces [{count}]"
+            values={{ count: cluster.cluster_teams.edges.length }}
+            description="Title of the workspaces box on feed item page"
           />
         </div>
-        <FeedTeamCard
-          feed={feed}
-          team={team}
-          clusterTeam={currentClusterTeam}
-        />
-      </div>
 
-      {/* Workspaces part of the cluster (except current one), sorted by number of media items, descending */}
-      {cluster.cluster_teams.edges.map(edge => edge.node).filter(clusterTeam => clusterTeam.team.dbid !== team.dbid).sort((a, b) => (a.media_count < b.media_count) ? 1 : -1).map(clusterTeam => (
-        <div key={clusterTeam.team.dbid}>
+        {/* Current Workspace */}
+        <div className={styles.feedItemCurrentTeam}>
+          <div className={cx('typography-subtitle2', styles.feedItemTeamsSubtitle)}>
+            <FormattedMessage
+              id="feedItemTeams.yourWorkspace"
+              defaultMessage="Your Workspace"
+              description="Title of the Your Workspace box on feed item page"
+            />
+          </div>
           <FeedTeamCard
             feed={feed}
-            team={clusterTeam.team}
-            clusterTeam={clusterTeam}
+            team={team}
+            clusterTeam={currentClusterTeam}
+            selected={team.slug === selectedTeam}
+            onClick={selectTeam}
           />
         </div>
-      ))}
+
+        {/* Workspaces part of the cluster (except current one), sorted by number of media items, descending */}
+        {cluster.cluster_teams.edges.map(edge => edge.node).filter(clusterTeam => clusterTeam.team.dbid !== team.dbid).sort((a, b) => (a.media_count < b.media_count) ? 1 : -1).map(clusterTeam => (
+          <div key={clusterTeam.team.dbid}>
+            <FeedTeamCard
+              feed={feed}
+              team={clusterTeam.team}
+              clusterTeam={clusterTeam}
+              selected={clusterTeam.team.slug === selectedTeam}
+              onClick={selectTeam}
+            />
+          </div>
+        ))}
+      </div>
+      <FeedItemMedia
+        selectedTeam={selectedTeam}
+      />
     </div>
   );
 };
@@ -76,6 +91,7 @@ export { FeedItemTeams };
 export default createFragmentContainer(FeedItemTeams, graphql`
   fragment FeedItemTeams_team on Team {
     dbid
+    slug
     ...FeedTeamCard_team
   }
   fragment FeedItemTeams_feed on Feed {
@@ -87,6 +103,7 @@ export default createFragmentContainer(FeedItemTeams, graphql`
         node {
           team {
             dbid
+            slug
             ...FeedTeamCard_team
           }
           media_count
