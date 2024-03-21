@@ -93,9 +93,7 @@ class DrawerNavigationComponent extends Component {
       >
         <React.Fragment>
           {!!team && (currentUserIsMember || !team.private) ? (
-            <>
-              <DrawerProjects team={team.slug} drawerType={drawerType} />
-            </>
+            <DrawerProjects team={team.slug} drawerType={drawerType} />
           ) : null }
         </React.Fragment>
       </Drawer>

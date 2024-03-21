@@ -25,7 +25,7 @@ const getBooleanPref = (key, fallback) => {
 
 const DrawerNavigation = (props) => {
   const [drawerOpen, setDrawerOpen] = React.useState(getBooleanPref('drawer.isOpen', true));
-  const [drawerType, setDrawerType] = React.useState('default');
+  const [drawerType, setDrawerType] = React.useState('tipline');
 
   if (props.teamSlug) {
     const { teamSlug } = props;

@@ -54,7 +54,7 @@ const messages = defineMessages({
 
 const DrawerRail = (props) => {
   const testPath = window.location.pathname;
-  const isSettingsPage = /\/settings\/[a-zA-Z0-9]+/.test(testPath);
+  const isSettingsPage = /^\/[^/]+\/settings?($|\/)/.test(testPath);
   const isMediaPage = /\/media\/[0-9]+/.test(testPath);
   const isFeedPage = /^\/[^/]+\/feed(s)?($|\/)/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
@@ -103,7 +103,7 @@ const DrawerRail = (props) => {
       } else if (isUserSettingsPage) {
         onDrawerTypeChange('user');
       } else {
-        onDrawerTypeChange('default');
+        onDrawerTypeChange('tipline');
       }
     }
   }, [testPath, teamSlug, activeItem]);
@@ -148,8 +148,8 @@ const DrawerRail = (props) => {
                   })
                 }
                 id="side-navigation__tipline-toggle"
+                onClick={() => setDrawerTypeChange('tipline')}
                 to={`/${props.team.slug}/all-items`}
-                onClick={() => setDrawerTypeChange('default')}
               >
                 <QuestionAnswerIcon />
               </Link>
@@ -177,7 +177,8 @@ const DrawerRail = (props) => {
                     [styles.railIconLinkActive]: isSettingsPage,
                   })
                 }
-                to={`/${props.team.slug}/settings`}
+                onClick={() => setDrawerTypeChange('settings')}
+                to={`/${props.team.slug}/settings/workspace`}
               >
                 <SettingsIcon />
               </Link>
@@ -191,6 +192,7 @@ const DrawerRail = (props) => {
                     [styles.railIconLinkActive]: isUserSettingsPage,
                   })
                 }
+                onClick={() => setDrawerTypeChange('user')}
                 to="/check/me/profile"
               >
                 <PersonIcon />
