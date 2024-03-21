@@ -1,8 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import FindPublicTeamRoute from '../relay/FindPublicTeamRoute';
-import teamPublicFragment from '../relay/teamPublicFragment';
-import DrawerRail from './drawer/DrawerRail';
+import FindPublicTeamRoute from '../../relay/FindPublicTeamRoute';
+import teamPublicFragment from '../../relay/teamPublicFragment';
+import DrawerRail from './DrawerRail';
 import DrawerNavigationComponent from './DrawerNavigationComponent';
 
 const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {

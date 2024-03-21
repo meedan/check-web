@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
-import { withStyles } from '@material-ui/core/styles';
-import { withPusher, pusherShape } from '../pusher';
-import DrawerProjects from './drawer/Projects';
-import CheckContext from '../CheckContext';
-import styles from './drawer/Drawer.module.css';
+import { withPusher, pusherShape } from '../../pusher';
+import DrawerProjects from './Projects';
+import CheckContext from '../../CheckContext';
+import styles from './Drawer.module.css';
 
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
@@ -111,15 +110,4 @@ DrawerNavigationComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const drawerStyles = {
-  paper: {
-    overflow: 'hidden',
-  },
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100vh',
-  },
-};
-
-export default withStyles(drawerStyles)(withPusher(DrawerNavigationComponent));
+export default withPusher(DrawerNavigationComponent);
