@@ -62,7 +62,7 @@
     cursor: pointer;
     font-weight: 500;
     height: 30px;
-    margin: 0;
+    margin: 0 0 2px;
     padding: 0 0 0 7px;
     text-transform: uppercase;
     width: auto;
@@ -81,9 +81,9 @@
         background-color: var(--grayBackground);
         border-radius: 8px;
         color: var(--textSecondary);
-        flex: 0 0 26px;
+        flex: 0 0 30px;
         font-size: var(--iconSizeSmall);
-        height: 26px;
+        height: 30px;
         padding: 0;
         transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
         width: 26px;
