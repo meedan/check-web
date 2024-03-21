@@ -54,7 +54,7 @@ const messages = defineMessages({
 
 const DrawerRail = (props) => {
   const testPath = window.location.pathname;
-  const isSettingsPage = /^\/[^/]+\/settings?($|\/)/.test(testPath);
+  const isSettingsPage = /[^/]+\/settings?/.test(testPath);
   const isMediaPage = /\/media\/[0-9]+/.test(testPath);
   const isFeedPage = /^\/[^/]+\/feed(s)?($|\/)/.test(testPath);
   const teamRegex = window.location.pathname.match(/^\/([^/]+)/);
