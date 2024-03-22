@@ -41,7 +41,6 @@ describe('<MediaSimilaritiesComponent />', () => {
       />
     );
 
-    console.log(wrapper.debug())
     expect(wrapper.find('.media__more-medias')).toHaveLength(1);
   });
 });
