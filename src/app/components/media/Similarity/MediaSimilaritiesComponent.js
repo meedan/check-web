@@ -28,7 +28,7 @@ function sort(items) {
   if (!items) {
     return [];
   }
-  return items.slice().sort((a, b) => b.node.target.requests_count - a.node.target.requests_count);
+  return items.slice().sort((a, b) => b.node.target?.requests_count - a.node.target?.requests_count);
 }
 
 const MediaSimilaritiesComponent = ({ projectMedia, superAdminMask }) => {
@@ -81,6 +81,9 @@ MediaSimilaritiesComponent.propTypes = {
 MediaSimilaritiesComponent.defaultProps = {
   superAdminMask: false,
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { MediaSimilaritiesComponent };
 
 export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
   fragment MediaSimilaritiesComponent_projectMedia on ProjectMedia {
