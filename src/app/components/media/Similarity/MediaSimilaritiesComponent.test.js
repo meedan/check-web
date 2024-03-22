@@ -1,11 +1,10 @@
-import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import React from 'react';
+import { shallowWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import { MediaSimilaritiesComponent } from './MediaSimilaritiesComponent';
 
 describe('<MediaSimilaritiesComponent />', () => {
   it('should render without errors even if requests_count is null', () => {
-
-  const permissions = JSON.stringify({ 'update Team': true, 'read Team': true });
+    const permissions = JSON.stringify({ 'update Team': true, 'read Team': true });
     const projectMedia = {
       id: '1',
       demand: 1,
@@ -38,7 +37,7 @@ describe('<MediaSimilaritiesComponent />', () => {
       <MediaSimilaritiesComponent
         projectMedia={projectMedia}
         superAdminMask={superAdminMask}
-      />
+      />,
     );
 
     expect(wrapper.find('.media__more-medias')).toHaveLength(1);
