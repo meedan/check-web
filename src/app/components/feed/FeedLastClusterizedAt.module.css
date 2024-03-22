@@ -1,5 +1,6 @@
 .feedLastClusterizedAtContainer {
   color: var(--alertSecondary);
+  cursor: default;
   display: flex;
   gap: 3px;
   text-transform: capitalize;
