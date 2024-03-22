@@ -32,7 +32,7 @@
 .feedItemColumns {
   display: flex;
   gap: 16px;
-  margin: 32px;
+  margin: 16px 32px;
 }
 
 .feedItemColumn {
@@ -42,7 +42,6 @@
   flex: 1;
   flex-direction: column;
   gap: 10px;
-  min-height: 160px;
   padding: 16px;
 }
 
@@ -134,6 +133,13 @@
 
 .feedContentNotAvailable {
   color: var(--textPlaceholder);
+  margin: 64px 0;
   text-align: center;
   width: 100%;
+}
+
+.feedItemMediaSectionTitle {
+  align-items: center;
+  display: flex;
+  gap: 8px;
 }

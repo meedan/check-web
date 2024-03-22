@@ -25,7 +25,7 @@ const FeedTeamCard = ({
     if (selected) {
       onClick(null);
     } else {
-      onClick(team.slug);
+      onClick(team.dbid);
     }
   };
 
@@ -101,6 +101,7 @@ FeedTeamCard.defaultProps = {
 FeedTeamCard.propTypes = {
   team: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
     avatar: PropTypes.string.isRequired,
   }).isRequired,
   feed: PropTypes.shape({
@@ -124,12 +125,12 @@ export default createFragmentContainer(FeedTeamCard, graphql`
   fragment FeedTeamCard_team on Node {
     ... on Team {
       name
-      slug
+      dbid
       avatar
     }
     ... on PublicTeam {
       name
-      slug
+      dbid
       avatar
     }
   }

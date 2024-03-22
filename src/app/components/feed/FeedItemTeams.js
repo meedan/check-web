@@ -7,13 +7,16 @@ import FeedTeamCard from './FeedTeamCard';
 import FeedItemMedia from './FeedItemMedia';
 import styles from './FeedItem.module.css';
 
+const findTeamInCluster = (cluster, teamDbid) => (cluster.cluster_teams.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === teamDbid));
+
 const FeedItemTeams = ({
   team,
   cluster,
   feed,
 }) => {
-  const currentClusterTeam = cluster.cluster_teams.edges.map(edge => edge.node).find(clusterTeam => clusterTeam.team.dbid === team.dbid) || {};
-  const [selectedTeam, selectTeam] = React.useState(null); // Slug
+  const currentClusterTeam = findTeamInCluster(cluster, team.dbid) || {};
+  const [selectedTeamDbid, selectTeam] = React.useState(null); // Slug
+  const selectedClusterTeam = findTeamInCluster(cluster, selectedTeamDbid);
 
   return (
     <div className={styles.feedItemColumns}>
@@ -40,7 +43,7 @@ const FeedItemTeams = ({
             feed={feed}
             team={team}
             clusterTeam={currentClusterTeam}
-            selected={team.slug === selectedTeam}
+            selected={team.dbid === selectedTeamDbid}
             onClick={selectTeam}
           />
         </div>
@@ -52,15 +55,15 @@ const FeedItemTeams = ({
               feed={feed}
               team={clusterTeam.team}
               clusterTeam={clusterTeam}
-              selected={clusterTeam.team.slug === selectedTeam}
+              selected={clusterTeam.team.dbid === selectedTeamDbid}
               onClick={selectTeam}
             />
           </div>
         ))}
       </div>
-      <FeedItemMedia
-        selectedTeam={selectedTeam}
-      />
+
+      {/* Media from the selected team */}
+      <FeedItemMedia clusterTeam={selectedClusterTeam} />
     </div>
   );
 };
@@ -91,7 +94,6 @@ export { FeedItemTeams };
 export default createFragmentContainer(FeedItemTeams, graphql`
   fragment FeedItemTeams_team on Team {
     dbid
-    slug
     ...FeedTeamCard_team
   }
   fragment FeedItemTeams_feed on Feed {
@@ -103,11 +105,11 @@ export default createFragmentContainer(FeedItemTeams, graphql`
         node {
           team {
             dbid
-            slug
             ...FeedTeamCard_team
           }
           media_count
           ...FeedTeamCard_clusterTeam
+          ...FeedItemMedia_clusterTeam
         }
       }
     }
