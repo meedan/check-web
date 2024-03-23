@@ -7,6 +7,8 @@ import styles from './FeedItem.module.css';
 
 const FeedItemMedia = ({ clusterTeam }) => (
   <div id="feed-item-page-media" className={styles.feedItemColumn}>
+
+    {/* Header */}
     { !clusterTeam ?
       <h5 className={styles.feedContentNotAvailable}>
         <FormattedMessage
@@ -34,6 +36,8 @@ const FeedItemMedia = ({ clusterTeam }) => (
       </div> :
       null
     }
+
+    {/* Media list */}
   </div>
 );
 
