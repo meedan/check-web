@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import TeamAvatar from '../team/TeamAvatar';
+import FeedItemMediaList from './FeedItemMediaList';
 import styles from './FeedItem.module.css';
 
 const FeedItemMedia = ({ clusterTeam }) => (
@@ -38,6 +39,7 @@ const FeedItemMedia = ({ clusterTeam }) => (
     }
 
     {/* Media list */}
+    { clusterTeam ? <FeedItemMediaList teamDbid={clusterTeam.team.dbid} /> : null }
   </div>
 );
 
@@ -50,6 +52,7 @@ FeedItemMedia.propTypes = {
     media_count: PropTypes.number,
     requests_count: PropTypes.number,
     team: PropTypes.shape({
+      dbid: PropTypes.number.isRequired,
       avatar: PropTypes.string.isRequired,
     }).isRequired,
   }),
@@ -60,6 +63,7 @@ export default createFragmentContainer(FeedItemMedia, graphql`
     media_count
     requests_count
     team {
+      dbid
       avatar
     }
   }

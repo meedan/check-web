@@ -49,12 +49,19 @@
   align-self: flex-start;
   flex: 1.5;
   justify-content: center;
+  overflow: hidden;
 }
 
 .feedItemTeamCard {
   cursor: pointer;
   justify-content: flex-start !important;
   overflow: hidden;
+}
+
+.feedItemTeamCardHeader {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
 }
 
 .feedItemTeamCardCollapsed {
@@ -69,6 +76,10 @@
 
 .feedItemTeamCardSelected > div {
   border: 2px solid var(--brandMain);
+}
+
+.feedItemTeamCardFooter > div > div {
+  flex-wrap: nowrap !important;
 }
 
 .feedItemTeamsTitle {

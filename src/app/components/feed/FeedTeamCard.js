@@ -41,21 +41,23 @@ const FeedTeamCard = ({
       onClick={handleClick}
     >
       <Card className={styles.feedItemTeamCard}>
-        <TeamAvatar team={{ avatar: team.avatar }} size="54px" />
-        <div>
+        <div className={styles.feedItemTeamCardHeader}>
+          <TeamAvatar team={{ avatar: team.avatar }} size="54px" />
           <div>
-            <h6 className="typography-button">{team.name}</h6>
-          </div>
-          <div>
-            <SharedItemCardFooter
-              buttonProps={{
-                variant: 'text',
-                theme: 'text',
-              }}
-              mediaCount={clusterTeam.media_count}
-              requestsCount={clusterTeam.requests_count}
-              lastRequestDate={clusterTeam.last_request_date && new Date(parseInt(clusterTeam.last_request_date, 10) * 1000)}
-            />
+            <div>
+              <h6 className="typography-button">{team.name}</h6>
+            </div>
+            <div className={styles.feedItemTeamCardFooter}>
+              <SharedItemCardFooter
+                buttonProps={{
+                  variant: 'text',
+                  theme: 'text',
+                }}
+                mediaCount={clusterTeam.media_count}
+                requestsCount={clusterTeam.requests_count}
+                lastRequestDate={clusterTeam.last_request_date && new Date(parseInt(clusterTeam.last_request_date, 10) * 1000)}
+              />
+            </div>
           </div>
         </div>
         { Object.keys(clusterTeam).length === 0 ? // Empty clusterTeam object (e.g., {})
