@@ -5,16 +5,22 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
+import MediaSlug from '../media/MediaSlug';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
+import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import NotFound from '../NotFound';
 
-const FeedItemMediaListComponent = ({ items, intl }) => (
-  <div id="feed-item-page-media-list">
-    {items.map(item => (
-      <SmallMediaCard
-        key={item.dbid}
-        customTitle={item.title}
-        details={[
+const FeedItemMediaListComponent = ({ items, intl }) => {
+  const [selectedItemId, setSelectedItemId] = React.useState(null);
+
+  const swallowClick = (event) => {
+    event.stopPropagation();
+  };
+
+  return (
+    <div id="feed-item-page-media-list">
+      {items.map((item) => {
+        const details = [
           (
             item.last_seen &&
               <FormattedMessage
@@ -35,13 +41,40 @@ const FeedItemMediaListComponent = ({ items, intl }) => (
                 values={{ requestsCount: item.requests_count }}
               />
           ),
-        ]}
-        media={item.media}
-        description={item.description}
-      />
-    ))}
-  </div>
-);
+        ];
+
+        return (
+          <>
+            <SmallMediaCard
+              key={item.dbid}
+              customTitle={item.title}
+              details={details}
+              media={item.media}
+              description={item.description}
+              onClick={() => setSelectedItemId(item.dbid)}
+            />
+            { selectedItemId === item.dbid ?
+              <MediaAndRequestsDialogComponent
+                mediaSlug={
+                  <MediaSlug
+                    mediaType={item.type}
+                    slug={item.title}
+                    details={details}
+                  />
+                }
+                projectMediaId={selectedItemId}
+                context="feed"
+                onClick={swallowClick}
+                onClose={() => setSelectedItemId(null)}
+              />
+              : null
+            }
+          </>
+        );
+      })}
+    </div>
+  );
+};
 
 FeedItemMediaListComponent.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
@@ -51,6 +84,7 @@ FeedItemMediaListComponent.propTypes = {
     requests_count: PropTypes.number,
     description: PropTypes.string,
     media: PropTypes.object,
+    type: PropTypes.string,
   })).isRequired,
   intl: intlShape.isRequired,
 };
@@ -77,6 +111,7 @@ const FeedItemMediaList = ({ teamDbid }) => {
                         last_seen
                         requests_count
                         description
+                        type
                         media {
                           ...SmallMediaCard_media
                         }

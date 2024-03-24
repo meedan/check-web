@@ -33,6 +33,7 @@ class Annotations extends React.Component {
   render() {
     const { props } = this;
     const hasMore = props.annotations.length < props.annotationsCount;
+    const componentProps = props.componentProps || {};
 
     return (
       <div className="annotations">
@@ -58,6 +59,7 @@ class Annotations extends React.Component {
                     annotatedType={props.annotatedType}
                     annotation={annotation.node}
                     team={props.team}
+                    {...componentProps}
                   />
                   :
                   <Annotation

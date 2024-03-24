@@ -74,6 +74,7 @@ function parseText(text, projectMedia, activity) {
 const TiplineRequest = ({
   annotation: activity,
   annotated: projectMedia,
+  showButtons,
   intl,
 }) => {
   if (!activity) {
@@ -147,24 +148,28 @@ const TiplineRequest = ({
         intl.formatMessage(messages.smoochNoMessage)
       )}
       icon={<SmoochIcon name={messageType} />}
-      historyButton={
-        <TiplineHistoryButton
+      historyButton={(
+        showButtons && <TiplineHistoryButton
           uid={uid}
           name={userName}
           channel={channelLabel[messageType] || messageType}
           messageId={messageId}
         />
-      }
-      sendMessageButton={
-        <SendTiplineMessage
+      )}
+      sendMessageButton={(
+        showButtons && <SendTiplineMessage
           username={userName}
           channel={channelLabel[messageType] || messageType}
           annotationId={activity.dbid}
         />
-      }
+      )}
       receipt={<RequestReceipt events={reportHistory} />}
     />
   );
+};
+
+TiplineRequest.defaultProps = {
+  showButtons: true,
 };
 
 TiplineRequest.propTypes = {
@@ -183,6 +188,7 @@ TiplineRequest.propTypes = {
       file_path: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  showButtons: PropTypes.bool,
   intl: intlShape.isRequired,
 };
 
