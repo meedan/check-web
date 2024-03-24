@@ -39,17 +39,19 @@
   background: var(--otherWhite);
   border-radius: 8px;
   display: flex;
-  flex: 1;
   flex-direction: column;
   gap: 10px;
+  max-height: calc(100vh - 143px);
+  overflow-y: auto;
   padding: 16px;
+  width: 420px;
 }
 
 .feedItemColumn + .feedItemColumn {
   align-self: flex-start;
-  flex: 1.5;
-  justify-content: center;
-  overflow: hidden;
+  flex: 1;
+  justify-content: flex-start;
+  overflow-x: hidden;
 }
 
 .feedItemTeamCard {
@@ -153,4 +155,10 @@
   align-items: center;
   display: flex;
   gap: 8px;
+}
+
+.feedItemOneLineText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import SharedItemCardFooter from '../search/SearchResultsCards/SharedItemCardFooter';
 import FeedTeamFactCheckDialog from './FeedTeamFactCheckDialog';
 import styles from './FeedItem.module.css';
@@ -31,7 +32,7 @@ const FeedTeamFactCheckCard = ({ clusterTeamFactCheck }) => {
             <FormattedMessage id="feedTeamFactCheckCard.factCheck" defaultMessage="Fact-check:" description="Label for fact-check card on feed item page" />
             {clusterTeamFactCheck.rating}
           </h6>
-          <div className="typography-body2">{clusterTeamFactCheck.fact_check_title || clusterTeamFactCheck.fact_check_summary}</div>
+          <div className={cx('typography-body2', styles.feedItemOneLineText)}>{clusterTeamFactCheck.fact_check_title || clusterTeamFactCheck.fact_check_summary}</div>
         </div>
         : null
       }
