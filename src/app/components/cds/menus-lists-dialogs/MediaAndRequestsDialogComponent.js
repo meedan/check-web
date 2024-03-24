@@ -9,8 +9,7 @@ import IconClose from '../../../icons/clear.svg';
 import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MediaRequests from '../../media/MediaRequests';
 import { MediaCardLargeQueryRenderer } from '../../media/MediaCardLarge';
-import FeedMediaRequests from '../../feed/FeedMediaRequests';
-import FeedMediaCardLarge from '../../feed/FeedMediaCardLarge';
+import FeedItemMediaDialog from '../../feed/FeedItemMediaDialog';
 import styles from '../../../styles/css/dialog.module.css';
 
 const useStyles = makeStyles(theme => ({
@@ -80,14 +79,21 @@ const MediaAndRequestsDialogComponent = ({
       </div>
       <div className={styles['dialog-content']}>
         <Grid container className={classes.shut}>
-          <Grid item xs={6} className={classes.mediaColumn}>
-            { context === 'workspace' ? <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} /> : null }
-            { context === 'feed' ? <FeedMediaCardLarge /> : null }
-          </Grid>
-          <Grid item xs={6} className={classes.requestsColumn}>
-            { context === 'workspace' ? <MediaRequests media={{ dbid: projectMediaId }} /> : null }
-            { context === 'feed' ? <FeedMediaRequests itemDbid={projectMediaId} /> : null }
-          </Grid>
+          { context === 'workspace' ?
+            <>
+              <Grid item xs={6} className={classes.mediaColumn}>
+                <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
+              </Grid>
+              <Grid item xs={6} className={classes.requestsColumn}>
+                <MediaRequests media={{ dbid: projectMediaId }} />
+              </Grid>
+            </> :
+            null
+          }
+          { context === 'feed' ?
+            <FeedItemMediaDialog itemDbid={projectMediaId} classes={classes} /> :
+            null
+          }
         </Grid>
       </div>
     </Dialog>
