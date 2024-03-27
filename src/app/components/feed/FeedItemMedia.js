@@ -10,17 +10,16 @@ const FeedItemMedia = ({ clusterTeam }) => (
   <div id="feed-item-page-media" className={styles.feedItemColumn}>
 
     {/* Header */}
-    { !clusterTeam ?
+    { !clusterTeam &&
       <h5 className={styles.feedContentNotAvailable}>
         <FormattedMessage
           id="feedItemMedia.titleWorkspaceNotSelected"
           defaultMessage="No workspace selected"
           description="Title for the media section on the feed item page when there is no workspace selected."
         />
-      </h5> :
-      null
+      </h5>
     }
-    { clusterTeam ?
+    { clusterTeam &&
       <div className={styles.feedItemMediaSectionTitle}>
         <TeamAvatar team={{ avatar: clusterTeam.team.avatar }} size="54px" />
         <div className="typography-subtitle2">
@@ -34,12 +33,11 @@ const FeedItemMedia = ({ clusterTeam }) => (
             }}
           />
         </div>
-      </div> :
-      null
+      </div>
     }
 
     {/* Media list */}
-    { clusterTeam ? <FeedItemMediaList teamDbid={clusterTeam.team.dbid} /> : null }
+    { clusterTeam && <FeedItemMediaList teamDbid={clusterTeam.team.dbid} /> }
   </div>
 );
 

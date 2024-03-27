@@ -29,16 +29,23 @@ const FeedTeamCard = ({
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  };
+
   let uncategorizedMediaCount = clusterTeam.media_count;
   let uncategorizedRequestsCount = clusterTeam.requests_count;
 
   return (
-    <div // eslint-disable-line jsx-a11y/click-events-have-key-events
+    <div
       className={cx(
         expanded ? styles.feedItemTeamCardExpanded : styles.feedItemTeamCardCollapsed,
         selected ? styles.feedItemTeamCardSelected : styles.feedItemTeamCardNotSelected,
       )}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
     >
       <Card className={styles.feedItemTeamCard}>
         <div className={styles.feedItemTeamCardHeader}>

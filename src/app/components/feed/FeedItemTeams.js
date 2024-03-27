@@ -50,15 +50,14 @@ const FeedItemTeams = ({
 
         {/* Workspaces part of the cluster (except current one), sorted by number of media items, descending */}
         {cluster.cluster_teams.edges.map(edge => edge.node).filter(clusterTeam => clusterTeam.team.dbid !== team.dbid).sort((a, b) => (a.media_count < b.media_count) ? 1 : -1).map(clusterTeam => (
-          <div key={clusterTeam.team.dbid}>
-            <FeedTeamCard
-              feed={feed}
-              team={clusterTeam.team}
-              clusterTeam={clusterTeam}
-              selected={clusterTeam.team.dbid === selectedTeamDbid}
-              onClick={selectTeam}
-            />
-          </div>
+          <FeedTeamCard
+            key={clusterTeam.team.dbid}
+            feed={feed}
+            team={clusterTeam.team}
+            clusterTeam={clusterTeam}
+            selected={clusterTeam.team.dbid === selectedTeamDbid}
+            onClick={selectTeam}
+          />
         ))}
       </div>
 

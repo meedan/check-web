@@ -1,4 +1,4 @@
-/* eslint-disable relay/unused-fields */
+/* eslint-disable relay/unused-fields */ // -> We're using the legacy `<Annotations />` component, which doesn't define a fragment.
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -28,7 +28,7 @@ const FeedMediaRequests = ({ projectMedia }) => {
       <Annotations
         noLink
         component={TiplineRequest}
-        componentProps={{ showButtons: false }}
+        componentProps={{ hideButtons: true }}
         annotations={requests}
         annotated={{ ...projectMedia, archived: 1 }}
         annotatedType="ProjectMedia"

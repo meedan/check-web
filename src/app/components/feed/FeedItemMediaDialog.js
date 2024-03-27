@@ -10,7 +10,8 @@ import FeedMediaRequests from './FeedMediaRequests';
 import MediaCardLarge from '../media/MediaCardLarge';
 
 const FeedItemMediaDialog = ({ itemDbid, classes }) => {
-  const { currentTeamSlug, feedDbid, projectMediaDbid } = window.location.pathname.match(/^\/(?<currentTeamSlug>[^/]+)\/feed\/(?<feedDbid>[0-9]+)\/item\/(?<projectMediaDbid>[0-9]+)$/).groups;
+  const urlParseRegex = new RegExp('^/(?<currentTeamSlug>[^/]+)/feed/(?<feedDbid>[0-9]+)/item/(?<projectMediaDbid>[0-9]+)$');
+  const { currentTeamSlug, feedDbid, projectMediaDbid } = urlParseRegex.test(window.location.pathname) && window.location.pathname.match(urlParseRegex).groups;
 
   return (
     <ErrorBoundary component="FeedItemMediaDialog">

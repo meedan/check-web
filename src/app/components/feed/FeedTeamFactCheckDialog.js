@@ -16,8 +16,7 @@ import styles from './FeedItem.module.css';
 
 const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
   // Avoid closing the dialog when clicking on it
-  // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-  <div onClick={(e) => { e.stopPropagation(); }}>
+  <div onClick={(e) => { e.stopPropagation(); }} onKeyDown={(e) => { e.stopPropagation(); }}>
     <Dialog
       className={dialogStyles['dialog-window']}
       open
