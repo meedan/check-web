@@ -1,0 +1,12 @@
+[
+  {
+    "id": "feedItemTeams.title",
+    "description": "Title of the workspaces box on feed item page",
+    "defaultMessage": "Workspaces [{count}]"
+  },
+  {
+    "id": "feedItemTeams.yourWorkspace",
+    "description": "Title of the Your Workspace box on feed item page",
+    "defaultMessage": "Your Workspace"
+  }
+]

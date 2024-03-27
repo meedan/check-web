@@ -29,6 +29,7 @@ import Feed from './feed/Feed';
 import FeedClusterPage from './feed/FeedClusterPage';
 import FeedInvitation from './feed/FeedInvitation';
 import FeedInvitationRespond from './feed/FeedInvitationRespond';
+import FeedItem from './feed/FeedItem';
 import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
@@ -115,6 +116,7 @@ class Root extends Component {
                   <Route path=":team/feeds" component={FeedPage} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
                   <Route path=":team/feed/:feedId/invitation" component={FeedInvitationRespond} />
+                  <Route path=":team/feed/:feedId/item/:projectMediaId" component={FeedItem} />
                   <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />

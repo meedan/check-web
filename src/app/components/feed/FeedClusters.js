@@ -229,6 +229,7 @@ const FeedClustersComponent = ({
                   lastRequestDate={cluster.last_request_date && new Date(parseInt(cluster.last_request_date, 10) * 1000)}
                   factCheckCount={cluster.fact_checks_count}
                   channels={channels.length > 0 && { main: channels[0], others: channels }}
+                  cardUrl={`/${team.slug}/feed/${feed.dbid}/item/${cluster.center.dbid}`}
                 />
               </div>
             );
@@ -394,6 +395,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                     requests_count
                     fact_checks_count
                     center {
+                      dbid
                       title
                       description
                       media_slug

@@ -29,7 +29,9 @@ const LanguagePickerSelect = ({
 }) => {
   const [value, setValue] = React.useState(selectedLanguage);
   const options = (languages || []).slice();
-  options.unshift('und');
+  if (!options.includes('und')) {
+    options.unshift('und');
+  }
 
   // intl.formatMessage needed here because Autocomplete
   // performs toLowerCase on strings for comparison
