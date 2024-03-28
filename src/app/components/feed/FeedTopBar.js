@@ -107,7 +107,7 @@ const FeedTopBar = ({
                   {
                     hasList ?
                       <div className={`${styles.feedTopBarList} feed-top-bar-list`}>
-                        <span className={styles.feedListTitle}>{feed.saved_search.title}</span>
+                        <span className={styles.feedListTitle}>{feed.current_feed_team.saved_search.title}</span>
                       </div> :
                       <span className={styles.feedNoListTitle}><FormattedMessage id="feedTopBar.noListSelected" defaultMessage="no list selected" description="Message displayed on feed top bar when there is no list associated with the feed." /></span>
                   }
@@ -250,6 +250,11 @@ export default createFragmentContainer(FeedTopBar, graphql`
           name
           slug
         }
+      }
+    }
+    current_feed_team {
+      saved_search {
+        title
       }
     }
     saved_search {
