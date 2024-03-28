@@ -19,6 +19,7 @@ import FactCheckIcon from '../../../icons/fact_check.svg';
 import styles from './ItemCard.module.css';
 
 const WorkspaceItemCard = ({
+  cardUrl,
   channels,
   date,
   description,
@@ -38,10 +39,14 @@ const WorkspaceItemCard = ({
   title,
 }) => (
   <div className={cx(styles.itemCard, 'workspace-item--card')}>
-    <Card className={cx({ [styles.listItemUnread]: isUnread })}>
-      <div className={styles.checkbox}>
-        { onCheckboxChange && <Checkbox checked={isChecked} onChange={onCheckboxChange} /> }
-      </div>
+    <Card
+      className={cx({ [styles.listItemUnread]: isUnread })}
+      cardUrl={cardUrl}
+    >
+      { onCheckboxChange && (
+        <div className={styles.checkbox}>
+          <Checkbox checked={isChecked} onChange={onCheckboxChange} />
+        </div>)}
       <div className={styles.sharedItemCardLeft}>
         <ItemThumbnail
           picture={mediaThumbnail?.media?.picture}
@@ -66,18 +71,18 @@ const WorkspaceItemCard = ({
             className={styles.bulletSeparator}
             compact
             details={[
-              mediaCount && (
+              mediaCount !== null && (
                 <MediaCount
                   mediaCount={mediaCount}
                   mediaType={mediaType}
                 />
               ),
-              suggestionsCount && (
+              suggestionsCount !== null && (
                 <SuggestionsCount
                   suggestionsCount={suggestionsCount}
                 />
               ),
-              requestsCount && (
+              requestsCount !== null && (
                 <RequestsCount
                   requestsCount={requestsCount}
                 />
@@ -104,28 +109,33 @@ const WorkspaceItemCard = ({
 );
 
 WorkspaceItemCard.defaultProps = {
+  cardUrl: null,
   description: null,
   factCheckUrl: null,
   isChecked: false,
   isUnread: false,
   isPublished: false,
+  lastRequestDate: null,
   mediaCount: null,
   mediaThumbnail: null,
   mediaType: null,
   onCheckboxChange: null,
   rating: null,
   ratingColor: null,
+  requestsCount: null,
   suggestionsCount: null,
 };
 
 
 WorkspaceItemCard.propTypes = {
+  cardUrl: PropTypes.string,
   date: PropTypes.instanceOf(Date).isRequired, // Timestamp
   description: PropTypes.string,
   factCheckUrl: PropTypes.string,
-  isUnread: PropTypes.bool,
-  isPublished: PropTypes.bool,
   isChecked: PropTypes.bool,
+  isPublished: PropTypes.bool,
+  isUnread: PropTypes.bool,
+  lastRequestDate: PropTypes.instanceOf(Date),
   mediaCount: PropTypes.number,
   mediaThumbnail: PropTypes.exact({
     media: PropTypes.exact({
@@ -139,6 +149,7 @@ WorkspaceItemCard.propTypes = {
   onCheckboxChange: PropTypes.func,
   rating: PropTypes.string,
   ratingColor: PropTypes.string,
+  requestsCount: PropTypes.number,
   suggestionsCount: PropTypes.number,
   title: PropTypes.string.isRequired,
 };
