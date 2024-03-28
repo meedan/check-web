@@ -1,15 +1,12 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import IconArrowBack from '@material-ui/icons/ArrowBack';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import IconArrowBack from '../../../icons/arrow_back.svg';
 import ConfirmDialog from '../../layout/ConfirmDialog';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
@@ -23,6 +20,7 @@ const useToolbarStyles = makeStyles(theme => ({
   side: {
     display: 'flex',
     alignItems: 'center',
+    gap: '8px',
   },
   select: {
     marginLeft: theme.spacing(1),
@@ -38,6 +36,7 @@ const useToolbarStyles = makeStyles(theme => ({
 
 const RuleToolbar = (props) => {
   const classes = useToolbarStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = React.useState(false);
   const [showLeaveConfirmationDialog, setShowLeaveConfirmationDialog] = React.useState(false);
 
@@ -63,15 +62,6 @@ const RuleToolbar = (props) => {
     props.onGoBack();
   };
 
-  const handleChange = (event) => {
-    const { value } = event.target;
-    if (value === 'duplicate') {
-      props.onDuplicateRule();
-    } else if (value === 'delete') {
-      handleConfirmDelete();
-    }
-  };
-
   const handleCloseDialogs = () => {
     setShowDeleteConfirmationDialog(false);
     setShowLeaveConfirmationDialog(false);
@@ -81,41 +71,50 @@ const RuleToolbar = (props) => {
     <React.Fragment>
       <Toolbar className={classes.root}>
         <div className={classes.side}>
-          <Button
+          <ButtonMain
+            size="default"
+            theme="text"
+            variant="text"
             onClick={handleConfirmLeave}
-            startIcon={<IconArrowBack />}
+            iconLeft={<IconArrowBack />}
             className={classes.button}
-          >
-            <FormattedMessage id="ruleToolbar.back" defaultMessage="Back" />
-          </Button>
+            label={
+              <FormattedMessage id="ruleToolbar.back" defaultMessage="Back" description="Button label to take the user to the previous view" />
+            }
+          />
         </div>
         <div className={classes.side}>
-          <FormControl variant="outlined" disabled={props.actionsDisabled}>
-            <Select
-              inputProps={{ className: classes.input }}
-              className={classes.select}
-              onChange={handleChange}
-              value="more"
-            >
-              <MenuItem value="more">
-                <FormattedMessage id="ruleToolbar.more" defaultMessage="More" />
-              </MenuItem>
-              <MenuItem value="duplicate">
-                <FormattedMessage id="ruleToolbar.duplicate" defaultMessage="Duplicate" />
-              </MenuItem>
-              <MenuItem value="delete">
-                <FormattedMessage id="ruleToolbar.delete" defaultMessage="Delete" />
-              </MenuItem>
-            </Select>
-          </FormControl>
-          <Button
-            color="primary"
+          <ButtonMain
+            className="int-rules-toolbar__button--more-menu"
+            disabled={props.actionsDisabled}
+            variant="outlined"
+            size="default"
+            theme="text"
+            label={<FormattedMessage id="ruleToolbar.more" defaultMessage="More" description="Menu item for additional actions that can be performed on the current rule" />}
+            onClick={e => setAnchorEl(e.currentTarget)}
+          />
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(null)}
+          >
+            <MenuItem onClick={() => { props.onDuplicateRule(); setAnchorEl(null); }}>
+              <FormattedMessage id="ruleToolbar.duplicate" defaultMessage="Duplicate" description="Menu label to duplicate this rule" />
+            </MenuItem>
+            <MenuItem onClick={() => { handleConfirmDelete(); setAnchorEl(null); }}>
+              <FormattedMessage id="ruleToolbar.delete" defaultMessage="Delete" description="Menu label to delete the current rule" />
+            </MenuItem>
+          </Menu>
+          <ButtonMain
+            theme="brand"
             variant="contained"
+            size="default"
             className={[classes.button, 'rules__save-button'].join(' ')}
             onClick={props.onSaveRule}
-          >
-            <FormattedMessage id="rulesTableToolbar.save" defaultMessage="Save" />
-          </Button>
+            label={
+              <FormattedMessage id="rulesTableToolbar.save" defaultMessage="Save" description="Button label to save the changes to the current rule" />
+            }
+          />
         </div>
       </Toolbar>
       <ConfirmProceedDialog
@@ -124,19 +123,20 @@ const RuleToolbar = (props) => {
           <FormattedMessage
             id="ruleToolbar.deleteConfirmationTitle"
             defaultMessage="Are you sure you want to delete this rule?"
+            description="Confirmation message so the user knows they will delete the current rule"
           />
         }
         body={(
           <div>
-            <Typography variant="body1" component="p" paragraph>
-              <FormattedMessage
-                id="ruleToolbar.deleteConfirmationText"
-                defaultMessage="You cannot undo this action."
-              />
-            </Typography>
+            <FormattedMessage
+              tagName="p"
+              id="ruleToolbar.deleteConfirmationText"
+              defaultMessage="You cannot undo this action."
+              description="Warning message to the user that deletes are permanent"
+            />
           </div>
         )}
-        proceedLabel={<FormattedMessage id="ruleToolbar.deleteConfirmationLabel" defaultMessage="Delete rule" />}
+        proceedLabel={<FormattedMessage id="ruleToolbar.deleteConfirmationLabel" defaultMessage="Delete rule" description="Label to continue deleting the current rule" />}
         onProceed={handleDeleteConfirmed}
         onCancel={handleCloseDialogs}
       />
@@ -146,12 +146,15 @@ const RuleToolbar = (props) => {
           <FormattedMessage
             id="ruleToolbar.leaveConfirmationTitle"
             defaultMessage="Close without saving?"
+            description="Confirmation message for the user to leave the page without saving their changes"
           />
         }
         blurb={
           <FormattedMessage
+            tagName="p"
             id="ruleToolbar.leaveConfirmationText"
             defaultMessage="If you continue, you will lose your changes."
+            description="Additional warning text about losing changes if the user navigates away."
           />
         }
         handleClose={handleCloseDialogs}

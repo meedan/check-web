@@ -11,9 +11,8 @@ shared_examples 'login' do
   it 'should register and login using e-mail', bin2: true, quick: true do
     email = "sysops+#{Time.now.to_i}@meedan.com"
     register_with_email(true, email, true)
-    @driver.navigate.to "#{@config['self_url']}/check/me"
-    wait_for_selector('#teams-tab')
-    displayed_name = wait_for_selector('h1.source__name').text
+    @driver.navigate.to "#{@config['self_url']}/check/me/profile"
+    displayed_name = wait_for_selector('h6.component__settings-header').text
     expect(displayed_name == 'User With Email').to be(true)
   end
 
@@ -26,7 +25,7 @@ shared_examples 'login' do
     wait_for_selector('#invite-dialog__submit').click
     wait_for_selector_list_size('.team-members__user-row', 2)
     expect(@driver.page_source.include?('user-email@email.com')).to be(true)
-    expect(@driver.page_source.include?('Pending')).to be(true)
+    expect(@driver.page_source.include?('Invitation Sent - pending')).to be(true)
   end
 
   it 'should not reset password', bin2: true do
@@ -45,7 +44,7 @@ shared_examples 'login' do
   end
 
   it 'should logout', bin3: true do
-    api_create_team_and_project
+    api_create_team_and_bot
     @driver.navigate.to @config['self_url']
     logout
     expect(@driver.page_source.include?('Sign in')).to be(true)
@@ -57,7 +56,7 @@ shared_examples 'login' do
     @driver.quit
     @driver = new_driver
     @driver.navigate.to @config['self_url']
-    wait_for_selector('.login__forgot-password a').click
+    wait_for_selector('.login__forgot-password').click
     wait_for_selector('#password-reset-email-input').send_keys(user.email)
     wait_for_selector('.user-password-reset__actions button + button').click
     wait_for_selector_none('.user-password-reset__email-input')

@@ -1,46 +1,33 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage } from 'react-intl';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import styled from 'styled-components';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import ClearIcon from '../icons/clear.svg';
 import CircularProgress from './CircularProgress';
 import { unhumanizeSize } from '../helpers';
-import {
-  Row,
-  units,
-  borderWidthMedium,
-  StyledIconButton,
-} from '../styles/js/shared';
-
-const previewSize = units(10);
 
 const StyledUploader = styled.div`
     display: flex;
-    margin: ${units(1)} 0 ${units(2)};
+    gap: 8px;
+    margin: 8px 0 16px;
     align-items: center;
 
     .with-file,
     .without-file {
       align-items: center;
-      border: ${borderWidthMedium} dashed var(--textDisabled);
+      border: 2px dashed var(--textDisabled);
       color: var(--textDisabled);
       cursor: pointer;
       display: flex;
       height: auto;
       justify-content: center;
-      padding: ${units(3)};
+      padding: 24px;
       text-align: center;
       width: 100%;
-    }
-
-    #remove-image {
-      color: var(--textDisabled);
-      cursor: pointer;
-      margin: 0;
     }
 `;
 
@@ -50,7 +37,7 @@ const NoPreview = styled.span`
   height: 0;
   width: 0;
   display: block;
-  margin: ${units(2)} 0 0;
+  margin: 16px 0 0;
   position: relative;
 `;
 
@@ -61,8 +48,8 @@ const Preview = styled.span`
   background-size: contain;
   display: block;
   position: relative;
-  height: ${previewSize};
-  width: ${previewSize};
+  height: 80px;
+  width: 80px;
 `;
 
 const UploadMessage = ({ type, about }) => {
@@ -71,6 +58,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.message"
       defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+      description="Message to the user describing the requirements for uploading an image"
       values={{
         upload_max_size: about?.upload_max_size,
         upload_extensions: about?.upload_extensions?.join(', '),
@@ -83,6 +71,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.videoMessage"
       defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+      description="Message to the user describing the requirements for uploading a video"
       values={{
         video_max_size: about?.video_max_size,
         video_extensions: about?.video_extensions?.join(', '),
@@ -93,6 +82,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.audioMessage"
       defaultMessage="Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
+      description="Message to the user describing the requirements for uploading an audio file"
       values={{
         audio_max_size: about?.audio_max_size,
         audio_extensions: about?.audio_extensions?.join(', '),
@@ -104,6 +94,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.fileMessage"
       defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+      description="Message to the user describing the requirements for uploading a file using this component"
       values={{
         file_max_size: about?.file_max_size,
         file_extensions: about?.file_extensions?.join(', '),
@@ -115,6 +106,7 @@ const UploadMessage = ({ type, about }) => {
     <FormattedMessage
       id="uploadFile.imageVideoAudioMessage"
       defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+      description="Message to the user describing the requirements for uploading an image, video, or audio file using this component"
       values={{
         file_max_size: about?.file_max_size,
         file_extensions: about?.upload_extensions
@@ -179,6 +171,7 @@ class UploadFileComponent extends React.PureComponent {
       onError(file, <FormattedMessage
         id="uploadFile.invalidExtension"
         defaultMessage='The file cannot have type "{extension}". Please try with the following file types: {allowed_types}.'
+        description="Error message when the user tries to upload a file with a not accepted file extension"
         values={{ extension, allowed_types: extensions.join(', ') }}
       />);
       return;
@@ -187,6 +180,7 @@ class UploadFileComponent extends React.PureComponent {
       onError(file, <FormattedMessage
         id="uploadFile.fileTooLarge"
         defaultMessage="The file size should be less than {size}. Please try with a smaller file."
+        description="Error message when the user tries to upload a file that is over the size limit"
         values={{ size: maxSize }}
       />);
       return;
@@ -208,13 +202,20 @@ class UploadFileComponent extends React.PureComponent {
 
     if (value) {
       return (
-        <Row>
+        <div style={{ display: 'flex' }}>
           {noPreview ? <NoPreview /> : <Preview image={value.preview} />}
           <span className="no-preview" />
-          <StyledIconButton id="remove-image" onClick={this.onDelete}>
-            <HighlightOffIcon />
-          </StyledIconButton>
-        </Row>
+          <ButtonMain
+            iconCenter={<ClearIcon />}
+            variant="contained"
+            size="small"
+            theme="text"
+            onClick={this.onDelete}
+            buttonProps={{
+              id: 'remove-image',
+            }}
+          />
+        </div>
       );
     }
     return null;
@@ -241,6 +242,7 @@ class UploadFileComponent extends React.PureComponent {
               <FormattedMessage
                 id="uploadFile.changeFile"
                 defaultMessage="{filename} (click or drop to change)"
+                description="Output of the uploaded filename and how to change the file"
                 values={{ filename: value.name }}
               />
             ) : (

@@ -1,13 +1,13 @@
 [
   {
+    "id": "mediaSuggestionsComponent.updatedSuccessfully",
+    "description": "Banner displayed after items are accepted or rejected successfully",
+    "defaultMessage": "Suggestion updated successfully"
+  },
+  {
     "id": "mediaSuggestionsComponent.flashBulkRejectTitle",
     "description": "Title that appears in a popup to confirm that a 'bulk reject' action was successful",
     "defaultMessage": "{number} media rejected"
-  },
-  {
-    "id": "mediaSuggestionsComponent.flashBulkReject",
-    "description": "Text that appears in a popup to confirm that a 'bulk reject' action was successful",
-    "defaultMessage": "Added to the list \"{folder}\""
   },
   {
     "id": "mediaSuggestionsComponent.flashBulkConfirmTitle",
@@ -47,7 +47,7 @@
   {
     "id": "mediaSuggestionsComponent.noItems",
     "description": "A header that tells the user there are no items in the list",
-    "defaultMessage": "{total, plural, one {{total} suggestion} other {{total} suggestions}}"
+    "defaultMessage": "{total, plural, one {{total} Suggestion} other {{total} Suggestions}}"
   },
   {
     "id": "mediaSuggestionsComponent.accept",
@@ -66,7 +66,7 @@
   },
   {
     "id": "mediaSuggestionsComponent.trash",
-    "description": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash folder, and removed from the suggested items list.",
+    "description": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list.",
     "defaultMessage": "Send media to trash"
   },
   {
@@ -77,17 +77,12 @@
   {
     "id": "mediaSuggestionsComponent.title",
     "description": "A header that tells the user how many suggestions items are in the list to follow",
-    "defaultMessage": "{start} to {end} of {total, plural, one {{total} suggestion} other {{total} suggestions}}"
+    "defaultMessage": "{total, plural, one {1 / 1} other {{start} - {end} / #}}"
   },
   {
     "id": "mediaSuggestionsComponent.next",
     "description": "Label for the 'go to next page' button on paginated suggestions",
     "defaultMessage": "Next"
-  },
-  {
-    "id": "mediaSuggestionsComponent.bulkEdit",
-    "description": "A header that tells the user the buttons to follow are for bulk editing items (editing more than one item at a time, like marking all as spam)",
-    "defaultMessage": "Bulk edit"
   },
   {
     "id": "mediaSuggestionsComponent.bulkAccept",
@@ -106,7 +101,7 @@
   },
   {
     "id": "mediaSuggestionsComponent.bulkTrash",
-    "description": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' folder and removed from the suggestions list.",
+    "description": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list.",
     "defaultMessage": "Send all medias on this page to trash"
   },
   {
@@ -145,24 +140,14 @@
     "defaultMessage": "Send to trash"
   },
   {
-    "id": "mediaSuggestionsComponent.dialogRejectTitle",
-    "description": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on",
-    "defaultMessage": "Choose a destination folder for this item"
-  },
-  {
-    "id": "mediaSuggestionsComponent.moveItem",
-    "description": "Label for an action button that causes a user to move an item into a given folder",
-    "defaultMessage": "Move item"
-  },
-  {
     "id": "mediaSuggestionsComponent.dialogBulkRejectTitle",
-    "description": "Prompt to a user when they need to assign a folder location to put the item that they are trying to perform an action on",
-    "defaultMessage": "Choose a destination folder for the {number} rejected medias"
+    "description": "Prompt to a user when they choose to reject media in bulk",
+    "defaultMessage": "Are you sure you want to reject {number} suggestions?"
   },
   {
-    "id": "mediaSuggestionsComponent.bulkRejectConfirm",
-    "description": "Label for an action button that causes all selected items to be rejected",
-    "defaultMessage": "Reject all"
+    "id": "mediaSuggestionsComponent.dialogBulkRejectConfirm",
+    "description": "Button that a user presses to confirm that they are going to reject all visible suggested media",
+    "defaultMessage": "Reject"
   },
   {
     "id": "mediaSuggestions.lastSubmitted",

@@ -32,21 +32,8 @@ module TeamSpecHelpers
     wait_for_selector('.team-settings__similarity-tab')
   end
 
-  def create_team_project_and_image_and_redirect_to_media_page
-    api_create_team_and_project
-    @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item').click
-    wait_for_selector('#create-media__image').click
-    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'files/test.png'))
-    wait_for_selector_none('.without-file')
-    wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector('.medias__item')
-    wait_for_selector('.media__heading a').click
-    wait_for_selector('.media__annotations-column')
-  end
-
   def select_team(options)
-    wait_for_selector('#teams-tab').click
+    wait_for_selector('.user-settings__workspaces-tab').click
     wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath).click
     wait_for_selector('.projects-list__all-items')
     wait_for_selector('.project__title')
@@ -72,19 +59,8 @@ module TeamSpecHelpers
     wait_for_selector('#mui-component-select-role-select', :css, 29, index: 1).click
     wait_for_selector('ul[role=listbox]')
     wait_for_selector(rule_class).click
-    wait_for_selector("//span[contains(text(), 'Are you sure you want to change')]", :xpath)
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
+    wait_for_selector("//p[contains(text(), 'Are you sure you want to change')]", :xpath)
+    wait_for_selector('.int-confirm-proceed-dialog__proceed').click
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
-  end
-
-  def change_folder_access
-    wait_for_selector('.project__title-text')
-    wait_for_selector('button.project-actions').click
-    wait_for_selector("//span[contains(text(), 'Change access')]", :xpath).click
-    wait_for_selector('.MuiSelect-icon')
-    wait_for_selector('.MuiSelect-selectMenu').click
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
   end
 end

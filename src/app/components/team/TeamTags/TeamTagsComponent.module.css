@@ -1,0 +1,28 @@
+.tags-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  user-select: none;
+  width: 100%;
+}
+
+.tags-hide {
+  visibility: hidden;
+}
+
+.table-col-head-name {
+  width: 50%;
+}
+
+.table-col-head-updated {
+  width: 25%;
+}
+
+.table-col-head-items {
+  width: 15%;
+}
+
+.table-col-head-action {
+  width: 10%;
+}

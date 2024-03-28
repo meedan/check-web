@@ -1,73 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import HelpIcon from '../../icons/help.svg';
-
-const useStyles = makeStyles(theme => ({
-  settingsHeaderRoot: {
-    marginBottom: theme.spacing(2),
-  },
-  settingsHeaderToolbar: {
-    padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  settingsHeaderTitle: {
-    justifyContent: 'left',
-    alignItems: 'center',
-    '& h6': {
-      margin: 0,
-    },
-  },
-  settingsHeaderHelpIcon: {
-    color: 'var(--textPlaceholder)',
-  },
-  settingsHeaderExtra: {
-    marginLeft: theme.spacing(5),
-  },
-}));
+import styles from './SettingsHeader.module.css';
 
 const SettingsHeader = ({
   title,
+  context,
   helpUrl,
   actionButton,
   extra,
   className,
   style,
 }) => {
-  const classes = useStyles();
-
   const handleHelp = () => {
     window.open(helpUrl);
   };
 
   return (
-    <Box className={['component__settings-header', classes.settingsHeaderRoot, className].join(' ')} style={style}>
-      <Toolbar className={classes.settingsHeaderToolbar}>
-        <Box display="flex" justifyContent="center" className={classes.settingsHeaderTitle}>
-          <h6 className="component__settings-header typography-h6">{title}</h6>
-          { helpUrl &&
-            <IconButton onClick={handleHelp}>
-              <HelpIcon className={classes.settingsHeaderHelpIcon} />
-            </IconButton>
+    <div
+      className={cx(
+        'component__settings-header',
+        styles['settings-header-wrapper'],
+        {
+          [className]: true,
+        })
+      }
+      style={style}
+    >
+      <div className={styles['title-actions-wrapper']}>
+        <div className={styles['title-wrapper']}>
+          <h6 className="component__settings-header">
+            {title}
+            { helpUrl &&
+              <ButtonMain iconCenter={<HelpIcon />} variant="text" size="default" theme="lightText" onClick={handleHelp} />
+            }
+          </h6>
+          { extra &&
+            <div className={styles['extra-wrapper']}>
+              {extra}
+            </div>
           }
-          <Box className={classes.settingsHeaderExtra}>
-            {extra}
-          </Box>
-        </Box>
-        <Box display="flex" alignItems="center">
-          {actionButton}
-        </Box>
-      </Toolbar>
-    </Box>
+        </div>
+        { actionButton &&
+          <div className={styles['buttons-wrapper']}>
+            {actionButton}
+          </div>
+        }
+      </div>
+      { context &&
+        <div className={styles['settings-header-context']}>
+          {context}
+        </div>
+      }
+    </div>
   );
 };
 
 SettingsHeader.defaultProps = {
+  context: null,
   actionButton: null,
   extra: null,
   helpUrl: null,
@@ -77,6 +69,7 @@ SettingsHeader.defaultProps = {
 
 SettingsHeader.propTypes = {
   title: PropTypes.node.isRequired,
+  context: PropTypes.element,
   helpUrl: PropTypes.string,
   actionButton: PropTypes.node,
   extra: PropTypes.node,

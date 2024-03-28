@@ -1,15 +1,14 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
-import { MultiSelector } from '@meedan/check-ui';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import AddIcon from '../../icons/add.svg';
+import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import globalStrings from '../../globalStrings';
 
 const BulkActionsTag = ({
   onDismiss,
@@ -59,13 +58,19 @@ const BulkActionsTag = ({
   const handleSelectChange = value => setSelectedValue(value);
 
   const actionButton = searchValue && !options.includes(searchValue) ? (
-    <Button
-      id="bulk-actions-tag__create-button"
-      color="primary"
+    <ButtonMain
+      buttonProps={{
+        id: 'bulk-actions-tag__create-button',
+      }}
+      iconLeft={<AddIcon />}
+      theme="lightBrand"
+      variant="contained"
+      size="default"
       onClick={() => handleAddNew(searchValue)}
-    >
-      <FormattedMessage id="tagMenu.create" defaultMessage="+ Create this tag" />
-    </Button>
+      label={
+        <FormattedMessage id="tagMenu.create" defaultMessage="Create this tag" description="Button label for creating a new tag" />
+      }
+    />
   ) : null;
 
   const handleSubmit = (value) => {
@@ -137,12 +142,12 @@ const BulkActionsTag = ({
   };
 
   return (
-    <FormattedMessage id="tagMenu.search" defaultMessage="Search…">
+    <FormattedMessage id="tagMenu.search" defaultMessage="Search…" description="Placeholder text for searching tags">
       {placeholder => (
         <MultiSelector
           allowSearch
           actionButton={actionButton}
-          cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+          cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
           inputPlaceholder={placeholder}
           selected={[]}
           onDismiss={onDismiss}
@@ -154,6 +159,7 @@ const BulkActionsTag = ({
             <FormattedMessage
               id="tagMenu.notFound"
               defaultMessage="No tags found"
+              description="Empty message when a search results in no tags"
             />
           }
           submitLabel={
@@ -161,7 +167,7 @@ const BulkActionsTag = ({
               id="bulkActionsTag.submitLabel"
               defaultMessage="{numItems, plural, one {Add 1 tag} other {Add # tags}}"
               values={{ numItems: selectedValue.length }}
-              description="Button for commiting the action of tagging of a number of items in bulk"
+              description="Button for committing the action of tagging of a number of items in bulk"
             />
           }
         />

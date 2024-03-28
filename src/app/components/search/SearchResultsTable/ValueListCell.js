@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
+import Chip from '../../cds/buttons-checkboxes-chips/Chip';
 
 const useStyles = makeStyles({
   tableCell: {
@@ -14,6 +14,7 @@ const useStyles = makeStyles({
   chip: {
     color: 'var(--otherWhite)',
     fontSize: 12,
+    marginTop: '2px',
   },
   noFactCheck: {
     background: 'var(--alertMain)',

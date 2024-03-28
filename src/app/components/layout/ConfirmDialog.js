@@ -1,16 +1,13 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import { units } from '../../styles/js/shared';
 import Message from '../Message';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import styles from '../../styles/css/dialog.module.css';
+import inputStyles from '../../styles/css/inputs.module.css';
 
 class ConfirmDialog extends React.Component {
   constructor(props) {
@@ -42,49 +39,58 @@ class ConfirmDialog extends React.Component {
   render() {
     return (
       <Dialog
+        className={styles['dialog-window']}
         open={this.props.open}
         onClose={this.props.handleClose}
       >
-        <DialogTitle>
-          {this.props.title}
-        </DialogTitle>
-        <DialogContent>
+        <div className={styles['dialog-title']}>
+          <h6>{this.props.title}</h6>
+        </div>
+        <div className={styles['dialog-content']}>
           <Message message={this.props.message} />
-          <div style={{ lineHeight: '1.5em' }}>
-            {this.props.blurb}
-          </div>
-          <div>{this.props.children}</div>
+          {this.props.blurb}
           { this.props.handleConfirm ?
-            <div style={{ margin: `${units(4)} 0` }}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="confirm-dialog__checkbox"
-                    onChange={this.handleConfirmation.bind(this)}
-                    checked={this.state.confirmed}
-                  />
-                }
-                label={this.props.checkBoxLabel}
-              />
-            </div> : null }
-        </DialogContent>
-        <DialogActions>
-          <Button
-            id="confirm-dialog__cancel-action-button"
+            <div className={inputStyles['form-fieldset']}>
+              <div className={inputStyles['form-fieldset-field']}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      id="confirm-dialog__checkbox"
+                      onChange={this.handleConfirmation.bind(this)}
+                      checked={this.state.confirmed}
+                    />
+                  }
+                  label={this.props.checkBoxLabel}
+                />
+              </div>
+            </div> : null
+          }
+        </div>
+        <div className={styles['dialog-actions']}>
+          <ButtonMain
+            buttonProps={{
+              id: 'confirm-dialog__cancel-action-button',
+            }}
+            size="default"
+            variant="text"
+            theme="lightText"
             onClick={this.handleCancel}
-          >
-            {this.props.cancelButtonLabel}
-          </Button>
+            label={this.props.cancelButtonLabel}
+          />
           { this.props.handleConfirm ?
-            <Button
-              id="confirm-dialog__confirm-action-button"
+            <ButtonMain
+              buttonProps={{
+                id: 'confirm-dialog__confirm-action-button',
+              }}
+              size="default"
+              variant="contained"
+              theme="brand"
               onClick={this.handleProceed}
-              color="primary"
               disabled={this.props.disabled || !this.state.confirmed}
-            >
-              {this.props.continueButtonLabel}
-            </Button> : null }
-        </DialogActions>
+              label={this.props.continueButtonLabel}
+            /> : null
+          }
+        </div>
       </Dialog>
     );
   }
@@ -93,9 +99,9 @@ class ConfirmDialog extends React.Component {
 ConfirmDialog.defaultProps = {
   blurb: null,
   disabled: false,
-  checkBoxLabel: <FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />,
-  continueButtonLabel: <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />,
-  cancelButtonLabel: <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" />,
+  checkBoxLabel: <FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" description="Positive label for a checkbox field" />,
+  continueButtonLabel: <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" description="Button label to continue a process" />,
+  cancelButtonLabel: <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" description="Button label to cancel a process" />,
   message: null,
   handleConfirm: null,
 };

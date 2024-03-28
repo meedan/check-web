@@ -1,7 +1,59 @@
+.toggleCollapse {
+  align-items: center;
+  background-color: var(--brandHoverAccent);
+  border: 0 solid var(--grayBorderMain);
+  border-radius: 8px;
+  color: var(--textSecondary);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 28px;
+  justify-content: center;
+  margin-top: 8px;
+  padding: 2px;
+  width: 28px;
+
+  svg {
+    font-size: var(--iconSizeSmall);
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    background-color: var(--brandHoverAccent);
+    color: var(--brandMain);
+  }
+}
+
+.factCheckLink {
+  align-items: center;
+  color: var(--textLink);
+  display: flex;
+  font-size: var(--fontSizeSmall);
+  gap: 3px;
+
+  div {
+    display: grid;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  svg {
+    font-size: var(--iconSizeTiny);
+  }
+
+  a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 .card {
+  background-color: var(--otherWhite);
   border: 1px solid var(--grayBorderMain);
   border-radius: 8px;
-  padding: 8px;
+  padding: 16px;
   width: 100%;
 
   &:hover {
@@ -11,38 +63,85 @@
   .cardContent {
     align-items: flex-start;
     display: flex;
-    gap: 16px;
+    flex-wrap: wrap;
+    gap: 0 16px;
     justify-content: space-between;
   }
 
-  .cardLeft {
+  .cardSummary {
+    display: flex;
+    gap: 6px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    p {
+      margin: 0;
+    }
   }
 
   .cardTitle {
-    display: contents;
+    -webkit-box-orient: vertical;
+    display: -webkit-box; /* stylelint-disable-line */
     margin: 0;
+    white-space: normal;
+  }
+
+  .cardTitleCollapse {
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    white-space: normal;
   }
 
   .cardDescription {
     -webkit-box-orient: vertical;
     color: var(--textSecondary);
-    display: -webkit-box; /* stylelint-disable */
-    -webkit-line-clamp: 2;
-    max-height: 24px;
+    display: -webkit-box; /* stylelint-disable-line */
     white-space: pre-line;
   }
 
-  .cardRight {
-    text-align: right;
-    min-width: 150px;
+  .cardDescriptionCollapse {
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .cardTag {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .cardTagLabel {
+    align-items: center;
+    display: flex;
+    font-weight: 400;
+    gap: 4px;
+  }
+
+  .cardTagIcon {
+    font-size: var(--iconSizeTiny);
+  }
+
+  .cardDate {
+    color: var(--textPrimary);
+    margin-top: 8px;
+  }
+
+  .cardChannels {
+    align-items: center;
+    display: flex;
+    gap: 3px;
+
+    span {
+      display: flex;
+    }
+
+    svg {
+      font-size: var(--fontSizeLarge);
+    }
   }
 
   .cardFooter {
-    color: var(--textPrimary);
-    margin-top: 8px;
+    margin-top: 6px;
   }
 
   .clickableCard {

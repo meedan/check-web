@@ -5,36 +5,23 @@ import { FormattedMessage, FormattedDate } from 'react-intl';
 import {
   Box,
   Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import IconClose from '../../icons/clear.svg';
 import { ImportButton } from './ImportDialog';
 import RequestCards from './RequestCards';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
+import styles from '../../styles/css/dialog.module.css';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   column: {
     width: '50%',
   },
   separator: {
     width: '16px',
   },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: 'var(--textPrimary)',
-  },
-  dialog: {
-    minHeight: '500px',
-  },
-  dialogTitle: {
-    borderBottom: '1px solid var(--grayBorderMain)',
-  },
-}));
+});
 
 const FeedRequestedMediaDialog = ({
   open,
@@ -47,25 +34,32 @@ const FeedRequestedMediaDialog = ({
 
   return (
     <Dialog
-      classes={{ paper: classes.dialog }}
+      style={{ minHeight: '500px' }}
+      className={styles['dialog-window']}
       open={open}
       onClose={onClose}
       maxWidth="md"
       fullWidth
     >
-      <DialogTitle classes={{ root: classes.dialogTitle }}>
+      <div className={styles['dialog-title']}>
         <FormattedMessage
+          tagName="h6"
           id="feedRequestedMediaDialog.title"
           defaultMessage="Import medias and requests"
           description="Dialog title for importing medias and requests"
         />
         {onClose ? (
-          <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-            <CancelOutlinedIcon />
-          </IconButton>
+          <ButtonMain
+            className={styles['dialog-close-button']}
+            variant="text"
+            size="small"
+            theme="text"
+            iconCenter={<IconClose />}
+            onClick={onClose}
+          />
         ) : null}
-      </DialogTitle>
-      <DialogContent>
+      </div>
+      <div className={styles['dialog-content']}>
         <Box display="flex" justifyContent="space-between">
           <div className={classes.column}>
             <ImportButton onClick={onImport} />
@@ -96,7 +90,7 @@ const FeedRequestedMediaDialog = ({
             <RequestCards requestDbid={request.dbid} mediaDbid={media.dbid} />
           </div>
         </Box>
-      </DialogContent>
+      </div>
     </Dialog>
   );
 };

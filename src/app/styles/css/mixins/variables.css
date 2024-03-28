@@ -4,9 +4,13 @@
   --columnWidthLarge: 880px;
   --fontStackSans: 'Roboto', -apple-system, blinkmacsystemfont, 'Corbel', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', verdana, 'Verdana Ref', sans-serif;
 
-  --fontSizeDefault: 14px;
   --fontSizeSmall: 12px;
+  --fontSizeDefault: 14px;
+  --fontSizeBaseText: 16px;
+  --iconSizeTiny: 16px;
+  --fontSizeLarge: 18px;
   --iconSizeSmall: 20px;
+  --iconSizeDefault: 24px;
   --iconSizeBig: 176px;
 
   --brandMain: #567bff;
@@ -18,7 +22,7 @@
   --brandBackgroundAccent: #eaeeef;
   --brandHoverAccent: #f2f8ff;
 
-  --textPrimary: #1f1f1f;
+  --textPrimary: #262626;
   --textSecondary: #656565;
   --textPlaceholder: #949494;
   --textDisabled: #999;
@@ -53,6 +57,7 @@
 
   /* https://about.twitter.com/content/dam/about-twitter/company/brand-resources/en_us/Twitter_Brand_Guidelines_V2_0.pdf */
   --twitterBlue: #1da1f2;
+  --xBlack: #000;
 
   /* https://slack.com/intl/en-it/marketing/img/media-kit/slack_brand_guidelines_september2020.pdf */
   --slackGreen: #2eb67d;
@@ -71,5 +76,12 @@
 
   /* https://line.me/en/logo */
   --lineGreen: #00b900;
+
+  /* https://about.instagram.com/brand/gradient */
+  --instagramPink: #ff0069;
+
+  --dropShadowMenu: 0 5px 5px -3px rgba(0 0 0 / .2), 0 8px 10px 1px rgba(0 0 0 / .14), 0 3px 14px 2px rgba(0 0 0 / .12);
+  --dropShadowMedium: 0 1px 6px 0 rgba(0 0 0 / .15);
+  --dropShadowWindow: 14px 28px 56px 0 rgba(0 0 0 / .25);
+  --dropShadowTab: 0 -2px 16px 0 rgba(0 0 0 / .15);
 }
-/* stylelint-enable */

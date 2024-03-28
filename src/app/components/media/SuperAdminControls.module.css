@@ -1,0 +1,9 @@
+.superAdminBox {
+  background-color: var(--grayBackground);
+  bottom: 0;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 4px 8px;
+  position: fixed;
+}

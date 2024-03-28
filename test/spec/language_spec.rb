@@ -1,9 +1,7 @@
 shared_examples 'language' do
   it 'should manage workspace languages', bin2: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-card-large')
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
-    wait_for_selector('.team-settings__languages-tab').click
+    api_create_team_and_claim_and_redirect_to_media_page
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings/languages"
     wait_for_selector('.language-list-item__en-default')
     expect(@driver.page_source.include?('language-list-item__en-default')).to be(true)
     expect(@driver.page_source.include?('English')).to be(true)
@@ -22,9 +20,11 @@ shared_examples 'language' do
     expect(@driver.page_source.include?('language-list-item__es')).to be(true)
     expect(@driver.page_source.include?('Español')).to be(true)
     # set as default
+    wait_for_selector('.language-list-item__es')
     wait_for_selector_list('.language-actions__menu')[1].click
     wait_for_selector('.language-actions__make-default').click
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
+    wait_for_selector('.int-confirm-proceed-dialog__proceed').click
+    @driver.navigate.refresh
     wait_for_selector('.language-list-item__es-default')
     expect(@driver.page_source.include?('language-list-item__es-default')).to be(true)
     # add untranslated language
@@ -41,13 +41,13 @@ shared_examples 'language' do
     wait_for_selector_list('.language-actions__menu')[2].click
     wait_for_selector('.language-actions__make-default').click
     expect(@driver.page_source.include?('need to translate all')).to be(true)
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
+    wait_for_selector('.int-confirm-proceed-dialog__proceed').click
     # delete language
     wait_for_selector_list('.language-actions__menu')[2].click
     wait_for_selector('.language-actions__delete').click
     wait_for_selector('#confirm-proceed-dialog__confirmation-text').send_keys('Delete Norwegian / Norsk (no) and all content')
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
-    wait_for_selector_none('.confirm-proceed-dialog__proceed')
+    wait_for_selector('.int-confirm-proceed-dialog__proceed').click
+    wait_for_selector_none('.int-confirm-proceed-dialog__proceed')
     expect(@driver.page_source.include?('Nork')).to be(false)
   end
 end

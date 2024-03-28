@@ -1,23 +1,16 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import TextField from './cds/inputs/TextField';
 import Message from './Message';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
 import { getErrorMessage } from '../helpers';
-
-const useStyles = makeStyles(theme => ({
-  marginTop: {
-    marginTop: theme.spacing(3),
-  },
-}));
+import inputStyles from '../styles/css/inputs.module.css';
 
 function ChangePasswordComponent({
   type,
@@ -51,6 +44,7 @@ function ChangePasswordComponent({
       <FormattedMessage
         id="passwordChange.unmatchingPasswords"
         defaultMessage="Passwords didn't match"
+        description="Error message when the supplied password and confirmation of password are not the same"
       />
     ) : null;
     setPasswordConfirmation(value);
@@ -110,70 +104,72 @@ function ChangePasswordComponent({
     e.preventDefault();
   };
 
-  const classes = useStyles();
-
   return (
-    <div className="user-password-change__password-input">
+    <div className={cx('int-user-password-change__password-input', inputStyles['form-fieldset'])}>
       <Message message={errorMsg} />
       {showCurrentPassword === true ? (
         <TextField
-          className="user-password-change__password-input-field"
-          id="password-change-password-input-current"
-          type="password"
+          required
+          className={cx('int-user-password-change__password-input-field', inputStyles['form-fieldset-field'])}
+          componentProps={{
+            id: 'password-change-password-input-current',
+            type: 'password',
+          }}
           onChange={(e) => { handleChangeCurrentPassword(e); }}
-          fullWidth
           label={
             <FormattedMessage
               id="passwordChange.currentPassword"
               defaultMessage="Current password"
+              description="Text field label for the users current password"
             />
           }
-          variant="outlined"
-          margin="normal"
         />
       ) : null}
       <TextField
-        className="user-password-change__password-input-field"
-        id="password-change-password-input"
-        type="password"
+        required
+        className={cx('int-user-password-change__password-input-field', inputStyles['form-fieldset-field'])}
+        componentProps={{
+          id: 'password-change-password-input',
+          type: 'password',
+        }}
         onChange={handleChangePassword}
-        fullWidth
         label={
           <FormattedMessage
             id="passwordChange.newPassword"
             defaultMessage="New password (minimum {min} characters)"
             values={{ min: passwordLength.min }}
+            description="Text field label for the users new password"
           />
         }
-        variant="outlined"
-        margin="normal"
       />
       <TextField
-        className="user-password-change__password-input-field"
-        id="password-change-password-input-confirm"
-        type="password"
+        required
+        className="int-user-password-change__password-input-field"
+        componentProps={{
+          id: 'password-change-password-input-confirm',
+          type: 'password',
+        }}
         onChange={handleChangePasswordConfirm}
-        fullWidth
         label={
           <FormattedMessage
             id="passwordChange.confirmPassword"
             defaultMessage="Confirm password"
+            description="Text field label for the users to confirm their new password"
           />
         }
-        variant="outlined"
-        margin="normal"
       />
-      <Typography component="div" align="center">
-        <Button
-          variant="contained"
-          className={['user-password-change__submit-button', classes.marginTop].join(' ')}
-          onClick={handleSubmit}
-          color="primary"
-          disabled={submitDisabled}
-        >
-          <FormattedMessage id="passwordChange.changePassword" defaultMessage="Change password" />
-        </Button>
-      </Typography>
+      <br />
+      <ButtonMain
+        size="default"
+        variant="contained"
+        theme="brand"
+        className="user-password-change__submit-button"
+        onClick={handleSubmit}
+        disabled={submitDisabled}
+        label={
+          <FormattedMessage id="passwordChange.changePassword" defaultMessage="Change password" description="Button label to initial password change" />
+        }
+      />
     </div>
   );
 }

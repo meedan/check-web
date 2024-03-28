@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
-import LinkIcon from '@material-ui/icons/Link';
-import AutorenewIcon from '@material-ui/icons/Autorenew';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from './NewsletterComponent.module.css';
 import TextField from '../../cds/inputs/TextField';
 import TextArea from '../../cds/inputs/TextArea';
 import NewsletterNumberOfArticles from './NewsletterNumberOfArticles';
+import LinkIcon from '../../../icons/link.svg';
+import AutorenewIcon from '../../../icons/autorenew.svg';
 
 const NewsletterRssFeed = ({
   disabled,
@@ -87,22 +87,56 @@ const NewsletterRssFeed = ({
                     onBlur={(e) => {
                       if (e.target.value === '') {
                         onUpdateUrl(null);
+                      } else {
+                        handleLoad();
                       }
                     }}
                     value={localRssFeedUrl}
                     iconLeft={<LinkIcon />}
                     error={invalid}
-                    helpContent={helpContent || (invalid && <FormattedMessage id="newsletterRssFeed.error" defaultMessage="A valid RSS URL is required to load articles." description="Error message displayed under RSS feed URL field" />)}
+                    helpContent={
+                      helpContent ||
+                      (invalid &&
+                        <span>
+                          <FormattedMessage
+                            id="newsletterRssFeed.error"
+                            defaultMessage="This URL is not a valid RSS URL."
+                            description="Error message displayed under RSS feed URL field."
+                          />
+                          {' '}
+                          <a href="https://help.checkmedia.org/en/articles/8722205-newsletter" target="_blank" rel="noopener noreferrer" className={styles['error-label']}>
+                            <FormattedMessage
+                              id="newsletterRssFeed.learnMore"
+                              defaultMessage="Learn more."
+                              description="This is the text of a link part of an error message related to tipline newsletter RSS. Example: 'This RSS URL is invalid. Learn more.'"
+                            />
+                          </a>
+                        </span>
+                      )
+                    }
                   />
                 )}
               </FormattedMessage>
               { (rssFeedUrl && loading) ?
-                <Button className={styles['loading-rss-feed-button']} variant="contained" color="primary" disabled={disabled}>
-                  <AutorenewIcon />
-                </Button> :
-                <Button className={styles['load-rss-feed-button']} variant="contained" color="primary" onClick={handleLoad} disabled={!localRssFeedUrl || disabled}>
-                  <FormattedMessage id="newsletterRssFeed.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />
-                </Button> }
+                <ButtonMain
+                  iconCenter={<AutorenewIcon />}
+                  className={styles['loading-rss-feed-button']}
+                  variant="contained"
+                  size="large"
+                  theme="alert"
+                  disabled={disabled}
+                /> :
+                <ButtonMain
+                  label={<FormattedMessage id="newsletterRssFeed.load" defaultMessage="Load" description="Label for a button to load RSS feed entries" />}
+                  variant="contained"
+                  size="large"
+                  theme="brand"
+                  onClick={handleLoad}
+                  disabled={!localRssFeedUrl || disabled}
+                  buttonProps={{
+                    id: 'media-similarity__add-button',
+                  }}
+                />}
             </div>
             <NewsletterNumberOfArticles
               disabled={disabled}
@@ -119,8 +153,8 @@ const NewsletterRssFeed = ({
                     value={articles[i]}
                     className={styles['two-spaced']}
                     rows={4}
-                    error={invalid}
-                    helpContent={!loading && !articles[i] && <FormattedMessage id="newsletterRssFeed.noArticle" defaultMessage="No article retrieved from RSS at this time" description="Message displayed when RSS feed has less entries than requested" />}
+                    error={!invalid && !articles[i] && !loading}
+                    helpContent={!loading && !articles[i] && !invalid && <FormattedMessage id="newsletterRssFeed.noArticle" defaultMessage="No article retrieved from RSS at this time" description="Message displayed when RSS feed has less entries than requested" />}
                   />
                 ))}
               </div> : null }

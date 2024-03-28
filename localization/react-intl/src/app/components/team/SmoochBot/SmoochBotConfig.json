@@ -6,14 +6,17 @@
   },
   {
     "id": "smoochBot.settings",
+    "description": "Tab label to click to see the settings area",
     "defaultMessage": "Settings"
   },
   {
     "id": "smoochBot.addResource",
-    "defaultMessage": "Add resource"
+    "description": "Button label to add a resource to this bot",
+    "defaultMessage": "Resource"
   },
   {
     "id": "smoochBotConfig.subscriptionHeader",
+    "description": "Status message for the user to know if they are subscribed or not to the newsletter",
     "defaultMessage": "You are currently {subscription_status} to our newsletter."
   }
 ]

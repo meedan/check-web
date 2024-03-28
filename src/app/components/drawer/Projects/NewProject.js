@@ -1,79 +1,27 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
-import SettingsHeader from '../../team/SettingsHeader';
+import TextField from '../../cds/inputs/TextField';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
-const useStyles = makeStyles(theme => ({
-  newProjectHeader: {
-    marginBottom: theme.spacing(-3),
-    paddingBottom: 0,
-  },
-}));
-
 const NewProject = ({
-  type,
   open,
-  noDescription,
   title,
   team,
   buttonLabel,
-  helpUrl,
   onClose,
   errorMessage,
   successMessage,
   setFlashMessage,
 }) => {
-  const classes = useStyles();
   const [newTitle, setNewTitle] = React.useState('');
-  const [newDescription, setNewDescription] = React.useState('');
   const [saving, setSaving] = React.useState(false);
 
   const mutations = {
-    folder: graphql`
-      mutation NewProjectCreateProjectMutation($input: CreateProjectInput!) {
-        createProject(input: $input) {
-          team {
-            projects(first: 10000) {
-              edges {
-                node {
-                  id
-                  dbid
-                  title
-                  medias_count
-                  project_group_id
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-    collection: graphql`
-      mutation NewProjectCreateProjectGroupMutation($input: CreateProjectGroupInput!) {
-        createProjectGroup(input: $input) {
-          team {
-            project_groups(first: 10000) {
-              edges {
-                node {
-                  id
-                  dbid
-                  title
-                  medias_count
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
     list: graphql`
       mutation NewProjectCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
         createSavedSearch(input: $input) {
@@ -88,6 +36,7 @@ const NewProject = ({
                   dbid
                   title
                   filters
+                  medias_count: items_count
                 }
               }
             }
@@ -117,12 +66,8 @@ const NewProject = ({
       team_id: team.dbid,
     };
 
-    if (!noDescription) {
-      input.description = newDescription;
-    }
-
     commitMutation(Store, {
-      mutation: mutations[type],
+      mutation: mutations.list,
       variables: {
         input,
       },
@@ -131,10 +76,8 @@ const NewProject = ({
           handleError();
         } else {
           handleSuccess(response);
-          if (type === 'list') {
-            const listId = response.createSavedSearch.saved_search.dbid;
-            browserHistory.push(`/${team.slug}/list/${listId}`);
-          }
+          const listId = response.createSavedSearch.saved_search.dbid;
+          browserHistory.push(`/${team.slug}/list/${listId}`);
         }
       },
       onError: () => {
@@ -146,51 +89,37 @@ const NewProject = ({
   return (
     <ConfirmProceedDialog
       open={open}
-      title={
-        <SettingsHeader
-          title={title}
-          helpUrl={helpUrl}
-          className={classes.newProjectHeader}
-        />
-      }
+      title={title}
       body={
-        <React.Fragment>
-          <TextField
-            id="new-project__title"
-            label={
-              <FormattedMessage
-                id="projectsComponent.title"
-                defaultMessage="Title"
-              />
-            }
-            onChange={(e) => { setNewTitle(e.target.value); }}
-            variant="outlined"
-            margin="normal"
-            className="new-project__title"
-            fullWidth
-          />
-          { !noDescription ?
+        <FormattedMessage
+          id="projectsComponent.placeholder"
+          defaultMessage="Enter a short, memorable name for this custom list"
+          description="Placeholder for creating a new custom list"
+        >
+          { placeholder => (
             <TextField
-              id="new-project__description"
+              componentProps={{
+                id: 'new-project__title',
+              }}
+              placeholder={placeholder}
               label={
                 <FormattedMessage
-                  id="projectsComponent.description"
-                  defaultMessage="Description"
+                  id="projectsComponent.title"
+                  defaultMessage="Title"
+                  description="Text field label for the title input"
                 />
               }
-              onChange={(e) => { setNewDescription(e.target.value); }}
-              variant="outlined"
-              margin="normal"
-              className="new-project__description"
-              fullWidth
-            /> : null }
-        </React.Fragment>
+              onChange={(e) => { setNewTitle(e.target.value); }}
+              className="new-project__title"
+            />
+          )}
+        </FormattedMessage>
       }
       proceedDisabled={!newTitle}
       proceedLabel={buttonLabel}
       onProceed={handleCreate}
       isSaving={saving}
-      cancelLabel={<FormattedMessage id="newProject.cancel" defaultMessage="Cancel" />}
+      cancelLabel={<FormattedMessage id="newProject.cancel" defaultMessage="Cancel" description="Dialog label for the cancel button to close the dialog" />}
       onCancel={onClose}
     />
   );
@@ -198,18 +127,14 @@ const NewProject = ({
 
 NewProject.defaultProps = {
   open: false,
-  noDescription: false,
 };
 
 NewProject.propTypes = {
-  type: PropTypes.oneOf(['folder', 'collection', 'list']).isRequired,
   team: PropTypes.object.isRequired,
   open: PropTypes.bool,
-  noDescription: PropTypes.bool,
   title: PropTypes.object.isRequired,
   buttonLabel: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
-  helpUrl: PropTypes.string.isRequired,
   errorMessage: PropTypes.node.isRequired,
   successMessage: PropTypes.node.isRequired,
 };

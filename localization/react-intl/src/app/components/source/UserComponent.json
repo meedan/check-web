@@ -1,18 +1,7 @@
 [
   {
-    "id": "userComponent.teams",
-    "defaultMessage": "Workspaces"
-  },
-  {
-    "id": "userComponents.assignments",
-    "defaultMessage": "Assignments"
-  },
-  {
-    "id": "userComponents.privacy",
-    "defaultMessage": "Privacy"
-  },
-  {
-    "id": "userComponents.security",
-    "defaultMessage": "Security"
+    "id": "userProfile.profileTitle",
+    "description": "Title for user profile page",
+    "defaultMessage": "Profile"
   }
 ]

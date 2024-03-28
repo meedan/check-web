@@ -1,15 +1,17 @@
 [
   {
+    "id": "global.edit",
+    "description": "Generic label for a button or link for a user to press when they wish to edit content or functionality",
+    "defaultMessage": "Edit"
+  },
+  {
     "id": "userInfo.dateJoined",
+    "description": "Informational line showing the user the date their account was created on check",
     "defaultMessage": "Joined {date}"
   },
   {
     "id": "userInfo.teamsCount",
+    "description": "Count of how many work spaces this user account can access",
     "defaultMessage": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
-  },
-  {
-    "id": "UserMenu.signOut",
-    "description": "This is the sign out button on the user profile page",
-    "defaultMessage": "Sign Out"
   }
 ]

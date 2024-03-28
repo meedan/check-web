@@ -2,24 +2,26 @@
   {
     "id": "numericRangeFilter.linkedItems",
     "description": "Filter option that refers to number of media",
-    "defaultMessage": "Number of media is between"
+    "defaultMessage": "Media (count) is between"
   },
   {
     "id": "numericRangeFilter.suggestedItems",
     "description": "Filter option that refers to number of suggestions",
-    "defaultMessage": "Number of suggestions is between"
+    "defaultMessage": "Suggestions (count) is between"
   },
   {
     "id": "numericRangeFilter.tiplineRequests",
     "description": "Filter option that refers to tipline requests",
-    "defaultMessage": "Number of requests is between"
+    "defaultMessage": "Requests (count) is between"
   },
   {
     "id": "numericRangeFilter.enterNumber",
+    "description": "Placeholder for text field about entering a number value",
     "defaultMessage": "enter number"
   },
   {
     "id": "numericRangeFilter.between",
+    "description": "Logical operator AND statement",
     "defaultMessage": "and"
   },
   {

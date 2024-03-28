@@ -1,0 +1,44 @@
+.task {
+  hyphens: auto;
+  overflow-wrap: break-word;
+  width: 100%;
+  word-break: break-word;
+
+  .task-header {
+    margin: 0 0 8px;
+
+    sup {
+      color: var(--errorMain);
+    }
+  }
+
+  .task-metadata-button {
+    display: none;
+  }
+
+  .task-map {
+    :global(#map-edit) {
+      border: dashed 3px var(--validationMain);
+      height: 500px;
+      width: 100%;
+    }
+  }
+
+  .task-footer {
+    @mixin typography-caption;
+    color: var(--textSecondary);
+    flex: 1 1 auto;
+    margin: 8px 0 0;
+    text-align: left;
+  }
+}
+
+.task-conditions {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+
+  > div {
+    flex: 1 1 auto;
+  }
+}

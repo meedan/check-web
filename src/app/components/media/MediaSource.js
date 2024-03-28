@@ -2,21 +2,14 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
-import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
 import ErrorBoundary from '../error/ErrorBoundary';
 import SourceInfo from '../source/SourceInfo';
 import CreateMediaSource from './CreateMediaSource';
 import { can } from '../Can';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}));
-
-// Auto-resize the iframe when embedded in the browser extension
+import styles from './media.module.css';
 
 let sourceTabFrameTimer = null;
 let sourceTabFrameHeight = 0;
@@ -32,7 +25,6 @@ function updateHeight() {
 const MediaSourceComponent = ({ projectMedia, about }) => {
   const [action, setAction] = React.useState('view');
   const [newSourceName, setNewSourceName] = React.useState('');
-  const classes = useStyles();
 
   React.useEffect(() => {
     // This code only applies if this page is embedded in the browser extension
@@ -115,7 +107,7 @@ const MediaSourceComponent = ({ projectMedia, about }) => {
 
   return (
     <React.Fragment>
-      <div id="media__source" className={classes.root}>
+      <div id="media__source" className={cx(styles['media-sources'], styles['media-item-content'])}>
         { action === 'view' && source !== null ?
           <SourceInfo
             key={source ? source.id : 0}
@@ -193,7 +185,7 @@ const MediaSource = ({ projectMedia, params }) => {
         }}
         render={({ error, props }) => {
           if (!error && !props) {
-            return <MediasLoading count={1} />;
+            return <MediasLoading theme="grey" variant="inline" size="medium" />;
           }
 
           if (!error && props) {

@@ -1,14 +1,9 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import globalStrings from '../../globalStrings';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+import dialogStyles from '../../styles/css/dialog.module.css';
 
 function SetSourceDialog({
   open,
@@ -18,67 +13,77 @@ function SetSourceDialog({
   onSubmit,
 }) {
   return (
-    <Dialog open={open} maxWidth="sm" fullWidth>
-      <DialogTitle>
+    <Dialog className={dialogStyles['dialog-window']} open={open} maxWidth="sm" fullWidth>
+      <div className={dialogStyles['dialog-title']}>
         { primaryUrl ?
           <FormattedMessage
+            tagName="h6"
             id="setSourceDialog.existingSourceWithUrl"
             defaultMessage="Existing source URL"
             description="Dialog title for existing source with same primary url"
           /> :
           <FormattedMessage
+            tagName="h6"
             id="setSourceDialog.existingSource"
             defaultMessage="Existing source name"
             description="Dialog title for existing source with same name"
           />
         }
-      </DialogTitle>
-      <DialogContent>
-        <Typography>
-          { primaryUrl ?
-            <FormattedHTMLMessage
-              id="setSourceDialog.existDescriptionWithUrl"
-              defaultMessage="The source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
-              values={{
-                name: sourceName,
-                url: primaryUrl,
-              }}
-              description="Text to inform user about existing source"
-            /> :
-            <FormattedHTMLMessage
-              id="setSourceDialog.existDescription"
-              defaultMessage="The source <b>{name}</b> already exists."
-              values={{
-                name: sourceName,
-              }}
-              description="Text to inform user about existing source"
-            />
-          }
-        </Typography>
-        <Typography>
-          <FormattedMessage
-            id="setSourceDialog.confirm"
-            defaultMessage="Do you want to use the existing sources for this media?"
-            description="Confirm message to relate media to an existing source"
+      </div>
+      <div className={dialogStyles['dialog-content']}>
+        { primaryUrl ?
+          <FormattedHTMLMessage
+            tagName="p"
+            id="setSourceDialog.existDescriptionWithUrl"
+            defaultMessage="The source <strong>{name}</strong> with the primary URL <strong>{url}</strong> already exists."
+            values={{
+              name: sourceName,
+              url: primaryUrl,
+            }}
+            description="Text to inform user about existing source"
+          /> :
+          <FormattedHTMLMessage
+            tagName="p"
+            id="setSourceDialog.existDescription"
+            defaultMessage="The source <strong>{name}</strong> already exists."
+            values={{
+              name: sourceName,
+            }}
+            description="Text to inform user about existing source"
           />
-        </Typography>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          color="primary"
+        }
+        <FormattedMessage
+          tagName="p"
+          id="setSourceDialog.confirm"
+          defaultMessage="Do you want to use the existing sources for this media?"
+          description="Confirm message to relate media to an existing source"
+        />
+      </div>
+      <div className={dialogStyles['dialog-actions']}>
+        <ButtonMain
+          variant="text"
+          theme="lightText"
+          size="default"
+          onClick={onCancel}
+          label={
+            <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
+          }
+        />
+        <ButtonMain
+          theme="brand"
+          size="default"
+          variant="contained"
           className="source__create-use-existing-source"
           onClick={onSubmit}
-        >
-          <FormattedMessage
-            id="setSourceDialog.useExistingSource"
-            defaultMessage="Use existing source"
-            description="Submit button to relate media to an existing source"
-          />
-        </Button>
-        <Button color="primary" onClick={onCancel}>
-          <FormattedMessage {...globalStrings.cancel} />
-        </Button>
-      </DialogActions>
+          label={
+            <FormattedMessage
+              id="setSourceDialog.useExistingSource"
+              defaultMessage="Use existing source"
+              description="Submit button to relate media to an existing source"
+            />
+          }
+        />
+      </div>
     </Dialog>
   );
 }

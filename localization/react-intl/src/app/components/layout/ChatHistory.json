@@ -1,0 +1,12 @@
+[
+  {
+    "id": "chatHistory.unsupportedMessage",
+    "description": "Fallback used in the conversation history when a type of message is not supported",
+    "defaultMessage": "Unsupported message"
+  },
+  {
+    "id": "chatHistory.noMessages",
+    "description": "Informational message that appears when a user accesses a chat history but the messages are too old to display.",
+    "defaultMessage": "Chat history is available beginning March 2023. Contact support for more information."
+  }
+]

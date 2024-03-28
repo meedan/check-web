@@ -6,18 +6,27 @@
   },
   {
     "id": "smoochBotComponent.title",
+    "description": "Page title for tipling settings page",
     "defaultMessage": "Tipline"
   },
   {
+    "id": "smoochBotComponent.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage your tipline’s menu, customize its responses, and connect it to messaging services. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more</a>."
+  },
+  {
     "id": "smoochBotComponent.save",
+    "description": "Button label to save and publish the tipline settings",
     "defaultMessage": "Publish"
   },
   {
     "id": "smoochBotComponent.install",
+    "description": "Button label for action to install the tipline in this workspace",
     "defaultMessage": "Install"
   },
   {
     "id": "smoochBotComponent.contactUs",
+    "description": "Button label for contacting support for help setting up a tipline in this workspace",
     "defaultMessage": "Contact us to setup"
   },
   {

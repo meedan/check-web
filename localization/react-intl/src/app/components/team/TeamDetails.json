@@ -10,11 +10,6 @@
     "defaultMessage": "Workspace"
   },
   {
-    "id": "teamDetails.subtitle",
-    "description": "Subtitle for details page of current workspace",
-    "defaultMessage": "Add details to your Check workspace."
-  },
-  {
     "id": "teamDetails.duplicateWorkspace",
     "description": "Label of a button to duplicate a workspace",
     "defaultMessage": "Duplicate workspace"
@@ -52,17 +47,22 @@
   {
     "id": "teamDetails.linkManagementRss",
     "description": "Helper text for link management switcher when workspace has RSS newsletters configured",
-    "defaultMessage": "The link service cannot be disabled while RSS newsletters are configured in this workspace"
+    "defaultMessage": "Link shortening makes URLs more readable and a predictable length. If you’re using an RSS feed, the link service cannot be disabled. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about link shortening</a>."
+  },
+  {
+    "id": "teamDetails.utmCodePlaceholder",
+    "description": "Placeholder for the optional UTM code text field",
+    "defaultMessage": "Leave blank to disable UTM codes."
   },
   {
     "id": "teamDetails.utmCode",
     "description": "Label for 'UTM code' field",
-    "defaultMessage": "UTM code"
+    "defaultMessage": "UTM code (optional)"
   },
   {
     "id": "teamDetails.utmCodeHelp",
     "description": "Helper text for UTM code field",
-    "defaultMessage": "Customize the UTM code appended to links. Leave blank to disable UTM codes."
+    "defaultMessage": "Customize the UTM code appended to the links. Leave blank to disable UTM codes. Use UTM codes to track article analytics. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about UTM codes</a>."
   },
   {
     "id": "teamDetails.warnTitle",
@@ -72,6 +72,6 @@
   {
     "id": "teamDetails.warnContent",
     "description": "Text displayed in the content of a warning box on team details page when link shortening is on",
-    "defaultMessage": "The rewritten links will also include the UTM code if provided. The UTM code does not change the destination URL.<br /><br /><strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
+    "defaultMessage": "<strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
   }
 ]

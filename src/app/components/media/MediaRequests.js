@@ -1,15 +1,14 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import TiplineRequest from '../annotations/TiplineRequest';
+import styles from './media.module.css';
 
 class MediaRequestsComponent extends Component {
   componentDidMount() {
@@ -56,28 +55,22 @@ class MediaRequestsComponent extends Component {
   }
 
   render() {
-    const { classes, media } = this.props;
+    const { media } = this.props;
 
     return (
-      <div id="media__requests" className={classes.root}>
-        <Typography variant="subtitle2">
-          { this.props.all ?
-            <FormattedMessage
-              id="mediaRequests.allRequests"
-              defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
-              values={{
-                count: media.demand,
-              }}
-            /> :
+      <div id="media__requests" className={cx(styles['media-requests'], styles['media-item-content'])}>
+        { (!this.props.all && media.requests_count > 0) && (
+          <span className="typography-subtitle2">
             <FormattedMessage
               id="mediaRequests.thisRequests"
               defaultMessage="{count, plural, one {# request} other {# requests}}"
+              description="The count in a readable sentence of the number of requests for this media"
               values={{
                 count: media.requests_count,
               }}
             />
-          }
-        </Typography>
+          </span>
+        )}
         <Annotations
           noLink
           component={TiplineRequest}
@@ -89,7 +82,8 @@ class MediaRequestsComponent extends Component {
           noActivityMessage={
             <FormattedMessage
               id="mediaRequests.noRequest"
-              defaultMessage="No requests"
+              defaultMessage="0 Requests"
+              description="Empty message when there are zero requests for this item"
             />
           }
         />
@@ -105,13 +99,7 @@ MediaRequestsComponent.propTypes = {
 
 const pageSize = 10;
 
-const styles = theme => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-});
-
-const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaRequestsComponent)), {
+const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
   initialVariables: {
     pageSize,
     teamSlug: null,
@@ -137,14 +125,17 @@ const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withP
             node {
               id
               dbid
-              created_at
-              value_json
+              associated_id
               associated_graphql_id
-              smooch_user_slack_channel_url
+              created_at
+              smooch_data
               smooch_user_request_language
               smooch_user_external_identifier
+              smooch_report_sent_at
               smooch_report_received_at
+              smooch_report_correction_sent_at
               smooch_report_update_received_at
+              smooch_request_type
             }
           }
         }
@@ -153,7 +144,7 @@ const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withP
   },
 });
 
-const MediaOwnRequestsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaRequestsComponent)), {
+const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
   initialVariables: {
     pageSize,
     teamSlug: null,
@@ -179,14 +170,17 @@ const MediaOwnRequestsContainer = Relay.createContainer(withStyles(styles)(withP
             node {
               id
               dbid
-              created_at
-              value_json
+              associated_id
               associated_graphql_id
-              smooch_user_slack_channel_url
+              created_at
+              smooch_data
               smooch_user_request_language
               smooch_user_external_identifier
+              smooch_report_sent_at
               smooch_report_received_at
+              smooch_report_correction_sent_at
               smooch_report_update_received_at
+              smooch_request_type
             }
           }
         }
@@ -209,7 +203,7 @@ const MediaRequests = (props) => {
       renderFetched={data =>
         <Container cachedMedia={media} style={style} all={all} {...data} />}
       route={route}
-      renderLoading={() => <MediasLoading count={1} />}
+      renderLoading={() => <MediasLoading theme="grey" variant="inline" size="medium" />}
       forceFetch
     />
   );

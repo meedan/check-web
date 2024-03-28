@@ -14,7 +14,6 @@ export default function MediaPage({ route, routeParams, location }) {
   } = getListUrlQueryAndIndex(routeParams, location.query);
 
   const teamSlug = routeParams.team;
-  const projectId = parseInt(routeParams.projectId, 10) || null;
   const listId = parseInt(routeParams.listId, 10) || null;
   const projectMediaId = parseInt(routeParams.mediaId, 10) || null;
   let currentView = 'default';
@@ -34,7 +33,6 @@ export default function MediaPage({ route, routeParams, location }) {
         listIndex={listIndex}
         buildSiblingUrl={buildSiblingUrl}
         teamSlug={teamSlug}
-        projectId={projectId}
         listId={listId}
         projectMediaId={projectMediaId}
         view={currentView}
@@ -51,7 +49,6 @@ MediaPage.propTypes = {
   }).isRequired,
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
-    projectId: PropTypes.string, // or undefined
     listId: PropTypes.string, // or undefined
     mediaId: PropTypes.string.isRequired,
   }).isRequired,

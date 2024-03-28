@@ -1,17 +1,14 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import IconButton from '@material-ui/core/IconButton';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import IconMoreVert from '@material-ui/icons/MoreVert';
 import StatusLabel from './StatusLabel';
 import StatusMessage from './StatusMessage';
 import { FormattedGlobalMessage } from '../../MappedMessage';
+import IconMoreVert from '../../../icons/more_vert.svg';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import settingsStyles from '../Settings.module.css';
 
 const StatusListItem = ({
   defaultLanguage,
@@ -48,6 +45,7 @@ const StatusListItem = ({
       <FormattedMessage
         id="statusListItem.noDescription"
         defaultMessage="No description"
+        description="Empty state message if a status has no additional description"
       />
     );
 
@@ -56,45 +54,42 @@ const StatusListItem = ({
       localeStatus.message : null;
 
   return (
-    <ListItem className="status-list-item">
-      <ListItemText
-        primary={
-          isDefault ? (
-            <FormattedMessage
-              id="statusListItem.default"
-              defaultMessage="{statusLabel} (default)"
-              values={{
-                statusLabel: (
-                  <StatusLabel color={status.style.color}>
-                    {statusLabel}
-                  </StatusLabel>
-                ),
-              }}
-            />
-          ) : (
-            <StatusLabel color={status.style.color}>
-              {statusLabel}
-            </StatusLabel>
-          )
+    <li>
+      <div>
+        {isDefault ? (
+          <FormattedMessage
+            id="statusListItem.default"
+            defaultMessage="{statusLabel}"
+            description="The label of the user created status, with an additional note in parenthesis if the label is the default"
+            values={{
+              statusLabel: (
+                <StatusLabel color={status.style.color}>
+                  {statusLabel}
+                  <small>
+                    (default)
+                  </small>
+                </StatusLabel>
+              ),
+            }}
+          />
+        ) : (
+          <StatusLabel color={status.style.color}>
+            {statusLabel}
+          </StatusLabel>
+        )
         }
-        secondary={
-          <React.Fragment>
-            <span>{statusDescription}</span><br />
-            <StatusMessage message={statusMessage} />
-          </React.Fragment>
-        }
-      />
-      <ListItemSecondaryAction>
-        <IconButton className="status-actions__menu" onClick={e => setAnchorEl(e.target)}>
-          <IconMoreVert />
-        </IconButton>
+        <p>{statusDescription}</p>
+        <StatusMessage message={statusMessage} />
+      </div>
+      <div className={settingsStyles['setting-content-list-actions']}>
+        <ButtonMain className="status-actions__menu" iconCenter={<IconMoreVert />} variant="outlined" size="default" theme="text" onClick={e => setAnchorEl(e.target)} />
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
           <MenuItem className="status-actions__make-default" onClick={handleMakeDefault} disabled={isDefault}>
-            <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" />
+            <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" description="Menu item choice for making the label the default choice" />
           </MenuItem>
           <MenuItem className="status-actions__edit" onClick={handleEdit}>
             <FormattedGlobalMessage messageKey="edit" />
@@ -103,8 +98,8 @@ const StatusListItem = ({
             <FormattedGlobalMessage messageKey="delete" />
           </MenuItem>
         </Menu>
-      </ListItemSecondaryAction>
-    </ListItem>
+      </div>
+    </li>
   );
 };
 

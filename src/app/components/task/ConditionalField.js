@@ -1,18 +1,14 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Chip from '@material-ui/core/Chip';
-import Switch from '@material-ui/core/Switch';
 import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
 import { units } from '../../styles/js/shared';
-
-const StyledConditionalSelect = styled.span`
-  margin-left: ${units(2)};
-  margin-top: ${units(2)};
-`;
+import CdsSelect from '../cds/inputs/Select';
+import SwitchComponent from '../cds/inputs/SwitchComponent';
+import Chip from '../cds/buttons-checkboxes-chips/Chip';
+import styles from './Task.module.css';
 
 const StyledConditionalMultiSelect = styled.span`
   margin-left: ${units(2)};
@@ -112,8 +108,8 @@ const ConditionalField = ({ task, tasks, onChange }) => {
     }
   }, [selectedConditional, selectedCondition, selectedFieldId, hasConditions]);
 
-  const handleToggleHasConditions = (e) => {
-    setHasConditions(e.target.checked);
+  const handleToggleHasConditions = (conditions) => {
+    setHasConditions(conditions);
   };
 
   const handlePrerequisiteFieldChange = (e) => {
@@ -132,50 +128,55 @@ const ConditionalField = ({ task, tasks, onChange }) => {
 
   return (
     <React.Fragment>
-      <Switch
+      <SwitchComponent
         checked={hasConditions}
-        onChange={handleToggleHasConditions}
+        onChange={() => handleToggleHasConditions(!hasConditions)}
+        labelPlacement="end"
+        label={<FormattedMessage
+          id="tasks.showIfCondition"
+          defaultMessage="Show field when condition is met"
+          description="This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
+        />}
       />
-      <FormattedMessage
-        id="tasks.showIfCondition"
-        defaultMessage="Show field when condition is met"
-        description="This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
-      />
-      <br />
       { hasConditions ?
-        <>
-          <Typography variant="body1" component="span">
-            <FormattedMessage
-              id="tasks.when"
-              defaultMessage="When"
-              description="We have a form that says in English, 'When [selected field] [is / is not] [user-selected value]'. Where the parts between brackets are interactive drop-downs. The word for this field should indicate that the following user-selected conditions hold true."
-            />
-          </Typography>
-          <StyledConditionalSelect>
-            <Select
-              onChange={handlePrerequisiteFieldChange}
-              value={selectedFieldId}
-              name="prerequisites"
-            >
-              { prerequisiteFields.map(field => <MenuItem value={field.dbid}>{field.label}</MenuItem>) }
-            </Select>
-          </StyledConditionalSelect>
-          <StyledConditionalSelect>
-            <Select
-              onChange={handlePrerequisiteFieldChange}
-              value={selectedConditional}
-              name="conditionals"
-            >
-              { conditionalVerbs
-                .filter(verb => verb.itemTypes.includes(prerequisiteFields.find(field => field.dbid === selectedFieldId)?.type))
-                .map(verb => <MenuItem value={verb.label}>{verb.label}</MenuItem>) }
-            </Select>
-          </StyledConditionalSelect>
+        <div className={styles['task-conditions']}>
+          <FormattedMessage
+            id="tasks.when"
+            defaultMessage="When"
+            description="We have a form that says in English, 'When [selected field] [is / is not] [user-selected value]'. Where the parts between brackets are interactive drop-downs. The word for this field should indicate that the following user-selected conditions hold true."
+          />
+          <CdsSelect
+            onChange={handlePrerequisiteFieldChange}
+            value={selectedFieldId}
+            name="prerequisites"
+          >
+            { prerequisiteFields.map(field => <option value={field.dbid}>{field.label}</option>) }
+          </CdsSelect>
+          <CdsSelect
+            onChange={handlePrerequisiteFieldChange}
+            value={selectedConditional}
+            name="conditionals"
+          >
+            { conditionalVerbs
+              .filter(verb => verb.itemTypes.includes(prerequisiteFields.find(field => field.dbid === selectedFieldId)?.type))
+              .map(verb => <option value={verb.label}>{verb.label}</option>) }
+          </CdsSelect>
           {
             /* eslint-disable react/jsx-closing-tag-location, react/jsx-indent */
             {
-              'is...': (<StyledConditionalSelect>
-                <Select
+              'is...': (<CdsSelect
+                onChange={handlePrerequisiteFieldChange}
+                name="conditions"
+                value={selectedCondition}
+              >
+                {
+                  prerequisiteFields
+                    .find(field => field.dbid === selectedFieldId)?.options
+                    .map(option => <option value={option.label}>{option.label}</option>)
+                }
+              </CdsSelect>),
+              'is not...': (
+                <CdsSelect
                   onChange={handlePrerequisiteFieldChange}
                   name="conditions"
                   value={selectedCondition}
@@ -183,23 +184,10 @@ const ConditionalField = ({ task, tasks, onChange }) => {
                   {
                     prerequisiteFields
                       .find(field => field.dbid === selectedFieldId)?.options
-                      .map(option => <MenuItem value={option.label}>{option.label}</MenuItem>)
+                      .map(option => <option value={option.label}>{option.label}</option>)
                   }
-                </Select>
-              </StyledConditionalSelect>),
-              'is not...': (<StyledConditionalSelect>
-                <Select
-                  onChange={handlePrerequisiteFieldChange}
-                  name="conditions"
-                  value={selectedCondition}
-                >
-                  {
-                    prerequisiteFields
-                      .find(field => field.dbid === selectedFieldId)?.options
-                      .map(option => <MenuItem value={option.label}>{option.label}</MenuItem>)
-                  }
-                </Select>
-              </StyledConditionalSelect>),
+                </CdsSelect>
+              ),
               'is any of...': (<StyledConditionalMultiSelect>
                 <Select
                   multiple
@@ -249,7 +237,7 @@ const ConditionalField = ({ task, tasks, onChange }) => {
             }[selectedConditional]
             /* eslint-enable react/jsx-closing-tag-location */
           }
-        </>
+        </div>
         : null
       }
     </React.Fragment>

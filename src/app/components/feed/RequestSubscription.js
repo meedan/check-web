@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
-import CheckIcon from '@material-ui/icons/Check';
 import { FormattedDate } from 'react-intl';
+import CheckIcon from '../../icons/done.svg';
+import NotificationsNoneIcon from '../../icons/notifications.svg';
 
 const useStyles = makeStyles({
   bellIcon: {
@@ -52,7 +52,7 @@ const RequestSubscription = ({
 
 RequestSubscription.propTypes = {
   subscribed: PropTypes.bool,
-  lastCalledAt: PropTypes.string,
+  lastCalledAt: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]), // Any value that FormattedMessage understands
 };
 
 RequestSubscription.defaultProps = {

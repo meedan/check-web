@@ -1,0 +1,52 @@
+.settings-header-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 0 16px;
+  max-width: var(--columnWidthLarge);
+  width: 100%;
+
+  .title-actions-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    min-height: 48px;
+    width: 100%;
+
+    .title-wrapper,
+    .extra-wrapper,
+    .buttons-wrapper {
+      align-items: center;
+      align-self: stretch;
+      display: flex;
+    }
+
+    .title-wrapper {
+      align-items: center;
+      gap: 16px;
+      justify-content: start;
+
+      h6 {
+        align-items: center;
+        display: flex;
+        gap: 4px;
+      }
+    }
+
+    .extra-wrapper {
+      gap: 8px;
+    }
+
+    .buttons-wrapper {
+      gap: 8px;
+      justify-content: flex-end;
+    }
+  }
+
+  .settings-header-context {
+    @mixin typography-body2;
+    color: var(--textSecondary);
+    width: 100%;
+  }
+}

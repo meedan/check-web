@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -9,7 +8,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Chip from '@material-ui/core/Chip';
+import TextField from '../../cds/inputs/TextField';
+import Chip from '../../cds/buttons-checkboxes-chips/Chip';
 
 const useStyles = makeStyles(theme => ({
   field: {
@@ -97,7 +97,7 @@ const SmoochBotSetting = (props) => {
     inputProps.min = 1;
   }
 
-  if (field === 'smooch_urls_to_ignore' || /^smooch_template_newsletter_header_/.test(field) || field === 'turnio_cacert') {
+  if (field === /^smooch_template_newsletter_header_/.test(field) || field === 'turnio_cacert') {
     Object.assign(otherProps, {
       rows: 5,
       rowsMax: Infinity,
@@ -118,10 +118,9 @@ const SmoochBotSetting = (props) => {
         }
         handleChange(field, newValue);
       }}
-      helperText={schema.description}
-      variant="outlined"
-      fullWidth
-      inputProps={inputProps}
+      helpContent={schema.description}
+      variant="contained"
+      componentProps={inputProps}
       {...otherProps}
     />
   );

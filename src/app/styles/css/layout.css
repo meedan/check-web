@@ -1,17 +1,26 @@
-html {
-  background: var(--otherWhite);
-}
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
+html {
+  background-color: var(--grayBackground);
+}
+
 body {
   margin: 0;
+}
 
-  main:first-of-type {
-    border-left: solid 2px var(--grayBorderMain);
-  }
+hr {
+  background-color: var(--grayBorderMain);
+  border: none;
+  flex-shrink: 0;
+  height: 1px;
+  margin: 0;
 }

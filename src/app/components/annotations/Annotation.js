@@ -1,34 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay/classic';
-import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import MoreHoriz from '@material-ui/icons/MoreHoriz';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
-import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
-import SourcePicture from '../source/SourcePicture';
 import ProfileLink from '../layout/ProfileLink';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
-import UserTooltip from '../user/UserTooltip';
 import { languageLabel } from '../../LanguageRegistry';
-import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
-import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
 import {
   getErrorMessage,
   getStatus,
@@ -38,18 +21,9 @@ import {
   safelyParseJSON,
 } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import CheckArchivedFlags from '../../CheckArchivedFlags';
-import {
-  units,
-  borderWidthLarge,
-  breakWordStyles,
-  Row,
-  defaultBorderRadius,
-} from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
-const dotSize = borderWidthLarge;
-
-const dotOffset = stripUnit(units(4)) - stripUnit(dotSize);
+const dotOffset = stripUnit(units(4)) - stripUnit(3);
 
 const StyledDefaultAnnotation = styled.div`
   color: var(--textPrimary);
@@ -59,48 +33,11 @@ const StyledDefaultAnnotation = styled.div`
 
   .annotation__default-content {
     width: 100%;
-    @extend ${breakWordStyles};
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
     display: block;
     margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(2)};
-  }
-`;
-
-const StyledAnnotationCardWrapper = styled.div`
-  width: 100%;
-  z-index: initial !important;
-
-  > div > div {
-    padding-bottom: 0 !important;
-  }
-
-  img {
-    cursor: pointer;
-  }
-`;
-
-const StyledAvatarColumn = styled.div`
-  margin-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(3)};
-`;
-
-const StyledPrimaryColumn = styled.div`
-  flex: 1;
-
-  .annotation__card-content {
-    ${breakWordStyles}
-    display: flex;
-    width: 100%;
-
-    & > span:first-child {
-      flex: 1;
-    }
-  }
-
-  .annotation__card-thumbnail {
-    padding: ${units(1)};
-  }
-
-  .annotation__status {
-    margin: 0 3px;
   }
 `;
 
@@ -117,7 +54,7 @@ const StyledAnnotationWrapper = styled.section`
       border-radius: 100%;
       content: '';
       height: ${units(1)};
-      outline: ${dotSize} solid var(--otherWhite);
+      outline: 3px solid var(--otherWhite);
       position: absolute;
       top: ${units(2)};
       width: ${units(1)};
@@ -133,7 +70,7 @@ const StyledAnnotationWrapper = styled.section`
   .annotation__card-activity-move-to-trash {
     background: var(--brandMain);
     color: var(--otherWhite);
-    border-radius: ${defaultBorderRadius};
+    border-radius: 2px;
 
     .annotation__timestamp {
       color: var(--otherWhite);
@@ -156,7 +93,9 @@ const StyledAnnotationWrapper = styled.section`
   }
 
   .annotation__body {
-    ${breakWordStyles}
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .annotation__embedded-media {
@@ -184,21 +123,6 @@ const StyledAnnotationWrapper = styled.section`
   }
 `;
 
-const StyledAnnotationMetadata = styled(Row)`
-  color: var(--textSecondary);
-  flex-flow: wrap row;
-  margin-top: ${units(3)};
-
-  .annotation__card-author {
-    color: var(--textPrimary);
-    padding-${props => (props.theme.dir === 'rtl' ? 'left' : 'right')}: ${units(1)};
-  }
-`;
-
-const StyledAnnotationActionsWrapper = styled.div`
-  margin-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: auto;
-`;
-
 const messages = defineMessages({
   editedBy: {
     id: 'annotation.editedBy',
@@ -220,54 +144,6 @@ const messages = defineMessages({
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Annotation extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      zoomedCommentImage: false,
-    };
-  }
-
-  handleCloseCommentImage() {
-    this.setState({ zoomedCommentImage: false });
-  }
-
-  handleOpenCommentImage(image) {
-    this.setState({ zoomedCommentImage: image });
-  }
-
-  handleOpenMenu = (e) => {
-    e.stopPropagation();
-    this.setState({ anchorEl: e.currentTarget });
-  };
-
-  handleCloseMenu = () => {
-    this.setState({ anchorEl: null });
-  };
-
-  handleDelete(id) {
-    const onSuccess = () => {};
-
-    // Either to destroy versions or annotations
-    const destroy_attr = {
-      parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
-      annotated: this.props.annotated,
-      id,
-    };
-    if (this.props.annotation.annotation.version === null) {
-      Relay.Store.commitUpdate(
-        new DeleteAnnotationMutation(destroy_attr),
-        { onSuccess, onFailure: this.fail },
-      );
-    } else {
-      destroy_attr.id = this.props.annotation.annotation.version.id;
-      Relay.Store.commitUpdate(
-        new DeleteVersionMutation(destroy_attr),
-        { onSuccess, onFailure: this.fail },
-      );
-    }
-  }
-
   fail = (transaction) => {
     const message = getErrorMessage(
       transaction,
@@ -312,75 +188,13 @@ class Annotation extends Component {
   }
 
   render() {
-    const { annotation: activity, annotated, annotation: { annotation } } = this.props;
-
-    let annotationActions = null;
-    if (annotation && annotation.annotation_type) {
-      const permission = `destroy ${annotation.annotation_type
-        .charAt(0)
-        .toUpperCase()}${annotation.annotation_type.slice(1)}`;
-      // TODO: Improve hide when item is archived logic. Not all annotated types have archived flag.
-      const canDoAnnotationActions = can(annotation.permissions, permission) &&
-        annotated.archived === CheckArchivedFlags.NONE;
-      annotationActions = canDoAnnotationActions ? (
-        <div>
-          <Tooltip title={
-            <FormattedMessage
-              id="annotation.menuTooltip"
-              defaultMessage="Annotation actions"
-              description="Tooltip for the annotation actions menu icon button"
-            />
-          }
-          >
-            <IconButton
-              className="menu-button"
-              onClick={this.handleOpenMenu}
-            >
-              <MoreHoriz />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            id="customized-menu"
-            anchorEl={this.state.anchorEl}
-            keepMounted
-            open={Boolean(this.state.anchorEl)}
-            onClose={this.handleCloseMenu}
-          >
-            {can(annotation.permissions, permission) ? (
-              <MenuItem
-                className="annotation__delete"
-                onClick={this.handleDelete.bind(this, annotation.id)}
-              >
-                <FormattedMessage
-                  id="annotation.deleteButton"
-                  defaultMessage="Delete"
-                  description="Menu item for deleting an annotation"
-                />
-              </MenuItem>
-            ) : null}
-            <MenuItem>
-              <a
-                href={`#annotation-${activity.dbid}`}
-                style={{ textDecoration: 'none', color: 'var(--textPrimary)' }}
-              >
-                <FormattedMessage
-                  id="annotation.permalink"
-                  defaultMessage="Permalink"
-                  description="Menu item for getting a permanent url for an annotaion"
-                />
-              </a>
-            </MenuItem>
-          </Menu>
-        </div>)
-        : null;
-    }
-
+    const { annotation: activity, annotation: { annotation } } = this.props;
     const updatedAt = parseStringUnixTimestamp(activity.created_at);
     const timestamp = updatedAt
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
     const authorName = activity.user
-      ? <ProfileLink className="annotation__author-name" teamUser={activity.user.team_user} /> : null;
+      ? <ProfileLink className="annotation__author-name" user={activity.user} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;
@@ -675,7 +489,7 @@ class Annotation extends Component {
           <div>
             <div className="annotation__card-content annotation__bot-response">
               <span>
-                <b>{botResponse.title}</b><br />
+                <strong>{botResponse.title}</strong><br />
                 <ParsedText text={botResponse.description} />
               </span>
               <div>
@@ -695,12 +509,6 @@ class Annotation extends Component {
                   /> : null }
               </div>
             </div>
-
-            { botResponse.image_url && !!this.state.zoomedCommentImage ?
-              <Lightbox
-                onCloseRequest={this.handleCloseCommentImage.bind(this)}
-                mainSrc={this.state.zoomedCommentImage}
-              /> : null}
           </div>
         );
       }
@@ -955,57 +763,12 @@ class Annotation extends Component {
         className={`annotation ${templateClass} ${typeClass}`}
         id={`annotation-${activity.dbid}`}
       >
-        { useCardTemplate ?
-          <StyledAnnotationCardWrapper>
-            <Card>
-              <CardContent
-                className={`annotation__card-text annotation__card-activity-${activityType.replace(
-                  /_/g,
-                  '-',
-                )}`}
-              >
-                { authorName ?
-                  <RCTooltip placement="top" overlay={<UserTooltip teamUser={activity.user.team_user} />}>
-                    <StyledAvatarColumn className="annotation__avatar-col">
-                      <SourcePicture
-                        className="avatar"
-                        type="user"
-                        size="small"
-                        object={activity.user.source}
-                      />
-                    </StyledAvatarColumn>
-                  </RCTooltip> : null }
-
-                <StyledPrimaryColumn>
-                  <Typography variant="body1" component="div">
-                    {contentTemplate}
-                  </Typography>
-                  <StyledAnnotationMetadata className="typography-caption">
-                    <span className="annotation__card-footer">
-                      { authorName ?
-                        <ProfileLink
-                          className="annotation__card-author"
-                          teamUser={activity.user.team_user}
-                        /> : null }
-                      <span>
-                        {timestamp}
-                      </span>
-                    </span>
-
-                    <StyledAnnotationActionsWrapper>
-                      {annotationActions}
-                    </StyledAnnotationActionsWrapper>
-                  </StyledAnnotationMetadata>
-                </StyledPrimaryColumn>
-              </CardContent>
-            </Card>
-          </StyledAnnotationCardWrapper> :
-          <StyledDefaultAnnotation className="annotation__default typography-caption">
-            <span>
-              <span className="annotation__default-content">{contentTemplate}</span>
-              {timestamp}
-            </span>
-          </StyledDefaultAnnotation>}
+        <StyledDefaultAnnotation className="annotation__default typography-caption">
+          <span>
+            <span className="annotation__default-content">{contentTemplate}</span>
+            {timestamp}
+          </span>
+        </StyledDefaultAnnotation>
       </StyledAnnotationWrapper>
     );
   }

@@ -9,7 +9,7 @@ describe('<Reorder />', () => {
       onMoveUp={() => {}}
     />);
     expect(wrapper.find('button').hostNodes()).toHaveLength(2);
-    expect(wrapper.find('.reorder__button-up').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.reorder__button-down').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-reorder__button-up').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-reorder__button-down').hostNodes()).toHaveLength(1);
   });
 });

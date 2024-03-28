@@ -1,13 +1,23 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
+import { FormattedDate, defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Typography from '@material-ui/core/Typography';
-import { units } from '../styles/js/shared';
 import { stringHelper } from '../customHelpers';
+import dialogStyles from '../styles/css/dialog.module.css';
+
+const messages = defineMessages({
+  tos: {
+    id: 'userTos.tosLink',
+    defaultMessage: 'Terms of Service',
+    description: 'Link text to take the user to the terms of service',
+  },
+  pp: {
+    id: 'userTos.ppLink',
+    defaultMessage: 'Privacy Policy',
+    description: 'Link text to take the user to the privacy policy',
+  },
+});
 
 class UserTosForm extends Component {
   constructor(props) {
@@ -16,18 +26,14 @@ class UserTosForm extends Component {
   }
 
   render() {
-    const linkStyle = {
-      textDecoration: 'underline',
-    };
-
     const tosLink = (
       <a
         target="_blank"
         rel="noopener noreferrer"
-        style={linkStyle}
         href={stringHelper('TOS_URL')}
+        title={this.props.intl.formatMessage(messages.tos)}
       >
-        <FormattedMessage id="userTos.tosLink" defaultMessage="Terms of Service" />
+        {this.props.intl.formatMessage(messages.tos)}
       </a>
     );
 
@@ -35,71 +41,77 @@ class UserTosForm extends Component {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        style={linkStyle}
         href={stringHelper('PP_URL')}
+        title={this.props.intl.formatMessage(messages.pp)}
       >
-        <FormattedMessage id="userTos.ppLink" defaultMessage="Privacy Policy" />
+        {this.props.intl.formatMessage(messages.pp)}
       </a>
     );
 
     const { termsLastUpdatedAt } = this.props;
 
     return (
-      <div>
+      <>
         { !this.props.user.last_accepted_terms_at ?
-          <div>
+          <>
             { this.props.showTitle ?
-              <h2 className="typography-h6">
+              <div className={dialogStyles['dialog-title']}>
                 <FormattedMessage
+                  tagName="h6"
                   id="userTos.title"
                   defaultMessage="Terms of Service and Privacy Policy"
+                  description="Page title for the terms of service"
                 />
-              </h2> : null
+              </div> : null
             }
-            { termsLastUpdatedAt ?
-              <p className="typography-caption" style={{ margin: `${units(1)} 0` }}>
+          </>
+          :
+          <div className={dialogStyles['dialog-title']}>
+            <FormattedMessage
+              tagName="h6"
+              id="userTos.titleUpdated"
+              defaultMessage="Updated Terms and Privacy Policy"
+              description="Page title for the updated terms of service and privacy policy messages"
+            />
+          </div>
+        }
+        <div className={dialogStyles['dialog-content']}>
+          { !this.props.user.last_accepted_terms_at ?
+            <>
+              { termsLastUpdatedAt ?
                 <FormattedMessage
+                  tagName="p"
                   id="userTos.termsLastUpdatedAt"
                   defaultMessage="Last updated {lastUpdated}"
+                  description="Date of the last terms of service update"
                   values={{
                     lastUpdated: <FormattedDate value={termsLastUpdatedAt * 1000} day="numeric" month="long" year="numeric" />,
                   }}
-                />
-              </p> : null
-            }
-            <Box my={4}>
-              <Typography component="div" variant="body1">
-                <FormattedMessage
-                  id="userTos.disclaimer"
-                  defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"
-                  values={{
-                    tosLink,
-                    ppLink,
-                  }}
-                />
-              </Typography>
-            </Box>
-          </div> :
-          <div>
-            <h2>
+                /> : null
+              }
               <FormattedMessage
-                id="userTos.titleUpdated"
-                defaultMessage="Updated Terms and Privacy Policy"
-              />
-            </h2>
-            <p style={{ margin: `${units(4)} 0` }}>
-              <FormattedMessage
-                id="userTos.disclaimerUpdate"
-                defaultMessage="We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:"
+                tagName="p"
+                id="userTos.disclaimer"
+                defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"
+                description="Message for the user to review the terms of service and privacy policy"
                 values={{
                   tosLink,
                   ppLink,
                 }}
               />
-            </p>
-          </div>
-        }
-        <div style={{ margin: `${units(4)} 0` }}>
+            </>
+            :
+            <FormattedMessage
+              tagName="p"
+              id="userTos.disclaimerUpdate"
+              defaultMessage="We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:"
+              description="Message to the user that the terms of service and privacy policy have been updated"
+              values={{
+                tosLink,
+                ppLink,
+              }}
+            />
+          }
           <FormControlLabel
             control={
               <Checkbox
@@ -112,11 +124,12 @@ class UserTosForm extends Component {
               <FormattedMessage
                 id="userTos.agreeTos"
                 defaultMessage="I agree to the Terms of Service."
+                description="Checkbox label for the user to agree to the terms of service"
               />
             }
           />
         </div>
-      </div>
+      </>
     );
   }
 }
@@ -135,4 +148,4 @@ UserTosForm.defaultProps = {
   showTitle: false,
 };
 
-export default UserTosForm;
+export default injectIntl(UserTosForm);

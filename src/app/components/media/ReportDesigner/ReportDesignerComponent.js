@@ -1,13 +1,9 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/HelpOutline';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Alert from '../../cds/alerts-and-prompts/Alert';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
 import ReportDesignerForm from './ReportDesignerForm';
@@ -23,31 +19,10 @@ import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDes
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import { getListUrlQueryAndIndex } from '../../../urlHelpers';
-
-const useStyles = makeStyles(theme => ({
-  section: {
-    height: 'calc(100vh - 60px)',
-    overflow: 'auto',
-    padding: theme.spacing(2),
-    backgroundColor: 'var(--grayBackground)',
-  },
-  preview: {
-    borderRight: '1px solid var(--brandBorder)',
-  },
-  editor: {
-    padding: '16px 32px',
-  },
-  title: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  helpIcon: {
-    color: 'var(--brandMain)',
-  },
-}));
+import HelpIcon from '../../../icons/help.svg';
+import styles from './ReportDesigner.module.css';
 
 const ReportDesignerComponent = (props) => {
-  const classes = useStyles();
   const { media, media: { team } } = props;
 
   const savedReportData = props.media?.dynamic_annotation_report_design || { data: { options: { } } };
@@ -75,6 +50,7 @@ const ReportDesignerComponent = (props) => {
       const message = (<FormattedMessage
         id="reportDesigner.error"
         defaultMessage="Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
+        description="Message when an error is returned and how to reach support via email address"
         values={{
           supportEmail: stringHelper('SUPPORT_EMAIL'),
         }}
@@ -200,7 +176,7 @@ const ReportDesignerComponent = (props) => {
   };
 
   const handleHelp = () => {
-    window.open('http://help.checkmedia.org/en/articles/3627266-check-message-report');
+    window.open('https://help.checkmedia.org/en/articles/8772805-fact-check-reports-guide#h_274b08eeab');
   };
 
   const { routeParams, location } = props;
@@ -212,46 +188,80 @@ const ReportDesignerComponent = (props) => {
 
   return (
     <React.Fragment>
-      <ReportDesignerTopBar
-        media={media}
-        defaultLanguage={currentLanguage}
-        data={data}
-        state={data.state}
-        readOnly={
-          !can(media.permissions, 'update ProjectMedia') ||
-          (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
-          pending
+      <div className={styles['report-designer-wrapper']}>
+        {data.state === 'published' ?
+          <>
+            <Alert
+              title={
+                <FormattedMessage
+                  id="reportDesigner.alertTitle"
+                  defaultMessage="Report is published"
+                  description="Title of a page level alert telling the user the report is currently in the published state"
+                />
+              }
+              banner
+              icon
+              content={
+                <FormattedMessage
+                  id="reportDesigner.alertContent"
+                  defaultMessage="To make edits, pause this report. This will stop the report from being sent out to users until it is published again."
+                  description="Content of a page level alert telling the user the report is currently in the published state and they need to change the state to pause in order to edit"
+                />
+              }
+              variant="success"
+            />
+          </> : null
         }
-        onStatusChange={handleStatusChange}
-        onStateChange={(action, state) => { handleSave(action, state); }}
-        prefixUrl={prefixUrl}
-      />
-      <Box display="flex" width="1">
-        <Box flex="1" alignItems="flex-start" display="flex" className={[classes.preview, classes.section].join(' ')}>
-          <ReportDesignerPreview data={data.options} media={media} />
-        </Box>
-        <Box flex="1" className={[classes.editor, classes.section].join(' ')}>
-          <Box display="flex" className="report-designer__title">
-            <Typography className={classes.title} color="inherit" variant="h6" component="div">
+        <ReportDesignerTopBar
+          media={media}
+          defaultLanguage={currentLanguage}
+          data={data}
+          state={data.state}
+          readOnly={
+            !can(media.permissions, 'update ProjectMedia') ||
+            (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
+            pending
+          }
+          onStatusChange={handleStatusChange}
+          onStateChange={(action, state) => { handleSave(action, state); }}
+          prefixUrl={prefixUrl}
+        />
+        <div className={styles['report-designer']}>
+          <div className={styles['report-editor']}>
+            <h6 className="report-designer__title">
               <FormattedMessage
                 id="reportDesigner.title"
                 defaultMessage="Design your report"
+                description="Section title for inputs to design the report"
               />
-            </Typography>
-            <IconButton onClick={handleHelp}>
-              <HelpIcon className={classes.helpIcon} />
-            </IconButton>
-          </Box>
-          <ReportDesignerForm
-            data={data.options}
-            disabled={data.state === 'published'}
-            pending={pending}
-            media={media}
-            team={team}
-            onUpdate={handleUpdate}
-          />
-        </Box>
-      </Box>
+              <ButtonMain
+                variant="text"
+                size="default"
+                theme="text"
+                onClick={handleHelp}
+                iconCenter={<HelpIcon />}
+              />
+            </h6>
+            <ReportDesignerForm
+              data={data.options}
+              disabled={data.state === 'published'}
+              pending={pending}
+              media={media}
+              team={team}
+              onUpdate={handleUpdate}
+            />
+          </div>
+          <div className={styles['report-preview']}>
+            <FormattedMessage
+              tagName="h6"
+              id="reportDesigner.previewTitle"
+              defaultMessage="Preview your report"
+              description="Section title for the visual preview of the report being created"
+            />
+            <ReportDesignerPreview data={data.options} media={media} />
+          </div>
+        </div>
+      </div>
     </React.Fragment>
   );
 };

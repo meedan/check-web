@@ -3,7 +3,7 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import MediasLoading from '../../media/MediasLoading';
 import ForwardIcon from '../../../icons/forward.svg';
 import MultiSelectFilter from '../MultiSelectFilter';
 import CheckChannels from '../../../CheckChannels';
@@ -46,6 +46,7 @@ const SearchFieldChannelComponent = ({
   onChange,
   onRemove,
   about,
+  page,
   readOnly,
   intl,
 }) => {
@@ -59,21 +60,28 @@ const SearchFieldChannelComponent = ({
     ZAPIER: 'Zapier',
     WHATSAPP: 'WhatsApp',
     MESSENGER: 'Messenger',
-    TWITTER: 'Twitter',
+    TWITTER: 'X (Twitter)',
     TELEGRAM: 'Telegram',
     VIBER: 'Viber',
     LINE: 'Line',
+    INSTAGRAM: 'Instagram',
     WEB_FORM: intl.formatMessage(messages.webForm),
     SHARED_DATABASE: intl.formatMessage(messages.sharedDatabase),
   };
 
-  let options = Object.keys(channels).filter(key => key !== 'TIPLINE').map(key => ({ label: optionLabels[key], value: `${channels[key]}` }));
+  let options = [];
+
+  const nonTiplines = Object.keys(channels).filter(key => key !== 'TIPLINE').map(key => ({ label: optionLabels[key], value: `${channels[key]}` }));
+  const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: optionLabels[key], value: `${channels.TIPLINE[key]}`, parent: 'any_tipline' }));
+
+  if (page !== 'tipline-inbox' && page !== 'feed') {
+    options = options.concat(nonTiplines);
+  }
 
   options = options.concat([
     { label: intl.formatMessage(messages.anyTipline), value: 'any_tipline', hasChildren: true },
   ]);
 
-  const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: optionLabels[key], value: `${channels.TIPLINE[key]}`, parent: 'any_tipline' }));
   options = options.concat(tiplines);
 
   const handleChange = (channelIds) => {
@@ -86,10 +94,10 @@ const SearchFieldChannelComponent = ({
   };
 
   let selectedChannels = [];
-  if (/tipline-inbox/.test(window.location.pathname)) {
+  if (page === 'tipline-inbox') {
     selectedChannels = [CheckChannels.ANYTIPLINE];
   }
-  if (/imported-fact-checks/.test(window.location.pathname)) {
+  if (page === 'imported-fact-checks') {
     selectedChannels = [CheckChannels.FETCH];
   }
 
@@ -102,7 +110,7 @@ const SearchFieldChannelComponent = ({
           selected={query.channels || selectedChannels}
           options={options}
           onChange={handleChange}
-          onRemove={onRemove}
+          onRemove={(page !== 'tipline-inbox') ? onRemove : null}
           readOnly={readOnly}
         />
       )}
@@ -126,7 +134,7 @@ const SearchFieldChannel = parentProps => (
       }
 
       // TODO: We need a better error handling in the future, standardized with other components
-      return <CircularProgress size={36} />;
+      return <MediasLoading theme="grey" variant="icon" size="icon" />;
     }}
   />
 );
@@ -135,6 +143,7 @@ SearchFieldChannel.propTypes = {
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired,
 };
 
 export default injectIntl(SearchFieldChannel);

@@ -1,7 +1,11 @@
+// DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=623-12029&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
+import ClearIcon from '../../../icons/clear.svg';
+import Tooltip from '../alerts-and-prompts/Tooltip';
 import ErrorIcon from '../../../icons/error.svg';
 import inputStyles from '../../../styles/css/inputs.module.css';
 import styles from './TextField.module.css';
@@ -20,7 +24,7 @@ function useEffectSkipFirst(fn, inputs) {
   }, inputs);
 }
 
-const TextField = ({
+const TextField = React.forwardRef(({
   className,
   disabled,
   error,
@@ -29,24 +33,46 @@ const TextField = ({
   iconLeft,
   iconRight,
   label,
+  placeholder,
   required,
   variant,
   textArea,
+  autoGrow,
+  maxHeight,
+  componentProps,
+  onRemove,
   ...inputProps
-}) => {
+}, ref) => {
   const [internalError, setInternalError] = React.useState(suppressInitialError ? false : error);
+
+  React.useEffect(() => {
+    if (ref?.current && textArea) {
+      ref.current.parentNode.setAttribute('data-replicated-value', ref.current.value);
+    }
+  }, []);
 
   useEffectSkipFirst(() => {
     setInternalError(error);
   });
 
   return (
-    <div className={className}>
+    <div
+      className={cx(
+        inputStyles['input-wrapper'],
+        {
+          [className]: true,
+          [inputStyles.disabled]: disabled,
+        })
+      }
+    >
       { (label || required) && (
         <div className={cx(
           [inputStyles['label-container']],
           {
             [inputStyles['error-label']]: internalError,
+            [styles['textfield-removeable']]: onRemove,
+            [inputStyles['label-container-label']]: label,
+            [inputStyles['label-container-required']]: required,
           })
         }
         >
@@ -54,66 +80,93 @@ const TextField = ({
           { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
         </div>
       )}
-      <div className={cx(
-        styles['textfield-container'],
-        inputStyles['input-container'],
-        {
-          [styles['textarea-container']]: textArea,
-        })
-      }
-      >
-        { iconLeft && (
-          <div className={inputStyles['input-icon-left-icon']}>
-            {iconLeft}
-          </div>
-        )}
-        { textArea ? (
-          <textarea
-            className={cx(
-              'typography-body1',
-              [styles.input],
-              {
-                [styles.disabled]: disabled,
-                [styles.error]: internalError,
-                [styles.outlined]: variant === 'outlined',
-                [styles['input-icon-left']]: iconLeft,
-                [styles['input-icon-right']]: iconRight,
-              })
-            }
-            type="text"
-            disabled={disabled}
-            error={internalError}
-            {...inputProps}
-          />
-        ) : (
-          <input
-            className={cx(
-              'typography-body1',
-              [styles.input],
-              {
-                [styles.disabled]: disabled,
-                [styles.error]: internalError,
-                [styles.outlined]: variant === 'outlined',
-                [styles['input-icon-left']]: iconLeft,
-                [styles['input-icon-right']]: iconRight,
-              })
-            }
-            type="text"
-            disabled={disabled}
-            error={internalError}
-            {...inputProps}
-          />
-        )}
-        { iconRight && (
-          <div className={inputStyles['input-icon-right-icon']}>
-            {iconRight}
-          </div>
-        )}
+      <div className={styles['textfield-wrapper']}>
+        <div
+          className={cx(
+            styles['textfield-container'],
+            inputStyles['input-container'],
+            {
+              [styles.disabled]: disabled,
+              [styles['textarea-container']]: textArea,
+              [styles['textarea-autoGrow']]: autoGrow && textArea,
+              [styles['textarea-maxHeight']]: maxHeight,
+            })
+          }
+          style={{
+            maxHeight,
+          }}
+        >
+          { iconLeft && (
+            <div className={inputStyles['input-icon-left-icon']}>
+              {iconLeft}
+            </div>
+          )}
+          { textArea ? (
+            <textarea
+              className={cx(
+                'typography-body1',
+                [styles.input],
+                {
+                  [styles.error]: internalError,
+                  [styles.outlined]: variant === 'outlined',
+                  [styles['input-icon-left']]: iconLeft,
+                  [styles['input-icon-right']]: iconRight,
+                })
+              }
+              ref={ref}
+              disabled={disabled}
+              error={internalError}
+              placeholder={placeholder}
+              {...componentProps}
+              {...inputProps}
+            />
+          ) : (
+            <input
+              className={cx(
+                'typography-body1',
+                [styles.input],
+                {
+                  [styles.error]: internalError,
+                  [styles.outlined]: variant === 'outlined',
+                  [styles['input-icon-left']]: iconLeft,
+                  [styles['input-icon-right']]: iconRight,
+                })
+              }
+              ref={ref}
+              type="text"
+              disabled={disabled}
+              error={internalError}
+              placeholder={placeholder}
+              {...componentProps}
+              {...inputProps}
+            />
+          )}
+          { iconRight && (
+            <div className={inputStyles['input-icon-right-icon']}>
+              {iconRight}
+            </div>
+          )}
+        </div>
+        { onRemove ?
+          <Tooltip arrow title={<FormattedMessage id="textfield.removeSelection" defaultMessage="Clear text" description="Tooltip for button on Textfield component to remove current text of the input" />}>
+            <span>
+              <ButtonMain
+                iconCenter={<ClearIcon />}
+                variant="contained"
+                size="default"
+                theme="lightText"
+                className="int-clear-input__button--textfield"
+                onClick={() => { onRemove(); }}
+              />
+            </span>
+          </Tooltip>
+          : null }
       </div>
       { helpContent && (
         <div className={cx(
           [inputStyles['help-container']],
           {
+            'int-error__message--textfield': internalError,
             [inputStyles['error-label']]: internalError,
           })
         }
@@ -124,7 +177,7 @@ const TextField = ({
       )}
     </div>
   );
-};
+});
 
 TextField.defaultProps = {
   className: '',
@@ -133,11 +186,16 @@ TextField.defaultProps = {
   helpContent: null,
   iconLeft: null,
   iconRight: null,
-  label: '',
+  label: null,
+  onRemove: null,
+  placeholder: null,
   required: false,
   suppressInitialError: false,
   textArea: false,
+  autoGrow: true,
+  maxHeight: null,
   variant: 'contained',
+  componentProps: {},
 };
 
 TextField.propTypes = {
@@ -147,10 +205,15 @@ TextField.propTypes = {
   helpContent: PropTypes.element,
   iconLeft: PropTypes.element,
   iconRight: PropTypes.element,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  placeholder: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   required: PropTypes.bool,
   suppressInitialError: PropTypes.bool,
   textArea: PropTypes.bool,
+  autoGrow: PropTypes.bool,
+  maxHeight: PropTypes.string,
+  componentProps: PropTypes.object,
+  onRemove: PropTypes.func,
   variant: PropTypes.oneOf(['contained', 'outlined']),
 };
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box,
 } from '@material-ui/core';
+import Alert from '../alerts-and-prompts/Alert';
+import VisibilityOffIcon from '../../../icons/visibility_off.svg';
 import ExternalLink from '../../ExternalLink';
 import ParsedText from '../../ParsedText';
 import MediaSlug from '../../media/MediaSlug';
@@ -62,6 +64,22 @@ const useStyles = makeStyles(theme => ({
   menuBox: {
     marginTop: theme.spacing(-1),
   },
+  contentScreen: {
+    height: 96,
+    width: 96,
+    marginRight: theme.spacing(1),
+    backgroundColor: 'var(--textPrimary)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  icon: {
+    fontSize: '40px',
+    color: 'var(--otherWhite)',
+  },
+  alert: {
+    marginTop: '16px',
+  },
 }));
 
 const SmallMediaCard = ({
@@ -69,11 +87,36 @@ const SmallMediaCard = ({
   customTitle,
   details,
   description,
+  maskContent,
+  superAdminMask,
   onClick,
   menu,
   className,
 }) => {
   const classes = useStyles();
+
+  if (!media) {
+    return (
+      <Alert
+        className={classes.alert}
+        title={
+          <FormattedMessage
+            id="smallMediaCard.noMediaTitle"
+            defaultMessage="There was an error loading the media for this card."
+            description="Title for an error message that appears when media fails to load."
+          />
+        }
+        content={
+          <FormattedMessage
+            id="smallMediaCard.noMediaDescription"
+            defaultMessage="Please reload the page and try again. Contact support if the error continues."
+            description="Description for an error message that appears when media fails to load."
+          />
+        }
+        variant="error"
+      />
+    );
+  }
 
   return (
     <Box
@@ -87,7 +130,7 @@ const SmallMediaCard = ({
         onClick={onClick}
       >
         {
-          media.picture ?
+          media.picture && !(maskContent || superAdminMask) ?
             <img
               alt=""
               className={classes.image}
@@ -96,37 +139,36 @@ const SmallMediaCard = ({
             /> : null
         }
         {
-          media.type === 'UploadedAudio' ?
+          media.type === 'UploadedAudio' && !(maskContent || superAdminMask) ?
             <img
               alt=""
               className={classes.image}
               src="/images/audio_placeholder.svg#svgView(viewBox(398,170,160,160))"
             /> : null
         }
+        { (media.picture || media.type === 'UploadedAudio') && (maskContent || superAdminMask) ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null }
         <div className={classes.text}>
           <Box className={classes.titleAndUrl}>
-            <Typography variant="subtitle2" component="div">
+            <div className="typography-subtitle2">
               <div className={[classes.row, (media.url ? classes.oneLineDescription : classes.twoLinesDescription)].join(' ')}>
                 <ParsedText text={media.metadata?.title || media.quote || description} />
               </div>
-            </Typography>
+            </div>
             { media.url ?
-              <Typography variant="body1" component="div">
+              <div className="typography-body1">
                 <div className={classes.row}>
                   <ExternalLink url={media.url} maxUrlLength={60} readable />
                 </div>
-              </Typography> : null
+              </div> : null
             }
           </Box>
           <Box mt={1}>
             <MediaSlug
               mediaType={getMediaType({ type: media.type, url: media.url, domain: media.domain })}
               slug={
-                <Typography variant="body1" component="div">
-                  <div className={classes.row}>
-                    {customTitle || media.metadata?.title}
-                  </div>
-                </Typography>
+                <span className="typography-body1">
+                  {customTitle || media.metadata?.title}
+                </span>
               }
               details={details}
             />
@@ -156,6 +198,8 @@ SmallMediaCard.propTypes = {
   customTitle: PropTypes.string,
   details: PropTypes.array,
   description: PropTypes.string,
+  maskContent: PropTypes.bool,
+  superAdminMask: PropTypes.bool,
   onClick: PropTypes.func,
   menu: PropTypes.element,
   className: PropTypes.string,
@@ -165,6 +209,8 @@ SmallMediaCard.defaultProps = {
   customTitle: null,
   details: null,
   description: null,
+  maskContent: false,
+  superAdminMask: false,
   onClick: () => {},
   menu: null,
   className: '',

@@ -1,41 +1,83 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  AudiotrackOutlined,
-  DescriptionOutlined,
-  ImageOutlined,
-  MovieOutlined,
-  PublicOutlined,
-  Facebook,
-  Instagram,
-  Twitter,
-  YouTube,
-  PlaylistAddCheck,
-} from '@material-ui/icons';
+import Audiotrack from '../../icons/audiotrack.svg';
+import Description from '../../icons/description.svg';
+import Facebook from '../../icons/facebook.svg';
+import Image from '../../icons/image.svg';
+import Instagram from '../../icons/instagram.svg';
+import Movie from '../../icons/movie.svg';
+import EmptyMedia from '../../icons/empty_media.svg';
+import Public from '../../icons/public.svg';
+import Telegram from '../../icons/telegram.svg';
+import Tiktok from '../../icons/tiktok.svg';
+import Twitter from '../../icons/twitter.svg';
+import YouTube from '../../icons/youtube.svg';
 
-export default function MediaTypeDisplayIcon({ mediaType }) {
-  const props = { fontSize: 'small' };
+export function mediaTypeFromUrl(url) {
+  let mediaType = 'Link';
+
+  if (/^(https?:\/\/)?((www\.)?youtube\.com|youtu\.be)\/.+$/.test(url)) {
+    mediaType = 'Youtube';
+  } else if (/^(https?:\/\/)?((www\.)?instagram\.com)\/.+$/.test(url)) {
+    mediaType = 'Instagram';
+  } else if (/^(https?:\/\/)?((www\.)?(twitter|x)\.com)\/.+$/.test(url)) {
+    mediaType = 'Twitter';
+  } else if (/^(https?:\/\/)?((www\.)?facebook\.com|fb\.watch)\/.+$/.test(url)) {
+    mediaType = 'Facebook';
+  } else if (/^(https?:\/\/)?((www\.)?t\.me)\/.+$/.test(url)) {
+    mediaType = 'Telegram';
+  } else if (/^(https?:\/\/)?((www\.)?tiktok\.com)\/.+$/.test(url)) {
+    mediaType = 'Tiktok';
+  }
+
+  return mediaType;
+}
+
+export function mediaTypeFromFilename(fileName) {
+  let mediaType = null;
+
+  const match = fileName.match(/\.([a-zA-Z0-9]+)$/);
+  const fileExtension = match && match[1];
+
+  if (fileExtension) {
+    if (['jpg', 'jpeg', 'gif', 'png'].includes(fileExtension.toLowerCase())) {
+      mediaType = 'UploadedImage';
+    } else if (['mp3', 'wav', 'oga', 'ogg', 'm4a'].includes(fileExtension.toLowerCase())) {
+      mediaType = 'UploadedAudio';
+    } else if (['mp4', 'ogg', 'ogv', 'webm', 'mov', 'm4v'].includes(fileExtension.toLowerCase())) {
+      mediaType = 'UploadedVideo';
+    }
+  }
+
+  return mediaType;
+}
+
+export default function MediaTypeDisplayIcon({ mediaType, fontSize = 'var(--iconSizeSmall)', color = 'var(--textPlaceholder)' }) {
   switch (mediaType) {
   case 'Claim':
-    return <DescriptionOutlined {...props} />;
+    return <Description style={{ fontSize, color }} />;
   case 'Link':
-    return <PublicOutlined {...props} />;
+    return <Public style={{ fontSize, color }} />;
   case 'UploadedImage':
-    return <ImageOutlined {...props} />;
+    return <Image style={{ fontSize, color }} />;
   case 'UploadedVideo':
-    return <MovieOutlined {...props} />;
+    return <Movie style={{ fontSize, color }} />;
   case 'UploadedAudio':
-    return <AudiotrackOutlined {...props} />;
+    return <Audiotrack style={{ fontSize, color }} />;
   case 'Facebook':
-    return <Facebook {...props} />;
+    return <Facebook style={{ fontSize, color }} />;
   case 'Instagram':
-    return <Instagram {...props} />;
+    return <Instagram style={{ fontSize, color }} />;
+  case 'Telegram':
+    return <Telegram style={{ fontSize, color }} />;
+  case 'Tiktok':
+    return <Tiktok style={{ fontSize, color }} />;
   case 'Twitter':
-    return <Twitter {...props} />;
+    return <Twitter style={{ fontSize, color }} />;
   case 'Youtube':
-    return <YouTube {...props} />;
+    return <YouTube style={{ fontSize, color }} />;
   case 'Blank':
-    return <PlaylistAddCheck {...props} />;
+    return <EmptyMedia style={{ fontSize, color }} />;
   case '-':
   default:
     return null;

@@ -1,26 +1,12 @@
 [
   {
-    "id": "userEmail.title",
+    "id": "userEmail.alertTitle",
+    "description": "Alert title for prompting the user to add their email address in order to receive notifications",
     "defaultMessage": "Add your email"
   },
   {
-    "id": "userEmail.emailInputHint",
-    "defaultMessage": "email@example.com"
-  },
-  {
     "id": "userEmail.text",
-    "defaultMessage": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click \"Skip\""
-  },
-  {
-    "id": "userEmail.emailInputLabel",
-    "defaultMessage": "Email"
-  },
-  {
-    "id": "userEmail.skip",
-    "defaultMessage": "Skip"
-  },
-  {
-    "id": "userEmail.submit",
-    "defaultMessage": "Submit"
+    "description": "Message to the user on how to receive notifications to their email address",
+    "defaultMessage": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address."
   }
 ]

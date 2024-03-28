@@ -1,35 +1,46 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Tooltip from '@material-ui/core/Tooltip';
-import WarningIcon from '@material-ui/icons/Warning';
+import MediasLoading from './MediasLoading';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import WarningIcon from '../../icons/report_problem.svg';
 import { stringHelper } from '../../customHelpers';
 import { getPathnameAndSearch, pageSize } from '../../urlHelpers';
+import styles from './media.module.css';
 
 function BrokenLink() {
   return (
-    <Tooltip title={<FormattedMessage id="mediaSearch.itemWentAway" defaultMessage="Not found" />}>
-      <WarningIcon />
+    <Tooltip
+      arrow
+      title={<FormattedMessage id="mediaSearch.itemWentAway" defaultMessage="Not found" description="Tooltip text to let the user know the item has been removed and is no longer availble" />}
+    >
+      <span className={styles['paging-not-found']}>
+        <WarningIcon />
+      </span>
     </Tooltip>
   );
 }
 
 function Error({ message }) {
   return (
-    <Tooltip title={
-      <FormattedMessage
-        id="mediaSearch.error"
-        defaultMessage="Sorry, the following error occurred: {message}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
-        values={{ message, supportEmail: stringHelper('SUPPORT_EMAIL') }}
-      />
-    }
+    <Tooltip
+      arrow
+      title={
+        <FormattedMessage
+          id="mediaSearch.error"
+          description="Error message with instructions on how the user should proceed"
+          defaultMessage="Sorry, the following error occurred: {message}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+          values={{ message, supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        />
+      }
     >
-      <WarningIcon />
+      <span className={styles['paging-not-found']}>
+        <WarningIcon />
+      </span>
     </Tooltip>
   );
 }
@@ -42,7 +53,7 @@ Error.propTypes = {
  *
  * State transitions:
  *
- *     <CircularProgress> -----> [success] <Redirect>
+ *     <MediasLoading> -----> [success] <Redirect>
  *                             > [no item at listIndex] <BrokenLink>
  *                             > [query failure] <Error>
  *
@@ -84,7 +95,6 @@ export default function MediaSearchRedirect({
                 node {
                   id
                   dbid
-                  cluster_id
                 }
               }
             }
@@ -109,11 +119,11 @@ export default function MediaSearchRedirect({
             const url = buildSiblingUrl(targetId, listIndex);
             const { pathname, search } = getPathnameAndSearch(url);
             browserHistory.push({ pathname, search, state: { mediaNavList, count: props.search.number_of_results } });
-            return <CircularProgress />; // while the page loads
+            return <MediasLoading size="icon" variant="icon" />; // while the page loads
           }
           return <BrokenLink />;
         }
-        return <CircularProgress />;
+        return <MediasLoading size="icon" variant="icon" />;
       }}
     />
   );

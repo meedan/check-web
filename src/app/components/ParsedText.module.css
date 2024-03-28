@@ -1,0 +1,11 @@
+.media-chip-link {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  vertical-align: middle;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

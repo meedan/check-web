@@ -1,0 +1,164 @@
+.feedItemHeader {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedItemHeaderMetadata {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  h6 {
+    -webkit-line-clamp: 1 !important;
+  }
+}
+
+.feedItemHeaderMetadataRow {
+  align-items: center;
+  display: flex;
+
+  span {
+    line-height: var(--iconSizeTiny);
+    text-transform: none;
+  }
+
+  svg {
+    font-size: var(--iconSizeTiny);
+  }
+}
+
+.feedItemColumns {
+  display: flex;
+  gap: 16px;
+  margin: 16px 32px;
+}
+
+.feedItemColumn {
+  background: var(--otherWhite);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: calc(100vh - 143px);
+  overflow-y: auto;
+  padding: 16px;
+  width: 420px;
+}
+
+.feedItemColumn + .feedItemColumn {
+  align-self: flex-start;
+  flex: 1;
+  justify-content: flex-start;
+  overflow-x: hidden;
+}
+
+.feedItemTeamCard {
+  cursor: pointer;
+  justify-content: flex-start !important;
+  overflow: hidden;
+}
+
+.feedItemTeamCardHeader {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.feedItemTeamCardCollapsed {
+  max-height: 200px;
+  transition: max-height 1s ease-out;
+}
+
+.feedItemTeamCardExpanded {
+  max-height: 800px; /* This is just for the animation - just need to be bigger than the expanded card will ever get */
+  transition: max-height 1s ease-in;
+}
+
+.feedItemTeamCardSelected > div {
+  border: 2px solid var(--brandMain);
+}
+
+.feedItemTeamCardFooter > div > div {
+  flex-wrap: nowrap !important;
+}
+
+.feedItemTeamsTitle {
+  margin: 16px 0;
+}
+
+.feedItemTeamsSubtitle {
+  margin-bottom: 8px;
+}
+
+.feedItemCurrentTeam {
+  background: var(--brandBackground);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.feedTeamFactCheckCard {
+  border-bottom: 1px solid var(--grayBorderMain);
+  margin-top: 8px;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.feedItemTeamCardNotSharing {
+  color: var(--textPlaceholder);
+  flex-wrap: wrap;
+  font-size: var(--fontSizeSmall);
+  font-style: italic;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.feedItemDialog {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedItemDialogBox {
+  background: var(--brandBackground);
+  border-radius: 5px;
+  padding: 16px;
+}
+
+.feedItemDialogSubtitle {
+  color: var(--textSecondary);
+}
+
+.feedItemDialogSubtitleFactCheck {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedItemDialogBulletSeparator,
+.feedItemDialogBulletSeparatorComponent {
+  align-items: center;
+  display: flex;
+  font-size: var(--fontSizeSmall);
+  gap: 4px;
+}
+
+.feedContentNotAvailable {
+  color: var(--textPlaceholder);
+  margin: 64px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.feedItemMediaSectionTitle {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.feedItemOneLineText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,25 +1,321 @@
+/* stylelint-disable no-descending-specificity */
 .buttonMain {
+  @mixin typography-button;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  height: 38px;
+  justify-content: center;
+  min-width: auto;
+  padding: 4px 8px;
+  transition: color 100ms linear, background-color 100ms linear, border-color 100ms linear;
+
   .buttonMainLabel {
     display: inline-block;
-    max-width: 125px;
+    max-width: 250px;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  &:global(.MuiButton-outlined) {
-    border: 2px solid var(--grayBorderMain);
+  .input-icon-left-icon,
+  .input-icon-right-icon,
+  .input-icon-center-icon {
+    display: flex;
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    font-size: 20px;
+    width: fit-content;
   }
 
-  &:global(.MuiButtonBase-root) {
-    background: var(--grayBackground);
-    border-radius: 8px;
-    height: 32px;
-    padding: 4px 8px;
+  &.sizeSmall {
+    @mixin typography-body2;
+    gap: 4px;
+    height: 30px;
+    padding: 4px 6px;
 
-    &:hover {
-      background: var(--grayBackground);
+    .input-icon-left-icon,
+    .input-icon-right-icon,
+    .input-icon-center-icon {
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 16px;
+    }
+
+    &.input-icon-center {
+      height: 30px;
+      min-width: 30px;
+      width: 30px;
+    }
+  }
+
+  &.sizeLarge {
+    height: 48px;
+
+    .input-icon-left-icon,
+    .input-icon-right-icon {
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 32px;
+    }
+
+    .input-icon-center-icon {
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 30px;
+    }
+
+    &.input-icon-center {
+      height: 48px;
+      min-width: 48px;
+      width: 48px;
+    }
+  }
+
+  &.input-icon-center {
+    height: 38px;
+    min-width: 38px;
+    width: 38px;
+
+    .buttonMainLabel {
+      display: none;
+    }
+  }
+
+  &.theme-brand,
+  &.theme-lightBrand,
+  &.theme-text,
+  &.theme-lightText,
+  &.theme-error,
+  &.theme-lightError,
+  &.theme-validation,
+  &.theme-lightValidation,
+  &.theme-alert,
+  &.theme-lightAlert,
+  &.theme-white, {
+    &:disabled {
+      color: var(--textDisabled);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    &.contained {
+      &:disabled {
+        background-color: var(--grayDisabledBackground);
+        border: solid 2px var(--grayDisabledBackground);
+      }
+    }
+
+    &.outlined {
+      background-color: transparent;
+
+      &:disabled {
+        border: solid 2px var(--grayBorderMain);
+      }
+    }
+
+    &.textVariant {
+      background-color: transparent;
+      border: solid 2px transparent;
+
+      &:hover {
+        border-color: transparent;
+      }
+    }
+  }
+
+  &.theme-brand:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--brandMain), var(--brandSecondary), var(--otherWhite), var(--otherWhite);
+
+      &:active {
+        background-color: var(--brandAccent);
+        border-color: var(--brandAccent);
+      }
+
+      &:focus {
+        background-color: var(--textLink);
+        border-color: var(--textLink);
+      }
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--brandMain), var(--brandSecondary), var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+
+      &:active {
+        border-color: var(--brandAccent);
+      }
+
+      &:focus {
+        border-color: var(--textLink);
+      }
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+
+      &:active {
+        color: var(--brandAccent);
+      }
+
+      &:focus {
+        color: var(--textLink);
+      }
+    }
+  }
+
+  &.theme-lightBrand:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--brandLight), var(--brandMain), var(--brandSecondary), var(--otherWhite);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--brandLight), var(--brandMaine), var(--brandMain), var(--brandSecondary), var(--brandHoverAccent);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--brandMain), var(--brandSecondary, var(--brandHoverAccent));
+    }
+  }
+
+  &.theme-text:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--grayBackground), var(--grayBorderMain), var(--textPrimary), var(--textSecondary);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--grayBorderMain), var(--grayBorderAccent), var(--textPrimary), var(--textSecondary), var(--grayDisabledBackground);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--textPrimary), var(--textSecondary), var(--grayDisabledBackground);
+    }
+  }
+
+  &.theme-lightText:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--grayBackground), var(--grayBorderMain), var(--textSecondary), var(--textSecondary);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--grayBorderMain), var(--grayBorderAccent), var(--textSecondary), var(--textSecondary), var(--grayDisabledBackground);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--textSecondary), var(--textPrimary), var(--grayDisabledBackground);
+    }
+  }
+
+  &.theme-error:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--errorMain), var(--errorSecondary), var(--otherWhite), var(--otherWhite);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--errorMain), var(--errorSecondary), var(--errorMain), var(--errorSecondary), var(--errorLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary), var(--errorLight);
+    }
+  }
+
+  &.theme-lightError:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--errorLight), var(--errorMain), var(--errorSecondary), var(--otherWhite);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--errorLight), var(--errorMain), var(--errorMain), var(--errorSecondary), var(--errorLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--errorMain), var(--errorSecondary), var(--errorLight);
+    }
+  }
+
+  &.theme-validation:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--validationMain), var(--validationSecondary), var(--otherWhite), var(--otherWhite);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--validationMain), var(--validationSecondary), var(--validationMain), var(--validationSecondary), var(--validationLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--validationMain), var(--validationSecondary), var(--validationLight);
+    }
+  }
+
+  &.theme-lightValidation:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--validationLight), var(--validationMain), var(--validationSecondary), var(--otherWhite);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--validationLight), var(--validationMain), var(--validationMain), var(--validationSecondary), var(--validationLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--validationMain), var(--validationSecondary), var(--validationLight);
+    }
+  }
+
+  &.theme-alert:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--alertMain), var(--alertSecondary), var(--otherWhite), var(--otherWhite);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--alertMain), var(--alertSecondary), var(--alertMain), var(--alertSecondary), var(--alertLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
+    }
+  }
+
+  &.theme-lightAlert:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--alertLight), var(--alertMain), var(--alertSecondary), var(--otherWhite);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--alertLight), var(--alertMain), var(--alertMain), var(--alertSecondary), var(--alertLight);
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--alertMain), var(--alertSecondary), var(--alertLight);
+    }
+  }
+
+  &.theme-black:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--textPrimary), var(--textDisabledInput), var(--otherWhite), var(--otherWhite);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--textPrimary), var(--textSecondary), var(--textPrimary), var(--textSecondary), transparent;
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--textPrimary), var(--textSecondary), var(--grayDisabledBackground);
+    }
+  }
+
+  &.theme-white:not(:disabled) {
+    &.contained {
+      @mixin main-button-contained-theme var(--otherWhite), var(--grayDisabledBackground), var(--textPrimary), var(--textSecondary);
+    }
+
+    &.outlined {
+      @mixin main-button-outlined-theme var(--otherWhite), var(--grayBorderMain), var(--otherWhite), var(--grayBorderMain), transparent;
+    }
+
+    &.textVariant {
+      @mixin main-button-text-theme var(--otherWhite), var(--textSecondary), var(--grayDisabledBackground);
     }
   }
 }
+/* stylelint-enable */

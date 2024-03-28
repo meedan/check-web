@@ -28,12 +28,12 @@ describe('<TeamListsColumn />', () => {
       team={team}
       onToggle={() => {}}
     />);
-    expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.typography-subtitle2').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('Column title');
     expect(wrapper.html()).toMatch('label-content-1');
     expect(wrapper.html()).toMatch('label-content-2');
     expect(wrapper.html()).toMatch('label-content-3');
-    expect(wrapper.html()).not.toMatch('None available');
+    expect(wrapper.html()).not.toMatch('No columns available');
   });
 
   it('should render team list column title and the placeholder when there are no items in the list', () => {
@@ -43,8 +43,8 @@ describe('<TeamListsColumn />', () => {
       team={team}
       onToggle={() => {}}
     />);
-    expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.typography-subtitle2').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('Column title');
-    expect(wrapper.html()).toMatch('None available');
+    expect(wrapper.html()).toMatch('No columns available');
   });
 });

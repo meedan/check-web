@@ -1,54 +1,25 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import { makeStyles } from '@material-ui/core/styles';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import cx from 'classnames/bind';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChangeUserRole from './ChangeUserRole';
 import InviteDialog from './InviteDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamMemberActions from './TeamMemberActions';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { ContentColumn } from '../../styles/js/shared';
-import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
-
-const useStyles = makeStyles(theme => ({
-  pending: {
-    border: '1px solid var(--textPrimary)',
-    padding: theme.spacing(0.5),
-    marginTop: theme.spacing(0.5),
-    borderRadius: '5px',
-  },
-  mainCell: {
-    maxWidth: theme.spacing(60),
-    overflow: 'hidden',
-  },
-  dateCell: {
-    minWidth: theme.spacing(18),
-    whiteSpace: 'nowrap',
-  },
-  textEllipsis: {
-    maxWidth: theme.spacing(40),
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  actionsCell: {
-    gap: `${theme.spacing(3)}px`,
-  },
-}));
+import settingsStyles from './Settings.module.css';
+import KeyboardArrowDownIcon from '../../icons/chevron_down.svg';
+import ScheduleSendIcon from '../../icons/schedule_send.svg';
 
 const TeamMembersComponent = ({
   team,
@@ -56,7 +27,6 @@ const TeamMembersComponent = ({
   const [inviteDialogOpen, setInviteDialogOpen] = React.useState(false);
   const [sortParam, setSortParam] = React.useState(null);
   const [sortDirection, setSortDirection] = React.useState('asc');
-  const classes = useStyles();
 
   const toggleSort = (param) => {
     setSortParam(param);
@@ -78,44 +48,50 @@ const TeamMembersComponent = ({
     team.team_users.edges;
 
   return (
-    <ContentColumn large>
+    <>
       <SettingsHeader
         title={
           <FormattedMessage
             id="teamMembers.title"
-            defaultMessage="Members"
+            defaultMessage="Members [{membersCount}]"
             description="Title for workspace members management page"
+            values={{ membersCount: sortedMembers.filter(tu => !tu.node.user.is_bot).length }}
           />
         }
-        subtitle={
-          <FormattedMessage
-            id="teamMembers.subtitle"
-            defaultMessage="Invite and manage users."
-            description="Subtitle for workspace members management page"
+        context={
+          <FormattedHTMLMessage
+            id="teamMembers.helpContext"
+            defaultMessage='Manage your Check workspace’s members. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about member roles</a>.'
+            values={{ helpLink: 'https://help.checkmedia.org/en/articles/8712107-team-settings#h_2767b2d557' }}
+            description="Context description for the functionality of this page"
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/3336431-permissions-in-check"
         actionButton={
-          <Button
-            id="team-members__invite-button"
-            color="primary"
-            disabled={!can(team.permissions, 'invite Members')}
+          <ButtonMain
+            theme="brand"
+            size="default"
             variant="contained"
+            disabled={!can(team.permissions, 'invite Members')}
             onClick={() => setInviteDialogOpen(true)}
-          >
-            <FormattedMessage
-              id="teamMembers.invite"
-              defaultMessage="Invite"
-            />
-          </Button>
+            label={
+              <FormattedMessage
+                id="teamMembers.invite"
+                defaultMessage="Invite"
+                description="Button label for main action to start the process of inviting team members to this workspace"
+              />
+            }
+            buttonProps={{
+              id: 'team-members__invite-button',
+            }}
+          />
         }
       />
-      <Card>
-        <TableContainer>
-          <Table>
+      <div className={cx(settingsStyles['setting-details-wrapper'])}>
+        <div className={settingsStyles['setting-content-container']}>
+          <Table className={settingsStyles['teammembers-table']}>
             <TableHead>
               <TableRow>
-                <TableCell className={classes.mainCell}>
+                <TableCell className={settingsStyles['main-cell']}>
                   <FormattedMessage
                     id="teamMembers.tableHeaderName"
                     defaultMessage="Name"
@@ -133,7 +109,7 @@ const TeamMembersComponent = ({
                     )}
                   </FormattedMessage>
                 </TableCell>
-                <TableCell className={classes.dateCell}>
+                <TableCell className={settingsStyles['date-cell']}>
                   <FormattedMessage
                     id="teamMembers.tableHeaderLastActive"
                     defaultMessage="Last active"
@@ -169,73 +145,85 @@ const TeamMembersComponent = ({
                     )}
                   </FormattedMessage>
                 </TableCell>
+                <TableCell padding="checkbox" />
               </TableRow>
             </TableHead>
-            <TableBody>
+            <tbody>
               { sortedMembers.filter(tu => !tu.node.user.is_bot).map(tu => (
                 <TableRow key={tu.node.id} className="team-members__user-row">
-                  <TableCell className={classes.mainCell}>
-                    <StyledTwoColumns>
-                      <StyledSmallColumn>
+                  <TableCell className={settingsStyles['main-cell']}>
+                    <div className={settingsStyles['teammembers-table-identity']}>
+                      { tu.node.status === 'invited' ? (
+                        <div className={settingsStyles['teammembers-table-identity-pending']}>
+                          <ScheduleSendIcon />
+                        </div>
+                      ) : (
                         <Avatar alt={tu.node.user.name} src={tu.node.user.profile_image} />
-                      </StyledSmallColumn>
-                      <StyledBigColumn>
+                      )}
+                      <div
+                        className={cx(
+                          settingsStyles['teammembers-table-identity-status'],
+                          {
+                            [settingsStyles['teammembers-table-identity-invited']]: tu.node.status === 'invited',
+                          })
+                        }
+                      >
                         { tu.node.status === 'invited' ? (
                           <React.Fragment>
-                            <div
+                            <FormattedMessage
+                              id="teamMembers.pending"
+                              defaultMessage="Invitation Sent - pending"
+                              description="Label for invite pending acceptance"
+                            />
+                            <small
                               title={tu.node.user.email}
-                              className={classes.textEllipsis}
+                              className={settingsStyles['text-truncate']}
                             >
                               {tu.node.user.email}
-                            </div>
-                            <Box mt={0.5}>
-                              <span className={classes.pending}>
-                                <FormattedMessage
-                                  id="teamMembers.pending"
-                                  defaultMessage="Pending"
-                                  description="Label for invite pending acceptance"
-                                />
-                              </span>
-                            </Box>
+                            </small>
                           </React.Fragment>
                         ) : (
                           <React.Fragment>
-                            <div className={classes.textEllipsis}>{tu.node.user.name}</div>
-                            <div
-                              title={tu.node.user.email}
-                              className={classes.textEllipsis}
-                            >
-                              {tu.node.user.email}
+                            <div className={settingsStyles['text-truncate']}>
+                              {tu.node.user.name}
                             </div>
+                            { tu.node.user.email &&
+                              <div
+                                title={tu.node.user.email}
+                                className={settingsStyles['text-truncate']}
+                              >
+                                {tu.node.user.email}
+                              </div>
+                            }
                           </React.Fragment>
                         )}
-                      </StyledBigColumn>
-                    </StyledTwoColumns>
+                      </div>
+                    </div>
                   </TableCell>
-                  <TableCell className={classes.dateCell}>
+                  <TableCell className={settingsStyles['date-cell']}>
                     { tu.node.user.last_active_at ?
                       <TimeBefore date={new Date(tu.node.user.last_active_at * 1000)} />
                       : '-'
                     }
                   </TableCell>
                   <TableCell>
-                    <Box display="flex" className={classes.actionsCell} alignItems="center">
-                      <ChangeUserRole teamUser={tu.node} />
-                      <TeamMemberActions team={team} teamUser={tu.node} />
-                    </Box>
+                    <ChangeUserRole teamUser={tu.node} />
+                  </TableCell>
+                  <TableCell>
+                    <TeamMemberActions team={team} teamUser={tu.node} />
                   </TableCell>
                 </TableRow>
               ))}
-            </TableBody>
+            </tbody>
           </Table>
-        </TableContainer>
-        <InviteDialog
-          team={team}
-          open={inviteDialogOpen}
-          onClose={() => setInviteDialogOpen(false)}
-        />
-      </Card>
-    </ContentColumn>
+          <InviteDialog
+            team={team}
+            open={inviteDialogOpen}
+            onClose={() => setInviteDialogOpen(false)}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 

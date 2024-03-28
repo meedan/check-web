@@ -1,30 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
 import Media from './Media';
 import MediaActionsBar from './MediaActionsBar';
 import NextPreviousLinks from './NextPreviousLinks';
-
-const StyledTopBar = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 60%;
-  position: absolute;
-  height: 64px;
-  right: 0;
-  top: 0;
-  display: flex;
-  align-items: center;
-  z-index: 2;
-  padding: 0 16px;
-  justify-content: space-between;
-`;
+import styles from './media.module.css';
 
 export default function MediaPageLayout({
-  listUrl, buildSiblingUrl, listQuery, listIndex, projectId, projectMediaId, view, mediaNavList, count,
+  listUrl, buildSiblingUrl, listQuery, listIndex, projectMediaId, view, mediaNavList, count,
 }) {
   return (
-    <div>
+    <div className={styles['media-item-wrapper']}>
       {buildSiblingUrl ? (
         <NextPreviousLinks
           buildSiblingUrl={buildSiblingUrl}
@@ -35,17 +21,18 @@ export default function MediaPageLayout({
           count={count}
         />
       ) : null}
-      <StyledTopBar className="media-search__actions-bar">
+      <div className={styles['media-actions-bar']}>
         <MediaActionsBar
           key={`${listUrl}-${projectMediaId}` /* TODO test MediaActionsBar is sane, then nix key */}
           listUrl={listUrl}
           listQuery={listQuery}
           listIndex={listIndex}
-          projectId={projectId}
           projectMediaId={projectMediaId}
         />
-      </StyledTopBar>
-      <Media projectId={projectId} projectMediaId={projectMediaId} view={view} />
+      </div>
+      <div className={cx('test__media', styles['media-item'])}>
+        <Media projectMediaId={projectMediaId} view={view} />
+      </div>
     </div>
   );
 }
@@ -54,7 +41,6 @@ MediaPageLayout.defaultProps = {
   listQuery: null,
   buildSiblingUrl: null,
   listIndex: null,
-  projectId: null,
   view: 'default',
 };
 
@@ -63,7 +49,6 @@ MediaPageLayout.propTypes = {
   buildSiblingUrl: PropTypes.func, // null or func(projectMediaId, listIndex) => String|null
   listQuery: PropTypes.object, // or null
   listIndex: PropTypes.number, // or null
-  projectId: PropTypes.number, // or null
   projectMediaId: PropTypes.number.isRequired,
   view: PropTypes.string, // or null
 };

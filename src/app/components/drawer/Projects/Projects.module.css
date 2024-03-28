@@ -1,9 +1,21 @@
-/* stylelint-disable scale-unlimited/declaration-strict-value */
 .listTitle {
   @mixin typography-subtitle2;
   color: var(--textPrimary);
-  padding: 16px 20px 0 18px;
+  padding: 16px 20px 16px 18px;
   text-transform: uppercase;
+
+  sup {
+    background-color: var(--validationMain);
+    border-radius: 16px;
+    color: var(--otherWhite);
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    font-size: 50%;
+    line-height: 0;
+    padding: 4px 6px;
+    position: relative;
+    top: -1em;
+    vertical-align: baseline;
+  }
 }
 
 .listWrapper {
@@ -13,7 +25,10 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  overflow: auto;
+  list-style: none;
+  margin: 0;
+  padding: 16px 6px;
+  position: relative;
 
   &:global(.MuiList-root) {
     padding: 16px 6px;
@@ -21,24 +36,23 @@
 
   &.listFooter {
     flex: 0 0 auto;
-    justify-content: end;
-    padding: 20px 6px;
+    justify-content: flex-end;
+    padding: 16px 6px;
+    position: relative;
   }
 
   .listCollapseWrapper {
     min-height: auto !important;
   }
 
-  .listMask {
-    @mixin position absolute, 0, 0, 0, 0;
-    background-color: var(--otherWhite);
-    opacity: .7;
-    z-index: 1;
-  }
-
   .listChevron {
     font-size: var(--drawerexpandIconSize);
     margin: 0 4px 0 1px;
+  }
+
+  .linkList {
+    color: inherit;
+    text-decoration: none;
   }
 
   .listHeader {
@@ -48,7 +62,7 @@
     cursor: pointer;
     font-weight: 500;
     height: 30px;
-    margin: 0;
+    margin: 0 0 2px;
     padding: 0 0 0 7px;
     text-transform: uppercase;
     width: auto;
@@ -67,9 +81,9 @@
         background-color: var(--grayBackground);
         border-radius: 8px;
         color: var(--textSecondary);
-        flex: 0 0 26px;
-        font-size: 20px;
-        height: 26px;
+        flex: 0 0 30px;
+        font-size: var(--iconSizeSmall);
+        height: 30px;
         padding: 0;
         transition: color 300ms cubic-bezier(.19, 1, .22, 1) 0s, background-color 300ms cubic-bezier(.19, 1, .22, 1) 0s;
         width: 26px;
@@ -83,14 +97,20 @@
   }
 
   .listItem {
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    background-color: unset;
     border: solid 1px var(--otherWhite);
     border-radius: 5px;
+    display: flex;
     height: 42px;
     margin: 0;
     padding: 10px 5px;
     position: relative;
+    text-align: left;
+    width: 100%;
 
     .listIcon {
+      color: var(--textSecondary);
       display: flex;
       font-size: var(--drawerListIconSize);
       margin: 0 10px 0 0;
@@ -101,7 +121,9 @@
     }
 
     .listLabel {
+      flex: 1 1 auto;
       margin: 0;
+      min-width: 0;
 
       span {
         @mixin text-truncate block;
@@ -122,31 +144,18 @@
       padding: 10px 48px 10px 6px;
     }
 
-    &.listItem_group {
-      margin: 0 1px;
-
-      &.listItem_group_expanded {
-        border-color: var(--brandLight);
-        border-radius: 5px 5px 0 0;
-      }
-
-      &.listItem_group_expanded_slim {
-        border: solid 1px var(--brandLight);
-        border-radius: 5px 5px 0 0;
-        border-width: 1px 1px 0;
-      }
-
-      .listLabel {
-        span {
-          margin: 0;
-        }
-      }
-    }
-
     &.listItem_active,
     &.listItem_active:hover {
       background-color: var(--brandLight);
       color: var(--brandSecondary);
+
+      .listIcon {
+        color: var(--brandSecondary);
+
+        &.listIconInvitedFeed {
+          color: var(--alertMain);
+        }
+      }
     }
 
     &.listItem_empty {
@@ -169,6 +178,10 @@
         background-color: var(--otherWhite);
       }
     }
+
+    &.listItemInvited {
+      font-style: italic;
+    }
   }
 
   .listItemCount {
@@ -187,4 +200,59 @@
   }
 }
 
-/* stylelint-enable */
+.listWrapperScrollWrapper {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+
+  &::before {
+    background-color: var(--grayBorderMain);
+    content: '';
+    display: block;
+    height: 2px;
+    left: 6px;
+    position: absolute;
+    right: 20px;
+    z-index: 1;
+  }
+
+  &::after {
+    background-color: var(--grayBorderMain);
+    bottom: 0;
+    content: '';
+    height: 2px;
+    left: 6px;
+    position: absolute;
+    right: 20px;
+  }
+
+  .listWrapper {
+    overflow: auto;
+    padding: 6px 6px 0;
+
+    &::before {
+      background-color: var(--otherWhite);
+      content: '';
+      display: block;
+      height: 2px;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 2;
+    }
+
+    &::after {
+      background-color: var(--otherWhite);
+      content: '';
+      display: block;
+      flex-shrink: 0;
+      height: 2px;
+      margin-top: auto;
+      position: relative;
+      z-index: 2;
+    }
+  }
+}

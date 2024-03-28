@@ -69,7 +69,7 @@ const MediaCardLargeFooter = ({
         <Box mb={2}>
           <MediaSlug
             mediaType={mediaType}
-            slug={projectMedia.title}
+            slug={projectMedia.media_slug || projectMedia.title}
             details={[(
               <FormattedMessage
                 id="mediaCardLarge.lastSeen"
@@ -153,6 +153,7 @@ MediaCardLargeFooter.defaultProps = {
 
 export default createFragmentContainer(MediaCardLargeFooter, graphql`
   fragment MediaCardLargeFooter_projectMedia on ProjectMedia {
+    media_slug
     title
     last_seen
     requests_count

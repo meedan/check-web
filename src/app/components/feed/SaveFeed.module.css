@@ -3,6 +3,15 @@
   text-transform: uppercase;
 }
 
+.saveFeedContent {
+  --iconSize: 36px;
+  display: flex;
+  flex: .2 0 650px;
+  flex-direction: column;
+  gap: 16px;
+  height: fit-content;
+}
+
 .saveFeedContainer {
   background: var(--grayBackground);
   display: flex;
@@ -10,19 +19,33 @@
   height: 100%;
   overflow: auto;
   padding: 16px 32px 32px;
-}
 
-.saveFeedContent {
-  --iconSize: 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  height: fit-content;
-  max-width: 650px;
+  &.saveFeedInvitationRespondContainer {
+    .saveFeedContent {
+      margin: 32px 0 0;
+    }
+  }
 }
 
 .saveFeedContentNarrow {
+  display: flex;
+  flex: 0 0 350px;
+  flex-direction: column;
+  gap: 16px;
   padding-top: 16px;
+
+  .saveFeedContentNarrowAction {
+    align-self: flex-start;
+  }
+}
+
+.saveFeedButtonContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.saveFeedButtonMoreActions {
+  color: var(--brandMain);
 }
 
 .saveFeedCard {
@@ -60,12 +83,22 @@
 }
 
 .saveFeedMetadata {
-  margin-top: 8px;
+  background-color: var(--otherWhite);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding: 16px;
 
   span {
     color: var(--textSecondary);
     font-size: var(--fontSizeSmall);
   }
+}
+
+.bulleted-list {
+  list-style: disc;
 }
 
 .saveFeedLastUpdated {
@@ -76,4 +109,51 @@
     color: var(--brandMain);
     font-size: var(--iconSizeSmall);
   }
+}
+
+.invitedEmail {
+  line-height: 20px;
+}
+
+.dataPointsTitle {
+  margin-bottom: 16px;
+}
+
+.dataPointsSection {
+  border: 1px solid var(--grayBorderMain);
+  border-radius: 5px;
+  margin-top: 8px;
+  padding: 8px 8px 0;
+
+  ul {
+    padding: 8px 16px;
+  }
+
+  li {
+    list-style-type: disc;
+  }
+}
+
+.dataPointsSectionHeader {
+  display: flex;
+  gap: 16px;
+}
+
+.dataPointsSectionBody {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s;
+}
+
+.dataPointsSectionBodyContent {
+  padding: 8px 0;
+}
+
+.dataPointsSectionExpanded {
+  max-height: 800px; /* Just for the animation */
+  overflow: visible;
+}
+
+.feedContentCard {
+  background: var(--brandBackground);
 }

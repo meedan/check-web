@@ -1,12 +1,11 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '../../cds/inputs/TextField';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
 
@@ -70,20 +69,22 @@ const RuleBody = (props) => {
           key={rule.name}
           name="rule-name"
           defaultValue={rule.name}
-          helperText={
+          helpContent={
             <FormattedMessage
               id="ruleBody.ruleNameValidation"
               defaultMessage="Rule name is required"
+              description="Help content for the text field"
             />
           }
           label={
             <FormattedMessage
               id="ruleBody.ruleName"
               defaultMessage="Name"
+              description="Text field label for the rule name"
             />
           }
           onBlur={handleUpdateRuleName}
-          fullWidth
+          required
         /> : null }
       <RuleOperatorWrapper
         allowRemove={Boolean(props.onResetRule)}
@@ -117,6 +118,7 @@ const RuleBody = (props) => {
                 <FormattedMessage
                   id="ruleBody.if"
                   defaultMessage="If"
+                  description="Logical operator IF statement label"
                 />
               </Typography>
               <RuleOperatorWrapper
@@ -175,6 +177,7 @@ const RuleBody = (props) => {
             <FormattedMessage
               id="ruleBody.then"
               defaultMessage="Then"
+              description="Logical operator THEN statement"
             />
           </Typography>
           <RuleOperatorWrapper
@@ -195,7 +198,7 @@ const RuleBody = (props) => {
             {rule.actions.map((action, i) => {
               const actions = props.schema.properties.rules.items.properties.actions.items;
               const actionsDefinition = actions.properties.action_definition;
-              actionsDefinition.enum = actionsDefinition.enum.filter(a => a.key !== 'add_tag');
+              actionsDefinition.enum = actionsDefinition.enum.filter(a => a.key !== 'add_tag' && a.key !== 'move_to_project');
               const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
               return (
                 <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>

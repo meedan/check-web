@@ -10,9 +10,19 @@
     "defaultMessage": "Choose a new language"
   },
   {
+    "id": "addLanguageAction.selectLanguagePlaceholder",
+    "description": "Placeholder to language selection dropdown",
+    "defaultMessage": "Select a language"
+  },
+  {
     "id": "addLanguageAction.selectLanguage",
     "description": "Label to language selection dropdown",
-    "defaultMessage": "Select a language"
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "addLanguageAction.selectLanguageHelp",
+    "description": "Help text for next steps after selecting a language",
+    "defaultMessage": "After adding this language, be sure to customize the chatbot’s responses in the tipline settings."
   },
   {
     "id": "addLanguageAction.addLanguage",

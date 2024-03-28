@@ -17,11 +17,11 @@ const CommonProps = {
 describe('<Rule />', () => {
   it('should render fields for one rule', () => {
     const wrapper = mountWithIntlProvider(<Rule {...CommonProps} rule={rules[0]} />);
-    expect(wrapper.find('input').hostNodes()).toHaveLength(9);
+    expect(wrapper.find('input').hostNodes()).toHaveLength(8);
   });
 
   it('should render fields for another rule', () => {
     const wrapper = mountWithIntlProvider(<Rule {...CommonProps} rule={rules[1]} />);
-    expect(wrapper.find('input').hostNodes()).toHaveLength(8);
+    expect(wrapper.find('input').hostNodes()).toHaveLength(7);
   });
 });

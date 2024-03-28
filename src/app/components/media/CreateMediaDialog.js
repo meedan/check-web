@@ -1,44 +1,60 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import CreateMediaInput from './CreateMediaInput';
-import globalStrings from '../../globalStrings';
-
-const useStyles = makeStyles({
-  title: {
-    '& h2': {
-      fontSize: '20px',
-    },
-  },
-});
+import IconClose from '../../icons/clear.svg';
+import styles from '../../styles/css/dialog.module.css';
 
 export default function CreateMediaDialog({
   open, title, onSubmit, onDismiss, team,
 }) {
-  const classes = useStyles();
   const formId = 'create-media-dialog-form';
 
   return (
-    <Dialog open={open} fullWidth>
-      <DialogTitle className={classes.title}>{title}</DialogTitle>
-      <DialogContent>
+    <Dialog className={styles['dialog-window']} open={open} fullWidth>
+      <div className={styles['dialog-title']}>
+        {title}
+        <ButtonMain
+          className={styles['dialog-close-button']}
+          variant="text"
+          size="small"
+          theme="text"
+          iconCenter={<IconClose />}
+          onClick={onDismiss}
+        />
+      </div>
+      <div className={styles['dialog-content']}>
         <CreateMediaInput formId={formId} onSubmit={onSubmit} team={team} />
-      </DialogContent>
-      <DialogActions>
-        <Button id="create-media-dialog__dismiss-button" onClick={onDismiss}>
-          <FormattedMessage {...globalStrings.cancel} />
-        </Button>
-        <Button type="submit" form={formId} id="create-media-dialog__submit-button" color="primary">
-          <FormattedMessage {...globalStrings.submit} />
-        </Button>
-      </DialogActions>
+      </div>
+      <div className={styles['dialog-actions']}>
+        <ButtonMain
+          buttonProps={{
+            id: 'create-media-dialog__dismiss-button',
+          }}
+          onClick={onDismiss}
+          size="default"
+          variant="text"
+          theme="lightText"
+          label={
+            <FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />
+          }
+        />
+        <ButtonMain
+          buttonProps={{
+            id: 'create-media-dialog__submit-button',
+            form: formId,
+            type: 'submit',
+          }}
+          size="default"
+          variant="contained"
+          theme="brand"
+          label={
+            <FormattedMessage id="global.submit" defaultMessage="Submit" description="Generic label for a button or link for a user to press when they wish to submit and form or action" />
+          }
+        />
+      </div>
     </Dialog>
   );
 }

@@ -1,23 +1,20 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import IconButton from '@material-ui/core/IconButton';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import IconMoreVert from '@material-ui/icons/MoreVert';
+import cx from 'classnames/bind';
+import IconMoreVert from '../../../icons/more_vert.svg';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
 import { languageLabelFull } from '../../../LanguageRegistry';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import settingsStyles from '../Settings.module.css';
 
 const messages = defineMessages({
   deleteConfirmationText: {
@@ -100,7 +97,12 @@ function checkTranslation(code, statuses) {
     !s.locales[code].label.trim());
 }
 
-const LanguageListItem = ({ code, team, intl }) => {
+const LanguageListItem = ({
+  code,
+  team,
+  intl,
+  setLanguages,
+}) => {
   const languages = safelyParseJSON(team.get_languages) || [];
   const defaultLanguage = team.get_language;
   const isDefault = (code === defaultLanguage);
@@ -128,6 +130,7 @@ const LanguageListItem = ({ code, team, intl }) => {
   const submitDelete = () => {
     const onSuccess = () => {
       setIsSaving(false);
+      setLanguages(languages.filter(l => l !== code));
       setDeleteDialogOpen(false);
     };
     const onFailure = (errors) => {
@@ -178,71 +181,74 @@ const LanguageListItem = ({ code, team, intl }) => {
     });
   };
 
-  const listItemText = (
-    <Typography variant="h6" component="span">
-      { languageLabelFull(code) }
-    </Typography>
-  );
-
   return (
     <React.Fragment>
-      <ListItem>
-        <ListItemText
-          className={isDefault ? `language-list-item__${code}-default` : `language-list-item__${code}`}
-        >
+      <li
+        className={cx(
+          settingsStyles['setting-content-list-language'],
+          {
+            [`language-list-item__${code}-default`]: isDefault,
+            [`language-list-item__${code}`]: !isDefault,
+          })
+        }
+      >
+        <div>
           { isDefault ? (
-            <FormattedMessage
+            <FormattedHTMLMessage
               id="languageListItem.default"
-              defaultMessage="{language} (default)"
-              values={{ language: listItemText }}
+              defaultMessage="<strong>{language}</strong> (default)"
+              description="Label to indicate that this language is the default"
+              values={{ language: languageLabelFull(code) }}
             />
-          ) : listItemText }
-        </ListItemText>
-        <ListItemSecondaryAction>
-          <IconButton className="language-actions__menu" onClick={e => setAnchorEl(e.target)}>
-            <IconMoreVert />
-          </IconButton>
+          ) : <strong>{ languageLabelFull(code) }</strong>
+          }
+        </div>
+        <div className={settingsStyles['setting-content-list-actions']}>
+          <ButtonMain iconCenter={<IconMoreVert />} variant="outlined" size="default" theme="text" className="language-actions__menu" onClick={e => setAnchorEl(e.target)} />
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
             <MenuItem className="language-actions__make-default" onClick={handleMenuMakeDefault} disabled={isDefault}>
-              <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" />
+              <FormattedMessage id="statusListItem.makeDefault" defaultMessage="Make default" description="Menu item to make the current language the default" />
             </MenuItem>
             <MenuItem className="language-actions__delete" onClick={isDefault ? handleMenuDeleteDefault : handleMenuDelete}>
               <FormattedGlobalMessage messageKey="delete" />
             </MenuItem>
           </Menu>
-        </ListItemSecondaryAction>
-      </ListItem>
+        </div>
+      </li>
       { isTranslationPending ? (
         <ConfirmProceedDialog
           body={(
             <div>
-              <Typography variant="body1" component="p" paragraph>
+              <p className="typography-body1">
                 <FormattedMessage
                   id="statusListItem.translationNeededBody1"
                   defaultMessage="Not all statuses are currently translated into {language}!"
+                  description="Warning message to tell the user there are missing translations for a status"
                   values={{ language: <strong>{languageLabelFull(code)}</strong> }}
                 />
-              </Typography>
-              <Typography variant="body1" component="p" paragraph>
+              </p>
+              <p className="typography-body1">
                 <FormattedMessage
                   id="statusListItem.translationNeededBody2"
                   defaultMessage="Before you can make {language} the default language you must first translate all existing statuses into {language} in the Statuses settings tab."
+                  description="Warning message that a language cannot be default until all statuses are translated into that language"
                   values={{ language: <strong>{languageLabelFull(code)}</strong> }}
                 />
-              </Typography>
+              </p>
             </div>
           )}
           onProceed={() => setDefaultDialogOpen(false)}
           open={defaultDialogOpen}
-          proceedLabel={<FormattedMessage id="statusListItem.translationNeededLabel" defaultMessage="Go back and translate statuses" />}
+          proceedLabel={<FormattedMessage id="statusListItem.translationNeededLabel" defaultMessage="Go back and translate statuses" description="Button label to return to the status translations area" />}
           title={
             <FormattedMessage
               id="statusListItem.translationNeededTitle"
               defaultMessage="You need to translate all statuses into {language}"
+              description="Dialog title warning message that a language cannot be default until all statuses are translated into that language"
               values={{ language: languageLabelFull(code) }}
             />
           }
@@ -251,23 +257,25 @@ const LanguageListItem = ({ code, team, intl }) => {
         <ConfirmProceedDialog
           body={
             <div>
-              <Typography variant="body1" component="p" paragraph>
+              <p className="typography-body1">
                 <FormattedMessage
                   id="statusListItem.confirmDefaultBody1"
                   defaultMessage="This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
+                  description="Confirmation message of the change in default language"
                   values={{
                     currentDefaultLanguage: <strong>{languageLabelFull(defaultLanguage)}</strong>,
                     newDefaultLanguage: <strong>{languageLabelFull(code)}</strong>,
                   }}
                 />
-              </Typography>
-              <Typography variant="body1" component="p" paragraph>
+              </p>
+              <p className="typography-body1">
                 <FormattedMessage
                   id="statusListItem.confirmDefaultBody2"
                   defaultMessage="{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
+                  description="Description of what will happen when a new language becomes the default"
                   values={{ language: <strong>{languageLabelFull(code)}</strong> }}
                 />
-              </Typography>
+              </p>
             </div>
           }
           isSaving={isSaving}
@@ -278,6 +286,7 @@ const LanguageListItem = ({ code, team, intl }) => {
             <FormattedMessage
               id="statusListItem.confirmDefaultButton"
               defaultMessage="Set {language} as default"
+              description="Button label to continue to set a language as default"
               values={{ language: languageLabelFull(code) }}
             />
           }
@@ -285,6 +294,7 @@ const LanguageListItem = ({ code, team, intl }) => {
             <FormattedMessage
               id="statusListItem.confirmDefaultTitle"
               defaultMessage="Do you want to set the default language to {language}?"
+              description="Dialog title to confirm the user wants to set a new default language"
               values={{ language: languageLabelFull(code) }}
             />
           }
@@ -294,21 +304,22 @@ const LanguageListItem = ({ code, team, intl }) => {
       <ConfirmProceedDialog
         body={(
           <div>
-            <Typography variant="body1" component="p" paragraph>
+            <p className="typography-body1">
               <FormattedMessage
                 id="statusListItem.confirmDeleteBody1"
                 defaultMessage="All content in {language} for the 'Tipline', 'Statuses' and 'Report' tabs will be deleted permanently."
                 description="Warning about content being lost after deleting a language"
                 values={{ language: languageLabelFull(code) }}
               />
-            </Typography>
-            <Typography variant="body1" component="p" paragraph>
+            </p>
+            <p className="typography-body1">
               <FormattedMessage
                 id="statusListItem.confirmDeleteBody2"
                 defaultMessage="Users will receive this content in the default language {language} instead."
+                description="Description of which language a user will see by default"
                 values={{ language: <strong>{languageLabelFull(defaultLanguage)}</strong> }}
               />
-            </Typography>
+            </p>
           </div>
         )}
         typeTextToConfirm={intl.formatMessage(messages.deleteConfirmationText, { language: languageLabelFull(code) })}
@@ -316,26 +327,26 @@ const LanguageListItem = ({ code, team, intl }) => {
         onCancel={() => setDeleteDialogOpen(false)}
         onProceed={submitDelete}
         open={deleteDialogOpen}
-        proceedLabel={<FormattedMessage id="statusListItem.confirmDeleteLabel" defaultMessage="Delete language and all content" />}
-        title={<FormattedMessage id="statusListItem.confirmDeleteTitle" defaultMessage="Do you want to delete this content language?" />}
+        proceedLabel={<FormattedMessage id="statusListItem.confirmDeleteLabel" defaultMessage="Delete language and all content" description="Button label for continuing to delete language content" />}
+        title={<FormattedMessage id="statusListItem.confirmDeleteTitle" defaultMessage="Do you want to delete this content language?" description="Title for the dialog of deleting language content" />}
       />
       <ConfirmProceedDialog
         body={(
           <div>
-            <Typography variant="body1" component="p" paragraph>
+            <p className="typography-body1">
               <FormattedMessage
                 id="statusListItem.confirmDeleteDefaultBody"
                 defaultMessage="You cannot delete the default language. You must set a different default language before you can delete {language}."
                 description="Message warning user to set a new default language before deleting the current one"
                 values={{ language: <strong>{languageLabelFull(defaultLanguage)}</strong> }}
               />
-            </Typography>
+            </p>
           </div>
         )}
         onProceed={() => setDeleteDefaultDialogOpen(false)}
         open={deleteDefaultDialogOpen}
-        proceedLabel={<FormattedMessage id="statusListItem.confirmDeleteDefaultLabel" defaultMessage="Go back and change" />}
-        title={<FormattedMessage id="statusListItem.confirmDeleteDefaultTitle" defaultMessage="You must first change the default language" />}
+        proceedLabel={<FormattedMessage id="statusListItem.confirmDeleteDefaultLabel" defaultMessage="Go back and change" description="Button label to go back a step" />}
+        title={<FormattedMessage id="statusListItem.confirmDeleteDefaultTitle" defaultMessage="You must first change the default language" description="Title for a dialog telling the user they must return to a previous process" />}
       />
     </React.Fragment>
   );
@@ -354,6 +365,8 @@ LanguageListItem.propTypes = {
       )).isRequired,
     }).isRequired,
   }).isRequired,
+  code: PropTypes.string.isRequired,
+  setLanguages: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(injectIntl(LanguageListItem), graphql`

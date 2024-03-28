@@ -36,10 +36,12 @@ window.config = {
   //
   intercomAppId: null, // '<INTERCOM APP ID>',
 
-  // Errbit is used to capture exceptions that happen in the browser
+  // Sentry is used to capture exceptions that happen in the browser
   //
   // OPTIONAL
   //
-  errbitApiKey: null,
-  errbitHost: null,
+  sentryAuthToken: null,
+  sentryOrg: null,
+  sentryProject: null,
+  sentryEnvironment: null,
 }

@@ -11,13 +11,13 @@
   },
   {
     "id": "teamListsComponent.title",
-    "description": "Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists.",
+    "description": "Header for Column settings page, where users can configure the visibility of columns in lists.",
     "defaultMessage": "Column settings"
   },
   {
-    "id": "teamListsComponent.description",
-    "description": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists.",
-    "defaultMessage": "Select all the columns you want to display in all your folders, collections and lists."
+    "id": "teamListsComponent.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage the information displayed about each item. Column settings affect the data displayed for all members of your workspace. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about column settings</a>."
   },
   {
     "id": "settingsHeader.save",
@@ -26,18 +26,18 @@
   },
   {
     "id": "teamListsComponent.displayedColumns",
-    "description": "Columns that are displayed for users in folders, collections and lists.",
-    "defaultMessage": "Displayed columns"
+    "description": "Columns that are displayed for users in lists.",
+    "defaultMessage": "Displayed"
   },
   {
     "id": "teamListsComponent.generalColumns",
-    "description": "Columns not currently displayed for users in folders, collections and lists.",
-    "defaultMessage": "General"
+    "description": "Columns not currently displayed for users in lists.",
+    "defaultMessage": "General (hidden)"
   },
   {
     "id": "teamListsComponent.metadataColumns",
-    "description": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in folders, collections and lists.",
-    "defaultMessage": "Annotation"
+    "description": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists.",
+    "defaultMessage": "Annotations (hidden)"
   },
   {
     "id": "teamListsComponent.createMetadata",
@@ -52,7 +52,7 @@
   {
     "id": "teamListsComponent.confirmSaveText",
     "description": "Content of 'Save changes' confirmation dialog.",
-    "defaultMessage": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
+    "defaultMessage": "Are you sure? Your changes will affect all lists and be visible by all users in your workspace."
   },
   {
     "id": "teamListsComponent.buttonLabel",

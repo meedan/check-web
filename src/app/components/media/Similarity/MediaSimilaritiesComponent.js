@@ -28,16 +28,16 @@ function sort(items) {
   if (!items) {
     return [];
   }
-  return items.slice().sort((a, b) => b.node.target.requests_count - a.node.target.requests_count);
+  return items.slice().sort((a, b) => b.node.target?.requests_count - a.node.target?.requests_count);
 }
 
-const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
+const MediaSimilaritiesComponent = ({ projectMedia, superAdminMask }) => {
   const classes = useStyles();
 
   return (
     <div className="media__more-medias" id="matched-media">
       <div className={classes.container}>
-        <span className={`${classes.overlay} ${isHighlighting ? classes.animation : ''}`} id="matched-overlay" />
+        <span id="matched-overlay" />
         { sort(projectMedia.confirmed_similar_relationships?.edges).map(relationship => (
           <MediaRelationship
             key={relationship.node.id}
@@ -49,6 +49,7 @@ const MediaSimilaritiesComponent = ({ projectMedia, isHighlighting }) => {
             mainProjectMediaConfirmedSimilarCount={projectMedia.confirmedSimilarCount}
             relationshipSourceId={relationship.node.source_id}
             relationshipTargetId={relationship.node.target_id}
+            superAdminMask={superAdminMask}
           />
         ))}
       </div>
@@ -74,7 +75,15 @@ MediaSimilaritiesComponent.propTypes = {
       })).isRequired,
     }).isRequired,
   }).isRequired,
+  superAdminMask: PropTypes.bool,
 };
+
+MediaSimilaritiesComponent.defaultProps = {
+  superAdminMask: false,
+};
+
+// eslint-disable-next-line import/no-unused-modules
+export { MediaSimilaritiesComponent };
 
 export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
   fragment MediaSimilaritiesComponent_projectMedia on ProjectMedia {
@@ -100,6 +109,7 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
             linked_items_count
             report_status
             added_as_similar_by_name
+            show_warning_cover
             confirmed_as_similar_by_name
             is_confirmed_similar_to_another_item
             url

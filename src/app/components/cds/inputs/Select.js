@@ -1,8 +1,9 @@
+// DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=34-5720&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import IconButton from '@material-ui/core/IconButton';
+import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import ClearIcon from '../../../icons/clear.svg';
 import ErrorIcon from '../../../icons/error.svg';
 import ChevronDownIcon from '../../../icons/chevron_down.svg';
@@ -26,15 +27,33 @@ const Select = ({
 }) => {
   const inputRef = React.useRef(null);
   return (
-    <div className={className}>
+    <div
+      className={cx(
+        inputStyles['input-wrapper'],
+        {
+          [className]: true,
+          [inputStyles.disabled]: disabled,
+        })
+      }
+    >
       { (label || required) && (
-        <div className={`${inputStyles['label-container']} ${error && inputStyles['error-label']}`}>
+        <div
+          className={cx(
+            inputStyles['label-container'],
+            {
+              [inputStyles['error-label']]: error,
+              [styles['select-removeable']]: onRemove,
+              [inputStyles['label-container-label']]: label,
+              [inputStyles['label-container-required']]: required,
+            })
+          }
+        >
           { label && <label htmlFor="name">{label}</label> }
           { required && <span className={inputStyles.required}>*<FormattedMessage id="textfield.required" defaultMessage="Required" description="A label to indicate that a form field must be filled out" /></span>}
         </div>
       )}
-      <div className={styles['input-wrapper']}>
-        <div className={`${inputStyles['input-container']} ${styles['select-container']}`}>
+      <div className={styles['select-wrapper']}>
+        <div className={cx(inputStyles['input-container'], styles['select-container'])}>
           { iconLeft && (
             <div className={inputStyles['input-icon-left-icon']}>
               {iconLeft}
@@ -42,7 +61,15 @@ const Select = ({
           )}
           <select
             id="check-select__input"
-            className={`typography-body1 ${styles.input} ${variant === 'outlined' && styles.outlined} ${error && styles.error} ${iconLeft && styles['input-icon-left']}`}
+            className={cx(
+              'typography-body1',
+              styles.input,
+              {
+                [styles.outlined]: variant === 'outlined',
+                [styles.error]: error,
+                [styles['input-icon-left']]: iconLeft,
+              })
+            }
             disabled={disabled}
             ref={inputRef}
             {...inputProps}
@@ -54,22 +81,33 @@ const Select = ({
           </div>
         </div>
         { onRemove ?
-          <Tooltip title={<FormattedMessage id="select.removeSelection" defaultMessage="Undo selection" description="Tooltip for button on Select component to remove current selection" />}>
-            <IconButton
-              className={cx('select__clear-button', styles['select-clear-button'])}
-              onClick={() => {
-                inputRef.current.value = null;
-                inputRef.current.selectedIndex = 0;
-                onRemove();
-              }}
-            >
-              <ClearIcon />
-            </IconButton>
+          <Tooltip arrow title={<FormattedMessage id="select.removeSelection" defaultMessage="Undo selection" description="Tooltip for button on Select component to remove current selection" />}>
+            <span>
+              <ButtonMain
+                iconCenter={<ClearIcon />}
+                variant="contained"
+                size="default"
+                theme="lightText"
+                className="select__clear-button"
+                onClick={() => {
+                  inputRef.current.value = null;
+                  inputRef.current.selectedIndex = 0;
+                  onRemove();
+                }}
+              />
+            </span>
           </Tooltip>
           : null }
       </div>
       { helpContent && (
-        <div className={`${inputStyles['help-container']} ${error && inputStyles['error-label']}`}>
+        <div
+          className={cx(
+            inputStyles['help-container'],
+            {
+              [inputStyles['error-label']]: error,
+            })
+          }
+        >
           { error && <ErrorIcon className={inputStyles['error-icon']} />}
           {helpContent}
         </div>

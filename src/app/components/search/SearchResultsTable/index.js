@@ -1,11 +1,7 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableContainer from '@material-ui/core/TableContainer';
-import { withStyles } from '@material-ui/core/styles';
 import SearchResultsTableHead from './SearchResultsTableHead';
 import SearchResultsTableRow from './SearchResultsTableRow';
 import TitleCell from './TitleCell';
@@ -26,7 +22,6 @@ import ReportPublishedByCell from './ReportPublishedByCell';
 import ReactionCountCell from './ReactionCountCell';
 import CommentCountCell from './CommentCountCell';
 import SuggestionsCountCell from './SuggestionsCountCell';
-import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
 import ClusterSizeCell from './ClusterSizeCell';
 import ClusterRequestsCell from './ClusterRequestsCell';
@@ -36,6 +31,7 @@ import ClusterFactCheckedByTeamsCell from './ClusterFactCheckedByTeamsCell';
 import SourcesCell from './SourcesCell';
 import TeamNameCell from './TeamNameCell';
 import { truncateLength } from '../../../helpers';
+import styles from '../SearchResults.module.css';
 
 const AllPossibleColumns = [
   {
@@ -123,6 +119,7 @@ const AllPossibleColumns = [
   {
     field: 'fact_check_published_on',
     headerText: <FormattedMessage id="list.factCheckPublishedAt" defaultMessage="Fact check published at" description="Table header for fact-check publication date column" />,
+    sortKey: 'fact_check_published_on',
     cellComponent: FactCheckPublishedAtCell,
   },
   {
@@ -142,11 +139,6 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.suggestionsCount" defaultMessage="Suggestions" description="Table header suggested matches count column" />,
     cellComponent: SuggestionsCountCell,
     sortKey: 'suggestions_count',
-  },
-  {
-    field: 'folder',
-    headerText: <FormattedMessage id="list.folder" defaultMessage="Folder" description="Table header for column that shows the folder title an item is in" />,
-    cellComponent: FolderCell,
   },
   {
     field: 'creator_name',
@@ -247,15 +239,6 @@ function buildColumnDefs(team, resultType) {
   return columns;
 }
 
-const TableContainerWithScrollbars = withStyles({
-  root: {
-    overflow: 'auto',
-    display: 'block',
-    height: '100%',
-    width: '100%',
-  },
-})(TableContainer);
-
 export default function SearchResultsTable({
   team,
   selectedIds,
@@ -293,7 +276,7 @@ export default function SearchResultsTable({
   }, [selectedIds, onChangeSelectedIds]);
 
   return (
-    <TableContainerWithScrollbars>
+    <div className={styles['search-results-table-wrapper']}>
       <Table stickyHeader size="small">
         <SearchResultsTableHead
           columnDefs={columnDefs}
@@ -305,7 +288,7 @@ export default function SearchResultsTable({
           onChangeSortParams={onChangeSortParams}
           resultType={resultType}
         />
-        <TableBody>
+        <tbody>
           {projectMedias.map(projectMedia => (
             <SearchResultsTableRow
               key={projectMedia.id}
@@ -319,9 +302,9 @@ export default function SearchResultsTable({
               count={count}
             />
           ))}
-        </TableBody>
+        </tbody>
       </Table>
-    </TableContainerWithScrollbars>
+    </div>
   );
 }
 SearchResultsTable.defaultProps = {

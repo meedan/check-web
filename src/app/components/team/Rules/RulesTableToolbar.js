@@ -1,40 +1,14 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import clsx from 'clsx';
-import { lighten, makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
-import SettingsHeader from '../SettingsHeader';
+import cx from 'classnames/bind';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import DeleteIcon from '../../../icons/delete.svg';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-
-const useToolbarStyles = makeStyles(theme => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  highlight: {
-    color: theme.palette.secondary.main,
-    backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-  },
-  title: {
-    flex: '1 1 100%',
-    alignSelf: 'center',
-  },
-  button: {
-    whiteSpace: 'nowrap',
-  },
-}));
+import styles from '../Settings.module.css';
 
 const RulesTableToolbar = (props) => {
-  const classes = useToolbarStyles();
   const { numSelected } = props;
   const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = React.useState(false);
 
@@ -53,66 +27,54 @@ const RulesTableToolbar = (props) => {
 
   return (
     <React.Fragment>
-      <SettingsHeader
-        title={
-          <FormattedMessage
-            id="rulesTableToolbar.title"
-            defaultMessage="Rules"
-          />
-        }
-        subtitle={
-          <FormattedMessage
-            id="rulesTableToolbar.subtitle"
-            defaultMessage="Create automations to organize folders and customize your workflow."
-          />
-        }
-        helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"
-        actionButton={
-          <Button color="primary" variant="contained" className={[classes.button, 'rules__new-rule'].join(' ')} onClick={props.onAddNewRule}>
-            <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" />
-          </Button>
-        }
-      />
       { numSelected > 0 ?
-        <Toolbar
-          className={clsx(classes.root, {
-            [classes.highlight]: numSelected > 0,
-          })}
-        >
-          <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+        <div className={cx(styles['table-toolbar'])}>
+          <div className={cx(styles['table-toolbar-summary'])}>
             <FormattedMessage
               id="rulesTableToolbar.selected"
               defaultMessage="{numSelected, plural, one {# selected} other {# selected}}"
+              description="When rules are selected to perform bulk actions on, this text tells the user how many have been selected"
               values={{ numSelected }}
             />
-          </Typography>
-          <Tooltip
-            title={
-              <FormattedMessage id="rulesTableToolbar.delete" defaultMessage="Delete" />
-            }
-          >
-            <IconButton onClick={handleConfirmDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-        </Toolbar> : null }
+          </div>
+          <div className={cx(styles['table-toolbar-actions'])}>
+            <Tooltip
+              arrow
+              title={
+                <FormattedMessage id="rulesTableToolbar.delete" defaultMessage="Delete" description="Tooltip for deleting rules" />
+              }
+            >
+              <span>
+                <ButtonMain
+                  iconCenter={<DeleteIcon />}
+                  variant="text"
+                  theme="text"
+                  size="default"
+                  onClick={handleConfirmDelete}
+                />
+              </span>
+            </Tooltip>
+          </div>
+        </div> : null }
       <ConfirmProceedDialog
         open={showDeleteConfirmationDialog}
         title={
           <FormattedMessage
             id="rulesTableToolbar.deleteConfirmationTitle"
             defaultMessage="Do you want to delete the selected rules?"
+            description="Title for the confirmation dialog when the user is trying to delete rules"
           />
         }
         body={
           <div>
-            <Typography variant="body1" component="p" paragraph>
+            <p className="typography-body1">
               <FormattedMessage
                 id="rulesTableToolbar.deleteConfirmationText"
                 defaultMessage="{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
                 values={{ numSelected }}
+                description="Details of what will happen when one or more rules are deleted show in a modal confirmation"
               />
-            </Typography>
+            </p>
           </div>
         }
         proceedLabel={
@@ -120,6 +82,7 @@ const RulesTableToolbar = (props) => {
             id="rulesTableToolbar.deleteConfirmationLabel"
             defaultMessage="{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
             values={{ numSelected }}
+            description="Label for proceeding to delete the selected rules"
           />
         }
         onProceed={handleDeleteConfirmed}
@@ -131,7 +94,6 @@ const RulesTableToolbar = (props) => {
 
 RulesTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
-  onAddNewRule: PropTypes.func.isRequired,
   onDeleteRules: PropTypes.func.isRequired,
 };
 

@@ -5,20 +5,18 @@ import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import IconMoreVert from '@material-ui/icons/MoreVert';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
+import ClearIcon from '../../../icons/clear.svg';
+import IconMoreVert from '../../../icons/more_vert.svg';
 import MediaSlug from '../MediaSlug';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
-import globalStrings from '../../../globalStrings';
 import { getErrorMessage } from '../../../helpers';
 
 const useStyles = makeStyles(() => ({
@@ -28,11 +26,8 @@ const useStyles = makeStyles(() => ({
   },
   inner: {
     position: 'absolute',
-    top: 0,
-    right: 0,
-  },
-  menuIcon: {
-    padding: '8px 19px',
+    top: '8px',
+    right: '8px',
   },
 }));
 
@@ -65,18 +60,13 @@ const RelationshipMenu = ({
   canDelete,
   canSwitch,
   setFlashMessage,
-  isDialogOpen,
-  setIsDialogOpen,
   id,
   sourceId,
   targetId,
   mainProjectMedia,
 }) => {
-  const classes = useStyles();
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
-  const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
   const swallowClick = (event, callback) => {
     event.stopPropagation();
@@ -122,13 +112,11 @@ const RelationshipMenu = ({
         browserHistory.push(`/${teamSlug}/media/${targetId}`);
       }
     },
-    () => {
-      handleError();
-    });
+    handleError,
+    );
   };
 
-  const handleDelete = (project) => {
-    setIsDialogOpen(false);
+  const handleDelete = () => {
     const mutation = graphql`
       mutation MediaRelationshipDestroyRelationshipMutation($input: DestroyRelationshipInput!) {
         destroyRelationship(input: $input) {
@@ -169,7 +157,6 @@ const RelationshipMenu = ({
       variables: {
         input: {
           id,
-          add_to_project_id: project.dbid,
         },
       },
       configs: [
@@ -200,20 +187,11 @@ const RelationshipMenu = ({
         if (error) {
           handleError(error);
         } else {
-          const { title: projectTitle, dbid: projectId } = project;
           const message = (
             <FormattedMessage
               id="mediaItem.detachedSuccessfully"
-              defaultMessage="Item detached to '{toProject}'"
+              defaultMessage="Item detached"
               description="Banner displayed after items are detached successfully"
-              values={{
-                toProject: (
-                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-                  <a onClick={() => browserHistory.push(`/${teamSlug}/project/${projectId}`)}>
-                    {projectTitle}
-                  </a>
-                ),
-              }}
             />
           );
           setFlashMessage(message, 'success');
@@ -227,13 +205,14 @@ const RelationshipMenu = ({
     <>
       { canDelete && canSwitch ? (
         <Box>
-          <IconButton
+          <ButtonMain
+            iconCenter={<IconMoreVert />}
             onClick={handleOpenMenu}
-            className={`media-similarity__menu-icon ${classes.menuIcon}`}
+            className="media-similarity__menu-icon"
             size="small"
-          >
-            <IconMoreVert fontSize="small" />
-          </IconButton>
+            variant="contained"
+            theme="text"
+          />
           <Menu
             anchorEl={anchorEl}
             keepMounted
@@ -252,7 +231,7 @@ const RelationshipMenu = ({
                 }
               />
             </MenuItem>
-            <MenuItem onClick={event => swallowClick(event, openDialog)}>
+            <MenuItem onClick={event => swallowClick(event, handleDelete)}>
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
@@ -265,33 +244,16 @@ const RelationshipMenu = ({
       }
       { canDelete && !canSwitch ?
         <Box>
-          <IconButton onClick={event => swallowClick(event, openDialog)}>
-            <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
-          </IconButton>
-        </Box> : null }
-      <SelectProjectDialog
-        open={isDialogOpen}
-        excludeProjectDbids={[]}
-        title={
-          <FormattedMessage
-            id="detachDialog.dialogdetachedToListTitle"
-            defaultMessage="Move detached item to…"
-            description="Dialog title prompting user to select a destination folder for the item"
+          <ButtonMain
+            iconCenter={<ClearIcon />}
+            onClick={event => swallowClick(event, handleDelete)}
+            className="related-media-item__delete-relationship"
+            size="small"
+            variant="contained"
+            theme="text"
           />
-        }
-        /* eslint-disable-next-line @calm/react-intl/missing-attribute */
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-        submitLabel={
-          <FormattedMessage
-            id="detachDialog.detached"
-            defaultMessage="Move to folder"
-            description="Button to commit the action of moving item"
-          />
-        }
-        submitButtonClassName="media-item__add-button"
-        onCancel={closeDialog}
-        onSubmit={handleDelete}
-      />
+        </Box> : null
+      }
     </>
   );
 };
@@ -305,12 +267,12 @@ const MediaRelationship = ({
   mainProjectMediaId,
   mainProjectMediaDemand,
   mainProjectMediaConfirmedSimilarCount,
+  superAdminMask,
   setFlashMessage,
   intl,
 }) => {
   const classes = useStyles();
   const [isSelected, setIsSelected] = React.useState(false);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const swallowClick = (ev) => {
     // Don't close Dialog when clicking on it
@@ -334,6 +296,8 @@ const MediaRelationship = ({
     />,
   ];
 
+  const maskContent = relationship?.target?.show_warning_cover;
+
   return (
     <div className={`${classes.outer} media__relationship`} >
       { isSelected ?
@@ -349,14 +313,20 @@ const MediaRelationship = ({
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
         /> : null }
-      <SmallMediaCard
-        key={relationship.id}
-        customTitle={relationship?.target?.title}
-        details={details}
-        media={relationship?.target?.media}
-        description={relationship?.target?.description}
-        onClick={() => setIsSelected(true)}
-      />
+      {
+        relationship?.target && (
+          <SmallMediaCard
+            key={relationship.id}
+            customTitle={relationship?.target?.title}
+            details={details}
+            media={relationship?.target?.media}
+            description={relationship?.target?.description}
+            maskContent={maskContent}
+            superAdminMask={superAdminMask}
+            onClick={() => setIsSelected(true)}
+          />
+        )
+      }
       <div className={`${classes.inner} media__relationship__menu`}>
         <RelationshipMenu
           canDelete={canDelete}
@@ -370,8 +340,6 @@ const MediaRelationship = ({
             confirmedSimilarCount: mainProjectMediaConfirmedSimilarCount,
             demand: mainProjectMediaDemand,
           }}
-          setIsDialogOpen={setIsDialogOpen}
-          isDialogOpen={isDialogOpen}
         />
       </div>
     </div>
@@ -387,6 +355,11 @@ MediaRelationship.propTypes = {
   mainProjectMediaId: PropTypes.string.isRequired,
   mainProjectMediaDemand: PropTypes.number.isRequired,
   mainProjectMediaConfirmedSimilarCount: PropTypes.number.isRequired,
+  superAdminMask: PropTypes.bool,
+};
+
+MediaRelationship.defaultProps = {
+  superAdminMask: false,
 };
 
 export default withSetFlashMessage(injectIntl(MediaRelationship));

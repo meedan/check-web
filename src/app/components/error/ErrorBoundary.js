@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import StackTrace from 'stacktrace-js';
+import * as Sentry from '@sentry/react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ErrorPage from './ErrorPage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -13,73 +13,26 @@ const messages = defineMessages({
   },
 });
 
-const errbitNotifier = ({
+const notifySentry = (
   error,
-  stackFrameArray,
-  session,
   component,
   callIntercom,
-}) => {
-  fetch(`${config.errbitHost}/api/v3/projects/1/notices?key=${config.errbitApiKey}`, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      errors: [{
-        type: error.name,
-        message: error.message,
-        backtrace: stackFrameArray.map(f => ({
-          column: f.columnNumber,
-          file: f.fileName,
-          function: f.functionName,
-          line: f.lineNumber,
-        })),
-      }],
-      environment: {},
-      params: {
-        errorLocation: stackFrameArray[0].toString(),
-      },
-      session,
-      context: {
-        component,
-        severity: 'error',
-        language: 'JavaScript',
-        url: window.location.href,
-        userAgent: window.navigator.userAgent,
-        notifier: {
-          name: 'Check ErrorBoundary',
-          version: '0.150.0',
-          url: 'https://github.com/meedan/check-web',
+) => {
+  let eventId = '';
+  if (config.sentryDsn) {
+    eventId = Sentry.captureException(error, {
+      contexts: {
+        component: {
+          name: component,
         },
       },
-    }),
-  }).then((response) => {
-    if (response.ok && callIntercom) {
-      response.json().then(data => callIntercom(data));
-    }
-  }).catch(err => console.error('Failed to notify Errbit:', err)); // eslint-disable-line no-console
-};
-
-const getStackTraceAndNotifyErrbit = ({
-  error,
-  component,
-  callIntercom,
-}) => {
-  if (config.errbitApiKey && config.errbitHost) {
-    const errBack = err => console.error('stacktrace-js error:', err); // eslint-disable-line no-console
-
-    StackTrace.fromError(error).then((stackFrameArray) => {
-      const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
-
-      errbitNotifier({
-        error,
-        stackFrameArray,
-        session: { name, dbid, email },
-        component,
-        callIntercom,
-      });
-    }, errBack);
+    });
+  }
+  // even if sentry isn't configured we should still call Intercom
+  if (callIntercom) {
+    // this url links directly to the sentry issue page
+    const sentryIssueUrl = `https://sentry.io/${config.sentryOrg}/${config.sentryProject}/?query=${eventId}`;
+    callIntercom({ url: sentryIssueUrl });
   }
 };
 
@@ -89,7 +42,7 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false };
 
     window.onerror = (message, source, lineno, colno, error) => {
-      getStackTraceAndNotifyErrbit({ error, component: 'window' });
+      notifySentry(error, 'window');
     };
   }
 
@@ -109,7 +62,7 @@ class ErrorBoundary extends React.Component {
       }
     };
 
-    getStackTraceAndNotifyErrbit({ error, component, callIntercom });
+    notifySentry(error, component, callIntercom);
   }
 
   render() {

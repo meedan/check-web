@@ -1,124 +1,96 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
-import React, { Component } from 'react';
+import React from 'react';
+import { graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
-import { mapGlobalMessage } from './MappedMessage';
+import Alert from './cds/alerts-and-prompts/Alert';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import UserTosForm from './UserTosForm';
-import Message from './Message';
-import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import AboutRoute from '../relay/AboutRoute';
 import RelayContainer from '../relay/RelayContainer';
-import UpdateUserMutation from '../relay/mutations/UpdateUserMutation';
+import dialogStyles from '../styles/css/dialog.module.css';
 
-class UserTosComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checkedTos: false,
+const UserTosComponent = (props) => {
+  const [checkedTos, setCheckedTos] = React.useState(false);
+  const [message, setMessage] = React.useState('');
+
+  const handleCheckTos = () => {
+    setCheckedTos(!checkedTos);
+  };
+
+  const handleSubmit = () => {
+    const onSuccess = () => {
     };
-  }
-
-  handleCheckTos() {
-    this.setState({ checkedTos: !this.state.checkedTos });
-  }
-
-  handleSubmit() {
     const onFailure = () => {
-      this.setState({
-        message: this.props.intl.formatMessage(
-          globalStrings.unknownError,
-          { supportEmail: stringHelper('SUPPORT_EMAIL') },
-        ),
-      });
+      setMessage(<FormattedMessage id="global.unknownError" defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists." description="Message displayed in error notification when an operation fails unexpectedly" values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />);
     };
-
-    if (this.state.checkedTos) {
-      Relay.Store.commitUpdate(
-        new UpdateUserMutation({
-          current_user_id: this.props.user.id,
-          accept_terms: true,
-        }),
-        { onFailure },
-      );
-    }
-  }
-
-  handleValidate() {
-    if (!this.state.checkedTos) {
-      this.setState({
-        message: <FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" />,
+    if (checkedTos) {
+      commitMutation(Relay.Store, {
+        mutation: graphql`
+          mutation UserTosUpdateUserMutation($input: UpdateUserInput!) {
+            updateUser(input: $input) {
+              me {
+                accepted_terms
+              }
+            }
+          }
+        `,
+        variables: {
+          input: {
+            id: props.user.id,
+            accept_terms: true,
+          },
+        },
+        onCompleted: onSuccess,
+        onError: onFailure,
       });
     }
-  }
+  };
 
-  render() {
-    const { user, about } = this.props;
+  const handleValidate = () => {
+    if (!checkedTos) {
+      setMessage(<FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" description="Message to the user that they must review the application terms of service" />);
+    }
+  };
+  const { user, about } = props;
 
-    const actions = [
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-      <div onClick={this.handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
-        <Button
-          id="tos__save"
-          color="primary"
-          onClick={this.handleSubmit.bind(this)}
-          disabled={!this.state.checkedTos}
-        >
-          <FormattedMessage id="userTos.save" defaultMessage="Save" />
-        </Button>
-      </div>,
-    ];
+  const actions = [
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <div onClick={handleValidate.bind(this)} style={{ cursor: 'pointer' }}>
+      <ButtonMain
+        buttonProps={{
+          id: 'tos__save',
+        }}
+        size="default"
+        variant="contained"
+        theme="brand"
+        onClick={handleSubmit.bind(this)}
+        disabled={!checkedTos}
+        label={
+          <FormattedMessage id="userTos.save" defaultMessage="Save" description="Button label for the user to save their review of the terms of service" />
+        }
+      />
+    </div>,
+  ];
 
-    const linkStyle = {
-      textDecoration: 'underline',
-    };
-
-    const communityGuidelinesLink = (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        style={linkStyle}
-        href="https://meedan.com/en/community_guidelines/"
-      >
-        <FormattedMessage id="userTos.commGuidelinesLink" defaultMessage="Community Guidelines" />
-      </a>
-    );
-
-    return (
-      <React.Fragment>
-        <DialogContent>
-          <Message message={this.state.message} />
-          <UserTosForm
-            user={user}
-            showTitle
-            termsLastUpdatedAt={about.terms_last_updated_at}
-            handleCheckTos={this.handleCheckTos.bind(this)}
-            checkedTos={this.state.checkedTos}
-          />
-          { user && !user.last_accepted_terms_at ?
-            <p>
-              <FormattedMessage
-                id="userTos.commGuidelines"
-                defaultMessage="We ask that you also read our {communityGuidelinesLink} for using {appName}."
-                values={{
-                  communityGuidelinesLink,
-                  appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
-                }}
-              />
-            </p> : null }
-        </DialogContent>
-        <DialogActions>
-          {actions}
-        </DialogActions>
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      { message && <Alert variant="error" className={dialogStyles['dialog-alert']} content={message} /> }
+      <UserTosForm
+        user={user}
+        showTitle
+        termsLastUpdatedAt={about.terms_last_updated_at}
+        handleCheckTos={handleCheckTos.bind(this)}
+        checkedTos={checkedTos}
+      />
+      <div className={dialogStyles['dialog-actions']}>
+        {actions}
+      </div>
+    </React.Fragment>
+  );
+};
 
 UserTosComponent.propTypes = {
   user: PropTypes.object.isRequired,
@@ -141,7 +113,7 @@ const UserTos = (props) => {
   const openDialog = user && user.dbid && !user.accepted_terms;
 
   return (
-    <Dialog open={openDialog}>
+    <Dialog className={dialogStyles['dialog-window']} open={openDialog}>
       <RelayContainer
         Component={UserTosContainer}
         route={route}

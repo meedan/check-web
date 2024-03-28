@@ -80,19 +80,34 @@
     "defaultMessage": "Must be a valid URL"
   },
   {
-    "id": "tasks.chooseType",
-    "description": "Label for field type selection box",
-    "defaultMessage": "Choose a field type"
-  },
-  {
     "id": "tasks.cantChangeTypeMessage",
     "description": "Message when team task has answers and type cannot be updated",
     "defaultMessage": "The field type cannot be changed because answers have already been filled"
   },
   {
+    "id": "tasks.chooseType",
+    "description": "Label for field type selection box",
+    "defaultMessage": "Choose a field type"
+  },
+  {
+    "id": "tasks.editAnnotationDialogTitle",
+    "description": "Title for dialog when editing an annotation",
+    "defaultMessage": "Edit Annotation"
+  },
+  {
+    "id": "task.TitlePlaceholder",
+    "description": "Input Placeholder for the Title field for custom annotation field",
+    "defaultMessage": "Enter a title for this annotation"
+  },
+  {
     "id": "tasks.taskPrompt",
     "description": "Title field for custom annotation field",
     "defaultMessage": "Title"
+  },
+  {
+    "id": "task.DescriptionPlaceholder",
+    "description": "Input Placeholder for the Description field for custom annotation field",
+    "defaultMessage": "Enter an optional description for this annotation"
   },
   {
     "id": "tasks.description",

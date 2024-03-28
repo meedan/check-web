@@ -1,12 +1,9 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../../cds/inputs/TextField';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import RuleBody from '../Rules/RuleBody';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -31,12 +28,6 @@ const defaultRule = {
   actions: [],
 };
 
-const useStyles = makeStyles(theme => ({
-  saveTagRulesTitle: {
-    marginTop: theme.spacing(5),
-  },
-}));
-
 const SaveTag = ({
   tag,
   teamId,
@@ -44,10 +35,10 @@ const SaveTag = ({
   rules,
   rulesSchema,
   onCancel,
+  relay,
+  pageSize,
   setFlashMessage,
 }) => {
-  const classes = useStyles();
-
   // Find the first rule associated with this tag
   let tagRuleIndex = -1;
   if (tag && rules) {
@@ -203,8 +194,12 @@ const SaveTag = ({
           handleError();
         } else if (JSON.stringify(rule) !== JSON.stringify(initialRule)) {
           handleSaveRule();
+          // if we have updated the tags, we use refetchConnection to reset the pagination overall (since we can't figure out exactly where it should be relative to this page, anyway)
+          relay?.refetchConnection(pageSize);
         } else {
           handleSuccess(response);
+          // if we have updated the tags, we use refetchConnection to reset the pagination overall (since we can't figure out exactly where it should be relative to this page, anyway)
+          relay?.refetchConnection(pageSize);
         }
       },
       onError: () => {
@@ -223,25 +218,31 @@ const SaveTag = ({
           <FormattedMessage
             id="saveTag.titleEdit"
             defaultMessage="Edit tag"
+            description="Dialog title when editing a tag"
           /> :
           <FormattedMessage
             id="saveTag.titleCreate"
             defaultMessage="Create new tag"
+            description="Dialog title when creating a new tag"
           />
       }
       body={(
         <React.Fragment>
-          <TextField
-            id="team-tags__name-input"
-            defaultValue={text}
-            label={<FormattedMessage id="saveTag.name" defaultMessage="Name" />}
-            onBlur={(e) => { setText(e.target.value); }}
-            variant="outlined"
-            fullWidth
-          />
-          <Typography variant="body1" className={classes.saveTagRulesTitle}>
-            <FormattedMessage id="saveTag.rule" defaultMessage="Automatically tag items matching the following conditions:" />
-          </Typography>
+          <FormattedMessage id="saveTag.namePlaceholder" defaultMessage="New tag name" description="Text field placeholder for the input name of tag" >
+            { placeholder => (
+              <TextField
+                componentProps={{
+                  id: 'team-tags__name-input',
+                }}
+                defaultValue={text}
+                label={<FormattedMessage id="saveTag.name" defaultMessage="Name" description="Text field label for the input name of tag" />}
+                placeholder={placeholder}
+                onBlur={(e) => { setText(e.target.value); }}
+              />
+            )}
+          </FormattedMessage>
+          <br />
+          <FormattedMessage tagName="p" id="saveTag.rule" defaultMessage="Automatically tag items matching the following conditions:" description="Help text about automatically matching tags to a rule" />
           <RuleBody
             noMargin
             hideName
@@ -258,6 +259,7 @@ const SaveTag = ({
         <FormattedMessage
           id="saveTag.save"
           defaultMessage="Save tag"
+          description="Button label to continue saving a new tag via a dialog message"
         />
       }
       onCancel={onCancel}
@@ -281,6 +283,7 @@ SaveTag.propTypes = {
   rules: PropTypes.arrayOf(PropTypes.object),
   rulesSchema: PropTypes.object.isRequired,
   onCancel: PropTypes.func.isRequired,
+  relay: PropTypes.object.isRequired,
 };
 
 export default withSetFlashMessage(SaveTag);

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "feedItemHeader.sharedFeed",
+    "description": "Displayed on top of the feed title on the feed item page.",
+    "defaultMessage": "Shared Feed"
+  },
+  {
+    "id": "feedItemHeader.viewSharedFeed",
+    "description": "Label of a button displayed on the feed item page that when clicked takes the user to the shared feed page.",
+    "defaultMessage": "View Shared Feed"
+  }
+]

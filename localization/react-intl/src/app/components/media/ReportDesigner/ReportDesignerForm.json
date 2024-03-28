@@ -1,14 +1,42 @@
 [
   {
+    "id": "reportDesigner.languageTitle",
+    "description": "Section title for the report language",
+    "defaultMessage": "Report Language"
+  },
+  {
+    "id": "reportDesigner.selectLanguageLabel",
+    "description": "Label for input to select language",
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "reportDesigner.introductionTitle",
+    "description": "Section title for the report introduction",
+    "defaultMessage": "Introduction"
+  },
+  {
     "id": "reportDesigner.introduction",
+    "description": "Switch title to toggle on or off the report introduction",
+    "defaultMessage": "Include Introduction with Report"
+  },
+  {
+    "id": "reportDesigner.introductionPlaceholder",
+    "description": "Placeholder for report introduction field",
+    "defaultMessage": "Add an introduction to this report"
+  },
+  {
+    "id": "reportDesigner.introductionInput",
+    "description": "Text field label for the introduction input",
     "defaultMessage": "Introduction"
   },
   {
     "id": "reportDesigner.introductionSub",
+    "description": "Help text on how to use the query date and status fields",
     "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
   },
   {
     "id": "reportDesigner.report",
+    "description": "Section title for the fact-check form fields",
     "defaultMessage": "Fact-check"
   },
   {
@@ -22,12 +50,29 @@
     "defaultMessage": "Visual"
   },
   {
+    "id": "reportDesigner.textTitlePlaceholder",
+    "description": "Placeholder for report title field",
+    "defaultMessage": "Add a title to this report"
+  },
+  {
     "id": "reportDesigner.textTitle",
+    "description": "Text field label for the report text title input",
     "defaultMessage": "Title"
   },
   {
+    "id": "reportDesigner.summaryPlaceholder",
+    "description": "Placeholder instructions for report summary field",
+    "defaultMessage": "Briefly contextualize the report"
+  },
+  {
     "id": "reportDesigner.content",
+    "description": "Text field label for the report summary input",
     "defaultMessage": "Summary"
+  },
+  {
+    "id": "reportDesigner.textURLPlaceholder",
+    "description": "Placeholder for report url field",
+    "defaultMessage": "Add a URL to this report"
   },
   {
     "id": "reportDesigner.textUrl",
@@ -35,35 +80,78 @@
     "defaultMessage": "Article URL"
   },
   {
+    "id": "reportDesigner.theme",
+    "description": "Label used for choice on theme of report light versus dark",
+    "defaultMessage": "Theme"
+  },
+  {
+    "id": "reportDesigner.lightTheme",
+    "description": "Label used for button toggling on the light themed report",
+    "defaultMessage": "Light"
+  },
+  {
+    "id": "reportDesigner.darkTheme",
+    "description": "Label used for button toggling on the light themed report",
+    "defaultMessage": "Dark"
+  },
+  {
+    "id": "reportDesigner.textStatusPlaceholder",
+    "description": "Placeholder for report status field",
+    "defaultMessage": "Add a status to this report"
+  },
+  {
+    "id": "reportDesigner.statusLabel",
+    "description": "Text field label for the status of the report",
+    "defaultMessage": "Status label"
+  },
+  {
+    "id": "reportDesigner.datePublishedPlaceholder",
+    "description": "Placeholder for report date published field",
+    "defaultMessage": "Add a date when this report was published"
+  },
+  {
+    "id": "reportDesigner.datePublished",
+    "description": "Text field label for the date the report was published",
+    "defaultMessage": "Date published"
+  },
+  {
+    "id": "reportDesigner.headlinePlaceholder",
+    "description": "Placeholder for report title field",
+    "defaultMessage": "Add a title to this report"
+  },
+  {
     "id": "reportDesigner.headline",
+    "description": "Text field label for the report headline title input",
     "defaultMessage": "Title"
   },
   {
+    "id": "reportDesigner.visualSummaryPlaceholder",
+    "description": "Placeholder instructions for visual report summary field",
+    "defaultMessage": "Briefly contextualize the report"
+  },
+  {
     "id": "reportDesigner.description",
+    "description": "Text field label for the report text summary input",
     "defaultMessage": "Summary"
   },
   {
-    "id": "reportDesigner.darkOverlay",
-    "defaultMessage": "Dark overlay"
+    "id": "reportDesigner.visualURLPlaceholder",
+    "description": "Placeholder for visual report url field",
+    "defaultMessage": "Add a URL to this report"
+  },
+  {
+    "id": "reportDesigner.url",
+    "description": "Text field label for the URL of the report website",
+    "defaultMessage": "Website URL"
   },
   {
     "id": "reportDesigner.useDefaultImage",
+    "description": "Button label to switch the report to use the default image",
     "defaultMessage": "Use default image"
   },
   {
     "id": "reportDesigner.removeImage",
+    "description": "Button label to remove the image from the report",
     "defaultMessage": "Remove image"
-  },
-  {
-    "id": "reportDesigner.statusLabel",
-    "defaultMessage": "Status label"
-  },
-  {
-    "id": "reportDesigner.datePublished",
-    "defaultMessage": "Date published"
-  },
-  {
-    "id": "reportDesigner.url",
-    "defaultMessage": "Website URL"
   }
 ]

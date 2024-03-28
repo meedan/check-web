@@ -3,19 +3,17 @@ import { PropTypes } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import MediasLoading from '../../media/MediasLoading';
+import TextField from '../../cds/inputs/TextField';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import { FlashMessageSetterContext } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { safelyParseJSON, getErrorMessageForRelayModernProblem } from '../../../helpers';
 import LanguageRegistry, { compareLanguages, languageLabelFull } from '../../../LanguageRegistry';
+import dialogStyles from '../../../styles/css/dialog.module.css';
 
 function submitAddLanguage({
   team,
@@ -52,7 +50,7 @@ function submitAddLanguage({
 }
 
 // FIXME rewrite using LanguagePickerDialog
-const AddLanguageAction = ({ team }) => {
+const AddLanguageAction = ({ team, setLanguages }) => {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [value, setValue] = React.useState(null);
@@ -71,6 +69,7 @@ const AddLanguageAction = ({ team }) => {
   const handleSubmit = () => {
     const onSuccess = () => {
       setValue(null);
+      setLanguages(languages.concat(value));
       setIsSaving(false);
       setDialogOpen(false);
     };
@@ -96,26 +95,35 @@ const AddLanguageAction = ({ team }) => {
 
   return (
     <React.Fragment>
-      <Button className="add-language-action__add-button" color="primary" variant="contained" onClick={() => setDialogOpen(true)}>
-        <FormattedMessage
-          id="addLanguageAction.newLanguage"
-          defaultMessage="New language"
-          description="Label for button that adds a new language to list of supported languages"
-        />
-      </Button>
+      <ButtonMain
+        className="add-language-action__add-button"
+        theme="brand"
+        size="default"
+        variant="contained"
+        onClick={() => setDialogOpen(true)}
+        label={
+          <FormattedMessage
+            id="addLanguageAction.newLanguage"
+            defaultMessage="New language"
+            description="Label for button that adds a new language to list of supported languages"
+          />
+        }
+      />
       <Dialog
+        className={dialogStyles['dialog-window']}
         open={dialogOpen}
         maxWidth="xs"
         fullWidth
       >
-        <DialogTitle>
+        <div className={dialogStyles['dialog-title']}>
           <FormattedMessage
+            tagName="h6"
             id="addLanguageAction.title"
             defaultMessage="Choose a new language"
             description="Title of language picker dialog"
           />
-        </DialogTitle>
-        <DialogContent>
+        </div>
+        <div className={dialogStyles['dialog-content']}>
           <Autocomplete
             id="autocomplete-add-language"
             name="autocomplete-add-language"
@@ -123,42 +131,58 @@ const AddLanguageAction = ({ team }) => {
             openOnFocus
             getOptionLabel={getOptionLabel}
             value={value}
-            renderInput={
-              params => (<TextField
-                variant="outlined"
-                label={
-                  <FormattedMessage
-                    id="addLanguageAction.selectLanguage"
-                    defaultMessage="Select a language"
-                    description="Label to language selection dropdown"
-                  />
-                }
-                {...params}
-              />)
-            }
+            renderInput={params => (
+              <div ref={params.InputProps.ref}>
+                <FormattedMessage id="addLanguageAction.selectLanguagePlaceholder" defaultMessage="Select a language" description="Placeholder to language selection dropdown">
+                  { placeholder => (
+                    <TextField
+                      variant="outlined"
+                      label={
+                        <FormattedMessage
+                          id="addLanguageAction.selectLanguage"
+                          defaultMessage="Language"
+                          description="Label to language selection dropdown"
+                        />
+                      }
+                      helpContent={<FormattedMessage id="addLanguageAction.selectLanguageHelp" defaultMessage="After adding this language, be sure to customize the chatbot’s responses in the tipline settings." description="Help text for next steps after selecting a language" />}
+                      placeholder={placeholder}
+                      {...params.inputProps}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+            )}
             onChange={handleChange}
-            fullWidth
           />
-        </DialogContent>
-        <DialogActions>
-          <Button className="add-language-action__cancel" onClick={() => setDialogOpen(false)}>
-            <FormattedGlobalMessage messageKey="cancel" />
-          </Button>
-          <Button
+        </div>
+        <div className={dialogStyles['dialog-actions']}>
+          <ButtonMain
+            className="add-language-action__cancel"
+            size="default"
+            variant="text"
+            theme="lightText"
+            onClick={() => setDialogOpen(false)}
+            label={
+              <FormattedGlobalMessage messageKey="cancel" />
+            }
+          />
+          <ButtonMain
             className="add-language-action__submit"
-            color="primary"
-            endIcon={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
+            theme="brand"
+            size="default"
+            iconLeft={isSaving ? <MediasLoading size="icon" theme="white" variant="icon" /> : null}
             disabled={!value || isSaving}
             onClick={handleSubmit}
             variant="contained"
-          >
-            <FormattedMessage
-              id="addLanguageAction.addLanguage"
-              defaultMessage="Add language"
-              description="Label to submit button of language picker dialog"
-            />
-          </Button>
-        </DialogActions>
+            label={
+              <FormattedMessage
+                id="addLanguageAction.addLanguage"
+                defaultMessage="Add language"
+                description="Label to submit button of language picker dialog"
+              />
+            }
+          />
+        </div>
       </Dialog>
     </React.Fragment>
   );
@@ -169,6 +193,7 @@ AddLanguageAction.propTypes = {
     id: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
+  setLanguages: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(AddLanguageAction, graphql`

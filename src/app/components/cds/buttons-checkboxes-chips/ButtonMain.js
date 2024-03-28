@@ -1,49 +1,94 @@
+// DESIGNS: https://www.figma.com/file/rnSPSHDgFncxjXsZQuEVKd/Design-System?type=design&node-id=139-6525&mode=design&t=ZVq51pKdIKdWZicO-4
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
+import cx from 'classnames/bind';
 import styles from './ButtonMain.module.css';
 
-// FIXME: Refactor using native button instead of MUI Button
 const ButtonMain = ({
-  label,
-  variant,
-  disabled,
-  customStyle,
+  className,
   buttonProps,
+  customStyle,
+  disabled,
+  iconCenter,
+  iconLeft,
+  iconRight,
+  label,
   onClick,
+  size,
+  theme,
+  variant,
+  title,
 }) => (
-  <Button
-    className={styles.buttonMain}
-    classes={{
-      root: styles.root,
-    }}
+  <button
+    className={cx(
+      [styles.buttonMain],
+      styles[`theme-${theme}`],
+      {
+        [className]: true,
+        [styles.sizeDefault]: size === 'default',
+        [styles.sizeSmall]: size === 'small',
+        [styles.sizeLarge]: size === 'large',
+        [styles.contained]: variant === 'contained',
+        [styles.outlined]: variant === 'outlined',
+        [styles.textVariant]: variant === 'text',
+        [styles['input-icon-center']]: iconCenter,
+      })
+    }
     style={customStyle}
     onClick={onClick}
-    size="small"
     disabled={disabled}
     variant={variant}
-    disableRipple
-    disableFocusRipple
-    disableElevation
+    title={title}
+    type="button"
     {...buttonProps}
   >
-    <span className={`typography-button ${styles.buttonMainLabel}`}>
+    { iconLeft && (
+      <div className={styles['input-icon-left-icon']}>
+        {iconLeft}
+      </div>
+    )}
+    <span className={`test-label__button ${styles.buttonMainLabel}`}>
       {label}
     </span>
-  </Button>
+    { iconCenter && (
+      <div className={styles['input-icon-center-icon']}>
+        {iconCenter}
+      </div>
+    )}
+    { iconRight && (
+      <div className={styles['input-icon-right-icon']}>
+        {iconRight}
+      </div>
+    )}
+  </button>
 );
 
 ButtonMain.defaultProps = {
+  label: null,
+  title: null,
+  size: 'default',
+  theme: 'brand',
   variant: 'contained',
+  iconLeft: null,
+  iconRight: null,
+  iconCenter: null,
   disabled: false,
+  className: null,
   customStyle: {},
   buttonProps: {},
   onClick: () => {},
 };
 
 ButtonMain.propTypes = {
-  label: PropTypes.object.isRequired,
-  variant: PropTypes.oneOf(['contained', 'outlined']),
+  className: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  size: PropTypes.oneOf(['default', 'small', 'large']),
+  theme: PropTypes.oneOf(['brand', 'lightBrand', 'text', 'lightText', 'error', 'lightError', 'validation', 'lightValidation', 'alert', 'lightAlert', 'black', 'white']),
+  iconLeft: PropTypes.element,
+  iconRight: PropTypes.element,
+  iconCenter: PropTypes.element,
+  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  variant: PropTypes.oneOf(['contained', 'outlined', 'text']),
   disabled: PropTypes.bool,
   customStyle: PropTypes.object,
   buttonProps: PropTypes.object,

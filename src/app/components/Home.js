@@ -8,13 +8,13 @@ import isEqual from 'lodash.isequal';
 import Intercom from 'react-intercom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
+import * as Sentry from '@sentry/react';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { Header } from './Header';
-import LoginContainer from './LoginContainer';
-import InviteNewAccount from './InviteNewAccount';
+import LoginContainer from './login/LoginContainer';
+import InviteNewAccount from './login/InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
-import DrawerNavigation from './DrawerNavigation';
+import DrawerNavigation from './drawer/DrawerNavigation';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';
@@ -157,6 +157,35 @@ class HomeComponent extends Component {
         return true;
       },
     );
+
+    // Init sentry if a user is logged in
+    if (this.props.me && config.sentryDsn) {
+      const { dbid, email, name } = this.props.me;
+      Sentry.init({
+        dsn: config.sentryDsn,
+        environment: config.sentryEnvironment || 'none',
+        integrations: [
+          new Sentry.Replay(),
+        ],
+        // Session Replay - Sentry recommends sending a full replay when errors occur
+        replaysOnErrorSampleRate: 1.0,
+        initialScope: {
+          tags: {
+            language: navigator.language,
+          },
+          user: {
+            userAgent: window.navigator.userAgent,
+            windowSize: {
+              height: window.screen.availHeight,
+              width: window.screen.availWidth,
+            },
+            name,
+            email,
+            id: dbid,
+          },
+        },
+      });
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -172,7 +201,7 @@ class HomeComponent extends Component {
     const { clientSessionId, setFlashMessage } = this.props;
     const context = new CheckContext(this);
     if (!this.state.token && !this.state.error) {
-      context.startSession(this.props.user, clientSessionId, setFlashMessage);
+      context.startSession(this.props.me, clientSessionId, setFlashMessage);
     }
     context.setContext();
     context.startNetwork(this.state.token, clientSessionId, setFlashMessage);
@@ -203,6 +232,7 @@ class HomeComponent extends Component {
     const routeSlug = HomeComponent.routeSlug(children);
 
     const routeIsPublic = children && children.props.route.public;
+    const routeIsSplash = children && children.props.route.splash;
 
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {
@@ -225,7 +255,7 @@ class HomeComponent extends Component {
       return null;
     }
 
-    const user = this.props.user || {};
+    const user = this.props.me || {};
     const loggedIn = !!this.state.token;
     const teamSlugFromUrl = window.location.pathname.match(/^\/([^/]+)/);
     const userTeamSlug = ((user.current_team && user.current_team.slug) ?
@@ -279,23 +309,17 @@ class HomeComponent extends Component {
               bemClass('home', routeSlug, `--${routeSlug}`),
             ].join(' ')}
           >
-            {loggedIn ? (
+            {loggedIn && !routeIsSplash ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}
                 inTeamContext={inTeamContext}
                 currentUserIsMember={currentUserIsMember}
                 {...this.props}
+                user={this.props.me}
               />
             ) : null}
             <main className={styles.main}>
-              <Header
-                loggedIn={loggedIn}
-                pageType={routeSlug}
-                inTeamContext={inTeamContext}
-                currentUserIsMember={currentUserIsMember}
-                {...this.props}
-              />
               <FlashMessage />
               <div className={`${styles.mainContentWrapper} route__${routeSlug}`}>
                 {children}
@@ -323,8 +347,8 @@ const ConnectedHomeComponent = withSetFlashMessage(withClientSessionId(withRoute
 
 const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
   fragments: {
-    user: () => Relay.QL`
-      fragment on User {
+    me: () => Relay.QL`
+      fragment on Me {
         id
         dbid
         name

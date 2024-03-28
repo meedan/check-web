@@ -4,37 +4,30 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import { MultiSelector } from '@meedan/check-ui';
+import cx from 'classnames/bind';
+import MultiSelector from '../layout/MultiSelector';
 import ItemHistoryDialog from './ItemHistoryDialog';
+import MediaTags from './MediaTags';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
-import MoveProjectMediaAction from './MoveProjectMediaAction';
-import RestoreConfirmProjectMediaToProjectAction from './RestoreConfirmProjectMediaToProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
-import globalStrings from '../../globalStrings';
+import RestoreProjectMedia from './RestoreProjectMedia';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import styles from './media.module.css';
+import ItemThumbnail from '../search/SearchResultsTable/ItemThumbnail';
+import ItemTitle from './ItemTitle';
+import dialogStyles from '../../styles/css/dialog.module.css';
 
 const Styles = theme => ({
-  root: {
-    display: 'flex',
-    width: '100%',
-    height: 64,
-    alignItems: 'center',
-    padding: '0 16px',
-    justifyContent: 'space-between',
-  },
   spacedButton: {
     marginRight: theme.spacing(1),
   },
@@ -77,14 +70,15 @@ class MediaActionsBarComponent extends Component {
 
   fail(transaction) {
     const fallbackMessage = (
-      // eslint-disable-next-line @calm/react-intl/missing-attribute
       <FormattedMessage
-        {...globalStrings.unknownError}
+        id="global.unknownError"
+        defaultMessage="Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+        description="Message displayed in error notification when an operation fails unexpectedly"
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
       />
     );
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.props.setFlashMessage(message, 'error');
+    this?.props.setFlashMessage(message, 'error');
   }
 
   canSubmit = () => {
@@ -257,8 +251,7 @@ class MediaActionsBarComponent extends Component {
 
     const isParent = !(media?.suggested_main_item || media?.is_confirmed_similar_to_another_item);
 
-    const { project } = media;
-    const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design?.data && media?.dynamic_annotation_report_design?.data?.state === 'published');
+    const published = media?.dynamic_annotation_report_design?.data?.state === 'published';
 
     const options = [];
     media.team.team_users?.edges.forEach((teamUser) => {
@@ -278,33 +271,27 @@ class MediaActionsBarComponent extends Component {
 
     const context = this.getContext();
 
-    let moveOrRestor = '';
-    if (isParent) {
-      if (media.archived === CheckArchivedFlags.NONE) {
-        moveOrRestor = (
-          <MoveProjectMediaAction
-            team={this.props.media.team}
-            project={project}
-            projectMedia={this.props.media}
-            className={classes.spacedButton}
-          />
-        );
-      } else {
-        moveOrRestor = (
-          <RestoreConfirmProjectMediaToProjectAction
-            team={this.props.media.team}
-            projectMedia={this.props.media}
-            context={context}
-            className={classes.spacedButton}
-          />
-        );
-      }
+    let restoreProjectMedia = '';
+    if (media.archived === CheckArchivedFlags.TRASHED || media.archived === CheckArchivedFlags.SPAM) {
+      restoreProjectMedia = (
+        <RestoreProjectMedia
+          team={this.props.media.team}
+          projectMedia={this.props.media}
+          context={context}
+          className={classes.spacedButton}
+        />
+      );
     }
 
     return (
-      <div className={classes.root}>
-        <div> { moveOrRestor } </div>
-        <Box display="flex">
+      <div className={styles['media-actions-wrapper']}>
+        <ItemThumbnail picture={media.media?.picture} maskContent={media.show_warning_cover} type={media.media?.type} url={media.media?.url} />
+        <div className={styles['media-actions-title']}>
+          <ItemTitle projectMediaId={this.props.media?.dbid} />
+          <MediaTags projectMediaId={this.props.media?.dbid} />
+        </div>
+        { restoreProjectMedia ? <div className={styles['media-actions']}> {restoreProjectMedia} </div> : null }
+        <div className={styles['media-actions']}>
           {isParent ?
             <MediaStatus
               media={media}
@@ -326,7 +313,7 @@ class MediaActionsBarComponent extends Component {
             handleStatusLock={this.handleStatusLock.bind(this)}
             handleItemHistory={this.handleItemHistory}
           />
-        </Box>
+        </div>
 
         <ItemHistoryDialog
           open={this.state.itemHistoryDialogOpen}
@@ -337,18 +324,19 @@ class MediaActionsBarComponent extends Component {
 
         {/* FIXME Extract to dedicated AssignmentDialog component */}
         <Dialog
-          className="project__assignment-menu"
+          className={cx('project__assignment-menu', dialogStyles['dialog-window'])}
           open={this.state.assignmentDialogOpened}
           onClose={this.handleCloseDialogs.bind(this)}
         >
-          <DialogTitle>
+          <div className={dialogStyles['dialog-title']}>
             <FormattedMessage
+              tagName="h6"
               id="mediaActionsBar.assignmentTitle"
               defaultMessage="Assign item to collaborators"
               description="Assignment dialog title"
             />
-          </DialogTitle>
-          <DialogContent>
+          </div>
+          <div className={dialogStyles['dialog-content']}>
             <Box display="flex" style={{ outline: 0 }}>
               <FormattedMessage
                 id="multiSelector.search"
@@ -367,8 +355,8 @@ class MediaActionsBarComponent extends Component {
                         description="Checkbox label for toggling select/unselect all"
                       />
                     }
-                    cancelLabel={<FormattedMessage {...globalStrings.cancel} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
-                    submitLabel={<FormattedMessage {...globalStrings.update} /> /* eslint-disable-line @calm/react-intl/missing-attribute */}
+                    cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
+                    submitLabel={<FormattedMessage id="global.update" defaultMessage="Update" description="Generic label for a button or link for a user to press when they wish to update an action" />}
                     options={options}
                     selected={selected}
                     onDismiss={this.handleCloseDialogs.bind(this)}
@@ -377,13 +365,13 @@ class MediaActionsBarComponent extends Component {
                 )}
               </FormattedMessage>
               <div className={classes.spaced}>
-                <Typography variant="body1" component="div" className={classes.spaced}>
+                <div className={cx('typography-body1', classes.spaced)}>
                   <FormattedMessage
                     id="mediaActionsBar.assignmentNotesTitle"
                     defaultMessage="Add a note to the email"
                     description="Helper text to field for adding details about the assignment"
                   />
-                </Typography>
+                </div>
                 <TextField
                   variant="outlined"
                   inputRef={(element) => {
@@ -396,7 +384,7 @@ class MediaActionsBarComponent extends Component {
                 />
               </div>
             </Box>
-          </DialogContent>
+          </div>
         </Dialog>
       </div>
     );
@@ -423,9 +411,8 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
-        ${MoveProjectMediaAction.getFragment('projectMedia')}
         ${MediaActionsMenuButton.getFragment('projectMedia')}
-        ${RestoreConfirmProjectMediaToProjectAction.getFragment('projectMedia')}
+        ${RestoreProjectMedia.getFragment('projectMedia')}
         dbid
         project_id
         title
@@ -441,9 +428,9 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           id
           data
         }
+        show_warning_cover
         project {
           id
-          ${MoveProjectMediaAction.getFragment('project')}
           dbid
           title
           search_id
@@ -451,7 +438,9 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           medias_count
         }
         media {
+          type
           url
+          picture
           embed_path
           metadata
         }
@@ -472,8 +461,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           }
         }
         team {
-          ${MoveProjectMediaAction.getFragment('team')}
-          ${RestoreConfirmProjectMediaToProjectAction.getFragment('team')}
           id
           dbid
           slug
@@ -527,10 +514,9 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
 // eslint-disable-next-line react/no-multi-comp
 class MediaActionsBar extends React.PureComponent {
   render() {
-    const { projectId, projectMediaId } = this.props;
-    const ids = `${projectMediaId},${projectId}`;
-    const projectIdValue = projectId == null ? 0 : projectId;
-    const route = new MediaRoute({ ids, projectId: projectIdValue });
+    const { projectMediaId } = this.props;
+    const ids = `${projectMediaId},`;
+    const route = new MediaRoute({ ids });
 
     return (
       <Relay.RootContainer

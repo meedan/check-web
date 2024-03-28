@@ -1,6 +1,12 @@
 [
   {
+    "id": "global.unknownError",
+    "description": "Message displayed in error notification when an operation fails unexpectedly",
+    "defaultMessage": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
     "id": "slackConfig.text",
-    "defaultMessage": "Send notifications to Slack channels when items are added to specific folders"
+    "description": "Description of the slack integration",
+    "defaultMessage": "Send notifications to Slack channels"
   }
 ]

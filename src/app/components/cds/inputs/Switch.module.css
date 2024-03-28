@@ -4,20 +4,10 @@
     margin: 0;
   }
 
-  :global(.MuiFormControlLabel-labelPlacementTop) {
-    align-items: start;
-
-    .switch {
-      :global(+ .MuiFormControlLabel-label) {
-        margin: 0;
-      }
-    }
-  }
-
   .switch {
     .switchRoot {
       height: 32px;
-      margin: 6px 0;
+      margin: 0 0 6px;
       padding: 0;
       width: 60px;
 
@@ -66,6 +56,8 @@
       }
 
       :global(.Mui-disabled) {
+        color: var(--errroMain);
+
         .thumb {
           color: var(--grayBorderAccent);
           cursor: not-allowed;
@@ -94,14 +86,65 @@
 
     :global(+ .MuiFormControlLabel-label) {
       @mixin typography-body2;
-      color: var(--textPrimary);
-      margin: 0 0 0 10px;
+      color: var(--textSecondary);
+      margin: 0 0 8px 10px;
     }
   }
 
-  .helper {
-    @mixin typography-caption;
-    color: var(--textSecondary);
+  &.switch-disabled {
+    :global(.MuiFormControlLabel-root) {
+      cursor: default;
+    }
+
+    .switch {
+      :global(+ .MuiFormControlLabel-label) {
+        color: var(--textPlaceholder);
+      }
+    }
+  }
+
+  :global(.MuiFormControlLabel-labelPlacementTop) {
+    align-items: start;
+
+    .switch {
+      :global(+ .MuiFormControlLabel-label) {
+        margin: 0 0 0 10px;
+      }
+
+      .switchRoot {
+        margin: 12px 0 8px;
+      }
+    }
+  }
+
+  :global(.MuiFormControlLabel-labelPlacementStart) {
+    .switch {
+      :global(+ .MuiFormControlLabel-label) {
+        margin: 0 10px 8px 0;
+      }
+
+      .switchRoot {
+        margin: 0 0 8px;
+      }
+    }
+
+    + .switch-help-container {
+      padding: 0 4px 0 0;
+    }
+  }
+
+  :global(.MuiFormControlLabel-labelPlacementBottom) {
+    align-items: flex-start;
+
+    .switch {
+      :global(+ .MuiFormControlLabel-label) {
+        margin: 0 0 0 10px;
+      }
+
+      .switchRoot {
+        margin: 0 0 8px;
+      }
+    }
   }
 }
 

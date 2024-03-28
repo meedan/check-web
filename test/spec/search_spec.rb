@@ -5,10 +5,10 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__time-range').click
-    wait_for_selector('.date-range__start-date input').click
+    wait_for_selector('.int-date-filter__button--start-date').click
     # Click OK on date picker dialog to select today's date
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-    wait_for_selector('.date-range__end-date input').click
+    wait_for_selector('.int-date-filter__button--end-date').click
     # Click OK on date picker dialog to select today's date
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
     wait_for_selector('#search-fields__submit-button').click
@@ -17,7 +17,7 @@ shared_examples 'search' do
   end
 
   it 'should search by keywords', bin4: true, quick: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
+    api_create_team_claims_sources_and_redirect_to_all_items({ count: 2 })
     sleep 60 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('#search-input')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 2
@@ -102,9 +102,8 @@ shared_examples 'search' do
   end
 
   it 'should search for reverse images', bin2: true do
-    api_create_team_and_project
-    @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item')
+    api_create_team_and_bot
+    @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/test.png')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
@@ -119,10 +118,11 @@ shared_examples 'search' do
   end
 
   it 'should find all medias with an empty search', bin4: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-card-large')
-    wait_for_selector('.project-header__back-button').click
+    api_create_team_and_claim_and_redirect_to_media_page
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     create_image('files/test.png')
+    @driver.navigate.refresh
+    wait_for_selector('.media__heading')
     old = wait_for_selector_list('.medias__item').length
     wait_for_selector('#search-input').click
     @driver.action.send_keys(:enter).perform
@@ -132,20 +132,20 @@ shared_examples 'search' do
   end
 
   it 'should search by status', bin1: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
+    api_create_team_claims_sources_and_redirect_to_all_items({ count: 2 })
     sleep 30 # wait for the items to be indexed in Elasticsearch
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-card-large')
     api_change_media_status
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 2
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__status').click
-    wait_for_selector('.custom-select-dropdown__select-button').click
+    wait_for_selector('.int-multi-select-filter__button--select-dropdown').click
     wait_for_selector('input#false').click
-    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('.int-multiselector__button--save').click
     wait_for_selector('#search-fields__submit-button').click
     wait_for_selector('.multi-select-filter')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 1

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { breakWordStyles } from '../../styles/js/shared';
 
-const LongShort = styled.div`
-  ${breakWordStyles}
+const LongShort = styled.p`
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;

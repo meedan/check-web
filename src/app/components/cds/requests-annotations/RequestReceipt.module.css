@@ -1,0 +1,37 @@
+.receipt-wrapper {
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  gap: 8px;
+  padding: 4px 8px;
+  width: fit-content;
+
+  .receipt-icon {
+    display: inherit;
+    font-size: var(--iconSizeSmall);
+  }
+}
+
+.receipt-gray {
+  background-color: var(--grayBackground);
+
+  .receipt-icon {
+    color: var(--textSecondary);
+  }
+}
+
+.receipt-green {
+  background-color: var(--validationLight);
+
+  .receipt-icon {
+    color: var(--validationMain);
+  }
+}
+
+.receipt-yellow {
+  background-color: var(--alertLight);
+
+  .receipt-icon {
+    color: var(--alertMain);
+  }
+}

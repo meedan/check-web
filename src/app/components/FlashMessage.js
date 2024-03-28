@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import IconClose from '@material-ui/icons/Close';
-import ErrorIcon from '@material-ui/icons/Error';
-import IconButton from '@material-ui/core/IconButton';
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import reactStringReplace from 'react-string-replace';
+import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
+import IconClose from '../icons/clear.svg';
+import ErrorIcon from '../icons/error.svg';
 import Message from './Message';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
@@ -49,7 +49,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
     if (variant === 'error' && typeof message === 'string') {
       // Split into multiple message in case we have a multiple validation errors
       message.split('<br />').forEach(msg => enqueueSnackbar(msg, { variant, persist, anchorOrigin }));
-    } else if (variant === 'error' && typeof message === 'object' && message.length) {
+    } else if (variant === 'error' && message && typeof message === 'object' && message.length) {
       message.forEach(msg => enqueueSnackbar(createFriendlyErrorMessage(msg), { variant, persist, anchorOrigin }));
     } else {
       enqueueSnackbar(message, { variant, persist, anchorOrigin });
@@ -74,7 +74,7 @@ const useSnackBarStyles = makeStyles({
     marginTop: '8px !important',
     paddingTop: '0px !important',
     '&:hover': {
-      color: 'var(--otherWhite) !important',
+      backgroundColor: 'transparent !important',
     },
   },
   root: {
@@ -119,12 +119,14 @@ const FlashMessageProvider = ({ children }) => {
         error: <ErrorIcon />,
       }}
       action={key => (
-        <IconButton
+        <ButtonMain
           className={`message message__dismiss-button ${classes.icon}`}
           onClick={onClickDismiss(key)}
-        >
-          <IconClose />
-        </IconButton>
+          variant="text"
+          size="small"
+          theme="white"
+          iconCenter={<IconClose />}
+        />
       )}
       classes={{
         variantInfo: classes.info,

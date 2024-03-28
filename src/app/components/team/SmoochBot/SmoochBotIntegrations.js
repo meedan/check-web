@@ -1,37 +1,27 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TelegramIcon from '@material-ui/icons/Telegram';
-import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
-import GetAppIcon from '@material-ui/icons/GetApp';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { QRCodeCanvas } from 'qrcode.react';
-import ViberIcon from '../../../icons/viber.svg';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import GetAppIcon from '../../../icons/file_download.svg';
+import FileCopyOutlinedIcon from '../../../icons/content_copy.svg';
+import FacebookIcon from '../../../icons/facebook.svg';
 import LineIcon from '../../../icons/line.svg';
-import SettingsHeader from '../SettingsHeader';
+import HelpIcon from '../../../icons/help.svg';
+import TelegramIcon from '../../../icons/telegram.svg';
+import TwitterIcon from '../../../icons/twitter.svg';
+import ViberIcon from '../../../icons/viber.svg';
+import WhatsAppIcon from '../../../icons/whatsapp.svg';
+import InstagramIcon from '../../../icons/instagram.svg';
 import SmoochBotIntegrationButton from './SmoochBotIntegrationButton';
-
-const useStyles = makeStyles(() => ({
-  smoochBotIntegrationsTitle: {
-    fontWeight: 'bold',
-  },
-  smoochBotIntegrationsHeader: {
-    marginBottom: 0,
-  },
-}));
+import styles from '../Settings.module.css';
 
 const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }) => {
-  const classes = useStyles();
   const [copied, setCopied] = React.useState(null);
 
   const isWabaSet = settings.turnio_host && settings.turnio_secret && settings.turnio_token;
@@ -50,17 +40,24 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
     link.click();
   };
 
+  const handleHelp = () => {
+    window.open('https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot', '_blank');
+  };
+
   return (
     <React.Fragment>
-      <SettingsHeader
-        title={
-          <Typography variant="subtitle1" component="div" className={classes.smoochBotIntegrationsTitle}>
-            <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
-          </Typography>
-        }
-        helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline"
-        className={classes.smoochBotIntegrationsHeader}
-      />
+      <div className={styles['setting-content-container-title']}>
+        <FormattedMessage id="smoochBotIntegrations.title" defaultMessage="Messaging services" description="Title of Settings tab in the tipline settings page" />
+        <div className={styles['setting-content-container-actions']}>
+          <ButtonMain
+            variant="text"
+            size="small"
+            theme="text"
+            iconCenter={<HelpIcon />}
+            onClick={handleHelp}
+          />
+        </div>
+      </div>
       <Box display="flex" justifyContent="space-between" flexWrap="wrap">
         <SmoochBotIntegrationButton
           installationId={installationId}
@@ -68,9 +65,8 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="whatsapp"
           label="WhatsApp"
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7122ffbcd0"
-          icon={<WhatsAppIcon />}
-          color="var(--whatsappGreen)"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ec472becaf"
+          icon={<WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />}
           online={isOnline('whatsapp')}
           readOnly={isWabaSet || isCapiSet}
           info={
@@ -79,6 +75,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                 <FormattedMessage
                   id="smoochBotIntegrations.phoneNumber"
                   defaultMessage="Connected phone number: {link}"
+                  description="Label showing the whatsapp phone number connected to this bot"
                   values={{
                     link: (
                       <a href={`https://web.whatsapp.com/send?phone=${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9+]/g, '')}`} target="_blank" rel="noopener noreferrer">
@@ -212,29 +209,21 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           skipUrlConfirmation
         />
         <SmoochBotIntegrationButton
+          disabled={false}
+          readOnly={false}
+          online={false}
           installationId={installationId}
-          disabled={!isEnabled}
           type="twitter"
-          label="Twitter"
-          url={settings.smooch_twitter_authorization_url}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_5cfcbe09c7"
-          icon={<TwitterIcon />}
-          color="var(--twitterBlue)"
-          online={isOnline('twitter')}
-          readOnly={!isSmoochSet}
-          info={
-            isOnline('twitter') ?
-              <FormattedMessage
-                id="smoochBotIntegrations.account"
-                defaultMessage="Connected account: {link}"
-                values={{
-                  link: (
-                    <a href={`https://twitter.com/messages/compose?recipient_id=${enabledIntegrations.twitter.userId}`} target="_blank" rel="noopener noreferrer">
-                      {enabledIntegrations.twitter.username}
-                    </a>
-                  ),
-                }}
-              /> : null
+          label="X (Twitter)"
+          url={null}
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot"
+          icon={<TwitterIcon style={{ color: 'var(--xBlack)' }} />}
+          deprecationNotice={
+            <FormattedMessage
+              id="smoochBotIntegrations.twitterDisabled"
+              defaultMessage="The integration with X is currently not available, following changes to the X API on April 21, 2023."
+              description="Disclaimer displayed on X tipline settings page."
+            />
           }
         />
         <SmoochBotIntegrationButton
@@ -242,10 +231,9 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           disabled={!isEnabled}
           type="messenger"
           label="Messenger"
-          url={settings.smooch_facebook_authorization_url}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7e76e39cac"
-          icon={<FacebookIcon />}
-          color="var(--facebookBlue)"
+          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/messenger')}
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
+          icon={<FacebookIcon style={{ color: 'var(--facebookBlue)' }} />}
           online={isOnline('messenger')}
           readOnly={!isSmoochSet}
           info={
@@ -253,6 +241,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
               <FormattedMessage
                 id="smoochBotIntegrations.page"
                 defaultMessage="Connected page: {link}"
+                description="Label for the connected Facebook page for this bot"
                 values={{
                   link: (
                     <a href={`https://m.me/${enabledIntegrations.messenger.pageId}`} target="_blank" rel="noopener noreferrer">
@@ -268,15 +257,14 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           disabled={!isEnabled}
           type="telegram"
           label="Telegram"
-          icon={<TelegramIcon />}
-          color="var(--telegramBlue)"
+          icon={<TelegramIcon style={{ color: 'var(--telegramBlue)' }} />}
           online={isOnline('telegram')}
           readOnly={!isSmoochSet}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_6aa3557c62"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_ff25899cc2"
           params={[
             {
               key: 'token',
-              label: <FormattedMessage id="smoochBotIntegrations.telegramBotToken" defaultMessage="Telegram bot token" />,
+              label: <FormattedMessage id="smoochBotIntegrations.telegramBotToken" defaultMessage="Telegram bot token" description="Output of the telegram bot token" />,
             },
           ]}
           info={
@@ -284,6 +272,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
               <FormattedMessage
                 id="smoochBotIntegrations.telegramBot"
                 defaultMessage="Connected Telegram bot: {link}"
+                description="Label for the connected Telegram link for this bot"
                 values={{
                   link: (
                     <a href={`https://t.me/${enabledIntegrations.telegram.username}`} target="_blank" rel="noopener noreferrer">
@@ -299,15 +288,14 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           disabled={!isEnabled}
           type="viber"
           label="Viber"
-          icon={<ViberIcon />}
-          color="var(--viberPurple)"
+          icon={<ViberIcon style={{ color: 'var(--viberPurple)' }} />}
           online={isOnline('viber')}
           readOnly={!isSmoochSet}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_895bbda0a6"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_71c06164f3"
           params={[
             {
               key: 'token',
-              label: <FormattedMessage id="smoochBotIntegrations.viberPublicAccountToken" defaultMessage="Viber public account token" />,
+              label: <FormattedMessage id="smoochBotIntegrations.viberPublicAccountToken" defaultMessage="Viber public account token" description="Output of the viber bot token" />,
             },
           ]}
           info={
@@ -315,6 +303,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
               <FormattedMessage
                 id="smoochBotIntegrations.viberPublicAccount"
                 defaultMessage="Connected Viber public account: {name}"
+                description="Name of the connected viber account for this bot"
                 values={{
                   name: enabledIntegrations.viber.uri,
                 }}
@@ -326,19 +315,18 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           disabled={!isEnabled}
           type="line"
           label="LINE"
-          icon={<LineIcon />}
-          color="var(--lineGreen)"
+          icon={<LineIcon style={{ color: 'var(--lineGreen)' }} />}
           online={isOnline('line')}
           readOnly={!isSmoochSet}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_351dd4f960"
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_6adda6c137"
           params={[
             {
               key: 'channelAccessToken',
-              label: <FormattedMessage id="smoochBotIntegrations.lineChannelAccessToken" defaultMessage="LINE channel access token" />,
+              label: <FormattedMessage id="smoochBotIntegrations.lineChannelAccessToken" defaultMessage="LINE channel access token" description="Output of the LINE bot token" />,
             },
             {
               key: 'channelSecret',
-              label: <FormattedMessage id="smoochBotIntegrations.lineChannelSecret" defaultMessage="LINE channel secret" />,
+              label: <FormattedMessage id="smoochBotIntegrations.lineChannelSecret" defaultMessage="LINE channel secret" description="Output of the LINE channel secret paired with the token" />,
             },
           ]}
           info={
@@ -348,6 +336,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   <FormattedMessage
                     id="smoochBotIntegrations.lineWebhook"
                     defaultMessage="Copy this webhook URL to your LINE settings"
+                    description="Textfield label for the LINE webhook URL"
                   />
                 }
                 variant="outlined"
@@ -358,6 +347,32 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   readOnly: true,
                 }}
                 fullWidth
+              /> : null
+          }
+        />
+        <SmoochBotIntegrationButton
+          installationId={installationId}
+          disabled={!isEnabled}
+          type="instagram"
+          label="Instagram"
+          url={settings.smooch_facebook_authorization_url.replace('authorize/facebook', 'authorize/instagram')}
+          helpUrl="https://help.checkmedia.org/en/articles/8772777-setup-your-tipline-bot#h_b872d32c4d"
+          icon={<InstagramIcon style={{ color: 'var(--instagramPink)' }} />}
+          online={isOnline('instagram')}
+          readOnly={!isSmoochSet}
+          info={
+            isOnline('instagram') ?
+              <FormattedMessage
+                id="smoochBotIntegrations.instagram"
+                defaultMessage="Connected profile: {link}"
+                description="Label for the connected Instagram profile for this bot"
+                values={{
+                  link: (
+                    <a href={`https://instagram.com/${enabledIntegrations.instagram.businessUsername}`} target="_blank" rel="noopener noreferrer">
+                      {enabledIntegrations.instagram.businessName}
+                    </a>
+                  ),
+                }}
               /> : null
           }
         />

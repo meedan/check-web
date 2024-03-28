@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
@@ -89,22 +88,16 @@ const SmoochBotMenuOption = (props) => {
     props.onChange({ smooch_menu_option_keyword: value });
   };
 
-  const resourceIdToTitle = (id) => {
-    const resource = props.resources.find(r => r.smooch_custom_resource_id === id);
+  const resourceIdToTitle = (uuid) => {
+    const resource = props.resources.find(r => r.uuid === uuid);
     if (resource) {
-      return resource.smooch_custom_resource_title;
+      return resource.title;
     }
     return null;
   };
 
   const handleSelectAction = (event, newValue) => {
-    if (newValue && newValue.inputValue) {
-      props.onChange({
-        smooch_menu_option_value: 'custom_resource',
-        smooch_menu_custom_resource_title: newValue.inputValue,
-        smooch_menu_custom_resource_id: Math.random().toString().substring(2, 10),
-      });
-    } else if (newValue.value === 'custom_resource') {
+    if (newValue.value === 'custom_resource') {
       props.onChange({
         smooch_menu_option_value: 'custom_resource',
         smooch_menu_custom_resource_id: newValue.id,
@@ -145,8 +138,8 @@ const SmoochBotMenuOption = (props) => {
     });
     props.resources.forEach((resource) => {
       menuOptions.push({
-        title: resource.smooch_custom_resource_title,
-        id: resource.smooch_custom_resource_id,
+        title: resource.title,
+        id: resource.uuid,
         value: 'custom_resource',
       });
     });
@@ -161,12 +154,14 @@ const SmoochBotMenuOption = (props) => {
               <FormattedMessage
                 id="smoochBotMenuOption.if"
                 defaultMessage="If"
+                description="Logical operator IF statement"
               />
             </Typography>
             <Typography component="div" variant="caption" className={classes.caption}>
               <FormattedMessage
                 id="smoochBotMenuOption.condition"
                 defaultMessage="The following keyword is matched"
+                description="Label for keyword matching rule"
               />
             </Typography>
           </Box>
@@ -182,6 +177,7 @@ const SmoochBotMenuOption = (props) => {
                 <FormattedMessage
                   id="smoochBotMenuOption.errorTos"
                   defaultMessage="'9' will redirect to the terms of service. It cannot be used as an option in the main menu."
+                  description="Help text for an text field input"
                 /> : null
             }
             error={option.smooch_menu_option_value !== 'tos' && error}
@@ -194,12 +190,14 @@ const SmoochBotMenuOption = (props) => {
               <FormattedMessage
                 id="smoochBotMenuOption.then"
                 defaultMessage="Then"
+                description="Logical operator THEN statement"
               />
             </Typography>
             <Typography component="div" variant="caption" className={classes.caption}>
               <FormattedMessage
                 id="smoochBotMenuOption.action"
                 defaultMessage="Respond with"
+                description="Label for the field describing how the bot should respond"
               />
             </Typography>
           </Box>
@@ -260,6 +258,7 @@ const SmoochBotMenuOption = (props) => {
                       <FormattedMessage
                         id="smoochBotMenuOption.add"
                         defaultMessage='Create "{resourceName}"'
+                        description="Suggestion for creating a new resource of the name listed"
                         values={{ resourceName: params.inputValue }}
                       />
                     ),
@@ -301,6 +300,7 @@ const SmoochBotMenuOption = (props) => {
                     <FormattedMessage
                       id="smoochBotMenuOption.selectMessage"
                       defaultMessage="Select message"
+                      description="Text field label to select a message to send"
                     />
                   }
                   variant="outlined"

@@ -1,8 +1,13 @@
 [
   {
-    "id": "mediaFactCheck.error",
-    "description": "Caption that informs that a fact-check could not be saved and that the fields have to be filled",
-    "defaultMessage": "Title and description have to be filled"
+    "id": "alert.noClaimTitle",
+    "description": "Alert box information title to tell the user they must complete additional fields to unlock this area",
+    "defaultMessage": "Claim Required"
+  },
+  {
+    "id": "alert.noClaimDescript",
+    "description": "Alert box information content to tell the user they must complete additional fields to unlock this area",
+    "defaultMessage": "Add a claim above in order to access the fact-check for this item"
   },
   {
     "id": "mediaFactCheck.factCheck",
@@ -20,9 +25,24 @@
     "defaultMessage": "saved by {userName} {timeAgo}"
   },
   {
+    "id": "mediaFactCheck.titlePlaceholder",
+    "description": "Placeholder instructions for fact-check title field",
+    "defaultMessage": "Objective message to readers"
+  },
+  {
+    "id": "mediaFactCheck.errorTitle",
+    "description": "Caption that informs that a fact-check could not be saved and that the title field has to be filled",
+    "defaultMessage": "Fact-check title is required"
+  },
+  {
     "id": "mediaFactCheck.title",
     "description": "Label for fact-check title field",
     "defaultMessage": "Title"
+  },
+  {
+    "id": "mediaFactCheck.summaryPlaceholder",
+    "description": "Placeholder instructions for fact-check summary field",
+    "defaultMessage": "Briefly contextualize the fact-check rating"
   },
   {
     "id": "mediaFactCheck.summary",
@@ -30,9 +50,24 @@
     "defaultMessage": "Summary"
   },
   {
+    "id": "mediaFactCheck.errorSummary",
+    "description": "Caption that informs that a fact-check could not be saved and that the summary field has to be filled",
+    "defaultMessage": "Fact-check summary is required"
+  },
+  {
+    "id": "mediaFactCheck.urlPlaceholder",
+    "description": "Placeholder instructions for fact-check URL field",
+    "defaultMessage": "Add a URL to this fact-check article"
+  },
+  {
     "id": "mediaFactCheck.url",
     "description": "Label for fact-check URL field",
     "defaultMessage": "Article URL"
+  },
+  {
+    "id": "mediaFactCheck.selectLanguageLabel",
+    "description": "Label for input to select language",
+    "defaultMessage": "Language"
   },
   {
     "id": "mediaActionsBar.publishedReport",
@@ -43,20 +78,5 @@
     "id": "mediaActionsBar.unpublishedReport",
     "description": "A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state.",
     "defaultMessage": "Unpublished report"
-  },
-  {
-    "id": "mediaFactCheck.claimMissingTitle",
-    "description": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet",
-    "defaultMessage": "Claim missing"
-  },
-  {
-    "id": "mediaFactCheck.claimMissingDesc",
-    "description": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet",
-    "defaultMessage": "You must add a claim to access the fact-check report."
-  },
-  {
-    "id": "mediaFactCheck.confirmButtonLabel",
-    "description": "A label on a button that the user can press to go back to the screen where they edit a fact-check.",
-    "defaultMessage": "Go back to editing"
   }
 ]

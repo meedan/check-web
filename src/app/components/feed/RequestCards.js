@@ -3,10 +3,11 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import { Box, Chip } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import WhatsAppIcon from '../../icons/whatsapp.svg';
 import Request from '../cds/requests-annotations/Request';
+import Chip from '../cds/buttons-checkboxes-chips/Chip';
 import RequestSubscription from './RequestSubscription';
 import MediasLoading from '../media/MediasLoading';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -32,14 +33,7 @@ const RequestCards = ({ request, mediaDbid }) => {
   const requestsCount = request.requests_count;
 
   const whatsappIcon = (
-    <WhatsAppIcon
-      style={{
-        backgroundColor: 'var(--whatsappGreen)',
-        color: 'var(--otherWhite)',
-        borderRadius: 4,
-        padding: 2,
-      }}
-    />
+    <WhatsAppIcon style={{ color: 'var(--whatsappGreen)' }} />
   );
 
   const feedChip = <Chip label={request.feed?.name} size="small" />;
@@ -197,7 +191,7 @@ const RequestCardsQuery = ({ requestDbid, mediaDbid }) => (
       }}
       render={({ props, error }) => {
         if (!error && !props) {
-          return <MediasLoading center />;
+          return <MediasLoading theme="grey" variant="inline" size="medium" />;
         }
         if (props && !error) {
           return (<RequestCards {...props} mediaDbid={mediaDbid} />);

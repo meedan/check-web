@@ -10,13 +10,13 @@ describe('<Card />', () => {
   });
 
   it('should render clickable card', () => {
-    const cardComponent = mount(<Card title="Test" url="https://meedan.com" />);
+    const cardComponent = mount(<Card cardUrl="https://meedan.com" />);
     const card = cardComponent.find('.card a');
     expect(card).toHaveLength(1);
   });
 
-  it('should render non-clickable card', () => {
-    const cardComponent = mount(<Card title="Test" url={null} />);
+  it('should render non-clickable fact-check', () => {
+    const cardComponent = mount(<Card cardUrl={null} />);
     const card = cardComponent.find('.card a');
     expect(card).toHaveLength(0);
   });

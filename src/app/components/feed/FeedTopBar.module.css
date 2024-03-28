@@ -1,23 +1,103 @@
+.feedTopBarContainer {
+  align-items: center;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
 .feedTopBar {
   align-items: center;
-  border: 2px solid var(--brandMain);
-  border-radius: 6px;
   display: inline-flex;
+  flex-wrap: wrap;
   gap: 12px;
   padding: 6px;
 
-  .feedListTitle {
-    color: var(--textPrimary);
+  .feedTopBarItem {
+    align-items: center;
+    border: 2px solid var(--brandMain);
+    border-radius: 6px;
+    display: inline-flex;
+    gap: 12px;
+    padding: 6px;
+  }
+
+  .feedTopBarButton {
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover:not(:has(*:hover.feedListIcon)) {
+      background-color: var(--brandHoverAccent);
+    }
+  }
+
+  .feedTopBarButtonDisabled {
+    background-color: transparent;
+    border: 2px solid var(--grayDisabledBackground);
+    cursor: pointer;
+
+    &:hover:not(:has(*:hover.feedListIcon)) {
+      background-color: var(--grayDisabledBackground);
+      border: 2px solid var(--grayBorderAccent);
+    }
+
+    .feedListTitle {
+      opacity: .2;
+    }
+
+    .feedListAvatar {
+      opacity: .2;
+    }
+  }
+
+  .feedTopBarButtonHasList {
+    padding: 6px 42px 6px 6px;
+  }
+
+  .feedTopBarCustomListButton {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+  }
+
+  .feedTopBarList {
+    align-items: center;
+    display: flex;
+
+    .feedListTitle {
+      @mixin text-truncate inline-block;
+      color: var(--textPrimary);
+      max-width: 250px;
+    }
+
+    .feedListIcon {
+      background-color: var(--grayBackground);
+      border-radius: 8px;
+      color: var(--textSecondary);
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      font-size: 16px;
+      margin-left: 8px;
+
+      &:hover {
+        background-color: var(--grayBorderMain);
+      }
+    }
   }
 
   .feedNoListTitle {
     color: var(--textPlaceholder);
     font-style: italic;
   }
+}
 
-  .feedListIcon {
-    background: var(--grayBackground);
-    color: var(--textSecondary);
-    margin-left: 8px;
-  }
+.feedTopBarRight {
+  display: inline-flex;
+  justify-content: flex-end;
+}
+
+.quickFilterHeader {
+  color: var(--textSecondary);
+}
+
+.itemIcon {
+  margin-right: 8px;
+  min-width: fit-content !important;
 }

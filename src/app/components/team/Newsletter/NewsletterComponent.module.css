@@ -1,9 +1,3 @@
-.content {
-  margin-top: 16px;
-  max-width: 880px;
-  padding-left: 32px;
-}
-
 .header-container {
   display: grid;
   grid-gap: 8px;
@@ -14,20 +8,7 @@
   }
 }
 
-.newsletter {
-  background: var(--otherWhite);
-  border-color: var(--grayBorderMain);
-  border-radius: 16px;
-  border-style: solid;
-  border-width: 2px;
-  padding: 16px;
-}
-
 .settings {
-  background: var(--brandBackground);
-  border-radius: 8px;
-  padding: 16px;
-
   > *:not(:last-child) {
     margin-bottom: 16px;
   }
@@ -38,10 +19,6 @@
 }
 
 .newsletter-body {
-  background: var(--brandBackgroundAccent);
-  border-radius: 8px;
-  padding: 16px;
-
   .rss-feed-url {
     align-items: baseline;
     display: flex;
@@ -55,9 +32,6 @@
 
   .loading-rss-feed-button {
     align-self: center;
-    background: var(--alertMain);
-    min-width: 32px;
-    width: 32px;
   }
 
   .switcher {
@@ -99,7 +73,7 @@
 
 .newsletter-scheduler-container {
   .newsletter-scheduler {
-    border-radius: 8px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -116,14 +90,6 @@
     .newsletter-scheduler-title {
       align-items: center;
       display: flex;
-
-      .tooltip-icon {
-        color: var(--textSecondary);
-        display: inline-block;
-        font-size: var(--iconSizeSmall);
-        margin: 0 0 1px 6px;
-        vertical-align: middle;
-      }
     }
 
     .newsletter-scheduler-schedule {
@@ -164,18 +130,6 @@
       display: flex;
       padding: 0 0 0 2px;
 
-      .newsletter-schedule-button,
-      .newsletter-schedule-button:hover {
-        background: var(--validationMain);
-        color: var(--otherWhite);
-      }
-
-      .newsletter-pause-button,
-      .newsletter-pause-button:hover {
-        background: var(--alertMain);
-        color: var(--otherWhite);
-      }
-
       .newsletter-schedule-meta {
         align-items: center;
         color: var(--textSecondary);
@@ -186,6 +140,7 @@
   }
 }
 
-.error-label {
+.error-label,
+.error-label:visited {
   color: var(--errorSecondary);
 }

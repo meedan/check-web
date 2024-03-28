@@ -9,16 +9,9 @@ import ErrorBoundary from '../error/ErrorBoundary';
 import CheckContext from '../../CheckContext';
 
 const ProjectMedia = (parentProps, context) => {
-  let { projectId } = parentProps;
   const { projectMediaId, view } = parentProps;
   const checkContext = new CheckContext({ props: parentProps, context });
   checkContext.setContext();
-  if (!projectId) {
-    const store = checkContext.getContextStore();
-    if (store.project) {
-      projectId = store.project.dbid;
-    }
-  }
 
   return (
     <ErrorBoundary component="Media">
@@ -36,7 +29,7 @@ const ProjectMedia = (parentProps, context) => {
         }}
         render={({ error, props }) => {
           if (!error && !props) {
-            return (<MediasLoading count={1} />);
+            return (<MediasLoading theme="grey" variant="page" size="large" />);
           }
 
           if (!error && props) {

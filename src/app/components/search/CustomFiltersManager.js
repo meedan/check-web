@@ -3,21 +3,18 @@ import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import ShortTextIcon from '@material-ui/icons/ShortText';
-import LocationIcon from '@material-ui/icons/LocationOn';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import IconFileUpload from '@material-ui/icons/CloudUpload';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import MediasLoading from '../media/MediasLoading';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
 import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
-import NoteAltOutlinedIcon from '../../icons/note_alt.svg';
+import CheckBoxIcon from '../../icons/check_box.svg';
+import DateRangeIcon from '../../icons/calendar_month.svg';
+import IconFileUpload from '../../icons/file_upload.svg';
 import NumberIcon from '../../icons/numbers.svg';
+import LocationIcon from '../../icons/location.svg';
+import NoteAltOutlinedIcon from '../../icons/note_alt.svg';
+import RadioButtonCheckedIcon from '../../icons/radio_button_checked.svg';
+import ShortTextIcon from '../../icons/notes.svg';
 
 const messages = defineMessages({
   empty: {
@@ -92,8 +89,8 @@ const CustomFiltersManagerComponent = ({
   const icons = {
     free_text: <ShortTextIcon />,
     single_choice: <RadioButtonCheckedIcon />,
-    multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
-    number: <NumberIcon style={{ fontSize: '24px' }} />,
+    multiple_choice: <CheckBoxIcon />,
+    number: <NumberIcon />,
     geolocation: <LocationIcon />,
     datetime: <DateRangeIcon />,
     file_upload: <IconFileUpload />,
@@ -151,28 +148,19 @@ const CustomFiltersManagerComponent = ({
       };
 
       return (
-        <Box>
-          <Box display="flex" alignItems="center">
-            <MultiSelectFilter
-              id={`${filter.task_type}-${filter.id}`}
-              allowSearch={false}
-              extraInputs={getExtraInputs()}
-              label={intl.formatMessage(messages.labelIs, { title: teamTask.node?.label })}
-              icon={icons[teamTask.node.type]}
-              selected={filter.response}
-              options={options}
-              onChange={handleChoiceTaskFilterChange}
-              onRemove={() => handleRemoveFilter(i)}
-            />
-          </Box>
-          { errorMessage ?
-            <Box alignItems="center" color="red" display="flex">
-              <Box pr={1}><ErrorOutlineIcon /></Box>
-              <Typography component="span" variant="body1">
-                { errorMessage }
-              </Typography>
-            </Box> : null }
-        </Box>
+        <MultiSelectFilter
+          className="int-custom-filters-manager__multi-select-filter"
+          id={`${filter.task_type}-${filter.id}`}
+          allowSearch={false}
+          extraInputs={getExtraInputs()}
+          label={intl.formatMessage(messages.labelIs, { title: teamTask.node?.label })}
+          icon={icons[teamTask.node.type]}
+          selected={filter.response}
+          options={options}
+          onChange={handleChoiceTaskFilterChange}
+          onRemove={() => handleRemoveFilter(i)}
+          error={errorMessage}
+        />
       );
     }
 
@@ -182,6 +170,7 @@ const CustomFiltersManagerComponent = ({
       <FormattedMessage id="customFiltersManager.label" defaultMessage="Custom field is" description="Placeholder label for metadata field when not fully configured">
         { label => (
           <MultiSelectFilter
+            className="int-custom-filters-manager__multi-select-filter--team-tasks"
             label={label}
             icon={<NoteAltOutlinedIcon />}
             options={teamTasks.filter(tt => existingFilters.indexOf(tt.node?.dbid.toString()) === -1).map(tt => ({
@@ -200,7 +189,7 @@ const CustomFiltersManagerComponent = ({
   });
 
   return (
-    <Box display="flex" alignItems="center" flexWrap="wrap">
+    <>
       { filterFields.filter(ff => ff !== null).map((component, index) => {
         const key = filters[index]?.id || 'new-filter';
         if (index > 0) {
@@ -218,7 +207,7 @@ const CustomFiltersManagerComponent = ({
           </span>
         );
       })}
-    </Box>
+    </>
   );
 };
 
@@ -272,7 +261,7 @@ const CustomFiltersManager = ({
           );
         }
         // TODO: We need a better error handling in the future, standardized with other components
-        return <CircularProgress size={36} />;
+        return <MediasLoading theme="grey" variant="icon" size="icon" />;
       }}
     />
   );

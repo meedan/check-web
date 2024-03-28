@@ -31,8 +31,8 @@
   },
   {
     "id": "search.twitter",
-    "description": "Allow user to filter items by twitter posts",
-    "defaultMessage": "Twitter post"
+    "description": "Allow user to filter items by x (twitter) posts",
+    "defaultMessage": "X (Twitter) post"
   },
   {
     "id": "search.tiktok",
@@ -50,6 +50,11 @@
     "defaultMessage": "Instagram post"
   },
   {
+    "id": "search.telegram",
+    "description": "Allow user to filter items by Telegram posts",
+    "defaultMessage": "Telegram"
+  },
+  {
     "id": "search.webLink",
     "description": "Allow user to filter items by links of type page",
     "defaultMessage": "webLink"
@@ -63,6 +68,11 @@
     "id": "search.itemUnread",
     "description": "Describes media unread",
     "defaultMessage": "Unread"
+  },
+  {
+    "id": "search.mediaUnmatched",
+    "description": "Describes media that is unmatched as in \"Media is [unmatched]\"",
+    "defaultMessage": "Unmatched"
   },
   {
     "id": "search.empty",
@@ -110,6 +120,11 @@
     "defaultMessage": "Paused"
   },
   {
+    "id": "search.switchOperator",
+    "description": "Tooltip to tell the user they can switch the logical operator between 'AND/OR' when filtering by multiple fields",
+    "defaultMessage": "Toggle AND/OR"
+  },
+  {
     "id": "search.fieldOr",
     "description": "Logical operator 'OR' to be applied when filtering by multiple fields",
     "defaultMessage": "or"
@@ -122,12 +137,17 @@
   {
     "id": "search.claim",
     "description": "Prefix label for field to filter by claim",
-    "defaultMessage": "Claim field is"
+    "defaultMessage": "Claim is"
   },
   {
     "id": "search.show",
     "description": "Prefix label for field to filter by media type",
     "defaultMessage": "Type is"
+  },
+  {
+    "id": "search.unmatched",
+    "description": "Label for field to filter by unmatched media",
+    "defaultMessage": "Media is unmatched"
   },
   {
     "id": "search.read",
@@ -147,27 +167,22 @@
   {
     "id": "search.archived",
     "description": "Prefix label for field to filter by Tipline request",
-    "defaultMessage": "Tipline request is"
+    "defaultMessage": "Request is"
   },
   {
     "id": "search.reportStatus",
     "description": "Prefix label for field to filter by report status",
-    "defaultMessage": "Report status is"
+    "defaultMessage": "Report (status) is"
   },
   {
     "id": "search.publishedBy",
     "description": "Prefix label for field to filter by published by",
-    "defaultMessage": "Report published by"
+    "defaultMessage": "Publisher is"
   },
   {
     "id": "search.annotatedBy",
     "description": "Prefix label for field to filter by annotated by",
-    "defaultMessage": "Annotated by"
-  },
-  {
-    "id": "search.language",
-    "description": "Prefix label for field to filter by language",
-    "defaultMessage": "Language is"
+    "defaultMessage": "Annotater is"
   },
   {
     "id": "search.assignedTo",
@@ -178,6 +193,16 @@
     "id": "search.clusterTeams",
     "description": "Prefix label for field to filter by workspace",
     "defaultMessage": "Organization is"
+  },
+  {
+    "id": "search.spam",
+    "description": "Label for spam filter field",
+    "defaultMessage": "Item is marked as spam"
+  },
+  {
+    "id": "search.trash",
+    "description": "Label for spam filter field",
+    "defaultMessage": "Item is in the Trash"
   },
   {
     "id": "search.resetFilter",

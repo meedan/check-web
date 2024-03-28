@@ -30,6 +30,5 @@ if (( $? != 0 )); then
 fi
 mv $WORKTMP $DESTFILE
 
-
 echo "Configuration for env $DEPLOY_ENV complete."
 exit 0

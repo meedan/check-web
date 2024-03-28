@@ -1,10 +1,12 @@
 [
   {
     "id": "teamIntegrations.title",
+    "description": "Settings page title for the Integrations section",
     "defaultMessage": "Integrations"
   },
   {
-    "id": "teamIntegrations.subtitle",
-    "defaultMessage": "Third party tools to enhance productivity."
+    "id": "teamIntegrations.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Connect your Check workflow with third-party services. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about integrations</a>."
   }
 ]

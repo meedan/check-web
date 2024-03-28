@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Clearing check-web cache at CloudFlare..."
-curl --fail --output "/dev/null" --silent --show-error -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+curl -v --output "/dev/null" --show-error -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
         -H "Authorization: Bearer ${CF_CACHE_TOKEN}" -H "Content-Type: application/json" \
         --data '{"purge_everything":true}'
 

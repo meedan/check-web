@@ -35,10 +35,10 @@ describe('<TeamListsComponent />', () => {
 
   it('should render all list columns', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team} />);
-    expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(3);
-    expect(wrapper.html()).toMatch('Displayed columns');
-    expect(wrapper.html()).toMatch('General');
-    expect(wrapper.html()).toMatch('Annotation');
+    expect(wrapper.find('.typography-subtitle2').hostNodes()).toHaveLength(3);
+    expect(wrapper.html()).toMatch('Displayed');
+    expect(wrapper.html()).toMatch('General (hidden)');
+    expect(wrapper.html()).toMatch('Annotations (hidden)');
   });
 
   it('should render create metadata button', () => {
@@ -52,21 +52,22 @@ describe('<TeamListsComponent />', () => {
     expect(wrapper.html()).toMatch('team-lists__item-0-key-content1');
     expect(wrapper.html()).toMatch('team-lists__item-1-key-content2');
     expect(wrapper.html()).toMatch('team-lists__item-2-key-content3');
-    wrapper.find('.MuiButton-text').at(0).simulate('click');
+    wrapper.find('.int-list-toggle__button').at(0).simulate('click');
   });
 
   it('should hide item column', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team2} />);
-    expect(wrapper.html()).toMatch('Hide');
-    expect(wrapper.html()).not.toMatch('Show');
-    wrapper.find('.MuiButton-text').hostNodes().simulate('click');
-    expect(wrapper.html()).toMatch('Show');
+    const button = wrapper.find('.int-list-toggle__button').at(0);
+    expect(button.html()).toMatch('Hide');
+    expect(button.html()).not.toMatch('Display');
+    button.simulate('click');
+    expect(wrapper.html()).toMatch('Display');
     expect(wrapper.html()).not.toMatch('Hide');
   });
 
   it('should render reorder buttons', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team} />);
-    expect(wrapper.find('.reorder__button-up').hostNodes()).toHaveLength(2);
-    expect(wrapper.find('.reorder__button-down').hostNodes()).toHaveLength(2);
+    expect(wrapper.find('.int-reorder__button-up').hostNodes()).toHaveLength(2);
+    expect(wrapper.find('.int-reorder__button-down').hostNodes()).toHaveLength(2);
   });
 });

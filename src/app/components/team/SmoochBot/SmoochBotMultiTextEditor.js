@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -26,7 +25,7 @@ const SmoochBotMultiTextEditor = (props) => {
         let errorMessage = null;
 
         if (field === 'smooch_message_smooch_bot_tos' && key === 'greeting' && (value[key] && !/9/.test(value[key]))) {
-          errorMessage = <FormattedMessage id="smoochBotMultiTextEditor.errorNine" defaultMessage="The option '9' must be included for users to access the Privacy Statement" />;
+          errorMessage = <FormattedMessage id="smoochBotMultiTextEditor.errorNine" description="Error message about a missing option" defaultMessage="The option '9' must be included for users to access the Privacy Statement" />;
         }
 
         return (

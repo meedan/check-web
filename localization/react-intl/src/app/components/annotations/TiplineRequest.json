@@ -8,20 +8,5 @@
     "id": "annotation.deletedUser",
     "description": "Label for deleted user",
     "defaultMessage": "Deleted User"
-  },
-  {
-    "id": "annotation.openInSlack",
-    "description": "Label for link to conversation in Slack",
-    "defaultMessage": "Open in Slack"
-  },
-  {
-    "id": "annotation.reportReceived",
-    "description": "Caption for report sent date",
-    "defaultMessage": "Report sent on {date}"
-  },
-  {
-    "id": "annotation.reportUpdateReceived",
-    "description": "Caption for report update sent date",
-    "defaultMessage": "Report update sent on {date}"
   }
 ]

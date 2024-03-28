@@ -1,7 +1,8 @@
+// DESIGNS: https://www.figma.com/file/7ZlvdotCAzeIQcbIKxOB65/Components?type=design&node-id=531-31202&mode=design&t=G3fBIdgR6AWtOlNu-4
 import React from 'react';
 import PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
 import { FormattedMessage } from 'react-intl';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ErrorOutlineIcon from '../../../icons/error_outline.svg';
 import CheckCircleIcon from '../../../icons/check_circle.svg';
@@ -95,8 +96,8 @@ function Upload({
           <FormattedMessage id="upload.dragMessage" defaultMessage="Drag a file here or" description="A label that appears when a user drags a file over a valid file drop area. It ends with 'or' because it will be followed with a link that reads in English 'select a local file'." />
         </span>
         &nbsp;
-        <a className="typography-button" href="#!" onClick={handleClick}>
-          <FormattedMessage id="upload.selectFile" defaultMessage="Select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." />
+        <a className={`typography-button ${styles['link-text']}`} href="#!" onClick={handleClick}>
+          <FormattedMessage id="upload.selectFile" defaultMessage="select a local file" description="Text for a link that when a user clicks it, it pulls up the file selector dialog for their local device operating system." />
         </a>.
       </div>
     );
@@ -116,12 +117,16 @@ function Upload({
         }
         arrow
       >
-        <IconButton
-          onClick={handleRemove}
-          className={styles['delete-button']}
-        >
-          <CancelIcon />
-        </IconButton>
+        <span>
+          <ButtonMain
+            iconCenter={<CancelIcon />}
+            variant="text"
+            theme="brand"
+            size="large"
+            onClick={handleRemove}
+            className={styles['delete-button']}
+          />
+        </span>
       </Tooltip>
     </div>
   );

@@ -59,7 +59,7 @@ describe('<TranslateStatuses/>', () => {
     expect(wrapper.find('#translate-statuses__input-1').at(0).prop('defaultValue')).toEqual('falso');
     expect(wrapper.find('#translate-statuses__input-2').at(1).prop('defaultValue')).toEqual('verdadeiro');
     expect(wrapper.find('#translate-statuses__input-3').at(2).prop('defaultValue')).toEqual('em progresso');
-    expect(wrapper.find('.status-message').hostNodes()).toHaveLength(0);
+    expect(wrapper.find('.test__status-message').hostNodes()).toHaveLength(0);
     expect(wrapper.find('.translate-statuses__message').hostNodes()).toHaveLength(0);
   });
 
@@ -72,7 +72,7 @@ describe('<TranslateStatuses/>', () => {
     />);
     expect(wrapper.html()).toMatch('False');
     expect(wrapper.find('#translate-statuses__input-1').at(0).prop('defaultValue')).toEqual('falso');
-    expect(wrapper.find('.status-message').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.test__status-message').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('message to be sent to the users');
     expect(wrapper.find('.translate-statuses__message').hostNodes()).toHaveLength(1);
   });

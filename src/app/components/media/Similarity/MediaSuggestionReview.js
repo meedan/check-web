@@ -4,55 +4,16 @@ import { Store } from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
-import {
-  CheckCircleOutline as AcceptIcon,
-  HighlightOff as RejectIcon,
-} from '@material-ui/icons';
+import AcceptIcon from '../../../icons/check_circle.svg';
+import RejectIcon from '../../../icons/cancel.svg';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { can } from '../../Can';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    background: 'var(--alertLight)',
-    borderColor: 'var(--alertLight)',
-    borderRadius: '8px',
-    marginBottom: `${theme.spacing(2)}px`,
-    fontSize: '12px',
-  },
-  title: {
-    fontSize: '16px',
-    marginBottom: `${theme.spacing(1)}px`,
-  },
-  prompt: {
-    marginBottom: `${theme.spacing(1)}px`,
-  },
-  button: {
-    borderRadius: '8px',
-    float: 'right',
-  },
-  accept: {
-    color: 'var(--validationMain)',
-    padding: '4px',
-  },
-  reject: {
-    color: 'var(--errorMain)',
-    padding: '4px',
-  },
-}));
+import styles from './MediaSuggestionReview.module.css';
 
 const MediaSuggestionReview = ({ projectMedia, setFlashMessage }) => {
-  const classes = useStyles();
   const [isMutationPending, setIsMutationPending] = React.useState(false);
   const disableAcceptRejectButtons = !can(projectMedia.team.permissions, 'update Relationship') || isMutationPending;
   const suggestedMainItem = projectMedia.suggested_main_item;
@@ -238,84 +199,70 @@ const MediaSuggestionReview = ({ projectMedia, setFlashMessage }) => {
   if (projectMedia.is_confirmed_similar_to_another_item) {
     const confirmedMainItemLink = `/${confirmedMainItem?.team?.slug}/media/${confirmedMainItem?.dbid}`;
     return (
-      <Card
-        variant="outlined"
-        className={classes.root}
-        elevation={0}
-      >
-        <CardContent>
-          <Typography className={classes.title} variant="h5" component="h1">
-            <FormattedMessage id="mediaSuggestionReview.matchTitle" defaultMessage="Matched claim" description="Title of a box that lets the user open a claim that this has been matched with." />
-          </Typography>
-          <Typography className={classes.prompt} variant="body1" component="p">
-            <FormattedMessage
-              id="mediaSuggestionReview.matchDescription"
-              defaultMessage="This media has been matched to the claim and fact-check below."
-              description="Hint text to tell the user what the 'Open claim' button does."
-            />
-          </Typography>
-          <Grid container direction="row" justifyContent="center" alignItems="flex-end">
-            <Grid item xs={6}>
-              <></>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                variant="outlined"
-                className={classes.button}
-                onClick={() => browserHistory.push(confirmedMainItemLink)}
-              >
-                <FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />
-              </Button>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+      <div className={styles.MediaSuggestionReview}>
+        <div className={styles.MediaSuggestionReviewTitle}>
+          <FormattedMessage id="mediaSuggestionReview.matchTitle" defaultMessage="Matched claim" description="Title of a box that lets the user open a claim that this has been matched with." />
+        </div>
+        <FormattedMessage
+          tagName="p"
+          id="mediaSuggestionReview.matchDescription"
+          defaultMessage="This media has been matched to the claim and fact-check below."
+          description="Hint text to tell the user what the 'Open claim' button does."
+        />
+        <div className={styles.MediaSuggestionReviewActions}>
+          <ButtonMain
+            variant="outlined"
+            theme="text"
+            size="default"
+            onClick={() => browserHistory.push(confirmedMainItemLink)}
+            label={<FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />}
+          />
+        </div>
+      </div>
     );
   }
 
   if (!getSuggestedParentRelationshipId()) return null;
 
   return (
-    <Card
-      variant="outlined"
-      className={classes.root}
-    >
-      <CardContent>
-        <Typography className={classes.title} variant="h5" component="h1">
-          <FormattedMessage id="mediaSuggestionReview.title" defaultMessage="Suggested Claim and Fact-check" description="Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)." />
-        </Typography>
-        <Typography className={classes.prompt} variant="body1" component="p">
-          <FormattedMessage id="mediaSuggestionReview.prompt" defaultMessage="Is the Claim or Fact-check below a good match for this media?" description="Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)." />
-        </Typography>
-        <Grid container direction="row" justifyContent="center" alignItems="flex-end">
-          <Grid item xs={6}>
-            <IconButton
-              className={classes.accept}
-              onClick={handleAccept}
-              disabled={disableAcceptRejectButtons}
-            >
-              <AcceptIcon fontSize="large" />
-            </IconButton>
-            <IconButton
-              className={classes.reject}
-              onClick={handleReject}
-              disabled={disableAcceptRejectButtons}
-            >
-              <RejectIcon fontSize="large" />
-            </IconButton>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant="outlined"
-              className={classes.button}
-              onClick={() => window.open(suggestedMainItemLink, '_blank')}
-            >
-              <FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />
-            </Button>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+    <div className={styles.MediaSuggestionReview}>
+      <div className={styles.MediaSuggestionReviewTitle}>
+        <FormattedMessage id="mediaSuggestionReview.title" defaultMessage="Suggested Claim and Fact-check" description="Title of a box that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)." />
+      </div>
+      <FormattedMessage
+        tagName="p"
+        id="mediaSuggestionReview.prompt"
+        defaultMessage="Is the Claim or Fact-check below a good match for this media?"
+        description="Text that prompts the user to review a suggestion for a related Claim and Fact-check (technical terms from elsewhere in the app)."
+      />
+      <div className={styles.MediaSuggestionReviewActions}>
+        <div className={styles.MediaSuggestionReviewActionsConfirm}>
+          <ButtonMain
+            iconCenter={<AcceptIcon />}
+            onClick={handleAccept}
+            variant="text"
+            size="large"
+            theme="validation"
+            disabled={disableAcceptRejectButtons}
+          />
+          <ButtonMain
+            iconCenter={<RejectIcon />}
+            onClick={handleReject}
+            variant="text"
+            size="large"
+            theme="error"
+            disabled={disableAcceptRejectButtons}
+          />
+        </div>
+        <ButtonMain
+          variant="outlined"
+          theme="text"
+          size="default"
+          onClick={() => window.open(suggestedMainItemLink, '_blank')}
+          label={<FormattedMessage id="mediaSuggestionReview.openButtonMatched" defaultMessage="Open claim" description="A label for a button that opens a claim item" />}
+        />
+      </div>
+    </div>
   );
 };
 

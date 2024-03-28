@@ -1,3 +1,10 @@
+/* eslint-disable relay/unused-fields */
+/*
+  FIXME: had to skip this relay/unused-fields rule unfortunately because of the team fragment that is needed
+  for MediaStatusCommon (some 4 levels up the component tree) and is very difficult to
+  make a proper chain of fragmentContainers at this moment because the BlankMediaButton
+  is entangled in a few different places.
+*/
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { graphql, createFragmentContainer, QueryRenderer } from 'react-relay/compat';
@@ -28,6 +35,7 @@ const MediaCardLarge = ({
   inModal,
   projectMedia,
   currentUserRole,
+  superAdminMask,
   onClickMore,
 }) => {
   const { media } = projectMedia;
@@ -65,6 +73,7 @@ const MediaCardLarge = ({
             projectMedia={projectMedia}
             imagePath={media.embed_path}
             currentUserRole={currentUserRole}
+            superAdminMask={superAdminMask}
           />
         ) : null }
         { (type === 'UploadedVideo' || type === 'UploadedAudio' || isYoutube) && !isYoutubeChannel ? (
@@ -75,23 +84,32 @@ const MediaCardLarge = ({
             currentUserRole={currentUserRole}
             isAudio={type === 'UploadedAudio'}
             coverImage={coverImage}
+            superAdminMask={superAdminMask}
           />
         ) : null }
-        { isWebPage ? (
+        { isWebPage && !isYoutube ? (
           <WebPageMediaCard
             projectMedia={projectMedia}
             currentUserRole={currentUserRole}
             data={data}
             inModal={inModal}
+            superAdminMask={superAdminMask}
           />
         ) : null }
         { isPender ? (
-          <PenderCard
-            url={media.url}
-            fallback={null}
-            domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
-            mediaVersion={data.refreshes_count}
-          />
+          <AspectRatio
+            projectMedia={projectMedia}
+            currentUserRole={currentUserRole}
+            superAdminMask={superAdminMask}
+            isPenderCard={isPender}
+          >
+            <PenderCard
+              url={media.url}
+              fallback={null}
+              domId={`pender-card-${Math.floor(Math.random() * 1000000)}`}
+              mediaVersion={data.refreshes_count}
+            />
+          </AspectRatio>
         ) : null }
         { isBlank ? (
           <Box
@@ -125,19 +143,28 @@ MediaCardLarge.propTypes = {
   inModal: PropTypes.bool,
   currentUserRole: PropTypes.string.isRequired,
   onClickMore: PropTypes.func.isRequired,
+  superAdminMask: PropTypes.bool,
 };
 
 MediaCardLarge.defaultProps = {
   inModal: false,
+  superAdminMask: false,
 };
 
 const MediaCardLargeContainer = createFragmentContainer(MediaCardLarge, graphql`
   fragment MediaCardLarge_projectMedia on ProjectMedia {
     id
+    team {
+      id
+      dbid
+      slug
+      verification_statuses
+    }
     media {
       type
       url
       quote
+      domain
       metadata
       embed_path
       file_path
@@ -164,7 +191,7 @@ const MediaCardLargeQueryRenderer = ({ projectMediaId }) => (
     }}
     render={({ error, props }) => {
       if (!error && !props) {
-        return (<MediasLoading count={1} />);
+        return (<MediasLoading theme="grey" variant="inline" size="small" />);
       }
 
       if (!error && props) {

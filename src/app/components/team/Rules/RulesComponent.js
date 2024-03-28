@@ -1,24 +1,12 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Rule from './Rule';
 import RulesTable from './RulesTable';
-import { ContentColumn } from '../../../styles/js/shared';
 import { safelyParseJSON } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
-
-const useStyles = makeStyles(theme => ({
-  paper: {
-    padding: theme.spacing(2),
-    margin: '0 auto',
-    boxShadow: 'none',
-  },
-}));
 
 const messages = defineMessages({
   copyOf: {
@@ -28,8 +16,6 @@ const messages = defineMessages({
 });
 
 const RulesComponent = (props) => {
-  const classes = useStyles();
-
   const propRules = props.team.get_rules ? props.team.get_rules.slice(0) : [];
   const [rules, setRules] = React.useState(JSON.parse(JSON.stringify(propRules)));
   const [currentRuleIndex, setCurrentRuleIndex] = React.useState(null);
@@ -37,7 +23,7 @@ const RulesComponent = (props) => {
   const [savedRule, setSavedRule] = React.useState(null);
 
   const handleError = (error) => {
-    let errorMessage = <FormattedMessage id="rulesComponent.defaultErrorMessage" defaultMessage="Could not save rules" />;
+    let errorMessage = <FormattedMessage id="rulesComponent.defaultErrorMessage" defaultMessage="Could not save rules" description="Error message when rule cannot be saved" />;
     const json = safelyParseJSON(error.source);
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
@@ -46,7 +32,7 @@ const RulesComponent = (props) => {
   };
 
   const handleSuccess = () => {
-    props.setFlashMessage(<FormattedMessage id="rulesComponent.savedSuccessfully" defaultMessage="Rules saved successfully" />, 'success');
+    props.setFlashMessage(<FormattedMessage id="rulesComponent.savedSuccessfully" defaultMessage="Rules saved successfully" description="Success message when rule has saved" />, 'success');
   };
 
   const handleUpdateRules = (newRules, commit) => {
@@ -173,32 +159,26 @@ const RulesComponent = (props) => {
 
   if (currentRuleIndex !== null && rule !== null) {
     return (
-      <ContentColumn large>
-        <Paper className={classes.paper}>
-          <Rule
-            rule={rule}
-            schema={JSON.parse(props.team.rules_json_schema)}
-            unsavedChanges={JSON.stringify(rule) !== JSON.stringify(savedRule)}
-            onGoBack={handleGoBack}
-            onDeleteRule={handleDeleteRule}
-            onSaveRule={handleSaveRule}
-            onDuplicateRule={handleDuplicateRule}
-            onChangeRule={handleChangeRule}
-          />
-        </Paper>
-      </ContentColumn>
+      <Rule
+        rule={rule}
+        schema={JSON.parse(props.team.rules_json_schema)}
+        unsavedChanges={JSON.stringify(rule) !== JSON.stringify(savedRule)}
+        onGoBack={handleGoBack}
+        onDeleteRule={handleDeleteRule}
+        onSaveRule={handleSaveRule}
+        onDuplicateRule={handleDuplicateRule}
+        onChangeRule={handleChangeRule}
+      />
     );
   }
 
   return (
-    <ContentColumn large>
-      <RulesTable
-        rules={rules}
-        onClickRule={handleClickRule}
-        onAddRule={handleAddRule}
-        onDeleteRules={handleDeleteRules}
-      />
-    </ContentColumn>
+    <RulesTable
+      rules={rules}
+      onClickRule={handleClickRule}
+      onAddRule={handleAddRule}
+      onDeleteRules={handleDeleteRules}
+    />
   );
 };
 

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "sharedFeeds",
+    "description": "Title for the shared feeds page",
+    "defaultMessage": "Shared Feeds <sup>BETA</sup>"
+  },
+  {
+    "id": "feedSection.sharedFeedsTitle",
+    "description": "Title of section about what shared feeds are",
+    "defaultMessage": "What are Shared Feeds?"
+  },
+  {
+    "id": "feedSection.sharedFeedsContent",
+    "description": "Text explaining what shared feeds are",
+    "defaultMessage": "Unlock new insights across audiences and languages by combining your Tipline data with other workspaces into a single shared view."
+  },
+  {
+    "id": "feedSection.whatCanBeSharedTitle",
+    "description": "Title of section about what can be shared in the shared feeds",
+    "defaultMessage": "What can be shared?"
+  },
+  {
+    "id": "feedSection.whatCanBeSharedContent",
+    "description": "Text explaining what can be shared in the shared feeds",
+    "defaultMessage": "Fully control what data each organization will contribute to the shared feed. Share anonymized request information from your Tipline, or create a shared pool of fact-checks, or choose to share everything with your partner workspaces."
+  },
+  {
+    "id": "feedSection.howToGetStartedTitle",
+    "description": "Title of section about how to get started with shared feeds",
+    "defaultMessage": "How do you get started?"
+  },
+  {
+    "id": "feedSection.howToGetStartedContent",
+    "description": "Text explaining how to use shared feeds.",
+    "defaultMessage": "Create a new shared feed, and select which data from your workspace you would like to contribute. </br> Then invite one or more other workspaces to participate. All contributing workspaces will share the same data."
+  },
+  {
+    "id": "feedSection.whatComesNextTitle",
+    "description": "Title of section about what is coming next for the shared feeds",
+    "defaultMessage": "What comes next?"
+  },
+  {
+    "id": "feedSection.whatComesNextContent",
+    "description": "Text about what is coming next for the shared feeds",
+    "defaultMessage": "With a single view into multiple Tiplines, each workspace accesses a new level of insights including trend narratives across audiences."
+  },
+  {
+    "id": "feedComponent.newSharedFeed",
+    "description": "Button label create new shared feed",
+    "defaultMessage": "New Shared Feed"
+  }
+]

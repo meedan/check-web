@@ -154,6 +154,9 @@ function getFilters() {
  */
 function getErrorMessage(transactionOrError, fallbackMessage) {
   let message = fallbackMessage;
+  if (!transactionOrError) {
+    return message;
+  }
   const json = transactionOrError.source ?
     safelyParseJSON(transactionOrError.source) :
     safelyParseJSON(transactionOrError.getError().source); // TODO remove after Relay Modern update
@@ -350,6 +353,7 @@ function getMediaType(media) {
   let { type } = media;
   if (media.url && media.domain === 'youtube.com') type = 'Youtube';
   if (media.url && media.domain === 'twitter.com') type = 'Twitter';
+  if (media.url && media.domain === 'x.com') type = 'Twitter';
   if (media.url && media.domain === 'facebook.com') type = 'Facebook';
   if (media.url && media.domain === 'instagram.com') type = 'Instagram';
 
@@ -384,6 +388,32 @@ function getTimeZoneOptions() {
   return timezones;
 }
 
+/**
+ * Return a boolean for super admin screen page
+ */
+function getSuperAdminMask(state) {
+  const { superAdminMask, superAdminMaskAction } = state;
+  if (superAdminMaskAction === 'page') {
+    return superAdminMask;
+  }
+  const superAdminMaskSession = sessionStorage.getItem('superAdminMaskSession');
+  return superAdminMaskSession !== 'false';
+}
+
+/**
+ * Return a number formatted 12.2K, 130M, etc. Mostly to ensure same options across the app
+ */
+function getCompactNumber(locale, number) {
+  return new Intl.NumberFormat(locale, { notation: 'compact', compactDisplay: 'short' }).format(number);
+}
+
+/**
+ * Return a number formatted like 1,234,567 -- locale-appropriate.
+ */
+function getSeparatedNumber(locale, number) {
+  return new Intl.NumberFormat(locale, {}).format(number);
+}
+
 export { // eslint-disable-line import/no-unused-modules
   bemClass,
   safelyParseJSON,
@@ -408,4 +438,7 @@ export { // eslint-disable-line import/no-unused-modules
   getMediaType,
   escapeHtml,
   getTimeZoneOptions,
+  getSuperAdminMask,
+  getCompactNumber,
+  getSeparatedNumber,
 };

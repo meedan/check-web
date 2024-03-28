@@ -6,6 +6,7 @@
   },
   {
     "id": "tasks.goToSettings",
+    "description": "Button label to take the user to the settings area of the application",
     "defaultMessage": "Go to settings"
   },
   {
@@ -17,6 +18,11 @@
     "id": "metadata.couldNotSaveUrl",
     "description": "Error message displayed when a URL is not in the correct format in the form, which prevents the form from being saved.",
     "defaultMessage": "Could not save, at least one URL is invalid"
+  },
+  {
+    "id": "tasks.contentTrash",
+    "description": "This message tells the user that the content typically shown in unavailable when the item is in the trash",
+    "defaultMessage": "Annotations unavailable"
   },
   {
     "id": "tasks.confirmLeaveTitle",
@@ -36,11 +42,11 @@
   {
     "id": "metadata.form.cancel",
     "description": "This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form.",
-    "defaultMessage": "Cancel changes"
+    "defaultMessage": "Cancel"
   },
   {
     "id": "metadata.form.edit",
     "description": "This is a label on a button that the user presses in order to edit the items in the attached form.",
-    "defaultMessage": "Edit"
+    "defaultMessage": "Edit Annotations"
   }
 ]

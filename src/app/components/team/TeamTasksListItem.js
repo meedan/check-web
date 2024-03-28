@@ -3,13 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, graphql } from 'react-relay/compat';
 import Box from '@material-ui/core/Box';
-import ShortTextIcon from '@material-ui/icons/ShortText';
-import LocationIcon from '@material-ui/icons/LocationOn';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import IconFileUpload from '@material-ui/icons/CloudUpload';
-import LinkOutlinedIcon from '@material-ui/icons/LinkOutlined';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import TeamTaskCard from './TeamTaskCard';
 import TeamTaskContainer from './TeamTaskContainer';
@@ -21,7 +14,14 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation';
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
+import CheckBoxIcon from '../../icons/check_box.svg';
+import IconFileUpload from '../../icons/file_upload.svg';
+import DateRangeIcon from '../../icons/calendar_month.svg';
 import NumberIcon from '../../icons/numbers.svg';
+import LinkOutlinedIcon from '../../icons/link.svg';
+import LocationIcon from '../../icons/location.svg';
+import RadioButtonCheckedIcon from '../../icons/radio_button_checked.svg';
+import ShortTextIcon from '../../icons/notes.svg';
 
 function submitMoveTeamTaskUp({
   task,
@@ -301,8 +301,15 @@ class TeamTasksListItem extends React.Component {
 
     return (
       <React.Fragment>
-        <Box display="flex" alignItems="center" className="team-tasks__list-item">
-          <Reorder onMoveUp={this.handleMoveTaskUp} onMoveDown={this.handleMoveTaskDown} />
+        <Box display="flex" alignItems="center" className="team-tasks__list-item" style={{ gap: '10px' }}>
+          <Reorder
+            onMoveUp={this.handleMoveTaskUp}
+            onMoveDown={this.handleMoveTaskDown}
+            disableUp={this.props.isFirst}
+            disableDown={this.props.isLast}
+            variant="vertical"
+            theme="gray"
+          />
           <TeamTaskCard
             icon={icon[task.type]}
             task={this.props.task}

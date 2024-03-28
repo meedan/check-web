@@ -1,79 +1,20 @@
 import React from 'react';
+import xor from 'lodash.xor';
 import PropTypes from 'prop-types';
-import { createFragmentContainer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
+import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { browserHistory } from 'react-router';
 import mergeWith from 'lodash.mergewith';
-import xor from 'lodash.xor';
-import memoize from 'memoize-one';
-import styled from 'styled-components';
-import Chip from '@material-ui/core/Chip';
-import TagMenu from '../tag/TagMenu';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
+import { can } from '../Can';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
-import { units } from '../../styles/js/shared';
+import TagList from '../cds/menus-lists-dialogs/TagList';
+import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { getErrorMessage } from '../../helpers';
 
-const StyledMediaTagsContainer = styled.div`
-  width: 100%;
-
-  .media-tags {
-    &:empty {
-      display: none;
-    }
-  }
-
-  .media-tags__list {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: ${units(0.5)} ${units(0.5)} ${units(0.5)} 0;
-    margin: 0 0 0 ${units(-0.5)};
-
-    li {
-      margin: ${units(0.5)} ${units(0.5)} ${units(0.5)} 0;
-    }
-  }
-`;
-
-// TODO Fix a11y issues
-/* eslint jsx-a11y/click-events-have-key-events: 0 */
-/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
-class MediaTags extends React.Component {
-  filterTags = memoize((tags) => {
-    const splitTags = {
-      regularTags: [],
-      videoTags: [],
-    };
-    const fragments = {};
-
-    // Get regular tags and cluster video tags by tag_text
-    if (Array.isArray(tags)) {
-      tags.forEach((t) => {
-        if (t.node.fragment) {
-          if (!fragments[t.node.tag_text]) {
-            fragments[t.node.tag_text] = [];
-          }
-          fragments[t.node.tag_text].push(t);
-        } else {
-          splitTags.regularTags.push(t);
-        }
-      });
-    }
-
-    // Get the video tags with earliest timestamp
-    Object.values(fragments).forEach((tagFragments) => {
-      tagFragments.sort((a, b) => {
-        const aStart = parseFloat(a.node.fragment.match(/\d+(\.\d+)?/)[0]);
-        const bStart = parseFloat(b.node.fragment.match(/\d+(\.\d+)?/)[0]);
-        return aStart - bStart;
-      });
-
-      splitTags.videoTags.push(tagFragments[0]);
-    });
-
-    return splitTags;
-  });
-
-  searchTagUrl(tagString) {
-    const { projectMedia } = this.props;
+const MediaTagsComponent = ({ projectMedia, setFlashMessage }) => {
+  const searchTagUrl = (tagString) => {
     const tagQuery = {
       tags: [tagString],
     };
@@ -91,52 +32,121 @@ class MediaTags extends React.Component {
       delete query.tags;
     }
     return urlFromSearchQuery(query, `/${projectMedia.team.slug}/all-items`);
-  }
+  };
 
-  handleTagViewClick(tagString) {
-    const url = this.searchTagUrl(tagString);
+  const handleTagViewClick = (tagString) => {
+    const url = searchTagUrl(tagString);
     if (window !== window.parent) { // Browser extension
       window.open(`${window.location.origin}${url}`);
     } else {
       browserHistory.push(url);
     }
-  }
+  };
 
-  render() {
-    const { projectMedia } = this.props;
-    const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item?.dbid;
-    const { regularTags, videoTags } = this.filterTags(projectMedia.tags.edges);
-    const tags = regularTags.concat(videoTags);
+  const readOnly =
+    !can(projectMedia.permissions, 'update ProjectMedia') ||
+    projectMedia.is_secondary ||
+    projectMedia.suggested_main_item?.dbid ||
+    projectMedia.archived === CheckArchivedFlags.TRASHED;
 
-    return (
-      <StyledMediaTagsContainer className="media-tags__container" >
-        <div className="media-tags">
-          <ul className="media-tags__list">
-            <li>{ readOnly ? null : <TagMenu mediaId={projectMedia.dbid} /> }</li>
-            {tags.map((tag) => {
-              if (tag.node.tag_text) {
-                return (
-                  <li key={tag.node.id}>
-                    <Chip
-                      className="media-tags__tag"
-                      onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
-                      label={tag.node.tag_text.replace(/^#/, '')}
-                    />
-                  </li>
-                );
+  const onFailure = (transaction) => {
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+    setFlashMessage(message);
+  };
+
+  const handleCreateTag = (value) => {
+    commitMutation(Relay.Store, {
+      mutation: graphql`
+        mutation MediaTagsCreateTagMutation($input: CreateTagInput!) {
+          createTag(input: $input) {
+            project_media {
+              tags(first: 100) {
+                edges {
+                  node {
+                    tag_text
+                  }
+                }
               }
-              return null;
-            })}
-          </ul>
-        </div>
-      </StyledMediaTagsContainer>
-    );
-  }
-}
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {
+          annotated_id: projectMedia.dbid.toString(),
+          annotated_type: 'ProjectMedia',
+          tag: value,
+        },
+      },
+      onCompleted: ({ error }) => {
+        if (error) {
+          onFailure(error);
+        }
+      },
+      onError: onFailure,
+    });
+  };
 
-MediaTags.propTypes = {
+  const handleRemoveTag = (value) => {
+    const removedTag = projectMedia.tags.edges.find(tag => tag.node.tag_text === value);
+    if (removedTag) {
+      commitMutation(Relay.Store, {
+        mutation: graphql`
+          mutation MediaTagsDeleteTagMutation($input: DestroyTagInput!) {
+            destroyTag(input: $input) {
+              project_media {
+                tags(first: 100) {
+                  edges {
+                    node {
+                      tag_text
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          input: {
+            id: removedTag.node.id,
+          },
+        },
+        onCompleted: ({ error }) => {
+          if (error) {
+            onFailure(error);
+          }
+        },
+        onError: onFailure,
+      });
+    }
+  };
+
+  const handleSetTags = (value) => {
+    const tagTexts = projectMedia.tags.edges.map(t => t.node.tag_text);
+    tagTexts.forEach((text) => {
+      if (!value.includes(text)) handleRemoveTag(text);
+    });
+    value.forEach((val) => {
+      if (!tagTexts.includes(val)) handleCreateTag(val);
+    });
+  };
+
+  const selected = projectMedia.tags.edges.map(t => t.node.tag_text);
+  const options = projectMedia.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
+
+  return (
+    <TagList
+      readOnly={readOnly}
+      setTags={handleSetTags}
+      onClickTag={handleTagViewClick}
+      options={options}
+      tags={selected}
+    />
+  );
+};
+
+MediaTagsComponent.propTypes = {
   projectMedia: PropTypes.shape({
-    id: PropTypes.string,
     dbid: PropTypes.number,
     team: PropTypes.shape({
       slug: PropTypes.string.isRequired,
@@ -156,26 +166,54 @@ MediaTags.propTypes = {
   }).isRequired,
 };
 
-export { MediaTags };
-export default createFragmentContainer(MediaTags, graphql`
-  fragment MediaTags_projectMedia on ProjectMedia {
-    id
-    dbid
-    team {
-      slug
-    }
-    is_secondary
-    suggested_main_item {
-      dbid
-    }
-    tags(first: 10000) {
-      edges {
-        node {
-          id
-          tag_text
-          fragment
+export { MediaTagsComponent }; // eslint-disable-line import/no-unused-modules
+
+const MediaTags = parentProps => (
+  <QueryRenderer
+    environment={Relay.Store}
+    query={graphql`
+      query MediaTagsQuery($ids: String!) {
+        project_media(ids: $ids) {
+          dbid
+          archived
+          is_secondary
+          permissions
+          team {
+            slug
+            tag_texts(last: 100) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
+          }
+          suggested_main_item {
+            dbid
+          }
+          tags(last: 100) {
+            edges {
+              node {
+                id
+                tag_text
+              }
+            }
+          }
         }
       }
-    }
-  }
-`);
+    `}
+    variables={{
+      ids: `${parentProps.projectMediaId},,`,
+    }}
+    render={({ error, props }) => {
+      if (!error && props) {
+        return (<MediaTagsComponent {...parentProps} projectMedia={props.project_media} />);
+      }
+
+      // TODO: We need a better error handling in the future, standardized with other components
+      return null;
+    }}
+  />
+);
+
+export default withSetFlashMessage(MediaTags);

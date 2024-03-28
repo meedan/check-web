@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -17,7 +16,7 @@ function mapGlobalMessage(intl, msgKey, values) {
 
 function FormattedGlobalMessage({ messageKey, ...rest }) {
   const message = globalStrings[messageKey];
-  return <FormattedMessage {...message} {...rest} />;
+  return <FormattedMessage {...message} {...rest} />; // eslint-disable-line @calm/react-intl/missing-attribute
 }
 FormattedGlobalMessage.propTypes = {
   messageKey: PropTypes.oneOf(Object.keys(globalStrings)).isRequired,

@@ -31,6 +31,7 @@ class WebPageMediaCard extends Component {
       warningCategory,
       inModal,
       currentUserRole,
+      superAdminMask,
     } = this.props;
 
     return (
@@ -47,7 +48,7 @@ class WebPageMediaCard extends Component {
             }}
           />
           :
-          <div>
+          <>
             { projectMedia.picture ?
               <AspectRatio
                 key={contentWarning}
@@ -56,6 +57,7 @@ class WebPageMediaCard extends Component {
                 warningCategory={warningCategory}
                 projectMedia={projectMedia}
                 currentUserRole={currentUserRole}
+                superAdminMask={superAdminMask}
               >
                 <img src={projectMedia.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
               </AspectRatio> : null
@@ -71,7 +73,7 @@ class WebPageMediaCard extends Component {
                 </Box>
               </div> : null
             }
-          </div>
+          </>
         }
       </article>
     );

@@ -1,0 +1,177 @@
+.sandbox {
+  background-color: var(--grayBackground);
+  height: 100%;
+  overflow: auto;
+  padding: 16px 32px;
+
+  .sandboxNav {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    list-style: none;
+    margin: 20px 0 40px;
+    padding: 0;
+  }
+
+  h6 {
+    margin: 0 0 1em;
+  }
+
+  section {
+    background-color: var(--otherWhite);
+    border-radius: 8px;
+    margin: 0 0 16px;
+    padding: 16px;
+
+    .componentWrapper {
+      margin: 0 0 40px;
+
+      &:last-of-type {
+        margin: 0;
+      }
+
+      .componentName {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        margin: 0 0 10px;
+
+        .figmaLink {
+          font-size: var(--iconSizeSmall);
+        }
+      }
+
+      .componentInlineVariants,
+      .componentBlockVariants {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 32px;
+        width: 100%;
+
+        &.componentInlineGreyVariants {
+          background-color: var(--grayBackground);
+        }
+      }
+
+      .componentBlockVariants {
+        display: block;
+      }
+
+      .componentControls {
+        background-color: var(--brandBackground);
+        border-radius: 5px 5px 0 0;
+        padding: 8px;
+
+        ul {
+          display: flex;
+          flex-flow: row wrap;
+          gap: 16px;
+          list-style: none;
+
+          li {
+            flex: 1 1 auto;
+          }
+        }
+
+        + .componentInlineVariants,
+        + .componentBlockVariants {
+          border: solid 4px var(--brandBackground);
+          border-radius: 0 0 5px 5px;
+          padding: 20px;
+        }
+      }
+
+      .fixed-width-tags {
+        background-color: var(--validationLight);
+        width: 300px;
+      }
+    }
+  }
+}
+
+.listItem {
+  border: solid 1px var(--grayBorderMain);
+  border-radius: 8px;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+  padding: 16px;
+  position: relative;
+
+  &:hover {
+    border-color: var(--brandMain);
+    outline: solid 1px var(--brandMain);
+  }
+
+  &.listItemUnread {
+    background-color: var(--brandBackground);
+
+    &::before {
+      background-color: var(--textPlaceholder);
+      border-radius: 3px;
+      bottom: 6px;
+      content: '';
+      left: 6px;
+      overflow: hidden;
+      position: absolute;
+      right: auto;
+      top: 6px;
+      width: 5px;
+    }
+  }
+
+  .checkbox {
+    align-items: center;
+    background-color: var(--errorLight);
+    display: flex;
+    flex: 0 0 42px;
+    flex-direction: row;
+    overflow: hidden;
+  }
+
+  .thumbail {
+    background-color: var(--errorLight);
+    border-radius: 5px;
+    flex: 0 0 96px;
+    height: 96px;
+    overflow: hidden;
+  }
+
+  .content {
+    background-color: var(--errorLight);
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+
+    h6 {
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .workspaces {
+      background-color: var(--alertLight);
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    .mediaAndRequest {
+      background-color: var(--errorLight);
+      display: flex;
+      flex-flow: row wrap;
+      gap: 4px;
+    }
+  }
+
+  .factCheckLastUpdated {
+    background-color: var(--errorLight);
+    flex: 0 0 160px;
+
+    .factCheck {
+      background-color: var(--validationLight);
+    }
+  }
+}

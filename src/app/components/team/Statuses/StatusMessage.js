@@ -1,33 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import CommentIcon from '@material-ui/icons/Comment';
-
-const useStyles = makeStyles(() => ({
-  statusMessageText: {
-    fontSize: 12,
-    opacity: 0.7,
-  },
-  statusMessageIcon: {
-    color: 'var(--grayBorderAccent)',
-  },
-}));
+import cx from 'classnames/bind';
+import { FormattedMessage } from 'react-intl';
+import Alert from '../../cds/alerts-and-prompts/Alert';
+import styles from './Statuses.module.css';
 
 const StatusMessage = ({ message }) => {
-  const classes = useStyles();
-
   if (!message) {
     return null;
   }
 
   return (
-    <Box display="flex" alignItems="flex-start" mt={1} className="status-message" component="span">
-      <CommentIcon className={classes.statusMessageIcon} />
-      <Box className={classes.statusMessageText} ml={1} component="span">
-        {message}
-      </Box>
-    </Box>
+    <Alert
+      className={cx(styles['status-message'], 'test__status-message')}
+      variant="info"
+      icon
+      title={<FormattedMessage id="statusListItem.messageTooltip" defaultMessage="When you change an item to this status, the user who requested will receive the following message:" description="Tooltip to tell the user when this message will be sent out" />}
+      content={message}
+    />
   );
 };
 
@@ -36,7 +26,7 @@ StatusMessage.defaultProps = {
 };
 
 StatusMessage.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.node,
 };
 
 export default StatusMessage;

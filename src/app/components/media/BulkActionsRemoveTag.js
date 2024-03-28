@@ -1,15 +1,12 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import globalStrings from '../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const BulkActionsRemoveTag = ({
@@ -99,7 +96,7 @@ const BulkActionsRemoveTag = ({
         {placeholder => (
           <MultiSelector
             allowSearch
-            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+            cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
             inputPlaceholder={placeholder}
             selected={[]}
             onDismiss={onDismiss}
@@ -116,7 +113,7 @@ const BulkActionsRemoveTag = ({
             submitLabel={
               <FormattedMessage
                 id="bulkActionsRemoveTag.submitLabel"
-                defaultMessage="{numItems, plural, one {Remove 1 tag} other {Remove # tags}}"
+                defaultMessage="{numItems, plural, one {Remove # tag} other {Remove # tags}}"
                 values={{ numItems: selectedValue.length }}
                 description="Button for commiting the action of untagging of a number of items in bulk"
               />
@@ -134,16 +131,15 @@ const BulkActionsRemoveTag = ({
           />
         }
         body={
-          <Typography variant="body1" component="p" paragraph>
-            <FormattedHTMLMessage
-              id="bulkActionsRemoveTag.dialogBody"
-              defaultMessage="The <b>{tags}</b> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><b>This action cannot be undone.</b> Are you sure you want to continue?"
-              values={{
-                tags: selectedValueText,
-              }}
-              description="Body of dialog warning that bulk untagging items"
-            />
-          </Typography>
+          <FormattedHTMLMessage
+            tagName="p"
+            id="bulkActionsRemoveTag.dialogBody"
+            defaultMessage="The <strong>{tags}</strong> tag will be removed from selected items that have this tag. if a tag is not found in a selected item, the item will be unaffected.<br /><br /><strong>This action cannot be undone.</strong> Are you sure you want to continue?"
+            values={{
+              tags: selectedValueText,
+            }}
+            description="Body of dialog warning that bulk untagging items"
+          />
         }
         onProceed={handleSubmit}
         onCancel={handleOnCancel}

@@ -1,34 +1,18 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
+import cx from 'classnames/bind';
+import LimitedTextArea from '../../layout/inputs/LimitedTextArea';
+import SwitchComponent from '../../cds/inputs/SwitchComponent';
+import TextArea from '../../cds/inputs/TextArea';
+import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import { FormattedGlobalMessage } from '../../MappedMessage';
-import ColorPicker from '../../layout/ColorPicker';
+import ColorPicker from '../../cds/inputs/ColorPicker';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-
-const maxLength = 35;
-
-const useStyles = makeStyles(theme => ({
-  textField: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  editStatusDialogActions: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-  },
-}));
+import dialogStyles from '../../../styles/css/dialog.module.css';
+import styles from './Statuses.module.css';
+import inputStyles from '../../../styles/css/inputs.module.css';
 
 const EditStatusDialog = ({
   defaultLanguage,
@@ -38,13 +22,19 @@ const EditStatusDialog = ({
   team,
   defaultValue: status,
 }) => {
-  const classes = useStyles();
-  const [statusLabel, setStatusLabel] = React.useState(status ? status.label : '');
+  const [statusLabel, setStatusLabel] = React.useState(status ? status.locales[defaultLanguage].label : '');
   const [statusDescription, setStatusDescription] = React.useState(status ? status.locales[defaultLanguage].description : '');
-  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : 'var(--textPrimary)');
+  const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '#567bff');
   const [statusMessage, setStatusMessage] = React.useState(status ? status.locales[defaultLanguage].message : '');
   const [statusMessageEnabled, setStatusMessageEnabled] = React.useState(status ? Boolean(status.should_send_message) : false);
   const [showSaveConfirmDialog, setShowSaveConfirmDialog] = React.useState(false);
+
+  const handleCancel = () => {
+    setStatusLabel('');
+    setStatusMessageEnabled(false);
+    setStatusColor('#567bff');
+    onCancel();
+  };
 
   const handleSubmit = () => {
     const locales = status && status.locales ? { ...status.locales } : {};
@@ -80,133 +70,162 @@ const EditStatusDialog = ({
 
   return (
     <Dialog
+      className={dialogStyles['dialog-window']}
       open={open}
       maxWidth="xs"
       fullWidth
     >
-      <DialogTitle>
+      <div className={dialogStyles['dialog-title']}>
         { status ? (
           <FormattedMessage
+            tagName="h6"
             id="editStatusDialog.titleEdit"
             defaultMessage="Edit status"
+            description="Dialog title for editing a status message"
           />
         ) : (
           <FormattedMessage
+            tagName="h6"
             id="editStatusDialog.title"
             defaultMessage="Add a new status"
+            description="Dialog title for adding a new status message"
           />
         )}
-      </DialogTitle>
-      <DialogContent>
-        <Box display="flex">
-          <TextField
-            id="edit-status-dialog__status-name"
-            className={classes.textField}
-            inputProps={{
-              maxLength,
+      </div>
+      <div className={cx(dialogStyles['dialog-content'], styles['edit-status-dialog'])}>
+        <div className={inputStyles['form-fieldset']}>
+          <div className={cx(inputStyles['form-fieldset-field'], styles['edit-status-label'])}>
+            <FormattedMessage
+              id="editStatusDialog.statusTitlePlaceholder"
+              defaultMessage="Enter status label"
+              description="Text field placeholder for the status name"
+            >
+              { placeholder => (
+                <LimitedTextArea
+                  required
+                  value={status ? statusLabel : ''}
+                  componentProps={{
+                    id: 'edit-status-dialog__status-name',
+                  }}
+                  maxChars={35}
+                  maxLength={35}
+                  rows="1"
+                  label={
+                    <FormattedMessage
+                      id="editStatusDialog.statusTitle"
+                      defaultMessage="Status"
+                      description="Text field label for the status name"
+                    />
+                  }
+                  maxHeight="48px"
+                  autoGrow={Boolean(false)}
+                  placeholder={placeholder}
+                  onBlur={(e) => {
+                    setStatusLabel(e.target.value);
+                  }}
+                />
+              )}
+            </FormattedMessage>
+            <ColorPicker
+              color={statusColor}
+              onChange={handleChangeColor}
+            />
+          </div>
+          <TextArea
+            className={inputStyles['form-fieldset-field']}
+            componentProps={{
+              id: 'edit-status-dialog__status-description',
             }}
             label={(
               <FormattedMessage
-                id="editStatusDialog.statusTitle"
-                defaultMessage="Status ({maxLength} characters max)"
-                values={{ maxLength }}
+                id="editStatusDialog.statusDescription"
+                defaultMessage="Description"
+                description="Text field label for the status description value"
               />
             )}
-            value={statusLabel}
-            onChange={e => setStatusLabel(e.target.value)}
-            variant="outlined"
-            fullWidth
+            autoGrow
+            rows="3"
+            onBlur={(e) => {
+              setStatusDescription(e.target.value);
+            }}
+            defaultValue={status ? statusDescription : ''}
           />
-          <Box p={1} />
-          <ColorPicker
-            color={statusColor}
-            onChange={handleChangeColor}
-          />
-        </Box>
-        <TextField
-          id="edit-status-dialog__status-description"
-          label={(
-            <FormattedMessage
-              id="editStatusDialog.statusDescription"
-              defaultMessage="Description"
-            />
-          )}
-          value={statusDescription}
-          onChange={e => setStatusDescription(e.target.value)}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          multiline
-          rows={3}
-        />
-        { team.smooch_bot ?
-          <React.Fragment>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  className="edit-status-dialog__status-message-enabled"
-                  checked={statusMessageEnabled}
-                  onChange={(e, checked) => {
-                    setStatusMessageEnabled(checked);
-                  }}
-                />
-              }
-              label={
-                <FormattedMessage
-                  id="editStatusDialog.toggleStatusMessage"
-                  defaultMessage="Send message to requester"
-                  description="Checkbox option to send a message to the user who requested the item"
-                />
-              }
-            />
-            <Typography variant="body1">
-              <FormattedMessage
-                id="editStatusDialog.messageDescription"
-                defaultMessage="Send a message to the user who requested the item when you change an item to this status."
-                description="Accompanying description for editStatusDialog.toggleStatusMessage"
+          { team.smooch_bot ?
+            <React.Fragment>
+              <SwitchComponent
+                className={inputStyles['form-fieldset-field']}
+                label={
+                  <FormattedMessage
+                    id="editStatusDialog.toggleStatusMessage"
+                    defaultMessage="Send message to requester"
+                    description="Checkbox option to send a message to the user who requested the item"
+                  />
+                }
+                labelPlacement="end"
+                helperContent={
+                  <FormattedMessage
+                    id="editStatusDialog.messageDescription"
+                    defaultMessage="Send a message to the user who requested the item when you change an item to this status."
+                    description="Accompanying description for editStatusDialog.toggleStatusMessage"
+                  />
+                }
+                checked={statusMessageEnabled}
+                onChange={() => setStatusMessageEnabled(!statusMessageEnabled)}
               />
-            </Typography>
-            <TextField
-              id="edit-status-dialog__status-message"
-              label={(
-                <FormattedMessage
-                  id="editStatusDialog.statusMessage"
-                  defaultMessage="Message"
+              { statusMessageEnabled &&
+                <TextArea
+                  className={inputStyles['form-fieldset-field']}
+                  componentProps={{
+                    id: 'edit-status-dialog__status-message',
+                  }}
+                  label={(
+                    <FormattedMessage
+                      id="editStatusDialog.statusMessage"
+                      defaultMessage="Message"
+                      description="Text field label for the message that will be sent to the user when an item is changed to this status value"
+                    />
+                  )}
+                  autoGrow={Boolean(true)}
+                  rows="5"
+                  onBlur={(e) => {
+                    setStatusMessage(e.target.value);
+                  }}
+                  disabled={!statusMessageEnabled}
+                  defaultValue={status ? statusMessage : ''}
                 />
-              )}
-              disabled={!statusMessageEnabled}
-              value={statusMessage}
-              onChange={e => setStatusMessage(e.target.value)}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              multiline
-              rows={5}
-              rowsMax={Infinity}
-            />
-          </React.Fragment> : null }
-      </DialogContent>
-      <DialogActions className={classes.editStatusDialogActions}>
-        <Button className="edit-status-dialog__dismiss" onClick={onCancel}>
-          <FormattedGlobalMessage messageKey="cancel" />
-        </Button>
-        <Button
+              }
+            </React.Fragment> : null }
+        </div>
+      </div>
+      <div className={dialogStyles['dialog-actions']}>
+        <ButtonMain
+          className="edit-status-dialog__dismiss"
+          onClick={handleCancel}
+          size="default"
+          variant="text"
+          theme="lightText"
+          label={
+            <FormattedGlobalMessage messageKey="cancel" />
+          }
+        />
+        <ButtonMain
           className="edit-status-dialog__submit"
           disabled={!statusLabel}
-          onClick={team.smooch_bot ? handleConfirmSubmit : handleSubmit}
-          color="primary"
+          size="default"
           variant="contained"
-        >
-          { status ? (
+          theme="brand"
+          onClick={team.smooch_bot ? handleConfirmSubmit : handleSubmit}
+          label={status ? (
             <FormattedGlobalMessage messageKey="save" />
           ) : (
             <FormattedMessage
               id="editStatusDialog.addButton"
               defaultMessage="Add status"
+              description="Button label to add a new status"
             />
           )}
-        </Button>
-      </DialogActions>
+        />
+      </div>
       <ConfirmProceedDialog
         open={showSaveConfirmDialog}
         title={

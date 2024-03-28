@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -6,11 +6,10 @@ import { commitMutation, createFragmentContainer, graphql } from 'react-relay/co
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
-import globalStrings from '../../globalStrings';
 
 const BulkActionsAssign = ({
   onDismiss,
@@ -73,7 +72,7 @@ const BulkActionsAssign = ({
   };
 
   return (
-    <FormattedMessage id="tagMenu.search" defaultMessage="Search…">
+    <FormattedMessage id="tagMenu.search" defaultMessage="Search…" description="Placeholder text for searching tags">
       {placeholder => (
         <MultiSelector
           allowSearch
@@ -81,7 +80,7 @@ const BulkActionsAssign = ({
           selected={[]}
           options={options}
           onSubmit={handleSubmit}
-          cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+          cancelLabel={<FormattedMessage id="global.cancel" defaultMessage="Cancel" description="Generic label for a button or link for a user to press when they wish to abort an in-progress operation" />}
           notFoundLabel={
             <FormattedMessage
               id="bulkActionsAssign.notFound"
@@ -92,7 +91,7 @@ const BulkActionsAssign = ({
           submitLabel={
             <FormattedMessage
               id="bulkActionsAssign.submitLabel"
-              defaultMessage="{numItems, plural, one {Assign 1 item} other {Assign # items}}"
+              defaultMessage="{numItems, plural, one {Assign # item} other {Assign # items}}"
               values={{ numItems: selectedMedia.length }}
               description="Button for commiting the action of assigning of a number of items in bulk"
             />

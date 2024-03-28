@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
+import cx from 'classnames/bind';
 import styles from './Card.module.css';
+
+const CardHoverContext = React.createContext(false);
 
 const MaybeLink = ({ to, children }) => {
   if (to) {
@@ -15,46 +17,52 @@ const MaybeLink = ({ to, children }) => {
 };
 
 const Card = ({
-  title,
-  description,
-  url,
-  tag,
-  tagColor,
+  cardUrl,
   footer,
-}) => (
-  <div className={`${styles.card} card`}>
-    <MaybeLink to={url}>
-      <div className={styles.cardContent}>
-        <div className={styles.cardLeft}>
-          <h6 className={`typography-button ${styles.cardTitle}`}>{title}</h6>
-          { description ? <p className={`typography-body2 ${styles.cardDescription}`}>{description}</p> : null }
+  children,
+  className,
+}) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  return (
+    <div
+      className={`${styles.card} card`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <MaybeLink to={cardUrl}>
+        <div className={cx(styles.cardContent, { [className]: true })}>
+          <CardHoverContext.Provider value={isHovered}>
+            { children }
+          </CardHoverContext.Provider>
+          { footer ? <div className={styles.cardFooter}>{footer}</div> : null }
         </div>
-        { (tag || footer) ?
-          <div className={styles.cardRight}>
-            { tag ? <div title={tag}><ButtonMain customStyle={{ color: tagColor, cursor: 'default', background: 'white' }} label={tag} variant="outlined" /></div> : null }
-            { footer ? <div className={`typography-body2 ${styles.cardFooter}`}>{footer}</div> : null }
-          </div> : null
-        }
-      </div>
-    </MaybeLink>
-  </div>
-);
+      </MaybeLink>
+    </div>
+  );
+};
 
 Card.defaultProps = {
-  description: null,
-  url: null,
-  tag: null,
-  tagColor: 'black',
+  cardUrl: null,
   footer: null,
+  children: null,
+  className: '',
 };
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  url: PropTypes.string,
-  tag: PropTypes.node,
-  tagColor: PropTypes.string,
+  cardUrl: PropTypes.string,
   footer: PropTypes.node,
+  children: PropTypes.node,
+  className: PropTypes.string,
 };
 
+export { CardHoverContext };
 export default Card;

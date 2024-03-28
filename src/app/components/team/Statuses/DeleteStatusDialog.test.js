@@ -34,7 +34,7 @@ describe('<DeleteStatusDialog />', () => {
     expect(wrapper.html()).toMatch('You need to change the status of one item to delete this status');
     expect(wrapper.html()).not.toMatch('Alternatively, you can change each item status individually');
     expect(wrapper.html()).toMatch('True');
-    expect(wrapper.find('.confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('Move items and delete status');
   });
 
@@ -49,7 +49,7 @@ describe('<DeleteStatusDialog />', () => {
     />);
     expect(wrapper.html()).toMatch('There are 4 items with the status');
     expect(wrapper.html()).toMatch('False');
-    expect(wrapper.find('.confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('Move items and delete status');
     expect(wrapper.html()).not.toMatch('those items are currently published');
   });
@@ -66,7 +66,7 @@ describe('<DeleteStatusDialog />', () => {
     expect(wrapper.html()).toMatch('There are 5 items with the status');
     expect(wrapper.html()).toMatch('In Progress');
     expect(wrapper.html()).toMatch('There are 3 items currently published');
-    expect(wrapper.find('.confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.int-confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
   });
 
   it('should not display published message when there is no item published', () => {

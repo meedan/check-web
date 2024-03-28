@@ -1,130 +1,73 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { Link, browserHistory } from 'react-router';
-import styled from 'styled-components';
-import Box from '@material-ui/core/Box';
 import cx from 'classnames/bind';
-import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import NextIcon from '../../icons/chevron_right.svg';
 import PrevIcon from '../../icons/chevron_left.svg';
 import FeedIcon from '../../icons/dynamic_feed.svg';
 import Tooltip from '../cds/alerts-and-prompts/Tooltip';
 import styles from './SearchResults.module.css';
 import Toolbar from './Toolbar';
-import ParsedText from '../ParsedText';
-import BulkActions from '../media/BulkActions';
+import BulkActionsMenu from '../media/BulkActionsMenu';
 import MediasLoading from '../media/MediasLoading';
-import ProjectBlankState from '../project/ProjectBlankState';
+import BlankState from '../layout/BlankState';
 import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
-import { units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchResultsCards from './SearchResultsCards';
 import SearchRoute from '../../relay/SearchRoute';
+import CreateMedia from '../media/CreateMedia';
+import Can from '../Can';
 import { pageSize } from '../../urlHelpers';
+import Alert from '../cds/alerts-and-prompts/Alert';
 
-const StyledListHeader = styled.div`
-  margin: ${units(2)} ${units(2)} 0;
-
-  .search__list-header-filter-row {
-    justify-content: space-between;
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .project__title-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 500px;
-  }
-
-  .project__description {
-    padding-top: ${units(0.5)};
-  }
-`;
-
-const StyledSearchResultsWrapper = styled.div`
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .search__results-heading {
-    color: var(--textPrimary);
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .search__selected {
-      color: var(--brandMain);
-      margin: 0 0 0 ${units(1)};
-    }
-
-    .search__nav {
-      padding: 0 ${units(1)} 0 0;
-      display: flex;
-      font-size: 24px;
-      cursor: pointer;
-      color: var(--textPrimary);
-    }
-
-    .search__button-disabled {
-      color: var(--textPlaceholder);
-      cursor: not-allowed;
-    }
-
-    .search__pagination {
-      display: flex;
-      align-items: center;
-    }
-  }
-`;
-
-const Styles = theme => ({
-  similarSwitch: {
-    marginLeft: theme.spacing(0),
+const messages = defineMessages({
+  sortTitle: {
+    id: 'searchResults.sortTitle',
+    defaultMessage: 'Title',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
   },
-  inactiveColor: {
-    color: 'rgb(238, 238, 238)',
+  sortDateUpdated: {
+    id: 'searchResults.sortDateUpdated',
+    defaultMessage: 'Date updated',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
+  sortRating: {
+    id: 'searchResults.sortRating',
+    defaultMessage: 'Rating',
+    description: 'Label for sort criteria option displayed in a drop-down in the fact-checks page.',
+  },
+  sortRequestsCount: {
+    id: 'searchResults.sortRequestsCount',
+    defaultMessage: 'Requests (count)',
+    description: 'Label for sort criteria option displayed in a drop-down in the feed page.',
   },
 });
 
 /**
- * Delete `esoffset`, `timestamp`, and maybe `projects`, `project_group_id` and `channels` -- whenever
+ * Delete `esoffset`, `timestamp` and `channels` -- whenever
  * they can be inferred from the URL or defaults.
  *
  * This is useful for building simple-as-possible URLs.
  */
-function simplifyQuery(query, project, projectGroup) {
+function simplifyQuery(query) {
   const ret = { ...query };
   delete ret.esoffset;
   delete ret.timestamp;
-  if (
-    ret.projects &&
-    (ret.projects.length === 1 && project && ret.projects[0] === project.dbid)
-  ) {
-    delete ret.projects;
-  }
-  if (
-    ret.project_group_id &&
-    (ret.project_group_id.length === 1 && projectGroup && ret.project_group_id[0] === projectGroup.dbid)
-  ) {
-    delete ret.project_group_id;
-  }
   if (ret.keyword && !ret.keyword.trim()) {
     delete ret.keyword;
   }
-  if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
+  if (/\/(imported-fact-checks)+/.test(window.location.pathname)) {
     delete ret.channels;
+  }
+  if (/\/(unmatched-media)+/.test(window.location.pathname)) {
+    delete ret.unmatched;
   }
   return ret;
 }
@@ -133,10 +76,9 @@ function simplifyQuery(query, project, projectGroup) {
 function SearchResultsComponent({
   pusher,
   clientSessionId,
-  query: defaultQuery,
+  query: appliedQuery,
+  defaultQuery,
   search,
-  project,
-  projectGroup,
   feedTeam,
   feed,
   searchUrlPrefix,
@@ -145,29 +87,26 @@ function SearchResultsComponent({
   relay,
   title,
   icon,
+  listSubtitle,
   listActions,
-  listDescription,
   page,
   resultType,
   hideFields,
   readOnlyFields,
   savedSearch,
   extra,
+  intl,
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
-  const [query, setQuery] = React.useState(defaultQuery);
-
-  React.useEffect(() => {
-    const projectId = project ? project.dbid : 0;
-    relay.setVariables({ projectId });
-  }, []); // run only once, on load
+  const [tooManyResults, setTooManyResults] = React.useState(false);
+  const [stateQuery, setStateQuery] = React.useState(appliedQuery);
 
   const onUnselectAll = () => {
     setSelectedProjectMediaIds([]);
   };
 
-  const getBeginIndex = () => parseInt(query.esoffset /* may be invalid */, 10) || 0;
+  const getBeginIndex = () => parseInt(stateQuery.esoffset /* may be invalid */, 10) || 0;
 
   const getEndIndex = () => getBeginIndex() + search.medias.edges.length;
 
@@ -226,7 +165,7 @@ function SearchResultsComponent({
   };
 
   const handleChangeSortParams = (sortParams) => {
-    const newQuery = { ...query };
+    const newQuery = { ...stateQuery };
     if (sortParams === null) {
       delete newQuery.sort;
       delete newQuery.sort_type;
@@ -234,7 +173,7 @@ function SearchResultsComponent({
       newQuery.sort = sortParams.key;
       newQuery.sort_type = sortParams.ascending ? 'ASC' : 'DESC';
     }
-    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
+    const cleanQuery = simplifyQuery(newQuery);
     navigateToQuery(cleanQuery);
   };
 
@@ -244,12 +183,12 @@ function SearchResultsComponent({
   if other filter is applied, the new query should keep the previous sort parameter
   */
   const handleChangeQuery = (newQuery) => {
-    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
-    if (query.sort) {
-      cleanQuery.sort = query.sort;
+    const cleanQuery = simplifyQuery(newQuery);
+    if (stateQuery.sort) {
+      cleanQuery.sort = stateQuery.sort;
     }
-    if (query.sort_type) {
-      cleanQuery.sort_type = query.sort_type;
+    if (stateQuery.sort_type) {
+      cleanQuery.sort_type = stateQuery.sort_type;
     }
     if (newQuery.sort === 'clear') {
       delete cleanQuery.sort;
@@ -259,7 +198,7 @@ function SearchResultsComponent({
   };
 
   const buildSearchUrlAtOffset = (offset) => {
-    const cleanQuery = simplifyQuery(query, project, projectGroup);
+    const cleanQuery = simplifyQuery(stateQuery);
     if (offset > 0) {
       cleanQuery.esoffset = offset;
     }
@@ -284,6 +223,7 @@ function SearchResultsComponent({
     return buildSearchUrlAtOffset(getBeginIndex() - pageSize);
   };
 
+  // Remove any malformed, partially formed or empty values from query
   const cleanupQuery = (oldQuery) => {
     const cleanQuery = { ...oldQuery };
     if (oldQuery.team_tasks) {
@@ -300,10 +240,11 @@ function SearchResultsComponent({
         oldQuery.range.updated_at ||
         oldQuery.range.media_published_at ||
         oldQuery.range.report_published_at || {};
-      if ((!datesObj.start_time && !datesObj.end_time) && (datesObj.condition !== 'less_than')) {
+      const relativeCondition = ['less_than', 'more_than'].includes(datesObj.condition);
+      if ((!datesObj.start_time && !datesObj.end_time) && (!relativeCondition)) {
         delete cleanQuery.range;
       }
-      if (datesObj.condition === 'less_than' && datesObj.period === 0) {
+      if (relativeCondition && datesObj.period === 0) {
         delete cleanQuery.range;
       }
     }
@@ -320,7 +261,7 @@ function SearchResultsComponent({
   If does not have the newQuery param get the query from props
   */
   const handleSubmit = (e, newQuery) => {
-    const cleanQuery = cleanupQuery(newQuery || query);
+    const cleanQuery = cleanupQuery(newQuery || stateQuery);
     handleChangeQuery(cleanQuery);
   };
 
@@ -330,7 +271,7 @@ function SearchResultsComponent({
    * The URL will have a `listIndex` (so the ProjectMedia page can paginate). It
    * will also include `listPath` and `listQuery` ... _unless_ those parameters
    * are redundant. (For instance, if the query is
-   * `{ timestamp, esoffset, projects: [projectId] }` then the result can be `{}`
+   * `{ timestamp, esoffset }` then the result can be `{}`
    * because enough data is in `mediaUrlPrefix` to infer the properties.
    */
   const buildProjectMediaUrl = (projectMedia) => {
@@ -338,11 +279,11 @@ function SearchResultsComponent({
       return null;
     }
 
-    const cleanQuery = simplifyQuery(query, project, projectGroup);
+    const cleanQuery = simplifyQuery(stateQuery);
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-fact-checks|/tipline-inbox|/suggested-matches|/spam|(/feed/[0-9]+/(shared|feed)))$')) {
+    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-fact-checks|/tipline-inbox|/suggested-matches|/unmatched-media|/spam|(/feed/[0-9]+/(shared|feed)))$')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
@@ -359,12 +300,20 @@ function SearchResultsComponent({
       urlPrefix = `/${projectMedia.team.slug}/${urlPrefix}`;
     }
 
-    let result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
-    if (resultType === 'feed') {
-      result = `${mediaUrlPrefix}/cluster/${projectMedia.cluster?.dbid}?${urlParams.toString()}`;
-    }
-
+    const result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
     return result;
+  };
+
+  /**
+   * After 10k results, Elastic Search stops returning items,
+   * user needs to be prompted to shorten their search
+   */
+  const handleNextPageClick = () => {
+    if (getEndIndex() < 10000) {
+      browserHistory.push(getNextPageLocation());
+    } else {
+      setTooManyResults(true);
+    }
   };
 
   React.useEffect(() => {
@@ -384,9 +333,9 @@ function SearchResultsComponent({
   const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
   const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
-  const sortParams = query.sort ? {
-    key: query.sort,
-    ascending: query.sort_type !== 'DESC',
+  const sortParams = stateQuery.sort ? {
+    key: stateQuery.sort,
+    ascending: stateQuery.sort_type !== 'DESC',
   } : {
     key: 'recent_added',
     ascending: false,
@@ -407,18 +356,28 @@ function SearchResultsComponent({
     count = 0;
   }
 
+  // Return nothing if feed is forced empty (we have deselected all orgs)
+  if (resultType === 'emptyFeed') {
+    count = 0;
+  }
+
   if (count === 0) {
     content = (
-      <ProjectBlankState
-        message={
-          <FormattedMessage
-            id="projectBlankState.blank"
-            defaultMessage="There are no items here."
-          />
-        }
-      />
+      <BlankState>
+        <FormattedMessage
+          id="projectBlankState.blank"
+          defaultMessage="There are no items here."
+          description="Empty message that is displayed when search results are zero"
+        />
+        { page === 'all-items' ?
+          <Can permissions={team.permissions} permission="create ProjectMedia">
+            <div className={styles['no-search-results-add']}>
+              <CreateMedia search={search} team={team} />
+            </div>
+          </Can> : null }
+      </BlankState>
     );
-    if (resultType === 'factCheck') {
+    if (resultType === 'factCheck' || resultType === 'emptyFeed') {
       content = (
         <FeedBlankState
           teamSlug={team.slug}
@@ -455,186 +414,219 @@ function SearchResultsComponent({
 
   return (
     <React.Fragment>
-      <StyledListHeader>
-        <Row className="search__list-header-filter-row">
-          <div className={cx('project__title', 'typography-h5', styles['project-title'])}>
-            { icon ? <div className={styles['project-title-icon']}>{icon}</div> : null }
-            <span className={cx('project__title-text', styles['project-title'])}>
-              {title}
-            </span>
-            { savedSearch?.is_part_of_feeds ?
-              <Tooltip
-                title={
-                  <>
-                    <FormattedMessage
-                      id="sharedFeedIcon.Tooltip"
-                      defaultMessage="Included in Shared Feed:"
-                      description="Tooltip for shared feeds icon"
-                    />
-                    <ul>
-                      {feeds.map(feedObj => (
-                        <li key={feedObj.id}>&bull; {feedObj}</li>
-                      ))}
-                    </ul>
-                  </>
-                }
-                className={styles['tooltip-icon']}
-              >
-                <div className={styles['search-results-header-icon']}>
-                  <FeedIcon id="shared-feed__icon" />
+      <div className={styles['search-results-header']}>
+        <div className="search__list-header-filter-row">
+          <div className={cx('project__title', styles.searchResultsTitleWrapper)}>
+            <div className={styles.searchHeaderSubtitle}>
+              { listSubtitle ?
+                <>
+                  {listSubtitle}
+                </>
+                :
+                <>
+                  &nbsp;
+                </>
+              }
+            </div>
+            <div className={cx('project__title-text', styles.searchHeaderTitle)}>
+              <h6>
+                {icon}
+                {title}
+              </h6>
+              { (savedSearch?.is_part_of_feeds || listActions) &&
+                <div className={styles.searchHeaderActions}>
+                  { savedSearch?.is_part_of_feeds ?
+                    <Tooltip
+                      title={
+                        <>
+                          <FormattedMessage
+                            id="sharedFeedIcon.Tooltip"
+                            defaultMessage="Included in Shared Feed:"
+                            description="Tooltip for shared feeds icon"
+                          />
+                          <ul className="bulleted-list item-limited-list">
+                            {feeds.map(feedObj => (
+                              <li key={feedObj.id}>{feedObj}</li>
+                            ))}
+                          </ul>
+                        </>
+                      }
+                      arrow
+                    >
+                      <span id="shared-feed__icon">{/* Wrapper span is required for the tooltip to a ref for the mui Tooltip */}
+                        <ButtonMain variant="outlined" size="small" theme="text" iconCenter={<FeedIcon />} className={styles.searchHeaderActionButton} />
+                      </span>
+                    </Tooltip>
+                    :
+                    null }
+                  {listActions}
                 </div>
-              </Tooltip>
-              :
-              null }
-            {listActions}
+              }
+            </div>
           </div>
-          { resultType !== 'factCheck' ?
-            <SearchKeyword
-              query={query}
-              setQuery={setQuery}
-              project={project}
-              hideFields={hideFields}
-              title={title}
-              team={team}
-              showExpand={showExpand}
-              cleanupQuery={cleanupQuery}
-              handleSubmit={handleSubmit}
-            /> : null }
-        </Row>
-        <>
-          {listDescription && listDescription.trim().length ?
-            <Row className="project__description"><ParsedText text={listDescription} /></Row>
-            : null}
-        </>
-      </StyledListHeader>
-      <div className="search__results-top">
-        { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
-        <Box m={2}>
-          <SearchFields
-            query={query}
-            setQuery={setQuery}
-            onChange={handleChangeQuery}
-            project={project}
-            projectGroup={projectGroup}
-            feedTeam={feedTeam}
-            feed={feed}
-            savedSearch={savedSearch}
-            hideFields={hideFields}
-            readOnlyFields={readOnlyFields}
+          <SearchKeyword
+            query={stateQuery}
+            setStateQuery={setStateQuery}
             title={title}
             team={team}
-            page={page}
+            showExpand={showExpand}
+            cleanupQuery={cleanupQuery}
             handleSubmit={handleSubmit}
           />
-        </Box>
+        </div>
       </div>
-      <StyledSearchResultsWrapper className="search__results results">
-        <Toolbar
-          resultType={resultType}
+      <div className={cx('search__results-top', styles['search-results-top'])}>
+        { extra ? <div className={styles['search-results-top-extra']}>{extra(stateQuery)}</div> : null }
+        <SearchFields
+          stateQuery={stateQuery}
+          appliedQuery={appliedQuery}
+          defaultQuery={defaultQuery}
+          setStateQuery={setStateQuery}
+          onChange={handleChangeQuery}
+          feedTeam={feedTeam}
+          feed={feed}
+          savedSearch={savedSearch}
+          hideFields={hideFields}
+          readOnlyFields={readOnlyFields}
+          title={title}
           team={team}
-          actions={
-            projectMedias.length && selectedProjectMedia.length ?
-              <BulkActions
-                team={team}
-                page={page}
-                project={project}
-                selectedProjectMedia={selectedProjectMedia}
-                selectedMedia={filteredSelectedProjectMediaIds}
-                onUnselectAll={onUnselectAll}
-              /> : null
-          }
-          title={count ?
-            <span className="search__results-heading">
-              { resultType === 'factCheck' && feed ?
-                <ListSort
-                  sort={query.sort}
-                  sortType={query.sort_type}
-                  onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
-                /> : null
-              }
-              <span className="search__pagination">
-                <Tooltip title={
-                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
-                }
-                >
-                  {getPreviousPageLocation() ? (
-                    <Link
-                      className="search__previous-page search__nav"
-                      to={getPreviousPageLocation()}
-                    >
-                      <PrevIcon />
-                    </Link>
-                  ) : (
-                    <span className="search__previous-page search__nav search__button-disabled">
-                      <PrevIcon />
-                    </span>
-                  )}
-                </Tooltip>
-                <span className="typography-button">
-                  <FormattedMessage
-                    id="searchResults.itemsCount"
-                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                    values={{
-                      from: getBeginIndex() + 1,
-                      to: getEndIndex(),
-                      count,
-                    }}
-                  />
-                  {filteredSelectedProjectMediaIds.length ?
-                    <FormattedMessage
-                      id="searchResults.withSelection"
-                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                      description="Label for number of selected items"
-                      values={{
-                        selectedCount: filteredSelectedProjectMediaIds.length,
-                      }}
-                    >
-                      {txt => <span className="search__selected">{txt}</span>}
-                    </FormattedMessage>
-                    : null
-                  }
-                </span>
-                <Tooltip title={
-                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
-                }
-                >
-                  {getNextPageLocation() ? (
-                    <Link className="search__next-page search__nav" to={getNextPageLocation()}>
-                      <NextIcon />
-                    </Link>
-                  ) : (
-                    <span className="search__next-page search__nav search__button-disabled">
-                      <NextIcon />
-                    </span>
-                  )}
-                </Tooltip>
-              </span>
-            </span> : null
-          }
-          project={project}
           page={page}
-          search={search}
+          handleSubmit={handleSubmit}
         />
+      </div>
+      <div className={cx('search__results', 'results', styles['search-results-wrapper'])}>
+        { tooManyResults ?
+          <Alert
+            contained
+            title={
+              <FormattedMessage
+                id="searchResults.tooManyResults"
+                defaultMessage="Browsing this list is limited to the first {max, number} results. Use the filters above to refine this list."
+                description="An alert message that informs the user that their query is too large and need to narrow their filters if they want to continue search for items."
+                values={{
+                  max: 10000,
+                }}
+              />}
+            variant="info"
+          /> : null
+        }
+        { count > 0 ?
+          <Toolbar
+            resultType={resultType}
+            team={team}
+            title={count ?
+              <span className={cx('search__results-heading', 'results', styles['search-results-heading'])}>
+                { resultType === 'factCheck' && feed ?
+                  <div className={styles['search-results-sorting']}>
+                    <ListSort
+                      sort={stateQuery.sort}
+                      sortType={stateQuery.sort_type}
+                      options={[
+                        { value: 'title', label: intl.formatMessage(messages.sortTitle) },
+                        { value: 'recent_activity', label: intl.formatMessage(messages.sortDateUpdated) },
+                        { value: 'status_index', label: intl.formatMessage(messages.sortRating) },
+                      ]}
+                      onChange={({ sort, sortType }) => { handleChangeSortParams({ key: sort, ascending: (sortType === 'ASC') }); }}
+                    />
+                  </div> : null
+                }
+                <span className={styles['search-pagination']}>
+                  <Tooltip title={
+                    <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
+                  }
+                  >
+                    {getPreviousPageLocation() ? (
+                      <Link
+                        className={cx('search__previous-page', styles['search-nav'])}
+                        to={getPreviousPageLocation()}
+                      >
+                        <PrevIcon />
+                      </Link>
+                    ) : (
+                      <span className={cx('search__previous-page', styles['search-button-disabled'], styles['search-nav'])}>
+                        <PrevIcon />
+                      </span>
+                    )}
+                  </Tooltip>
+                  <span className="typography-button">
+                    <FormattedMessage
+                      id="searchResults.itemsCount"
+                      defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                      description="Pagination count of items returned"
+                      values={{
+                        from: getBeginIndex() + 1,
+                        to: getEndIndex(),
+                        count,
+                      }}
+                    />
+                    {filteredSelectedProjectMediaIds.length ?
+                      <FormattedMessage
+                        id="searchResults.withSelection"
+                        defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                        description="Label for number of selected items"
+                        values={{
+                          selectedCount: filteredSelectedProjectMediaIds.length,
+                        }}
+                      >
+                        {txt => <span className={styles['search-selected']}>{txt}</span>}
+                      </FormattedMessage>
+                      : null
+                    }
+                  </span>
+                  <Tooltip title={
+                    <FormattedMessage id="search.nextPage" defaultMessage="Next page" description="Pagination button to go to next page" />
+                  }
+                  >
+                    {getNextPageLocation() ? (
+                      <span className={cx('search__next-page', styles['search-nav'])} onClick={() => handleNextPageClick()}>
+                        <NextIcon />
+                      </span>
+                    ) : (
+                      <span className={cx('search__next-page', styles['search-button-disabled'], styles['search-nav'])}>
+                        <NextIcon />
+                      </span>
+                    )}
+                  </Tooltip>
+                </span>
+                { projectMedias.length && selectedProjectMedia.length ?
+                  <BulkActionsMenu
+                  /*
+                  FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
+                  below to contain the PM objects as the tagging mutation currently requires dbids and
+                  also for other requirements such as warning about published reports before bulk changing statuses
+                  additional data is needed.
+                  I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
+                  */
+                    team={team}
+                    page={page}
+                    selectedProjectMedia={selectedProjectMedia}
+                    selectedMedia={filteredSelectedProjectMediaIds}
+                    onUnselectAll={onUnselectAll}
+                  /> : null
+                }
+              </span> : null
+            }
+            page={page}
+            search={search}
+          /> : null
+        }
         {content}
-      </StyledSearchResultsWrapper>
+      </div>
     </React.Fragment>
   );
 }
 
 SearchResultsComponent.defaultProps = {
-  project: null,
-  projectGroup: null,
   showExpand: false,
   icon: null,
-  listDescription: undefined,
   listActions: undefined,
-  page: undefined, // FIXME find a cleaner way to render Trash differently
   resultType: 'default',
   hideFields: [],
   readOnlyFields: [],
   savedSearch: null,
   feedTeam: null,
   feed: null,
+  listSubtitle: null,
   extra: null,
 };
 
@@ -648,14 +640,6 @@ SearchResultsComponent.propTypes = {
     id: PropTypes.string.isRequired, // TODO fill in props
     medias: PropTypes.shape({ edges: PropTypes.array.isRequired }).isRequired,
   }).isRequired,
-  project: PropTypes.shape({
-    id: PropTypes.string.isRequired, // TODO fill in props
-    dbid: PropTypes.number.isRequired,
-  }), // may be null
-  projectGroup: PropTypes.shape({
-    id: PropTypes.string.isRequired, // TODO fill in props
-    dbid: PropTypes.number.isRequired,
-  }), // may be null
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
@@ -671,23 +655,22 @@ SearchResultsComponent.propTypes = {
   showExpand: PropTypes.bool,
   relay: PropTypes.object.isRequired,
   title: PropTypes.node.isRequired,
+  listSubtitle: PropTypes.object,
   icon: PropTypes.node,
   listActions: PropTypes.node, // or undefined
-  listDescription: PropTypes.string, // or undefined
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'feed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['all-items', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   savedSearch: PropTypes.object, // or null
-  extra: PropTypes.node, // or null
+  extra: PropTypes.func, // or null
 };
 
 // eslint-disable-next-line import/no-unused-modules
 export { SearchResultsComponent as SearchResultsComponentTest };
 
-const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
+const SearchResultsContainer = Relay.createContainer(withPusher(injectIntl(SearchResultsComponent)), {
   initialVariables: {
-    projectId: 0,
     pageSize,
   },
   fragments: {
@@ -696,11 +679,11 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
         id,
         pusher_channel,
         team {
-          ${BulkActions.getFragment('team')}
           ${SearchKeyword.getFragment('team')}
           ${SearchFields.getFragment('team')}
           id
           slug
+          name
           search_id,
           permissions,
           search { id, number_of_results },
@@ -728,6 +711,8 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
               description
               is_read
               is_main
+              type
+              url
               is_secondary
               is_suggested
               is_confirmed
@@ -737,18 +722,10 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
               feed_columns_values
               last_seen
               source_id
-              cluster {
-                dbid
-                size
-                team_names
-                fact_checked_by_team_names
-                requests_count
-                first_item_at
-                last_item_at
-              }
-              project {
-                dbid
-                id
+              media {
+                type
+                url
+                domain
               }
               team {
                 slug
@@ -801,25 +778,15 @@ function encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug) {
   if (nKeys === 0) {
     return `{"parent":{"type":"team","slug":${JSON.stringify(teamSlug)}}}`;
   }
-  if (nKeys === 1 && query.projects && query.projects.length === 1) {
-    // JSON.stringify is pedantic -- the ID is a Number to begin with
-    const id = JSON.stringify(query.projects[0]);
-    return `{"parent":{"type":"project","id":${id}},"projects":[${id}]}`;
-  }
   // In all but these two cases, generate a separate query.
   return JSON.stringify(query);
 }
 
 export default function SearchResults({ query, teamSlug, ...props }) {
   const jsonEncodedQuery = encodeQueryToMimicTheWayCheckApiGeneratesIds(query, teamSlug);
-  let projectId = 0;
-  const { projects } = query;
-  if (projects && projects.length === 1) {
-    [projectId] = projects;
-  }
+
   const route = React.useMemo(() => new SearchRoute({
     jsonEncodedQuery,
-    projectId,
   }), [jsonEncodedQuery]);
 
   return (
@@ -830,17 +797,19 @@ export default function SearchResults({ query, teamSlug, ...props }) {
       renderFetched={data => (
         <SearchResultsContainer {...props} query={query} search={data.search} />
       )}
-      renderLoading={() => <MediasLoading />}
+      renderLoading={() => <MediasLoading theme="white" variant="page" size="large" />}
     />
   );
 }
 
 SearchResults.propTypes = {
+  listSubtitle: PropTypes.object,
   query: PropTypes.object.isRequired,
   teamSlug: PropTypes.string.isRequired,
-  extra: PropTypes.node,
+  extra: PropTypes.func,
 };
 
 SearchResults.defaultProps = {
   extra: null,
+  listSubtitle: null,
 };

@@ -4,72 +4,27 @@ import { graphql, createFragmentContainer, commitMutation } from 'react-relay/co
 import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import styled from 'styled-components';
+import cx from 'classnames/bind';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaCardLarge from './MediaCardLarge';
 import MediaSidebar from './MediaSidebar';
-import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
-import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
 import MediaSlug from './MediaSlug';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
+import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
-import { units, Column } from '../../styles/js/shared';
-
-const StyledThreeColumnLayout = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  /* Middle column */
-  .media__column {
-    background-color: var(--grayBackground);
-  }
-
-  /* Middle column */
-  .media-suggestions__center-column {
-    background-color: white;
-  }
-
-  /* Right Column */
-  .media__suggestions-column {
-    max-width: none;
-    background-color: white;
-  }
-
-  /* Right Column */
-  .media__annotations-column {
-    border-left: 1px solid var(--brandBorder);
-    border-top: 1px solid var(--brandBorder);
-    padding-top: 0;
-    padding-left: 0;
-    padding-right: 0;
-    max-width: none;
-
-    /* Container of tabs */
-    .media__annotations-tabs {
-      background-color: white;
-      border-bottom: 1px solid var(--brandBorder);
-      padding-top: ${units(0.5)};
-    }
-  }
-`;
-
-const AnalysisColumn = styled.div`
-  width: 420px;
-  flex-grow: 0;
-  padding: 0 ${units(2)} ${units(2)} ${units(2)};
-  border-right: 1px solid var(--brandBorder);
-  border-top: 1px solid var(--brandBorder);
-  max-height: calc(100vh - 64px);
-  overflow-y: auto;
-`;
+import { getSuperAdminMask } from '../../helpers';
+import styles from './media.module.css';
 
 class MediaComponent extends Component {
+  static handleSuperAdminMaskSession(value) {
+    sessionStorage.setItem('superAdminMaskSession', value);
+  }
+
   constructor(props) {
     super(props);
 
@@ -80,6 +35,9 @@ class MediaComponent extends Component {
     let initialTab = 'metadata';
     if (showRequests && this.props.view !== 'similarMedia') {
       initialTab = 'requests';
+      if (this.props.projectMedia.suggested_similar_items_count > 0 && !this.props.projectMedia.is_suggested) {
+        initialTab = 'suggestedMedia';
+      }
     } else if (this.props.view === 'similarMedia') {
       initialTab = 'suggestedMedia';
     }
@@ -87,6 +45,8 @@ class MediaComponent extends Component {
     this.state = {
       showTab: initialTab,
       openMediaDialog: false,
+      superAdminMask: true,
+      superAdminMaskAction: 'session',
     };
   }
 
@@ -172,6 +132,10 @@ class MediaComponent extends Component {
     pusher.unsubscribe(projectMedia.pusher_channel);
   }
 
+  handlesuperAdminMask(value) {
+    this.setState({ superAdminMask: value, superAdminMaskAction: 'page' });
+  }
+
   render() {
     // if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
     //   return null;
@@ -192,16 +156,16 @@ class MediaComponent extends Component {
       currentTeam.slug,
     );
 
+    const isAdmin = this.getContext().currentUser.is_admin;
+
     return (
-      <div>
+      <>
         <PageTitle prefix={projectMedia.title} team={projectMedia.team} />
-        <StyledThreeColumnLayout className="media">
-          <AnalysisColumn>
-            <MediaSidebar projectMedia={projectMedia} />
-          </AnalysisColumn>
-          { view === 'default' || view === 'similarMedia' ?
-            <React.Fragment>
-              <Column className="media__column">
+        <MediaSidebar projectMedia={projectMedia} />
+        { view === 'default' || view === 'similarMedia' ?
+          <React.Fragment>
+            <div className={cx('media__column', styles['media-item-medias'])}>
+              <div className={styles['media-item-content']}>
                 { (linkPrefix && !isSuggestedOrSimilar) ? <MediaSimilarityBar projectMedia={projectMedia} setShowTab={setShowTab} /> : null }
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
@@ -245,20 +209,33 @@ class MediaComponent extends Component {
                 <MediaCardLarge
                   projectMedia={projectMedia}
                   currentUserRole={currentUserRole}
+                  superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
                   onClickMore={() => this.setState({ openMediaDialog: true })}
                 />
-                { isSuggestedOrSimilar ? null : <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} /> }
-              </Column>
-              <Column className="media__annotations-column" overflow="hidden">
-                <MediaComponentRightPanel
-                  projectMedia={projectMedia}
-                  showTab={this.state.showTab}
-                  setShowTab={setShowTab}
-                />
-              </Column>
-            </React.Fragment> : null }
-        </StyledThreeColumnLayout>
-      </div>
+                { isSuggestedOrSimilar ?
+                  null
+                  :
+                  <MediaSimilaritiesComponent projectMedia={projectMedia} setShowTab={setShowTab} superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false} />
+                }
+              </div>
+            </div>
+            <div className={cx('media__annotations-column', styles['media-item-annotations'])}>
+              <MediaComponentRightPanel
+                projectMedia={projectMedia}
+                showTab={this.state.showTab}
+                setShowTab={setShowTab}
+                superAdminMask={isAdmin ? getSuperAdminMask(this.state) : false}
+              />
+            </div>
+          </React.Fragment> : null }
+        {
+          isAdmin ?
+            <SuperAdminControls
+              handleSuperAdminMask={this.handlesuperAdminMask.bind(this)}
+              handleSuperAdminMaskSession={MediaComponent.handleSuperAdminMaskSession.bind(this)}
+            /> : null
+        }
+      </>
     );
   }
 }
@@ -276,8 +253,6 @@ MediaComponent.contextTypes = {
 
 export default createFragmentContainer(withPusher(MediaComponent), graphql`
   fragment MediaComponent_projectMedia on ProjectMedia {
-    ...MediaAnalysis_projectMedia
-    ...MediaTags_projectMedia
     ...MediaSimilaritiesComponent_projectMedia
     ...MediaCardLarge_projectMedia
     id
@@ -290,12 +265,16 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     pusher_channel
     project_id
     last_seen
+    demand
     requests_count
     picture
     show_warning_cover
     creator_name
     user_id
     channel
+    notes_count: annotations_count(annotation_type: "comment")
+    report_status
+    suggested_similar_items_count
     suggested_similar_relationships(first: 10000) {
       edges {
         node {
@@ -381,39 +360,6 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     report: dynamic_annotation_report_design {
       id
       data
-    }
-    comments: annotations(first: 10000, annotation_type: "comment") {
-      edges {
-        node {
-          ... on Comment {
-            id
-            dbid
-            text
-            parsed_fragment
-            annotator {
-              id
-              name
-              profile_image
-            }
-            comments: annotations(first: 10000, annotation_type: "comment") {
-              edges {
-                node {
-                  ... on Comment {
-                    id
-                    created_at
-                    text
-                    annotator {
-                      id
-                      name
-                      profile_image
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
     }
     tags(first: 10000) {
       edges {

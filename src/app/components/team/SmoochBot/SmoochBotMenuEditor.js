@@ -1,19 +1,18 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import ClearIcon from '../../../icons/clear.svg';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMenuOption from './SmoochBotMenuOption';
+import AddIcon from '../../../icons/add_circle.svg';
+import ClearIcon from '../../../icons/clear.svg';
+import ArrowUpwardIcon from '../../../icons/arrow_upward.svg';
+import ArrowDownwardIcon from '../../../icons/arrow_downward.svg';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -163,6 +162,7 @@ const SmoochBotMenuEditor = (props) => {
         <FormattedMessage
           id="smoochBotMenuEditor.scenario"
           defaultMessage="Scenario"
+          description="Button label for the menu editor scenario"
         />
       </Button>
     </React.Fragment>

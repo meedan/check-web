@@ -1,28 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import cx from 'classnames/bind';
 import TeamListsItem from './TeamListsItem';
-
-const useStyles = makeStyles(theme => ({
-  column: {
-    marginTop: theme.spacing(2),
-  },
-  innerColumn: {
-    padding: '.3rem 0 1rem 1rem',
-    border: '1px solid transparent', // To match column of teamListComponent.js
-  },
-  placeholder: {
-    color: 'var(--textSecondary)',
-    textAlign: 'center',
-  },
-  columnTitle: {
-    marginLeft: '1rem',
-    marginBottom: '1rem',
-  },
-}));
+import styles from './TeamLists.module.css';
 
 const TeamListsColumn = ({
   columns,
@@ -30,46 +11,49 @@ const TeamListsColumn = ({
   onToggle,
   onMoveUp,
   onMoveDown,
-  style,
+  className,
   placeholder,
-}) => {
-  const classes = useStyles();
-
-  return (
-    <Box className={classes.column} width="1">
-      <Typography className={classes.columnTitle} variant="subtitle2">
-        {title}
-      </Typography>
-      <Box className={classes.innerColumn} style={style}>
-        {columns.map((column, i) => (
-          <TeamListsItem
-            key={column.key}
-            column={column}
-            onToggle={onToggle}
-            onMoveUp={onMoveUp}
-            onMoveDown={onMoveDown}
-            isFirst={i === 0}
-            isLast={i === columns.length - 1}
-            isRequired={column.key === 'created_at_timestamp'}
-          />
-        ))}
-        { columns.length === 0 ?
-          <Box className={classes.placeholder}>
-            {placeholder}
-          </Box> : null }
-      </Box>
-    </Box>
-  );
-};
+}) => (
+  <div
+    className={cx(
+      styles['teamlist-column'],
+      {
+        [className]: true,
+      })
+    }
+  >
+    <span className="typography-subtitle2">
+      {title}
+    </span>
+    <div className={styles['teamlist-column-items']}>
+      {columns.map((column, i) => (
+        <TeamListsItem
+          key={column.key}
+          column={column}
+          onToggle={onToggle}
+          onMoveUp={onMoveUp}
+          onMoveDown={onMoveDown}
+          isFirst={i === 0}
+          isLast={i === columns.length - 1}
+          isRequired={column.key === 'created_at_timestamp'}
+        />
+      ))}
+      { columns.length === 0 ?
+        <div className={styles['teamlist-placeholder']}>
+          {placeholder}
+        </div> : null }
+    </div>
+  </div>
+);
 
 TeamListsColumn.defaultProps = {
   onMoveUp: null,
   onMoveDown: null,
-  style: {},
+  className: null,
   placeholder: (
     <FormattedMessage
       id="teamListsColumn.none"
-      defaultMessage="None available"
+      defaultMessage="No columns available"
       description="Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
     />
   ),
@@ -86,7 +70,7 @@ TeamListsColumn.propTypes = {
   onToggle: PropTypes.func.isRequired,
   onMoveUp: PropTypes.func,
   onMoveDown: PropTypes.func,
-  style: PropTypes.object,
+  className: PropTypes.string,
   placeholder: PropTypes.node,
 };
 

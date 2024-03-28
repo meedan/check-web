@@ -1,15 +1,13 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
-
-import SlackConfig from './SlackConfig';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import cx from 'classnames/bind';
 import SettingsHeader from './SettingsHeader';
 import TeamBots from './TeamBots';
-import { ContentColumn } from '../../styles/js/shared';
+import settingsStyles from './Settings.module.css';
 
 const TeamIntegrations = () => (<QueryRenderer
   environment={Relay.Store}
@@ -39,7 +37,6 @@ const TeamIntegrations = () => (<QueryRenderer
               }
             }
           }
-          ...SlackConfig_team
         }
         team_bots_listed(first: 10000) {
           edges {
@@ -77,29 +74,28 @@ const TeamIntegrations = () => (<QueryRenderer
   render={({ props }) => {
     if (props) {
       return (
-        <Box className="team-integrations">
-          <ContentColumn>
-            <SettingsHeader
-              title={
-                <FormattedMessage
-                  id="teamIntegrations.title"
-                  defaultMessage="Integrations"
-                />
-              }
-              subtitle={
-                <FormattedMessage
-                  id="teamIntegrations.subtitle"
-                  defaultMessage="Third party tools to enhance productivity."
-                />
-              }
-              helpUrl="https://help.checkmedia.org/en/articles/6925397-integrations"
-            />
-            <Box className="team-integrations__integrations">
-              <TeamBots {...props} />
-              <SlackConfig team={props.root.current_team} />
-            </Box>
-          </ContentColumn>
-        </Box>
+        <>
+          <SettingsHeader
+            title={
+              <FormattedMessage
+                id="teamIntegrations.title"
+                defaultMessage="Integrations"
+                description="Settings page title for the Integrations section"
+              />
+            }
+            context={
+              <FormattedHTMLMessage
+                id="teamIntegrations.helpContext"
+                defaultMessage='Connect your Check workflow with third-party services. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about integrations</a>.'
+                values={{ helpLink: 'https://help.checkmedia.org/en/articles/6925397-integrations' }}
+                description="Context description for the functionality of this page"
+              />
+            }
+          />
+          <div className={cx('team-integrations', settingsStyles['setting-details-wrapper'])}>
+            <TeamBots {...props} />
+          </div>
+        </>
       );
     }
     return null;

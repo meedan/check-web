@@ -14,19 +14,11 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
+  color: var(--textPrimary);
   margin: 0;
   padding: 0;
-}
-
-h1 {
-  color: var(--textPrimary);
-  font: 500 20px/32px var(--fontStackSans);
-}
-
-h2 {
-  color: var(--textPrimary);
-  font: 400 15px/24px var(--fontStackSans);
 }
 
 a {
@@ -57,6 +49,7 @@ a {
 }
 
 p {
+  @mixin typography-body1;
   margin-top: 0;
 }
 
@@ -66,26 +59,32 @@ ul {
   padding: 0;
 }
 
+h1,
 .typography-h1 {
   @mixin typography-h1;
 }
 
+h2,
 .typography-h2 {
   @mixin typography-h2;
 }
 
+h3,
 .typography-h3 {
   @mixin typography-h3;
 }
 
+h4,
 .typography-h4 {
   @mixin typography-h4;
 }
 
+h5,
 .typography-h5 {
   @mixin typography-h5;
 }
 
+h6,
 .typography-h6 {
   @mixin typography-h6;
 }
@@ -132,4 +131,37 @@ ul {
 
 .typography-overline {
   @mixin typography-overline;
+}
+
+.bulleted-list {
+  list-style: disc;
+  margin: 0 0 0 .75em;
+  padding: .5em 0 .5em .75em;
+
+  li {
+    margin: 0 0 .5em;
+  }
+
+  &.item-limited-list {
+    padding: .5em 0;
+
+    li {
+      -webkit-box-orient: vertical;
+      color: var(--textPrimary);
+      /* stylelint-disable-next-line value-no-vendor-prefix */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      padding: 0 0 0 1em;
+      position: relative;
+      white-space: pre-line;
+      word-break: break-all;
+
+      &::before {
+        content: '\2022';
+        left: 0;
+        position: absolute;
+      }
+    }
+  }
 }

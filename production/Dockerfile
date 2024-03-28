@@ -1,6 +1,6 @@
 # meedan/check-web
 
-FROM node:12.16.1-buster AS base
+FROM node:14.20.1-buster AS base
 MAINTAINER sysops@meedan.com
 
 #
@@ -60,7 +60,10 @@ RUN sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-buil
 COPY config.js.example ${DEPLOYDIR}/latest/config.js
 COPY config-server.js.example ${DEPLOYDIR}/latest/config-server.js
 
-# build all assets, js, css, transifex
+# Get the configuration for Sentry and apply environment variables, pre-build-step
+RUN bash /opt/bin/create_sentry_config.sh
+
+# build all assets, js, css, transifex, upload sourcemaps to Sentry
 RUN npm run build
 
 WORKDIR ${DEPLOYDIR}/latest

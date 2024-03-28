@@ -1,22 +1,44 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import { browserHistory } from 'react-router';
-import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
-import { FormattedMessage } from 'react-intl';
-import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
+import TextField from '../cds/inputs/TextField';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import Alert from '../cds/alerts-and-prompts/Alert';
-import CheckChannels from '../../CheckChannels';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
+
+const messages = defineMessages({
+  saveList: {
+    id: 'saveList.title',
+    defaultMessage: 'Enter new list name',
+    description: 'Prompt for editing list name',
+  },
+  saveAsNewList: {
+    id: 'saveList.saveAsNewList',
+    defaultMessage: 'Create a New List',
+    description: 'Dialog title for saving filters as new lists',
+  },
+  createList: {
+    id: 'saveList.createList',
+    defaultMessage: 'Create List',
+    description: 'Dialog submit button label for saving filters as new lists',
+  },
+  newList: {
+    id: 'saveList.newList',
+    defaultMessage: 'Save List',
+    description: 'Dialog title and submit button label for saving changes to lists',
+  },
+});
 
 const createMutation = graphql`
   mutation SaveListCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
@@ -33,6 +55,7 @@ const createMutation = graphql`
               dbid
               title
               filters
+              medias_count: items_count
             }
           }
         }
@@ -46,17 +69,7 @@ const updateMutation = graphql`
     updateSavedSearch(input: $input) {
       saved_search {
         filters
-      }
-    }
-  }
-`;
-
-const updateSpecialPageMutation = graphql`
-  mutation SaveListUpdateTeamMutation($input: UpdateTeamInput!) {
-    updateTeam(input: $input) {
-      team {
-        get_tipline_inbox_filters
-        get_suggested_matches_filters
+        medias_count: items_count
       }
     }
   }
@@ -67,9 +80,6 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     marginRight: theme.spacing(1),
   },
-  saveListButton: {
-    color: 'var(--brandMain)',
-  },
   saveListCreateLabel: {
     marginRight: 0,
     flexGrow: 1,
@@ -77,42 +87,39 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SaveList = ({
+  intl,
   team,
-  project,
-  projectGroup,
   feedTeam,
   savedSearch,
+  page,
   query,
   setFlashMessage,
 }) => {
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches|feed)(\/([0-9]+))?/);
+  // FIXME: Replace pathname context-detection and derived logic with the `page` prop
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|all-items|assigned-to-me|tipline-inbox|suggested-matches|feed|imported-fact-checks|unmatched-media|published)(\/([0-9]+))?/);
 
-  if (!currentPath) {
+  if (!page || !currentPath) {
+    return null;
+  }
+
+  if (['spam', 'trash'].includes(page)) {
     return null;
   }
 
   const classes = useStyles();
 
-  const objectType = currentPath[1];
+  const objectType = page || currentPath[1];
 
   const [title, setTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);
-  const [operation, setOperation] = React.useState('CREATE'); // or 'UPDATE' or 'UPDATE_SPECIAL_PAGE'
+  const [operation, setOperation] = React.useState('CREATE'); // or 'UPDATE'
   const [showNewDialog, setShowNewDialog] = React.useState(false);
   const [showExistingDialog, setShowExistingDialog] = React.useState(false);
 
-  // Just show the button on some pages
-  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches', 'feed'].indexOf(objectType) === -1) {
-    return null;
-  }
-
-  // Don't even show the button if there is nothing to be saved
-  if (!query || JSON.stringify(query) === '{}') {
-    return null;
-  }
-
-  // Don't show the button if it's a list and nothing changed
-  if (objectType === 'list' && savedSearch && JSON.stringify(query) === savedSearch.filters) {
+  // FIXME: Review specific permissions:
+  // Create, Update SavedSearch
+  // Update Feed
+  if (!can(team.permissions, 'update Team')) {
     return null;
   }
 
@@ -130,27 +137,6 @@ const SaveList = ({
       }
     // Don't show the button if it's a feed
     } else {
-      return null;
-    }
-  }
-
-  // Don't show the button if it's a tipline inbox or suggested media page and nothing changed
-  if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
-    let defaultQuery = {};
-    let savedQuery = '{}';
-    if (objectType === 'tipline-inbox') {
-      defaultQuery = { read: ['0'], projects: ['-1'], verification_status: [team.verification_statuses.default] };
-      savedQuery = team.get_tipline_inbox_filters;
-    } else if (objectType === 'suggested-matches') {
-      defaultQuery = { suggestions_count: { min: 1 } };
-      savedQuery = team.get_suggested_matches_filters;
-    }
-    // Don't show the button if it's a saved search or a default list
-    if (savedQuery) {
-      if (JSON.stringify(query) === JSON.stringify(savedQuery)) {
-        return null;
-      }
-    } else if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
       return null;
     }
   }
@@ -189,30 +175,9 @@ const SaveList = ({
 
   const handleSave = () => {
     setSaving(true);
-    const input = {};
-    let queryToBeSaved = {};
-    // If it's a folder, add the project.id as a filter
-    if (project) {
-      queryToBeSaved.projects = [project.dbid];
-    }
-    // If it's a collection, add the projectGroup.id as a filter
-    if (projectGroup) {
-      queryToBeSaved.project_group_id = [projectGroup.dbid];
-    }
-    if (objectType === 'tipline-inbox' && operation !== 'UPDATE_SPECIAL_PAGE') {
-      queryToBeSaved.channels = [CheckChannels.ANYTIPLINE];
-    }
-    queryToBeSaved = { ...queryToBeSaved, ...query };
-
-    if (operation === 'UPDATE_SPECIAL_PAGE') {
-      if (objectType === 'tipline-inbox') {
-        input.tipline_inbox_filters = JSON.stringify(query);
-      } else if (objectType === 'suggested-matches') {
-        input.suggested_matches_filters = JSON.stringify(query);
-      }
-    } else {
-      input.filters = JSON.stringify(queryToBeSaved);
-    }
+    const input = {
+      filters: JSON.stringify({ ...query }),
+    };
 
     let mutation = updateMutation;
 
@@ -223,9 +188,6 @@ const SaveList = ({
     } else if (operation === 'UPDATE') {
       input.id = savedSearch.id;
       mutation = updateMutation;
-    } else if (operation === 'UPDATE_SPECIAL_PAGE') {
-      input.id = team.id;
-      mutation = updateSpecialPageMutation;
     }
 
     commitMutation(Store, {
@@ -282,15 +244,14 @@ const SaveList = ({
   };
 
   const handleClick = () => {
-    // From the "All Items" page, collection page and a folder page, we can just create a new list
-    if (objectType === 'all-items' || objectType === 'project' || objectType === 'collection') {
+    // FIXME: declare core lists globally.
+    // From these pages we can just create a new list
+    const coreLists = ['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published'];
+    if (coreLists.includes(objectType)) {
       setShowNewDialog(true);
     // From a list page, we can either create a new one or update the one we're seeing
     } else if (objectType === 'list') {
       setOperation('UPDATE');
-      setShowExistingDialog(true);
-    } else if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
-      setOperation('UPDATE_SPECIAL_PAGE');
       setShowExistingDialog(true);
     // Save feed filters
     } else if (objectType === 'feed') {
@@ -304,8 +265,9 @@ const SaveList = ({
     <React.Fragment>
       {/* The "Save" button */}
       <ButtonMain
-        customStyle={{ color: 'var(--brandSecondary)', cursor: 'pointer', background: 'var(--brandLight)' }}
-        className={classes.saveListButton}
+        variant="contained"
+        size="default"
+        theme="lightBrand"
         onClick={handleClick}
         buttonProps={{
           id: 'save-list__button',
@@ -332,70 +294,50 @@ const SaveList = ({
       {/* Create a new list */}
       <ConfirmProceedDialog
         open={showNewDialog}
-        title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
+        title={intl.formatMessage(messages.saveAsNewList)}
         body={
-          <Box>
-            <TextField
-              label={
-                <FormattedMessage
-                  id="saveList.title"
-                  defaultMessage="Enter new list name"
-                />
-              }
-              onChange={(e) => { setTitle(e.target.value); }}
-              variant="outlined"
-              margin="normal"
-              className="new-list__title"
-              fullWidth
-            />
-          </Box>
+          <TextField
+            placeholder={intl.formatMessage(messages.saveList)}
+            onChange={(e) => { setTitle(e.target.value); }}
+            className="new-list__title"
+          />
         }
         proceedDisabled={!title}
-        proceedLabel={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
+        proceedLabel={intl.formatMessage(messages.newList)}
         onProceed={handleSave}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" description="Cancel list editing button label" />}
         onCancel={handleClose}
       />
 
       {/* Create a new list or update an existing list */}
-      { savedSearch || ['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1 ?
+      { savedSearch ?
         <ConfirmProceedDialog
           open={showExistingDialog}
-          title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
+          title={operation === 'CREATE' ? intl.formatMessage(messages.saveAsNewList) : intl.formatMessage(messages.newList)}
           body={
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
-                { savedSearch?.is_part_of_feeds ?
-                  <>
-                    <FormControlLabel
-                      value="UPDATE"
-                      control={<Radio />}
-                      label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
-                    />
-                    { savedSearch?.is_part_of_feeds ?
-                      <Alert
-                        type="warning"
-                        title={
-                          <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
-                        }
-                        content={
-                          <ul>
-                            {feeds.map(feed => (
-                              <li key={feed?.id}>&bull; {feed}</li>
-                            ))}
-                          </ul>
-                        }
-                      />
-                      : null}
-                  </>
-                  :
-                  <FormControlLabel
-                    value="UPDATE_SPECIAL_PAGE"
-                    control={<Radio />}
-                    label={<FormattedMessage id="saveList.updateSpecialPage" defaultMessage="Save changes to the list" description="'Save' here is an infinitive verb" />}
+                <FormControlLabel
+                  value="UPDATE"
+                  control={<Radio />}
+                  label={<FormattedHTMLMessage id="saveList.update" defaultMessage='Save changes to the list "<strong>{listName}</strong>"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
+                />
+                { savedSearch?.is_part_of_feeds && operation === 'UPDATE' ?
+                  <Alert
+                    variant="warning"
+                    title={
+                      <FormattedMessage id="saveList.warningAlert" defaultMessage="Saving changes will update shared feeds:" description="Text displayed in the title of a warning box when saving a list related to shared feeds" />
+                    }
+                    content={
+                      <ul>
+                        {feeds.map(feed => (
+                          <li key={feed}>&bull; {feed}</li>
+                        ))}
+                      </ul>
+                    }
                   />
-                }
+                  : null }
                 <FormControlLabel
                   value="CREATE"
                   control={<Radio />}
@@ -406,21 +348,16 @@ const SaveList = ({
                       <span className={classes.saveListCreate}>
                         <FormattedMessage id="saveList.create" defaultMessage="Create new list" description="'Create' here is an infinitive verb" />
                       </span>
-                      <TextField
-                        label={
-                          <FormattedMessage
-                            id="saveList.title"
-                            defaultMessage="Enter new list name"
-                          />
-                        }
-                        onChange={(e) => { setTitle(e.target.value); }}
-                        variant="outlined"
-                        margin="normal"
-                        className="new-list__title"
-                        disabled={operation === 'UPDATE'}
-                        autoFocus={operation === 'CREATE'}
-                        fullWidth
-                      />
+                      { operation === 'CREATE' ?
+                        <TextField
+                          placeholder={intl.formatMessage(messages.saveList)}
+                          onChange={(e) => { setTitle(e.target.value); }}
+                          className="new-list__title"
+                          disabled={operation === 'UPDATE'}
+                          autoFocus
+                        />
+                        : null
+                      }
                     </Box>
                   }
                 />
@@ -428,10 +365,10 @@ const SaveList = ({
             </FormControl>
           }
           proceedDisabled={operation === 'CREATE' && !title}
-          proceedLabel={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
+          proceedLabel={operation === 'CREATE' ? intl.formatMessage(messages.createList) : intl.formatMessage(messages.newList)}
           onProceed={handleSave}
           isSaving={saving}
-          cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" />}
+          cancelLabel={<FormattedMessage id="saveList.cancel" defaultMessage="Cancel" description="Cancel list editing button label" />}
           onCancel={handleClose}
         /> : null }
     </React.Fragment>
@@ -439,26 +376,20 @@ const SaveList = ({
 };
 
 SaveList.defaultProps = {
-  project: null,
-  projectGroup: null,
   savedSearch: null,
   feedTeam: null,
 };
 
 SaveList.propTypes = {
+  intl: intlShape.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
   }).isRequired,
+  page: PropTypes.oneOf(['all-items', 'assigned-to-me', 'tipline-inbox', 'imported-fact-checks', 'suggested-matches', 'unmatched-media', 'published', 'list', 'feed', 'spam', 'trash']).isRequired, // FIXME Define listing types as a global constant
   query: PropTypes.object.isRequired,
-  project: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-  }),
-  projectGroup: PropTypes.shape({
-    dbid: PropTypes.number.isRequired,
-  }),
   feedTeam: PropTypes.shape({
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
@@ -472,4 +403,4 @@ SaveList.propTypes = {
   }),
 };
 
-export default withSetFlashMessage(SaveList);
+export default withSetFlashMessage(injectIntl(SaveList));

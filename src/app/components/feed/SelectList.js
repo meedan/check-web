@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import ListIcon from '@material-ui/icons/List';
+import ListIcon from '../../icons/list.svg';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import Select from '../cds/inputs/Select';
 import styles from './SelectList.module.css';
 
 const SelectListQueryRenderer = ({
   required,
-  helperText,
+  label,
   onChange,
   onRemove,
   value,
@@ -39,7 +39,7 @@ const SelectListQueryRenderer = ({
         if (required && props.team.saved_searches.edges.length === 0) {
           return (
             <Alert
-              type="warning"
+              variant="warning"
               title={
                 <FormattedMessage
                   id="selectList.noListTitle"
@@ -61,7 +61,7 @@ const SelectListQueryRenderer = ({
                   description="Helper link in a warning displayed on edit feed page when the workspace has no lists."
                 />
               }
-              onButtonClick={() => { window.open('https://help.checkmedia.org/en/articles/5229474-filtered-lists#h_0ab5b97e97'); }}
+              onButtonClick={() => { window.open('https://help.checkmedia.org/en/articles/8720927-custom-lists'); }}
             />
           );
         }
@@ -70,7 +70,7 @@ const SelectListQueryRenderer = ({
             { (required && !value) ?
               <div>
                 <Alert
-                  type="warning"
+                  variant="warning"
                   title={
                     <FormattedMessage
                       id="saveFeed.noListSelected"
@@ -87,7 +87,7 @@ const SelectListQueryRenderer = ({
                   value={value}
                   onChange={onChange}
                   onRemove={onRemove}
-                  helpContent={helperText}
+                  label={label}
                 >
                   <option value={null}>{selectLabel}</option>
                   { props.team.saved_searches.edges.map(l => (
@@ -106,14 +106,16 @@ const SelectListQueryRenderer = ({
 );
 
 SelectListQueryRenderer.defaultProps = {
-  helperText: null,
+  required: true,
+  label: null,
   onChange: null,
   onRemove: null,
   value: null,
 };
 
 SelectListQueryRenderer.propTypes = {
-  helperText: PropTypes.node,
+  required: PropTypes.bool,
+  label: PropTypes.node,
   onChange: PropTypes.func,
   onRemove: PropTypes.func,
   value: PropTypes.oneOfType([

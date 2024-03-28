@@ -1,31 +1,19 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import cx from 'classnames/bind';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
-import PermMediaOutlinedIcon from '@material-ui/icons/PermMediaOutlined';
+import Tooltip from '../cds/alerts-and-prompts/Tooltip';
+import MediasLoading from '../media/MediasLoading';
+import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
-
-const styles = {
-  input: {
-    display: 'none',
-  },
-  button: {
-    fontWeight: 400,
-    fontSize: 12,
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-};
+import PermMediaIcon from '../../icons/perm_media.svg';
+import searchStyles from './search.module.css';
 
 class SearchKeyword extends React.Component {
   constructor(props) {
@@ -70,7 +58,7 @@ class SearchKeyword extends React.Component {
     this.setState({
       isSaving: false,
     });
-    this.props.setQuery(cleanQuery);
+    this.props.setStateQuery(cleanQuery);
     this.props.handleSubmit();
   };
 
@@ -85,7 +73,7 @@ class SearchKeyword extends React.Component {
     delete cleanQuery.file_handle;
     delete cleanQuery.file_url;
     delete cleanQuery.file_name;
-    this.props.setQuery(cleanQuery);
+    this.props.setStateQuery(cleanQuery);
   }
 
   keywordIsActive = () => {
@@ -118,7 +106,7 @@ class SearchKeyword extends React.Component {
     if (Object.keys(value.keyword_fields).length === 0) {
       delete newQuery.keyword_fields;
     }
-    this.props.setQuery(newQuery);
+    this.props.setStateQuery(newQuery);
     this.props.handleSubmit(null, newQuery);
   }
 
@@ -162,12 +150,12 @@ class SearchKeyword extends React.Component {
       newQuery.keyword = newKeyword;
       newQuery.sort = 'score';
     }
-    this.props.setQuery(newQuery);
+    this.props.setStateQuery(newQuery);
   }
 
   /*
   check that the sort parameter is the default, if it is, set the parameter to "clear"
-  to identify that no other sort filter is applied and the search query should be reseted
+  to identify that no other sort filter is applied and the search query should be reset
   */
   handleClickClear = () => {
     const newQuery = { ...this.props.query };
@@ -190,7 +178,8 @@ class SearchKeyword extends React.Component {
         name: '',
       },
     });
-    this.props.setQuery(cleanQuery);
+    this.props.setStateQuery(cleanQuery);
+    this.props.handleSubmit(null, cleanQuery);
   };
 
   subscribe() {
@@ -208,26 +197,11 @@ class SearchKeyword extends React.Component {
       }
       return false;
     });
-
-    pusher.subscribe(team.pusher_channel).bind('project_updated', 'SearchKeyword', (data, run) => {
-      if (clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `team-${team.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
   }
 
   unsubscribe() {
     const { pusher, team } = this.props;
     pusher.unsubscribe(team.pusher_channel, 'tagtext_updated', 'SearchKeyword');
-    pusher.unsubscribe(team.pusher_channel, 'project_updated', 'SearchKeyword');
   }
 
   handleUpload = (e) => {
@@ -256,8 +230,10 @@ class SearchKeyword extends React.Component {
     };
   }
 
+  triggerInputFile = () => this.fileInput.click()
+
   render() {
-    const { team, classes, showExpand } = this.props;
+    const { team, showExpand } = this.props;
     const { statuses } = team.verification_statuses;
     let projects = [];
     if (team.projects) {
@@ -269,69 +245,61 @@ class SearchKeyword extends React.Component {
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
     return (
-      <div>
+      <>
         <PageTitle prefix={title} team={this.props.team} />
         <form
           id="search-form"
-          className="search__form"
+          className={cx('search__form', searchStyles['search-form'])}
           onSubmit={this.props.handleSubmit}
           autoComplete="off"
         >
-          <Box width="450px">
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <SearchField
-                  isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
-                  showExpand={showExpand}
-                  setParentSearchText={this.setSearchText}
-                  searchText={this.props.query?.keyword || ''}
-                  searchQuery={this.props.query}
-                  inputBaseProps={{
-                    onBlur: this.handleInputChange,
-                    disabled: this.state?.imgData?.data?.length > 0,
-                  }}
-                  handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+          <SearchField
+            isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
+            showExpand={showExpand}
+            setParentSearchText={this.setSearchText}
+            searchText={this.props.query?.keyword || ''}
+            searchQuery={this.props.query}
+            inputBaseProps={{
+              onBlur: this.handleInputChange,
+              disabled: this.state?.imgData?.data?.length > 0,
+            }}
+            handleClear={this.props.query?.file_type ? this.handleImageDismiss : this.handleClickClear}
+          />
+          { showExpand || !this.props.hideAdvanced ?
+            <div className={searchStyles['search-form-config']}>
+              { showExpand &&
+                <>
+                  <input
+                    id="media-upload"
+                    type="file"
+                    accept="image/*,video/*,audio/*"
+                    onChange={this.handleUpload}
+                    ref={(el) => { this.fileInput = el; }}
+                    style={{ display: 'none' }}
+                  />
+                  <Tooltip arrow title={<FormattedMessage id="search.file" defaultMessage="Search with file" description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt." />}>
+                    <span>
+                      <ButtonMain
+                        iconCenter={this.state.isSaving ? <MediasLoading size="icon" variant="icon" /> : <PermMediaIcon />}
+                        size="small"
+                        variant="text"
+                        theme="lightText"
+                        onClick={this.triggerInputFile}
+                      />
+                    </span>
+                  </Tooltip>
+                </>
+              }
+              { !this.props.hideAdvanced &&
+                <SearchKeywordMenu
+                  onChange={this.handleKeywordConfigChange}
+                  query={this.props.query}
                 />
-              </Grid>
-              <Grid item container xs={12}>
-                <Box display="flex" justifyContent="flex-end" marginLeft="auto">
-                  { showExpand ? (
-                    <div>
-                      <label htmlFor="media-upload">
-                        <input
-                          className={classes.input}
-                          id="media-upload"
-                          type="file"
-                          accept="image/*,video/*,audio/*"
-                          onChange={this.handleUpload}
-                        />
-                        <Button
-                          startIcon={this.state.isSaving ? <CircularProgress size={24} /> : <PermMediaOutlinedIcon />}
-                          component="span"
-                          className={classes.button}
-                        >
-                          <FormattedMessage
-                            id="search.file"
-                            defaultMessage="Search with file"
-                            description="This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
-                          />
-                        </Button>
-                      </label>
-                    </div>
-                  ) : null }
-                  { this.props.hideAdvanced ?
-                    null :
-                    <SearchKeywordMenu
-                      onChange={this.handleKeywordConfigChange}
-                      query={this.props.query}
-                    />
-                  }
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
+              }
+            </div> : null
+          }
         </form>
-      </div>
+      </>
     );
   }
 }
@@ -339,12 +307,12 @@ class SearchKeyword extends React.Component {
 SearchKeyword.defaultProps = {
   showExpand: false,
 };
+
 SearchKeyword.propTypes = {
-  classes: PropTypes.object.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
-  setQuery: PropTypes.func.isRequired,
+  setStateQuery: PropTypes.func.isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     pusher_channel: PropTypes.string.isRequired,
@@ -370,7 +338,7 @@ SearchKeyword.propTypes = {
 // eslint-disable-next-line import/no-unused-modules
 export { SearchKeyword as SearchKeywordTest };
 
-export default createFragmentContainer(withStyles(styles)(withPusher(SearchKeyword)), graphql`
+export default createFragmentContainer((withPusher(SearchKeyword)), graphql`
   fragment SearchKeyword_team on Team {
     id
     dbid

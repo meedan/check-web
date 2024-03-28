@@ -1,8 +1,83 @@
 [
   {
+    "id": "search.dateSubmittedHeading",
+    "description": "This is a header in a drop down selector, to filter a search by the submission date",
+    "defaultMessage": "Request submitted"
+  },
+  {
+    "id": "search.dateLastSubmittedHeading",
+    "description": "This is a heading in a drop down selector, to filter a search by the last submitted date",
+    "defaultMessage": "Media published"
+  },
+  {
+    "id": "search.dateUpdatedHeading",
+    "description": "This is a heading in a drop down selector, to filter a search by date updated",
+    "defaultMessage": "Item updated"
+  },
+  {
+    "id": "search.datePublishedHeading",
+    "description": "This is a heading in a drop down selector, to filter a search by a report published date",
+    "defaultMessage": "Report published"
+  },
+  {
+    "id": "search.dateRequestHeading",
+    "description": "This is a heading in a drop down selector, to filter a search by request created dates",
+    "defaultMessage": "Request submitted"
+  },
+  {
+    "id": "search.relativeDays",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like \"Report published less than 3 days ago\"",
+    "defaultMessage": "days ago"
+  },
+  {
+    "id": "search.relativeWeeks",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like \"Report published less than 3 weeks ago\".",
+    "defaultMessage": "weeks ago"
+  },
+  {
+    "id": "search.relativeMonths",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like \"Report published less than 3 months ago\".",
+    "defaultMessage": "months ago"
+  },
+  {
+    "id": "search.relativeYears",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like \"Report published less than 3 years ago\".",
+    "defaultMessage": "years ago"
+  },
+  {
+    "id": "search.dateStartEnd",
+    "description": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like \"Report published between February 3, 2022 and February 9, 2022\".",
+    "defaultMessage": "between"
+  },
+  {
+    "id": "search.dateLessThan",
+    "description": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like \"Report published less than 10 months ago\".",
+    "defaultMessage": "less than"
+  },
+  {
+    "id": "search.dateMoreThan",
+    "description": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like \"Report published more than 10 months ago\".",
+    "defaultMessage": "more than"
+  },
+  {
+    "id": "global.ok",
+    "description": "Generic label for a button or link for a user to press when they wish to confirm an action",
+    "defaultMessage": "OK"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
     "id": "search.anyDate",
     "description": "Date picker placeholder",
     "defaultMessage": "any date"
+  },
+  {
+    "id": "search.removeStartDateCondition",
+    "description": "Tooltip to tell the user they can add remove the start date portion of this filter",
+    "defaultMessage": "Remove start date"
   },
   {
     "id": "search.beforeDate",
@@ -10,57 +85,13 @@
     "defaultMessage": "and"
   },
   {
+    "id": "search.removeEndDateCondition",
+    "description": "Tooltip to tell the user they can add remove the end date portion of this filter",
+    "defaultMessage": "Remove end date"
+  },
+  {
     "id": "numericRangeFilter.enterNumber",
+    "description": "Placeholder text to tell the user to enter a number",
     "defaultMessage": "enter number"
-  },
-  {
-    "id": "search.dateSubmittedHeading",
-    "defaultMessage": "Request submitted"
-  },
-  {
-    "id": "search.dateLastSubmittedHeading",
-    "defaultMessage": "Media published"
-  },
-  {
-    "id": "search.dateUpdatedHeading",
-    "defaultMessage": "Item updated"
-  },
-  {
-    "id": "search.datePublishedHeading",
-    "defaultMessage": "Report published"
-  },
-  {
-    "id": "search.dateRequestHeading",
-    "defaultMessage": "Request submitted"
-  },
-  {
-    "id": "search.dateStartEnd",
-    "description": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'.",
-    "defaultMessage": "between"
-  },
-  {
-    "id": "search.dateRelative",
-    "description": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'.",
-    "defaultMessage": "less than"
-  },
-  {
-    "id": "search.relativeDays",
-    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 days ago'.",
-    "defaultMessage": "days ago"
-  },
-  {
-    "id": "search.relativeWeeks",
-    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 weeks ago'.",
-    "defaultMessage": "weeks ago"
-  },
-  {
-    "id": "search.relativeMonths",
-    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 months ago'.",
-    "defaultMessage": "months ago"
-  },
-  {
-    "id": "search.relativeYears",
-    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 years ago'.",
-    "defaultMessage": "years ago"
   }
 ]
