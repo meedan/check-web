@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames/bind';
 import UnfoldLessIcon from '../../../icons/unfold_less.svg';
 import UnfoldMoreIcon from '../../../icons/unfold_more.svg';
-import FactCheckIcon from '../../../icons/fact_check.svg';
+import FactCheckUrl from './FactCheckUrl';
 import styles from './Card.module.css';
 
 const ItemDescription = ({
@@ -55,12 +55,7 @@ const ItemDescription = ({
               {description}
             </span>
             { factCheckUrl ?
-              <span className={styles.factCheckLink}>
-                <FactCheckIcon />
-                <div>
-                  <a href={factCheckUrl} target="_blank" rel="noreferrer noopener">{factCheckUrl}</a>
-                </div>
-              </span>
+              <FactCheckUrl factCheckUrl={factCheckUrl} />
               : null }
           </p>
           : null }

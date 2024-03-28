@@ -80,7 +80,7 @@ describe('<FeedClusters />', () => {
   };
 
   it('should render clusters as cards', () => {
-    const wrapper = shallowWithIntl(<FeedClustersComponent feed={feed} feedTeam={feedTeam} />);
+    const wrapper = shallowWithIntl(<FeedClustersComponent team={{ slug: 'test' }} feed={feed} feedTeam={feedTeam} />);
     expect(wrapper.find('.feed-clusters__card')).toHaveLength(2);
   });
 });

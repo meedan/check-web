@@ -13,7 +13,7 @@ const renderQuery = ({ error, props, drawerType }) => {
     const feedsJoined = props.team.feed_teams.edges.map(ft => ft.node).filter(ft => !feedsCreated.find(f => f.dbid === ft.feed_id));
     const feedsInvited = props.me.feed_invitations.edges.map(f => f.node).filter(fi => fi.state === 'invited');
     const feeds = [].concat(feedsCreated, feedsJoined, feedsInvited);
-    if (drawerType === 'default') {
+    if (drawerType === 'tipline') {
       return (
         <ProjectsComponent
           currentUser={props.me}

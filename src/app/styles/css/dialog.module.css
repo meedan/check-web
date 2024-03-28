@@ -30,6 +30,7 @@
 
   .dialog-actions {
     align-items: center;
+    border-top: solid 1px var(--brandBorder);
     display: flex;
     gap: 8px;
     justify-content: flex-end;

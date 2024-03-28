@@ -26,11 +26,11 @@ const FeedMetadata = ({ feed }) => feed.dbid ? (
       <RssFeedIcon />
       <FormattedMessage
         id="saveFeed.lastUpdated"
-        defaultMessage="Last updated {timeAgo}"
+        defaultMessage="Settings last updated {timeAgo}"
         values={{
           timeAgo: <TimeBefore date={parseStringUnixTimestamp(feed.updated_at)} />,
         }}
-        description="On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
+        description="On feed edit page, show the last time the feed settings were changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
       />
     </div>
   </div>

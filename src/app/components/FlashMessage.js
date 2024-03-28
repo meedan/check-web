@@ -49,7 +49,7 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
     if (variant === 'error' && typeof message === 'string') {
       // Split into multiple message in case we have a multiple validation errors
       message.split('<br />').forEach(msg => enqueueSnackbar(msg, { variant, persist, anchorOrigin }));
-    } else if (variant === 'error' && typeof message === 'object' && message.length) {
+    } else if (variant === 'error' && message && typeof message === 'object' && message.length) {
       message.forEach(msg => enqueueSnackbar(createFriendlyErrorMessage(msg), { variant, persist, anchorOrigin }));
     } else {
       enqueueSnackbar(message, { variant, persist, anchorOrigin });
