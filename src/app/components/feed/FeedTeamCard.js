@@ -43,6 +43,9 @@ const FeedTeamCard = ({
       className={cx(
         expanded ? styles.feedItemTeamCardExpanded : styles.feedItemTeamCardCollapsed,
         selected ? styles.feedItemTeamCardSelected : styles.feedItemTeamCardNotSelected,
+        {
+          [styles.feedItemTeamCardUnclickable]: Object.keys(clusterTeam).length === 0,
+        },
       )}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
@@ -71,7 +74,7 @@ const FeedTeamCard = ({
           <div className={styles.feedItemTeamCardNotSharing}>
             <FormattedHTMLMessage
               id="feedTeamCard.notContributing"
-              defaultMessage="Your workspace does not contribute to this shared feed item.<br />Select a workspace below to import it’s media to your workspace."
+              defaultMessage="Your workspace does not contribute to this shared feed item.<br /><br />Select a workspace below to import it’s media to your workspace."
               description="Displayed on the current workspace card on feed item page when the current workspace is not contributing to that cluster. This is an HTML message, please keep the <br /> tag."
             />
           </div>

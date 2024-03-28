@@ -54,6 +54,11 @@
   overflow-x: hidden;
 }
 
+.feedItemTeamCardUnclickable {
+  cursor: auto;
+  pointer-events: none;
+}
+
 .feedItemTeamCard {
   cursor: pointer;
   justify-content: flex-start !important;
