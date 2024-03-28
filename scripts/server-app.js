@@ -17,11 +17,15 @@ app.use((req, res, next) => {
   // CORS
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Content-Security-Policy', "default-src 'self'; script-src 'self' *.heapanalytics.com *.ngrok.com *.ngrok-agent.com *.intercomcdn.com *.pusher.com *.uptime.com *.simpleanalyticscdn.com *.cloudflareinsights.com *.pusher.com *.intercom.io *.google-analytics.com; style-src  'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com; object-src 'none'; base-uri 'self'; connect-src 'self' *.intercom.io *.checkmedia.org wss://nexus-websocket-a.intercom.io wss://ws-mt1.pusher.com; font-src 'self' https://fonts.gstatic.com https://fonts.intercomcdn.com; frame-src 'self'; img-src 'self' https://qa-assets.checkmedia.org; manifest-src 'self'; media-src 'self'; worker-src blob:;");
-  res.header('Content-Security-Policy-Report-Only','');
-  res.header('X-Frame-Options', 'SAMEORIGIN');
-  res.header('X-XSS-Protection', '1; mode=block');
-  res.header('X-Content-Type-Options', 'nosniff');
+
+  // security headers to be applied only in production and QA
+  if (process.env.NODE_ENV !== 'development') {
+    res.header('Content-Security-Policy', "default-src 'self'; script-src 'self' *.heapanalytics.com *.ngrok.com *.ngrok-agent.com *.intercomcdn.com *.pusher.com *.uptime.com *.simpleanalyticscdn.com *.cloudflareinsights.com *.pusher.com *.intercom.io *.google-analytics.com; style-src  'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com; object-src 'none'; base-uri 'self'; connect-src 'self' *.intercom.io *.checkmedia.org wss://nexus-websocket-a.intercom.io wss://ws-mt1.pusher.com; font-src 'self' https://fonts.gstatic.com https://fonts.intercomcdn.com; frame-src 'self'; img-src 'self' https://qa-assets.checkmedia.org; manifest-src 'self'; media-src 'self'; worker-src blob:;");
+    res.header('Content-Security-Policy-Report-Only','');
+    res.header('X-Frame-Options', 'SAMEORIGIN');
+    res.header('X-XSS-Protection', '1; mode=block');
+    res.header('X-Content-Type-Options', 'nosniff');
+  }
 
   // s-maxage is for cloudflare
   // https://support.cloudflare.com/hc/en-us/articles/202775670-How-Do-I-Tell-CloudFlare-What-to-Cache-
