@@ -41,9 +41,10 @@ const FeedTeamCard = ({
   return (
     <div
       className={cx(
+        styles.FeedTeamCard,
         expanded ? styles.feedItemTeamCardExpanded : styles.feedItemTeamCardCollapsed,
-        selected ? styles.feedItemTeamCardSelected : styles.feedItemTeamCardNotSelected,
         {
+          [styles.feedItemTeamCardSelected]: selected,
           [styles.feedItemTeamCardUnclickable]: Object.keys(clusterTeam).length === 0,
         },
       )}
