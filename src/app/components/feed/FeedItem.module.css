@@ -36,6 +36,7 @@
 }
 
 .feedItemColumn {
+  align-self: flex-start;
   background: var(--otherWhite);
   border-radius: 8px;
   display: flex;
@@ -48,7 +49,6 @@
 }
 
 .feedItemColumn + .feedItemColumn {
-  align-self: flex-start;
   flex: 1;
   justify-content: flex-start;
   overflow-x: hidden;
