@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import BlankState from '../../layout/BlankState';
 import EditIcon from '../../../icons/edit.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SettingsHeader from '../SettingsHeader';
@@ -104,57 +105,67 @@ export default function RulesTable(props) {
         }
       />
       <div className={settingsStyles['setting-details-wrapper']}>
-        <div className={settingsStyles['setting-content-container']}>
-          <RulesTableToolbar
-            numSelected={selected.length}
-            onDeleteRules={handleDelete}
-          />
-          <Table id="rules-table">
-            <RulesTableHead
-              order={order}
-              orderBy={orderBy}
-              onSort={handleSort}
+        {rows.length === 0 ?
+          <BlankState>
+            <FormattedMessage
+              id="rulesTableTool.blank"
+              defaultMessage="No Workspace Rules"
+              description="Message displayed when there are no rules items"
             />
-            <TableBody>
-              {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
-                const { name, index } = row;
-                const isItemSelected = isSelected(index);
-                const labelId = `rules-table-checkbox-${index}`;
-                const date = new Date(row.updated_at * 1000);
+          </BlankState>
+          :
+          <div className={settingsStyles['setting-content-container']}>
+            <RulesTableToolbar
+              numSelected={selected.length}
+              onDeleteRules={handleDelete}
+            />
+            <Table id="rules-table">
+              <RulesTableHead
+                order={order}
+                orderBy={orderBy}
+                onSort={handleSort}
+              />
+              <TableBody>
+                {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
+                  const { name, index } = row;
+                  const isItemSelected = isSelected(index);
+                  const labelId = `rules-table-checkbox-${index}`;
+                  const date = new Date(row.updated_at * 1000);
 
-                return (
-                  <TableRow key={row.index}>
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={isItemSelected}
-                        onClick={(event) => { handleChange(event, index); }}
-                        inputProps={{ 'aria-labelledby': labelId }}
-                      />
-                    </TableCell>
-                    <TableCell component="th" id={labelId} scope="row">
-                      {name}
-                    </TableCell>
-                    <TableCell>
-                      <time dateTime={date.toISOString()}>
-                        <FormattedRelative value={date} />
-                      </time>
-                    </TableCell>
-                    <TableCell>
-                      <ButtonMain
-                        iconCenter={<EditIcon />}
-                        className="int-rules-table__button--rule-menu"
-                        variant="outlined"
-                        size="default"
-                        theme="text"
-                        onClick={() => { handleClick(index); }}
-                      />
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </div>
+                  return (
+                    <TableRow key={row.index}>
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isItemSelected}
+                          onClick={(event) => { handleChange(event, index); }}
+                          inputProps={{ 'aria-labelledby': labelId }}
+                        />
+                      </TableCell>
+                      <TableCell component="th" id={labelId} scope="row">
+                        {name}
+                      </TableCell>
+                      <TableCell>
+                        <time dateTime={date.toISOString()}>
+                          <FormattedRelative value={date} />
+                        </time>
+                      </TableCell>
+                      <TableCell>
+                        <ButtonMain
+                          iconCenter={<EditIcon />}
+                          className="int-rules-table__button--rule-menu"
+                          variant="outlined"
+                          size="default"
+                          theme="text"
+                          onClick={() => { handleClick(index); }}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
+        }
       </div>
     </React.Fragment>
   );
