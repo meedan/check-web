@@ -41,9 +41,9 @@ const FeedTeamCard = ({
   return (
     <div
       className={cx(
-        styles.FeedTeamCard,
-        expanded ? styles.feedItemTeamCardExpanded : styles.feedItemTeamCardCollapsed,
+        styles.feedTeamCard,
         {
+          [styles.feedItemTeamCardExpanded]: expanded,
           [styles.feedItemTeamCardSelected]: selected,
           [styles.feedItemTeamCardUnclickable]: Object.keys(clusterTeam).length === 0,
         },
@@ -81,25 +81,27 @@ const FeedTeamCard = ({
           </div>
           : null
         }
-        { expanded ?
-          <>
-            { factChecks.edges.map(edge => edge.node).map((clusterTeamFactCheck) => {
-              uncategorizedMediaCount -= parseInt(clusterTeamFactCheck.media_count, 10);
-              uncategorizedRequestsCount -= parseInt(clusterTeamFactCheck.requests_count, 10);
-              return (<FeedTeamFactCheckCard clusterTeamFactCheck={clusterTeamFactCheck} />);
-            })}
-            { (uncategorizedMediaCount > 0 || uncategorizedRequestsCount > 0) ?
-              <FeedTeamFactCheckCard
-                clusterTeamFactCheck={{
-                  media_count: (uncategorizedMediaCount > 0 ? uncategorizedMediaCount : null),
-                  requests_count: (uncategorizedRequestsCount > 0 ? uncategorizedRequestsCount : null),
-                }}
-              />
-              : null
-            }
-          </>
-          : null
-        }
+        <div className={styles.feedTeamCardInnerWrapper}>
+          { expanded ?
+            <div className={styles.feedTeamCardInner}>
+              { factChecks.edges.map(edge => edge.node).map((clusterTeamFactCheck) => {
+                uncategorizedMediaCount -= parseInt(clusterTeamFactCheck.media_count, 10);
+                uncategorizedRequestsCount -= parseInt(clusterTeamFactCheck.requests_count, 10);
+                return (<FeedTeamFactCheckCard clusterTeamFactCheck={clusterTeamFactCheck} />);
+              })}
+              { (uncategorizedMediaCount > 0 || uncategorizedRequestsCount > 0) ?
+                <FeedTeamFactCheckCard
+                  clusterTeamFactCheck={{
+                    media_count: (uncategorizedMediaCount > 0 ? uncategorizedMediaCount : null),
+                    requests_count: (uncategorizedRequestsCount > 0 ? uncategorizedRequestsCount : null),
+                  }}
+                />
+                : null
+              }
+            </div>
+            : null
+          }
+        </div>
       </Card>
     </div>
   );

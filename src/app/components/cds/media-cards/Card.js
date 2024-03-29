@@ -13,7 +13,7 @@ const MaybeLink = ({ to, children }) => {
     }
     return <Link to={to} className={styles.clickableCard}>{children}</Link>;
   }
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 const Card = ({
@@ -34,7 +34,7 @@ const Card = ({
 
   return (
     <div
-      className={`${styles.card} card`}
+      className={cx(styles.card, 'card')}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
