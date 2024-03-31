@@ -165,7 +165,7 @@ export default createFragmentContainer(FeedTeamFactCheckDialog, graphql`
   fragment FeedTeamFactCheckDialog_claimDescription on ClaimDescription {
     description
     context
-    fact_check {
+    fact_check(report_status: "published") {
       title
       summary
       language
