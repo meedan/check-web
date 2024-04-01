@@ -93,6 +93,7 @@ function DateRangeSelectorStartEnd(props) {
     handleChangeEndDate,
     handleChangeStartDate,
     handleClearDate,
+    getUTCOffset,
   } = props;
 
   return (
@@ -120,7 +121,7 @@ function DateRangeSelectorStartEnd(props) {
                 !valueText ?
                   <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
                   :
-                  valueText
+                  `${valueText} ${getUTCOffset(getStartDateStringOrNull(), true)}`
               }
               onClick={onClick}
               iconRight={!valueText && <KeyboardArrowDownIcon />}
@@ -180,7 +181,7 @@ function DateRangeSelectorStartEnd(props) {
                 !valueText ?
                   <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder" />
                   :
-                  valueText
+                  `${valueText} ${getUTCOffset(getEndDateStringOrNull(), false)}`
               }
               onClick={onClick}
               {...params}
@@ -289,6 +290,30 @@ const DateRangeFilter = ({
   const getStartDateStringOrNull = () => getDateStringOrNull('start_time');
 
   const getEndDateStringOrNull = () => getDateStringOrNull('end_time');
+
+  // Due to the need for ISO datetime string in the Datepicker textfield component
+  // need to take the ISO value and break into substring and calculate UTC from that.
+  const getUTCOffset = (isoDateTimeString, isStart) => {
+    let [hours, minutes] = isoDateTimeString.split('T')[1].split('.')[0].split(':').map(Number);
+
+    if (!isStart) { // removed 59 minutes when added for end time
+      minutes -= 59;
+    }
+
+    let tzSign;
+    if (hours > 12) { // these are positive UTC value zones
+      tzSign = '+';
+      hours = 24 - hours;
+      hours -= isStart ? 0 : 1; // used for rounding up 59 minutes to 1 hr
+      hours -= isStart && minutes !== 0 ? 1 : 0; // special case for non-00 timezones
+    } else {
+      tzSign = '-';
+      hours += isStart ? 0 : 1;
+      hours += isStart && minutes !== 0 ? 1 : 0;
+    }
+    const tzOffsetMinutes = String(Math.abs(minutes)).padStart(2, '0');
+    return `UTC${tzSign}${hours}:${tzOffsetMinutes}`;
+  };
 
   const buildValue = (valueType, startTimeOrNull, endTimeOrNull) => {
     const range = {};
@@ -438,6 +463,7 @@ const DateRangeFilter = ({
             handleChangeEndDate,
             handleChangeStartDate,
             handleClearDate,
+            getUTCOffset,
           }}
           />
         ) : (
