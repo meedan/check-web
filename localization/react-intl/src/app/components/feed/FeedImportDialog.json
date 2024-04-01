@@ -1,0 +1,57 @@
+[
+  {
+    "id": "feedImportDialog.success",
+    "description": "Banner displayed after items are imported successfully.",
+    "defaultMessage": "Media Imported Successfully! {linkToImportedMedia}"
+  },
+  {
+    "id": "feedImportDialog.goToImported",
+    "description": "Link text for the link that takes to the imported item page.",
+    "defaultMessage": "Go To Workspace Item"
+  },
+  {
+    "id": "feedImportDialog.title",
+    "description": "Title for the import media dialog on the feed item page.",
+    "defaultMessage": "Import {mediaCount} media into your workspace"
+  },
+  {
+    "id": "feedImportDialog.typeCreate",
+    "description": "Tab for import type on import dialog on feed item page.",
+    "defaultMessage": "Create New"
+  },
+  {
+    "id": "feedImportDialog.typeAdd",
+    "description": "Tab for import type on import dialog on feed item page.",
+    "defaultMessage": "Matched Item"
+  },
+  {
+    "id": "feedImportDialog.typeSearch",
+    "description": "Tab for import type on import dialog on feed item page.",
+    "defaultMessage": "Search for Item"
+  },
+  {
+    "id": "feedImportDialog.explanationImportTypeCreate",
+    "description": "Explanation on import dialog on feed item page.",
+    "defaultMessage": "Add an optional claim for the media being imported. This can also be done after completing the import."
+  },
+  {
+    "id": "feedImportDialog.claimTitle",
+    "description": "Text field label on import dialog on feed item page.",
+    "defaultMessage": "Claim title"
+  },
+  {
+    "id": "feedImportDialog.claimContext",
+    "description": "Text field label on import dialog on feed item page.",
+    "defaultMessage": "Additional context"
+  },
+  {
+    "id": "feedImportDialog.cancel",
+    "description": "Label of a button to close the import dialog window on the feed item page.",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "feedImportDialog.import",
+    "description": "Label of a confirmation button on the import dialog window on the feed item page.",
+    "defaultMessage": "Import Media"
+  }
+]
