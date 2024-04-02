@@ -26,6 +26,9 @@ const createMutation = graphql`
     createFeed(input: $input) {
       feed {
         dbid
+        saved_search {
+          is_part_of_feeds
+        }
       }
       team {
         feeds(first: 10000) {
@@ -59,6 +62,12 @@ const updateMutation = graphql`
     updateFeed(input: $input) {
       feed {
         dbid
+        saved_search {
+          is_part_of_feeds
+        }
+        saved_search_was {
+          is_part_of_feeds
+        }
       }
       team {
         feeds(first: 10000) {
@@ -115,6 +124,9 @@ mutation SaveFeedUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {
       dbid
       saved_search_id
       saved_search {
+        is_part_of_feeds
+      }
+      saved_search_was {
         is_part_of_feeds
       }
     }
