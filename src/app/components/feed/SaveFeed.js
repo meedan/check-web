@@ -269,10 +269,7 @@ const SaveFeed = (props) => {
     commitMutation(Relay.Store, {
       mutation: updateFeedTeamMutation,
       variables: { input },
-      onCompleted: () => {
-        handleViewFeed(feedTeam.feed.dbid);
-        // window.location.reload();
-      },
+      onCompleted: () => handleViewFeed(feedTeam.feed.dbid),
       onError: onFailure,
     });
   };
