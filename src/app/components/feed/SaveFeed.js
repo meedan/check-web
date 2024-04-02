@@ -114,6 +114,9 @@ mutation SaveFeedUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {
     feed_team {
       dbid
       saved_search_id
+      saved_search {
+        is_part_of_feeds
+      }
     }
   }
 }
@@ -266,7 +269,10 @@ const SaveFeed = (props) => {
     commitMutation(Relay.Store, {
       mutation: updateFeedTeamMutation,
       variables: { input },
-      onCompleted: () => handleViewFeed(feedTeam.feed.dbid),
+      onCompleted: () => {
+        handleViewFeed(feedTeam.feed.dbid);
+        // window.location.reload();
+      },
       onError: onFailure,
     });
   };
