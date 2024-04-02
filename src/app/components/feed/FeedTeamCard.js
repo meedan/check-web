@@ -41,8 +41,12 @@ const FeedTeamCard = ({
   return (
     <div
       className={cx(
-        expanded ? styles.feedItemTeamCardExpanded : styles.feedItemTeamCardCollapsed,
-        selected ? styles.feedItemTeamCardSelected : styles.feedItemTeamCardNotSelected,
+        styles.feedTeamCard,
+        {
+          [styles.feedItemTeamCardExpanded]: expanded,
+          [styles.feedItemTeamCardSelected]: selected,
+          [styles.feedItemTeamCardUnclickable]: Object.keys(clusterTeam).length === 0,
+        },
       )}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
@@ -71,31 +75,33 @@ const FeedTeamCard = ({
           <div className={styles.feedItemTeamCardNotSharing}>
             <FormattedHTMLMessage
               id="feedTeamCard.notContributing"
-              defaultMessage="Your workspace does not contribute to this shared feed item.<br />Select a workspace below to import it’s media to your workspace."
+              defaultMessage="Your workspace does not contribute to this shared feed item.<br /><br />Select a workspace below to import it’s media to your workspace."
               description="Displayed on the current workspace card on feed item page when the current workspace is not contributing to that cluster. This is an HTML message, please keep the <br /> tag."
             />
           </div>
           : null
         }
-        { expanded ?
-          <>
-            { factChecks.edges.map(edge => edge.node).map((clusterTeamFactCheck) => {
-              uncategorizedMediaCount -= parseInt(clusterTeamFactCheck.media_count, 10);
-              uncategorizedRequestsCount -= parseInt(clusterTeamFactCheck.requests_count, 10);
-              return (<FeedTeamFactCheckCard clusterTeamFactCheck={clusterTeamFactCheck} />);
-            })}
-            { (uncategorizedMediaCount > 0 || uncategorizedRequestsCount > 0) ?
-              <FeedTeamFactCheckCard
-                clusterTeamFactCheck={{
-                  media_count: (uncategorizedMediaCount > 0 ? uncategorizedMediaCount : null),
-                  requests_count: (uncategorizedRequestsCount > 0 ? uncategorizedRequestsCount : null),
-                }}
-              />
-              : null
-            }
-          </>
-          : null
-        }
+        <div className={styles.feedTeamCardInnerWrapper}>
+          { expanded ?
+            <div className={styles.feedTeamCardInner}>
+              { factChecks.edges.map(edge => edge.node).map((clusterTeamFactCheck) => {
+                uncategorizedMediaCount -= parseInt(clusterTeamFactCheck.media_count, 10);
+                uncategorizedRequestsCount -= parseInt(clusterTeamFactCheck.requests_count, 10);
+                return (<FeedTeamFactCheckCard clusterTeamFactCheck={clusterTeamFactCheck} />);
+              })}
+              { (uncategorizedMediaCount > 0 || uncategorizedRequestsCount > 0) ?
+                <FeedTeamFactCheckCard
+                  clusterTeamFactCheck={{
+                    media_count: (uncategorizedMediaCount > 0 ? uncategorizedMediaCount : null),
+                    requests_count: (uncategorizedRequestsCount > 0 ? uncategorizedRequestsCount : null),
+                  }}
+                />
+                : null
+              }
+            </div>
+            : null
+          }
+        </div>
       </Card>
     </div>
   );

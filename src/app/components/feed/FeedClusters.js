@@ -449,7 +449,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
             />
           );
         }
-        return <MediasLoading theme="grey" variant="page" size="large" />;
+        return <MediasLoading theme="white" variant="page" size="large" />;
       }}
     />
   );

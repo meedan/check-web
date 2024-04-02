@@ -54,10 +54,16 @@
   overflow-x: hidden;
 }
 
-.feedItemTeamCard {
-  cursor: pointer;
-  justify-content: flex-start !important;
-  overflow: hidden;
+.feedItemTeamCardUnclickable {
+  cursor: auto;
+  pointer-events: none;
+}
+
+.feedTeamFactCheckCard {
+  border-bottom: 1px solid var(--grayBorderMain);
+  margin-top: 8px;
+  padding: 8px 0;
+  width: 100%;
 }
 
 .feedItemTeamCardHeader {
@@ -66,22 +72,44 @@
   gap: 8px;
 }
 
-.feedItemTeamCardCollapsed {
-  max-height: 200px;
-  transition: max-height 1s ease-out;
-}
-
-.feedItemTeamCardExpanded {
-  max-height: 800px; /* This is just for the animation - just need to be bigger than the expanded card will ever get */
-  transition: max-height 1s ease-in;
-}
-
-.feedItemTeamCardSelected > div {
-  border: 2px solid var(--brandMain);
-}
-
 .feedItemTeamCardFooter > div > div {
   flex-wrap: nowrap !important;
+}
+
+.feedTeamCard {
+  .feedItemTeamCard {
+    cursor: pointer;
+    justify-content: flex-start;
+
+    .feedTeamFactCheckCard:last-of-type {
+      border-bottom: 0;
+    }
+
+    .feedTeamCardInnerWrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 500ms cubic-bezier(.19, 1, .22, 1);
+      width: 100%;
+
+      .feedTeamCardInner {
+        overflow: hidden;
+      }
+    }
+  }
+
+  &.feedItemTeamCardExpanded {
+    .feedItemTeamCard {
+      .feedTeamCardInnerWrapper {
+        grid-template-rows: 1fr;
+      }
+    }
+  }
+
+  grid-template-rows: 1fr;
+
+  &.feedItemTeamCardSelected > div {
+    border: 2px solid var(--brandMain);
+  }
 }
 
 .feedItemTeamsTitle {
@@ -96,13 +124,6 @@
   background: var(--brandBackground);
   border-radius: 8px;
   padding: 8px;
-}
-
-.feedTeamFactCheckCard {
-  border-bottom: 1px solid var(--grayBorderMain);
-  margin-top: 8px;
-  padding: 8px 0;
-  width: 100%;
 }
 
 .feedItemTeamCardNotSharing {
