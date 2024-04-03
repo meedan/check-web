@@ -21,6 +21,7 @@ import {
   safelyParseJSON,
 } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 import { units } from '../../styles/js/shared';
 
 const dotOffset = stripUnit(units(4)) - stripUnit(3);
@@ -628,37 +629,95 @@ class Annotation extends Component {
       break;
     }
     case 'update_projectmedia': {
-      const meta = safelyParseJSON(activity.meta);
-      if (meta && meta.source_name) {
-        const sourceChanges = safelyParseJSON(activity.object_changes_json);
-        if (sourceChanges.source_id[0] === null) {
+      const itemChanges = safelyParseJSON(activity.object_changes_json);
+      if (itemChanges.source_id) {
+        const meta = safelyParseJSON(activity.meta);
+        if (meta && meta.source_name) {
+          if (itemChanges.source_id[0] === null) {
+            contentTemplate = (
+              <span>
+                <FormattedMessage
+                  id="annotation.addSource"
+                  defaultMessage="Source {name} add by {author}"
+                  description="Log entry indicating a source has been added"
+                  values={{
+                    name: meta.source_name,
+                    author: authorName,
+                  }}
+                />
+              </span>
+            );
+          } else {
+            contentTemplate = (
+              <span>
+                <FormattedMessage
+                  id="annotation.updateSource"
+                  defaultMessage="Source {name} updated by {author}"
+                  description="Log entry indicating an item status has been changed"
+                  values={{
+                    name: meta.source_name,
+                    author: authorName,
+                  }}
+                />
+              </span>
+            );
+          }
+        }
+      } else if (itemChanges.archived) {
+        if (itemChanges.archived[1] === CheckArchivedFlags.SPAM) {
           contentTemplate = (
             <span>
               <FormattedMessage
-                id="annotation.addSource"
-                defaultMessage="Source {name} add by {author}"
-                description="Log entry indicating a source has been added"
+                id="annotation.markedAsSpam"
+                defaultMessage="Marked as Spam by {author}"
+                description="Log entry indicating an item marked as spam"
                 values={{
-                  name: meta.source_name,
                   author: authorName,
                 }}
               />
             </span>
           );
-        } else {
+        } else if (itemChanges.archived[1] === CheckArchivedFlags.TRASHED) {
           contentTemplate = (
             <span>
               <FormattedMessage
-                id="annotation.updateSource"
-                defaultMessage="Source {name} updated by {author}"
-                description="Log entry indicating an item status has been changed"
+                id="annotation.markAsSpam"
+                defaultMessage="Send to Trash by {author}"
+                description="Log entry indicating an item send to trash"
                 values={{
-                  name: meta.source_name,
                   author: authorName,
                 }}
               />
             </span>
           );
+        } else if (itemChanges.archived[1] === CheckArchivedFlags.NONE) {
+          if (itemChanges.archived[0] === CheckArchivedFlags.SPAM) {
+            contentTemplate = (
+              <span>
+                <FormattedMessage
+                  id="annotation.notSpam"
+                  defaultMessage="Not spam by {author}"
+                  description="Log entry indicating an item not spam"
+                  values={{
+                    author: authorName,
+                  }}
+                />
+              </span>
+            );
+          } else if (itemChanges.archived[0] === CheckArchivedFlags.TRASHED) {
+            contentTemplate = (
+              <span>
+                <FormattedMessage
+                  id="annotation.restoreFromTrash"
+                  defaultMessage="Restore from Trash by {author}"
+                  description="Log entry indicating an item restore from trash"
+                  values={{
+                    author: authorName,
+                  }}
+                />
+              </span>
+            );
+          }
         }
       }
       break;

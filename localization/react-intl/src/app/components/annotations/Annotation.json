@@ -134,6 +134,26 @@
     "defaultMessage": "Source {name} updated by {author}"
   },
   {
+    "id": "annotation.markedAsSpam",
+    "description": "Log entry indicating an item marked as spam",
+    "defaultMessage": "Marked as Spam by {author}"
+  },
+  {
+    "id": "annotation.markAsSpam",
+    "description": "Log entry indicating an item send to trash",
+    "defaultMessage": "Send to Trash by {author}"
+  },
+  {
+    "id": "annotation.notSpam",
+    "description": "Log entry indicating an item not spam",
+    "defaultMessage": "Not spam by {author}"
+  },
+  {
+    "id": "annotation.restoreFromTrash",
+    "description": "Log entry indicating an item restore from trash",
+    "defaultMessage": "Restore from Trash by {author}"
+  },
+  {
     "id": "annotation.updateClaimDescription",
     "description": "Log entry indicating a claim has been edited",
     "defaultMessage": "Claim edited by {author}: {value}"
