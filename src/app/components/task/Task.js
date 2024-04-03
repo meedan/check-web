@@ -206,7 +206,7 @@ class Task extends Component {
     const matchingTaskIndex = this.props.localResponses.findIndex(item => item.node.dbid === task.dbid);
     // deep copy the local responses object
     const mutatedLocalResponses = JSON.parse(JSON.stringify(this.props.localResponses));
-    if (task.type === 'single_choice' && mutatedLocalResponses[matchingTaskIndex]?.node?.first_response_value) {
+    if (task.type === 'single_choice' && mutatedLocalResponses[matchingTaskIndex]?.node) {
       mutatedLocalResponses[matchingTaskIndex].node.first_response_value = textValue;
     } else {
       // value is an object, we transform it to a string separated by ', '
