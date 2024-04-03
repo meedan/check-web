@@ -90,10 +90,10 @@ shared_examples 'similarity' do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/similarity.jpg')
-    verbose_wait 5
+    verbose_wait 4
     wait_for_selector('.medias__item')
     create_image('files/similarity2.jpg')
-    verbose_wait 5
+    verbose_wait 4
     wait_for_selector('.medias__item')
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
@@ -105,11 +105,11 @@ shared_examples 'similarity' do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/ocr.png')
-    verbose_wait 5
+    verbose_wait 4
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
     wait_for_selector('.image-media-card')
-    verbose_wait 5
+    verbose_wait 4
     expect(@driver.page_source.include?('Extracted text')).to be(true)
     expect(@driver.page_source.include?('Test')).to be(true)
   end
@@ -133,10 +133,10 @@ shared_examples 'similarity' do
     api_create_team_and_bot(bot: 'alegre')
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
     create_image('files/audio.mp3')
-    verbose_wait 5
+    verbose_wait 4
     wait_for_selector('.medias__item')
     create_image('files/audio.ogg')
-    verbose_wait 5
+    verbose_wait 4
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('.media__more-medias')
