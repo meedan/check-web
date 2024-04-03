@@ -603,7 +603,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.addSource"
-              defaultMessage="Source {name} add by {author}"
+              defaultMessage="Source {name} added by {author}"
               description="Log entry indicating a source has been added"
               values={{
                 name: meta.source_name,
@@ -638,7 +638,7 @@ class Annotation extends Component {
               <span>
                 <FormattedMessage
                   id="annotation.addSource"
-                  defaultMessage="Source {name} add by {author}"
+                  defaultMessage="Source {name} added by {author}"
                   description="Log entry indicating a source has been added"
                   values={{
                     name: meta.source_name,
@@ -682,8 +682,8 @@ class Annotation extends Component {
             <span>
               <FormattedMessage
                 id="annotation.markAsSpam"
-                defaultMessage="Send to Trash by {author}"
-                description="Log entry indicating an item send to trash"
+                defaultMessage="Sent to Trash by {author}"
+                description="Log entry indicating an item sent to trash"
                 values={{
                   author: authorName,
                 }}
@@ -696,7 +696,7 @@ class Annotation extends Component {
               <span>
                 <FormattedMessage
                   id="annotation.notSpam"
-                  defaultMessage="Not spam by {author}"
+                  defaultMessage="Marked as not Spam by {author}"
                   description="Log entry indicating an item not spam"
                   values={{
                     author: authorName,
@@ -709,8 +709,8 @@ class Annotation extends Component {
               <span>
                 <FormattedMessage
                   id="annotation.restoreFromTrash"
-                  defaultMessage="Restore from Trash by {author}"
-                  description="Log entry indicating an item restore from trash"
+                  defaultMessage="Restored from Trash by {author}"
+                  description="Log entry indicating an item restored from trash"
                   values={{
                     author: authorName,
                   }}
