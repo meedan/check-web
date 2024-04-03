@@ -542,7 +542,7 @@ const MediaSuggestionsComponent = ({
               size="large"
               theme="validation"
               disabled={disableAcceptRejectButtons}
-              customStyle={relationshipItem.target.media ? {} : { display: 'none' }}
+              customStyle={relationshipItem?.target?.media ? {} : { display: 'none' }}
               className="similarity-media-item__accept-relationship"
             />
           </span>
