@@ -1438,7 +1438,7 @@
 		"developer_comment": "Header of medias list. Example: 3 medias"
 	},
 	"feedRequestedMedia.requestsForAllMedias": {
-		"string": "{requestsCount, plural, one {# request} other {# requests}}",
+		"string": "{requestsCount, plural, one {# cerere} few {# cereri} other {# de cereri}}",
 		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
 	"feedRequestedMedia.requestsForThisMedia": {
@@ -2559,7 +2559,7 @@
 		"developer_comment": "Shows the last time a media was submitted (on feed request media card)"
 	},
 	"mediaSuggestions.requestsCount": {
-		"string": "{requestsCount, plural, one {# request} other {# requests}}",
+		"string": "{requestsCount, plural, one {# cerere} few {# cereri} other {# de cereri}}",
 		"developer_comment": "Header of requests list. Example: 26 requests"
 	},
 	"mediaSuggestionsComponent.accept": {
