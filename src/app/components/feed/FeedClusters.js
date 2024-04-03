@@ -14,12 +14,14 @@ import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import FeedHeader from './FeedHeader';
+import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
 import styles from './FeedClusters.module.css';
+import MediasLoading from '../media/MediasLoading';
 
-const pageSize = 10;
+const pageSize = 50;
 
 const messages = defineMessages({
   sortTitle: {
@@ -104,8 +106,8 @@ const FeedClustersComponent = ({
   };
 
   const sortOptions = [
-    { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'requests_count', label: intl.formatMessage(messages.sortRequestsCount) },
+    { value: 'title', label: intl.formatMessage(messages.sortTitle) },
     { value: 'media_count', label: intl.formatMessage(messages.sortMediaCount) },
     { value: 'last_request_date', label: intl.formatMessage(messages.sortLastRequestDate) },
   ];
@@ -119,6 +121,8 @@ const FeedClustersComponent = ({
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
             <FormattedMessage id="feedClusters.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />
+            <NextIcon />
+            <FeedLastClusterizedAt feed={feed} />
           </div>
           <div className={searchResultsStyles.searchHeaderTitle}>
             <h6>
@@ -209,7 +213,12 @@ const FeedClustersComponent = ({
             return (
               <div key={cluster.id} className={cx('feed-clusters__card', styles.feedClusterCard)}>
                 <SharedItemCard
-                  title={cluster.title || cluster.center.title}
+                  title={
+                    cluster.title ||
+                    cluster.center.title ||
+                    cluster.center.media_slug ||
+                    <FormattedMessage id="feedClusters.noTitle" description="No title available" defaultMessage="(no title)" />
+                  }
                   description={cluster.center.description}
                   mediaThumbnail={{ media: { url: media.url, picture: media.picture, type: media.type } }}
                   workspaces={cluster.teams.edges.map(edge => ({ name: edge.node.name, url: edge.node.avatar }))}
@@ -220,6 +229,7 @@ const FeedClustersComponent = ({
                   lastRequestDate={cluster.last_request_date && new Date(parseInt(cluster.last_request_date, 10) * 1000)}
                   factCheckCount={cluster.fact_checks_count}
                   channels={channels.length > 0 && { main: channels[0], others: channels }}
+                  cardUrl={`/${team.slug}/feed/${feed.dbid}/item/${cluster.center.dbid}`}
                 />
               </div>
             );
@@ -232,8 +242,8 @@ const FeedClustersComponent = ({
 
 FeedClustersComponent.defaultProps = {
   page: 1,
-  sort: 'title',
-  sortType: 'ASC',
+  sort: 'requests_count',
+  sortType: 'DESC',
   otherFilters: {},
 };
 
@@ -307,8 +317,8 @@ const ConnectedFeedClustersComponent = injectIntl(FeedClustersComponent); // FIX
 const FeedClusters = ({ teamSlug, feedId }) => {
   const [searchParams, setSearchParams] = React.useState({
     page: 1,
-    sort: 'title',
-    sortType: 'ASC',
+    sort: 'requests_count',
+    sortType: 'DESC',
     teamFilters: null,
     otherFilters: {},
   });
@@ -385,8 +395,10 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                     requests_count
                     fact_checks_count
                     center {
+                      dbid
                       title
                       description
+                      media_slug
                       media {
                         url
                         type
@@ -405,6 +417,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                 }
               }
               ...FeedHeader_feed
+              ...FeedLastClusterizedAt_feed
               ...FeedTopBar_feed
             }
           }
@@ -436,7 +449,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
             />
           );
         }
-        return null;
+        return <MediasLoading theme="white" variant="page" size="large" />;
       }}
     />
   );

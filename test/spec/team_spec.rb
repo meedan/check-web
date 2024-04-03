@@ -69,7 +69,7 @@ shared_examples 'team' do
     create_media('text')
     api_logout
 
-    # log in as colaborator
+    # log in as collaborator
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}/settings/members")
     wait_for_selector('button#team-members__invite-button')
@@ -108,16 +108,14 @@ shared_examples 'team' do
     expect(@driver.current_url.to_s.match(t1.slug).nil?).to be(false)
 
     # Navigate to second team
-    @driver.navigate.to "#{@config['self_url']}/check/me"
-    wait_for_selector('#teams-tab').click
+    @driver.navigate.to "#{@config['self_url']}/check/me/workspaces"
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
     wait_for_selector('#add-filter-menu__open-button')
     expect(@driver.current_url.to_s.match(t2.slug).nil?).to be(false)
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/settings/workspace\"]")
 
     # Navigate back to first team
-    @driver.navigate.to "#{@config['self_url']}/check/me"
-    wait_for_selector('#teams-tab').click
+    @driver.navigate.to "#{@config['self_url']}/check/me/workspaces"
     wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
     wait_for_selector('#search-input')
     expect(@driver.current_url.to_s.match(t1.slug).nil?).to be(false)

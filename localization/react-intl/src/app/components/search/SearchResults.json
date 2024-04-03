@@ -15,6 +15,11 @@
     "defaultMessage": "Rating"
   },
   {
+    "id": "searchResults.sortRequestsCount",
+    "description": "Label for sort criteria option displayed in a drop-down in the feed page.",
+    "defaultMessage": "Requests (count)"
+  },
+  {
     "id": "projectBlankState.blank",
     "description": "Empty message that is displayed when search results are zero",
     "defaultMessage": "There are no items here."
@@ -23,6 +28,11 @@
     "id": "sharedFeedIcon.Tooltip",
     "description": "Tooltip for shared feeds icon",
     "defaultMessage": "Included in Shared Feed:"
+  },
+  {
+    "id": "searchResults.tooManyResults",
+    "description": "An alert message that informs the user that their query is too large and need to narrow their filters if they want to continue search for items.",
+    "defaultMessage": "Browsing this list is limited to the first {max, number} results. Use the filters above to refine this list."
   },
   {
     "id": "search.previousPage",

@@ -2,7 +2,7 @@
   {
     "id": "tagMenu.create",
     "description": "Button label for creating a new tag",
-    "defaultMessage": "+ Create this tag"
+    "defaultMessage": "Create this tag"
   },
   {
     "id": "bulkActionsTag.success",

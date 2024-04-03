@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import MediasLoading from '../media/MediasLoading';
+import IconClose from '../../icons/clear.svg';
 import TextField from '../cds/inputs/TextField';
 import styles from '../../styles/css/dialog.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
@@ -27,6 +28,15 @@ const ConfirmProceedDialog = ({
     <Dialog className={styles['dialog-window']} open={open}>
       <div className={styles['dialog-title']}>
         <h6>{title}</h6>
+        { onCancel ?
+          <ButtonMain
+            className={styles['dialog-close-button']}
+            variant="text"
+            size="small"
+            theme="text"
+            iconCenter={<IconClose />}
+            onClick={onCancel}
+          /> : null }
       </div>
       <div className={styles['dialog-content']}>
         {body}

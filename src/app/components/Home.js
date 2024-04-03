@@ -14,7 +14,7 @@ import LoginContainer from './login/LoginContainer';
 import InviteNewAccount from './login/InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
-import DrawerNavigation from './DrawerNavigation';
+import DrawerNavigation from './drawer/DrawerNavigation';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';

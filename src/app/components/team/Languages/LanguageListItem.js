@@ -97,7 +97,12 @@ function checkTranslation(code, statuses) {
     !s.locales[code].label.trim());
 }
 
-const LanguageListItem = ({ code, team, intl }) => {
+const LanguageListItem = ({
+  code,
+  team,
+  intl,
+  setLanguages,
+}) => {
   const languages = safelyParseJSON(team.get_languages) || [];
   const defaultLanguage = team.get_language;
   const isDefault = (code === defaultLanguage);
@@ -125,6 +130,7 @@ const LanguageListItem = ({ code, team, intl }) => {
   const submitDelete = () => {
     const onSuccess = () => {
       setIsSaving(false);
+      setLanguages(languages.filter(l => l !== code));
       setDeleteDialogOpen(false);
     };
     const onFailure = (errors) => {
@@ -359,6 +365,8 @@ LanguageListItem.propTypes = {
       )).isRequired,
     }).isRequired,
   }).isRequired,
+  code: PropTypes.string.isRequired,
+  setLanguages: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(injectIntl(LanguageListItem), graphql`

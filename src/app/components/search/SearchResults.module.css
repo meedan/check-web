@@ -26,7 +26,9 @@
 
   .searchHeaderSubtitle {
     @mixin typography-caption;
-    margin: 0 0 1px;
+    align-items: center;
+    display: flex;
+    margin: 0 0 5px;
     text-transform: uppercase;
   }
 
@@ -55,7 +57,7 @@
       :global(.check-icon) {
         color: var(--textSecondary);
         font-size: var(--iconSizeDefault);
-        margin: 0 2px 2px 0;
+        margin: 0 6px 2px 0;
         vertical-align: middle;
       }
     }

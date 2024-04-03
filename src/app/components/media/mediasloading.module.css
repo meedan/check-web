@@ -39,12 +39,14 @@
   }
 
   &.pageLevel {
+    @mixin position absolute, 0, 0, 0, 0;
     height: 100%;
     width: 100%;
 
     :global(.check-icon) {
       @mixin position absolute, 50%, auto, auto, 50%;
-      transform: translate3d(-50%, -50%, 0);
+      animation-name: medias-loader-absolute;
+      transform: scale3d(1, 1, 1) translate3d(-50%, -50%, 0);
     }
   }
 
@@ -112,6 +114,16 @@
 
     to {
       transform: scale3d(1, 1, 1);
+    }
+  }
+
+  @keyframes medias-loader-absolute {
+    from {
+      transform: scale3d(.8, .8, 1) translate3d(-60%, -60%, 0);
+    }
+
+    to {
+      transform: scale3d(1, 1, 1) translate3d(-50%, -50%, 0);
     }
   }
 

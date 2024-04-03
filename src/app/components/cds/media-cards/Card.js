@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import cx from 'classnames/bind';
 import styles from './Card.module.css';
 
 const CardHoverContext = React.createContext(false);
@@ -12,13 +13,14 @@ const MaybeLink = ({ to, children }) => {
     }
     return <Link to={to} className={styles.clickableCard}>{children}</Link>;
   }
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 const Card = ({
   cardUrl,
   footer,
   children,
+  className,
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -32,12 +34,12 @@ const Card = ({
 
   return (
     <div
-      className={`${styles.card} card`}
+      className={cx(styles.card, 'card')}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <MaybeLink to={cardUrl}>
-        <div className={styles.cardContent}>
+        <div className={cx(styles.cardContent, { [className]: true })}>
           <CardHoverContext.Provider value={isHovered}>
             { children }
           </CardHoverContext.Provider>
@@ -52,12 +54,14 @@ Card.defaultProps = {
   cardUrl: null,
   footer: null,
   children: null,
+  className: '',
 };
 
 Card.propTypes = {
   cardUrl: PropTypes.string,
   footer: PropTypes.node,
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 export { CardHoverContext };

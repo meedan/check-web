@@ -52,6 +52,7 @@ const FeedFilters = ({
   feedTeam,
   className,
   disableSave,
+  extra,
   intl,
   setFlashMessage,
 }) => {
@@ -158,6 +159,7 @@ const FeedFilters = ({
 
   return (
     <div className={cx(styles['search-results-top'], className)}>
+      { extra ? <div className={searchStyles['filters-wrapper']}>{extra}</div> : null }
       <div className={searchStyles['filters-wrapper']}>
         {Object.keys(filters).map((filter) => {
           const value = filters[filter];
@@ -314,6 +316,7 @@ FeedFilters.defaultProps = {
   currentFilters: {},
   className: '',
   disableSave: false,
+  extra: null,
 };
 
 FeedFilters.propTypes = {
@@ -326,6 +329,7 @@ FeedFilters.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   className: PropTypes.string,
   disableSave: PropTypes.bool,
+  extra: PropTypes.node,
   intl: intlShape.isRequired,
 };
 

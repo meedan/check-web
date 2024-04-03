@@ -1,8 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import FindPublicTeamRoute from '../relay/FindPublicTeamRoute';
-import teamPublicFragment from '../relay/teamPublicFragment';
-import DrawerRail from './drawer/DrawerRail';
+import FindPublicTeamRoute from '../../relay/FindPublicTeamRoute';
+import teamPublicFragment from '../../relay/teamPublicFragment';
+import DrawerRail from './DrawerRail';
 import DrawerNavigationComponent from './DrawerNavigationComponent';
 
 const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
@@ -25,7 +25,7 @@ const getBooleanPref = (key, fallback) => {
 
 const DrawerNavigation = (props) => {
   const [drawerOpen, setDrawerOpen] = React.useState(getBooleanPref('drawer.isOpen', true));
-  const [drawerType, setDrawerType] = React.useState('default');
+  const [drawerType, setDrawerType] = React.useState('tipline');
 
   if (props.teamSlug) {
     const { teamSlug } = props;

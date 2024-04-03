@@ -1,20 +1,5 @@
 [
   {
-    "id": "sharedItemCard.medias",
-    "description": "This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item .",
-    "defaultMessage": "Medias"
-  },
-  {
-    "id": "sharedItemCard.requests",
-    "description": "This appears as a label next to a number, like '1,234 Requests'. It should indicate to the user that whatever number they are viewing represents the number of requests an item has gotten.",
-    "defaultMessage": "Requests"
-  },
-  {
-    "id": "sharedItemCard.lastRequested",
-    "description": "This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'.",
-    "defaultMessage": "Last Requested"
-  },
-  {
     "id": "sharedItemCard.lastUpdated",
     "description": "This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'.",
     "defaultMessage": "Last Updated"
@@ -22,6 +7,6 @@
   {
     "id": "sharedItemCard.factCheckCount",
     "description": "A label showing the number of fact-checks represented in an item.",
-    "defaultMessage": "{count} Fact-checks"
+    "defaultMessage": "{count, plural, one {# Fact-check} other {# Fact-checks}}"
   }
 ]

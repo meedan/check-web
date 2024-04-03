@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import AddCircleIcon from '../../../icons/add_circle.svg';
 import ClearIcon from '../../../icons/clear.svg';
@@ -13,9 +13,6 @@ import RuleOperatorButton from './RuleOperatorButton';
 const useStyles = makeStyles(() => ({
   separator: {
     color: 'var(--textSecondary)',
-  },
-  button: {
-    padding: 0,
   },
 }));
 
@@ -56,7 +53,6 @@ const RuleOperatorWrapper = (props) => {
                     theme="brand"
                     size="default"
                     onClick={handleAdd}
-                    className={classes.button}
                   />
                 ) : null }
               </Box> :
@@ -77,6 +73,7 @@ const RuleOperatorWrapper = (props) => {
             }
             { props.children.length > 1 || props.allowRemove ? (
               <Tooltip
+                arrow
                 title={
                   <FormattedMessage id="ruleOperatorWrapper.removeTheAbove" defaultMessage="Remove item above" description="Button to remove a new rule operator" />
                 }
@@ -88,7 +85,6 @@ const RuleOperatorWrapper = (props) => {
                     theme="lightText"
                     size="default"
                     onClick={() => { handleRemove(index); }}
-                    className={classes.button}
                   />
                 </span>
               </Tooltip>

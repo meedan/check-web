@@ -2,7 +2,7 @@
   {
     "id": "sharedFeeds",
     "description": "Title for the shared feeds page",
-    "defaultMessage": "Shared Feeds"
+    "defaultMessage": "Shared Feeds <sup>BETA</sup>"
   },
   {
     "id": "feedSection.sharedFeedsTitle",

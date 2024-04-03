@@ -1,0 +1,12 @@
+[
+  {
+    "id": "feedItemMedia.titleWorkspaceNotSelected",
+    "description": "Title for the media section on the feed item page when there is no workspace selected.",
+    "defaultMessage": "No workspace selected"
+  },
+  {
+    "id": "feedItemMedia.titleWorkspaceSelected",
+    "description": "Title for the media section on the feed item page when there is a workspace selected.",
+    "defaultMessage": "Media [{mediaCount}] from requests [{requestsCount}]"
+  }
+]
