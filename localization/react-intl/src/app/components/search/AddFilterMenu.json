@@ -95,6 +95,11 @@
     "defaultMessage": "Request (status)"
   },
   {
+    "id": "addFilterMenu.showSimilar",
+    "description": "Menu option to enable individually displaying items with similar media",
+    "defaultMessage": "Show matched media"
+  },
+  {
     "id": "addFilterMenu.source",
     "description": "Menu option to enable searching items by source",
     "defaultMessage": "Source"

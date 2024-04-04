@@ -145,6 +145,11 @@
     "defaultMessage": "Type is"
   },
   {
+    "id": "search.showSimilar",
+    "description": "Label for filter field to display matched media",
+    "defaultMessage": "Show matched media"
+  },
+  {
     "id": "search.unmatched",
     "description": "Label for field to filter by unmatched media",
     "defaultMessage": "Media is unmatched"
