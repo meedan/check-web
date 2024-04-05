@@ -13,7 +13,7 @@ const MaybeLink = ({ to, children }) => {
     }
     return <Link to={to} className={styles.clickableCard}>{children}</Link>;
   }
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 const Card = ({
@@ -34,12 +34,12 @@ const Card = ({
 
   return (
     <div
-      className={cx(styles.card, 'card', className)}
+      className={cx(styles.card, 'card')}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <MaybeLink to={cardUrl}>
-        <div className={styles.cardContent}>
+        <div className={cx(styles.cardContent, { [className]: true })}>
           <CardHoverContext.Provider value={isHovered}>
             { children }
           </CardHoverContext.Provider>
@@ -59,9 +59,9 @@ Card.defaultProps = {
 
 Card.propTypes = {
   cardUrl: PropTypes.string,
-  className: PropTypes.string,
   footer: PropTypes.node,
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 export { CardHoverContext };

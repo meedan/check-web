@@ -5,6 +5,7 @@ import Relay from 'react-relay/classic';
 import ProjectsComponent from './ProjectsComponent';
 import FeedsComponent from './FeedsComponent';
 import SettingsComponent from './SettingsComponent';
+import UserSettingsComponent from './UserSettingsComponent';
 
 const renderQuery = ({ error, props, drawerType }) => {
   if (!error && props) {
@@ -12,7 +13,7 @@ const renderQuery = ({ error, props, drawerType }) => {
     const feedsJoined = props.team.feed_teams.edges.map(ft => ft.node).filter(ft => !feedsCreated.find(f => f.dbid === ft.feed_id));
     const feedsInvited = props.me.feed_invitations.edges.map(f => f.node).filter(fi => fi.state === 'invited');
     const feeds = [].concat(feedsCreated, feedsJoined, feedsInvited);
-    if (drawerType === 'default') {
+    if (drawerType === 'tipline') {
       return (
         <ProjectsComponent
           currentUser={props.me}
@@ -34,6 +35,13 @@ const renderQuery = ({ error, props, drawerType }) => {
           params={props.params}
         />
       );
+    } else if (drawerType === 'user') {
+      return (
+        <UserSettingsComponent
+          me={props.me}
+          params={props.params}
+        />
+      );
     }
   }
 
@@ -46,7 +54,7 @@ const Projects = ({ drawerType }) => {
   const teamSlug = teamRegex ? teamRegex[1] : null;
 
   // Not in a team context
-  if (teamSlug === 'check' || !teamSlug) {
+  if (!teamSlug) {
     return null;
   }
 
@@ -56,6 +64,7 @@ const Projects = ({ drawerType }) => {
       query={graphql`
         query ProjectsQuery($teamSlug: String!) {
           me {
+            id
             dbid
             feed_invitations(first: 10000) {
               edges {

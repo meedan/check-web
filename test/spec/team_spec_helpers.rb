@@ -33,7 +33,7 @@ module TeamSpecHelpers
   end
 
   def select_team(options)
-    wait_for_selector('#teams-tab').click
+    wait_for_selector('.user-settings__workspaces-tab').click
     wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath).click
     wait_for_selector('.projects-list__all-items')
     wait_for_selector('.project__title')

@@ -7,13 +7,9 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemDate from '../../cds/media-cards/ItemDate';
-import ItemChannels from '../../cds/media-cards/ItemChannels';
 import ItemRating from '../../cds/media-cards/ItemRating';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
-import MediaCount from '../../cds/media-cards/MediaCount';
-import RequestsCount from '../../cds/media-cards/RequestsCount';
-import LastRequestDate from '../../cds/media-cards/LastRequestDate';
-import BulletSeparator from '../../layout/BulletSeparator';
+import SharedItemCardFooter from './SharedItemCardFooter';
 import { getCompactNumber } from '../../../helpers';
 import FactCheckIcon from '../../../icons/fact_check.svg';
 import CheckFeedDataPoints from '../../../CheckFeedDataPoints';
@@ -36,6 +32,7 @@ const SharedItemCard = ({
   requestsCount,
   title,
   workspaces,
+  cardUrl,
 }) => {
   const maxWorkspaces = 5;
   const renderedWorkspaces = workspaces.slice(0, maxWorkspaces);
@@ -46,7 +43,7 @@ const SharedItemCard = ({
 
   return (
     <div className={`${styles.itemCard} shared-item--card`}>
-      <Card>
+      <Card cardUrl={cardUrl}>
         { mediaThumbnail && (
           <div className={styles.sharedItemCardLeft}>
             <ItemThumbnail picture={mediaThumbnail.media?.picture} maskContent={mediaThumbnail.show_warning_cover} type={mediaThumbnail.media?.type} url={mediaThumbnail.media?.url} />
@@ -86,28 +83,12 @@ const SharedItemCard = ({
               </div> : null }
           </div>
           <div>
-            <BulletSeparator
-              className={styles.bulletSeparator}
-              compact
-              details={[
-                mediaCount && (
-                  <MediaCount
-                    mediaCount={mediaCount}
-                    mediaType={mediaType}
-                  />
-                ),
-                requestsCount && (
-                  <RequestsCount
-                    requestsCount={requestsCount}
-                  />
-                ),
-                lastRequestDate && (
-                  <LastRequestDate
-                    lastRequestDate={lastRequestDate}
-                  />
-                ),
-                channels && <ItemChannels channels={channels} sortMainFirst />,
-              ]}
+            <SharedItemCardFooter
+              mediaCount={mediaCount}
+              mediaType={mediaType}
+              requestsCount={requestsCount}
+              lastRequestDate={lastRequestDate}
+              channels={channels}
             />
           </div>
         </div>
@@ -157,6 +138,7 @@ SharedItemCard.defaultProps = {
   rating: null,
   ratingColor: null,
   requestsCount: null,
+  cardUrl: null,
 };
 
 SharedItemCard.propTypes = {
@@ -189,6 +171,7 @@ SharedItemCard.propTypes = {
     name: PropTypes.string,
     url: PropTypes.string,
   })).isRequired,
+  cardUrl: PropTypes.string,
 };
 
 export default injectIntl(SharedItemCard);

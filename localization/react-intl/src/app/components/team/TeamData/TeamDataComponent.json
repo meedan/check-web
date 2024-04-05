@@ -80,6 +80,16 @@
     "defaultMessage": "Number of user searches that did not return a report."
   },
   {
+    "id": "teamDataComponent.positiveFeedback",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of conversations that returned at least one result and the user answered \"Yes\"."
+  },
+  {
+    "id": "teamDataComponent.negativeFeedback",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Number of conversations that returned at least one result and the user answered \"No\"."
+  },
+  {
     "id": "teamDataComponent.newslettersSent",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
     "defaultMessage": "The total number of newsletters sent to subscribers."

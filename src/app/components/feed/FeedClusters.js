@@ -14,6 +14,7 @@ import PrevIcon from '../../icons/chevron_left.svg';
 import CheckChannels from '../../CheckChannels';
 import CheckFeedDataPoints from '../../CheckFeedDataPoints';
 import FeedHeader from './FeedHeader';
+import FeedLastClusterizedAt from './FeedLastClusterizedAt';
 import FeedTopBar from './FeedTopBar';
 import FeedBlankState from './FeedBlankState';
 import FeedFilters from './FeedFilters';
@@ -120,6 +121,8 @@ const FeedClustersComponent = ({
         <div className={searchResultsStyles.searchResultsTitleWrapper}>
           <div className={searchResultsStyles.searchHeaderSubtitle}>
             <FormattedMessage id="feedClusters.sharedFeed" defaultMessage="Shared Feed" description="Displayed on top of the feed title on the feed page." />
+            <NextIcon />
+            <FeedLastClusterizedAt feed={feed} />
           </div>
           <div className={searchResultsStyles.searchHeaderTitle}>
             <h6>
@@ -226,6 +229,7 @@ const FeedClustersComponent = ({
                   lastRequestDate={cluster.last_request_date && new Date(parseInt(cluster.last_request_date, 10) * 1000)}
                   factCheckCount={cluster.fact_checks_count}
                   channels={channels.length > 0 && { main: channels[0], others: channels }}
+                  cardUrl={`/${team.slug}/feed/${feed.dbid}/item/${cluster.center.dbid}`}
                 />
               </div>
             );
@@ -391,6 +395,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                     requests_count
                     fact_checks_count
                     center {
+                      dbid
                       title
                       description
                       media_slug
@@ -412,6 +417,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
                 }
               }
               ...FeedHeader_feed
+              ...FeedLastClusterizedAt_feed
               ...FeedTopBar_feed
             }
           }
@@ -443,7 +449,7 @@ const FeedClusters = ({ teamSlug, feedId }) => {
             />
           );
         }
-        return <MediasLoading theme="grey" variant="page" size="large" />;
+        return <MediasLoading theme="white" variant="page" size="large" />;
       }}
     />
   );

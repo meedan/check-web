@@ -115,8 +115,7 @@ shared_examples 'app' do |webdriver_url|
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
-      @driver.navigate.to("#{@config['self_url']}/check/me")
-      wait_for_selector('#teams-tab').click
+      @driver.navigate.to("#{@config['self_url']}/check/me/workspaces")
       wait_for_selector("//span[contains(text(), 'Create')]", :xpath)
       expect(@driver.page_source.include?('page does not exist')).to be(false)
       expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(true)
@@ -196,14 +195,6 @@ shared_examples 'app' do |webdriver_url|
       title = wait_for_selector('.not-found__component')
       expect(title.text).to match(/page does not exist/)
       expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
-    end
-
-    it 'should show current team content on sidebar when viewing profile', bin3: true do
-      user = api_register_and_login_with_email
-      api_create_team_and_bot(user: user)
-      @driver.navigate.to("#{@config['self_url']}/check/me")
-      wait_for_selector('#teams-tab')
-      wait_for_selector('.team-header__drawer-team-link')
     end
   end
 end

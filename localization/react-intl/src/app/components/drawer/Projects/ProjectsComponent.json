@@ -67,12 +67,12 @@
   {
     "id": "projectsComponent.newList",
     "description": "Title for a dialog to create a new list displayed on the left sidebar.",
-    "defaultMessage": "New list"
+    "defaultMessage": "New List"
   },
   {
     "id": "projectsComponent.createList",
     "description": "Label for a button to create a new list displayed on the left sidebar.",
-    "defaultMessage": "Create list"
+    "defaultMessage": "Create List"
   },
   {
     "id": "projectsComponent.newListErrorMessage",

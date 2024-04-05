@@ -12,8 +12,8 @@ import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './login/UserPasswordReset';
 import ErrorBoundary from './error/ErrorBoundary';
-import User from './source/User';
-import Me from './source/Me';
+import User from './user/User';
+import Me from './user/Me';
 import Team from './team/Team';
 import AssignedToMe from './team/AssignedToMe';
 import TiplineInbox from './team/TiplineInbox';
@@ -29,6 +29,7 @@ import Feed from './feed/Feed';
 import FeedClusterPage from './feed/FeedClusterPage';
 import FeedInvitation from './feed/FeedInvitation';
 import FeedInvitationRespond from './feed/FeedInvitationRespond';
+import FeedItem from './feed/FeedItem';
 import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
@@ -115,6 +116,7 @@ class Root extends Component {
                   <Route path=":team/feeds" component={FeedPage} />
                   <Route path=":team/feed/:feedId/edit" component={EditFeedTeam} />
                   <Route path=":team/feed/:feedId/invitation" component={FeedInvitationRespond} />
+                  <Route path=":team/feed/:feedId/item/:projectMediaId" component={FeedItem} />
                   <Route path=":team/feed/:feedId(/:tab(/:query))" component={Feed} />
                   <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
