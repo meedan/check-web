@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import cx from 'classnames/bind';
+import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { languageLabel } from '../../../LanguageRegistry';

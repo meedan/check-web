@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '../../cds/inputs/TextField';
 import { labels, descriptions, placeholders, footnotes } from './localizables';
 
 const useStyles = makeStyles(theme => ({

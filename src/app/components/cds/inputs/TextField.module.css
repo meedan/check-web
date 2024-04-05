@@ -52,6 +52,11 @@
         background-color: transparent;
       }
 
+      &.small {
+        min-height: 32px;
+        width: 80px;
+      }
+
       &.error {
         border-color: var(--errorMain) !important;
 
@@ -119,6 +124,7 @@
 
       textarea {
         max-width: 100%;
+        min-height: 32px;
       }
     }
 

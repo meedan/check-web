@@ -36,6 +36,7 @@ const TextField = React.forwardRef(({
   placeholder,
   required,
   variant,
+  size,
   textArea,
   autoGrow,
   maxHeight,
@@ -109,6 +110,7 @@ const TextField = React.forwardRef(({
                 {
                   [styles.error]: internalError,
                   [styles.outlined]: variant === 'outlined',
+                  [styles.small]: size === 'small',
                   [styles['input-icon-left']]: iconLeft,
                   [styles['input-icon-right']]: iconRight,
                 })
@@ -128,6 +130,7 @@ const TextField = React.forwardRef(({
                 {
                   [styles.error]: internalError,
                   [styles.outlined]: variant === 'outlined',
+                  [styles.small]: size === 'small',
                   [styles['input-icon-left']]: iconLeft,
                   [styles['input-icon-right']]: iconRight,
                 })
@@ -195,6 +198,7 @@ TextField.defaultProps = {
   autoGrow: true,
   maxHeight: null,
   variant: 'contained',
+  size: 'large',
   componentProps: {},
 };
 
@@ -215,6 +219,7 @@ TextField.propTypes = {
   componentProps: PropTypes.object,
   onRemove: PropTypes.func,
   variant: PropTypes.oneOf(['contained', 'outlined']),
+  size: PropTypes.oneOf(['small', 'large']),
 };
 
 export default TextField;
