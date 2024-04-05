@@ -407,6 +407,7 @@ function SearchResultsComponent({
             title={item.title}
             description={item.description}
             rating={item.list_columns_values.status}
+            ratingColor={item.team.verification_statuses.statuses.find(s => s.id === item.list_columns_values.status).style.color}
             requestsCount={item.requests_count}
             mediaCount={item.list_columns_values.linked_items_count}
             mediaThumbnail={{
