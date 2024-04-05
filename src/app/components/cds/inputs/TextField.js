@@ -198,7 +198,7 @@ TextField.defaultProps = {
   autoGrow: true,
   maxHeight: null,
   variant: 'contained',
-  size: 'large',
+  size: 'medium',
   componentProps: {},
 };
 
@@ -219,7 +219,7 @@ TextField.propTypes = {
   componentProps: PropTypes.object,
   onRemove: PropTypes.func,
   variant: PropTypes.oneOf(['contained', 'outlined']),
-  size: PropTypes.oneOf(['small', 'large']),
+  size: PropTypes.oneOf(['small', 'medium']),
 };
 
 export default TextField;

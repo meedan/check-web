@@ -54,7 +54,6 @@
 
       &.small {
         min-height: 32px;
-        width: 80px;
       }
 
       &.error {
