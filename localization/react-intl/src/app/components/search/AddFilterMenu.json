@@ -55,6 +55,11 @@
     "defaultMessage": "Media (type)"
   },
   {
+    "id": "addFilterMenu.showSimilar",
+    "description": "Menu option to enable individually displaying items with similar media",
+    "defaultMessage": "Media (matched)"
+  },
+  {
     "id": "addFilterMenu.unmatched",
     "description": "Menu option to enable searching items by whether they have media that has been unmatched at some point",
     "defaultMessage": "Media (unmatched)"
@@ -93,11 +98,6 @@
     "id": "addFilterMenu.tiplineRequest",
     "description": "Menu option to enable searching items by confirmed/unconfirmed items",
     "defaultMessage": "Request (status)"
-  },
-  {
-    "id": "addFilterMenu.showSimilar",
-    "description": "Menu option to enable individually displaying items with similar media",
-    "defaultMessage": "Show matched media"
   },
   {
     "id": "addFilterMenu.source",

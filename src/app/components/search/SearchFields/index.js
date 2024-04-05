@@ -390,7 +390,7 @@ const SearchFields = ({
       </FormattedMessage>
     ),
     show_similar: (
-      <FormattedMessage id="search.showSimilar" defaultMessage="Show matched media" description="Label for filter field to display matched media">
+      <FormattedMessage id="search.showSimilar" defaultMessage="Include matched media" description="Label for filter field to display matched media">
         { label => (
           <MultiSelectFilter
             allowSearch={false}
