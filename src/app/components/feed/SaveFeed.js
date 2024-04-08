@@ -156,7 +156,6 @@ const SaveFeed = (props) => {
   const [title, setTitle] = React.useState(feed.name || '');
   const [description, setDescription] = React.useState(feed.description || '');
   const [selectedListId, setSelectedListId] = React.useState(isFeedOwner ? feed.saved_search_id : feedTeam.saved_search_id);
-  const discoverable = false;
   const [createdFeedDbid, setCreatedFeedDbid] = React.useState(null);
   const [newInvites, setNewInvites] = React.useState([]);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
@@ -237,7 +236,6 @@ const SaveFeed = (props) => {
       description,
       saved_search_id: selectedListId,
       licenses,
-      discoverable,
       dataPoints,
       published: true,
     };
