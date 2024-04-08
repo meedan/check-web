@@ -26,6 +26,7 @@ Please describe parts of the change that require extra attention during code rev
 
 ## Checklist
 
+- [ ] I performed a rebase of my changes instead of a merge where possible.
 - [ ] I have performed a self-review of my own code
 - [ ] I've made sure my branch is runnable and given good testing steps in the PR description
 - [ ] I considered secure coding practices when writing this code. Any security concerns are noted above.
