@@ -63,18 +63,12 @@ function isEmpty(data) {
   return empty;
 }
 
-function previewIntroduction(data, media) {
+function previewIntroduction(data, media, defaultReport) {
   let { introduction } = data;
   if (!introduction) {
     introduction = '';
   } else {
-    let firstSmoochRequest = media.first_smooch_request.edges;
-    if (firstSmoochRequest.length > 0) {
-      firstSmoochRequest = firstSmoochRequest[0].node;
-      introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(parseInt(firstSmoochRequest.created_at, 10) * 1000), data.language));
-    } else {
-      introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(), data.language));
-    }
+    introduction = introduction.replace(/{{query_date}}/g, defaultReport.placeholders.query_date);
     introduction = introduction.replace(/{{status}}/g, data.status_label);
   }
   return introduction;
@@ -113,6 +107,7 @@ function previewFooter(defaultReport) {
 }
 
 const ReportDesignerPreview = (props) => {
+  console.log('props', props); // eslint-disable-line
   const classes = useStyles();
   const { data, media } = props;
 
@@ -130,6 +125,8 @@ const ReportDesignerPreview = (props) => {
 
   const defaultReports = media.team.get_report || {};
   const defaultReport = defaultReports[data.language] || {};
+  console.log('defaultReports', defaultReports); // eslint-disable-line
+  console.log('defaultReport', defaultReport); // eslint-disable-line
 
   const text = [];
   if (data.title) {
@@ -143,7 +140,7 @@ const ReportDesignerPreview = (props) => {
   }
   text.push(previewFooter(defaultReport));
 
-  const introduction = previewIntroduction(data, media);
+  const introduction = previewIntroduction(data, media, defaultReport);
 
   const maskContent = media.show_warning_cover && media.media.picture === data.image;
   const originalMediaImage = !media.show_warning_cover ? media.media.picture : null;
