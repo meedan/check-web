@@ -64,7 +64,7 @@ const WorkspaceItemCard = ({
         <div>
           <SharedItemCardFooter
             mediaCount={mediaCount}
-            mediaType={mediaType}
+            mediaType={mediaType || mediaThumbnail?.media?.type}
             requestsCount={requestsCount}
             suggestionsCount={suggestionsCount}
             lastRequestDate={lastRequestDate}

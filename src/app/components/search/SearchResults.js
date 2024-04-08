@@ -431,6 +431,7 @@ function SearchResultsComponent({
                 url: item.media.url,
               },
             }}
+            mediaType={item.media.type}
           />
         ))}
       </div>
