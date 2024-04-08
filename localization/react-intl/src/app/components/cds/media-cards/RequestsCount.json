@@ -1,7 +1,7 @@
 [
   {
     "id": "sharedItemCard.requests",
-    "description": "This appears as a label next to a number, like '1,234 Requests'. It should indicate to the user that whatever number they are viewing represents the number of requests an item has gotten.",
-    "defaultMessage": "Requests"
+    "description": "A count of requests for an item. Title-case where applicable. Example: 3 Requests",
+    "defaultMessage": "{requestsCount, plural, one {# Request} other {{requestsCount, number} Requests}}"
   }
 ]

@@ -4,17 +4,23 @@ import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import RequestsIcon from '../../../icons/question_answer.svg';
-import { getCompactNumber, getSeparatedNumber } from '../../../helpers';
+import { getCompactNumber } from '../../../helpers';
 
 const RequestsCount = ({
   intl,
   requestsCount,
 }) => (
-  <FormattedMessage id="sharedItemCard.requests" defaultMessage="Requests" description="This appears as a label next to a number, like '1,234 Requests'. It should indicate to the user that whatever number they are viewing represents the number of requests an item has gotten.">
+  <FormattedMessage
+    id="sharedItemCard.requests"
+    // {requestsCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
+    defaultMessage="{requestsCount, plural, one {# Request} other {{requestsCount, number} Requests}}"
+    description="A count of requests for an item. Title-case where applicable. Example: 3 Requests"
+    values={{ requestsCount }}
+  >
     { requestsLabel => (
       <Tooltip
         arrow
-        title={`${getSeparatedNumber(intl.locale, requestsCount)} ${requestsLabel}`}
+        title={requestsLabel}
         placement="top"
       >
         <span>

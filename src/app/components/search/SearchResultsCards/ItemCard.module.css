@@ -3,8 +3,6 @@
   position: relative;
 
   .listItemUnread {
-    background-color: var(--brandBackground);
-
     &::before {
       background-color: var(--textPlaceholder);
       border-radius: 3px;

@@ -5,17 +5,12 @@ import cx from 'classnames/bind';
 import Card, { CardHoverContext } from '../../cds/media-cards/Card';
 import Checkbox from '../../cds/buttons-checkboxes-chips/Checkbox';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
-import MediaCount from '../../cds/media-cards/MediaCount';
-import SuggestionsCount from '../../cds/media-cards/SuggestionsCount';
-import RequestsCount from '../../cds/media-cards/RequestsCount';
-import LastRequestDate from '../../cds/media-cards/LastRequestDate';
 import ItemThumbnail from '../SearchResultsTable/ItemThumbnail';
 import ItemDescription from '../../cds/media-cards/ItemDescription';
 import ItemDate from '../../cds/media-cards/ItemDate';
-import ItemChannels from '../../cds/media-cards/ItemChannels';
 import ItemRating from '../../cds/media-cards/ItemRating';
-import BulletSeparator from '../../layout/BulletSeparator';
 import FactCheckIcon from '../../../icons/fact_check.svg';
+import SharedItemCardFooter from './SharedItemCardFooter';
 import styles from './ItemCard.module.css';
 
 const WorkspaceItemCard = ({
@@ -67,33 +62,13 @@ const WorkspaceItemCard = ({
           )}
         </CardHoverContext.Consumer>
         <div>
-          <BulletSeparator
-            className={styles.bulletSeparator}
-            compact
-            details={[
-              mediaCount !== null && (
-                <MediaCount
-                  mediaCount={mediaCount}
-                  mediaType={mediaType}
-                />
-              ),
-              suggestionsCount !== null && (
-                <SuggestionsCount
-                  suggestionsCount={suggestionsCount}
-                />
-              ),
-              requestsCount !== null && (
-                <RequestsCount
-                  requestsCount={requestsCount}
-                />
-              ),
-              lastRequestDate && (
-                <LastRequestDate
-                  lastRequestDate={lastRequestDate}
-                />
-              ),
-              channels && <ItemChannels channels={channels} sortMainFirst />,
-            ]}
+          <SharedItemCardFooter
+            mediaCount={mediaCount}
+            mediaType={mediaType}
+            requestsCount={requestsCount}
+            suggestionsCount={suggestionsCount}
+            lastRequestDate={lastRequestDate}
+            channels={channels}
           />
         </div>
       </div>

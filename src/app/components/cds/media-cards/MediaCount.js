@@ -5,18 +5,24 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import MediaIcon from '../../../icons/perm_media.svg';
 import MediaTypeDisplayIcon from '../../media/MediaTypeDisplayIcon';
-import { getCompactNumber, getSeparatedNumber } from '../../../helpers';
+import { getCompactNumber } from '../../../helpers';
 
 const MediaCount = ({
   intl,
   mediaCount,
   mediaType,
 }) => (
-  <FormattedMessage id="sharedItemCard.medias" defaultMessage="Medias" description="This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item .">
+  <FormattedMessage
+    id="sharedItemCard.medias"
+    // {mediaCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
+    defaultMessage="{mediaCount, plural, one {# Media} other {{mediaCount, number} Medias}}"
+    description="A count of medias in an item. Title-case where applicable. Example: 3 Medias"
+    values={{ mediaCount }}
+  >
     { mediasLabel => (
       <Tooltip
         arrow
-        title={`${getSeparatedNumber(intl.locale, mediaCount)} ${mediasLabel}`}
+        title={mediasLabel}
         placement="top"
       >
         <span>

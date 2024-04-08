@@ -1,7 +1,7 @@
 [
   {
     "id": "sharedItemCard.medias",
-    "description": "This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item .",
-    "defaultMessage": "Medias"
+    "description": "A count of medias in an item. Title-case where applicable. Example: 3 Medias",
+    "defaultMessage": "{mediaCount, plural, one {# Media} other {{mediaCount, number} Medias}}"
   }
 ]
