@@ -1,0 +1,7 @@
+.suggestionsCount {
+  span > button {
+    background: var(--alertLight) !important;
+    border: 2px solid var(--alertLight) !important;
+    color: var(--alertSecondary) !important;
+  }
+}

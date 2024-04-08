@@ -1,0 +1,7 @@
+[
+  {
+    "id": "sharedItemCard.lastUpdated",
+    "description": "This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'.",
+    "defaultMessage": "Last Updated"
+  }
+]
