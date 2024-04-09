@@ -27,6 +27,8 @@ const SharedItemCard = ({
   mediaCount,
   mediaThumbnail,
   mediaType,
+  rating,
+  ratingColor,
   requestsCount,
   title,
   workspaces,
@@ -112,7 +114,7 @@ const SharedItemCard = ({
           ) : null }
           { (date && !feedContainsMediaRequests && feedContainsFactChecks) ? (
             <>
-              <ItemRating rating="False" ratingColor="#f00" size="small" />
+              <ItemRating rating={rating} ratingColor={ratingColor} size="small" />
               <ItemDate date={date} tooltipLabel={<FormattedMessage id="sharedItemCard.lastUpdated" defaultMessage="Last Updated" description="This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'." />} />
             </>
           ) : null }
@@ -133,6 +135,8 @@ SharedItemCard.defaultProps = {
   mediaCount: null,
   mediaThumbnail: null,
   mediaType: null,
+  rating: null,
+  ratingColor: null,
   requestsCount: null,
   cardUrl: null,
 };
@@ -159,6 +163,8 @@ SharedItemCard.propTypes = {
     show_warning_cover: PropTypes.bool,
   }),
   mediaType: PropTypes.string,
+  rating: PropTypes.string,
+  ratingColor: PropTypes.string, // a CSS color string like #ff0000 or rbg(255, 0, 0) or 'red' etc.
   requestsCount: PropTypes.number,
   title: PropTypes.string.isRequired,
   workspaces: PropTypes.arrayOf(PropTypes.exact({

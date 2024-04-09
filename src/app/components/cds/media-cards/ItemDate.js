@@ -41,7 +41,7 @@ ItemDate.defaultProps = {
 ItemDate.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired, // Timestamp
   className: PropTypes.string,
-  tooltipLabel: PropTypes.string,
+  tooltipLabel: PropTypes.object,
 };
 
 export default ItemDate;
