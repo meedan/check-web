@@ -68,7 +68,11 @@ function previewIntroduction(data, media, defaultReport) {
   if (!introduction) {
     introduction = '';
   } else {
-    introduction = introduction.replace(/{{query_date}}/g, defaultReport.placeholders.query_date);
+    if (defaultReport.placeholders) {
+      introduction = introduction.replace(/{{query_date}}/g, defaultReport.placeholders.query_date);
+    } else {
+      introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(), data.language));
+    }
     introduction = introduction.replace(/{{status}}/g, data.status_label);
   }
   return introduction;
@@ -107,7 +111,6 @@ function previewFooter(defaultReport) {
 }
 
 const ReportDesignerPreview = (props) => {
-  console.log('props', props); // eslint-disable-line
   const classes = useStyles();
   const { data, media } = props;
 
@@ -125,8 +128,6 @@ const ReportDesignerPreview = (props) => {
 
   const defaultReports = media.team.get_report || {};
   const defaultReport = defaultReports[data.language] || {};
-  console.log('defaultReports', defaultReports); // eslint-disable-line
-  console.log('defaultReport', defaultReport); // eslint-disable-line
 
   const text = [];
   if (data.title) {
