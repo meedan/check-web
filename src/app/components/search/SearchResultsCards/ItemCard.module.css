@@ -63,7 +63,7 @@
   }
 
   .workspaceItemCardRating {
-    align-items: end;
+    align-items: flex-end;
     display: flex;
     gap: 3px;
     justify-content: flex-end;
