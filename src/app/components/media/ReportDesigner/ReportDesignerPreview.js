@@ -63,15 +63,13 @@ function isEmpty(data) {
   return empty;
 }
 
-function previewIntroduction(data, media) {
+function previewIntroduction(data, media, defaultReport) {
   let { introduction } = data;
   if (!introduction) {
     introduction = '';
   } else {
-    let firstSmoochRequest = media.first_smooch_request.edges;
-    if (firstSmoochRequest.length > 0) {
-      firstSmoochRequest = firstSmoochRequest[0].node;
-      introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(parseInt(firstSmoochRequest.created_at, 10) * 1000), data.language));
+    if (defaultReport.placeholders) {
+      introduction = introduction.replace(/{{query_date}}/g, defaultReport.placeholders.query_date);
     } else {
       introduction = introduction.replace(/{{query_date}}/g, formatDate(new Date(), data.language));
     }
@@ -143,7 +141,7 @@ const ReportDesignerPreview = (props) => {
   }
   text.push(previewFooter(defaultReport));
 
-  const introduction = previewIntroduction(data, media);
+  const introduction = previewIntroduction(data, media, defaultReport);
 
   const maskContent = media.show_warning_cover && media.media.picture === data.image;
   const originalMediaImage = !media.show_warning_cover ? media.media.picture : null;
