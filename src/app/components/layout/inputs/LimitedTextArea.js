@@ -22,7 +22,7 @@ const LimitedTextArea = ({
   const inputRef = React.useRef();
 
   React.useEffect(() => {
-    if ((localText.length || 0) > maxChars) {
+    if ((localText?.length || 0) > maxChars) {
       setLocalError(true);
       onErrorTooLong(true);
     } else if (localError) { // only trigger this when we *transition* to an error state - this way it only rerenders the parent component when an error triggers, rather than transitioning from error=false to error=false
@@ -60,7 +60,7 @@ const LimitedTextArea = ({
               id="limitedTextAreaWithCounter.counter"
               defaultMessage="{remaining, plural, one {# character left} other {# characters left}}"
               description="Label that displays how many characters more can be typed"
-              values={{ remaining: maxChars - (localText.length || 0) }}
+              values={{ remaining: maxChars - (localText?.length || 0) }}
             />
           </div>
         </>
