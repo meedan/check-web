@@ -1,7 +1,7 @@
 {
 	"CheckAgreeTerms.agreeTerms": {
-		"string": "Со пријавување, се сложувате со {appName} {tosLink} и {ppLink}.",
-		"developer_comment": "Sign up agreeent message to ensure the user knows they are accepting the terms of service and privacy policy"
+		"string": "Ако продолжите, се сложувате со {appName} {tosLink} и {ppLink}.",
+		"developer_comment": "Sign up agreement message to ensure the user knows they are accepting the terms of service and privacy policy"
 	},
 	"ConfirmEmail.content": {
 		"string": "Проверете ја Вашата е-пошта за да ја потврдите Вашата сметка.",
@@ -100,8 +100,12 @@
 		"developer_comment": "Search label for searching fact-checks that were imported into the application"
 	},
 	"ItemHistoryDialog.title": {
-		"string": "Историја на ставки",
+		"string": "Историја на статии",
 		"developer_comment": "Dialog window title for the item's history"
+	},
+	"ItemThumbnail.mediaType": {
+		"string": "{mediaType}",
+		"developer_comment": "type of the media item"
 	},
 	"LanguagePickerSelect.optionLabel": {
 		"string": "{languageName} ({languageCode})"
@@ -109,6 +113,10 @@
 	"LanguagePickerSelect.selectLanguage": {
 		"string": "Изберете го јазикот",
 		"developer_comment": "Change language label"
+	},
+	"LanguagePickerSelect.selectLanguageLabel": {
+		"string": "Јазик",
+		"developer_comment": "Label for input to select language of fact-check"
 	},
 	"LanguagePickerSelect.unknownLanguage": {
 		"string": "Непознат јазик"
@@ -119,6 +127,18 @@
 	},
 	"MultiSelector.search": {
 		"string": "Пребарување..."
+	},
+	"SaveFeed.deleteButton": {
+		"string": "Избришете го споделеното резиме на содржини",
+		"developer_comment": "Menu option to delete the selected shared feed"
+	},
+	"SaveFeed.deleteButtonDisabled": {
+		"string": "Избришете го споделеното резиме на содржини <br />(Избришете ги соработниците за да го <br /> избришете ова споделено резиме на содржини)",
+		"developer_comment": "Menu option to inform user to remove collaborators before deleting the selected shared feed"
+	},
+	"SaveFeed.leaveButton": {
+		"string": "Излезете од споделеното резиме на содржини",
+		"developer_comment": "Menu option to leave the selected shared feed"
 	},
 	"SearchFieldChannel.label": {
 		"string": "Каналот е",
@@ -237,7 +257,7 @@
 		"developer_comment": "Tooltip to tell the user they can add files"
 	},
 	"addAnnotation.error": {
-		"string": "За жал, настана грешка додека ја ажуриравме ставката. Обидете се повторно и стапете во контакт со {supportEmail} ако проблемот продолжи.",
+		"string": "За жал, настана грешка додека ја ажуриравме статијата. Обидете се повторно и стапете во контакт со {supportEmail} ако проблемот продолжи.",
 		"developer_comment": "Error message to try action again or contact support for more help"
 	},
 	"addAnnotation.inputEditHint": {
@@ -247,6 +267,10 @@
 	"addAnnotation.inputHint": {
 		"string": "Додадете коментар",
 		"developer_comment": "Input help text about adding new notes"
+	},
+	"addAnnotation.inputLabel": {
+		"string": "Коментар",
+		"developer_comment": "Input label for creating a new note"
 	},
 	"addAnnotation.invalidCommand": {
 		"string": "Неважечка команда",
@@ -265,7 +289,7 @@
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.annotatedBy": {
-		"string": "Бележник",
+		"string": "Лице за белешки",
 		"developer_comment": "Menu option to enable searching items by annotated by"
 	},
 	"addFilterMenu.annotation": {
@@ -361,8 +385,16 @@
 		"developer_comment": "Label for button that adds a new language to list of supported languages"
 	},
 	"addLanguageAction.selectLanguage": {
-		"string": "Изберете јазик",
+		"string": "Јазик",
 		"developer_comment": "Label to language selection dropdown"
+	},
+	"addLanguageAction.selectLanguageHelp": {
+		"string": "Откако ќе го додадете овој јазик, погрижете се да ги приспособите одговорите на чет-ботот во поставките за линијата за дојава.",
+		"developer_comment": "Help text for next steps after selecting a language"
+	},
+	"addLanguageAction.selectLanguagePlaceholder": {
+		"string": "Изберете јазик",
+		"developer_comment": "Placeholder to language selection dropdown"
 	},
 	"addLanguageAction.title": {
 		"string": "Изберете нов јазик",
@@ -371,6 +403,14 @@
 	"alert.closeButton": {
 		"string": "Затворете го предупредувањето",
 		"developer_comment": "Tooltip for close alert"
+	},
+	"alert.noClaimDescript": {
+		"string": "Додајте тврдење погоре за да пристапите до проверката на факти за оваа статија",
+		"developer_comment": "Alert box information content to tell the user they must complete additional fields to unlock this area"
+	},
+	"alert.noClaimTitle": {
+		"string": "Потребно е тврдење",
+		"developer_comment": "Alert box information title to tell the user they must complete additional fields to unlock this area"
 	},
 	"annotation.addLanguage": {
 		"string": "Јазикот {value} беше додаден од страна на {author}",
@@ -384,7 +424,7 @@
 		"string": "Коментарот за задачата беше додаден од страна на {author}: {title}{note}"
 	},
 	"annotation.archiverWait": {
-		"string": "Ставката се архивира во {name}. Врската до архивата ќе се прикаже овде кога ќе биде готова."
+		"string": "Статијата се архивира во {name}. Врската до архивата ќе се прикаже овде кога ќе биде готова."
 	},
 	"annotation.assignmentChanged": {
 		"string": "Задачата беше доделена на {assigneeTo} од страна на {author}: {title}"
@@ -408,7 +448,7 @@
 		"developer_comment": "Log entry indicating fact-check title has been added"
 	},
 	"annotation.createProjectMedia": {
-		"string": "Ставката ја креира {author}",
+		"string": "Статијата ја креира {author}",
 		"developer_comment": "Log entry indicating an item has been created"
 	},
 	"annotation.deleteButton": {
@@ -428,39 +468,35 @@
 		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.embedLabelRemoved": {
-		"string": "Насловот на ставката беше избришан од страна на {author}: {title}"
+		"string": "Насловот на статијата беше избришан од страна на {author}: {title}"
 	},
 	"annotation.embedLabelUpdated": {
-		"string": "Насловот на ставката беше изменет од страна на {author}: {title}"
+		"string": "Насловот на статијата беше изменет од страна на {author}: {title}"
 	},
 	"annotation.embedNoteCreated": {
-		"string": "Описот на ставката беше додаден од страна на {author}: {description}"
+		"string": "Описот на статијата беше додаден од страна на {author}: {description}"
 	},
 	"annotation.embedNoteRemoved": {
-		"string": "Описот на ставката беше избришан од страна на {author}: {description}"
+		"string": "Описот на статијата беше избришан од страна на {author}: {description}"
 	},
 	"annotation.embedNoteUpdated": {
-		"string": "Описот на ставката беше изменет од страна на {author}: {description}"
+		"string": "Описот на статијата беше изменет од страна на {author}: {description}"
 	},
 	"annotation.mediaAssigned": {
-		"string": "Ставката беше доделена на {name} од страна на {author}",
+		"string": "Статијата беше доделена на {name} од страна на {author}",
 		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentCreated": {
-		"string": "Ставката беше доделена на {name} од страна на {author}",
+		"string": "Статијата беше доделена на {name} од страна на {author}",
 		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentDeleted": {
-		"string": "Доделувањето на ставката на {name} од страна на {author} беше поништено",
+		"string": "Доделувањето на статијата на {name} од страна на {author} беше поништено",
 		"developer_comment": "Log entry indicating an item has been unassigned"
 	},
 	"annotation.mediaUnassigned": {
-		"string": "Доделувањето на ставката на {name} од страна на {author} беше поништено",
+		"string": "Доделувањето на статијата на {name} од страна на {author} беше поништено",
 		"developer_comment": "Log entry indicating an item has been unassigned"
-	},
-	"annotation.menuTooltip": {
-		"string": "Дејства за бележење",
-		"developer_comment": "Tooltip for the annotation actions menu icon button"
 	},
 	"annotation.metadataCreated": {
 		"string": "Беше креирано поле за бележење од страна на {author}: {fieldLabel}",
@@ -471,15 +507,11 @@
 		"developer_comment": "Log entry indicating an annotation response has been changed"
 	},
 	"annotation.newReport": {
-		"string": "Ставката беше додадена од страна на {author}"
+		"string": "Статијата беше додадена од страна на {author}"
 	},
 	"annotation.noAnnotationsYet": {
 		"string": "Нема активност",
 		"developer_comment": "Empty message for no activity in this type of annotation list"
-	},
-	"annotation.openInSlack": {
-		"string": "Отворете на Слек",
-		"developer_comment": "Label for link to conversation in Slack"
 	},
 	"annotation.pausedBy": {
 		"string": "паузирано од страна на",
@@ -500,14 +532,6 @@
 		"string": "Извештај за проверката на факти {state} {author}",
 		"developer_comment": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
 	},
-	"annotation.reportReceived": {
-		"string": "Извештајот беше испратен на {date}",
-		"developer_comment": "Caption for report sent date"
-	},
-	"annotation.reportUpdateReceived": {
-		"string": "Ажурирањето на извештајот беше пратено на {date}",
-		"developer_comment": "Caption for report update sent date"
-	},
 	"annotation.similarCreated": {
 		"string": "Совпаѓањето беше потврдено од страна на {author}: {title}",
 		"developer_comment": "Log entry indicating a similarity match was confirmed"
@@ -521,7 +545,7 @@
 		"developer_comment": "Replacement for tipline requests without a message"
 	},
 	"annotation.statusLocked": {
-		"string": "Статусот на ставката беше заклучен од страна на {author}",
+		"string": "Статусот на статијата беше заклучен од страна на {author}",
 		"developer_comment": "Log entry indicating an item status has been locked"
 	},
 	"annotation.statusSetHeader": {
@@ -529,7 +553,7 @@
 		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotation.statusUnlocked": {
-		"string": "Статусот на ставката беше отклучен од страна на {author}",
+		"string": "Статусот на статијата беше отклучен од страна на {author}",
 		"developer_comment": "Log entry indicating an item status has been unlocked"
 	},
 	"annotation.suggestionCreated": {
@@ -562,7 +586,7 @@
 		"string": "Коментарот за задачата беше изменет од страна на{author}: {title}{note}"
 	},
 	"annotation.titleChanged": {
-		"string": "Насловот на ставката беше изменет од страна на {author}: {title}"
+		"string": "Насловот на статијата беше изменет од страна на {author}: {title}"
 	},
 	"annotation.unknownLanguage": {
 		"string": "Непознат јазик",
@@ -599,7 +623,7 @@
 		"string": "Пребарајте ги членовите"
 	},
 	"autoCompleteMediaItem.cantSelectPublished": {
-		"string": "Медиумите нема да се импротираат од ставките чиј извештај е објавен",
+		"string": "Медиумите нема да се импротираат од статиите чиј извештај е објавен",
 		"developer_comment": "Tooltip error message about when media can be imported"
 	},
 	"autoCompleteMediaItem.error": {
@@ -613,6 +637,10 @@
 	"autoCompleteMediaItem.notFound": {
 		"string": "Не беа пронајдени совпаѓања",
 		"developer_comment": "Status message when a search returned no results"
+	},
+	"autoCompleteMediaItem.placeholder": {
+		"string": "Пребарајте",
+		"developer_comment": "Placeholder autocomplete search field"
 	},
 	"autoCompleteMediaItem.requestsCount": {
 		"string": "{requestsCount, plural, one {# барање} other {# барања}}",
@@ -631,7 +659,7 @@
 		"developer_comment": "Helper text displayed next to search field to look for items to be imported"
 	},
 	"blankMediaButton.addItem": {
-		"string": "Додајте ставка",
+		"string": "Додајте статија",
 		"developer_comment": "Button label that opens dialog in which the user can add a media item to an existing fact-check"
 	},
 	"blankMediaButton.addToImportedReport": {
@@ -643,7 +671,7 @@
 		"developer_comment": "Submit button label to dialog in which the user adds media to already existing (imported) fact-check report"
 	},
 	"blankMediaButton.defaultErrorMessage": {
-		"string": "Не беше возможно да се зачува ставката",
+		"string": "Не беше возможно да се зачува статијата",
 		"developer_comment": "Error message displayed when saving an item fails"
 	},
 	"browserSupport.message": {
@@ -659,27 +687,27 @@
 		"developer_comment": "Menu option for bulk marking selected items as read"
 	},
 	"bulkActions.markAsReadSuccess": {
-		"string": "{count, plural, one {# ставка} other {# ставки}} marked as read successfully.",
+		"string": "{count, plural, one {# статија} other {# статии}} marked as read successfully.",
 		"developer_comment": "Message that appears when one or more items have been marked as read."
 	},
 	"bulkActions.markAsUnreadSuccess": {
-		"string": "{count, plural, one {# ставка} other {# ставки}} marked as unread successfully.",
+		"string": "{count, plural, one {# статија} other {# статии}} marked as unread successfully.",
 		"developer_comment": "Message that appears when one or more items have been marked as unread."
 	},
 	"bulkActions.moveToSpamSuccessfully": {
-		"string": "{count, plural, one {# ставка} other {# ставки}} moved to Spam.",
+		"string": "{count, plural, one {# статија} other {# статии}} moved to Spam.",
 		"developer_comment": "Message that appears when one or more items have been selected and moved to spam."
 	},
 	"bulkActions.moveToTrashSuccessfully": {
-		"string": "{count, plural, one {# ставка} other {# ставки}} moved to Trash.",
+		"string": "{count, plural, one {# статија} other {# статии}} moved to Trash.",
 		"developer_comment": "Message that appears when one or more items have been selected and moved to the trash."
 	},
 	"bulkActions.movedFromSpamSuccessfully": {
-		"string": "{count, plural, one {# ставка} other {# ставки}} moved from Spam to 'All'",
+		"string": "{count, plural, one {# статија} other {# статии}} moved from Spam to 'All'",
 		"developer_comment": "Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "{count, plural, one {# ставка} other {# ставки}} moved from Trash to 'All'",
+		"string": "{count, plural, one {# статија} other {# статии}} moved from Trash to 'All'",
 		"developer_comment": "Banner displayed after items are moved successfully. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
 	},
 	"bulkActions.notSpam": {
@@ -699,11 +727,11 @@
 		"developer_comment": "Label for button that sends one or more items to Trash"
 	},
 	"bulkActions.spam": {
-		"string": "Обележете ги селектираните ставки како „не е непосакувано\" и преместете ги во „Сите\"",
+		"string": "Обележете ги селектираните статии како „не е непосакувано\" и преместете ги во „Сите\"",
 		"developer_comment": "Tooltip message for button that marks items as not spam. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
 	},
 	"bulkActions.trash": {
-		"string": "Вратете ги селектираните ставки и преместете ги во „Сите\"",
+		"string": "Вратете ги селектираните статии и преместете ги во „Сите\"",
 		"developer_comment": "Tooltip message for button that restores items from Trash. 'All' here is the name of the default view in the workspace, which is localized under the id projectsComponent.allItems"
 	},
 	"bulkActionsAssign.assignmentNotes": {
@@ -715,11 +743,11 @@
 		"developer_comment": "Displayed when no member names match search input"
 	},
 	"bulkActionsAssign.submitLabel": {
-		"string": "{numItems, plural, one {Доделете 1 ставка} other {Доделете # ставки}}",
+		"string": "{numItems, plural, one {Доделете # статија} other {Доделете # статии}}",
 		"developer_comment": "Button for commiting the action of assigning of a number of items in bulk"
 	},
 	"bulkActionsAssign.success": {
-		"string": "Ставките успешно беа доделени",
+		"string": "Статиите успешно беа доделени",
 		"developer_comment": "Success message for bulk assignment action"
 	},
 	"bulkActionsMenu.action": {
@@ -747,15 +775,15 @@
 		"developer_comment": "Displayed when no folder names match search input"
 	},
 	"bulkActionsMove.submitLabel": {
-		"string": "{numItems, plural, one {Преместете 1 ставка} other {Преместете ги # ставките}}",
+		"string": "{numItems, plural, one {Преместете 1 статија} other {Преместете # статии}}",
 		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
 	},
 	"bulkActionsRemoveTag.dialogBody": {
-		"string": "Тагот <b>{tags}</b> ќе биде избришан од селектираните ставки што го имаат овој таг. Ако некој таг го нема во некоја избрана ставка, тоа нема да влијае врз ставката.<br /><br /><b>Ова дејство не може да се поништи.</b> Сигурни ли сте дека сакате да продолжите?",
+		"string": "Тагот <strong>{tags}</strong> ќе биде избришан од селектираните статии што го имаат овој таг. Ако некој таг не е пронајден во некоја селектирана статија, тоа нема да влијае на статијата.<br /><br /><strong>Ова дејство не може да се поништи.</strong> Сигурни ли сте дека сакате да продолжите?",
 		"developer_comment": "Body of dialog warning that bulk untagging items"
 	},
 	"bulkActionsRemoveTag.dialogTitle": {
-		"string": "Таговите ќе бидат избришани од соодветните ставки",
+		"string": "Таговите ќе бидат избришани од соодветните статии",
 		"developer_comment": "Title of dialog warning after bulk untagging items"
 	},
 	"bulkActionsRemoveTag.proceedLabel": {
@@ -763,15 +791,15 @@
 		"developer_comment": "Button to confirm remove tags"
 	},
 	"bulkActionsRemoveTag.submitLabel": {
-		"string": "{numItems, plural, one {Избришете 1 таг} other {Избришете ги # таговите}}",
+		"string": "{numItems, plural, one {Избришете # таг} other {Избришете # тагови}}",
 		"developer_comment": "Button for commiting the action of untagging of a number of items in bulk"
 	},
 	"bulkActionsRemoveTag.success": {
-		"string": "{tags} таговите беа избришани од {itemsCount} ставки",
+		"string": "{tags} таговите беа избришани од {itemsCount} статии",
 		"developer_comment": "Success message for bulk untagging items"
 	},
 	"bulkActionsStatus.dialogBody": {
-		"string": "{publishedCount, plural, one {Статусот на 1 ставка не можеше да се промени затоа што нејзиниот извештај моментално е објавен. Изменете ја поединечно.} other {Статусот на # ставки не можеше да се промени затоа што нивните извештаи моментално се објавени. Изменете ги поединечно.}}",
+		"string": "{publishedCount, plural, one {Статусот на 1 статија не можеше да се промени затоа што нејзиниот извештај моментално е објавен. Изменете ја поединечно.} other {Статусот на # статии не можеше да се промени затоа што нивните извештаи моментално се објавени. Изменете ги поединечно.}}",
 		"developer_comment": "Body of dialog warning that bulk updating item statuses could not be performed entirely"
 	},
 	"bulkActionsStatus.dialogTitle": {
@@ -779,11 +807,11 @@
 		"developer_comment": "Title of dialog warning after bulk updating item statuses"
 	},
 	"bulkActionsStatus.submitLabel": {
-		"string": "{numItems, plural, one {Поставете го статусот на 1 статија} other {Поставете го статусот на # ставки}}",
+		"string": "{numItems, plural, one {Поставете го статусот на 1 статија} other {Поставете го статусот на # статии}}",
 		"developer_comment": "Button for commiting the action of setting status of a number of items in bulk"
 	},
 	"bulkActionsStatus.success": {
-		"string": "Статусите на ставките успешно беа променети",
+		"string": "Статусите на статиите успешно беа променети",
 		"developer_comment": "Success message for bulk status change action"
 	},
 	"bulkActionsTag.submitLabel": {
@@ -791,7 +819,7 @@
 		"developer_comment": "Button for committing the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
-		"string": "Ставките успешно беа обележани",
+		"string": "Статиите успешно беа обележани",
 		"developer_comment": "Success message for bulk tagging actions"
 	},
 	"cds.mediaAndRequestsDialog.matchedMedia": {
@@ -816,11 +844,19 @@
 	},
 	"changeMediaSource.choose": {
 		"string": "Изберете извор",
+		"developer_comment": "Change media source placeholder"
+	},
+	"changeMediaSource.chooseLabel": {
+		"string": "Извор",
 		"developer_comment": "Change media source label"
 	},
 	"changeMediaSource.createSource": {
 		"string": "Креирајте нов",
 		"developer_comment": "allow user to create a new source"
+	},
+	"changeMediaSource.helpContent": {
+		"string": "Додајте извор за оваа статија",
+		"developer_comment": "Helper text for the input to select an item source"
 	},
 	"changeMediaSource.saveButton": {
 		"string": "Зачувајте",
@@ -845,6 +881,14 @@
 	"changeUserRole.proceedLabel": {
 		"string": "Сменете ја улогата во {newRole}",
 		"developer_comment": "Dialog continuation label for altering a user role"
+	},
+	"chatHistory.noMessages": {
+		"string": "Историјата на четот е достапна од март 2023 година. Стапете во контакт со поддршката за повеќе информации.",
+		"developer_comment": "Informational message that appears when a user accesses a chat history but the messages are too old to display."
+	},
+	"chatHistory.unsupportedMessage": {
+		"string": "Неподдржана порака",
+		"developer_comment": "Fallback used in the conversation history when a type of message is not supported"
 	},
 	"check.error.auth": {
 		"string": "Настана грешка при автентикацијата.",
@@ -875,7 +919,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server that was missing URL parameters."
 	},
 	"check.error.published": {
-		"string": "Не можете да го смените статусот на објавена ставка.",
+		"string": "Не можете да го смените статусот на објавена статија.",
 		"developer_comment": "This is a message that displays in an error popup if the user manages to ask the server to change the status on an item that has already been published."
 	},
 	"check.error.two_factor_auth": {
@@ -940,11 +984,15 @@
 	},
 	"confirmProceedDialog.confirmationText": {
 		"string": "Пишете „{text}\" за да потврдите.",
-		"developer_comment": "Description of what word to type in to the input in order to continue"
+		"developer_comment": "Input label for confirmation word input"
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
-		"string": "Пишете овде",
+		"string": "Напишете ја фразата за потврдa тука",
 		"developer_comment": "Placeholder label for confirmation word input"
+	},
+	"confirmProceedDialog.confirmationTextfieldLabel": {
+		"string": "Внесете ја фразата за потврдa",
+		"developer_comment": "Description to type into the input in order to continue"
 	},
 	"confirmProceedDialog.continue": {
 		"string": "Продолжете",
@@ -987,23 +1035,23 @@
 		"developer_comment": "Description of the shared feed creation page"
 	},
 	"createMedia.addItem": {
-		"string": "Додајте ставка",
+		"string": "Додајте статија",
 		"developer_comment": "Button label for adding an item"
 	},
 	"createMedia.addNew": {
-		"string": "Додајте нова ставка",
+		"string": "Додајте нова статија",
 		"developer_comment": "Tab text for adding a new item"
 	},
 	"createMedia.addNewItem": {
-		"string": "Додајте ставка",
+		"string": "Додајте статија",
 		"developer_comment": "Dialog title for adding a new item"
 	},
 	"createMedia.error": {
-		"string": "За жал, настана грешка додека ја поднесувавте ставката. Обидете се повторно и стапете во контакт со {supportEmail} ако проблемот продолжи.",
+		"string": "За жал, настана грешка додека ја поднесувавте статијата. Обидете се повторно и стапете во контакт со {supportEmail} ако проблемот продолжи.",
 		"developer_comment": "Error message for user to know how to reach out for support"
 	},
 	"createMedia.existing": {
-		"string": "Додајте постојна ставка",
+		"string": "Додајте постојна статија",
 		"developer_comment": "Tab text for adding an existing media item"
 	},
 	"createMedia.media.media": {
@@ -1011,20 +1059,28 @@
 		"developer_comment": "Header for the claim media area"
 	},
 	"createMedia.mediaClaim": {
-		"string": "Напишете нешто",
+		"string": "На пример: Земјата е рамна",
 		"developer_comment": "Placeholder message for the claim text field"
 	},
 	"createMedia.mediaClaimDescription": {
-		"string": "Опис на тврдењето",
+		"string": "Тврдење",
 		"developer_comment": "Section title for the description of a claim"
 	},
 	"createMedia.mediaClaimDescriptionSubtitle": {
 		"string": "Опис на тврдењето што треба да се провери.",
 		"developer_comment": "Subtitle for the claim's description that is under review"
 	},
+	"createMedia.mediaClaimLabel": {
+		"string": "Наслов",
+		"developer_comment": "Label for the text input for claim title"
+	},
 	"createMedia.mediaInput": {
-		"string": "Додајте URL на некоја објава на социјалните мрежи или на некоја веб-страница или пасус.",
+		"string": "Додајте URL-адреса на некоја објава на социјалните мрежи или на некоја веб-страница или пасус.",
 		"developer_comment": "Placeholder text for the media URL input"
+	},
+	"createMedia.mediaInputLabel": {
+		"string": "URL-адреса или Пасус",
+		"developer_comment": "Label for the text input for claim title"
 	},
 	"createMedia.mediaMediaSubtitle": {
 		"string": "Медиум што го содржи тврдењето.",
@@ -1054,7 +1110,7 @@
 		"string": "Име"
 	},
 	"createTag.rule": {
-		"string": "Автоматски ставете им таг на ставките што ги исполнуваат следниве услови:"
+		"string": "Автоматски ставете им таг на статиите што ги исполнуваат следниве услови:"
 	},
 	"createTag.title": {
 		"string": "Креирајте нов таг"
@@ -1087,20 +1143,20 @@
 		"string": "Направете дупликат од работниот простор",
 		"developer_comment": "Title of a dialog box to duplicate the current workspace"
 	},
+	"createTeamDialog.duplicate": {
+		"string": "Дупликат",
+		"developer_comment": "Button label to start to duplicate a workspace"
+	},
 	"createTeamDialog.duplicating": {
 		"string": "Се прави дупликат...",
 		"developer_comment": "Button label status message while duplicating a workspace is in process"
-	},
-	"createTeamDialog.duplice": {
-		"string": "Дупликат",
-		"developer_comment": "Button label to start to duplicate a workspace"
 	},
 	"createTeamDialog.name": {
 		"string": "Име на работниот простор",
 		"developer_comment": "Text field label for the name of the new workspace"
 	},
 	"createTeamDialog.url": {
-		"string": "URL на работниот простор",
+		"string": "URL-адреса на работниот простор",
 		"developer_comment": "Text field label for the URL of the new workspace"
 	},
 	"createTeamTask.addField": {
@@ -1155,19 +1211,23 @@
 		"developer_comment": "Link text for how to view a timezone on time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {Има една ставка што моментално е објавена со статусот {statusLabel}. Ако продолжите, сите објавени ставки со овој статус ќе бидат паузирани. Мора да ги проверите тие ставки за повторно да ги објавите.} other {Има # ставки што моментално се објавени со статусот{statusLabel}. Ако продолжите, сите објавени ставки со овој статус ќе бидат паузирани. Мора да ги проверите тие ставки за повторно да ги објавите.}}",
+		"string": "{publishedCount, plural, one {Има една статија што моментално е објавена со статусот {statusLabel}. Ако продолжите, сите објавени статии со овој статус ќе бидат паузирани. Мора да ги проверите тие статии за повторно да ги објавите.} other {Има # статии што моментално се објавени со статусот{statusLabel}. Ако продолжите, сите објавени статии со овој статус ќе бидат паузирани. Мора да ги проверите тие статии за повторно да ги објавите.}}",
 		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.moveItemsTo": {
-		"string": "Преместете ги ставките во",
+		"string": "Преместете ги статиите во",
 		"developer_comment": "This is a field label. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field."
 	},
+	"deleteStatusDialog.moveItemsToPlaceholder": {
+		"string": "Изберете статус...",
+		"developer_comment": "This is a field placeholder. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field."
+	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {Има една ставка со статусот {statusLabel}, којшто мора да се смени во друг статус пред да можете да го избришете овој статус.} other {Има # ставки со статусот {statusLabel}, којшто мора да се смени со друг статус пред да можете да го избришете овој статус.}}",
+		"string": "{itemsCount, plural, one {Има една статија со статусот {statusLabel}, којшто мора да се смени во друг статус пред да можете да го избришете овој статус.} other {Има # статии со статусот {statusLabel}, којшто мора да се смени со друг статус пред да можете да го избришете овој статус.}}",
 		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {Треба да го смените статусот на една ставка за да го избришете овој статус} other {Треба да го смените статусот на # ставки за да го избришете овој статус}}",
+		"string": "{itemsCount, plural, one {Треба да го смените статусот на една статија за да го избришете овој статус} other {Треба да го смените статусот на # статии за да го избришете овој статус}}",
 		"developer_comment": "Title of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.statusNotInUseMessage": {
@@ -1194,7 +1254,7 @@
 		"developer_comment": "Button label to add a new status"
 	},
 	"editStatusDialog.messageDescription": {
-		"string": "Кога ќе промените некоја ставка во овој статус, испратете му порака на корисникот што ја бара ставката.",
+		"string": "Кога ќе промените некоја статија во овој статус, испратете му порака на корисникот што ја бара статијата.",
 		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
 	},
 	"editStatusDialog.saveStatusMessage": {
@@ -1214,8 +1274,12 @@
 		"developer_comment": "Text field label for the message that will be sent to the user when an item is changed to this status value"
 	},
 	"editStatusDialog.statusTitle": {
-		"string": "Статус (максимум {maxLength} знаци)",
+		"string": "Статус",
 		"developer_comment": "Text field label for the status name"
+	},
+	"editStatusDialog.statusTitlePlaceholder": {
+		"string": "Внесете ознака на статусот",
+		"developer_comment": "Text field placeholder for the status name"
 	},
 	"editStatusDialog.title": {
 		"string": "Додајте нов статус",
@@ -1233,33 +1297,233 @@
 		"string": "Здраво, имам проблем со Check. Веб-интерфејсот падна и не ми дозволува да работам!",
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
+	"factCheckCard.dateLabel": {
+		"string": "Објавено на",
+		"developer_comment": "Date tooltip label for fact-check cards"
+	},
 	"feedBlankState.description": {
-		"string": "Пробајте {resetLink} да најдете проверки на факти или да потврдите дека има ставки на {listLink}",
-		"developer_comment": "Message displayed on feed page when there are no fact-checks to be listed. English values for placeholders link text: 'resetLink' is 'resetting filters' and 'listLink' is 'source list'."
+		"string": "Обидете се {resetLink} да најдете статии или да потврдите дека{listLink} има статии",
+		"developer_comment": "Message displayed on feed page when there are no items to be listed. English values for placeholders link text: 'resetLink' is 'resetting filters' and 'listLink' is 'source list'."
 	},
 	"feedBlankState.listLinkText": {
 		"string": "список од извори",
-		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Verify that the source list has items'."
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any items. The message where it appears reads: 'Verify that the source list has items'."
 	},
 	"feedBlankState.listText": {
 		"string": "список од извори",
-		"developer_comment": "Text that is part of message displayed when a feed does not return any fact-checks."
+		"developer_comment": "Text that is part of message displayed when a feed does not return any items."
 	},
 	"feedBlankState.resetLinkText": {
 		"string": "ресетирање филтри",
-		"developer_comment": "Link text that is part of message displayed when a feed does not return any fact-checks. The message where it appears reads: 'Try resetting filters to find fact-checks'."
+		"developer_comment": "Link text that is part of message displayed when a feed does not return any items. The message where it appears reads: 'Try resetting filters to find items'."
 	},
 	"feedBlankState.title": {
-		"string": "Нема проверки на факти",
-		"developer_comment": "Title displayed on feed page when there are no fact-checks to be listed."
+		"string": "Нема статии",
+		"developer_comment": "Title displayed on feed page when there are no items to be listed."
+	},
+	"feedClusters.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}",
+		"developer_comment": "Pagination count of items returned"
+	},
+	"feedClusters.nextPage": {
+		"string": "Следна страница",
+		"developer_comment": "Pagination button to go to next page"
+	},
+	"feedClusters.noTitle": {
+		"string": "(нема наслов)",
+		"developer_comment": "No title available"
+	},
+	"feedClusters.previousPage": {
+		"string": "Претходна страница",
+		"developer_comment": "Pagination button to go to previous page"
+	},
+	"feedClusters.sharedFeed": {
+		"string": "Споделено резиме на содржини",
+		"developer_comment": "Displayed on top of the feed title on the feed page."
+	},
+	"feedCollaboration.alreadyAdded": {
+		"string": "Адресата на е-пошта е веќе додадена во списокот со покани",
+		"developer_comment": "Error message displayed when attempting to send a Shared Feed invitation to an already invited address"
+	},
+	"feedCollaboration.alreadyInvited": {
+		"string": "Адресата на е-пошта е веќе поканета",
+		"developer_comment": "Error message displayed when attempting to send a Shared Feed invitation to an already invited address"
+	},
+	"feedCollaboration.description": {
+		"string": "Поканете други организации да достават податоци во ова споделено резиме на содржини. Сите организации што ќе придонесат за ова споделено резиме на содржини ја делат истата точка за податоци.",
+		"developer_comment": "Description to the feed collaboration management feature"
+	},
+	"feedCollaboration.editorWarningCreateFeed": {
+		"string": "Стапете во контакт со администраторот на работниот простор за да додадете други организации во ова споделено резиме на содржини.",
+		"developer_comment": "Warning displayed on feed collaboration box on create feed page when user is an editor and can't invite people to the feed."
+	},
+	"feedCollaboration.editorWarningUpdateFeed": {
+		"string": "Стапете во контакт со администраторот на работниот простор за да управувате со Организациите што соработуваат.",
+		"developer_comment": "Warning displayed on feed collaboration box on edit feed page when user is an editor and can't invite people to the feed."
+	},
+	"feedCollaboration.invalidEmail": {
+		"string": "Неважечка адреса на е-пошта",
+		"developer_comment": "Error message displayed when attempting to send a Shared Feed invitation to an invalid address"
+	},
+	"feedCollaboration.learnMore": {
+		"string": "Дознајте повеќе",
+		"developer_comment": "Link to knowledge base article on shared feed invitations"
+	},
+	"feedCollaboration.organizer": {
+		"string": "организатор",
+		"developer_comment": "Label to highlight the Shared Feed organizer"
+	},
+	"feedCollaboration.pending": {
+		"string": "Поканата е испратена - се чека потврда",
+		"developer_comment": "The status of a sent invitation to join a shared feed - pending acceptance"
+	},
+	"feedCollaboration.placeholder": {
+		"string": "Додајте адреса на е-пошта на соработник",
+		"developer_comment": "Placeholder of the input field for invited organizations"
+	},
+	"feedCollaboration.remove": {
+		"string": "Избришете",
+		"developer_comment": "Tooltip for button to remove invitation or feed collaborator"
+	},
+	"feedCollaboration.title": {
+		"string": "Соработка",
+		"developer_comment": "Title of the collaboration box in which feed organizer invites other organizations to a shared feed"
+	},
+	"feedCollaboration.titleCollaborator": {
+		"string": "Организации што соработуваат [{count}]",
+		"developer_comment": "Title of the collaboration box in which feed organizer invites other organizations to a shared feed"
+	},
+	"feedCollaboration.you": {
+		"string": "Вие",
+		"developer_comment": "Label to highlight user's organization in Shared Feed collaboration widget"
+	},
+	"feedComponent.newSharedFeed": {
+		"string": "Ново споделено резиме на содржини",
+		"developer_comment": "Button label create new shared feed"
+	},
+	"feedDataPoints.contactSupportLinkText": {
+		"string": "Поддршка за Check",
+		"developer_comment": "Text of the contact support link displayed on the alert box of the data points section in the edit feed page."
+	},
+	"feedDataPoints.factCheckDataArticleLink": {
+		"string": "Податоци за проверка на факти",
+		"developer_comment": "Text of the link to an article that explains fact-check data. This link is displayed on the fact-check data points section on the save feed page."
+	},
+	"feedDataPoints.factChecksContentFooter": {
+		"string": "Дознајте повеќе за {factCheckDataArticleLink}.",
+		"developer_comment": "Footer of section on save feed page where a user can select that fact-checks will be shared in this feed."
+	},
+	"feedDataPoints.factChecksContentTitle": {
+		"string": "<strong>Објавени податоци за проверка на факти</strong> што треба да се споделат:",
+		"developer_comment": "Title of the content section on save feed page where a user can select that fact-checks will be shared in this feed."
+	},
+	"feedDataPoints.factChecksTitle": {
+		"string": "Објавени податоци за проверка на факти",
+		"developer_comment": "Title of section on save feed page where a user can select that fact-checks will be shared in this feed."
+	},
+	"feedDataPoints.feedDataPointAnonymizedUserId": {
+		"string": "Анонимизиран уникатен кориснички ID (пример: 7299e0)",
+		"developer_comment": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests. 7299e0 doesn't need to be localized."
+	},
+	"feedDataPoints.feedDataPointArticleUrl": {
+		"string": "URL-адреса на написот",
+		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
+	},
+	"feedDataPoints.feedDataPointClaim": {
+		"string": "Тврдење",
+		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+	},
+	"feedDataPoints.feedDataPointDataPublished": {
+		"string": "Датум на објавување",
+		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
+	},
+	"feedDataPoints.feedDataPointDate": {
+		"string": "Датум",
+		"developer_comment": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests."
+	},
+	"feedDataPoints.feedDataPointDateLastSubmitted": {
+		"string": "Датум на последно поднесување",
+		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+	},
+	"feedDataPoints.feedDataPointDescription": {
+		"string": "Опис",
+		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
+	},
+	"feedDataPoints.feedDataPointLanguage": {
+		"string": "Јазик",
+		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
+	},
+	"feedDataPoints.feedDataPointMediaContent": {
+		"string": "Кога има медиумска содржина, како слика, опис или транскрипт",
+		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+	},
+	"feedDataPoints.feedDataPointMediaLanguage": {
+		"string": "Јазик",
+		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+	},
+	"feedDataPoints.feedDataPointNumberOfRequests": {
+		"string": "Број на барања за секој медиум",
+		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+	},
+	"feedDataPoints.feedDataPointPlatform": {
+		"string": "Платформа (WhatsApp, Телеграм итн.)",
+		"developer_comment": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests."
+	},
+	"feedDataPoints.feedDataPointRating": {
+		"string": "Рејтинг",
+		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
+	},
+	"feedDataPoints.feedDataPointRequestLanguage": {
+		"string": "Јазик",
+		"developer_comment": "Request field listed on save feed page, as part of the list of request fields available when the feed is sharing requests."
+	},
+	"feedDataPoints.feedDataPointTitle": {
+		"string": "Наслов",
+		"developer_comment": "Fact-check field listed on save feed page, as part of the list of fact-check fields available when the feed is sharing fact-checks."
+	},
+	"feedDataPoints.feedDataPointTypeOfMedia": {
+		"string": "Тип на медиум (слика, видео итн.)",
+		"developer_comment": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
+	},
+	"feedDataPoints.feedDataPointsFactChecksMediaClaimsRequestsTitle": {
+		"string": "Медиум, Тврдење и Барања",
+		"developer_comment": "Title of section on save feed page where a user can select that media, claim and requests will be shared in this feed."
+	},
+	"feedDataPoints.mediaContentFooter": {
+		"string": "Дознајте повеќе за {mediaDataArticleLink}.",
+		"developer_comment": "Footer of section on save feed page where a user can select that media and requests will be shared in this feed."
+	},
+	"feedDataPoints.mediaContentTitle": {
+		"string": "Податоци за <strong>медиуми</strong> што треба да се споделат:",
+		"developer_comment": "Title of the content section on save feed page where a user can select that media data will be shared in this feed."
+	},
+	"feedDataPoints.mediaDataArticleLink": {
+		"string": "Податоци за медиум и барања",
+		"developer_comment": "Text of the link to an article that explains media and requests data. This link is displayed on the media/requests data points section on the save feed page."
+	},
+	"feedDataPoints.readOnlyAlertContent": {
+		"string": "Врска {checkSupportLink} за прилагодување на податоците во работниот простор на ова сподолено резиме на содржини.",
+		"developer_comment": "Description of the alert message displayed on data points section of the edit feed page."
+	},
+	"feedDataPoints.readOnlyAlertTitle": {
+		"string": "Ова споделено резиме на содржини веќе содржи податоци од други соработници.",
+		"developer_comment": "Title of the alert message displayed on data points section of the edit feed page."
+	},
+	"feedDataPoints.requestContentTitle": {
+		"string": "Податоци за<strong>барање</strong> што треба да се споделат:",
+		"developer_comment": "Title of the content section on save feed page where a user can select that request data will be shared in this feed."
+	},
+	"feedDataPoints.title": {
+		"string": "Кои податоци од работниот простор ќе се споделуваат во ова резиме на содржини?",
+		"developer_comment": "Title of section where the data points being shared in a feed can be selected."
+	},
+	"feedDataPointsSelection.feedDataPointsSelectionTitle": {
+		"string": "Кои податоци од работниот простор ќе се споделуваат во ова резиме на содржини?",
+		"developer_comment": "Title of section where the data points being shared in a feed can be selected."
 	},
 	"feedFilters.applyFilters": {
-		"string": "Ставете филтер",
+		"string": "Ставете",
 		"developer_comment": "Button to perform query with specified filters"
-	},
-	"feedFilters.clear": {
-		"string": "Избришете ги филтрите",
-		"developer_comment": "Tooltip for button to remove any applied filters"
 	},
 	"feedFilters.defaultErrorMessage": {
 		"string": "Не беше возможно да се зачуваат филтрите, обидете се повторно",
@@ -1277,8 +1541,36 @@
 		"string": "Проверката на факти е направена од страна на",
 		"developer_comment": "Field label for feed filter"
 	},
+	"feedFilters.mediaType": {
+		"string": "Медиуми (тип)",
+		"developer_comment": "Field label for feed filter"
+	},
+	"feedFilters.mediaTypeAudio": {
+		"string": "Аудио",
+		"developer_comment": "Describes a media type."
+	},
+	"feedFilters.mediaTypeImage": {
+		"string": "Слика",
+		"developer_comment": "Describes a media type."
+	},
+	"feedFilters.mediaTypeLink": {
+		"string": "Врска",
+		"developer_comment": "Describes a media type."
+	},
+	"feedFilters.mediaTypeText": {
+		"string": "Текст",
+		"developer_comment": "Describes a media type."
+	},
+	"feedFilters.mediaTypeVideo": {
+		"string": "Видео",
+		"developer_comment": "Describes a media type."
+	},
+	"feedFilters.reset": {
+		"string": "Ресетирајте",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
 	"feedFilters.saveFilters": {
-		"string": "Зачувајте ги филтрите",
+		"string": "Зачувајте",
 		"developer_comment": "'Save filters' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed requests filters."
 	},
 	"feedFilters.savedSuccessfully": {
@@ -1296,6 +1588,50 @@
 	"feedHeader.tooltipSettings": {
 		"string": "Поставки за споделено резиме на содржини",
 		"developer_comment": "Tooltip message displayed on feed settings icon."
+	},
+	"feedInvitation.accept": {
+		"string": "Прифати покана",
+		"developer_comment": "Label for a button that the user presses to accept an invitation they have received to collaborate with another organization"
+	},
+	"feedInvitation.alreadyAccepted": {
+		"string": "Веќе ја прифативте поканата.",
+		"developer_comment": "An informational message that appears if the user tries to accept an invitation that they have already accepted."
+	},
+	"feedInvitation.decline": {
+		"string": "Одбијте покана",
+		"developer_comment": "Label for a button that the user presses to decline an invitation they have received to collaborate with another organization"
+	},
+	"feedInvitation.invited": {
+		"string": "ја покани Вашата организација да придонесе за споделено резиме на содржини во Check.",
+		"developer_comment": "This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence."
+	},
+	"feedInvitation.noPermissionDescription": {
+		"string": "Проверете дали сте администратор на работниот простор на Check за да прифаќате покани. Доколку не, побарајте помош од администраторот на работниот простор на Check.",
+		"developer_comment": "Description of the error page that is displayed when a user does not have permission to accept or reject a feed invitation."
+	},
+	"feedInvitation.noPermissionTitle": {
+		"string": "Немате пристап до оваа покана",
+		"developer_comment": "Title of the error page that is displayed when a user does not have permission to accept or reject a feed invitation."
+	},
+	"feedInvitation.noWorkspaces": {
+		"string": "Не сте администратор на ниеден работен простор. Стапете во контакт со администраторот на работниот простор доколку сметате дека станува збор за грешка.",
+		"developer_comment": "An error message that informs the user that they are not a workspace administrator and as such cannot perform any actions on this page."
+	},
+	"feedInvitation.notAdmin": {
+		"string": "Не сте администратор на овој работен простор. Стапете во контакт со администраторот на работниот простор доколку сметате дека станува збор за грешка.",
+		"developer_comment": "An error message that informs the user that they are not the administrator of this workspace and as such cannot perform any actions on this page."
+	},
+	"feedInvitation.prompt": {
+		"string": "Кој работен простор ќе го користите за да придонесете за ова резиме на содржини?",
+		"developer_comment": "A question prompting the user to pick one of several workspaces from a list, reminding them that this will contribute data to a shared feed."
+	},
+	"feedInvitation.promptDeclineTitle": {
+		"string": "Дали ја одбивате поканата?",
+		"developer_comment": "Dialog title when a user is prompted to confirm that they wish to decline (reject) an invitation."
+	},
+	"feedInvitation.viewButton": {
+		"string": "Погледнете ја поканата",
+		"developer_comment": "Label for a button that the user presses to view an invitation that they are going to accept or reject"
 	},
 	"feedItem.aboutThisClaim": {
 		"string": "За ова тврдење",
@@ -1326,7 +1662,7 @@
 		"developer_comment": "Fact-check title"
 	},
 	"feedItem.factCheckUrl": {
-		"string": "Објавена URL на статијата",
+		"string": "Објавена URL-адреса на написот",
 		"developer_comment": "Fact-check article URL"
 	},
 	"feedItem.import": {
@@ -1397,6 +1733,14 @@
 		"string": "Импортирајте",
 		"developer_comment": "Button label to confirm importing claim from feed page"
 	},
+	"feedItem.promptDeclineConfirm": {
+		"string": "Одбиј  покана",
+		"developer_comment": "Button label to confirm declining an invitation"
+	},
+	"feedItem.promptDeclineInfo": {
+		"string": "Треба да стапите во контакт со {creator} за повторно да се приклучите.",
+		"developer_comment": "Dialog description when a user declines an invitation, telling them who to contact if they change their mind and want another invitation."
+	},
 	"feedItem.publishedAt": {
 		"string": "Извештајот беше објавен: {date}",
 		"developer_comment": "Label and date for when the report was published"
@@ -1413,6 +1757,10 @@
 		"string": "Барања",
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
 	},
+	"feedItem.sharedFeed": {
+		"string": "Споделено резиме на содржини",
+		"developer_comment": "Displayed on top of the feed title on the feed item page."
+	},
 	"feedItem.sortBy": {
 		"string": "Распоредете ги по",
 		"developer_comment": "Label for sorting"
@@ -1420,6 +1768,54 @@
 	"feedItem.tags": {
 		"string": "Тагови",
 		"developer_comment": "Form field label for the tags assigned to this item"
+	},
+	"feedItemHeader.sharedFeed": {
+		"string": "Споделено резиме на содржини",
+		"developer_comment": "Displayed on top of the feed title on the feed item page."
+	},
+	"feedItemHeader.viewSharedFeed": {
+		"string": "Погледнете го споделеното резиме на содржини",
+		"developer_comment": "Label of a button displayed on the feed item page that when clicked takes the user to the shared feed page."
+	},
+	"feedItemMedia.titleWorkspaceNotSelected": {
+		"string": "Не е избран работен простор",
+		"developer_comment": "Title for the media section on the feed item page when there is no workspace selected."
+	},
+	"feedItemMedia.titleWorkspaceSelected": {
+		"string": "Медиум [{mediaCount}] од барања [{requestsCount}]",
+		"developer_comment": "Title for the media section on the feed item page when there is a workspace selected."
+	},
+	"feedItemMediaList.lastSubmitted": {
+		"string": "Последно поднесен на {date}",
+		"developer_comment": "Shows the last time a media was submitted (on feed item page media card)"
+	},
+	"feedItemMediaList.requestsCount": {
+		"string": "{requestsCount, plural, one {# барање} other {# барања}}",
+		"developer_comment": "Header of requests list. Example: 26 requests."
+	},
+	"feedItemTeams.title": {
+		"string": "Работни простори [{count}]",
+		"developer_comment": "Title of the workspaces box on feed item page"
+	},
+	"feedItemTeams.yourWorkspace": {
+		"string": "Вашиот работен простор",
+		"developer_comment": "Title of the Your Workspace box on feed item page"
+	},
+	"feedLastClusterizedAt.feedClusterizedTimePendingInitialUpdate": {
+		"string": "се чека почетно ажурирање",
+		"developer_comment": "Informs that the feed is pending initial update"
+	},
+	"feedLastClusterizedAt.tooltip": {
+		"string": "Податоците во споделеното резиме на содржини се ажурираат на секој час. Податоците се точни, почнувајќи од наведените датум и време.",
+		"developer_comment": "Tooltip message displayed for letting user know when the feed was last updated"
+	},
+	"feedMediaRequests.counter": {
+		"string": "{count, plural, one {# барање} other {# барања}}",
+		"developer_comment": "The count in a readable sentence of the number of requests for this media in the feed."
+	},
+	"feedMediaRequests.noRequest": {
+		"string": "0 Барања",
+		"developer_comment": "Empty message when there are zero requests for this item in the feed"
 	},
 	"feedRequestedMedia.factChecksSentForAllMedias": {
 		"string": "{factChecksCount, plural, one {# испратена проверка на факти} other {# испратени проверки на факти}}",
@@ -1509,6 +1905,38 @@
 		"string": "Претплати",
 		"developer_comment": "Header label for number of subscriptions column"
 	},
+	"feedSection.howToGetStartedContent": {
+		"string": "Креирајте ново споделено резиме за содржини и селектирајте ги податоците од Вашиот работен простор со кои сакате да придонесете. </br> Потоа, поканете еден или повеќе работни простори да учествуваат. Сите работни простори кои придонесуваат ќе имаат пристап  до истите податоци.",
+		"developer_comment": "Text explaining how to use shared feeds."
+	},
+	"feedSection.howToGetStartedTitle": {
+		"string": "Како да започнете?",
+		"developer_comment": "Title of section about how to get started with shared feeds"
+	},
+	"feedSection.sharedFeedsContent": {
+		"string": "Добијте увид во нови публики и јазици преку спојување на податоците од Вашата линија за дојава со други работни простори во единечен заеднички преглед.",
+		"developer_comment": "Text explaining what shared feeds are"
+	},
+	"feedSection.sharedFeedsTitle": {
+		"string": "Што се споделени резимеа на содржини?",
+		"developer_comment": "Title of section about what shared feeds are"
+	},
+	"feedSection.whatCanBeSharedContent": {
+		"string": "Имајте целосна контрола врз податоците со коишто секоја организација ќе придонесе за резимето на содржини. Споделувајте информации за анонимни барања од Вашата линија за дојава, креирајте заеднички фонд на проверени факти или споделете сѐ со партнерските работни простори.",
+		"developer_comment": "Text explaining what can be shared in the shared feeds"
+	},
+	"feedSection.whatCanBeSharedTitle": {
+		"string": "Што може да се сподели?",
+		"developer_comment": "Title of section about what can be shared in the shared feeds"
+	},
+	"feedSection.whatComesNextContent": {
+		"string": "Со единечен преглед на повеќе линии за дојава, секој работен простор пристапува до нови нивоа на увид, вклучувајќи ги и наративите што се во тренд меѓу публиката.",
+		"developer_comment": "Text about what is coming next for the shared feeds"
+	},
+	"feedSection.whatComesNextTitle": {
+		"string": "Што следува?",
+		"developer_comment": "Title of section about what is coming next for the shared feeds"
+	},
 	"feedSharingSwitch.cancel": {
 		"string": "Откажете",
 		"developer_comment": "Button label displayed on 'Enable feed sharing' confirmation window."
@@ -1569,9 +1997,69 @@
 		"string": "Рејтинг",
 		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
 	},
+	"feedSwitcher.apiRequests": {
+		"string": "Барања од API ",
+		"developer_comment": "Button label to take the user to the list of requests coming from the API."
+	},
+	"feedSwitcher.sharedRequests": {
+		"string": "Споделени проверки на факти",
+		"developer_comment": "Button label to take the user to the list of fact-checks shared in the feed."
+	},
+	"feedTeamCard.notContributing": {
+		"string": "Вашиот работен простор не придонесува за оваа статија во споделеното резиме на содржини.<br /><br />Селектирајте работен простор подолу за да ги импортирате неговите медиуми во Вашиот работен простор.",
+		"developer_comment": "Displayed on the current workspace card on feed item page when the current workspace is not contributing to that cluster. This is an HTML message, please keep the <br /> tag."
+	},
+	"feedTeamFactCheckCard.claim": {
+		"string": "Тврдење:",
+		"developer_comment": "Label for claim card on feed item page"
+	},
+	"feedTeamFactCheckCard.factCheck": {
+		"string": "Проверка на факти:",
+		"developer_comment": "Label for fact-check card on feed item page"
+	},
+	"feedTeamFactCheckCard.uncategorizedMedia": {
+		"string": "Некатегоризиран медиум",
+		"developer_comment": "Label for uncategorized media card on feed item page"
+	},
+	"feedTeamFactCheckDialog.claim": {
+		"string": "Тврдење",
+		"developer_comment": "Title for the claim section on the claim and fact-check dialog on the feed item page."
+	},
+	"feedTeamFactCheckDialog.close": {
+		"string": "Затворете",
+		"developer_comment": "Label of a button to close the claim and fact-check dialog window on the feed item page."
+	},
+	"feedTeamFactCheckDialog.factCheck": {
+		"string": "Проверка на факти",
+		"developer_comment": "Title for the fact-check section on the claim and fact-check dialog on the feed item page."
+	},
+	"feedTeamFactCheckDialog.noFactCheck": {
+		"string": "Не е достапна проверка на факти",
+		"developer_comment": "Title for the fact-check section on the claim and fact-check dialog on the feed item page when there is no fact-check available."
+	},
+	"feedTeamFactCheckDialog.title": {
+		"string": "Тврдење и проверка на факти",
+		"developer_comment": "Title for claim and fact-check dialog on the feed item page."
+	},
+	"feedTopBar.addOrg": {
+		"string": "Додајте организација што соработува",
+		"developer_comment": "Tooltip message displayed on a button that takes the user toa page where they can add an organization to this shared feed with an expectation to collaborate with the organization."
+	},
+	"feedTopBar.customList": {
+		"string": "Одете во прилагодениот список",
+		"developer_comment": "Tooltip message displayed on button that the user presses in order to navigate to the custom list page."
+	},
+	"feedTopBar.hideItems": {
+		"string": "Скријте статии од {orgName}",
+		"developer_comment": "Tooltip message displayed on button that the user presses in order to hide items from an organization."
+	},
 	"feedTopBar.noListSelected": {
 		"string": "ниеден список не беше избран",
 		"developer_comment": "Message displayed on feed top bar when there is no list associated with the feed."
+	},
+	"feedTopBar.showItems": {
+		"string": "Прикажете статии од {orgName}",
+		"developer_comment": "Tooltip message displayed on button that the user presses in order to show items from an organization."
 	},
 	"fetchBot.contactUs": {
 		"string": "Стапете во контакт со нас за поставување",
@@ -1730,9 +2218,17 @@
 		"string": "Покана",
 		"developer_comment": "Button to submit invitations."
 	},
+	"inviteDialog.textInputHelp": {
+		"string": "За да поканите повеќе членови, разделете ги адресите на е-пошта со запирка",
+		"developer_comment": "Help to input for invited emails. Requires that multiple emails be entered separated by comma."
+	},
 	"inviteDialog.textInputLabel": {
-		"string": "Адреси на е-пошти издвоени со запирки",
+		"string": "Адреса(и) на е-пошта",
 		"developer_comment": "Label to input for invited emails. Requires that multiple emails be entered separated by comma."
+	},
+	"inviteDialog.textInputPlaceholder": {
+		"string": "пример: team_member@example.org, team_member2@example.org",
+		"developer_comment": "Placeholder for input for invited emails"
 	},
 	"inviteDialog.title": {
 		"string": "Поканете членови на работниот простор",
@@ -1743,11 +2239,11 @@
 		"developer_comment": "Submit button for create a new account"
 	},
 	"inviteNewAccount.createMessage": {
-		"string": "Треба да креирате сметка за <b>{email}</b>",
+		"string": "Треба да креирате сметка за <strong>{email}</strong>",
 		"developer_comment": "Inform your to create a new account for signup"
 	},
 	"inviteNewAccount.invitedBy": {
-		"string": "{name} Ве покани да се приклучите на работниот простор",
+		"string": "{name} Ве покани да се приклучите на работниот простор:",
 		"developer_comment": "Message to the current user about who has invited them to join this workspace"
 	},
 	"inviteNewAccountemailLabel": {
@@ -1770,28 +2266,76 @@
 		"string": "Мора да се согласите со Условите за користење и Политиката на приватност",
 		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
 	},
+	"itemTitle.claimTitle": {
+		"string": "Наслов на тврдењето",
+		"developer_comment": "Label for a menu item that selects Claim Title as the title field for an item."
+	},
+	"itemTitle.claimTitleHelper": {
+		"string": "(Додајте тврдење за да овозможите)",
+		"developer_comment": "Helper text displayed under the Claim Title option for an item title when the item has no claim."
+	},
+	"itemTitle.customTitle": {
+		"string": "Прилагоден наслов",
+		"developer_comment": "Label for a menu item that selects Custom Title as the title field for an item."
+	},
+	"itemTitle.factCheckTitle": {
+		"string": "Наслов на проверка на факти",
+		"developer_comment": "Label for a menu item that selects Fact-Check Title as the title field for an item."
+	},
+	"itemTitle.factCheckTitleHelper": {
+		"string": "(Додајте проверка на факти за да овозможите)",
+		"developer_comment": "Helper text displayed under the Fact-Check Title option for an item title when the item has no fact-check."
+	},
+	"itemTitle.itemTitleError": {
+		"string": "Неуспешно ажурирање на насловот. Обидете се повторно и стапете во контакт со поддршка доколку продолжува да се прикажува грешката",
+		"developer_comment": "Error message displayed underneath the text field when an item title settings cannot be saved."
+	},
+	"itemTitle.menuHeader": {
+		"string": "Изберете име на статијата",
+		"developer_comment": "Header for a menu containing content options for item title"
+	},
+	"itemTitle.pinnedMediaId": {
+		"string": "Закачен Наслов на медиум",
+		"developer_comment": "Label for a menu item that selects Pinned Media Title as the title field for an item."
+	},
+	"itemTitle.pinnedMediaIdHelper": {
+		"string": "(Додајте медиум за да овозможите)",
+		"developer_comment": "Helper text displayed under the Pinned Media Title option for an item title when the item has no media."
+	},
 	"languageFilter.is": {
 		"string": "е",
 		"developer_comment": "This connects two selection fields and will read like 'Media language' is 'English'"
 	},
 	"languageListItem.default": {
-		"string": "{language} (стандарден)",
+		"string": "<strong>{language}</strong> (стандарден)",
 		"developer_comment": "Label to indicate that this language is the default"
 	},
 	"languageListItem.deleteConfirmationText": {
 		"string": "Избришете го {language} и сите негови содржини"
 	},
 	"languageSwitcher.makeDefault": {
-		"string": "Поставете го како стандарден јазик за оваа ставка",
+		"string": "Поставете го како стандарден јазик за оваа статија",
 		"developer_comment": "Menu item for the user to change the default language"
 	},
 	"languageSwitcher.primaryLanguage": {
 		"string": "(стандарден)",
 		"developer_comment": "Label for the default language choice"
 	},
-	"languagesComponent.description": {
-		"string": "Ако препознавањето јазик е <strong>овозможено</strong>, ботот на линијата за дојава на Check автоматски ќе го препознае и одговори на јазикот на барањето на Вашиот корисник.\n              Ако е <strong>оневозможено</strong>, ботот на линијата за дојава на Check ќе одговори на стандардниот јазик на работниот простор: <strong>{defaultLanguage}</strong>",
-		"developer_comment": "Instructions for the language detection toggle switch"
+	"languagesComponent.alertTitleDisabled": {
+		"string": "Препознавање јазик е оневозможено",
+		"developer_comment": "Title for extra information about the language detection toggle switch when it is disabled"
+	},
+	"languagesComponent.alertTitleEnabled": {
+		"string": "Препознавање јазик е овозможено",
+		"developer_comment": "Title for extra information about the language detection toggle switch when it is enabled"
+	},
+	"languagesComponent.disabledDescription": {
+		"string": "Ботот на линијата за дојава на Check ќе одговори на стандардно поставениот јазик на работниот простор: <strong>{defaultLanguage}</strong>",
+		"developer_comment": "Instructions for the language detection toggle switch when disabled"
+	},
+	"languagesComponent.enabledDescription": {
+		"string": "Ботот на линијата за дојава на Check автоматски ќе го препознае и ќе одговори на јазикот што Вашиот корисник го искористил во барањето.",
+		"developer_comment": "Instructions for the language detection toggle switch when enabled"
 	},
 	"languagesComponent.languageDetection": {
 		"string": "Препознавање јазик",
@@ -1802,7 +2346,7 @@
 		"developer_comment": "Label for a switch where the user toggles auto language detection"
 	},
 	"languagesComponent.languages": {
-		"string": "Јазици",
+		"string": "Поддржани јазици [{languageCount}]",
 		"developer_comment": "Title of the active languages list section in language settings page"
 	},
 	"languagesComponent.title": {
@@ -1921,17 +2465,9 @@
 		"string": "Променете ја насоката на распоредување на списоците",
 		"developer_comment": "Tooltip to tell the user they can change the direction of the list sort"
 	},
-	"listSort.date": {
-		"string": "Датумот беше ажуриран",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
-	},
 	"listSort.sort": {
 		"string": "Подредете",
 		"developer_comment": "Label for sort criteria drop-down field displayed on fact-checks page."
-	},
-	"listSort.status": {
-		"string": "Рејтинг",
-		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
 	},
 	"login.alreadyHasAccount": {
 		"string": "Веќе имате сметка?",
@@ -1982,7 +2518,7 @@
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
-		"string": "Најавете се",
+		"string": "Веќе имате сметка? <strong>Најавете се</strong>",
 		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
@@ -1990,7 +2526,7 @@
 		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
-		"string": "Пријавете се",
+		"string": "Немате сметка? <strong>Пријавете се</strong>",
 		"developer_comment": "Button label. Switches from 'logging in' to 'create new account' mode"
 	},
 	"login.title": {
@@ -2013,6 +2549,18 @@
 		"string": "Настана неочекувана грешка",
 		"developer_comment": "Title for error state card displayed in error page"
 	},
+	"meComponent.teams": {
+		"string": "Работни простори",
+		"developer_comment": "Label of the workspaces tab in the user profile page"
+	},
+	"meComponents.privacy": {
+		"string": "Приватност",
+		"developer_comment": "Label of the privacy tab in the user profile page"
+	},
+	"meComponents.security": {
+		"string": "Безбедност",
+		"developer_comment": "Label of the security tab in the user profile page"
+	},
 	"media.normalSpeed": {
 		"string": "Нормална брзина",
 		"developer_comment": "Sets video playback rate to original 1x speed"
@@ -2029,24 +2577,48 @@
 		"string": "Текст",
 		"developer_comment": "Label to show that the type of media is text"
 	},
+	"media.typeFacebook": {
+		"string": "Објава на Фејсбук",
+		"developer_comment": "Label to show that the type of media is a Facebook post"
+	},
 	"media.typeImage": {
 		"string": "Слика",
 		"developer_comment": "Label to show that the type of media is an image"
+	},
+	"media.typeInstagram": {
+		"string": "Објава на Инстаграм",
+		"developer_comment": "Label to show that the type of media is an Instagram post"
 	},
 	"media.typeLink": {
 		"string": "Врска",
 		"developer_comment": "Label to show that the type of media is a link"
 	},
+	"media.typeTelegram": {
+		"string": "Телеграм",
+		"developer_comment": "Label to show that the type of media is a Telegram message"
+	},
+	"media.typeTiktok": {
+		"string": "Објава на Тикток",
+		"developer_comment": "Label to show that the type of media is a Tiktok video"
+	},
+	"media.typeTwitter": {
+		"string": "Објава на X (Твитер)",
+		"developer_comment": "Label to show that the type of media is a Twitter tweet"
+	},
 	"media.typeVideo": {
 		"string": "Видео",
 		"developer_comment": "Label to show that the type of media is a video"
+	},
+	"media.typeYoutube": {
+		"string": "Видео на Јутјуб",
+		"developer_comment": "Label to show that the type of media is a Youtube video"
 	},
 	"mediaActions.assignOrUnassign": {
 		"string": "Доделете на...",
 		"developer_comment": "Menu item to select a team to assign item"
 	},
 	"mediaActions.history": {
-		"string": "Историја од ставки",
+		"string": "Историја од статии",
 		"developer_comment": "Menu item to view the history of changes to the item"
 	},
 	"mediaActions.lockStatus": {
@@ -2062,7 +2634,7 @@
 		"developer_comment": "Menu item to move the current item to the trash list"
 	},
 	"mediaActions.tooltip": {
-		"string": "Дејства за ставката",
+		"string": "Дејства за статијата",
 		"developer_comment": "Button to call of the menu of actions that can be performed on an item"
 	},
 	"mediaActions.unlockStatus": {
@@ -2074,7 +2646,7 @@
 		"developer_comment": "Helper text to field for adding details about the assignment"
 	},
 	"mediaActionsBar.assignmentTitle": {
-		"string": "Доделете ја ставката на соработниците",
+		"string": "Доделете ја статијата на соработниците",
 		"developer_comment": "Assignment dialog title"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
@@ -2085,11 +2657,11 @@
 		"string": "Преместете во друга папка"
 	},
 	"mediaActionsBar.failedmovedRestoreBack": {
-		"string": "Не можеше да се врати ставката. Обидете се повторно подоцна.",
+		"string": "Не можеше да се врати статијата. Обидете се повторно подоцна.",
 		"developer_comment": "Failure message after attempting to restore an item from Trash."
 	},
 	"mediaActionsBar.failedmovedSpamBack": {
-		"string": "Не можеше да се обележи ставката како „не е непосакувано\". Обидете се повторно подоцна.",
+		"string": "Не можеше да се обележи статијата како „не е непосакувано\". Обидете се повторно подоцна.",
 		"developer_comment": "Failure message after attempting to mark an item as Not Spam."
 	},
 	"mediaActionsBar.move": {
@@ -2099,19 +2671,19 @@
 		"string": "Преместете во..."
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Ставката беше вратена од кантата за отпад",
+		"string": "Статијата беше вратена од кантата за отпад",
 		"developer_comment": "Success message after restoring item from Trash."
 	},
 	"mediaActionsBar.movedSpamBack": {
-		"string": "Ставката беше обележана како „не е непосакувано\"",
+		"string": "Статијата беше обележана како „не е непосакувано\"",
 		"developer_comment": "Success message after marking item as Not Spam."
 	},
 	"mediaActionsBar.movedToSpam": {
-		"string": "Ставката беше преместена во {spam}",
+		"string": "Статијата беше преместена во {spam}",
 		"developer_comment": "Send item to spam action success message"
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "Ставката беше преместена во {trash}",
+		"string": "Статијата беше преместена во {trash}",
 		"developer_comment": "Delete item action success message"
 	},
 	"mediaActionsBar.notSpamTo": {
@@ -2226,9 +2798,13 @@
 		"string": "се зачувува...",
 		"developer_comment": "Caption that informs that a claim is being saved"
 	},
+	"mediaClaim.title": {
+		"string": "Наслов",
+		"developer_comment": "Title for the text input for claim title"
+	},
 	"mediaComments.noNote": {
-		"string": "Нема коментари",
-		"developer_comment": "Empty message when there are no notees for this item"
+		"string": "0 Коментари",
+		"developer_comment": "Empty message when there are no notes for this item"
 	},
 	"mediaComponent.annotation": {
 		"string": "Белешка",
@@ -2242,8 +2818,7 @@
 		"developer_comment": "Header for the date when the media item was last received by the workspace"
 	},
 	"mediaComponent.notes": {
-		"string": "Коментари",
-		"developer_comment": "Label for the Notes tab, as in text notes"
+		"string": "Коментари"
 	},
 	"mediaComponent.requests": {
 		"string": "Барања",
@@ -2258,18 +2833,18 @@
 		"developer_comment": "Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing"
 	},
 	"mediaComponent.verificationTasks": {
-		"string": "Задачи за ставката"
+		"string": "Задачи за статијата"
 	},
 	"mediaContext.placeholder": {
-		"string": "Напишете нешто",
+		"string": "Додајте контекст на тврдењето",
 		"developer_comment": "Placeholder for claim context field."
 	},
 	"mediaContext.title": {
 		"string": "Дополнителни содржини",
-		"developer_comment": "Title of claim context field."
+		"developer_comment": "Title of claim additional context field."
 	},
 	"mediaCreatedBy.createdBy": {
-		"string": "Ставката ја креира {name}",
+		"string": "Статијата ја креира {name}",
 		"developer_comment": "A text field that indicates who the original author of a claim is. The {name} field will render the display name of the user who created the item."
 	},
 	"mediaDetail.spam": {
@@ -2332,21 +2907,13 @@
 		"string": "Споделувања на ФБ",
 		"developer_comment": "Grid column label for then number of shares on facebook"
 	},
-	"mediaFactCheck.claimMissingDesc": {
-		"string": "Мора да додадете тврдење за да пристапите до извештајот од проверката на факти.",
-		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
+	"mediaFactCheck.errorSummary": {
+		"string": "Потребно е резиме на проверката на факти",
+		"developer_comment": "Caption that informs that a fact-check could not be saved and that the summary field has to be filled"
 	},
-	"mediaFactCheck.claimMissingTitle": {
-		"string": "Тврдењето го нема",
-		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
-	},
-	"mediaFactCheck.confirmButtonLabel": {
-		"string": "Вратете се на менување",
-		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact-check."
-	},
-	"mediaFactCheck.error": {
-		"string": "Мора да се пополнат полињата за наслов и опис",
-		"developer_comment": "Caption that informs that a fact-check could not be saved and that the fields have to be filled"
+	"mediaFactCheck.errorTitle": {
+		"string": "Потребен е наслов за проверката на факти",
+		"developer_comment": "Caption that informs that a fact-check could not be saved and that the title field has to be filled"
 	},
 	"mediaFactCheck.factCheck": {
 		"string": "Проверка на факти",
@@ -2360,17 +2927,33 @@
 		"string": "се зачувува...",
 		"developer_comment": "Caption that informs that a fact-check is being saved"
 	},
+	"mediaFactCheck.selectLanguageLabel": {
+		"string": "Јазик",
+		"developer_comment": "Label for input to select language"
+	},
 	"mediaFactCheck.summary": {
 		"string": "Резиме",
 		"developer_comment": "Label for fact-check summary field"
+	},
+	"mediaFactCheck.summaryPlaceholder": {
+		"string": "Понудете краток контекст за рејтингот на проверката на факти",
+		"developer_comment": "Placeholder instructions for fact-check summary field"
 	},
 	"mediaFactCheck.title": {
 		"string": "Наслов",
 		"developer_comment": "Label for fact-check title field"
 	},
+	"mediaFactCheck.titlePlaceholder": {
+		"string": "Непристрасна порака до читателите",
+		"developer_comment": "Placeholder instructions for fact-check title field"
+	},
 	"mediaFactCheck.url": {
-		"string": "URL на статијата",
+		"string": "URL-адреса на написот",
 		"developer_comment": "Label for fact-check URL field"
+	},
+	"mediaFactCheck.urlPlaceholder": {
+		"string": "Додајте URL-адреса на написот за проверка на факти",
+		"developer_comment": "Placeholder instructions for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
 		"string": "Додајте тврдење за да пристапите до проверката на факти",
@@ -2381,11 +2964,11 @@
 		"developer_comment": "Label for a button that lets the user set the media item they are clicking to be _not_ matched to its parent media item."
 	},
 	"mediaItem.detachedSuccessfully": {
-		"string": "Ставката веќе не е поврзана",
+		"string": "Статијата веќе не е поврзана",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
-		"string": "Готово, Ве пренасочуваме кон новата главна ставка...",
+		"string": "Готово, Ве пренасочуваме кон новата главна статија...",
 		"developer_comment": "A message that informs the user a 'pin' action is finished and a redirect is about to happen"
 	},
 	"mediaItem.pinAsMain": {
@@ -2399,6 +2982,10 @@
 	"mediaLanguageSwitcher.error": {
 		"string": "Не беше возможно да се смени јазикот, обидете се повторно",
 		"developer_comment": "Error message displayed when it's not possible to change an item language"
+	},
+	"mediaLanguageSwitcher.selectLanguageLabel": {
+		"string": "Јазик",
+		"developer_comment": "Label for input to select language"
 	},
 	"mediaLanguageSwitcher.success": {
 		"string": "Јазикот беше ажуриран",
@@ -2424,30 +3011,26 @@
 		"string": "Додајте поврзување"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {# поврзана ставка} other {# поврзани ставки}}"
+		"string": "{count, plural, one {# поврзана статија} other {# поврзани статии}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
-		"string": "Не беше возможно да се додаде поврзана ставка"
+		"string": "Не беше возможно да се додаде поврзана статија"
 	},
 	"mediaRelatedComponent.dialogTitle": {
 		"string": "Додајте поврзување"
 	},
 	"mediaRelatedComponent.savedSuccessfully": {
-		"string": "Поврзаната ставка успешно беше додадена"
+		"string": "Поврзаната статија успешно беше додадена"
 	},
 	"mediaRelatedComponent.submitButton": {
-		"string": "{count, plural, one {Додајте врска за една ставка} other {Додајте врска за # ставки}}"
+		"string": "{count, plural, one {Додајте врска за една статија} other {Додајте врска за # статии}}"
 	},
 	"mediaRelationship.lastSubmitted": {
 		"string": "Последно поднесен на {date}",
 		"developer_comment": "Shows the last time a media was submitted"
 	},
-	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {# барање на сите медиуми} other {# барања на сите медиуми}}",
-		"developer_comment": "The count in a readable sentence of the number of requests for all media listed"
-	},
 	"mediaRequests.noRequest": {
-		"string": "Нема барања",
+		"string": "0 Барања",
 		"developer_comment": "Empty message when there are zero requests for this item"
 	},
 	"mediaRequests.thisRequests": {
@@ -2455,7 +3038,7 @@
 		"developer_comment": "The count in a readable sentence of the number of requests for this media"
 	},
 	"mediaSearch.error": {
-		"string": "За жал, настана следнава грешка: {message}. Освежете ја ставката за да се обидете повторно и стапете во контакт со {supportEmail} ако проблемот продолжи.",
+		"string": "За жал, настана следнава грешка: {message}. Освежете ја статијата за да се обидете повторно и стапете во контакт со {supportEmail} ако проблемот продолжи.",
 		"developer_comment": "Error message with instructions on how the user should proceed"
 	},
 	"mediaSearch.itemWentAway": {
@@ -2463,11 +3046,11 @@
 		"developer_comment": "Tooltip text to let the user know the item has been removed and is no longer availble"
 	},
 	"mediaSearch.nextItem": {
-		"string": "Следна ставка",
+		"string": "Следна статија",
 		"developer_comment": "Tooltip message for a paging button to move to the next item"
 	},
 	"mediaSearch.previousItem": {
-		"string": "Претходна ставка",
+		"string": "Претходна статија",
 		"developer_comment": "Tooltip message for a paging button to move to the previous item"
 	},
 	"mediaSearch.xOfY": {
@@ -2487,15 +3070,15 @@
 		"developer_comment": "Label to the similarity menu that allows importing and exporting media"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, one {Импортирајте ги сите медиуми од една ставка} other {Импортирајте ги сите медиуми од # ставки}}",
+		"string": "{count, plural, one {Импортирајте ги сите медиуми од една статија} other {Импортирајте ги сите медиуми од # статии}}",
 		"developer_comment": "Button label to commit action of importing media from one or more items into the current one"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Додајте ги сите медиуми на оваа проверка на факти",
+		"string": "Додајте медиум на оваа проверка на факти",
 		"developer_comment": "Menu item for importing (one or more) media matched as similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Импортирајте ги медиумите од другите ставки",
+		"string": "Импортирајте ги медиумите од другите статии",
 		"developer_comment": "Dialog title for importing media from other items."
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
@@ -2503,7 +3086,7 @@
 		"developer_comment": "Menu option for exporting media from this item to another"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "Експортирајте ги сите медиуми во друга ставка",
+		"string": "Експортирајте ги сите медиуми во друга статија",
 		"developer_comment": "Dialog title for exporting media to other item."
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
@@ -2511,20 +3094,16 @@
 		"developer_comment": "Menu option for adding the current media to an imported fact-check"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
-		"string": "Медиумите од оваа ставка не можат да се експортираат ако ставката е прикачена на главна статија или ако нејзиниот извештај е објавен",
+		"string": "Медиумите од оваа статија не можат да се експортираат ако статијата е прикачена на некоја главна статија или ако нејзиниот извештај е објавен",
 		"developer_comment": "Tooltip message for exporting media menu option"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
-		"string": "Слична ставка успешно беше додадена",
+		"string": "Слична статија успешно беше додадена",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
 		"string": "Медиуми",
 		"developer_comment": "Plural. Heading for the number of media"
-	},
-	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "Предлози",
-		"developer_comment": "Plural. Heading for the number of suggestions"
 	},
 	"mediaSource.changeSource": {
 		"string": "Променете",
@@ -2569,10 +3148,6 @@
 	"mediaSuggestionsComponent.bulkAccept": {
 		"string": "Поврзете ги сите медиуми на оваа страница",
 		"developer_comment": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media."
-	},
-	"mediaSuggestionsComponent.bulkEdit": {
-		"string": "Групно менување",
-		"developer_comment": "A header that tells the user the buttons to follow are for bulk editing items (editing more than one item at a time, like marking all as spam)"
 	},
 	"mediaSuggestionsComponent.bulkReject": {
 		"string": "Откажете ги сите медиуми на оваа страница",
@@ -2635,11 +3210,11 @@
 		"developer_comment": "Text that appears in a popup to confirm that a 'bulk move to trash' action was successful"
 	},
 	"mediaSuggestionsComponent.movedToSpam": {
-		"string": "Ставката беше преместена во {spam}",
+		"string": "Статијата беше преместена во {spam}",
 		"developer_comment": "Text that appears in a popup to confirmt hat a 'move to spam' action was successful"
 	},
 	"mediaSuggestionsComponent.movedToTrash": {
-		"string": "Ставката беше преместена во {trash}",
+		"string": "Статијата беше преместена во {trash}",
 		"developer_comment": "Text that appears in a popup to confirmt hat a 'move to trash' action was successful"
 	},
 	"mediaSuggestionsComponent.next": {
@@ -2647,7 +3222,7 @@
 		"developer_comment": "Label for the 'go to next page' button on paginated suggestions"
 	},
 	"mediaSuggestionsComponent.noItems": {
-		"string": "{total, plural, one {{total} предлог} other {{total} предлози}}",
+		"string": "{total, plural, one {{total} Предлози} other {{total} Предлози}}",
 		"developer_comment": "A header that tells the user there are no items in the list"
 	},
 	"mediaSuggestionsComponent.previous": {
@@ -2663,7 +3238,7 @@
 		"developer_comment": "Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list."
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{start} до {end} од {вкупно, множина, еден {{total} предлог} други {{total} предлози}}",
+		"string": "{total, plural, one {1 / 1} other {{start} - {end} / #}}",
 		"developer_comment": "A header that tells the user how many suggestions items are in the list to follow"
 	},
 	"mediaSuggestionsComponent.trash": {
@@ -2683,7 +3258,7 @@
 		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
 	},
 	"metadata.couldNotSaveUrl": {
-		"string": "Не можеше да се зачува, барем една URL е неважечка",
+		"string": "Не можеше да се зачува, барем една URL-адреса е неважечка",
 		"developer_comment": "Error message displayed when a URL is not in the correct format in the form, which prevents the form from being saved."
 	},
 	"metadata.delete": {
@@ -2719,11 +3294,11 @@
 		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
 	},
 	"metadata.form.cancel": {
-		"string": "Откажете ги промените",
+		"string": "Откажете",
 		"developer_comment": "This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form."
 	},
 	"metadata.form.edit": {
-		"string": "Изменете",
+		"string": "Изменете ги белешките",
 		"developer_comment": "This is a label on a button that the user presses in order to edit the items in the attached form."
 	},
 	"metadata.form.save": {
@@ -2755,7 +3330,7 @@
 		"developer_comment": "This is a label that appears while a file upload is ongoing."
 	},
 	"metadata.url.helperText": {
-		"string": "Мора да биде важечка URL",
+		"string": "Мора да биде важечка URL-адреса",
 		"developer_comment": "A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL."
 	},
 	"moreLess.less": {
@@ -2774,7 +3349,7 @@
 		"string": "Откажете"
 	},
 	"multiSelector.empty": {
-		"string": "Не беа пронајдени ставки"
+		"string": "Не беа пронајдени статии"
 	},
 	"multiSelector.search": {
 		"string": "Пребарување...",
@@ -2825,7 +3400,7 @@
 		"developer_comment": "Title for newsletter settings page."
 	},
 	"newsletterComponent.articleBlank": {
-		"string": "Полето за статија не смее да биде празно",
+		"string": "Полето за напис не смее да биде празно",
 		"developer_comment": "Message displayed on the article text field when it is empty and a user tries to save"
 	},
 	"newsletterComponent.articlePlaceholder": {
@@ -2861,7 +3436,7 @@
 		"developer_comment": "Error message displayed when a user submits a form with an introduction field that is too long."
 	},
 	"newsletterComponent.errorRssFeedUrl": {
-		"string": "URL на RSS-резимето на содржина е неважечко.",
+		"string": "URL-адресата на RSS-резимето на содржини е неважечка.",
 		"developer_comment": "Error message displayed when a user submits a form with a URL that the server does not recognize."
 	},
 	"newsletterComponent.errorSendOn": {
@@ -2872,12 +3447,16 @@
 		"string": "Временската зона не смее да остане празна.",
 		"developer_comment": "Error message displayed when a user submits a form with a blank time zone field."
 	},
+	"newsletterComponent.helpContext": {
+		"string": "Управувајте и изготвувајте билтени и направете распоред за нивното испраќање до сите претплатници. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за билтените</a>.",
+		"developer_comment": "Context description for the functionality of this page"
+	},
 	"newsletterComponent.introduction": {
 		"string": "Вовед",
 		"developer_comment": "Label for a field where the user inputs text for an introduction to a newsletter"
 	},
 	"newsletterComponent.numberOfArticles": {
-		"string": "Број на статии",
+		"string": "Број на написи",
 		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
 	},
 	"newsletterComponent.overlay": {
@@ -2916,6 +3495,10 @@
 		"string": "Заглавје",
 		"developer_comment": "Label for the newsletter header type field"
 	},
+	"newsletterHeader.headerHelp": {
+		"string": "Користете заглавје за да испратите слика, видео или врска до претплатниците на билтенот. Сликите на заглавјето треба да имаат широчина помеѓу 300 и 1600 пиксели. Препорачуваме соодносот на сликата да биде 1.91:1",
+		"developer_comment": "Input help context for selecting a newsletter header"
+	},
 	"newsletterHeader.headerTypeAudio": {
 		"string": "Аудио",
 		"developer_comment": "One of the options for a newsletter header type"
@@ -2944,12 +3527,16 @@
 		"string": "Додајте текст на врвот на сликата",
 		"developer_comment": "Placeholder text for a field where the user inputs text that is to be rendered on top of an image (i.e., an overlay)"
 	},
+	"newsletterNumberOfArticles.helpContent": {
+		"string": "Изберете ги написите што ќе бидат објавени во Вашиот билтен",
+		"developer_comment": "Help context description on an input where the user selects the number of articles to display in their newsletter"
+	},
 	"newsletterNumberOfArticles.label": {
-		"string": "Број на статии",
+		"string": "Број на написи",
 		"developer_comment": "Label on an input where the user selects the number of articles to display in their newsletter"
 	},
 	"newsletterRssFeed.error": {
-		"string": "Оваа URL не е важечка URL на RSS.",
+		"string": "Оваа URL-адреса не е важечка URL-адреса на RSS.",
 		"developer_comment": "Error message displayed under RSS feed URL field."
 	},
 	"newsletterRssFeed.learnMore": {
@@ -2961,7 +3548,7 @@
 		"developer_comment": "Label for a button to load RSS feed entries"
 	},
 	"newsletterRssFeed.noArticle": {
-		"string": "Ниедна статија не беше преземена од RSS",
+		"string": "Ниеден напис не беше преземен од RSS",
 		"developer_comment": "Message displayed when RSS feed has less entries than requested"
 	},
 	"newsletterRssFeed.urlPlaceholder": {
@@ -3109,8 +3696,16 @@
 		"developer_comment": "Error message when the supplied password and confirmation of password are not the same"
 	},
 	"passwordReset.confirmedText": {
-		"string": "Ако оваа адреса на е-пошта постои, ќе добиете е-порака од {adminEmail} со упатства за да ја ресетирате Вашата лозинка. Проверете дали завршила во Вашето сандаче за непосакувана пошта. Ако не ги добивате нашите е-пораки за ресетирање лозинки, стапете во контакт со {supportEmail}.",
+		"string": "Ако оваа адреса на е-пошта постои, ќе добиете е-пошта од <a href=\"mailto:{adminEmail}\">{adminEmail}</a> со упатства за да ја ресетирате Вашата лозинката.",
 		"developer_comment": "Confirmation text to tell the user what will happen if their password request request was valid"
+	},
+	"passwordReset.confirmedTextExtra": {
+		"string": "Ако не ги добивате нашите е-пораки за ресетирање на лозинката,  стапете во контакт со <a href=\"mailto:{supportEmail}\">{supportEmail}</a>.",
+		"developer_comment": "Confirmation text to tell the user how to contact support if they do not receive a password reset email"
+	},
+	"passwordReset.confirmedTextSpam": {
+		"string": "Проверете дали завршила во Вашето сандаче за непосакувана пошта.",
+		"developer_comment": "Confirmation text to tell the user that password resets may end up in spam folders"
 	},
 	"passwordReset.email": {
 		"string": "Е-пошта",
@@ -3126,7 +3721,7 @@
 	},
 	"passwordReset.text": {
 		"string": "Додајте ја Вашата адреса и ќе Ви биде испратена е-порака со дополнителни упатства.",
-		"developer_comment": "Helper text about why the user should enter their email adddress"
+		"developer_comment": "Helper text about why the user should enter their email address"
 	},
 	"passwordReset.title": {
 		"string": "Ресетирајте ја лозинката",
@@ -3137,7 +3732,7 @@
 		"developer_comment": "Link text to go to the app privacy policy document"
 	},
 	"project.deleteMessage": {
-		"string": "{mediasCount, plural, one {Има 1 ставка во {folderTitle}. Изберете папка на дестинација:} other {Има # ставки во {folderTitle}. Изберете папка на дестинација:}}"
+		"string": "{mediasCount, plural, one {Има 1 статија во {folderTitle}. Изберете папка на дестинација:} other {Има # статии во {folderTitle}. Изберете папка на дестинација:}}"
 	},
 	"project.name": {
 		"string": "папка"
@@ -3176,7 +3771,7 @@
 		"string": "уште +{count} "
 	},
 	"projectBlankState.blank": {
-		"string": "Овде нема ставки.",
+		"string": "Овде нема статии.",
 		"developer_comment": "Empty message that is displayed when search results are zero"
 	},
 	"projectGroup.deleteMessage": {
@@ -3196,7 +3791,7 @@
 		"developer_comment": "Title label for the Spam page"
 	},
 	"projectHeader.allItems": {
-		"string": "Сите ставки",
+		"string": "Сите статии",
 		"developer_comment": "Title label for the All items page"
 	},
 	"projectHeader.feed": {
@@ -3276,6 +3871,10 @@
 		"string": "Креирајте список",
 		"developer_comment": "Label for a button to create a new list displayed on the left sidebar."
 	},
+	"projectsComponent.deleteTitleType": {
+		"string": "Дали сакате да го избришете списокот?",
+		"developer_comment": "'Delete' here is an infinitive verb"
+	},
 	"projectsComponent.deleteType": {
 		"string": "Избришете го списокот",
 		"developer_comment": "'Delete' here is an infinitive verb"
@@ -3316,6 +3915,14 @@
 		"string": "Нема споделени резимеа на содржини",
 		"developer_comment": "Displayed under the shared feed header when there are no feeds in it"
 	},
+	"projectsComponent.pendingInvitationFeedTitle": {
+		"string": "Се чека покана: {feedTitle}",
+		"developer_comment": "Tooltip for a navigation item that has a status of a pending invitation"
+	},
+	"projectsComponent.placeholder": {
+		"string": "Внесете кратко име што лесно се помни за овој прилагоден список",
+		"developer_comment": "Placeholder for creating a new custom list"
+	},
 	"projectsComponent.published": {
 		"string": "Објавено",
 		"developer_comment": "Label for a list displayed on the left sidebar that includes items that have published reports"
@@ -3324,8 +3931,12 @@
 		"string": "Сменете го името на списокот",
 		"developer_comment": "'Rename' here is an infinitive verb"
 	},
+	"projectsComponent.sharedFeedNavHeader": {
+		"string": "Споделени резимеа на содржини <sup>BETA</sup>",
+		"developer_comment": "The navigation name of the shared feeds section with included Beta messaging"
+	},
 	"projectsComponent.sharedFeeds": {
-		"string": "Споделени резимеа на содржини",
+		"string": "Соработка [{feedsLength}]",
 		"developer_comment": "Feeds of content shared across workspaces"
 	},
 	"projectsComponent.spam": {
@@ -3339,6 +3950,10 @@
 	"projectsComponent.tiplineInbox": {
 		"string": "Сандаче",
 		"developer_comment": "Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted"
+	},
+	"projectsComponent.tiplineNavHeader": {
+		"string": "Линија за дојава",
+		"developer_comment": "The navigation name of the tipline section"
 	},
 	"projectsComponent.title": {
 		"string": "Наслов",
@@ -3356,16 +3971,32 @@
 		"string": "Објавено",
 		"developer_comment": "Title of the Published list page"
 	},
+	"quickFilterMenu.filters": {
+		"string": "Филтри",
+		"developer_comment": "Label for button that opens a menu with options for filtering a search"
+	},
+	"quickFilterMenu.header": {
+		"string": "Брз пристап до филтери",
+		"developer_comment": "Header for a menu containing shortcuts to various search filters"
+	},
+	"quickFilterMenu.myWorkspace": {
+		"string": "Проверки на факти достапни <strong>само</strong> во мојот работен простор",
+		"developer_comment": "Label for a menu item that filters a search of fact-checks so that the user only sees those that are in their workspace"
+	},
+	"quickFilterMenu.otherWorkspaces": {
+		"string": "Проверки на факти што ги <strong>нема</strong> во мојот работен простор",
+		"developer_comment": "Label for a menu item that filters a search of fact-checks so that the user only sees those that are *not* in their workspace"
+	},
 	"refreshButton.success": {
 		"string": "Медиумите успешно беа освежени",
 		"developer_comment": "Notification displayed when refresh action (re-parsing) of media is completed"
 	},
 	"reorder.moveDown": {
-		"string": "Преместете ја ставката подолу",
+		"string": "Преместете ја статијата подолу",
 		"developer_comment": "Tooltip for control that moves an item lower in a list"
 	},
 	"reorder.moveUp": {
-		"string": "Преместете ја ставката погоре",
+		"string": "Преместете ја статијата погоре",
 		"developer_comment": "Tooltip for control that moves an item higher up in a list"
 	},
 	"reportDesigner.addIntro": {
@@ -3376,9 +4007,17 @@
 		"string": "Додајте содржина во текстуалната порака",
 		"developer_comment": "Help text to tell the user to add content to the text message"
 	},
+	"reportDesigner.alertContent": {
+		"string": "За да воведувате измени, паузирајте го овој извештај. Тоа ќе го запре испраќањето на извештајот до корисниците додека не се објави повторно.",
+		"developer_comment": "Content of a page level alert telling the user the report is currently in the published state and they need to change the state to pause in order to edit"
+	},
+	"reportDesigner.alertTitle": {
+		"string": "Извештајот е објавен",
+		"developer_comment": "Title of a page level alert telling the user the report is currently in the published state"
+	},
 	"reportDesigner.back": {
-		"string": "Вратете се на забелешки",
-		"developer_comment": "Button label to navigate back to annotation mode"
+		"string": "Назад",
+		"developer_comment": "Button label to navigate back to item page"
 	},
 	"reportDesigner.cancelPause": {
 		"string": "Вратете се назад",
@@ -3421,11 +4060,11 @@
 		"developer_comment": "Publish report action button label"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {Овој извештај ќе се прати на корисникот што ја побара оваа ставка.} other {Овој извештај ќе се прати на # корисници што ја побараа оваа ставка.}}",
+		"string": "{demand, plural, one {Овој извештај ќе се прати на корисникот што ја побара оваа статија.} other {Овој извештај ќе се прати на # корисници што ја побараа оваа статија.}}",
 		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPublishText2": {
-		"string": "Идни корисници што ќе ја бараат оваа ставка ќе ја добијат објавената верзија од извештајот.",
+		"string": "Идни корисници што ќе ја бараат оваа статија ќе ја добијат објавената верзија од извештајот.",
 		"developer_comment": "Helper message to publishing report action"
 	},
 	"reportDesigner.confirmPublishTitle": {
@@ -3459,13 +4098,17 @@
 		"string": "поправка",
 		"developer_comment": "This term describes a Report correction. It is used in a sentence like: 'the report will be sent as a correction'. It is detached from the main sentence as it is used inside a hyperlink"
 	},
-	"reportDesigner.darkOverlay": {
-		"string": "Темен слој на преклопување",
-		"developer_comment": "Check box label to indicate to user the dark overlay or not"
+	"reportDesigner.darkTheme": {
+		"string": "Темен",
+		"developer_comment": "Label used for button toggling on the light themed report"
 	},
 	"reportDesigner.datePublished": {
 		"string": "Датум на објавување",
 		"developer_comment": "Text field label for the date the report was published"
+	},
+	"reportDesigner.datePublishedPlaceholder": {
+		"string": "Додајте го датумот на објавување на извештајот",
+		"developer_comment": "Placeholder for report date published field"
 	},
 	"reportDesigner.description": {
 		"string": "Резиме",
@@ -3487,25 +4130,45 @@
 		"string": "Наслов",
 		"developer_comment": "Text field label for the report headline title input"
 	},
+	"reportDesigner.headlinePlaceholder": {
+		"string": "Додајте наслов на овој извештај",
+		"developer_comment": "Placeholder for report title field"
+	},
 	"reportDesigner.incorrectWarning": {
 		"string": "Дали ова предупредување за содржините не одговара?",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.introduction": {
-		"string": "Вовед",
-		"developer_comment": "Section title for the report introduction"
+		"string": "Прикажете го воведот на извештајот",
+		"developer_comment": "Switch title to toggle on or off the report introduction"
 	},
 	"reportDesigner.introductionInput": {
 		"string": "Вовед",
 		"developer_comment": "Text field label for the introduction input"
 	},
+	"reportDesigner.introductionPlaceholder": {
+		"string": "Додајте вовед на овој извештај",
+		"developer_comment": "Placeholder for report introduction field"
+	},
 	"reportDesigner.introductionSub": {
-		"string": "Користете ја картичката за означување место{query_date} за да го прикажите датумот на изворното барање. Користете го {status} за да го споделите статусот на статијата.",
+		"string": "Користете ја картичката за означување место{query_date} за да го прикажете датумот на изворното барање. Користете го {status} за да го споделите статусот на написот.",
 		"developer_comment": "Help text on how to use the query date and status fields"
+	},
+	"reportDesigner.introductionTitle": {
+		"string": "Вовед",
+		"developer_comment": "Section title for the report introduction"
+	},
+	"reportDesigner.languageTitle": {
+		"string": "Јазик на извештајот",
+		"developer_comment": "Section title for the report language"
 	},
 	"reportDesigner.lastPublished": {
 		"string": "Последно објавен на",
 		"developer_comment": "Header for last publication date of report"
+	},
+	"reportDesigner.lightTheme": {
+		"string": "Светол",
+		"developer_comment": "Label used for button toggling on the light themed report"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "Почнете со изработка на Вашиот извештај за да разгледате што ќе видат Вашите корисници кога ќе го добијат.",
@@ -3514,6 +4177,10 @@
 	"reportDesigner.pause": {
 		"string": "Паузирајте",
 		"developer_comment": "Pause report publication action button label"
+	},
+	"reportDesigner.previewTitle": {
+		"string": "Прегледајте го Вашиот извештај",
+		"developer_comment": "Section title for the visual preview of the report being created"
 	},
 	"reportDesigner.publish": {
 		"string": "Објавете",
@@ -3536,8 +4203,12 @@
 		"developer_comment": "Helper message to publishing report correction action"
 	},
 	"reportDesigner.republishAndResendSingleLanguage": {
-		"string": "Исто така, испратете го овој ажуриран извештај само на корисници што ја побарале оваа ставка на {reportLanguage}.",
+		"string": "Исто така, испратете го овој ажуриран извештај само на корисници што ја побарале оваа статија на {reportLanguage}.",
 		"developer_comment": "Helper message to publishing report action"
+	},
+	"reportDesigner.selectLanguageLabel": {
+		"string": "Јазик",
+		"developer_comment": "Label for input to select language"
 	},
 	"reportDesigner.sentCount": {
 		"string": "Испратени извештаи",
@@ -3547,17 +4218,37 @@
 		"string": "Ознака на статусот",
 		"developer_comment": "Text field label for the status of the report"
 	},
+	"reportDesigner.summaryPlaceholder": {
+		"string": "Понудете краток контекст за извештајот",
+		"developer_comment": "Placeholder instructions for report summary field"
+	},
 	"reportDesigner.text": {
 		"string": "Текст",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
+	},
+	"reportDesigner.textStatusPlaceholder": {
+		"string": "Додајте статус за овој извештај",
+		"developer_comment": "Placeholder for report status field"
 	},
 	"reportDesigner.textTitle": {
 		"string": "Наслов",
 		"developer_comment": "Text field label for the report text title input"
 	},
+	"reportDesigner.textTitlePlaceholder": {
+		"string": "Додајте наслов на овој извештај",
+		"developer_comment": "Placeholder for report title field"
+	},
+	"reportDesigner.textURLPlaceholder": {
+		"string": "Додајте URL-адреса на овој извештај",
+		"developer_comment": "Placeholder for report url field"
+	},
 	"reportDesigner.textUrl": {
-		"string": "URL на статијата",
+		"string": "URL-адреса на написот",
 		"developer_comment": "Text report field"
+	},
+	"reportDesigner.theme": {
+		"string": "Режим",
+		"developer_comment": "Label used for choice on theme of report light versus dark"
 	},
 	"reportDesigner.title": {
 		"string": "Осмислете го Вашиот извештај",
@@ -3568,7 +4259,7 @@
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.url": {
-		"string": "URL на веб-локацијата",
+		"string": "URL-адреса на веб-локацијата",
 		"developer_comment": "Text field label for the URL of the report website"
 	},
 	"reportDesigner.useDefaultImage": {
@@ -3579,11 +4270,19 @@
 		"string": "Визуелен",
 		"developer_comment": "Label used for radio button that toggles the report mode to visual"
 	},
+	"reportDesigner.visualSummaryPlaceholder": {
+		"string": "Понудете краток контекст за извештајот",
+		"developer_comment": "Placeholder instructions for visual report summary field"
+	},
+	"reportDesigner.visualURLPlaceholder": {
+		"string": "Додајте URL-адреса на овој извештај",
+		"developer_comment": "Placeholder for visual report url field"
+	},
 	"reportDesigner.warning": {
 		"string": "Предупредување — ако го споделите ова, ќе им откриете информации на луѓе што не припаѓаат на Вашиот приватен работен простор. Претпазливо продолжете."
 	},
 	"reportDesignerToolbar.cantPublishContentFlag": {
-		"string": "На Вашата ставка сѐ уште стои визуелна картичка со предупредување за содржина. Прикачете друга слика или отштиклирајте ја опцијата за визуелни картички.",
+		"string": "На Вашата статија сѐ уште стои визуелна картичка со предупредување за содржина. Прикачете друга слика или отштиклирајте ја опцијата за визуелни картички.",
 		"developer_comment": "Report designer helper message"
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
@@ -3614,6 +4313,30 @@
 		"string": "Необјавен",
 		"developer_comment": "Table cell title for report status of unpublished"
 	},
+	"requestReceipt.factCheckDelivered": {
+		"string": "Проверката на факти е доставена на {date}",
+		"developer_comment": "Message displayed when user request has a fact-check delivered"
+	},
+	"requestReceipt.factCheckSent": {
+		"string": "Проверката на факти е испратена на {date}",
+		"developer_comment": "Message displayed when user request has a fact-check sent"
+	},
+	"requestReceipt.noFeedback": {
+		"string": "Резултат од пребарувањето – нема повратни информации",
+		"developer_comment": "Message displayed when user has given no feedback over the fact-check sent for this request"
+	},
+	"requestReceipt.positiveFeedback": {
+		"string": "Резултат од пребарувањето – позитивни повратни информации",
+		"developer_comment": "Message displayed when user has given a positive feedback over the fact-check sent for this request"
+	},
+	"requestReceipt.updateDelivered": {
+		"string": "Поправката е доставена на {date}",
+		"developer_comment": "Message displayed when user request has a fact-check update delivered"
+	},
+	"requestReceipt.updateSent": {
+		"string": "Поправката е испратена на {date}",
+		"developer_comment": "Message displayed when user request has a fact-check update sent"
+	},
 	"roleSelect.admin": {
 		"string": "Администратор"
 	},
@@ -3622,6 +4345,10 @@
 	},
 	"roleSelect.editor": {
 		"string": "Уредник"
+	},
+	"roleSelect.selectLabel": {
+		"string": "Дозвола за работниот простор",
+		"developer_comment": "Label for select input for user to choose the permissions role for this user"
 	},
 	"rule.copyOf": {
 		"string": "Копија од {ruleName}"
@@ -3651,7 +4378,7 @@
 		"developer_comment": "'or' logical operator choice for a rule step"
 	},
 	"ruleOperatorWrapper.removeTheAbove": {
-		"string": "Избришете ја ставката погоре",
+		"string": "Избришете ја статијата погоре",
 		"developer_comment": "Button to remove a new rule operator"
 	},
 	"ruleToolbar.back": {
@@ -3726,6 +4453,10 @@
 		"string": "Сакате ли да ги избришете избраните правила?",
 		"developer_comment": "Title for the confirmation dialog when the user is trying to delete rules"
 	},
+	"rulesTableToolbar.helpContext": {
+		"string": "Автоматски категоризирајте ги статиите со помош на клучен збор. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за таговите</a>.",
+		"developer_comment": "Context description for the functionality of this page"
+	},
 	"rulesTableToolbar.save": {
 		"string": "Зачувајте",
 		"developer_comment": "Button label to save the changes to the current rule"
@@ -3735,8 +4466,12 @@
 		"developer_comment": "When rules are selected to perform bulk actions on, this text tells the user how many have been selected"
 	},
 	"rulesTableToolbar.title": {
-		"string": "Правила",
+		"string": "Правила [{rulesCount}]",
 		"developer_comment": "Title area for the rules admin section of the settings page"
+	},
+	"saveFeed.MoreActionsButton": {
+		"string": "Повеќе дејства",
+		"developer_comment": "Label to the save button of the shared feed update form"
 	},
 	"saveFeed.confirmationDialogBody": {
 		"string": "Сигурни ли сте дека сакате да го ажурирате споделеното резиме на содржини?",
@@ -3745,6 +4480,10 @@
 	"saveFeed.confirmationDialogButton": {
 		"string": "Ажурирајте го споделеното резиме на содржини",
 		"developer_comment": "Button label to confirm updating a feed."
+	},
+	"saveFeed.confirmationDialogButtonCreate": {
+		"string": "Креирајте споделено резиме на содржини",
+		"developer_comment": "Button label to confirm creating a feed."
 	},
 	"saveFeed.confirmationDialogTitle": {
 		"string": "Сигурни ли сте дека сакате да го ажурирате споделеното резиме на содржини?",
@@ -3758,6 +4497,34 @@
 		"string": "Креирано од страна на {teamName}",
 		"developer_comment": "Metadata field displayed on feed edit page."
 	},
+	"saveFeed.deleteCustomListWarning": {
+		"string": "<strong>Ако го избришете овој список, нема да постојат содржини во следното споделено резиме(а) на содржини:</strong>",
+		"developer_comment": "Warning displayed on edit feed page when no list is selected."
+	},
+	"saveFeed.deleteSharedFeedConfirmationButton": {
+		"string": "Избришете го споделеното резиме на содржини",
+		"developer_comment": "'Delete' here is an infinitive verb"
+	},
+	"saveFeed.deleteSharedFeedConfirmationDialogBody": {
+		"string": "Ова споделено резиме на содржини е достапно за сите корисници на <strong>{orgName}</strong>. Откако ќе го избришете, ниеден корисник нема да има пристап.<br /><br />Напомена: Ако го избришете ова споделено резиме на содржини, нема да се избрише ниту една статија или список од Вашиот работен простор.",
+		"developer_comment": "Confirmation dialog message when deleting a feed."
+	},
+	"saveFeed.deleteSharedFeedConfirmationDialogWaningBody": {
+		"string": "Ова споделено резиме на содржини е достапно за сите корисници на <strong>{orgName}</strong>. Откако ќе го избришете, ниеден корисник нема да има пристап.<br /><br />",
+		"developer_comment": "Confirmation dialog message when deleting a feed."
+	},
+	"saveFeed.deleteSharedFeedTitle": {
+		"string": "Дали сакате да го избришете споделеното резиме на содржини?",
+		"developer_comment": "'Delete' here is an infinitive verb"
+	},
+	"saveFeed.deleteSharedFeedWarning": {
+		"string": "<strong>НАПОМЕНА: Вашите приспособени список и статии ќе останат достапни и ова дејство нема да влијае врз нив.</strong>",
+		"developer_comment": "Warning displayed on edit feed page when no list is selected."
+	},
+	"saveFeed.deleteSharedFeedWarningTitle": {
+		"string": "Сигурни ли сте дека сакате да го избришете ова споделено резиме на содржини?",
+		"developer_comment": "'Delete' here is an infinitive verb"
+	},
 	"saveFeed.descriptionLabel": {
 		"string": "Опис",
 		"developer_comment": "Label for a field where the user inputs text for a description to a shared feed"
@@ -3765,6 +4532,10 @@
 	"saveFeed.descriptionPlaceholder": {
 		"string": "Додајте дополнителен опис за ова споделено резиме на содржини",
 		"developer_comment": "Placeholder text for feed description field"
+	},
+	"saveFeed.feedCollaboratorWarning": {
+		"string": "За да побарате да се промени ова споделено резиме на содржини, обратете се кај организацијата којашто го креираше: {organizer}</strong>",
+		"developer_comment": "Warning displayed on edit feed page when logged in as a collaborating org."
 	},
 	"saveFeed.feedContentBlurb": {
 		"string": "Изберете филтриран список од проверки на факти од Вашиот работен простор за да придонесете за ова споделено резиме на содржини. Ќе можете да го ажурирате овој список во секое време.",
@@ -3774,6 +4545,22 @@
 		"string": "<strong>Напомена:</strong> Вашиот список мора да содржи <strong>објавени проверки на факти</strong> за да биде дел од ова споделено резиме на содржини.",
 		"developer_comment": "Helper text for the feed content section"
 	},
+	"saveFeed.feedContentBlurbFactChecksAndMedia": {
+		"string": "Изберете прилагоден филтриран список со <strong>објавени проверки на факти или медиум, тврдење и барања</strong> од Вашиот работен простор за да придонесете за ова споделено резиме на содржини. Ќе можете да го ажурирате овој список во секое време.",
+		"developer_comment": "Helper text for the feed content section when the feed is sharing fact-checks and media."
+	},
+	"saveFeed.feedContentBlurbFactChecksOnly": {
+		"string": "Изберете прилагоден филтриран список со <strong>објавени проверки на факти</strong> од Вашиот работен простор за да придонесете за ова споделено резиме на содржини. Ќе можете да го ажурирате овој список во секое време.",
+		"developer_comment": "Helper text for the feed content section when the feed is sharing only fact-checks."
+	},
+	"saveFeed.feedContentBlurbMediaOnly": {
+		"string": "Изберете прилагоден филтриран список со <strong>медиум, тврдење и барања</strong> од Вашиот работен простор за да придонесете а ова споделено резиме на содржини. Ќе можете да го ажурирате овој список во секое време.",
+		"developer_comment": "Helper text for the feed content section when the feed is sharing only media."
+	},
+	"saveFeed.feedContentSelectLabel": {
+		"string": "Приспособен список",
+		"developer_comment": "Helper text for the feed content list select drop-down."
+	},
 	"saveFeed.feedContentTitle": {
 		"string": "Содржини од резимето на содржини",
 		"developer_comment": "Title of section where a list can be selected as the content of the feed"
@@ -3782,9 +4569,17 @@
 		"string": "Детали од резимето на содржини",
 		"developer_comment": "Title of section where the details of the feed are filled. e.g.: title, description"
 	},
+	"saveFeed.invitationConfirmationDialogBody": {
+		"string": "До соработниците ќе биде испатена е-пошта со покана да придонесат за ова споделено резиме на содржини.",
+		"developer_comment": "Confirmation dialog message when saving a feed."
+	},
+	"saveFeed.invitationConfirmationDialogTitle": {
+		"string": "Покани за соработка",
+		"developer_comment": "Confirmation dialog title for feed collaboration invitations."
+	},
 	"saveFeed.lastUpdated": {
-		"string": "Последно ажурирано {timeAgo}",
-		"developer_comment": "On feed edit page, show the last time the feed was changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
+		"string": "Поставките се последно ажурирани пред {timeAgo}",
+		"developer_comment": "On feed edit page, show the last time the feed settings were changed. The placeholder 'timeAgo' is something like '10 minutes ago'."
 	},
 	"saveFeed.learnMore": {
 		"string": "Дознајте повеќе.",
@@ -3793,6 +4588,18 @@
 	"saveFeed.learnMoreLicenses": {
 		"string": "Дознајте повеќе за лиценците.",
 		"developer_comment": "Link to an external page with more information about the data licenses"
+	},
+	"saveFeed.leaveFeedConfirmationBod": {
+		"string": "Сигурни ли сте? Секоја содржина што во моментов ја споделувате со ова резиме на содржини веќе нема да биде достапна за организациите што соработуваат.<br /><br />Ќе треба да стапите во контакт со <strong>{orgName}</strong> за повторно да се приклучите.",
+		"developer_comment": "Confirmation dialog message when leaving a feed.."
+	},
+	"saveFeed.leaveFeedConfirmationButton": {
+		"string": "Излезете од резимето на содржини",
+		"developer_comment": "'Leave' here is an infinitive verb"
+	},
+	"saveFeed.leaveFeedWarningTitle": {
+		"string": "Дали сакате да излезете од споделеното резиме на содржини?",
+		"developer_comment": "'Leave' here is an infinitive verb"
 	},
 	"saveFeed.licenseAcademic": {
 		"string": "Академска",
@@ -3835,12 +4642,20 @@
 		"developer_comment": "Title of the section where the publishing preferences are set"
 	},
 	"saveFeed.selectHelper": {
-		"string": "Насловот, резимето и URL на проверката на факти ќе се сподели со ова резиме на содржини.",
+		"string": "Насловот, резимето и URL-адресата на проверката на факти ќе се сподели со ова резиме на содржини.",
 		"developer_comment": "Helper text for shared feed list selector"
 	},
 	"saveFeed.selectLicense": {
 		"string": "Изберете лиценца за да го креирате и објавите ова споделено резиме на содржини.",
 		"developer_comment": "Error message that appears when a user has tried to submit a form without a legal (copyright) license chosen for their data."
+	},
+	"saveFeed.sharedFeedPageEditCollabSubtitle": {
+		"string": "Соработувајте со организациите што се Ваши истомисленици",
+		"developer_comment": "Subtitle of the shared feed editing page"
+	},
+	"saveFeed.sharedFeedPageEditSubtitle": {
+		"string": "Изменете го споделеното резиме на содржини",
+		"developer_comment": "Subtitle of the shared feed editing page"
 	},
 	"saveFeed.sharedFeedPageSubtitle": {
 		"string": "Креирајте ново споделено резиме на содржини",
@@ -3878,6 +4693,10 @@
 		"string": "Креирајте нов список",
 		"developer_comment": "'Create' here is an infinitive verb"
 	},
+	"saveList.createList": {
+		"string": "Креирајте список",
+		"developer_comment": "Dialog submit button label for saving filters as new lists"
+	},
 	"saveList.defaultErrorMessage": {
 		"string": "Не беше возможно да се зачуваат филтрите, обидете се повторно",
 		"developer_comment": "Error message displayed when it's not possible to save a list"
@@ -3887,8 +4706,8 @@
 		"developer_comment": "Dialog title and submit button label for saving changes to lists"
 	},
 	"saveList.saveAsNewList": {
-		"string": "Зачувајте како нов список",
-		"developer_comment": "Dialog title and submit button label for saving filters as new lists"
+		"string": "Креирајте нов список",
+		"developer_comment": "Dialog title for saving filters as new lists"
 	},
 	"saveList.saveFeed": {
 		"string": "Зачувајте и споделете",
@@ -3907,7 +4726,7 @@
 		"developer_comment": "Prompt for editing list name"
 	},
 	"saveList.update": {
-		"string": "Зачувајте ги промените на списокот „{listName}\"",
+		"string": "Зачувајте ги промените во списокот \"<strong>{listName}</strong>\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"saveList.warningAlert": {
@@ -3922,8 +4741,12 @@
 		"string": "Име",
 		"developer_comment": "Text field label for the input name of tag"
 	},
+	"saveTag.namePlaceholder": {
+		"string": "Ново име на таг",
+		"developer_comment": "Text field placeholder for the input name of tag"
+	},
 	"saveTag.rule": {
-		"string": "Автоматски ставете им таг на ставките што ги исполнуваат следниве услови:",
+		"string": "Автоматски ставете им таг на статиите што ги исполнуваат следниве услови:",
 		"developer_comment": "Help text about automatically matching tags to a rule"
 	},
 	"saveTag.save": {
@@ -3943,7 +4766,11 @@
 		"developer_comment": "Dialog title when editing a tag"
 	},
 	"savedSearch.deleteMessage": {
-		"string": "Сигурни ли сте? Овој список се споделува со сите корисници на {teamName}. Откако ќе го избришете, ниеден корисник нема да има пристап.",
+		"string": "Сигурни ли сте? Споделено е со сите корисници на <strong>{teamName}</strong>. Откако ќе го избришете, ниеден корисник нема да има пристап.",
+		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
+	},
+	"savedSearch.deleteMessageWarning": {
+		"string": "Сигурни ли сте? Споделено е со сите корисници на <strong>{teamName}</strong>. Откако ќе го избришете, ниеден корисник нема да има пристап <br /><br />",
 		"developer_comment": "A message that appears when a user tries to delete a list, warning them that it will affect other users in their workspace."
 	},
 	"savedSearch.subtitle": {
@@ -3955,7 +4782,7 @@
 		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
-		"string": "Сите ставки",
+		"string": "Сите статии",
 		"developer_comment": "Page title for listing all items in check"
 	},
 	"search.and": {
@@ -4047,7 +4874,7 @@
 		"developer_comment": "This is a header in a drop down selector, to filter a search by the submission date"
 	},
 	"search.dateUpdatedHeading": {
-		"string": "Ставката е ажурирана",
+		"string": "Статијата е ажурирана",
 		"developer_comment": "This is a heading in a drop down selector, to filter a search by date updated"
 	},
 	"search.empty": {
@@ -4151,7 +4978,7 @@
 		"developer_comment": "Prefix label for field to filter by published by"
 	},
 	"search.read": {
-		"string": "Ставката е",
+		"string": "Статијата е",
 		"developer_comment": "Prefix label for field to filter by media read"
 	},
 	"search.relativeDays": {
@@ -4239,7 +5066,7 @@
 		"developer_comment": "Allow user to filter by social media links"
 	},
 	"search.spam": {
-		"string": "Ставката е обележана како „непосакувано\"",
+		"string": "Статијата е обележана како „непосакувано\"",
 		"developer_comment": "Label for spam filter field"
 	},
 	"search.statusHeading": {
@@ -4259,12 +5086,12 @@
 		"developer_comment": "Allow user to filter items by tiktok posts"
 	},
 	"search.trash": {
-		"string": "Ставката е во кантата за отпад",
+		"string": "Статијата е во кантата за отпад",
 		"developer_comment": "Label for spam filter field"
 	},
 	"search.twitter": {
-		"string": "Објава на Твитер",
-		"developer_comment": "Allow user to filter items by twitter posts"
+		"string": "Објава на X (Твитер)",
+		"developer_comment": "Allow user to filter items by x (twitter) posts"
 	},
 	"search.unconfirmed": {
 		"string": "Непотврдени",
@@ -4347,7 +5174,7 @@
 		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-check titles"
 	},
 	"searchKeywordConfig.factCheckUrl": {
-		"string": "URL адреси",
+		"string": "URL-адреси",
 		"developer_comment": "Label for checkbox to toggle searching for keyword across Fact-checks urls"
 	},
 	"searchKeywordConfig.media": {
@@ -4363,7 +5190,7 @@
 		"developer_comment": "Label for checkbox to toggle searching for keyword across media titles"
 	},
 	"searchKeywordConfig.mediaUrl": {
-		"string": "URL адреса",
+		"string": "URL-адреса",
 		"developer_comment": "Label for checkbox to toggle searching for keyword across media URLs"
 	},
 	"searchKeywordConfig.request": {
@@ -4389,6 +5216,38 @@
 	"searchResults.itemsCount": {
 		"string": "{totalCount, plural, one {1 / 1} other {{from} - {to} / #}}",
 		"developer_comment": "Pagination count of items returned"
+	},
+	"searchResults.sortDateUpdated": {
+		"string": "Датумот беше ажуриран",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"searchResults.sortFactChecksCount": {
+		"string": "Проверки на факти (број)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the feed page."
+	},
+	"searchResults.sortLastRequestDate": {
+		"string": "Датумот беше ажуриран",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the feed page."
+	},
+	"searchResults.sortMediaCount": {
+		"string": "Медиуми (број)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the feed page."
+	},
+	"searchResults.sortRating": {
+		"string": "Рејтинг",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"searchResults.sortRequestsCount": {
+		"string": "Барања (број)",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the feed page."
+	},
+	"searchResults.sortTitle": {
+		"string": "Наслов",
+		"developer_comment": "Label for sort criteria option displayed in a drop-down in the fact-checks page."
+	},
+	"searchResults.tooManyResults": {
+		"string": "Прегледувањето на овој список е ограничено на првите {max, number} резултати. Користете ги филтрите погоре за да го уредите овој список.",
+		"developer_comment": "An alert message that informs the user that their query is too large and need to narrow their filters if they want to continue search for items."
 	},
 	"searchResults.withSelection": {
 		"string": "{selectedCount, plural, one {(# избрана)} other {(# избрани)}}",
@@ -4418,6 +5277,10 @@
 		"string": "Порака",
 		"developer_comment": "Message input label"
 	},
+	"sendTiplineMessage.placeholder": {
+		"string": "Напишете порака до {username} на {channel}",
+		"developer_comment": "Placeholder for message authoring field"
+	},
 	"sendTiplineMessage.send": {
 		"string": "Пратете",
 		"developer_comment": "Label for button that commits action of sending a message to a tipline user"
@@ -4429,6 +5292,10 @@
 	"sendTiplineMessage.title": {
 		"string": "Пратете порака на {username} на {channel}",
 		"developer_comment": "Title for messaging popup"
+	},
+	"sendTiplineMessage.tooltip": {
+		"string": "Пратете порака на {username} на {channel}",
+		"developer_comment": "Tooltip for messaging popup"
 	},
 	"sensitiveContentMenuButton.adult": {
 		"string": "За возрасни (голотија, порнографија)",
@@ -4465,11 +5332,11 @@
 		"developer_comment": "Confirm message to relate media to an existing source"
 	},
 	"setSourceDialog.existDescription": {
-		"string": "Изворот <b>{name}</b> веќе постои.",
+		"string": "Изворот <strong>{name}</strong> веќе постои.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existDescriptionWithUrl": {
-		"string": "Изворот <b>{name}</b> со примарната URL <b>{url}</b> веќе постои.",
+		"string": "Веќе постои изворот <strong>{name}</strong> со примарната URL-адреса <strong>{url}</strong>.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existingSource": {
@@ -4477,7 +5344,7 @@
 		"developer_comment": "Dialog title for existing source with same name"
 	},
 	"setSourceDialog.existingSourceWithUrl": {
-		"string": "URL на постоен извор",
+		"string": "URL-адреса на постоен извор",
 		"developer_comment": "Dialog title for existing source with same primary url"
 	},
 	"setSourceDialog.useExistingSource": {
@@ -4491,6 +5358,38 @@
 	"sharedFeedIcon.Tooltip": {
 		"string": "Дел од споделеното резиме на содржини:",
 		"developer_comment": "Tooltip for shared feeds icon"
+	},
+	"sharedFeeds": {
+		"string": "Споделени резимеа на содржини <sup>BETA</sup>",
+		"developer_comment": "Title for the shared feeds page"
+	},
+	"sharedItemCard.factCheckCount": {
+		"string": "{count, plural, one {# Проверки на факти} other {# Проверки на факти}}",
+		"developer_comment": "A label showing the number of fact-checks represented in an item."
+	},
+	"sharedItemCard.lastUpdated": {
+		"string": "Последно ажурирање",
+		"developer_comment": "This appears as a label before a date with a colon between them, like 'Last Updated: May 5, 2023'."
+	},
+	"sharedItemCard.medias": {
+		"string": "Медиуми",
+		"developer_comment": "This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item ."
+	},
+	"sharedItemCardFooter.lastRequested": {
+		"string": "Последно барање",
+		"developer_comment": "This appears as a label before a date with a colon between them, like 'Last Requested: May 5, 2023'."
+	},
+	"sharedItemCardFooter.medias": {
+		"string": "Медиум",
+		"developer_comment": "This appears as a label next to a number, like '1,234 Medias'. It should indicate to the user that whatever number they are viewing represents the number of medias attached to an item."
+	},
+	"sharedItemCardFooter.more": {
+		"string": "повеќе",
+		"developer_comment": "Label of the a button that opens more details about a feed item"
+	},
+	"sharedItemCardFooter.requests": {
+		"string": "{requestsCount, plural, one {Барања} other {Барања}}",
+		"developer_comment": "This appears as a label next to a number, like '1,234 Requests'. It should indicate to the user that whatever number they are viewing represents the number of requests an item has gotten."
 	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Одговорете на задачата"
@@ -4548,6 +5447,10 @@
 	"similarityComponent.singleLanguageFactChecksEnabled": {
 		"string": "Праќајте само проверки на факти на истиот јазик како јазикот на разговор",
 		"developer_comment": "Label displayed when similarity setting for single language fact-checks is enabled"
+	},
+	"similarityComponent.singleLanguageFactChecksHelp": {
+		"string": "Поврзувањето медиуми групира слични статии, дури и ако се напишани на различни јазици. Ако се овозможи, проверки на факти ќе им бидат испратени само на корисниците чиј избран јазик за разговор на линијата за дојава се совпаѓа со јазикот на проверката на факти. Ако е оневозможено, проверки на факти ќе им бидат испратени на сите корисници чиишто медиуми се совпаѓаат со тврдењето, без разлика на нивниот јазик за разговор. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за менијата за линија за дојава</a>.",
+		"developer_comment": "Help text displayed when similarity setting for single language fact-checks is enabled"
 	},
 	"similarityComponent.textLength": {
 		"string": "Минимален број на зборови што е потребен за да има потврдено совпаѓање",
@@ -4651,8 +5554,16 @@
 		"string": "Дојдовен веб-хук на Слек",
 		"developer_comment": "Text field label for the incoming webhook address"
 	},
+	"smallMediaCard.noMediaDescription": {
+		"string": "Повторно вчитајте ја страницата и обидете се повторно. Стапете во контакт со поддршка ако продолжи да се прикажува грешка.",
+		"developer_comment": "Description for an error message that appears when media fails to load."
+	},
+	"smallMediaCard.noMediaTitle": {
+		"string": "Настана грешка при вчитувањето на медиумите за оваа картичка.",
+		"developer_comment": "Title for an error message that appears when media fails to load."
+	},
 	"smoochBot.addResource": {
-		"string": "Додајте ресурс",
+		"string": "Ресурс",
 		"developer_comment": "Button label to add a resource to this bot"
 	},
 	"smoochBot.descriptionGreeting": {
@@ -4783,13 +5694,13 @@
 		"string": "❌За жал, не можеме да прифатиме ваква порака за верификација во моментов.\n\nМожеме да ги прифатиме повеќето слики, видеа, врски, текстуални пораки и споделени пораки на WhatsApp."
 	},
 	"smoochBot.placeholderMainMenu": {
-		"string": "📌*Главно мени*\n\n*Одговорете 1* (или 🔍) за да поднесете барање за проверка на факти за некоја статија, видео, слика или други содржини.\n*Одговорете 2* (или 🦠) за да ги добиете најновите информации за болеста од коронавирусот (КОВИД-19)"
+		"string": "📌*Главно мени*\n\n*Одговорете 1* (или 🔍) за да поднесете барање за проверка на факти во некој напис, видео, слика или други содржини.\n*Одговорете 2* (или 🦠) за да ги добиете најновите информации за болеста од коронавирусот (КОВИД-19)"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖За жал, не ја разбрав Вашата порака. Обидете се повторно!"
 	},
 	"smoochBot.placeholderQueryPrompt": {
-		"string": "*Внесете го прашањето, врската, сликата, видеото или аудиото на коешто сакате да му направите проверка на факти,* како и содржините поврзани со таа ставка. Вашето барање ќе им биде испратено на проверувачи на факти околу 15 секунди по Вашата последна порака.\n\n*Одговорете 0 (или 📌)* за да се откажете и да се вратите на *Главното мени*"
+		"string": "*Внесете го прашањето, врската, сликата, видеото или аудиото на коешто сакате да му направите проверка на факти,* како и содржините поврзани со таа статија. Вашето барање ќе им биде испратено на проверувачи на факти околу 15 секунди по Вашата последна порака.\n\n*Одговорете 0 (или 📌)* за да се откажете и да се вратите на *Главното мени*"
 	},
 	"smoochBot.placeholderQueryReceived": {
 		"string": "Ви благодариме! Вашето барање беше примено. Одговорите се агрегираат и распоредуваат и вршиме проверка на факти во согласност со Вашите прашања.\n\n✔️*Одете на оваа врска каде што има ажуриран список од чести прашања на коишто направивме проверка на факти:* [ Врска до страница со проверки на факти на Вашата веб-локација ]\n\n👉*Одговорете со каков било текст* за да се вратите на *Главното мени* 📌"
@@ -4817,6 +5728,10 @@
 	"smoochBotComponent.contactUs": {
 		"string": "Стапете во контакт со нас за поставување",
 		"developer_comment": "Button label for contacting support for help setting up a tipline in this workspace"
+	},
+	"smoochBotComponent.helpContext": {
+		"string": "Управувајте со менито за линијата за дојава, прилагодете ги нејзините одговори и поврзете ги со услугите за допишување. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе</a>.",
+		"developer_comment": "Context description for the functionality of this page"
 	},
 	"smoochBotComponent.install": {
 		"string": "Инсталирајте",
@@ -4935,7 +5850,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityDefault": {
-		"string": "Нашиот бот моментално е неактивен. Посетете ја *внесете URL* за да ги прочитате најновите проверки на факти.",
+		"string": "Нашиот бот моментално е неактивен. Посетете ја *внесете URL-адреса* за да ги прочитате најновите проверки на факти.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityDescription": {
@@ -5098,6 +6013,10 @@
 		"string": "Влезна точка",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
 	},
+	"smoochBotIntegrations.instagram": {
+		"string": "Поврзан профил: {link}",
+		"developer_comment": "Label for the connected Instagram profile for this bot"
+	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
 		"string": "Токен за пристап до канал на LINE",
 		"developer_comment": "Output of the LINE bot token"
@@ -5107,12 +6026,12 @@
 		"developer_comment": "Output of the LINE channel secret paired with the token"
 	},
 	"smoochBotIntegrations.lineWebhook": {
-		"string": "Копирајте ја оваа веб-хук URL на Вашите поставки за LINE",
+		"string": "Копирајте ја оваа веб-хук URL-адреса на Вашите поставки за LINE",
 		"developer_comment": "Textfield label for the LINE webhook URL"
 	},
 	"smoochBotIntegrations.page": {
 		"string": "Поврзана страница: {link}",
-		"developer_comment": "Label for the connected facebook page for this bot"
+		"developer_comment": "Label for the connected Facebook page for this bot"
 	},
 	"smoochBotIntegrations.phoneNumber": {
 		"string": "Поврзан телефонски број: {link}",
@@ -5139,8 +6058,8 @@
 		"developer_comment": "Title of Settings tab in the tipline settings page"
 	},
 	"smoochBotIntegrations.twitterDisabled": {
-		"string": "Интеграцијата со Твитер во моментов не е возможна по промените на API на Твитер на 21 април, 2023 година.",
-		"developer_comment": "Disclaimer displayed on Twitter tipline settings page."
+		"string": "Во моментов е недостапна интегрција со X, поради промените воведени во API на X на 21 април 2023 година.",
+		"developer_comment": "Disclaimer displayed on X tipline settings page."
 	},
 	"smoochBotIntegrations.viberPublicAccount": {
 		"string": "Поврзана јавна сметка на Вибер: {name}",
@@ -5302,6 +6221,30 @@
 		"string": "Сценарио",
 		"developer_comment": "Button label for the menu editor scenario"
 	},
+	"smoochBotMenuKeyword.create": {
+		"string": "+ Креирајте клучен збор",
+		"developer_comment": "A label for a button that allows people to create a new NLU keyword."
+	},
+	"smoochBotMenuKeywords.errorMessage": {
+		"string": "Неуспешно ажурирање на клучните зборови за NLU",
+		"developer_comment": "Error message displayed when NLU keywords for a given tipline menu item can't be updated. NLU stands for Natural Language Understanding."
+	},
+	"smoochBotMenuKeywords.helperText": {
+		"string": "Клучни зборови и реченици што би требало да се совпаѓаат со оваа статија од менито според NLU. Промените веднаш стануваат применливи.",
+		"developer_comment": "Helper text for tags component on tipline menu option editing screen."
+	},
+	"smoochBotMenuKeywords.helperTextUnsavedChanges": {
+		"string": "Има незачувани промени во поставките за линијата за дојава. „Објавете“ ја линијата за дојава или повторно вчитајте ја страницата и обидете се повторно.",
+		"developer_comment": "Helper text for tags component on tipline menu option editing screen when there are unsaved changes."
+	},
+	"smoochBotMenuKeywords.successMessage": {
+		"string": "Успешно се ажурирани клучните зборови за NLU",
+		"developer_comment": "Success message displayed when NLU keywords for a given tipline menu item are updated successfully. NLU stands for Natural Language Understanding."
+	},
+	"smoochBotMenuKeywords.title": {
+		"string": "Клучни зборови (само супер-администраторот)",
+		"developer_comment": "Label for tags component on tipline menu option editing screen."
+	},
 	"smoochBotMenuOption.action": {
 		"string": "Одговорете со",
 		"developer_comment": "Label for the field describing how the bot should respond"
@@ -5363,7 +6306,7 @@
 		"string": "Билтенот ќе им се испрати на {count} корисници на {dateTime}"
 	},
 	"smoochBotNewsletterEditor.addArticle": {
-		"string": "Додајте статија",
+		"string": "Додајте напис",
 		"developer_comment": "Button label to add a new article URL to the tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.charsCounter": {
@@ -5374,7 +6317,7 @@
 		"string": "Ден во неделата"
 	},
 	"smoochBotNewsletterEditor.error": {
-		"string": "Се чини дека оваа URL не е важечко RSS-резиме на содржини"
+		"string": "Се чини дека оваа URL-адреса не претставува важечко RSS-резиме на содржини"
 	},
 	"smoochBotNewsletterEditor.everyday": {
 		"string": "Ден"
@@ -5412,13 +6355,13 @@
 		"string": "Направете ги чекорите подолу за да Ви испраќаме неделен билтен"
 	},
 	"smoochBotNewsletterEditor.numberOfArticles": {
-		"string": "Број на статии што се враќаат"
+		"string": "Број на написи што се враќаат"
 	},
 	"smoochBotNewsletterEditor.paused": {
 		"string": "За да Ви го испратиме следниот билтен, додајте нови содржини"
 	},
 	"smoochBotNewsletterEditor.rssPlaceholder": {
-		"string": "Јавна URL што враќа N статии во RSS формат"
+		"string": "Јавна URL-адреса што враќа N написи во RSS формат"
 	},
 	"smoochBotNewsletterEditor.saturday": {
 		"string": "сабота"
@@ -5451,7 +6394,7 @@
 		"string": "вторник"
 	},
 	"smoochBotNewsletterEditor.url": {
-		"string": "URL"
+		"string": "URL-адреса"
 	},
 	"smoochBotNewsletterEditor.wednesday": {
 		"string": "среда"
@@ -5489,7 +6432,7 @@
 		"developer_comment": "Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'."
 	},
 	"smoochBotResourceEditor.errorRssFeedUrl": {
-		"string": "URL на RSS-резимето на содржина е неважечко.",
+		"string": "URL-адресата на RSS-резимето на содржини е неважечка.",
 		"developer_comment": "Error message displayed when a user submits a form with a URL that the server does not recognize."
 	},
 	"smoochBotResourceEditor.errorTitle": {
@@ -5571,11 +6514,11 @@
 		"string": "од Ш до А"
 	},
 	"sourceInfo.addLink": {
-		"string": "Додајте второстепена URL",
+		"string": "Додајте второстепена URL-адреса",
 		"developer_comment": "Allow user to relate a new link to media source"
 	},
 	"sourceInfo.addSecondaryLink": {
-		"string": "Додајте второстепена URL",
+		"string": "Додајте второстепена URL-адреса",
 		"developer_comment": "Label for add a new source secondary URL"
 	},
 	"sourceInfo.createNew": {
@@ -5583,40 +6526,52 @@
 		"developer_comment": "Create a new media source label"
 	},
 	"sourceInfo.invalidLink": {
-		"string": "Внесете важечка URL",
+		"string": "Внесете важечка URL-адреса",
 		"developer_comment": "Error message for invalid link"
 	},
 	"sourceInfo.mainAccount": {
-		"string": "URL на главниот извор",
-		"developer_comment": "URL for first account related to media souce"
+		"string": "URL-адреса на главниот извор",
+		"developer_comment": "URL for first account related to media source"
 	},
 	"sourceInfo.mainName": {
 		"string": "Главно име",
 		"developer_comment": "Source name"
 	},
 	"sourceInfo.mediasCount": {
-		"string": "{mediasCount, plural, one {1 ставка} other {# ставки}}",
+		"string": "{mediasCount, plural, one {1 статија} other {# статии}}",
 		"developer_comment": "show source media counts"
 	},
 	"sourceInfo.primaryLink": {
-		"string": "Додајте ја URL на главниот извор",
+		"string": "URL-адреса на главниот извор",
 		"developer_comment": "Allow user to add a main source URL"
+	},
+	"sourceInfo.primaryLinkPlaceholder": {
+		"string": "Додајте главна URL-адреса на овој извор",
+		"developer_comment": "placeholder for create source main url"
 	},
 	"sourceInfo.saved": {
 		"string": "Зачувано {ago}",
-		"developer_comment": "Caption value for how long ago a save occured"
+		"developer_comment": "Caption value for how long ago a save occurred"
 	},
 	"sourceInfo.saving": {
 		"string": "Се зачувува...",
 		"developer_comment": "Progress message about a save in progress"
 	},
 	"sourceInfo.secondaryAccounts": {
-		"string": "URL адреси на второстепен извор",
+		"string": "URL-адреси на второстепен извор",
 		"developer_comment": "URLs for source accounts except first account"
 	},
+	"sourceInfo.secondaryUrl": {
+		"string": "URL-адреса на второстепен извор",
+		"developer_comment": "URL for secondary account related to media source"
+	},
 	"sourceInfo.sourceName": {
-		"string": "Додајте име",
+		"string": "Име на главен извор",
 		"developer_comment": "label for create source name"
+	},
+	"sourceInfo.sourceNamePlaceholder": {
+		"string": "Додајте име на овој извор",
+		"developer_comment": "placeholder for create source name"
 	},
 	"spam.title": {
 		"string": "Непосакувано",
@@ -5675,7 +6630,7 @@
 		"developer_comment": "Menu item choice for making the label the default choice"
 	},
 	"statusListItem.messageTooltip": {
-		"string": "Кога ќе смените некоја ставка на овој статус, корисникот што ја побарал ќе ја добие следнава порака:",
+		"string": "Кога ќе го поставите овој статус за некоја статија, корисникот кој го побарал тоа ќе ја добие следната порака:",
 		"developer_comment": "Tooltip to tell the user when this message will be sent out"
 	},
 	"statusListItem.noDescription": {
@@ -5699,7 +6654,7 @@
 		"developer_comment": "Dialog title warning message that a language cannot be default until all statuses are translated into that language"
 	},
 	"statusesComponent.blurbSecondary": {
-		"string": "Преведете ги статусите на второстепените јазици за да се прикажат на локалните јазици во Вашите извештаи од проверки на факти.",
+		"string": "Преведете ги статусите на второстепените јазици за да им се прикажат на корисниците на линијата за дојава на нивниот јазик на разговор.",
 		"developer_comment": "Message displayed on status translation page."
 	},
 	"statusesComponent.created": {
@@ -5718,8 +6673,12 @@
 		"string": "За жал, настана грешка додека ги ажуриравме статусите. Обидете се повторно и стапете во контакт со {supportEmail} ако проблемот продолжи.",
 		"developer_comment": "Error message displayed when status can't be changed."
 	},
+	"statusesComponent.helpContext": {
+		"string": "Статусите ја претставуваат тековната фаза на уредувањето на тврдењата. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за статусите</a>.",
+		"developer_comment": "Context description for the functionality of this page"
+	},
 	"statusesComponent.moveItemsAndDelete": {
-		"string": "Преместете ги ставките и избришете го статусот",
+		"string": "Преместете ги статиите и избришете го статусот",
 		"developer_comment": "Label of a button that is displayed when a status in use is being deleted."
 	},
 	"statusesComponent.newStatus": {
@@ -5731,7 +6690,7 @@
 		"developer_comment": "Success message displayed when status is saved."
 	},
 	"statusesComponent.title": {
-		"string": "{languageName} статуси",
+		"string": "{languageName} Статуси [{statusCount}]",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"suggestedMatches.title": {
@@ -5795,7 +6754,7 @@
 		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.create": {
-		"string": "+ Креирајте го овој таг",
+		"string": "Креирајте го овој таг",
 		"developer_comment": "Button label for creating a new tag"
 	},
 	"tagMenu.notFound": {
@@ -5813,6 +6772,14 @@
 	"taglist.tooltipManage": {
 		"string": "Управувајте со таговите",
 		"developer_comment": "Tooltip message displayed on a tag item to let the user know they can manage the tags in the list"
+	},
+	"task.DescriptionPlaceholder": {
+		"string": "Додајте незадолжителен опис на оваа белешка",
+		"developer_comment": "Input Placeholder for the Description field for custom annotation field"
+	},
+	"task.TitlePlaceholder": {
+		"string": "Внесете наслов на оваа белешка",
+		"developer_comment": "Input Placeholder for the Title field for custom annotation field"
 	},
 	"task.assignOrUnassign": {
 		"string": "Доделете/поништете го доделувањето"
@@ -5857,11 +6824,11 @@
 		"developer_comment": "Label for number of selected tasks"
 	},
 	"tasks.UrlDescription": {
-		"string": "Мора да биде важечка URL",
+		"string": "Мора да биде важечка URL-адреса",
 		"developer_comment": "Hint text about what kind of text a user can put in the URL box"
 	},
 	"tasks.UrlType": {
-		"string": "URL",
+		"string": "URL-адреса",
 		"developer_comment": "Label for the URL type field"
 	},
 	"tasks.add": {
@@ -5918,6 +6885,10 @@
 		"string": "Сакате ли да излезете без зачувување?",
 		"developer_comment": "This is a prompt that appears when a user tries to exit a page before saving their work."
 	},
+	"tasks.contentTrash": {
+		"string": "Недостапни белешки",
+		"developer_comment": "This message tells the user that the content typically shown in unavailable when the item is in the trash"
+	},
 	"tasks.dateTimeType": {
 		"string": "Датум",
 		"developer_comment": "Label for date type field"
@@ -5936,6 +6907,10 @@
 	"tasks.description": {
 		"string": "Опис (незадолжително)",
 		"developer_comment": "Description field for custom annotation field"
+	},
+	"tasks.editAnnotationDialogTitle": {
+		"string": "Изменете ги белешките",
+		"developer_comment": "Title for dialog when editing an annotation"
 	},
 	"tasks.editFieldWithAnswersTitle": {
 		"string": "{number, plural, one {Полето се менува со # постоен одговор} other {Полето се менува со # постојни одговори}}",
@@ -6061,6 +7036,14 @@
 		"string": "овој краток формулар",
 		"developer_comment": "Link text taking the user to a form to fill out in order to request this feature be enabled"
 	},
+	"teamDataComponent.helpContext": {
+		"string": "Прегледајте ги и експортирајте ги месечните податоци за користење на линијата за дојава. Можно е да се потребни 24 часа за да се ажурираат податоците; сите податоци, освен разговорите на WhatsApp се специфични за јазикот на секоја линија за дојава. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за податоците за користење</a>.",
+		"developer_comment": "Context description for the functionality of this page"
+	},
+	"teamDataComponent.negativeFeedback": {
+		"string": "Број на разговори што прикажале најмалку еден резултат, а корисникот одговорил „Не“.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
 	"teamDataComponent.negativeSearches": {
 		"string": "Број на пребарувања на корисници од коишто не произлезе извештај.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
@@ -6079,6 +7062,10 @@
 	},
 	"teamDataComponent.newslettersSent": {
 		"string": "Вкупниот број на билтени што им биле пратени на претплатниците.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.positiveFeedback": {
+		"string": "Број на разговори што прикажале најмалку еден резултат, а корисникот одговорил „Да“.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.positiveSearches": {
@@ -6129,6 +7116,14 @@
 		"string": "Разговорите претставуваат 24-часовни нишки за пораки помеѓу Вас и Вашите корисници. Тие се отвораат кога стигнуваат пораките што им се праќаат на корисниците од Check.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
+	"teamDataComponent.whatsappConversationsBusiness": {
+		"string": "Разговорите се 24-часовни низи од пораки помеѓу Вас и Вашите корисници. Деловните разговори започнуваат кога не постои отворен разговор помеѓу Вас и некој корисник, а пораката што ја праќате ја добива тој корисник.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.whatsappConversationsUser": {
+		"string": "Разговорите се 24-часовни низи од пораки помеѓу Вас и Вашите корисници.  Разговорите за услуги започнуваат кога не постои отворен разговор помеѓу Вас и некој корисник, а кога некој корисник ќе Ви прати порака, се активира повратна порака од ботот. Ако некој корисник е блокиран, не се креира разговор со корисникот.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
 	"teamDetails.duplicateWorkspace": {
 		"string": "Направете дупликат од работниот простор",
 		"developer_comment": "Label of a button to duplicate a workspace"
@@ -6142,7 +7137,7 @@
 		"developer_comment": "Title of the link management section in team details page"
 	},
 	"teamDetails.linkManagementRss": {
-		"string": "Услугата за врски не смее да биде оневозможена додека билтените на RSS се конфигурираат на овој работен простор",
+		"string": "Кратењето на врската ги прави URL-адресите полесно читливи и со попредвидлива должина. Ако користите  RSS-резиме на содржини, не може да се оневозможат услугите за врската. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за кратење на врската</a>.",
 		"developer_comment": "Helper text for link management switcher when workspace has RSS newsletters configured"
 	},
 	"teamDetails.linkManagementSwitcher": {
@@ -6170,11 +7165,15 @@
 		"developer_comment": "Label for 'UTM code' field"
 	},
 	"teamDetails.utmCodeHelp": {
-		"string": "Приспособете го UTM-кодот што е додаден на врските. Оставете го ова поле празно за да ги оневозможите UTM-кодовите.",
+		"string": "Прилагодете го UTM-кодот што е додаден во врските. Оставете празно за да ги оневозможите UTM-кодовите. Користете ги UTM-кодовите за да ја следите аналитиката на написите. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за UTM-кодовите</a>.",
 		"developer_comment": "Helper text for UTM code field"
 	},
+	"teamDetails.utmCodePlaceholder": {
+		"string": "Оставете празно за да ги оневозможите UTM-кодовите.",
+		"developer_comment": "Placeholder for the optional UTM code text field"
+	},
 	"teamDetails.warnContent": {
-		"string": "Поништените врски исто така ќе го вклучуваат UTM-кодот, доколку го има. UTM-кодот не ја менува URL на дестинација.<br /><br /><strong>ПРЕД:</strong> https://www.example.com/your-link<br /><strong>ПО:</strong> https://chck.media/x1y2z3w4/{code}",
+		"string": "<strong>ПРЕД:</strong> https://www.example.com/your-link<br /><strong>ПО:</strong> https://chck.media/x1y2z3w4/{code}",
 		"developer_comment": "Text displayed in the content of a warning box on team details page when link shortening is on"
 	},
 	"teamDetails.warnTitle": {
@@ -6184,6 +7183,10 @@
 	"teamDetails.workspaceName": {
 		"string": "Име на работниот простор",
 		"developer_comment": "Label for workspace name field"
+	},
+	"teamIntegrations.helpContext": {
+		"string": "Поврзете ја својата работа на Check со услуги на трети страни. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за интеграциите</a>.",
+		"developer_comment": "Context description for the functionality of this page"
 	},
 	"teamIntegrations.title": {
 		"string": "Интеграции",
@@ -6220,6 +7223,10 @@
 	"teamListsComponent.generalColumns": {
 		"string": "Општо (скриени)",
 		"developer_comment": "Columns not currently displayed for users in lists."
+	},
+	"teamListsComponent.helpContext": {
+		"string": "Управувајте со информациите што се прикажани за секоја статија. Поставките за колоните влијаат на податоците што се прикажуваат кај сите членови на Вашиот работен простор. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за поставките за колоните</a>.",
+		"developer_comment": "Context description for the functionality of this page"
 	},
 	"teamListsComponent.metadataColumns": {
 		"string": "Белешки (скриени)",
@@ -6269,12 +7276,16 @@
 		"string": "Копирајте ја е-поштата",
 		"developer_comment": "Menu item for copying email address to the clipboard"
 	},
+	"teamMembers.helpContext": {
+		"string": "Управувајте со поставките за јазикот на линијата за дојава. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за јазичната поддршка</a>.",
+		"developer_comment": "Context description for the functionality of this page"
+	},
 	"teamMembers.invite": {
 		"string": "Покана",
 		"developer_comment": "Button label for main action to start the process of inviting team members to this workspace"
 	},
 	"teamMembers.pending": {
-		"string": "Во постапка",
+		"string": "Поканата е испратена - се чека одговор",
 		"developer_comment": "Label for invite pending acceptance"
 	},
 	"teamMembers.remove": {
@@ -6310,7 +7321,7 @@
 		"developer_comment": "Column header in members table."
 	},
 	"teamMembers.title": {
-		"string": "Членови",
+		"string": "Членови [{membersCount}]",
 		"developer_comment": "Title for workspace members management page"
 	},
 	"teamMembers.tooltip": {
@@ -6325,13 +7336,25 @@
 		"string": "Нема полиња за бележење",
 		"developer_comment": "Text for empty annotations"
 	},
-	"teamMetadataRender.itemTitle": {
-		"string": "Формулар за бележење на ставката",
-		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
+	"teamMetadataRender.headerItemButton": {
+		"string": "Статии",
+		"developer_comment": "Button to select to see the content for this page. Refers to annotation applied to items generally, not any specific item or items."
 	},
-	"teamMetadataRender.sourceTitle": {
-		"string": "Формулар за бележење на изворот",
-		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources."
+	"teamMetadataRender.headerSourceButton": {
+		"string": "Извори",
+		"developer_comment": "Button to select to see the content for this page. Refers to annotation applied to sources generally, not any specific source or sources."
+	},
+	"teamMetadataRender.headerTitle": {
+		"string": "Формулар за белешки",
+		"developer_comment": "Title for annotation settings screen."
+	},
+	"teamMetadataRender.itemHelpContext": {
+		"string": "Прилагодете го формуларот за бележење на статијата. Дознајте повеќе за <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">користењето белешки</a> со цел да им додадете контекст на статиите.",
+		"developer_comment": "Context description for the functionality of the item portion of this page"
+	},
+	"teamMetadataRender.sourceHelpContext": {
+		"string": "Прилагодете го формуларот за бележење на изворот. Дознајте повеќе за <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">опишувањето извори</a>.",
+		"developer_comment": "Context description for the functionality of source portion of this page"
 	},
 	"teamReportComponent.defaultErrorMessage": {
 		"string": "Не беше возможно да се зачуваат поставките за извештајот",
@@ -6342,15 +7365,27 @@
 		"developer_comment": "Label to facebook page field"
 	},
 	"teamReportComponent.facebookFieldError": {
-		"string": "Користете го името на страницата наместо целата URL",
+		"string": "Користете го името на страницата наместо целата URL-адреса",
 		"developer_comment": "Error message displayed when facebook profile is filled incorrectly"
+	},
+	"teamReportComponent.helpContext": {
+		"string": "Прилагодете ги извештаите за проверка на факти што ги испраќаат корисниците на линијата за дојава. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за извештаите за проверка на факти</a>.",
+		"developer_comment": "Context description for the functionality of this page"
+	},
+	"teamReportComponent.instagram": {
+		"string": "Кориснично име на Инстаграм",
+		"developer_comment": "Label for Instagram username field"
 	},
 	"teamReportComponent.introduction": {
 		"string": "Вовед",
 		"developer_comment": "Label to the report introduction field"
 	},
+	"teamReportComponent.introductionDescription": {
+		"string": "Прикажете го воведот при секое испраќање на извештајот за да упатува на почетното барање на крајниот корисник.",
+		"developer_comment": "Switch component descriptive text on the purpose of the report introduction"
+	},
 	"teamReportComponent.introductionSub": {
-		"string": "Користете ја картичката за означување место {query_date} за да го прикажете датумот на изворното барање. Користете го {status} за да го споделите статусот на статијата.",
+		"string": "Користете ја картичката за означување место {query_date} за да го прикажете датумот на изворното барање. Користете го {status} за да го споделите статусот на написот.",
 		"developer_comment": "Instructions for filling the report introduction field"
 	},
 	"teamReportComponent.line": {
@@ -6369,8 +7404,16 @@
 		"string": "Потпис",
 		"developer_comment": "Label to report signature field"
 	},
+	"teamReportComponent.signatureDescription": {
+		"string": "Прикажете прилагоден потпис при секое испраќање на извештајот за да упатува на почетното барање на крајниот корисник.",
+		"developer_comment": "Switch component descriptive text on the purpose of the report signature"
+	},
+	"teamReportComponent.signatureHelp": {
+		"string": "{max} максимум знаци",
+		"developer_comment": "Help content for signature field in report settings"
+	},
 	"teamReportComponent.signatureLabel": {
-		"string": "Потпис (максимум {max} знаци)",
+		"string": "Потпис",
 		"developer_comment": "Label for signature field in report settings"
 	},
 	"teamReportComponent.telegram": {
@@ -6378,27 +7421,31 @@
 		"developer_comment": "Label to Telegram username field"
 	},
 	"teamReportComponent.telegramFieldError": {
-		"string": "Користете го корисничкото име на ботот наместо целата URL",
+		"string": "Користете го корисничкото име на ботот наместо целата URL-адреса",
 		"developer_comment": "Error message displayed when telegram username is filled incorrectly"
 	},
 	"teamReportComponent.title": {
-		"string": "Стандардни поставки за извештајот",
-		"developer_comment": "Header for the default report settings page"
+		"string": "Извештаи",
+		"developer_comment": "Header for the report settings page"
 	},
 	"teamReportComponent.twitter": {
-		"string": "Име на сметката на Твитер",
+		"string": "Име на сметка на X (Твитер)",
 		"developer_comment": "Label to twitter username field"
 	},
 	"teamReportComponent.twitterFieldError": {
-		"string": "Користете го името на сметката наместо целата URL",
+		"string": "Користете го името на сметката наместо целата URL-адреса",
 		"developer_comment": "Error message displayed when twitter profile is filled incorrectly"
 	},
 	"teamReportComponent.url": {
-		"string": "URL на веб-локацијата",
+		"string": "URL-адреса на веб-локацијата",
 		"developer_comment": "Label to the report url field"
 	},
+	"teamReportComponent.urlDescription": {
+		"string": "Прикажете врска при секое испраќање на извештајот за да упатува на почетното барање на крајниот корисник.",
+		"developer_comment": "Switch component descriptive text on the purpose of the report url"
+	},
 	"teamReportComponent.urlLabel": {
-		"string": "Кратка URL (максимум {max} знаци)",
+		"string": "Кратка URL-адреса (максимум {max} знаци)",
 		"developer_comment": "Label for URL field in report settings"
 	},
 	"teamReportComponent.viber": {
@@ -6442,7 +7489,7 @@
 		"developer_comment": "Label for a tab that takes the user to settings for their newsletter."
 	},
 	"teamSettings.report": {
-		"string": "Извештај",
+		"string": "Извештаи",
 		"developer_comment": "Label for the Report settings tab"
 	},
 	"teamSettings.rules": {
@@ -6465,11 +7512,71 @@
 		"string": "Работен простор",
 		"developer_comment": "Label for the Workspace settings tab"
 	},
+	"teamSettingsNavigation.annotations": {
+		"string": "Белешки",
+		"developer_comment": "Label for the Annotations settings navigation menu item"
+	},
+	"teamSettingsNavigation.columns": {
+		"string": "Колони",
+		"developer_comment": "Label for the Columns settings navigation menu item"
+	},
+	"teamSettingsNavigation.data": {
+		"string": "Податоци",
+		"developer_comment": "Label for the Data settings navigation menu item"
+	},
+	"teamSettingsNavigation.integrations": {
+		"string": "Интеграции",
+		"developer_comment": "Label for the Integrations settings navigation menu item"
+	},
+	"teamSettingsNavigation.languages": {
+		"string": "Јазици",
+		"developer_comment": "Label for the Languages settings navigation menu item"
+	},
+	"teamSettingsNavigation.members": {
+		"string": "Членови",
+		"developer_comment": "Label for the Members settings navigation menu item"
+	},
+	"teamSettingsNavigation.newsletter": {
+		"string": "Билтен",
+		"developer_comment": "Label for the Newsletter settings navigation menu item"
+	},
+	"teamSettingsNavigation.reports": {
+		"string": "Извештаи",
+		"developer_comment": "Label for the Reports settings navigation menu item"
+	},
+	"teamSettingsNavigation.rules": {
+		"string": "Правила",
+		"developer_comment": "Label for the Rules settings navigation menu item"
+	},
+	"teamSettingsNavigation.settings": {
+		"string": "Поставки",
+		"developer_comment": "Header for the settings navigation menu items"
+	},
+	"teamSettingsNavigation.similarity": {
+		"string": "Сличност",
+		"developer_comment": "Label for the Similarity settings navigation menu item"
+	},
+	"teamSettingsNavigation.statuses": {
+		"string": "Статуси",
+		"developer_comment": "Label for the Statuses settings navigation menu item"
+	},
+	"teamSettingsNavigation.tags": {
+		"string": "Тагови",
+		"developer_comment": "Label for the Tags settings navigation menu item"
+	},
+	"teamSettingsNavigation.tipline": {
+		"string": "Линија за дојава",
+		"developer_comment": "Label for the Tipline settings navigation menu item"
+	},
+	"teamSettingsNavigation.workspace": {
+		"string": "Работен простор",
+		"developer_comment": "Label for the Workspace settings navigation menu item"
+	},
 	"teamTags.addTag": {
 		"string": "Додадете таг"
 	},
 	"teamTags.confirmDeleteBody": {
-		"string": "{numTags, plural, one {Тагот „{tag}\" ќе биде избришан од една ставка.} other {Тагот „{tag}\" ќе биде избришан од # ставки.}}"
+		"string": "{numTags, plural, one {Тагот „{tag}\" ќе биде избришан од една статија.} other {Тагот „{tag}\" ќе биде избришан од # статии.}}"
 	},
 	"teamTags.confirmDeleteLabel": {
 		"string": "Избришете го тагот"
@@ -6487,7 +7594,7 @@
 		"string": "Избришете го тагот"
 	},
 	"teamTags.description": {
-		"string": "Може да се додаваат тагови на медиуми, ставки и извори."
+		"string": "Може да се додаваат тагови на медиуми, статии и извори."
 	},
 	"teamTags.editTag": {
 		"string": "Изменете го тагот"
@@ -6505,7 +7612,7 @@
 		"string": "За жал, настана грешка додека го ажуриравме тагот. Обидете се повторно и стапете во контакт со {supportEmail} ако проблемот продолжи."
 	},
 	"teamTags.itemsCount": {
-		"string": "{број, множина, =0 {нема ставки} една {1 ставка} други {# ставки}}"
+		"string": "{број, множина, =0 {нема статии} една {1 статија} други {# статии}}"
 	},
 	"teamTags.menuTooltip": {
 		"string": "Дејства поврзани со тагот"
@@ -6546,7 +7653,7 @@
 		"developer_comment": "Dialog action text for continuing with the delete tag action"
 	},
 	"teamTagsActions.removeDialogBody": {
-		"string": "Тагот „{tag}\" ќе биде избришан од {count} ставки.",
+		"string": "Тагот „{tag}\" ќе биде избришан од {count} статии.",
 		"developer_comment": "Description of what will happen when a tag is deleted"
 	},
 	"teamTagsActions.removeDialogTitle": {
@@ -6566,7 +7673,7 @@
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderTagsCount": {
-		"string": "Ставки",
+		"string": "Статии",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderUpdatedAt": {
@@ -6598,7 +7705,7 @@
 		"developer_comment": "Positive label for a checkbox field"
 	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
-		"string": "{itemsNumber, plural, one {Полето {fieldLabel} е пополнето во # ставка.} other {Полето {fieldLabel} е пополнето во # ставки.}}",
+		"string": "{itemsNumber, plural, one {Полето {fieldLabel} е пополнето во # статија.} other {Полето {fieldLabel} е пополнето во # статии.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
@@ -6606,11 +7713,11 @@
 		"developer_comment": "Delete confirmation message"
 	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
-		"string": "Зачувајте го ова поле со одговори во ставки каде што е пополнето.",
+		"string": "Зачувајте го ова поле со одговори во статии каде што е пополнето.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.confirmEditBlurbMetadata": {
-		"string": "Поврзаните полиња со ставки ќе се изменат како резултат на извршување на оваа промена, освен за оние полиња што веќе се пополнети.",
+		"string": "Поврзаните полиња со статии ќе се изменат како резултат на извршување на оваа промена, освен за оние полиња што веќе се пополнети.",
 		"developer_comment": "Warning about existing instances of a field before performing changes to it"
 	},
 	"teamTasks.confirmEditMetadataTitle": {
@@ -6656,7 +7763,7 @@
 		"developer_comment": "Tasks title"
 	},
 	"teamTasksRender.tasksSubtitle": {
-		"string": "Додајте ги приспособените задачи на ставките.",
+		"string": "Додајте ги приспособените задачи на статиите.",
 		"developer_comment": "Tasks subtitle"
 	},
 	"teamTasksRender.typeFilter": {
@@ -6674,16 +7781,20 @@
 		"string": "Работни простори",
 		"developer_comment": "Label for the list of the current user's workspaces they are a member of"
 	},
+	"textfield.removeSelection": {
+		"string": "Избришете го текстот",
+		"developer_comment": "Tooltip for button on Textfield component to remove current text of the input"
+	},
 	"textfield.required": {
 		"string": "Потребно",
 		"developer_comment": "A label to indicate that a form field must be filled out"
 	},
 	"thresholdControl.matchingExplainer": {
-		"string": "Ако резултатот за веродостојност е над оваа вредност, ќе има совпаѓање со ставките и извештаите автоматски ќе им бидат пратени на корисниците.",
+		"string": "Ако резултатот за веродостојност е над оваа вредност, ќе има совпаѓање со статиите и извештаите автоматски ќе им бидат пратени на корисниците.",
 		"developer_comment": "Description of the confidence score automatically triggering a report being sent to the user"
 	},
 	"thresholdControl.suggestionExplainer": {
-		"string": "Ако резултатот за веродостојност е над оваа вредност, ставките ќе се прикажуваат како „слични\".",
+		"string": "Ако резултатот за веродостојност е над оваа вредност, статиите ќе се прикажуваат како „слични\".",
 		"developer_comment": "Description of the confidence score automatically suggesting an item to a system editor"
 	},
 	"thresholdControl.suggestionGreaterThanMatchingError": {
@@ -6691,8 +7802,12 @@
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
 	"tiplineHistory.title": {
-		"string": "Разговарајте со {user}",
+		"string": "Историја на разговор со {user} на {channel}",
 		"developer_comment": "Title field labeling a chat log with a user"
+	},
+	"tiplineHistory.tooltip": {
+		"string": "Историја на разговор со {user} на {channel}",
+		"developer_comment": "Tooltip labeling a chat log with a user"
 	},
 	"tiplineInbox.title": {
 		"string": "Сандаче на линијата за дојава",
@@ -6773,7 +7888,7 @@
 		"developer_comment": "Fact-check title"
 	},
 	"trendItem.factCheckUrl": {
-		"string": "Објавена URL на статијата",
+		"string": "Објавена URL-адреса на написот",
 		"developer_comment": "Fact-check article URL"
 	},
 	"trendItem.import": {
@@ -6937,24 +8052,12 @@
 	"userAssignments.filterByTeam": {
 		"string": "Филтрирајте по работен простор"
 	},
-	"userComponent.teams": {
-		"string": "Работни простори",
-		"developer_comment": "Label of the workspaces tab in the user profile page"
-	},
-	"userComponents.privacy": {
-		"string": "Приватност",
-		"developer_comment": "Label of the privacy tab in the user profile page"
-	},
-	"userComponents.security": {
-		"string": "Безбедност",
-		"developer_comment": "Label of the security tab in the user profile page"
-	},
 	"userConfirmPage.signIn": {
 		"string": "Најавете се",
 		"developer_comment": "Sign in button"
 	},
 	"userConfirmed.alreadyConfrimMessage": {
-		"string": "Упс! Вашата сметка веќе е потврдена. Најавете се за да почнете.",
+		"string": "Вашата сметка е веќе потврдена. Пријавете се за да започнете.",
 		"developer_comment": "Message for user who already confirmed before"
 	},
 	"userConfirmed.confrimMessage": {
@@ -6962,32 +8065,16 @@
 		"developer_comment": "Message for confirmed user"
 	},
 	"userConfirmed.unConfrimMessage": {
-		"string": "За жал, настана грешка додека ја потврдувавме Вашата сметка. Обидете се повторно и стапете во контакт со {supportEmail} ако проблемот продолжи.",
+		"string": "За жал, настана грешка при потврдувањето на Вашата сметка. Обидете се потворно и стапете во контакт со <a href=\"mailto:{supportEmail}\">{supportEmail}</a> ако проблемот продолжи.",
 		"developer_comment": "Message for unconfirmed users"
 	},
-	"userEmail.emailInputHint": {
-		"string": "email@example.com",
-		"developer_comment": "Text field input help text about the format of an email address"
-	},
-	"userEmail.emailInputLabel": {
-		"string": "Е-пошта",
-		"developer_comment": "Text field label for the email address field"
-	},
-	"userEmail.skip": {
-		"string": "Прескокнете",
-		"developer_comment": "Button label for skipping step"
-	},
-	"userEmail.submit": {
-		"string": "Поднесете",
-		"developer_comment": "Button label to submit the email form"
+	"userEmail.alertTitle": {
+		"string": "Додадете ја Вашата е-пошта",
+		"developer_comment": "Alert title for prompting the user to add their email address in order to receive notifications"
 	},
 	"userEmail.text": {
-		"string": "Ќе ни треба Вашата адреса на е-пошта за да Ви праќаме известувања. Ако сакате да добивате известувања, внесете ја Вашата адреса на е-пошта. Ако не сакате, кликнете „Прескокнете\"",
+		"string": "За да Ви праќаме известувања, потребна ни е Вашата адреса на е-пошта. Ако сакате да добивате известувања, внесете ја Вашата адреса на е-пошта.",
 		"developer_comment": "Message to the user on how to receive notifications to their email address"
-	},
-	"userEmail.title": {
-		"string": "Додадете ја Вашата е-пошта",
-		"developer_comment": "Title for the user adding their email address"
 	},
 	"userInfo.dateJoined": {
 		"string": "Се приклучи на {date}",
@@ -6997,16 +8084,12 @@
 		"string": "{teamsCount, plural, one {# работен простор} other {# работни простори}}",
 		"developer_comment": "Count of how many work spaces this user account can access"
 	},
-	"userInfoEdit.addLink": {
-		"string": "Додајте врска",
-		"developer_comment": "Button label for adding a new link"
-	},
-	"userInfoEdit.addLinkHelper": {
-		"string": "Додајте врска кон веб-страницата или кон профилот на социјалните мрежи. Напомена: ова не влијае врз начинот на којшто се најавувате.",
-		"developer_comment": "Help text about adding a social media profile link to this user account"
-	},
 	"userInfoEdit.addLinkLabel": {
 		"string": "Додајте врска"
+	},
+	"userInfoEdit.dateJoined": {
+		"string": "Се приклучи на {date}",
+		"developer_comment": "Informational line showing the user the date their account was created on check"
 	},
 	"userInfoEdit.editError": {
 		"string": "За жал, настана грешка додека го ажуриравме Вашиот профил. Обидете се повторно и стапете во контакт со {supportEmail} ако проблемот продолжи."
@@ -7014,17 +8097,22 @@
 	"userInfoEdit.emailConfirmed": {
 		"string": "✔ Адресата е потврдена"
 	},
+	"userInfoEdit.emailInputHint": {
+		"string": "email@example.com",
+		"developer_comment": "Text field input help text about the format of an email address"
+	},
 	"userInfoEdit.emailPendingConfirm": {
 		"string": "⚠ Се чека потврда"
 	},
 	"userInfoEdit.invalidLink": {
-		"string": "Внесете важечка URL"
+		"string": "Внесете важечка URL-адреса"
 	},
 	"userInfoEdit.nameError": {
 		"string": "Името не смее да остане празно"
 	},
-	"userInfoEdit.sourceBio": {
-		"string": "Биографија"
+	"userInfoEdit.savedSuccessfully": {
+		"string": "Успешно се зачувани деталите за профилот",
+		"developer_comment": "Success message displayed when user profile is saved"
 	},
 	"userInfoEdit.sourceName": {
 		"string": "Име"
@@ -7083,6 +8171,10 @@
 		"string": "Вашите информации",
 		"developer_comment": "Page title for the user's privacy information"
 	},
+	"userProfile.profileTitle": {
+		"string": "Профил",
+		"developer_comment": "Title for user profile page"
+	},
 	"userSecurity.authenticateDescription": {
 		"string": "Внесете ја Вашата моментална лозинка за да го потврдите Вашиот идентитет:",
 		"developer_comment": "Sub title for current password confirmation step in two-factor authentication settings"
@@ -7090,6 +8182,10 @@
 	"userSecurity.authenticateHeader": {
 		"string": "Чекор 1: Направете автентикација",
 		"developer_comment": "Sub title for first step in two-factor authentication settings"
+	},
+	"userSecurity.backupCodesHeader": {
+		"string": "Резервни кодови",
+		"developer_comment": "Sub title for backup codes section when two-factor authentication is already enabled"
 	},
 	"userSecurity.backupDescription": {
 		"string": "Ви предлагаме да генерирате и испечатите резервни кодови со помош на копчето подолу. Станува збор за кодови за еднократна употреба коишто би ги користеле наместо двофакторска автентикација 2FA во случај да изгубите пристап до вашиот уред од којшто правите 2FA.",
@@ -7136,7 +8232,7 @@
 		"developer_comment": "Button label to generate two-factor authentication backup codes"
 	},
 	"userSecurity.notification": {
-		"string": "Известување",
+		"string": "Известувања",
 		"developer_comment": "Section header title for security notification settings"
 	},
 	"userSecurity.qrcodeDescription": {
@@ -7161,7 +8257,7 @@
 	},
 	"userSecurity.twoFactorAuthentication": {
 		"string": "Двофакторска автентикација",
-		"developer_comment": "Sectiom title for two-factor authentication settings"
+		"developer_comment": "Section title for two-factor authentication settings"
 	},
 	"userSecurity.verifyDescription": {
 		"string": "За да ја овозможите двофакторската автентикација, внесете го 6-цифрениот код од Вашата двофакторска апликација:",
@@ -7171,20 +8267,48 @@
 		"string": "Чекор 5: Потврдете",
 		"developer_comment": "Sub title for fifth step in two-factor authentication settings"
 	},
+	"userSettings.privacyTitle": {
+		"string": "Приватност",
+		"developer_comment": "Title for user settings area for user privacy settings"
+	},
+	"userSettings.profileTitle": {
+		"string": "Профил",
+		"developer_comment": "Title for user settings area for user profile"
+	},
+	"userSettings.securityTitle": {
+		"string": "Безбедност",
+		"developer_comment": "Title for user settings area for user security settings"
+	},
+	"userSettings.workspacesTitle": {
+		"string": "Работни простори [{workspacesCount}]",
+		"developer_comment": "Title for user settings area for user workspaces list they are a memeber of"
+	},
+	"userSettingsNavigation.privacy": {
+		"string": "Приватност",
+		"developer_comment": "Label for the privacy user settings navigation menu item"
+	},
+	"userSettingsNavigation.profile": {
+		"string": "Профил",
+		"developer_comment": "Label for the Profile user settings navigation menu item"
+	},
+	"userSettingsNavigation.security": {
+		"string": "Безбедност",
+		"developer_comment": "Label for the security user settings navigation menu item"
+	},
+	"userSettingsNavigation.usersettings": {
+		"string": "Кориснички поставки",
+		"developer_comment": "Navigation list title for user settings"
+	},
+	"userSettingsNavigation.workspaces": {
+		"string": "Работни простори",
+		"developer_comment": "Label for the Workspaces user settings navigation menu item"
+	},
 	"userTooltip.dateJoined": {
-		"string": "Се приклучи на {date} • {бројнатимови, множина, =0 {нема работни простори} еден {1 работен простор} други {# работни простори}}"
+		"string": "Се приклучи на {date} • {teamsCount, plural, one {# workspace} other {# workspaces}}"
 	},
 	"userTos.agreeTos": {
 		"string": "Се сложувам со Условите за користење.",
 		"developer_comment": "Checkbox label for the user to agree to the terms of service"
-	},
-	"userTos.commGuidelines": {
-		"string": "Ќе Ве замолиме, исто така, да ги прочитате нашите {communityGuidelinesLink} за користење на {appName}.",
-		"developer_comment": "Message to encourage the user to read the application community guidelines document"
-	},
-	"userTos.commGuidelinesLink": {
-		"string": "Насоки за заедницата",
-		"developer_comment": "Link text to take the user to the application community guidelines at the Meedan website"
 	},
 	"userTos.disclaimer": {
 		"string": "Разгледајте ги нашите {tosLink} и нашата {ppLink} и согласете се со следново:",
@@ -7235,11 +8359,19 @@
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {
-		"string": "Оваа ставка не можеше да се идентификува. Можеби е избришана или е видлива само за најавените корисници. Кликнете на врската погоре за да отидете до неа.",
+		"string": "Оваа статија не можеше да се идентификува. Можеби е избришана или е видлива само за најавените корисници. Кликнете на врската погоре за да отидете до неа.",
 		"developer_comment": "Error message displayed when link data is unavailable"
 	},
+	"workspaceMenu.railToggle": {
+		"string": "Прикажи/Скриј навигирање",
+		"developer_comment": "Tooltip for toggling open or closed the drawer navigation"
+	},
+	"workspaceMenu.teamFeeds": {
+		"string": "Споделени резимеа на содржини",
+		"developer_comment": "Tooltip for drawer navigation to shared feeds"
+	},
 	"workspaceMenu.teamLegal": {
-		"string": "За",
+		"string": "За Meedan",
 		"developer_comment": "Legal link tooltip in drawer rail navigation"
 	},
 	"workspaceMenu.teamSettings": {
@@ -7253,5 +8385,9 @@
 	"workspaceMenu.teamTraining": {
 		"string": "Обука и документација",
 		"developer_comment": "Help link tooltip in drawer rail navigation"
+	},
+	"workspaceMenu.userSettings": {
+		"string": "Кориснички поставки",
+		"developer_comment": "Tooltip for drawer navigation to user settings"
 	}
 }
