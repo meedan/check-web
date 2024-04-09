@@ -102,12 +102,10 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   <Box display="flex" alignItems="center">
                     <TextField
                       variant="outlined"
-                      margin="normal"
                       defaultValue={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`}
                       InputProps={{
                         readOnly: true,
                       }}
-                      fullWidth
                     />
                     <Tooltip
                       PopperProps={{
@@ -158,11 +156,8 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                     <Box display="flex" alignItems="flex-start">
                       <TextField
                         variant="outlined"
-                        margin="none"
                         defaultValue={`<img src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}" />`}
-                        InputProps={{
-                          readOnly: true,
-                        }}
+                        disabled
                         multiline
                         rows={8}
                       />
@@ -340,13 +335,11 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                   />
                 }
                 variant="outlined"
-                margin="normal"
                 // eslint-disable-next-line no-underscore-dangle
                 defaultValue={`https://app.smooch.io:443/api/line/webhooks/${settings.smooch_app_id}/${enabledIntegrations.line._id}`}
                 InputProps={{
                   readOnly: true,
                 }}
-                fullWidth
               /> : null
           }
         />

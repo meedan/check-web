@@ -150,10 +150,8 @@ const TranslateStatuses = ({
                 s.locales[currentLanguage] ?
                   s.locales[currentLanguage].label : ''
               }
-              fullWidth
               id={`translate-statuses__input-${s.id}`}
               onChange={e => (handleTextChange(s.id, e.target.value))}
-              size="small"
               variant="outlined"
             />
             { s.should_send_message && s.locales[defaultLanguage] && s.locales[defaultLanguage].message ?
@@ -170,13 +168,10 @@ const TranslateStatuses = ({
                   s.locales[currentLanguage] ?
                     s.locales[currentLanguage].message : ''
                 }
-                fullWidth
                 id={`translate-statuses__message-${s.id}`}
-                multiline
                 rows={3}
                 rowsMax={Infinity}
                 onChange={e => (handleMessageChange(s.id, e.target.value))}
-                size="small"
                 variant="outlined"
               /> : null }
           </div>

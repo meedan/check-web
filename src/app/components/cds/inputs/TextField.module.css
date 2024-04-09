@@ -51,11 +51,7 @@
       &.outlined {
         background-color: transparent;
       }
-
-      &.small {
-        min-height: 32px;
-      }
-
+      
       &.error {
         border-color: var(--errorMain) !important;
 

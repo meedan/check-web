@@ -181,7 +181,6 @@ const SmoochBotMenuOption = (props) => {
                 /> : null
             }
             error={option.smooch_menu_option_value !== 'tos' && error}
-            fullWidth
           />
         </Box>
         <Box flex="1" className={classes.box}>

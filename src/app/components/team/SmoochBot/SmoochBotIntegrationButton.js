@@ -333,8 +333,6 @@ const SmoochBotIntegrationButton = ({
                     id={`smooch-bot-integration-button__${type}-${param.key}`}
                     onChange={(e) => { handleParam(param.key, e.target.value); }}
                     variant="outlined"
-                    margin="normal"
-                    fullWidth
                   />
                 </Box>
               ))}

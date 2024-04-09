@@ -256,7 +256,6 @@ const SimilarityComponent = ({
                       value={settings.similarity_date_threshold}
                       onChange={(e) => { handleSettingsChange('similarity_date_threshold', e.target.value); }}
                       type="number"
-                      size="small"
                       disabled={!settings.date_similarity_threshold_enabled}
                     />
                   ),
