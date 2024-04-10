@@ -159,14 +159,14 @@ const InviteDialog = ({
                   label={
                     <FormattedMessage
                       id="inviteDialog.textInputLabel"
-                      defaultMessage="Email address(es)"
+                      defaultMessage="Email addresses"
                       description="Label to input for invited emails. Requires that multiple emails be entered separated by comma."
                     />
                   }
                   helpContent={
                     <FormattedMessage
                       id="inviteDialog.textInputHelp"
-                      defaultMessage="To invite multiple members, separate email address with a comma"
+                      defaultMessage="To invite multiple members, separate email addresses with a comma"
                       description="Help to input for invited emails. Requires that multiple emails be entered separated by comma."
                     />
                   }

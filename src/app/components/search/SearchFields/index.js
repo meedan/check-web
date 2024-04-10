@@ -71,7 +71,7 @@ const messages = defineMessages({
   },
   tiktok: {
     id: 'search.tiktok',
-    defaultMessage: 'Tiktok post',
+    defaultMessage: 'TikTok post',
     description: 'Allow user to filter items by tiktok posts',
   },
   youtube: {

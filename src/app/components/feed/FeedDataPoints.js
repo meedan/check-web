@@ -197,7 +197,7 @@ const FeedDataPoints = ({ readOnly, dataPoints, onChange }) => {
                 <li>
                   <FormattedMessage
                     id="feedDataPoints.feedDataPointMediaContent"
-                    defaultMessage="Media content when present, such as image, description or transcript"
+                    defaultMessage="Media content when present, such as an image, description, or transcript"
                     description="Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media."
                   />
                 </li>

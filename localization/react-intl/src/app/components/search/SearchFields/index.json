@@ -37,7 +37,7 @@
   {
     "id": "search.tiktok",
     "description": "Allow user to filter items by tiktok posts",
-    "defaultMessage": "Tiktok post"
+    "defaultMessage": "TikTok post"
   },
   {
     "id": "search.youtube",
