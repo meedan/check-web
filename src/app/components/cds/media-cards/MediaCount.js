@@ -15,8 +15,8 @@ const MediaCount = ({
   <FormattedMessage
     id="sharedItemCard.medias"
     // {mediaCount, number} tells react-intl to format the number as Intl.NumberFormat(locale, {})
-    defaultMessage="{mediaCount, number} Media"
-    description="A count of media in an item."
+    defaultMessage="{mediaCount, plural, one {# Media} other {{mediaCount, number} Media}}"
+    description="A count of media in an item. Title-case where applicable. Example: 3 Media. In English we prefer Media for both singular and plural"
     values={{ mediaCount }}
   >
     { mediaLabel => (
