@@ -28,6 +28,7 @@ const ItemThumbnail = ({
     if (picture) {
       return (
         <Tooltip
+          arrow
           title={
             <MediaTypeDisplayName
               mediaType={mediaType}
@@ -52,6 +53,7 @@ const ItemThumbnail = ({
     }
     return (
       <Tooltip
+        arrow
         title={
           <MediaTypeDisplayName
             mediaType={mediaType}

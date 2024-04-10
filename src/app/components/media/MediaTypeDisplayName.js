@@ -23,7 +23,7 @@ export default function MediaTypeDisplayName({ mediaType }) {
   case 'Telegram':
     return <FormattedMessage id="media.typeTelegram" defaultMessage="Telegram" description="Label to show that the type of media is a Telegram message" />;
   case 'Tiktok':
-    return <FormattedMessage id="media.typeTiktok" defaultMessage="Tiktok Post" description="Label to show that the type of media is a Tiktok video" />;
+    return <FormattedMessage id="media.typeTiktok" defaultMessage="TikTok Post" description="Label to show that the type of media is a Tiktok video" />;
   case 'Twitter':
     return <FormattedMessage id="media.typeTwitter" defaultMessage="X (Twitter) Post" description="Label to show that the type of media is a Twitter tweet" />;
   case 'Youtube':
