@@ -21,6 +21,7 @@ import FeedBlankState from '../feed/FeedBlankState';
 import ListSort from '../cds/inputs/ListSort';
 import SearchResultsTable from './SearchResultsTable';
 import SearchResultsCards from './SearchResultsCards';
+import WorkspaceItemCard from './SearchResultsCards/WorkspaceItemCard';
 import SearchRoute from '../../relay/SearchRoute';
 import CreateMedia from '../media/CreateMedia';
 import Can from '../Can';
@@ -343,6 +344,28 @@ function SearchResultsComponent({
     }
   });
 
+  const handleCheckboxChange = (checked, projectMedia) => {
+    const { id } = projectMedia;
+    if (!id) return; // Can't select unsaved object. Swallow mouse click.
+
+    let newIds;
+    if (checked) {
+      // Add
+      if (filteredSelectedProjectMediaIds.includes(id)) {
+        return;
+      }
+      newIds = [...filteredSelectedProjectMediaIds, id];
+      newIds.sort((a, b) => a - b);
+    } else {
+      // Remove
+      if (!filteredSelectedProjectMediaIds.includes(id)) {
+        return;
+      }
+      newIds = filteredSelectedProjectMediaIds.filter(oldId => oldId !== id);
+    }
+    setSelectedProjectMediaIds(newIds);
+  };
+
   let content = null;
 
   // Return nothing if feed doesn't have a list
@@ -380,6 +403,33 @@ function SearchResultsComponent({
         />
       );
     }
+  } else if (page === 'trash') {
+    content = (
+      <div>
+        { projectMedias.map(item => (
+          <WorkspaceItemCard
+            onCheckboxChange={(checked) => { handleCheckboxChange(checked, item); }}
+            isChecked={filteredSelectedProjectMediaIds.includes(item.id)}
+            cardUrl={buildProjectMediaUrl(item)}
+            date={new Date(+item.last_seen * 1000)}
+            title={item.title}
+            description={item.description}
+            rating={item.list_columns_values.status}
+            ratingColor={item.team.verification_statuses.statuses.find(s => s.id === item.list_columns_values.status).style.color}
+            requestsCount={item.requests_count}
+            mediaCount={item.list_columns_values.linked_items_count}
+            mediaThumbnail={{
+              media: {
+                picture: item.picture,
+                type: item.media.type,
+                url: item.media.url,
+              },
+            }}
+            mediaType={item.media.type}
+          />
+        ))}
+      </div>
+    );
   } else {
     content = (
       <SearchResultsTable

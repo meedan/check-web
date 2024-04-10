@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import cx from 'classnames/bind';
+import { Link } from 'react-router';
 import styles from './Card.module.css';
 
 const CardHoverContext = React.createContext(false);
@@ -54,7 +54,7 @@ Card.defaultProps = {
   cardUrl: null,
   footer: null,
   children: null,
-  className: '',
+  className: null,
 };
 
 Card.propTypes = {

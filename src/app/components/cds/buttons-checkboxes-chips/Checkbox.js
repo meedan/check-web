@@ -15,6 +15,11 @@ const Checkbox = ({
   onChange,
   className,
 }) => {
+  const swallowClick = (ev) => {
+    // prevent click events on items "under" the checkbox from firing when we click the link
+    ev.stopPropagation();
+  };
+
   const handleChange = (event) => {
     if (onChange) {
       onChange(event.target.checked);
@@ -23,6 +28,8 @@ const Checkbox = ({
 
   return (
     <div
+      onKeyPress={swallowClick}
+      onClick={swallowClick}
       className={cx(
         styles.checkboxWrapper,
         inputStyles['input-wrapper'],
@@ -45,6 +52,7 @@ const Checkbox = ({
           type="checkbox"
           checked={checked}
           onChange={handleChange}
+          onClick={swallowClick}
           disabled={disabled}
           {...inputProps}
         />

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import VisibilityOffIcon from '../../../icons/visibility_off.svg';
+import EmptyMediaIcon from '../../../icons/empty_media.svg';
 import styles from './ItemThumbnail.module.css';
 import MediaTypeDisplayName from '../../media/MediaTypeDisplayName';
 import MediaTypeDisplayIcon, { mediaTypeFromUrl } from '../../media/MediaTypeDisplayIcon';
@@ -9,6 +10,15 @@ import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 const ItemThumbnail = ({
   type, picture, maskContent, url,
 }) => {
+  if (!type) {
+    return (
+      <div className={`${styles.thumbnail} ${styles.container} ${styles.emptyMedia}`}>
+        <div className={`${styles.iconContainer}`}>
+          <EmptyMediaIcon />
+        </div>
+      </div>
+    );
+  }
   if (!maskContent) {
     let mediaType = type;
     if (type === 'Link') {
@@ -65,11 +75,33 @@ const ItemThumbnail = ({
   );
 };
 
+// Custom propType handlers check to see if "type" is empty. If it is, then the prop for this function isRequired
+function requiredStringIfTypeNotEmpty(props, propName, componentName) {
+  if ((props.type && (props[propName] === undefined || typeof props[propName] !== 'string'))) {
+    return new Error(`Prop ${propName} supplied to ${componentName} is required when 'type' is not empty`);
+  }
+  return undefined;
+}
+
+function requiredBoolIfTypeNotEmpty(props, propName, componentName) {
+  if ((props.type && (props[propName] === undefined || typeof props[propName] !== 'boolean'))) {
+    return new Error(`Prop ${propName} supplied to ${componentName} is required when 'type' is not empty`);
+  }
+  return undefined;
+}
+
+ItemThumbnail.defaultProps = {
+  url: null,
+  type: null,
+  picture: null,
+  maskContent: null,
+};
+
 ItemThumbnail.propTypes = {
-  url: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  picture: PropTypes.string.isRequired,
-  maskContent: PropTypes.bool.isRequired,
+  type: PropTypes.string,
+  url: requiredStringIfTypeNotEmpty,
+  picture: requiredStringIfTypeNotEmpty,
+  maskContent: requiredBoolIfTypeNotEmpty,
 };
 
 export default ItemThumbnail;

@@ -9,7 +9,6 @@ import FeedCollaboration from './FeedCollaboration';
 import FeedContent from './FeedContent';
 import FeedMetadata from './FeedMetadata';
 import FeedActions from './FeedActions';
-import FeedPublish from './FeedPublish';
 import FeedDataPoints from './FeedDataPoints';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
@@ -19,7 +18,6 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
-import TagList from '../cds/menus-lists-dialogs/TagList';
 
 const createMutation = graphql`
   mutation SaveFeedCreateFeedMutation($input: CreateFeedInput!) {
@@ -158,16 +156,10 @@ const SaveFeed = (props) => {
   const [title, setTitle] = React.useState(feed.name || '');
   const [description, setDescription] = React.useState(feed.description || '');
   const [selectedListId, setSelectedListId] = React.useState(isFeedOwner ? feed.saved_search_id : feedTeam.saved_search_id);
-  const [discoverable, setDiscoverable] = React.useState(Boolean(feed.discoverable));
   const [createdFeedDbid, setCreatedFeedDbid] = React.useState(null);
   const [newInvites, setNewInvites] = React.useState([]);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
-  const feedLicenses = feed.licenses || [];
-  const [academicLicense, setAcademicLicense] = React.useState(feedLicenses.includes(1));
-  const [commercialLicense, setCommercialLicense] = React.useState(feedLicenses.includes(2));
-  const [openSourceLicense, setOpenSourceLicense] = React.useState(feedLicenses.includes(3));
-  const [tags, setTags] = React.useState(feed.tags || []);
   const [dataPoints, setDataPoints] = React.useState(feed.data_points || []);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
@@ -233,27 +225,17 @@ const SaveFeed = (props) => {
   };
 
   // Error states that cause the save/edit button to disable
-  const discoverableNoLicense = discoverable && (
-    !academicLicense &&
-    !commercialLicense &&
-    !openSourceLicense
-  );
   const noTitle = title.length === 0;
-  const disableSaveButton = saving || discoverableNoLicense || noTitle || dataPoints.length === 0;
+  const disableSaveButton = saving || noTitle || dataPoints.length === 0;
 
   const handleSave = () => {
     setSaving(true);
     const licenses = [];
-    if (academicLicense) licenses.push(1);
-    if (commercialLicense) licenses.push(2);
-    if (openSourceLicense) licenses.push(3);
     const input = {
       name: title,
       description,
       saved_search_id: selectedListId,
-      tags,
       licenses,
-      discoverable,
       dataPoints,
       published: true,
     };
@@ -410,8 +392,6 @@ const SaveFeed = (props) => {
           </div>
         </div>
 
-        { (!isFeedOwner && tags.length > 0) && <TagList tags={tags} readOnly /> }
-
         { isFeedOwner && (
           <div className={styles.saveFeedCard}>
             <div className="typography-subtitle2">
@@ -467,10 +447,6 @@ const SaveFeed = (props) => {
                 />
               )}
             </FormattedMessage>
-            <TagList
-              tags={tags}
-              setTags={setTags}
-            />
           </div>
         )}
 
@@ -491,20 +467,6 @@ const SaveFeed = (props) => {
             : null
           }
         </div>
-
-        { isFeedOwner && (
-          <FeedPublish
-            discoverable={discoverable}
-            discoverableNoLicense={discoverableNoLicense}
-            onToggleDiscoverable={() => setDiscoverable(!discoverable)}
-            academicLicense={academicLicense}
-            commercialLicense={commercialLicense}
-            openSourceLicense={openSourceLicense}
-            onToggleAcademic={() => setAcademicLicense(!academicLicense)}
-            onToggleCommercial={() => setCommercialLicense(!commercialLicense)}
-            onToggleOpenSource={() => setOpenSourceLicense(!openSourceLicense)}
-          />
-        )}
 
       </div>
       <div className={styles.saveFeedContentNarrow}>
@@ -627,12 +589,10 @@ SaveFeed.propTypes = {
       id: PropTypes.string,
       dbid: PropTypes.number,
       name: PropTypes.string,
-      discoverable: PropTypes.bool,
       description: PropTypes.string,
       saved_search_id: PropTypes.number,
       licenses: PropTypes.arrayOf(PropTypes.number),
       data_points: PropTypes.arrayOf(PropTypes.number),
-      tags: PropTypes.arrayOf(PropTypes.string),
     }),
   }),
   permissions: PropTypes.object, // { key => value } (e.g., { 'create FeedTeam' => true })
@@ -656,9 +616,7 @@ export default createFragmentContainer(SaveFeed, graphql`
       dbid
       name
       description
-      discoverable
       licenses
-      tags
       team {
         dbid
         name
