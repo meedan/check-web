@@ -20,6 +20,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import TagList from '../cds/menus-lists-dialogs/TagList';
+import NavigateAwayDialog from '../NavigateAwayDialog';
 
 const createMutation = graphql`
   mutation SaveFeedCreateFeedMutation($input: CreateFeedInput!) {
@@ -154,6 +155,7 @@ const SaveFeed = (props) => {
   const [openSourceLicense, setOpenSourceLicense] = React.useState(feedLicenses.includes(3));
   const [tags, setTags] = React.useState(feed.tags || []);
   const [dataPoints, setDataPoints] = React.useState(feed.data_points || []);
+  const [isEditing, setIsEditing] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
   // tracking pending messages to the API for bulk email invites
@@ -208,10 +210,17 @@ const SaveFeed = (props) => {
     }
   }, [createdFeedDbid]);
 
+  React.useEffect(() => {
+    if (!isEditing) {
+      setIsEditing(true);
+    }
+  }, [title, description, tags, newInvites, discoverable, dataPoints, academicLicense, commercialLicense, openSourceLicense]);
+
   const onSuccess = (response) => {
     const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
     setCreatedFeedDbid(dbid);
     setSaving(false);
+    setIsEditing(false);
     if (!newInvites.length) {
       handleViewFeed(dbid);
     }
@@ -594,6 +603,27 @@ const SaveFeed = (props) => {
         onCancel={() => { setShowConfirmationDialog(false); }}
         isSaving={saving}
       />
+
+      {
+        isEditing &&
+          <NavigateAwayDialog
+            hasUnsavedChanges
+            title={
+              <FormattedMessage
+                id="tasks.confirmLeaveTitle"
+                defaultMessage="Do you want to leave without saving?"
+                description="This is a prompt that appears when a user tries to exit a page before saving their work."
+              />
+            }
+            body={
+              <FormattedMessage
+                id="tasks.confirmLeave"
+                defaultMessage="You are currently editing a shared feed. Do you wish to continue to a new page? Your work will not be saved."
+                description="This is a prompt that appears when a user tries to exit a page before saving their work."
+              />
+            }
+          />
+      }
     </div>
   );
 };
