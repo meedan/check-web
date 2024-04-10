@@ -403,7 +403,7 @@ const SaveFeed = (props) => {
             </div>
             <FormattedMessage
               id="saveFeed.titlePlaceholder"
-              defaultMessage="Memorable feed title"
+              defaultMessage="Easily remembered title for this shared feed"
               description="Placeholder text for feed title field"
             >
               { placeholder => (

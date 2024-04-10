@@ -37,7 +37,7 @@
   {
     "id": "saveFeed.titlePlaceholder",
     "description": "Placeholder text for feed title field",
-    "defaultMessage": "Memorable feed title"
+    "defaultMessage": "Easily remembered title for this shared feed"
   },
   {
     "id": "saveFeed.titleLabel",

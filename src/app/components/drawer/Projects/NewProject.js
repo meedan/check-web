@@ -93,7 +93,7 @@ const NewProject = ({
       body={
         <FormattedMessage
           id="projectsComponent.placeholder"
-          defaultMessage="Enter a short, memorable name for this custom list"
+          defaultMessage="Enter a short, easily remembered name for this custom list"
           description="Placeholder for creating a new custom list"
         >
           { placeholder => (

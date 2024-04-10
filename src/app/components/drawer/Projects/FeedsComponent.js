@@ -91,7 +91,7 @@ const FeedsComponent = ({
                 tagName="span"
                 id="projectsComponent.sharedFeeds"
                 defaultMessage="Collaborating [{feedsLength}]"
-                description="Feeds of content shared across workspaces"
+                description="Collaborating is a label to describe the type of shared feeds listed. In this case it means that they are groups of workspaces working together."
                 values={{ feedsLength: feeds.length }}
               />
               <Can permissions={team.permissions} permission="create Feed">

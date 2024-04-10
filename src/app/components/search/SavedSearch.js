@@ -87,7 +87,7 @@ const SavedSearch = ({ routeParams }) => (
                             title={
                               <FormattedHTMLMessage
                                 id="saveFeed.deleteCustomListWarning"
-                                defaultMessage="<strong>Deleting list will result in no content for the following shared feed(s):</strong>"
+                                defaultMessage="<strong>Deleting list will result in no content for the following shared feeds:</strong>"
                                 description="Warning displayed on edit feed page when no list is selected."
                               />
                             }
