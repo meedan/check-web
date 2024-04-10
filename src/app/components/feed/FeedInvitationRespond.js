@@ -96,7 +96,7 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
         description={
           <FormattedMessage
             id="feedInvitation.noPermissionDescription"
-            defaultMessage="Make sure you are an admin of the Check workspace to accept invitations. If not, ask your Check workspace admin for asssitance."
+            defaultMessage="Make sure you are a workspace admin to accept invitations. If not, ask the workspace admin for assistance."
             description="Description of the error page that is displayed when a user does not have permission to accept or reject a feed invitation."
           />
         }

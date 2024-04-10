@@ -35,7 +35,7 @@ const FeedContent = ({
       { !dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS) && dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
         <FormattedHTMLMessage
           id="saveFeed.feedContentBlurbMediaOnly"
-          defaultMessage="Select a custom filtered list of <strong>media, claim & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+          defaultMessage="Select a custom filtered list of <strong>media, claims & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
           description="Helper text for the feed content section when the feed is sharing only media."
         /> : null }
 
@@ -43,7 +43,7 @@ const FeedContent = ({
       { dataPoints.includes(CheckFeedDataPoints.PUBLISHED_FACT_CHECKS) && dataPoints.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
         <FormattedHTMLMessage
           id="saveFeed.feedContentBlurbFactChecksAndMedia"
-          defaultMessage="Select a custom filtered list of <strong>published fact-checks or media, claim & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
+          defaultMessage="Select a custom filtered list of <strong>published fact-checks or media, claims & requests</strong> from your workspace to contribute to this shared feed. You will be able to update this list at any time."
           description="Helper text for the feed content section when the feed is sharing fact-checks and media."
         /> : null }
 

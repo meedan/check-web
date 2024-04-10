@@ -251,7 +251,7 @@ const TeamDetails = ({
                     content={
                       <FormattedHTMLMessage
                         id="teamDetails.warnContent"
-                        defaultMessage="<strong>BEFORE:</strong> https://www.example.com/your-link<br /><strong>AFTER:</strong> https://chck.media/x1y2z3w4/{code}"
+                        defaultMessage="<strong>Before:</strong> https://www.example.com/your-link<br /><strong>After:</strong> https://chck.media/x1y2z3w4/{code}"
                         values={{ code: utmCode ? `?utm_source=${utmCode}` : '' }}
                         description="Text displayed in the content of a warning box on team details page when link shortening is on"
                       />
