@@ -114,7 +114,7 @@ export const DeleteStatusDialog = ({
               label={inputLabel}
               onChange={handleSelect}
             >
-              <FormattedMessage id="deleteStatusDialog.moveItemsToPlaceholder" defaultMessage="Select status..." description="This is a field placeholder. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field." >
+              <FormattedMessage id="deleteStatusDialog.moveItemsToPlaceholder" defaultMessage="Select status…" description="This is a field placeholder. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field." >
                 { placeholder => (
                   <option hidden>
                     {placeholder}

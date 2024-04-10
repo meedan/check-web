@@ -2,7 +2,7 @@
   {
     "id": "projectsComponent.placeholder",
     "description": "Placeholder for creating a new custom list",
-    "defaultMessage": "Enter a short, memorable name for this custom list"
+    "defaultMessage": "Enter a short, easily remembered name for this custom list"
   },
   {
     "id": "projectsComponent.title",
