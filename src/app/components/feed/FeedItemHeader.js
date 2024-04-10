@@ -14,12 +14,12 @@ import FeedImportDialog from './FeedImportDialog';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import styles from './FeedItem.module.css';
 
-const FeedItemHeader = ({ teamSlug, feed, cluster }) => {
+const FeedItemHeader = ({ team, feed, cluster }) => {
   const [showImportDialog, setShowImportDialog] = React.useState(false);
   const { title, center } = cluster;
 
   const handleViewFeed = () => {
-    browserHistory.push(`/${teamSlug}/feed/${feed.dbid}`);
+    browserHistory.push(`/${team.slug}/feed/${feed.dbid}`);
   };
 
   const handleOpenImportDialog = () => {
@@ -91,13 +91,15 @@ const FeedItemHeader = ({ teamSlug, feed, cluster }) => {
           />
         </div>
       </div>
-      { showImportDialog && <FeedImportDialog cluster={cluster} feed={feed} onClose={handleCloseImportDialog} key={cluster.id} /> }
+      { showImportDialog && <FeedImportDialog team={team} cluster={cluster} feed={feed} onClose={handleCloseImportDialog} key={cluster.id} /> }
     </div>
   );
 };
 
 FeedItemHeader.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -121,6 +123,10 @@ FeedItemHeader.propTypes = {
 export { FeedItemHeader };
 
 export default createFragmentContainer(FeedItemHeader, graphql`
+  fragment FeedItemHeader_team on Team {
+    slug
+    ...FeedImportDialog_team
+  }
   fragment FeedItemHeader_cluster on Cluster {
     id
     title

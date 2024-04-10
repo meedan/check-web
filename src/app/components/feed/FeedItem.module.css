@@ -188,3 +188,17 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.feedImportNotInCluster {
+  color: var(--textPlaceholder);
+}
+
+.feedImportLink {
+  color: var(--textLink);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.feedImportSuccessLink {
+  color: var(--otherWhite) !important;
+}
