@@ -1,7 +1,0 @@
-[
-  {
-    "id": "factCheckCard.dateLabel",
-    "description": "Date tooltip label for fact-check cards",
-    "defaultMessage": "Published at"
-  }
-]

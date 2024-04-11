@@ -1,7 +1,0 @@
-[
-  {
-    "id": "SearchFieldTag.label",
-    "description": "Prefix label for field to filter by tags",
-    "defaultMessage": "Tag is"
-  }
-]

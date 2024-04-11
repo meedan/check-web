@@ -1,7 +1,0 @@
-[
-  {
-    "id": "assignedTo.title",
-    "description": "Title of the 'assigned to me' list page. It lists items assigned to the current user",
-    "defaultMessage": "Assigned to me"
-  }
-]
