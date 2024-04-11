@@ -73,6 +73,7 @@ const FeedsComponent = ({
   };
 
   const filteredFeeds = feeds.filter((feed, index, self) => {
+    // If there are two feeds with the same dbid, it removes the feed with the FeedInvitation from the displayed list.
     if (feed.type === 'FeedInvitation') {
       return !self.some((otherFeed, otherIndex) =>
         otherFeed.dbid === feed.dbid && otherIndex !== index,
