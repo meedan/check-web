@@ -72,6 +72,15 @@ const FeedsComponent = ({
     window.storage.set('drawer.feedsExpanded', !feedsExpanded);
   };
 
+  const filteredFeeds = feeds.filter((feed, index, self) => {
+    if (feed.type === 'FeedInvitation') {
+      return !self.some((otherFeed, otherIndex) =>
+        otherFeed.dbid === feed.dbid && otherIndex !== index,
+      );
+    }
+    return true;
+  });
+
   return (
     <React.Fragment>
       <div className={styles.listTitle}>
@@ -120,7 +129,9 @@ const FeedsComponent = ({
                 </ListItemText>
               </ListItem> :
               <>
-                {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
+                {filteredFeeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
+                  // eslint-disable-next-line
+                  console.log("feed: ", feed)
                   let itemProps = {};
                   let itemIcon = null;
                   switch (feed.type) {
