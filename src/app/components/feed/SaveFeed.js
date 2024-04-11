@@ -9,7 +9,6 @@ import FeedCollaboration from './FeedCollaboration';
 import FeedContent from './FeedContent';
 import FeedMetadata from './FeedMetadata';
 import FeedActions from './FeedActions';
-import FeedPublish from './FeedPublish';
 import FeedDataPoints from './FeedDataPoints';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
@@ -19,7 +18,6 @@ import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
-import TagList from '../cds/menus-lists-dialogs/TagList';
 import NavigateAwayDialog from '../NavigateAwayDialog';
 
 const createMutation = graphql`
@@ -27,6 +25,9 @@ const createMutation = graphql`
     createFeed(input: $input) {
       feed {
         dbid
+        saved_search {
+          is_part_of_feeds
+        }
       }
       team {
         feeds(first: 10000) {
@@ -60,6 +61,12 @@ const updateMutation = graphql`
     updateFeed(input: $input) {
       feed {
         dbid
+        saved_search {
+          is_part_of_feeds
+        }
+        saved_search_was {
+          is_part_of_feeds
+        }
       }
       team {
         feeds(first: 10000) {
@@ -115,6 +122,12 @@ mutation SaveFeedUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {
     feed_team {
       dbid
       saved_search_id
+      saved_search {
+        is_part_of_feeds
+      }
+      saved_search_was {
+        is_part_of_feeds
+      }
     }
   }
 }
@@ -144,19 +157,13 @@ const SaveFeed = (props) => {
   const [createdFeedDbid, setCreatedFeedDbid] = React.useState(null);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
-  const feedLicenses = feed.licenses || [];
   const [isEditing, setIsEditing] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
   const [formData, setFormData] = React.useState({
     title: (feed.name || ''),
     description: (feed.description || ''),
     selectedListId: (isFeedOwner ? feed.saved_search_id : feedTeam.saved_search_id),
-    discoverable: (Boolean(feed.discoverable)),
     newInvites: ([]),
-    academicLicense: (feedLicenses.includes(1)),
-    commercialLicense: (feedLicenses.includes(2)),
-    openSourceLicense: (feedLicenses.includes(3)),
-    tags: (feed.tags || []),
     dataPoints: (feed.data_points || []),
   });
 
@@ -185,10 +192,6 @@ const SaveFeed = (props) => {
 
   const handleSetNewInvites = (value) => {
     handleFormUpdate('newInvites', value);
-  };
-
-  const handleSetTags = (value) => {
-    handleFormUpdate('tags', value);
   };
 
   const onInviteSuccess = () => {
@@ -243,20 +246,12 @@ const SaveFeed = (props) => {
   };
 
   // Error states that cause the save/edit button to disable
-  const discoverableNoLicense = formData.discoverable && (
-    !formData.academicLicense &&
-    !formData.commercialLicense &&
-    !formData.openSourceLicense
-  );
   const noTitle = formData.title.length === 0;
-  const disableSaveButton = saving || discoverableNoLicense || noTitle || formData.dataPoints.length === 0;
+  const disableSaveButton = saving || noTitle || dataPoints.length === 0;
 
   const handleSave = () => {
     setSaving(true);
     const licenses = [];
-    if (formData.academicLicense) licenses.push(1);
-    if (formData.commercialLicense) licenses.push(2);
-    if (formData.openSourceLicense) licenses.push(3);
     const input = {
       name: formData.title,
       description: formData.description,
@@ -396,7 +391,7 @@ const SaveFeed = (props) => {
             title={
               <FormattedHTMLMessage
                 id="saveFeed.feedCollaboratorWarning"
-                defaultMessage="To request changes to this shared feed, please contact the creating organization: {organizer}</strong>"
+                defaultMessage="To request changes to this shared feed, please contact the creating organization: <strong>{organizer}</strong>"
                 description="Warning displayed on edit feed page when logged in as a collaborating org."
                 values={{ organizer: feed?.team?.name }}
               />
@@ -419,9 +414,7 @@ const SaveFeed = (props) => {
             { pageDescription }
           </div>
         </div>
-
-        { (!isFeedOwner && formData.tags.length > 0) && <TagList tags={formData.tags} readOnly /> }
-
+        
         { isFeedOwner && (
           <div className={styles.saveFeedCard}>
             <div className="typography-subtitle2">
@@ -433,7 +426,7 @@ const SaveFeed = (props) => {
             </div>
             <FormattedMessage
               id="saveFeed.titlePlaceholder"
-              defaultMessage="Memorable feed title"
+              defaultMessage="Easily remembered title for this shared feed"
               description="Placeholder text for feed title field"
             >
               { placeholder => (
@@ -477,10 +470,6 @@ const SaveFeed = (props) => {
                 />
               )}
             </FormattedMessage>
-            <TagList
-              tags={formData.tags}
-              setTags={handleSetTags}
-            />
           </div>
         )}
 
@@ -501,20 +490,6 @@ const SaveFeed = (props) => {
             : null
           }
         </div>
-
-        { isFeedOwner && (
-          <FeedPublish
-            discoverable={formData.discoverable}
-            discoverableNoLicense={discoverableNoLicense}
-            onToggleDiscoverable={() => handleFormUpdate('discoverable', !formData.discoverable)}
-            academicLicense={formData.academicLicense}
-            commercialLicense={formData.commercialLicense}
-            openSourceLicense={formData.openSourceLicense}
-            onToggleAcademic={() => handleFormUpdate('academicLicense', !formData.academicLicense)}
-            onToggleCommercial={() => handleFormUpdate('commercialLicense', !formData.commercialLicense)}
-            onToggleOpenSource={() => handleFormUpdate('openSourceLicense', !formData.openSourceLicense)}
-          />
-        )}
 
       </div>
       <div className={styles.saveFeedContentNarrow}>
@@ -658,12 +633,10 @@ SaveFeed.propTypes = {
       id: PropTypes.string,
       dbid: PropTypes.number,
       name: PropTypes.string,
-      discoverable: PropTypes.bool,
       description: PropTypes.string,
       saved_search_id: PropTypes.number,
       licenses: PropTypes.arrayOf(PropTypes.number),
       data_points: PropTypes.arrayOf(PropTypes.number),
-      tags: PropTypes.arrayOf(PropTypes.string),
     }),
   }),
   permissions: PropTypes.object, // { key => value } (e.g., { 'create FeedTeam' => true })
@@ -687,9 +660,7 @@ export default createFragmentContainer(SaveFeed, graphql`
       dbid
       name
       description
-      discoverable
       licenses
-      tags
       team {
         dbid
         name

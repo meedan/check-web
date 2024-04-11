@@ -107,7 +107,7 @@
   {
     "id": "feedDataPoints.feedDataPointMediaContent",
     "description": "Media field listed on save feed page, as part of the list of media fields available when the feed is sharing media.",
-    "defaultMessage": "Media content when present, such as image, description or transcript"
+    "defaultMessage": "Media content when present, such as an image, description, or transcript"
   },
   {
     "id": "feedDataPoints.requestContentTitle",

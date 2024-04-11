@@ -37,7 +37,7 @@
   {
     "id": "deleteStatusDialog.moveItemsToPlaceholder",
     "description": "This is a field placeholder. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field.",
-    "defaultMessage": "Select status..."
+    "defaultMessage": "Select status…"
   },
   {
     "id": "statusesComponent.moveItemsAndDelete",

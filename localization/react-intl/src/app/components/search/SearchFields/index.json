@@ -37,7 +37,7 @@
   {
     "id": "search.tiktok",
     "description": "Allow user to filter items by tiktok posts",
-    "defaultMessage": "Tiktok post"
+    "defaultMessage": "TikTok post"
   },
   {
     "id": "search.youtube",
@@ -143,6 +143,11 @@
     "id": "search.show",
     "description": "Prefix label for field to filter by media type",
     "defaultMessage": "Type is"
+  },
+  {
+    "id": "search.showSimilar",
+    "description": "Label for filter field to display matched media",
+    "defaultMessage": "Include matched media"
   },
   {
     "id": "search.unmatched",

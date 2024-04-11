@@ -107,7 +107,7 @@
   {
     "id": "reportDesigner.datePublishedPlaceholder",
     "description": "Placeholder for report date published field",
-    "defaultMessage": "Add a date when this report was published"
+    "defaultMessage": "Add the report publication date"
   },
   {
     "id": "reportDesigner.datePublished",

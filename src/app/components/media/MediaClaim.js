@@ -144,7 +144,7 @@ const MediaClaim = ({ projectMedia }) => {
                 id="mediaClaim.saved"
                 defaultMessage="saved by {userName} {timeAgo}"
                 values={{
-                  userName: claimDescription.user.name,
+                  userName: claimDescription.user?.name,
                   timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
                 }}
                 description="Caption that informs who last saved this claim and when it happened."

@@ -121,7 +121,7 @@
   {
     "id": "annotation.addSource",
     "description": "Log entry indicating a source has been added",
-    "defaultMessage": "Source {name} add by {author}"
+    "defaultMessage": "Source {name} added by {author}"
   },
   {
     "id": "annotation.createProjectMedia",
@@ -132,6 +132,26 @@
     "id": "annotation.updateSource",
     "description": "Log entry indicating an item status has been changed",
     "defaultMessage": "Source {name} updated by {author}"
+  },
+  {
+    "id": "annotation.markedAsSpam",
+    "description": "Log entry indicating an item marked as spam",
+    "defaultMessage": "Marked as Spam by {author}"
+  },
+  {
+    "id": "annotation.markAsSpam",
+    "description": "Log entry indicating an item sent to trash",
+    "defaultMessage": "Sent to Trash by {author}"
+  },
+  {
+    "id": "annotation.notSpam",
+    "description": "Log entry indicating an item not spam",
+    "defaultMessage": "Marked as not Spam by {author}"
+  },
+  {
+    "id": "annotation.restoreFromTrash",
+    "description": "Log entry indicating an item restored from trash",
+    "defaultMessage": "Restored from Trash by {author}"
   },
   {
     "id": "annotation.updateClaimDescription",

@@ -75,7 +75,7 @@ const FeedTeamCard = ({
           <div className={styles.feedItemTeamCardNotSharing}>
             <FormattedHTMLMessage
               id="feedTeamCard.notContributing"
-              defaultMessage="Your workspace does not contribute to this shared feed item.<br /><br />Select a workspace below to import it’s media to your workspace."
+              defaultMessage="Your workspace does not contribute to this shared feed item.<br /><br />Select a workspace below to import its media to your workspace."
               description="Displayed on the current workspace card on feed item page when the current workspace is not contributing to that cluster. This is an HTML message, please keep the <br /> tag."
             />
           </div>

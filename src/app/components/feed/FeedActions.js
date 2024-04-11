@@ -139,7 +139,7 @@ const FeedActions = ({
                 title={
                   <FormattedHTMLMessage
                     id="saveFeed.deleteSharedFeedWarning"
-                    defaultMessage="<strong>NOTE: Your custom list and items will remain available and unaffected.</strong>"
+                    defaultMessage="<strong>Note: Your custom list and items will remain available and unaffected.</strong>"
                     description="Warning displayed on edit feed page when no list is selected."
                   />
                 }
@@ -193,7 +193,7 @@ const FeedActions = ({
         body={
           <FormattedHTMLMessage
             id="saveFeed.leaveFeedConfirmationBod"
-            defaultMessage="Are you sure you? Any content you are currently sharing with this feed will no longer be acessible by collaborating organizations.<br /><br />You will need to contact <strong>{orgName}</strong> in order to rejoin."
+            defaultMessage="Are you sure? Any content you are currently sharing with this feed will no longer be accessible by collaborating organizations.<br /><br />You will need to contact <strong>{orgName}</strong> in order to rejoin."
             values={{
               orgName: feed.team?.name,
             }}

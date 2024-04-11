@@ -171,6 +171,18 @@ const AddFilterMenu = ({
       ),
     },
     ...(team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled) ? [{
+      id: 'add-filter-menu__show-similar',
+      key: 'show_similar',
+      icon: <UnmatchedIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.showSimilar"
+          defaultMessage="Media (matched)"
+          description="Menu option to enable individually displaying items with similar media"
+        />
+      ),
+    }] : [],
+    ...(team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled) ? [{
       id: 'add-filter-menu__unmatched',
       key: 'unmatched',
       icon: <UnmatchedIcon />,
