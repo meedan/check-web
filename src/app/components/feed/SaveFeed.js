@@ -368,7 +368,7 @@ const SaveFeed = (props) => {
             title={
               <FormattedHTMLMessage
                 id="saveFeed.feedCollaboratorWarning"
-                defaultMessage="To request changes to this shared feed, please contact the creating organization: {organizer}</strong>"
+                defaultMessage="To request changes to this shared feed, please contact the creating organization: <strong>{organizer}</strong>"
                 description="Warning displayed on edit feed page when logged in as a collaborating org."
                 values={{ organizer: feed?.team?.name }}
               />
@@ -403,7 +403,7 @@ const SaveFeed = (props) => {
             </div>
             <FormattedMessage
               id="saveFeed.titlePlaceholder"
-              defaultMessage="Memorable feed title"
+              defaultMessage="Easily remembered title for this shared feed"
               description="Placeholder text for feed title field"
             >
               { placeholder => (

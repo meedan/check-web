@@ -38,7 +38,7 @@ const FeedInvitationComponent = ({ routeParams, ...props }) => {
             {props.feed_invitation.user.name}, <span className={styles.email}>{props.feed_invitation.user.email}</span>
           </div>
           <div className={cx('typography-body1', styles.invited)}>
-            <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Check Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
+            <FormattedMessage id="feedInvitation.invited" defaultMessage="has invited your organization to contribute to a Shared Feed" description="This is a fragment of text that appears after the name of a person and email address, like: '[[Bob Smith, bob@example.com]] has invited your organization to...'. The name appears above the text and this part of the sentence continues on the second row of text. The two messages combined should read like a grammatically correct sentence." />
           </div>
           <div>
             <span className={cx('typography-body1-bold')}>&ldquo;{props.feed_invitation.feed.name}&rdquo;</span>
