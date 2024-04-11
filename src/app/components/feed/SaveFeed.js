@@ -626,14 +626,14 @@ const SaveFeed = (props) => {
             hasUnsavedChanges
             title={
               <FormattedMessage
-                id="tasks.confirmLeaveTitle"
+                id="saveFeed.confirmLeaveTitle"
                 defaultMessage="Do you want to leave without saving?"
                 description="This is a prompt that appears when a user tries to exit a page before saving their work."
               />
             }
             body={
               <FormattedMessage
-                id="tasks.confirmLeave"
+                id="saveFeed.confirmLeave"
                 defaultMessage="You have unsaved changes to your shared feed. Do you wish to continue to a new page? Your work will not be saved."
                 description="This is a prompt that appears when a user tries to exit a page before saving their work."
               />
