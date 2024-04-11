@@ -1,0 +1,32 @@
+[
+  {
+    "id": "changeMediaSource.createSource",
+    "description": "allow user to create a new source",
+    "defaultMessage": "Create new"
+  },
+  {
+    "id": "changeMediaSource.choose",
+    "description": "Change media source placeholder",
+    "defaultMessage": "Choose a source"
+  },
+  {
+    "id": "changeMediaSource.chooseLabel",
+    "description": "Change media source label",
+    "defaultMessage": "Source"
+  },
+  {
+    "id": "changeMediaSource.helpContent",
+    "description": "Helper text for the input to select an item source",
+    "defaultMessage": "Add a source for this item"
+  },
+  {
+    "id": "changeMediaSource.cancelButton",
+    "description": "Cancel change media source action",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "changeMediaSource.saveButton",
+    "description": "Save media source label",
+    "defaultMessage": "Save"
+  }
+]

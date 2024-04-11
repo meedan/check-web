@@ -1,0 +1,47 @@
+[
+  {
+    "id": "smoochBotMainMenu.privacyStatement",
+    "description": "Menu label used in the tipline bot",
+    "defaultMessage": "Privacy statement"
+  },
+  {
+    "id": "smoochBotMainMenu.languages",
+    "description": "Menu label used in the tipline bot when multiple languages are collapsed in a single menu option",
+    "defaultMessage": "Languages"
+  },
+  {
+    "id": "smoochBotMainMenu.numberOfLanguages",
+    "description": "Menu description used in the tipline bot when multiple languages are collapsed in a single menu option (always plural)",
+    "defaultMessage": "{numberOfLanguages} languages"
+  },
+  {
+    "id": "smoochBotMainMenu.mainMenu",
+    "description": "Title of the tipline bot main menu settings page.",
+    "defaultMessage": "Main menu"
+  },
+  {
+    "id": "smoochBotMainMenu.subtitle2",
+    "description": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform.",
+    "defaultMessage": "Please note that some messaging services have different menu display options than others."
+  },
+  {
+    "id": "smoochBotMainMenu.optionsCounter",
+    "description": "Counter that is displayed on tipline settings page in order to inform the user how many options they can still add to the bot main menu.",
+    "defaultMessage": "{available}/{total} main menu options available"
+  },
+  {
+    "id": "smoochBotMainMenu.alertTitle",
+    "description": "Title of an alert box displayed on tipline main menu settings page when there are more than 10 options.",
+    "defaultMessage": "There are {numberOfOptions} options including all languages on this workspace. Only {numberOfLanguages} languages will be sent to users when they select the 'Languages' option."
+  },
+  {
+    "id": "smoochBotMainMenu.languagesAndPrivacy",
+    "description": "Title of the main menu third section of the tipline where there is more than one supported language",
+    "defaultMessage": "Languages and Privacy"
+  },
+  {
+    "id": "smoochBotMainMenu.privacy",
+    "description": "Title of the main menu third section of the tipline when there is only one supported language",
+    "defaultMessage": "Privacy"
+  }
+]

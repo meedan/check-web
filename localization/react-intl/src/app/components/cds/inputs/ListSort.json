@@ -1,0 +1,12 @@
+[
+  {
+    "id": "listSort.sort",
+    "description": "Label for sort criteria drop-down field displayed on fact-checks page.",
+    "defaultMessage": "Sort"
+  },
+  {
+    "id": "listSort.changeDirection",
+    "description": "Tooltip to tell the user they can change the direction of the list sort",
+    "defaultMessage": "Change list sorting direction"
+  }
+]

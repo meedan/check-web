@@ -1,0 +1,16 @@
+[
+  {
+    "id": "rule.copyOf",
+    "defaultMessage": "Copy of {ruleName}"
+  },
+  {
+    "id": "rulesComponent.defaultErrorMessage",
+    "description": "Error message when rule cannot be saved",
+    "defaultMessage": "Could not save rules"
+  },
+  {
+    "id": "rulesComponent.savedSuccessfully",
+    "description": "Success message when rule has saved",
+    "defaultMessage": "Rules saved successfully"
+  }
+]

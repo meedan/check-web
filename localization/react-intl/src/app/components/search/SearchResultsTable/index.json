@@ -1,0 +1,127 @@
+[
+  {
+    "id": "list.Item",
+    "description": "Table header for Claim column",
+    "defaultMessage": "Claim"
+  },
+  {
+    "id": "list.factCheck",
+    "description": "Table header for Fact-check column",
+    "defaultMessage": "Fact-check"
+  },
+  {
+    "id": "list.Demand",
+    "description": "Table header for Requests column",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "list.ShareCount",
+    "description": "Table header for Facebook share count column",
+    "defaultMessage": "FB Shares"
+  },
+  {
+    "id": "list.LinkedItems",
+    "description": "Plural - Table header for number of related media column",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "list.Type",
+    "description": "Table header for item type column",
+    "defaultMessage": "Type"
+  },
+  {
+    "id": "list.Status",
+    "description": "Table header for item status column",
+    "defaultMessage": "Status"
+  },
+  {
+    "id": "list.FirstSeen",
+    "description": "Table header for item submitted date column",
+    "defaultMessage": "Submitted"
+  },
+  {
+    "id": "list.updated",
+    "description": "Table header for item updated date column",
+    "defaultMessage": "Updated"
+  },
+  {
+    "id": "list.reportStatus",
+    "description": "Table header for report status column",
+    "defaultMessage": "Report status"
+  },
+  {
+    "id": "list.teamName",
+    "description": "Table header for column that shows the team name",
+    "defaultMessage": "Fact-check by"
+  },
+  {
+    "id": "list.tags",
+    "description": "Table header for item tags column",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "list.mediaPublishedAt",
+    "description": "Table header for media (singular) published date column",
+    "defaultMessage": "Media published"
+  },
+  {
+    "id": "list.reportPublishedBy",
+    "description": "Table header for user who published report column",
+    "defaultMessage": "Report published by"
+  },
+  {
+    "id": "list.factCheckPublishedAt",
+    "description": "Table header for fact-check publication date column",
+    "defaultMessage": "Fact check published at"
+  },
+  {
+    "id": "list.reactCount",
+    "description": "Table header for Facebook reactions count column",
+    "defaultMessage": "FB Reactions"
+  },
+  {
+    "id": "list.commentCount",
+    "description": "Table header for Facebook comments count column",
+    "defaultMessage": "FB Comments"
+  },
+  {
+    "id": "list.suggestionsCount",
+    "description": "Table header suggested matches count column",
+    "defaultMessage": "Suggestions"
+  },
+  {
+    "id": "list.createdBy",
+    "description": "Table header for column that shows the creator name",
+    "defaultMessage": "Created by"
+  },
+  {
+    "id": "list.sourceName",
+    "description": "Table header for column that shows item source",
+    "defaultMessage": "Source"
+  },
+  {
+    "id": "list.clusterFactCheckedByTeamNames",
+    "description": "Table header for column that shows from which workspaces the items in the same cluster have a published report",
+    "defaultMessage": "Report published"
+  },
+  {
+    "id": "list.clusterRequests",
+    "description": "Table header for column that shows number of requests in a cluster",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "list.clusterSize",
+    "description": "Table header for column that shows the number of similar items that belong to the same cluster",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "list.clusterFirstItemAt",
+    "description": "Table header for column that shows when the last item of the cluster was created",
+    "defaultMessage": "Submitted"
+  },
+  {
+    "id": "list.clusterLastItemAt",
+    "description": "Table header for column that shows when the last item of the cluster was created",
+    "defaultMessage": "Last submitted"
+  }
+]

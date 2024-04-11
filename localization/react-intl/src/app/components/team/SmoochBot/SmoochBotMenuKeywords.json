@@ -1,0 +1,32 @@
+[
+  {
+    "id": "smoochBotMenuKeywords.errorMessage",
+    "description": "Error message displayed when NLU keywords for a given tipline menu item can't be updated. NLU stands for Natural Language Understanding.",
+    "defaultMessage": "Could not update NLU keywords"
+  },
+  {
+    "id": "smoochBotMenuKeywords.successMessage",
+    "description": "Success message displayed when NLU keywords for a given tipline menu item are updated successfully. NLU stands for Natural Language Understanding.",
+    "defaultMessage": "NLU keywords updated successfully"
+  },
+  {
+    "id": "smoochBotMenuKeywords.title",
+    "description": "Label for tags component on tipline menu option editing screen.",
+    "defaultMessage": "Keywords (super-admin only)"
+  },
+  {
+    "id": "smoochBotMenuKeywords.helperText",
+    "description": "Helper text for tags component on tipline menu option editing screen.",
+    "defaultMessage": "Keywords and phrases that should match this menu item for NLU. Changes take effect immediately."
+  },
+  {
+    "id": "smoochBotMenuKeywords.helperTextUnsavedChanges",
+    "description": "Helper text for tags component on tipline menu option editing screen when there are unsaved changes.",
+    "defaultMessage": "There are unsaved changes to tipline settings. Please 'Publish' the tipline or reload the page and then try again."
+  },
+  {
+    "id": "smoochBotMenuKeyword.create",
+    "description": "A label for a button that allows people to create a new NLU keyword.",
+    "defaultMessage": "+ Create keyword"
+  }
+]

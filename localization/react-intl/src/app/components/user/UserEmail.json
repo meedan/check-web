@@ -1,0 +1,12 @@
+[
+  {
+    "id": "userEmail.alertTitle",
+    "description": "Alert title for prompting the user to add their email address in order to receive notifications",
+    "defaultMessage": "Add your email"
+  },
+  {
+    "id": "userEmail.text",
+    "description": "Message to the user on how to receive notifications to their email address",
+    "defaultMessage": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address."
+  }
+]

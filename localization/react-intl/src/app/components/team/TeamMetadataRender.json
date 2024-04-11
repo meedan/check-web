@@ -1,0 +1,32 @@
+[
+  {
+    "id": "teamMetadataRender.headerTitle",
+    "description": "Title for annotation settings screen.",
+    "defaultMessage": "Annotation Form"
+  },
+  {
+    "id": "teamMetadataRender.itemHelpContext",
+    "description": "Context description for the functionality of the item portion of this page",
+    "defaultMessage": "Customize the item annotation form. Learn more about <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">using annotations</a> to add context to items."
+  },
+  {
+    "id": "teamMetadataRender.sourceHelpContext",
+    "description": "Context description for the functionality of source portion of this page",
+    "defaultMessage": "Customize the source annotation form. Learn more about <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">describing sources</a>."
+  },
+  {
+    "id": "teamMetadataRender.headerItemButton",
+    "description": "Button to select to see the content for this page. Refers to annotation applied to items generally, not any specific item or items.",
+    "defaultMessage": "Items"
+  },
+  {
+    "id": "teamMetadataRender.headerSourceButton",
+    "description": "Button to select to see the content for this page. Refers to annotation applied to sources generally, not any specific source or sources.",
+    "defaultMessage": "Sources"
+  },
+  {
+    "id": "teamMetadataRender.blankAnnotations",
+    "description": "Text for empty annotations",
+    "defaultMessage": "No annotation fields"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "feedSwitcher.sharedRequests",
+    "description": "Button label to take the user to the list of fact-checks shared in the feed.",
+    "defaultMessage": "Shared Fact-checks"
+  },
+  {
+    "id": "feedSwitcher.apiRequests",
+    "description": "Button label to take the user to the list of requests coming from the API.",
+    "defaultMessage": "API Requests"
+  }
+]

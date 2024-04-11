@@ -1,0 +1,17 @@
+[
+  {
+    "id": "thresholdControl.matchingExplainer",
+    "description": "Description of the confidence score automatically triggering a report being sent to the user",
+    "defaultMessage": "If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
+  },
+  {
+    "id": "thresholdControl.suggestionExplainer",
+    "description": "Description of the confidence score automatically suggesting an item to a system editor",
+    "defaultMessage": "If the confidence score is above this ratio, items will be suggested as similar."
+  },
+  {
+    "id": "thresholdControl.suggestionGreaterThanMatchingError",
+    "description": "Error message displayed when suggestion threshold is set higher than value of matching threshold",
+    "defaultMessage": "The suggestion threshold cannot be higher than the matching one."
+  }
+]

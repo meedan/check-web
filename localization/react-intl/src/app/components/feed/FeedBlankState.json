@@ -1,0 +1,27 @@
+[
+  {
+    "id": "feedBlankState.title",
+    "description": "Title displayed on feed page when there are no items to be listed.",
+    "defaultMessage": "No items"
+  },
+  {
+    "id": "feedBlankState.description",
+    "description": "Message displayed on feed page when there are no items to be listed. English values for placeholders link text: 'resetLink' is 'resetting filters' and 'listLink' is 'source list'.",
+    "defaultMessage": "Try {resetLink} to find items or verify that the {listLink} has items"
+  },
+  {
+    "id": "feedBlankState.resetLinkText",
+    "description": "Link text that is part of message displayed when a feed does not return any items. The message where it appears reads: 'Try resetting filters to find items'.",
+    "defaultMessage": "resetting filters"
+  },
+  {
+    "id": "feedBlankState.listLinkText",
+    "description": "Link text that is part of message displayed when a feed does not return any items. The message where it appears reads: 'Verify that the source list has items'.",
+    "defaultMessage": "source list"
+  },
+  {
+    "id": "feedBlankState.listText",
+    "description": "Text that is part of message displayed when a feed does not return any items.",
+    "defaultMessage": "source list"
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "teamBots.success",
+    "description": "Success message when an integration setting has been updated",
+    "defaultMessage": "Settings updated!"
+  },
+  {
+    "id": "teamBots.fail",
+    "description": "Error message when an integration setting did not update correctly",
+    "defaultMessage": "Error! Please try again."
+  },
+  {
+    "id": "teamBots.settings",
+    "description": "section title for the settings of an individual integration",
+    "defaultMessage": "Settings"
+  },
+  {
+    "id": "teamBots.save",
+    "description": "Save button on an individual integration settings",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "teamBots.noSettings",
+    "description": "message to the the user that there are no additional settings for an integration",
+    "defaultMessage": "There are no settings for this bot."
+  }
+]

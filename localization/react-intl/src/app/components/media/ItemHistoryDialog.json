@@ -1,0 +1,7 @@
+[
+  {
+    "id": "ItemHistoryDialog.title",
+    "description": "Dialog window title for the item's history",
+    "defaultMessage": "Item history"
+  }
+]

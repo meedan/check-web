@@ -1,0 +1,17 @@
+[
+  {
+    "id": "mediaSearch.previousItem",
+    "description": "Tooltip message for a paging button to move to the previous item",
+    "defaultMessage": "Previous item"
+  },
+  {
+    "id": "mediaSearch.xOfY",
+    "description": "The current item number and total in the list paging control is showing",
+    "defaultMessage": "{current} of {total}"
+  },
+  {
+    "id": "mediaSearch.nextItem",
+    "description": "Tooltip message for a paging button to move to the next item",
+    "defaultMessage": "Next item"
+  }
+]

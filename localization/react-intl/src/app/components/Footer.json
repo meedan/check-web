@@ -1,0 +1,7 @@
+[
+  {
+    "id": "footer.madeBy",
+    "description": "Tagline shown on the bottom of the sign in or registration page",
+    "defaultMessage": "Check: Verify breaking news online. Made with ✨ by {meedan}"
+  }
+]

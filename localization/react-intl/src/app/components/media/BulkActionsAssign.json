@@ -1,0 +1,32 @@
+[
+  {
+    "id": "bulkActionsAssign.success",
+    "description": "Success message for bulk assignment action",
+    "defaultMessage": "Items assigned successfully"
+  },
+  {
+    "id": "tagMenu.search",
+    "description": "Placeholder text for searching tags",
+    "defaultMessage": "Search…"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "bulkActionsAssign.notFound",
+    "description": "Displayed when no member names match search input",
+    "defaultMessage": "No members found"
+  },
+  {
+    "id": "bulkActionsAssign.submitLabel",
+    "description": "Button for commiting the action of assigning of a number of items in bulk",
+    "defaultMessage": "{numItems, plural, one {Assign # item} other {Assign # items}}"
+  },
+  {
+    "id": "bulkActionsAssign.assignmentNotes",
+    "description": "Field for adding complementary information for the assignee",
+    "defaultMessage": "Add a note to email notification"
+  }
+]

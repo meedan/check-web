@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ruleBody.ruleNameValidation",
+    "description": "Help content for the text field",
+    "defaultMessage": "Rule name is required"
+  },
+  {
+    "id": "ruleBody.ruleName",
+    "description": "Text field label for the rule name",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "ruleBody.if",
+    "description": "Logical operator IF statement label",
+    "defaultMessage": "If"
+  },
+  {
+    "id": "ruleBody.then",
+    "description": "Logical operator THEN statement",
+    "defaultMessage": "Then"
+  }
+]

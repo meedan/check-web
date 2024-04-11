@@ -1,0 +1,32 @@
+[
+  {
+    "id": "UserConfirmPage.confirmed",
+    "description": "Message for confirmed accounts",
+    "defaultMessage": "Account Confirmed"
+  },
+  {
+    "id": "UserConfirmPage.alreadyConfirmed",
+    "description": "Message for accounts already confirmed",
+    "defaultMessage": "Account Already Confirmed"
+  },
+  {
+    "id": "userConfirmed.confrimMessage",
+    "description": "Message for confirmed user",
+    "defaultMessage": "Thanks for confirming your email address! Now you can sign in."
+  },
+  {
+    "id": "userConfirmed.alreadyConfrimMessage",
+    "description": "Message for user who already confirmed before",
+    "defaultMessage": "Your account is already confirmed. Please sign in to get started."
+  },
+  {
+    "id": "userConfirmed.unConfrimMessage",
+    "description": "Message for unconfirmed users",
+    "defaultMessage": "Sorry, an error occurred while confirming your account. Please try again and contact <a href=\"mailto:{supportEmail}\">{supportEmail}</a> if the condition persists."
+  },
+  {
+    "id": "userConfirmPage.signIn",
+    "description": "Sign in button",
+    "defaultMessage": "Sign In"
+  }
+]

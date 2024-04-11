@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ocrButton.defaultErrorMessage",
+    "description": "Warning displayed if an error occurred when extracting text from image",
+    "defaultMessage": "Could not extract text from image"
+  },
+  {
+    "id": "ocrButton.textExtractedSuccessfully",
+    "description": "Banner displayed when text extraction operation for an image is done",
+    "defaultMessage": "Text extraction completed"
+  },
+  {
+    "id": "ocrButton.inProgress",
+    "description": "Message displayed while text is being extracted from an image",
+    "defaultMessage": "Text extraction in progress…"
+  },
+  {
+    "id": "ocrButton.label",
+    "description": "Button label - when this button is clicked, text is extracted from image",
+    "defaultMessage": "Extract text"
+  }
+]

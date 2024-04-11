@@ -1,0 +1,12 @@
+[
+  {
+    "id": "saveFeed.createdBy",
+    "description": "Metadata field displayed on feed edit page.",
+    "defaultMessage": "Created by {teamName}"
+  },
+  {
+    "id": "saveFeed.lastUpdated",
+    "description": "On feed edit page, show the last time the feed settings were changed. The placeholder 'timeAgo' is something like '10 minutes ago'.",
+    "defaultMessage": "Settings last updated {timeAgo}"
+  }
+]

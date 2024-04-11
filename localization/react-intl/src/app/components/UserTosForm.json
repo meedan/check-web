@@ -1,0 +1,42 @@
+[
+  {
+    "id": "userTos.tosLink",
+    "description": "Link text to take the user to the terms of service",
+    "defaultMessage": "Terms of Service"
+  },
+  {
+    "id": "userTos.ppLink",
+    "description": "Link text to take the user to the privacy policy",
+    "defaultMessage": "Privacy Policy"
+  },
+  {
+    "id": "userTos.title",
+    "description": "Page title for the terms of service",
+    "defaultMessage": "Terms of Service and Privacy Policy"
+  },
+  {
+    "id": "userTos.titleUpdated",
+    "description": "Page title for the updated terms of service and privacy policy messages",
+    "defaultMessage": "Updated Terms and Privacy Policy"
+  },
+  {
+    "id": "userTos.termsLastUpdatedAt",
+    "description": "Date of the last terms of service update",
+    "defaultMessage": "Last updated {lastUpdated}"
+  },
+  {
+    "id": "userTos.disclaimer",
+    "description": "Message for the user to review the terms of service and privacy policy",
+    "defaultMessage": "Please review our {tosLink} and our {ppLink} and consent to the following:"
+  },
+  {
+    "id": "userTos.disclaimerUpdate",
+    "description": "Message to the user that the terms of service and privacy policy have been updated",
+    "defaultMessage": "We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:"
+  },
+  {
+    "id": "userTos.agreeTos",
+    "description": "Checkbox label for the user to agree to the terms of service",
+    "defaultMessage": "I agree to the Terms of Service."
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "inviteNewAccounttosMissing",
+    "description": "Error message for check Terms and Privacy Privacy boxes",
+    "defaultMessage": "You must agree to the Terms of Service and Privacy Policy"
+  },
+  {
+    "id": "inviteNewAccount.invitedBy",
+    "description": "Message to the current user about who has invited them to join this workspace",
+    "defaultMessage": "{name} has invited you to join the workspace:"
+  },
+  {
+    "id": "inviteNewAccount.createMessage",
+    "description": "Inform your to create a new account for signup",
+    "defaultMessage": "You need to create an account for <strong>{email}</strong>"
+  },
+  {
+    "id": "inviteNewAccountemailLabel",
+    "description": "Label for user email field",
+    "defaultMessage": "Email"
+  },
+  {
+    "id": "inviteNewAccountnameLabel",
+    "description": "Label for user name field",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "inviteNewAccountpasswordLabel",
+    "description": "Label for password field",
+    "defaultMessage": "Password (minimum 8 characters)"
+  },
+  {
+    "id": "inviteNewAccountpasswordConfirmLabel",
+    "description": "Label for password confirmation field",
+    "defaultMessage": "Password confirmation"
+  },
+  {
+    "id": "inviteNewAccount.createAccount",
+    "description": "Submit button for create a new account",
+    "defaultMessage": "Create Account"
+  }
+]

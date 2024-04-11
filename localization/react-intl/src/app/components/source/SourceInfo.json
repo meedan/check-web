@@ -1,0 +1,57 @@
+[
+  {
+    "id": "sourceInfo.invalidLink",
+    "description": "Error message for invalid link",
+    "defaultMessage": "Please enter a valid URL"
+  },
+  {
+    "id": "sourceInfo.mediasCount",
+    "description": "show source media counts",
+    "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"
+  },
+  {
+    "id": "mediaSource.changeSource",
+    "description": "allow user to change a project media source",
+    "defaultMessage": "Change"
+  },
+  {
+    "id": "sourceInfo.saving",
+    "description": "Progress message about a save in progress",
+    "defaultMessage": "Saving…"
+  },
+  {
+    "id": "sourceInfo.saved",
+    "description": "Caption value for how long ago a save occurred",
+    "defaultMessage": "Saved {ago}"
+  },
+  {
+    "id": "sourceInfo.mainName",
+    "description": "Source name",
+    "defaultMessage": "Main name"
+  },
+  {
+    "id": "sourceInfo.mainAccount",
+    "description": "URL for first account related to media source",
+    "defaultMessage": "Main source URL"
+  },
+  {
+    "id": "sourceInfo.primaryLink",
+    "description": "Allow user to add a main source URL",
+    "defaultMessage": "Main source URL"
+  },
+  {
+    "id": "sourceInfo.secondaryAccounts",
+    "description": "URLs for source accounts except first account",
+    "defaultMessage": "Secondary source URLs"
+  },
+  {
+    "id": "sourceInfo.secondaryUrl",
+    "description": "URL for secondary account related to media source",
+    "defaultMessage": "Secondary source URL"
+  },
+  {
+    "id": "sourceInfo.addLink",
+    "description": "Allow user to relate a new link to media source",
+    "defaultMessage": "Add a secondary URL"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "uploadFile.message",
+    "description": "Message to the user describing the requirements for uploading an image",
+    "defaultMessage": "Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+  },
+  {
+    "id": "uploadFile.videoMessage",
+    "description": "Message to the user describing the requirements for uploading a video",
+    "defaultMessage": "Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+  },
+  {
+    "id": "uploadFile.audioMessage",
+    "description": "Message to the user describing the requirements for uploading an audio file",
+    "defaultMessage": "Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
+  },
+  {
+    "id": "uploadFile.fileMessage",
+    "description": "Message to the user describing the requirements for uploading a file using this component",
+    "defaultMessage": "Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+  },
+  {
+    "id": "uploadFile.imageVideoAudioMessage",
+    "description": "Message to the user describing the requirements for uploading an image, video, or audio file using this component",
+    "defaultMessage": "Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+  },
+  {
+    "id": "uploadFile.invalidExtension",
+    "description": "Error message when the user tries to upload a file with a not accepted file extension",
+    "defaultMessage": "The file cannot have type \"{extension}\". Please try with the following file types: {allowed_types}."
+  },
+  {
+    "id": "uploadFile.fileTooLarge",
+    "description": "Error message when the user tries to upload a file that is over the size limit",
+    "defaultMessage": "The file size should be less than {size}. Please try with a smaller file."
+  },
+  {
+    "id": "uploadFile.changeFile",
+    "description": "Output of the uploaded filename and how to change the file",
+    "defaultMessage": "{filename} (click or drop to change)"
+  }
+]

@@ -1,0 +1,7 @@
+[
+  {
+    "id": "browserSupport.message",
+    "description": "Banner message encouraging users to use the Google Chrome browser, as their current browser is not supported",
+    "defaultMessage": "{appName} is optimized for Google Chrome on desktop."
+  }
+]

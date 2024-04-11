@@ -1,0 +1,77 @@
+[
+  {
+    "id": "feedRequestsTable.mediaTypeText",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "feedRequestsTable.mediaTypeLink",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Link"
+  },
+  {
+    "id": "feedRequestsTable.mediaTypeImage",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Image"
+  },
+  {
+    "id": "feedRequestsTable.mediaTypeAudio",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Audio"
+  },
+  {
+    "id": "feedRequestsTable.mediaTypeVideo",
+    "description": "Label for feed request media type",
+    "defaultMessage": "Video"
+  },
+  {
+    "id": "projectBlankState.blank",
+    "description": "Message displayed when there are no items",
+    "defaultMessage": "There are no items here."
+  },
+  {
+    "id": "feedRequestsTable.media",
+    "description": "Header label for media column. Media can be any piece of content, i.e. an image, a video, an url, a piece of text",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "feedRequestsTable.lastSubmitted",
+    "description": "Header label for date column, in which are shown timestamps of last time a media was sent",
+    "defaultMessage": "Last submitted"
+  },
+  {
+    "id": "feedRequestsTable.mediaType",
+    "description": "Header label for media type column, in which are shown the type of the media associated with the request",
+    "defaultMessage": "Media type"
+  },
+  {
+    "id": "feedRequestsTable.requests",
+    "description": "Header label for number of requests column",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "feedRequestsTable.subscriptions",
+    "description": "Header label for number of subscriptions column",
+    "defaultMessage": "Subscriptions"
+  },
+  {
+    "id": "feedRequestsTable.factChecksSent",
+    "description": "Header label for fact-checks sent column",
+    "defaultMessage": "Fact-checks sent"
+  },
+  {
+    "id": "feedRequestsTable.factCheckBy",
+    "description": "Header label for fact-check by column",
+    "defaultMessage": "Fact-check by"
+  },
+  {
+    "id": "feedRequestsTable.matchedMedia",
+    "description": "Header label for number of medias found to be matched to the current one",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "feedRequestsTable.noFactCheck",
+    "description": "Displayed on feed requests table when a request was not fact-checked yet.",
+    "defaultMessage": "No fact-check"
+  }
+]

@@ -1,0 +1,181 @@
+[
+  {
+    "id": "annotation.editedBy",
+    "description": "Fact-check in edited state",
+    "defaultMessage": "edited by"
+  },
+  {
+    "id": "annotation.pausedBy",
+    "description": "Fact-check in paused state",
+    "defaultMessage": "paused by"
+  },
+  {
+    "id": "annotation.publishedBy",
+    "description": "Fact-check in published state",
+    "defaultMessage": "published by"
+  },
+  {
+    "id": "annotation.taggedHeader",
+    "description": "Log entry indicating a tag was added",
+    "defaultMessage": "Tag #{tag} added by {author}"
+  },
+  {
+    "id": "annotation.metadataCreated",
+    "description": "Log entry indicating an annotation field was created",
+    "defaultMessage": "Annotation field created by {author}: {fieldLabel}"
+  },
+  {
+    "id": "annotation.similarCreated",
+    "description": "Log entry indicating a similarity match was confirmed",
+    "defaultMessage": "Match confirmed by {author}: {title}"
+  },
+  {
+    "id": "annotation.suggestionCreated",
+    "description": "Log entry indicating a similarity match was suggested",
+    "defaultMessage": "Match suggested by {author}: {title}"
+  },
+  {
+    "id": "annotation.similarDestroyed",
+    "description": "Tells that one item previously confirmed as similar has been detached from current item.",
+    "defaultMessage": "Match deleted by {author}: {title}"
+  },
+  {
+    "id": "annotation.suggestionDestroyed",
+    "description": "Log entry indicating a similarity match was rejected",
+    "defaultMessage": "Match rejected by {author}: {title}"
+  },
+  {
+    "id": "annotation.taskAssignmentCreated",
+    "description": "Log entry indicating a task has been assigned",
+    "defaultMessage": "Task assigned to {name} by {author}: {title}"
+  },
+  {
+    "id": "annotation.mediaAssignmentCreated",
+    "description": "Log entry indicating an item has been assigned",
+    "defaultMessage": "Item assigned to {name} by {author}"
+  },
+  {
+    "id": "annotation.taskAssignmentDeleted",
+    "description": "Log entry indicating a task has been unassigned",
+    "defaultMessage": "Task unassigned from {name} by {author}: {title}"
+  },
+  {
+    "id": "annotation.mediaAssignmentDeleted",
+    "description": "Log entry indicating an item has been unassigned",
+    "defaultMessage": "Item unassigned from {name} by {author}"
+  },
+  {
+    "id": "annotation.statusLocked",
+    "description": "Log entry indicating an item status has been locked",
+    "defaultMessage": "Item status locked by {author}"
+  },
+  {
+    "id": "annotation.statusUnlocked",
+    "description": "Log entry indicating an item status has been unlocked",
+    "defaultMessage": "Item status unlocked by {author}"
+  },
+  {
+    "id": "annotation.mediaAssigned",
+    "description": "Log entry indicating an item has been assigned",
+    "defaultMessage": "Item assigned to {name} by {author}"
+  },
+  {
+    "id": "annotation.mediaUnassigned",
+    "description": "Log entry indicating an item has been unassigned",
+    "defaultMessage": "Item unassigned from {name} by {author}"
+  },
+  {
+    "id": "annotation.reportDesignState",
+    "description": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author",
+    "defaultMessage": "Fact-check report {state} {author}"
+  },
+  {
+    "id": "annotation.statusSetHeader",
+    "description": "Log entry indicating an item status has been changed",
+    "defaultMessage": "Status changed to {status} by {author}"
+  },
+  {
+    "id": "annotation.unknownLanguage",
+    "description": "Show label for undefined language",
+    "defaultMessage": "Unknown language"
+  },
+  {
+    "id": "annotation.addLanguage",
+    "description": "Log entry indicating an item language has been set. {value} receives language name",
+    "defaultMessage": "Language {value} added by {author}"
+  },
+  {
+    "id": "annotation.updateLanguage",
+    "description": "Log entry indicating an item language has been updated. {value} receives language name",
+    "defaultMessage": "Language {value} updated by {author}"
+  },
+  {
+    "id": "annotation.metadataResponse",
+    "description": "Log entry indicating an annotation response has been changed",
+    "defaultMessage": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
+  },
+  {
+    "id": "annotation.archiverWait",
+    "defaultMessage": "This item is being archived at {name}. The archive link will be displayed here when it's ready."
+  },
+  {
+    "id": "annotation.addSource",
+    "description": "Log entry indicating a source has been added",
+    "defaultMessage": "Source {name} added by {author}"
+  },
+  {
+    "id": "annotation.createProjectMedia",
+    "description": "Log entry indicating an item has been created",
+    "defaultMessage": "Item created by {author}"
+  },
+  {
+    "id": "annotation.updateSource",
+    "description": "Log entry indicating an item status has been changed",
+    "defaultMessage": "Source {name} updated by {author}"
+  },
+  {
+    "id": "annotation.markedAsSpam",
+    "description": "Log entry indicating an item marked as spam",
+    "defaultMessage": "Marked as Spam by {author}"
+  },
+  {
+    "id": "annotation.markAsSpam",
+    "description": "Log entry indicating an item sent to trash",
+    "defaultMessage": "Sent to Trash by {author}"
+  },
+  {
+    "id": "annotation.notSpam",
+    "description": "Log entry indicating an item not spam",
+    "defaultMessage": "Marked as not Spam by {author}"
+  },
+  {
+    "id": "annotation.restoreFromTrash",
+    "description": "Log entry indicating an item restored from trash",
+    "defaultMessage": "Restored from Trash by {author}"
+  },
+  {
+    "id": "annotation.updateClaimDescription",
+    "description": "Log entry indicating a claim has been edited",
+    "defaultMessage": "Claim edited by {author}: {value}"
+  },
+  {
+    "id": "annotation.createClaimDescription",
+    "description": "Log entry indicating a claim has been added",
+    "defaultMessage": "Claim added by {author}: {value}"
+  },
+  {
+    "id": "annotation.updateClaimContext",
+    "description": "Log entry indicating the additional content has been edited",
+    "defaultMessage": "Additional content edited by {author}: {value}"
+  },
+  {
+    "id": "annotation.createClaimContext",
+    "description": "Log entry indicating additional content has been added",
+    "defaultMessage": "Additional content added by {author}: {value}"
+  },
+  {
+    "id": "annotation.createFactCheck",
+    "description": "Log entry indicating fact-check title has been added",
+    "defaultMessage": "Fact-check title added by {author}: {value}"
+  }
+]

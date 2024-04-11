@@ -1,0 +1,37 @@
+[
+  {
+    "id": "smoochBotSettings.internalSettings",
+    "description": "Title of Internal Settings section in the tipline settings page",
+    "defaultMessage": "Internal settings"
+  },
+  {
+    "id": "smoochBotSettings.internalSettingsDescription",
+    "description": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated.",
+    "defaultMessage": "Meedan employees see these settings, but users don't."
+  },
+  {
+    "id": "smoochBotSettings.searchSettings",
+    "description": "Title of Search settings section in the tipline settings page.",
+    "defaultMessage": "Search settings"
+  },
+  {
+    "id": "smoochBotSettings.sunshineSettings",
+    "description": "Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated.",
+    "defaultMessage": "Sunshine integration settings"
+  },
+  {
+    "id": "smoochBotSettings.templatesSettings",
+    "description": "Title of templates settings section in the tipline settings page.",
+    "defaultMessage": "Templates settings"
+  },
+  {
+    "id": "smoochBotSettings.onpremSettings",
+    "description": "Title of 'WhatsApp On-Premises API' settings section in the tipline settings page. The words 'WhatsApp On-Premises API' do not need to be translated.",
+    "defaultMessage": "WhatsApp On-Premises API settings"
+  },
+  {
+    "id": "smoochBotSettings.capiSettings",
+    "description": "Title of 'WhatsApp Cloud API' settings section in the tipline settings page. The words 'WhatsApp Cloud API' do not need to be translated.",
+    "defaultMessage": "WhatsApp Cloud API settings"
+  }
+]

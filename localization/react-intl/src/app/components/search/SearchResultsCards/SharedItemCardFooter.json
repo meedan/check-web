@@ -1,0 +1,7 @@
+[
+  {
+    "id": "sharedItemCardFooter.more",
+    "description": "Label of the a button that opens more details about a feed item",
+    "defaultMessage": "more"
+  }
+]

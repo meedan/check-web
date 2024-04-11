@@ -1,0 +1,7 @@
+[
+  {
+    "id": "webPageMediaCard.Error",
+    "description": "Error message displayed when link data is unavailable",
+    "defaultMessage": "This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "newsletterScheduler.sendOn",
+    "description": "Label on a input where the user selects a date to send a newsletter",
+    "defaultMessage": "Send on"
+  },
+  {
+    "id": "newsletterScheduler.sendEvery",
+    "description": "Label on an input where the user selects in which days of the week to send an RSS newsletter",
+    "defaultMessage": "Send every"
+  },
+  {
+    "id": "newsletterScheduler.tooltipScheduled",
+    "description": "Tooltip message displayed on newsletter scheduler.",
+    "defaultMessage": "Scheduled by {name} on {date}"
+  },
+  {
+    "id": "newsletterScheduler.tooltipSent",
+    "description": "Tooltip message displayed on newsletter scheduler.",
+    "defaultMessage": "Last sent on {date}"
+  },
+  {
+    "id": "newsletterScheduler.errorContentHasntChanged",
+    "description": "Text displayed in an error box on newsletter settings page when RSS content has not changed",
+    "defaultMessage": "The newsletter was not sent because its content has not been updated since the last successful delivery."
+  },
+  {
+    "id": "newsletterScheduler.errorRss",
+    "description": "Text displayed in an error box on newsletter settings page when RSS feed could not be loaded",
+    "defaultMessage": "The newsletter was not sent because no content could be retrieved from the RSS feed."
+  },
+  {
+    "id": "newsletterScheduler.at",
+    "description": "This preposition is in the middle of a sentence like 'send this newsletter *at* 10h00'",
+    "defaultMessage": "at"
+  },
+  {
+    "id": "newsletterScheduler.pause",
+    "description": "Label for a button to pause a newsletter",
+    "defaultMessage": "Pause"
+  },
+  {
+    "id": "newsletterScheduler.schedule",
+    "description": "Label for a button to schedule a newsletter",
+    "defaultMessage": "Schedule"
+  },
+  {
+    "id": "newsletterScheduler.subscribers",
+    "description": "Label related to the number of subscribers of a newsletter",
+    "defaultMessage": "Subscribers:"
+  }
+]

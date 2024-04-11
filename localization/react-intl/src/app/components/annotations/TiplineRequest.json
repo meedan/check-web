@@ -1,0 +1,12 @@
+[
+  {
+    "id": "annotation.smoochNoMessage",
+    "description": "Replacement for tipline requests without a message",
+    "defaultMessage": "No message was sent with the request"
+  },
+  {
+    "id": "annotation.deletedUser",
+    "description": "Label for deleted user",
+    "defaultMessage": "Deleted User"
+  }
+]

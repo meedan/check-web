@@ -1,0 +1,12 @@
+[
+  {
+    "id": "feedMediaRequests.counter",
+    "description": "The count in a readable sentence of the number of requests for this media in the feed.",
+    "defaultMessage": "{count, plural, one {# request} other {# requests}}"
+  },
+  {
+    "id": "feedMediaRequests.noRequest",
+    "description": "Empty message when there are zero requests for this item in the feed",
+    "defaultMessage": "0 Requests"
+  }
+]

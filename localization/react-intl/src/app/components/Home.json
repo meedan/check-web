@@ -1,0 +1,32 @@
+[
+  {
+    "id": "home.somethingWrong",
+    "description": "Generic error displayed when some error happens.",
+    "defaultMessage": "Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "home.successInvitation",
+    "description": "Message that appears after accepting an invitation to join the app.",
+    "defaultMessage": "Welcome to Check. Please login with the password that you received in the welcome email."
+  },
+  {
+    "id": "home.invalidTeamInvitation",
+    "description": "Error message displayed when an invitation to join the app doesn't work.",
+    "defaultMessage": "Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error."
+  },
+  {
+    "id": "home.invalidNoInvitation",
+    "description": "Error message displayed when an invitation to join the app doesn't work.",
+    "defaultMessage": "Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error."
+  },
+  {
+    "id": "home.invalidExpiredInvitation",
+    "description": "Error message displayed when an invitation to join the app doesn't work.",
+    "defaultMessage": "Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
+  },
+  {
+    "id": "home.invalidInvitation",
+    "description": "Error message displayed when an invitation to join the app doesn't work.",
+    "defaultMessage": "Sorry, an error occurred while processing your invitation. Please contact {supportEmail}."
+  }
+]

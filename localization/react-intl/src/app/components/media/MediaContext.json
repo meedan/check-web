@@ -1,0 +1,12 @@
+[
+  {
+    "id": "mediaContext.placeholder",
+    "description": "Placeholder for claim context field.",
+    "defaultMessage": "Add claim context"
+  },
+  {
+    "id": "mediaContext.title",
+    "description": "Title of claim additional context field.",
+    "defaultMessage": "Additional context"
+  }
+]

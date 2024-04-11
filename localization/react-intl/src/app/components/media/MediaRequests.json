@@ -1,0 +1,12 @@
+[
+  {
+    "id": "mediaRequests.thisRequests",
+    "description": "The count in a readable sentence of the number of requests for this media",
+    "defaultMessage": "{count, plural, one {# request} other {# requests}}"
+  },
+  {
+    "id": "mediaRequests.noRequest",
+    "description": "Empty message when there are zero requests for this item",
+    "defaultMessage": "0 Requests"
+  }
+]

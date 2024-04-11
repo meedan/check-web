@@ -1,0 +1,12 @@
+[
+  {
+    "id": "newsletterNumberOfArticles.label",
+    "description": "Label on an input where the user selects the number of articles to display in their newsletter",
+    "defaultMessage": "Number of articles"
+  },
+  {
+    "id": "newsletterNumberOfArticles.helpContent",
+    "description": "Help context description on an input where the user selects the number of articles to display in their newsletter",
+    "defaultMessage": "Choose the number of articles that will be published in your newsletter"
+  }
+]

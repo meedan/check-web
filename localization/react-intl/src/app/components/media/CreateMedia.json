@@ -1,0 +1,17 @@
+[
+  {
+    "id": "createMedia.error",
+    "description": "Error message for user to know how to reach out for support",
+    "defaultMessage": "Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "createMedia.addItem",
+    "description": "Button label for adding an item",
+    "defaultMessage": "Add Item"
+  },
+  {
+    "id": "createMedia.addNewItem",
+    "description": "Dialog title for adding a new item",
+    "defaultMessage": "Add item"
+  }
+]

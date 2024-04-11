@@ -1,0 +1,162 @@
+[
+  {
+    "id": "mediaSuggestionsComponent.updatedSuccessfully",
+    "description": "Banner displayed after items are accepted or rejected successfully",
+    "defaultMessage": "Suggestion updated successfully"
+  },
+  {
+    "id": "mediaSuggestionsComponent.flashBulkRejectTitle",
+    "description": "Title that appears in a popup to confirm that a 'bulk reject' action was successful",
+    "defaultMessage": "{number} media rejected"
+  },
+  {
+    "id": "mediaSuggestionsComponent.flashBulkConfirmTitle",
+    "description": "Title that appears in a popup to confirm that a 'bulk accept' action was successful",
+    "defaultMessage": "{number} suggested media matched"
+  },
+  {
+    "id": "mediaSuggestionsComponent.flashBulkTrash",
+    "description": "Text that appears in a popup to confirm that a 'bulk move to trash' action was successful",
+    "defaultMessage": "{number} media sent to the trash"
+  },
+  {
+    "id": "mediaSuggestionsComponent.flashBulkSpam",
+    "description": "Text that appears in a popup to confirm that a 'bulk move to spam' action was successful",
+    "defaultMessage": "{number} media marked as spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.movedToTrash",
+    "description": "Text that appears in a popup to confirmt hat a 'move to trash' action was successful",
+    "defaultMessage": "The item was moved to {trash}"
+  },
+  {
+    "id": "mediaDetail.trash",
+    "description": "Label on a link that, when clicked, takes the user to a list of trashed (marked for deletion) items",
+    "defaultMessage": "Trash"
+  },
+  {
+    "id": "mediaSuggestionsComponent.movedToSpam",
+    "description": "Text that appears in a popup to confirmt hat a 'move to spam' action was successful",
+    "defaultMessage": "The item was moved to {spam}"
+  },
+  {
+    "id": "mediaDetail.spam",
+    "description": "Label on a link that, when clicked, takes the user to a list of items marked as spam",
+    "defaultMessage": "Spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.noItems",
+    "description": "A header that tells the user there are no items in the list",
+    "defaultMessage": "{total, plural, one {{total} Suggestion} other {{total} Suggestions}}"
+  },
+  {
+    "id": "mediaSuggestionsComponent.accept",
+    "description": "Tooltip for a button that is a green check mark. Pressing this button causes the media item next to the button to be accepted as a matched item, and removed from the suggested items list.",
+    "defaultMessage": "Match media"
+  },
+  {
+    "id": "mediaSuggestionsComponent.reject",
+    "description": "Tooltip for a button that is a red X mark. Pressing this button causes the media item next to the button to be rejected as a matched item, and removed from the suggested items list.",
+    "defaultMessage": "Reject media"
+  },
+  {
+    "id": "mediaSuggestionsComponent.spam",
+    "description": "Tooltip for a button that is an octogon with an exclamation mark. Pressing this button causes the media item next to the button to be marked as spam, and removed from the suggested items list.",
+    "defaultMessage": "Mark media as spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.trash",
+    "description": "Tooltip for a button that is a waste bin. Pressing this button causes the media item next to the button to be sent to the trash  and removed from the suggested items list.",
+    "defaultMessage": "Send media to trash"
+  },
+  {
+    "id": "mediaSuggestionsComponent.previous",
+    "description": "Label for the 'go to previous page' button on paginated suggestions",
+    "defaultMessage": "Previous"
+  },
+  {
+    "id": "mediaSuggestionsComponent.title",
+    "description": "A header that tells the user how many suggestions items are in the list to follow",
+    "defaultMessage": "{total, plural, one {1 / 1} other {{start} - {end} / #}}"
+  },
+  {
+    "id": "mediaSuggestionsComponent.next",
+    "description": "Label for the 'go to next page' button on paginated suggestions",
+    "defaultMessage": "Next"
+  },
+  {
+    "id": "mediaSuggestionsComponent.bulkAccept",
+    "description": "Tooltip for a button that is a green check mark. Pressing it causes all visible media items on the page to be confirmed as matched media.",
+    "defaultMessage": "Match all media on this page"
+  },
+  {
+    "id": "mediaSuggestionsComponent.bulkReject",
+    "description": "Tooltip for a button that is a red X mark. Pressing it causes all visible media items on the page to be rejected and removed from the suggestions list.",
+    "defaultMessage": "Reject all medias on this page"
+  },
+  {
+    "id": "mediaSuggestionsComponent.bulkSpam",
+    "description": "Tooltip for a button that is an octagon with an exclamation mark. Pressing this button causes all visible media items on the page to be marked as 'spam' and removed from the suggestions list.",
+    "defaultMessage": "Mark all medias on this page as spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.bulkTrash",
+    "description": "Tooltip for a button that is a trash bin. Pressing this button causes all visible media items on the page to be sent to the 'trash' and removed from the suggestions list.",
+    "defaultMessage": "Send all medias on this page to trash"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkAcceptTitle",
+    "description": "Prompt to a user when they choose to match media as a bulk action",
+    "defaultMessage": "Are you sure you want to match {number} suggestions?"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Regular Cancel action label",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkAcceptConfirm",
+    "description": "Button that a user presses to confirm that they are going to match all visible suggested media",
+    "defaultMessage": "Match all"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkSpamTitle",
+    "description": "Prompt to a user when they choose to mark media as spam in bulk",
+    "defaultMessage": "Are you sure you want to mark {number} suggested media as spam?"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkSpamConfirm",
+    "description": "Button that a user presses to confirm that they are going to mark all visible suggested media as spam",
+    "defaultMessage": "Mark as spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkTrashTitle",
+    "description": "Prompt to a user when they choose to send media to trash in bulk",
+    "defaultMessage": "Are you sure you want to send {number} suggestions to the trash?"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkTrashConfirm",
+    "description": "Button that a user presses to confirm that they are going to send all visible suggested media to trash",
+    "defaultMessage": "Send to trash"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkRejectTitle",
+    "description": "Prompt to a user when they choose to reject media in bulk",
+    "defaultMessage": "Are you sure you want to reject {number} suggestions?"
+  },
+  {
+    "id": "mediaSuggestionsComponent.dialogBulkRejectConfirm",
+    "description": "Button that a user presses to confirm that they are going to reject all visible suggested media",
+    "defaultMessage": "Reject"
+  },
+  {
+    "id": "mediaSuggestions.lastSubmitted",
+    "description": "Shows the last time a media was submitted (on feed request media card)",
+    "defaultMessage": "Last submitted {date}"
+  },
+  {
+    "id": "mediaSuggestions.requestsCount",
+    "description": "Header of requests list. Example: 26 requests",
+    "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
+  }
+]

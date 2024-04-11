@@ -1,0 +1,47 @@
+[
+  {
+    "id": "search.and",
+    "description": "Logical operator to be applied when filtering by multiple tags",
+    "defaultMessage": "and"
+  },
+  {
+    "id": "search.or",
+    "description": "Logical operator to be applied when filtering by multiple tags",
+    "defaultMessage": "or"
+  },
+  {
+    "id": "filter.removeFilterCondition",
+    "description": "Tooltip to tell the user they can add remove the argument to the filter they are interacting with",
+    "defaultMessage": "Remove filter condition"
+  },
+  {
+    "id": "filter.tag.deleted",
+    "description": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted",
+    "defaultMessage": "Property deleted"
+  },
+  {
+    "id": "filter.addParameter",
+    "description": "Tooltip to tell the user they can add another argument to the filter they are interacting with",
+    "defaultMessage": "Add filter condition"
+  },
+  {
+    "id": "customAutocomplete.select",
+    "description": "Verb. Label for generic dropdown component",
+    "defaultMessage": "Select"
+  },
+  {
+    "id": "multiSelector.search",
+    "description": "Placeholder text for search input",
+    "defaultMessage": "Search…"
+  },
+  {
+    "id": "multiSelectFilter.noResultsMatching",
+    "description": "Label displayed on filter component when no results are found",
+    "defaultMessage": "No results matching {keyword}."
+  },
+  {
+    "id": "customAutocomplete.done",
+    "description": "Label for closing dropdown when user is done selecting tags",
+    "defaultMessage": "Done"
+  }
+]

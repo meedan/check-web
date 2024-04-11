@@ -1,0 +1,97 @@
+[
+  {
+    "id": "newsletterComponent.errorDatetimePast",
+    "description": "Error message displayed when a user tries to schedule sending a newsletter on a past date.",
+    "defaultMessage": "Scheduled newsletter date cannot be in the past."
+  },
+  {
+    "id": "newsletterComponent.errorTimezone",
+    "description": "Error message displayed when a user submits a form with a blank time zone field.",
+    "defaultMessage": "Time zone cannot be blank."
+  },
+  {
+    "id": "newsletterComponent.errorIntroduction",
+    "description": "Error message displayed when a user submits a form with a blank introduction field.",
+    "defaultMessage": "Introduction cannot be blank."
+  },
+  {
+    "id": "newsletterComponent.errorIntroductionTooLong",
+    "description": "Error message displayed when a user submits a form with an introduction field that is too long.",
+    "defaultMessage": "Introduction is too long"
+  },
+  {
+    "id": "newsletterComponent.errorRssFeedUrl",
+    "description": "Error message displayed when a user submits a form with a URL that the server does not recognize.",
+    "defaultMessage": "RSS feed URL is invalid."
+  },
+  {
+    "id": "newsletterComponent.errorSendOn",
+    "description": "Error message displayed when a user submits a form with a blank scheduled date field.",
+    "defaultMessage": "Scheduled date cannot be blank."
+  },
+  {
+    "id": "newsletterComponent.errorHeaderType",
+    "description": "Error message displayed when a user submits a form with a blank header type field (this is chosen from a list).",
+    "defaultMessage": "Header type must be supplied from the list."
+  },
+  {
+    "id": "newsletterComponent.errorHeaderFile",
+    "description": "Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'.",
+    "defaultMessage": "File must be of the following allowed types: {fileTypes}"
+  },
+  {
+    "id": "newsletterComponent.error",
+    "description": "Error message displayed when it's not possible to save a newsletter.",
+    "defaultMessage": "Could not save newsletter, please try again."
+  },
+  {
+    "id": "newsletterComponent.success",
+    "description": "Success message displayed when a newsletter is saved.",
+    "defaultMessage": "Newsletter saved successfully."
+  },
+  {
+    "id": "newsletterComponent.articleBlank",
+    "description": "Message displayed on the article text field when it is empty and a user tries to save",
+    "defaultMessage": "Article field cannot be blank"
+  },
+  {
+    "id": "newsletterComponent.title",
+    "description": "Title for newsletter settings page.",
+    "defaultMessage": "Newsletter"
+  },
+  {
+    "id": "newsletterComponent.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage, draft, and schedule newsletters sent to all subscribers. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about newsletters</a>."
+  },
+  {
+    "id": "newsletterComponent.save",
+    "description": "Label for a button to save settings for the newsletter",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "newsletterComponent.content",
+    "description": "Title for newsletter content section on newsletter settings page",
+    "defaultMessage": "Content"
+  },
+  {
+    "id": "newsletterComponent.placeholder",
+    "description": "Placeholder text for newsletter field",
+    "defaultMessage": "Example: Hello! Welcome to our newsletter. Here are the most popular fact-checks you should read now:"
+  },
+  {
+    "id": "newsletterComponent.introduction",
+    "description": "Label for a field where the user inputs text for an introduction to a newsletter",
+    "defaultMessage": "Introduction"
+  },
+  {
+    "id": "newsletterComponent.rss",
+    "description": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'",
+    "defaultMessage": "RSS"
+  },
+  {
+    "id": "newsletterComponent.rssFeed",
+    "description": "Message on tipline newsletter settings page that explains how RSS feeds work there.",
+    "defaultMessage": "Use an RSS feed to automatically load new content and send your newsletter on a recurring schedule. The newsletter will only be sent if new content is retrieved from the RSS."
+  }
+]

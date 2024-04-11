@@ -1,0 +1,47 @@
+[
+  {
+    "id": "teamTagsComponent.title",
+    "description": "Title for the tags settings page",
+    "defaultMessage": "Tags [{count}]"
+  },
+  {
+    "id": "rulesTableToolbar.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Automatically categorize items by keyword. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about tags</a>."
+  },
+  {
+    "id": "teamTagsComponent.newTag",
+    "description": "Button label for calling the new tag creation modal",
+    "defaultMessage": "New tag"
+  },
+  {
+    "id": "search.previousPage",
+    "description": "Pagination button to go to previous page",
+    "defaultMessage": "Previous page"
+  },
+  {
+    "id": "searchResults.itemsCount",
+    "description": "Pagination count of items returned",
+    "defaultMessage": "{totalCount, plural, one {1 / 1} other {{from} - {to} / #}}"
+  },
+  {
+    "id": "search.nextPage",
+    "description": "Pagination button to go to next page",
+    "defaultMessage": "Next page"
+  },
+  {
+    "id": "teamTagsComponent.tableHeaderName",
+    "description": "Column header in tags table.",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "teamTagsComponent.tableHeaderUpdatedAt",
+    "description": "Column header in tags table.",
+    "defaultMessage": "Updated"
+  },
+  {
+    "id": "teamTagsComponent.tableHeaderTagsCount",
+    "description": "Column header in tags table.",
+    "defaultMessage": "Items"
+  }
+]

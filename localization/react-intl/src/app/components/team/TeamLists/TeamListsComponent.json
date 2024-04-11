@@ -1,0 +1,62 @@
+[
+  {
+    "id": "teamListsComponent.defaultErrorMessage",
+    "description": "Warning displayed if an error occurred when saving column settings",
+    "defaultMessage": "Could not save column settings"
+  },
+  {
+    "id": "teamListsComponent.savedSuccessfully",
+    "description": "Banner displayed when column settings are saved successfully",
+    "defaultMessage": "Column settings saved successfully"
+  },
+  {
+    "id": "teamListsComponent.title",
+    "description": "Header for Column settings page, where users can configure the visibility of columns in lists.",
+    "defaultMessage": "Column settings"
+  },
+  {
+    "id": "teamListsComponent.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage the information displayed about each item. Column settings affect the data displayed for all members of your workspace. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about column settings</a>."
+  },
+  {
+    "id": "settingsHeader.save",
+    "description": "Button label for save columns settings",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "teamListsComponent.displayedColumns",
+    "description": "Columns that are displayed for users in lists.",
+    "defaultMessage": "Displayed"
+  },
+  {
+    "id": "teamListsComponent.generalColumns",
+    "description": "Columns not currently displayed for users in lists.",
+    "defaultMessage": "General (hidden)"
+  },
+  {
+    "id": "teamListsComponent.metadataColumns",
+    "description": "Subtitle for Column settings page, where users can configure the visibility of annotations columns in lists.",
+    "defaultMessage": "Annotations (hidden)"
+  },
+  {
+    "id": "teamListsComponent.createMetadata",
+    "description": "Button label for create new annotation field",
+    "defaultMessage": "Create new annotation field"
+  },
+  {
+    "id": "teamListsComponent.confirmSaveTitle",
+    "description": "Dialog title for saving columns change",
+    "defaultMessage": "Workspace columns change"
+  },
+  {
+    "id": "teamListsComponent.confirmSaveText",
+    "description": "Content of 'Save changes' confirmation dialog.",
+    "defaultMessage": "Are you sure? Your changes will affect all lists and be visible by all users in your workspace."
+  },
+  {
+    "id": "teamListsComponent.buttonLabel",
+    "description": "Button label for saving changes",
+    "defaultMessage": "Save changes"
+  }
+]

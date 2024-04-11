@@ -1,0 +1,7 @@
+[
+  {
+    "id": "ImportedReports.title",
+    "description": "Search label for searching fact-checks that were imported into the application",
+    "defaultMessage": "Imported fact-checks"
+  }
+]

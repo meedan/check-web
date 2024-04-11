@@ -1,0 +1,97 @@
+[
+  {
+    "id": "smoochBotIntegrationButton.confirmationMessage",
+    "description": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
+    "defaultMessage": "Disconnect {platform}"
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmationMessagePermanent",
+    "description": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
+    "defaultMessage": "Disconnect {platform} permanently"
+  },
+  {
+    "id": "smoochBotIntegrationButton.defaultErrorMessage",
+    "description": "Default error message",
+    "defaultMessage": "Something went wrong"
+  },
+  {
+    "id": "smoochBotIntegrationButton.savedSuccessfully",
+    "description": "Button label after a successful save",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "smoochBotIntegrationButton.online",
+    "description": "Status of bot when its online",
+    "defaultMessage": "Online"
+  },
+  {
+    "id": "smoochBotIntegrationButton.connect",
+    "description": "Status of bot when its not connected",
+    "defaultMessage": "Connect"
+  },
+  {
+    "id": "smoochBotIntegrationButton.tipline",
+    "description": "Platform name for heading",
+    "defaultMessage": "{platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.status",
+    "description": "Button label for online bot",
+    "defaultMessage": "Status: Online"
+  },
+  {
+    "id": "smoochBotIntegrationButton.disconnect",
+    "description": "Button label to disconnect a bot from an account",
+    "defaultMessage": "Disconnect from this account"
+  },
+  {
+    "id": "smoochBotIntegrationButton.cancel",
+    "description": "Button label to cancel connection",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "smoochBotIntegrationButton.connectTipline",
+    "description": "Settings header for connecting a platform to a tipline",
+    "defaultMessage": "Connect to {platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.disclaimerForUrl",
+    "description": "The platform here can be Twitter, Facebook, etc.",
+    "defaultMessage": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline."
+  },
+  {
+    "id": "smoochBotIntegrationButton.disclaimer",
+    "description": "Privacy disclaimer statement",
+    "defaultMessage": "We don't store this information. This is just used to configure the integration."
+  },
+  {
+    "id": "smoochBotIntegrationButton.readyToConnect",
+    "description": "Button label to indicate user is ready to connect",
+    "defaultMessage": "I'm ready to connect"
+  },
+  {
+    "id": "smoochBotIntegrationButton.connectButton",
+    "description": "Button label to connect bot",
+    "defaultMessage": "Connect"
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmDisconnectTitle",
+    "description": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.).",
+    "defaultMessage": "Disconnect {platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmDisconnectTextPermanent",
+    "description": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number.",
+    "defaultMessage": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected."
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmDisconnectText",
+    "description": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.).",
+    "defaultMessage": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account."
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirm",
+    "description": "Button label to confirm connection",
+    "defaultMessage": "Confirm"
+  }
+]

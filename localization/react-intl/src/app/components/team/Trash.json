@@ -1,0 +1,7 @@
+[
+  {
+    "id": "trash.title",
+    "description": "Title for the trash listing of items",
+    "defaultMessage": "Trash"
+  }
+]

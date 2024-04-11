@@ -1,0 +1,37 @@
+[
+  {
+    "id": "teamMembers.title",
+    "description": "Title for workspace members management page",
+    "defaultMessage": "Members [{membersCount}]"
+  },
+  {
+    "id": "teamMembers.helpContext",
+    "description": "Context description for the functionality of this page",
+    "defaultMessage": "Manage your Check workspace’s members. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about member roles</a>."
+  },
+  {
+    "id": "teamMembers.invite",
+    "description": "Button label for main action to start the process of inviting team members to this workspace",
+    "defaultMessage": "Invite"
+  },
+  {
+    "id": "teamMembers.tableHeaderName",
+    "description": "Column header in members table.",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "teamMembers.tableHeaderLastActive",
+    "description": "Column header in members table.",
+    "defaultMessage": "Last active"
+  },
+  {
+    "id": "teamMembers.tableHeaderRole",
+    "description": "Column header in members table.",
+    "defaultMessage": "Workspace permission"
+  },
+  {
+    "id": "teamMembers.pending",
+    "description": "Label for invite pending acceptance",
+    "defaultMessage": "Invitation Sent - pending"
+  }
+]

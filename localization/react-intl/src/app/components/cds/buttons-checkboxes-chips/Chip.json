@@ -1,0 +1,7 @@
+[
+  {
+    "id": "chip.tooltipRemove",
+    "description": "Tooltip message displayed on a tag item to let the user know they can click to remove it.",
+    "defaultMessage": "Remove Tag"
+  }
+]

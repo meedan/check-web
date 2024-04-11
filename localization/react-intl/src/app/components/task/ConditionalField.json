@@ -1,0 +1,12 @@
+[
+  {
+    "id": "tasks.showIfCondition",
+    "description": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition.",
+    "defaultMessage": "Show field when condition is met"
+  },
+  {
+    "id": "tasks.when",
+    "description": "We have a form that says in English, 'When [selected field] [is / is not] [user-selected value]'. Where the parts between brackets are interactive drop-downs. The word for this field should indicate that the following user-selected conditions hold true.",
+    "defaultMessage": "When"
+  }
+]

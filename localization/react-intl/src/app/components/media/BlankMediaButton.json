@@ -1,0 +1,22 @@
+[
+  {
+    "id": "blankMediaButton.defaultErrorMessage",
+    "description": "Error message displayed when saving an item fails",
+    "defaultMessage": "Could not save item"
+  },
+  {
+    "id": "blankMediaButton.addToImportedReport",
+    "description": "Header to dialog in which the user adds media to already existing (imported) fact-checks",
+    "defaultMessage": "Add to imported fact-check"
+  },
+  {
+    "id": "blankMediaButton.addToReport",
+    "description": "Submit button label to dialog in which the user adds media to already existing (imported) fact-check report",
+    "defaultMessage": "Add to report"
+  },
+  {
+    "id": "blankMediaButton.addItem",
+    "description": "Button label that opens dialog in which the user can add a media item to an existing fact-check",
+    "defaultMessage": "Add item"
+  }
+]

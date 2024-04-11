@@ -1,0 +1,22 @@
+[
+  {
+    "id": "mediaComponent.requests",
+    "description": "Label for the Requests tab, as in requests from users",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "mediaComponent.suggestedMedia",
+    "description": "Label for the 'Suggestions' tab, to show a list of media items that are suggested as similar to the one the user is viewing",
+    "defaultMessage": "Suggestions"
+  },
+  {
+    "id": "mediaComponent.annotation",
+    "description": "Label for the Annotation tab",
+    "defaultMessage": "Annotations"
+  },
+  {
+    "id": "mediaComponent.source",
+    "description": "Label for the Source tab, as in source of the information",
+    "defaultMessage": "Source"
+  }
+]

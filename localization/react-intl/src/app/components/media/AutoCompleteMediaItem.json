@@ -1,0 +1,47 @@
+[
+  {
+    "id": "autoCompleteMediaItem.placeholder",
+    "description": "Placeholder autocomplete search field",
+    "defaultMessage": "Search"
+  },
+  {
+    "id": "autoCompleteMediaItem.searching",
+    "description": "Status message that a search is active",
+    "defaultMessage": "Searching…"
+  },
+  {
+    "id": "autoCompleteMediaItem.notFound",
+    "description": "Status message when a search returned no results",
+    "defaultMessage": "No matches found"
+  },
+  {
+    "id": "autoCompleteMediaItem.error",
+    "description": "Status message when a search resulted in an error",
+    "defaultMessage": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "autoCompleteMediaItem.results",
+    "description": "Count of search results",
+    "defaultMessage": "{count, plural, one {# result} other {# results}}"
+  },
+  {
+    "id": "autoCompleteMediaItem.type",
+    "description": "Helper text displayed next to search field to look for items to be imported",
+    "defaultMessage": "Type above to search"
+  },
+  {
+    "id": "autoCompleteMediaItem.cantSelectPublished",
+    "description": "Tooltip error message about when media can be imported",
+    "defaultMessage": "Media cannot be imported from items that have their report published"
+  },
+  {
+    "id": "autoCompleteMediaItem.lastSubmitted",
+    "description": "Shows the last time a media was submitted",
+    "defaultMessage": "Last submitted {date}"
+  },
+  {
+    "id": "autoCompleteMediaItem.requestsCount",
+    "description": "Header of requests list. Example: 26 requests",
+    "defaultMessage": "{requestsCount, plural, one {# request} other {# requests}}"
+  }
+]

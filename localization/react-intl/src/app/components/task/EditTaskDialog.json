@@ -1,0 +1,137 @@
+[
+  {
+    "id": "tasks.textType",
+    "description": "Label for text type field",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "tasks.shortTextDescription",
+    "description": "Description for text type field",
+    "defaultMessage": "Allows you to enter text"
+  },
+  {
+    "id": "tasks.numberType",
+    "description": "Label for number type field",
+    "defaultMessage": "Number"
+  },
+  {
+    "id": "tasks.numberDescription",
+    "description": "Description for number type field",
+    "defaultMessage": "Allows you to enter a number"
+  },
+  {
+    "id": "tasks.locationType",
+    "description": "Label for location type field",
+    "defaultMessage": "Location"
+  },
+  {
+    "id": "tasks.locationDescription",
+    "description": "Description for location type field",
+    "defaultMessage": "Allows you to add coordinates of a place, or search a place by name"
+  },
+  {
+    "id": "tasks.dateTimeType",
+    "description": "Label for date type field",
+    "defaultMessage": "Date"
+  },
+  {
+    "id": "tasks.datetimeDescription",
+    "description": "Description for date type field",
+    "defaultMessage": "Allows you to pick a date from the calendar"
+  },
+  {
+    "id": "tasks.singleChoiceType",
+    "description": "Label for single selection type field",
+    "defaultMessage": "Single select"
+  },
+  {
+    "id": "tasks.singleChoiceDescription",
+    "description": "Description for single selection type field",
+    "defaultMessage": "Allows you to select a single option from predefined options in a list"
+  },
+  {
+    "id": "tasks.multipleChoiceType",
+    "description": "Label for multiple selection type field",
+    "defaultMessage": "Multiple select"
+  },
+  {
+    "id": "tasks.multipleChoiceDescription",
+    "description": "Description for multiple selection type field",
+    "defaultMessage": "Allows you to select one or more predefined options"
+  },
+  {
+    "id": "tasks.fileUploadType",
+    "description": "Label for file upload type field",
+    "defaultMessage": "File upload"
+  },
+  {
+    "id": "tasks.fileUploadDescription",
+    "description": "Description for file upload type field",
+    "defaultMessage": "Allows you to upload a file"
+  },
+  {
+    "id": "tasks.UrlType",
+    "description": "Label for the URL type field",
+    "defaultMessage": "URL"
+  },
+  {
+    "id": "tasks.UrlDescription",
+    "description": "Hint text about what kind of text a user can put in the URL box",
+    "defaultMessage": "Must be a valid URL"
+  },
+  {
+    "id": "tasks.cantChangeTypeMessage",
+    "description": "Message when team task has answers and type cannot be updated",
+    "defaultMessage": "The field type cannot be changed because answers have already been filled"
+  },
+  {
+    "id": "tasks.chooseType",
+    "description": "Label for field type selection box",
+    "defaultMessage": "Choose a field type"
+  },
+  {
+    "id": "tasks.editAnnotationDialogTitle",
+    "description": "Title for dialog when editing an annotation",
+    "defaultMessage": "Edit Annotation"
+  },
+  {
+    "id": "task.TitlePlaceholder",
+    "description": "Input Placeholder for the Title field for custom annotation field",
+    "defaultMessage": "Enter a title for this annotation"
+  },
+  {
+    "id": "tasks.taskPrompt",
+    "description": "Title field for custom annotation field",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "task.DescriptionPlaceholder",
+    "description": "Input Placeholder for the Description field for custom annotation field",
+    "defaultMessage": "Enter an optional description for this annotation"
+  },
+  {
+    "id": "tasks.description",
+    "description": "Description field for custom annotation field",
+    "defaultMessage": "Description (optional)"
+  },
+  {
+    "id": "tasks.timezones",
+    "description": "Label of timezones list available to the task",
+    "defaultMessage": "Timezones available to complete the task"
+  },
+  {
+    "id": "tasks.cancelAdd",
+    "description": "Cancel action button label",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.saveButtonWarning",
+    "description": "Save action button label warning",
+    "defaultMessage": "I understand, save changes"
+  },
+  {
+    "id": "tasks.add",
+    "description": "Save action button label",
+    "defaultMessage": "Save"
+  }
+]

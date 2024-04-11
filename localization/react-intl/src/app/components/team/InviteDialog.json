@@ -1,0 +1,42 @@
+[
+  {
+    "id": "inviteDialog.sentOtherInvitation",
+    "description": "Message displayed when user sends multiple invitations but some emails fail and others succeed",
+    "defaultMessage": "The other invites were sent successfully"
+  },
+  {
+    "id": "inviteDialog.invitationSent",
+    "description": "Success notification confirming that invitations were sent to users",
+    "defaultMessage": "Invites sent!"
+  },
+  {
+    "id": "inviteDialog.title",
+    "description": "Dialog title for inviting members to workspace",
+    "defaultMessage": "Invite workspace members"
+  },
+  {
+    "id": "inviteDialog.textInputPlaceholder",
+    "description": "Placeholder for input for invited emails",
+    "defaultMessage": "example: team_member@example.org, team_member2@example.org"
+  },
+  {
+    "id": "inviteDialog.textInputLabel",
+    "description": "Label to input for invited emails. Requires that multiple emails be entered separated by comma.",
+    "defaultMessage": "Email addresses"
+  },
+  {
+    "id": "inviteDialog.textInputHelp",
+    "description": "Help to input for invited emails. Requires that multiple emails be entered separated by comma.",
+    "defaultMessage": "To invite multiple members, separate email addresses with a comma"
+  },
+  {
+    "id": "global.cancel",
+    "description": "Generic label for a button or link for a user to press when they wish to abort an in-progress operation",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "inviteDialog.submit",
+    "description": "Button to submit invitations.",
+    "defaultMessage": "Invite"
+  }
+]

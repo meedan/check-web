@@ -10,7 +10,6 @@ config.js
 !test/unit/config.js
 .DS_Store
 releases/
-localization/react-intl/
 supervisord.pid
 supervisord.log
 linters

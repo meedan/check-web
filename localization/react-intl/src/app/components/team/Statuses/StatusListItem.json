@@ -1,0 +1,17 @@
+[
+  {
+    "id": "statusListItem.noDescription",
+    "description": "Empty state message if a status has no additional description",
+    "defaultMessage": "No description"
+  },
+  {
+    "id": "statusListItem.default",
+    "description": "The label of the user created status, with an additional note in parenthesis if the label is the default",
+    "defaultMessage": "{statusLabel}"
+  },
+  {
+    "id": "statusListItem.makeDefault",
+    "description": "Menu item choice for making the label the default choice",
+    "defaultMessage": "Make default"
+  }
+]

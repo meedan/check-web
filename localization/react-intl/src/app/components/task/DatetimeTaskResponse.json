@@ -1,0 +1,12 @@
+[
+  {
+    "id": "datetimeTaskResponse.timeIs",
+    "description": "Link text for how to view a timezone on time.is",
+    "defaultMessage": "View this timezone on time.is"
+  },
+  {
+    "id": "datetimeTaskResponse.invalidTimestamp",
+    "description": "Error message for an invalid timestamp value",
+    "defaultMessage": "Error: Invalid timestamp"
+  }
+]

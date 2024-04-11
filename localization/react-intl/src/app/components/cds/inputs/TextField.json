@@ -1,0 +1,12 @@
+[
+  {
+    "id": "textfield.required",
+    "description": "A label to indicate that a form field must be filled out",
+    "defaultMessage": "Required"
+  },
+  {
+    "id": "textfield.removeSelection",
+    "description": "Tooltip for button on Textfield component to remove current text of the input",
+    "defaultMessage": "Clear text"
+  }
+]

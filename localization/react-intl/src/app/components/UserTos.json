@@ -1,0 +1,17 @@
+[
+  {
+    "id": "global.unknownError",
+    "description": "Message displayed in error notification when an operation fails unexpectedly",
+    "defaultMessage": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "userTos.validation",
+    "description": "Message to the user that they must review the application terms of service",
+    "defaultMessage": "You must agree to the Terms of Service and Privacy Policy"
+  },
+  {
+    "id": "userTos.save",
+    "description": "Button label for the user to save their review of the terms of service",
+    "defaultMessage": "Save"
+  }
+]

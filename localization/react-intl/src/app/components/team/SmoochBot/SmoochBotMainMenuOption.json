@@ -1,0 +1,47 @@
+[
+  {
+    "id": "smoochBotMainMenuOption.scenario",
+    "description": "Title of dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Menu Option"
+  },
+  {
+    "id": "smoochBotMainMenuOption.label",
+    "description": "Text field label on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Button text"
+  },
+  {
+    "id": "smoochBotMainMenuOption.labelError",
+    "description": "Error message displayed when user tries to save tipline menu option with a blank label",
+    "defaultMessage": "Please add text to label the button"
+  },
+  {
+    "id": "smoochBotMainMenuOption.description",
+    "description": "Description field label on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "smoochBotMainMenuOption.send",
+    "description": "Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "If the button is clicked, then send:"
+  },
+  {
+    "id": "smoochBotMainMenuOption.responseError",
+    "description": "Error message displayed when user tries to save tipline option with empty response",
+    "defaultMessage": "Please choose a response"
+  },
+  {
+    "id": "smoochBotMainMenuOption.response",
+    "description": "Input label displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Response"
+  },
+  {
+    "id": "smoochBotMainMenuOption.save",
+    "description": "Button label to save new tipline menu option",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "smoochBotMainMenuOption.cancel",
+    "description": "Button label to cancel adding a new tipline menu option",
+    "defaultMessage": "Cancel"
+  }
+]

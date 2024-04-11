@@ -1,0 +1,87 @@
+[
+  {
+    "id": "smoochBotResourceEditor.errorRssFeedUrl",
+    "description": "Error message displayed when a user submits a form with a URL that the server does not recognize.",
+    "defaultMessage": "RSS feed URL is invalid."
+  },
+  {
+    "id": "smoochBotResourceEditor.errorTitle",
+    "description": "Error message displayed when a user submits a form with a blank title.",
+    "defaultMessage": "Title can't be blank"
+  },
+  {
+    "id": "smoochBotResourceEditor.errorHeaderFile",
+    "description": "Error message displayed when a user uploads a file of the wrong type. This is followed with a list of file types like 'png, jpg, jpeg, pdf'.",
+    "defaultMessage": "File must be of the following allowed types: {fileTypes}"
+  },
+  {
+    "id": "smoochBotResourceEditor.error",
+    "description": "Error message displayed when it's not possible to save a resource.",
+    "defaultMessage": "Could not save resource, please try again."
+  },
+  {
+    "id": "smoochBotResourceEditor.success",
+    "description": "Success message displayed when a resource is saved.",
+    "defaultMessage": "Resource saved successfully."
+  },
+  {
+    "id": "smoochBotResourceEditor.deleted",
+    "description": "Success message displayed when a resource is deleted.",
+    "defaultMessage": "Resource deleted successfully."
+  },
+  {
+    "id": "smoochBotResourceEditor.title",
+    "description": "Label for tipline resource title field",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "smoochBotResourceEditor.content",
+    "description": "Title for the resource content section on a tipline resource settings page",
+    "defaultMessage": "Content"
+  },
+  {
+    "id": "smoochBotResourceEditor.introduction",
+    "description": "Label for a field where the user inputs text for an introduction to a tipline resource that has an RSS feed",
+    "defaultMessage": "Introduction"
+  },
+  {
+    "id": "smoochBotResourceEditor.text",
+    "description": "Label for a field where the user inputs text for the contents of a static tipline resource",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "smoochBotResourceEditor.rss",
+    "description": "Label for a switch where the user turns on RSS (Really Simple Syndication) capability - should not be translated unless there is a local idiom for 'RSS'",
+    "defaultMessage": "RSS"
+  },
+  {
+    "id": "smoochBotResourceEditor.rssFeed",
+    "description": "Message on tipline resource settings page that explains how RSS feeds work there.",
+    "defaultMessage": "Use an RSS feed to automatically load new content for your resource."
+  },
+  {
+    "id": "smoochBotResourceEditor.save",
+    "description": "Label for action button to save a tipline resource.",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "smoochBotResourceEditor.delete",
+    "description": "Label for action button to delete a tipline resource.",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "smoochBotResourceEditor.confirmationDialogTitle",
+    "description": "Confirmation dialog title when deleting a tipline resource.",
+    "defaultMessage": "Are you sure you want to delete this resource?"
+  },
+  {
+    "id": "smoochBotResourceEditor.confirmationDialogBody",
+    "description": "Confirmation dialog message when deleting a tipline resource.",
+    "defaultMessage": "This content won't be available for tipline users anymore. This action can't be undone."
+  },
+  {
+    "id": "smoochBotResourceEditor.confirmationDialogButton",
+    "description": "Button label to confirm tipline resource deletion.",
+    "defaultMessage": "Delete"
+  }
+]

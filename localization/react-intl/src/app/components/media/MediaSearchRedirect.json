@@ -1,0 +1,12 @@
+[
+  {
+    "id": "mediaSearch.itemWentAway",
+    "description": "Tooltip text to let the user know the item has been removed and is no longer availble",
+    "defaultMessage": "Not found"
+  },
+  {
+    "id": "mediaSearch.error",
+    "description": "Error message with instructions on how the user should proceed",
+    "defaultMessage": "Sorry, the following error occurred: {message}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+  }
+]

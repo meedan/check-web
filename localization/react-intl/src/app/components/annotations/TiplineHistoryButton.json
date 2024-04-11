@@ -1,0 +1,12 @@
+[
+  {
+    "id": "tiplineHistory.tooltip",
+    "description": "Tooltip labeling a chat log with a user",
+    "defaultMessage": "Chat history with {user} on {channel}"
+  },
+  {
+    "id": "tiplineHistory.title",
+    "description": "Title field labeling a chat log with a user",
+    "defaultMessage": "Chat history with {user} on {channel}"
+  }
+]
