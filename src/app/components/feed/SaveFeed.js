@@ -247,7 +247,7 @@ const SaveFeed = (props) => {
 
   // Error states that cause the save/edit button to disable
   const noTitle = formData.title.length === 0;
-  const disableSaveButton = saving || noTitle || dataPoints.length === 0;
+  const disableSaveButton = saving || noTitle || formData.dataPoints.length === 0;
 
   const handleSave = () => {
     setSaving(true);
@@ -414,7 +414,7 @@ const SaveFeed = (props) => {
             { pageDescription }
           </div>
         </div>
-        
+
         { isFeedOwner && (
           <div className={styles.saveFeedCard}>
             <div className="typography-subtitle2">
