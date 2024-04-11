@@ -131,8 +131,6 @@ const FeedsComponent = ({
               </ListItem> :
               <>
                 {filteredFeeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
-                  // eslint-disable-next-line
-                  console.log("feed: ", feed)
                   let itemProps = {};
                   let itemIcon = null;
                   switch (feed.type) {
