@@ -1,7 +1,0 @@
-[
-  {
-    "id": "feedDataPointsSelection.feedDataPointsSelectionTitle",
-    "description": "Title of section where the data points being shared in a feed can be selected.",
-    "defaultMessage": "What workspace data will be shared in this feed?"
-  }
-]
