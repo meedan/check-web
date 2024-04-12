@@ -64,12 +64,6 @@ function simplifyQuery(query) {
   if (ret.keyword && !ret.keyword.trim()) {
     delete ret.keyword;
   }
-  if (/\/(imported-fact-checks)+/.test(window.location.pathname)) {
-    delete ret.channels;
-  }
-  if (/\/(unmatched-media)+/.test(window.location.pathname)) {
-    delete ret.unmatched;
-  }
   return ret;
 }
 
