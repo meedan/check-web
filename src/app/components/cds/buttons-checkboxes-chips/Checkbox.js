@@ -42,6 +42,7 @@ const Checkbox = ({
       <label
         className={cx(
           'typography-body2',
+          'int-checkbox__label',
           {
             [styles.disabled]: disabled,
           })
