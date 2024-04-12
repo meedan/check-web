@@ -73,20 +73,20 @@ const FeedTeamFactCheckDialog = ({ claimDescription, rating, onClose }) => (
             }
             { claimDescription?.fact_check ?
               <>
-                <FormattedMessage
-                  id="feedTeamFactCheckDialog.factCheck"
-                  defaultMessage="Fact-Check"
-                  description="Title for the fact-check section on the claim and fact-check dialog on the feed item page."
-                />
+                <div className={styles.feedItemDialogSubtitleWrapper}>
+                  <FormattedMessage
+                    id="feedTeamFactCheckDialog.factCheck"
+                    defaultMessage="Fact-Check"
+                    description="Title for the fact-check section on the claim and fact-check dialog on the feed item page."
+                  />
+                  <div className={styles.feedItemDialogSubtitleFactCheckRating}>
+                    {rating}
+                  </div>
+                </div>
                 <BulletSeparator
                   className={styles.feedItemDialogBulletSeparator}
                   compact
                   details={[
-                    (
-                      <div className={styles.feedItemDialogBulletSeparatorComponent}>
-                        {rating}
-                      </div>
-                    ),
                     claimDescription.fact_check.language !== 'und' && (
                       <div className={styles.feedItemDialogBulletSeparatorComponent}>
                         <LanguageIcon />
