@@ -310,11 +310,24 @@ FeedImportDialog.propTypes = {
     center: PropTypes.shape({
       dbid: PropTypes.number.isRequired,
     }).isRequired,
+    project_medias: PropTypes.exact({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          dbid: PropTypes.number.isRequired,
+          title: PropTypes.string,
+          description: PropTypes.string,
+          last_seen: PropTypes.string,
+          requests_count: PropTypes.number,
+          media: PropTypes.object,
+        }),
+      })),
+    }).isRequired,
   }).isRequired,
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }).isRequired,
   onClose: PropTypes.func.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
 };
 
