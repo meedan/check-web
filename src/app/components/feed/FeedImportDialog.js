@@ -105,7 +105,7 @@ const FeedImportDialog = ({
 
   return (
     // Avoid closing the dialog when clicking on it
-    <div onClick={(e) => { e.stopPropagation(); }} onKeyDown={(e) => { e.stopPropagation(); }}>
+    <div id="feed-import-dialog" onClick={(e) => { e.stopPropagation(); }} onKeyDown={(e) => { e.stopPropagation(); }}>
       <Dialog
         className={dialogStyles['dialog-window']}
         open
@@ -153,7 +153,7 @@ const FeedImportDialog = ({
 
           {/* First case: Create a new item */}
           { importType === 'create' && (
-            <>
+            <div id="feed-import-dialog__create">
               <div className="typography-subtitle2">
                 <FormattedMessage
                   id="feedImportDialog.explanationImportTypeCreate"
@@ -173,12 +173,12 @@ const FeedImportDialog = ({
                 label={<FormattedMessage id="feedImportDialog.claimContext" defaultMessage="Additional context" description="Text field label on import dialog on feed item page." />}
                 onBlur={e => setClaimContext(e.target.value)}
               />
-            </>
+            </div>
           )}
 
           {/* Second case: Add to cluster item when the current workspace is part of the cluster */}
           { importType === 'add' && item && (
-            <>
+            <div id="feed-import-dialog__add">
               <div className="typography-subtitle2">
                 <FormattedMessage
                   id="feedImportDialog.explanationImportTypeAdd"
@@ -213,7 +213,7 @@ const FeedImportDialog = ({
                 media={item.media}
                 description={team.description}
               />
-            </>
+            </div>
           )}
 
           {/* Second case: Add to cluster item when the current workspace is not part of the cluster */}
@@ -258,7 +258,7 @@ const FeedImportDialog = ({
 
           {/* Third case: Search for media */}
           { importType === 'search' && (
-            <div className={cx(styles.feedImportSearch, mediaStyles['media-item-autocomplete-wrapper'])}>
+            <div id="feed-import-dialog__search" className={cx(styles.feedImportSearch, mediaStyles['media-item-autocomplete-wrapper'])}>
               <AutoCompleteMediaItem onSelect={setSelectedItem} />
             </div>
           )}
@@ -299,7 +299,9 @@ const FeedImportDialog = ({
   );
 };
 
-FeedImportDialog.defaultProps = {};
+FeedImportDialog.defaultProps = {
+  onClose: () => {},
+};
 
 FeedImportDialog.propTypes = {
   team: PropTypes.shape({
@@ -326,10 +328,14 @@ FeedImportDialog.propTypes = {
   feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }).isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   setFlashMessage: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
 };
+
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export { FeedImportDialog };
 
 export default createFragmentContainer(withSetFlashMessage(injectIntl(FeedImportDialog)), graphql`
   fragment FeedImportDialog_team on Team {
