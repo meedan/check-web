@@ -15,6 +15,11 @@
   }
 }
 
+.feedItemHeaderButtons {
+  display: flex;
+  gap: 8px;
+}
+
 .feedItemHeaderMetadataRow {
   align-items: center;
   display: flex;
@@ -36,6 +41,7 @@
 }
 
 .feedItemColumn {
+  align-self: flex-start;
   background: var(--otherWhite);
   border-radius: 8px;
   display: flex;
@@ -48,7 +54,6 @@
 }
 
 .feedItemColumn + .feedItemColumn {
-  align-self: flex-start;
   flex: 1;
   justify-content: flex-start;
   overflow-x: hidden;
@@ -182,4 +187,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.feedImportNotInCluster {
+  color: var(--textPlaceholder);
+}
+
+.feedImportLink {
+  color: var(--textLink);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.feedImportSuccessLink {
+  color: var(--otherWhite) !important;
+}
+
+.feedImportSearch a {
+  text-decoration: none;
+}
+
+.feedItemDialogForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

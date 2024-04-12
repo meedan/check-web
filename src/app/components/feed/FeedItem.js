@@ -9,14 +9,13 @@ import FeedItemHeader from './FeedItemHeader';
 import FeedItemTeams from './FeedItemTeams';
 
 const FeedItemComponent = ({
-  teamSlug,
   feed,
   cluster,
   team,
 }) => (
   <div id="feed-item-page">
     <FeedItemHeader
-      teamSlug={teamSlug}
+      team={team}
       feed={feed}
       cluster={cluster}
     />
@@ -29,7 +28,6 @@ const FeedItemComponent = ({
 );
 
 FeedItemComponent.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
   feed: PropTypes.object.isRequired,
   cluster: PropTypes.object.isRequired,
   team: PropTypes.object.isRequired,
@@ -47,6 +45,7 @@ const FeedItem = ({ routeParams }) => (
         query FeedItemQuery($slug: String!, $feedId: Int!, $projectMediaId: Int!) {
           team(slug: $slug) {
             ...FeedItemTeams_team
+            ...FeedItemHeader_team
             feed(dbid: $feedId) {
               ...FeedItemHeader_feed
               ...FeedItemTeams_feed
@@ -67,7 +66,7 @@ const FeedItem = ({ routeParams }) => (
         if (props && !error) {
           const cluster = props.team?.feed?.cluster;
           if (cluster) {
-            return (<FeedItemComponent teamSlug={routeParams.team} feed={props.team.feed} cluster={cluster} team={props.team} />);
+            return (<FeedItemComponent feed={props.team.feed} cluster={cluster} team={props.team} />);
           }
           return (<NotFound />);
         }

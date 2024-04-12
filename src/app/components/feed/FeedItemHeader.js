@@ -7,16 +7,27 @@ import cx from 'classnames/bind';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ChevronRightIcon from '../../icons/chevron_right.svg';
 import CalendarIcon from '../../icons/calendar_month.svg';
+import PermMediaIcon from '../../icons/perm_media.svg';
 import ItemThumbnail from '../search/SearchResultsTable/ItemThumbnail';
 import FeedLastClusterizedAt from './FeedLastClusterizedAt';
+import FeedImportDialog from './FeedImportDialog';
 import searchResultsStyles from '../search/SearchResults.module.css';
 import styles from './FeedItem.module.css';
 
-const FeedItemHeader = ({ teamSlug, feed, cluster }) => {
+const FeedItemHeader = ({ team, feed, cluster }) => {
+  const [showImportDialog, setShowImportDialog] = React.useState(false);
   const { title, center } = cluster;
 
   const handleViewFeed = () => {
-    browserHistory.push(`/${teamSlug}/feed/${feed.dbid}`);
+    browserHistory.push(`/${team.slug}/feed/${feed.dbid}`);
+  };
+
+  const handleOpenImportDialog = () => {
+    setShowImportDialog(true);
+  };
+
+  const handleCloseImportDialog = () => {
+    setShowImportDialog(false);
   };
 
   return (
@@ -50,7 +61,7 @@ const FeedItemHeader = ({ teamSlug, feed, cluster }) => {
             </div>
           </div>
         </div>
-        <div>
+        <div className={styles.feedItemHeaderButtons}>
           <ButtonMain
             variant="outlined"
             size="default"
@@ -64,19 +75,36 @@ const FeedItemHeader = ({ teamSlug, feed, cluster }) => {
               />
             }
           />
+          <ButtonMain
+            variant="outlined"
+            size="default"
+            theme="brand"
+            onClick={handleOpenImportDialog}
+            iconLeft={<PermMediaIcon />}
+            label={
+              <FormattedMessage
+                id="feedItemHeader.importMediaToWorkspace"
+                defaultMessage="Import Media to Workspace"
+                description="Label of a button displayed on the feed item page that when clicked allows the user to import media from the feed into the workspace."
+              />
+            }
+          />
         </div>
       </div>
+      { showImportDialog && <FeedImportDialog team={team} cluster={cluster} feed={feed} onClose={handleCloseImportDialog} key={cluster.id} /> }
     </div>
   );
 };
 
 FeedItemHeader.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
-  feed: PropTypes.exact({
+  team: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
+  feed: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
-  cluster: PropTypes.exact({
+  cluster: PropTypes.shape({
     title: PropTypes.string.isRequired,
     last_request_date: PropTypes.number,
     center: PropTypes.exact({
@@ -95,7 +123,12 @@ FeedItemHeader.propTypes = {
 export { FeedItemHeader };
 
 export default createFragmentContainer(FeedItemHeader, graphql`
+  fragment FeedItemHeader_team on Team {
+    slug
+    ...FeedImportDialog_team
+  }
   fragment FeedItemHeader_cluster on Cluster {
+    id
     title
     last_request_date
     center {
@@ -106,10 +139,12 @@ export default createFragmentContainer(FeedItemHeader, graphql`
         picture
       }
     }
+    ...FeedImportDialog_cluster
   }
   fragment FeedItemHeader_feed on Feed {
     dbid
     name
     ...FeedLastClusterizedAt_feed
+    ...FeedImportDialog_feed
   }
 `);

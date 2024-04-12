@@ -8,5 +8,10 @@
     "id": "feedItemHeader.viewSharedFeed",
     "description": "Label of a button displayed on the feed item page that when clicked takes the user to the shared feed page.",
     "defaultMessage": "View Shared Feed"
+  },
+  {
+    "id": "feedItemHeader.importMediaToWorkspace",
+    "description": "Label of a button displayed on the feed item page that when clicked allows the user to import media from the feed into the workspace.",
+    "defaultMessage": "Import Media to Workspace"
   }
 ]
