@@ -10,10 +10,12 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextField from '../cds/inputs/TextField';
 import IconClose from '../../icons/clear.svg';
 import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
+import AutoCompleteMediaItem from '../media/AutoCompleteMediaItem';
 import dialogStyles from '../../styles/css/dialog.module.css';
 import { withSetFlashMessage } from '../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import mediaStyles from '../media/media.module.css';
 import styles from './FeedItem.module.css';
 
 const FeedImportDialog = ({
@@ -24,16 +26,20 @@ const FeedImportDialog = ({
   onClose,
   intl,
 }) => {
-  const [importType, setImportType] = React.useState('create'); // or 'add' or 'search'
   const [claimTitle, setClaimTitle] = React.useState(null);
   const [claimContext, setClaimContext] = React.useState(null);
+  const [selectedItem, setSelectedItem] = React.useState(null);
   const [saving, setSaving] = React.useState(false);
 
   // Check if this workspace has an item in the cluster
+  let defaultImportType = 'search';
   let item = null;
   if (cluster?.project_medias?.edges?.length > 0) {
     item = cluster.project_medias.edges[0].node;
+    defaultImportType = 'add';
   }
+
+  const [importType, setImportType] = React.useState(defaultImportType); // 'add', 'create' or 'search'
 
   const onCompleted = (response) => {
     setFlashMessage(
@@ -61,7 +67,7 @@ const FeedImportDialog = ({
     onClose();
   };
 
-  const canImport = (importType === 'create' || (importType === 'add' && item));
+  const canImport = (importType === 'create' || (importType === 'add' && item) || (importType === 'search' && selectedItem));
 
   const handleImport = () => {
     setSaving(true);
@@ -75,6 +81,9 @@ const FeedImportDialog = ({
     }
     if (importType === 'add' && item) {
       input.parentId = item.dbid;
+    }
+    if (importType === 'search' && selectedItem) {
+      input.parentId = selectedItem.dbid;
     }
     commitMutation(Relay.Store, {
       mutation: graphql`
@@ -247,6 +256,12 @@ const FeedImportDialog = ({
             </div>
           )}
 
+          {/* Third case: Search for media */}
+          { importType === 'search' && (
+            <div className={cx(styles.feedImportSearch, mediaStyles['media-item-autocomplete-wrapper'])}>
+              <AutoCompleteMediaItem onSelect={setSelectedItem} />
+            </div>
+          )}
         </div>
 
         {/* Footer */}

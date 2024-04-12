@@ -202,3 +202,7 @@
 .feedImportSuccessLink {
   color: var(--otherWhite) !important;
 }
+
+.feedImportSearch a {
+  text-decoration: none;
+}
