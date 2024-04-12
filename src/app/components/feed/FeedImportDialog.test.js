@@ -40,7 +40,7 @@ describe('<FeedImportDialog />', () => {
         edges: [
           {
             node: {
-              dbid: 4, 
+              dbid: 4,
             },
           },
         ],
