@@ -72,6 +72,16 @@ const FeedsComponent = ({
     window.storage.set('drawer.feedsExpanded', !feedsExpanded);
   };
 
+  const filteredFeeds = feeds.filter((feed, index, self) => {
+    // If there are two feeds with the same dbid, it removes the feed with the "FeedInvitation" type from the displayed list.
+    if (feed.type === 'FeedInvitation') {
+      return !self.some((otherFeed, otherIndex) =>
+        otherFeed.dbid === feed.dbid && otherIndex !== index,
+      );
+    }
+    return true;
+  });
+
   return (
     <React.Fragment>
       <div className={styles.listTitle}>
@@ -120,7 +130,7 @@ const FeedsComponent = ({
                 </ListItemText>
               </ListItem> :
               <>
-                {feeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
+                {filteredFeeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
                   let itemProps = {};
                   let itemIcon = null;
                   switch (feed.type) {
