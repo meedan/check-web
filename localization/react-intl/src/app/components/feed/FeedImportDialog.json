@@ -12,7 +12,7 @@
   {
     "id": "feedImportDialog.title",
     "description": "Title for the import media dialog on the feed item page.",
-    "defaultMessage": "Import {mediaCount} media into your workspace"
+    "defaultMessage": "{mediaCount, plural, one {Import # media into your workspace} other {Import # media into your workspace}}"
   },
   {
     "id": "feedImportDialog.typeCreate",
@@ -80,8 +80,8 @@
     "defaultMessage": "existing item to import"
   },
   {
-    "id": "feedImportDialog.cancel",
-    "description": "Label of a button to close the import dialog window on the feed item page.",
+    "id": "global.cancel",
+    "description": "Regular Cancel action label",
     "defaultMessage": "Cancel"
   },
   {

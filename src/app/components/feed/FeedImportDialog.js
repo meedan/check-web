@@ -115,7 +115,7 @@ const FeedImportDialog = ({
             <FormattedMessage
               tagName="h6"
               id="feedImportDialog.title"
-              defaultMessage="Import {mediaCount} media into your workspace"
+              defaultMessage="{mediaCount, plural, one {Import # media into your workspace} other {Import # media into your workspace}}"
               description="Title for the import media dialog on the feed item page."
               values={{
                 mediaCount: cluster.media_count,
@@ -153,7 +153,7 @@ const FeedImportDialog = ({
 
           {/* First case: Create a new item */}
           { importType === 'create' && (
-            <div id="feed-import-dialog__create">
+            <div id="feed-import-dialog__create" className={styles.feedItemDialogForm}>
               <div className="typography-subtitle2">
                 <FormattedMessage
                   id="feedImportDialog.explanationImportTypeCreate"
@@ -274,9 +274,9 @@ const FeedImportDialog = ({
             disabled={saving}
             label={
               <FormattedMessage
-                id="feedImportDialog.cancel"
+                id="global.cancel"
                 defaultMessage="Cancel"
-                description="Label of a button to close the import dialog window on the feed item page."
+                description="Regular Cancel action label"
               />
             }
           />

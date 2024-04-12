@@ -206,3 +206,9 @@
 .feedImportSearch a {
   text-decoration: none;
 }
+
+.feedItemDialogForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
