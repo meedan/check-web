@@ -256,9 +256,7 @@ const SaveFeed = (props) => {
       name: formData.title,
       description: formData.description,
       saved_search_id: formData.selectedListId,
-      tags: formData.tags,
       licenses,
-      discoverable: formData.discoverable,
       dataPoints: formData.dataPoints,
       published: true,
     };
