@@ -63,7 +63,7 @@ const FeedsComponent = ({
         <FormattedHTMLMessage
           id="projectsComponent.sharedFeedNavHeader"
           defaultMessage="Shared Feeds [{feedsLength}] <sup>BETA</sup>"
-          description="The navigation name of the shared feeds section with included Beta messaging"
+          description="The navigation name of the shared feeds section with included Beta messaging and the total count of items in the list below"
           values={{ feedsLength: feeds.length }}
         />
       </div>
