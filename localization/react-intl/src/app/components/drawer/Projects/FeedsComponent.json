@@ -7,17 +7,12 @@
   {
     "id": "projectsComponent.sharedFeedNavHeader",
     "description": "The navigation name of the shared feeds section with included Beta messaging",
-    "defaultMessage": "Shared Feeds <sup>BETA</sup>"
-  },
-  {
-    "id": "projectsComponent.sharedFeeds",
-    "description": "Collaborating is a label to describe the type of shared feeds listed. In this case it means that they are groups of workspaces working together.",
-    "defaultMessage": "Collaborating [{feedsLength}]"
+    "defaultMessage": "Shared Feeds [{feedsLength}] <sup>BETA</sup>"
   },
   {
     "id": "projectsComponent.newSharedFeed",
-    "description": "Tooltip for the button that navigates to shared feed creation page",
-    "defaultMessage": "New shared feed"
+    "description": "Label for the button that navigates to shared feed creation page",
+    "defaultMessage": "New Shared Feed"
   },
   {
     "id": "projectsComponent.noSharedFeeds",

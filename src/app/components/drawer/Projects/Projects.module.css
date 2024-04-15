@@ -18,6 +18,10 @@
   }
 }
 
+.listMainAction {
+  padding: 0 18px;
+}
+
 .listWrapper {
   --drawerListIconSize: 18px;
   --drawerexpandIconSize: 14px;
