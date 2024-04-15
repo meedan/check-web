@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedHTMLMessage, injectIntl, defineMessages } from 'react-intl';
 import { browserHistory, withRouter } from 'react-router';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import cx from 'classnames/bind';
 import ProjectsListItem from './ProjectsListItem';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -90,15 +87,13 @@ const FeedsComponent = ({
         </div>
       </Can>
       <div className={styles.listWrapperScrollWrapper}>
-        <List dense disablePadding className={styles.listWrapper}>
+        <ul className={styles.listWrapper}>
           { feeds.length === 0 ?
-            <ListItem className={[styles.listItem, styles.listItem_containsCount, styles.listItem_empty].join(' ')}>
-              <ListItemText disableTypography className={styles.listLabel}>
-                <span>
-                  <FormattedMessage tagName="em" id="projectsComponent.noSharedFeeds" defaultMessage="No shared feeds" description="Displayed under the shared feed header when there are no feeds in it" />
-                </span>
-              </ListItemText>
-            </ListItem> :
+            <li className={cx(styles.listItem, styles.listItem_empty)}>
+              <div className={styles.listLabel}>
+                <FormattedMessage tagName="em" id="projectsComponent.noSharedFeeds" defaultMessage="No shared feeds" description="Displayed under the shared feed header when there are no feeds in it" />
+              </div>
+            </li> :
             <>
               {filteredFeeds.sort((a, b) => (a?.title?.localeCompare(b.title))).map((feed) => {
                 let itemProps = {};
@@ -140,7 +135,7 @@ const FeedsComponent = ({
               })}
             </>
           }
-        </List>
+        </ul>
       </div>
     </React.Fragment>
   );
