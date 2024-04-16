@@ -235,14 +235,28 @@ const SaveFeed = (props) => {
     }
   }, [createdFeedDbid]);
 
+
+  // ---- isEditing state changed callback (start) ----
+  // This makes sure we're tring to navigate to the feed only after a save
+  // and the isEditing state is commited back to false and the NavigateAwayDialog
+  // is then unmounted, which prevented, well, navigating away.
+  const prevEditingRef = React.useRef(false);
+
+  React.useEffect(() => {
+    if (createdFeedDbid && prevEditingRef.current === true) { // .current is SO misleading, it actually means previous
+      if (!formData.newInvites.length) {
+        handleViewFeed(createdFeedDbid);
+      }
+    }
+    prevEditingRef.current = isEditing;
+  }, [isEditing]);
+  // ---- isEditing state changed callback (end) ----
+
   const onSuccess = (response) => {
     const dbid = response?.createFeed?.feed?.dbid || feed.dbid;
     setCreatedFeedDbid(dbid);
     setSaving(false);
     setIsEditing(false);
-    if (!formData.newInvites.length) {
-      handleViewFeed(dbid);
-    }
   };
 
   // Error states that cause the save/edit button to disable
