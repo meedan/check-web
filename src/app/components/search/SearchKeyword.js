@@ -233,6 +233,8 @@ class SearchKeyword extends React.Component {
   triggerInputFile = () => this.fileInput.click()
 
   render() {
+    // eslint-disable-next-line
+    console.log('SearchKeyword render', this.props);
     const { team, showExpand } = this.props;
     const { statuses } = team.verification_statuses;
     let projects = [];
@@ -243,6 +245,9 @@ class SearchKeyword extends React.Component {
     const title = (this.filterIsActive() || this.keywordIsActive())
       ? this.title(statuses, projects)
       : (this.props.title || (this.props.project ? this.props.project.title : null));
+
+    // eslint-disable-next-line
+    console.log('SearchKeyword title', title, "this.props.tea", this.props.team);
 
     return (
       <>

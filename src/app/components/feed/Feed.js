@@ -13,6 +13,7 @@ import FeedClusters from './FeedClusters';
 import FeedSwitcher from './FeedSwitcher';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
+import PageTitle from '../PageTitle';
 
 export const FeedComponent = ({ routeParams, ...props }) => {
   const { team } = props;
@@ -63,116 +64,120 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     routeQuery = feedTeam.filters;
   }
 
+  // eslint-disable-next-line
+  console.log("feedTeam", feedTeam)
   return (
     <React.Fragment>
-      {/* The "Shared" tab just shows content from that workspace */}
-      { tab === 'shared' ?
-        <div id="feed__from-workspace" className="search-results-wrapper">
-          <Search
-            mediaUrlPrefix="media"
-            result
-            query={{
-              ...feed.filters,
-              ...routeQuery,
-            }}
-            defaultQuery={feed.filters}
-            feedTeam={{
-              id: feedTeam.id,
-              filters: feedTeam.filters,
-              feedFilters: feed.filters,
-              shared: feedTeam.shared,
-            }}
-            hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
-            {...commonSearchProps}
-          />
-        </div>
-        : null
-      }
+      <PageTitle prefix={feed.name} team={{ name: team.feed.name }} >
+        {/* The "Shared" tab just shows content from that workspace */}
+        { tab === 'shared' ?
+          <div id="feed__from-workspace" className="search-results-wrapper">
+            <Search
+              mediaUrlPrefix="media"
+              result
+              query={{
+                ...feed.filters,
+                ...routeQuery,
+              }}
+              defaultQuery={feed.filters}
+              feedTeam={{
+                id: feedTeam.id,
+                filters: feedTeam.filters,
+                feedFilters: feed.filters,
+                shared: feedTeam.shared,
+              }}
+              hideFields={['feed_fact_checked_by', 'cluster_teams', 'cluster_published_reports']}
+              {...commonSearchProps}
+            />
+          </div>
+          : null
+        }
 
-      {/* The "Feed" tab displays content from the feed itself */}
+        {/* The "Feed" tab displays content from the feed itself */}
 
-      {/* Feed is sharing only fact-checks */}
-      { tab === 'feed' && feed.published && !feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
-        <div id="feed__fact-checks" className="feed__fact-checks search-results-wrapper">
-          <Search
-            mediaUrlPrefix="media"
-            query={{
-              ...safelyParseJSON(routeParams.query, {}),
-              feed_team_ids: teamFilters,
-              feed_id: feed.dbid,
-              ...feed.filters,
-            }}
-            defaultQuery={feed.filters}
-            // if all filters are empty, force an empty result
-            resultType={teamFilters.length === 0 ? 'emptyFeed' : 'factCheck'}
-            hideFields={[
-              'feed_fact_checked_by',
-              'tags',
-              'users',
-              'assigned_to',
-              'published_by',
-              'team_tasks',
-              'channels',
-              'linked_items_count',
-              'suggestions_count',
-              'demand',
-              'sources',
-              'dynamic',
-              'annotated_by',
-              'language',
-              'published_by',
-              'has_claim',
-              'cluster_published_reports',
-              'cluster_teams',
-              'archived',
-              'read',
-              'report_status',
-              'show',
-              'unmatched',
-              'verification_status',
-            ]}
-            {...commonSearchProps}
-            title={feed.name}
-            listActions={
-              <FeedHeader feedTeam={feedTeam} feed={feed} />
-            }
-            extra={feed.requests_count > 0 ? () => (
-              <FeedSwitcher teamSlug={routeParams.team} feedDbid={routeParams.feedId} value="feed" />
-            ) : null}
-          />
-        </div>
-        : null
-      }
+        {/* Feed is sharing only fact-checks */}
+        { tab === 'feed' && feed.published && !feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
+          <div id="feed__fact-checks" className="feed__fact-checks search-results-wrapper">
+            <Search
+              mediaUrlPrefix="media"
+              query={{
+                ...safelyParseJSON(routeParams.query, {}),
+                feed_team_ids: teamFilters,
+                feed_id: feed.dbid,
+                ...feed.filters,
+              }}
+              defaultQuery={feed.filters}
+              // if all filters are empty, force an empty result
+              resultType={teamFilters.length === 0 ? 'emptyFeed' : 'factCheck'}
+              hideFields={[
+                'feed_fact_checked_by',
+                'tags',
+                'users',
+                'assigned_to',
+                'published_by',
+                'team_tasks',
+                'channels',
+                'linked_items_count',
+                'suggestions_count',
+                'demand',
+                'sources',
+                'dynamic',
+                'annotated_by',
+                'language',
+                'published_by',
+                'has_claim',
+                'cluster_published_reports',
+                'cluster_teams',
+                'archived',
+                'read',
+                'report_status',
+                'show',
+                'unmatched',
+                'verification_status',
+              ]}
+              {...commonSearchProps}
+              title={feed.name}
+              listActions={
+                <FeedHeader feedTeam={feedTeam} feed={feed} />
+              }
+              extra={feed.requests_count > 0 ? () => (
+                <FeedSwitcher teamSlug={routeParams.team} feedDbid={routeParams.feedId} value="feed" />
+              ) : null}
+            />
+          </div>
+          : null
+        }
 
-      {/* Feed is sharing media */}
-      { tab === 'feed' && feed.published && feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
-        <div id="feed__clusters" className="search-results-wrapper">
-          <FeedClusters
+        {/* Feed is sharing media */}
+        { tab === 'feed' && feed.published && feed.data_points?.includes(CheckFeedDataPoints.MEDIA_CLAIM_REQUESTS) ?
+          <div id="feed__clusters" className="search-results-wrapper">
+            <FeedClusters
+              teamSlug={routeParams.team}
+              feedId={parseInt(routeParams.feedId, 10)}
+            />
+          </div>
+          : null
+        }
+
+        { tab === 'requests' && feed.published ?
+          <FeedRequestsTable
+            tabs={null}
             teamSlug={routeParams.team}
             feedId={parseInt(routeParams.feedId, 10)}
+            feedTeam={{
+              id: feedTeam.id,
+              requests_filters: feedTeam.requests_filters || {},
+            }}
+            searchUrlPrefix={commonSearchProps.searchUrlPrefix}
+            filters={
+              routeParams.query ?
+                { ...safelyParseJSON(routeParams.query, {}) } :
+                (feedTeam.requests_filters || {})
+            }
           />
-        </div>
-        : null
-      }
-
-      { tab === 'requests' && feed.published ?
-        <FeedRequestsTable
-          tabs={null}
-          teamSlug={routeParams.team}
-          feedId={parseInt(routeParams.feedId, 10)}
-          feedTeam={{
-            id: feedTeam.id,
-            requests_filters: feedTeam.requests_filters || {},
-          }}
-          searchUrlPrefix={commonSearchProps.searchUrlPrefix}
-          filters={
-            routeParams.query ?
-              { ...safelyParseJSON(routeParams.query, {}) } :
-              (feedTeam.requests_filters || {})
-          }
-        />
-        : null
-      }
+          : null
+        }
+      </PageTitle>
     </React.Fragment>
   );
 };
