@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import CircularProgress from './CircularProgress';
+import MediasLoading from './media/MediasLoading';
 import { units } from '../styles/js/shared';
 
 const PenderCardContainer = styled.div`
@@ -92,7 +92,7 @@ class PenderCard extends Component {
               return this.props.fallback;
             }
             return (
-              <div><CircularProgress thickness={1} /></div>
+              <MediasLoading theme="white" variant="inline" size="medium" />
             );
           })()}
         </PenderCardLoader>
