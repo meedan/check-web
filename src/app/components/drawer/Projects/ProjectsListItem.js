@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import cx from 'classnames/bind';
 import ProjectsListCounter from './ProjectsListCounter';
 import styles from './Projects.module.css';
 
@@ -23,39 +22,41 @@ const ProjectsListItem = ({
     }
   };
 
-  const defaultClassName = ['project-list__link', className].join(' ');
-
   const Item = listItemProps => (
     <Link
       onClick={handleClick}
       className={styles.linkList}
       to={`/${teamSlug}/${routePrefix}/${project.dbid}${routeSuffix}`}
     >
-      <ListItem
+      <li
         title={tooltip}
         key={`${project.id}-${project.title}`}
-        className={[
-          defaultClassName,
+        className={cx(
+          'project-list__link',
           styles.listItem,
           styles.listItem_containsCount,
-          isActive ? styles.listItem_active : '',
-        ].join(' ')}
+          {
+            [className]: true,
+            [styles.listItem_active]: isActive,
+          })
+        }
         {...listItemProps}
       >
         {icon}
-        <ListItemText
-          disableTypography
-          className={[
+        <div
+          className={cx(
             styles.listLabel,
-            !icon ? styles.listLabel_plainText : '',
-          ].join(' ')}
+            {
+              [styles.listLabel_plainText]: !icon,
+            })
+          }
         >
           <span>
             {project.title || project.name}
           </span>
-        </ListItemText>
+        </div>
         <ProjectsListCounter numberOfItems={project.medias_count} />
-      </ListItem>
+      </li>
     </Link>
   );
 

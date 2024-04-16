@@ -18,6 +18,10 @@
   }
 }
 
+.listMainAction {
+  padding: 0 18px;
+}
+
 .listWrapper {
   --drawerListIconSize: 18px;
   --drawerexpandIconSize: 14px;
@@ -57,11 +61,14 @@
 
   .listHeader {
     @mixin typography-caption;
+    align-items: center;
     border: solid 1px var(--otherWhite);
     color: var(--textPlaceholder);
     cursor: pointer;
+    display: flex;
     font-weight: 500;
     height: 30px;
+    justify-content: flex-start;
     margin: 0 0 2px;
     padding: 0 0 0 7px;
     text-transform: uppercase;
@@ -70,6 +77,7 @@
     .listHeaderLabel {
       align-items: center;
       display: flex;
+      flex-basis: 100%;
       margin: 0;
 
       > span {
@@ -187,7 +195,10 @@
   .listItemCount {
     @mixin typography-body1;
     color: var(--textSecondary);
+    position: absolute;
     right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .groupList {
