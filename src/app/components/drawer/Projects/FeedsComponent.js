@@ -72,7 +72,7 @@ const FeedsComponent = ({
           <ButtonMain
             className="projects-list__add-feed"
             label={
-              <FormattedHTMLMessage
+              <FormattedMessage
                 id="projectsComponent.newSharedFeed"
                 defaultMessage="New Shared Feed"
                 description="Label for the button that navigates to shared feed creation page"
