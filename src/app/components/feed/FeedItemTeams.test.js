@@ -5,7 +5,7 @@ import { FeedItemTeams } from './FeedItemTeams';
 describe('<FeedItemTeams />', () => {
   const team = {
     id: '1',
-    dbid:'1',
+    dbid: '1',
     name: 'teamName',
     slug: 'slugTeam',
     members_count: 1,
