@@ -354,7 +354,7 @@ const SaveFeed = (props) => {
   let pageTitle = (
     <FormattedMessage
       id="saveFeed.sharedFeedPageSubtitle"
-      defaultMessage="Create a new shared feed"
+      defaultMessage="Create Shared Feed"
       description="Subtitle of the shared feed creation page"
     />
   );
@@ -363,8 +363,11 @@ const SaveFeed = (props) => {
     pageTitle = isFeedOwner ? (
       <FormattedMessage
         id="saveFeed.sharedFeedPageEditSubtitle"
-        defaultMessage="Edit shared feed"
+        defaultMessage="Edit | {feedName}"
         description="Subtitle of the shared feed editing page"
+        values={{
+          feedName: feed.name,
+        }}
       />
     ) : feed.name;
   }
