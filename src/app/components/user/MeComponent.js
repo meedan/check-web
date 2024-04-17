@@ -27,7 +27,7 @@ class MeComponent extends React.Component {
     }
 
     return (
-      <PageTitle prefix={`dsodsk ${user.name}`}>
+      <PageTitle prefix={user.name}>
         <div className={cx('source', styles['user-settings-wrapper'])}>
           <div className={styles['user-content']}>
             { tab === 'profile' ? <UserProfile user={user} /> : null}

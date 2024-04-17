@@ -7,6 +7,7 @@ import MediasLoading from '../media/MediasLoading';
 import NotFound from '../NotFound';
 import FeedItemHeader from './FeedItemHeader';
 import FeedItemTeams from './FeedItemTeams';
+import PageTitle from '../PageTitle';
 
 const FeedItemComponent = ({
   teamSlug,
@@ -14,18 +15,20 @@ const FeedItemComponent = ({
   cluster,
   team,
 }) => (
-  <div id="feed-item-page">
-    <FeedItemHeader
-      teamSlug={teamSlug}
-      feed={feed}
-      cluster={cluster}
-    />
-    <FeedItemTeams
-      feed={feed}
-      team={team}
-      cluster={cluster}
-    />
-  </div>
+  <PageTitle prefix={feed.name} team={{ name: team.name }}>
+    <div id="feed-item-page">
+      <FeedItemHeader
+        teamSlug={teamSlug}
+        feed={feed}
+        cluster={cluster}
+      />
+      <FeedItemTeams
+        feed={feed}
+        team={team}
+        cluster={cluster}
+      />
+    </div>
+  </PageTitle>
 );
 
 FeedItemComponent.propTypes = {
@@ -46,8 +49,10 @@ const FeedItem = ({ routeParams }) => (
       query={graphql`
         query FeedItemQuery($slug: String!, $feedId: Int!, $projectMediaId: Int!) {
           team(slug: $slug) {
+            name
             ...FeedItemTeams_team
             feed(dbid: $feedId) {
+              name
               ...FeedItemHeader_feed
               ...FeedItemTeams_feed
               cluster(project_media_id: $projectMediaId) {
@@ -65,6 +70,8 @@ const FeedItem = ({ routeParams }) => (
       }}
       render={({ props, error }) => {
         if (props && !error) {
+          // eslint-disable-next-line
+          console.log('FeedItem', props)
           const cluster = props.team?.feed?.cluster;
           if (cluster) {
             return (<FeedItemComponent teamSlug={routeParams.team} feed={props.team.feed} cluster={cluster} team={props.team} />);
