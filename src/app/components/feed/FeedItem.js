@@ -15,7 +15,7 @@ const FeedItemComponent = ({
   cluster,
   team,
 }) => (
-  <PageTitle prefix={feed.name} team={{ name: team.name }}>
+  <PageTitle prefix={`${team?.feed?.cluster?.project_media?.title} | ${feed?.name}`} team={{ name: team?.name }}>
     <div id="feed-item-page">
       <FeedItemHeader
         teamSlug={teamSlug}
@@ -56,6 +56,9 @@ const FeedItem = ({ routeParams }) => (
               ...FeedItemHeader_feed
               ...FeedItemTeams_feed
               cluster(project_media_id: $projectMediaId) {
+                project_media(id: $projectMediaId) {
+                  title
+                }
                 ...FeedItemHeader_cluster
                 ...FeedItemTeams_cluster
               }
@@ -70,8 +73,6 @@ const FeedItem = ({ routeParams }) => (
       }}
       render={({ props, error }) => {
         if (props && !error) {
-          // eslint-disable-next-line
-          console.log('FeedItem', props)
           const cluster = props.team?.feed?.cluster;
           if (cluster) {
             return (<FeedItemComponent teamSlug={routeParams.team} feed={props.team.feed} cluster={cluster} team={props.team} />);
