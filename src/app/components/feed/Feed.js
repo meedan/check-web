@@ -68,7 +68,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
   console.log("feedTeam", feedTeam)
   return (
     <React.Fragment>
-      <PageTitle prefix={feed.name} team={{ name: team.feed.name }} >
+      <PageTitle prefix={feed.name} team={{ name: team.name }} >
         {/* The "Shared" tab just shows content from that workspace */}
         { tab === 'shared' ?
           <div id="feed__from-workspace" className="search-results-wrapper">
@@ -214,6 +214,7 @@ const Feed = ({ routeParams }) => (
       query={graphql`
         query FeedQuery($slug: String!, $feedId: Int!) {
           team(slug: $slug) {
+            name
             feed(dbid: $feedId) {
               dbid
               team_id

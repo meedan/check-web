@@ -246,9 +246,6 @@ class SearchKeyword extends React.Component {
       ? this.title(statuses, projects)
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
-    // eslint-disable-next-line
-    console.log('SearchKeyword title', title, "this.props.tea", this.props.team);
-
     return (
       <>
         <PageTitle prefix={title} team={this.props.team} />
