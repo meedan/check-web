@@ -64,8 +64,6 @@ export const FeedComponent = ({ routeParams, ...props }) => {
     routeQuery = feedTeam.filters;
   }
 
-  // eslint-disable-next-line
-  console.log("feedTeam", feedTeam)
   return (
     <React.Fragment>
       <PageTitle prefix={feed.name} team={{ name: team.name }} >
