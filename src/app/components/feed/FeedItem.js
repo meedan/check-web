@@ -14,7 +14,7 @@ const FeedItemComponent = ({
   cluster,
   team,
 }) => (
-  <PageTitle prefix={`${team?.feed?.cluster?.project_media?.title} | ${feed?.name}`} team={{ name: team?.name }}>
+  <PageTitle prefix={`${team?.feed?.cluster?.title} | ${feed?.name}`} team={{ name: team?.name }}>
     <div id="feed-item-page">
       <FeedItemHeader
         team={team}
@@ -55,9 +55,7 @@ const FeedItem = ({ routeParams }) => (
               ...FeedItemHeader_feed
               ...FeedItemTeams_feed
               cluster(project_media_id: $projectMediaId) {
-                project_media(id: $projectMediaId) {
-                  title
-                }
+                title
                 ...FeedItemHeader_cluster
                 ...FeedItemTeams_cluster
               }
