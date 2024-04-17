@@ -233,8 +233,6 @@ class SearchKeyword extends React.Component {
   triggerInputFile = () => this.fileInput.click()
 
   render() {
-    // eslint-disable-next-line
-    console.log('SearchKeyword render', this.props);
     const { team, showExpand } = this.props;
     const { statuses } = team.verification_statuses;
     let projects = [];
