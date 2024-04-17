@@ -15,6 +15,11 @@
   }
 }
 
+.feedItemHeaderButtons {
+  display: flex;
+  gap: 8px;
+}
+
 .feedItemHeaderMetadataRow {
   align-items: center;
   display: flex;
@@ -36,6 +41,7 @@
 }
 
 .feedItemColumn {
+  align-self: flex-start;
   background: var(--otherWhite);
   border-radius: 8px;
   display: flex;
@@ -48,7 +54,6 @@
 }
 
 .feedItemColumn + .feedItemColumn {
-  align-self: flex-start;
   flex: 1;
   justify-content: flex-start;
   overflow-x: hidden;
@@ -72,7 +77,7 @@
   gap: 8px;
 }
 
-.feedItemTeamCardFooter > div > div {
+.feedItemTeamCardFooter > div {
   flex-wrap: nowrap !important;
 }
 
@@ -144,6 +149,9 @@
 .feedItemDialogBox {
   background: var(--brandBackground);
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   padding: 16px;
 }
 
@@ -157,12 +165,29 @@
   justify-content: space-between;
 }
 
+.feedItemDialogSubtitleWrapper {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+
+  .feedItemDialogSubtitleFactCheckRating {
+    @mixin typography-body2;
+    border: solid 2px;
+    border-radius: 8px;
+    padding: 2px 4px;
+  }
+}
+
 .feedItemDialogBulletSeparator,
 .feedItemDialogBulletSeparatorComponent {
   align-items: center;
   display: flex;
   font-size: var(--fontSizeSmall);
   gap: 4px;
+
+  svg {
+    font-size: var(--iconSizeTiny);
+  }
 }
 
 .feedContentNotAvailable {
@@ -182,4 +207,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.feedImportNotInCluster {
+  color: var(--textPlaceholder);
+}
+
+.feedImportLink {
+  color: var(--textLink);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.feedImportSuccessLink {
+  color: var(--otherWhite) !important;
+}
+
+.feedImportSearch a {
+  text-decoration: none;
+}
+
+.feedItemDialogForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
