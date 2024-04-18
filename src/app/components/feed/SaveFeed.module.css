@@ -157,3 +157,7 @@
 .feedContentCard {
   background: var(--brandBackground);
 }
+
+.paragraphMarginTop {
+  margin-top: 16px;
+}

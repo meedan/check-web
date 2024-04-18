@@ -59,16 +59,16 @@ const FeedCollaboration = ({
     onChange(newInvites);
   };
 
-  const handleSelectInvitesToDelete = (id) => {
+  const handleSelectInvitesToDelete = (obj) => {
     const newInvitesToDelete = [...invitesToDelete];
-    newInvitesToDelete.push(id);
+    newInvitesToDelete.push(obj);
     setInvitesToDelete(newInvitesToDelete);
     onChangeInvitesToDelete(newInvitesToDelete);
   };
 
-  const handleSelectCollaboratorsToRemove = (id) => {
+  const handleSelectCollaboratorsToRemove = (obj) => {
     const newCollaboratorsToRemove = [...collaboratorsToRemove];
-    newCollaboratorsToRemove.push(id);
+    newCollaboratorsToRemove.push(obj);
     setCollaboratorsToRemove(newCollaboratorsToRemove);
     onChangeCollaboratorsToRemove(newCollaboratorsToRemove);
   };
@@ -252,7 +252,7 @@ const FeedCollaboration = ({
       )}
       <div className={styles['feed-collab-invites']}>
         { feed.feed_teams?.edges
-          .filter(ft => !collaboratorsToRemove.includes(ft.node.id))
+          .filter(ft => !collaboratorsToRemove.map(c => c.value).includes(ft.node.id))
           .map(ft => (
             <FeedCollabRow
               key={ft.node.team.name}
@@ -260,18 +260,18 @@ const FeedCollaboration = ({
               label={ft.node.team.name}
               team={ft.node.team}
               type={ft.node.team.dbid === feed.team.dbid ? 'organizer' : 'collaborator'}
-              onRemove={() => handleSelectCollaboratorsToRemove(ft.node.id)}
+              onRemove={() => handleSelectCollaboratorsToRemove({ label: ft.node.team.name, value: ft.node.id })}
             />
           ))
         }
         { feed.feed_invitations?.edges
-          .filter(fi => (fi.node.state === 'invited' && !invitesToDelete.includes(fi.node.id)))
+          .filter(fi => (fi.node.state === 'invited' && !invitesToDelete.map(i => i.value).includes(fi.node.id)))
           .map(fi => (
             <FeedCollabRow
               key={fi.node.email}
               className="feed-collab-row__invitation-sent"
               label={fi.node.email}
-              onRemove={() => handleSelectInvitesToDelete(fi.node.id)}
+              onRemove={() => handleSelectInvitesToDelete({ label: fi.node.email, value: fi.node.id })}
               type="invitation-sent"
             />
           ))
@@ -314,6 +314,8 @@ FeedCollaboration.propTypes = {
   intl: intlShape.isRequired,
   permissions: PropTypes.object, // { key => value } (e.g., { 'create FeedTeam' => true })
   onChange: PropTypes.func.isRequired,
+  onChangeInvitesToDelete: PropTypes.func.isRequired,
+  onChangeCollaboratorsToRemove: PropTypes.func.isRequired,
 };
 
 export { FeedCollaboration }; // eslint-disable-line import/no-unused-modules

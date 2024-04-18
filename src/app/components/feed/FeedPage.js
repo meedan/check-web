@@ -13,6 +13,7 @@ const FeedPage = ({ routeParams }) => (
           query FeedPageQuery($slug: String!) {
             team(slug: $slug) {
               permissions,
+              name,
               slug
             }
           }
@@ -22,7 +23,7 @@ const FeedPage = ({ routeParams }) => (
         }}
         render={({ error, props }) => {
           if (!error && props) {
-            return <FeedPageContent routeParams={routeParams} permissions={props.team.permissions} slug={props.team.slug} />;
+            return <FeedPageContent routeParams={routeParams} permissions={props.team.permissions} slug={props.team.slug} name={props.team.name} />;
           }
           return null;
         }}
