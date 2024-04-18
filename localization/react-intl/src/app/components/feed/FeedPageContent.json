@@ -1,5 +1,10 @@
 [
   {
+    "id": "feedPageContent.pageTitle",
+    "description": "Page title for the Shared Feeds page",
+    "defaultMessage": "Shared Feeds"
+  },
+  {
     "id": "sharedFeeds",
     "description": "Title for the shared feeds page",
     "defaultMessage": "Shared Feeds <sup>BETA</sup>"

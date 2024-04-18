@@ -51,7 +51,7 @@
       &.outlined {
         background-color: transparent;
       }
-
+      
       &.error {
         border-color: var(--errorMain) !important;
 
@@ -119,6 +119,7 @@
 
       textarea {
         max-width: 100%;
+        min-height: 32px;
       }
     }
 

@@ -6,8 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '../../cds/inputs/TextField';
 import ClearIcon from '../../../icons/clear.svg';
 import { placeholders } from './localizables';
 import { languageLabel } from '../../../LanguageRegistry';
@@ -181,7 +181,6 @@ const SmoochBotMenuOption = (props) => {
                 /> : null
             }
             error={option.smooch_menu_option_value !== 'tos' && error}
-            fullWidth
           />
         </Box>
         <Box flex="1" className={classes.box}>

@@ -5,9 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Dialog from '@material-ui/core/Dialog';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import TextArea from '../cds/inputs/TextArea.js';
 import MultiSelector from '../layout/MultiSelector';
 import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaTags from './MediaTags';
@@ -41,6 +41,11 @@ const Styles = theme => ({
   title: {
     margin: theme.spacing(2),
     outline: 0,
+  },
+  textField: {
+    margin: theme.spacing(1),
+    maxWidth: '14em',
+    width: '100%',
   },
 });
 
@@ -364,7 +369,7 @@ class MediaActionsBarComponent extends Component {
                   />
                 )}
               </FormattedMessage>
-              <div className={classes.spaced}>
+              <div className={classes.textField}>
                 <div className={cx('typography-body1', classes.spaced)}>
                   <FormattedMessage
                     id="mediaActionsBar.assignmentNotesTitle"
@@ -372,7 +377,7 @@ class MediaActionsBarComponent extends Component {
                     description="Helper text to field for adding details about the assignment"
                   />
                 </div>
-                <TextField
+                <TextArea
                   variant="outlined"
                   inputRef={(element) => {
                     this.assignmentMessageRef = element;
