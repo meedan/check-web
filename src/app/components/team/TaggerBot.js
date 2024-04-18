@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
+import TextField from '../cds/inputs/TextField';
 
 const TaggerBot = ({
   intl,

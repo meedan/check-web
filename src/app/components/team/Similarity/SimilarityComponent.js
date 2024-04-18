@@ -7,9 +7,9 @@ import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import cx from 'classnames/bind';
+import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SwitchComponent from '../../cds/inputs/SwitchComponent';
 import ThresholdControl from './ThresholdControl';
@@ -250,13 +250,9 @@ const SimilarityComponent = ({
                 values={{
                   maxTime: (
                     <TextField
-                      classes={{ root: classes.root }}
-                      // Please note InputProps and inputProps are different things
-                      // The former goes to the React comp and the latter to the inner html `input` element
-                      InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
+                      className={settingsStyles['similarity-component-input']}
                       inputProps={{ min: 0 }} // eslint-disable-line react/jsx-no-duplicate-props
                       variant="outlined"
-                      size="small"
                       value={settings.similarity_date_threshold}
                       onChange={(e) => { handleSettingsChange('similarity_date_threshold', e.target.value); }}
                       type="number"
@@ -331,7 +327,7 @@ const SimilarityComponent = ({
                     />
                   </span>
                   <TextField
-                    classes={{ root: classes.root }}
+                    className={settingsStyles['similarity-component-input']}
                     variant="outlined"
                     size="small"
                     value={settings.text_length_matching_threshold}
@@ -509,7 +505,7 @@ const SimilarityComponent = ({
                     />
                   </span>
                   <TextField
-                    classes={{ root: classes.root }}
+                    className={settingsStyles['similarity-component-input']}
                     variant="outlined"
                     size="small"
                     value={settings.transcription_minimum_duration}
@@ -527,7 +523,7 @@ const SimilarityComponent = ({
                     />
                   </span>
                   <TextField
-                    classes={{ root: classes.root }}
+                    className={settingsStyles['similarity-component-input']}
                     variant="outlined"
                     size="small"
                     value={settings.transcription_maximum_duration}
@@ -545,7 +541,7 @@ const SimilarityComponent = ({
                     />
                   </span>
                   <TextField
-                    classes={{ root: classes.root }}
+                    className={settingsStyles['similarity-component-input']}
                     variant="outlined"
                     size="small"
                     value={settings.transcription_minimum_requests}
@@ -565,7 +561,6 @@ const SimilarityComponent = ({
                     />
                   }
                   variant="outlined"
-                  size="small"
                   value={settings.language_for_similarity}
                   onChange={(e) => { handleSettingsChange('language_for_similarity', e.target.value); }}
                   fullWidth
@@ -581,7 +576,6 @@ const SimilarityComponent = ({
                     />
                   }
                   variant="outlined"
-                  size="small"
                   type="number"
                   value={settings.min_es_score}
                   onChange={(e) => { handleSettingsChange('min_es_score', parseInt(e.target.value, 10)); }}

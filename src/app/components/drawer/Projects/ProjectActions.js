@@ -9,8 +9,8 @@ import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import TextField from '@material-ui/core/TextField';
 import cx from 'classnames/bind';
+import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -215,9 +215,7 @@ const ProjectActions = ({
               defaultValue={object.title}
               onChange={(e) => { setNewTitle(e.target.value); }}
               variant="outlined"
-              margin="normal"
               className="project-actions__edit-title"
-              fullWidth
             />
           </Box>
         }
