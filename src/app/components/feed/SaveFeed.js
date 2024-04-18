@@ -133,7 +133,7 @@ mutation SaveFeedUpdateFeedTeamMutation($input: UpdateFeedTeamInput!) {
 `;
 
 const destroyFeedTeamMutation = graphql`
-  mutation SaveFeedDestroyFeedTeamMutation($input: DestroyFeedTeamInput!) {
+  mutation SaveFeedLeaveFeedMutation($input: DestroyFeedTeamInput!) {
     destroyFeedTeam(input: $input) {
       deletedId
       feed {
@@ -142,6 +142,47 @@ const destroyFeedTeamMutation = graphql`
         id
         team_id
         type: __typename
+      }
+    }
+  }
+`;
+
+const destroyInviteMutation = graphql`
+  mutation SaveFeedDestroyFeedInvitationMutation($input: DestroyFeedInvitationInput!) {
+    destroyFeedInvitation(input: $input) {
+      deletedId
+      feed {
+        teams_count
+        feed_invitations(first: 100) {
+          edges {
+            node {
+              id
+              email
+              state
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const removeTeamMutation = graphql`
+  mutation SaveFeedRemoveCollaboratorMutation($input: DestroyFeedTeamInput!) {
+    destroyFeedTeam(input: $input) {
+      deletedId
+      feed {
+        teams_count
+        feed_teams(first: 100) {
+          edges {
+            node {
+              id
+              team {
+                name
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -158,6 +199,8 @@ const SaveFeed = (props) => {
   const [selectedListId, setSelectedListId] = React.useState(isFeedOwner ? feed.saved_search_id : feedTeam.saved_search_id);
   const [createdFeedDbid, setCreatedFeedDbid] = React.useState(null);
   const [newInvites, setNewInvites] = React.useState([]);
+  const [invitesToDelete, setInvitesToDelete] = React.useState([]);
+  const [collaboratorsToRemove, setCollaboratorsToRemove] = React.useState([]);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [dataPoints, setDataPoints] = React.useState(feed.data_points || []);
@@ -174,7 +217,7 @@ const SaveFeed = (props) => {
     browserHistory.push(`/${teamSlug}/feed/${feedId}/feed`);
   };
 
-  const onInviteSuccess = () => {
+  const onPostSaveMutationSuccess = () => {
     pendingMessages -= 1;
     // if we have successfully processed all messages (number of success callbacks
     // equals number of calls) then we redirect
@@ -189,11 +232,11 @@ const SaveFeed = (props) => {
     setSaving(false);
   };
 
-  const handleInvite = (dbid) => {
+  const handlePostSaveMutations = (dbid) => {
     setSaving(true);
 
-    // TODO Make createFeedInvitation accept multiple emails
-    pendingMessages = newInvites.length;
+    // FIXME: Make atomic mutations createFeed/updateFeed accept these lists of changes as input
+    pendingMessages = newInvites.length + invitesToDelete.length + collaboratorsToRemove.length;
 
     newInvites.forEach((email) => {
       const input = {
@@ -203,15 +246,33 @@ const SaveFeed = (props) => {
       commitMutation(Relay.Store, {
         mutation: inviteMutation,
         variables: { input },
-        onCompleted: onInviteSuccess,
+        onCompleted: onPostSaveMutationSuccess,
+        onError: onFailure,
+      });
+    });
+
+    invitesToDelete.forEach((id) => {
+      commitMutation(Relay.Store, {
+        mutation: destroyInviteMutation,
+        variables: { input: { id } },
+        onCompleted: onPostSaveMutationSuccess,
+        onError: onFailure,
+      });
+    });
+
+    collaboratorsToRemove.forEach((id) => {
+      commitMutation(Relay.Store, {
+        mutation: removeTeamMutation,
+        variables: { input: { id } },
+        onCompleted: onPostSaveMutationSuccess,
         onError: onFailure,
       });
     });
   };
 
   React.useEffect(() => {
-    if (createdFeedDbid && newInvites.length) {
-      handleInvite(createdFeedDbid);
+    if (createdFeedDbid && (newInvites.length || collaboratorsToRemove.length || invitesToDelete.length)) {
+      handlePostSaveMutations(createdFeedDbid);
     }
   }, [createdFeedDbid]);
 
@@ -508,6 +569,8 @@ const SaveFeed = (props) => {
           collaboratorId={feedTeam?.team_id}
           feed={feed}
           onChange={setNewInvites}
+          onChangeInvitesToDelete={setInvitesToDelete}
+          onChangeCollaboratorsToRemove={setCollaboratorsToRemove}
           permissions={permissions}
           readOnly={feedTeam?.team_id && feedTeam?.team_id !== feed?.team?.dbid}
         />
