@@ -19,6 +19,7 @@ import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import TextArea from '../cds/inputs/TextArea';
 import TextField from '../cds/inputs/TextField';
 import NavigateAwayDialog from '../NavigateAwayDialog';
+import PageTitle from '../PageTitle';
 
 const createMutation = graphql`
   mutation SaveFeedCreateFeedMutation($input: CreateFeedInput!) {
@@ -353,7 +354,7 @@ const SaveFeed = (props) => {
   let pageTitle = (
     <FormattedMessage
       id="saveFeed.sharedFeedPageSubtitle"
-      defaultMessage="Create a new shared feed"
+      defaultMessage="Create Shared Feed"
       description="Subtitle of the shared feed creation page"
     />
   );
@@ -362,8 +363,11 @@ const SaveFeed = (props) => {
     pageTitle = isFeedOwner ? (
       <FormattedMessage
         id="saveFeed.sharedFeedPageEditSubtitle"
-        defaultMessage="Edit shared feed"
+        defaultMessage="Edit | {feedName}"
         description="Subtitle of the shared feed editing page"
+        values={{
+          feedName: feed.name,
+        }}
       />
     ) : feed.name;
   }
@@ -377,198 +381,199 @@ const SaveFeed = (props) => {
   ) : feed.description;
 
   return (
-    <div className={styles.saveFeedContainer}>
-      <div className={styles.saveFeedContent}>
-        { feed.id ?
-          <div>
-            <ButtonMain
-              variant="outlined"
-              size="default"
-              theme="brand"
-              onClick={() => { handleViewFeed(feed.dbid); }}
-              disabled={!isFeedOwner && !feedTeam.saved_search_id}
-              label={
-                <FormattedMessage
-                  id="saveFeed.viewSharedFeed"
-                  defaultMessage="View Shared Feed"
-                  description="Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page."
+    <PageTitle prefix={pageTitle} team={{ name: props.teamName }} >
+      <div className={styles.saveFeedContainer}>
+        <div className={styles.saveFeedContent}>
+          { feed.id ?
+            <div>
+              <ButtonMain
+                variant="outlined"
+                size="default"
+                theme="brand"
+                onClick={() => { handleViewFeed(feed.dbid); }}
+                disabled={!isFeedOwner && !feedTeam.saved_search_id}
+                label={
+                  <FormattedMessage
+                    id="saveFeed.viewSharedFeed"
+                    defaultMessage="View Shared Feed"
+                    description="Label of a button displayed on the edit feed page that when clicked takes the user to the shared feed page."
+                  />
+                }
+              />
+            </div> : null }
+
+          { !isFeedOwner && (
+            <Alert
+              variant="warning"
+              title={
+                <FormattedHTMLMessage
+                  id="saveFeed.feedCollaboratorWarning"
+                  defaultMessage="To request changes to this shared feed, please contact the creating organization: <strong>{organizer}</strong>"
+                  description="Warning displayed on edit feed page when logged in as a collaborating org."
+                  values={{ organizer: feed?.team?.name }}
                 />
               }
             />
-          </div> : null }
+          )}
 
-        { !isFeedOwner && (
-          <Alert
-            variant="warning"
-            title={
-              <FormattedHTMLMessage
-                id="saveFeed.feedCollaboratorWarning"
-                defaultMessage="To request changes to this shared feed, please contact the creating organization: <strong>{organizer}</strong>"
-                description="Warning displayed on edit feed page when logged in as a collaborating org."
-                values={{ organizer: feed?.team?.name }}
-              />
-            }
-          />
-        )}
-
-        <div>
-          <div className={`typography-caption ${styles.sharedFeedTitle}`}>
-            <FormattedMessage
-              id="saveFeed.sharedFeedPageTitle"
-              defaultMessage="Shared feed"
-              description="Title of the shared feed creation page"
-            />
-          </div>
-          <div className="typography-h6">
-            { pageTitle }
-          </div>
-          <div className="typography-body1">
-            { pageDescription }
-          </div>
-        </div>
-
-        { isFeedOwner && (
-          <div className={styles.saveFeedCard}>
-            <div className="typography-subtitle2">
+          <div>
+            <div className={`typography-caption ${styles.sharedFeedTitle}`}>
               <FormattedMessage
-                id="saveFeed.feedDetailsTitle"
-                defaultMessage="Feed details"
-                description="Title of section where the details of the feed are filled. e.g.: title, description"
+                id="saveFeed.sharedFeedPageTitle"
+                defaultMessage="Shared feed"
+                description="Title of the shared feed creation page"
               />
             </div>
-            <FormattedMessage
-              id="saveFeed.titlePlaceholder"
-              defaultMessage="Easily remembered title for this shared feed"
-              description="Placeholder text for feed title field"
-            >
-              { placeholder => (
-                <TextField
-                  id="create-feed__title"
-                  placeholder={placeholder}
-                  label={<FormattedMessage
-                    id="saveFeed.titleLabel"
-                    defaultMessage="Title"
-                    description="Label for the shared feed title input"
-                  />}
-                  helpContent={<FormattedMessage
-                    id="saveFeed.titleHelper"
-                    defaultMessage="Great shared feed names are short, memorable, and tell your audience the focus of the media"
-                    description="Title input helper text"
-                  />}
-                  error={noTitle}
-                  suppressInitialError
-                  value={formData.title}
-                  onChange={e => handleFormUpdate('title', e.target.value)}
-                  required
-                />
-              )}
-            </FormattedMessage>
-            <FormattedMessage
-              id="saveFeed.descriptionPlaceholder"
-              defaultMessage="Give this shared feed an optional description."
-              description="Placeholder text for feed description field"
-            >
-              { placeholder => (
-                <TextArea
-                  id="create-feed__description"
-                  placeholder={placeholder}
-                  label={<FormattedMessage
-                    id="saveFeed.descriptionLabel"
-                    defaultMessage="Description"
-                    description="Label for a field where the user inputs text for a description to a shared feed"
-                  />}
-                  value={formData.description}
-                  onChange={e => handleFormUpdate('description', e.target.value)}
-                />
-              )}
-            </FormattedMessage>
+            <div className="typography-h6">
+              { pageTitle }
+            </div>
+            <div className="typography-body1">
+              { pageDescription }
+            </div>
           </div>
-        )}
 
-        <div className={styles.saveFeedCard}>
-          <FeedDataPoints
-            readOnly={Boolean(feed.id)}
-            dataPoints={formData.dataPoints}
-            onChange={handleSetDataPoints}
-          />
+          { isFeedOwner && (
+            <div className={styles.saveFeedCard}>
+              <div className="typography-subtitle2">
+                <FormattedMessage
+                  id="saveFeed.feedDetailsTitle"
+                  defaultMessage="Feed details"
+                  description="Title of section where the details of the feed are filled. e.g.: title, description"
+                />
+              </div>
+              <FormattedMessage
+                id="saveFeed.titlePlaceholder"
+                defaultMessage="Easily remembered title for this shared feed"
+                description="Placeholder text for feed title field"
+              >
+                { placeholder => (
+                  <TextField
+                    id="create-feed__title"
+                    placeholder={placeholder}
+                    label={<FormattedMessage
+                      id="saveFeed.titleLabel"
+                      defaultMessage="Title"
+                      description="Label for the shared feed title input"
+                    />}
+                    helpContent={<FormattedMessage
+                      id="saveFeed.titleHelper"
+                      defaultMessage="Great shared feed names are short, memorable, and tell your audience the focus of the media"
+                      description="Title input helper text"
+                    />}
+                    error={noTitle}
+                    suppressInitialError
+                    value={formData.title}
+                    onChange={e => handleFormUpdate('title', e.target.value)}
+                    required
+                  />
+                )}
+              </FormattedMessage>
+              <FormattedMessage
+                id="saveFeed.descriptionPlaceholder"
+                defaultMessage="Give this shared feed an optional description."
+                description="Placeholder text for feed description field"
+              >
+                { placeholder => (
+                  <TextArea
+                    id="create-feed__description"
+                    placeholder={placeholder}
+                    label={<FormattedMessage
+                      id="saveFeed.descriptionLabel"
+                      defaultMessage="Description"
+                      description="Label for a field where the user inputs text for a description to a shared feed"
+                    />}
+                    value={formData.description}
+                    onChange={e => handleFormUpdate('description', e.target.value)}
+                  />
+                )}
+              </FormattedMessage>
+            </div>
+          )}
 
-          { formData.dataPoints.length > 0 ?
-            <FeedContent
-              listId={formData.selectedListId}
+          <div className={styles.saveFeedCard}>
+            <FeedDataPoints
+              readOnly={Boolean(feed.id)}
               dataPoints={formData.dataPoints}
-              onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
-              onRemove={() => handleFormUpdate('selectedListId', null)}
+              onChange={handleSetDataPoints}
             />
-            : null
-          }
-        </div>
 
-      </div>
-      <div className={styles.saveFeedContentNarrow}>
-        <div className={styles.saveFeedButtonContainer}>
-          <ButtonMain
-            className={styles.saveFeedContentNarrowAction}
-            theme="brand"
-            size="default"
-            variant="contained"
-            onClick={handleConfirmOrSave}
-            disabled={disableSaveButton}
-            label={feed.id ?
-              <FormattedMessage
-                id="saveFeed.updateSaveButton"
-                defaultMessage="Save"
-                description="Label to the save button of the shared feed update form"
-              /> :
-              <FormattedMessage
-                id="saveFeed.createSaveButton"
-                defaultMessage="Create shared feed"
-                description="Label to the save button of the shared feed creation form"
+            { formData.dataPoints.length > 0 ?
+              <FeedContent
+                listId={formData.selectedListId}
+                dataPoints={formData.dataPoints}
+                onChange={e => handleFormUpdate('selectedListId', +e.target.value)}
+                onRemove={() => handleFormUpdate('selectedListId', null)}
               />
+              : null
             }
-          />
-          { feed.id ?
-            <FeedActions
-              feedTeam={{ ...feedTeam, permissions: feedTeam.permissions }}
-              disableSaveButton={disableSaveButton}
-              saving={saving}
-              handleDelete={handleDelete}
-              handleLeaveFeed={handleLeaveFeed}
+          </div>
+
+        </div>
+        <div className={styles.saveFeedContentNarrow}>
+          <div className={styles.saveFeedButtonContainer}>
+            <ButtonMain
+              className={styles.saveFeedContentNarrowAction}
+              theme="brand"
+              size="default"
+              variant="contained"
+              onClick={handleConfirmOrSave}
+              disabled={disableSaveButton}
+              label={feed.id ?
+                <FormattedMessage
+                  id="saveFeed.updateSaveButton"
+                  defaultMessage="Save"
+                  description="Label to the save button of the shared feed update form"
+                /> :
+                <FormattedMessage
+                  id="saveFeed.createSaveButton"
+                  defaultMessage="Create shared feed"
+                  description="Label to the save button of the shared feed creation form"
+                />
+              }
             />
-            : null }
+            { feed.id ?
+              <FeedActions
+                feedTeam={{ ...feedTeam, permissions: feedTeam.permissions }}
+                disableSaveButton={disableSaveButton}
+                saving={saving}
+                handleDelete={handleDelete}
+                handleLeaveFeed={handleLeaveFeed}
+              />
+              : null }
+          </div>
+
+          <FeedMetadata feed={feed} />
+
+          <FeedCollaboration
+            collaboratorId={feedTeam?.team_id}
+            feed={feed}
+            onChange={handleSetNewInvites}
+            permissions={permissions}
+            readOnly={feedTeam?.team_id && feedTeam?.team_id !== feed?.team?.dbid}
+          />
         </div>
 
-        <FeedMetadata feed={feed} />
-
-        <FeedCollaboration
-          collaboratorId={feedTeam?.team_id}
-          feed={feed}
-          onChange={handleSetNewInvites}
-          permissions={permissions}
-          readOnly={feedTeam?.team_id && feedTeam?.team_id !== feed?.team?.dbid}
-        />
-      </div>
-
-      {/* "Update" dialog */}
-      <ConfirmProceedDialog
-        open={showConfirmationDialog}
-        title={
-          feed.id ? (
-            <FormattedMessage
-              id="saveFeed.confirmationDialogTitle"
-              defaultMessage="Are you sure you want to update this shared feed?"
-              description="Confirmation dialog title when saving a feed."
-            />
-          ) : (
-            <FormattedMessage
-              id="saveFeed.invitationConfirmationDialogTitle"
-              defaultMessage="Collaboration invitations"
-              description="Confirmation dialog title for feed collaboration invitations."
-            />
-          )
-        }
-        body={
-          <div>
-            { feed.id &&
+        {/* "Update" dialog */}
+        <ConfirmProceedDialog
+          open={showConfirmationDialog}
+          title={
+            feed.id ? (
+              <FormattedMessage
+                id="saveFeed.confirmationDialogTitle"
+                defaultMessage="Are you sure you want to update this shared feed?"
+                description="Confirmation dialog title when saving a feed."
+              />
+            ) : (
+              <FormattedMessage
+                id="saveFeed.invitationConfirmationDialogTitle"
+                defaultMessage="Collaboration invitations"
+                description="Confirmation dialog title for feed collaboration invitations."
+              />
+            )
+          }
+          body={
+            <div>
+              { feed.id &&
               <p>
                 <FormattedMessage
                   id="saveFeed.confirmationDialogBody"
@@ -576,39 +581,39 @@ const SaveFeed = (props) => {
                   description="Confirmation dialog message when saving a feed."
                 />
               </p>
-            }
-            { formData.newInvites.length ?
-              <>
-                <p>
-                  <FormattedMessage
-                    id="saveFeed.invitationConfirmationDialogBody"
-                    defaultMessage="An email will be sent to collaborators listed to invite them to contribute to this shared feed."
-                    description="Confirmation dialog message when saving a feed."
-                  />
-                </p>
-                <ul>
-                  { formData.newInvites.map(email => (
-                    <li key={email} className={styles.invitedEmail}>
-                      &bull; {email}
-                    </li>
-                  ))}
-                </ul>
-              </> : null
-            }
-          </div>
-        }
-        proceedLabel={
-          feed.id ?
-            <FormattedMessage id="saveFeed.confirmationDialogButton" defaultMessage="Update Shared Feed" description="Button label to confirm updating a feed." /> :
-            <FormattedMessage id="saveFeed.confirmationDialogButtonCreate" defaultMessage="Create Shared Feed" description="Button label to confirm creating a feed." />
-        }
-        onProceed={handleSave}
-        onCancel={() => { setShowConfirmationDialog(false); }}
-        isSaving={saving}
-      />
+              }
+              { formData.newInvites.length ?
+                <>
+                  <p>
+                    <FormattedMessage
+                      id="saveFeed.invitationConfirmationDialogBody"
+                      defaultMessage="An email will be sent to collaborators listed to invite them to contribute to this shared feed."
+                      description="Confirmation dialog message when saving a feed."
+                    />
+                  </p>
+                  <ul>
+                    { formData.newInvites.map(email => (
+                      <li key={email} className={styles.invitedEmail}>
+                        &bull; {email}
+                      </li>
+                    ))}
+                  </ul>
+                </> : null
+              }
+            </div>
+          }
+          proceedLabel={
+            feed.id ?
+              <FormattedMessage id="saveFeed.confirmationDialogButton" defaultMessage="Update Shared Feed" description="Button label to confirm updating a feed." /> :
+              <FormattedMessage id="saveFeed.confirmationDialogButtonCreate" defaultMessage="Create Shared Feed" description="Button label to confirm creating a feed." />
+          }
+          onProceed={handleSave}
+          onCancel={() => { setShowConfirmationDialog(false); }}
+          isSaving={saving}
+        />
 
-      {
-        isEditing &&
+        {
+          isEditing &&
           <NavigateAwayDialog
             hasUnsavedChanges
             title={
@@ -626,8 +631,9 @@ const SaveFeed = (props) => {
               />
             }
           />
-      }
-    </div>
+        }
+      </div>
+    </PageTitle>
   );
 };
 

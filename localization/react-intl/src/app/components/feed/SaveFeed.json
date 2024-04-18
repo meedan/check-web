@@ -2,12 +2,12 @@
   {
     "id": "saveFeed.sharedFeedPageSubtitle",
     "description": "Subtitle of the shared feed creation page",
-    "defaultMessage": "Create a new shared feed"
+    "defaultMessage": "Create Shared Feed"
   },
   {
     "id": "saveFeed.sharedFeedPageEditSubtitle",
     "description": "Subtitle of the shared feed editing page",
-    "defaultMessage": "Edit shared feed"
+    "defaultMessage": "Edit | {feedName}"
   },
   {
     "id": "createFeed.sharedFeedPageDescription",
