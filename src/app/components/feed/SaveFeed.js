@@ -684,7 +684,7 @@ const SaveFeed = (props) => {
                   <p className={styles.paragraphMarginTop}>
                     <FormattedMessage
                       id="saveFeed.collaboratorRemovalConfirmationDialogBody"
-                      defaultMessage="The following collaborating organizations will be removed fro this Feed:"
+                      defaultMessage="The following collaborating organizations will be removed from this shared feed:"
                       description="Confirmation dialog message when saving a feed."
                     />
                   </p>

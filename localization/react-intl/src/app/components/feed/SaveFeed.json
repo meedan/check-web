@@ -97,7 +97,7 @@
   {
     "id": "saveFeed.collaboratorRemovalConfirmationDialogBody",
     "description": "Confirmation dialog message when saving a feed.",
-    "defaultMessage": "The following collaborating organizations will be removed fro this Feed:"
+    "defaultMessage": "The following collaborating organizations will be removed from this shared feed:"
   },
   {
     "id": "saveFeed.confirmationDialogButton",
