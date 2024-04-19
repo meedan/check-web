@@ -10,7 +10,7 @@
     "defaultMessage": "Similarity matching"
   },
   {
-    "id": "teamDataComponent.helpContext",
+    "id": "similarityComponent.helpContext",
     "description": "Context description for the functionality of this page",
     "defaultMessage": "Manage settings for automatic matching of similar media. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about automatic matching</a>."
   },

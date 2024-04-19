@@ -81,7 +81,7 @@ const LanguagesComponent = ({ team }) => {
         }
         context={
           <FormattedHTMLMessage
-            id="teamMembers.helpContext"
+            id="languagesComponent.helpContext"
             defaultMessage='Manage tipline language settings. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about language support</a>.'
             values={{ helpLink: 'https://help.checkmedia.org/en/articles/8772818-tipline-languages' }}
             description="Context description for the functionality of this page"
