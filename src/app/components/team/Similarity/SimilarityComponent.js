@@ -186,7 +186,7 @@ const SimilarityComponent = ({
         }
         context={
           <FormattedHTMLMessage
-            id="teamDataComponent.helpContext"
+            id="similarityComponent.helpContext"
             defaultMessage='Manage settings for automatic matching of similar media. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about automatic matching</a>.'
             values={{ helpLink: 'https://help.checkmedia.org/en/articles/8720702-similarity-matching#h_1a3e308d49' }}
             description="Context description for the functionality of this page"
