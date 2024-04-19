@@ -68,7 +68,7 @@ const TeamTagsComponent = ({
         }
         context={
           <FormattedHTMLMessage
-            id="rulesTableToolbar.helpContext"
+            id="teamTagsComponent.helpContext"
             defaultMessage='Automatically categorize items by keyword. <a href="{helpLink}" target="_blank" title="Learn more">Learn more about tags</a>.'
             values={{ helpLink: 'https://help.checkmedia.org/en/articles/8720966-tags' }}
             description="Context description for the functionality of this page"
