@@ -90,6 +90,16 @@
     "defaultMessage": "An email will be sent to collaborators listed to invite them to contribute to this shared feed."
   },
   {
+    "id": "saveFeed.invitationDeleteConfirmationDialogBody",
+    "description": "Confirmation dialog message when saving a feed.",
+    "defaultMessage": "The invitations to the following email addresses will be cancelled:"
+  },
+  {
+    "id": "saveFeed.collaboratorRemovalConfirmationDialogBody",
+    "description": "Confirmation dialog message when saving a feed.",
+    "defaultMessage": "The following collaborating organizations will be removed from this shared feed:"
+  },
+  {
     "id": "saveFeed.confirmationDialogButton",
     "description": "Button label to confirm updating a feed.",
     "defaultMessage": "Update Shared Feed"
