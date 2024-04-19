@@ -45,7 +45,6 @@ describe('<DrawerNavigationComponent />', () => {
       pusher={pusher}
       clientSessionId="checkClientSessionId"
       params={params}
-      classes={{ paper: 'check-paper' }}
     />);
     expect(header.find(DrawerProjects)).toHaveLength(1);
   });
@@ -70,7 +69,6 @@ describe('<DrawerNavigationComponent />', () => {
       pusher={pusher}
       clientSessionId="checkClientSessionId"
       params={params}
-      classes={{ paper: 'check-paper' }}
     />);
 
     expect(header.find(DrawerProjects)).toHaveLength(1);

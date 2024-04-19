@@ -10,13 +10,14 @@ const CreateFeed = () => (
     query={graphql`
       query CreateFeedQuery {
         team {
+          name
           permissions
         }
       }
     `}
     render={({ error, props }) => {
       if (!error && props) {
-        return (<SaveFeed permissions={safelyParseJSON(props.team.permissions)} />);
+        return (<SaveFeed permissions={safelyParseJSON(props.team.permissions)} teamName={props.team.name} />);
       }
       return null;
     }}

@@ -7,24 +7,27 @@ import MediasLoading from '../media/MediasLoading';
 import NotFound from '../NotFound';
 import FeedItemHeader from './FeedItemHeader';
 import FeedItemTeams from './FeedItemTeams';
+import PageTitle from '../PageTitle';
 
 const FeedItemComponent = ({
   feed,
   cluster,
   team,
 }) => (
-  <div id="feed-item-page">
-    <FeedItemHeader
-      team={team}
-      feed={feed}
-      cluster={cluster}
-    />
-    <FeedItemTeams
-      feed={feed}
-      team={team}
-      cluster={cluster}
-    />
-  </div>
+  <PageTitle prefix={`${team?.feed?.cluster?.title} | ${feed?.name}`} team={{ name: team?.name }}>
+    <div id="feed-item-page">
+      <FeedItemHeader
+        team={team}
+        feed={feed}
+        cluster={cluster}
+      />
+      <FeedItemTeams
+        feed={feed}
+        team={team}
+        cluster={cluster}
+      />
+    </div>
+  </PageTitle>
 );
 
 FeedItemComponent.propTypes = {
@@ -44,12 +47,15 @@ const FeedItem = ({ routeParams }) => (
       query={graphql`
         query FeedItemQuery($slug: String!, $feedId: Int!, $projectMediaId: Int!) {
           team(slug: $slug) {
+            name
             ...FeedItemTeams_team
             ...FeedItemHeader_team
             feed(dbid: $feedId) {
+              name
               ...FeedItemHeader_feed
               ...FeedItemTeams_feed
               cluster(project_media_id: $projectMediaId) {
+                title
                 ...FeedItemHeader_cluster
                 ...FeedItemTeams_cluster
               }

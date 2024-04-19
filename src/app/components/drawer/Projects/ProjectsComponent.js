@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter, Link } from 'react-router';
 import Collapse from '@material-ui/core/Collapse';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import cx from 'classnames/bind';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -92,33 +89,33 @@ const ProjectsComponent = ({
         />
       </div>
       <div className={styles.listWrapperScrollWrapper}>
-        <List dense disablePadding className={[styles.listWrapper, 'projects-list'].join(' ')}>
+        <ul className={cx(styles.listWrapper, 'projects-list')}>
           {/* All items */}
           <Link
             onClick={handleAllItems}
             to={`/${team.slug}/all-items`}
             className={styles.linkList}
           >
-            <ListItem
-              className={[
+            <li
+              className={cx(
                 'projects-list__all-items',
                 styles.listItem,
                 styles.listItem_containsCount,
-                activeItem.type === 'all-items'
-                  ? styles.listItem_active
-                  : '',
-              ].join(' ')}
+                {
+                  [styles.listItem_active]: activeItem.type === 'all-items',
+                })
+              }
             >
               <CategoryIcon className={styles.listIcon} />
-              <ListItemText disableTypography className={styles.listLabel}>
+              <div className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.allItems" defaultMessage="All" description="Label for the 'All items' list displayed on the left sidebar" />
-              </ListItemText>
-              <ListItemSecondaryAction className={styles.listItemCount}>
+              </div>
+              <div title={team.medias_count} className={styles.listItemCount}>
                 <small>
                   {team.medias_count}
                 </small>
-              </ListItemSecondaryAction>
-            </ListItem>
+              </div>
+            </li>
           </Link>
           { /* Assigned to me */}
           <Link
@@ -126,20 +123,22 @@ const ProjectsComponent = ({
             to={`/${team.slug}/assigned-to-me`}
             className={styles.linkList}
           >
-            <ListItem
-              className={[
+            <li
+              className={cx(
                 'projects-list__assigned-to-me',
                 styles.listItem,
                 styles.listItem_containsCount,
-                activeItem.type === 'assigned-to-me' ? styles.listItem_active : '',
-              ].join(' ')}
+                {
+                  [styles.listItem_active]: activeItem.type === 'assigned-to-me',
+                })
+              }
             >
               <PersonIcon className={styles.listIcon} />
-              <ListItemText disableTypography className={styles.listLabel}>
+              <div className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.assignedToMe" defaultMessage="Assigned to me" description="Label for a list displayed on the left sidebar that includes items that are assigned to the current user" />
-              </ListItemText>
+              </div>
               <ProjectsCoreListCounter query={{ ...assignedToMeDefaultQuery, assigned_to: [currentUser.dbid] }} />
-            </ListItem>
+            </li>
           </Link>
           { team.smooch_bot &&
             <Link
@@ -147,20 +146,22 @@ const ProjectsComponent = ({
               to={`/${team.slug}/tipline-inbox`}
               className={styles.linkList}
             >
-              <ListItem
-                className={[
+              <li
+                className={cx(
                   'projects-list__tipline-inbox',
                   styles.listItem,
                   styles.listItem_containsCount,
-                  activeItem.type === 'tipline-inbox' ? styles.listItem_active : '',
-                ].join(' ')}
+                  {
+                    [styles.listItem_active]: activeItem.type === 'tipline-inbox',
+                  })
+                }
               >
                 <InboxIcon className={styles.listIcon} />
-                <ListItemText disableTypography className={styles.listLabel}>
+                <div className={styles.listLabel}>
                   <FormattedMessage tagName="span" id="projectsComponent.tiplineInbox" defaultMessage="Inbox" description="Label for a list displayed on the left sidebar that includes items from is any tip line channel and the item status is unstarted" />
-                </ListItemText>
+                </div>
                 <ProjectsCoreListCounter query={{ ...tiplineInboxDefaultQuery, verification_status: [team.verification_statuses.default] }} />
-              </ListItem>
+              </li>
             </Link>
           }
           <Link
@@ -168,22 +169,22 @@ const ProjectsComponent = ({
             to={`/${team.slug}/imported-fact-checks`}
             className={styles.linkList}
           >
-            <ListItem
-              className={[
+            <li
+              className={cx(
                 'projects-list__imported-fact-checks',
                 styles.listItem,
                 styles.listItem_containsCount,
-                activeItem.type === 'imported-fact-checks'
-                  ? styles.listItem_active
-                  : '',
-              ].join(' ')}
+                {
+                  [styles.listItem_active]: activeItem.type === 'imported-fact-checks',
+                })
+              }
             >
               <FileDownloadIcon className={styles.listIcon} />
-              <ListItemText disableTypography className={styles.listLabel}>
+              <div className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.importedReports" defaultMessage="Imported" description="Label for a list displayed on the left sidebar that includes items from the 'Imported fact-checks' channel" />
-              </ListItemText>
+              </div>
               <ProjectsCoreListCounter query={importedReportsDefaultQuery} />
-            </ListItem>
+            </li>
           </Link>
 
           { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled &&
@@ -192,22 +193,22 @@ const ProjectsComponent = ({
               to={`/${team.slug}/suggested-matches`}
               className={styles.linkList}
             >
-              <ListItem
-                className={[
+              <li
+                className={cx(
                   'projects-list__suggested-matches',
                   styles.listItem,
                   styles.listItem_containsCount,
-                  activeItem.type === 'suggested-matches'
-                    ? styles.listItem_active
-                    : '',
-                ].join(' ')}
+                  {
+                    [styles.listItem_active]: activeItem.type === 'suggested-matches',
+                  })
+                }
               >
                 <LightbulbIcon className={styles.listIcon} />
-                <ListItemText disableTypography className={styles.listLabel}>
+                <div className={styles.listLabel}>
                   <FormattedMessage tagName="span" id="projectsComponent.suggestedMatches" defaultMessage="Suggestions" description="Label for a list displayed on the left sidebar that includes items that have a number of suggestions is more than 1" />
-                </ListItemText>
+                </div>
                 <ProjectsCoreListCounter query={suggestedMatchesDefaultQuery} />
-              </ListItem>
+              </li>
             </Link>
           }
 
@@ -217,20 +218,22 @@ const ProjectsComponent = ({
               to={`/${team.slug}/unmatched-media`}
               className={styles.linkList}
             >
-              <ListItem
-                className={[
+              <li
+                className={cx(
                   'projects-list__unmatched-media',
                   styles.listItem,
                   styles.listItem_containsCount,
-                  activeItem.type === 'unmatched-media' ? styles.listItem_active : '',
-                ].join(' ')}
+                  {
+                    [styles.listItem_active]: activeItem.type === 'unmatched-media',
+                  })
+                }
               >
                 <UnmatchedIcon className={styles.listIcon} />
-                <ListItemText disableTypography className={styles.listLabel}>
+                <div className={styles.listLabel}>
                   <FormattedMessage tagName="span" id="projectsComponent.unmatchedMedia" defaultMessage="Unmatched media" description="Label for a list displayed on the left sidebar that includes items that were unmatched from other items (detached or rejected)" />
-                </ListItemText>
+                </div>
                 <ProjectsCoreListCounter query={unmatchedMediaDefaultQuery} />
-              </ListItem>
+              </li>
             </Link>
           }
           <Link
@@ -238,26 +241,29 @@ const ProjectsComponent = ({
             to={`/${team.slug}/published`}
             className={styles.linkList}
           >
-            <ListItem
-              className={[
+            <li
+              className={cx(
                 'projects-list__published',
                 styles.listItem,
                 styles.listItem_containsCount,
-                activeItem.type === 'published' ? styles.listItem_active : '',
-              ].join(' ')}
+                {
+                  [styles.listItem_active]: activeItem.type === 'published',
+                })
+              }
             >
               <PublishedIcon className={styles.listIcon} />
-              <ListItemText disableTypography className={styles.listLabel}>
+              <div className={styles.listLabel}>
                 <FormattedMessage tagName="span" id="projectsComponent.published" defaultMessage="Published" description="Label for a list displayed on the left sidebar that includes items that have published reports" />
-              </ListItemText>
+              </div>
               <ProjectsCoreListCounter query={publishedDefaultQuery} />
-            </ListItem>
+            </li>
           </Link>
 
           {/* Lists Header */}
-          <ListItem onClick={handleToggleListsExpand} className={[styles.listHeader, 'project-list__header'].join(' ')}>
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+          <li onClick={handleToggleListsExpand} className={cx(styles.listHeader, 'project-list__header')}>
             { listsExpanded ? <ExpandLessIcon className={styles.listChevron} /> : <ExpandMoreIcon className={styles.listChevron} /> }
-            <ListItemText disableTypography className={styles.listHeaderLabel}>
+            <div className={styles.listHeaderLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.lists" defaultMessage="Custom Lists" description="List of items with some filters applied" />
               <Can permissions={team.permissions} permission="create Project">
                 <Tooltip arrow title={<FormattedMessage id="projectsComponent.newListButton" defaultMessage="New list" description="Tooltip for button that opens list creation dialog" />}>
@@ -275,20 +281,20 @@ const ProjectsComponent = ({
                   </span>
                 </Tooltip>
               </Can>
-            </ListItemText>
-          </ListItem>
+            </div>
+          </li>
 
           {/* Lists */}
           <React.Fragment>
             <Collapse in={listsExpanded} className={styles.listCollapseWrapper}>
               { savedSearches.length === 0 ?
-                <ListItem className={[styles.listItem, styles.listItem_containsCount, styles.listItem_empty].join(' ')}>
-                  <ListItemText disableTypography className={styles.listLabel}>
+                <li className={cx(styles.listItem, styles.listItem_containsCount, styles.listItem_empty)}>
+                  <div className={styles.listLabel}>
                     <span>
                       <FormattedMessage tagName="em" id="projectsComponent.noCustomLists" defaultMessage="No custom lists" description="Displayed under the custom list header when there are no lists in it" />
                     </span>
-                  </ListItemText>
-                </ListItem> :
+                  </div>
+                </li> :
                 <>
                   {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
                     <ProjectsListItem
@@ -305,26 +311,34 @@ const ProjectsComponent = ({
               }
             </Collapse>
           </React.Fragment>
-        </List>
+        </ul>
       </div>
-      <List dense disablePadding className={[styles.listWrapper, styles.listFooter].join(' ')}>
+      <ul className={cx(styles.listWrapper, styles.listFooter)}>
         {/* Spam */}
         <Link
           onClick={handleSpam}
           to={`/${team.slug}/spam`}
           className={styles.linkList}
         >
-          <ListItem
-            className={['project-list__link-spam', 'project-list__item-spam', styles.listItem, styles.listItem_containsCount, activeItem.type === 'spam' ? styles.listItem_active : ''].join(' ')}
+          <li
+            className={cx(
+              'project-list__link-spam',
+              'project-list__item-spam',
+              styles.listItem,
+              styles.listItem_containsCount,
+              {
+                [styles.listItem_active]: activeItem.type === 'spam',
+              })
+            }
           >
             <ReportIcon className={styles.listIcon} />
-            <ListItemText disableTypography className={styles.listLabel}>
+            <div className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.spam" defaultMessage="Spam" description="Label for a list displayed on the left sidebar that includes items that have been trashed" />
-            </ListItemText>
-            <ListItemSecondaryAction title={team.medias_count} className={styles.listItemCount}>
+            </div>
+            <div title={team.spam_count} className={styles.listItemCount}>
               <small>{String(team.spam_count)}</small>
-            </ListItemSecondaryAction>
-          </ListItem>
+            </div>
+          </li>
         </Link>
 
         {/* Trash */}
@@ -333,27 +347,27 @@ const ProjectsComponent = ({
           to={`/${team.slug}/trash`}
           className={styles.linkList}
         >
-          <ListItem
-            className={[
+          <li
+            className={cx(
               'project-list__link-trash',
               'project-list__item-trash',
               styles.listItem,
               styles.listItem_containsCount,
-              activeItem.type === 'trash'
-                ? styles.listItem_active
-                : '',
-            ].join(' ')}
+              {
+                [styles.listItem_active]: activeItem.type === 'trash',
+              })
+            }
           >
             <DeleteIcon className={styles.listIcon} />
-            <ListItemText disableTypography className={styles.listLabel}>
+            <div className={styles.listLabel}>
               <FormattedMessage tagName="span" id="projectsComponent.trash" defaultMessage="Trash" description="Label for a list displayed on the left sidebar that includes items marked as spam" />
-            </ListItemText>
-            <ListItemSecondaryAction title={team.trash_count} className={styles.listItemCount}>
+            </div>
+            <div title={team.trash_count} className={styles.listItemCount}>
               <small>{String(team.trash_count)}</small>
-            </ListItemSecondaryAction>
-          </ListItem>
+            </div>
+          </li>
         </Link>
-      </List>
+      </ul>
 
       {/* Dialog to create list */}
 

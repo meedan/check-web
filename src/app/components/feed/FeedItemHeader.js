@@ -34,7 +34,7 @@ const FeedItemHeader = ({ team, feed, cluster }) => {
     <div id="feed-item-page-header">
       <div className={cx(searchResultsStyles['search-results-header'], styles.feedItemHeader)}>
         <div className={cx(searchResultsStyles.searchResultsTitleWrapper, styles.feedItemHeaderMetadata)}>
-          <ItemThumbnail picture={center.media?.picture} maskContent={false} type={center.media?.type} url={center.media?.url} />
+          <ItemThumbnail picture={center?.media?.picture} maskContent={false} type={center?.media?.type} url={center?.media?.url} />
           <div>
             <div className={searchResultsStyles.searchHeaderSubtitle}>
               <div className={styles.feedItemHeaderMetadataRow}>
