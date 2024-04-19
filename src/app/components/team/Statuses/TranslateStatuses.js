@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import cx from 'classnames/bind';
-import TextField from '../../cds/inputs/TextField';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { languageLabel } from '../../../LanguageRegistry';
@@ -150,8 +150,10 @@ const TranslateStatuses = ({
                 s.locales[currentLanguage] ?
                   s.locales[currentLanguage].label : ''
               }
+              fullWidth
               id={`translate-statuses__input-${s.id}`}
               onChange={e => (handleTextChange(s.id, e.target.value))}
+              size="small"
               variant="outlined"
             />
             { s.should_send_message && s.locales[defaultLanguage] && s.locales[defaultLanguage].message ?
@@ -168,10 +170,13 @@ const TranslateStatuses = ({
                   s.locales[currentLanguage] ?
                     s.locales[currentLanguage].message : ''
                 }
+                fullWidth
                 id={`translate-statuses__message-${s.id}`}
+                multiline
                 rows={3}
                 rowsMax={Infinity}
                 onChange={e => (handleMessageChange(s.id, e.target.value))}
+                size="small"
                 variant="outlined"
               /> : null }
           </div>

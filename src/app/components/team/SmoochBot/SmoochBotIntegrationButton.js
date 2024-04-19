@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import TextField from '../../cds/inputs/TextField';
+import TextField from '@material-ui/core/TextField';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -333,6 +333,8 @@ const SmoochBotIntegrationButton = ({
                     id={`smooch-bot-integration-button__${type}-${param.key}`}
                     onChange={(e) => { handleParam(param.key, e.target.value); }}
                     variant="outlined"
+                    margin="normal"
+                    fullWidth
                   />
                 </Box>
               ))}

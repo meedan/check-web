@@ -4,8 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Slider from '@material-ui/core/Slider';
-import TextField from '../../cds/inputs/TextField';
-import settingsStyles from '../Settings.module.css';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   textFieldRoot: {
@@ -56,7 +55,7 @@ const ThresholdControl = ({
       <TextField
         disabled={disabled}
         value={value}
-        className={settingsStyles['similarity-component-input']}
+        classes={{ root: classes.textFieldRoot }}
         variant="outlined"
         size="small"
         type="number"

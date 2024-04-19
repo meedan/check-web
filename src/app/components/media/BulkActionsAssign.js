@@ -5,7 +5,7 @@ import Relay from 'react-relay/classic';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import TextField from '../cds/inputs/TextField';
+import TextField from '@material-ui/core/TextField';
 import MultiSelector from '../layout/MultiSelector';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -110,6 +110,7 @@ const BulkActionsAssign = ({
               variant="outlined"
               rows={4}
               multiline
+              fullWidth
             />
           </Box>
         </MultiSelector>
