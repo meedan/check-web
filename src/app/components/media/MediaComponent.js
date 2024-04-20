@@ -14,6 +14,7 @@ import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAnd
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSimilaritiesComponent from './Similarity/MediaSimilaritiesComponent';
+import MediaFeedInformation from './MediaFeedInformation';
 import SuperAdminControls from './SuperAdminControls';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
@@ -202,6 +203,7 @@ class MediaComponent extends Component {
                         )]}
                       />
                     }
+                    mediaHeader={<MediaFeedInformation projectMedia={projectMedia} />}
                     onClick={e => e.stopPropagation()}
                     onClose={() => this.setState({ openMediaDialog: false })}
                   />
@@ -255,6 +257,7 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
   fragment MediaComponent_projectMedia on ProjectMedia {
     ...MediaSimilaritiesComponent_projectMedia
     ...MediaCardLarge_projectMedia
+    ...MediaFeedInformation_projectMedia
     id
     dbid
     title

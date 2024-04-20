@@ -50,6 +50,7 @@ const useStyles = makeStyles(theme => ({
 
 const MediaAndRequestsDialogComponent = ({
   mediaSlug,
+  mediaHeader,
   projectMediaId,
   context,
   onClick,
@@ -78,6 +79,7 @@ const MediaAndRequestsDialogComponent = ({
         />
       </div>
       <div className={styles['dialog-content']}>
+        {mediaHeader}
         <Grid container className={classes.shut}>
           { context === 'workspace' ?
             <>
@@ -102,10 +104,12 @@ const MediaAndRequestsDialogComponent = ({
 
 MediaAndRequestsDialogComponent.defaultProps = {
   context: 'workspace', // or 'feed'
+  mediaHeader: null,
 };
 
 MediaAndRequestsDialogComponent.propTypes = {
   mediaSlug: PropTypes.element.isRequired,
+  mediaHeader: PropTypes.element,
   projectMediaId: PropTypes.number.isRequired,
   context: PropTypes.oneOf(['feed', 'workspace']),
   onClick: PropTypes.func.isRequired,
