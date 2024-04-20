@@ -1,0 +1,12 @@
+[
+  {
+    "id": "mediaFeedInformation.importedMediaTitle",
+    "description": "Singular. Title of alert box displayed on media modal when this media was imported from a feed.",
+    "defaultMessage": "Imported Media"
+  },
+  {
+    "id": "mediaFeedInformation.importedMediaContent",
+    "description": "Content of alert box displayed on media modal when this media was imported from a feed.",
+    "defaultMessage": "This media was imported from a shared feed: {feedTitle}"
+  }
+]
