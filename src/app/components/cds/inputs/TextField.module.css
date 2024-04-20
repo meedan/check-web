@@ -51,7 +51,7 @@
       &.outlined {
         background-color: transparent;
       }
-      
+
       &.error {
         border-color: var(--errorMain) !important;
 

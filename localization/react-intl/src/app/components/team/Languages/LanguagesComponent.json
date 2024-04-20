@@ -5,7 +5,7 @@
     "defaultMessage": "Language"
   },
   {
-    "id": "teamMembers.helpContext",
+    "id": "languagesComponent.helpContext",
     "description": "Context description for the functionality of this page",
     "defaultMessage": "Manage tipline language settings. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Learn more about language support</a>."
   },
