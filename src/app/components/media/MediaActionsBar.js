@@ -379,13 +379,11 @@ class MediaActionsBarComponent extends Component {
                 </div>
                 <TextArea
                   variant="outlined"
-                  inputRef={(element) => {
+                  ref={(element) => {
                     this.assignmentMessageRef = element;
                     return element;
                   }}
-                  rows={21}
-                  InputProps={{ classes: { root: classes.inputRoot } }}
-                  multiline
+                  rows="21"
                 />
               </div>
             </Box>
