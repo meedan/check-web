@@ -191,10 +191,10 @@ const removeTeamMutation = graphql`
 `;
 
 const SaveFeed = (props) => {
-  const { feedTeam, permissions } = props;
+  const { feedTeam, teamName, permissions } = props;
   const feed = feedTeam?.feed || {}; // Editing a feed or creating a new feed
   const isFeedOwner = feedTeam?.team_id === feed?.team?.dbid;
-
+  const teamNameFeed = feedTeam?.team ? feedTeam.team.name : teamName; // user team name if creating, feed team name if editing
   const [createdFeedDbid, setCreatedFeedDbid] = React.useState(null);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
@@ -366,10 +366,8 @@ const SaveFeed = (props) => {
   const handleConfirmOrSave = () => {
     if (feed.id && !isFeedOwner) {
       handleSaveFeedTeam();
-    } else if (feed.id || formData.newInvites.length) {
-      setShowConfirmationDialog(true);
     } else {
-      handleSave();
+      setShowConfirmationDialog(true);
     }
   };
 
@@ -621,27 +619,45 @@ const SaveFeed = (props) => {
             feed.id ? (
               <FormattedMessage
                 id="saveFeed.confirmationDialogTitle"
-                defaultMessage="Are you sure you want to update this shared feed?"
+                defaultMessage="Update Shared Feed?"
                 description="Confirmation dialog title when saving a feed."
               />
             ) : (
               <FormattedMessage
-                id="saveFeed.invitationConfirmationDialogTitle"
-                defaultMessage="Collaboration invitations"
-                description="Confirmation dialog title for feed collaboration invitations."
+                id="saveFeed.confirmationDialogTitleCreate"
+                defaultMessage="Create Shared Feed?"
+                description="Confirmation dialog title for creating a feed."
               />
             )
           }
           body={
             <div>
-              { feed.id &&
-              <p>
-                <FormattedMessage
-                  id="saveFeed.confirmationDialogBody"
-                  defaultMessage="Are you sure you want to update this shared feed?"
-                  description="Confirmation dialog message when saving a feed."
-                />
-              </p>
+              { feed.id ?
+                <p>
+                  <FormattedHTMLMessage
+                    id="saveFeed.confirmationDialogBody"
+                    defaultMessage="This shared feed will be available to all users of <strong>{name}</strong> and collaborating workspaces."
+                    description="Confirmation dialog message when saving an existing feed."
+                    values={
+                      {
+                        name: teamNameFeed,
+                      }
+                    }
+                  />
+                </p>
+                :
+                <p>
+                  <FormattedHTMLMessage
+                    id="saveFeed.confirmationDialogBodyCreate"
+                    defaultMessage="This shared feed will be available to all users of <strong>{name}</strong>."
+                    description="Confirmation dialog message when creating a feed."
+                    values={
+                      {
+                        name: teamNameFeed,
+                      }
+                    }
+                  />
+                </p>
               }
               { formData.newInvites.length ?
                 <>
@@ -697,6 +713,24 @@ const SaveFeed = (props) => {
                   </ul>
                 </> : null
               }
+              <Alert
+                className={styles.paragraphMarginTop}
+                variant="warning"
+                banner
+                title={
+                  <FormattedMessage
+                    id="alert.sharedFeedRealTimeAlertTitle"
+                    defaultMessage="Shared feed data updates may not occur in real time"
+                    description="Alert box warning title to tell the user the shared feed they are updating or creating may not have real time updates"
+                  />}
+                content={
+                  <FormattedMessage
+                    id="alert.sharedFeedRealTimeAlertContent"
+                    defaultMessage="Check automatically refreshes all the data in shared feeds hourly. On each shared feed page you will see the time and date of the last update. If that date is prior to creating or making changes to the shared feed, then the data you will see will be accurate from the last update."
+                    description="Alert box warning further explaining that shared feeds are updated hourly and recent content may not be visible"
+                  />
+                }
+              />
             </div>
           }
           proceedLabel={
@@ -708,7 +742,6 @@ const SaveFeed = (props) => {
           onCancel={() => { setShowConfirmationDialog(false); }}
           isSaving={saving}
         />
-
         {
           isEditing &&
           <NavigateAwayDialog
@@ -769,6 +802,7 @@ export default createFragmentContainer(SaveFeed, graphql`
     permissions
     team {
       slug
+      name
     }
     feed {
       id

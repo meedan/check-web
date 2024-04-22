@@ -72,17 +72,22 @@
   {
     "id": "saveFeed.confirmationDialogTitle",
     "description": "Confirmation dialog title when saving a feed.",
-    "defaultMessage": "Are you sure you want to update this shared feed?"
+    "defaultMessage": "Update Shared Feed?"
   },
   {
-    "id": "saveFeed.invitationConfirmationDialogTitle",
-    "description": "Confirmation dialog title for feed collaboration invitations.",
-    "defaultMessage": "Collaboration invitations"
+    "id": "saveFeed.confirmationDialogTitleCreate",
+    "description": "Confirmation dialog title for creating a feed.",
+    "defaultMessage": "Create Shared Feed?"
   },
   {
     "id": "saveFeed.confirmationDialogBody",
-    "description": "Confirmation dialog message when saving a feed.",
-    "defaultMessage": "Are you sure you want to update this shared feed?"
+    "description": "Confirmation dialog message when saving an existing feed.",
+    "defaultMessage": "This shared feed will be available to all users of <strong>{name}</strong> and collaborating workspaces."
+  },
+  {
+    "id": "saveFeed.confirmationDialogBodyCreate",
+    "description": "Confirmation dialog message when creating a feed.",
+    "defaultMessage": "This shared feed will be available to all users of <strong>{name}</strong>."
   },
   {
     "id": "saveFeed.invitationConfirmationDialogBody",
@@ -98,6 +103,16 @@
     "id": "saveFeed.collaboratorRemovalConfirmationDialogBody",
     "description": "Confirmation dialog message when saving a feed.",
     "defaultMessage": "The following collaborating organizations will be removed from this shared feed:"
+  },
+  {
+    "id": "alert.sharedFeedRealTimeAlertTitle",
+    "description": "Alert box warning title to tell the user the shared feed they are updating or creating may not have real time updates",
+    "defaultMessage": "Shared feed data updates may not occur in real time"
+  },
+  {
+    "id": "alert.sharedFeedRealTimeAlertContent",
+    "description": "Alert box warning further explaining that shared feeds are updated hourly and recent content may not be visible",
+    "defaultMessage": "Check automatically refreshes all the data in shared feeds hourly. On each shared feed page you will see the time and date of the last update. If that date is prior to creating or making changes to the shared feed, then the data you will see will be accurate from the last update."
   },
   {
     "id": "saveFeed.confirmationDialogButton",
