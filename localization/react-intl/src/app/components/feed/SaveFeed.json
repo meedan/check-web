@@ -82,7 +82,7 @@
   {
     "id": "saveFeed.confirmationDialogBody",
     "description": "Confirmation dialog message when saving an existing feed.",
-    "defaultMessage": "This shared feed will be available to all users of <strong>{name}</strong> and collaborating workspaces."
+    "defaultMessage": "Updates to this shared feed will be available to all users of <strong>{name}</strong> and collaborating workspaces."
   },
   {
     "id": "saveFeed.confirmationDialogBodyCreate",

@@ -636,7 +636,7 @@ const SaveFeed = (props) => {
                 <p>
                   <FormattedHTMLMessage
                     id="saveFeed.confirmationDialogBody"
-                    defaultMessage="This shared feed will be available to all users of <strong>{name}</strong> and collaborating workspaces."
+                    defaultMessage="Updates to this shared feed will be available to all users of <strong>{name}</strong> and collaborating workspaces."
                     description="Confirmation dialog message when saving an existing feed."
                     values={
                       {
