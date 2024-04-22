@@ -14,6 +14,7 @@ import MediaAndRequestsDialogComponent from '../../cds/menus-lists-dialogs/Media
 import ClearIcon from '../../../icons/clear.svg';
 import IconMoreVert from '../../../icons/more_vert.svg';
 import MediaSlug from '../MediaSlug';
+import MediaFeedInformation from '../MediaFeedInformation';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import SmallMediaCard from '../../cds/media-cards/SmallMediaCard';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
@@ -310,6 +311,7 @@ const MediaRelationship = ({
               details={details}
             />
           }
+          mediaHeader={<MediaFeedInformation projectMedia={relationship?.target} />}
           onClick={swallowClick}
           onClose={() => setIsSelected(false)}
         /> : null }

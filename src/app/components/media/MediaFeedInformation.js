@@ -9,6 +9,10 @@ const MediaFeedInformation = ({ projectMedia }) => {
     return null;
   }
 
+  const handleViewSharedFeed = () => {
+    window.open(`/${projectMedia.team.slug}/feed/${projectMedia.imported_from_feed_id}/item/${projectMedia.imported_from_project_media_id}`);
+  };
+
   return (
     <Alert
       title={
@@ -23,9 +27,17 @@ const MediaFeedInformation = ({ projectMedia }) => {
           id="mediaFeedInformation.importedMediaContent"
           defaultMessage="This media was imported from a shared feed: {feedTitle}"
           description="Content of alert box displayed on media modal when this media was imported from a feed."
-          values={{ feedTitle: projectMedia.imported_from_feed.name }}
+          values={{ feedTitle: <strong>{projectMedia.imported_from_feed.name}</strong> }}
         />
       }
+      buttonLabel={
+        <FormattedMessage
+          id="mediaFeedInformation.viewSharedFeed"
+          defaultMessage="View Shared Feed"
+          description="Label of action button in alert box displayed on media modal when this media was imported from a feed."
+        />
+      }
+      onButtonClick={handleViewSharedFeed}
       variant="info"
     />
   );
@@ -38,6 +50,9 @@ MediaFeedInformation.propTypes = {
     imported_from_feed: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }),
+    team: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }),
   }).isRequired,
 };
 
@@ -47,6 +62,9 @@ export default createFragmentContainer(MediaFeedInformation, graphql`
     imported_from_project_media_id
     imported_from_feed {
       name
+    }
+    team {
+      slug
     }
   }
 `);

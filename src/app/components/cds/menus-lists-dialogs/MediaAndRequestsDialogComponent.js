@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import { FormattedMessage } from 'react-intl';
 import {
   Dialog,
   Grid,
@@ -10,6 +11,7 @@ import ButtonMain from '../buttons-checkboxes-chips/ButtonMain';
 import MediaRequests from '../../media/MediaRequests';
 import { MediaCardLargeQueryRenderer } from '../../media/MediaCardLarge';
 import FeedItemMediaDialog from '../../feed/FeedItemMediaDialog';
+import { ToggleButton, ToggleButtonGroup } from '../inputs/ToggleButtonGroup';
 import styles from '../../../styles/css/dialog.module.css';
 
 const useStyles = makeStyles(theme => ({
@@ -52,11 +54,12 @@ const MediaAndRequestsDialogComponent = ({
   mediaSlug,
   mediaHeader,
   projectMediaId,
-  context,
+  initialContext,
   onClick,
   onClose,
 }) => {
   const classes = useStyles();
+  const [context, setContext] = React.useState(initialContext);
 
   return (
     <Dialog
@@ -79,7 +82,7 @@ const MediaAndRequestsDialogComponent = ({
         />
       </div>
       <div className={styles['dialog-content']}>
-        {mediaHeader}
+        { initialContext === 'workspace' && mediaHeader }
         <Grid container className={classes.shut}>
           { context === 'workspace' ?
             <>
@@ -87,6 +90,21 @@ const MediaAndRequestsDialogComponent = ({
                 <MediaCardLargeQueryRenderer projectMediaId={projectMediaId} />
               </Grid>
               <Grid item xs={6} className={classes.requestsColumn}>
+                <ToggleButtonGroup
+                  value={context}
+                  variant="contained"
+                  onChange={(e, newValue) => setContext(newValue)}
+                  size="small"
+                  exclusive
+                  fullWidth
+                >
+                  <ToggleButton value="workspace" key="1">
+                    <FormattedMessage id="mediaAndRequestsDialogComponent.contextWorkspace" defaultMessage="Tipline Requests" description="Tab for choosing which requests to list in imported media dialog." />
+                  </ToggleButton>
+                  <ToggleButton value="feed" key="2">
+                    <FormattedMessage id="mediaAndRequestsDialogComponent.contextFeed" defaultMessage="Imported Requests" description="Tab for choosing which requests to list in imported media dialog." />
+                  </ToggleButton>
+                </ToggleButtonGroup>
                 <MediaRequests media={{ dbid: projectMediaId }} />
               </Grid>
             </> :
@@ -103,7 +121,7 @@ const MediaAndRequestsDialogComponent = ({
 };
 
 MediaAndRequestsDialogComponent.defaultProps = {
-  context: 'workspace', // or 'feed'
+  initialContext: 'workspace', // or 'feed'
   mediaHeader: null,
 };
 
@@ -111,7 +129,7 @@ MediaAndRequestsDialogComponent.propTypes = {
   mediaSlug: PropTypes.element.isRequired,
   mediaHeader: PropTypes.element,
   projectMediaId: PropTypes.number.isRequired,
-  context: PropTypes.oneOf(['feed', 'workspace']),
+  initialContext: PropTypes.oneOf(['feed', 'workspace']),
   onClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
