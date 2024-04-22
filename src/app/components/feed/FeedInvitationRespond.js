@@ -49,9 +49,17 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
   const alreadyAccepted = props.feed_invitation?.state === 'accepted';
 
   const onFailure = (error) => {
-    const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
-    setFlashMessage(message, 'error');
-    setSaving(false);
+    let message;
+    // In some cases, two users in the same workspace could receive invitations to join a shared feed.
+    // If the first one accepts, and then the second one tries to accept shortly after, then there is currently an error message about a unique key constraint conflict from the database.
+    if (error.message.includes('duplicate key value violates unique constraint')) {
+      // Redirect the user to the feed edit page if a unique key constraint error occurs
+      window.location.assign(`/${props.me.current_team?.slug}/feed/${props.feed_invitation?.feed.dbid}/edit`);
+    } else {
+      message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
+      setFlashMessage(message, 'error');
+      setSaving(false);
+    }
   };
 
   const handleAcceptInvite = () => {
