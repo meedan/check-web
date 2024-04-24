@@ -5,9 +5,9 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import MediasLoading from './media/MediasLoading';
 import ButtonMain from './cds/buttons-checkboxes-chips/ButtonMain';
 import ClearIcon from '../icons/clear.svg';
-import CircularProgress from './CircularProgress';
 import { unhumanizeSize } from '../helpers';
 
 const StyledUploader = styled.div`
@@ -281,7 +281,7 @@ const UploadFile = childProps => (
       } else if (props) {
         return <UploadFileComponent about={props.about} {...childProps} />;
       }
-      return <CircularProgress />;
+      return <MediasLoading theme="grey" variant="inline" size="medium" />;
     }}
   />
 );

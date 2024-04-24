@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import MediasLoading from './MediasLoading';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
@@ -127,7 +127,8 @@ function RestoreProjectMedia({
       label={buttonLabel}
       variant="contained"
       className={className}
-      endIcon={isSaving ? <CircularProgress color="inherit" size="1em" /> : null}
+      iconLeft={isSaving ? <MediasLoading theme="grey" variant="icon" size="icon" /> : null}
+      disabled={isSaving}
       color="primary"
       onClick={handleSubmit}
     />
