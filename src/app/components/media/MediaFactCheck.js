@@ -201,7 +201,7 @@ const MediaFactCheck = ({ projectMedia }) => {
                 id="mediaFactCheck.saved"
                 defaultMessage="saved by {userName} {timeAgo}"
                 values={{
-                  userName: factCheck.user.name,
+                  userName: factCheck?.user?.name,
                   timeAgo: <TimeBefore date={parseStringUnixTimestamp(factCheck.updated_at)} />,
                 }}
                 description="Caption that informs who last saved this fact-check and when it happened."
