@@ -6,6 +6,7 @@ import TextField from '../../cds/inputs/TextField';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
 import styles from './Rules.module.css';
+import inputStyles from '../../../styles/css/inputs.module.css';
 
 const RuleBody = (props) => {
   const rule = JSON.parse(JSON.stringify(props.rule));
@@ -111,7 +112,7 @@ const RuleBody = (props) => {
                   return (
                     <div
                       key={Math.random().toString().substring(2, 10)}
-                      className={styles['rule-field-wrapper']}
+                      className={cx(styles['rule-field-wrapper'], inputStyles['form-fieldset'])}
                     >
                       <RuleField
                         definition={rulesDefinition}
@@ -169,7 +170,7 @@ const RuleBody = (props) => {
               return (
                 <div
                   key={Math.random().toString().substring(2, 10)}
-                  className={styles['rule-field-wrapper']}
+                  className={cx(styles['rule-field-wrapper'], inputStyles['form-fieldset'])}
                 >
                   <RuleField
                     definition={actionsDefinition}

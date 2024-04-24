@@ -1,28 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-  paper: {
-    width: '100%',
-    padding: theme.spacing(2),
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    boxShadow: 'none',
-    border: 0,
-  },
-  inner: {
-    margin: 0,
-    padding: 0,
-    marginBottom: theme.spacing(2),
-  },
-}));
+import cx from 'classnames/bind';
+import TextField from '../../cds/inputs/TextField';
+import inputStyles from '../../../styles/css/inputs.module.css';
 
 const RuleField = (props) => {
-  const classes = useStyles();
   const [value, setValue] = React.useState(props.value);
   const label = props.definition.title;
   const { type } = props.definition;
@@ -52,7 +35,7 @@ const RuleField = (props) => {
   }
 
   return (
-    <Paper className={[classes.paper, props.className, 'rules__rule-field'].join(' ')}>
+    <div className={cx(props.className, 'rules__rule-field', inputStyles['form-fieldset-field'])}>
       { options ?
         <Autocomplete
           label={label}
@@ -64,8 +47,15 @@ const RuleField = (props) => {
           }}
           options={label === 'With a likelihood of at least' ? options : options.sort((a, b) => (a.value.localeCompare(b.value)))}
           getOptionLabel={option => option.value}
-          renderInput={params => <TextField {...params} variant="outlined" label={label} fullWidth />}
-          fullWidth
+          renderInput={params => (
+            <div ref={params.InputProps.ref}>
+              <TextField
+                placeholder={label}
+                label={label}
+                {...params.inputProps}
+              />
+            </div>
+          )}
         /> : null }
       { type === 'string' && !options ?
         <TextField
@@ -73,10 +63,6 @@ const RuleField = (props) => {
           label={label}
           onChange={handleChange}
           onBlur={handleBlur}
-          variant="outlined"
-          rows="4"
-          fullWidth
-          multiline
         /> : null }
       { (type === 'integer' || type === 'number') && !options ?
         <TextField
@@ -85,9 +71,7 @@ const RuleField = (props) => {
           label={label}
           onChange={handleChange}
           onBlur={handleBlur}
-          variant="outlined"
-          inputProps={inputProps}
-          fullWidth
+          componentProps={inputProps}
         /> : null }
       { type === 'object' ?
         <React.Fragment>
@@ -96,7 +80,6 @@ const RuleField = (props) => {
             const subValue = value[field] || '';
             return (
               <RuleField
-                className={classes.inner}
                 key={field}
                 definition={subDefinition}
                 value={subValue}
@@ -119,7 +102,6 @@ const RuleField = (props) => {
                   const subSubValue = value[subFieldName] || '';
                   return (
                     <RuleField
-                      className={classes.inner}
                       key={`${fieldName}-${subFieldName}`}
                       definition={subSubDefinition}
                       value={subSubValue}
@@ -136,7 +118,7 @@ const RuleField = (props) => {
               })}
             </React.Fragment> : null }
         </React.Fragment> : null }
-    </Paper>
+    </div>
   );
 };
 
