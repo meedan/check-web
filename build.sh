@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Running only unit tests
-if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ '[full ci]' ]]
+if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ '[full ci]' && ! $TRAVIS_COMMIT_MESSAGE =~ '[smoke tests]']]
 then
   docker-compose build web
   docker-compose -f docker-compose.yml -f docker-test.yml up -d web
