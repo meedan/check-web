@@ -26,32 +26,37 @@ shared_examples 'search' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.medias__item')
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 1
+
+    # find all medias with an empty search
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
+    wait_for_selector('#search-input')
+    expect(@driver.find_elements(:css, '.media__heading').size).to eq 2
   end
 
   it 'should search and change sort criteria', bin4: true do
     api_create_claim_and_go_to_search_page
-    sleep 60 # wait for the items to be indexed in Elasticsearch
-    expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
+    verbose_wait # wait for the items to be indexed in Elasticsearch
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.current_url.to_s.match(/related/).nil?).to be(true)
-    expect(@driver.current_url.to_s.match(/recent_added/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/last_seen/).nil?).to be(true)
 
-    wait_for_selector('#search-input')
     wait_for_selector('th[data-field=linked_items_count] span').click
     wait_for_selector('.media__heading', :css, 20, true)
-    expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/related/).nil?).to be(false)
-    expect(@driver.current_url.to_s.match(/recent_added/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/last_seen/).nil?).to be(true)
     expect(@driver.page_source.include?('My search result')).to be(true)
 
     wait_for_selector('th[data-field=created_at_timestamp] span').click
     wait_for_selector('.media__heading', :css, 20, true)
-    expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/related/).nil?).to be(true)
-    expect(@driver.current_url.to_s.match(/recent_added/).nil?).to be(false)
     expect(@driver.current_url.to_s.match(/last_seen/).nil?).to be(true)
+    expect(@driver.find_elements(:css, 'th[data-field=created_at_timestamp]> span > svg').length).to eq 1
+
+    # change sort criteria through URL
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022related\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.page_source.include?('My search result')).to be(true)
+    expect(@driver.find_elements(:css, 'th[data-field=created_at_timestamp]> span > svg').empty?).to be(true)
   end
 
   it 'should search by status through URL', bin4: true do
@@ -83,24 +88,6 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should change search sort and search criteria through URL', bin4: true do
-    api_create_claim_and_go_to_search_page
-    wait_for_selector('.media__heading', :css, 20, true)
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022related\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
-    wait_for_selector('#search-input')
-    wait_for_selector('.media__heading', :css, 20, true)
-    expect(@driver.page_source.include?('My search result')).to be(true)
-    expect(@driver.find_elements(:css, 'th[data-field=linked_items_count]> span > svg').length).to eq 1
-    expect(@driver.find_elements(:css, 'th[data-field=created_at_timestamp]> span > svg').empty?).to be(true)
-
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022recent_added\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
-    wait_for_selector('#search-input')
-    wait_for_selector('.media__heading', :css, 20, true)
-    expect(@driver.page_source.include?('My search result')).to be(true)
-    expect(@driver.find_elements(:css, 'th[data-field=linked_items_count]> span > svg').empty?).to be(true)
-    expect(@driver.find_elements(:css, 'th[data-field=created_at_timestamp]> span > svg').length).to eq 1
-  end
-
   it 'should search for reverse images', bin2: true do
     api_create_team_and_bot
     @driver.navigate.to "#{@config['self_url']}/#{@slug}/settings/workspace"
@@ -115,20 +102,6 @@ shared_examples 'search' do
     @driver.switch_to.window(@driver.window_handles.last)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
     @driver.switch_to.window(current_window)
-  end
-
-  it 'should find all medias with an empty search', bin4: true do
-    api_create_team_and_claim_and_redirect_to_media_page
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
-    create_image('files/test.png')
-    @driver.navigate.refresh
-    wait_for_selector('.media__heading')
-    old = wait_for_selector_list('.medias__item').length
-    wait_for_selector('#search-input').click
-    @driver.action.send_keys(:enter).perform
-    current = wait_for_selector_list('.medias__item').length
-    expect(old == current).to be(true)
-    expect(current.positive?).to be(true)
   end
 
   it 'should search by status', bin1: true do

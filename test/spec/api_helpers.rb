@@ -173,8 +173,7 @@ module ApiHelpers
   def api_change_media_status(pm_id = nil, status = 'false')
     url = @driver.current_url.to_s
     pm_id ||= url.match(%r{media/(\d+)})[1]
-    puts "media #{pm_id}"
-    puts request_api 'media_status', { pm_id: pm_id, status: status }
+    request_api 'media_status', { pm_id: pm_id, status: status }
     sleep 5
   end
 

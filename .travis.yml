@@ -65,7 +65,7 @@ before_script:
 jobs:
   include:
     - stage: tests
-      if: branch = develop OR branch = master OR commit_message =~ /\[full ci\]/
+      if: branch = develop OR branch = master OR commit_message =~ /\[full ci\]/ OR commit_message =~ /\[smoke tests\]/
       name: integration-and-unit-tests
       script:
       - docker-compose exec
@@ -80,7 +80,7 @@ jobs:
         web npm run tests
     - stage: tests
       name: similarity-tests
-      if: branch = develop OR branch = master OR commit_message =~ /\[full ci\]/
+      if: branch = develop OR branch = master OR commit_message =~ /\[full ci\]/ OR commit_message =~ /\[similarity tests\]/
       script:
       - docker-compose exec
         -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
