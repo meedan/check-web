@@ -23,7 +23,7 @@ else
   echo "inside similarity tests"
     i=0
     NGROK_URL=""
-    # ngrok config add-authtoken $NGROK_AUTH
+    ngrok config add-authtoken $NGROK_AUTH
     while [ -z "$NGROK_URL" -a $i -lt 5 ]; do
       i=$(($i + 1))
       ngrok_output=$(ngrok http 9000 2>&1 &)
