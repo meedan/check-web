@@ -1,6 +1,6 @@
 {
 	"CheckAgreeTerms.agreeTerms": {
-		"string": "Ако продолжите, се сложувате со {appName} {tosLink} и {ppLink}.",
+		"string": "Ако продолжите, се сложувате со {tosLink} и {ppLink}на {appName}.",
 		"developer_comment": "Sign up agreement message to ensure the user knows they are accepting the terms of service and privacy policy"
 	},
 	"ConfirmEmail.content": {
@@ -1847,6 +1847,10 @@
 		"string": "Ботот на линијата за дојава на Check автоматски ќе го препознае и ќе одговори на јазикот што Вашиот корисник го искористил во барањето.",
 		"developer_comment": "Instructions for the language detection toggle switch when enabled"
 	},
+	"languagesComponent.helpContext": {
+		"string": "Управувајте со поставките за јазикот на линијата за дојава. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за јазичната поддршка</a>.",
+		"developer_comment": "Context description for the functionality of this page"
+	},
 	"languagesComponent.languageDetection": {
 		"string": "Препознавање јазик",
 		"developer_comment": "Title of the Language detection section in language settings page"
@@ -3620,7 +3624,7 @@
 		"developer_comment": "Title for the confirmation dialog when the user is trying to delete rules"
 	},
 	"rulesTableToolbar.helpContext": {
-		"string": "Автоматски категоризирајте ги статиите по клучен збор. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за таговите</a>.",
+		"string": "Автоматизирајте ја Вашата работа на Check со помош на правилата. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за правилата</a>.",
 		"developer_comment": "Context description for the functionality of this page"
 	},
 	"rulesTableToolbar.save": {
@@ -4450,6 +4454,10 @@
 	"similarityComponent.dateThresholdSettings": {
 		"string": "Ограничете ги совпаѓањата само на неодамна поднесените содржини",
 		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
+	},
+	"similarityComponent.helpContext": {
+		"string": "Управувајте со поставките за сличните медиуми автоматски да Ви се совпаднат. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за автоматското совпаѓање</a>.",
+		"developer_comment": "Context description for the functionality of this page"
 	},
 	"similarityComponent.languageForSimilarity": {
 		"string": "Анализатор на јазици за совпаѓања по сличност (на пример, „pt\", „en\" итн.)",
@@ -6010,7 +6018,7 @@
 		"developer_comment": "Menu item for copying email address to the clipboard"
 	},
 	"teamMembers.helpContext": {
-		"string": "Управувајте со поставките за јазикот на линијата за дојава. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за јазичната поддршка</a>.",
+		"string": "Управувајте со членовите на Вашиот работен простор на Check. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за улогите на членовите</a>.",
 		"developer_comment": "Context description for the functionality of this page"
 	},
 	"teamMembers.invite": {
@@ -6276,6 +6284,10 @@
 	"teamTagsActions.tooltip": {
 		"string": "Управувајте со тагот",
 		"developer_comment": "Tooltip to call menu for actions to perform on a tag"
+	},
+	"teamTagsComponent.helpContext": {
+		"string": "Автоматски категоризирајте ги статиите по клучен збор. <a href=\"{helpLink}\" target=\"_blank\" title=\"Learn more\">Дознајте повеќе за таговите</a>.",
+		"developer_comment": "Context description for the functionality of this page"
 	},
 	"teamTagsComponent.newTag": {
 		"string": "Нов таг",
