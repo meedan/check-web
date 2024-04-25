@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
 import Tooltip from '../../cds/alerts-and-prompts/Tooltip';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
+import { ToggleButton, ToggleButtonGroup } from '../../cds/inputs/ToggleButtonGroup';
 import AddIcon from '../../../icons/add.svg';
 import ClearIcon from '../../../icons/clear.svg';
-import RuleOperatorButton from './RuleOperatorButton';
 import styles from './Rules.module.css';
 
 const RuleOperatorWrapper = (props) => {
   const handleChangeOperator = (value) => {
-    props.onSetOperator(value);
+    if (value !== null) {
+      props.onSetOperator(value);
+    }
   };
 
   const handleAdd = () => {
@@ -49,20 +50,19 @@ const RuleOperatorWrapper = (props) => {
                 ) : null }
               </>
               :
-              <>
-                { props.operators.map((operator, index2) => (
-                  <React.Fragment key={operator}>
-                    <RuleOperatorButton
-                      value={operator}
-                      currentValue={props.operator}
-                      onClick={() => { handleChangeOperator(operator); }}
-                    >
-                      {operatorLabels[operator]}
-                    </RuleOperatorButton>
-                    { props.operators.length - 1 === index2 ? null : (<Typography component="span"> | </Typography>) }
-                  </React.Fragment>
+              <ToggleButtonGroup
+                variant="contained"
+                value={props.operator}
+                onChange={(e, newValue) => handleChangeOperator(newValue)}
+                size="small"
+                exclusive
+              >
+                { props.operators.map(operator => (
+                  <ToggleButton value={operator} key={operator}>
+                    {operatorLabels[operator]}
+                  </ToggleButton>
                 ))}
-              </>
+              </ToggleButtonGroup>
             }
             { props.children.length > 1 || props.allowRemove ? (
               <Tooltip
