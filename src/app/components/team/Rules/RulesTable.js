@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import cx from 'classnames/bind';
 import BlankState from '../../layout/BlankState';
 import EditIcon from '../../../icons/edit.svg';
 import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
@@ -104,7 +105,7 @@ export default function RulesTable(props) {
           />
         }
       />
-      <div className={settingsStyles['setting-details-wrapper']}>
+      <div className={cx(settingsStyles['setting-details-wrapper'], 'team-settings__rules-list-wrapper')}>
         {rows.length === 0 ?
           <BlankState>
             <FormattedMessage

@@ -52,3 +52,15 @@
     margin: 0 0 16px;
   }
 }
+
+.rules-toolbar {
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+
+  .rulesToolbarSection {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+  }
+}
