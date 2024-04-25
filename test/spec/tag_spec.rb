@@ -44,7 +44,7 @@ shared_examples 'tag' do
     wait_for_selector('#team-tags__create').click
     wait_for_selector('#confirm-dialog__confirm-action-button')
     fill_field('#team-tags__name-input', 'tag added automatically')
-    wait_for_selector('.MuiAutocomplete-popupIndicator').click
+    wait_for_selector('.MuiAutocomplete-input').click
     wait_for_selector('.MuiAutocomplete-inputFocused').click
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:arrow_down).perform
