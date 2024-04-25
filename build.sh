@@ -28,6 +28,7 @@ else
       i=$(($i + 1))
       ngrok_output=$(ngrok http 9000 2>&1 &)
       # ngrok http 9000 >/dev/null &
+      echo "first until... $i"
       until curl --silent -I -f --fail http://localhost:4040; do printf .; sleep 1; done
       curl -I -v http://localhost:4040
       curl localhost:4040/api/tunnels > ngrok.json
