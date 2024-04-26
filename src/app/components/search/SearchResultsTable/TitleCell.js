@@ -43,6 +43,7 @@ const useStyles = makeStyles({
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
+    marginBottom: 0,
   }),
   description: {
     maxHeight: units(5),
@@ -76,9 +77,9 @@ const TitleText = ({
   description,
 }) => (
   <div className={[classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <span className={[classes.title, classes.titleViewModeShorter].join(' ')}>
+    <p className={[classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
-    </span>
+    </p>
     {description ? (
       <div className={classes.description}>{description}</div>
     ) : null}
