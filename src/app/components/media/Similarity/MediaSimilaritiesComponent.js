@@ -115,6 +115,8 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
             is_confirmed_similar_to_another_item
             url
             quote
+            imported_from_feed_id
+            imported_from_project_media_id
             ...MediaFeedInformation_projectMedia
             media {
               ...SmallMediaCard_media

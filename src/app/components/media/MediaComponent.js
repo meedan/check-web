@@ -171,6 +171,8 @@ class MediaComponent extends Component {
                 { this.state.openMediaDialog ?
                   <MediaAndRequestsDialogComponent
                     projectMediaId={projectMedia.dbid}
+                    projectMediaImportedId={projectMedia.imported_from_project_media_id}
+                    feedId={projectMedia.imported_from_feed_id}
                     mediaSlug={
                       <MediaSlug
                         mediaType={projectMedia.type}
@@ -278,6 +280,8 @@ export default createFragmentContainer(withPusher(MediaComponent), graphql`
     notes_count: annotations_count(annotation_type: "comment")
     report_status
     suggested_similar_items_count
+    imported_from_feed_id
+    imported_from_project_media_id
     suggested_similar_relationships(first: 10000) {
       edges {
         node {

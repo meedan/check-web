@@ -14,32 +14,34 @@ const MediaFeedInformation = ({ projectMedia }) => {
   };
 
   return (
-    <Alert
-      title={
-        <FormattedMessage
-          id="mediaFeedInformation.importedMediaTitle"
-          defaultMessage="Imported Media"
-          description="Singular. Title of alert box displayed on media modal when this media was imported from a feed."
-        />
-      }
-      content={
-        <FormattedMessage
-          id="mediaFeedInformation.importedMediaContent"
-          defaultMessage="This media was imported from a shared feed: {feedTitle}"
-          description="Content of alert box displayed on media modal when this media was imported from a feed."
-          values={{ feedTitle: <strong>{projectMedia.imported_from_feed.name}</strong> }}
-        />
-      }
-      buttonLabel={
-        <FormattedMessage
-          id="mediaFeedInformation.viewSharedFeed"
-          defaultMessage="View Shared Feed"
-          description="Label of action button in alert box displayed on media modal when this media was imported from a feed."
-        />
-      }
-      onButtonClick={handleViewSharedFeed}
-      variant="info"
-    />
+    <>
+      <Alert
+        title={
+          <FormattedMessage
+            id="mediaFeedInformation.importedMediaTitle"
+            defaultMessage="Imported Media"
+            description="Singular. Title of alert box displayed on media modal when this media was imported from a feed."
+          />
+        }
+        content={
+          <FormattedMessage
+            id="mediaFeedInformation.importedMediaContent"
+            defaultMessage="This media was imported from a shared feed: {feedTitle}"
+            description="Content of alert box displayed on media modal when this media was imported from a feed."
+            values={{ feedTitle: <strong>{projectMedia.imported_from_feed.name}</strong> }}
+          />
+        }
+        buttonLabel={
+          <FormattedMessage
+            id="mediaFeedInformation.viewSharedFeed"
+            defaultMessage="View Shared Feed"
+            description="Label of action button in alert box displayed on media modal when this media was imported from a feed."
+          />
+        }
+        onButtonClick={handleViewSharedFeed}
+        variant="info"
+      />
+    </>
   );
 };
 

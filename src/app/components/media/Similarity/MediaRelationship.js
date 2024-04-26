@@ -304,6 +304,8 @@ const MediaRelationship = ({
       { isSelected ?
         <MediaAndRequestsDialogComponent
           projectMediaId={relationship.target_id}
+          projectMediaImportedId={relationship?.target?.imported_from_project_media_id}
+          feedId={relationship?.target?.imported_from_feed_id}
           mediaSlug={
             <MediaSlug
               mediaType={relationship?.target?.type}
