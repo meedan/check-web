@@ -76,7 +76,7 @@ const TitleText = ({
   description,
 }) => (
   <div className={[classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <span variant="body1" className={[classes.title, classes.titleViewModeShorter].join(' ')}>
+    <span className={[classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
     </span>
     {description ? (
