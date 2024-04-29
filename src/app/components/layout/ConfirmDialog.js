@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
-import Message from '../Message';
+import Alert from '../cds/alerts-and-prompts/Alert';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import styles from '../../styles/css/dialog.module.css';
 import inputStyles from '../../styles/css/inputs.module.css';
@@ -47,7 +47,7 @@ class ConfirmDialog extends React.Component {
           <h6>{this.props.title}</h6>
         </div>
         <div className={styles['dialog-content']}>
-          <Message message={this.props.message} />
+          { this.props.message && <><Alert variant="error" contained title={this.props.message} /><br /></> }
           {this.props.blurb}
           { this.props.handleConfirm ?
             <div className={inputStyles['form-fieldset']}>
