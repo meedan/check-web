@@ -328,6 +328,10 @@
   padding: 10px;
 }
 
+.smoochbot-component-input {
+  min-width: 500px;
+}
+
 .bot-designer {
   display: flex;
   flex-direction: row;
