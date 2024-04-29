@@ -10,7 +10,7 @@ import SmallMediaCard from '../cds/media-cards/SmallMediaCard';
 import MediaAndRequestsDialogComponent from '../cds/menus-lists-dialogs/MediaAndRequestsDialogComponent';
 import NotFound from '../NotFound';
 
-const FeedItemMediaListComponent = ({ items, intl }) => {
+const FeedItemMediaListComponent = ({ items, feedDbid, intl }) => {
   const [selectedItemId, setSelectedItemId] = React.useState(null);
 
   const swallowClick = (event) => {
@@ -62,8 +62,8 @@ const FeedItemMediaListComponent = ({ items, intl }) => {
                     details={details}
                   />
                 }
-                projectMediaId={selectedItemId}
-                context="feed"
+                projectMediaImportedId={selectedItemId}
+                feedId={feedDbid}
                 onClick={swallowClick}
                 onClose={() => setSelectedItemId(null)}
               />
@@ -86,6 +86,7 @@ FeedItemMediaListComponent.propTypes = {
     media: PropTypes.object,
     type: PropTypes.string,
   })).isRequired,
+  feedDbid: PropTypes.number.isRequired,
   intl: intlShape.isRequired,
 };
 
@@ -134,7 +135,7 @@ const FeedItemMediaList = ({ teamDbid }) => {
           if (props && !error) {
             const items = props.team?.feed?.cluster?.project_medias;
             if (items) {
-              return (<FeedItemMediaListComponentWithIntl items={items.edges.map(edge => edge.node)} />);
+              return (<FeedItemMediaListComponentWithIntl feedDbid={parseInt(feedDbid, 10)} items={items.edges.map(edge => edge.node)} />);
             }
             return (<NotFound />);
           }
