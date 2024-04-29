@@ -34,7 +34,7 @@ const projectMediaBlank = {
 describe('<FactCheckCell>', () => {
   it('should render title', () => {
     const cell = mountInTable(<FactCheckCell projectMedia={projectMedia} />);
-    expect(cell.find('p').text()).toEqual('Fact-check title');
+    expect(cell.find('span').text()).toEqual('Fact-check title');
   });
 
   it('should render description', () => {

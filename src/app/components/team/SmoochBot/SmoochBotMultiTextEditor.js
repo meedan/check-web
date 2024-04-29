@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import { labels } from './localizables';
@@ -20,7 +19,7 @@ const SmoochBotMultiTextEditor = (props) => {
 
   return (
     <React.Fragment>
-      <Typography variant="subtitle2" component="div">{labels[field]}</Typography>
+      <div className="typography-subtitle2">{labels[field]}</div>
       { Object.keys(subSchema.properties).map((key) => {
         let errorMessage = null;
 
