@@ -59,6 +59,7 @@ const RuleField = (props) => {
         /> : null }
       { type === 'string' && !options ?
         <TextField
+          className="int-rules__rule-field-string-input"
           value={value}
           label={label}
           onChange={handleChange}

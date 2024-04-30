@@ -21,15 +21,16 @@ shared_examples 'rules' do
     expect(@driver.page_source.include?('Select destination list')).to be(false)
 
     # Select a condition and set a value for it
-    wait_for_selector('.rules__rule-field button + button').click
-    wait_for_selector('button[title=Close]')
-    wait_for_selector('ul[role=listbox] li[data-option-index="0"]').click
-    wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
+    wait_for_selector('.MuiAutocomplete-input').click
+    wait_for_selector('.MuiAutocomplete-inputFocused').click
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.rules__rule-field .int-rules__rule-field-string-input input').send_keys('foo,bar')
 
     # Select an action
-    wait_for_selector('.rules__actions .rules__rule-field button + button').click
-    wait_for_selector_list('button[aria-label="Open"]')[1].click
-    wait_for_selector('button[title=Close]')
+    wait_for_selector('.rules__actions .rules__rule-field input[type=text]').click
 
     # Selecting second option, "Move to Trash"
     wait_for_selector('ul[role=listbox] li[data-option-index="2"]').click

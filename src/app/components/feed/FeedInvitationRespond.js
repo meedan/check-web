@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import cx from 'classnames/bind';
 import ErrorBoundary from '../error/ErrorBoundary';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
+import { getErrorMessageForRelayModernProblem, safelyParseJSON } from '../../helpers';
 import Alert from '../cds/alerts-and-prompts/Alert';
 import { FlashMessageSetterContext } from '../FlashMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -19,6 +20,7 @@ import ScheduleSendIcon from '../../icons/schedule_send.svg';
 import MediasLoading from '../media/MediasLoading';
 import NotFound from '../NotFound';
 import { can } from '../Can';
+import CheckError from '../../CheckError';
 
 const acceptMutation = graphql`
   mutation FeedInvitationRespondAcceptFeedInvitationMutation($input: UpdateFeedInvitationInput!) {
@@ -49,9 +51,17 @@ const FeedInvitationRespondComponent = ({ routeParams, ...props }) => {
   const alreadyAccepted = props.feed_invitation?.state === 'accepted';
 
   const onFailure = (error) => {
-    const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
-    setFlashMessage(message, 'error');
-    setSaving(false);
+    // In some cases, two users in the same workspace could receive invitations to join a shared feed.
+    // If the first one accepts, and then the second one tries to accept shortly after, then there is currently an error message about a unique key constraint conflict from the database.
+    const json = safelyParseJSON(error.source);
+    if (json.errors[0].code === CheckError.codes.CONFLICT) {
+      // Redirect the user to the feed edit page if a unique key constraint error occurs
+      browserHistory.push(`/${props.me.current_team?.slug}/feed/${props.feed_invitation?.feed.dbid}/edit`);
+    } else {
+      const message = getErrorMessageForRelayModernProblem(error, <GenericUnknownErrorMessage />);
+      setFlashMessage(message, 'error');
+      setSaving(false);
+    }
   };
 
   const handleAcceptInvite = () => {
