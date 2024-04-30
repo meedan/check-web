@@ -26,9 +26,7 @@ shared_examples 'rules' do
     wait_for_selector('.rules__rule-field input[type=text]').send_keys('foo,bar')
 
     # Select an action
-    wait_for_selector('.rules__actions .rules__rule-field button + button').click
-    wait_for_selector_list('button[aria-label="Open"]')[1].click
-    wait_for_selector('button[title=Close]')
+    wait_for_selector('.rules__actions .rules__rule-field input[type=text]').click
 
     # Selecting second option, "Move to Trash"
     wait_for_selector('ul[role=listbox] li[data-option-index="2"]').click
