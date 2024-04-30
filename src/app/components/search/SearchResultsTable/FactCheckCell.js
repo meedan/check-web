@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   units,
@@ -61,9 +60,9 @@ const TitleText = ({
   description,
 }) => (
   <div className={[classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <Typography variant="body1" className={[classes.title, classes.titleViewModeShorter].join(' ')}>
+    <span className={[classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
-    </Typography>
+    </span>
     {description ? (
       <div className={[classes.description, 'fact-check-cell__description'].join(' ')}>{description}</div>
     ) : null}

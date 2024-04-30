@@ -1,13 +1,13 @@
 [
   {
-    "id": "ruleBody.ruleNameValidation",
-    "description": "Help content for the text field",
-    "defaultMessage": "Rule name is required"
+    "id": "ruleBody.namePlaceholder",
+    "description": "Text field placeholder for the input name of rule",
+    "defaultMessage": "Enter a descriptive rule name"
   },
   {
     "id": "ruleBody.ruleName",
     "description": "Text field label for the rule name",
-    "defaultMessage": "Name"
+    "defaultMessage": "Rule Name"
   },
   {
     "id": "ruleBody.if",

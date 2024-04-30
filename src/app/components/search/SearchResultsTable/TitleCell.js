@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
-import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { units } from '../../../styles/js/shared';
@@ -44,6 +43,7 @@ const useStyles = makeStyles({
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
+    marginBottom: 0,
   }),
   description: {
     maxHeight: units(5),
@@ -77,9 +77,9 @@ const TitleText = ({
   description,
 }) => (
   <div className={[classes.textBox, classes.cellViewModeShorter].join(' ')}>
-    <Typography variant="body1" className={[classes.title, classes.titleViewModeShorter].join(' ')}>
+    <p className={[classes.title, classes.titleViewModeShorter].join(' ')}>
       {title}
-    </Typography>
+    </p>
     {description ? (
       <div className={classes.description}>{description}</div>
     ) : null}

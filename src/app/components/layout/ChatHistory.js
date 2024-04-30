@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import cx from 'classnames/bind';
-import IconClose from '../../icons/cancel.svg';
+import IconClose from '../../icons/clear.svg';
 import IconDone from '../../icons/done.svg';
 import IconFactCheck from '../../icons/fact_check.svg';
 import IconBot from '../../icons/smart_toy.svg';
@@ -200,7 +200,7 @@ const ChatHistory = ({
         <div className={styles['right-side']}>
           <ButtonMain
             variant="text"
-            size="medium"
+            size="small"
             theme="text"
             iconCenter={<IconClose />}
             onClick={handleClose}

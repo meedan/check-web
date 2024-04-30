@@ -5,7 +5,6 @@ import {
   Box,
   Grid,
   IconButton,
-  Typography,
 } from '@material-ui/core';
 import MediaTimeline from './MediaTimeline';
 import MediaVolume from './MediaVolume';
@@ -97,9 +96,9 @@ const MediaControls = ({
   };
   const durationDisplay = prettyPrintTime(duration);
   const TimeDisplay = () => (
-    <Box>
-      <Typography>{prettyPrintTime(currentTime)} / {durationDisplay}</Typography>
-    </Box>
+    <div className="typography-body1">
+      {prettyPrintTime(currentTime)} / {durationDisplay}
+    </div>
   );
 
   return (
