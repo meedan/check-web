@@ -23,7 +23,10 @@ shared_examples 'rules' do
     # Select a condition and set a value for it
     wait_for_selector('.MuiAutocomplete-input').click
     wait_for_selector('.MuiAutocomplete-inputFocused').click
-    wait_for_selector('ul[role=listbox] li[data-option-index="2"]').click
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
     wait_for_selector('.rules__rule-field .int-rules__rule-field-string-input input').send_keys('foo,bar')
 
     # Select an action
