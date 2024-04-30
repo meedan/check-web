@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "TRAVIS_BRANCH: $TRAVIS_BRANCH"
-echo "TRAVIS_COMMIT_MESSAGE: $TRAVIS_COMMIT_MESSAGE"
-
 # Running only unit tests
 if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' && ! $TRAVIS_COMMIT_MESSAGE =~ \[full\ ci\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[smoke\ tests\] && ! $TRAVIS_COMMIT_MESSAGE =~ \[similarity\ tests\] ]]
 then
@@ -12,22 +9,18 @@ then
   until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
 # Running all tests
 else
-  echo "ELSEEEEE"
   if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]
   then
-    echo "UP DOCKER COMPOSE"
-    echo "inside integration-and-unit-tests"
     docker-compose build web api api-background pender pender-background
     docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
   else
-  echo "inside similarity tests"
     i=0
     NGROK_URL=""
     ngrok config add-authtoken $NGROK_AUTH
     while [ -z "$NGROK_URL" -a $i -lt 5 ]; do
       i=$(($i + 1))
-      ngrok_output=$(ngrok http 9000 2>&1 &)
-      # ngrok http 9000 >/dev/null &
+      # ngrok_output=$(ngrok http 9000 2>&1 &)
+      ngrok http 9000 >/dev/null &
       echo "first until... $i"
       until curl --silent -I -f --fail http://localhost:4040; do printf "."; sleep 10; done
       curl -I -v http://localhost:4040
@@ -41,11 +34,11 @@ else
       sleep 5
       echo "while while... $i"
     done
-    if [[ $ngrok_output == *"Your account is limited to 1 simultaneous ngrok agent sessions"* ]]; then
-      # echo "Ngrok failed: $ngrok_output"
-      echo "Your account is limited to 1 simultaneous ngrok agent session. Please wait for any other similarity builds to finish before trying again."
-      exit 1
-    fi
+    # if [[ $ngrok_output == *"Your account is limited to 1 simultaneous ngrok agent sessions"* ]]; then
+    #   # echo "Ngrok failed: $ngrok_output"
+    #   echo "Your account is limited to 1 simultaneous ngrok agent session. Please wait for any other similarity builds to finish before trying again."
+    #   exit 1
+    # fi
     if [ -z $NGROK_URL ]
     then
       echo "Not able to connect a Ngrok Tunnel. Please try again!"
