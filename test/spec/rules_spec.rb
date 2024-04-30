@@ -6,7 +6,7 @@ shared_examples 'rules' do
     # Go to rules page
     @driver.navigate.to "#{@config['self_url']}/#{t.slug}/settings"
     wait_for_selector('.team-settings__rules-tab').click
-    wait_for_selector('#rules-table')
+    wait_for_selector('.team-settings__rules-list-wrapper')
 
     # No rules
     expect(@driver.page_source.include?('Rule 1')).to be(false)

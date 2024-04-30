@@ -4,7 +4,6 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { injectIntl, intlShape, defineMessages } from 'react-intl';
 import {
   Box,
-  Typography,
   TextField,
 } from '@material-ui/core';
 import styles from '../../team/Settings.module.css';
@@ -49,11 +48,6 @@ const useStyles = makeStyles(theme => ({
     borderBottom: 0,
     background: 'var(--brandBackground)',
     padding: '12px 10px',
-  },
-  // FIXME: Once Typography is implemented according to specs from the design system, this custom style can be removed
-  default: {
-    fontWeight: 400,
-    fontSize: 14,
   },
   customString: {
     borderTop: 0,
@@ -101,9 +95,7 @@ const TiplineContentTranslation = ({
 
         {/* Default value */}
         <Box p={1} className={classes.defaultString}>
-          <Typography variant="body1" className={classes.default}>
-            {defaultValue}
-          </Typography>
+          {defaultValue}
         </Box>
 
         {/* Text field for custom value */}

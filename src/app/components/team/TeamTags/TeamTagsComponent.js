@@ -108,6 +108,7 @@ const TeamTagsComponent = ({
       { totalTags > pageSize && // only display paginator if there are more than pageSize worth of tags overall in the database
         <div className={styles['tags-wrapper']}>
           <Tooltip
+            arrow
             title={
               <FormattedMessage id="search.previousPage" defaultMessage="Previous page" description="Pagination button to go to previous page" />
             }

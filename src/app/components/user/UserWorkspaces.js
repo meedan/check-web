@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -196,12 +195,16 @@ class UserWorkspaces extends Component {
                       }
                     />
                     <ListItemSecondaryAction>
-                      <Button
+                      <ButtonMain
+                        theme="text"
+                        variant="text"
+                        size="default"
                         className="switch-team__cancel-request"
                         onClick={this.cancelRequest.bind(this, team)}
-                      >
-                        <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" description="Button label to cancel a request to join a workspace" />
-                      </Button>
+                        label={
+                          <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" description="Button label to cancel a request to join a workspace" />
+                        }
+                      />
                     </ListItemSecondaryAction>
                   </ListItem>
                 ))}

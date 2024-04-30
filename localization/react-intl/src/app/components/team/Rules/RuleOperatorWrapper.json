@@ -10,6 +10,11 @@
     "defaultMessage": "Or"
   },
   {
+    "id": "ruleOperatorWrapper.add",
+    "description": "Button label for the user to add another if/then condition to this rule",
+    "defaultMessage": "Add Condition"
+  },
+  {
     "id": "ruleOperatorWrapper.removeTheAbove",
     "description": "Button to remove a new rule operator",
     "defaultMessage": "Remove item above"

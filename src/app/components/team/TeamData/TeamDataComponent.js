@@ -168,7 +168,7 @@ const TeamDataComponent = ({
   const [order, setOrder] = React.useState('desc');
   const [orderBy, setOrderBy] = React.useState(defaultOrder);
 
-  const headers = data ? Object.keys(data[0]).filter(header => !['ID', 'Org', 'Language', 'Platform'].includes(header)) : null;
+  const headers = data ? Object.keys(data[0]).filter(header => !['ID', 'Org', 'Language', 'Platform'].includes(header)) : [];
 
   const languages = [];
   const platforms = [];

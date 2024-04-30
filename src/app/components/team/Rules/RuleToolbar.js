@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,33 +8,9 @@ import ButtonMain from '../../cds/buttons-checkboxes-chips/ButtonMain';
 import IconArrowBack from '../../../icons/arrow_back.svg';
 import ConfirmDialog from '../../layout/ConfirmDialog';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-
-const useToolbarStyles = makeStyles(theme => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  side: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-  },
-  select: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  input: {
-    padding: theme.spacing(1.5),
-  },
-  button: {
-    padding: theme.spacing(1),
-  },
-}));
+import styles from './Rules.module.css';
 
 const RuleToolbar = (props) => {
-  const classes = useToolbarStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = React.useState(false);
   const [showLeaveConfirmationDialog, setShowLeaveConfirmationDialog] = React.useState(false);
@@ -69,21 +44,20 @@ const RuleToolbar = (props) => {
 
   return (
     <React.Fragment>
-      <Toolbar className={classes.root}>
-        <div className={classes.side}>
+      <Toolbar className={styles['rules-toolbar']}>
+        <div className={styles.rulesToolbarSection}>
           <ButtonMain
             size="default"
             theme="text"
             variant="text"
             onClick={handleConfirmLeave}
             iconLeft={<IconArrowBack />}
-            className={classes.button}
             label={
               <FormattedMessage id="ruleToolbar.back" defaultMessage="Back" description="Button label to take the user to the previous view" />
             }
           />
         </div>
-        <div className={classes.side}>
+        <div className={styles.rulesToolbarSection}>
           <ButtonMain
             className="int-rules-toolbar__button--more-menu"
             disabled={props.actionsDisabled}
@@ -109,7 +83,7 @@ const RuleToolbar = (props) => {
             theme="brand"
             variant="contained"
             size="default"
-            className={[classes.button, 'rules__save-button'].join(' ')}
+            className="rules__save-button"
             onClick={props.onSaveRule}
             label={
               <FormattedMessage id="rulesTableToolbar.save" defaultMessage="Save" description="Button label to save the changes to the current rule" />
