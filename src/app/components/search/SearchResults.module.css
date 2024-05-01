@@ -266,6 +266,10 @@
   }
 }
 
+.noBottomBorder {
+  border-bottom: none !important;
+}
+
 /* ine- styles can be removed when deprecating the INE style shared feed */
 .ine-pager {
   flex: 1 1 auto;
