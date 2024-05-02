@@ -68,8 +68,6 @@ module ApiHelpers
     count.times do |i|
       request_api 'claim', { quote: "Claim #{i}", email: data[:user].email, team_id: data[:team].dbid }
       sleep 1
-      # request_api 'source', { url: '', name: "Source #{i}", email: data[:user].email, team_id: data[:team].dbid }
-      # sleep 1
     end
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/all-items"
   end
