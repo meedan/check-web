@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import FeedRequestedMedia from './FeedRequestedMedia';
 import RequestCards from './RequestCards';
 import ErrorBoundary from '../error/ErrorBoundary';
-import { Column } from '../../styles/js/shared';
 
 const StyledTwoColumnLayout = styled.div`
   display: flex;
@@ -26,7 +25,7 @@ const Column = styled.div`
   flex: 1;
   min-width: 340px;
   max-width: ${props => props.maxWidth ? props.maxWidth : '720px'};
-  padding: ${units(2)};
+  padding: 16px;
   height: calc(100vh - 64px);
   max-height: calc(100vh - 64px);
   overflow: ${props => props.overflow ? props.overflow : 'auto'};
