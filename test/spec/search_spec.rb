@@ -25,7 +25,7 @@ shared_examples 'search' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.medias__item', :css, 20, true)
     expect(@driver.find_elements(:css, '.media__heading').size).to eq 2
-    #search by keywords
+    # search by keywords
     wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
     wait_for_selector('#search-input').send_keys('Claim 0')
     @driver.action.send_keys(:enter).perform

@@ -31,7 +31,7 @@ shared_examples 'rules' do
 
     # Select an action
     wait_for_selector('.rules__actions .rules__rule-field input[type=text]').click
-    wait_for_selector(".rules__actions .rules__rule-field input[type=text]").send_keys("move")
+    wait_for_selector('.rules__actions .rules__rule-field input[type=text]').send_keys('move')
 
     # Selecting second option, "Move to Trash"
     wait_for_selector('ul[role=listbox] li[data-option-index="0"]').click
