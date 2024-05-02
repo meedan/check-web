@@ -226,16 +226,6 @@ export const MuiTheme = {
 //
 // ===================================================================
 
-// <Row />
-//
-// The prop `containsEllipsis` adds overflow to flex-items in case any descendant uses ellipsis
-// See: https://codepen.io/unthinkingly/pen/XMwJLG
-//
-export const Row = styled.div`
-  display: flex;
-  ${props => props.flexWrap ? 'flex-wrap: wrap;' : 'flex-wrap: nowrap;'}
-`;
-
 export const Column = styled.div`
   flex: 1;
   min-width: 340px;
