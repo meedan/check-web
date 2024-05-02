@@ -104,7 +104,6 @@ module ApiHelpers
 
   def api_create_claim_and_go_to_search_page
     media = api_create_team_and_claim({ quit: false, quote: 'My search result' })
-    puts media
     @driver.navigate.to media.full_url
 
     sleep 3 # wait for Sidekiq
