@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-
 // Styles for overriding material UI
 // Check Design System Colors
 // These are deprecated and only used in this file, use css variables in other files
@@ -218,20 +216,3 @@ export const MuiTheme = {
     },
   },
 };
-
-// ===================================================================
-// Styled Components
-//
-// Used as components, like: <Row />
-//
-// ===================================================================
-
-export const Column = styled.div`
-  flex: 1;
-  min-width: 340px;
-  max-width: ${props => props.maxWidth ? props.maxWidth : '720px'};
-  padding: ${units(2)};
-  height: calc(100vh - 64px);
-  max-height: calc(100vh - 64px);
-  overflow: ${props => props.overflow ? props.overflow : 'auto'};
-`;
