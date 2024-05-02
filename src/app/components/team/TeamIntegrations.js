@@ -17,6 +17,22 @@ const TeamIntegrations = () => (<QueryRenderer
         current_team {
           id
           dbid
+          api_keys(first: 10000) {
+            edges {
+              node {
+                id
+                dbid
+                title
+                description
+                access_token
+                created_at
+                expire_at
+                user {
+                  name
+                }
+              }
+            }
+          }
           team_bot_installations(first: 10000) {
             edges {
               node {
