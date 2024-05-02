@@ -33,7 +33,10 @@ shared_examples 'rules' do
     wait_for_selector('.rules__actions .rules__rule-field input[type=text]').click
 
     # Selecting second option, "Move to Trash"
-    wait_for_selector('ul[role=listbox] li[data-option-index="2"]').click
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
 
     # Set rule name
     wait_for_selector('input[name="rule-name"]').click
