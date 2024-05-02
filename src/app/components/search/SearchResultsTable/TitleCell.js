@@ -4,7 +4,6 @@ import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
-import { units } from '../../../styles/js/shared';
 import ContentCopyIcon from '../../../icons/content_copy.svg';
 import ItemThumbnail from './ItemThumbnail';
 
@@ -15,8 +14,8 @@ const useStyles = makeStyles({
     // Use flexbox so thumbnail takes up very little space and then text takes
     // the rest. (display: float; is too finicky.)
     display: 'flex',
-    minWidth: units(45),
-    maxWidth: units(110),
+    minWidth: '360px',
+    maxWidth: '880px',
     textDecoration: 'none',
   },
   icon: {
@@ -25,14 +24,14 @@ const useStyles = makeStyles({
   },
   textBox: {
     // This is a <div>, not a <th> with vertical-align center, because we need
-    // to force the height to be `units(10)` plus padding and border. Use
+    // to force the height to be `80px` plus padding and border. Use
     // flexbox to center vertically.
     display: 'flex',
     flexGrow: 1,
     flexShrink: 1,
     whiteSpace: 'normal',
     overflowWrap: 'anywhere', // long URLs shouldn't affect page width
-    lineHeight: units(2.5),
+    lineHeight: '20px',
     flexDirection: 'column',
     justifyContent: 'center',
     minWidth: 470,
@@ -46,7 +45,7 @@ const useStyles = makeStyles({
     marginBottom: 0,
   }),
   description: {
-    maxHeight: units(5),
+    maxHeight: '40px',
     color: 'var(--textSecondary)',
     overflow: 'hidden',
     display: '-webkit-box',
@@ -54,20 +53,20 @@ const useStyles = makeStyles({
     '-webkit-line-clamp': 2,
   },
   similarityIcon: {
-    marginRight: units(0.5),
+    marginRight: '4px',
     display: 'inline-block',
     verticalAlign: 'middle',
     fontSize: 18,
   },
   titleViewModeShorter: {
-    maxHeight: units(5),
+    maxHeight: '40px',
     '-webkit-line-clamp': 2,
   },
   cellViewModeShorter: {
-    height: units(10),
+    height: '80px',
   },
   itemThumbnail: {
-    marginRight: units(1),
+    marginRight: '8px',
   },
 });
 

@@ -13,12 +13,7 @@ const grayDisabledBackground = '#f3f3f3';
 const grayBorderMain = '#e4e4e4';
 const grayBorderAccent = '#b4b4b4';
 
-// Units
-export function units(unit) {
-  return `${unit * 8}px`;
-}
-
-export const MuiTheme = {
+export const MuiTheme = { // eslint-disable-line import/prefer-default-export
   palette: {
     type: 'light',
     primary: {
