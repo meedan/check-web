@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 // Styles for overriding material UI
 // Check Design System Colors
@@ -234,27 +234,6 @@ export const MuiTheme = {
 export const Row = styled.div`
   display: flex;
   ${props => props.flexWrap ? 'flex-wrap: wrap;' : 'flex-wrap: nowrap;'}
-`;
-
-// FadeIn
-//
-// 1. This is a styled component that uses their keyframes function
-const fadeInKeyframes = keyframes`
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-`;
-
-// 2. Now we can wrap elements in <FadeIn>
-export const FadeIn = styled.div`
-  animation: ${fadeInKeyframes} ease-in .3s;
-  animation-duration: .3s;
-  animation-fill-mode: forwards;
-  opacity: 0;
 `;
 
 export const Column = styled.div`
