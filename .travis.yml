@@ -97,7 +97,6 @@ jobs:
       name: unit-tests
       if: branch != develop AND branch != master AND NOT commit_message =~ /\[full ci\]/ AND NOT commit_message =~ /\[smoke tests\]/ AND NOT commit_message =~ /\[similarity tests\]/
       script:
-      - docker ps
       - docker-compose exec -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME web npm run tests
 after_script:
 - docker-compose exec web bash -c "python -m json.tool test/file.json"
