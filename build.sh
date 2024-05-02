@@ -19,9 +19,7 @@ else
     ngrok config add-authtoken $NGROK_AUTH
     while [ -z "$NGROK_URL" -a $i -lt 5 ]; do
       i=$(($i + 1))
-      # ngrok_output=$(ngrok http 9000 2>&1 &)
       ngrok http 9000 >/dev/null &
-      echo "first until... $i"
       until curl --silent -I -f --fail http://localhost:4040; do printf "."; sleep 10; done
       curl -I -v http://localhost:4040
       curl localhost:4040/api/tunnels > ngrok.json
@@ -32,13 +30,7 @@ else
         kill -9 $(pgrep ngrok)
       fi
       sleep 5
-      echo "while while... $i"
     done
-    # if [[ $ngrok_output == *"Your account is limited to 1 simultaneous ngrok agent sessions"* ]]; then
-    #   # echo "Ngrok failed: $ngrok_output"
-    #   echo "Your account is limited to 1 simultaneous ngrok agent session. Please wait for any other similarity builds to finish before trying again."
-    #   exit 1
-    # fi
     if [ -z $NGROK_URL ]
     then
       echo "Not able to connect a Ngrok Tunnel. Please try again!"
