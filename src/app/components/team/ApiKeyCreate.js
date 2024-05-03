@@ -44,6 +44,11 @@ const ApiKeyCreate = () => {
   const [error, setError] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
 
+  const resetForm = () => {
+    setName('');
+    setDescription('');
+  };
+
   const handleSubmit = () => {
     if (!name) {
       setError(true);
@@ -68,6 +73,7 @@ const ApiKeyCreate = () => {
           handleError(err);
         } else {
           setDialogOpen(false);
+          resetForm();
         }
       },
       onError: (err) => {
@@ -167,7 +173,10 @@ const ApiKeyCreate = () => {
         </div>
         <div className={styles['dialog-actions']}>
           <ButtonMain
-            onClick={() => setDialogOpen(false)}
+            onClick={() => {
+              setDialogOpen(false);
+              resetForm();
+            }}
             label={
               <FormattedMessage
                 id="global.cancel"

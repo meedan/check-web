@@ -76,6 +76,7 @@ const ApiKeyEntry = ({ apiKey }) => {
         </div>
       </div>
       <BulletSeparator
+        caption
         details={[
           <FormattedMessage
             id="apiKeyEntry.addedBy"

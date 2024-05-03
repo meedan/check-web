@@ -12,6 +12,10 @@
     margin: 0;
   }
 
+  &.captionTypography {
+    @mixin typography-caption;
+  }
+
   .detailSpan {
     align-items: center;
     display: flex;
