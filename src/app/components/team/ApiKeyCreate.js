@@ -3,6 +3,7 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
+import ApiKeys from './ApiKeys'; // eslint-disable-line no-unused-vars
 import { FlashMessageSetterContext } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
@@ -17,21 +18,8 @@ const mutation = graphql`
   mutation ApiKeyCreateMutation($input: CreateApiKeyInput!) {
     createApiKey(input: $input) {
       team {
-        api_keys(first: 10000) {
-          edges {
-            node {
-              dbid
-              title
-              description
-              access_token
-              created_at
-              expire_at
-              user {
-                name
-              }
-            }
-          }
-        }
+        id
+        ...ApiKeys_team
       }
     }
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Collapse from '@material-ui/core/Collapse';
 import ApiKeyCreate from './ApiKeyCreate';
@@ -12,8 +13,8 @@ import SettingsIcon from '../../icons/settings.svg';
 import HelpIcon from '../../icons/help.svg';
 import ExternalLink from '../ExternalLink';
 
-const ApiKeys = (props) => {
-  const { apiKeys } = props;
+const ApiKeys = ({ team }) => {
+  const apiKeys = team.api_keys;
 
   const [expandKeys, setExpandKeys] = React.useState(false);
   const [toggleChecked, setToggleChecked] = React.useState(apiKeys.edges.length !== 0);
@@ -113,4 +114,16 @@ const ApiKeys = (props) => {
   );
 };
 
-export default ApiKeys;
+export { ApiKeys }; // eslint-disable-line import/no-unused-modules
+export default createFragmentContainer(ApiKeys, graphql`
+  fragment ApiKeys_team on Team {
+    api_keys(first: 10000) {
+      edges {
+        node {
+          dbid
+          ...ApiKeyEntry_apiKey
+        }
+      }
+    }
+  }
+`);

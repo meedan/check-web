@@ -102,7 +102,7 @@ class TeamBots extends Component {
 
     return (
       <>
-        <ApiKeys apiKeys={team.api_keys} />
+        <ApiKeys team={team} />
         { root.team_bots_listed.edges.map((teamBot) => {
           const bot = teamBot.node;
           const installation = this.getInstallation(bot.id);

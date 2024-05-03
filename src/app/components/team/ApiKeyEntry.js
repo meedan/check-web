@@ -1,4 +1,5 @@
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { FlashMessageSetterContext } from '../FlashMessage';
@@ -55,6 +56,7 @@ const ApiKeyEntry = ({ apiKey }) => {
           }
           value={apiKey.access_token}
           disabled={expired}
+          readOnly
         />
         <div className={styles['key-row__buttons']}>
           <CopyToClipboard text={apiKey.access_token} onCopy={handleCopyToClipboard}>
@@ -119,4 +121,17 @@ const ApiKeyEntry = ({ apiKey }) => {
   );
 };
 
-export default ApiKeyEntry;
+export { ApiKeyEntry }; // eslint-disable-line import/no-unused-modules
+export default createFragmentContainer(ApiKeyEntry, graphql`
+  fragment ApiKeyEntry_apiKey on ApiKey {
+    id
+    title
+    description
+    access_token
+    created_at
+    expire_at
+    user {
+      name
+    }
+  }
+`);
