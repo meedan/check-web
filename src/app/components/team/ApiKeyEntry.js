@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -119,6 +120,20 @@ const ApiKeyEntry = ({ apiKey }) => {
       />
     </div>
   );
+};
+
+ApiKeyEntry.propTypes = {
+  apiKey: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    access_token: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+    expire_at: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export { ApiKeyEntry }; // eslint-disable-line import/no-unused-modules

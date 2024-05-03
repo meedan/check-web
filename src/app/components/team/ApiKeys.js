@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Collapse from '@material-ui/core/Collapse';
@@ -112,6 +113,14 @@ const ApiKeys = ({ team }) => {
       </Collapse>
     </div>
   );
+};
+
+ApiKeys.propTypes = {
+  team: PropTypes.shape({
+    api_keys: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export { ApiKeys }; // eslint-disable-line import/no-unused-modules

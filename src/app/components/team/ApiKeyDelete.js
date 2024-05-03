@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
@@ -120,6 +121,10 @@ const ApiKeyDelete = ({ keyId }) => {
       />
     </>
   );
+};
+
+ApiKeyDelete.propTypes = {
+  keyId: PropTypes.string.isRequired,
 };
 
 export default ApiKeyDelete;
