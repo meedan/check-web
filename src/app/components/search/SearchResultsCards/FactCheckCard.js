@@ -65,6 +65,7 @@ FactCheckCard.propTypes = {
   summary: PropTypes.string,
   url: PropTypes.string,
   teamAvatar: PropTypes.string.isRequired, // URL
+  teamName: PropTypes.string.isRequired,
 };
 
 export default FactCheckCard;
