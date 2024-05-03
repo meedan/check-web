@@ -36,7 +36,6 @@ const TeamTaskCardForm = ({ task, about }) => (
       <MetadataText
         disabled
         node={task}
-        classes={{}}
         DeleteButton={() => null}
         CancelButton={() => null}
         SaveButton={() => null}

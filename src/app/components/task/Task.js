@@ -6,7 +6,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Button from '@material-ui/core/Button';
 import { MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
 import moment from 'moment';
-import MetadataText from '../cds/inputs/MetadataText';
+import MetadataText from '../metadata/MetadataText';
 import Can, { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -528,7 +528,6 @@ class Task extends Component {
           <div className="task__response">
             <MetadataText
               node={task}
-              classes={{}}
               DeleteButton={DeleteButton}
               CancelButton={CancelButton}
               SaveButton={SaveButton}

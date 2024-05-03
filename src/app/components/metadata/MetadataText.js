@@ -1,11 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Grid } from '@material-ui/core';
-import TextField from './TextField';
+import { defineMessages, injectIntl } from 'react-intl';
+import TextArea from '../cds/inputs/TextArea';
+
+const messages = defineMessages({
+  placeholder: {
+    id: 'metatdataText.placeholder',
+    defaultMessage: 'Add annotation answer',
+    description: 'Placeholder of the input field for annotation answer',
+  },
+  label: {
+    id: 'metatdataText.answerTitle',
+    defaultMessage: 'Answer',
+    description: 'Input title for a metadata answer field',
+  },
+});
 
 function MetadataText({
+  intl,
   node,
-  classes,
   EditButton,
   DeleteButton,
   CancelButton,
@@ -44,44 +57,30 @@ function MetadataText({
       <FieldInformation />
       {hasData && !isEditing ? (
         <>
-          <Typography variant="body1" className={classes.value}>
+          <div>
             {linkify(node.first_response_value)}
-          </Typography>
-          <Grid container alignItems="flex-end" wrap="nowrap" spacing={0}>
-            <Grid item>
-              <EditButton />
-            </Grid>
-            <Grid item>
-              <DeleteButton onClick={cleanup} />
-            </Grid>
-            <Grid item xs>
-              <AnnotatorInformation />
-            </Grid>
-          </Grid>
+          </div>
+          <EditButton />
+          <DeleteButton onClick={cleanup} />
+          <AnnotatorInformation />
         </>
       ) : (
         <>
-          <TextField
+          <TextArea
             id="metadata-input"
-            multiline
-            rowsMax={Infinity}
-            label="Answer here"
+            placeholder={intl.formatMessage(messages.placeholder)}
+            label={intl.formatMessage(messages.label)}
+            maxHeight="126px"
             value={metadataValue}
             onChange={handleChange}
             disabled={disabled}
+            onRemove={disabled ? null : cleanup}
           />
-          <Grid container alignItems="flex-end" wrap="nowrap" spacing={0}>
-            <Grid item>
-              <CancelButton />
-            </Grid>
-            <Grid item>
-              <SaveButton
-                {...{ mutationPayload, required }}
-                empty={metadataValue === ''}
-              />
-            </Grid>
-            { disabled ? null : <Grid item>asdfasdf</Grid> }
-          </Grid>
+          <CancelButton />
+          <SaveButton
+            {...{ mutationPayload, required }}
+            empty={metadataValue === ''}
+          />
         </>
       )}
     </>
@@ -94,7 +93,6 @@ MetadataText.defaultProps = {
 
 MetadataText.propTypes = {
   node: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
   EditButton: PropTypes.element.isRequired,
   DeleteButton: PropTypes.element.isRequired,
@@ -108,4 +106,4 @@ MetadataText.propTypes = {
   setMetadataValue: PropTypes.func.isRequired,
 };
 
-export default MetadataText;
+export default injectIntl(MetadataText);

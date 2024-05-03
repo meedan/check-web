@@ -1,5 +1,6 @@
 import React from 'react';
-import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
+import { MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
+import MetadataText from '../metadata/MetadataText';
 import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { TaskComponentTest } from './Task';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
