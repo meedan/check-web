@@ -31,6 +31,7 @@ import SharedItemCard from './search/SearchResultsCards/SharedItemCard';
 import WorkspaceItemCard from './search/SearchResultsCards/WorkspaceItemCard';
 import ItemThumbnail from './search/SearchResultsTable/ItemThumbnail';
 import CheckFeedDataPoints from '../CheckFeedDataPoints';
+import Slideout from './cds/slideout/Slideout';
 
 const SandboxComponent = ({ admin }) => {
   const isAdmin = admin?.is_admin;
@@ -248,6 +249,14 @@ const SandboxComponent = ({ admin }) => {
   const [textareaDisabled, setTextareaDisabled] = React.useState(Boolean(false));
   const [textareaRequired, setTextareaRequired] = React.useState(Boolean(true));
 
+  const [slideoutTitle, setSlideoutTitle] = React.useState('');
+  const [openSlideout, setOpenSlideout] = React.useState(Boolean(false));
+  const [slideoutFooter, setSlideoutFooter] = React.useState(Boolean(true));
+  const [slideoutCancel, setSlideoutCancel] = React.useState(Boolean(true));
+  const [slideoutMainAction, setSlideoutMainAction] = React.useState(Boolean(true));
+  const [slideoutSecondaryAction, setSlideoutSecondaryAction] = React.useState(Boolean(false));
+  const [slideoutOptionalNode, setSlideoutOptionalNode] = React.useState(Boolean(false));
+
   const [switchLabelPlacement, setSwitchLabelPlacement] = React.useState('top');
   const onChangeSwitchLabelPlacement = (event) => {
     setSwitchLabelPlacement(event.target.value);
@@ -390,6 +399,9 @@ const SandboxComponent = ({ admin }) => {
         </li>
         <li>
           <a href="#sandbox-loaders" title="Loaders">Loading Animations</a>
+        </li>
+        <li>
+          <a href="#sandbox-slideout" title="Slideout">Slideout</a>
         </li>
       </ul>
       <section id="sandbox-row">
@@ -1737,6 +1749,98 @@ const SandboxComponent = ({ admin }) => {
           >
             <MediasLoading theme={loadingTheme} variant={loadingVariant} size={loadingSize} />
           </div>
+        </div>
+      </section>
+      <section id="sandbox-slideout">
+        <h6>Slideout</h6>
+        <div className={styles.componentWrapper}>
+          <div className={styles.componentControls}>
+            <div className={cx('typography-subtitle2', [styles.componentName])}>
+              Slideout
+              <a
+                href="https://www.figma.com/file/i1LSbpQXKyA7dLc8AkgtKA/Articles?type=design&node-id=106-63346&mode=design&t=1tA1BlK81Dh6DPCk-0"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Figma Designs"
+                className={styles.figmaLink}
+              >
+                <FigmaColorLogo />
+              </a>
+            </div>
+            <ul>
+              <li>
+                <TextField
+                  value={slideoutTitle}
+                  label="Slideout Title"
+                  labelPlacement="top"
+                  onChange={e => setSlideoutTitle(e.target.value)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Footer"
+                  labelPlacement="top"
+                  checked={slideoutFooter}
+                  onChange={() => setSlideoutFooter(!slideoutFooter)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Cancel"
+                  labelPlacement="top"
+                  checked={slideoutCancel}
+                  onChange={() => setSlideoutCancel(!slideoutCancel)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Main Button"
+                  labelPlacement="top"
+                  checked={slideoutMainAction}
+                  onChange={() => setSlideoutMainAction(!slideoutMainAction)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show Secondary Action Button"
+                  labelPlacement="top"
+                  checked={slideoutSecondaryAction}
+                  onChange={() => setSlideoutSecondaryAction(!slideoutSecondaryAction)}
+                />
+              </li>
+              <li>
+                <SwitchComponent
+                  label="Show optional node"
+                  labelPlacement="top"
+                  checked={slideoutOptionalNode}
+                  onChange={() => setSlideoutOptionalNode(!slideoutOptionalNode)}
+                />
+              </li>
+            </ul>
+          </div>
+          <ButtonMain onClick={() => setOpenSlideout(true)} label="Open slideout" />
+          {openSlideout &&
+            <Slideout
+              title={slideoutTitle || 'Placeholder Title'}
+              content={
+                <>
+                  <TextField />
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet eget sit amet tellus cras adipiscing. Lacus luctus accumsan tortor posuere ac ut consequat. Amet tellus cras adipiscing enim eu turpis. Aliquet nibh praesent tristique magna. Convallis convallis tellus id interdum velit laoreet id. At tempor commodo ullamcorper a lacus vestibulum. Quam vulputate dignissim suspendisse in est ante. Pellentesque habitant morbi tristique senectus et netus et malesuada. Imperdiet nulla malesuada pellentesque elit eget gravida cum sociis natoque. In nisl nisi scelerisque eu ultrices vitae auctor. Ornare aenean euismod elementum nisi quis eleifend quam. Nunc faucibus a pellentesque sit amet porttitor eget dolor morbi. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Quis ipsum suspendisse ultrices gravida dictum fusce ut. Risus commodo viverra maecenas accumsan lacus vel. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam. Convallis aenean et tortor at risus. Magna sit amet purus gravida quis. Morbi leo urna molestie at elementum eu facilisis sed. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras.
+                    Bibendum arcu vitae elementum curabitur vitae nunc sed. Pharetra et ultrices neque ornare aenean euismod elementum nisi quis. Nunc eget lorem dolor sed viverra ipsum nunc aliquet. Tellus molestie nunc non blandit massa enim. Diam volutpat commodo sed egestas egestas. Mauris sit amet massa vitae tortor condimentum lacinia. Sem fringilla ut morbi tincidunt augue. Mi quis hendrerit dolor magna. Velit sed ullamcorper morbi tincidunt ornare massa eget egestas. Scelerisque felis imperdiet proin fermentum leo vel orci porta. Morbi tristique senectus et netus et malesuada fames ac turpis. Et leo duis ut diam quam nulla porttitor massa. Eget dolor morbi non arcu. Tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero. Ac feugiat sed lectus vestibulum mattis ullamcorper velit. Vitae proin sagittis nisl rhoncus.
+                    Amet aliquam id diam maecenas ultricies mi eget. Amet volutpat consequat mauris nunc congue nisi vitae suscipit. Penatibus et magnis dis parturient montes. Dignissim suspendisse in est ante in nibh mauris. Mauris rhoncus aenean vel elit. Tempus quam pellentesque nec nam aliquam sem et. Vestibulum mattis ullamcorper velit sed ullamcorper morbi. Sit amet volutpat consequat mauris nunc. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Sed viverra ipsum nunc aliquet bibendum enim facilisis. Tempus imperdiet nulla malesuada pellentesque elit eget. Arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque. Pretium fusce id velit ut tortor pretium.
+                    Malesuada proin libero nunc consequat interdum. Mi tempus imperdiet nulla malesuada pellentesque elit eget gravida. Massa id neque aliquam vestibulum. Mi tempus imperdiet nulla malesuada pellentesque elit eget. Pellentesque id nibh tortor id aliquet lectus proin nibh. Magnis dis parturient montes nascetur ridiculus mus. Velit laoreet id donec ultrices tincidunt arcu. Auctor eu augue ut lectus arcu. Lacus suspendisse faucibus interdum posuere lorem ipsum. Morbi tristique senectus et netus et malesuada fames ac turpis. Leo integer malesuada nunc vel. Id volutpat lacus laoreet non. Tincidunt dui ut ornare lectus sit amet est. Ultricies mi eget mauris pharetra et ultrices neque ornare aenean. Mi eget mauris pharetra et ultrices neque ornare aenean euismod. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Velit egestas dui id ornare. Enim praesent elementum facilisis leo vel fringilla.
+                  </p>
+                </>
+              }
+              footer={slideoutFooter}
+              showCancel={slideoutCancel}
+              onClose={setOpenSlideout}
+              mainActionButton={slideoutMainAction && <ButtonMain size="small" label="Main content" />}
+              secondaryActionButton={slideoutSecondaryAction && <ButtonMain size="small" label="Secondary content" />}
+              optionalNode={slideoutOptionalNode && <SwitchComponent label="Optional Node label" />}
+            />
+          }
         </div>
       </section>
     </div>
