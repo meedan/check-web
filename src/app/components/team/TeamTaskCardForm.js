@@ -7,11 +7,11 @@ import {
   MetadataFile,
   MetadataMultiselect,
   MetadataNumber,
-  MetadataText,
   MetadataLocation,
   MetadataUrl,
 } from '@meedan/check-ui';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import MetadataText from '../metadata/MetadataText';
 
 const TeamTaskCardForm = ({ task, about }) => (
   <Box mx={2} mb={2}>

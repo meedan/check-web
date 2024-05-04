@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ButtonMain from '../cds/buttons-checkboxes-chips/ButtonMain';
 import ArrowDropDownIcon from '../../icons/arrow_drop_down.svg';
-import ExpandMoreIcon from '../../icons/expand_more.svg';
 import SwitchComponent from '../cds/inputs/SwitchComponent';
 import TeamTaskCardForm from './TeamTaskCardForm';
 
@@ -25,7 +23,6 @@ const TeamTaskCard = ({
   setRequired,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [expanded, setExpanded] = React.useState(true);
 
   const handleMenuEdit = () => {
     setAnchorEl(null);
@@ -47,8 +44,6 @@ const TeamTaskCard = ({
       width="100%"
     >
       <Box
-        px={2}
-        py={1}
         display="flex"
         justifyContent="space-between"
         alignItems="center"
@@ -118,26 +113,15 @@ const TeamTaskCard = ({
         </MenuItem>
       </Menu>
       <hr />
-      <Box display="flex" ml={1}>
-        <ButtonMain
-          iconCenter={<ExpandMoreIcon />}
-          variant="text"
-          theme="text"
-          size="default"
-          onClick={() => setExpanded(!expanded)}
-        />
-        <div className="typography-body1">
-          <Box my={2} className="team-tasks__task-label">
-            <Box fontWeight="500">
-              {task.label}
-            </Box>
-            {task.description}
+      <div className="typography-body1">
+        <Box my={2} className="team-tasks__task-label">
+          <Box fontWeight="500">
+            {task.label}
           </Box>
-        </div>
-      </Box>
-      <Collapse in={expanded}>
-        <TeamTaskCardForm task={task} about={about} />
-      </Collapse>
+          {task.description}
+        </Box>
+      </div>
+      <TeamTaskCardForm task={task} about={about} />
       <hr />
       <Box px={2} py={1}>
         {children}
